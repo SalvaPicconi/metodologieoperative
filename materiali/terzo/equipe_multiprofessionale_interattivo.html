@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Équipe Multiprofessionale - Modulo Interattivo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 3px solid #667eea;
+            flex-wrap: wrap;
+        }
+
+        .nav-tab {
+            flex: 1;
+            min-width: 150px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            background: #f8f9fa;
+            border: none;
+            font-size: 1em;
+            font-weight: bold;
+            color: #555;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-tab:hover {
+            background: #e9ecef;
+        }
+
+        .nav-tab.active {
+            background: white;
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .nav-tab::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: #667eea;
+            transition: width 0.3s;
+        }
+
+        .nav-tab:hover::before {
+            width: 80%;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .subsection {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+
+        .subsection h3 {
+            color: #764ba2;
+            margin-bottom: 15px;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .schema-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .role-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            min-width: 200px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+
+        .role-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .role-card h4 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .role-card p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .exercise-container {
+            margin: 30px 0;
+        }
+
+        .question {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .question h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .matching-exercise {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .match-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .match-item:hover {
+            background: #e9ecef;
+            border-color: #667eea;
+        }
+
+        .match-item.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .match-item.correct {
+            background: #28a745;
+            color: white;
+            border-color: #28a745;
+        }
+
+        .match-item.incorrect {
+            background: #dc3545;
+            color: white;
+            border-color: #dc3545;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin: 10px 5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1em;
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .export-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .list-style {
+            list-style-position: inside;
+            margin-left: 20px;
+        }
+
+        .list-style li {
+            margin: 10px 0;
+            padding-left: 10px;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .flow-diagram {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .flow-step {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 150px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .flow-step::after {
+            content: '→';
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2em;
+            color: #667eea;
+        }
+
+        .flow-step:last-child::after {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .nav-tab {
+                min-width: 100%;
+            }
+            
+            .matching-exercise {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .tab-content {
+                padding: 20px;
+            }
+
+            .flow-step::after {
+                content: '↓';
+                right: 50%;
+                top: auto;
+                bottom: -30px;
+                transform: translateX(50%);
+            }
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #c3e6cb;
+            text-align: center;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .form-group {
+            margin: 20px 0;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏥 Équipe Multiprofessionale</h1>
+            <p>Strumenti di Lavoro nei Servizi Sociosanitari</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Prof. Dott. Picconi - IIS Meucci Mattei, Cagliari</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="openTab('teoria')">📚 Teoria</button>
+            <button class="nav-tab" onclick="openTab('schemi')">📊 Schemi</button>
+            <button class="nav-tab" onclick="openTab('esercitazioni')">✏️ Esercitazioni</button>
+            <button class="nav-tab" onclick="openTab('compiti')">📝 Compiti</button>
+        </div>
+
+        <!-- SEZIONE TEORIA -->
+        <div id="teoria" class="tab-content active">
+            <h2 class="section-title">📚 Contenuti Teorici</h2>
+            
+            <div class="export-buttons">
+                <button class="btn" onclick="exportToPDF('teoria')">📄 Salva in PDF</button>
+                <button class="btn btn-secondary" onclick="exportToWord('teoria')">📝 Salva in Word</button>
+            </div>
+
+            <div class="subsection">
+                <h3>1. Che cos'è l'Équipe Multiprofessionale</h3>
+                <p>L'<span class="highlight">équipe multiprofessionale</span> è un gruppo di lavoro che pone al centro la persona e mette a sua disposizione figure professionali diverse:</p>
+                <ul class="list-style">
+                    <li><strong>Medici</strong></li>
+                    <li><strong>Infermieri</strong></li>
+                    <li><strong>Tecnici della riabilitazione</strong></li>
+                    <li><strong>Psicologi</strong></li>
+                    <li><strong>Operatori socio-sanitari (OSS)</strong></li>
+                    <li><strong>Educatori</strong></li>
+                    <li><strong>Assistenti sociali</strong></li>
+                </ul>
+                <p style="margin-top: 15px;">Ogni figura professionale ha un <span class="highlight">bagaglio professionale specifico</span>, costituito da conoscenze, competenze e abilità proprie della professione.</p>
+                
+                <div class="info-box">
+                    <strong>📌 Finalità condivisa:</strong> Il benessere fisico, psichico e sociale dell'utente
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>2. I Principi Fondamentali del Lavoro d'Équipe</h3>
+                <p>Il lavoro d'équipe si basa su due principi essenziali:</p>
+                
+                <div class="info-box">
+                    <p><strong>🔄 Integrazione:</strong> Integrare il sapere delle diverse professioni per rendere qualitativamente migliori ed efficaci le risposte all'utente</p>
+                </div>
+                
+                <div class="info-box">
+                    <p><strong>🤝 Interdipendenza:</strong> Le diverse figure professionali non svolgono il proprio ruolo in maniera isolata ma devono sempre essere in stretta relazione tra loro</p>
+                </div>
+
+                <p style="margin-top: 15px;">Ogni figura professionale deve <span class="highlight">rispettare il proprio ruolo</span> e quando si presenta una situazione che richiede competenze specifiche, deve richiedere il parere tecnico o delegare la gestione del caso.</p>
+            </div>
+
+            <div class="subsection">
+                <h3>3. Vantaggi dell'Équipe Multiprofessionale</h3>
+                
+                <h4 style="color: #764ba2; margin: 20px 0;">Per l'Utente:</h4>
+                <ul class="list-style">
+                    <li>Riceve una <strong>risposta unica, inequivocabile e comprensiva</strong> dalle opinioni di più professionisti</li>
+                    <li>Il confronto e dibattito nel gruppo migliora la <strong>qualità della risposta</strong></li>
+                    <li>Riduce i tempi delle consultazioni successive</li>
+                    <li>Maggiore chiarezza sul percorso di cura</li>
+                </ul>
+
+                <h4 style="color: #764ba2; margin: 20px 0;">Per le Figure Professionali:</h4>
+                <ul class="list-style">
+                    <li><strong>Confronto:</strong> condividere dubbi e preoccupazioni, ridurre incertezze e conflittualità</li>
+                    <li><strong>Consapevolezza:</strong> contare su altri professionisti più esperti garantisce maggiore sicurezza</li>
+                    <li><strong>Condivisione:</strong> permette una risoluzione dei casi più complessi e difficili</li>
+                    <li><strong>Aiuto reciproco:</strong> consenso per ampliare conoscenze dei singoli</li>
+                    <li><strong>Sostegno psicologico:</strong> reciproco nei momenti di difficoltà</li>
+                    <li><strong>Dialogo e condivisione personale:</strong> riduce il rischio di burnout</li>
+                </ul>
+            </div>
+
+            <div class="subsection">
+                <h3>4. Prerequisiti per Lavorare in Gruppo</h3>
+                <p>Per lavorare efficacemente in équipe è necessario:</p>
+                <ul class="list-style">
+                    <li><strong>Capacità comunicativa:</strong> esprimere il proprio parere chiaramente</li>
+                    <li><strong>Ascolto attivo:</strong> comprendere il pensiero altrui</li>
+                    <li><strong>Disponibilità alla collaborazione:</strong> dare il proprio contributo senza rimanere isolati</li>
+                    <li><strong>Senso di responsabilità:</strong> per il risultato del gruppo</li>
+                    <li><strong>Incoraggiare e valorizzare:</strong> il lavoro altrui e i risultati del proprio gruppo</li>
+                    <li><strong>Proteggere la reputazione del gruppo:</strong> condividere i meriti con gli altri</li>
+                    <li><strong>Riconoscere i propri limiti:</strong> sapere quando l'altro può fornire un aiuto</li>
+                    <li><strong>Autocontrollo:</strong> valutare le critiche ricevute reagendo con giusto peso</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>⚠️ Importante:</strong> Sviluppare l'intelligenza emotiva è necessario per gestire le emozioni come gruppo e migliorare il proprio modo di essere gruppo.
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>5. Il Ruolo del Leader</h3>
+                <p>Un buon team è coordinato da un buon leader, in grado di:</p>
+                <ul class="list-style">
+                    <li>Favorire il <strong>confronto costruttivo</strong> all'interno del gruppo</li>
+                    <li>Mediare e risolvere i <strong>possibili conflitti</strong></li>
+                    <li>Garantire che le decisioni prese siano <strong>espressione del gruppo</strong> e condivise da tutti</li>
+                    <li>Delegare le responsabilità</li>
+                    <li>Individuare le <strong>abilità dei singoli</strong> all'interno del gruppo</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>📌 Nota Bene:</strong> Il lavoro dell'équipe non è gerarchico, non c'è un leader che impone ma una figura che coordina le attività del gruppo. L'altro come una risorsa e mai come un rivale.
+                </div>
+            </div>
+        </div>
+
+        <!-- SEZIONE SCHEMI -->
+        <div id="schemi" class="tab-content">
+            <h2 class="section-title">📊 Schemi e Visualizzazioni</h2>
+            
+            <div class="export-buttons">
+                <button class="btn" onclick="exportToPDF('schemi')">📄 Salva in PDF</button>
+                <button class="btn btn-secondary" onclick="exportToWord('schemi')">📝 Salva in Word</button>
+            </div>
+
+            <div class="subsection">
+                <h3>Figure Professionali dell'Équipe</h3>
+                <div class="schema-container">
+                    <div class="role-card">
+                        <h4>👨‍⚕️ MEDICO</h4>
+                        <p>Fa la diagnosi e stabilisce la cura</p>
+                    </div>
+                    <div class="role-card">
+                        <h4>🔬 TECNICO SANITARIO</h4>
+                        <p>Aiuta il medico nella diagnosi o nella riabilitazione</p>
+                    </div>
+                    <div class="role-card">
+                        <h4>👩‍⚕️ INFERMIERE</h4>
+                        <p>Somministra la cura</p>
+                    </div>
+                    <div class="role-card">
+                        <h4>🏥 OSS</h4>
+                        <p>Assiste il malato</p>
+                    </div>
+                    <div class="role-card">
+                        <h4>👨‍🏫 EDUCATORE</h4>
+                        <p>Educa</p>
+                    </div>
+                    <div class="role-card">
+                        <h4>🧠 PSICOLOGO</h4>
+                        <p>Favorisce il benessere psicologico</p>
+                    </div>
+                    <div class="role-card">
+                        <h4>🤝 ASSISTENTE SOCIALE</h4>
+                        <p>Coordina tutte le figure professionali</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Gli Strumenti dell'Équipe</h3>
+                <div class="flow-diagram">
+                    <div class="flow-step">
+                        <strong>📋 PROTOCOLLI OPERATIVI</strong>
+                        <p style="margin-top: 10px; font-size: 0.9em;">Definiscono ruoli e procedure</p>
+                    </div>
+                    <div class="flow-step">
+                        <strong>📅 PIANO DI LAVORO</strong>
+                        <p style="margin-top: 10px; font-size: 0.9em;">Organizza le attività</p>
+                    </div>
+                    <div class="flow-step">
+                        <strong>📢 CONSEGNE</strong>
+                        <p style="margin-top: 10px; font-size: 0.9em;">Passaggio informazioni</p>
+                    </div>
+                    <div class="flow-step">
+                        <strong>📁 DOCUMENTAZIONE</strong>
+                        <p style="margin-top: 10px; font-size: 0.9em;">Raccolta dati utente</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>I Protocolli Operativi</h3>
+                <div class="info-box">
+                    <p><strong>Definizione:</strong> I protocolli operativi servono per fare chiarezza e uniformare a livello nazionale i diversi profili professionali.</p>
+                    <p style="margin-top: 10px;">Descrivono il <strong>profilo</strong> e il <strong>ruolo operativo</strong> della professione (chi è, dove lavora, formazione, mansioni specifiche).</p>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Il Piano di Lavoro</h3>
+                <p>Il piano di lavoro riporta l'elenco delle attività e la suddivisione dei compiti da svolgere, per utilizzare razionalmente il personale durante i turni di lavoro.</p>
+                
+                <div class="info-box">
+                    <strong>📌 Tipologie:</strong>
+                    <ul class="list-style" style="margin-top: 10px;">
+                        <li>Giornaliero</li>
+                        <li>Settimanale</li>
+                        <li>Quindicinale</li>
+                        <li>Mensile</li>
+                        <li>Bimestrale</li>
+                        <li>Trimestrale</li>
+                        <li>Annuale</li>
+                    </ul>
+                </div>
+
+                <p style="margin-top: 15px;">È una <strong>guida di orientamento</strong> per il lavoro da svolgere, particolarmente utile nel caso di nuovi inserimenti di personale.</p>
+            </div>
+
+            <div class="subsection">
+                <h3>Le Consegne</h3>
+                <p>Il lavoro d'équipe efficiente deve prevedere la consegna, cioè il momento di condivisione delle informazioni che riguardano i soggetti con cui le diverse figure professionali lavorano.</p>
+                
+                <div class="info-box">
+                    <p><strong>Informazioni da trasmettere:</strong></p>
+                    <ul class="list-style" style="margin-top: 10px;">
+                        <li>Registrazione delle osservazioni e degli eventi quotidiani</li>
+                        <li>Gli interventi quotidiani (assistenziali, diagnostici, riabilitativi ecc.)</li>
+                        <li>Eventuale somministrazione di farmaci</li>
+                        <li>Le informazioni rilevate attraverso il colloquio e la relazione continua</li>
+                    </ul>
+                </div>
+
+                <div class="info-box" style="margin-top: 15px;">
+                    <p><strong>Tipi di consegne:</strong></p>
+                    <ul class="list-style" style="margin-top: 10px;">
+                        <li><strong>Verbali:</strong> informazioni tra colleghi condivise verbalmente</li>
+                        <li><strong>Scritte:</strong> quando si preferisce lasciare una traccia scritta</li>
+                    </ul>
+                </div>
+
+                <p style="margin-top: 15px;">Il passaggio delle note deve avvenire <strong>quotidianamente</strong> e <strong>settimanalmente</strong> durante le riunioni d'équipe.</p>
+            </div>
+
+            <div class="subsection">
+                <h3>La Documentazione Socio-Sanitaria</h3>
+                <p>La documentazione socio-sanitaria contiene i dati dell'utente ed è costituita da:</p>
+                
+                <ul class="list-style">
+                    <li><strong>Scheda personale dell'utente</strong></li>
+                    <li><strong>Cartella clinica integrata</strong></li>
+                    <li><strong>Piano d'intervento individualizzato</strong></li>
+                </ul>
+
+                <div class="info-box" style="margin-top: 20px;">
+                    <h4>📋 Scheda Personale dell'Utente</h4>
+                    <p>Sulla scheda personale vengono riportati:</p>
+                    <ul class="list-style" style="margin-top: 10px;">
+                        <li>Dati anagrafici, stato civile, stato di famiglia</li>
+                        <li>Scolarità, professione, condizioni economiche e abitative</li>
+                        <li>Rete parentale, amicale e sociale</li>
+                    </ul>
+                </div>
+
+                <div class="info-box" style="margin-top: 15px;">
+                    <h4>🏥 Cartella Clinica Integrata</h4>
+                    <p>Contiene tutte le diverse registrazioni dei professionisti che intervengono nel processo di cura, informativa e sostegno della cartella medica e infermieristica.</p>
+                    <p style="margin-top: 10px;"><strong>Include:</strong></p>
+                    <ul class="list-style" style="margin-top: 10px;">
+                        <li>Tipologia: chi ha inviato l'utente, chi lo ha accolto</li>
+                        <li>Valutazione del caso: bisogni e possibili risorse territoriali</li>
+                        <li>Gestione del caso: aggiornamenti della scheda, verifiche degli obiettivi raggiunti</li>
+                    </ul>
+                    <p style="margin-top: 10px;"><strong>Comprende diverse cartelle specialistiche:</strong></p>
+                    <ul class="list-style" style="margin-top: 10px;">
+                        <li>Cartella clinica specialistica (scale di valutazione, Piano riabilitativo individualizzato PRI)</li>
+                        <li>Cartella infermieristica</li>
+                        <li>Cartella dei fisioterapisti</li>
+                        <li>Cartella dei logopedisti</li>
+                        <li>Cartella neuropsicologica</li>
+                        <li>Cartella dei terapisti occupazionali</li>
+                    </ul>
+                </div>
+
+                <div class="info-box" style="margin-top: 15px;">
+                    <h4>📝 Piano d'Intervento Individualizzato (PAI o PEI)</h4>
+                    <p>Sarà approfondito nel Modulo 4</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEZIONE ESERCITAZIONI -->
+        <div id="esercitazioni" class="tab-content">
+            <h2 class="section-title">✏️ Esercitazioni Interattive</h2>
+            
+            <div class="export-buttons">
+                <button class="btn" onclick="exportToPDF('esercitazioni')">📄 Salva in PDF</button>
+                <button class="btn btn-secondary" onclick="exportToWord('esercitazioni')">📝 Salva in Word</button>
+            </div>
+
+            <div class="score-display" id="scoreDisplay">
+                Punteggio: <span id="scoreValue">0</span> / <span id="totalQuestions">0</span>
+            </div>
+
+            <!-- ESERCIZIO 1: Accoppiamenti -->
+            <div class="exercise-container">
+                <div class="question">
+                    <h4>Esercizio 1: Associa le figure professionali alle loro funzioni</h4>
+                    <p style="margin-bottom: 20px;">Clicca su una figura professionale e poi sulla sua funzione corrispondente</p>
+                    
+                    <div class="matching-exercise">
+                        <div>
+                            <h5 style="color: #667eea; margin-bottom: 15px;">Figure Professionali:</h5>
+                            <div class="match-item" onclick="selectMatch(this, 'medico')">Medico</div>
+                            <div class="match-item" onclick="selectMatch(this, 'infermiere')">Infermiere</div>
+                            <div class="match-item" onclick="selectMatch(this, 'oss')">OSS</div>
+                            <div class="match-item" onclick="selectMatch(this, 'educatore')">Educatore</div>
+                            <div class="match-item" onclick="selectMatch(this, 'psicologo')">Psicologo</div>
+                            <div class="match-item" onclick="selectMatch(this, 'assistente')">Assistente Sociale</div>
+                        </div>
+                        <div>
+                            <h5 style="color: #764ba2; margin-bottom: 15px;">Funzioni:</h5>
+                            <div class="match-item" onclick="selectMatch(this, 'diagnosi')">Fa la diagnosi e stabilisce la cura</div>
+                            <div class="match-item" onclick="selectMatch(this, 'cura')">Somministra la cura</div>
+                            <div class="match-item" onclick="selectMatch(this, 'assistenza')">Assiste il malato</div>
+                            <div class="match-item" onclick="selectMatch(this, 'educazione')">Educa l'utente</div>
+                            <div class="match-item" onclick="selectMatch(this, 'benessere')">Favorisce il benessere psicologico</div>
+                            <div class="match-item" onclick="selectMatch(this, 'coordinamento')">Coordina tutte le figure professionali</div>
+                        </div>
+                    </div>
+                    <button class="btn" onclick="checkMatching()" style="margin-top: 20px;">Verifica Risposte</button>
+                    <div id="matchingFeedback" class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 2: Menu a tendina -->
+            <div class="exercise-container">
+                <div class="question">
+                    <h4>Esercizio 2: Completa le frasi con il termine corretto</h4>
+                    
+                    <p style="margin: 15px 0;">
+                        1. Il lavoro d'équipe si basa su due principi fondamentali: l'<strong>integrazione</strong> e 
+                        <select id="q2_1" onchange="checkDropdown('q2_1', 'interdipendenza')">
+                            <option value="">-- Seleziona --</option>
+                            <option value="interdipendenza">l'interdipendenza</option>
+                            <option value="autonomia">l'autonomia</option>
+                            <option value="indipendenza">l'indipendenza</option>
+                        </select>
+                    </p>
+                    <div id="feedback_q2_1" class="feedback"></div>
+
+                    <p style="margin: 15px 0;">
+                        2. I protocolli operativi servono per 
+                        <select id="q2_2" onchange="checkDropdown('q2_2', 'uniformare')">
+                            <option value="">-- Seleziona --</option>
+                            <option value="uniformare">uniformare a livello nazionale i diversi profili professionali</option>
+                            <option value="differenziare">differenziare i ruoli professionali</option>
+                            <option value="separare">separare le competenze</option>
+                        </select>
+                    </p>
+                    <div id="feedback_q2_2" class="feedback"></div>
+
+                    <p style="margin: 15px 0;">
+                        3. Il piano di lavoro può essere di diversi tipi, tra cui 
+                        <select id="q2_3" onchange="checkDropdown('q2_3', 'giornaliero')">
+                            <option value="">-- Seleziona --</option>
+                            <option value="giornaliero">giornaliero, settimanale, mensile</option>
+                            <option value="solo_annuale">solo annuale</option>
+                            <option value="non_definito">non ha una tempistica definita</option>
+                        </select>
+                    </p>
+                    <div id="feedback_q2_3" class="feedback"></div>
+
+                    <p style="margin: 15px 0;">
+                        4. Le consegne possono essere 
+                        <select id="q2_4" onchange="checkDropdown('q2_4', 'verbali_scritte')">
+                            <option value="">-- Seleziona --</option>
+                            <option value="verbali_scritte">verbali o scritte</option>
+                            <option value="solo_verbali">solo verbali</option>
+                            <option value="solo_scritte">solo scritte</option>
+                        </select>
+                    </p>
+                    <div id="feedback_q2_4" class="feedback"></div>
+
+                    <p style="margin: 15px 0;">
+                        5. La documentazione socio-sanitaria contiene: scheda personale, cartella clinica integrata e 
+                        <select id="q2_5" onchange="checkDropdown('q2_5', 'pai')">
+                            <option value="">-- Seleziona --</option>
+                            <option value="pai">piano d'intervento individualizzato</option>
+                            <option value="protocollo">protocollo operativo</option>
+                            <option value="consegna">consegna giornaliera</option>
+                        </select>
+                    </p>
+                    <div id="feedback_q2_5" class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 3: Vero o Falso -->
+            <div class="exercise-container">
+                <div class="question">
+                    <h4>Esercizio 3: Vero o Falso</h4>
+                    
+                    <p style="margin: 15px 0;">
+                        1. Il leader dell'équipe impone le decisioni in modo gerarchico
+                        <select id="q3_1" onchange="checkDropdown('q3_1', 'falso')">
+                            <option value="">-- Seleziona --</option>
+                            <option value="vero">Vero</option>
+                            <option value="falso">Falso</option>
+                        </select>
+                    </p>
+                    <div id="feedback_q3_1" class="feedback"></div>
+
+                    <p style="margin: 15px 0;">
+                        2. L'équipe multiprofessionale fornisce all'utente una risposta unica e comprensiva
+                        <select id="q3_2" onchange="checkDropdown('q3_2', 'vero')">
+                            <option value="">-- Seleziona --</option>
+                            <option value="vero">Vero</option>
+                            <option value="falso">Falso</option>
+                        </select>
+                    </p>
+                    <div id="feedback_q3_2" class="feedback"></div>
+
+                    <p style="margin: 15px 0;">
+                        3. Ogni figura professionale deve lavorare in modo isolato dalle altre
+                        <select id="q3_3" onchange="checkDropdown('q3_3', 'falso')">
+                            <option value="">-- Seleziona --</option>
+                            <option value="vero">Vero</option>
+                            <option value="falso">Falso</option>
+                        </select>
+                    </p>
+                    <div id="feedback_q3_3" class="feedback"></div>
+
+                    <p style="margin: 15px 0;">
+                        4. Il confronto nel gruppo di lavoro migliora la qualità della risposta all'utente
+                        <select id="q3_4" onchange="checkDropdown('q3_4', 'vero')">
+                            <option value="">-- Seleziona --</option>
+                            <option value="vero">Vero</option>
+                            <option value="falso">Falso</option>
+                        </select>
+                    </p>
+                    <div id="feedback_q3_4" class="feedback"></div>
+
+                    <p style="margin: 15px 0;">
+                        5. La capacità comunicativa non è importante per lavorare in équipe
+                        <select id="q3_5" onchange="checkDropdown('q3_5', 'falso')">
+                            <option value="">-- Seleziona --</option>
+                            <option value="vero">Vero</option>
+                            <option value="falso">Falso</option>
+                        </select>
+                    </p>
+                    <div id="feedback_q3_5" class="feedback"></div>
+                </div>
+            </div>
+
+            <button class="btn btn-success" onclick="resetExercises()" style="display: block; margin: 30px auto;">🔄 Ricomincia Esercizi</button>
+        </div>
+
+        <!-- SEZIONE COMPITI -->
+        <div id="compiti" class="tab-content">
+            <h2 class="section-title">📝 Compiti - Domande Aperte</h2>
+            
+            <div class="export-buttons">
+                <button class="btn" onclick="exportToPDF('compiti')">📄 Salva in PDF</button>
+                <button class="btn btn-secondary" onclick="exportToWord('compiti')">📝 Salva in Word</button>
+            </div>
+
+            <div class="info-box" style="margin-bottom: 30px;">
+                <strong>📌 Istruzioni:</strong> Rispondi alle domande in modo completo e accurato. Al termine, compila i tuoi dati e clicca su "Consegna Compito" per inviare al docente.
+            </div>
+
+            <div class="subsection">
+                <div class="form-group">
+                    <label>1. Spiega cosa si intende per "équipe multiprofessionale" e quali sono i suoi principi fondamentali (minimo 150 parole):</label>
+                    <textarea id="answer1" placeholder="Scrivi qui la tua risposta..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>2. Descrivi i vantaggi dell'équipe multiprofessionale sia per l'utente che per le figure professionali (minimo 150 parole):</label>
+                    <textarea id="answer2" placeholder="Scrivi qui la tua risposta..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>3. Quali sono i prerequisiti fondamentali per lavorare efficacemente in un gruppo di lavoro? Spiega almeno 5 competenze (minimo 150 parole):</label>
+                    <textarea id="answer3" placeholder="Scrivi qui la tua risposta..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>4. Descrivi gli strumenti di lavoro dell'équipe (protocolli operativi, piano di lavoro, consegne, documentazione). Qual è la loro funzione? (minimo 200 parole):</label>
+                    <textarea id="answer4" placeholder="Scrivi qui la tua risposta..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>5. Immagina di lavorare in un'équipe multiprofessionale in una RSA. Descrivi una situazione concreta in cui il lavoro di gruppo è essenziale per il benessere dell'utente (minimo 200 parole):</label>
+                    <textarea id="answer5" placeholder="Scrivi qui la tua risposta..."></textarea>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Dati dello Studente</h3>
+                <div class="form-group">
+                    <label>Nome e Cognome:</label>
+                    <input type="text" id="studentName" placeholder="Inserisci il tuo nome e cognome">
+                </div>
+                <div class="form-group">
+                    <label>Classe:</label>
+                    <input type="text" id="studentClass" placeholder="Es. 3^A Servizi Socio-Sanitari">
+                </div>
+                <div class="form-group">
+                    <label>Data:</label>
+                    <input type="text" id="assignmentDate" readonly>
+                </div>
+            </div>
+
+            <button class="btn btn-success" onclick="submitAssignment()" style="display: block; margin: 30px auto; font-size: 1.2em;">📤 Consegna Compito al Docente</button>
+            
+            <div id="submitSuccess" class="success-message">
+                <h3>✅ Compito Consegnato con Successo!</h3>
+                <p style="margin-top: 10px;">Il tuo compito è stato salvato e sarà valutato dal Prof. Dott. Picconi</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Inizializza la data corrente
+        document.getElementById('assignmentDate').value = new Date().toLocaleDateString('it-IT');
+
+        // Variabili globali per il punteggio
+        let score = 0;
+        let totalAnswered = 0;
+        const matchingAnswers = {
+            medico: 'diagnosi',
+            infermiere: 'cura',
+            oss: 'assistenza',
+            educatore: 'educazione',
+            psicologo: 'benessere',
+            assistente: 'coordinamento'
+        };
+        let selectedItems = [];
+
+        // Funzione per cambiare tab
+        function openTab(tabName) {
+            const tabs = document.getElementsByClassName('tab-content');
+            const navTabs = document.getElementsByClassName('nav-tab');
+            
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+            
+            for (let i = 0; i < navTabs.length; i++) {
+                navTabs[i].classList.remove('active');
+            }
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Funzione per selezionare elementi da accoppiare
+        function selectMatch(element, value) {
+            if (element.classList.contains('correct') || element.classList.contains('incorrect')) {
+                return; // Non permettere di cliccare su elementi già verificati
+            }
+
+            if (element.classList.contains('selected')) {
+                element.classList.remove('selected');
+                selectedItems = selectedItems.filter(item => item.element !== element);
+            } else {
+                element.classList.add('selected');
+                selectedItems.push({ element: element, value: value });
+            }
+
+            // Se abbiamo 2 elementi selezionati, verifica automaticamente
+            if (selectedItems.length === 2) {
+                checkPair();
+            }
+        }
+
+        // Verifica la coppia selezionata
+        function checkPair() {
+            if (selectedItems.length !== 2) return;
+
+            const [first, second] = selectedItems;
+            const isCorrect = (matchingAnswers[first.value] === second.value) || 
+                            (matchingAnswers[second.value] === first.value);
+
+            if (isCorrect) {
+                first.element.classList.remove('selected');
+                second.element.classList.remove('selected');
+                first.element.classList.add('correct');
+                second.element.classList.add('correct');
+                score++;
+            } else {
+                first.element.classList.add('incorrect');
+                second.element.classList.add('incorrect');
+                
+                setTimeout(() => {
+                    first.element.classList.remove('selected', 'incorrect');
+                    second.element.classList.remove('selected', 'incorrect');
+                }, 1000);
+            }
+
+            selectedItems = [];
+            updateScore();
+        }
+
+        // Verifica tutti gli accoppiamenti
+        function checkMatching() {
+            const feedback = document.getElementById('matchingFeedback');
+            const correctMatches = document.querySelectorAll('.match-item.correct').length / 2;
+            
+            if (correctMatches === 6) {
+                feedback.textContent = '🎉 Perfetto! Hai accoppiato correttamente tutte le figure professionali!';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = `Hai completato ${correctMatches}/6 accoppiamenti corretti. Continua!`;
+                feedback.className = 'feedback incorrect';
+            }
+        }
+
+        // Verifica dropdown
+        function checkDropdown(questionId, correctAnswer) {
+            const select = document.getElementById(questionId);
+            const feedback = document.getElementById('feedback_' + questionId);
+            const selectedValue = select.value;
+
+            if (!selectedValue) return;
+
+            if (selectedValue === correctAnswer) {
+                feedback.textContent = '✅ Risposta corretta!';
+                feedback.className = 'feedback correct';
+                select.style.borderColor = '#28a745';
+                select.disabled = true;
+                
+                // Incrementa il punteggio solo se non era già stata risposta correttamente
+                if (!select.dataset.answered) {
+                    score++;
+                    totalAnswered++;
+                    select.dataset.answered = 'true';
+                }
+            } else {
+                feedback.textContent = '❌ Risposta errata. Riprova!';
+                feedback.className = 'feedback incorrect';
+                select.style.borderColor = '#dc3545';
+            }
+
+            updateScore();
+        }
+
+        // Aggiorna il punteggio
+        function updateScore() {
+            document.getElementById('scoreValue').textContent = score;
+            document.getElementById('totalQuestions').textContent = '15'; // 6 matching + 9 dropdown
+        }
+
+        // Reset degli esercizi
+        function resetExercises() {
+            // Reset matching
+            const matchItems = document.querySelectorAll('.match-item');
+            matchItems.forEach(item => {
+                item.classList.remove('selected', 'correct', 'incorrect');
+            });
+            selectedItems = [];
+            document.getElementById('matchingFeedback').className = 'feedback';
+            document.getElementById('matchingFeedback').textContent = '';
+
+            // Reset dropdown
+            const selects = document.querySelectorAll('select');
+            selects.forEach(select => {
+                select.value = '';
+                select.style.borderColor = '#e0e0e0';
+                select.disabled = false;
+                delete select.dataset.answered;
+            });
+
+            // Reset feedback
+            const feedbacks = document.querySelectorAll('.feedback');
+            feedbacks.forEach(feedback => {
+                feedback.className = 'feedback';
+                feedback.textContent = '';
+            });
+
+            // Reset score
+            score = 0;
+            totalAnswered = 0;
+            updateScore();
+
+            alert('✅ Esercizi resettati! Puoi ricominciare.');
+        }
+
+        // Funzione per esportare in PDF (simulata)
+        function exportToPDF(section) {
+            alert('📄 Funzionalità di export in PDF\n\nPer implementare questa funzionalità completamente, si consiglia di:\n1. Utilizzare la libreria jsPDF\n2. O utilizzare il comando "Stampa" del browser e salvare come PDF\n\nPremi Ctrl+P (o Cmd+P su Mac) per stampare/salvare come PDF questa sezione.');
+            window.print();
+        }
+
+        // Funzione per esportare in Word (simulata)
+        function exportToWord(section) {
+            const content = document.getElementById(section).innerHTML;
+            const blob = new Blob(['\ufeff', content], {
+                type: 'application/msword'
+            });
+            
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `equipe_multiprofessionale_${section}.doc`;
+            link.click();
+            
+            alert('📝 Export in Word avviato!\n\nIl file verrà scaricato tra pochi secondi.');
+        }
+
+        // Funzione per consegnare il compito
+        function submitAssignment() {
+            const studentName = document.getElementById('studentName').value;
+            const studentClass = document.getElementById('studentClass').value;
+            const answers = [
+                document.getElementById('answer1').value,
+                document.getElementById('answer2').value,
+                document.getElementById('answer3').value,
+                document.getElementById('answer4').value,
+                document.getElementById('answer5').value
+            ];
+
+            // Validazione
+            if (!studentName || !studentClass) {
+                alert('⚠️ Attenzione!\n\nCompila tutti i dati dello studente (Nome, Cognome, Classe) prima di consegnare.');
+                return;
+            }
+
+            const emptyAnswers = answers.filter(a => !a.trim()).length;
+            if (emptyAnswers > 0) {
+                const confirm = window.confirm(`⚠️ Attenzione!\n\nHai lasciato ${emptyAnswers} risposta/e vuota/e.\n\nVuoi consegnare comunque?`);
+                if (!confirm) return;
+            }
+
+            // Creazione del contenuto del compito
+            const assignmentContent = `
+COMPITO DI METODOLOGIE OPERATIVE
+Équipe Multiprofessionale e Strumenti di Lavoro
+
+Studente: ${studentName}
+Classe: ${studentClass}
+Data: ${document.getElementById('assignmentDate').value}
+
+----------------------------------------
+
+DOMANDA 1: Spiega cosa si intende per "équipe multiprofessionale" e quali sono i suoi principi fondamentali
+
+${answers[0]}
+
+----------------------------------------
+
+DOMANDA 2: Descrivi i vantaggi dell'équipe multiprofessionale sia per l'utente che per le figure professionali
+
+${answers[1]}
+
+----------------------------------------
+
+DOMANDA 3: Quali sono i prerequisiti fondamentali per lavorare efficacemente in un gruppo di lavoro?
+
+${answers[2]}
+
+----------------------------------------
+
+DOMANDA 4: Descrivi gli strumenti di lavoro dell'équipe (protocolli operativi, piano di lavoro, consegne, documentazione)
+
+${answers[3]}
+
+----------------------------------------
+
+DOMANDA 5: Descrivi una situazione concreta in cui il lavoro di gruppo è essenziale per il benessere dell'utente
+
+${answers[4]}
+
+----------------------------------------
+
+Prof. Dott. Picconi
+IIS Meucci Mattei - Cagliari
+Sede Decimomannu - Servizi Socio-Sanitari
+            `;
+
+            // Salva in un file
+            const blob = new Blob([assignmentContent], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `Compito_${studentName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.txt`;
+            link.click();
+
+            // Mostra messaggio di successo
+            document.getElementById('submitSuccess').style.display = 'block';
+            
+            // Scroll al messaggio di successo
+            document.getElementById('submitSuccess').scrollIntoView({ behavior: 'smooth' });
+
+            // Opzionale: invia via email (richiede backend)
+            alert('✅ Compito salvato con successo!\n\nIl file è stato scaricato sul tuo computer.\nInvialo al Prof. Dott. Picconi via email o secondo le indicazioni ricevute in classe.');
+        }
+
+        // Inizializza il punteggio totale
+        updateScore();
+    </script>
+</body>
+</html>
