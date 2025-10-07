@@ -58,29 +58,28 @@ async function caricaMateriali(sezione) {
         // Ordina i materiali per data (più recenti prima)
         materiali.sort((a, b) => new Date(b.data) - new Date(a.data));
         
-        // Genera l'HTML per ogni materiale
-        container.innerHTML = materiali.map(materiale => {
-            const dataFormattata = formattaData(materiale.data);
-            const rawFile = materiale.file || '';
-            const filePath = escapeHtml(rawFile);
-            const isHtml = rawFile.trim().toLowerCase().endsWith('.html');
-            const linkAttributes = isHtml 
-                ? 'target="_blank" rel="noopener noreferrer"'
-                : 'download';
-            const label = isHtml ? '📂 Apri attività' : '📥 Scarica';
-            return `
-                <div class="materiale-item">
-                    <div class="materiale-header">
-                        <h3>${escapeHtml(materiale.titolo)}</h3>
-                        <span class="materiale-data">${dataFormattata}</span>
-                    </div>
-                    ${materiale.descrizione ? `<p>${escapeHtml(materiale.descrizione)}</p>` : ''}
-                    <a href="${filePath}" class="btn-download" ${linkAttributes}>
-                        ${label}
-                    </a>
+        const materialiPerTipo = materiali.reduce((acc, materiale) => {
+            const tipo = determinaTipoMateriale(materiale);
+            acc[tipo].push(materiale);
+            return acc;
+        }, { download: [], interattivo: [] });
+
+        container.innerHTML = `
+            <div class="materiali-tabs">
+                <button class="tab-btn active" data-tab="download">📁 Materiali da scaricare</button>
+                <button class="tab-btn" data-tab="interattivo">🧠 Apprendimento interattivo</button>
+            </div>
+            <div class="tab-panels">
+                <div class="tab-panel active" data-panel="download">
+                    ${renderDownloadList(materialiPerTipo.download)}
                 </div>
-            `;
-        }).join('');
+                <div class="tab-panel" data-panel="interattivo">
+                    ${renderInteractiveList(materialiPerTipo.interattivo)}
+                </div>
+            </div>
+        `;
+
+        inizializzaTab(container);
         
     } catch (error) {
         console.error('Errore nel caricamento dei materiali:', error);
@@ -91,6 +90,97 @@ async function caricaMateriali(sezione) {
             </div>
         `;
     }
+}
+
+function renderDownloadList(materiali) {
+    if (!materiali.length) {
+        return creaMessaggioVuoto(
+            '📁 Nessun materiale da scaricare disponibile al momento.',
+            'A breve caricheremo nuovi materiali. Torna a controllare!'
+        );
+    }
+
+    return materiali.map(renderDownloadCard).join('');
+}
+
+function renderInteractiveList(materiali) {
+    if (!materiali.length) {
+        return creaMessaggioVuoto(
+            '🧠 Nessuna attività interattiva disponibile.',
+            'Le attività verranno pubblicate nel corso dell\'anno scolastico.'
+        );
+    }
+
+    return materiali.map(renderInteractiveCard).join('');
+}
+
+function renderDownloadCard(materiale) {
+    const dataFormattata = formattaData(materiale.data);
+    const rawFile = materiale.file || '';
+    const filePath = escapeHtml(rawFile);
+    const titolo = escapeHtml(materiale.titolo || 'Materiale');
+    const descrizione = materiale.descrizione ? `<p>${escapeHtml(materiale.descrizione)}</p>` : '';
+    const linkAttributes = rawFile ? 'download' : 'aria-disabled="true"';
+    const label = '📥 Scarica';
+
+    return `
+        <div class="materiale-item">
+            <div class="materiale-header">
+                <h3>${titolo}</h3>
+                <span class="materiale-data">${dataFormattata}</span>
+            </div>
+            ${descrizione}
+            <a href="${filePath}" class="btn-download" ${linkAttributes}>
+                ${label}
+            </a>
+        </div>
+    `;
+}
+
+function renderInteractiveCard(materiale) {
+    const dataFormattata = formattaData(materiale.data);
+    const rawFile = materiale.file || '';
+    const filePath = escapeHtml(rawFile);
+    const titolo = escapeHtml(materiale.titolo || 'Attività interattiva');
+    const descrizione = materiale.descrizione ? `<p>${escapeHtml(materiale.descrizione)}</p>` : '';
+
+    return `
+        <div class="materiale-item materiale-interattivo">
+            <div class="materiale-header">
+                <h3><a href="${filePath}" target="_blank" rel="noopener noreferrer">${titolo}</a></h3>
+                <span class="materiale-data">${dataFormattata}</span>
+            </div>
+            ${descrizione}
+            <a href="${filePath}" class="btn-download btn-interattivo" target="_blank" rel="noopener noreferrer">
+                🚀 Apri attività
+            </a>
+        </div>
+    `;
+}
+
+function creaMessaggioVuoto(titolo, sottotitolo) {
+    return `
+        <div class="empty-state">
+            <p>${escapeHtml(titolo)}</p>
+            <p style="margin-top: 1rem;">${escapeHtml(sottotitolo)}</p>
+        </div>
+    `;
+}
+
+function inizializzaTab(container) {
+    const bottoni = container.querySelectorAll('.tab-btn');
+    const pannelli = container.querySelectorAll('.tab-panel');
+
+    bottoni.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tab = btn.dataset.tab;
+
+            bottoni.forEach(b => b.classList.toggle('active', b === btn));
+            pannelli.forEach(panel => {
+                panel.classList.toggle('active', panel.dataset.panel === tab);
+            });
+        });
+    });
 }
 
 // Funzione per formattare la data
@@ -108,6 +198,10 @@ function formattaData(dataString) {
 
 // Funzione per escape HTML (sicurezza)
 function escapeHtml(text) {
+    if (text === undefined || text === null) {
+        return '';
+    }
+    
     const map = {
         '&': '&amp;',
         '<': '&lt;',
@@ -115,5 +209,24 @@ function escapeHtml(text) {
         '"': '&quot;',
         "'": '&#039;'
     };
-    return text.replace(/[&<>"']/g, m => map[m]);
+    return String(text).replace(/[&<>"']/g, m => map[m]);
+}
+
+function determinaTipoMateriale(materiale) {
+    const tipoDichiarato = (materiale.tipo || '').toLowerCase();
+    
+    if (tipoDichiarato === 'interattivo') {
+        return 'interattivo';
+    }
+    
+    if (tipoDichiarato === 'download') {
+        return 'download';
+    }
+    
+    const estensione = (materiale.file || '').trim().toLowerCase();
+    if (estensione.endsWith('.html') || estensione.endsWith('.htm')) {
+        return 'interattivo';
+    }
+    
+    return 'download';
 }
