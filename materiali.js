@@ -61,6 +61,13 @@ async function caricaMateriali(sezione) {
         // Genera l'HTML per ogni materiale
         container.innerHTML = materiali.map(materiale => {
             const dataFormattata = formattaData(materiale.data);
+            const rawFile = materiale.file || '';
+            const filePath = escapeHtml(rawFile);
+            const isHtml = rawFile.trim().toLowerCase().endsWith('.html');
+            const linkAttributes = isHtml 
+                ? 'target="_blank" rel="noopener noreferrer"'
+                : 'download';
+            const label = isHtml ? '📂 Apri attività' : '📥 Scarica';
             return `
                 <div class="materiale-item">
                     <div class="materiale-header">
@@ -68,8 +75,8 @@ async function caricaMateriali(sezione) {
                         <span class="materiale-data">${dataFormattata}</span>
                     </div>
                     ${materiale.descrizione ? `<p>${escapeHtml(materiale.descrizione)}</p>` : ''}
-                    <a href="${escapeHtml(materiale.file)}" class="btn-download" download>
-                        📥 Scarica
+                    <a href="${filePath}" class="btn-download" ${linkAttributes}>
+                        ${label}
                     </a>
                 </div>
             `;
