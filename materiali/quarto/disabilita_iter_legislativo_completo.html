@@ -1,0 +1,2997 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le disabilità: iter legislativo e sistemi di classificazione</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 30px 20px;
+            background: #f8f9fa;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .tab-button {
+            padding: 15px 30px;
+            border: none;
+            background: white;
+            color: #667eea;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .tab-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .subsection {
+            margin: 30px 0;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+
+        .subsection h3 {
+            color: #764ba2;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .info-box {
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .info-box.definition {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-left: 5px solid #2196f3;
+        }
+
+        .info-box.law {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            border-left: 5px solid #9c27b0;
+        }
+
+        .info-box.important {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border-left: 5px solid #ff9800;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .timeline-year {
+            flex: 0 0 150px;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #667eea;
+            padding: 10px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .timeline-content {
+            flex: 1;
+            margin-left: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #667eea;
+        }
+
+        .schema-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .schema-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .schema-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .schema-card h4 {
+            color: #667eea;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quiz-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+
+        .quiz-question {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .quiz-option {
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quiz-option:hover {
+            background: #e3f2fd;
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .quiz-option.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .quiz-option.correct {
+            background: #4caf50;
+            color: white;
+            border-color: #4caf50;
+        }
+
+        .quiz-option.incorrect {
+            background: #f44336;
+            color: white;
+            border-color: #f44336;
+        }
+
+        .feedback {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct {
+            background: #c8e6c9;
+            border-left: 5px solid #4caf50;
+        }
+
+        .feedback.incorrect {
+            background: #ffcdd2;
+            border-left: 5px solid #f44336;
+        }
+
+        .score-display {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            font-size: 1.2em;
+            font-weight: bold;
+            z-index: 1000;
+            display: none;
+        }
+
+        .score-display.show {
+            display: block;
+        }
+
+        .matching-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .matching-column {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .matching-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .matching-item:hover {
+            background: #e3f2fd;
+            transform: scale(1.02);
+        }
+
+        .matching-item.selected {
+            border-color: #667eea;
+            background: #e3f2fd;
+        }
+
+        .matching-item.matched {
+            background: #c8e6c9;
+            border-color: #4caf50;
+            cursor: default;
+        }
+
+        .textarea-field {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1em;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+
+        .textarea-field:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .button {
+            padding: 15px 30px;
+            border: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            margin: 10px 5px;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .button.secondary {
+            background: linear-gradient(135deg, #64b5f6 0%, #42a5f5 100%);
+        }
+
+        .button.success {
+            background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%);
+        }
+
+        .case-study {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            margin: 30px 0;
+            border-top: 5px solid #667eea;
+        }
+
+        .case-study h3 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .case-scenario {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #764ba2;
+        }
+
+        .rubric-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .rubric-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 1.1em;
+        }
+
+        .rubric-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .rubric-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .score-badge {
+            display: inline-block;
+            padding: 8px 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        footer p {
+            margin: 5px 0;
+            opacity: 0.9;
+        }
+
+        .icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                width: 100%;
+            }
+
+            .matching-container {
+                grid-template-columns: 1fr;
+            }
+
+            .schema-container {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+            }
+
+            .timeline-content {
+                margin-left: 0;
+                margin-top: 15px;
+            }
+
+            .score-display {
+                position: static;
+                margin: 20px 0;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .tabs, .button, .score-display, .tab-button {
+                display: none !important;
+            }
+
+            .tab-content {
+                display: block !important;
+                page-break-before: auto;
+            }
+
+            .case-study, .subsection, .quiz-container {
+                page-break-inside: avoid;
+            }
+
+            header {
+                background: #667eea !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .info-box, .schema-card, .case-scenario {
+                border: 2px solid #ddd;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .rubric-table {
+                page-break-inside: avoid;
+            }
+
+            .rubric-table th {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-label:hover {
+            background: #e3f2fd;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .sequence-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .sequence-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            cursor: grab;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .sequence-item:active {
+            cursor: grabbing;
+            opacity: 0.5;
+        }
+
+        .sequence-item.correct-position {
+            background: #c8e6c9;
+            border-color: #4caf50;
+        }
+
+        .cloze-sentence {
+            font-size: 1.2em;
+            line-height: 2;
+            margin: 20px 0;
+        }
+
+        .cloze-blank {
+            display: inline-block;
+            min-width: 150px;
+            padding: 5px 10px;
+            border-bottom: 2px solid #667eea;
+            margin: 0 5px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .cloze-input {
+            display: inline-block;
+            min-width: 150px;
+            padding: 5px 10px;
+            border: none;
+            border-bottom: 2px solid #667eea;
+            font-size: 1em;
+            font-family: inherit;
+            background: transparent;
+            margin: 0 5px;
+        }
+
+        .cloze-input:focus {
+            outline: none;
+            background: #e3f2fd;
+        }
+
+        .cloze-input.correct {
+            border-bottom-color: #4caf50;
+            background: #c8e6c9;
+        }
+
+        .cloze-input.incorrect {
+            border-bottom-color: #f44336;
+            background: #ffcdd2;
+        }
+
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 1001;
+            max-width: 300px;
+            animation: slideIn 0.5s ease;
+        }
+
+        .notification.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .list-styled {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .list-styled li {
+            padding: 10px 0 10px 30px;
+            position: relative;
+        }
+
+        .list-styled li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧩 Le disabilità: iter legislativo e sistemi di classificazione</h1>
+            <p>Unità 1 - Modulo Le disabilità</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'teoria')">📚 Teoria</button>
+            <button class="tab-button" onclick="openTab(event, 'schemi')">🗺️ Schemi</button>
+            <button class="tab-button" onclick="openTab(event, 'esercitazioni')">✏️ Esercitazioni</button>
+            <button class="tab-button" onclick="openTab(event, 'compiti')">📝 Compiti</button>
+            <button class="tab-button" onclick="openTab(event, 'bancacasi')">💼 Banca Casi</button>
+        </div>
+
+        <div class="score-display" id="scoreDisplay">
+            🏆 Punteggio: <span id="totalScore">0</span>/100
+        </div>
+
+        <!-- TAB 1: TEORIA -->
+        <div id="teoria" class="tab-content active">
+            <h2 class="section-title">📚 Teoria - L'iter legislativo e i concetti chiave</h2>
+
+            <div class="subsection">
+                <h3>🏛️ Dalla segregazione all'integrazione sociale</h3>
+                <p>Il tema dell'integrazione dei disabili ha una storia significativa che parte da un punto di vista legislativo nell'arco di un tempo relativamente recente. In passato, il rifiuto alla segregazione, all'inserimento (o stare con i compagni normodotati), all'integrazione scolastica, prima scolastica poi sociale e lavorativa, condusse a una volontà discriminatrice e segregante.</p>
+                
+                <div class="info-box law">
+                    <strong>📜 Il percorso legislativo</strong>
+                    <p>Nella nuova concezione democratica, in consonanza con i principi costituzionali, il disabile è concepito non più come soggetto "debole", ma come <strong>"portatore di diritti"</strong>, ossia soggetto avente diritto all'educazione, all'istruzione, al lavoro, diritto a vivere una vita dignitosa e all'integrazione nel consorzio umano.</p>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>🏫 Dalle "classi differenziali" all'inclusione scolastica</h3>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">R.D. 786/1939</div>
+                        <div class="timeline-content">
+                            <strong>Istituti scolastici speciali</strong>
+                            <p>Gli "istituti scolastici speciali" e le "classi differenziali" (art. 11 e 12 della Legge 1859/1962) furono espressione di una volontà discriminatrice e segregante negli anni Settanta del Novecento.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">Legge 1859/1962</div>
+                        <div class="timeline-content">
+                            <strong>Classi di aggiornamento</strong>
+                            <p>Istituzione delle classi differenziali e di aggiornamento, che rappresentavano ancora una forma di separazione educativa.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">Legge 118/1971</div>
+                        <div class="timeline-content">
+                            <strong>⭐ Principio della "coeducazione"</strong>
+                            <p>Il primo atto legislativo significativo che si fece carico della disabilità, associandola alla qualità dell'invalidità civile. Ebbe il merito di abrogare le classi differenziali e di aggiornamento e proclamò il <strong>"principio della coeducazione"</strong> tra bambini normodotati e disabili.</p>
+                            <p>Seppur l'intento del legislatore fosse positivo, l'atto pratico l'inserimento dei disabili nelle classi dei normodotati si rivelò fallimentare, tanto che la letteratura pedagogica lo definì <strong>"inserimento selvaggio"</strong>.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">Legge 517/1977</div>
+                        <div class="timeline-content">
+                            <strong>🎯 Integrazione scolastica dei disabili</strong>
+                            <p>Con la Legge 517/77 venne proclamato il <strong>diritto all'integrazione scolastica dei disabili</strong> e lo Stato fornì gli strumenti atti a favorirla:</p>
+                            <ul class="list-styled">
+                                <li>Venne istituita la <strong>figura specializzata dell'insegnante di sostegno</strong></li>
+                                <li>Venne decretato l'<strong>abbattimento delle barriere architettoniche</strong> nelle istituzioni scolastiche</li>
+                                <li>Venne introdotta la <strong>Programmazione educativa individualizzata (PEI)</strong></li>
+                            </ul>
+                            <p>Il PEI può essere <strong>semplificato</strong> (si perseguono gli obiettivi della classe e, al termine del percorso scolastico, viene rilasciato un diploma valido ai fini dell'inserimento lavorativo) o <strong>diversificato</strong> (si perseguono obiettivi diversi dalla classe e, al termine del percorso scolastico, viene rilasciato un certificato di frequenza valido ad attestare una validità alcuna ai fini dell'inserimento lavorativo).</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">Legge 104/1992</div>
+                        <div class="timeline-content">
+                            <strong>🏛️ Integrazione scolastica, sociale e lavorativa</strong>
+                            <p>Fu la Legge quadro per l'<strong>assistenza, l'integrazione sociale e i diritti delle persone handicappate 104/1992</strong> a normare non soltanto l'integrazione scolastica, ma anche quella sociale e lavorativa; essa rappresenta ancora oggi un riferimento stabile nella definizione del "codice dei diritti" dei disabili.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>🎯 Il Piano Educativo Individualizzato (PEI)</h3>
+                
+                <div class="info-box definition">
+                    <strong>📋 Definizione del PEI</strong>
+                    <p>Il Piano Educativo Individualizzato è uno strumento fondamentale per personalizzare le strategie di insegnamento, affidate sino allora all'occasionalità e alla creatività dei docenti.</p>
+                </div>
+
+                <p><strong>Caratteristiche del PEI:</strong></p>
+                <ul class="list-styled">
+                    <li><strong>PEI Semplificato</strong>: si perseguono gli obiettivi della classe e, al termine del percorso scolastico, viene rilasciato un diploma valido ai fini dell'inserimento lavorativo</li>
+                    <li><strong>PEI Diversificato</strong>: si perseguono obiettivi diversi dalla classe e, al termine del percorso scolastico, viene rilasciato un certificato di frequenza valido ad attestare una validità alcuna ai fini dell'inserimento lavorativo</li>
+                </ul>
+
+                <div class="info-box important">
+                    <strong>⚠️ Importante</strong>
+                    <p>Terminato il ciclo scolastico, si prese consapevolezza del fatto che non fosse sufficiente integrare il disabile a scuola per poterlo integrare nuovamente poi in casa al termine del percorso scolastico; occorreva estendere l'integrazione al mondo del lavoro e alla società tutta.</p>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>📖 Disabilità, deficit e handicap: evoluzione terminologica</h3>
+                
+                <div class="info-box definition">
+                    <strong>🔍 Tre concetti fondamentali</strong>
+                    <p>È necessario preliminarmente chiarire i seguenti termini che spesso, erroneamente, vengono considerati come sinonimi:</p>
+                </div>
+
+                <div class="schema-container">
+                    <div class="schema-card">
+                        <h4>🧬 DEFICIT</h4>
+                        <p>Il <strong>deficit</strong> (o menomazione o mancanza) può essere <strong>stabilizzato o progressivo</strong>, e si configura come un danno fisico, psichico o sensoriale.</p>
+                        <p><em>Esempio: una persona con deficit visivo non può vedere, una persona con deficit motorio non può camminare.</em></p>
+                    </div>
+
+                    <div class="schema-card">
+                        <h4>♿ DISABILITÀ</h4>
+                        <p>La <strong>disabilità</strong> è la limitazione o la perdita della capacità di compiere un'attività nei modi e nei limiti ritenuti normali per un essere umano; è il non essere abile a compiere un'azione a causa della presenza di un deficit.</p>
+                        <p><em>Esempio: non camminare, non essere abile nel ragionamento, non vedere, non sentire.</em></p>
+                    </div>
+
+                    <div class="schema-card">
+                        <h4>🚧 HANDICAP</h4>
+                        <p>L'<strong>handicap</strong> è la condizione di svantaggio scolastico, sociale e lavorativo che deriva da un deficit e dalla conseguente disabilità.</p>
+                        <p>Il termine "handicap" trae origine dal nome di un gioco d'azzardo, <em>hand in cap</em>, ossia "mano nel berretto", praticato nel Seicento in Irlanda. Il gioco consisteva nell'infilare una mano dentro un cappello ed estrarre dal suo interno, senza guardare, un oggetto.</p>
+                    </div>
+                </div>
+
+                <div class="info-box important">
+                    <strong>⚖️ Ridurre l'handicap</strong>
+                    <p>Gli operatori non possono ridurre il deficit e la disabilità ma sono chiamati a <strong>ridurre l'handicap</strong>, lo svantaggio, assicurando a ciascun bambino le condizioni perché possa sviluppare appieno la propria personalità, l'autonomia e la capacità residue, in un contesto sociale di rispetto reciproco, evitando ogni forma di emarginazione.</p>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>🌍 Dall'ICIDH all'ICF dell'OMS</h3>
+                
+                <p>La prima classificazione della disabilità, basata sul <strong>modello biomedico</strong> allora in uso, viene fornita dall'OMS, attraverso la pubblicazione del primo manuale storico, chiamato <strong>ICD</strong> (<em>International Statistical Classification of Diseases and Related Health Problems</em>), ossia la sua decima edizione (<strong>ICD10</strong>, <em>Classificazione internazionale delle sindromi e dei disturbi psichici e comportamentali</em>, OMS, 1992).</p>
+
+                <div class="schema-container">
+                    <div class="schema-card">
+                        <h4>📊 ICD - Classificazione malattie</h4>
+                        <p>Prima classificazione delle malattie basata sul modello biomedico.</p>
+                    </div>
+
+                    <div class="schema-card">
+                        <h4>📈 ICD-10 - Decima edizione</h4>
+                        <p>Fornisce un modello di riferimento utilizzato per la descrizione delle malattie, dei disturbi, delle lesioni, in riferimento anche alle cause della malattia (i problemi).</p>
+                        <p>L'ICD-10 esistono altri sistemi classificatori. Ad esempio, per quanto riguarda le malattie mentali, il manuale prevalente è dato dal <strong>DSM-5</strong> (<em>Manuale diagnostico e statistico dei disturbi mentali</em>) realizzato dall'APA (American Psychiatric Association).</p>
+                    </div>
+
+                    <div class="schema-card">
+                        <h4>🌟 ICF - International Classification of Functioning</h4>
+                        <p>Bisogna attendere il 2001 con la pubblicazione del nuovo documento <strong>ICF</strong> (<em>International Classification of Functioning Disability and Health</em>), che segna un cambiamento radicale di prospettiva: il modello biomedico viene superato dal <strong>modello bio-psico-sociale</strong>.</p>
+                        <p>Il modello bio-psico-sociale si basa su tre fattori:</p>
+                        <ul class="list-styled">
+                            <li><strong>biologici</strong> (le condizioni di salute e non di malattia)</li>
+                            <li><strong>personali</strong> (gli aspetti emotivo-affettivi, cognitivi, comportamentali)</li>
+                            <li><strong>ambientali/sociali</strong> (la famiglia, la comunità di appartenenza, la cultura, la religione, lo status socio-economico ecc.)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-box definition">
+                    <strong>🎯 Il superamento del modello medico</strong>
+                    <p>Il modello bio-psico-sociale si dà valore alle <strong>potenzialità residue del soggetto</strong>, alla sua funzionalità (vedere, camminare, ricordare) e non alle limitazioni (vedere male, camminare poco, ricordare con difficoltà).</p>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>🏥 La diversità e i sistemi di classificazione delle condizioni di salute dell'OMS</h3>
+                
+                <div class="info-box important">
+                    <strong>🌈 La diversità non costituisce di per sé un problema</strong>
+                    <p>La diversità non costituisce di per sé un problema, perché tutti siamo diversi; ognuno è uguale agli altri se si intende diversi. La diversità, infatti, sta nella natura delle cose; è la nota costante della vita; è l'elemento discriminante che ci rende unici.</p>
+                </div>
+
+                <p>La matematica sociale, quando il diverso viene giudicato secondo criteri di efficientismo produttivo imposti dalla società. La necessità di connotare e classificare in modo convenzionale la disabilità è determinante solo se intesa come funzionale alla progettazione e all'attivazione di interventi educativi e terapeutici significativi.</p>
+
+                <div class="info-box law">
+                    <strong>⚖️ Legge quadro 104/1992</strong>
+                    <p>La Legge quadro 104/1992, all'articolo 3, definisce la handicappata come <em>"chi presenta una minorazione fisica, psichica o sensoriale, stabilizzata o progressiva, che è causa di difficoltà di apprendimento, di relazione o di integrazione lavorativa e tale da determinare un processo di svantaggio o emarginazione"</em>.</p>
+                </div>
+
+                <p><strong>Menomazione, disabilità e handicap - Modello OMS 1980:</strong></p>
+                <div class="schema-container">
+                    <div class="schema-card">
+                        <h4>1️⃣ Menomazione</h4>
+                        <p>Perdita o anomalia a carico di una struttura o di una funzione psicologica, fisiologica o anatomica</p>
+                    </div>
+                    <div class="schema-card">
+                        <h4>2️⃣ Disabilità</h4>
+                        <p>Qualsiasi limitazione o perdita (conseguente a menomazione) della capacità di compiere un'attività nel modo ritenuto normale per un essere umano</p>
+                    </div>
+                    <div class="schema-card">
+                        <h4>3️⃣ Handicap</h4>
+                        <p>Condizione di svantaggio conseguente a una menomazione o a una disabilità che limita o impedisce l'adempimento del ruolo sociale</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>🩺 Le cause della disabilità</h3>
+                
+                <p>Le cause della disabilità sono tante e diverse e possono essere così sintetizzate:</p>
+
+                <div class="schema-container">
+                    <div class="schema-card">
+                        <h4>🧬 Cause ereditarie</h4>
+                        <p>Anomalie genetiche trasmesse dai genitori</p>
+                        <p><em>Esempio: anomalie genetiche trasmesse dai genitori</em></p>
+                    </div>
+
+                    <div class="schema-card">
+                        <h4>🔬 Cause genetiche</h4>
+                        <p>Anomalie e malformazioni cromosomiche (ad esempio: sindrome di Down)</p>
+                    </div>
+
+                    <div class="schema-card">
+                        <h4>🤰 Cause prenatali (prima del parto)</h4>
+                        <p>Infezioni materne (ad esempio: rosolia, toxoplasmosi ecc.), malattie metaboliche materne (diabete), ittero, intossicazione da farmaci, uso eccessivo di droghe e alcol, radiazioni, incompatibilità sanguigna</p>
+                    </div>
+
+                    <div class="schema-card">
+                        <h4>👶 Cause perinatali (durante il parto)</h4>
+                        <p>Asfissia, prematurità (soprattutto sotto le 32 settimane di gestazione), parto difficoltoso (danni per cause meccaniche e di stress fetale), ipossia (poca ossigenazione), ischemia (deficiente afflusso di sangue, con conseguente sofferenza dei tessuti interessati)</p>
+                    </div>
+
+                    <div class="schema-card">
+                        <h4>🍼 Cause post-natali (dopo il parto)</h4>
+                        <p>Traumi di vario tipo, infezioni (meningoencefalite), alterazioni metaboliche, maltrattamenti, cattiva nutrizione, abuso di sostanze tossiche (droghe, alcol) ecc.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>🧩 La classificazione delle disabilità</h3>
+                
+                <p>Le disabilità possono essere suddivise in quattro categorie fondamentali:</p>
+
+                <div class="schema-container">
+                    <div class="schema-card">
+                        <h4>🦿 Disabilità motorie</h4>
+                        <p>Interessano la motricità e il funzionamento degli organi e delle parti del corpo utili al movimento</p>
+                    </div>
+
+                    <div class="schema-card">
+                        <h4>👁️ Disabilità sensoriali</h4>
+                        <p>Interessano i sensi (in particolare vista e udito ma anche tatto, gusto, olfatto)</p>
+                    </div>
+
+                    <div class="schema-card">
+                        <h4>🧠 Disabilità intellettive</h4>
+                        <p>Interessano la capacità cognitiva</p>
+                    </div>
+
+                    <div class="schema-card">
+                        <h4>💭 Disabilità psichiche</h4>
+                        <p>Interessano i problemi psichici e relazionali (psicosi) e i problemi psicologici (nevrosi)</p>
+                    </div>
+                </div>
+
+                <div class="info-box important">
+                    <strong>🔄 Pluridisabilità</strong>
+                    <p>Si parla di <strong>pluridisabilità</strong> quando sono compresenti più forme di disabilità; si definiscono <strong>disabilità principali</strong> le forme più rilevanti e <strong>disabilità associate</strong> quelle minori. La disabilità è spesso accompagnata da problemi psicologici e relazionali.</p>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>🏥 Il trattamento delle disabilità</h3>
+                
+                <div class="info-box important">
+                    <strong>⚕️ Approccio individualizzato</strong>
+                    <p>La presa in carico di un disabile da parte di un'istituzione impone una serie di interventi finalizzati alla terapia e alla riabilitazione (azioni volte a rendere nuovamente abile la capacità) del soggetto.</p>
+                </div>
+
+                <p>Il trattamento riabilitativo educativo deve essere <strong>individualizzato</strong>. L'applicazione di un programma riabilitativo uguale per tutte le disabilità avrebbe, di certo, un esito fallimentare.</p>
+
+                <p><strong>In linea generale il trattamento della disabilità ci si avvale dei seguenti strumenti:</strong></p>
+
+                <ul class="list-styled">
+                    <li><strong>Trattamento farmacologico</strong></li>
+                    <li><strong>Interventi di chirurgia</strong></li>
+                    <li><strong>Utilizzo di protesi, tutori e ausili</strong> (vedi Modulo 15)</li>
+                    <li><strong>Attività riabilitative</strong> (vedi Modulo 15)</li>
+                    <li><strong>Attività di co-terapia</strong> (vedi Modulo 15)</li>
+                    <li><strong>Attività volte al reinserimento sociale</strong></li>
+                    <li><strong>Supporto psicologico</strong></li>
+                </ul>
+
+                <div class="info-box definition">
+                    <strong>👨‍👩‍👧‍👦 Interventi sulla famiglia</strong>
+                    <p>Inoltre, riabillitativi, sarebbe, altresì, prevedere <strong>interventi sulla famiglia</strong>: periodici colloqui di sostegno psicologico ai familiari del disabile per non farli sentire mai soli; consulenza specialistica che fornisca informazioni utili al trattamento della disabilità; partecipazione della famiglia del soggetto alle scelte terapeutiche.</p>
+                </div>
+
+                <p>Il sostegno e la consulenza ai familiari sono disponibili attraverso <strong>associazioni di supporto</strong> e una serie di altri <strong>gruppi di sostegno</strong>.</p>
+            </div>
+
+            <div class="subsection">
+                <h3>🏛️ I servizi sanitari e assistenziali per disabili</h3>
+                
+                <p>Il Servizio sanitario nazionale garantisce ai disabili <strong>prestazioni sanitarie</strong> (mediche, infermieristiche, psicologiche, riabilitative), <strong>integrate con prestazioni sociali</strong> (aiuto nella vita quotidiana) offerte dal Comune, per consentire l'acquisizione, il recupero e il mantenimento delle abilità residue; il controllo dei sintomi della patologia e il miglioramento della qualità di vita.</p>
+
+                <div class="info-box law">
+                    <strong>🏥 Unità di Valutazione Handicap (UVH)</strong>
+                    <p>L'Unità di valutazione handicap (UVH) è una commissione multidisciplinare che ha il compito di effettuare la valutazione medica e sociale della persona disabile che necessita di interventi di natura socio-sanitaria.</p>
+                    <p>La valutazione garantisce al disabile la presa in carico integrata nei servizi e si riferisce ai seguenti elementi:</p>
+                    <ul class="list-styled">
+                        <li>assistenza domiciliare</li>
+                        <li>segretariato sociale</li>
+                        <li>inserimento in centro diurno, comunità alloggio, residence protetto, flessibile e di transito</li>
+                        <li>interventi educativi a domicilio e sul territorio</li>
+                    </ul>
+                </div>
+
+                <div class="info-box definition">
+                    <strong>🧒 Il Servizio di Neuropsichiatria Infantile (NPI)</strong>
+                    <p>La neuropsichiatria infantile è rivolta a bambini e adolescenti (dalla nascita fino a 18 e talvolta oltre) con problematiche neurologiche, psichiatriche e relazionali.</p>
+                    <p>Svolge attività di prevenzione, diagnosi, la cura e la riabilitazione dei disturbi dello sviluppo del bambino e dell'adolescente. Nel servizio NPI la gestione multiprofessionale del percorso diagnostico e terapeutico è affidata:</p>
+                    <ul class="list-styled">
+                        <li>disturbi specifici di apprendimento (DSA)</li>
+                        <li>disturbi del linguaggio e della comunicazione</li>
+                        <li>disturbi dello spettro autistico e pervasivi</li>
+                        <li>patologie neurologiche-epilessie</li>
+                        <li>disabilità intellettiva</li>
+                        <li>psicopatologia dell'infanzia e dell'adolescenza</li>
+                        <li>disturbi del comportamento alimentare (DCA)</li>
+                        <li>disturbi dei deficit di attenzione e iperattività (ADHD)</li>
+                        <li>disturbi neuromotori e paralisi cerebrali</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin: 30px 0; text-align: center;">
+                <button class="button" onclick="savePDF('teoria')">💾 Salva in PDF</button>
+                <button class="button secondary" onclick="saveWord('teoria')">📄 Salva in Word</button>
+            </div>
+        </div>
+
+        <!-- TAB 2: SCHEMI -->
+        <div id="schemi" class="tab-content">
+            <h2 class="section-title">🗺️ Schemi - Mappe e cronologie</h2>
+
+            <div class="subsection">
+                <h3>📅 Linea del tempo legislativa</h3>
+                
+                <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.1);">
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
+                        <div style="display: flex; align-items: center; gap: 20px;">
+                            <div style="flex: 0 0 120px; background: linear-gradient(135deg, #a5d6a7 0%, #66bb6a 100%); padding: 15px; border-radius: 10px; text-align: center; color: white; font-weight: bold;">1939</div>
+                            <div style="flex: 1; padding: 20px; background: #f8f9fa; border-radius: 10px; border-left: 4px solid #66bb6a;">
+                                <strong>R.D. 786/1939</strong><br>
+                                Istituti speciali - Segregazione
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 20px;">
+                            <div style="flex: 0 0 120px; background: linear-gradient(135deg, #fff59d 0%, #fdd835 100%); padding: 15px; border-radius: 10px; text-align: center; color: #333; font-weight: bold;">1962</div>
+                            <div style="flex: 1; padding: 20px; background: #f8f9fa; border-radius: 10px; border-left: 4px solid #fdd835;">
+                                <strong>Legge 1859/1962</strong><br>
+                                Classi differenziali e di aggiornamento
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 20px;">
+                            <div style="flex: 0 0 120px; background: linear-gradient(135deg, #4dd0e1 0%, #0097a7 100%); padding: 15px; border-radius: 10px; text-align: center; color: white; font-weight: bold;">1971</div>
+                            <div style="flex: 1; padding: 20px; background: #f8f9fa; border-radius: 10px; border-left: 4px solid #0097a7;">
+                                <strong>Legge 118/1971</strong><br>
+                                Inserimento scolastico: principio della coeducazione
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 20px;">
+                            <div style="flex: 0 0 120px; background: linear-gradient(135deg, #64b5f6 0%, #1976d2 100%); padding: 15px; border-radius: 10px; text-align: center; color: white; font-weight: bold;">1977</div>
+                            <div style="flex: 1; padding: 20px; background: #f8f9fa; border-radius: 10px; border-left: 4px solid #1976d2;">
+                                <strong>Legge 517/1977</strong><br>
+                                Integrazione scolastica - Insegnante di sostegno - PEI
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 20px;">
+                            <div style="flex: 0 0 120px; background: linear-gradient(135deg, #ba68c8 0%, #8e24aa 100%); padding: 15px; border-radius: 10px; text-align: center; color: white; font-weight: bold;">1992</div>
+                            <div style="flex: 1; padding: 20px; background: #f8f9fa; border-radius: 10px; border-left: 4px solid #8e24aa;">
+                                <strong>Legge 104/1992</strong><br>
+                                Integrazione scolastica, sociale e lavorativa
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 20px;">
+                            <div style="flex: 0 0 120px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 15px; border-radius: 10px; text-align: center; color: white; font-weight: bold;">2001</div>
+                            <div style="flex: 1; padding: 20px; background: #f8f9fa; border-radius: 10px; border-left: 4px solid #764ba2;">
+                                <strong>ICF - OMS</strong><br>
+                                Modello bio-psico-sociale - Funzionamento e possibilità
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>🔄 Evoluzione dei sistemi di classificazione OMS</h3>
+                
+                <div style="display: flex; justify-content: space-around; align-items: center; margin: 30px 0; flex-wrap: wrap; gap: 20px;">
+                    <div style="flex: 1; min-width: 250px; padding: 30px; background: linear-gradient(135deg, #ffe0b2 0%, #ffb74d 100%); border-radius: 15px; text-align: center; box-shadow: 0 6px 20px rgba(0,0,0,0.1);">
+                        <h4 style="font-size: 1.5em; color: #e65100; margin-bottom: 15px;">ICD</h4>
+                        <p style="color: #333;">Classificazione delle malattie</p>
+                    </div>
+
+                    <div style="font-size: 2em; color: #667eea;">→</div>
+
+                    <div style="flex: 1; min-width: 250px; padding: 30px; background: linear-gradient(135deg, #c5cae9 0%, #7986cb 100%); border-radius: 15px; text-align: center; box-shadow: 0 6px 20px rgba(0,0,0,0.1);">
+                        <h4 style="font-size: 1.5em; color: #1a237e; margin-bottom: 15px;">ICD-10</h4>
+                        <p style="color: #333;">Decima edizione della classificazione delle malattie</p>
+                    </div>
+
+                    <div style="font-size: 2em; color: #667eea;">→</div>
+
+                    <div style="flex: 1; min-width: 250px; padding: 30px; background: linear-gradient(135deg, #c8e6c9 0%, #66bb6a 100%); border-radius: 15px; text-align: center; box-shadow: 0 6px 20px rgba(0,0,0,0.1);">
+                        <h4 style="font-size: 1.5em; color: #1b5e20; margin-bottom: 15px;">ICF</h4>
+                        <p style="color: #333;">Classificazione del funzionamento e delle possibilità</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>🧩 Schema dei tre concetti OMS (1980)</h3>
+                
+                <div style="display: flex; justify-content: space-around; align-items: center; margin: 30px 0; flex-wrap: wrap; gap: 15px;">
+                    <div style="flex: 1; min-width: 200px; padding: 25px; background: #ffcdd2; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                        <div style="font-size: 3em; margin-bottom: 10px;">🧬</div>
+                        <h4 style="color: #c62828; font-size: 1.3em; margin-bottom: 10px;">MENOMAZIONE</h4>
+                        <p style="color: #333;">Perdita o anomalia di struttura o funzione</p>
+                    </div>
+
+                    <div style="font-size: 2em; color: #667eea;">⇨</div>
+
+                    <div style="flex: 1; min-width: 200px; padding: 25px; background: #fff9c4; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                        <div style="font-size: 3em; margin-bottom: 10px;">♿</div>
+                        <h4 style="color: #f57f17; font-size: 1.3em; margin-bottom: 10px;">DISABILITÀ</h4>
+                        <p style="color: #333;">Limitazione di capacità</p>
+                    </div>
+
+                    <div style="font-size: 2em; color: #667eea;">⇨</div>
+
+                    <div style="flex: 1; min-width: 200px; padding: 25px; background: #c5e1a5; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                        <div style="font-size: 3em; margin-bottom: 10px;">🚧</div>
+                        <h4 style="color: #33691e; font-size: 1.3em; margin-bottom: 10px;">HANDICAP</h4>
+                        <p style="color: #333;">Svantaggio sociale</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>🌟 Schema ICF (2001) - Modello bio-psico-sociale</h3>
+                
+                <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.1); margin: 30px 0;">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <div style="display: inline-block; padding: 20px 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 15px; font-size: 1.5em; font-weight: bold;">
+                            PERSONA CON CONDIZIONE DI SALUTE
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 30px 0;">
+                        <div style="padding: 20px; background: #e3f2fd; border-radius: 10px; text-align: center; border: 3px solid #2196f3;">
+                            <div style="font-size: 2.5em; margin-bottom: 10px;">🏥</div>
+                            <h4 style="color: #1565c0; margin-bottom: 10px;">FUNZIONI CORPOREE</h4>
+                            <p style="color: #333; font-size: 0.95em;">Funzioni fisiologiche dei sistemi corporei</p>
+                        </div>
+
+                        <div style="padding: 20px; background: #f3e5f5; border-radius: 10px; text-align: center; border: 3px solid #9c27b0;">
+                            <div style="font-size: 2.5em; margin-bottom: 10px;">🎯</div>
+                            <h4 style="color: #6a1b9a; margin-bottom: 10px;">ATTIVITÀ</h4>
+                            <p style="color: #333; font-size: 0.95em;">Esecuzione di compiti o azioni</p>
+                        </div>
+
+                        <div style="padding: 20px; background: #fff3e0; border-radius: 10px; text-align: center; border: 3px solid #ff9800;">
+                            <div style="font-size: 2.5em; margin-bottom: 10px;">👥</div>
+                            <h4 style="color: #e65100; margin-bottom: 10px;">PARTECIPAZIONE</h4>
+                            <p style="color: #333; font-size: 0.95em;">Coinvolgimento in situazioni di vita</p>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 30px; padding: 25px; background: #e8f5e9; border-radius: 10px; border-left: 5px solid #4caf50;">
+                        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                            <div style="font-size: 2em;">🌍</div>
+                            <h4 style="color: #2e7d32; font-size: 1.3em; margin: 0;">FATTORI AMBIENTALI</h4>
+                        </div>
+                        <p style="color: #333;">Ambiente fisico, sociale e degli atteggiamenti in cui le persone vivono e conducono la loro esistenza</p>
+                    </div>
+
+                    <div style="margin-top: 20px; padding: 25px; background: #fce4ec; border-radius: 10px; border-left: 5px solid #e91e63;">
+                        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                            <div style="font-size: 2em;">💭</div>
+                            <h4 style="color: #c2185b; font-size: 1.3em; margin: 0;">FATTORI PERSONALI</h4>
+                        </div>
+                        <p style="color: #333;">Caratteristiche individuali: età, sesso, esperienza, personalità, carattere</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>👨‍👩‍👧‍👦 Schema inclusione scolastica: ruoli e collaborazioni</h3>
+                
+                <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.1);">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <div style="display: inline-block; padding: 20px 40px; background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; border-radius: 50%; font-size: 1.3em; font-weight: bold; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                            STUDENTE<br>CON DISABILITÀ
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                        <div style="padding: 20px; background: #e3f2fd; border-radius: 10px; text-align: center; border-top: 4px solid #2196f3;">
+                            <div style="font-size: 2.5em; margin-bottom: 10px;">👩‍🏫</div>
+                            <h4 style="color: #1565c0;">DOCENTE CURRICOLARE</h4>
+                            <p style="color: #333; font-size: 0.9em; margin-top: 10px;">Insegnamento disciplinare e inclusione nella classe</p>
+                        </div>
+
+                        <div style="padding: 20px; background: #f3e5f5; border-radius: 10px; text-align: center; border-top: 4px solid #9c27b0;">
+                            <div style="font-size: 2.5em; margin-bottom: 10px;">🤝</div>
+                            <h4 style="color: #6a1b9a;">INSEGNANTE DI SOSTEGNO</h4>
+                            <p style="color: #333; font-size: 0.9em; margin-top: 10px;">Supporto specializzato e PEI personalizzato</p>
+                        </div>
+
+                        <div style="padding: 20px; background: #fff3e0; border-radius: 10px; text-align: center; border-top: 4px solid #ff9800;">
+                            <div style="font-size: 2.5em; margin-bottom: 10px;">👨‍💼</div>
+                            <h4 style="color: #e65100;">EDUCATORE</h4>
+                            <p style="color: #333; font-size: 0.9em; margin-top: 10px;">Assistenza educativa e autonomia personale</p>
+                        </div>
+
+                        <div style="padding: 20px; background: #e8f5e9; border-radius: 10px; text-align: center; border-top: 4px solid #4caf50;">
+                            <div style="font-size: 2.5em; margin-bottom: 10px;">👨‍👩‍👧</div>
+                            <h4 style="color: #2e7d32;">FAMIGLIA</h4>
+                            <p style="color: #333; font-size: 0.9em; margin-top: 10px;">Collaborazione attiva e partecipazione al progetto educativo</p>
+                        </div>
+
+                        <div style="padding: 20px; background: #fce4ec; border-radius: 10px; text-align: center; border-top: 4px solid #e91e63;">
+                            <div style="font-size: 2.5em; margin-bottom: 10px;">👥</div>
+                            <h4 style="color: #c2185b;">COMPAGNI DI CLASSE</h4>
+                            <p style="color: #333; font-size: 0.9em; margin-top: 10px;">Peer education e socializzazione</p>
+                        </div>
+
+                        <div style="padding: 20px; background: #e1f5fe; border-radius: 10px; text-align: center; border-top: 4px solid #0097a7;">
+                            <div style="font-size: 2.5em; margin-bottom: 10px;">🏥</div>
+                            <h4 style="color: #00695c;">SERVIZI SANITARI (ASL/UVH)</h4>
+                            <p style="color: #333; font-size: 0.9em; margin-top: 10px;">Valutazione, diagnosi e supporto specialistico</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>📊 Classificazione delle disabilità</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 30px 0;">
+                    <div style="padding: 25px; background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                        <div style="font-size: 3em; text-align: center; margin-bottom: 15px;">🦿</div>
+                        <h4 style="color: #1565c0; text-align: center; margin-bottom: 15px;">DISABILITÀ MOTORIE</h4>
+                        <p style="color: #333; text-align: center;">Interessano la motricità e il funzionamento degli organi e delle parti del corpo utili al movimento</p>
+                    </div>
+
+                    <div style="padding: 25px; background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                        <div style="font-size: 3em; text-align: center; margin-bottom: 15px;">👁️</div>
+                        <h4 style="color: #6a1b9a; text-align: center; margin-bottom: 15px;">DISABILITÀ SENSORIALI</h4>
+                        <p style="color: #333; text-align: center;">Interessano i sensi (vista, udito, tatto, gusto, olfatto)</p>
+                    </div>
+
+                    <div style="padding: 25px; background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                        <div style="font-size: 3em; text-align: center; margin-bottom: 15px;">🧠</div>
+                        <h4 style="color: #e65100; text-align: center; margin-bottom: 15px;">DISABILITÀ INTELLETTIVE</h4>
+                        <p style="color: #333; text-align: center;">Interessano la capacità cognitiva</p>
+                    </div>
+
+                    <div style="padding: 25px; background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                        <div style="font-size: 3em; text-align: center; margin-bottom: 15px;">💭</div>
+                        <h4 style="color: #2e7d32; text-align: center; margin-bottom: 15px;">DISABILITÀ PSICHICHE</h4>
+                        <p style="color: #333; text-align: center;">Interessano i problemi psichici e relazionali (psicosi) e problemi psicologici (nevrosi)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin: 30px 0; text-align: center;">
+                <button class="button" onclick="savePDF('schemi')">💾 Salva in PDF</button>
+                <button class="button secondary" onclick="saveWord('schemi')">📄 Salva in Word</button>
+            </div>
+        </div>
+
+        <!-- TAB 3: ESERCITAZIONI INTERATTIVE -->
+        <div id="esercitazioni" class="tab-content">
+            <h2 class="section-title">✏️ Esercitazioni Interattive</h2>
+
+            <div class="score-display show">
+                🏆 Punteggio: <span id="exerciseScore">0</span>/100
+            </div>
+
+            <!-- Quiz 1: Scelta singola -->
+            <div class="quiz-container">
+                <h3>Quiz 1: Leggi fondamentali</h3>
+                <div class="quiz-question">Quale legge ha introdotto per la prima volta il "principio della coeducazione"?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, false, 'quiz1')">
+                        <span>A)</span> R.D. 786/1939
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false, 'quiz1')">
+                        <span>B)</span> Legge 1859/1962
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true, 'quiz1')">
+                        <span>C)</span> Legge 118/1971
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false, 'quiz1')">
+                        <span>D)</span> Legge 517/1977
+                    </div>
+                </div>
+                <div class="feedback" id="feedback-quiz1"></div>
+            </div>
+
+            <!-- Quiz 2: Scelta singola -->
+            <div class="quiz-container">
+                <h3>Quiz 2: Il PEI</h3>
+                <div class="quiz-question">Quando è stato introdotto il Piano Educativo Individualizzato (PEI)?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, false, 'quiz2')">
+                        <span>A)</span> Con la Legge 118/1971
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true, 'quiz2')">
+                        <span>B)</span> Con la Legge 517/1977
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false, 'quiz2')">
+                        <span>C)</span> Con la Legge 104/1992
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false, 'quiz2')">
+                        <span>D)</span> Con il modello ICF del 2001
+                    </div>
+                </div>
+                <div class="feedback" id="feedback-quiz2"></div>
+            </div>
+
+            <!-- Quiz 3: Scelta multipla -->
+            <div class="quiz-container">
+                <h3>Quiz 3: Caratteristiche dell'inclusione (Scelta Multipla)</h3>
+                <div class="quiz-question">Quali sono gli strumenti introdotti dalla Legge 517/1977? (Seleziona tutte le risposte corrette)</div>
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" data-correct="true" onchange="checkMultipleChoice('quiz3')">
+                        <span>Insegnante di sostegno</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" data-correct="true" onchange="checkMultipleChoice('quiz3')">
+                        <span>Abbattimento barriere architettoniche</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" data-correct="true" onchange="checkMultipleChoice('quiz3')">
+                        <span>Programmazione educativa individualizzata (PEI)</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" data-correct="false" onchange="checkMultipleChoice('quiz3')">
+                        <span>Classi differenziali</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" data-correct="false" onchange="checkMultipleChoice('quiz3')">
+                        <span>Istituti speciali</span>
+                    </label>
+                </div>
+                <div style="margin-top: 20px;">
+                    <button class="button" onclick="checkMultipleChoiceFinal('quiz3')">Verifica risposta</button>
+                </div>
+                <div class="feedback" id="feedback-quiz3"></div>
+            </div>
+
+            <!-- Quiz 4: Vero/Falso -->
+            <div class="quiz-container">
+                <h3>Quiz 4: Vero o Falso</h3>
+                <div class="quiz-question">Il deficit e la disabilità sono la stessa cosa.</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, false, 'quiz4')">
+                        <span>VERO</span>
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true, 'quiz4')">
+                        <span>FALSO</span>
+                    </div>
+                </div>
+                <div class="feedback" id="feedback-quiz4"></div>
+            </div>
+
+            <!-- Quiz 5: Corrispondenze -->
+            <div class="quiz-container">
+                <h3>Quiz 5: Corrispondenze - Definizioni OMS</h3>
+                <div class="quiz-question">Collega i termini con le definizioni corrette (clicca su un termine a sinistra e poi sulla definizione corrispondente a destra)</div>
+                
+                <div class="matching-container">
+                    <div class="matching-column" id="matching-left">
+                        <div class="matching-item" data-id="1" onclick="selectMatching(this, 'left')">
+                            <strong>MENOMAZIONE</strong>
+                        </div>
+                        <div class="matching-item" data-id="2" onclick="selectMatching(this, 'left')">
+                            <strong>DISABILITÀ</strong>
+                        </div>
+                        <div class="matching-item" data-id="3" onclick="selectMatching(this, 'left')">
+                            <strong>HANDICAP</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="matching-column" id="matching-right">
+                        <div class="matching-item" data-id="2" onclick="selectMatching(this, 'right')">
+                            Limitazione di capacità di compiere un'attività
+                        </div>
+                        <div class="matching-item" data-id="1" onclick="selectMatching(this, 'right')">
+                            Perdita o anomalia di struttura o funzione
+                        </div>
+                        <div class="matching-item" data-id="4" onclick="selectMatching(this, 'right')">
+                            <em>Distrattore: Assenza totale di abilità</em>
+                        </div>
+                        <div class="matching-item" data-id="3" onclick="selectMatching(this, 'right')">
+                            Condizione di svantaggio sociale
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px;">
+                    <button class="button" onclick="resetMatching()">Ricomincia</button>
+                    <button class="button success" onclick="checkMatching()">Verifica</button>
+                </div>
+                <div class="feedback" id="feedback-matching"></div>
+            </div>
+
+            <!-- Quiz 6: Sequenziamento -->
+            <div class="quiz-container">
+                <h3>Quiz 6: Sequenziamento - Ordina le tappe legislative</h3>
+                <div class="quiz-question">Trascina le leggi nell'ordine cronologico corretto (dal più antico al più recente)</div>
+                
+                <div class="sequence-container" id="sequence-container">
+                    <div class="sequence-item" draggable="true" data-order="4">
+                        Legge 104/1992 - Integrazione scolastica, sociale e lavorativa
+                    </div>
+                    <div class="sequence-item" draggable="true" data-order="2">
+                        Legge 118/1971 - Principio della coeducazione
+                    </div>
+                    <div class="sequence-item" draggable="true" data-order="1">
+                        R.D. 786/1939 - Istituti speciali
+                    </div>
+                    <div class="sequence-item" draggable="true" data-order="3">
+                        Legge 517/1977 - Integrazione scolastica e PEI
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px;">
+                    <button class="button" onclick="checkSequence()">Verifica ordine</button>
+                </div>
+                <div class="feedback" id="feedback-sequence"></div>
+            </div>
+
+            <!-- Quiz 7: Completamento frasi (Cloze) -->
+            <div class="quiz-container">
+                <h3>Quiz 7: Completamento frasi</h3>
+                <div class="quiz-question">Completa le frasi inserendo le parole mancanti</div>
+                
+                <div style="margin: 30px 0;">
+                    <div class="cloze-sentence">
+                        La Legge <input type="text" class="cloze-input" data-answer="517" id="cloze1" style="width: 80px;"> del 1977 ha introdotto il diritto all'<input type="text" class="cloze-input" data-answer="integrazione" id="cloze2" style="width: 150px;"> scolastica.
+                    </div>
+                    
+                    <div class="cloze-sentence">
+                        Il modello <input type="text" class="cloze-input" data-answer="icf" id="cloze3" style="width: 80px;"> dell'OMS si basa su una prospettiva <input type="text" class="cloze-input" data-answer="biopsicosociale" id="cloze4" style="width: 180px;">.
+                    </div>
+                    
+                    <div class="cloze-sentence">
+                        Il <input type="text" class="cloze-input" data-answer="pei" id="cloze5" style="width: 80px;"> è il Piano Educativo <input type="text" class="cloze-input" data-answer="individualizzato" id="cloze6" style="width: 180px;">.
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px;">
+                    <button class="button" onclick="checkCloze()">Verifica risposte</button>
+                </div>
+                <div class="feedback" id="feedback-cloze"></div>
+            </div>
+
+            <!-- Mini-caso decisionale -->
+            <div class="quiz-container">
+                <h3>Mini-caso decisionale</h3>
+                <div class="case-scenario">
+                    <p><strong>Scenario:</strong> Sei un insegnante di sostegno in una scuola primaria. Noti che nell'edificio scolastico ci sono diverse barriere architettoniche che impediscono l'accesso autonomo di uno studente con disabilità motoria.</p>
+                </div>
+                <div class="quiz-question">Qual è l'azione più appropriata che dovresti intraprendere?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, false, 'minicase')">
+                        <span>A)</span> Ignorare il problema perché non è di tua competenza
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false, 'minicase')">
+                        <span>B)</span> Chiedere ai genitori dello studente di provvedere personalmente
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true, 'minicase')">
+                        <span>C)</span> Segnalare immediatamente al dirigente scolastico, citando la Legge 517/1977 e la Legge 104/1992 che garantiscono l'abbattimento delle barriere architettoniche
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false, 'minicase')">
+                        <span>D)</span> Aiutare personalmente lo studente senza coinvolgere la dirigenza
+                    </div>
+                </div>
+                <div class="feedback" id="feedback-minicase"></div>
+            </div>
+
+            <div style="margin: 30px 0; text-align: center;">
+                <button class="button" onclick="resetExercises()">🔄 Reset Esercizi</button>
+                <button class="button" onclick="savePDF('esercitazioni')">💾 Salva in PDF</button>
+                <button class="button secondary" onclick="saveWord('esercitazioni')">📄 Salva in Word</button>
+            </div>
+        </div>
+
+        <!-- TAB 4: COMPITI -->
+        <div id="compiti" class="tab-content">
+            <h2 class="section-title">📝 Compiti - Domande aperte e riflessioni</h2>
+
+            <div class="subsection">
+                <h3>Informazioni studente</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 20px 0;">
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #667eea;">Nome e Cognome *</label>
+                        <input type="text" id="studentName" class="input-field" placeholder="Inserisci nome e cognome" required>
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #667eea;">Classe *</label>
+                        <input type="text" id="studentClass" class="input-field" placeholder="Es: 3A" required>
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #667eea;">Data *</label>
+                        <input type="date" id="assignmentDate" class="input-field" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Domande aperte</h3>
+                <p style="color: #666; margin-bottom: 20px;">Rispondi in modo approfondito alle seguenti domande, utilizzando la terminologia appropriata e facendo riferimento alle leggi e ai concetti studiati.</p>
+
+                <div style="margin: 30px 0;">
+                    <label style="display: block; margin-bottom: 10px; font-weight: bold; font-size: 1.1em; color: #667eea;">
+                        1. Descrivi come è cambiato nel tempo il concetto di disabilità, dalla segregazione all'integrazione sociale.
+                    </label>
+                    <textarea id="answer1" class="textarea-field" placeholder="Scrivi qui la tua risposta..."></textarea>
+                </div>
+
+                <div style="margin: 30px 0;">
+                    <label style="display: block; margin-bottom: 10px; font-weight: bold; font-size: 1.1em; color: #667eea;">
+                        2. Qual è il significato educativo della Legge 517/1977? Quali strumenti ha introdotto per favorire l'integrazione scolastica?
+                    </label>
+                    <textarea id="answer2" class="textarea-field" placeholder="Scrivi qui la tua risposta..."></textarea>
+                </div>
+
+                <div style="margin: 30px 0;">
+                    <label style="display: block; margin-bottom: 10px; font-weight: bold; font-size: 1.1em; color: #667eea;">
+                        3. Spiega la differenza tra deficit, disabilità e handicap, facendo degli esempi concreti.
+                    </label>
+                    <textarea id="answer3" class="textarea-field" placeholder="Scrivi qui la tua risposta..."></textarea>
+                </div>
+
+                <div style="margin: 30px 0;">
+                    <label style="display: block; margin-bottom: 10px; font-weight: bold; font-size: 1.1em; color: #667eea;">
+                        4. Quali sono le caratteristiche del Piano Educativo Individualizzato (PEI)? Qual è la differenza tra PEI semplificato e PEI diversificato?
+                    </label>
+                    <textarea id="answer4" class="textarea-field" placeholder="Scrivi qui la tua risposta..."></textarea>
+                </div>
+
+                <div style="margin: 30px 0;">
+                    <label style="display: block; margin-bottom: 10px; font-weight: bold; font-size: 1.1em; color: #667eea;">
+                        5. In che modo l'ICF (International Classification of Functioning) ha innovato la visione della persona con disabilità? Quali sono i principi del modello bio-psico-sociale?
+                    </label>
+                    <textarea id="answer5" class="textarea-field" placeholder="Scrivi qui la tua risposta..."></textarea>
+                </div>
+            </div>
+
+            <div style="margin: 30px 0; text-align: center;">
+                <button class="button success" onclick="submitAssignment()">✅ Consegna Compito</button>
+                <button class="button" onclick="savePDF('compiti')">💾 Salva in PDF</button>
+                <button class="button secondary" onclick="saveWord('compiti')">📄 Salva in Word</button>
+            </div>
+
+            <div class="notification" id="assignment-notification">
+                <h3 style="color: #4caf50; margin-bottom: 10px;">✅ Compito consegnato!</h3>
+                <p>Il tuo compito è stato salvato con successo.</p>
+            </div>
+        </div>
+
+        <!-- TAB 5: BANCA CASI -->
+        <div id="bancacasi" class="tab-content">
+            <h2 class="section-title">💼 Banca Casi - Analisi situazionale e compiti autentici</h2>
+
+            <p style="font-size: 1.1em; color: #666; margin-bottom: 30px;">
+                In questa sezione troverai casi realistici che simulano situazioni professionali. Ogni caso include domande, attività interattive e una rubrica valutativa automatica.
+            </p>
+
+            <!-- CASO 1 -->
+            <div class="case-study" id="case1">
+                <h3>📚 Caso 1: L'inclusione di Marco nella scuola primaria</h3>
+                
+                <div class="case-scenario">
+                    <p><strong>🎯 Tema chiave:</strong> PEI, collaborazione docente di sostegno</p>
+                    
+                    <p><strong>📋 Scenario:</strong></p>
+                    <p>Marco ha 7 anni e frequenta la seconda classe della scuola primaria. Gli è stato diagnosticato un disturbo dello spettro autistico di livello lieve. Marco ha difficoltà nelle interazioni sociali e mostra comportamenti ripetitivi, ma possiede buone capacità cognitive.</p>
+                    
+                    <p><strong>👥 Contesto:</strong> Scuola primaria statale, classe di 22 alunni, presenza di insegnante di sostegno per 12 ore settimanali</p>
+                    
+                    <p><strong>🎯 Bisogni identificati:</strong></p>
+                    <ul class="list-styled">
+                        <li>Supporto nelle relazioni con i compagni</li>
+                        <li>Strutturazione dell'ambiente e delle routine</li>
+                        <li>Sviluppo dell'autonomia personale</li>
+                        <li>Gestione di situazioni non prevedibili</li>
+                    </ul>
+                </div>
+
+                <!-- Domanda 1 -->
+                <div class="quiz-container">
+                    <div class="quiz-question">1. Quale strategia didattica è più adeguata per favorire l'inclusione di Marco?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case1q1', 1)">
+                            <span>A)</span> Isolare Marco in un'aula separata per evitare distrazioni
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, true, 'case1q1', 1)">
+                            <span>B)</span> Creare routine strutturate e prevedibili, utilizzando supporti visivi e favorendo l'interazione guidata con i compagni
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case1q1', 1)">
+                            <span>C)</span> Lasciare che Marco segua solo le sue preferenze senza guidarlo nelle attività di classe
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case1q1', 1)">
+                            <span>D)</span> Ridurre al minimo la sua partecipazione alle attività collettive
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback-case1q1"></div>
+                </div>
+
+                <!-- Domanda 2 -->
+                <div class="quiz-container">
+                    <div class="quiz-question">2. Nel PEI di Marco, quale obiettivo NON sarebbe appropriato?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case1q2', 1)">
+                            <span>A)</span> Sviluppare competenze di base per l'interazione sociale
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case1q2', 1)">
+                            <span>B)</span> Gestire autonomamente le routine quotidiane
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, true, 'case1q2', 1)">
+                            <span>C)</span> Eliminare completamente i comportamenti ripetitivi entro la fine dell'anno
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case1q2', 1)">
+                            <span>D)</span> Migliorare la comunicazione e l'espressione delle emozioni
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback-case1q2"></div>
+                </div>
+
+                <!-- Risposta breve -->
+                <div class="quiz-container">
+                    <div class="quiz-question">3. Descrivi brevemente come l'insegnante di sostegno e il docente curricolare dovrebbero collaborare per il successo educativo di Marco.</div>
+                    <textarea id="case1-response" class="textarea-field" placeholder="Scrivi qui la tua risposta..." style="min-height: 120px;"></textarea>
+                </div>
+
+                <!-- Rubrica valutativa -->
+                <div style="margin: 30px 0;">
+                    <h4 style="color: #667eea; font-size: 1.3em; margin-bottom: 20px;">📊 Rubrica Valutativa</h4>
+                    <table class="rubric-table">
+                        <thead>
+                            <tr>
+                                <th>Criterio</th>
+                                <th>Descrizione</th>
+                                <th>Punti</th>
+                                <th>Punteggio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Analisi della situazione</strong></td>
+                                <td>Comprensione del caso e identificazione dei bisogni</td>
+                                <td>0-5</td>
+                                <td><span class="score-badge" id="case1-score-analysis">0</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Coerenza normativa</strong></td>
+                                <td>Riferimenti corretti a leggi e modelli</td>
+                                <td>0-5</td>
+                                <td><span class="score-badge" id="case1-score-coherence">0</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Proposta d'intervento</strong></td>
+                                <td>Qualità e fattibilità della soluzione</td>
+                                <td>0-5</td>
+                                <td><span class="score-badge" id="case1-score-proposal">0</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lessico tecnico</strong></td>
+                                <td>Uso appropriato di terminologia specifica</td>
+                                <td>0-3</td>
+                                <td><span class="score-badge" id="case1-score-lexicon">0</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dimensione etica</strong></td>
+                                <td>Rispetto dei diritti, autonomia, partecipazione</td>
+                                <td>0-2</td>
+                                <td><span class="score-badge" id="case1-score-ethics">0</span></td>
+                            </tr>
+                            <tr style="background: #f0f0f0; font-weight: bold;">
+                                <td colspan="3" style="text-align: right;">TOTALE:</td>
+                                <td><span class="score-badge" id="case1-total-score" style="font-size: 1.3em;">0/20</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="text-align: center; margin: 20px 0;">
+                    <button class="button success" onclick="evaluateCase(1)">✅ Valuta Caso</button>
+                    <button class="button" onclick="savePDF('case1')">💾 Salva in PDF</button>
+                </div>
+            </div>
+
+            <!-- CASO 2 -->
+            <div class="case-study" id="case2">
+                <h3>🏛️ Caso 2: Accessibilità e barriere architettoniche</h3>
+                
+                <div class="case-scenario">
+                    <p><strong>🎯 Tema chiave:</strong> Diritto all'inclusione e abbattimento barriere</p>
+                    
+                    <p><strong>📋 Scenario:</strong></p>
+                    <p>Sofia ha 14 anni e frequenta la terza media. A seguito di un incidente, utilizza una sedia a rotelle. La scuola è un edificio storico con diverse barriere architettoniche: scale senza rampe, bagni non accessibili, laboratori al piano superiore senza ascensore.</p>
+                    
+                    <p><strong>👥 Contesto:</strong> Scuola secondaria di primo grado, edificio storico vincolato</p>
+                    
+                    <p><strong>🎯 Problematiche:</strong></p>
+                    <ul class="list-styled">
+                        <li>Impossibilità di accedere autonomamente ai laboratori</li>
+                        <li>Bagni non attrezzati</li>
+                        <li>Aule al secondo piano senza ascensore</li>
+                        <li>Cortile con pavimentazione irregolare</li>
+                    </ul>
+                </div>
+
+                <div class="quiz-container">
+                    <div class="quiz-question">1. Quale legge tutela principalmente il diritto all'accessibilità degli ambienti scolastici?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case2q1', 2)">
+                            <span>A)</span> Legge 118/1971
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, true, 'case2q1', 2)">
+                            <span>B)</span> Legge 517/1977 e Legge 104/1992
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case2q1', 2)">
+                            <span>C)</span> Solo il Codice Civile
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case2q1', 2)">
+                            <span>D)</span> Non esiste una legge specifica
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback-case2q1"></div>
+                </div>
+
+                <div class="quiz-container">
+                    <div class="quiz-question">2. Chi ha la responsabilità primaria di intervenire per abbattere le barriere architettoniche nella scuola?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case2q2', 2)">
+                            <span>A)</span> La famiglia di Sofia
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case2q2', 2)">
+                            <span>B)</span> Il docente di sostegno
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, true, 'case2q2', 2)">
+                            <span>C)</span> L'ente proprietario dell'edificio (Comune/Provincia) in collaborazione con la scuola
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case2q2', 2)">
+                            <span>D)</span> È responsabilità esclusiva della scuola
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback-case2q2"></div>
+                </div>
+
+                <div class="quiz-container">
+                    <div class="quiz-question">3. Proponi soluzioni concrete e fattibili per garantire l'accessibilità di Sofia, considerando che l'edificio è vincolato.</div>
+                    <textarea id="case2-response" class="textarea-field" placeholder="Scrivi qui la tua risposta..." style="min-height: 120px;"></textarea>
+                </div>
+
+                <div style="margin: 30px 0;">
+                    <h4 style="color: #667eea; font-size: 1.3em; margin-bottom: 20px;">📊 Rubrica Valutativa</h4>
+                    <table class="rubric-table">
+                        <thead>
+                            <tr>
+                                <th>Criterio</th>
+                                <th>Punti</th>
+                                <th>Punteggio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Analisi della situazione</strong></td>
+                                <td>0-5</td>
+                                <td><span class="score-badge" id="case2-score-analysis">0</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Coerenza normativa</strong></td>
+                                <td>0-5</td>
+                                <td><span class="score-badge" id="case2-score-coherence">0</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Proposta d'intervento</strong></td>
+                                <td>0-5</td>
+                                <td><span class="score-badge" id="case2-score-proposal">0</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lessico tecnico</strong></td>
+                                <td>0-3</td>
+                                <td><span class="score-badge" id="case2-score-lexicon">0</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dimensione etica</strong></td>
+                                <td>0-2</td>
+                                <td><span class="score-badge" id="case2-score-ethics">0</span></td>
+                            </tr>
+                            <tr style="background: #f0f0f0; font-weight: bold;">
+                                <td style="text-align: right;">TOTALE:</td>
+                                <td colspan="2"><span class="score-badge" id="case2-total-score" style="font-size: 1.3em;">0/20</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="text-align: center; margin: 20px 0;">
+                    <button class="button success" onclick="evaluateCase(2)">✅ Valuta Caso</button>
+                    <button class="button" onclick="savePDF('case2')">💾 Salva in PDF</button>
+                </div>
+            </div>
+
+            <!-- CASO 3 -->
+            <div class="case-study" id="case3">
+                <h3>📖 Caso 3: Da classe speciale a classe inclusiva - L'evoluzione normativa</h3>
+                
+                <div class="case-scenario">
+                    <p><strong>🎯 Tema chiave:</strong> Evoluzione normativa (Legge 118/1971 e 517/1977)</p>
+                    
+                    <p><strong>📋 Scenario storico:</strong></p>
+                    <p>Negli anni '60, Luca, un bambino con disabilità intellettiva lieve, veniva inserito in una "classe differenziale" separata dai compagni. Nel 1978, dopo l'approvazione della Legge 517/1977, la stessa scuola ha cambiato completamente approccio.</p>
+                    
+                    <p><strong>📚 Contesto di riflessione:</strong></p>
+                    <p>Analizza il passaggio storico dalla segregazione all'integrazione, confrontando i due periodi e le rispettive normative.</p>
+                </div>
+
+                <div class="quiz-container">
+                    <div class="quiz-question">1. Quale principio ha introdotto la Legge 118/1971?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case3q1', 3)">
+                            <span>A)</span> Principio della segregazione educativa
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, true, 'case3q1', 3)">
+                            <span>B)</span> Principio della coeducazione
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case3q1', 3)">
+                            <span>C)</span> Principio dell'esclusione scolastica
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case3q1', 3)">
+                            <span>D)</span> Principio della differenziazione per livelli
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback-case3q1"></div>
+                </div>
+
+                <div class="quiz-container">
+                    <div class="quiz-question">2. Perché la Legge 118/1971, pur essendo innovativa, fu considerata un "inserimento selvaggio"?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case3q2', 3)">
+                            <span>A)</span> Perché introdusse nuove tasse per le famiglie
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, true, 'case3q2', 3)">
+                            <span>B)</span> Perché inserì i bambini con disabilità nelle classi senza fornire strumenti adeguati di supporto
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case3q2', 3)">
+                            <span>C)</span> Perché obbligò le famiglie a mandare i figli a scuola
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case3q2', 3)">
+                            <span>D)</span> Perché ridusse gli orari scolastici
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback-case3q2"></div>
+                </div>
+
+                <div class="quiz-container">
+                    <div class="quiz-question">3. Confronta i due approcci educativi (classi differenziali vs. integrazione) e spiega quali strumenti ha introdotto la Legge 517/1977 per rendere l'integrazione davvero efficace.</div>
+                    <textarea id="case3-response" class="textarea-field" placeholder="Scrivi qui la tua risposta..." style="min-height: 150px;"></textarea>
+                </div>
+
+                <div style="margin: 30px 0;">
+                    <h4 style="color: #667eea; font-size: 1.3em; margin-bottom: 20px;">📊 Rubrica Valutativa</h4>
+                    <table class="rubric-table">
+                        <thead>
+                            <tr>
+                                <th>Criterio</th>
+                                <th>Punti</th>
+                                <th>Punteggio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Analisi della situazione</strong></td>
+                                <td>0-5</td>
+                                <td><span class="score-badge" id="case3-score-analysis">0</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Coerenza normativa</strong></td>
+                                <td>0-5</td>
+                                <td><span class="score-badge" id="case3-score-coherence">0</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Proposta d'intervento</strong></td>
+                                <td>0-5</td>
+                                <td><span class="score-badge" id="case3-score-proposal">0</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lessico tecnico</strong></td>
+                                <td>0-3</td>
+                                <td><span class="score-badge" id="case3-score-lexicon">0</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dimensione etica</strong></td>
+                                <td>0-2</td>
+                                <td><span class="score-badge" id="case3-score-ethics">0</span></td>
+                            </tr>
+                            <tr style="background: #f0f0f0; font-weight: bold;">
+                                <td style="text-align: right;">TOTALE:</td>
+                                <td colspan="2"><span class="score-badge" id="case3-total-score" style="font-size: 1.3em;">0/20</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="text-align: center; margin: 20px 0;">
+                    <button class="button success" onclick="evaluateCase(3)">✅ Valuta Caso</button>
+                    <button class="button" onclick="savePDF('case3')">💾 Salva in PDF</button>
+                </div>
+            </div>
+
+            <!-- CASO 4 -->
+            <div class="case-study" id="case4">
+                <h3>🎨 Caso 4: Giulia e le attività manuali-ludico-creative</h3>
+                
+                <div class="case-scenario">
+                    <p><strong>🎯 Tema chiave:</strong> Disabilità motoria - Sviluppo attività manuali-ludico-creative</p>
+                    
+                    <p><strong>📋 Scenario:</strong></p>
+                    <p>Giulia ha 10 anni e presenta una disabilità motoria agli arti superiori a causa di una paralisi cerebrale infantile. Ha difficoltà nella motricità fine e nella coordinazione mano-occhio, ma possiede buone capacità cognitive e comunicative. Frequenta la quinta elementare e mostra grande interesse per le attività creative.</p>
+                    
+                    <p><strong>👥 Contesto:</strong> Scuola primaria, laboratorio di attività espressive e creative</p>
+                    
+                    <p><strong>🎯 Bisogni identificati:</strong></p>
+                    <ul class="list-styled">
+                        <li>Sviluppare la motricità fine residua</li>
+                        <li>Migliorare la coordinazione oculo-manuale</li>
+                        <li>Favorire l'autonomia nelle attività quotidiane</li>
+                        <li>Promuovere l'espressione creativa e l'autostima</li>
+                        <li>Integrare Giulia nelle attività di gruppo</li>
+                    </ul>
+                </div>
+
+                <!-- Domanda 1 -->
+                <div class="quiz-container">
+                    <div class="quiz-question">1. Quale tra queste attività manuali-ludico-creative è MENO appropriata per Giulia?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case4q1', 4)">
+                            <span>A)</span> Manipolazione di pasta di sale, das o argilla con strumenti adattati
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case4q1', 4)">
+                            <span>B)</span> Pittura con pennelli ergonomici e timbri di varie dimensioni
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, true, 'case4q1', 4)">
+                            <span>C)</span> Cucito tradizionale con ago e filo sottile senza adattamenti
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case4q1', 4)">
+                            <span>D)</span> Collage con materiali diversi (carta, stoffa, materiali naturali) e colla stick
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback-case4q1"></div>
+                </div>
+
+                <!-- Domanda 2 -->
+                <div class="quiz-container">
+                    <div class="quiz-question">2. Quali sono gli obiettivi principali delle attività manuali-creative per bambini con disabilità motoria? (Seleziona tutte le risposte corrette)</div>
+                    <div class="checkbox-group" id="case4q2">
+                        <label class="checkbox-label">
+                            <input type="checkbox" data-correct="true" onchange="checkMultipleChoice('case4q2')">
+                            <span>Sviluppare la motricità fine e la coordinazione</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" data-correct="true" onchange="checkMultipleChoice('case4q2')">
+                            <span>Favorire l'espressione emotiva e la creatività</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" data-correct="false" onchange="checkMultipleChoice('case4q2')">
+                            <span>Isolare il bambino per concentrarsi meglio</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" data-correct="true" onchange="checkMultipleChoice('case4q2')">
+                            <span>Promuovere l'inclusione e la socializzazione</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" data-correct="true" onchange="checkMultipleChoice('case4q2')">
+                            <span>Aumentare l'autostima e il senso di efficacia</span>
+                        </label>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <button class="button" onclick="checkMultipleChoiceFinal('case4q2')">Verifica risposta</button>
+                    </div>
+                    <div class="feedback" id="feedback-case4q2"></div>
+                </div>
+
+                <!-- Risposta breve -->
+                <div class="quiz-container">
+                    <div class="quiz-question">3. Proponi 5 attività manuali-ludico-creative concrete e fattibili per Giulia, specificando per ciascuna: materiali necessari, adattamenti specifici per la sua disabilità motoria, e obiettivi educativi.</div>
+                    <textarea id="case4-response" class="textarea-field" placeholder="Esempio: 1) PITTURA CON SPUGNE - Materiali: tempere, spugne di varie dimensioni con manici ergonomici... Adattamenti: uso di supporti per stabilizzare il foglio... Obiettivi: sviluppo prensione, coordinazione, espressione creativa..." style="min-height: 200px;"></textarea>
+                </div>
+
+                <!-- Rubrica valutativa -->
+                <div style="margin: 30px 0;">
+                    <h4 style="color: #667eea; font-size: 1.3em; margin-bottom: 20px;">📊 Rubrica Valutativa</h4>
+                    <table class="rubric-table">
+                        <thead>
+                            <tr>
+                                <th>Criterio</th>
+                                <th>Descrizione</th>
+                                <th>Punti</th>
+                                <th>Punteggio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Analisi della situazione</strong></td>
+                                <td>Comprensione dei bisogni motori e creativi</td>
+                                <td>0-5</td>
+                                <td><span class="score-badge" id="case4-score-analysis">0</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Coerenza metodologica</strong></td>
+                                <td>Adattamenti appropriati per disabilità motoria</td>
+                                <td>0-5</td>
+                                <td><span class="score-badge" id="case4-score-coherence">0</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Proposta d'intervento</strong></td>
+                                <td>Concretezza e fattibilità delle attività proposte</td>
+                                <td>0-5</td>
+                                <td><span class="score-badge" id="case4-score-proposal">0</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lessico tecnico</strong></td>
+                                <td>Terminologia appropriata (motricità fine, coordinazione, ecc.)</td>
+                                <td>0-3</td>
+                                <td><span class="score-badge" id="case4-score-lexicon">0</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dimensione inclusiva</strong></td>
+                                <td>Attenzione a creatività, autonomia e partecipazione</td>
+                                <td>0-2</td>
+                                <td><span class="score-badge" id="case4-score-ethics">0</span></td>
+                            </tr>
+                            <tr style="background: #f0f0f0; font-weight: bold;">
+                                <td colspan="3" style="text-align: right;">TOTALE:</td>
+                                <td><span class="score-badge" id="case4-total-score" style="font-size: 1.3em;">0/20</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="text-align: center; margin: 20px 0;">
+                    <button class="button success" onclick="evaluateCase(4)">✅ Valuta Caso</button>
+                    <button class="button" onclick="savePDF('case4')">💾 Salva in PDF</button>
+                </div>
+            </div>
+
+            <!-- CASO 5 -->
+            <div class="case-study" id="case5">
+                <h3>👁️ Caso 5: Roberto - Disabilità visiva con capacità intatte</h3>
+                
+                <div class="case-scenario">
+                    <p><strong>🎯 Tema chiave:</strong> Disabilità visiva - Valorizzazione capacità residue e alternative sensoriali</p>
+                    
+                    <p><strong>📋 Scenario:</strong></p>
+                    <p>Roberto ha 16 anni e presenta cecità totale dalla nascita. Frequenta il terzo anno dell'istituto socio-sanitario. Ha ottime capacità cognitive, eccellente memoria uditiva, sviluppato senso tattile e grande motivazione allo studio. Utilizza il sistema Braille e ausili tecnologici (screen reader, display braille).</p>
+                    
+                    <p><strong>👥 Contesto:</strong> Istituto tecnico settore socio-sanitario, classe di 24 studenti</p>
+                    
+                    <p><strong>🎯 Capacità intatte e punti di forza:</strong></p>
+                    <ul class="list-styled">
+                        <li>Capacità cognitive nella norma/superiori alla media</li>
+                        <li>Eccellente memoria uditiva e verbale</li>
+                        <li>Sviluppato senso tattile e propriocettivo</li>
+                        <li>Ottime competenze nell'uso di ausili tecnologici</li>
+                        <li>Buone capacità relazionali e sociali</li>
+                        <li>Autonomia negli spostamenti con bastone bianco</li>
+                    </ul>
+                    
+                    <p><strong>⚠️ Necessità:</strong></p>
+                    <ul class="list-styled">
+                        <li>Materiali didattici accessibili (Braille, audio, tattili)</li>
+                        <li>Adattamento immagini e grafici con descrizioni verbali dettagliate</li>
+                        <li>Software di sintesi vocale per computer</li>
+                        <li>Collaborazione con compagni per attività visuo-spaziali</li>
+                    </ul>
+                </div>
+
+                <!-- Domanda 1 -->
+                <div class="quiz-container">
+                    <div class="quiz-question">1. In una lezione di anatomia con immagini del corpo umano, quale strategia didattica è più efficace per Roberto?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case5q1', 5)">
+                            <span>A)</span> Saltare completamente la lezione poiché si basa su immagini
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case5q1', 5)">
+                            <span>B)</span> Far descrivere le immagini solo verbalmente dal docente
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, true, 'case5q1', 5)">
+                            <span>C)</span> Utilizzare modelli anatomici tridimensionali tattili, descrizioni verbali dettagliate e mappe tattili in rilievo
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case5q1', 5)">
+                            <span>D)</span> Dargli solo il libro in formato audio senza supporti aggiuntivi
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback-case5q1"></div>
+                </div>
+
+                <!-- Domanda 2 -->
+                <div class="quiz-container">
+                    <div class="quiz-question">2. Quale tra queste NON è una strategia appropriata per valorizzare le capacità intatte di Roberto?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case5q2', 5)">
+                            <span>A)</span> Utilizzare la sua eccellente memoria uditiva con lezioni registrate e podcast
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case5q2', 5)">
+                            <span>B)</span> Coinvolgerlo in presentazioni orali dove può eccellere
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, true, 'case5q2', 5)">
+                            <span>C)</span> Ridurre gli obiettivi didattici perché non può vedere
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case5q2', 5)">
+                            <span>D)</span> Fornire materiali in Braille e utilizzare tecnologie assistive
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback-case5q2"></div>
+                </div>
+
+                <!-- Domanda 3 -->
+                <div class="quiz-container">
+                    <div class="quiz-question">3. Quali ausili tecnologici possono facilitare l'apprendimento di Roberto? (Seleziona tutte le risposte corrette)</div>
+                    <div class="checkbox-group" id="case5q3">
+                        <label class="checkbox-label">
+                            <input type="checkbox" data-correct="true" onchange="checkMultipleChoice('case5q3')">
+                            <span>Screen reader (lettore di schermo con sintesi vocale)</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" data-correct="true" onchange="checkMultipleChoice('case5q3')">
+                            <span>Display Braille aggiornabile</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" data-correct="true" onchange="checkMultipleChoice('case5q3')">
+                            <span>Registratore digitale per le lezioni</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" data-correct="false" onchange="checkMultipleChoice('case5q3')">
+                            <span>Occhiali speciali per vedere al buio</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" data-correct="true" onchange="checkMultipleChoice('case5q3')">
+                            <span>Software di riconoscimento ottico dei caratteri (OCR)</span>
+                        </label>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <button class="button" onclick="checkMultipleChoiceFinal('case5q3')">Verifica risposta</button>
+                    </div>
+                    <div class="feedback" id="feedback-case5q3"></div>
+                </div>
+
+                <!-- Risposta breve -->
+                <div class="quiz-container">
+                    <div class="quiz-question">4. Progetta un percorso didattico inclusivo per Roberto nella tua disciplina (Metodologie Operative), specificando: materiali adattati, strategie didattiche, valorizzazione delle sue capacità intatte, e modalità di verifica accessibili.</div>
+                    <textarea id="case5-response" class="textarea-field" placeholder="Scrivi qui il tuo percorso didattico..." style="min-height: 200px;"></textarea>
+                </div>
+
+                <!-- Rubrica valutativa -->
+                <div style="margin: 30px 0;">
+                    <h4 style="color: #667eea; font-size: 1.3em; margin-bottom: 20px;">📊 Rubrica Valutativa</h4>
+                    <table class="rubric-table">
+                        <thead>
+                            <tr>
+                                <th>Criterio</th>
+                                <th>Descrizione</th>
+                                <th>Punti</th>
+                                <th>Punteggio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Analisi della situazione</strong></td>
+                                <td>Riconoscimento capacità intatte e compensatorie</td>
+                                <td>0-5</td>
+                                <td><span class="score-badge" id="case5-score-analysis">0</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Coerenza metodologica</strong></td>
+                                <td>Uso appropriato di ausili e strategie alternative</td>
+                                <td>0-5</td>
+                                <td><span class="score-badge" id="case5-score-coherence">0</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Proposta d'intervento</strong></td>
+                                <td>Qualità del percorso didattico inclusivo</td>
+                                <td>0-5</td>
+                                <td><span class="score-badge" id="case5-score-proposal">0</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lessico tecnico</strong></td>
+                                <td>Terminologia specifica (Braille, screen reader, tattile, ecc.)</td>
+                                <td>0-3</td>
+                                <td><span class="score-badge" id="case5-score-lexicon">0</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dimensione inclusiva</strong></td>
+                                <td>Valorizzazione potenzialità e pari opportunità</td>
+                                <td>0-2</td>
+                                <td><span class="score-badge" id="case5-score-ethics">0</span></td>
+                            </tr>
+                            <tr style="background: #f0f0f0; font-weight: bold;">
+                                <td colspan="3" style="text-align: right;">TOTALE:</td>
+                                <td><span class="score-badge" id="case5-total-score" style="font-size: 1.3em;">0/20</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="text-align: center; margin: 20px 0;">
+                    <button class="button success" onclick="evaluateCase(5)">✅ Valuta Caso</button>
+                    <button class="button" onclick="savePDF('case5')">💾 Salva in PDF</button>
+                </div>
+            </div>
+
+            <!-- CASO 6 -->
+            <div class="case-study" id="case6">
+                <h3>👴 Caso 6: Il Signor Giuseppe - Disabilità senile e mantenimento capacità residue</h3>
+                
+                <div class="case-scenario">
+                    <p><strong>🎯 Tema chiave:</strong> Invecchiamento - Mantenimento capacità residue e qualità della vita</p>
+                    
+                    <p><strong>📋 Scenario:</strong></p>
+                    <p>Il Signor Giuseppe ha 82 anni e vive in una RSA (Residenza Sanitaria Assistenziale). Presenta un declino cognitivo lieve, ridotta mobilità dovuta a artrosi, deficit uditivo moderato e lieve deterioramento della vista. È vedovo da 3 anni e ha due figli che lo visitano settimanalmente.</p>
+                    
+                    <p><strong>👥 Contesto:</strong> RSA con servizio socio-sanitario integrato, équipe multidisciplinare</p>
+                    
+                    <p><strong>📊 Valutazione iniziale UVH:</strong></p>
+                    <ul class="list-styled">
+                        <li><strong>Autonomia:</strong> Parziale (bisogno di aiuto per igiene personale e vestizione)</li>
+                        <li><strong>Mobilità:</strong> Deambulazione con deambulatore, rischio cadute</li>
+                        <li><strong>Cognitivo:</strong> Orientamento spazio-temporale conservato, memoria a breve termine ridotta</li>
+                        <li><strong>Relazionale:</strong> Tendenza all'isolamento, scarsa partecipazione attività</li>
+                        <li><strong>Capacità residue:</strong> Mantiene interesse per la natura, ricordi del passato ben conservati, capacità manuali discrete</li>
+                    </ul>
+                </div>
+
+                <!-- Domanda 1 -->
+                <div class="quiz-container">
+                    <div class="quiz-question">1. Secondo il modello ICF, quale approccio è più appropriato per Giuseppe?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case6q1', 6)">
+                            <span>A)</span> Concentrarsi solo sui deficit e sulle limitazioni
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, true, 'case6q1', 6)">
+                            <span>B)</span> Valorizzare le capacità residue, promuovere la partecipazione e considerare i fattori ambientali e personali
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case6q1', 6)">
+                            <span>C)</span> Lasciarlo in camera per evitare che si affatichi
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case6q1', 6)">
+                            <span>D)</span> Sostituirsi completamente nelle attività quotidiane per facilitarlo
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback-case6q1"></div>
+                </div>
+
+                <!-- Domanda 2 -->
+                <div class="quiz-container">
+                    <div class="quiz-question">2. Quali attività possono aiutare a mantenere le capacità cognitive residue di Giuseppe? (Seleziona tutte le risposte corrette)</div>
+                    <div class="checkbox-group" id="case6q2">
+                        <label class="checkbox-label">
+                            <input type="checkbox" data-correct="true" onchange="checkMultipleChoice('case6q2')">
+                            <span>Reminiscenza guidata (parlare dei ricordi del passato)</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" data-correct="true" onchange="checkMultipleChoice('case6q2')">
+                            <span>Giochi di memoria e stimolazione cognitiva (carte, tombola)</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" data-correct="false" onchange="checkMultipleChoice('case6q2')">
+                            <span>Isolamento completo per evitare confusione</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" data-correct="true" onchange="checkMultipleChoice('case6q2')">
+                            <span>Lettura del giornale e discussione di attualità</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" data-correct="true" onchange="checkMultipleChoice('case6q2')">
+                            <span>Attività di giardinaggio o cura delle piante</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" data-correct="true" onchange="checkMultipleChoice('case6q2')">
+                            <span>Musicoterapia e canto di canzoni conosciute</span>
+                        </label>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <button class="button" onclick="checkMultipleChoiceFinal('case6q2')">Verifica risposta</button>
+                    </div>
+                    <div class="feedback" id="feedback-case6q2"></div>
+                </div>
+
+                <!-- Domanda 3 -->
+                <div class="quiz-container">
+                    <div class="quiz-question">3. Per prevenire il rischio di cadute e mantenere la mobilità residua, quale intervento è prioritario?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case6q3', 6)">
+                            <span>A)</span> Costringerlo a letto per sicurezza
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, true, 'case6q3', 6)">
+                            <span>C)</span> Fisioterapia dolce, esercizi di equilibrio, uso corretto del deambulatore e adattamento ambientale
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case6q3', 6)">
+                            <span>C)</span> Lasciarlo camminare senza assistenza per stimolare l'autonomia
+                        </div>
+                        <div class="quiz-option" onclick="checkCaseAnswer(this, false, 'case6q3', 6)">
+                            <span>D)</span> Nessun intervento, le cadute sono inevitabili negli anziani
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback-case6q3"></div>
+                </div>
+
+                <!-- Risposta breve -->
+                <div class="quiz-container">
+                    <div class="quiz-question">4. Progetta un Piano di Attività settimanale per il Signor Giuseppe che comprenda: attività per il mantenimento cognitivo, attività motorie, attività di socializzazione, attività ricreative. Per ogni attività specifica: obiettivi, modalità di realizzazione, e come valorizzare le sue capacità residue.</div>
+                    <textarea id="case6-response" class="textarea-field" placeholder="Esempio:
+LUNEDÌ - Mattina: Ginnastica dolce in gruppo (obiettivo: mantenere mobilità articolare, socializzazione). Pomeriggio: Reminiscenza guidata (obiettivo: stimolare memoria autobiografica, autostima)...
+MARTEDÌ - ...
+Ecc." style="min-height: 250px;"></textarea>
+                </div>
+
+                <!-- Rubrica valutativa -->
+                <div style="margin: 30px 0;">
+                    <h4 style="color: #667eea; font-size: 1.3em; margin-bottom: 20px;">📊 Rubrica Valutativa</h4>
+                    <table class="rubric-table">
+                        <thead>
+                            <tr>
+                                <th>Criterio</th>
+                                <th>Descrizione</th>
+                                <th>Punti</th>
+                                <th>Punteggio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Analisi della situazione</strong></td>
+                                <td>Comprensione bisogni anziano e capacità residue</td>
+                                <td>0-5</td>
+                                <td><span class="score-badge" id="case6-score-analysis">0</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Coerenza metodologica</strong></td>
+                                <td>Riferimento ICF e approccio bio-psico-sociale</td>
+                                <td>0-5</td>
+                                <td><span class="score-badge" id="case6-score-coherence">0</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Proposta d'intervento</strong></td>
+                                <td>Qualità, completezza e fattibilità del piano attività</td>
+                                <td>0-5</td>
+                                <td><span class="score-badge" id="case6-score-proposal">0</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lessico tecnico</strong></td>
+                                <td>Terminologia geriatrica e socio-sanitaria appropriata</td>
+                                <td>0-3</td>
+                                <td><span class="score-badge" id="case6-score-lexicon">0</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dimensione etico-relazionale</strong></td>
+                                <td>Rispetto dignità, qualità di vita e benessere globale</td>
+                                <td>0-2</td>
+                                <td><span class="score-badge" id="case6-score-ethics">0</span></td>
+                            </tr>
+                            <tr style="background: #f0f0f0; font-weight: bold;">
+                                <td colspan="3" style="text-align: right;">TOTALE:</td>
+                                <td><span class="score-badge" id="case6-total-score" style="font-size: 1.3em;">0/20</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="text-align: center; margin: 20px 0;">
+                    <button class="button success" onclick="evaluateCase(6)">✅ Valuta Caso</button>
+                    <button class="button" onclick="savePDF('case6')">💾 Salva in PDF</button>
+                </div>
+            </div>
+
+            <!-- Nota finale -->
+            <div style="background: #e8f5e9; padding: 25px; border-radius: 15px; margin-top: 40px; border-left: 5px solid #4caf50;">
+                <h4 style="color: #2e7d32; margin-bottom: 15px;">📌 Nota didattica</h4>
+                <p style="color: #333;">
+                    Questi casi sono pensati per sviluppare competenze professionali concrete. La rubrica valutativa offre un feedback immediato che aiuta a riflettere sulla qualità delle risposte e delle proposte. Ricorda: nell'ambito socio-sanitario, ogni intervento deve essere <strong>personalizzato</strong>, <strong>basato su evidenze</strong> e <strong>rispettoso dei diritti della persona</strong>.
+                </p>
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>Prof. Dott. Salvatore Picconi</strong></p>
+            <p>Docente di Metodologie Operative</p>
+            <p>IIS Meucci Mattei – Cagliari (Sede Decimomannu)</p>
+            <p>Indirizzo: Servizi per la Sanità e l'Assistenza Sociale</p>
+            <p style="margin-top: 15px; opacity: 0.8;">© 2025 - Unità 1: Le disabilità - Iter legislativo e sistemi di classificazione</p>
+        </footer>
+    </div>
+
+    <script>
+        // Variabili globali
+        let totalExerciseScore = 0;
+        let matchingSelected = { left: null, right: null };
+        let matchingPairs = [];
+        let caseScores = {
+            1: { analysis: 0, coherence: 0, proposal: 0, lexicon: 0, ethics: 0 },
+            2: { analysis: 0, coherence: 0, proposal: 0, lexicon: 0, ethics: 0 },
+            3: { analysis: 0, coherence: 0, proposal: 0, lexicon: 0, ethics: 0 },
+            4: { analysis: 0, coherence: 0, proposal: 0, lexicon: 0, ethics: 0 },
+            5: { analysis: 0, coherence: 0, proposal: 0, lexicon: 0, ethics: 0 },
+            6: { analysis: 0, coherence: 0, proposal: 0, lexicon: 0, ethics: 0 }
+        };
+
+        // Funzione per cambiare tab
+        function openTab(evt, tabName) {
+            const tabContents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove('active');
+            }
+
+            const tabButtons = document.getElementsByClassName('tab-button');
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove('active');
+            }
+
+            document.getElementById(tabName).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+
+        // Funzione per verificare risposta quiz
+        function checkAnswer(element, isCorrect, quizId) {
+            const options = element.parentElement.getElementsByClassName('quiz-option');
+            for (let option of options) {
+                option.style.pointerEvents = 'none';
+            }
+
+            const feedback = document.getElementById('feedback-' + quizId);
+            
+            if (isCorrect) {
+                element.classList.add('correct');
+                feedback.innerHTML = '<strong>✅ Corretto!</strong> Ottima risposta.';
+                feedback.classList.add('correct', 'show');
+                totalExerciseScore += 10;
+            } else {
+                element.classList.add('incorrect');
+                feedback.innerHTML = '<strong>❌ Non corretto.</strong> Riprova o rivedi la teoria.';
+                feedback.classList.add('incorrect', 'show');
+            }
+
+            updateExerciseScore();
+        }
+
+        // Funzione per verificare risposta caso
+        function checkCaseAnswer(element, isCorrect, questionId, caseNum) {
+            const options = element.parentElement.getElementsByClassName('quiz-option');
+            for (let option of options) {
+                option.style.pointerEvents = 'none';
+            }
+
+            const feedback = document.getElementById('feedback-' + questionId);
+            
+            if (isCorrect) {
+                element.classList.add('correct');
+                feedback.innerHTML = '<strong>✅ Corretto!</strong>';
+                feedback.classList.add('correct', 'show');
+                
+                // Aggiungi punti alla rubrica
+                caseScores[caseNum].analysis += 2;
+                caseScores[caseNum].coherence += 2;
+            } else {
+                element.classList.add('incorrect');
+                feedback.innerHTML = '<strong>❌ Non corretto.</strong>';
+                feedback.classList.add('incorrect', 'show');
+            }
+        }
+
+        // Funzione per scelta multipla
+        function checkMultipleChoice(quizId) {
+            // Questa funzione viene chiamata quando si cambia una checkbox
+            // La verifica finale avviene con checkMultipleChoiceFinal
+        }
+
+        function checkMultipleChoiceFinal(quizId) {
+            const checkboxes = document.querySelectorAll(`#${quizId} input[type="checkbox"]`);
+            let allCorrect = true;
+
+            checkboxes.forEach(checkbox => {
+                const isCorrect = checkbox.getAttribute('data-correct') === 'true';
+                const isChecked = checkbox.checked;
+
+                if ((isCorrect && !isChecked) || (!isCorrect && isChecked)) {
+                    allCorrect = false;
+                }
+
+                // Disabilita le checkbox dopo la verifica
+                checkbox.disabled = true;
+            });
+
+            const feedback = document.getElementById('feedback-' + quizId);
+            
+            if (allCorrect) {
+                feedback.innerHTML = '<strong>✅ Perfetto!</strong> Hai selezionato tutte le risposte corrette.';
+                feedback.classList.add('correct', 'show');
+                totalExerciseScore += 15;
+            } else {
+                feedback.innerHTML = '<strong>❌ Alcune risposte non sono corrette.</strong> Rivedi le caratteristiche della Legge 517/1977.';
+                feedback.classList.add('incorrect', 'show');
+            }
+
+            updateExerciseScore();
+        }
+
+        // Funzione per matching
+        function selectMatching(element, side) {
+            if (element.classList.contains('matched')) return;
+
+            const items = document.querySelectorAll(`#matching-${side} .matching-item`);
+            items.forEach(item => item.classList.remove('selected'));
+
+            element.classList.add('selected');
+            matchingSelected[side] = element;
+
+            if (matchingSelected.left && matchingSelected.right) {
+                const leftId = matchingSelected.left.getAttribute('data-id');
+                const rightId = matchingSelected.right.getAttribute('data-id');
+
+                if (leftId === rightId) {
+                    matchingSelected.left.classList.add('matched');
+                    matchingSelected.right.classList.add('matched');
+                    matchingSelected.left.classList.remove('selected');
+                    matchingSelected.right.classList.remove('selected');
+                    
+                    matchingPairs.push({ left: leftId, right: rightId });
+                }
+
+                matchingSelected = { left: null, right: null };
+            }
+        }
+
+        function resetMatching() {
+            const items = document.querySelectorAll('.matching-item');
+            items.forEach(item => {
+                item.classList.remove('matched', 'selected');
+            });
+            matchingSelected = { left: null, right: null };
+            matchingPairs = [];
+            
+            const feedback = document.getElementById('feedback-matching');
+            feedback.classList.remove('show');
+        }
+
+        function checkMatching() {
+            const feedback = document.getElementById('feedback-matching');
+            
+            if (matchingPairs.length === 3) {
+                feedback.innerHTML = '<strong>✅ Eccellente!</strong> Tutte le corrispondenze sono corrette.';
+                feedback.classList.add('correct', 'show');
+                totalExerciseScore += 15;
+                updateExerciseScore();
+            } else {
+                feedback.innerHTML = '<strong>⚠️ Devi completare tutte le corrispondenze.</strong>';
+                feedback.classList.add('incorrect', 'show');
+            }
+        }
+
+        // Funzione per sequenziamento
+        let draggedElement = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const sequenceItems = document.querySelectorAll('.sequence-item');
+            
+            sequenceItems.forEach(item => {
+                item.addEventListener('dragstart', function(e) {
+                    draggedElement = this;
+                    setTimeout(() => this.style.opacity = '0.5', 0);
+                });
+
+                item.addEventListener('dragend', function() {
+                    setTimeout(() => this.style.opacity = '1', 0);
+                    draggedElement = null;
+                });
+
+                item.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                });
+
+                item.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    if (draggedElement !== this) {
+                        const container = this.parentNode;
+                        const allItems = [...container.children];
+                        const draggedIndex = allItems.indexOf(draggedElement);
+                        const targetIndex = allItems.indexOf(this);
+
+                        if (draggedIndex < targetIndex) {
+                            this.parentNode.insertBefore(draggedElement, this.nextSibling);
+                        } else {
+                            this.parentNode.insertBefore(draggedElement, this);
+                        }
+                    }
+                });
+            });
+        });
+
+        function checkSequence() {
+            const container = document.getElementById('sequence-container');
+            const items = container.getElementsByClassName('sequence-item');
+            let correct = true;
+
+            for (let i = 0; i < items.length; i++) {
+                const expectedOrder = parseInt(items[i].getAttribute('data-order'));
+                if (expectedOrder !== i + 1) {
+                    correct = false;
+                    items[i].classList.remove('correct-position');
+                } else {
+                    items[i].classList.add('correct-position');
+                }
+            }
+
+            const feedback = document.getElementById('feedback-sequence');
+            
+            if (correct) {
+                feedback.innerHTML = '<strong>✅ Perfetto!</strong> L\'ordine cronologico è corretto.';
+                feedback.classList.add('correct', 'show');
+                totalExerciseScore += 15;
+                updateExerciseScore();
+            } else {
+                feedback.innerHTML = '<strong>❌ L\'ordine non è corretto.</strong> Ricorda la sequenza storica delle leggi.';
+                feedback.classList.add('incorrect', 'show');
+            }
+        }
+
+        // Funzione per completamento frasi (Cloze)
+        function checkCloze() {
+            const inputs = [
+                { id: 'cloze1', answer: '517' },
+                { id: 'cloze2', answer: 'integrazione' },
+                { id: 'cloze3', answer: 'icf' },
+                { id: 'cloze4', answer: 'biopsicosociale' },
+                { id: 'cloze5', answer: 'pei' },
+                { id: 'cloze6', answer: 'individualizzato' }
+            ];
+
+            let correctCount = 0;
+
+            inputs.forEach(input => {
+                const element = document.getElementById(input.id);
+                const value = element.value.toLowerCase().trim();
+                const answer = input.answer.toLowerCase();
+
+                if (value === answer) {
+                    element.classList.add('correct');
+                    element.classList.remove('incorrect');
+                    correctCount++;
+                } else {
+                    element.classList.add('incorrect');
+                    element.classList.remove('correct');
+                }
+            });
+
+            const feedback = document.getElementById('feedback-cloze');
+            
+            if (correctCount === inputs.length) {
+                feedback.innerHTML = '<strong>✅ Eccellente!</strong> Tutte le risposte sono corrette.';
+                feedback.classList.add('correct', 'show');
+                totalExerciseScore += 15;
+            } else {
+                feedback.innerHTML = `<strong>⚠️ ${correctCount}/${inputs.length} risposte corrette.</strong> Ricontrolla le risposte in rosso.`;
+                feedback.classList.add('incorrect', 'show');
+            }
+
+            updateExerciseScore();
+        }
+
+        // Funzione per aggiornare punteggio esercizi
+        function updateExerciseScore() {
+            document.getElementById('exerciseScore').textContent = Math.min(totalExerciseScore, 100);
+        }
+
+        // Funzione per reset esercizi
+        function resetExercises() {
+            totalExerciseScore = 0;
+            updateExerciseScore();
+
+            // Reset quiz options
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+                option.style.pointerEvents = 'auto';
+            });
+
+            // Reset feedbacks
+            const feedbacks = document.querySelectorAll('.feedback');
+            feedbacks.forEach(feedback => {
+                feedback.classList.remove('show');
+            });
+
+            // Reset checkboxes
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = false;
+                checkbox.disabled = false;
+            });
+
+            // Reset matching
+            resetMatching();
+
+            // Reset cloze
+            const clozeInputs = document.querySelectorAll('.cloze-input');
+            clozeInputs.forEach(input => {
+                input.value = '';
+                input.classList.remove('correct', 'incorrect');
+            });
+
+            // Reset sequence
+            const sequenceItems = document.querySelectorAll('.sequence-item');
+            sequenceItems.forEach(item => {
+                item.classList.remove('correct-position');
+            });
+
+            showNotification('✨ Esercizi resettati! Puoi ricominciare.');
+        }
+
+        // Funzione per consegnare compiti
+        function submitAssignment() {
+            const name = document.getElementById('studentName').value;
+            const studentClass = document.getElementById('studentClass').value;
+            const date = document.getElementById('assignmentDate').value;
+
+            if (!name || !studentClass || !date) {
+                alert('⚠️ Compila tutti i campi obbligatori (Nome, Classe, Data)');
+                return;
+            }
+
+            const answers = [];
+            for (let i = 1; i <= 5; i++) {
+                const answer = document.getElementById(`answer${i}`).value;
+                if (!answer) {
+                    alert(`⚠️ Completa la risposta alla domanda ${i}`);
+                    return;
+                }
+                answers.push(answer);
+            }
+
+            // Crea file di testo
+            let content = `COMPITO: Le disabilità - Iter legislativo e sistemi di classificazione\n\n`;
+            content += `Nome e Cognome: ${name}\n`;
+            content += `Classe: ${studentClass}\n`;
+            content += `Data: ${date}\n`;
+            content += `\n${'='.repeat(70)}\n\n`;
+
+            const questions = [
+                'Descrivi come è cambiato nel tempo il concetto di disabilità, dalla segregazione all\'integrazione sociale.',
+                'Qual è il significato educativo della Legge 517/1977? Quali strumenti ha introdotto per favorire l\'integrazione scolastica?',
+                'Spiega la differenza tra deficit, disabilità e handicap, facendo degli esempi concreti.',
+                'Quali sono le caratteristiche del Piano Educativo Individualizzato (PEI)? Qual è la differenza tra PEI semplificato e PEI diversificato?',
+                'In che modo l\'ICF (International Classification of Functioning) ha innovato la visione della persona con disabilità? Quali sono i principi del modello bio-psico-sociale?'
+            ];
+
+            questions.forEach((question, index) => {
+                content += `DOMANDA ${index + 1}:\n${question}\n\n`;
+                content += `RISPOSTA:\n${answers[index]}\n\n`;
+                content += `${'-'.repeat(70)}\n\n`;
+            });
+
+            // Download file
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Compito_${name.replace(/\s+/g, '_')}_${studentClass}.txt`;
+            a.click();
+
+            // Mostra notifica
+            const notification = document.getElementById('assignment-notification');
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Funzione per valutare caso
+        function evaluateCase(caseNum) {
+            const response = document.getElementById(`case${caseNum}-response`).value;
+            
+            if (!response || response.length < 50) {
+                alert('⚠️ Completa la risposta aperta prima di valutare il caso (minimo 50 caratteri)');
+                return;
+            }
+
+            // Valutazione automatica basata su parole chiave e lunghezza
+            const keywords = {
+                1: ['pei', 'sostegno', 'curricolare', 'collaborazione', 'inclusione', 'routine', 'autismo'],
+                2: ['legge', '517', '104', 'barriere', 'accessibilità', 'rampe', 'ascensore', 'diritto'],
+                3: ['118', '517', 'coeducazione', 'integrazione', 'classi differenziali', 'sostegno'],
+                4: ['motricità', 'coordinazione', 'manuale', 'creativa', 'manipolazione', 'ergonomico', 'adattamento'],
+                5: ['braille', 'tattile', 'uditivo', 'screen reader', 'ausili', 'capacità', 'tecnologico'],
+                6: ['capacità residue', 'cognitivo', 'mobilità', 'anziano', 'icf', 'socializzazione', 'autonomia']
+            };
+
+            const responseLower = response.toLowerCase();
+            let keywordCount = 0;
+            
+            keywords[caseNum].forEach(keyword => {
+                if (responseLower.includes(keyword)) {
+                    keywordCount++;
+                }
+            });
+
+            // Calcola punteggi
+            const baseAnalysis = Math.min(5, Math.floor(response.length / 100));
+            const keywordBonus = Math.min(5, keywordCount);
+            
+            caseScores[caseNum].analysis = Math.min(5, baseAnalysis + Math.floor(keywordBonus / 2));
+            caseScores[caseNum].proposal = Math.min(5, Math.floor(response.length / 80) + (keywordCount > 2 ? 2 : 0));
+            caseScores[caseNum].lexicon = Math.min(3, keywordCount > 3 ? 3 : keywordCount);
+            caseScores[caseNum].ethics = 2; // Assegna punteggio pieno per dimensione etica
+
+            // Se ha risposto correttamente ai quiz del caso, aggiungi punti
+            if (caseScores[caseNum].coherence < 5) {
+                caseScores[caseNum].coherence = 3; // Punteggio base
+            }
+
+            // Aggiorna visualizzazione
+            document.getElementById(`case${caseNum}-score-analysis`).textContent = caseScores[caseNum].analysis;
+            document.getElementById(`case${caseNum}-score-coherence`).textContent = caseScores[caseNum].coherence;
+            document.getElementById(`case${caseNum}-score-proposal`).textContent = caseScores[caseNum].proposal;
+            document.getElementById(`case${caseNum}-score-lexicon`).textContent = caseScores[caseNum].lexicon;
+            document.getElementById(`case${caseNum}-score-ethics`).textContent = caseScores[caseNum].ethics;
+
+            const total = caseScores[caseNum].analysis + caseScores[caseNum].coherence + 
+                         caseScores[caseNum].proposal + caseScores[caseNum].lexicon + 
+                         caseScores[caseNum].ethics;
+            
+            document.getElementById(`case${caseNum}-total-score`).textContent = `${total}/20`;
+
+            showNotification(`✅ Caso ${caseNum} valutato! Punteggio totale: ${total}/20`);
+        }
+
+        // Funzione per mostrare notifiche
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification show';
+            notification.innerHTML = `<p>${message}</p>`;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Funzioni per salvare PDF e Word
+        function savePDF(section) {
+            showNotification('💾 Preparazione PDF in corso...');
+            
+            // Nascondi elementi non necessari per la stampa
+            const buttons = document.querySelectorAll('.button, .tab-button, .tabs');
+            const scoreDisplay = document.querySelector('.score-display');
+            
+            buttons.forEach(btn => btn.style.display = 'none');
+            if (scoreDisplay) scoreDisplay.style.display = 'none';
+            
+            // Mostra solo la sezione corrente
+            const allTabs = document.querySelectorAll('.tab-content');
+            allTabs.forEach(tab => tab.style.display = 'none');
+            
+            const currentSection = document.getElementById(section);
+            if (currentSection) {
+                currentSection.style.display = 'block';
+            }
+            
+            // Apri finestra di stampa
+            setTimeout(() => {
+                window.print();
+                
+                // Ripristina visualizzazione
+                buttons.forEach(btn => btn.style.display = '');
+                if (scoreDisplay) scoreDisplay.style.display = '';
+                allTabs.forEach(tab => tab.style.display = '');
+                
+                // Riattiva tab corrente
+                if (currentSection) {
+                    currentSection.classList.add('active');
+                }
+                
+                showNotification('✅ PDF pronto! Usa "Salva come PDF" nella finestra di stampa.');
+            }, 500);
+        }
+
+        function saveWord(section) {
+            showNotification('💾 Generazione documento Word...');
+            
+            const sectionElement = document.getElementById(section);
+            if (!sectionElement) {
+                alert('⚠️ Sezione non trovata');
+                return;
+            }
+            
+            // Clona il contenuto
+            const content = sectionElement.cloneNode(true);
+            
+            // Rimuovi elementi interattivi
+            const buttons = content.querySelectorAll('.button, button');
+            buttons.forEach(btn => btn.remove());
+            
+            // Crea documento HTML per Word
+            const htmlContent = `
+                <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+                <head>
+                    <meta charset='utf-8'>
+                    <title>Le disabilità - ${section}</title>
+                    <style>
+                        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; margin: 40px; }
+                        h1, h2, h3 { color: #667eea; }
+                        .info-box { padding: 15px; margin: 15px 0; border-left: 4px solid #667eea; background: #f8f9fa; }
+                        .subsection { margin: 20px 0; padding: 20px; background: #f8f9fa; border-radius: 10px; }
+                        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+                        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+                        th { background: #667eea; color: white; }
+                    </style>
+                </head>
+                <body>
+                    <h1>Le disabilità: iter legislativo e sistemi di classificazione</h1>
+                    <h2>Sezione: ${section}</h2>
+                    <hr>
+                    ${content.innerHTML}
+                    <hr>
+                    <p><em>Prof. Dott. Salvatore Picconi - IIS Meucci Mattei, Cagliari</em></p>
+                </body>
+                </html>
+            `;
+            
+            // Crea blob e download
+            const blob = new Blob(['\ufeff', htmlContent], {
+                type: 'application/msword'
+            });
+            
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `Disabilita_${section}_${new Date().toISOString().split('T')[0]}.doc`;
+            link.click();
+            
+            URL.revokeObjectURL(url);
+            showNotification('✅ Documento Word scaricato con successo!');
+        }
+
+        // Inizializzazione
+        document.addEventListener('DOMContentLoaded', function() {
+            // Imposta data odierna
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('assignmentDate').value = today;
+
+            // Mostra messaggio di benvenuto
+            setTimeout(() => {
+                showNotification('👋 Benvenuto! Esplora le sezioni per apprendere in modo interattivo.');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
