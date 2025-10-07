@@ -1,0 +1,2500 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Équipe Multiprofessionale - Strumenti di Lavoro nei Servizi Sociosanitari</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .tabs-container {
+            background: #f8f9fa;
+            padding: 30px 20px 10px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            background: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            color: #667eea;
+        }
+
+        .tab-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .content-section {
+            display: none;
+            padding: 40px 30px;
+            animation: fadeIn 0.5s;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* TEORIA STYLES */
+        .teoria-intro {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border-left: 5px solid #667eea;
+        }
+
+        .teoria-intro h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .competenze-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .competenza-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+
+        .competenza-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.2);
+        }
+
+        .competenza-card h3 {
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .competenza-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .competenza-card li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .competenza-card li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .categoria-section {
+            margin: 40px 0;
+        }
+
+        .categoria-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .categoria-header:hover {
+            transform: translateX(5px);
+        }
+
+        .categoria-header h2 {
+            margin: 0;
+        }
+
+        .accordion-icon {
+            font-size: 1.5em;
+            transition: transform 0.3s;
+        }
+
+        .accordion-icon.open {
+            transform: rotate(180deg);
+        }
+
+        .categoria-content {
+            display: none;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .categoria-content.open {
+            display: block;
+            animation: slideDown 0.3s;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; max-height: 0; }
+            to { opacity: 1; max-height: 2000px; }
+        }
+
+        .figura-professionale {
+            background: white;
+            padding: 25px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+
+        .figura-professionale h3 {
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .figura-professionale h4 {
+            color: #667eea;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .figura-professionale ul {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+
+        .info-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .info-box strong {
+            color: #856404;
+        }
+
+        /* SCHEMI STYLES */
+        .schema-container {
+            margin: 30px 0;
+        }
+
+        .schema-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .schema-card {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 3px solid transparent;
+        }
+
+        .schema-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .schema-card h3 {
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .schema-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .schema-descrizione {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .percorso-formativo {
+            background: #e3f2fd;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #1976d2;
+            font-weight: 600;
+        }
+
+        .infografica {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .infografica h3 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+        }
+
+        .flow-diagram {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .flow-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            min-width: 150px;
+            text-align: center;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .flow-arrow {
+            font-size: 2em;
+            color: #667eea;
+        }
+
+        /* ESERCIZI STYLES */
+        .esercizio-block {
+            background: white;
+            padding: 30px;
+            margin: 25px 0;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 5px solid #667eea;
+        }
+
+        .esercizio-block h3 {
+            color: #764ba2;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .esercizio-numero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .matching-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .matching-column {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .matching-item {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s;
+        }
+
+        .matching-item:hover {
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .matching-item.selected {
+            border-color: #667eea;
+            background: #667eea15;
+        }
+
+        .matching-item.correct {
+            border-color: #4caf50;
+            background: #4caf5015;
+        }
+
+        .matching-item.incorrect {
+            border-color: #f44336;
+            background: #f4433615;
+        }
+
+        .quiz-question {
+            margin: 20px 0;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .quiz-option {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s;
+        }
+
+        .quiz-option:hover {
+            border-color: #667eea;
+            background: #667eea10;
+        }
+
+        .quiz-option.selected {
+            border-color: #667eea;
+            background: #667eea20;
+        }
+
+        .quiz-option.correct {
+            border-color: #4caf50;
+            background: #4caf5020;
+        }
+
+        .quiz-option.incorrect {
+            border-color: #f44336;
+            background: #f4433620;
+        }
+
+        select {
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            margin: 0 10px;
+            min-width: 200px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .completamento-frase {
+            line-height: 2.5;
+            font-size: 1.1em;
+        }
+
+        .true-false-grid {
+            display: grid;
+            gap: 15px;
+        }
+
+        .true-false-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .true-false-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tf-button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tf-button.vero {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 2px solid #a5d6a7;
+        }
+
+        .tf-button.falso {
+            background: #ffebee;
+            color: #c62828;
+            border: 2px solid #ef9a9a;
+        }
+
+        .tf-button:hover {
+            transform: scale(1.05);
+        }
+
+        .tf-button.selected {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .caso-pratico {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe5a0 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 3px solid #ffc107;
+        }
+
+        .caso-pratico h4 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+
+        .ordinamento-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .ordinamento-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: move;
+            border: 2px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .ordinamento-item:hover {
+            border-color: #667eea;
+        }
+
+        .drag-handle {
+            font-size: 1.5em;
+            color: #999;
+        }
+
+        .punteggio-container {
+            position: sticky;
+            top: 20px;
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .punteggio-container h3 {
+            margin-bottom: 10px;
+        }
+
+        .punteggio-numero {
+            font-size: 3em;
+            font-weight: bold;
+        }
+
+        .feedback-message {
+            background: #e3f2fd;
+            border-left: 5px solid #2196f3;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: none;
+        }
+
+        .feedback-message.show {
+            display: block;
+            animation: slideIn 0.3s;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .feedback-message.correct {
+            background: #e8f5e9;
+            border-color: #4caf50;
+            color: #2e7d32;
+        }
+
+        .feedback-message.incorrect {
+            background: #ffebee;
+            border-color: #f44336;
+            color: #c62828;
+        }
+
+        /* COMPITI STYLES */
+        .compiti-form {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        .form-group {
+            margin: 25px 0;
+        }
+
+        .form-group label {
+            display: block;
+            color: #764ba2;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .domanda-aperta {
+            background: #f8f9fa;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+
+        .domanda-aperta h4 {
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            resize: vertical;
+            transition: all 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        /* BUTTONS */
+        .btn {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 10px 5px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+            color: white;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        footer p {
+            margin: 10px 0;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .tabs-container {
+                padding: 20px 10px;
+            }
+
+            .tab-button {
+                padding: 12px 20px;
+                font-size: 1em;
+            }
+
+            .content-section {
+                padding: 20px 15px;
+            }
+
+            .matching-container {
+                grid-template-columns: 1fr;
+            }
+
+            .competenze-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .schema-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* PRINT STYLES */
+        @media print {
+            body {
+                background: white;
+            }
+
+            .tabs-container,
+            .button-group,
+            .btn {
+                display: none;
+            }
+
+            .content-section {
+                display: block !important;
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏥 Équipe Multiprofessionale</h1>
+            <p>Strumenti di Lavoro nei Servizi Sociosanitari</p>
+        </header>
+
+        <div class="tabs-container">
+            <button class="tab-button active" onclick="showTab('teoria')">📚 TEORIA</button>
+            <button class="tab-button" onclick="showTab('schemi')">🗺️ SCHEMI</button>
+            <button class="tab-button" onclick="showTab('esercizi')">✏️ ESERCITAZIONI</button>
+            <button class="tab-button" onclick="showTab('compiti')">📝 COMPITI</button>
+        </div>
+
+        <!-- SEZIONE TEORIA -->
+        <div id="teoria" class="content-section active">
+            <div class="teoria-intro">
+                <h2>Le Figure Professionali dell'Équipe Multiprofessionale</h2>
+                <p>Un'équipe multiprofessionale è composta da diverse figure professionali che collaborano per garantire interventi integrati e personalizzati nei servizi sociosanitari. Ogni professionista apporta competenze specifiche lavorando in sinergia con gli altri membri del team.</p>
+            </div>
+
+            <h2 style="color: #667eea; margin-bottom: 20px;">Competenze dell'Équipe</h2>
+            <div class="competenze-grid">
+                <div class="competenza-card">
+                    <h3>🔄 Competenze Intermedie</h3>
+                    <ul>
+                        <li>Collaborare alla realizzazione degli obiettivi dei gruppi di lavoro e di équipe, in diversi contesti</li>
+                    </ul>
+                </div>
+                <div class="competenza-card">
+                    <h3>📖 Conoscenze</h3>
+                    <ul>
+                        <li>Le figure professionali nei servizi: formazione, profilo, ruolo e funzioni</li>
+                        <li>Caratteristiche del lavoro d'équipe e tipologie dei gruppi di lavoro</li>
+                        <li>Codici, registri, stili linguistici e linguaggi settoriali nei diversi contesti professionali</li>
+                        <li>Tipologie di resoconti: report, verbali, relazioni</li>
+                        <li>Metodi e strumenti di osservazione e documentazione utilizzati nei servizi sociali</li>
+                    </ul>
+                </div>
+                <div class="competenza-card">
+                    <h3>🎯 Abilità</h3>
+                    <ul>
+                        <li>Individuare il proprio ruolo e quello delle altre figure in contesti operativi</li>
+                        <li>Adottare modalità comunicativo-relazionali idonee all'interno dell'ambito di attività</li>
+                        <li>Produrre diverse tipologie di resoconti</li>
+                        <li>Identificare nei fenomeni sociali i comportamenti prevalenti dei diversi soggetti</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CATEGORIA SOCIO-SANITARIE -->
+            <div class="categoria-section">
+                <div class="categoria-header" onclick="toggleCategoria('socio-sanitarie')">
+                    <h2>👨‍⚕️ FIGURE PROFESSIONALI SOCIO-SANITARIE</h2>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div id="socio-sanitarie" class="categoria-content">
+                    
+                    <div class="figura-professionale">
+                        <h3>🏥 Il Medico di Base</h3>
+                        <h4>Profilo Professionale</h4>
+                        <p>Il medico di base è l'ufficiale sanitario di primo livello ed è il primo riferimento per la salute dei cittadini. È noto anche come medico di medicina generale, medico di famiglia, della mutua o curante. È colui che instaura con l'assistito un rapporto di fiducia, possiede maggiore conoscenza del suo stato di salute ed è il principale responsabile della sua cura.</p>
+                        
+                        <div class="info-box">
+                            <strong>Scelta del medico:</strong> Il cittadino può scegliere il medico e può essere revocata in qualsiasi momento o cambiare residenza. Può essere effettuata attraverso il libero studio, scelta e revoca, o attraverso il servizio online del Distretto sanitario o nel domicilio sanitario, cioè il luogo di parte del paziente dove viene dichiarata salute oppure per più di tre mesi per motivi di studio, lavoro, salute o assistenza ai malati.
+                        </div>
+
+                        <h4>Compiti principali</h4>
+                        <ul>
+                            <li>Visite ambulatoriali e domiciliari</li>
+                            <li>Prescrizione di farmaci</li>
+                            <li>Prescrizione di prestazioni specialistiche (supporti tecnologici e terapeutici o il rifiuto di uno specialista)</li>
+                            <li>Affiancamento del paziente in strutture sanitarie nella fase di accoglienza o di dimissione</li>
+                            <li>Aggiornamento delle cartelle dei pazienti</li>
+                            <li>Rilascio dei certificati previsti dalla legge</li>
+                        </ul>
+
+                        <h4>Percorso Formativo</h4>
+                        <p>Il percorso per diventare medico di famiglia è lungo e prevede in ordine sequenziale:</p>
+                        <ul>
+                            <li>Superamento del test di ammissione alla facoltà di Medicina (attualmente a numero chiuso), composto da 60 domande su materie come chimica, biologia, logica, fisica e cultura generale</li>
+                            <li>Conseguimento della laurea in Medicina e chirurgia (6 anni)</li>
+                            <li>Superamento dell'esame di abilitazione alla professione (la prova è suddivisa in due terzi di prova e tirocinio di tre mesi di esame di Stato per essere iscritti all'Albo Ordine dei medici e chirurghi)</li>
+                            <li>Corso di specializzazione in Medicina generale (3 anni), durante i quali si potrà cominciare a guadagnare già uno stipendio</li>
+                            <li>Iscrizione all'ASL per diventare medico di famiglia</li>
+                            <li>Acquisizione di esperienza nella professione per salire di posizione nelle graduatorie, grazie a sostituzioni brevi dei medici di base</li>
+                        </ul>
+                        <p>Il periodo di formazione per chi ha scelto di diventare medico di base può durare complessivamente una decina di anni.</p>
+                    </div>
+
+                    <div class="figura-professionale">
+                        <h3>🩺 I Medici Specialisti</h3>
+                        <h4>Profilo Professionale</h4>
+                        <p>Il medico specialista ha vari compiti: si occupa della prevenzione, della diagnosi e della cura di disturbi o malattie specifiche. Opera negli ambulatori pubblici o privati accreditati.</p>
+
+                        <h4>Percorso Formativo</h4>
+                        <p>L'iter formativo del medico specialista è simile a quello del medico generico: anch'egli deve essere in possesso di una laurea di I livello (3+3) in Medicina e chirurgia e di una laurea magistrale di specializzazione (5 anni, in base a una recente normativa) in un determinato ramo della medicina.</p>
+
+                        <h4>Principali Specializzazioni Mediche</h4>
+                        <ul>
+                            <li><strong>Allergologo:</strong> specializzato in allergologia, ramo della medicina che studia i fenomeni allergici</li>
+                            <li><strong>Anestesista:</strong> responsabile dell'anestesia del paziente durante un intervento chirurgico</li>
+                            <li><strong>Angiologo:</strong> specializzato in angiologia, ramo della medicina che studia il sistema cardiovascolare, i linfatici e le loro patologie</li>
+                            <li><strong>Cardiologo:</strong> specializzato in cardiologia, ramo della medicina che studia la fisiologia e le patologie del cuore</li>
+                            <li><strong>Chirurgo:</strong> specializzato in chirurgia generale, ramo della medicina che studia la cura del corpo umano mediante operazioni manuali e strumentali</li>
+                            <li><strong>Dermatologo:</strong> specializzato in dermatologia, ramo della medicina che studia la struttura, la funzione e le malattie della pelle e dei suoi annessi (capelli e unghie)</li>
+                            <li><strong>Dietologo:</strong> specializzato in dietologia, ramo della medicina che studia la composizione dei cibi e la corretta alimentazione a scopo terapeutico</li>
+                            <li><strong>Ematologo:</strong> specializzato in ematologia, ramo della medicina che studia le malattie del sangue e degli organi che producono il sangue (ematopoietici)</li>
+                            <li><strong>Endocrinologo:</strong> specializzato in endocrinologia, ramo della medicina che studia le funzione e la patologia delle ghiandole a secrezione interna e dei loro prodotti di secrezione</li>
+                            <li><strong>Gastroenterologo:</strong> specializzato in gastroenterologia, ramo della medicina che si occupa delle malattie dell'apparato digerente</li>
+                            <li><strong>Geriatra:</strong> specializzato in geriatria, ramo della medicina che si occupa delle malattie degli anziani</li>
+                            <li><strong>Ginecologo:</strong> specializzato in ginecologia, ramo della medicina che si occupa delle malattie dell'apparato sessuale femminile e dell'apparato riproduttore. Fornisce consigli sulla contraccezione e tratta le malattie. Si occupa inoltre dei problemi riguardanti la gravidanza, il parto e il post-parto</li>
+                            <li><strong>Immunologo:</strong> specializzato in immunologia, ramo della medicina che studia le malattie del sistema immunitario e malattie autoimmuni e patologie immunocarenziali (quali l'AIDS)</li>
+                            <li><strong>Internista:</strong> specializzato nella diagnosi e nel trattamento delle malattie che colpiscono gli organi interni</li>
+                            <li><strong>Neonatologo:</strong> specializzato in neonatologia, ramo della medicina che si occupa dell'assistenza ai neonati nelle prime quattro settimane di vita. Egli cura problemi inerenti alla nascita quali: parto prematuro o problemi alla mamma durante la gravidanza e/o al neonato dopo la nascita (prematuri e/o a basso peso alla nascita) e/o alcuni nati (come, ad esempio, la spina bifida)</li>
+                            <li><strong>Nefrologo:</strong> specializzato nella diagnosi e nel trattamento delle differenti malattie dei reni</li>
+                            <li><strong>Neurochirurgo:</strong> specializzato in neurochirurgia, ramo della medicina che opera sulle patologie dell'encefalo, del midollo spinale o di altre parti del sistema nervoso</li>
+                            <li><strong>Neurologo:</strong> specializzato in neurologia, ramo della medicina che studia la struttura, le funzioni e le malattie del sistema nervoso centrale e periferico (esegue lesioni elettriche, ictus cerebrali e encefalie). Differisce dalla neuropsichiatria in quanto si occupa esclusivamente di malattie organiche, senza indagare sulle possibili cause psicologiche che concausano le patologie (come i disturbi di una determinata disfunzione)</li>
+                            <li><strong>Neuropsichiatra:</strong> specializzato in neuropsichiatria, scienza medica che si occupa dello sviluppo neuropsichico e dei disturbi, neurologici e psichici</li>
+                            <li><strong>Oculista:</strong> specializzato in oculistica, scienza medica che ha come oggetto lo studio dell'occhio e delle sue malattie</li>
+                            <li><strong>Odontoiatra:</strong> specializzato in odontoiatria, ramo della medicina che corregge l'allineamento dell'apparato dentario, applica ponti e/o per posizionare denti mancanti</li>
+                            <li><strong>Oncologo:</strong> specializzato in oncologia, scienza medica che studia i tumori</li>
+                            <li><strong>Ortopedico:</strong> specializzato in ortopedia, scienza medica che si occupa delle malattie e delle articolazioni, le ossa, le articolazioni e strutture correlate</li>
+                            <li><strong>Otorinolaringoiatra:</strong> specializzato in otorinolaringoiatria, branca della medicina che si occupa delle malattie dell'orecchio, del naso e della gola</li>
+                            <li><strong>Pediatra:</strong> specializzato in pediatria, ramo della medicina che si occupa dello sviluppo e della cura delle malattie del bambino dal primo mese di vita fino all'adolescenza (in genere fino a 12 anni, talvolta anche fino a 14 anni)</li>
+                            <li><strong>Pneumologo:</strong> specializzato in pneumologia, ramo della medicina che studia le malattie dei polmoni e i relativi trattamenti</li>
+                            <li><strong>Psichiatra:</strong> specializzato in psichiatria, ramo della medicina che ha per oggetto lo studio delle malattie mentali. La competenza richiesta è diversa da quella richiesta a un infermiere professionale. Egli è in grado di lavorare con un'utenza problematica che spesso rifiuta l'aiuto e i farmaci, rifiuta di farsi toccare e reagisce con aggressività. Il ruolo dell'infermiere psichiatrico è anche quello di instaurare una relazione con il paziente ed entrare in empatia con lui</li>
+                            <li><strong>Reumatologo:</strong> specializzato in reumatologia, ramo della medicina che si occupa dei reumatismi e altre malattie delle articolazioni, dei muscoli e del tessuto connettivo</li>
+                            <li><strong>Urologo:</strong> specializzato in urologia, ramo della medicina che si occupa delle malattie dell'apparato urinario, cistite, incontinenza urinaria, ritenzione urinaria, infezioni delle vie urinarie. Negli uomini l'urologo studia e tratta le patologie della prostata, dei testicoli e del pene</li>
+                            <li><strong>Virologo:</strong> specializzato in virologia, ramo della medicina che si occupa dello studio dei virus e delle malattie da essi provocate</li>
+                        </ul>
+                    </div>
+
+                    <div class="figura-professionale">
+                        <h3>🔬 Le Professioni Sanitarie Tecniche</h3>
+                        <p>Le professioni sanitarie tecniche coadiuvano le attività del personale medico. Il personale paramedico comprende così classificati:</p>
+                        
+                        <h4>Tecnici della Diagnostica</h4>
+                        <ul>
+                            <li><strong>Tecnico Audiometista o Audioprotesista:</strong> tecnico sanitario specializzato nel rilevamento delle malattie dell'udito attraverso esami finalizzati alla valutazione del grado di deficit provocato da una lesione o da una malattia dell'apparato uditivo</li>
+                            <li><strong>Tecnico Ortottista:</strong> tecnico sanitario specializzato nel rilevamento delle malattie della vista, attraverso esami strumentali finalizzati alla valutazione del grado di deficit provocato da una lesione o da una malattia dell'apparato visivo</li>
+                        </ul>
+
+                        <h4>Tecnico Sanitario di Laboratorio Biomedico</h4>
+                        <p>Denominato anche "analista", è un tecnico sanitario che svolge attività di analisi biochimica, ossia l'analisi di un campione biologico (sangue, urine, feci, liquor, ecc.)</p>
+                        <p><strong>Nota:</strong> Noto anche come tecnico radiologo, è il tecnico sanitario che prepara esami radiologici o di altra valenza analoga (TAC, risonanza magnetica, PET). È un tecnico sanitario che fornisce le indicazioni nell'esecuzione materiale degli esami del sistema nervoso e degli esami EEG (elettroencefalogramma) finalizzati anche all'accertamento della morte cerebrale.</p>
+
+                        <h4>Tecnico Sanitario di Radiologia Medica (TSRM)</h4>
+                        <p>Tecnico sanitario specializzato nell'esecuzione materiale degli esami di diagnostica radiologica sul paziente sulla preparazione all'esame ed è responsabile del posizionamento ottimale del paziente per immagine radiologica che sia quanto più possibile chiara, inoltre prende e sviluppa le immagini radiologiche.</p>
+
+                        <h4>Tecnico Sanitario di Neurofisiopatologia</h4>
+                        <p>Tecnico sanitario specializzato nell'esecuzione materiale degli esami del sistema nervoso e degli esami EEG (elettroencefalogramma) finalizzati anche all'accertamento della morte cerebrale.</p>
+
+                        <h4>I Tecnici Assistenziali</h4>
+                        <ul>
+                            <li><strong>Audioprotesista:</strong> tecnico sanitario specializzato nella correzione dei deficit uditivi attraverso dispositivi medici che vengono accuratamente selezionati, adattati e applicati al soggetto interessato</li>
+                            <li><strong>Tecnico della Fisiopatologia Cardiocircolatoria e Perfusione Cardiovascolare:</strong> tecnico sanitario specializzato che fornisce indicazioni nell'esecuzione materiale degli esami cardiovascolari e delle funzioni cardiocircolatore</li>
+                            <li><strong>Igienista Dentale:</strong> tecnico sanitario specializzato nella promozione della salute orale e l'estetica del paziente. Sostiene pratiche preventive utilizzando metodi di sbiancamento dentale</li>
+                            <li><strong>Dietista:</strong> tecnico sanitario specializzato nell'educazione a una corretta alimentazione e nell'elaborazione delle diete per singoli o malati, per singoli e comunità</li>
+                            <li><strong>Ottico:</strong> noto anche come optometrista, è il tecnico sanitario specializzato nel fornire e adattare occhiali o lenti a contatto</li>
+                        </ul>
+
+                        <h4>Tecnico della Riabilitazione</h4>
+                        <ul>
+                            <li><strong>Fisioterapista:</strong> tecnico sanitario specializzato nella riabilitazione motoria attraverso l'esecuzione diretta di tecniche di massaggi, esercizi di vario tipo e programmi di varia natura attraverso l'utilizzo di attività a livello fisico che psicologico</li>
+                            <li><strong>Logopedista:</strong> tecnico sanitario specializzato nella riabilitazione, nella prevenzione, nell'educazione e della rieducazione della voce, del linguaggio scritto e orale e della comunicazione in età evolutiva, adulta e geriatrica</li>
+                            <li><strong>Podologo:</strong> tecnico sanitario specializzato nella cura, prevenzione e riabilitazione degli stati dolorosi del piede. Esegue le asportazioni di tessuti callosi, la cura delle patologie delle unghie, tecniche riabilitative (attive e passive) finalizzate al recupero funzionale del piede anche grazie all'utilizzo di plantari</li>
+                            <li><strong>Tecnico della Riabilitazione Psichiatrica (TRP):</strong> tecnico sanitario specializzato nella riabilitazione dei pazienti psichiatrici attraverso progetti riabilitativi individualizzati. Lavora in ambito ospedaliero, domiciliare e in tutti i centri di salute mentale (centri di salute mentale, centri di salute mentale, comunità terapeutiche riabilitative, laboratori protetti)</li>
+                            <li><strong>Terapista Occupazionale:</strong> tecnico sanitario specializzato in terapia occupazionale, detta anche "ergoterapia", una disciplina finalizzata alla prevenzione, alla cura e alla riabilitazione dei soggetti affetti da disabilità fisiche e psichiche attraverso attività ludiche, espressive, manuali, di drammatizzazione e di vita quotidiana</li>
+                        </ul>
+
+                        <h4>Percorso Formativo</h4>
+                        <p>La qualifica di operatore socio-sanitario viene conseguita al termine di un percorso formativo teorico-pratico, che prevede teoria e stage, della durata complessiva di 1000 ore, organizzate in maniera differente a seconda delle regioni dove si eroga il corso. Al termine è previsto un esame finale, al superamento del quale si ottiene l'attestato di qualifica, valido su tutto il territorio nazionale.</p>
+                        <p>A seconda delle regioni il corso può essere post-diploma, o post-scuola dell'obbligo, anche se la Conferenza Stato-Regioni indica come necessario e imprescindibile il solo requisito della scuola dell'obbligo. Il corso può essere avviato solo in presenza di autorizzazioni degli enti proposti identificati a livello regionale.</p>
+                    </div>
+
+                    <div class="figura-professionale">
+                        <h3>👩‍⚕️ Il Personale Infermieristico</h3>
+                        <h4>Profilo Professionale</h4>
+                        <p>L'infermiere professionale si occupa dell'assistenza preventiva, curativa, palliativa e riabilitativa dei pazienti.</p>
+
+                        <h4>Funzioni principali</h4>
+                        <ul>
+                            <li>Prevenire e diagnosticare le malattie in sinergia con il personale medico</li>
+                            <li>Assistere i malati garantendo loro la corretta terapia secondo quanto prescritto dal medico</li>
+                            <li>Educare il paziente all'autogestione della malattia, al trattamento e alla riabilitazione</li>
+                        </ul>
+
+                        <p>Gli infermieri esercitano la loro professione presso strutture sanitarie pubbliche o private, ospedali o case di cura, negli studi medici, negli ambulatori, nell'ambito dell'assistenza domiciliare, nei luoghi di lavoro, nelle scuole o come liberi professionisti.</p>
+
+                        <h4>Percorso Formativo</h4>
+                        <p>La formazione per diventare infermieri è a numero programmato. Essa prevede:</p>
+                        <ul>
+                            <li>Superamento di un test di ammissione</li>
+                            <li>Una laurea di I livello, corso triennale, in Infermieristica presso la facoltà di Medicina e chirurgia. Il conseguimento del titolo universitario rilasciato a seguito di un esame finale ha anche valore abilitante all'esercizio della professione e all'iscrizione nell'albo professionale</li>
+                            <li>Dopo la laurea triennale è possibile iscriversi a una laurea specialistica, della durata di 2 anni. Le più comuni aree di specializzazione delle scienze infermieristiche sono: infermieristica di medicina clinica, geriatrica, pediatrica, ostetrica, psichiatrica ecc.</li>
+                        </ul>
+
+                        <h4>Specializzazioni Infermieristiche</h4>
+                        <ul>
+                            <li><strong>Infermiere di Medicina Clinica:</strong> specializzato nell'assistenza preventiva al malato, nel controllo delle condizioni croniche, negli interventi di assistenza e nell'educazione sanitaria sotto la guida del medico</li>
+                            <li><strong>Infermiere Geriatrico:</strong> specializzato nell'assistenza e nella cura di individui sani, malati e disabili in età geriatrica (soggetti di età superiore a 65 anni)</li>
+                            <li><strong>Infermiere Pediatrico:</strong> specializzato nell'assistenza e nella cura di individui sani, malati e dei disabili in età evolutiva (soggetti di età inferiore a 18 anni)</li>
+                            <li><strong>Ostetrica:</strong> specializzato nell'assistenza alla donna durante gravidanza, travaglio e parto, presta la prima assistenza al neonato e alla mamma durante il puerperio. L'assistenza prenatale può occuparsi anche di consulenza sulle visite perinatali (consigli sull'alimentazione, sulla posizione del feto e anche indicazioni riguardanti mutamenti dell'attività o dell'alimentazione della madre)</li>
+                            <li><strong>Infermiere Psichiatrico:</strong> specializzato nell'assistenza e nella cura dei malati psichiatrici. Le competenze richieste sono diverse da quelle richieste a un infermiere professionale. Egli è in grado di lavorare con un'utenza problematica che spesso rifiuta l'aiuto e i farmaci, rifiuta di farsi toccare e reagisce con aggressività. Il ruolo dell'infermiere psichiatrico è anche quello di instaurare una relazione con il paziente ed entrare in empatia con lui</li>
+                        </ul>
+
+                        <div class="info-box">
+                            <strong>Puerperio:</strong> Il periodo immediatamente successivo alla nascita del bambino (40 giorni dopo il parto).
+                        </div>
+                        <div class="info-box">
+                            <strong>Empatia:</strong> Capacità di immedesimarsi negli stati d'animo altrui.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- CATEGORIA ASSISTENZA PSICOLOGICA -->
+            <div class="categoria-section">
+                <div class="categoria-header" onclick="toggleCategoria('assistenza-psicologica')">
+                    <h2>🧠 FIGURE PROFESSIONALI DI ASSISTENZA PSICOLOGICA</h2>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div id="assistenza-psicologica" class="categoria-content">
+                    
+                    <div class="figura-professionale">
+                        <h3>🧠 Lo Psicologo</h3>
+                        <h4>Profilo Professionale</h4>
+                        <p>Lo psicologo (di primo livello) tratta diagnosi, terapia e riabilitazione dei disturbi mentali ed emotivi dell'individuo.</p>
+                        <p>In genere il ruolo dello psicologo comprende la valutazione, la consulenza psicologica o la psicoterapia. Le sue attività sono rivolte alla persona, al gruppo e alle comunità. Non essendo di formazione medica, non può prescrivere farmaci.</p>
+
+                        <h4>Percorso Formativo</h4>
+                        <p>La formazione alla professione sanitaria di psicologo prevede:</p>
+                        <ul>
+                            <li>Una laurea triennale di I livello in Scienze e tecniche psicologiche</li>
+                            <li>Un titolo in Scienze e tecniche psicologiche</li>
+                            <li>Superamento dell'esame di Stato che consente l'iscrizione all'albo</li>
+                        </ul>
+
+                        <div class="info-box">
+                            <strong>Post laurean:</strong> Il titolo dopo la laurea.<br>
+                            <strong>Teoria comportamentale:</strong> La psicoterapia cognitivo-comportamentale è un approccio finalizzato al cambiamento dei pensieri disfunzionali per affrontare i disturbi patologici della psiche, come ansia, attacchi di panico e fobie. Questa tipologia di intervento si basa sul presupposto che vi sia una stretta relazione fra pensieri, emozioni e comportamenti.
+                        </div>
+
+                        <div class="info-box">
+                            <strong>Teoria della Gestalt:</strong> La psicologia della Gestalt (dal tedesco gestaltpsychologie, "psicologia della forma") rappresenta(no) i fenomeni perciò "tutto percettivo-attivo" e dell'esperienza.
+                        </div>
+                    </div>
+
+                    <div class="figura-professionale">
+                        <h3>💭 Lo Psicoterapeuta</h3>
+                        <h4>Profilo Professionale</h4>
+                        <p>Lo psicoterapeuta è un professionista più qualificato dello psicologo, pertanto risulta essere più adatto a intraprendere un percorso di psicoterapia, ossia di cura, rivolto a quelle persone che stanno attraversando un momento di sofferenza psichica o momentanea.</p>
+
+                        <p>Egli può essere di varia formazione e il tipo di cura dipende dall'approccio teorico-tecnico adottato (ad esempio: teoria cognitivo-comportamentale, teoria della Gestalt ecc.). Se le metodologie, gli strumenti e le strategie adottate possono essere molto differenti tra loro (Dsistenza, Psicoterapia), esse perseguono sempre lo stesso: vale a dire aiutare la persona ad affrontare il momento di difficoltà che sta attraversando e ad acquisire una serie di strumenti utili a gestire i momenti critici della propria vita.</p>
+
+                        <p>È di fondamentale importanza che lo psicoterapeuta abbia qualità personali come una buona capacità empatica e relazionale e un sano equilibrio interiore per potersi occupare dei problemi mentali ed emotivi dei suoi pazienti.</p>
+
+                        <h4>Percorso Formativo</h4>
+                        <p>La formazione alla professione di psicoterapeuta prevede:</p>
+                        <ul>
+                            <li>Laurea specialistica in Psicologia o Medicina e chirurgia</li>
+                            <li>Esame di Stato per l'abilitazione alla professione di psicologo o di medico</li>
+                            <li>Iscrizione al collegio professionale degli psicologi o dei medici</li>
+                            <li>Scuola privata quadriennale di specializzazione in Psicoterapia (resa obbligatoria anche per gli psichiatri)</li>
+                        </ul>
+
+                        <p>Il titolo di psicoterapeuta, se il clinico è uno psicologo e non un medico, non abilita comunque alla prescrizione di farmaci.</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- CATEGORIA ASSISTENZA SOCIALE -->
+            <div class="categoria-section">
+                <div class="categoria-header" onclick="toggleCategoria('assistenza-sociale')">
+                    <h2>🤝 FIGURE PROFESSIONALI DI ASSISTENZA SOCIALE</h2>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div id="assistenza-sociale" class="categoria-content">
+                    
+                    <div class="figura-professionale">
+                        <h3>🤝 L'Assistente Sociale</h3>
+                        <h4>Profilo Professionale</h4>
+                        <p>L'assistente sociale è un professionista che opera per la prevenzione, il sostegno e il recupero di persone, famiglie, gruppi e comunità in situazioni di bisogno e di disagio.</p>
+
+                        <p>Deve prevenire e risolvere situazioni di bisogno attivando le adeguate risposte e le risorse territoriali. L'assistente sociale svolge compiti di gestione, concorre all'organizzazione e alla programmazione ed esercita attività di coordinamento e di direzione dei servizi sociali.</p>
+
+                        <h4>Percorso Formativo</h4>
+                        <p>L'assistente sociale è in possesso della laurea di I o di II livello, oppure un dottorato di ricerca in Servizio sociale o in Sociologia. Dopo la laurea, per potersi iscrivere all'albo professionale degli assistenti sociali (CNOAS), deve conseguire l'abilitazione all'esercizio della professione (esame di Stato).</p>
+                    </div>
+
+                    <div class="figura-professionale">
+                        <h3>👨‍👩‍👧 Il Mediatore Familiare</h3>
+                        <h4>Profilo Professionale</h4>
+                        <p>Il mediatore familiare è un professionista specializzato nel risolvere i conflitti della coppia in fase di separazione/divorzio, causati da problemi di comunicazione, offrendo aiuto anche per raggiungere un accordo volontario rispondente ai bisogni e agli interessi di tutta la famiglia, che riscade anche sui figli.</p>
+
+                        <p>Il mediatore familiare non trova soluzioni ma aiuta gli ex coniugi a trovare essi stessi quelle più adatte per le loro esigenze, che si tratti di questioni economiche, dell'organizzazione della vita dei figli, delle spese ordinarie, straordinarie ecc.</p>
+
+                        <p>Ha competenze sia nell'ambito psicologico che legale.</p>
+
+                        <p>Il mediatore familiare può lavorare nelle pubbliche amministrazioni ma soprattutto presso aziende private che gestiscono casi in cui è richiesta una figura professionale di mediazione.</p>
+
+                        <h4>Percorso Formativo</h4>
+                        <p>In Italia, a oggi, non esiste una formazione ad hoc per la mediazione familiare: per avere l'abilitazione a svolgere questa professione bisogna frequentare, dopo la laurea specialistica in Giurisprudenza, Psicologia, Sociologia o Scienze della formazione, un master di specializzazione.</p>
+
+                        <p>Non in tutte le città sono presenti atenei che propongono questo tipo di percorso, ma la formazione a distanza rende possibile seguire il master anche da lontano e dare gli esami in una delle sedi più vicine.</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- CATEGORIA EDUCATIVO-ASSISTENZIALI -->
+            <div class="categoria-section">
+                <div class="categoria-header" onclick="toggleCategoria('educativo-assistenziali')">
+                    <h2>🎨 FIGURE PROFESSIONALI EDUCATIVO-ASSISTENZIALI</h2>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div id="educativo-assistenziali" class="categoria-content">
+                    
+                    <div class="figura-professionale">
+                        <h3>🎭 L'Animatore Sociale</h3>
+                        <h4>Profilo Professionale</h4>
+                        <p>L'animatore sociale ha il compito di progettare e realizzare attività di animazione (laboratori artistici, spettacoli teatrali, attività ludiche, momenti musicali e danzanti, corsi di cucina, giardinaggio ecc.) per favorire lo svago, il divertimento, la partecipazione sociale e la crescita personale di singoli utenti o di gruppi.</p>
+
+                        <p>L'utente è protagonista durante le attività, l'animatore deve limitarsi a motivare, a osservare le capacità educative e di relazioni e a mediare e facilitare le relazioni all'interno del gruppo.</p>
+
+                        <p>Tra le competenze richieste, oltre a quelle formative, sono necessarie creatività e buone capacità comunicative.</p>
+
+                        <p>Ciò che distingue un animatore sociale da un qualsiasi altro animatore (ad esempio: quello del settore turistico) è la sua capacità di valutare attentamente le competenze residue di ogni utente e quindi ideare programmi individualizzati. L'obiettivo finale del suo lavoro si attende e/o migliora le capacità residue di ogni paziente e ottenere cambiamenti significativi sia a livello fisico che psicologico.</p>
+
+                        <p>Egli lavora a contatto con disabili, anziani, minori problematici, persone con disagio psichiatrico e altri soggetti in situazione di svantaggio.</p>
+
+                        <p>Trova impiego in tanti settori delle strutture pubbliche e private: nei centri diurni socio-educativi, nelle scuole, nella famiglia, nella comunità per minori, negli ospedali pediatrici, nella comunità per disabili, nelle case di riposo, nelle RSA.</p>
+
+                        <h4>Percorso Formativo</h4>
+                        <p>L'animatore sociale è un professionista definito a livello regionale, di conseguenza ogni Regione organizza i corsi professionali, a cui si può accedere subito dopo il diploma. Per intraprendere tale professione, i corsi possono essere erogati da strutture pubbliche oppure da organizzazioni private (scuole, cooperative e partner) e possono arrivare fino a un massimo di 2 anni e/o 1000 ore; essi prevedono sempre un esame finale e un tirocinio presso una struttura convenzionata.</p>
+
+                        <p>In alternativa ci si può iscrivere a un corso di laurea (ideale sarebbe Scienze dell'educazione) e poi seguire un corso di specializzazione in animazione sociale.</p>
+                    </div>
+
+                    <div class="figura-professionale">
+                        <h3>🌍 Il Mediatore Culturale</h3>
+                        <h4>Profilo Professionale</h4>
+                        <p>Il mediatore culturale è un professionista che facilita la comunicazione tra persone di lingue e culture differenti, favorisce il percorso di integrazione degli immigrati, promuove attività di accoglienza e integrazione, offre consulenze giuridiche e culturali ad associazioni e strutture che si rivolgono agli stranieri.</p>
+
+                        <p>Per questa ragione la figura del mediatore culturale è particolarmente rilevante nel settore dell'immigrazione. È un esperto conoscitore della cultura e della lingua stranieri, più Paesi stranieri, che è capace di porre in relazione culture e lingue diverse.</p>
+
+                        <h4>Percorso Formativo</h4>
+                        <p>Gli enti locali o le Regioni organizzano corsi di specializzazione (quasi sempre gratuiti) che rilasciano la qualifica di mediatore culturale. Un mediatore di solito ha una significativa esperienza di vita in un altro Paese (perché ci è nato, ci ha vissuto per un prolungato periodo oppure perché ha sposato una persona proveniente da quel Paese), ma non è un prerequisito vincolante.</p>
+                    </div>
+
+                    <div class="figura-professionale">
+                        <h3>🗣️ Il Mediatore Linguistico</h3>
+                        <h4>Profilo Professionale</h4>
+                        <p>Il mediatore linguistico si occupa di favorire la comprensione e la comunicazione tra individui, gruppi o organizzazioni e servizi appartenenti alla propria cultura e quelli appartenenti alle culture straniere di cui è competente (ad esempio: cinese, giapponese, hindi, arabo).</p>
+
+                        <p>Gli sbocchi professionali offerti dalla mediazione linguistica sono:</p>
+                        <ul>
+                            <li>Pubblica amministrazione</li>
+                            <li>Settore editoria e comunicazione</li>
+                            <li>Aziende private</li>
+                            <li>Settore investigativo e forense</li>
+                            <li>Organizzazioni internazionali, diplomatiche e umanitarie</li>
+                            <li>Turismo</li>
+                            <li>Interpreti e traduttori freelance</li>
+                        </ul>
+
+                        <h4>Percorso Formativo</h4>
+                        <p>Per diventare mediatore linguistico è necessario conseguire un corso di laurea in Mediazione linguistica e per ampliare le conoscenze è possibile proseguire gli studi con corsi di specializzazione.</p>
+                    </div>
+
+                    <div class="figura-professionale">
+                        <h3>👔 Il Dirigente di Comunità</h3>
+                        <h4>Profilo Professionale</h4>
+                        <p>Il dirigente di comunità opera nei servizi sociali di tipo comunitario e fa da tramite tra gli utenti e il personale specializzato (assistenti sociali, psicologi, pedagisti, medici, personale medico-sanitario ecc.).</p>
+
+                        <p>La figura professionale del dirigente di comunità opera in diverse realtà quali strutture a carattere residenziale, formativo, socio-sanitario, assistenziale, rivolte alla prima infanzia, ai soggetti in situazione di handicap e agli anziani.</p>
+
+                        <p>Svolge mansioni come:</p>
+                        <ul>
+                            <li>Gestione e cura dei rapporti con il personale</li>
+                            <li>Trasferimento delle conoscenze relative ai cambiamenti in azienda e ai metodi di lavoro</li>
+                            <li>Gestione dei vari aspetti organizzativi all'interno della struttura</li>
+                            <li>Individuazione e selezione delle risorse umane</li>
+                        </ul>
+
+                        <p>I luoghi in cui tali soggetti lavorano sono i seguenti:</p>
+                        <ul>
+                            <li>Asili nido</li>
+                            <li>Scuole elementari</li>
+                            <li>Case di riposo</li>
+                            <li>Pensionari</li>
+                            <li>Case per gestanti</li>
+                            <li>Mense aziendali</li>
+                            <li>Corsi universitari (in particolare)</li>
+                            <li>Scuole materne e Scienze dell'educazione e della formazione, Sociologia e Scienze dei servizi sociali)</li>
+                        </ul>
+
+                        <h4>Percorso Formativo</h4>
+                        <p>Si frequenta un corso che rilascia il diploma di dirigente di comunità, che ha lo scopo di fornire una forte sensibilità all'operatore, oltre a un'adeguata preparazione in materie importanti quali psicologia, pedagogia, sociologia, igiene e puericultura.</p>
+                    </div>
+
+                    <div class="figura-professionale">
+                        <h3>👨‍🏫 L'Educatore Professionale</h3>
+                        <h4>Profilo Professionale</h4>
+                        <p>L'educatore professionale, detto anche educatore professionale socio-pedagogico, svolge la propria attività per la realizzazione di specifici obiettivi educativi e riabilitativi, volti a promuovere lo sviluppo equilibrato della persona, il recupero e il reinserimento sociale di minori, disabili, anziani e persone a rischio di emarginazione sociale.</p>
+
+                        <p>Opera, in regime di dipendenza o come libero professionista, con i singoli, con le famiglie e con gruppi in servizi socio-sanitari e socio-educativi, pubblici e privati, in strutture residenziali e semiresidenziali (servizi per minori, tossicodipendenti, disabili, anziani, per l'emarginazione grave, le strutture carcerarie ecc.).</p>
+
+                        <h4>Percorso Formativo</h4>
+                        <p>Un corso di qualifica per educatore professionale viene erogato dalle università; può frequentarlo la laurea con crediti formativi:</p>
+                        <ul>
+                            <li>Chi già lavora avendo superato un concorso pubblico</li>
+                            <li>Chi ha svolto servizio civile per almeno tre anni (anche non continuativi)</li>
+                            <li>Chi è in possesso di diploma rilasciato entro l'anno scolastico 2001-2002 da un istituto magistrale o da una scuola magistrale</li>
+                        </ul>
+
+                        <p>Se non si rientra in queste categorie si deve possedere una laurea in Scienze dell'educazione e della formazione.</p>
+
+                        <p>La Legge Iori, nel comma 599, afferma che non possono essere licenziati o retrocessi nelle mansioni gli educatori socio-sanitari o socio-pedagogici che lavorano da un periodo minimo di dodici mesi, anche non continuativi; potranno continuare a svolgere il lavoro nel medesimo servizio o ente anche senza laurea, ma se decidessero di farsi assumere da un altro potrebbero chiedere la laurea.</p>
+                    </div>
+
+                    <div class="figura-professionale">
+                        <h3>👶 L'Educatore di Asilo Nido</h3>
+                        <h4>Profilo Professionale</h4>
+                        <p>Gli educatori di asilo nido sono professionisti qualificati per garantire l'assistenza sanitaria e psico-pedagogica del bambino.</p>
+
+                        <p>L'educatore collabora con il resto del personale, opera infatti per garantire l'armonico sviluppo psico-fisico e cognitivo del bambino, sostiene la crescita affettiva, emotiva e sociale, favorisce la socializzazione e evitate le forme di disagio.</p>
+
+                        <p>Questa figura può operare in asili nido pubblici o privati.</p>
+
+                        <h4>Percorso Formativo</h4>
+                        <p>Secondo la Legge 10/2000 chi ha conseguito il diploma di scuole magistrali entro il 2001-2002, se ha conseguito il diploma dopo questo periodo, deve essere in possesso di un titolo universitario:</p>
+                        <ul>
+                            <li>Laurea in Scienze dell'educazione e della formazione con indirizzo specifico per educatori dei servizi educativi per l'infanzia</li>
+                            <li>Laurea quinquennale a ciclo unico in Scienze della formazione primaria, integrata da un corso di specializzazione per complessivi 60 crediti formativi universitari, da svolgersi presso le università</li>
+                        </ul>
+                    </div>
+
+                    <div class="figura-professionale">
+                        <h3>📊 Il Sociologo</h3>
+                        <h4>Profilo Professionale</h4>
+                        <p>Il sociologo studia la società, il comportamento delle persone e l'interazione in gruppo e nelle istituzioni sociali (ad esempio: famiglia, educazione, economia ecc.). Egli analizza, comprende e monitora i fenomeni sociali, anche nei loro aspetti problematici.</p>
+
+                        <p>Un sociologo svolge indagini sociologiche, raccoglie dati, conduce interviste, organizza i campioni di riferimento e riferiisce i dati ottenuti dalle varie analisi con metodi statistici, fa ricerche per approfondire la conoscenza di determinati fenomeni sociali, esamina gli andamenti sociali e tematiche socio-politiche/economiche/culturali e a coloro che devono prendere decisioni (dirigenti, politici, amministratori ecc.).</p>
+
+                        <p>Per fare questo, il professionista matura competenze e conoscenze e si serve di diversi strumenti di ricerca sociale, così da poter elaborare risposte alle domande di conoscenza o di intervento che tali teorie e modelli che spieghino il funzionamento della società e la risoluzione dei problemi individuati.</p>
+
+                        <h4>Percorso Formativo</h4>
+                        <p>Il sociologo di professione deve possedere:</p>
+                        <ul>
+                            <li>Una laurea triennale in Scienze sociali</li>
+                            <li>Una laurea magistrale in Sociologia e ricerca sociale</li>
+                        </ul>
+
+                        <p>Il ciclo di studi può essere completato con stage o tirocini in realtà diverse a seconda del campo d'interesse.</p>
+                    </div>
+
+                    <div class="figura-professionale">
+                        <h3>📚 Il Pedagogista</h3>
+                        <h4>Profilo Professionale</h4>
+                        <p>Il pedagogista analizza il profilo psicologico dell'utente e individua le linee metodologiche utili a educare quell'utente.</p>
+
+                        <p>Realizza perciò attività educative e pedagogiche per potenziare le abilità di bambini e ragazzi con difficoltà scolastiche (lettura, scrittura, calcolo, memorizzazione, autonomia) o con bisogni educativi speciali (DSA, ADHD, autismo, sindrome di Down ecc.); ciò significa intervenire efficacemente per adattarsi al livello di apprendimento del bambino, così da raggiungere il massimo obiettivo possibile in base alle sue caratteristiche.</p>
+
+                        <p>Il pedagogista si può occupare di anziani realizza attività educative adattate alla terza età: l'anziano viene stimolato affinché mantenga e migliori le sue capacità cognitive residue e di laboratori manuali (giardinaggio, cucito, pittura) o di socializzazione (tombola, karaoke, teatro) e così via.</p>
+
+                        <h4>Percorso Formativo</h4>
+                        <p>Il pedagogista deve possedere una laurea magistrale in:</p>
+                        <ul>
+                            <li>Programmazione e gestione dei servizi educativi</li>
+                            <li>Scienze dell'educazione degli adulti e della formazione continua</li>
+                            <li>Scienze pedagogiche</li>
+                            <li>Teorie e metodologie dell'e-learning e della media education ed equipollenti</li>
+                        </ul>
+
+                        <p>I vecchi corsi di laurea sono equipollenti all'attuale laurea magistrale (3+2) e consentono l'accesso ai ruoli di pedagogista.</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- CATEGORIA ASSISTENZA FISICA -->
+            <div class="categoria-section">
+                <div class="categoria-header" onclick="toggleCategoria('assistenza-fisica')">
+                    <h2>💪 FIGURE PROFESSIONALI DI ASSISTENZA FISICA</h2>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div id="assistenza-fisica" class="categoria-content">
+                    
+                    <div class="figura-professionale">
+                        <h3>🏥 L'Operatore Socio-Sanitario (OSS)</h3>
+                        <h4>Profilo Professionale</h4>
+                        <p>L'operatore socio-sanitario (OSS) è una figura professionale che sostituisce le precedenti figure addette all'assistenza sanitaria (OTA) e all'assistenza fisica (ASA, OSA, ADEST ecc.) con una figura unica che ha competenze integrate (sociali e sanitarie) e svolge entrambi i compiti.</p>
+
+                        <p>Il suo compito è svolgere attività che supportino la persona nel soddisfare i bisogni fondamentali, finalizzate al loro benessere, promuovendone l'autonomia.</p>
+
+                        <p>Egli ha alcune competenze infermieristiche, può somministrare alcuni farmaci su indicazione del medico ma non può compiere iniezioni.</p>
+
+                        <p>L'OSS svolge le seguenti attività:</p>
+                        <ul>
+                            <li>Assiste e cura nelle attività quotidiane di igiene personale</li>
+                            <li>Assiste e aiuta nelle attività di riordino della casa</li>
+                            <li>Offre supporto alle attività infermieristiche e sanitarie</li>
+                            <li>Ascolta, osserva e comunica con la persona e la relativa famiglia</li>
+                            <li>Lavora con il personale sanitario e sociale, contribuendo alla realizzazione dei progetti assistenziali</li>
+                            <li>Collabora nella rilevazione dei bisogni e delle condizioni che possono danneggiare ulteriormente la persona in difficoltà</li>
+                        </ul>
+
+                        <h4>Percorso Formativo</h4>
+                        <p>La qualifica di operatore socio-sanitario viene conseguita al termine di un percorso formativo teorico-pratico, che prevede teoria e stage, della durata complessiva di 1000 ore, organizzate in maniera differente a seconda delle regioni dove si eroga il corso. Al termine è previsto un esame finale, al superamento del quale si ottiene l'attestato di qualifica, valido su tutto il territorio nazionale.</p>
+
+                        <p>A seconda delle regioni il corso può essere post-diploma, o post-scuola dell'obbligo, anche se la Conferenza Stato-Regioni indica come necessario e imprescindibile il solo requisito della scuola dell'obbligo. Il corso può essere avviato solo in presenza di autorizzazioni degli enti proposti identificati a livello regionale.</p>
+
+                        <div class="info-box">
+                            <strong>ADB:</strong> Addetto all'assistenza di base<br>
+                            <strong>OSA:</strong> Operatore socio-assistenziale<br>
+                            <strong>OTA:</strong> Operatore tecnico addetto all'assistenza<br>
+                            <strong>ADEST:</strong> Assistente domiciliare e dei servizi tutelari
+                        </div>
+                    </div>
+
+                    <div class="figura-professionale">
+                        <h3>🤲 L'Ausiliario Socio-Assistenziale (ASA)</h3>
+                        <h4>Profilo Professionale</h4>
+                        <p>L'ausiliario socio-assistenziale (ASA) è una figura professionale addetta alla cura e all'assistenza individuale di persone in difficoltà.</p>
+
+                        <p>Vengono riconosciuti contributi economici all'assistenza di base i profili professionali regionali di: ADB, OSA, OTA, ADEST.</p>
+
+                        <p>L'ausiliario socio-assistenziale è definito come una figura dell'area sociale che svolge i seguenti compiti:</p>
+                        <ul>
+                            <li>Fornisce un aiuto alle autonomie all'assistito: igiene e cura della persona (lavarsi, vestirsi, pettinarsi, mangiare), aiuto negli spostamenti, sollevamento dal letto, mette a letto il paziente nella posizione corretta, garantisce la continua mobilizzazione agli allettati per evitare le spiacevoli conseguenze delle piaghe da decubito</li>
+                            <li>Si occupa delle condizioni igieniche dell'ambiente curandone la pulizia e occupandosi del riordino degli effetti personali dell'utente</li>
+                            <li>Cura la relazione con l'utente e favorisce i processi di socializzazione</li>
+                            <li>Individua i bisogni dell'utente attraverso un'attenta e vigile osservazione</li>
+                            <li>Collabora con le figure professionali dell'équipe, segnalando i bisogni individuati per intervenire e trovare adeguate risposte</li>
+                        </ul>
+
+                        <p>Le aree d'intervento riguardano l'assistenza ai minori in situazione problematica o a nuclei familiari in difficoltà, ai disabili, ai malati psichiatrici, agli anziani, alle persone in difficoltà o a rischio di emarginazione (tossicodipendenti, alcolisti ecc.).</p>
+
+                        <p>È previsto l'impiego dell'ASA nelle strutture residenziali (comunità, case protette, RSA ecc.), nei centri di assistenza domiciliare, nei centri di integrazione intervento per persone in difficoltà e a rischio di emarginazione.</p>
+
+                        <h4>Percorso Formativo</h4>
+                        <p>Per esercitare la professione è necessaria una qualifica professionale riconosciuta a livello nazionale e deliberata da ogni singola Regione.</p>
+                    </div>
+
+                    <div class="figura-professionale">
+                        <h3>🏠 L'Assistente Domiciliare</h3>
+                        <h4>Profilo Professionale</h4>
+                        <p>L'assistente domiciliare è un ausiliario socio-assistenziale (ASA) che presta la sua opera a domicilio.</p>
+
+                        <p>È incaricato dal servizio sociale di base territoriale che prende in carico l'assistenza del caso, e ha il compito di fornire un aiuto domestico alle persone prive di familiari o di altri responsabili.</p>
+
+                        <h4>Percorso Formativo</h4>
+                        <p>Il percorso formativo è il medesimo dell'ausiliare socio-assistenziale.</p>
+                    </div>
+
+                    <div class="figura-professionale">
+                        <h3>👵 L'Assistente Familiare</h3>
+                        <h4>Profilo Professionale</h4>
+                        <p>L'assistente familiare, "badante" o "baby sitter", svolge funzioni assistenziali ma non è una vera e propria figura professionale.</p>
+
+                        <p>Non ha ricevuto alcuna specifica formazione ed è priva di qualifica professionale ma assolve a un ruolo importante nell'assistenza presso il domicilio della persona che ha bisogno di un punto di riferimento per la propria vita quotidiana.</p>
+
+                        <p>L'assistente familiare è in grado di assistere nella vita quotidiana diversi soggetti: anziani, disabili, bambini, persone temporaneamente o permanentemente prive di autonomia.</p>
+
+                        <p>Il suo ruolo consiste nel facilitare e/o sostituirsi nelle attività di pulizia personale e della casa, nel soddisfacimento dei bisogni primari (preparazione e somministrazione di pasti), sorveglianza e compagnia.</p>
+
+                        <p>Svolge le sue prestazioni presso il domicilio del soggetto assistito in regime di convivenza oppure a ore.</p>
+
+                        <p>Opera per delega o con la diretta supervisione del familiare o della persona di riferimento.</p>
+                    </div>
+
+                    <div class="figura-professionale">
+                        <h3>🧹 Il Personale Ausiliario</h3>
+                        <h4>Profilo Professionale</h4>
+                        <p>Il personale ausiliario è costituito da coloro che svolgono specifiche mansioni all'interno dei servizi; esso è costituito da addetti alle pulizie, addetti alla lavanderia, addetti alla cucina, giardiniere, portiere.</p>
+
+                        <p>Non è richiesta una qualifica specifica, ma di fatto contribuiscono al buon funzionamento del servizio.</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="salvaPDF('teoria')">💾 Salva in PDF</button>
+                <button class="btn btn-primary" onclick="salvaWord('teoria')">📄 Salva in Word</button>
+            </div>
+        </div>
+
+        <!-- SEZIONE SCHEMI -->
+        <div id="schemi" class="content-section">
+            <h2 style="color: #667eea; text-align: center; margin-bottom: 30px;">📊 Schemi e Infografiche</h2>
+
+            <div class="infografica">
+                <h3>🏥 Categorie Principali dell'Équipe Multiprofessionale</h3>
+                <div class="flow-diagram">
+                    <div class="flow-item">Figure Socio-Sanitarie</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">Figure Psicologiche</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">Figure Sociali</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">Figure Educativo-Assistenziali</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">Figure di Assistenza Fisica</div>
+                </div>
+            </div>
+
+            <h3 style="color: #764ba2; margin-top: 40px; margin-bottom: 20px;">👨‍⚕️ Figure Socio-Sanitarie</h3>
+            <div class="schema-grid">
+                <div class="schema-card">
+                    <div class="schema-icon">🏥</div>
+                    <h3>Medico di Base</h3>
+                    <div class="schema-descrizione">
+                        <strong>Cosa fa:</strong> Primo riferimento per la salute dei cittadini, visite ambulatoriali, prescrizione farmaci e prestazioni specialistiche
+                    </div>
+                    <div class="percorso-formativo">
+                        📚 Laurea Medicina (6 anni) + Specializzazione (3 anni)
+                    </div>
+                </div>
+
+                <div class="schema-card">
+                    <div class="schema-icon">🩺</div>
+                    <h3>Medico Specialista</h3>
+                    <div class="schema-descrizione">
+                        <strong>Cosa fa:</strong> Prevenzione, diagnosi e cura di disturbi specifici. Oltre 20 specializzazioni disponibili
+                    </div>
+                    <div class="percorso-formativo">
+                        📚 Laurea Medicina + Specializzazione (5 anni)
+                    </div>
+                </div>
+
+                <div class="schema-card">
+                    <div class="schema-icon">👩‍⚕️</div>
+                    <h3>Infermiere</h3>
+                    <div class="schema-descrizione">
+                        <strong>Cosa fa:</strong> Assistenza preventiva, curativa, palliativa e riabilitativa dei pazienti
+                    </div>
+                    <div class="percorso-formativo">
+                        📚 Laurea triennale in Infermieristica + eventuale specialistica (2 anni)
+                    </div>
+                </div>
+
+                <div class="schema-card">
+                    <div class="schema-icon">🔬</div>
+                    <h3>Tecnico Sanitario</h3>
+                    <div class="schema-descrizione">
+                        <strong>Cosa fa:</strong> Supporto al personale medico in diagnostica, laboratorio, radiologia
+                    </div>
+                    <div class="percorso-formativo">
+                        📚 Corso specifico di qualifica professionale
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="color: #764ba2; margin-top: 40px; margin-bottom: 20px;">🧠 Figure di Assistenza Psicologica</h3>
+            <div class="schema-grid">
+                <div class="schema-card">
+                    <div class="schema-icon">🧠</div>
+                    <h3>Psicologo</h3>
+                    <div class="schema-descrizione">
+                        <strong>Cosa fa:</strong> Diagnosi, terapia e riabilitazione dei disturbi mentali ed emotivi
+                    </div>
+                    <div class="percorso-formativo">
+                        📚 Laurea triennale + Laurea magistrale + Esame di Stato
+                    </div>
+                </div>
+
+                <div class="schema-card">
+                    <div class="schema-icon">💭</div>
+                    <h3>Psicoterapeuta</h3>
+                    <div class="schema-descrizione">
+                        <strong>Cosa fa:</strong> Percorsi di cura psicologica attraverso diverse metodologie terapeutiche
+                    </div>
+                    <div class="percorso-formativo">
+                        📚 Laurea specialistica + Scuola quadriennale di specializzazione
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="color: #764ba2; margin-top: 40px; margin-bottom: 20px;">🤝 Figure di Assistenza Sociale</h3>
+            <div class="schema-grid">
+                <div class="schema-card">
+                    <div class="schema-icon">🤝</div>
+                    <h3>Assistente Sociale</h3>
+                    <div class="schema-descrizione">
+                        <strong>Cosa fa:</strong> Prevenzione, sostegno e recupero di persone, famiglie e comunità in situazioni di bisogno
+                    </div>
+                    <div class="percorso-formativo">
+                        📚 Laurea in Servizio Sociale o Sociologia + Esame di Stato
+                    </div>
+                </div>
+
+                <div class="schema-card">
+                    <div class="schema-icon">👨‍👩‍👧</div>
+                    <h3>Mediatore Familiare</h3>
+                    <div class="schema-descrizione">
+                        <strong>Cosa fa:</strong> Risoluzione conflitti in fase di separazione/divorzio
+                    </div>
+                    <div class="percorso-formativo">
+                        📚 Laurea specialistica + Master di specializzazione
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="color: #764ba2; margin-top: 40px; margin-bottom: 20px;">🎨 Figure Educativo-Assistenziali</h3>
+            <div class="schema-grid">
+                <div class="schema-card">
+                    <div class="schema-icon">🎭</div>
+                    <h3>Animatore Sociale</h3>
+                    <div class="schema-descrizione">
+                        <strong>Cosa fa:</strong> Progetta attività di animazione per favorire svago, partecipazione e crescita personale
+                    </div>
+                    <div class="percorso-formativo">
+                        📚 Corso professionale regionale (fino a 2 anni)
+                    </div>
+                </div>
+
+                <div class="schema-card">
+                    <div class="schema-icon">🌍</div>
+                    <h3>Mediatore Culturale</h3>
+                    <div class="schema-descrizione">
+                        <strong>Cosa fa:</strong> Facilita comunicazione tra culture diverse, supporta integrazione immigrati
+                    </div>
+                    <div class="percorso-formativo">
+                        📚 Corso di specializzazione regionale
+                    </div>
+                </div>
+
+                <div class="schema-card">
+                    <div class="schema-icon">👨‍🏫</div>
+                    <h3>Educatore Professionale</h3>
+                    <div class="schema-descrizione">
+                        <strong>Cosa fa:</strong> Realizza obiettivi educativi e riabilitativi per minori, disabili, anziani
+                    </div>
+                    <div class="percorso-formativo">
+                        📚 Corso di qualifica universitario o Laurea in Scienze dell'Educazione
+                    </div>
+                </div>
+
+                <div class="schema-card">
+                    <div class="schema-icon">📊</div>
+                    <h3>Sociologo</h3>
+                    <div class="schema-descrizione">
+                        <strong>Cosa fa:</strong> Studia società, comportamenti, interazioni sociali attraverso ricerche e analisi
+                    </div>
+                    <div class="percorso-formativo">
+                        📚 Laurea triennale + Laurea magistrale in Sociologia
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="color: #764ba2; margin-top: 40px; margin-bottom: 20px;">💪 Figure di Assistenza Fisica</h3>
+            <div class="schema-grid">
+                <div class="schema-card">
+                    <div class="schema-icon">🏥</div>
+                    <h3>OSS (Operatore Socio-Sanitario)</h3>
+                    <div class="schema-descrizione">
+                        <strong>Cosa fa:</strong> Supporta la persona nei bisogni fondamentali, competenze integrate sociali e sanitarie
+                    </div>
+                    <div class="percorso-formativo">
+                        📚 Corso teorico-pratico (1000 ore) + Esame finale
+                    </div>
+                </div>
+
+                <div class="schema-card">
+                    <div class="schema-icon">🤲</div>
+                    <h3>ASA (Ausiliario Socio-Assistenziale)</h3>
+                    <div class="schema-descrizione">
+                        <strong>Cosa fa:</strong> Cura e assistenza individuale, aiuto all'autonomia, cura igiene e ambiente
+                    </div>
+                    <div class="percorso-formativo">
+                        📚 Qualifica professionale regionale
+                    </div>
+                </div>
+
+                <div class="schema-card">
+                    <div class="schema-icon">🏠</div>
+                    <h3>Assistente Domiciliare</h3>
+                    <div class="schema-descrizione">
+                        <strong>Cosa fa:</strong> Fornisce aiuto domestico a persone prive di familiari o responsabili
+                    </div>
+                    <div class="percorso-formativo">
+                        📚 Stesso percorso dell'ASA
+                    </div>
+                </div>
+
+                <div class="schema-card">
+                    <div class="schema-icon">👵</div>
+                    <h3>Assistente Familiare (Badante)</h3>
+                    <div class="schema-descrizione">
+                        <strong>Cosa fa:</strong> Assistenza quotidiana ad anziani, disabili, bambini presso il domicilio
+                    </div>
+                    <div class="percorso-formativo">
+                        📚 Nessuna formazione specifica richiesta
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="salvaPDF('schemi')">💾 Salva in PDF</button>
+                <button class="btn btn-primary" onclick="salvaWord('schemi')">📄 Salva in Word</button>
+            </div>
+        </div>
+
+        <!-- SEZIONE ESERCIZI -->
+        <div id="esercizi" class="content-section">
+            <div class="punteggio-container">
+                <h3>🏆 Punteggio Totale</h3>
+                <div class="punteggio-numero" id="punteggioTotale">0</div>
+                <p>punti su 150 disponibili</p>
+            </div>
+
+            <h2 style="color: #667eea; text-align: center; margin-bottom: 30px;">✏️ Esercitazioni Interattive</h2>
+
+            <!-- ESERCIZIO 1: Accoppiamento Randomizzato -->
+            <div class="esercizio-block">
+                <div class="esercizio-numero">Esercizio 1</div>
+                <h3>🔗 Accoppiamento: Figura Professionale - Competenza Principale</h3>
+                <p><strong>Collega ogni figura professionale alla sua competenza principale. Attenzione: alcune opzioni non hanno corrispondenza!</strong></p>
+                
+                <div class="matching-container" id="matching1">
+                    <div class="matching-column" id="col1-left"></div>
+                    <div class="matching-column" id="col1-right"></div>
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="verificaMatching1()">✓ Verifica</button>
+                    <button class="btn btn-secondary" onclick="resetMatching1()">↻ Reset</button>
+                </div>
+                <div class="feedback-message" id="feedback1"></div>
+            </div>
+
+            <!-- ESERCIZIO 2: Quiz a Scelta Multipla con Menu a Tendina -->
+            <div class="esercizio-block">
+                <div class="esercizio-numero">Esercizio 2</div>
+                <h3>📋 Quiz a Scelta: Percorsi Formativi</h3>
+                <p><strong>Seleziona la risposta corretta per ogni domanda dal menu a tendina.</strong></p>
+
+                <div class="quiz-question">
+                    <p><strong>1. Quanto dura il corso di specializzazione per diventare medico di famiglia?</strong></p>
+                    <div class="completamento-frase">
+                        <select id="quiz2-q1">
+                            <option value="">-- Seleziona --</option>
+                            <option value="1">1 anno</option>
+                            <option value="2">2 anni</option>
+                            <option value="3">3 anni</option>
+                            <option value="5">5 anni</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p><strong>2. Quale figura professionale NON può prescrivere farmaci?</strong></p>
+                    <div class="completamento-frase">
+                        <select id="quiz2-q2">
+                            <option value="">-- Seleziona --</option>
+                            <option value="medico">Medico specialista</option>
+                            <option value="psicologo">Psicologo</option>
+                            <option value="infermiere">Infermiere</option>
+                            <option value="psichiatra">Psichiatra</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p><strong>3. Quante ore dura il corso per OSS?</strong></p>
+                    <div class="completamento-frase">
+                        <select id="quiz2-q3">
+                            <option value="">-- Seleziona --</option>
+                            <option value="500">500 ore</option>
+                            <option value="1000">1000 ore</option>
+                            <option value="1500">1500 ore</option>
+                            <option value="2000">2000 ore</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p><strong>4. Quale figura professionale è specializzata nell'integrazione degli immigrati?</strong></p>
+                    <div class="completamento-frase">
+                        <select id="quiz2-q4">
+                            <option value="">-- Seleziona --</option>
+                            <option value="animatore">Animatore sociale</option>
+                            <option value="mediatore-culturale">Mediatore culturale</option>
+                            <option value="assistente">Assistente sociale</option>
+                            <option value="educatore">Educatore professionale</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p><strong>5. Quale laurea è necessaria per diventare psicoterapeuta?</strong></p>
+                    <div class="completamento-frase">
+                        <select id="quiz2-q5">
+                            <option value="">-- Seleziona --</option>
+                            <option value="triennale">Laurea triennale in Psicologia</option>
+                            <option value="specialistica">Laurea specialistica in Psicologia + Scuola quadriennale</option>
+                            <option value="medicina">Laurea in Medicina</option>
+                            <option value="sociologia">Laurea in Sociologia</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="verificaQuiz2()">✓ Verifica</button>
+                    <button class="btn btn-secondary" onclick="resetQuiz2()">↻ Reset</button>
+                </div>
+                <div class="feedback-message" id="feedback2"></div>
+            </div>
+
+            <!-- ESERCIZIO 3: Vero/Falso -->
+            <div class="esercizio-block">
+                <div class="esercizio-numero">Esercizio 3</div>
+                <h3>✔️ Vero o Falso: Ruoli e Competenze</h3>
+                <p><strong>Indica se le seguenti affermazioni sono vere o false.</strong></p>
+
+                <div class="true-false-grid">
+                    <div class="true-false-item">
+                        <p><strong>1. L'infermiere può lavorare solo in strutture ospedaliere pubbliche.</strong></p>
+                        <div class="true-false-buttons">
+                            <button class="tf-button vero" onclick="selectTF(3, 1, 'vero')">VERO</button>
+                            <button class="tf-button falso" onclick="selectTF(3, 1, 'falso')">FALSO</button>
+                        </div>
+                    </div>
+
+                    <div class="true-false-item">
+                        <p><strong>2. L'OSS ha competenze integrate sia sociali che sanitarie.</strong></p>
+                        <div class="true-false-buttons">
+                            <button class="tf-button vero" onclick="selectTF(3, 2, 'vero')">VERO</button>
+                            <button class="tf-button falso" onclick="selectTF(3, 2, 'falso')">FALSO</button>
+                        </div>
+                    </div>
+
+                    <div class="true-false-item">
+                        <p><strong>3. Il mediatore familiare trova soluzioni ai problemi delle coppie in separazione.</strong></p>
+                        <div class="true-false-buttons">
+                            <button class="tf-button vero" onclick="selectTF(3, 3, 'vero')">VERO</button>
+                            <button class="tf-button falso" onclick="selectTF(3, 3, 'falso')">FALSO</button>
+                        </div>
+                    </div>
+
+                    <div class="true-false-item">
+                        <p><strong>4. Il sociologo studia solo i fenomeni economici della società.</strong></p>
+                        <div class="true-false-buttons">
+                            <button class="tf-button vero" onclick="selectTF(3, 4, 'vero')">VERO</button>
+                            <button class="tf-button falso" onclick="selectTF(3, 4, 'falso')">FALSO</button>
+                        </div>
+                    </div>
+
+                    <div class="true-false-item">
+                        <p><strong>5. L'assistente familiare (badante) deve possedere una qualifica professionale specifica.</strong></p>
+                        <div class="true-false-buttons">
+                            <button class="tf-button vero" onclick="selectTF(3, 5, 'vero')">VERO</button>
+                            <button class="tf-button falso" onclick="selectTF(3, 5, 'falso')">FALSO</button>
+                        </div>
+                    </div>
+
+                    <div class="true-false-item">
+                        <p><strong>6. Il pedagogista può lavorare solo con bambini in età scolare.</strong></p>
+                        <div class="true-false-buttons">
+                            <button class="tf-button vero" onclick="selectTF(3, 6, 'vero')">VERO</button>
+                            <button class="tf-button falso" onclick="selectTF(3, 6, 'falso')">FALSO</button>
+                        </div>
+                    </div>
+
+                    <div class="true-false-item">
+                        <p><strong>7. Lo psicoterapeuta può essere di formazione medica o psicologica.</strong></p>
+                        <div class="true-false-buttons">
+                            <button class="tf-button vero" onclick="selectTF(3, 7, 'vero')">VERO</button>
+                            <button class="tf-button falso" onclick="selectTF(3, 7, 'falso')">FALSO</button>
+                        </div>
+                    </div>
+
+                    <div class="true-false-item">
+                        <p><strong>8. L'educatore di asilo nido lavora esclusivamente con bambini da 0 a 3 anni.</strong></p>
+                        <div class="true-false-buttons">
+                            <button class="tf-button vero" onclick="selectTF(3, 8, 'vero')">VERO</button>
+                            <button class="tf-button falso" onclick="selectTF(3, 8, 'falso')">FALSO</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="verificaTF3()">✓ Verifica</button>
+                    <button class="btn btn-secondary" onclick="resetTF3()">↻ Reset</button>
+                </div>
+                <div class="feedback-message" id="feedback3"></div>
+            </div>
+
+            <!-- ESERCIZIO 4: Caso Pratico -->
+            <div class="esercizio-block">
+                <div class="esercizio-numero">Esercizio 4</div>
+                <h3>🎯 Casi Pratici: Scegli la Figura Professionale Appropriata</h3>
+                <p><strong>Per ogni situazione, indica quale figura professionale è più adatta.</strong></p>
+
+                <div class="caso-pratico">
+                    <h4>Caso 1</h4>
+                    <p>Maria ha 78 anni, vive sola e ha difficoltà nelle attività quotidiane. Ha bisogno di aiuto per l'igiene personale, la preparazione dei pasti e le pulizie domestiche.</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(4, 1, 1)">A) Infermiere</div>
+                        <div class="quiz-option" onclick="selectOption(4, 1, 2)">B) OSS</div>
+                        <div class="quiz-option" onclick="selectOption(4, 1, 3)">C) Medico di base</div>
+                        <div class="quiz-option" onclick="selectOption(4, 1, 4)">D) Assistente sociale</div>
+                    </div>
+                </div>
+
+                <div class="caso-pratico">
+                    <h4>Caso 2</h4>
+                    <p>Luca e Sara stanno divorziando e hanno due figli minori. Hanno difficoltà a comunicare e a trovare un accordo sulla gestione dei bambini e delle spese.</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(4, 2, 1)">A) Psicologo</div>
+                        <div class="quiz-option" onclick="selectOption(4, 2, 2)">B) Mediatore familiare</div>
+                        <div class="quiz-option" onclick="selectOption(4, 2, 3)">C) Assistente sociale</div>
+                        <div class="quiz-option" onclick="selectOption(4, 2, 4)">D) Educatore professionale</div>
+                    </div>
+                </div>
+
+                <div class="caso-pratico">
+                    <h4>Caso 3</h4>
+                    <p>In una RSA si vuole organizzare un laboratorio di giardinaggio per stimolare le capacità cognitive residue degli anziani ospiti.</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(4, 3, 1)">A) Fisioterapista</div>
+                        <div class="quiz-option" onclick="selectOption(4, 3, 2)">B) Infermiere</div>
+                        <div class="quiz-option" onclick="selectOption(4, 3, 3)">C) Animatore sociale</div>
+                        <div class="quiz-option" onclick="selectOption(4, 3, 4)">D) OSS</div>
+                    </div>
+                </div>
+
+                <div class="caso-pratico">
+                    <h4>Caso 4</h4>
+                    <p>Ahmed è un ragazzo che è arrivato in Italia da pochi mesi dalla Siria. Ha bisogno di supporto per l'integrazione scolastica e sociale, ma non parla italiano.</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(4, 4, 1)">A) Educatore professionale</div>
+                        <div class="quiz-option" onclick="selectOption(4, 4, 2)">B) Mediatore culturale</div>
+                        <div class="quiz-option" onclick="selectOption(4, 4, 3)">C) Psicologo</div>
+                        <div class="quiz-option" onclick="selectOption(4, 4, 4)">D) Assistente sociale</div>
+                    </div>
+                </div>
+
+                <div class="caso-pratico">
+                    <h4>Caso 5</h4>
+                    <p>Giovanni ha 45 anni e soffre di attacchi di panico. Ha bisogno di un percorso terapeutico approfondito per gestire l'ansia.</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(4, 5, 1)">A) Medico di base</div>
+                        <div class="quiz-option" onclick="selectOption(4, 5, 2)">B) Psicologo</div>
+                        <div class="quiz-option" onclick="selectOption(4, 5, 3)">C) Psicoterapeuta</div>
+                        <div class="quiz-option" onclick="selectOption(4, 5, 4)">D) Infermiere psichiatrico</div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="verificaCasi4()">✓ Verifica</button>
+                    <button class="btn btn-secondary" onclick="resetCasi4()">↻ Reset</button>
+                </div>
+                <div class="feedback-message" id="feedback4"></div>
+            </div>
+
+            <!-- ESERCIZIO 5: Accoppiamento Competenze-Descrizioni -->
+            <div class="esercizio-block">
+                <div class="esercizio-numero">Esercizio 5</div>
+                <h3>🔗 Accoppiamento: Competenze dell'Équipe</h3>
+                <p><strong>Collega ogni tipo di competenza alla sua descrizione. Alcune opzioni sono distrattori!</strong></p>
+                
+                <div class="matching-container" id="matching5">
+                    <div class="matching-column" id="col5-left"></div>
+                    <div class="matching-column" id="col5-right"></div>
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="verificaMatching5()">✓ Verifica</button>
+                    <button class="btn btn-secondary" onclick="resetMatching5()">↻ Reset</button>
+                </div>
+                <div class="feedback-message" id="feedback5"></div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-warning" onclick="resetTuttiEsercizi()">↻ Reset Tutti gli Esercizi</button>
+                <button class="btn btn-success" onclick="salvaPDF('esercizi')">💾 Salva Risultati in PDF</button>
+                <button class="btn btn-success" onclick="salvaWord('esercizi')">📄 Salva Risultati in Word</button>
+            </div>
+        </div>
+
+        <!-- SEZIONE COMPITI -->
+        <div id="compiti" class="content-section">
+            <h2 style="color: #667eea; text-align: center; margin-bottom: 30px;">📝 Compiti - Domande Aperte</h2>
+
+            <div class="compiti-form">
+                <div class="form-group">
+                    <label>👤 Nome e Cognome dello Studente</label>
+                    <input type="text" id="nomeStudente" placeholder="Inserisci il tuo nome e cognome">
+                </div>
+
+                <div class="form-group">
+                    <label>🏫 Classe</label>
+                    <input type="text" id="classeStudente" placeholder="Es: 3A, 4B">
+                </div>
+
+                <div class="form-group">
+                    <label>📅 Data</label>
+                    <input type="date" id="dataCompito">
+                </div>
+
+                <div class="domanda-aperta">
+                    <h4>Domanda 1</h4>
+                    <p>Descrivi il ruolo e le competenze principali del medico di base nel sistema sanitario italiano. Quali sono le differenze con il medico specialista?</p>
+                    <textarea id="domanda1" placeholder="Scrivi qui la tua risposta..."></textarea>
+                </div>
+
+                <div class="domanda-aperta">
+                    <h4>Domanda 2</h4>
+                    <p>Spiega cosa significa lavorare in un'équipe multiprofessionale. Quali sono i vantaggi della collaborazione tra diverse figure professionali nei servizi sociosanitari?</p>
+                    <textarea id="domanda2" placeholder="Scrivi qui la tua risposta..."></textarea>
+                </div>
+
+                <div class="domanda-aperta">
+                    <h4>Domanda 3</h4>
+                    <p>Confronta le figure dell'OSS (Operatore Socio-Sanitario) e dell'ASA (Ausiliario Socio-Assistenziale): quali sono le similitudini e le differenze tra questi due ruoli?</p>
+                    <textarea id="domanda3" placeholder="Scrivi qui la tua risposta..."></textarea>
+                </div>
+
+                <div class="domanda-aperta">
+                    <h4>Domanda 4</h4>
+                    <p>Descrivi il percorso formativo necessario per diventare psicoterapeuta e spiega quali sono le differenze tra lo psicologo e lo psicoterapeuta.</p>
+                    <textarea id="domanda4" placeholder="Scrivi qui la tua risposta..."></textarea>
+                </div>
+
+                <div class="domanda-aperta">
+                    <h4>Domanda 5</h4>
+                    <p>L'animatore sociale lavora con diverse tipologie di utenti (anziani, disabili, minori). Descrivi le competenze necessarie per svolgere questo ruolo e fai un esempio pratico di attività che potrebbe organizzare.</p>
+                    <textarea id="domanda5" placeholder="Scrivi qui la tua risposta..."></textarea>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-success" onclick="consegnaCompito()">✉️ Consegna Compito</button>
+                    <button class="btn btn-primary" onclick="salvaPDF('compiti')">💾 Salva in PDF</button>
+                    <button class="btn btn-primary" onclick="salvaWord('compiti')">📄 Salva in Word</button>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>Prof. Dott. Picconi</strong></p>
+            <p>IIS Meucci Mattei, Cagliari - Sede Decimomannu</p>
+            <p>Indirizzo: Servizi per la Sanità e l'Assistenza Sociale</p>
+            <p style="margin-top: 15px; font-size: 0.9em;">© 2025 - Materiale didattico sull'Équipe Multiprofessionale</p>
+        </footer>
+    </div>
+
+    <script>
+        // GESTIONE TAB
+        function showTab(tabName) {
+            // Nascondi tutte le sezioni
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => section.classList.remove('active'));
+
+            // Rimuovi classe active da tutti i bottoni
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            // Mostra la sezione selezionata
+            document.getElementById(tabName).classList.add('active');
+
+            // Attiva il bottone corrispondente
+            window.event.target.classList.add('active');
+        }
+
+        // GESTIONE ACCORDION TEORIA
+        function toggleCategoria(id) {
+            const content = document.getElementById(id);
+            const header = content.previousElementSibling;
+            const icon = header.querySelector('.accordion-icon');
+
+            content.classList.toggle('open');
+            icon.classList.toggle('open');
+        }
+
+        // VARIABILI GLOBALI PER ESERCIZI
+        let punteggio = 0;
+        let matching1Selected = { left: null, right: null };
+        let matching1Pairs = {};
+        let matching5Selected = { left: null, right: null };
+        let matching5Pairs = {};
+        let tfAnswers3 = {};
+        let casoAnswers4 = {};
+
+        // ESERCIZIO 1: MATCHING RANDOMIZZATO
+        const matching1Data = {
+            left: [
+                { id: 'medico-base', text: 'Medico di Base' },
+                { id: 'infermiere', text: 'Infermiere' },
+                { id: 'oss', text: 'OSS' },
+                { id: 'psicologo', text: 'Psicologo' },
+                { id: 'animatore', text: 'Animatore Sociale' },
+                { id: 'assistente-sociale', text: 'Assistente Sociale' }
+            ],
+            right: [
+                { id: 'r-medico', text: 'Primo riferimento per la salute dei cittadini', match: 'medico-base' },
+                { id: 'r-infermiere', text: 'Assistenza preventiva, curativa e riabilitativa', match: 'infermiere' },
+                { id: 'r-oss', text: 'Competenze integrate sociali e sanitarie', match: 'oss' },
+                { id: 'r-psicologo', text: 'Diagnosi e terapia dei disturbi mentali', match: 'psicologo' },
+                { id: 'r-animatore', text: 'Organizza attività di animazione e socializzazione', match: 'animatore' },
+                { id: 'r-assistente', text: 'Prevenzione e sostegno per persone in difficoltà', match: 'assistente-sociale' },
+                { id: 'r-dist1', text: 'Gestisce la contabilità delle strutture sanitarie', match: null },
+                { id: 'r-dist2', text: 'Effettua diagnosi radiologiche avanzate', match: null },
+                { id: 'r-dist3', text: 'Progetta edifici e strutture pubbliche', match: null }
+            ]
+        };
+
+        function initMatching1() {
+            // Shuffle arrays
+            const leftShuffled = [...matching1Data.left].sort(() => Math.random() - 0.5);
+            const rightShuffled = [...matching1Data.right].sort(() => Math.random() - 0.5);
+
+            const leftCol = document.getElementById('col1-left');
+            const rightCol = document.getElementById('col1-right');
+
+            leftCol.innerHTML = '<h4 style="text-align:center; color:#764ba2;">Figure Professionali</h4>';
+            rightCol.innerHTML = '<h4 style="text-align:center; color:#764ba2;">Competenze</h4>';
+
+            leftShuffled.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'matching-item';
+                div.setAttribute('data-id', item.id);
+                div.setAttribute('data-side', 'left');
+                div.textContent = item.text;
+                div.onclick = () => selectMatching1('left', item.id, div);
+                leftCol.appendChild(div);
+            });
+
+            rightShuffled.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'matching-item';
+                div.setAttribute('data-id', item.id);
+                div.setAttribute('data-side', 'right');
+                div.textContent = item.text;
+                div.onclick = () => selectMatching1('right', item.id, div);
+                rightCol.appendChild(div);
+            });
+        }
+
+        function selectMatching1(side, id, element) {
+            // Deseleziona precedente dello stesso lato
+            if (matching1Selected[side]) {
+                const prevElement = document.querySelector(`.matching-item[data-side="${side}"][data-id="${matching1Selected[side]}"]`);
+                if (prevElement) prevElement.classList.remove('selected');
+            }
+
+            matching1Selected[side] = id;
+            element.classList.add('selected');
+
+            // Se entrambi i lati sono selezionati, crea l'accoppiamento
+            if (matching1Selected.left && matching1Selected.right) {
+                matching1Pairs[matching1Selected.left] = matching1Selected.right;
+                
+                // Reset selezione
+                document.querySelectorAll('#matching1 .matching-item.selected').forEach(el => {
+                    el.classList.remove('selected');
+                });
+                matching1Selected = { left: null, right: null };
+            }
+        }
+
+        function verificaMatching1() {
+            let corrette = 0;
+            let totale = matching1Data.left.length;
+
+            // Verifica ogni accoppiamento
+            for (let leftId in matching1Pairs) {
+                const rightId = matching1Pairs[leftId];
+                const correctMatch = matching1Data.right.find(r => r.id === rightId && r.match === leftId);
+                
+                const leftElement = document.querySelector(`#col1-left .matching-item[data-id="${leftId}"]`);
+                const rightElement = document.querySelector(`#col1-right .matching-item[data-id="${rightId}"]`);
+
+                if (correctMatch) {
+                    leftElement.classList.add('correct');
+                    rightElement.classList.add('correct');
+                    corrette++;
+                } else {
+                    leftElement.classList.add('incorrect');
+                    rightElement.classList.add('incorrect');
+                }
+            }
+
+            const punti = Math.round((corrette / totale) * 20);
+            punteggio += punti;
+            aggiornaPunteggio();
+
+            const feedback = document.getElementById('feedback1');
+            feedback.className = 'feedback-message show ' + (corrette === totale ? 'correct' : 'incorrect');
+            feedback.innerHTML = `<strong>Risultato:</strong> ${corrette}/${totale} corrette. Hai guadagnato ${punti} punti!`;
+        }
+
+        function resetMatching1() {
+            matching1Pairs = {};
+            matching1Selected = { left: null, right: null };
+            document.querySelectorAll('#matching1 .matching-item').forEach(el => {
+                el.classList.remove('selected', 'correct', 'incorrect');
+            });
+            document.getElementById('feedback1').classList.remove('show');
+        }
+
+        // ESERCIZIO 2: QUIZ CON MENU A TENDINA
+        const quiz2Answers = {
+            'quiz2-q1': '3',
+            'quiz2-q2': 'psicologo',
+            'quiz2-q3': '1000',
+            'quiz2-q4': 'mediatore-culturale',
+            'quiz2-q5': 'specialistica'
+        };
+
+        function verificaQuiz2() {
+            let corrette = 0;
+            let totale = Object.keys(quiz2Answers).length;
+
+            for (let id in quiz2Answers) {
+                const select = document.getElementById(id);
+                const userAnswer = select.value;
+                const correctAnswer = quiz2Answers[id];
+
+                if (userAnswer === correctAnswer) {
+                    select.style.borderColor = '#4caf50';
+                    select.style.background = '#4caf5020';
+                    corrette++;
+                } else {
+                    select.style.borderColor = '#f44336';
+                    select.style.background = '#f4433620';
+                }
+            }
+
+            const punti = Math.round((corrette / totale) * 20);
+            punteggio += punti;
+            aggiornaPunteggio();
+
+            const feedback = document.getElementById('feedback2');
+            feedback.className = 'feedback-message show ' + (corrette === totale ? 'correct' : 'incorrect');
+            feedback.innerHTML = `<strong>Risultato:</strong> ${corrette}/${totale} corrette. Hai guadagnato ${punti} punti!`;
+        }
+
+        function resetQuiz2() {
+            for (let id in quiz2Answers) {
+                const select = document.getElementById(id);
+                select.value = '';
+                select.style.borderColor = '#e0e0e0';
+                select.style.background = 'white';
+            }
+            document.getElementById('feedback2').classList.remove('show');
+        }
+
+        // ESERCIZIO 3: VERO/FALSO
+        const tf3Answers = {
+            1: 'falso',  // L'infermiere può lavorare in varie strutture
+            2: 'vero',   // OSS ha competenze integrate
+            3: 'falso',  // Il mediatore aiuta a trovare soluzioni, non le trova lui
+            4: 'falso',  // Il sociologo studia vari aspetti sociali
+            5: 'falso',  // L'assistente familiare non richiede qualifica
+            6: 'falso',  // Il pedagogista lavora anche con anziani
+            7: 'vero',   // Lo psicoterapeuta può avere formazione medica o psicologica
+            8: 'vero'    // Educatore asilo nido lavora 0-3 anni
+        };
+
+        function selectTF(esercizio, domanda, risposta) {
+            // Memorizza la risposta
+            tfAnswers3[domanda] = risposta;
+
+            // Evidenzia il bottone selezionato
+            const buttons = document.querySelectorAll(`.true-false-item:nth-child(${domanda}) .tf-button`);
+            buttons.forEach(btn => btn.classList.remove('selected'));
+            window.event.target.classList.add('selected');
+        }
+
+        function verificaTF3() {
+            let corrette = 0;
+            let totale = Object.keys(tf3Answers).length;
+
+            for (let domanda in tf3Answers) {
+                const userAnswer = tfAnswers3[domanda];
+                const correctAnswer = tf3Answers[domanda];
+                
+                const buttons = document.querySelectorAll(`.true-false-item:nth-child(${domanda}) .tf-button`);
+                
+                if (userAnswer === correctAnswer) {
+                    corrette++;
+                    buttons.forEach(btn => {
+                        if (btn.textContent.toLowerCase().includes(correctAnswer)) {
+                            btn.style.boxShadow = '0 0 0 3px #4caf50';
+                        }
+                    });
+                } else {
+                    buttons.forEach(btn => {
+                        if (btn.classList.contains('selected')) {
+                            btn.style.boxShadow = '0 0 0 3px #f44336';
+                        }
+                        if (btn.textContent.toLowerCase().includes(correctAnswer)) {
+                            btn.style.boxShadow = '0 0 0 3px #4caf50';
+                        }
+                    });
+                }
+            }
+
+            const punti = Math.round((corrette / totale) * 30);
+            punteggio += punti;
+            aggiornaPunteggio();
+
+            const feedback = document.getElementById('feedback3');
+            feedback.className = 'feedback-message show ' + (corrette === totale ? 'correct' : 'incorrect');
+            feedback.innerHTML = `<strong>Risultato:</strong> ${corrette}/${totale} corrette. Hai guadagnato ${punti} punti!`;
+        }
+
+        function resetTF3() {
+            tfAnswers3 = {};
+            document.querySelectorAll('.tf-button').forEach(btn => {
+                btn.classList.remove('selected');
+                btn.style.boxShadow = '';
+            });
+            document.getElementById('feedback3').classList.remove('show');
+        }
+
+        // ESERCIZIO 4: CASI PRATICI
+        const casi4Answers = {
+            1: 2,  // OSS
+            2: 2,  // Mediatore familiare
+            3: 3,  // Animatore sociale
+            4: 2,  // Mediatore culturale
+            5: 3   // Psicoterapeuta
+        };
+
+        function selectOption(esercizio, caso, option) {
+            // Deseleziona tutte le opzioni del caso
+            const options = document.querySelectorAll(`.caso-pratico:nth-child(${caso}) .quiz-option`);
+            options.forEach(opt => opt.classList.remove('selected'));
+
+            // Seleziona la nuova opzione
+            window.event.target.classList.add('selected');
+            casoAnswers4[caso] = option;
+        }
+
+        function verificaCasi4() {
+            let corrette = 0;
+            let totale = Object.keys(casi4Answers).length;
+
+            for (let caso in casi4Answers) {
+                const userAnswer = casoAnswers4[caso];
+                const correctAnswer = casi4Answers[caso];
+                
+                const options = document.querySelectorAll(`.caso-pratico:nth-child(${caso}) .quiz-option`);
+                
+                options.forEach((opt, idx) => {
+                    opt.classList.remove('selected');
+                    if (idx + 1 === correctAnswer) {
+                        opt.classList.add('correct');
+                    }
+                    if (idx + 1 === userAnswer && userAnswer !== correctAnswer) {
+                        opt.classList.add('incorrect');
+                    }
+                });
+
+                if (userAnswer === correctAnswer) {
+                    corrette++;
+                }
+            }
+
+            const punti = Math.round((corrette / totale) * 40);
+            punteggio += punti;
+            aggiornaPunteggio();
+
+            const feedback = document.getElementById('feedback4');
+            feedback.className = 'feedback-message show ' + (corrette === totale ? 'correct' : 'incorrect');
+            feedback.innerHTML = `<strong>Risultato:</strong> ${corrette}/${totale} corrette. Hai guadagnato ${punti} punti!`;
+        }
+
+        function resetCasi4() {
+            casoAnswers4 = {};
+            document.querySelectorAll('.caso-pratico .quiz-option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            document.getElementById('feedback4').classList.remove('show');
+        }
+
+        // ESERCIZIO 5: MATCHING COMPETENZE
+        const matching5Data = {
+            left: [
+                { id: 'comp-intermedie', text: 'Competenze Intermedie' },
+                { id: 'conoscenze', text: 'Conoscenze' },
+                { id: 'abilita', text: 'Abilità' }
+            ],
+            right: [
+                { id: 'r-comp', text: 'Collaborare alla realizzazione degli obiettivi dei gruppi di lavoro', match: 'comp-intermedie' },
+                { id: 'r-conosc', text: 'Le figure professionali nei servizi e caratteristiche del lavoro d\'équipe', match: 'conoscenze' },
+                { id: 'r-abil', text: 'Individuare il proprio ruolo e adottare modalità comunicativo-relazionali', match: 'abilita' },
+                { id: 'r-dist4', text: 'Somministrare farmaci e terapie mediche complesse', match: null },
+                { id: 'r-dist5', text: 'Gestire il budget economico della struttura', match: null }
+            ]
+        };
+
+        function initMatching5() {
+            const leftShuffled = [...matching5Data.left].sort(() => Math.random() - 0.5);
+            const rightShuffled = [...matching5Data.right].sort(() => Math.random() - 0.5);
+
+            const leftCol = document.getElementById('col5-left');
+            const rightCol = document.getElementById('col5-right');
+
+            leftCol.innerHTML = '<h4 style="text-align:center; color:#764ba2;">Tipo di Competenza</h4>';
+            rightCol.innerHTML = '<h4 style="text-align:center; color:#764ba2;">Descrizione</h4>';
+
+            leftShuffled.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'matching-item';
+                div.setAttribute('data-id', item.id);
+                div.setAttribute('data-side', 'left');
+                div.textContent = item.text;
+                div.onclick = () => selectMatching5('left', item.id, div);
+                leftCol.appendChild(div);
+            });
+
+            rightShuffled.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'matching-item';
+                div.setAttribute('data-id', item.id);
+                div.setAttribute('data-side', 'right');
+                div.textContent = item.text;
+                div.onclick = () => selectMatching5('right', item.id, div);
+                rightCol.appendChild(div);
+            });
+        }
+
+        function selectMatching5(side, id, element) {
+            if (matching5Selected[side]) {
+                const prevElement = document.querySelector(`#matching5 .matching-item[data-side="${side}"][data-id="${matching5Selected[side]}"]`);
+                if (prevElement) prevElement.classList.remove('selected');
+            }
+
+            matching5Selected[side] = id;
+            element.classList.add('selected');
+
+            if (matching5Selected.left && matching5Selected.right) {
+                matching5Pairs[matching5Selected.left] = matching5Selected.right;
+                
+                document.querySelectorAll('#matching5 .matching-item.selected').forEach(el => {
+                    el.classList.remove('selected');
+                });
+                matching5Selected = { left: null, right: null };
+            }
+        }
+
+        function verificaMatching5() {
+            let corrette = 0;
+            let totale = matching5Data.left.length;
+
+            for (let leftId in matching5Pairs) {
+                const rightId = matching5Pairs[leftId];
+                const correctMatch = matching5Data.right.find(r => r.id === rightId && r.match === leftId);
+                
+                const leftElement = document.querySelector(`#col5-left .matching-item[data-id="${leftId}"]`);
+                const rightElement = document.querySelector(`#col5-right .matching-item[data-id="${rightId}"]`);
+
+                if (correctMatch) {
+                    leftElement.classList.add('correct');
+                    rightElement.classList.add('correct');
+                    corrette++;
+                } else {
+                    leftElement.classList.add('incorrect');
+                    rightElement.classList.add('incorrect');
+                }
+            }
+
+            const punti = Math.round((corrette / totale) * 40);
+            punteggio += punti;
+            aggiornaPunteggio();
+
+            const feedback = document.getElementById('feedback5');
+            feedback.className = 'feedback-message show ' + (corrette === totale ? 'correct' : 'incorrect');
+            feedback.innerHTML = `<strong>Risultato:</strong> ${corrette}/${totale} corrette. Hai guadagnato ${punti} punti!`;
+        }
+
+        function resetMatching5() {
+            matching5Pairs = {};
+            matching5Selected = { left: null, right: null };
+            document.querySelectorAll('#matching5 .matching-item').forEach(el => {
+                el.classList.remove('selected', 'correct', 'incorrect');
+            });
+            document.getElementById('feedback5').classList.remove('show');
+        }
+
+        // GESTIONE PUNTEGGIO
+        function aggiornaPunteggio() {
+            document.getElementById('punteggioTotale').textContent = punteggio;
+        }
+
+        function resetTuttiEsercizi() {
+            if (confirm('Sei sicuro di voler resettare tutti gli esercizi? Perderai il punteggio accumulato.')) {
+                punteggio = 0;
+                aggiornaPunteggio();
+                resetMatching1();
+                resetQuiz2();
+                resetTF3();
+                resetCasi4();
+                resetMatching5();
+                alert('Tutti gli esercizi sono stati resettati!');
+            }
+        }
+
+        // CONSEGNA COMPITI
+        function consegnaCompito() {
+            const nome = document.getElementById('nomeStudente').value;
+            const classe = document.getElementById('classeStudente').value;
+            const data = document.getElementById('dataCompito').value;
+            const d1 = document.getElementById('domanda1').value;
+            const d2 = document.getElementById('domanda2').value;
+            const d3 = document.getElementById('domanda3').value;
+            const d4 = document.getElementById('domanda4').value;
+            const d5 = document.getElementById('domanda5').value;
+
+            if (!nome || !classe || !data) {
+                alert('Per favore, compila i campi Nome, Classe e Data prima di consegnare.');
+                return;
+            }
+
+            if (!d1 || !d2 || !d3 || !d4 || !d5) {
+                alert('Per favore, rispondi a tutte le domande prima di consegnare.');
+                return;
+            }
+
+            const contenuto = `COMPITO - ÉQUIPE MULTIPROFESSIONALE
+========================================
+
+DATI STUDENTE:
+Nome e Cognome: ${nome}
+Classe: ${classe}
+Data: ${data}
+
+========================================
+
+DOMANDA 1:
+Descrivi il ruolo e le competenze principali del medico di base nel sistema sanitario italiano. Quali sono le differenze con il medico specialista?
+
+RISPOSTA:
+${d1}
+
+========================================
+
+DOMANDA 2:
+Spiega cosa significa lavorare in un'équipe multiprofessionale. Quali sono i vantaggi della collaborazione tra diverse figure professionali nei servizi sociosanitari?
+
+RISPOSTA:
+${d2}
+
+========================================
+
+DOMANDA 3:
+Confronta le figure dell'OSS (Operatore Socio-Sanitario) e dell'ASA (Ausiliario Socio-Assistenziale): quali sono le similitudini e le differenze tra questi due ruoli?
+
+RISPOSTA:
+${d3}
+
+========================================
+
+DOMANDA 4:
+Descrivi il percorso formativo necessario per diventare psicoterapeuta e spiega quali sono le differenze tra lo psicologo e lo psicoterapeuta.
+
+RISPOSTA:
+${d4}
+
+========================================
+
+DOMANDA 5:
+L'animatore sociale lavora con diverse tipologie di utenti (anziani, disabili, minori). Descrivi le competenze necessarie per svolgere questo ruolo e fai un esempio pratico di attività che potrebbe organizzare.
+
+RISPOSTA:
+${d5}
+
+========================================
+
+Prof. Dott. Picconi
+IIS Meucci Mattei, Cagliari - Sede Decimomannu
+`;
+
+            // Crea il file TXT
+            const blob = new Blob([contenuto], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Compito_${nome.replace(/\s+/g, '_')}_${classe}_${data}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            alert('✅ Compito consegnato con successo! Il file è stato scaricato.');
+        }
+
+        // FUNZIONI SALVA PDF E WORD (placeholder - richiederebbero librerie esterne)
+        function salvaPDF(sezione) {
+            alert(`La funzione di salvataggio in PDF della sezione "${sezione}" richiede l'integrazione con una libreria esterna (es: jsPDF). Per ora, usa la funzione di stampa del browser (CTRL+P) e seleziona "Salva come PDF".`);
+            window.print();
+        }
+
+        function salvaWord(sezione) {
+            alert(`La funzione di salvataggio in Word della sezione "${sezione}" richiede l'integrazione con una libreria esterna. Per ora, puoi copiare il contenuto e incollarlo in un documento Word.`);
+        }
+
+        // INIZIALIZZAZIONE
+        window.onload = function() {
+            initMatching1();
+            initMatching5();
+            
+            // Imposta la data di oggi nel campo data
+            const oggi = new Date().toISOString().split('T')[0];
+            document.getElementById('dataCompito').value = oggi;
+        };
+    </script>
+</body>
+</html>
