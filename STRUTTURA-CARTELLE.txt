@@ -1,0 +1,111 @@
+# 📁 STRUTTURA CARTELLE PER GITHUB
+
+Quando carichi il sito su GitHub, la struttura finale delle cartelle deve essere così:
+
+```
+materiali-didattici/              (il tuo repository)
+│
+├── index.html                     ✅ Carica questo file
+├── biennio.html                   ✅ Carica questo file
+├── terzo.html                     ✅ Carica questo file
+├── quarto.html                    ✅ Carica questo file
+├── quinto.html                    ✅ Carica questo file
+├── style.css                      ✅ Carica questo file
+├── materiali.js                   ✅ Carica questo file
+├── materiali.json                 ✅ Carica questo file
+│
+└── materiali/                     📁 Crea questa cartella su GitHub
+    ├── biennio/                   📁 Crea questa sottocartella
+    │   ├── .gitkeep              (file vuoto per mantenere la cartella)
+    │   └── (qui caricherai i tuoi PDF per il biennio)
+    │
+    ├── terzo/                     📁 Crea questa sottocartella
+    │   ├── .gitkeep              (file vuoto per mantenere la cartella)
+    │   └── (qui caricherai i tuoi PDF per il terzo anno)
+    │
+    ├── quarto/                    📁 Crea questa sottocartella
+    │   ├── .gitkeep              (file vuoto per mantenere la cartella)
+    │   └── (qui caricherai i tuoi PDF per il quarto anno)
+    │
+    └── quinto/                    📁 Crea questa sottocartella
+        ├── .gitkeep              (file vuoto per mantenere la cartella)
+        └── (qui caricherai i tuoi PDF per il quinto anno)
+```
+
+---
+
+## 🎯 COME CREARE LE CARTELLE SU GITHUB
+
+GitHub non permette di creare cartelle vuote direttamente. Devi creare un file dentro ogni cartella.
+
+### Procedura per ogni cartella:
+
+1. Nel repository, clicca **"Add file"** → **"Create new file"**
+
+2. Nel campo del nome file, scrivi:
+   - Per biennio: `materiali/biennio/.gitkeep`
+   - Per terzo: `materiali/terzo/.gitkeep`
+   - Per quarto: `materiali/quarto/.gitkeep`
+   - Per quinto: `materiali/quinto/.gitkeep`
+
+3. Lascia il contenuto vuoto
+
+4. Clicca **"Commit changes"**
+
+Il file `.gitkeep` è una convenzione per mantenere cartelle vuote in Git. Non fa nulla, serve solo a creare la cartella.
+
+---
+
+## 📝 ESEMPIO: Dopo che hai caricato alcuni PDF
+
+```
+materiali-didattici/
+│
+├── index.html
+├── biennio.html
+├── terzo.html
+├── quarto.html
+├── quinto.html
+├── style.css
+├── materiali.js
+├── materiali.json
+│
+└── materiali/
+    ├── biennio/
+    │   ├── .gitkeep
+    │   ├── introduzione.pdf          ← I tuoi PDF
+    │   ├── lezione1.pdf               ← I tuoi PDF
+    │   └── comunicazione.pdf          ← I tuoi PDF
+    │
+    ├── terzo/
+    │   ├── .gitkeep
+    │   └── legislazione.pdf           ← I tuoi PDF
+    │
+    ├── quarto/
+    │   └── .gitkeep
+    │
+    └── quinto/
+        ├── .gitkeep
+        └── esame-stato.pdf            ← I tuoi PDF
+```
+
+---
+
+## ⚡ SEQUENZA DI CARICAMENTO SU GITHUB
+
+**ORDINE CONSIGLIATO:**
+
+1. ✅ Carica tutti i file HTML, CSS, JS, JSON (Upload files)
+2. ✅ Crea le cartelle materiali/biennio/.gitkeep
+3. ✅ Crea le cartelle materiali/terzo/.gitkeep
+4. ✅ Crea le cartelle materiali/quarto/.gitkeep
+5. ✅ Crea le cartelle materiali/quinto/.gitkeep
+6. ✅ Attiva GitHub Pages (Settings → Pages)
+7. ✅ Aspetta 2 minuti
+8. ✅ Visita il tuo sito!
+
+---
+
+## 🎉 FATTO!
+
+Una volta completati questi passaggi, il tuo sito sarà online e pronto per accogliere i materiali didattici!

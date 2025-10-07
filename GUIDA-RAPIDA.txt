@@ -1,0 +1,211 @@
+# 🎯 GUIDA RAPIDA - ISTRUZIONI ESSENZIALI
+
+## 📂 COSA HAI RICEVUTO
+
+Hai tutti i file necessari per il tuo sito web:
+
+### File Principali
+- `index.html` - Pagina iniziale
+- `biennio.html` - Pagina materiali biennio
+- `terzo.html` - Pagina materiali terzo anno
+- `quarto.html` - Pagina materiali quarto anno
+- `quinto.html` - Pagina materiali quinto anno
+- `style.css` - Foglio di stile (design del sito)
+- `materiali.js` - Script che legge il JSON
+- `materiali.json` - File dove inserire i tuoi materiali (VUOTO)
+- `materiali-ESEMPIO.json` - Esempio con dati di test (rinominalo in materiali.json per vedere il sito funzionante)
+
+### File di Supporto
+- `README.md` - Guida completa dettagliata
+- `GUIDA-RAPIDA.txt` - Questo file
+
+---
+
+## ⚡ INIZIARE SUBITO
+
+### 1️⃣ TESTARE IL SITO IN LOCALE (OPZIONALE)
+
+Se vuoi vedere il sito sul tuo computer prima di caricarlo online:
+
+**Windows:**
+1. Scarica tutti i file in una cartella
+2. Rinomina `materiali-ESEMPIO.json` in `materiali.json` per vedere i dati di test
+3. Fai doppio clic su `index.html`
+4. Il sito si aprirà nel browser
+
+**NOTA:** Per vedere i materiali funzionare correttamente in locale, devi usare un server locale (es: Live Server in VS Code) a causa delle restrizioni di sicurezza del browser con i file JSON locali.
+
+### 2️⃣ CARICARE SU GITHUB PAGES (3 MINUTI)
+
+**Passaggi essenziali:**
+
+1. **Crea un account su GitHub** → https://github.com (se non ce l'hai)
+
+2. **Crea un nuovo repository:**
+   - Clicca "+" in alto → "New repository"
+   - Nome: `materiali-didattici`
+   - Seleziona "Public"
+   - ✅ Spunta "Add a README file"
+   - Clicca "Create repository"
+
+3. **Carica i file:**
+   - Clicca "Add file" → "Upload files"
+   - Trascina TUTTI i file (eccetto README.md e GUIDA-RAPIDA.txt)
+   - Clicca "Commit changes"
+
+4. **Crea le cartelle materiali:**
+   - Clicca "Add file" → "Create new file"
+   - Scrivi: `materiali/biennio/.gitkeep`
+   - Clicca "Commit"
+   - Ripeti per: `materiali/terzo/.gitkeep`, `materiali/quarto/.gitkeep`, `materiali/quinto/.gitkeep`
+
+5. **Attiva GitHub Pages:**
+   - Vai su "Settings" → "Pages"
+   - Source: seleziona "main" branch e "/" root
+   - Clicca "Save"
+   - Aspetta 2 minuti
+
+6. **Il tuo sito è online!**
+   - L'URL sarà: `https://tuonomeutente.github.io/materiali-didattici/`
+
+---
+
+## 📝 AGGIUNGERE MATERIALI (OGNI VOLTA)
+
+### PROCEDURA SEMPLICE:
+
+**STEP 1 - Carica il file PDF:**
+1. Vai su GitHub nel tuo repository
+2. Apri la cartella giusta: `materiali/biennio/` (o terzo/quarto/quinto)
+3. Clicca "Add file" → "Upload files"
+4. Carica il PDF
+5. Clicca "Commit changes"
+
+**STEP 2 - Aggiorna materiali.json:**
+1. Clicca sul file `materiali.json`
+2. Clicca l'icona matita ✏️
+3. Copia e incolla questo template:
+
+```json
+{
+  "titolo": "Titolo del materiale",
+  "file": "materiali/ANNO/nomefile.pdf",
+  "descrizione": "Breve descrizione",
+  "data": "2025-10-06"
+}
+```
+
+4. Inseriscilo nell'array giusto (biennio, terzo, quarto, o quinto)
+5. **ATTENZIONE ALLE VIRGOLE:** ogni materiale tranne l'ultimo deve avere la virgola dopo la }
+
+### ESEMPIO PRATICO:
+
+**Vuoto:**
+```json
+{
+  "biennio": [],
+  "terzo": [],
+  "quarto": [],
+  "quinto": []
+}
+```
+
+**Dopo aver aggiunto il primo materiale al biennio:**
+```json
+{
+  "biennio": [
+    {
+      "titolo": "Introduzione al Corso",
+      "file": "materiali/biennio/introduzione.pdf",
+      "descrizione": "Prima lezione del corso",
+      "data": "2025-10-06"
+    }
+  ],
+  "terzo": [],
+  "quarto": [],
+  "quinto": []
+}
+```
+
+**Dopo aver aggiunto un secondo materiale (NOTA LA VIRGOLA):**
+```json
+{
+  "biennio": [
+    {
+      "titolo": "Introduzione al Corso",
+      "file": "materiali/biennio/introduzione.pdf",
+      "descrizione": "Prima lezione del corso",
+      "data": "2025-10-06"
+    },
+    {
+      "titolo": "I Servizi Sociali",
+      "file": "materiali/biennio/servizi.pdf",
+      "descrizione": "Panoramica sui servizi sociali",
+      "data": "2025-10-13"
+    }
+  ],
+  "terzo": [],
+  "quarto": [],
+  "quinto": []
+}
+```
+
+---
+
+## ✅ CHECKLIST VELOCE
+
+Ogni volta che aggiungi materiale:
+
+- [ ] Ho caricato il PDF nella cartella giusta?
+- [ ] Ho modificato materiali.json?
+- [ ] Ho messo le virgole nel posto giusto?
+- [ ] La data è nel formato YYYY-MM-DD?
+- [ ] Il percorso del file è corretto?
+- [ ] Ho fatto "Commit changes"?
+- [ ] Ho aspettato 1-2 minuti?
+- [ ] Ho ricaricato la pagina (F5)?
+
+---
+
+## ⚠️ ERRORI COMUNI
+
+**Il sito non mostra i materiali:**
+→ Controlla il file JSON su https://jsonlint.com (trova errori di sintassi)
+
+**File non trovato:**
+→ Verifica che il percorso in "file" corrisponda a dove hai caricato il PDF
+
+**Modifiche non visibili:**
+→ Aspetta 2 minuti e ricarica con CTRL+F5
+
+---
+
+## 🎨 PERSONALIZZAZIONE (OPZIONALE)
+
+Se vuoi modificare colori o testi:
+- **Colori:** modifica il file `style.css`
+- **Testi intestazione:** modifica i file HTML
+- **Piè di pagina:** modifica la sezione `<footer>` in ogni file HTML
+
+---
+
+## 📱 IL SITO È RESPONSIVE
+
+Il sito funziona perfettamente su:
+- 💻 Computer
+- 📱 Smartphone
+- 📱 Tablet
+
+Gli studenti possono accedervi da qualsiasi dispositivo!
+
+---
+
+## 🆘 SERVE AIUTO?
+
+1. Leggi il **README.md** per istruzioni dettagliate con screenshot mentali
+2. Testa con UN solo materiale prima di caricarne molti
+3. Usa il file **materiali-ESEMPIO.json** per vedere come dovrebbe funzionare
+
+---
+
+**🎓 Buon lavoro con i tuoi materiali didattici!**
