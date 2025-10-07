@@ -396,6 +396,12 @@
             background: #667eea15;
         }
 
+        .matching-item.paired {
+            border-color: #ff9800;
+            background: #ff980020;
+            font-weight: 600;
+        }
+
         .matching-item.correct {
             border-color: #4caf50;
             background: #4caf5015;
@@ -1594,7 +1600,7 @@
             <div class="punteggio-container">
                 <h3>🏆 Punteggio Totale</h3>
                 <div class="punteggio-numero" id="punteggioTotale">0</div>
-                <p>punti su 150 disponibili</p>
+                <p>punti su 110 disponibili</p>
             </div>
 
             <h2 style="color: #667eea; text-align: center; margin-bottom: 30px;">✏️ Esercitazioni Interattive</h2>
@@ -1842,24 +1848,6 @@
                 <div class="feedback-message" id="feedback4"></div>
             </div>
 
-            <!-- ESERCIZIO 5: Accoppiamento Competenze-Descrizioni -->
-            <div class="esercizio-block">
-                <div class="esercizio-numero">Esercizio 5</div>
-                <h3>🔗 Accoppiamento: Competenze dell'Équipe</h3>
-                <p><strong>Collega ogni tipo di competenza alla sua descrizione. Alcune opzioni sono distrattori!</strong></p>
-                
-                <div class="matching-container" id="matching5">
-                    <div class="matching-column" id="col5-left"></div>
-                    <div class="matching-column" id="col5-right"></div>
-                </div>
-                
-                <div class="button-group">
-                    <button class="btn btn-primary" onclick="verificaMatching5()">✓ Verifica</button>
-                    <button class="btn btn-secondary" onclick="resetMatching5()">↻ Reset</button>
-                </div>
-                <div class="feedback-message" id="feedback5"></div>
-            </div>
-
             <div class="button-group">
                 <button class="btn btn-warning" onclick="resetTuttiEsercizi()">↻ Reset Tutti gli Esercizi</button>
                 <button class="btn btn-success" onclick="salvaPDF('esercizi')">💾 Salva Risultati in PDF</button>
@@ -1965,8 +1953,6 @@
         let punteggio = 0;
         let matching1Selected = { left: null, right: null };
         let matching1Pairs = {};
-        let matching5Selected = { left: null, right: null };
-        let matching5Pairs = {};
         let tfAnswers3 = {};
         let casoAnswers4 = {};
 
@@ -2029,7 +2015,14 @@
             // Deseleziona precedente dello stesso lato
             if (matching1Selected[side]) {
                 const prevElement = document.querySelector(`.matching-item[data-side="${side}"][data-id="${matching1Selected[side]}"]`);
-                if (prevElement) prevElement.classList.remove('selected');
+                if (prevElement && !prevElement.classList.contains('paired')) {
+                    prevElement.classList.remove('selected');
+                }
+            }
+
+            // Non permettere di selezionare elementi già accoppiati
+            if (element.classList.contains('paired')) {
+                return;
             }
 
             matching1Selected[side] = id;
@@ -2039,10 +2032,15 @@
             if (matching1Selected.left && matching1Selected.right) {
                 matching1Pairs[matching1Selected.left] = matching1Selected.right;
                 
-                // Reset selezione
-                document.querySelectorAll('#matching1 .matching-item.selected').forEach(el => {
-                    el.classList.remove('selected');
-                });
+                // Mantieni evidenziati gli elementi accoppiati con classe "paired"
+                const leftEl = document.querySelector(`#col1-left .matching-item[data-id="${matching1Selected.left}"]`);
+                const rightEl = document.querySelector(`#col1-right .matching-item[data-id="${matching1Selected.right}"]`);
+                
+                leftEl.classList.remove('selected');
+                rightEl.classList.remove('selected');
+                leftEl.classList.add('paired');
+                rightEl.classList.add('paired');
+                
                 matching1Selected = { left: null, right: null };
             }
         }
@@ -2082,7 +2080,7 @@
             matching1Pairs = {};
             matching1Selected = { left: null, right: null };
             document.querySelectorAll('#matching1 .matching-item').forEach(el => {
-                el.classList.remove('selected', 'correct', 'incorrect');
+                el.classList.remove('selected', 'correct', 'incorrect', 'paired');
             });
             document.getElementById('feedback1').classList.remove('show');
         }
@@ -2213,12 +2211,21 @@
         };
 
         function selectOption(esercizio, caso, option) {
+            const clickedElement = window.event.target;
+            
+            // Se l'elemento è già selezionato, deselezionalo
+            if (clickedElement.classList.contains('selected')) {
+                clickedElement.classList.remove('selected');
+                delete casoAnswers4[caso];
+                return;
+            }
+            
             // Deseleziona tutte le opzioni del caso
             const options = document.querySelectorAll(`.caso-pratico:nth-child(${caso}) .quiz-option`);
             options.forEach(opt => opt.classList.remove('selected'));
 
             // Seleziona la nuova opzione
-            window.event.target.classList.add('selected');
+            clickedElement.classList.add('selected');
             casoAnswers4[caso] = option;
         }
 
@@ -2264,111 +2271,6 @@
             document.getElementById('feedback4').classList.remove('show');
         }
 
-        // ESERCIZIO 5: MATCHING COMPETENZE
-        const matching5Data = {
-            left: [
-                { id: 'comp-intermedie', text: 'Competenze Intermedie' },
-                { id: 'conoscenze', text: 'Conoscenze' },
-                { id: 'abilita', text: 'Abilità' }
-            ],
-            right: [
-                { id: 'r-comp', text: 'Collaborare alla realizzazione degli obiettivi dei gruppi di lavoro', match: 'comp-intermedie' },
-                { id: 'r-conosc', text: 'Le figure professionali nei servizi e caratteristiche del lavoro d\'équipe', match: 'conoscenze' },
-                { id: 'r-abil', text: 'Individuare il proprio ruolo e adottare modalità comunicativo-relazionali', match: 'abilita' },
-                { id: 'r-dist4', text: 'Somministrare farmaci e terapie mediche complesse', match: null },
-                { id: 'r-dist5', text: 'Gestire il budget economico della struttura', match: null }
-            ]
-        };
-
-        function initMatching5() {
-            const leftShuffled = [...matching5Data.left].sort(() => Math.random() - 0.5);
-            const rightShuffled = [...matching5Data.right].sort(() => Math.random() - 0.5);
-
-            const leftCol = document.getElementById('col5-left');
-            const rightCol = document.getElementById('col5-right');
-
-            leftCol.innerHTML = '<h4 style="text-align:center; color:#764ba2;">Tipo di Competenza</h4>';
-            rightCol.innerHTML = '<h4 style="text-align:center; color:#764ba2;">Descrizione</h4>';
-
-            leftShuffled.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'matching-item';
-                div.setAttribute('data-id', item.id);
-                div.setAttribute('data-side', 'left');
-                div.textContent = item.text;
-                div.onclick = () => selectMatching5('left', item.id, div);
-                leftCol.appendChild(div);
-            });
-
-            rightShuffled.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'matching-item';
-                div.setAttribute('data-id', item.id);
-                div.setAttribute('data-side', 'right');
-                div.textContent = item.text;
-                div.onclick = () => selectMatching5('right', item.id, div);
-                rightCol.appendChild(div);
-            });
-        }
-
-        function selectMatching5(side, id, element) {
-            if (matching5Selected[side]) {
-                const prevElement = document.querySelector(`#matching5 .matching-item[data-side="${side}"][data-id="${matching5Selected[side]}"]`);
-                if (prevElement) prevElement.classList.remove('selected');
-            }
-
-            matching5Selected[side] = id;
-            element.classList.add('selected');
-
-            if (matching5Selected.left && matching5Selected.right) {
-                matching5Pairs[matching5Selected.left] = matching5Selected.right;
-                
-                document.querySelectorAll('#matching5 .matching-item.selected').forEach(el => {
-                    el.classList.remove('selected');
-                });
-                matching5Selected = { left: null, right: null };
-            }
-        }
-
-        function verificaMatching5() {
-            let corrette = 0;
-            let totale = matching5Data.left.length;
-
-            for (let leftId in matching5Pairs) {
-                const rightId = matching5Pairs[leftId];
-                const correctMatch = matching5Data.right.find(r => r.id === rightId && r.match === leftId);
-                
-                const leftElement = document.querySelector(`#col5-left .matching-item[data-id="${leftId}"]`);
-                const rightElement = document.querySelector(`#col5-right .matching-item[data-id="${rightId}"]`);
-
-                if (correctMatch) {
-                    leftElement.classList.add('correct');
-                    rightElement.classList.add('correct');
-                    corrette++;
-                } else {
-                    leftElement.classList.add('incorrect');
-                    rightElement.classList.add('incorrect');
-                }
-            }
-
-            const punti = Math.round((corrette / totale) * 40);
-            punteggio += punti;
-            aggiornaPunteggio();
-
-            const feedback = document.getElementById('feedback5');
-            feedback.className = 'feedback-message show ' + (corrette === totale ? 'correct' : 'incorrect');
-            feedback.innerHTML = `<strong>Risultato:</strong> ${corrette}/${totale} corrette. Hai guadagnato ${punti} punti!`;
-        }
-
-        function resetMatching5() {
-            matching5Pairs = {};
-            matching5Selected = { left: null, right: null };
-            document.querySelectorAll('#matching5 .matching-item').forEach(el => {
-                el.classList.remove('selected', 'correct', 'incorrect');
-            });
-            document.getElementById('feedback5').classList.remove('show');
-        }
-
         // GESTIONE PUNTEGGIO
         function aggiornaPunteggio() {
             document.getElementById('punteggioTotale').textContent = punteggio;
@@ -2382,7 +2284,6 @@
                 resetQuiz2();
                 resetTF3();
                 resetCasi4();
-                resetMatching5();
                 alert('Tutti gli esercizi sono stati resettati!');
             }
         }
@@ -2476,20 +2377,89 @@ IIS Meucci Mattei, Cagliari - Sede Decimomannu
             alert('✅ Compito consegnato con successo! Il file è stato scaricato.');
         }
 
-        // FUNZIONI SALVA PDF E WORD (placeholder - richiederebbero librerie esterne)
+        // FUNZIONI SALVA PDF E WORD
         function salvaPDF(sezione) {
-            alert(`La funzione di salvataggio in PDF della sezione "${sezione}" richiede l'integrazione con una libreria esterna (es: jsPDF). Per ora, usa la funzione di stampa del browser (CTRL+P) e seleziona "Salva come PDF".`);
+            // Nascondi tutti i bottoni prima di stampare
+            const buttons = document.querySelectorAll('.btn, .tab-button');
+            buttons.forEach(btn => btn.style.display = 'none');
+            
+            // Mostra solo la sezione richiesta
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                if (section.id !== sezione) {
+                    section.style.display = 'none';
+                } else {
+                    section.style.display = 'block';
+                }
+            });
+            
+            // Stampa (o salva come PDF)
             window.print();
+            
+            // Ripristina la visualizzazione originale
+            setTimeout(() => {
+                buttons.forEach(btn => btn.style.display = '');
+                sections.forEach(section => {
+                    if (section.classList.contains('active')) {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+            }, 500);
         }
 
         function salvaWord(sezione) {
-            alert(`La funzione di salvataggio in Word della sezione "${sezione}" richiede l'integrazione con una libreria esterna. Per ora, puoi copiare il contenuto e incollarlo in un documento Word.`);
+            const sectionElement = document.getElementById(sezione);
+            const content = sectionElement.innerHTML;
+            
+            const htmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Équipe Multiprofessionale - ${sezione.toUpperCase()}</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1, h2, h3 { color: #667eea; }
+        .esercizio-block { margin: 30px 0; padding: 20px; border: 2px solid #e0e0e0; }
+        .feedback-message { display: none; }
+        .btn { display: none; }
+    </style>
+</head>
+<body>
+    <h1>Équipe Multiprofessionale - Strumenti di Lavoro nei Servizi Sociosanitari</h1>
+    <h2>Sezione: ${sezione.toUpperCase()}</h2>
+    <hr>
+    ${content}
+    <hr>
+    <p><strong>Prof. Dott. Picconi</strong> - IIS Meucci Mattei, Cagliari - Sede Decimomannu</p>
+</body>
+</html>`;
+            
+            // Crea un Blob con il contenuto HTML
+            const blob = new Blob([htmlContent], { type: 'application/msword' });
+            const url = URL.createObjectURL(blob);
+            
+            // Crea un link per il download
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Equipe_Multiprofessionale_${sezione}.doc`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
         }
 
         // INIZIALIZZAZIONE
         window.onload = function() {
             initMatching1();
-            initMatching5();
             
             // Imposta la data di oggi nel campo data
             const oggi = new Date().toISOString().split('T')[0];
