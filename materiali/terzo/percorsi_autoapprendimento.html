@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Percorsi di Autoapprendimento - Servizi Socio-Sanitari</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .school-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .course-name {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .progress-bar-container {
+            background: white;
+            padding: 20px 30px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .progress-label {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 25px;
+            background: #ecf0f1;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .nav-btn:not(.active) {
+            background: #ecf0f1;
+            color: #34495e;
+        }
+
+        .nav-btn:not(.active):hover {
+            background: #bdc3c7;
+            transform: translateY(-2px);
+        }
+
+        .module {
+            display: none;
+        }
+
+        .module.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .module-title {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .theory-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #667eea;
+        }
+
+        .theory-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .theory-section p, .theory-section ul {
+            line-height: 1.8;
+            color: #34495e;
+            margin-bottom: 15px;
+        }
+
+        .theory-section ul {
+            margin-left: 20px;
+        }
+
+        .theory-section li {
+            margin-bottom: 8px;
+        }
+
+        .key-concept {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .key-concept strong {
+            color: #856404;
+        }
+
+        .quiz-section {
+            background: #e8f4fd;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .quiz-title {
+            font-size: 22px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .question {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .question-text {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            padding: 12px 15px;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f8f9fa;
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: #e8f4fd;
+        }
+
+        .option.correct {
+            border-color: #27ae60;
+            background: #d4edda;
+        }
+
+        .option.incorrect {
+            border-color: #e74c3c;
+            background: #f8d7da;
+        }
+
+        .check-btn {
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+
+        .check-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        .check-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        .exercise-section {
+            background: #fff3e6;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .exercise-title {
+            font-size: 22px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .matching-exercise {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .match-column {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .match-item {
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 2px solid #ecf0f1;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .match-item:hover {
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .match-item.selected {
+            background: #e8f4fd;
+            border-color: #667eea;
+        }
+
+        .match-item.matched {
+            background: #d4edda;
+            border-color: #27ae60;
+            cursor: default;
+        }
+
+        .complete-button {
+            background: #27ae60;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        .complete-button:hover {
+            background: #229954;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .badge.completed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge.in-progress {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .badge.locked {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 15px;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .summary-section {
+            background: #e8f8f5;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .score-display {
+            font-size: 48px;
+            font-weight: bold;
+            text-align: center;
+            color: #667eea;
+            margin: 20px 0;
+        }
+
+        .export-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+
+        .export-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .export-btn.pdf {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .export-btn.pdf:hover {
+            background: #c0392b;
+        }
+
+        @media (max-width: 768px) {
+            .matching-exercise {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+            }
+        }
+
+        .hint-box {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .case-study {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .case-study-title {
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="school-name">IIS Meucci Mattei di Cagliari Sede Decimomannu</div>
+            <div class="course-name">Servizi per la sanità e l'assistenza sociale - Percorsi di Autoapprendimento</div>
+        </div>
+
+        <div class="progress-bar-container">
+            <div class="progress-label">
+                <span>Progresso Complessivo</span>
+                <span id="progress-text">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill" style="width: 0%;">0%</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="nav-buttons">
+                <button class="nav-btn active" onclick="showModule(0)">Modulo 1: Politiche Sociali</button>
+                <button class="nav-btn" onclick="showModule(1)">Modulo 2: Servizi Integrativi</button>
+                <button class="nav-btn" onclick="showModule(2)">Modulo 3: Servizi Sostitutivi</button>
+                <button class="nav-btn" onclick="showModule(3)">Modulo 4: Applicazione Pratica</button>
+                <button class="nav-btn" onclick="showModule(4)">Riepilogo e Valutazione</button>
+            </div>
+
+            <!-- MODULO 1: POLITICHE SOCIALI -->
+            <div class="module active" id="module-0">
+                <div class="module-title">Modulo 1: Politiche Sociali e Sistema Integrato</div>
+
+                <div class="theory-section">
+                    <h3>Cosa sono le Politiche Sociali?</h3>
+                    <p>Le politiche sociali sono tutti quegli interventi da parte dello Stato rivolti alle persone che presentano una qualunque forma di disagio o svantaggio. Sono quella parte delle politiche pubbliche che mirano a <strong>tutelare i cittadini dai rischi sociali</strong>, promuovendo e garantendo il benessere attraverso:</p>
+                    <ul>
+                        <li>Regole per la distribuzione delle risorse</li>
+                        <li>Accesso ai servizi</li>
+                        <li>Modalità di erogazione</li>
+                    </ul>
+
+                    <div class="key-concept">
+                        <strong>Concetto chiave:</strong> Il Sistema Integrato di interventi e servizi sociali (Legge 328/2000) è il risultato della somma fra politiche sociali e prestazioni sociali, coordinate da una pluralità di operatori (ASL, Comuni, Province, Città Metropolitane) e garantite sotto forma di beni e servizi.
+                    </div>
+
+                    <h3>Finalità del Settore Servizi Sociali</h3>
+                    <p>Il settore Servizi Sociali di ogni Comune ha come finalità:</p>
+                    <ul>
+                        <li>La promozione, il mantenimento e il recupero dello stato di benessere dei cittadini</li>
+                        <li>Il pieno sviluppo delle persone nell'ambito dei rapporti familiari e sociali</li>
+                    </ul>
+
+                    <h3>Due Categorie di Servizi</h3>
+                    <p><strong>Servizi e Interventi Integrativi:</strong> Garantiscono la permanenza della persona nel proprio ambiente di vita il più a lungo possibile, offrendo supporto assistenziale e la mobilitazione di tutte le risorse possibili.</p>
+                    <p><strong>Servizi e Interventi Sostitutivi:</strong> Intervengono in situazioni di emergenza e bisogno che possono essere gestite con l'allontanamento temporaneo della persona dal proprio ambiente di vita, per poi ripristinare e potenziare l'ambiente stesso.</p>
+                </div>
+
+                <div class="quiz-section">
+                    <div class="quiz-title">Quiz di Verifica</div>
+                    
+                    <div class="question" data-correct="0">
+                        <div class="question-text">1. Qual è l'obiettivo principale delle politiche sociali?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 0, 0)">
+                                <input type="radio" name="q1"> Tutelare i cittadini dai rischi sociali e promuovere il benessere
+                            </div>
+                            <div class="option" onclick="selectOption(this, 0, 1)">
+                                <input type="radio" name="q1"> Punire chi non rispetta le regole sociali
+                            </div>
+                            <div class="option" onclick="selectOption(this, 0, 2)">
+                                <input type="radio" name="q1"> Gestire solo le emergenze sanitarie
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-correct="1">
+                        <div class="question-text">2. I servizi integrativi hanno come obiettivo:</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 1, 0)">
+                                <input type="radio" name="q2"> Allontanare sempre la persona dal proprio ambiente
+                            </div>
+                            <div class="option" onclick="selectOption(this, 1, 1)">
+                                <input type="radio" name="q2"> Mantenere la persona nel proprio ambiente di vita il più possibile
+                            </div>
+                            <div class="option" onclick="selectOption(this, 1, 2)">
+                                <input type="radio" name="q2"> Sostituire completamente la famiglia
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-correct="2">
+                        <div class="question-text">3. Qual è la legge che ha istituito il Sistema Integrato di interventi e servizi sociali in Italia?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 2, 0)">
+                                <input type="radio" name="q3"> Legge 104/1992
+                            </div>
+                            <div class="option" onclick="selectOption(this, 2, 1)">
+                                <input type="radio" name="q3"> Legge 180/1978
+                            </div>
+                            <div class="option" onclick="selectOption(this, 2, 2)">
+                                <input type="radio" name="q3"> Legge 328/2000
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="check-btn" onclick="checkQuiz(0)">Verifica Risposte</button>
+                    <div class="feedback" id="feedback-0"></div>
+                </div>
+
+                <div class="exercise-section">
+                    <div class="exercise-title">Esercizio: Rifletti e Scrivi</div>
+                    <p><strong>Domanda:</strong> Secondo te, perché è importante che il sistema di servizi sociali sia "integrato" (cioè coinvolga diversi enti come Comuni, ASL, Province)? Quali vantaggi porta questa integrazione alle persone che hanno bisogno di aiuto?</p>
+                    <textarea id="reflection-1" placeholder="Scrivi qui la tua riflessione (minimo 150 parole)..."></textarea>
+                    <button class="complete-button" onclick="saveReflection(1)">Salva Riflessione</button>
+                </div>
+            </div>
+
+            <!-- MODULO 2: SERVIZI INTEGRATIVI -->
+            <div class="module" id="module-1">
+                <div class="module-title">Modulo 2: I Servizi Integrativi</div>
+
+                <div class="theory-section">
+                    <h3>Panoramica dei Servizi Integrativi</h3>
+                    <p>I servizi integrativi sono pensati per supportare le persone mantenendole nel loro ambiente di vita abituale. Vediamoli nel dettaglio:</p>
+
+                    <h3>1. Segretariato Sociale</h3>
+                    <p>Il punto di accesso primario ai servizi. È un servizio di <strong>confine tra amministrazione e cittadino</strong> con alta prossimità all'utente.</p>
+                    <ul>
+                        <li><strong>Gratuito e obbligatorio</strong> presso ogni Comune</li>
+                        <li>Fornisce informazioni e primo orientamento</li>
+                        <li>Fa una prima valutazione del bisogno</li>
+                    </ul>
+
+                    <h3>2. Servizio Sociale Professionale</h3>
+                    <p>Figura centrale: l'<strong>Assistente Sociale</strong>. Si occupa di:</p>
+                    <ul>
+                        <li>Presa in carico della persona</li>
+                        <li>Predisposizione del Progetto Individualizzato</li>
+                        <li>Attivazione servizi specifici</li>
+                        <li>Monitoraggio e supporto</li>
+                    </ul>
+
+                    <h3>3. Pronto Intervento Sociale (PIS)</h3>
+                    <p>Servizio h24 per <strong>emergenze sociali</strong>. Inserimento temporaneo (max 15 giorni) in strutture, poi presa in carico dal territorio.</p>
+
+                    <h3>4. Assistenza Domiciliare (SAD/ADI)</h3>
+                    <p>Due tipologie:</p>
+                    <ul>
+                        <li><strong>SAD</strong> (Servizio Assistenza Domiciliare): supporto sociale con OSS e operatori generici</li>
+                        <li><strong>ADI</strong> (Assistenza Domiciliare Integrata): include prestazioni sanitarie (infermieri, medici, fisioterapisti)</li>
+                    </ul>
+
+                    <h3>5. Assistenza Economica</h3>
+                    <p>Contributi economici per superare situazioni di difficoltà, sempre nell'ambito di un progetto individualizzato. Valutazione ISEE necessaria.</p>
+
+                    <h3>6. Assistenza Abitativa (ERP)</h3>
+                    <p>Edilizia Residenziale Pubblica: case comunali con canone ridotto, assegnate tramite bando pubblico.</p>
+
+                    <h3>7. Servizio di Accompagnamento e Trasporto</h3>
+                    <p>Per persone con mobilità ridotta, anziani, disabili. Favorisce autonomia e partecipazione sociale.</p>
+
+                    <h3>8. Centro Diurno</h3>
+                    <p>Servizio semiresidenziale (5 giorni/settimana, 8 ore/giorno):</p>
+                    <ul>
+                        <li><strong>Centro Diurno</strong>: attività sociali, educative, occupazionali</li>
+                        <li><strong>Centro Diurno Integrato (CDI)</strong>: include prestazioni sanitarie e riabilitative</li>
+                    </ul>
+                </div>
+
+                <div class="quiz-section">
+                    <div class="quiz-title">Quiz di Verifica</div>
+                    
+                    <div class="question" data-correct="1">
+                        <div class="question-text">1. Qual è la differenza principale tra SAD e ADI?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 3, 0)">
+                                <input type="radio" name="q4"> Il SAD costa di più dell'ADI
+                            </div>
+                            <div class="option" onclick="selectOption(this, 3, 1)">
+                                <input type="radio" name="q4"> L'ADI include prestazioni sanitarie, il SAD no
+                            </div>
+                            <div class="option" onclick="selectOption(this, 3, 2)">
+                                <input type="radio" name="q4"> Il SAD è solo per anziani, l'ADI per tutti
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-correct="0">
+                        <div class="question-text">2. Il Segretariato Sociale è:</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 4, 0)">
+                                <input type="radio" name="q5"> Un servizio gratuito obbligatorio in ogni Comune
+                            </div>
+                            <div class="option" onclick="selectOption(this, 4, 1)">
+                                <input type="radio" name="q5"> Un servizio a pagamento solo per anziani
+                            </div>
+                            <div class="option" onclick="selectOption(this, 4, 2)">
+                                <input type="radio" name="q5"> Un servizio attivo solo in alcune regioni
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-correct="2">
+                        <div class="question-text">3. Il Pronto Intervento Sociale (PIS) può accogliere temporaneamente una persona per un massimo di:</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 5, 0)">
+                                <input type="radio" name="q6"> 7 giorni
+                            </div>
+                            <div class="option" onclick="selectOption(this, 5, 1)">
+                                <input type="radio" name="q6"> 30 giorni
+                            </div>
+                            <div class="option" onclick="selectOption(this, 5, 2)">
+                                <input type="radio" name="q6"> 15 giorni
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="check-btn" onclick="checkQuiz(1)">Verifica Risposte</button>
+                    <div class="feedback" id="feedback-1"></div>
+                </div>
+
+                <div class="exercise-section">
+                    <div class="exercise-title">Esercizio di Abbinamento: Servizio - Situazione</div>
+                    <p>Abbina ogni situazione al servizio integrativo più appropriato:</p>
+                    
+                    <div id="matching-1" class="matching-container">
+                        <div style="display: grid; gap: 15px;">
+                            <div class="match-item" data-pair="1" onclick="selectMatch(this, 1)">
+                                <strong>Situazione A:</strong> Persona anziana diabetica che ha bisogno di iniezioni di insulina quotidiane
+                            </div>
+                            <div class="match-item" data-pair="2" onclick="selectMatch(this, 1)">
+                                <strong>Situazione B:</strong> Cittadino che non sa a chi rivolgersi per informazioni sui servizi disponibili
+                            </div>
+                            <div class="match-item" data-pair="3" onclick="selectMatch(this, 1)">
+                                <strong>Situazione C:</strong> Giovane con disabilità che ha bisogno di socializzare e fare attività durante il giorno
+                            </div>
+                            <div class="match-item" data-pair="4" onclick="selectMatch(this, 1)">
+                                <strong>Situazione D:</strong> Persona senza dimora trovata alle 3 di notte con febbre alta
+                            </div>
+                        </div>
+
+                        <div style="display: grid; gap: 15px; margin-top: 20px;">
+                            <div class="match-item" data-pair="2" onclick="selectMatch(this, 1)">
+                                <strong>1.</strong> Segretariato Sociale
+                            </div>
+                            <div class="match-item" data-pair="4" onclick="selectMatch(this, 1)">
+                                <strong>2.</strong> Pronto Intervento Sociale (PIS)
+                            </div>
+                            <div class="match-item" data-pair="1" onclick="selectMatch(this, 1)">
+                                <strong>3.</strong> Assistenza Domiciliare Integrata (ADI)
+                            </div>
+                            <div class="match-item" data-pair="3" onclick="selectMatch(this, 1)">
+                                <strong>4.</strong> Centro Diurno
+                            </div>
+                        </div>
+                    </div>
+                    <button class="complete-button" onclick="checkMatching(1)">Verifica Abbinamenti</button>
+                    <div class="feedback" id="matching-feedback-1"></div>
+                </div>
+            </div>
+
+            <!-- MODULO 3: SERVIZI SOSTITUTIVI -->
+            <div class="module" id="module-2">
+                <div class="module-title">Modulo 3: I Servizi Sostitutivi</div>
+
+                <div class="theory-section">
+                    <h3>Quando servono i Servizi Sostitutivi?</h3>
+                    <p>I servizi sostitutivi intervengono quando la permanenza nel proprio ambiente di vita non è più possibile o appropriata. L'obiettivo è sempre quello di <strong>ripristinare e potenziare l'ambiente originario</strong> quando possibile.</p>
+
+                    <h3>1. RSA - Residenza Sanitaria Assistenziale</h3>
+                    <p>Struttura residenziale h24 per persone non autosufficienti che necessitano di assistenza sanitaria e socioassistenziale continua.</p>
+                    <ul>
+                        <li>Diversi livelli di specializzazione</li>
+                        <li>Équipe multiprofessionale: medici, infermieri, OSS, fisioterapisti, animatori</li>
+                        <li>Accesso tramite valutazione ASL (UVT)</li>
+                    </ul>
+
+                    <h3>2. Casa Famiglia e Comunità Alloggio</h3>
+                    <p>Strutture che ricalcano il <strong>modello familiare</strong>:</p>
+                    <ul>
+                        <li><strong>Casa Famiglia:</strong> fino a 6 persone, gestita da educatori</li>
+                        <li><strong>Comunità Alloggio:</strong> 7-12 persone, può includere personale sanitario</li>
+                        <li>Offrono accoglienza, cura, interventi educativi, assistenza</li>
+                    </ul>
+
+                    <h3>3. Gruppo per l'Autonomia</h3>
+                    <p>Struttura <strong>autogestita</strong> per 2-6 persone maggiorenni con lievi disabilità intellettive o motorie.</p>
+                    <ul>
+                        <li>Bassa intensità assistenziale (operatori presenti solo alcune ore)</li>
+                        <li>Obiettivo: sviluppare e mantenere autonomie</li>
+                        <li>Gli ospiti possono lavorare o frequentare servizi diurni</li>
+                    </ul>
+
+                    <h3>4. Centro di Accoglienza Notturna</h3>
+                    <p>Per persone senza fissa dimora in condizioni di grave disagio.</p>
+                    <ul>
+                        <li>Servizio gratuito, aperto tutto l'anno</li>
+                        <li>Offre: pernottamento, doccia, lavanderia, vestiario, colazione</li>
+                        <li>Supporto informativo e orientamento ai servizi</li>
+                    </ul>
+
+                    <div class="key-concept">
+                        <strong>Ricorda:</strong> Anche i servizi sostitutivi mirano sempre al benessere e alla dignità della persona. Non sono una "punizione" o un "fallimento", ma risposte appropriate a bisogni complessi che richiedono un ambiente protetto e specializzato.
+                    </div>
+                </div>
+
+                <div class="quiz-section">
+                    <div class="quiz-title">Quiz di Verifica</div>
+                    
+                    <div class="question" data-correct="1">
+                        <div class="question-text">1. Qual è la differenza principale tra Casa Famiglia e Comunità Alloggio?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 6, 0)">
+                                <input type="radio" name="q7"> La Casa Famiglia è solo per minori
+                            </div>
+                            <div class="option" onclick="selectOption(this, 6, 1)">
+                                <input type="radio" name="q7"> Il numero di ospiti (6 vs 7-12)
+                            </div>
+                            <div class="option" onclick="selectOption(this, 6, 2)">
+                                <input type="radio" name="q7"> La Casa Famiglia costa di più
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-correct="2">
+                        <div class="question-text">2. Il Gruppo per l'Autonomia è caratterizzato da:</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 7, 0)">
+                                <input type="radio" name="q8"> Assistenza h24 con personale sempre presente
+                            </div>
+                            <div class="option" onclick="selectOption(this, 7, 1)">
+                                <input type="radio" name="q8"> Solo persone non autosufficienti
+                            </div>
+                            <div class="option" onclick="selectOption(this, 7, 2)">
+                                <input type="radio" name="q8"> Autogestione con supporto di operatori solo alcune ore
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-correct="0">
+                        <div class="question-text">3. Una RSA è appropriata per:</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 8, 0)">
+                                <input type="radio" name="q9"> Persone non autosufficienti che necessitano di assistenza sanitaria continua
+                            </div>
+                            <div class="option" onclick="selectOption(this, 8, 1)">
+                                <input type="radio" name="q9"> Giovani con lievi disabilità che possono lavorare
+                            </div>
+                            <div class="option" onclick="selectOption(this, 8, 2)">
+                                <input type="radio" name="q9"> Solo per emergenze temporanee di pochi giorni
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="check-btn" onclick="checkQuiz(2)">Verifica Risposte</button>
+                    <div class="feedback" id="feedback-2"></div>
+                </div>
+
+                <div class="exercise-section">
+                    <div class="exercise-title">Caso di Studio: Scegli il Servizio Appropriato</div>
+                    <div class="case-study">
+                        <div class="case-study-title">Caso: Maria e Luigi</div>
+                        <p>Maria ha 25 anni e presenta una disabilità intellettiva lieve. Sa lavarsi, vestirsi e cucinare piatti semplici. I genitori sono molto anziani (80 e 82 anni) e non riescono più a seguirla adeguatamente. Maria vorrebbe "vivere da grande" ma ha bisogno di un ambiente protetto. È socievole e le piacerebbe continuare il suo lavoretto part-time al supermercato.</p>
+                        <p>Luigi ha 28 anni e ha una lieve disabilità motoria (usa la carrozzina ma è completamente autonomo nella gestione). Vive con i genitori ma vorrebbe andare a vivere da solo. È molto indipendente, lavora full-time come grafico.</p>
+                    </div>
+                    <p><strong>Domanda:</strong> Quale servizio sostitutivo consiglieresti per ciascuno? Spiega le tue scelte considerando le caratteristiche di Maria e Luigi.</p>
+                    <textarea id="case-study-2" placeholder="Scrivi qui la tua analisi..."></textarea>
+                    <div class="hint-box">
+                        <strong>Suggerimento:</strong> Considera il livello di autonomia, le capacità residue, i desideri espressi e l'intensità assistenziale necessaria.
+                    </div>
+                    <button class="complete-button" onclick="saveCaseStudy(2)">Salva Analisi</button>
+                </div>
+            </div>
+
+            <!-- MODULO 4: APPLICAZIONE PRATICA -->
+            <div class="module" id="module-3">
+                <div class="module-title">Modulo 4: Applicazione Pratica - Costruisci il Percorso</div>
+
+                <div class="theory-section">
+                    <h3>Dalla Domanda alla Risposta: L'Iter di Accesso ai Servizi</h3>
+                    <p>Quando una persona ha bisogno di aiuto, segue tipicamente questo percorso:</p>
+                    <ol style="line-height: 2;">
+                        <li><strong>Primo contatto</strong> → Segretariato Sociale</li>
+                        <li><strong>Valutazione iniziale</strong> → Identificazione del bisogno</li>
+                        <li><strong>Presa in carico</strong> → Servizio Sociale Professionale</li>
+                        <li><strong>Progetto Individualizzato</strong> → Piano di intervento personalizzato</li>
+                        <li><strong>Attivazione servizi</strong> → Integrativi e/o sostitutivi</li>
+                        <li><strong>Monitoraggio</strong> → Verifica efficacia e aggiustamenti</li>
+                    </ol>
+
+                    <div class="key-concept">
+                        <strong>Importante:</strong> Il progetto individualizzato deve sempre coinvolgere la persona e la sua famiglia, valorizzare le risorse esistenti, coordinarsi con la rete formale e informale, e avere obiettivi chiari e misurabili.
+                    </div>
+                </div>
+
+                <div class="exercise-section">
+                    <div class="exercise-title">Esercizio Complesso: Progetta l'Intervento</div>
+                    
+                    <div class="case-study">
+                        <div class="case-study-title">Caso Complesso: La Famiglia Neri</div>
+                        <p><strong>Situazione:</strong> La signora Anna Neri, 76 anni, vedova, vive sola. Ha l'Alzheimer in fase iniziale-media e il diabete. Sua figlia Carla (50 anni) lavora full-time e abita a 30 km di distanza. Carla viene a trovarla ogni sera dopo il lavoro ma è esausta.</p>
+                        <p><strong>Criticità emerse:</strong></p>
+                        <ul>
+                            <li>Anna si dimentica di prendere le medicine</li>
+                            <li>Non cucina più e salta i pasti</li>
+                            <li>Ha avuto due piccole cadute in casa</li>
+                            <li>È sempre più isolata socialmente</li>
+                            <li>Carla è in burnout e ha problemi di salute per lo stress</li>
+                        </ul>
+                        <p><strong>Risorse:</strong> Casa di Anna idonea, pensione di 850€/mese, Carla disponibile ma oberata, vicina di casa disponibile per piccoli aiuti.</p>
+                    </div>
+
+                    <p><strong>Il tuo compito:</strong> Costruisci un progetto di intervento completo che risponda ai bisogni sia di Anna che di Carla. Struttura la tua risposta seguendo questi punti:</p>
+
+                    <div style="margin: 20px 0;">
+                        <strong>1. Analisi dei Bisogni (di Anna e di Carla)</strong>
+                        <textarea id="project-needs" placeholder="Elenca e analizza tutti i bisogni identificati..."></textarea>
+                    </div>
+
+                    <div style="margin: 20px 0;">
+                        <strong>2. Obiettivi a Breve Termine (1-3 mesi)</strong>
+                        <textarea id="project-short" placeholder="Quali obiettivi immediati vuoi raggiungere?"></textarea>
+                    </div>
+
+                    <div style="margin: 20px 0;">
+                        <strong>3. Obiettivi a Medio-Lungo Termine (6-12 mesi)</strong>
+                        <textarea id="project-long" placeholder="Dove vuoi arrivare nel medio periodo?"></textarea>
+                    </div>
+
+                    <div style="margin: 20px 0;">
+                        <strong>4. Servizi da Attivare (specificare quali e perché)</strong>
+                        <textarea id="project-services" placeholder="Elenca tutti i servizi che attiveresti e spiega il motivo di ogni scelta..."></textarea>
+                    </div>
+
+                    <div style="margin: 20px 0;">
+                        <strong>5. Coordinamento della Rete (formale e informale)</strong>
+                        <textarea id="project-network" placeholder="Come coordinerai tutti gli attori coinvolti?"></textarea>
+                    </div>
+
+                    <div style="margin: 20px 0;">
+                        <strong>6. Monitoraggio e Valutazione</strong>
+                        <textarea id="project-monitoring" placeholder="Come verificherai che il progetto sta funzionando?"></textarea>
+                    </div>
+
+                    <button class="complete-button" onclick="saveProject()">Salva Progetto Completo</button>
+                </div>
+            </div>
+
+            <!-- MODULO 5: RIEPILOGO -->
+            <div class="module" id="module-4">
+                <div class="module-title">Modulo 5: Riepilogo e Autovalutazione Finale</div>
+
+                <div class="summary-section">
+                    <h2 style="text-align: center; color: #2c3e50; margin-bottom: 20px;">Il Tuo Percorso di Apprendimento</h2>
+                    
+                    <div class="score-display" id="final-score">0%</div>
+                    
+                    <div style="background: white; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <h3 style="color: #667eea; margin-bottom: 15px;">Riepilogo Moduli Completati</h3>
+                        <div id="modules-summary"></div>
+                    </div>
+
+                    <div style="background: white; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <h3 style="color: #667eea; margin-bottom: 15px;">Competenze Acquisite</h3>
+                        <ul id="skills-list" style="line-height: 2;"></ul>
+                    </div>
+
+                    <div style="background: #fff3cd; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <h3 style="color: #856404; margin-bottom: 15px;">Aree da Approfondire</h3>
+                        <div id="improve-areas"></div>
+                    </div>
+                </div>
+
+                <div class="quiz-section">
+                    <div class="quiz-title">Test Finale di Autovalutazione</div>
+                    
+                    <div class="question" data-correct="1">
+                        <div class="question-text">1. Una persona anziana sola con problemi di mobilità ma ancora lucida mentalmente avrebbe bisogno prioritariamente di:</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 9, 0)">
+                                <input type="radio" name="q10"> Immediato inserimento in RSA
+                            </div>
+                            <div class="option" onclick="selectOption(this, 9, 1)">
+                                <input type="radio" name="q10"> Servizi integrativi come SAD e servizio trasporto
+                            </div>
+                            <div class="option" onclick="selectOption(this, 9, 2)">
+                                <input type="radio" name="q10"> Centro di accoglienza notturna
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-correct="0">
+                        <div class="question-text">2. Il progetto individualizzato deve essere costruito:</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 10, 0)">
+                                <input type="radio" name="q11"> Con la partecipazione attiva della persona e della famiglia
+                            </div>
+                            <div class="option" onclick="selectOption(this, 10, 1)">
+                                <input type="radio" name="q11"> Solo dall'assistente sociale senza coinvolgere la persona
+                            </div>
+                            <div class="option" onclick="selectOption(this, 10, 2)">
+                                <input type="radio" name="q11"> Usando sempre lo stesso modello per tutti
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-correct="2">
+                        <div class="question-text">3. La rete informale comprende:</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 11, 0)">
+                                <input type="radio" name="q12"> Solo i servizi comunali
+                            </div>
+                            <div class="option" onclick="selectOption(this, 11, 1)">
+                                <input type="radio" name="q12"> Solo le ASL e gli ospedali
+                            </div>
+                            <div class="option" onclick="selectOption(this, 11, 2)">
+                                <input type="radio" name="q12"> Famiglia, amici, vicinato, volontariato non organizzato
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-correct="1">
+                        <div class="question-text">4. Un caregiver familiare in burnout potrebbe essere supportato attraverso:</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 12, 0)">
+                                <input type="radio" name="q13"> Nessun intervento, deve farcela da solo
+                            </div>
+                            <div class="option" onclick="selectOption(this, 12, 1)">
+                                <input type="radio" name="q13"> Centro Diurno per il familiare assistito + supporto psicologico per il caregiver
+                            </div>
+                            <div class="option" onclick="selectOption(this, 12, 2)">
+                                <input type="radio" name="q13"> Immediato inserimento del familiare in RSA
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-correct="0">
+                        <div class="question-text">5. L'approccio dei servizi sociali moderni si basa su:</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 13, 0)">
+                                <input type="radio" name="q14"> Promozione dell'autonomia e valorizzazione delle risorse della persona
+                            </div>
+                            <div class="option" onclick="selectOption(this, 13, 1)">
+                                <input type="radio" name="q14"> Assistenzialismo puro senza coinvolgimento della persona
+                            </div>
+                            <div class="option" onclick="selectOption(this, 13, 2)">
+                                <input type="radio" name="q14"> Solo interventi economici
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="check-btn" onclick="checkFinalQuiz()">Verifica Test Finale</button>
+                    <div class="feedback" id="feedback-final"></div>
+                </div>
+
+                <div class="export-buttons">
+                    <button class="export-btn pdf" onclick="exportProgress()">Esporta Report Completo (PDF)</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        // Gestione stato
+        let currentModule = 0;
+        let quizAnswers = {};
+        let moduleCompletion = [false, false, false, false, false];
+        let reflections = {};
+        let selectedMatches = [];
+
+        // Mostra modulo
+        function showModule(index) {
+            document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(`module-${index}`).classList.add('active');
+            document.querySelectorAll('.nav-btn')[index].classList.add('active');
+            
+            currentModule = index;
+            
+            if (index === 4) {
+                updateSummary();
+            }
+            
+            updateProgress();
+            saveState();
+        }
+
+        // Selezione opzione quiz
+        function selectOption(element, questionIndex, optionIndex) {
+            const question = element.closest('.question');
+            question.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+                opt.querySelector('input').checked = false;
+            });
+            
+            element.classList.add('selected');
+            element.querySelector('input').checked = true;
+            
+            quizAnswers[questionIndex] = optionIndex;
+            saveState();
+        }
+
+        // Verifica quiz
+        function checkQuiz(moduleIndex) {
+            const questions = document.getElementById(`module-${moduleIndex}`).querySelectorAll('.question');
+            let correct = 0;
+            let total = questions.length;
+            
+            questions.forEach((question, index) => {
+                const correctAnswer = parseInt(question.dataset.correct);
+                const userAnswer = quizAnswers[Object.keys(quizAnswers)[index]];
+                const options = question.querySelectorAll('.option');
+                
+                options.forEach((opt, optIndex) => {
+                    opt.classList.remove('correct', 'incorrect');
+                    if (optIndex === correctAnswer) {
+                        opt.classList.add('correct');
+                    } else if (opt.classList.contains('selected') && optIndex !== correctAnswer) {
+                        opt.classList.add('incorrect');
+                    }
+                });
+                
+                if (userAnswer === correctAnswer) correct++;
+            });
+            
+            const feedback = document.getElementById(`feedback-${moduleIndex}`);
+            const percentage = Math.round((correct / total) * 100);
+            
+            if (percentage >= 70) {
+                feedback.className = 'feedback correct';
+                feedback.textContent = `Ottimo lavoro! Hai risposto correttamente a ${correct}/${total} domande (${percentage}%). `;
+                moduleCompletion[moduleIndex] = true;
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.textContent = `Hai risposto correttamente a ${correct}/${total} domande (${percentage}%). Rileggi il materiale e riprova!`;
+            }
+            
+            updateProgress();
+            saveState();
+        }
+
+        // Matching exercise
+        let matchingState = {1: {selected: null, pairs: []}};
+
+        function selectMatch(element, exerciseId) {
+            if (element.classList.contains('matched')) return;
+            
+            if (!matchingState[exerciseId].selected) {
+                element.classList.add('selected');
+                matchingState[exerciseId].selected = element;
+            } else {
+                const first = matchingState[exerciseId].selected;
+                const second = element;
+                
+                if (first.dataset.pair === second.dataset.pair && first !== second) {
+                    first.classList.remove('selected');
+                    first.classList.add('matched');
+                    second.classList.add('matched');
+                    matchingState[exerciseId].pairs.push(first.dataset.pair);
+                    matchingState[exerciseId].selected = null;
+                } else {
+                    first.classList.remove('selected');
+                    matchingState[exerciseId].selected = null;
+                }
+            }
+        }
+
+        function checkMatching(exerciseId) {
+            const feedback = document.getElementById(`matching-feedback-${exerciseId}`);
+            const totalPairs = 4;
+            const matchedPairs = matchingState[exerciseId].pairs.length;
+            
+            if (matchedPairs === totalPairs) {
+                feedback.className = 'feedback correct';
+                feedback.textContent = 'Perfetto! Tutti gli abbinamenti sono corretti!';
+                moduleCompletion[currentModule] = true;
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.textContent = `Hai completato ${matchedPairs}/${totalPairs} abbinamenti. Continua!`;
+            }
+            
+            updateProgress();
+            saveState();
+        }
+
+        // Riflessioni
+        function saveReflection(id) {
+            const textarea = document.getElementById(`reflection-${id}`);
+            const text = textarea.value.trim();
+            
+            if (text.length >= 150) {
+                reflections[id] = text;
+                alert('Riflessione salvata con successo!');
+                moduleCompletion[0] = true;
+                updateProgress();
+                saveState();
+            } else {
+                alert('La riflessione deve essere di almeno 150 caratteri. Attualmente: ' + text.length);
+            }
+        }
+
+        function saveCaseStudy(id) {
+            const textarea = document.getElementById(`case-study-${id}`);
+            const text = textarea.value.trim();
+            
+            if (text.length >= 100) {
+                reflections[`case-${id}`] = text;
+                alert('Analisi salvata con successo!');
+                moduleCompletion[2] = true;
+                updateProgress();
+                saveState();
+            } else {
+                alert('L\'analisi deve essere di almeno 100 caratteri.');
+            }
+        }
+
+        function saveProject() {
+            const fields = ['needs', 'short', 'long', 'services', 'network', 'monitoring'];
+            let allFilled = true;
+            
+            fields.forEach(field => {
+                const value = document.getElementById(`project-${field}`).value.trim();
+                if (value.length < 50) allFilled = false;
+                else reflections[`project-${field}`] = value;
+            });
+            
+            if (allFilled) {
+                alert('Progetto salvato con successo!');
+                moduleCompletion[3] = true;
+                updateProgress();
+                saveState();
+            } else {
+                alert('Completa tutti i campi con almeno 50 caratteri ciascuno.');
+            }
+        }
+
+        // Quiz finale
+        function checkFinalQuiz() {
+            const questions = document.querySelectorAll('#module-4 .question');
+            let correct = 0;
+            
+            questions.forEach((question, index) => {
+                const correctAnswer = parseInt(question.dataset.correct);
+                const questionIndex = 9 + index;
+                const userAnswer = quizAnswers[questionIndex];
+                const options = question.querySelectorAll('.option');
+                
+                options.forEach((opt, optIndex) => {
+                    opt.classList.remove('correct', 'incorrect');
+                    if (optIndex === correctAnswer) {
+                        opt.classList.add('correct');
+                    } else if (opt.classList.contains('selected') && optIndex !== correctAnswer) {
+                        opt.classList.add('incorrect');
+                    }
+                });
+                
+                if (userAnswer === correctAnswer) correct++;
+            });
+            
+            const percentage = Math.round((correct / 5) * 100);
+            const feedback = document.getElementById('feedback-final');
+            
+            if (percentage >= 80) {
+                feedback.className = 'feedback correct';
+                feedback.textContent = `Eccellente! ${correct}/5 risposte corrette (${percentage}%). Hai completato il percorso con successo!`;
+                moduleCompletion[4] = true;
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.textContent = `Hai risposto correttamente a ${correct}/5 domande (${percentage}%). Rivedi il materiale prima di procedere.`;
+            }
+            
+            updateProgress();
+            updateSummary();
+            saveState();
+        }
+
+        // Aggiorna barra progresso
+        function updateProgress() {
+            const completed = moduleCompletion.filter(m => m).length;
+            const percentage = Math.round((completed / 5) * 100);
+            
+            document.getElementById('progress-fill').style.width = percentage + '%';
+            document.getElementById('progress-fill').textContent = percentage + '%';
+            document.getElementById('progress-text').textContent = percentage + '%';
+        }
+
+        // Aggiorna riepilogo
+        function updateSummary() {
+            const moduleNames = [
+                'Politiche Sociali',
+                'Servizi Integrativi',
+                'Servizi Sostitutivi',
+                'Applicazione Pratica',
+                'Test Finale'
+            ];
+            
+            let summaryHTML = '<ul style="list-style: none; padding: 0;">';
+            moduleCompletion.forEach((completed, index) => {
+                const status = completed ? '✅ Completato' : '⏳ Da completare';
+                const color = completed ? '#27ae60' : '#f39c12';
+                summaryHTML += `<li style="padding: 10px; border-left: 4px solid ${color}; margin-bottom: 10px; background: #f8f9fa;">
+                    <strong>${moduleNames[index]}:</strong> ${status}
+                </li>`;
+            });
+            summaryHTML += '</ul>';
+            
+            document.getElementById('modules-summary').innerHTML = summaryHTML;
+            
+            // Competenze
+            const skills = [
+                'Comprensione delle politiche sociali italiane',
+                'Conoscenza dei servizi integrativi e sostitutivi',
+                'Capacità di analizzare situazioni complesse',
+                'Progettazione di interventi personalizzati',
+                'Coordinamento della rete formale e informale'
+            ];
+            
+            let skillsHTML = '';
+            skills.forEach((skill, index) => {
+                if (moduleCompletion[index]) {
+                    skillsHTML += `<li style="color: #27ae60;">✅ ${skill}</li>`;
+                } else {
+                    skillsHTML += `<li style="color: #95a5a6;">⭕ ${skill}</li>`;
+                }
+            });
+            document.getElementById('skills-list').innerHTML = skillsHTML;
+            
+            // Score
+            const completed = moduleCompletion.filter(m => m).length;
+            const score = Math.round((completed / 5) * 100);
+            document.getElementById('final-score').textContent = score + '%';
+            
+            // Aree da migliorare
+            const improve = [];
+            if (!moduleCompletion[0]) improve.push('Approfondisci le politiche sociali e la Legge 328/2000');
+            if (!moduleCompletion[1]) improve.push('Studia meglio i servizi integrativi');
+            if (!moduleCompletion[2]) improve.push('Ripassa i servizi sostitutivi e le loro indicazioni');
+            if (!moduleCompletion[3]) improve.push('Esercitati di più nella progettazione pratica');
+            if (!moduleCompletion[4]) improve.push('Riprova il test finale');
+            
+            if (improve.length === 0) {
+                document.getElementById('improve-areas').innerHTML = '<p style="color: #27ae60; font-weight: bold;">🎉 Hai completato tutto il percorso! Ottimo lavoro!</p>';
+            } else {
+                let improveHTML = '<ul>';
+                improve.forEach(area => {
+                    improveHTML += `<li>${area}</li>`;
+                });
+                improveHTML += '</ul>';
+                document.getElementById('improve-areas').innerHTML = improveHTML;
+            }
+        }
+
+        // Salvataggio stato
+        function saveState() {
+            const state = {
+                currentModule,
+                quizAnswers,
+                moduleCompletion,
+                reflections,
+                matchingState
+            };
+            localStorage.setItem('learning-path-state', JSON.stringify(state));
+        }
+
+        // Caricamento stato
+        function loadState() {
+            const saved = localStorage.getItem('learning-path-state');
+            if (saved) {
+                const state = JSON.parse(saved);
+                currentModule = state.currentModule || 0;
+                quizAnswers = state.quizAnswers || {};
+                moduleCompletion = state.moduleCompletion || [false, false, false, false, false];
+                reflections = state.reflections || {};
+                matchingState = state.matchingState || {1: {selected: null, pairs: []}};
+                
+                updateProgress();
+            }
+        }
+
+        // Export PDF
+        function exportProgress() {
+            const element = document.querySelector('.container');
+            const opt = {
+                margin: 10,
+                filename: 'Percorso_Apprendimento_Servizi_Sociali.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            html2pdf().set(opt).from(element).save();
+        }
+
+        // Inizializzazione
+        window.onload = function() {
+            loadState();
+            showModule(currentModule);
+        };
+
+        // Salvataggio automatico ogni 30 secondi
+        setInterval(saveState, 30000);
+    </script>
+</body>
+</html>

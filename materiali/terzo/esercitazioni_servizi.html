@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esercitazioni Servizi Socio-Sanitari</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .school-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .course-name {
+            font-size: 18px;
+            color: #34495e;
+            font-weight: 500;
+        }
+
+        .student-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #ecf0f1;
+            border-radius: 8px;
+        }
+
+        .info-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-field label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+
+        .info-field input {
+            padding: 10px;
+            border: 2px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .info-field input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .caso {
+            margin-bottom: 40px;
+            padding: 25px;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+
+        .caso-header {
+            background: #3498db;
+            color: white;
+            padding: 15px;
+            margin: -25px -25px 20px -25px;
+            border-radius: 6px 6px 0 0;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .caso-testo {
+            background: white;
+            padding: 20px;
+            border-left: 4px solid #3498db;
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .domanda {
+            margin-bottom: 25px;
+        }
+
+        .domanda-titolo {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 17px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #bdc3c7;
+            border-radius: 6px;
+            font-size: 15px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+
+        .buttons {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-export {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-export:hover {
+            background: #229954;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .btn-print {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-print:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .btn-clear {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-clear:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        @media print {
+            .buttons {
+                display: none;
+            }
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+
+        .istruzioni {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .istruzioni h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .istruzioni ul {
+            margin-left: 20px;
+            color: #856404;
+        }
+
+        .istruzioni li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="content">
+        <div class="header">
+            <div class="school-name">IIS Meucci Mattei di Cagliari Sede Decimomannu</div>
+            <div class="course-name">Servizi per la sanità e l'assistenza sociale</div>
+        </div>
+
+        <div class="student-info">
+            <div class="info-field">
+                <label for="nome">Nome e Cognome:</label>
+                <input type="text" id="nome" placeholder="Inserisci nome e cognome">
+            </div>
+            <div class="info-field">
+                <label for="classe">Classe:</label>
+                <input type="text" id="classe" placeholder="Es: 4A">
+            </div>
+            <div class="info-field">
+                <label for="data">Data:</label>
+                <input type="date" id="data">
+            </div>
+            <div class="info-field">
+                <label for="materia">Materia:</label>
+                <input type="text" id="materia" value="Metodologie Operative" readonly>
+            </div>
+        </div>
+
+        <div class="istruzioni">
+            <h3>📋 Istruzioni per lo svolgimento</h3>
+            <ul>
+                <li>Leggi attentamente ogni caso presentato</li>
+                <li>Analizza la situazione considerando tutti gli aspetti (bisogni, risorse, criticità)</li>
+                <li>Rispondi in modo completo e motivato a tutte le domande</li>
+                <li>Utilizza la terminologia tecnica appropriata</li>
+                <li>Gli spazi di scrittura si espandono automaticamente mentre scrivi</li>
+                <li>Al termine, puoi esportare in PDF o stampare il tuo lavoro</li>
+            </ul>
+        </div>
+
+        <!-- CASO 1 -->
+        <div class="caso">
+            <div class="caso-header">CASO 1: Signora Lucia - Anziana con fragilità multiple</div>
+            <div class="caso-testo">
+                La signora Lucia ha 79 anni e vive sola nel suo appartamento al terzo piano senza ascensore. È vedova da 5 anni e ha un figlio che vive a Milano per lavoro, che riesce a venirla a trovare solo una volta al mese. 
+                <br><br>
+                Lucia ha il diabete di tipo 2, ipertensione e negli ultimi mesi ha sviluppato problemi di mobilità dovuti all'artrosi alle ginocchia. Fa fatica a salire le scale, a fare la spesa e a occuparsi delle pulizie domestiche. La sua pensione è di 780€ mensili, di cui 450€ vanno per l'affitto.
+                <br><br>
+                Recentemente ha avuto una caduta in casa (fortunatamente senza conseguenze gravi) e questo l'ha molto spaventata. Si sente sempre più isolata: le sue amiche storiche sono morte o si sono trasferite, e negli ultimi mesi esce sempre meno per paura di cadere. Ha iniziato a saltare alcuni pasti perché "è troppo faticoso cucinare solo per me".
+                <br><br>
+                Il figlio, preoccupato, si rivolge al Segretariato Sociale del Comune per ricevere indicazioni su come aiutare la madre.
+            </div>
+
+            <div class="domanda">
+                <div class="domanda-titolo">1. Analisi dei bisogni: Individua e descrivi tutti i bisogni (fisiologici, di sicurezza, sociali, ecc.) che emergono dalla situazione di Lucia, utilizzando la Piramide di Maslow come riferimento teorico.</div>
+                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+            </div>
+
+            <div class="domanda">
+                <div class="domanda-titolo">2. Servizi appropriati: Quali servizi socio-sanitari (sia integrativi che eventualmente sostitutivi) proporresti per Lucia? Motiva le tue scelte spiegando perché ogni servizio è appropriato alla sua situazione specifica.</div>
+                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+            </div>
+
+            <div class="domanda">
+                <div class="domanda-titolo">3. Figure professionali: Elenca e descrivi il ruolo di tutte le figure professionali che dovrebbero essere coinvolte nella presa in carico di Lucia, specificando cosa ciascuna può fare per lei.</div>
+                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+            </div>
+
+            <div class="domanda">
+                <div class="domanda-titolo">4. Progetto individualizzato: Delinea un progetto di intervento integrato per Lucia, indicando gli obiettivi a breve e lungo termine e come i diversi servizi possono lavorare in sinergia.</div>
+                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+            </div>
+        </div>
+
+        <!-- CASO 2 -->
+        <div class="caso">
+            <div class="caso-header">CASO 2: Marco - Giovane con disabilità intellettiva</div>
+            <div class="caso-testo">
+                Marco ha 22 anni e presenta una disabilità intellettiva di grado medio-lieve. Vive con i genitori, entrambi ultrasessantenni. Ha frequentato la scuola superiore conseguendo un attestato di competenze. È una persona socievole, gli piace stare con gli altri e ha un buon livello di autonomia nelle attività quotidiane di base (igiene personale, vestirsi, mangiare).
+                <br><br>
+                Tuttavia, i genitori sono molto protettivi e tendono a fare tutto per lui: Marco non sa usare i mezzi pubblici da solo, non ha mai fatto la spesa, non sa gestire il denaro e non ha mai cucinato nulla se non toast e caffè. Non ha mai lavorato e passa le giornate guardando la TV o giocando con lo smartphone.
+                <br><br>
+                I genitori, preoccupati per il futuro ("Cosa succederà a Marco quando noi non ci saremo più?"), si rivolgono al Servizio Sociale. Sono restii all'idea di "mandarlo via da casa", ma capiscono che Marco ha bisogno di sviluppare maggiori autonomie. Marco stesso, durante un colloquio, esprime il desiderio di "fare qualcosa durante il giorno" e dice che vorrebbe "avere degli amici".
+                <br><br>
+                L'assistente sociale nota che Marco ha potenzialità inespresse e che potrebbe sviluppare maggiori competenze con il giusto supporto.
+            </div>
+
+            <div class="domanda">
+                <div class="domanda-titolo">1. Analisi della situazione: Identifica le risorse, le potenzialità e le criticità presenti in questa situazione. Considera sia gli aspetti relativi a Marco che quelli relativi al contesto familiare.</div>
+                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+            </div>
+
+            <div class="domanda">
+                <div class="domanda-titolo">2. Obiettivi di intervento: Formula almeno 4 obiettivi specifici e realistici per Marco, distinguendo tra obiettivi a breve termine (3-6 mesi) e obiettivi a medio-lungo termine (1-2 anni). Utilizza il principio SMART (Specifici, Misurabili, Achievable, Realistici, Temporizzati).</div>
+                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+            </div>
+
+            <div class="domanda">
+                <div class="domanda-titolo">3. Servizi e interventi: Quali servizi proporresti per Marco e perché? Come questi servizi possono supportare lo sviluppo delle sue autonomie e l'emancipazione? Considera sia servizi diurni che percorsi verso l'autonomia abitativa.</div>
+                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+            </div>
+
+            <div class="domanda">
+                <div class="domanda-titolo">4. Lavoro con la famiglia: Come lavoreresti con i genitori di Marco per supportarli nel processo di "lasciare andare" e promuovere una maggiore autonomia del figlio? Quali strategie educative potresti suggerire?</div>
+                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+            </div>
+        </div>
+
+        <!-- CASO 3 -->
+        <div class="caso">
+            <div class="caso-header">CASO 3: Famiglia Russo - Emergenza abitativa e sociale</div>
+            <div class="caso-testo">
+                La famiglia Russo è composta da: Paolo (42 anni, disoccupato da 8 mesi dopo il fallimento della ditta per cui lavorava), Anna (39 anni, fa pulizie a ore guadagnando circa 400€/mese), e due figli - Sofia (15 anni, frequenta il terzo anno delle superiori) e Matteo (9 anni, scuola primaria).
+                <br><br>
+                La famiglia ha ricevuto lo sfratto esecutivo dall'appartamento in cui viveva perché non riescono più a pagare l'affitto (650€/mese) da 4 mesi. Hanno 30 giorni per lasciare l'abitazione. Paolo sta cercando lavoro ma non trova nulla di stabile. È molto depresso e ha iniziato a bere più del solito.
+                <br><br>
+                Anna è disperata e non sa dove andare: i suoi genitori sono morti e i fratelli di Paolo non possono ospitarli. Sofia ha iniziato ad avere problemi a scuola (calo del rendimento, assenze) e appare molto preoccupata. Matteo non capisce bene cosa sta succedendo ma percepisce la tensione in casa e ha iniziato ad avere incubi notturni.
+                <br><br>
+                La famiglia non ha risparmi e ha debiti con alcuni fornitori di utenze. Anna si presenta al Segretariato Sociale in lacrime, dicendo: "Non sappiamo dove andare, siamo sempre stati una famiglia normale e ora ci ritroviamo in mezzo a una strada."
+            </div>
+
+            <div class="domanda">
+                <div class="domanda-titolo">1. Valutazione urgenza: Questa situazione presenta caratteristiche di emergenza sociale? Motiva la tua risposta e indica quale/i servizio/i deve/devono intervenire immediatamente.</div>
+                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+            </div>
+
+            <div class="domanda">
+                <div class="domanda-titolo">2. Bisogni multidimensionali: Analizza i bisogni di ciascun membro della famiglia (Paolo, Anna, Sofia, Matteo), considerando gli aspetti abitativi, economici, relazionali, psicologici e sociali.</div>
+                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+            </div>
+
+            <div class="domanda">
+                <div class="domanda-titolo">3. Piano di intervento integrato: Proponi un piano di intervento completo che affronti sia le emergenze immediate (dove andranno a vivere? come mangeranno?) sia gli interventi a medio termine per stabilizzare la famiglia. Quali servizi, contributi economici e supporti psico-sociali attiveresti?</div>
+                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+            </div>
+
+            <div class="domanda">
+                <div class="domanda-titolo">4. Rete formale e informale: Identifica tutti gli attori della rete (formale e informale) che potrebbero essere coinvolti nel supporto a questa famiglia. Come possono coordinarsi tra loro per offrire un aiuto efficace?</div>
+                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+            </div>
+        </div>
+
+        <!-- CASO 4 -->
+        <div class="caso">
+            <div class="caso-header">CASO 4: Signor Giuseppe - Persona senza fissa dimora</div>
+            <div class="caso-testo">
+                Il signor Giuseppe ha 58 anni. È italiano, originario della provincia di Cagliari. Vive per strada da circa 3 anni. Prima lavorava come muratore, ma dopo un grave incidente sul lavoro che gli ha causato problemi alla schiena, non ha più potuto svolgere lavori pesanti. Ha iniziato a bere, ha perso il lavoro, poi la casa, e gradualmente tutti i contatti con la famiglia.
+                <br><br>
+                Dorme sotto i portici e durante il giorno gira per il centro elemosina. È molto diffidente verso i servizi sociali ("Non mi fido, vogliono solo schedare la gente"). Ha problemi di salute: oltre ai dolori cronici alla schiena, ha sviluppato una bronchite cronica che non cura, ha problemi dentali gravi (ha perso diversi denti) e probabilmente ha anche problemi cardiaci (riferisce dolori al petto).
+                <br><br>
+                Con l'arrivo dell'inverno e delle temperature rigide, la Polizia Municipale durante un giro notturno trova Giuseppe che dorme all'addiaccio con febbre alta. Decidono di accompagnarlo in ospedale. Dopo le cure d'urgenza, l'ospedale contatta il Servizio Sociale per valutare una soluzione.
+                <br><br>
+                Giuseppe, pur stando male, dice: "Appena sto meglio me ne vado, non voglio stare nei dormitori con tutti quegli matti."
+            </div>
+
+            <div class="domanda">
+                <div class="domanda-titolo">1. Analisi della situazione di marginalità: Analizza i fattori che hanno portato Giuseppe alla condizione di senza dimora e i bisogni primari e secondari che emergono dal caso. Considera gli aspetti sanitari, abitativi, relazionali e psicologici.</div>
+                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+            </div>
+
+            <div class="domanda">
+                <div class="domanda-titolo">2. Costruzione della relazione d'aiuto: Giuseppe è molto diffidente verso i servizi. Quali strategie utilizzeresti per costruire una relazione di fiducia con lui? Quali caratteristiche della relazione d'aiuto (empatia, ascolto attivo, rispetto, non giudizio) sono particolarmente importanti in questo caso?</div>
+                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+            </div>
+
+            <div class="domanda">
+                <div class="domanda-titolo">3. Interventi nell'immediato e a lungo termine: Distingui tra gli interventi urgenti da attivare subito (entro pochi giorni) e un progetto di reinserimento sociale a lungo termine. Quali servizi proporresti? Come gestiresti il suo rifiuto dei dormitori?</div>
+                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+            </div>
+
+            <div class="domanda">
+                <div class="domanda-titolo">4. Approccio multidisciplinare: Questo caso richiede la collaborazione di diversi professionisti e servizi (sanitari, sociali, forse anche legali/amministrativi). Descrivi come dovrebbe essere organizzato un lavoro di équipe multidisciplinare per Giuseppe.</div>
+                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+            </div>
+        </div>
+
+        <!-- CASO 5 -->
+        <div class="caso">
+            <div class="caso-header">CASO 5: Signora Elena - Caregiver in burnout</div>
+            <div class="caso-testo">
+                Elena ha 52 anni ed è impiegata part-time in un supermercato (4 ore al giorno, 5 giorni a settimana). Da 4 anni si prende cura del marito Roberto (55 anni) che ha avuto un grave ictus che gli ha causato emiparesi destra e afasia. Roberto è parzialmente autosufficiente: può mangiare da solo con qualche difficoltà, ma ha bisogno di aiuto per lavarsi, vestirsi, e per spostarsi usa il bastone ma è molto instabile.
+                <br><br>
+                Elena si occupa di tutto: lo lava, lo veste, gli prepara i pasti, lo accompagna alle visite mediche e alle sedute di fisioterapia, gestisce la terapia farmacologica complessa. Hanno due figli adulti che però abitano lontano e lavorano, quindi possono aiutare solo sporadicamente.
+                <br><br>
+                Negli ultimi mesi Elena mostra evidenti segni di stress: ha perso peso, dorme male (si sveglia continuamente per controllare Roberto), è sempre stanca e irritabile. Ha iniziato a prendere ansiolitici. Al lavoro commette errori e il datore di lavoro l'ha richiamata.
+                <br><br>
+                Un giorno Elena crolla piangendo dal medico di base dicendo: "Non ce la faccio più, sono esausta. Mi sento in colpa perché a volte vorrei che tutto finisse... Amo mio marito ma ho perso la mia vita. Non vedo nessuno, non esco mai, non ho più tempo per me. Mi sento soffocare."
+                <br><br>
+                Il medico suggerisce a Elena di rivolgersi ai Servizi Sociali per valutare forme di supporto.
+            </div>
+
+            <div class="domanda">
+                <div class="domanda-titolo">1. La sindrome del caregiver: Descrivi cosa sta vivendo Elena utilizzando il concetto di "caregiver burden" o "sindrome del caregiver". Quali sono i segnali di allarme che emergono dal caso? Perché è importante intervenire non solo sul paziente (Roberto) ma anche sul caregiver?</div>
+                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+            </div>
+
+            <div class="domanda">
+                <div class="domanda-titolo">2. Bisogni di Elena e di Roberto: Analizza separatamente i bisogni di Elena e quelli di Roberto. Come possono essere interconnessi? È possibile che un intervento efficace per Roberto abbia benefici anche per Elena?</div>
+                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+            </div>
+
+            <div class="domanda">
+                <div class="domanda-titolo">3. Servizi di supporto: Quali servizi socio-sanitari proporresti per alleggerire il carico assistenziale di Elena e supportare Roberto? Costruisci una proposta che preveda interventi domiciliari, semiresidenziali, e anche supporto psicologico per la famiglia. Motiva ogni scelta.</div>
+                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+            </div>
+
+            <div class="domanda">
+                <div class="domanda-titolo">4. Prevenzione del burnout: Quali strategie concrete suggeriresti a Elena per prevenire il peggioramento del burnout? Come può ritagliarsi spazi per sé senza sentirsi in colpa? Qual è il ruolo dell'operatore sociale nel supportare i caregiver familiari?</div>
+                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button class="btn-export" onclick="exportPDF()">📄 Esporta in PDF</button>
+            <button class="btn-print" onclick="window.print()">🖨️ Stampa</button>
+            <button class="btn-clear" onclick="clearAll()">🗑️ Cancella tutto</button>
+        </div>
+    </div>
+
+    <script>
+        // Imposta la data odierna
+        document.getElementById('data').valueAsDate = new Date();
+
+        // Funzione per esportare in PDF
+        function exportPDF() {
+            const nome = document.getElementById('nome').value || 'Studente';
+            const classe = document.getElementById('classe').value || 'Classe';
+            const filename = `Esercitazione_${nome.replace(/\s+/g, '_')}_${classe}.pdf`;
+            
+            const element = document.getElementById('content');
+            const opt = {
+                margin: 10,
+                filename: filename,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            html2pdf().set(opt).from(element).save();
+        }
+
+        // Funzione per cancellare tutti i campi
+        function clearAll() {
+            if (confirm('Sei sicuro di voler cancellare tutte le risposte? Questa azione non può essere annullata.')) {
+                const textareas = document.querySelectorAll('textarea');
+                textareas.forEach(textarea => textarea.value = '');
+                document.getElementById('nome').value = '';
+                document.getElementById('classe').value = '';
+            }
+        }
+
+        // Salvataggio automatico nel localStorage ogni 30 secondi
+        setInterval(() => {
+            const data = {
+                nome: document.getElementById('nome').value,
+                classe: document.getElementById('classe').value,
+                data: document.getElementById('data').value,
+                risposte: Array.from(document.querySelectorAll('textarea')).map(t => t.value)
+            };
+            localStorage.setItem('esercitazione_servizi', JSON.stringify(data));
+        }, 30000);
+
+        // Recupero dei dati salvati al caricamento della pagina
+        window.onload = function() {
+            const saved = localStorage.getItem('esercitazione_servizi');
+            if (saved && confirm('Sono state trovate risposte salvate precedentemente. Vuoi recuperarle?')) {
+                const data = JSON.parse(saved);
+                document.getElementById('nome').value = data.nome || '';
+                document.getElementById('classe').value = data.classe || '';
+                document.getElementById('data').value = data.data || '';
+                const textareas = document.querySelectorAll('textarea');
+                data.risposte.forEach((risposta, index) => {
+                    if (textareas[index]) {
+                        textareas[index].value = risposta;
+                    }
+                });
+            }
+        };
+    </script>
+</body>
+</html>

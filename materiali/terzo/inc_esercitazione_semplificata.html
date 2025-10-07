@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi mi aiuta? - Esercitazione Semplice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #a8e6cf 0%, #ffd3b6 100%);
+            padding: 20px;
+            font-size: 24px;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .header {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 28px;
+        }
+
+        .section {
+            background: #fff9e6;
+            border: 5px solid #ffd700;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        .card {
+            background: white;
+            border: 4px solid #3498db;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .card-icon {
+            font-size: 120px;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            font-size: 24px;
+            color: #34495e;
+            line-height: 1.6;
+        }
+
+        .matching-game {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .match-item {
+            background: white;
+            border: 5px solid #95a5a6;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .match-item:hover {
+            border-color: #3498db;
+            transform: scale(1.05);
+        }
+
+        .match-item.selected {
+            background: #e8f4fd;
+            border-color: #3498db;
+            border-width: 8px;
+        }
+
+        .match-item.correct {
+            background: #d4edda;
+            border-color: #27ae60;
+            border-width: 8px;
+        }
+
+        .match-item.wrong {
+            background: #f8d7da;
+            border-color: #e74c3c;
+            border-width: 8px;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .match-icon {
+            font-size: 80px;
+            margin-bottom: 10px;
+        }
+
+        .match-text {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .button {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 28px;
+            font-weight: bold;
+            border-radius: 15px;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            transition: all 0.3s;
+        }
+
+        .button:hover {
+            background: #229954;
+            transform: scale(1.1);
+        }
+
+        .button:active {
+            transform: scale(0.95);
+        }
+
+        .feedback {
+            text-align: center;
+            padding: 25px;
+            border-radius: 15px;
+            font-size: 32px;
+            font-weight: bold;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.success {
+            background: #d4edda;
+            border: 5px solid #27ae60;
+            color: #155724;
+        }
+
+        .feedback.error {
+            background: #f8d7da;
+            border: 5px solid #e74c3c;
+            color: #721c24;
+        }
+
+        .story-box {
+            background: #e8f4fd;
+            border: 4px solid #3498db;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .story-icon {
+            font-size: 100px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .story-text {
+            font-size: 26px;
+            line-height: 1.8;
+            color: #2c3e50;
+        }
+
+        .choices {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .choice-btn {
+            background: white;
+            border: 4px solid #95a5a6;
+            padding: 20px;
+            font-size: 24px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .choice-btn:hover {
+            border-color: #3498db;
+            transform: translateX(10px);
+        }
+
+        .choice-btn .icon {
+            font-size: 50px;
+        }
+
+        .progress-bar {
+            background: #ecf0f1;
+            height: 40px;
+            border-radius: 20px;
+            margin: 20px 0;
+            overflow: hidden;
+            border: 3px solid #bdc3c7;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #27ae60, #2ecc71);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .celebration {
+            text-align: center;
+            font-size: 80px;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .celebration.show {
+            display: block;
+            animation: bounce 0.5s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>CHI MI AIUTA?</h1>
+            <p>Impariamo insieme!</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress">0%</div>
+        </div>
+
+        <!-- SEZIONE 1: CONOSCIAMO I SERVIZI -->
+        <div class="section">
+            <div class="section-title">🏠 Persone che aiutano</div>
+
+            <div class="card">
+                <div class="card-icon">🏥</div>
+                <div class="card-title">DOTTORE</div>
+                <div class="card-text">
+                    Il dottore mi cura<br>
+                    quando sto male
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">👩‍⚕️</div>
+                <div class="card-title">INFERMIERA</div>
+                <div class="card-text">
+                    L'infermiera mi aiuta<br>
+                    con le medicine
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🤝</div>
+                <div class="card-title">ASSISTENTE</div>
+                <div class="card-text">
+                    L'assistente mi aiuta<br>
+                    quando ho bisogno
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🚗</div>
+                <div class="card-title">AUTISTA</div>
+                <div class="card-text">
+                    L'autista mi porta<br>
+                    dove devo andare
+                </div>
+            </div>
+        </div>
+
+        <!-- SEZIONE 2: SITUAZIONI E AIUTI -->
+        <div class="section">
+            <div class="section-title">❓ Quando ho bisogno di aiuto?</div>
+
+            <div class="story-box">
+                <div class="story-icon">😷</div>
+                <div class="story-text">
+                    <strong>Maria sta male.</strong><br>
+                    Ha la febbre e mal di pancia.<br>
+                    Chi può aiutare Maria?
+                </div>
+                <div id="question-1" class="choices">
+                    <button class="choice-btn" onclick="checkAnswer(1, 'correct', this)">
+                        <span class="icon">🏥</span>
+                        <span>DOTTORE</span>
+                    </button>
+                    <button class="choice-btn" onclick="checkAnswer(1, 'wrong', this)">
+                        <span class="icon">🚗</span>
+                        <span>AUTISTA</span>
+                    </button>
+                    <button class="choice-btn" onclick="checkAnswer(1, 'wrong', this)">
+                        <span class="icon">👨‍🍳</span>
+                        <span>CUOCO</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="story-box">
+                <div class="story-icon">🏠</div>
+                <div class="story-text">
+                    <strong>Luca è da solo a casa.</strong><br>
+                    Non riesce a lavarsi.<br>
+                    Chi può aiutare Luca?
+                </div>
+                <div id="question-2" class="choices">
+                    <button class="choice-btn" onclick="checkAnswer(2, 'wrong', this)">
+                        <span class="icon">👨‍🏫</span>
+                        <span>MAESTRO</span>
+                    </button>
+                    <button class="choice-btn" onclick="checkAnswer(2, 'correct', this)">
+                        <span class="icon">🤝</span>
+                        <span>ASSISTENTE</span>
+                    </button>
+                    <button class="choice-btn" onclick="checkAnswer(2, 'wrong', this)">
+                        <span class="icon">👮</span>
+                        <span>POLIZIOTTO</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="story-box">
+                <div class="story-icon">🚌</div>
+                <div class="story-text">
+                    <strong>Anna deve andare in ospedale.</strong><br>
+                    Non sa prendere l'autobus.<br>
+                    Chi può aiutare Anna?
+                </div>
+                <div id="question-3" class="choices">
+                    <button class="choice-btn" onclick="checkAnswer(3, 'wrong', this)">
+                        <span class="icon">👩‍⚕️</span>
+                        <span>INFERMIERA</span>
+                    </button>
+                    <button class="choice-btn" onclick="checkAnswer(3, 'wrong', this)">
+                        <span class="icon">🍕</span>
+                        <span>PIZZAIOLO</span>
+                    </button>
+                    <button class="choice-btn" onclick="checkAnswer(3, 'correct', this)">
+                        <span class="icon">🚗</span>
+                        <span>AUTISTA</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEZIONE 3: GIOCO ABBINAMENTO -->
+        <div class="section">
+            <div class="section-title">🎮 Gioco: Abbina le immagini</div>
+            <p style="text-align: center; font-size: 26px; margin-bottom: 20px;">
+                Clicca su due carte uguali!
+            </p>
+
+            <div class="matching-game" id="matching-game">
+                <div class="match-item" data-value="doctor" onclick="flipCard(this)">
+                    <div class="match-icon">🏥</div>
+                </div>
+                <div class="match-item" data-value="nurse" onclick="flipCard(this)">
+                    <div class="match-icon">👩‍⚕️</div>
+                </div>
+                <div class="match-item" data-value="doctor" onclick="flipCard(this)">
+                    <div class="match-icon">🏥</div>
+                </div>
+                <div class="match-item" data-value="helper" onclick="flipCard(this)">
+                    <div class="match-icon">🤝</div>
+                </div>
+                <div class="match-item" data-value="nurse" onclick="flipCard(this)">
+                    <div class="match-icon">👩‍⚕️</div>
+                </div>
+                <div class="match-item" data-value="helper" onclick="flipCard(this)">
+                    <div class="match-icon">🤝</div>
+                </div>
+            </div>
+
+            <div class="feedback" id="matching-feedback"></div>
+        </div>
+
+        <!-- SEZIONE 4: DOVE VADO? -->
+        <div class="section">
+            <div class="section-title">🏢 Dove vado?</div>
+
+            <div class="story-box">
+                <div class="story-icon">🏥</div>
+                <div class="story-text">
+                    <strong>Dove vado se sto male?</strong>
+                </div>
+                <div id="question-4" class="choices">
+                    <button class="choice-btn" onclick="checkAnswer(4, 'correct', this)">
+                        <span class="icon">🏥</span>
+                        <span>OSPEDALE</span>
+                    </button>
+                    <button class="choice-btn" onclick="checkAnswer(4, 'wrong', this)">
+                        <span class="icon">🏪</span>
+                        <span>NEGOZIO</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="story-box">
+                <div class="story-icon">🎨</div>
+                <div class="story-text">
+                    <strong>Dove vado per giocare e fare attività?</strong>
+                </div>
+                <div id="question-5" class="choices">
+                    <button class="choice-btn" onclick="checkAnswer(5, 'wrong', this)">
+                        <span class="icon">🚂</span>
+                        <span>STAZIONE</span>
+                    </button>
+                    <button class="choice-btn" onclick="checkAnswer(5, 'correct', this)">
+                        <span class="icon">🏢</span>
+                        <span>CENTRO DIURNO</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- RISULTATO FINALE -->
+        <div class="celebration" id="celebration">
+            🎉 🎊 👏 🌟
+        </div>
+
+        <div class="feedback" id="final-feedback"></div>
+
+        <button class="button" onclick="window.print()">🖨️ STAMPA</button>
+    </div>
+
+    <script>
+        let score = 0;
+        let totalQuestions = 5;
+        let answeredQuestions = new Set();
+        let matchingCards = [];
+        let matchedPairs = 0;
+
+        function checkAnswer(questionNum, result, button) {
+            if (answeredQuestions.has(questionNum)) return;
+
+            const choices = button.parentElement.querySelectorAll('.choice-btn');
+            choices.forEach(btn => btn.style.pointerEvents = 'none');
+
+            if (result === 'correct') {
+                button.style.background = '#d4edda';
+                button.style.borderColor = '#27ae60';
+                button.style.borderWidth = '6px';
+                score++;
+                answeredQuestions.add(questionNum);
+                
+                showFeedback('success', '✅ BRAVO! RISPOSTA GIUSTA! 👏');
+                
+            } else {
+                button.style.background = '#f8d7da';
+                button.style.borderColor = '#e74c3c';
+                button.style.borderWidth = '6px';
+                button.style.animation = 'shake 0.5s';
+                
+                showFeedback('error', '❌ RIPROVA! 🤔');
+                
+                setTimeout(() => {
+                    button.style.background = '';
+                    button.style.borderColor = '';
+                    button.style.borderWidth = '';
+                    button.style.animation = '';
+                    choices.forEach(btn => btn.style.pointerEvents = 'auto');
+                }, 2000);
+            }
+
+            updateProgress();
+        }
+
+        function showFeedback(type, message) {
+            const allFeedbacks = document.querySelectorAll('.feedback');
+            allFeedbacks.forEach(f => {
+                f.className = 'feedback';
+            });
+
+            const feedback = document.createElement('div');
+            feedback.className = `feedback ${type} show`;
+            feedback.textContent = message;
+            
+            event.target.closest('.story-box').appendChild(feedback);
+
+            setTimeout(() => {
+                feedback.classList.remove('show');
+            }, 3000);
+        }
+
+        function flipCard(card) {
+            if (card.classList.contains('correct') || matchingCards.length >= 2) return;
+            
+            if (matchingCards.includes(card)) return;
+
+            card.classList.add('selected');
+            matchingCards.push(card);
+
+            if (matchingCards.length === 2) {
+                checkMatch();
+            }
+        }
+
+        function checkMatch() {
+            const [card1, card2] = matchingCards;
+            
+            setTimeout(() => {
+                if (card1.dataset.value === card2.dataset.value) {
+                    card1.classList.remove('selected');
+                    card2.classList.remove('selected');
+                    card1.classList.add('correct');
+                    card2.classList.add('correct');
+                    
+                    matchedPairs++;
+                    
+                    const feedback = document.getElementById('matching-feedback');
+                    feedback.className = 'feedback success show';
+                    feedback.textContent = '✅ BRAVO! HAI TROVATO LA COPPIA! 🎉';
+                    
+                    setTimeout(() => feedback.classList.remove('show'), 2000);
+
+                    if (matchedPairs === 3) {
+                        setTimeout(() => {
+                            const feedback = document.getElementById('matching-feedback');
+                            feedback.className = 'feedback success show';
+                            feedback.textContent = '🌟 HAI FINITO! SEI BRAVISSIMO! 🌟';
+                            score++;
+                            answeredQuestions.add('matching');
+                            updateProgress();
+                        }, 1000);
+                    }
+                } else {
+                    card1.classList.remove('selected');
+                    card2.classList.remove('selected');
+                    card1.classList.add('wrong');
+                    card2.classList.add('wrong');
+                    
+                    setTimeout(() => {
+                        card1.classList.remove('wrong');
+                        card2.classList.remove('wrong');
+                    }, 1000);
+
+                    const feedback = document.getElementById('matching-feedback');
+                    feedback.className = 'feedback error show';
+                    feedback.textContent = '❌ NON SONO UGUALI! RIPROVA! 💪';
+                    
+                    setTimeout(() => feedback.classList.remove('show'), 2000);
+                }
+                
+                matchingCards = [];
+            }, 800);
+        }
+
+        function updateProgress() {
+            const progress = Math.round((score / (totalQuestions + 1)) * 100);
+            const progressBar = document.getElementById('progress');
+            progressBar.style.width = progress + '%';
+            progressBar.textContent = progress + '%';
+
+            if (progress === 100) {
+                setTimeout(showCelebration, 500);
+            }
+        }
+
+        function showCelebration() {
+            const celebration = document.getElementById('celebration');
+            celebration.classList.add('show');
+
+            const finalFeedback = document.getElementById('final-feedback');
+            finalFeedback.className = 'feedback success show';
+            finalFeedback.innerHTML = '🌟🌟🌟<br>COMPLIMENTI!<br>HAI FINITO TUTTO!<br>SEI BRAVISSIMO!<br>🎉🎉🎉';
+
+            // Suoni di celebrazione (solo visivi)
+            setTimeout(() => {
+                document.body.style.animation = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,2126 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il Welfare: dai Bisogni alle Risposte</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #000000 0%, #1a5c3a 50%, #c41e3a 100%);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .nav-btn {
+            background: white;
+            color: #000;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .nav-btn.teoria { background: #1a5c3a; color: white; }
+        .nav-btn.ripasso { background: #2d7a4f; color: white; }
+        .nav-btn.carte { background: #c41e3a; color: white; }
+        .nav-btn.collegamenti { background: #ff6b6b; color: white; }
+        .nav-btn.gruppo { background: #000; color: white; }
+        .nav-btn.riflessione { background: #f0f0f0; color: #000; }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .section {
+            background: white;
+            color: #333;
+            border-radius: 12px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            color: #1a5c3a;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #c41e3a;
+        }
+
+        .teoria-content p {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .teoria-content strong {
+            color: #1a5c3a;
+            font-weight: 600;
+        }
+
+        .teoria-content h3 {
+            color: #c41e3a;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .teoria-content h4 {
+            color: #1a5c3a;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+        }
+
+        .teoria-content ol {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+            counter-reset: item;
+            list-style-type: none;
+        }
+
+        .teoria-content ol li {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            position: relative;
+            padding-left: 0.5rem;
+        }
+
+        .teoria-content ol li::before {
+            content: counter(item) ". ";
+            counter-increment: item;
+            color: #c41e3a;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .teoria-content ul {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .teoria-content li {
+            margin-bottom: 0.8rem;
+            line-height: 1.7;
+        }
+
+        .pillars-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            font-size: 1.05rem;
+        }
+
+        .pillars-table th {
+            background: #1a5c3a;
+            color: white;
+            padding: 1.2rem;
+            text-align: left;
+            font-size: 1.1rem;
+        }
+
+        .pillars-table td {
+            padding: 1.2rem;
+            border-bottom: 1px solid #ddd;
+            line-height: 1.7;
+        }
+
+        .pillars-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        /* Box informativi colorati */
+        .info-box {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-left: 5px solid #2196f3;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        .info-box.success {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-left-color: #4caf50;
+        }
+
+        .info-box.warning {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            border-left-color: #ffc107;
+        }
+
+        .info-box.important {
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+            border-left-color: #e91e63;
+        }
+
+        .info-box h4 {
+            color: #1a5c3a;
+            margin-bottom: 0.8rem;
+        }
+
+        .info-box ul {
+            margin-left: 1.5rem;
+        }
+
+        /* Maslow pyramid style */
+        .maslow-pyramid {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 2rem 0;
+        }
+
+        .pyramid-level {
+            width: 100%;
+            max-width: 900px;
+            background: #f5f5f5;
+            border: 2px solid #1a5c3a;
+            padding: 1rem;
+            margin: 0.3rem 0;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .pyramid-level:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(26, 92, 58, 0.2);
+        }
+
+        .pyramid-level:nth-child(1) { width: 95%; background: #ffebee; }
+        .pyramid-level:nth-child(2) { width: 85%; background: #fff3e0; }
+        .pyramid-level:nth-child(3) { width: 75%; background: #fff9c4; }
+        .pyramid-level:nth-child(4) { width: 65%; background: #e1f5fe; }
+        .pyramid-level:nth-child(5) { width: 55%; background: #e8f5e9; }
+        .pyramid-level:nth-child(6) { width: 45%; background: #f3e5f5; }
+        .pyramid-level:nth-child(7) { width: 35%; background: #fce4ec; }
+        .pyramid-level:nth-child(8) { width: 25%; background: #e8eaf6; }
+
+        .pyramid-level h4 {
+            color: #1a5c3a;
+            margin-bottom: 0.5rem;
+        }
+
+        .pyramid-level p {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Caratteristiche relazione d'aiuto */
+        .help-characteristics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .characteristic-card {
+            background: white;
+            border: 2px solid #1a5c3a;
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .characteristic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(26, 92, 58, 0.2);
+        }
+
+        .characteristic-card h4 {
+            color: #c41e3a;
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .characteristic-card p {
+            color: #555;
+            line-height: 1.7;
+        }
+
+        /* Carte Servizio */
+        .cards-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .view-btn {
+            background: #1a5c3a;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .view-btn:hover {
+            background: #c41e3a;
+            transform: translateY(-2px);
+        }
+
+        .view-btn.active {
+            background: #c41e3a;
+            box-shadow: 0 4px 8px rgba(196, 30, 58, 0.3);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .cards-slider {
+            display: none;
+        }
+
+        .cards-slider.active {
+            display: block;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+            border-left: 5px solid #1a5c3a;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+            border-left-color: #c41e3a;
+        }
+
+        .card-title {
+            color: #1a5c3a;
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .card-description {
+            color: #555;
+            margin-bottom: 1.2rem;
+            font-style: italic;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .card-pillar {
+            display: inline-block;
+            background: #1a5c3a;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 0.8rem;
+        }
+
+        .card-need {
+            background: #f9f9f9;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 3px solid #c41e3a;
+            margin-top: 1rem;
+        }
+
+        .card-need strong {
+            color: #c41e3a;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+
+        .slider-btn {
+            background: #1a5c3a;
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .slider-btn:hover {
+            background: #c41e3a;
+        }
+
+        .slider-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .slider-counter {
+            color: #000;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .progress-bar {
+            width: 200px;
+            height: 8px;
+            background: #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #1a5c3a 0%, #c41e3a 100%);
+            transition: width 0.3s;
+        }
+
+        /* Collegamenti - Mappa interattiva */
+        .connections-container {
+            margin: 2rem 0;
+        }
+
+        .connection-item {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .connection-item.completed {
+            border-color: #4caf50;
+            background: #e8f5e9;
+        }
+
+        .connection-row {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr auto 1fr;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .connection-box {
+            background: #f5f5f5;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .connection-box.need { 
+            background: #ffebee; 
+            border-color: #ef5350;
+        }
+
+        .connection-box.service { 
+            background: #e3f2fd; 
+            border-color: #2196f3;
+        }
+
+        .connection-box.pillar { 
+            background: #e8f5e9; 
+            border-color: #4caf50;
+        }
+
+        .connection-arrow {
+            font-size: 2rem;
+            color: #1a5c3a;
+            font-weight: bold;
+        }
+
+        .connection-select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            background: white;
+        }
+
+        .verify-btn {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+
+        .verify-btn:hover {
+            background: #1976d2;
+        }
+
+        .feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: #c8e6c9;
+            color: #2e7d32;
+            border: 2px solid #4caf50;
+            display: block;
+        }
+
+        .feedback.incorrect {
+            background: #ffcdd2;
+            color: #c62828;
+            border: 2px solid #f44336;
+            display: block;
+        }
+
+        /* Tabella Lavoro di Gruppo POTENZIATA */
+        .work-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+
+        .work-table th {
+            background: #1a5c3a;
+            color: white;
+            padding: 1.2rem;
+            text-align: left;
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        .work-table td {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+
+        .work-table input, .work-table textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .work-table input:focus, .work-table textarea:focus {
+            outline: none;
+            border-color: #1a5c3a;
+            box-shadow: 0 0 0 3px rgba(26, 92, 58, 0.1);
+            background: #f0f7f4;
+        }
+
+        .work-table input:not(:placeholder-shown),
+        .work-table textarea:not(:placeholder-shown) {
+            background: #f9fff9;
+            border-color: #1a5c3a;
+        }
+
+        .work-table textarea {
+            min-height: 100px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .work-table select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .work-table select:focus {
+            outline: none;
+            border-color: #1a5c3a;
+            box-shadow: 0 0 0 3px rgba(26, 92, 58, 0.1);
+        }
+
+        .add-row-btn {
+            background: #c41e3a;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            font-weight: bold;
+            font-size: 1.05rem;
+            transition: all 0.3s;
+            box-shadow: 0 2px 6px rgba(196, 30, 58, 0.3);
+        }
+
+        .add-row-btn:hover {
+            background: #1a5c3a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(26, 92, 58, 0.4);
+        }
+
+        .delete-row-btn {
+            background: #c41e3a;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            margin-top: 0.5rem;
+        }
+
+        .delete-row-btn:hover {
+            background: #a01830;
+            transform: scale(1.05);
+        }
+
+        .guiding-questions {
+            background: #f9f9f9;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            border-left: 5px solid #c41e3a;
+        }
+
+        .guiding-questions h4 {
+            color: #1a5c3a;
+            margin-bottom: 1.2rem;
+            font-size: 1.3rem;
+        }
+
+        .guiding-questions ul {
+            margin-left: 1.5rem;
+        }
+
+        .guiding-questions li {
+            margin-bottom: 0.8rem;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        /* Scheda Riflessione */
+        .reflection-form {
+            margin-top: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 2.5rem;
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #1a5c3a;
+        }
+
+        .form-group label {
+            display: block;
+            color: #1a5c3a;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            font-size: 1.15rem;
+            line-height: 1.5;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1.05rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #1a5c3a;
+            box-shadow: 0 0 0 3px rgba(26, 92, 58, 0.1);
+            background: #f0f7f4;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .rating-group {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .rating-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            cursor: pointer;
+        }
+
+        .rating-option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .rating-option label {
+            cursor: pointer;
+            margin: 0 !important;
+            font-size: 1rem !important;
+            color: #333 !important;
+            font-weight: normal !important;
+        }
+
+        /* Pulsanti Salva */
+        .save-buttons {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 1rem;
+            z-index: 999;
+            flex-direction: column;
+        }
+
+        .save-btn {
+            background: #c41e3a;
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .save-btn:hover {
+            background: #1a5c3a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+        }
+
+        .save-status {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1a5c3a;
+            color: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .save-status.show {
+            opacity: 1;
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            background: #1a5c3a;
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 998;
+        }
+
+        .scroll-to-top.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .scroll-to-top:hover {
+            background: #c41e3a;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+        }
+
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+
+            .header {
+                background: white;
+                color: black;
+                border-bottom: 3px solid #1a5c3a;
+                position: static;
+            }
+
+            .nav-buttons, .save-buttons, .save-status, .scroll-to-top {
+                display: none !important;
+            }
+
+            .section {
+                display: block !important;
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+                margin-bottom: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .save-buttons {
+                bottom: 1rem;
+                right: 1rem;
+                gap: 0.5rem;
+            }
+
+            .connection-row {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .connection-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🧠 Il Welfare: dai Bisogni alle Risposte</h1>
+        <div class="subtitle">Comprendere i collegamenti tra bisogni umani e servizi sociosanitari</div>
+        <div class="nav-buttons">
+            <button class="nav-btn teoria" onclick="showSection('teoria')">📘 Teoria Welfare</button>
+            <button class="nav-btn ripasso" onclick="showSection('ripasso')">📚 Ripasso Operatore</button>
+            <button class="nav-btn carte" onclick="showSection('carte')">🃏 Carte Servizio</button>
+            <button class="nav-btn collegamenti" onclick="showSection('collegamenti')">🔗 Mappa Collegamenti</button>
+            <button class="nav-btn gruppo" onclick="showSection('gruppo')">📋 Lavoro Gruppo</button>
+            <button class="nav-btn riflessione" onclick="showSection('riflessione')">📝 Riflessione</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- SEZIONE 1: SCHEDA TEORICA WELFARE -->
+        <div id="teoria" class="section active">
+            <h2 class="section-title">📘 Scheda Teorica: Il Welfare e i suoi Tre Pilastri</h2>
+            
+            <div class="info-box warning">
+                <h4>💡 Come salvare il tuo lavoro</h4>
+                <ul>
+                    <li><strong>Salvataggio automatico:</strong> Il lavoro si salva mentre scrivi</li>
+                    <li><strong>💾 Salva HTML:</strong> Scarica una copia completa (consigliato!)</li>
+                    <li><strong>📥 Scarica Word/PDF:</strong> A fine attività</li>
+                    <li><strong>⚠️ IMPORTANTE:</strong> Scarica l'HTML prima di chiudere!</li>
+                </ul>
+            </div>
+            
+            <div class="teoria-content">
+                <h3>Cos'è il Welfare?</h3>
+                <p><strong>"Welfare"</strong> significa <strong>benessere</strong>. Il <strong>Welfare State</strong> (Stato del Benessere) è il sistema con cui lo Stato garantisce ai cittadini condizioni di vita dignitose attraverso servizi, tutele e prestazioni sociali.</p>
+                
+                <p>Quando parliamo di "welfare state" ci riferiamo a un modello di governo in cui lo Stato assume la responsabilità di garantire il benessere sociale dei cittadini attraverso servizi e politiche sociali come la sanità, l'istruzione, la previdenza sociale e l'assistenza sociale.</p>
+
+                <h3>Definizione Operativa di Welfare (secondo Ferrera)</h3>
+                <p>Il welfare è un <strong>sistema organizzato e coordinato di norme, regole e corsi d'azione</strong> che ha l'obiettivo di garantire il benessere generale dei cittadini:</p>
+                
+                <ul>
+                    <li><strong>Norme:</strong> Le leggi che stabiliscono i diritti e i doveri (es. legge sulla Sanità Pubblica)</li>
+                    <li><strong>Regole:</strong> I meccanismi e le procedure di applicazione (es. criteri per ricevere la pensione)</li>
+                    <li><strong>Corsi d'azione:</strong> Le azioni coordinate che portano all'erogazione della prestazione</li>
+                </ul>
+
+                <h3>Obiettivi del Welfare</h3>
+                <ol>
+                    <li><strong>Riduzione delle disuguaglianze:</strong> Ridurre il divario economico e sociale, garantendo uguali opportunità</li>
+                    <li><strong>Inclusione sociale:</strong> Favorire l'integrazione di tutti, compresi gruppi vulnerabili</li>
+                    <li><strong>Sicurezza sociale:</strong> Fornire una rete di protezione per vivere dignitosamente</li>
+                </ol>
+
+                <h3>I Tre Pilastri Fondamentali del Welfare</h3>
+                
+                <table class="pillars-table">
+                    <thead>
+                        <tr>
+                            <th>Pilastro</th>
+                            <th>Cosa garantisce</th>
+                            <th>Esempi di servizi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>🏥 Sistema Sanitario</strong></td>
+                            <td>Tutela della salute e prevenzione</td>
+                            <td>Medico di base, ospedali, vaccinazioni, screening, 118, centri di riabilitazione, salute mentale</td>
+                        </tr>
+                        <tr>
+                            <td><strong>💰 Sistema Previdenziale</strong></td>
+                            <td>Sicurezza economica nelle difficoltà</td>
+                            <td>Pensioni, indennità di disoccupazione, assegni familiari, bonus bebè, indennità di invalidità</td>
+                        </tr>
+                        <tr>
+                            <td><strong>🤝 Assistenza Sociale</strong></td>
+                            <td>Supporto a persone e famiglie fragili</td>
+                            <td>Asili nido, assistenza domiciliare, centri per disabilità, servizi per senza fissa dimora, progetti di inclusione, riabilitazione dipendenze</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SEZIONE 2: RIPASSO RELAZIONE D'AIUTO -->
+        <div id="ripasso" class="section">
+            <h2 class="section-title">📚 Ripasso: Dalla Relazione d'Aiuto al Progetto d'Intervento</h2>
+            
+            <div class="info-box success">
+                <h4>🎯 Obiettivo di questa sezione</h4>
+                <p>Ripassare i concetti fondamentali per collegare i <strong>bisogni delle persone</strong> con le <strong>risposte del welfare</strong>. Ricorda: ogni servizio nasce per rispondere a un bisogno specifico!</p>
+            </div>
+
+            <div class="teoria-content">
+                <h3>La Piramide di Maslow e il Welfare</h3>
+                <p>Ogni livello di bisogno richiede una risposta specifica del welfare. Quando un bisogno non è soddisfatto, il welfare deve intervenire.</p>
+
+                <div class="maslow-pyramid">
+                    <div class="pyramid-level">
+                        <h4>8️⃣ Trascendenza</h4>
+                        <p><strong>Welfare risponde con:</strong> Programmi di volontariato, iniziative comunitarie, spazi per dialogo e meditazione</p>
+                    </div>
+                    <div class="pyramid-level">
+                        <h4>7️⃣ Auto-realizzazione</h4>
+                        <p><strong>Welfare risponde con:</strong> Programmi sviluppo professionale, coaching, workshop di crescita personale</p>
+                    </div>
+                    <div class="pyramid-level">
+                        <h4>6️⃣ Bisogni Estetici</h4>
+                        <p><strong>Welfare risponde con:</strong> Promozione arte e cultura, eventi pubblici, mostre accessibili, spazi pubblici accoglienti</p>
+                    </div>
+                    <div class="pyramid-level">
+                        <h4>5️⃣ Bisogni di Conoscenza</h4>
+                        <p><strong>Welfare risponde con:</strong> Programmi educativi, biblioteche, accesso internet, formazione continua</p>
+                    </div>
+                    <div class="pyramid-level">
+                        <h4>4️⃣ Bisogni di Stima</h4>
+                        <p><strong>Welfare risponde con:</strong> Programmi di empowerment, formazione professionale, opportunità di crescita e riconoscimento</p>
+                    </div>
+                    <div class="pyramid-level">
+                        <h4>3️⃣ Bisogni di Appartenenza</h4>
+                        <p><strong>Welfare risponde con:</strong> Gruppi di supporto, attività comunitarie, centri di aggregazione, programmi di socializzazione</p>
+                    </div>
+                    <div class="pyramid-level">
+                        <h4>2️⃣ Bisogni di Sicurezza</h4>
+                        <p><strong>Welfare risponde con:</strong> Supporto psicologico, programmi per la casa, opportunità di lavoro, sicurezza sociale</p>
+                    </div>
+                    <div class="pyramid-level">
+                        <h4>1️⃣ Bisogni Fisiologici</h4>
+                        <p><strong>Welfare risponde con:</strong> Cibo, rifugi d'emergenza, cure sanitarie fondamentali, servizi di prima necessità</p>
+                    </div>
+                </div>
+
+                <h3>La Relazione d'Aiuto: Caratteristiche Fondamentali</h3>
+                <p><strong>Ogni azione sociosanitaria si sviluppa nell'ambito di una relazione d'aiuto.</strong> Ecco le sue caratteristiche:</p>
+
+                <div class="help-characteristics">
+                    <div class="characteristic-card">
+                        <h4>❤️ Empatia</h4>
+                        <p>Capacità di comprendere i sentimenti e le emozioni dell'altro, mettendosi nei suoi panni senza giudicare.</p>
+                    </div>
+                    <div class="characteristic-card">
+                        <h4>👥 Asimmetria</h4>
+                        <p>La relazione non è paritaria: l'operatore ha competenze professionali, l'utente porta il suo bisogno.</p>
+                    </div>
+                    <div class="characteristic-card">
+                        <h4>🔝 Etica</h4>
+                        <p>Rispetto dei principi deontologici, della dignità della persona e della riservatezza.</p>
+                    </div>
+                    <div class="characteristic-card">
+                        <h4>🧑‍💼 Professionalità</h4>
+                        <p>Competenza tecnica unita a capacità relazionali, aggiornamento continuo e riflessività.</p>
+                    </div>
+                    <div class="characteristic-card">
+                        <h4>🙏 Scambio</h4>
+                        <p>La relazione è bidirezionale: anche l'operatore cresce e impara dall'incontro con l'utente.</p>
+                    </div>
+                    <div class="characteristic-card">
+                        <h4>🎁 Dono</h4>
+                        <p>L'operatore mette a disposizione tempo, ascolto e competenze per il benessere dell'altro.</p>
+                    </div>
+                </div>
+
+                <h3>Le Competenze dell'Operatore Sociosanitario</h3>
+                
+                <div class="info-box">
+                    <h4>🎓 Tre dimensioni della competenza</h4>
+                    <ol>
+                        <li><strong>SAPERE:</strong> Conoscenze teoriche, normative, metodologie per comprendere il contesto sociale</li>
+                        <li><strong>SAPER FARE:</strong> Capacità pratiche per progettare, applicare strumenti operativi e collaborare in équipe</li>
+                        <li><strong>SAPER ESSERE:</strong> Atteggiamenti personali come empatia, etica professionale, gestione equilibrata</li>
+                    </ol>
+                    <p style="margin-top: 1rem;"><strong>💡 Consiglio:</strong> È importante anche imparare a <strong>SAPER DIVENTARE</strong> - crescere professionalmente in modo continuo!</p>
+                </div>
+
+                <h3>Dal Bisogno alla Risposta: Il Percorso</h3>
+                
+                <div class="info-box important">
+                    <h4>🔄 Le tre fasi del processo di aiuto</h4>
+                    <ol>
+                        <li><strong>Percezione del disagio:</strong> Individuare il divario tra la condizione attuale e quella desiderata. La capacità di capire il disagio dipende da fattori culturali, intellettivi, familiari, economici, valoriali.</li>
+                        <li><strong>Formulazione della domanda:</strong> Può essere formulata dall'interessato, da un familiare o da altro significativo. Non sempre la domanda è chiara - è nostro compito capire la problematica.</li>
+                        <li><strong>Decodifica e risposta:</strong> L'operatore analizza la domanda (decodifica) per fornire la risposta adeguata. Una lettura attenta rende il passaggio più tempestivo.</li>
+                    </ol>
+                </div>
+
+                <h3>Gli Strumenti dell'Operatore</h3>
+
+                <table class="pillars-table">
+                    <thead>
+                        <tr>
+                            <th>Strumento</th>
+                            <th>Cosa permette di fare</th>
+                            <th>Vantaggi</th>
+                            <th>Limiti</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>🗣️ Il Colloquio</strong></td>
+                            <td>Raccogliere informazioni, comprendere bisogni, costruire fiducia, promuovere partecipazione</td>
+                            <td>Comunicazione diretta, esplora aspetti emotivi e motivazionali</td>
+                            <td>Dipende dalla disponibilità dell'utente e dalla capacità comunicativa</td>
+                        </tr>
+                        <tr>
+                            <td><strong>🏠 Visita Domiciliare</strong></td>
+                            <td>Osservare ambiente, verificare condizioni abitative, analizzare dinamiche familiari</td>
+                            <td>Visione concreta della realtà, informazioni complementari al colloquio</td>
+                            <td>Può suscitare disagio, richiede approccio delicato</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>La Rete nel Lavoro Sociale</h3>
+
+                <div class="connection-row">
+                    <div class="connection-box" style="background: #e3f2fd; border-color: #2196f3;">
+                        <div>
+                            <strong>🏢 RETE FORMALE</strong>
+                            <p style="margin-top: 0.5rem; font-size: 0.9rem;">Servizi organizzati, strutture, professionisti con ruoli definiti e regolati da norme</p>
+                            <p style="margin-top: 0.5rem; font-size: 0.85rem;"><em>Esempi: ASL, Comuni, Scuole, Cooperative sociali</em></p>
+                        </div>
+                    </div>
+                    <div class="connection-arrow">+</div>
+                    <div class="connection-box" style="background: #fff3e0; border-color: #ff9800;">
+                        <div>
+                            <strong>❤️ RETE INFORMALE</strong>
+                            <p style="margin-top: 0.5rem; font-size: 0.9rem;">Relazioni personali e sociali basate su solidarietà e volontarietà</p>
+                            <p style="margin-top: 0.5rem; font-size: 0.85rem;"><em>Esempi: Famiglia, Amici, Vicinato, Volontariato</em></p>
+                        </div>
+                    </div>
+                    <div class="connection-arrow">=</div>
+                    <div class="connection-box" style="background: #e8f5e9; border-color: #4caf50;">
+                        <div>
+                            <strong>🌐 SISTEMA INTEGRATO</strong>
+                            <p style="margin-top: 0.5rem; font-size: 0.9rem;">Collaborazione tra risorse formali e informali per assistenza efficace</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box success" style="margin-top: 2rem;">
+                    <h4>✅ Perché questa sezione è importante?</h4>
+                    <p>Questi concetti sono la base per capire <strong>come si passa dal bisogno alla risposta del welfare</strong>. Nelle prossime sezioni userai queste conoscenze per:</p>
+                    <ul>
+                        <li>Analizzare i servizi del welfare</li>
+                        <li>Collegare ogni servizio a un bisogno specifico</li>
+                        <li>Capire quale pilastro interviene per quale tipo di bisogno</li>
+                        <li>Ragionare come un operatore sociosanitario</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEZIONE 3: CARTE SERVIZIO -->
+        <div id="carte" class="section">
+            <h2 class="section-title">🃏 Carte Servizio del Welfare</h2>
+            
+            <div class="info-box">
+                <h4>💡 Come usare le carte</h4>
+                <p>Ogni carta presenta un servizio del welfare con il suo <strong>pilastro di appartenenza</strong> e il <strong>bisogno a cui risponde</strong>. Studia le carte per capire i collegamenti!</p>
+            </div>
+
+            <div class="cards-controls">
+                <button class="view-btn active" onclick="toggleView('grid')">📊 Vista Griglia</button>
+                <button class="view-btn" onclick="toggleView('slider')">➡️ Scorrimento</button>
+            </div>
+
+            <div id="cards-grid" class="cards-grid"></div>
+            
+            <div id="cards-slider" class="cards-slider">
+                <div id="current-card"></div>
+                <div class="slider-controls">
+                    <button class="slider-btn" id="prev-btn" onclick="changeCard(-1)">⬅️ Precedente</button>
+                    <div class="slider-counter">
+                        <span><span id="card-counter">1</span> / 18</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill" style="width: 5.56%;"></div>
+                        </div>
+                    </div>
+                    <button class="slider-btn" id="next-btn" onclick="changeCard(1)">Successiva ➡️</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEZIONE 4: MAPPA COLLEGAMENTI -->
+        <div id="collegamenti" class="section">
+            <h2 class="section-title">🔗 Mappa dei Collegamenti: Bisogni → Servizi → Pilastri</h2>
+            
+            <div class="info-box warning">
+                <h4>🎯 Obiettivo di questa attività</h4>
+                <p>Impara a fare i <strong>collegamenti logici</strong> tra:</p>
+                <ol>
+                    <li><strong>BISOGNO</strong> (cosa manca alla persona)</li>
+                    <li><strong>SERVIZIO</strong> (cosa offre il welfare)</li>
+                    <li><strong>PILASTRO</strong> (quale area del welfare interviene)</li>
+                </ol>
+                <p style="margin-top: 1rem;">Completa gli esercizi selezionando le opzioni corrette. Clicca "Verifica" per controllare!</p>
+            </div>
+
+            <div class="connections-container" id="connections-container"></div>
+        </div>
+
+        <!-- SEZIONE 5: LAVORO DI GRUPPO POTENZIATO -->
+        <div id="gruppo" class="section">
+            <h2 class="section-title">📋 Scheda di Lavoro di Gruppo Potenziata</h2>
+            
+            <div class="info-box success">
+                <h4>🎯 Focus del lavoro di gruppo</h4>
+                <p>Ora che hai studiato i collegamenti, applica il <strong>ragionamento logico</strong> per analizzare ogni servizio:</p>
+                <ul>
+                    <li>Quale <strong>bisogno di Maslow</strong> è alla base?</li>
+                    <li>Quale <strong>pilastro</strong> del welfare interviene?</li>
+                    <li>Chi sono i <strong>beneficiari</strong> specifici?</li>
+                    <li>Perché questo servizio è <strong>essenziale</strong>?</li>
+                </ul>
+            </div>
+
+            <table class="work-table" id="work-table">
+                <thead>
+                    <tr>
+                        <th>Servizio</th>
+                        <th>Bisogno Maslow</th>
+                        <th>Pilastro</th>
+                        <th>Bisogno specifico</th>
+                        <th>Beneficiari</th>
+                        <th>Perché essenziale</th>
+                        <th style="width: 80px;">Azioni</th>
+                    </tr>
+                </thead>
+                <tbody id="work-tbody">
+                    <tr>
+                        <td><input type="text" class="work-input" data-field="servizio" placeholder="Nome del servizio..."></td>
+                        <td>
+                            <select class="work-input" data-field="bisogno_maslow">
+                                <option value="">Seleziona...</option>
+                                <option value="Fisiologici">1. Fisiologici (cibo, riparo)</option>
+                                <option value="Sicurezza">2. Sicurezza (lavoro, risorse)</option>
+                                <option value="Appartenenza">3. Appartenenza (relazioni)</option>
+                                <option value="Stima">4. Stima (riconoscimento)</option>
+                                <option value="Conoscenza">5. Conoscenza (educazione)</option>
+                                <option value="Estetici">6. Estetici (bellezza, arte)</option>
+                                <option value="Auto-realizzazione">7. Auto-realizzazione (potenziale)</option>
+                                <option value="Trascendenza">8. Trascendenza (senso)</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="work-input" data-field="pilastro">
+                                <option value="">Seleziona...</option>
+                                <option value="Sanità">🏥 Sanità</option>
+                                <option value="Previdenza">💰 Previdenza</option>
+                                <option value="Assistenza Sociale">🤝 Assistenza Sociale</option>
+                            </select>
+                        </td>
+                        <td><textarea class="work-input" data-field="bisogno" placeholder="Quale bisogno specifico..."></textarea></td>
+                        <td><textarea class="work-input" data-field="beneficiari" placeholder="Chi ne beneficia..."></textarea></td>
+                        <td><textarea class="work-input" data-field="essenziale" placeholder="Perché è essenziale..."></textarea></td>
+                        <td class="actions-cell">
+                            <button class="delete-row-btn" onclick="deleteRow(this)" title="Elimina riga">🗑️</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button class="add-row-btn" onclick="addWorkRow()">➕ Aggiungi Servizio</button>
+
+            <div style="text-align: center; margin-top: 1rem; color: #1a5c3a; font-weight: bold; font-size: 1.1rem;">
+                <span id="service-counter">Servizi analizzati: 0</span>
+            </div>
+
+            <div class="guiding-questions">
+                <h4>🔍 Domande-guida per il ragionamento logico:</h4>
+                <ul>
+                    <li><strong>BISOGNO → SERVIZIO:</strong> Quale bisogno di Maslow è insoddisfatto? Come questo servizio lo soddisfa?</li>
+                    <li><strong>SERVIZIO → PILASTRO:</strong> Quale dei tre pilastri (Sanità, Previdenza, Assistenza) offre questo servizio?</li>
+                    <li><strong>BENEFICIARI:</strong> Chi sono le persone che hanno questo bisogno specifico?</li>
+                    <li><strong>ESSENZIALITÀ:</strong> Cosa succederebbe se questo servizio non esistesse?</li>
+                    <li><strong>RETE:</strong> Quali altri servizi (formali e informali) completano questo intervento?</li>
+                    <li><strong>STRUMENTI:</strong> Quali strumenti usa l'operatore (colloquio, visita domiciliare) per valutare questo bisogno?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SEZIONE 6: RIFLESSIONE INDIVIDUALE -->
+        <div id="riflessione" class="section">
+            <h2 class="section-title">📝 Scheda di Riflessione Individuale</h2>
+            
+            <div class="info-box success">
+                <p><strong>✅ Completa questa riflessione finale!</strong> Ricorda di salvare cliccando su "💾 Salva HTML Completo".</p>
+            </div>
+            
+            <form class="reflection-form" id="reflection-form">
+                <div class="form-group">
+                    <label>1. Tre collegamenti importanti che ho imparato (tra bisogni, servizi e pilastri):</label>
+                    <input type="text" id="learned1" placeholder="Primo collegamento..." style="margin-bottom: 0.8rem;">
+                    <input type="text" id="learned2" placeholder="Secondo collegamento..." style="margin-bottom: 0.8rem;">
+                    <input type="text" id="learned3" placeholder="Terzo collegamento...">
+                </div>
+
+                <div class="form-group">
+                    <label>2. Un servizio che pensavo appartenesse a un pilastro, ma in realtà è di un altro. Perché mi sono confuso/a?</label>
+                    <textarea id="misconception" placeholder="Scrivi qui la tua riflessione..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>3. Quale livello di bisogni di Maslow pensi sia il più difficile da soddisfare con il welfare? Perché?</label>
+                    <textarea id="maslow-difficulty" placeholder="Scrivi qui la tua riflessione..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>4. Spiega con un esempio concreto come l'operatore sociosanitario usa le sue competenze (sapere, saper fare, saper essere) per aiutare una persona:</label>
+                    <textarea id="operator-example" placeholder="Scrivi qui il tuo esempio..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>5. In che modo la rete formale e informale lavorano insieme per rispondere ai bisogni?</label>
+                    <textarea id="network-collaboration" placeholder="Scrivi qui la tua riflessione..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>6. Quanto ho partecipato attivamente al lavoro di gruppo?</label>
+                    <div class="rating-group">
+                        <div class="rating-option">
+                            <input type="radio" name="participation" value="1" id="part1">
+                            <label for="part1">1 - Poco</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="participation" value="2" id="part2">
+                            <label for="part2">2 - Insufficiente</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="participation" value="3" id="part3">
+                            <label for="part3">3 - Sufficiente</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="participation" value="4" id="part4">
+                            <label for="part4">4 - Buono</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="participation" value="5" id="part5">
+                            <label for="part5">5 - Ottimo</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>7. Quale aspetto di questa attività ti ha aiutato di più a capire i collegamenti tra bisogni e welfare?</label>
+                    <textarea id="helpful-aspect" placeholder="Scrivi qui la tua riflessione..."></textarea>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Pulsanti Salvataggio -->
+    <div class="save-buttons">
+        <button class="save-btn" onclick="downloadCompleteHTML()" style="background: #1a5c3a;" title="Salva copia completa">💾 Salva HTML</button>
+        <button class="save-btn" onclick="downloadWord()" title="Scarica Word">📥 Word</button>
+        <button class="save-btn" onclick="downloadPDF()" title="Scarica PDF">📥 PDF</button>
+        <button class="save-btn" onclick="resetData()" style="background: #888;" title="Cancella tutto">🔄 Reset</button>
+    </div>
+
+    <div class="save-status" id="save-status">✓ Salvato</div>
+
+    <button class="scroll-to-top" id="scroll-to-top" onclick="scrollToTop()">⬆️</button>
+
+    <script>
+        // Dati delle carte servizio con pilastri e bisogni
+        const servicesData = [
+            { 
+                title: "Ospedali pubblici", 
+                description: "Cure specialistiche e ricoveri", 
+                pillar: "🏥 Sanità",
+                need: "Risponde ai bisogni fisiologici (salute fisica) e di sicurezza (protezione dalla malattia)"
+            },
+            { 
+                title: "Medico di famiglia", 
+                description: "Cure di base e prevenzione", 
+                pillar: "🏥 Sanità",
+                need: "Risponde ai bisogni fisiologici (salute) e di sicurezza (monitoraggio continuo)"
+            },
+            { 
+                title: "Vaccinazioni e screening", 
+                description: "Prevenzione e diagnosi precoce", 
+                pillar: "🏥 Sanità",
+                need: "Risponde ai bisogni di sicurezza (prevenzione malattie)"
+            },
+            { 
+                title: "Centri di riabilitazione", 
+                description: "Recupero fisico e funzionale", 
+                pillar: "🏥 Sanità",
+                need: "Risponde ai bisogni fisiologici (recupero fisico) e di stima (recupero autonomia)"
+            },
+            { 
+                title: "Servizi di salute mentale", 
+                description: "Supporto psicologico e psichiatrico", 
+                pillar: "🏥 Sanità",
+                need: "Risponde ai bisogni di sicurezza (equilibrio psicologico) e di stima (benessere emotivo)"
+            },
+            { 
+                title: "Assistenza domiciliare anziani", 
+                description: "Cura a casa per persone fragili", 
+                pillar: "🤝 Assistenza Sociale",
+                need: "Risponde ai bisogni fisiologici (cura quotidiana) e di appartenenza (non isolamento)"
+            },
+            { 
+                title: "Pensione di vecchiaia", 
+                description: "Reddito per chi non lavora più", 
+                pillar: "💰 Previdenza",
+                need: "Risponde ai bisogni fisiologici (sostentamento) e di sicurezza (stabilità economica)"
+            },
+            { 
+                title: "Indennità di disoccupazione", 
+                description: "Sostegno a chi perde il lavoro", 
+                pillar: "💰 Previdenza",
+                need: "Risponde ai bisogni di sicurezza (protezione economica temporanea)"
+            },
+            { 
+                title: "Assegni familiari / Bonus bebè", 
+                description: "Aiuto economico alle famiglie", 
+                pillar: "💰 Previdenza",
+                need: "Risponde ai bisogni fisiologici (cura figli) e di appartenenza (sostegno famiglia)"
+            },
+            { 
+                title: "Indennità per non autosufficienza", 
+                description: "Contributi per persone con disabilità", 
+                pillar: "💰 Previdenza",
+                need: "Risponde ai bisogni fisiologici (cure necessarie) e di sicurezza (copertura spese)"
+            },
+            { 
+                title: "Asili nido", 
+                description: "Cura ed educazione per l'infanzia", 
+                pillar: "🤝 Assistenza Sociale",
+                need: "Risponde ai bisogni di appartenenza (socializzazione) e conoscenza (educazione precoce)"
+            },
+            { 
+                title: "Centri per persone con disabilità", 
+                description: "Inclusione e riabilitazione", 
+                pillar: "🤝 Assistenza Sociale",
+                need: "Risponde ai bisogni di appartenenza (inclusione sociale) e stima (riconoscimento abilità)"
+            },
+            { 
+                title: "Servizi per senza fissa dimora", 
+                description: "Accoglienza e pasti", 
+                pillar: "🤝 Assistenza Sociale",
+                need: "Risponde ai bisogni fisiologici (cibo, riparo) e di sicurezza (protezione)"
+            },
+            { 
+                title: "Corsi di formazione professionale", 
+                description: "Riqualificazione e reinserimento", 
+                pillar: "🤝 Assistenza Sociale",
+                need: "Risponde ai bisogni di conoscenza (apprendimento) e auto-realizzazione (crescita)"
+            },
+            { 
+                title: "Reddito di cittadinanza", 
+                description: "Sostegno economico minimo", 
+                pillar: "💰 Previdenza",
+                need: "Risponde ai bisogni fisiologici (sostentamento di base) e di sicurezza (dignità)"
+            },
+            { 
+                title: "Corsi di lingua per immigrati", 
+                description: "Inclusione socio-lavorativa", 
+                pillar: "🤝 Assistenza Sociale",
+                need: "Risponde ai bisogni di appartenenza (integrazione) e conoscenza (lingua)"
+            },
+            { 
+                title: "Programmi contro le dipendenze", 
+                description: "Prevenzione e riabilitazione", 
+                pillar: "🏥 Sanità",
+                need: "Risponde ai bisogni di sicurezza (salute) e auto-realizzazione (recupero vita)"
+            },
+            { 
+                title: "Centri diurni territoriali", 
+                description: "Supporto e socializzazione", 
+                pillar: "🤝 Assistenza Sociale",
+                need: "Risponde ai bisogni di appartenenza (comunità) e stima (partecipazione)"
+            }
+        ];
+
+        // Dati per esercizi collegamenti
+        const connectionExercises = [
+            {
+                need: "Persona anziana sola che ha difficoltà a muoversi e fare la spesa",
+                correctService: "Assistenza domiciliare anziani",
+                correctPillar: "🤝 Assistenza Sociale",
+                options: {
+                    services: ["Assistenza domiciliare anziani", "Pensione di vecchiaia", "Ospedali pubblici"],
+                    pillars: ["🤝 Assistenza Sociale", "💰 Previdenza", "🏥 Sanità"]
+                }
+            },
+            {
+                need: "Famiglia con neonato che non può permettersi il latte artificiale",
+                correctService: "Assegni familiari / Bonus bebè",
+                correctPillar: "💰 Previdenza",
+                options: {
+                    services: ["Assegni familiari / Bonus bebè", "Asili nido", "Medico di famiglia"],
+                    pillars: ["💰 Previdenza", "🤝 Assistenza Sociale", "🏥 Sanità"]
+                }
+            },
+            {
+                need: "Persona disoccupata che cerca lavoro ma non ha reddito",
+                correctService: "Indennità di disoccupazione",
+                correctPillar: "💰 Previdenza",
+                options: {
+                    services: ["Indennità di disoccupazione", "Corsi di formazione professionale", "Centri diurni territoriali"],
+                    pillars: ["💰 Previdenza", "🤝 Assistenza Sociale", "🏥 Sanità"]
+                }
+            },
+            {
+                need: "Bambino che necessita di socializzare con altri coetanei mentre i genitori lavorano",
+                correctService: "Asili nido",
+                correctPillar: "🤝 Assistenza Sociale",
+                options: {
+                    services: ["Asili nido", "Assegni familiari / Bonus bebè", "Medico di famiglia"],
+                    pillars: ["🤝 Assistenza Sociale", "💰 Previdenza", "🏥 Sanità"]
+                }
+            },
+            {
+                need: "Persona con dipendenza da sostanze che vuole uscirne",
+                correctService: "Programmi contro le dipendenze",
+                correctPillar: "🏥 Sanità",
+                options: {
+                    services: ["Programmi contro le dipendenze", "Servizi di salute mentale", "Centri diurni territoriali"],
+                    pillars: ["🏥 Sanità", "🤝 Assistenza Sociale", "💰 Previdenza"]
+                }
+            },
+            {
+                need: "Immigrato che non parla italiano e cerca lavoro",
+                correctService: "Corsi di lingua per immigrati",
+                correctPillar: "🤝 Assistenza Sociale",
+                options: {
+                    services: ["Corsi di lingua per immigrati", "Corsi di formazione professionale", "Reddito di cittadinanza"],
+                    pillars: ["🤝 Assistenza Sociale", "💰 Previdenza", "🏥 Sanità"]
+                }
+            }
+        ];
+
+        let currentCardIndex = 0;
+
+        // Genera le carte servizio
+        function generateCards() {
+            const gridContainer = document.getElementById('cards-grid');
+            servicesData.forEach((service, index) => {
+                const card = createCardElement(service, index);
+                gridContainer.appendChild(card);
+            });
+            updateSliderCard();
+        }
+
+        function createCardElement(service, index) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div class="card-title">${index + 1}. ${service.title}</div>
+                <div class="card-description">${service.description}</div>
+                <div class="card-pillar">${service.pillar}</div>
+                <div class="card-need">
+                    <strong>🔗 Collegamento con i bisogni:</strong>
+                    <p style="margin: 0; color: #555; font-size: 0.95rem;">${service.need}</p>
+                </div>
+            `;
+            return card;
+        }
+
+        // Genera esercizi collegamenti
+        function generateConnectionExercises() {
+            const container = document.getElementById('connections-container');
+            connectionExercises.forEach((exercise, index) => {
+                const item = document.createElement('div');
+                item.className = 'connection-item';
+                item.id = `connection-${index}`;
+                
+                item.innerHTML = `
+                    <h3 style="color: #1a5c3a; margin-bottom: 1.5rem;">Esercizio ${index + 1}</h3>
+                    <div class="connection-row">
+                        <div class="connection-box need">
+                            <strong>🚨 BISOGNO</strong><br>
+                            <span style="font-size: 0.95rem;">${exercise.need}</span>
+                        </div>
+                        <div class="connection-arrow">→</div>
+                        <div class="connection-box service">
+                            <div style="width: 100%;">
+                                <strong>🎯 SERVIZIO</strong><br>
+                                <select class="connection-select" data-index="${index}" data-type="service" onchange="checkConnection(${index})">
+                                    <option value="">Quale servizio risponde?</option>
+                                    ${exercise.options.services.map(s => `<option value="${s}">${s}</option>`).join('')}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="connection-arrow">→</div>
+                        <div class="connection-box pillar">
+                            <div style="width: 100%;">
+                                <strong>🏛️ PILASTRO</strong><br>
+                                <select class="connection-select" data-index="${index}" data-type="pillar" onchange="checkConnection(${index})">
+                                    <option value="">Quale pilastro?</option>
+                                    ${exercise.options.pillars.map(p => `<option value="${p}">${p}</option>`).join('')}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback-${index}"></div>
+                `;
+                
+                container.appendChild(item);
+            });
+        }
+
+        function checkConnection(index) {
+            const exercise = connectionExercises[index];
+            const serviceSelect = document.querySelector(`select[data-index="${index}"][data-type="service"]`);
+            const pillarSelect = document.querySelector(`select[data-index="${index}"][data-type="pillar"]`);
+            const feedback = document.getElementById(`feedback-${index}`);
+            const item = document.getElementById(`connection-${index}`);
+            
+            if (serviceSelect.value && pillarSelect.value) {
+                const serviceCorrect = serviceSelect.value === exercise.correctService;
+                const pillarCorrect = pillarSelect.value === exercise.correctPillar;
+                
+                if (serviceCorrect && pillarCorrect) {
+                    feedback.className = 'feedback correct';
+                    feedback.textContent = '✅ Perfetto! Hai fatto il collegamento corretto tra bisogno, servizio e pilastro!';
+                    item.classList.add('completed');
+                    saveData();
+                } else {
+                    feedback.className = 'feedback incorrect';
+                    let message = '❌ Non è corretto. ';
+                    if (!serviceCorrect) message += 'Rifletti: quale servizio risponde meglio a questo bisogno? ';
+                    if (!pillarCorrect) message += 'Quale pilastro offre questo tipo di servizio? ';
+                    feedback.textContent = message;
+                    item.classList.remove('completed');
+                }
+            }
+        }
+
+        // Gestione vista carte
+        function toggleView(view) {
+            const grid = document.getElementById('cards-grid');
+            const slider = document.getElementById('cards-slider');
+            const buttons = document.querySelectorAll('.view-btn');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            if (view === 'grid') {
+                grid.style.display = 'grid';
+                slider.classList.remove('active');
+                buttons[0].classList.add('active');
+            } else {
+                grid.style.display = 'none';
+                slider.classList.add('active');
+                buttons[1].classList.add('active');
+            }
+        }
+
+        function updateSliderCard() {
+            const container = document.getElementById('current-card');
+            const service = servicesData[currentCardIndex];
+            container.innerHTML = '';
+            container.appendChild(createCardElement(service, currentCardIndex));
+            
+            document.getElementById('card-counter').textContent = currentCardIndex + 1;
+            
+            const progressFill = document.getElementById('progress-fill');
+            if (progressFill) {
+                const progress = ((currentCardIndex + 1) / servicesData.length) * 100;
+                progressFill.style.width = progress + '%';
+            }
+            
+            document.getElementById('prev-btn').disabled = currentCardIndex === 0;
+            document.getElementById('next-btn').disabled = currentCardIndex === servicesData.length - 1;
+        }
+
+        function changeCard(direction) {
+            currentCardIndex += direction;
+            if (currentCardIndex < 0) currentCardIndex = 0;
+            if (currentCardIndex >= servicesData.length) currentCardIndex = servicesData.length - 1;
+            updateSliderCard();
+        }
+
+        // Gestione navigazione sezioni
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.style.opacity = '0.8';
+            });
+            
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+            
+            const activeBtn = document.querySelector(`.nav-btn.${sectionId}`);
+            if (activeBtn) {
+                activeBtn.style.opacity = '1';
+            }
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Gestione tabella lavoro di gruppo
+        function addWorkRow() {
+            const tbody = document.getElementById('work-tbody');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td><input type="text" class="work-input" data-field="servizio" placeholder="Nome del servizio..."></td>
+                <td>
+                    <select class="work-input" data-field="bisogno_maslow">
+                        <option value="">Seleziona...</option>
+                        <option value="Fisiologici">1. Fisiologici</option>
+                        <option value="Sicurezza">2. Sicurezza</option>
+                        <option value="Appartenenza">3. Appartenenza</option>
+                        <option value="Stima">4. Stima</option>
+                        <option value="Conoscenza">5. Conoscenza</option>
+                        <option value="Estetici">6. Estetici</option>
+                        <option value="Auto-realizzazione">7. Auto-realizzazione</option>
+                        <option value="Trascendenza">8. Trascendenza</option>
+                    </select>
+                </td>
+                <td>
+                    <select class="work-input" data-field="pilastro">
+                        <option value="">Seleziona...</option>
+                        <option value="Sanità">🏥 Sanità</option>
+                        <option value="Previdenza">💰 Previdenza</option>
+                        <option value="Assistenza Sociale">🤝 Assistenza Sociale</option>
+                    </select>
+                </td>
+                <td><textarea class="work-input" data-field="bisogno" placeholder="Quale bisogno specifico..."></textarea></td>
+                <td><textarea class="work-input" data-field="beneficiari" placeholder="Chi ne beneficia..."></textarea></td>
+                <td><textarea class="work-input" data-field="essenziale" placeholder="Perché è essenziale..."></textarea></td>
+                <td class="actions-cell">
+                    <button class="delete-row-btn" onclick="deleteRow(this)">🗑️</button>
+                </td>
+            `;
+            tbody.appendChild(newRow);
+            attachInputListeners();
+            saveData();
+            showSaveStatus('➕ Nuova riga aggiunta');
+        }
+
+        function deleteRow(button) {
+            const row = button.closest('tr');
+            const tbody = document.getElementById('work-tbody');
+            
+            if (tbody.rows.length > 1) {
+                row.remove();
+                saveData();
+                showSaveStatus('🗑️ Riga eliminata');
+            } else {
+                showSaveStatus('⚠️ Mantieni almeno una riga');
+            }
+        }
+
+        // Salvataggio automatico
+        function saveData() {
+            const data = {
+                workTable: [],
+                reflection: {},
+                connections: []
+            };
+
+            // Salva dati tabella
+            let compiledServices = 0;
+            document.querySelectorAll('#work-tbody tr').forEach((row, index) => {
+                const rowData = {};
+                let hasData = false;
+                
+                row.querySelectorAll('.work-input').forEach(input => {
+                    rowData[input.dataset.field] = input.value;
+                    if (input.value && input.value.trim() !== '') {
+                        hasData = true;
+                    }
+                });
+                
+                data.workTable.push(rowData);
+                if (hasData) compiledServices++;
+            });
+
+            // Aggiorna contatore
+            const counter = document.getElementById('service-counter');
+            if (counter) {
+                counter.textContent = `Servizi analizzati: ${compiledServices}`;
+            }
+
+            // Salva collegamenti
+            connectionExercises.forEach((exercise, index) => {
+                const serviceSelect = document.querySelector(`select[data-index="${index}"][data-type="service"]`);
+                const pillarSelect = document.querySelector(`select[data-index="${index}"][data-type="pillar"]`);
+                if (serviceSelect && pillarSelect) {
+                    data.connections.push({
+                        service: serviceSelect.value,
+                        pillar: pillarSelect.value
+                    });
+                }
+            });
+
+            // Salva riflessione
+            data.reflection = {
+                learned1: document.getElementById('learned1')?.value || '',
+                learned2: document.getElementById('learned2')?.value || '',
+                learned3: document.getElementById('learned3')?.value || '',
+                misconception: document.getElementById('misconception')?.value || '',
+                maslowDifficulty: document.getElementById('maslow-difficulty')?.value || '',
+                operatorExample: document.getElementById('operator-example')?.value || '',
+                networkCollaboration: document.getElementById('network-collaboration')?.value || '',
+                participation: document.querySelector('input[name="participation"]:checked')?.value || '',
+                helpfulAspect: document.getElementById('helpful-aspect')?.value || ''
+            };
+
+            localStorage.setItem('welfareActivity', JSON.stringify(data));
+            showSaveStatus();
+        }
+
+        function loadData() {
+            const saved = localStorage.getItem('welfareActivity');
+            if (!saved) return;
+
+            const data = JSON.parse(saved);
+
+            // Carica tabella
+            if (data.workTable && data.workTable.length > 0) {
+                const tbody = document.getElementById('work-tbody');
+                tbody.innerHTML = '';
+                
+                data.workTable.forEach(rowData => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td><input type="text" class="work-input" data-field="servizio" value="${rowData.servizio || ''}" placeholder="Nome del servizio..."></td>
+                        <td>
+                            <select class="work-input" data-field="bisogno_maslow">
+                                <option value="">Seleziona...</option>
+                                <option value="Fisiologici" ${rowData.bisogno_maslow === 'Fisiologici' ? 'selected' : ''}>1. Fisiologici</option>
+                                <option value="Sicurezza" ${rowData.bisogno_maslow === 'Sicurezza' ? 'selected' : ''}>2. Sicurezza</option>
+                                <option value="Appartenenza" ${rowData.bisogno_maslow === 'Appartenenza' ? 'selected' : ''}>3. Appartenenza</option>
+                                <option value="Stima" ${rowData.bisogno_maslow === 'Stima' ? 'selected' : ''}>4. Stima</option>
+                                <option value="Conoscenza" ${rowData.bisogno_maslow === 'Conoscenza' ? 'selected' : ''}>5. Conoscenza</option>
+                                <option value="Estetici" ${rowData.bisogno_maslow === 'Estetici' ? 'selected' : ''}>6. Estetici</option>
+                                <option value="Auto-realizzazione" ${rowData.bisogno_maslow === 'Auto-realizzazione' ? 'selected' : ''}>7. Auto-realizzazione</option>
+                                <option value="Trascendenza" ${rowData.bisogno_maslow === 'Trascendenza' ? 'selected' : ''}>8. Trascendenza</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="work-input" data-field="pilastro">
+                                <option value="">Seleziona...</option>
+                                <option value="Sanità" ${rowData.pilastro === 'Sanità' ? 'selected' : ''}>🏥 Sanità</option>
+                                <option value="Previdenza" ${rowData.pilastro === 'Previdenza' ? 'selected' : ''}>💰 Previdenza</option>
+                                <option value="Assistenza Sociale" ${rowData.pilastro === 'Assistenza Sociale' ? 'selected' : ''}>🤝 Assistenza Sociale</option>
+                            </select>
+                        </td>
+                        <td><textarea class="work-input" data-field="bisogno" placeholder="Quale bisogno specifico...">${rowData.bisogno || ''}</textarea></td>
+                        <td><textarea class="work-input" data-field="beneficiari" placeholder="Chi ne beneficia...">${rowData.beneficiari || ''}</textarea></td>
+                        <td><textarea class="work-input" data-field="essenziale" placeholder="Perché è essenziale...">${rowData.essenziale || ''}</textarea></td>
+                        <td class="actions-cell">
+                            <button class="delete-row-btn" onclick="deleteRow(this)">🗑️</button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
+
+            // Carica collegamenti
+            if (data.connections) {
+                data.connections.forEach((conn, index) => {
+                    const serviceSelect = document.querySelector(`select[data-index="${index}"][data-type="service"]`);
+                    const pillarSelect = document.querySelector(`select[data-index="${index}"][data-type="pillar"]`);
+                    if (serviceSelect) serviceSelect.value = conn.service || '';
+                    if (pillarSelect) pillarSelect.value = conn.pillar || '';
+                    if (conn.service && conn.pillar) {
+                        checkConnection(index);
+                    }
+                });
+            }
+
+            // Carica riflessione
+            if (data.reflection) {
+                const r = data.reflection;
+                if (document.getElementById('learned1')) document.getElementById('learned1').value = r.learned1 || '';
+                if (document.getElementById('learned2')) document.getElementById('learned2').value = r.learned2 || '';
+                if (document.getElementById('learned3')) document.getElementById('learned3').value = r.learned3 || '';
+                if (document.getElementById('misconception')) document.getElementById('misconception').value = r.misconception || '';
+                if (document.getElementById('maslow-difficulty')) document.getElementById('maslow-difficulty').value = r.maslowDifficulty || '';
+                if (document.getElementById('operator-example')) document.getElementById('operator-example').value = r.operatorExample || '';
+                if (document.getElementById('network-collaboration')) document.getElementById('network-collaboration').value = r.networkCollaboration || '';
+                if (document.getElementById('helpful-aspect')) document.getElementById('helpful-aspect').value = r.helpfulAspect || '';
+                
+                if (r.participation) {
+                    const radio = document.querySelector(`input[name="participation"][value="${r.participation}"]`);
+                    if (radio) radio.checked = true;
+                }
+            }
+
+            attachInputListeners();
+            saveData();
+        }
+
+        function showSaveStatus(message = '✓ Salvato') {
+            const status = document.getElementById('save-status');
+            status.textContent = message;
+            status.classList.add('show');
+            setTimeout(() => status.classList.remove('show'), 3000);
+        }
+
+        function attachInputListeners() {
+            document.querySelectorAll('.work-input').forEach(input => {
+                input.removeEventListener('input', saveData);
+                input.removeEventListener('change', saveData);
+                input.addEventListener('input', saveData);
+                input.addEventListener('change', saveData);
+            });
+            
+            ['learned1', 'learned2', 'learned3', 'misconception', 'maslow-difficulty', 
+             'operator-example', 'network-collaboration', 'helpful-aspect'].forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.removeEventListener('input', saveData);
+                    element.addEventListener('input', saveData);
+                }
+            });
+            
+            document.querySelectorAll('input[name="participation"]').forEach(radio => {
+                radio.removeEventListener('change', saveData);
+                radio.addEventListener('change', saveData);
+            });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.addEventListener('scroll', () => {
+            const scrollBtn = document.getElementById('scroll-to-top');
+            if (window.pageYOffset > 300) {
+                scrollBtn.classList.add('show');
+            } else {
+                scrollBtn.classList.remove('show');
+            }
+        });
+
+        // Download Word
+        function downloadWord() {
+            saveData();
+            
+            const data = JSON.parse(localStorage.getItem('welfareActivity') || '{}');
+            
+            let content = `IL WELFARE: DAI BISOGNI ALLE RISPOSTE - LAVORO COMPLETATO\n`;
+            content += `${'='.repeat(80)}\n\n`;
+            
+            // Collegamenti completati
+            content += `MAPPA DEI COLLEGAMENTI COMPLETATI\n${'-'.repeat(80)}\n`;
+            if (data.connections && data.connections.length > 0) {
+                data.connections.forEach((conn, index) => {
+                    if (conn.service && conn.pillar) {
+                        content += `Esercizio ${index + 1}:\n`;
+                        content += `   Servizio scelto: ${conn.service}\n`;
+                        content += `   Pilastro identificato: ${conn.pillar}\n\n`;
+                    }
+                });
+            }
+            
+            content += `\n${'='.repeat(80)}\n`;
+            content += `LAVORO DI GRUPPO - ANALISI SERVIZI\n${'-'.repeat(80)}\n\n`;
+            
+            if (data.workTable && data.workTable.length > 0) {
+                let hasData = false;
+                data.workTable.forEach((row, index) => {
+                    if (row.servizio || row.bisogno_maslow || row.pilastro) {
+                        hasData = true;
+                        content += `SERVIZIO ${index + 1}\n`;
+                        content += `${'-'.repeat(80)}\n`;
+                        content += `Nome: ${row.servizio || 'Non specificato'}\n`;
+                        content += `Bisogno di Maslow: ${row.bisogno_maslow || 'Non specificato'}\n`;
+                        content += `Pilastro: ${row.pilastro || 'Non specificato'}\n`;
+                        content += `Bisogno specifico: ${row.bisogno || 'Non specificato'}\n`;
+                        content += `Beneficiari: ${row.beneficiari || 'Non specificato'}\n`;
+                        content += `Perché essenziale: ${row.essenziale || 'Non specificato'}\n\n`;
+                    }
+                });
+                if (!hasData) {
+                    content += `Nessun servizio analizzato.\n\n`;
+                }
+            }
+            
+            content += `\n${'='.repeat(80)}\n`;
+            content += `RIFLESSIONE INDIVIDUALE\n${'-'.repeat(80)}\n\n`;
+            
+            if (data.reflection) {
+                content += `1. COLLEGAMENTI APPRESI:\n`;
+                content += `   • ${data.reflection.learned1 || 'Non specificato'}\n`;
+                content += `   • ${data.reflection.learned2 || 'Non specificato'}\n`;
+                content += `   • ${data.reflection.learned3 || 'Non specificato'}\n\n`;
+                
+                content += `2. SERVIZIO CLASSIFICATO ERRONEAMENTE:\n`;
+                content += `   ${data.reflection.misconception || 'Non specificato'}\n\n`;
+                
+                content += `3. BISOGNO DI MASLOW PIÙ DIFFICILE DA SODDISFARE:\n`;
+                content += `   ${data.reflection.maslowDifficulty || 'Non specificato'}\n\n`;
+                
+                content += `4. ESEMPIO COMPETENZE OPERATORE:\n`;
+                content += `   ${data.reflection.operatorExample || 'Non specificato'}\n\n`;
+                
+                content += `5. COLLABORAZIONE RETE FORMALE E INFORMALE:\n`;
+                content += `   ${data.reflection.networkCollaboration || 'Non specificato'}\n\n`;
+                
+                content += `6. AUTOVALUTAZIONE PARTECIPAZIONE: ${data.reflection.participation || 'Non indicata'}/5\n\n`;
+                
+                content += `7. ASPETTO PIÙ UTILE DELL'ATTIVITÀ:\n`;
+                content += `   ${data.reflection.helpfulAspect || 'Non specificato'}\n`;
+            }
+            
+            content += `\n${'='.repeat(80)}\n`;
+            content += `Fine del documento\n`;
+            
+            const blob = new Blob(['\ufeff' + content], { type: 'application/msword;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            const now = new Date();
+            const filename = `welfare_collegamenti_${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2,'0')}-${now.getDate().toString().padStart(2,'0')}.doc`;
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            showSaveStatus('📥 Download Word completato!');
+        }
+
+        function downloadPDF() {
+            showSaveStatus('📄 Usa Stampa per salvare PDF');
+            setTimeout(() => {
+                window.print();
+            }, 500);
+        }
+
+        function resetData() {
+            if (confirm('⚠️ ATTENZIONE! Cancellare tutti i dati?\n\nSei sicuro?')) {
+                if (confirm('Conferma definitivamente? NON si può annullare!')) {
+                    localStorage.removeItem('welfareActivity');
+                    location.reload();
+                }
+            }
+        }
+
+        function downloadCompleteHTML() {
+            saveData();
+            
+            const savedData = localStorage.getItem('welfareActivity') || '{}';
+            let htmlContent = document.documentElement.outerHTML;
+            
+            const preloadScript = `
+    <script>
+        (function() {
+            try {
+                const savedData = ${savedData};
+                localStorage.setItem('welfareActivity', JSON.stringify(savedData));
+                console.log('✅ Dati caricati automaticamente');
+            } catch(e) {
+                console.error('Errore caricamento:', e);
+            }
+        })();
+    <\/script>`;
+            
+            htmlContent = htmlContent.replace('</body>', preloadScript + '\n</body>');
+            
+            if (!htmlContent.startsWith('<!DOCTYPE')) {
+                htmlContent = '<!DOCTYPE html>\n' + htmlContent;
+            }
+            
+            const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            
+            const now = new Date();
+            const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+            const timeStr = `${String(now.getHours()).padStart(2,'0')}-${String(now.getMinutes()).padStart(2,'0')}`;
+            const filename = `welfare_collegamenti_${dateStr}_${timeStr}.html`;
+            
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            setTimeout(() => URL.revokeObjectURL(url), 100);
+            
+            showSaveStatus('💾 HTML completo scaricato!');
+            
+            setTimeout(() => {
+                alert(`✅ FILE SALVATO!\n\n📂 ${filename}\n\n💡 Per riaprirlo:\n1. Trova il file in Download\n2. Doppio clic sul file\n3. Si apre con i tuoi dati!\n\n⚠️ Conserva questo file!`);
+            }, 300);
+        }
+
+        // Inizializzazione
+        document.addEventListener('DOMContentLoaded', () => {
+            generateCards();
+            generateConnectionExercises();
+            loadData();
+            attachInputListeners();
+            
+            document.querySelector('.nav-btn.teoria').style.opacity = '1';
+            document.querySelectorAll('.nav-btn:not(.teoria)').forEach(btn => {
+                btn.style.opacity = '0.8';
+            });
+            
+            const saved = localStorage.getItem('welfareActivity');
+            if (saved) {
+                showSaveStatus('📂 Lavoro caricato');
+            }
+        });
+
+        window.addEventListener('beforeunload', (e) => {
+            const saved = localStorage.getItem('welfareActivity');
+            if (saved && saved !== '{}') {
+                const data = JSON.parse(saved);
+                let hasData = false;
+                
+                if (data.workTable && data.workTable.some(row => 
+                    Object.values(row).some(val => val && val.trim() !== '')
+                )) {
+                    hasData = true;
+                }
+                
+                if (hasData) {
+                    e.preventDefault();
+                    e.returnValue = '⚠️ Lavoro non salvato! Clicca "💾 Salva HTML" prima di chiudere.';
+                    return e.returnValue;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

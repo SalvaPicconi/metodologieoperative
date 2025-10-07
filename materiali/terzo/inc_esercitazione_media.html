@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Servizi Sociali - Esercitazione Guidata</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            text-align: center;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 18px;
+        }
+
+        .student-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .info-field label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+
+        .info-field input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .progress-bar {
+            background: #ecf0f1;
+            height: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            overflow: hidden;
+            border: 2px solid #bdc3c7;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #27ae60, #2ecc71);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .section {
+            background: #f8f9fa;
+            border: 3px solid #3498db;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .service-card {
+            background: white;
+            border: 2px solid #bdc3c7;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            border-color: #3498db;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .service-icon {
+            font-size: 50px;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .service-content h3 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-size: 20px;
+        }
+
+        .service-content p {
+            color: #555;
+            font-size: 16px;
+        }
+
+        .case-study {
+            background: #fff3cd;
+            border: 3px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .case-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .case-text {
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .question {
+            background: white;
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .question-text {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            padding: 15px;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .option:hover {
+            border-color: #3498db;
+            background: #f0f8ff;
+        }
+
+        .option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .option.selected {
+            border-color: #3498db;
+            background: #e8f4fd;
+        }
+
+        .option.correct {
+            border-color: #27ae60;
+            background: #d4edda;
+        }
+
+        .option.incorrect {
+            border-color: #e74c3c;
+            background: #f8d7da;
+        }
+
+        .check-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+
+        .check-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .feedback {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.success {
+            background: #d4edda;
+            border: 2px solid #27ae60;
+            color: #155724;
+        }
+
+        .feedback.error {
+            background: #f8d7da;
+            border: 2px solid #e74c3c;
+            color: #721c24;
+        }
+
+        .matching-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .match-column h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #ecf0f1;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .match-item {
+            background: white;
+            border: 2px solid #bdc3c7;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .match-item:hover {
+            border-color: #3498db;
+            transform: translateX(5px);
+        }
+
+        .match-item.selected {
+            background: #e8f4fd;
+            border-color: #3498db;
+            border-width: 3px;
+        }
+
+        .match-item.matched {
+            background: #d4edda;
+            border-color: #27ae60;
+            border-width: 3px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 15px;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .complete-sentence {
+            background: white;
+            padding: 20px;
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .sentence {
+            font-size: 18px;
+            margin: 15px 0;
+            line-height: 2;
+        }
+
+        .blank {
+            display: inline-block;
+            min-width: 150px;
+            padding: 5px 10px;
+            border-bottom: 2px solid #3498db;
+            margin: 0 5px;
+            font-weight: bold;
+            color: #3498db;
+        }
+
+        .word-bank {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .word {
+            background: white;
+            border: 2px solid #3498db;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .word:hover {
+            background: #3498db;
+            color: white;
+        }
+
+        .word.used {
+            background: #95a5a6;
+            border-color: #7f8c8d;
+            color: white;
+            cursor: not-allowed;
+        }
+
+        .sequence-box {
+            background: white;
+            padding: 20px;
+            border: 2px solid #9b59b6;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .sequence-items {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sequence-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 2px solid #bdc3c7;
+        }
+
+        .sequence-number {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #bdc3c7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            background: white;
+        }
+
+        .sequence-item input {
+            width: 60px;
+            padding: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            border: 2px solid #3498db;
+            border-radius: 5px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-print {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-print:hover {
+            background: #2980b9;
+        }
+
+        .hint-box {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .hint-box strong {
+            color: #0c5460;
+        }
+
+        @media print {
+            .buttons {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>I Servizi Sociali e Sanitari</h1>
+            <p>IIS Meucci Mattei - Esercitazione Guidata</p>
+        </div>
+
+        <div class="student-info">
+            <div class="info-field">
+                <label>Nome e Cognome:</label>
+                <input type="text" id="nome" placeholder="Scrivi qui il tuo nome">
+            </div>
+            <div class="info-field">
+                <label>Classe:</label>
+                <input type="text" id="classe" placeholder="Es: 1A">
+            </div>
+            <div class="info-field">
+                <label>Data:</label>
+                <input type="date" id="data">
+            </div>
+            <div class="info-field">
+                <label>Materia:</label>
+                <input type="text" value="Metodologie Operative" readonly>
+            </div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress">0%</div>
+        </div>
+
+        <!-- SEZIONE 1: CONOSCIAMO I SERVIZI -->
+        <div class="section">
+            <div class="section-title">1. I Servizi che Aiutano le Persone</div>
+            
+            <p style="margin-bottom: 20px;">Leggi con attenzione quali sono i principali servizi che aiutano le persone in difficoltà:</p>
+
+            <div class="service-card">
+                <div class="service-icon">🏥</div>
+                <div class="service-content">
+                    <h3>Servizio Sanitario</h3>
+                    <p>Dottori, infermieri e ospedali che curano le persone malate o ferite.</p>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🏠</div>
+                <div class="service-content">
+                    <h3>Assistenza Domiciliare</h3>
+                    <p>Operatori che vanno a casa delle persone anziane o malate per aiutarle nelle attività quotidiane.</p>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🎨</div>
+                <div class="service-content">
+                    <h3>Centro Diurno</h3>
+                    <p>Un luogo dove le persone possono passare la giornata, fare attività, socializzare e ricevere aiuto.</p>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🏢</div>
+                <div class="service-content">
+                    <h3>Casa Famiglia</h3>
+                    <p>Una casa dove vivono persone che non possono stare nella loro famiglia. Ci sono educatori che le aiutano.</p>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🚗</div>
+                <div class="service-content">
+                    <h3>Servizio Trasporto</h3>
+                    <p>Mezzi speciali che accompagnano persone con difficoltà a muoversi verso ospedali, centri diurni, ecc.</p>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🤝</div>
+                <div class="service-content">
+                    <h3>Assistente Sociale</h3>
+                    <p>Una persona che ascolta i problemi delle famiglie e le aiuta a trovare i servizi giusti.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEZIONE 2: CASI PRATICI -->
+        <div class="section">
+            <div class="section-title">2. Leggi i Casi e Rispondi</div>
+
+            <div class="case-study">
+                <div class="case-title">Caso 1: La Signora Anna</div>
+                <div class="case-text">
+                    La signora Anna ha 80 anni e vive da sola. Ha difficoltà a camminare e non riesce più a fare la spesa o pulire casa. Sua figlia vive lontano e può venirla a trovare solo nel weekend. Anna vorrebbe continuare a vivere nella sua casa.
+                </div>
+                <div class="question">
+                    <div class="question-text">Quale servizio potrebbe aiutare la signora Anna?</div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 0, 1)">
+                            <input type="radio" name="q1">
+                            <span>Assistenza Domiciliare - operatori vanno a casa sua ad aiutarla</span>
+                        </div>
+                        <div class="option" onclick="selectOption(this, 0, 0)">
+                            <input type="radio" name="q1">
+                            <span>Centro Diurno - va lì solo durante il giorno</span>
+                        </div>
+                        <div class="option" onclick="selectOption(this, 0, 0)">
+                            <input type="radio" name="q1">
+                            <span>Casa Famiglia - deve lasciare la sua casa</span>
+                        </div>
+                    </div>
+                    <button class="check-btn" onclick="checkAnswer(0, 1)">Verifica Risposta</button>
+                    <div class="feedback" id="feedback-0"></div>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">Caso 2: Marco</div>
+                <div class="case-text">
+                    Marco ha 13 anni e ha una disabilità intellettiva lieve. Va a scuola normalmente, ma dopo scuola sta sempre da solo a casa perché i genitori lavorano fino a sera. Marco si annoia e vorrebbe avere amici con cui giocare e fare attività.
+                </div>
+                <div class="question">
+                    <div class="question-text">Quale servizio sarebbe più adatto per Marco?</div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 1, 0)">
+                            <input type="radio" name="q2">
+                            <span>Assistenza Domiciliare - non è per socializzare</span>
+                        </div>
+                        <div class="option" onclick="selectOption(this, 1, 1)">
+                            <input type="radio" name="q2">
+                            <span>Centro Diurno - può fare attività e stare con altri ragazzi</span>
+                        </div>
+                        <div class="option" onclick="selectOption(this, 1, 0)">
+                            <input type="radio" name="q2">
+                            <span>Servizio Trasporto - serve solo per spostarsi</span>
+                        </div>
+                    </div>
+                    <button class="check-btn" onclick="checkAnswer(1, 1)">Verifica Risposta</button>
+                    <div class="feedback" id="feedback-1"></div>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">Caso 3: La Famiglia Rossi</div>
+                <div class="case-text">
+                    La famiglia Rossi ha perso la casa e non sa dove andare. Hanno due figli piccoli. Il papà ha perso il lavoro e la mamma guadagna poco. Sono molto preoccupati e non sanno a chi chiedere aiuto.
+                </div>
+                <div class="question">
+                    <div class="question-text">Chi dovrebbe contattare per primo la famiglia Rossi?</div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 2, 0)">
+                            <input type="radio" name="q3">
+                            <span>Il dottore - si occupa di malattie, non di problemi sociali</span>
+                        </div>
+                        <div class="option" onclick="selectOption(this, 2, 1)">
+                            <input type="radio" name="q3">
+                            <span>L'Assistente Sociale - ascolta i problemi e aiuta a trovare soluzioni</span>
+                        </div>
+                        <div class="option" onclick="selectOption(this, 2, 0)">
+                            <input type="radio" name="q3">
+                            <span>Il servizio trasporto - serve solo per gli spostamenti</span>
+                        </div>
+                    </div>
+                    <button class="check-btn" onclick="checkAnswer(2, 1)">Verifica Risposta</button>
+                    <div class="feedback" id="feedback-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEZIONE 3: ABBINAMENTI -->
+        <div class="section">
+            <div class="section-title">3. Abbina il Bisogno al Servizio Giusto</div>
+            <p style="margin-bottom: 15px;">Clicca prima su un bisogno (sinistra) e poi sul servizio corrispondente (destra).</p>
+
+            <div class="matching-grid">
+                <div class="match-column">
+                    <h4>BISOGNO</h4>
+                    <div class="match-item" data-pair="1" onclick="selectMatch(this, 'need')">
+                        Ho bisogno di qualcuno che mi aiuti a lavarmi e vestirmi a casa mia
+                    </div>
+                    <div class="match-item" data-pair="2" onclick="selectMatch(this, 'need')">
+                        Devo andare in ospedale ma non posso prendere l'autobus
+                    </div>
+                    <div class="match-item" data-pair="3" onclick="selectMatch(this, 'need')">
+                        Voglio fare attività e stare con altre persone durante il giorno
+                    </div>
+                    <div class="match-item" data-pair="4" onclick="selectMatch(this, 'need')">
+                        Ho un problema familiare e non so cosa fare
+                    </div>
+                </div>
+                <div class="match-column">
+                    <h4>SERVIZIO</h4>
+                    <div class="match-item" data-pair="2" onclick="selectMatch(this, 'service')">
+                        Servizio Trasporto
+                    </div>
+                    <div class="match-item" data-pair="1" onclick="selectMatch(this, 'service')">
+                        Assistenza Domiciliare
+                    </div>
+                    <div class="match-item" data-pair="4" onclick="selectMatch(this, 'service')">
+                        Assistente Sociale
+                    </div>
+                    <div class="match-item" data-pair="3" onclick="selectMatch(this, 'service')">
+                        Centro Diurno
+                    </div>
+                </div>
+            </div>
+            <div class="feedback" id="matching-feedback"></div>
+        </div>
+
+        <!-- SEZIONE 4: COMPLETA LE FRASI -->
+        <div class="section">
+            <div class="section-title">4. Completa le Frasi</div>
+            <p style="margin-bottom: 15px;">Scegli la parola giusta dalla lista e scrivila negli spazi vuoti:</p>
+
+            <div class="complete-sentence">
+                <div class="sentence">
+                    1. L'<input type="text" id="blank1" style="width: 200px; padding: 5px; border: 2px solid #3498db; border-radius: 5px;"> aiuta le persone che hanno problemi e non sanno a chi rivolgersi.
+                </div>
+                <div class="sentence">
+                    2. Il <input type="text" id="blank2" style="width: 200px; padding: 5px; border: 2px solid #3498db; border-radius: 5px;"> è un luogo dove le persone possono passare la giornata e fare attività insieme.
+                </div>
+                <div class="sentence">
+                    3. L'<input type="text" id="blank3" style="width: 200px; padding: 5px; border: 2px solid #3498db; border-radius: 5px;"> va a casa delle persone anziane o malate per aiutarle.
+                </div>
+                <div class="sentence">
+                    4. La <input type="text" id="blank4" style="width: 200px; padding: 5px; border: 2px solid #3498db; border-radius: 5px;"> è un posto dove vivono persone che non possono stare con la loro famiglia.
+                </div>
+
+                <div class="word-bank">
+                    <strong style="width: 100%; margin-bottom: 10px;">PAROLE DA USARE:</strong>
+                    <span class="word">Assistente Sociale</span>
+                    <span class="word">Centro Diurno</span>
+                    <span class="word">Assistenza Domiciliare</span>
+                    <span class="word">Casa Famiglia</span>
+                </div>
+
+                <button class="check-btn" onclick="checkBlanks()">Verifica Frasi</button>
+                <div class="feedback" id="blanks-feedback"></div>
+            </div>
+        </div>
+
+        <!-- SEZIONE 5: SEQUENZA LOGICA -->
+        <div class="section">
+            <div class="section-title">5. Metti in Ordine</div>
+            <p style="margin-bottom: 15px;">Quando una persona ha bisogno di aiuto, questi sono i passaggi. Numera da 1 a 4 nell'ordine giusto:</p>
+
+            <div class="sequence-box">
+                <div class="sequence-items">
+                    <div class="sequence-item">
+                        <input type="number" min="1" max="4" id="seq1" style="width: 60px; padding: 8px; font-size: 18px; text-align: center; border: 2px solid #3498db; border-radius: 5px;">
+                        <span>La persona parla con l'Assistente Sociale del suo problema</span>
+                    </div>
+                    <div class="sequence-item">
+                        <input type="number" min="1" max="4" id="seq2" style="width: 60px; padding: 8px; font-size: 18px; text-align: center; border: 2px solid #3498db; border-radius: 5px;">
+                        <span>La persona riceve l'aiuto dal servizio attivato</span>
+                    </div>
+                    <div class="sequence-item">
+                        <input type="number" min="1" max="4" id="seq3" style="width: 60px; padding: 8px; font-size: 18px; text-align: center; border: 2px solid #3498db; border-radius: 5px;">
+                        <span>L'Assistente Sociale attiva il servizio più adatto</span>
+                    </div>
+                    <div class="sequence-item">
+                        <input type="number" min="1" max="4" id="seq4" style="width: 60px; padding: 8px; font-size: 18px; text-align: center; border: 2px solid #3498db; border-radius: 5px;">
+                        <span>La persona si rende conto di avere bisogno di aiuto</span>
+                    </div>
+                </div>
+                <button class="check-btn" onclick="checkSequence()">Verifica Sequenza</button>
+                <div class="feedback" id="sequence-feedback"></div>
+            </div>
+
+            <div class="hint-box">
+                <strong>💡 Suggerimento:</strong> Pensa a cosa succede per primo quando qualcuno ha un problema: prima si accorge del problema, poi cerca aiuto, poi l'aiuto viene organizzato, infine lo riceve.
+            </div>
+        </div>
+
+        <!-- SEZIONE 6: DOMANDA APERTA -->
+        <div class="section">
+            <div class="section-title">6. Scrivi la Tua Risposta</div>
+            
+            <div class="question">
+                <div class="question-text">Secondo te, perché è importante che esistano questi servizi per aiutare le persone? Scrivi almeno 3 righe.</div>
+                <textarea id="open-answer" placeholder="Scrivi qui la tua risposta..."></textarea>
+                <div class="hint-box">
+                    <strong>💡 Per aiutarti:</strong> Pensa a cosa succederebbe se questi servizi non esistessero. Chi aiuterebbe le persone anziane? Chi aiuterebbe le famiglie in difficoltà?
+                </div>
+                <button class="check-btn" onclick="saveOpenAnswer()">Salva Risposta</button>
+                <div class="feedback" id="open-feedback"></div>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button class="btn btn-print" onclick="window.print()">Stampa Esercitazione</button>
+        </div>
+    </div>
+
+    <script>
+        // Imposta data
+        document.getElementById('data').valueAsDate = new Date();
+
+        let score = 0;
+        let totalActivities = 6;
+        let completedActivities = new Set();
+        let selectedAnswers = {};
+        let matchingState = { need: null, service: null, matched: [] };
+
+        function selectOption(element, questionNum, isCorrect) {
+            const options = element.parentElement.querySelectorAll('.option');
+            options.forEach(opt => {
+                opt.classList.remove('selected');
+                opt.querySelector('input').checked = false;
+            });
+            element.classList.add('selected');
+            element.querySelector('input').checked = true;
+            selectedAnswers[questionNum] = isCorrect;
+        }
+
+        function checkAnswer(questionNum, correctOption) {
+            const isCorrect = selectedAnswers[questionNum] === 1;
+            const feedback = document.getElementById(`feedback-${questionNum}`);
+            const options = document.querySelectorAll(`input[name="q${questionNum + 1}"]`);
+            
+            options.forEach((opt, index) => {
+                const optionDiv = opt.parentElement;
+                optionDiv.style.pointerEvents = 'none';
+                if (index === correctOption) {
+                    optionDiv.classList.add('correct');
+                } else if (optionDiv.classList.contains('selected')) {
+                    optionDiv.classList.add('incorrect');
+                }
+            });
+
+            if (isCorrect) {
+                feedback.className = 'feedback success show';
+                feedback.textContent = '✓ Risposta corretta! Ottimo lavoro!';
+                if (!completedActivities.has(questionNum)) {
+                    completedActivities.add(questionNum);
+                    score++;
+                }
+            } else {
+                feedback.className = 'feedback error show';
+                feedback.textContent = '✗ Risposta non corretta. Rileggi il caso con attenzione.';
+            }
+            updateProgress();
+        }
+
+        function selectMatch(element, type) {
+            if (element.classList.contains('matched')) return;
+
+            const column = element.closest('.match-column');
+            column.querySelectorAll('.match-item').forEach(item => {
+                if (!item.classList.contains('matched')) {
+                    item.classList.remove('selected');
+                }
+            });
+
+            element.classList.add('selected');
+            matchingState[type] = element;
+
+            if (matchingState.need && matchingState.service) {
+                checkMatch();
+            }
+        }
+
+        function checkMatch() {
+            const need = matchingState.need;
+            const service = matchingState.service;
+
+            if (need.dataset.pair === service.dataset.pair) {
+                need.classList.remove('selected');
+                service.classList.remove('selected');
+                need.classList.add('matched');
+                service.classList.add('matched');
+                matchingState.matched.push(need.dataset.pair);
+
+                const feedback = document.getElementById('matching-feedback');
+                feedback.className = 'feedback success show';
+                feedback.textContent = '✓ Abbinamento corretto!';
+
+                if (matchingState.matched.length === 4) {
+                    setTimeout(() => {
+                        feedback.textContent = '🎉 Complimenti! Hai completato tutti gli abbinamenti!';
+                        if (!completedActivities.has('matching')) {
+                            completedActivities.add('matching');
+                            score++;
+                            updateProgress();
+                        }
+                    }, 500);
+                }
+            } else {
+                const feedback = document.getElementById('matching-feedback');
+                feedback.className = 'feedback error show';
+                feedback.textContent = '✗ Abbinamento non corretto. Riprova!';
+                setTimeout(() => {
+                    need.classList.remove('selected');
+                    service.classList.remove('selected');
+                    feedback.classList.remove('show');
+                }, 1500);
+            }
+
+            matchingState.need = null;
+            matchingState.service = null;
+        }
+
+        function checkBlanks() {
+            const answers = {
+                blank1: 'assistente sociale',
+                blank2: 'centro diurno',
+                blank3: 'assistenza domiciliare',
+                blank4: 'casa famiglia'
+            };
+
+            let allCorrect = true;
+            for (let id in answers) {
+                const input = document.getElementById(id);
+                const value = input.value.toLowerCase().trim();
+                if (value === answers[id]) {
+                    input.style.borderColor = '#27ae60';
+                    input.style.background = '#d4edda';
+                } else {
+                    input.style.borderColor = '#e74c3c';
+                    input.style.background = '#f8d7da';
+                    allCorrect = false;
+                }
+            }
+
+            const feedback = document.getElementById('blanks-feedback');
+            if (allCorrect) {
+                feedback.className = 'feedback success show';
+                feedback.textContent = '✓ Tutte le frasi sono corrette! Ottimo lavoro!';
+                if (!completedActivities.has('blanks')) {
+                    completedActivities.add('blanks');
+                    score++;
+                    updateProgress();
+                }
+            } else {
+                feedback.className = 'feedback error show';
+                feedback.textContent = '✗ Alcune risposte non sono corrette. Controlla le parole in rosso.';
+            }
+        }
+
+        function checkSequence() {
+            const correctOrder = { seq1: 2, seq2: 4, seq3: 3, seq4: 1 };
+            let allCorrect = true;
+
+            for (let id in correctOrder) {
+                const input = document.getElementById(id);
+                const value = parseInt(input.value);
+                if (value === correctOrder[id]) {
+                    input.style.borderColor = '#27ae60';
+                    input.style.background = '#d4edda';
+                } else {
+                    input.style.borderColor = '#e74c3c';
+                    input.style.background = '#f8d7da';
+                    allCorrect = false;
+                }
+            }
+
+            const feedback = document.getElementById('sequence-feedback');
+            if (allCorrect) {
+                feedback.className = 'feedback success show';
+                feedback.textContent = '✓ Sequenza corretta! Hai capito bene il processo!';
+                if (!completedActivities.has('sequence')) {
+                    completedActivities.add('sequence');
+                    score++;
+                    updateProgress();
+                }
+            } else {
+                feedback.className = 'feedback error show';
+                feedback.textContent = '✗ La sequenza non è corretta. Riprova pensando all\'ordine logico degli eventi.';
+            }
+        }
+
+        function saveOpenAnswer() {
+            const textarea = document.getElementById('open-answer');
+            const text = textarea.value.trim();
+            const feedback = document.getElementById('open-feedback');
+
+            if (text.length >= 100) {
+                feedback.className = 'feedback success show';
+                feedback.textContent = '✓ Risposta salvata! Hai scritto una buona riflessione.';
+                if (!completedActivities.has('open')) {
+                    completedActivities.add('open');
+                    score++;
+                    updateProgress();
+                }
+            } else {
+                feedback.className = 'feedback error show';
+                feedback.textContent = '✗ Scrivi una risposta più lunga (almeno 3 righe). Hai scritto ' + text.length + ' caratteri, servono almeno 100.';
+            }
+        }
+
+        function updateProgress() {
+            const percentage = Math.round((score / totalActivities) * 100);
+            const progressBar = document.getElementById('progress');
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = percentage + '%';
+
+            if (percentage === 100) {
+                setTimeout(() => {
+                    alert('🎉 Complimenti! Hai completato tutta l\'esercitazione con successo!');
+                }, 500);
+            }
+        }
+    </script>
+</body>
+</html>
