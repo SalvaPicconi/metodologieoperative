@@ -44,17 +44,6 @@ async function caricaMateriali(sezione) {
         const data = await response.json();
         const materiali = data[sezione] || [];
         
-        // Controlla se ci sono materiali
-        if (materiali.length === 0) {
-            container.innerHTML = `
-                <div class="empty-state">
-                    <p>📭 Nessun materiale disponibile al momento.</p>
-                    <p style="margin-top: 1rem;">I materiali verranno caricati durante l'anno scolastico.</p>
-                </div>
-            `;
-            return;
-        }
-        
         // Ordina i materiali per data (più recenti prima)
         materiali.sort((a, b) => new Date(b.data) - new Date(a.data));
         
