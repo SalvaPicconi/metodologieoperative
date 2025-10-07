@@ -1,0 +1,1995 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La fase preliminare del Progetto d'intervento - IIS Meucci Mattei</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            padding: 30px 20px;
+            background: linear-gradient(to bottom, #f8f9fa, #ffffff);
+            border-bottom: 3px solid #ff6b6b;
+        }
+
+        .tab-button {
+            background: white;
+            border: 3px solid #ff6b6b;
+            color: #ff6b6b;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .tab-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            color: #ff6b6b;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #ff6b6b;
+        }
+
+        .subsection {
+            margin-bottom: 30px;
+        }
+
+        .subsection h3 {
+            color: #ee5a6f;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .icon {
+            font-size: 1.3em;
+        }
+
+        .box {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-left: 5px solid #ff6b6b;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .box.highlight {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            border-left-color: #ff6b6b;
+        }
+
+        .box.success {
+            background: linear-gradient(135deg, #d4edda 0%, #a8dadc 100%);
+            border-left-color: #28a745;
+        }
+
+        .box strong {
+            color: #ff6b6b;
+            font-size: 1.1em;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+        }
+
+        .schema-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .schema-card {
+            background: white;
+            border: 3px solid #ff6b6b;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .schema-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .schema-card h4 {
+            color: #ee5a6f;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .flow-item {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            min-width: 150px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .flow-item::after {
+            content: '→';
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2em;
+            color: #ff6b6b;
+        }
+
+        .flow-item:last-child::after {
+            display: none;
+        }
+
+        .quiz-container {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .quiz-question {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .quiz-option {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quiz-option:hover {
+            border-color: #ff6b6b;
+            transform: translateX(5px);
+        }
+
+        .quiz-option.selected {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            border-color: #ff6b6b;
+        }
+
+        .quiz-option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .quiz-option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #dc3545;
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: 700;
+            margin: 20px 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .matching-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .matching-column {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .matching-item {
+            background: white;
+            border: 2px solid #ff6b6b;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .matching-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .matching-item.selected {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+        }
+
+        .form-group {
+            margin: 20px 0;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff6b6b;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .case-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .case-card {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .case-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .case-details {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .case-details h4 {
+            color: #667eea;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+
+        .case-data {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .data-tag {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #2d3436 0%, #000000 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer a {
+            color: #74b9ff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #0984e3;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+
+            .tabs {
+                padding: 20px 10px;
+            }
+
+            .tab-button {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .section-title {
+                font-size: 1.5em;
+            }
+
+            .matching-container {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-diagram {
+                flex-direction: column;
+            }
+
+            .flow-item::after {
+                content: '↓';
+                right: auto;
+                bottom: -30px;
+                top: auto;
+            }
+        }
+
+        .progress-bar {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 30px;
+            margin: 20px 0;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #ff6b6b 0%, #ee5a6f 100%);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            transition: width 0.5s ease;
+        }
+
+        .rubrica-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .rubrica-table th,
+        .rubrica-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .rubrica-table th {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            font-weight: 700;
+        }
+
+        .rubrica-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .sequence-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .sequence-item {
+            background: white;
+            border: 2px solid #ff6b6b;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: move;
+            transition: all 0.3s ease;
+        }
+
+        .sequence-item.dragging {
+            opacity: 0.5;
+        }
+
+        .cloze-text {
+            line-height: 2;
+            font-size: 1.1em;
+        }
+
+        .cloze-input {
+            display: inline-block;
+            min-width: 150px;
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: none;
+            border-bottom: 2px solid #ff6b6b;
+            font-size: inherit;
+            text-align: center;
+        }
+
+        .cloze-input:focus {
+            outline: none;
+            background: #f8f9fa;
+        }
+
+        .alert {
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-weight: 600;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 2px solid #bee5eb;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 2px solid #ffeeba;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 La fase preliminare del Progetto d'intervento</h1>
+            <p>Servizi Sociali e Socio-Sanitari</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab('teoria')">📚 TEORIA</button>
+            <button class="tab-button" onclick="openTab('schemi')">🗺️ SCHEMI</button>
+            <button class="tab-button" onclick="openTab('esercitazioni')">✍️ ESERCITAZIONI</button>
+            <button class="tab-button" onclick="openTab('compiti')">📝 COMPITI</button>
+            <button class="tab-button" onclick="openTab('casi')">💼 BANCA CASI</button>
+        </div>
+
+        <div class="content">
+            <!-- TAB 1: TEORIA -->
+            <div id="teoria" class="tab-content active">
+                <h2 class="section-title">📚 La fase preliminare del progetto d'intervento</h2>
+
+                <div class="subsection">
+                    <h3><span class="icon">📋</span> Definizione del progetto d'intervento</h3>
+                    <div class="box highlight">
+                        <strong>Che cos'è un progetto d'intervento?</strong>
+                        <p>Un progetto d'intervento è una <strong>pianificazione dettagliata delle azioni, degli interventi specifici e delle strategie</strong> da intraprendere per favorire il cambiamento in positivo nella vita dell'utente e cercare di risolvere o contenere il problema.</p>
+                    </div>
+                    <div class="box">
+                        <p>Il progetto prevede la definizione di:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li><strong>Obiettivi specifici</strong> (cura e/o assistenza)</li>
+                            <li><strong>Strategie di intervento</strong></li>
+                            <li><strong>Contesto lavorativo e territoriale</strong></li>
+                            <li><strong>Risorse disponibili</strong></li>
+                            <li><strong>Modalità e tempi di attuazione</strong></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="icon">🤝</span> La presa in carico dell'utente</h3>
+                    <div class="box success">
+                        <strong>Presa in carico:</strong>
+                        <p>Procedura professionale utilizzata per indicare un servizio che <strong>"si fa carico"</strong> di seguire in modo continuativo una persona (utente o paziente) o un nucleo familiare con l'obiettivo di <strong>promuovere il benessere fisico, psichico e sociale</strong> della persona interessata.</p>
+                    </div>
+                    <div class="box">
+                        <p><strong>🎯 Caratteristiche fondamentali della presa in carico:</strong></p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li><strong>Continuità:</strong> nei passaggi di informazioni, richiede costanza nel perseguire gli obiettivi descritti nel progetto individuale</li>
+                            <li><strong>Globalità:</strong> l'intervento programmato non riguarda esclusivamente la persona direttamente interessata; bisogna avere una visione globale e intervenire anche sulla rete familiare e sul contesto di vita</li>
+                        </ul>
+                    </div>
+                    <p style="margin-top: 15px;">La presa in carico serve a definire:</p>
+                    <div class="schema-container">
+                        <div class="schema-card">
+                            <h4>👤 Il servizio</h4>
+                            <p>che si fa carico</p>
+                        </div>
+                        <div class="schema-card">
+                            <h4>👨‍⚕️ Il responsabile</h4>
+                            <p>che garantisce il coordinamento</p>
+                        </div>
+                        <div class="schema-card">
+                            <h4>🤝 La collaborazione</h4>
+                            <p>tra diverse figure professionali</p>
+                        </div>
+                        <div class="schema-card">
+                            <h4>📄 La documentazione</h4>
+                            <p>che raccoglie tutte le informazioni</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="icon">⚙️</span> Mandato istituzionale e ruolo professionale</h3>
+                    <div class="box highlight">
+                        <strong>Mandato istituzionale:</strong>
+                        <p>Il servizio che esamina la richiesta pervenuta emette un <strong>mandato istituzionale</strong> e incarica un singolo operatore attribuendogli un <strong>ruolo di responsabilità</strong>. Egli ha il compito istituzionale di stabilire una <strong>relazione di aiuto</strong> e di progettare uno o più interventi personalizzati rivolti al singolo o a un nucleo familiare.</p>
+                    </div>
+                    <div class="box">
+                        <strong>Ruolo professionale:</strong>
+                        <p>Le diverse figure professionali presenti sul territorio hanno <strong>ruoli e competenze diverse</strong>. Una <strong>documentazione</strong> che raccoglie tutte le relazioni, le informazioni, gli interventi attuati e le valutazioni del caso.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="icon">👥</span> Il lavoro d'équipe multiprofessionale</h3>
+                    <div class="box success">
+                        <p>L'operatore ha il compito istituzionale di contribuire, insieme all'équipe multiprofessionale, alla formulazione di un progetto d'intervento che preveda:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li><strong>Pianificazione delle azioni</strong></li>
+                            <li><strong>Definizione degli interventi specifici</strong></li>
+                            <li><strong>Strategie di intervento</strong> entro un determinato arco temporale</li>
+                            <li><strong>Obiettivo prefissato:</strong> migliorare una condizione esistente dell'utente e/o prevenire il peggioramento</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="icon">🔍</span> A cosa serve un progetto d'intervento</h3>
+                    <p><strong>Progettare l'azione da intraprendere</strong> serve a pensare prima quali difficoltà possono sopraggiungere e a prevenire così il rischio di un conseguente esito fallimentare dell'azione.</p>
+                    <div class="box">
+                        <p>La progettazione serve per stabilire in anticipo:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li><strong>A chi</strong> (utente) è destinato l'intervento: caratteristiche della persona con cui si lavora</li>
+                            <li><strong>Perché:</strong> gli obiettivi che si intendono raggiungere</li>
+                            <li><strong>Che cosa:</strong> le attività e interventi da proporre</li>
+                            <li><strong>Come:</strong> il metodo per raggiungere gli obiettivi</li>
+                            <li><strong>Quando:</strong> i tempi di realizzazione</li>
+                            <li><strong>Con che cosa:</strong> gli strumenti di realizzazione</li>
+                            <li><strong>Dove:</strong> gli spazi da utilizzare</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn" onclick="salvaPDF('teoria')">💾 Salva in PDF</button>
+                    <button class="btn btn-secondary" onclick="salvaWord('teoria')">📄 Salva in Word</button>
+                </div>
+            </div>
+
+            <!-- TAB 2: SCHEMI -->
+            <div id="schemi" class="tab-content">
+                <h2 class="section-title">🗺️ Schemi e mappe concettuali</h2>
+
+                <div class="subsection">
+                    <h3><span class="icon">🔄</span> Le fasi del progetto d'intervento</h3>
+                    <div class="flow-diagram">
+                        <div class="flow-item">
+                            <strong>FASE PRELIMINARE</strong>
+                            <p style="font-size: 0.9em; margin-top: 5px;">Osservazione</p>
+                        </div>
+                        <div class="flow-item">
+                            <strong>IMPOSTAZIONE</strong>
+                            <p style="font-size: 0.9em; margin-top: 5px;">Progettuale</p>
+                        </div>
+                        <div class="flow-item">
+                            <strong>FASE OPERATIVA</strong>
+                            <p style="font-size: 0.9em; margin-top: 5px;">Realizzazione</p>
+                        </div>
+                        <div class="flow-item">
+                            <strong>VALUTAZIONE</strong>
+                            <p style="font-size: 0.9em; margin-top: 5px;">Conclusiva</p>
+                        </div>
+                        <div class="flow-item">
+                            <strong>RECUPERO</strong>
+                            <p style="font-size: 0.9em; margin-top: 5px;">Eventuale</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="icon">📊</span> La fase preliminare nel dettaglio</h3>
+                    <div class="schema-container">
+                        <div class="schema-card">
+                            <h4>👤 Conoscenza dell'utente</h4>
+                            <p>Dati anagrafici, situazione economica/culturale/sociale, profilo psicologico, capacità e risorse personali</p>
+                        </div>
+                        <div class="schema-card">
+                            <h4>🔍 Analisi dei bisogni</h4>
+                            <p>Bisogni della prima infanzia, seconda infanzia, fanciullezza, disabilità, anziani, adulti in difficoltà, malati</p>
+                        </div>
+                        <div class="schema-card">
+                            <h4>⚠️ Analisi dei problemi</h4>
+                            <p>Individuazione delle situazioni problematiche alle quali trovare risposta attraverso il progetto</p>
+                        </div>
+                        <div class="schema-card">
+                            <h4>🏛️ Risorse e limiti</h4>
+                            <p>Risorse strumentali, strutturali, umane, spazio-temporali, legislative</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="icon">🌐</span> La rete dei servizi e delle figure professionali</h3>
+                    <div class="box">
+                        <p><strong>Utente → Famiglia → Équipe multiprofessionale → Servizi territoriali</strong></p>
+                    </div>
+                    <div class="schema-container">
+                        <div class="schema-card">
+                            <h4>👨‍⚕️ Assistente Sociale</h4>
+                            <p><strong>Ruolo:</strong> Coordinamento e presa in carico</p>
+                            <p><strong>Formazione:</strong> Laurea in Servizio Sociale (L-39)</p>
+                        </div>
+                        <div class="schema-card">
+                            <h4>👨‍🏫 Educatore Professionale</h4>
+                            <p><strong>Ruolo:</strong> Supporto educativo e relazionale</p>
+                            <p><strong>Formazione:</strong> Laurea in Educazione Professionale (L/SNT2)</p>
+                        </div>
+                        <div class="schema-card">
+                            <h4>🏥 OSS (Operatore Socio-Sanitario)</h4>
+                            <p><strong>Ruolo:</strong> Assistenza alla persona e cura</p>
+                            <p><strong>Formazione:</strong> Qualifica professionale (corso regionale)</p>
+                        </div>
+                        <div class="schema-card">
+                            <h4>🧠 Psicologo</h4>
+                            <p><strong>Ruolo:</strong> Supporto psicologico e valutativo</p>
+                            <p><strong>Formazione:</strong> Laurea in Psicologia + abilitazione</p>
+                        </div>
+                        <div class="schema-card">
+                            <h4>⚕️ Medico</h4>
+                            <p><strong>Ruolo:</strong> Diagnosi e cura medica</p>
+                            <p><strong>Formazione:</strong> Laurea in Medicina e Chirurgia</p>
+                        </div>
+                        <div class="schema-card">
+                            <h4>♿ Fisioterapista</h4>
+                            <p><strong>Ruolo:</strong> Riabilitazione motoria</p>
+                            <p><strong>Formazione:</strong> Laurea in Fisioterapia (L/SNT2)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="icon">🧩</span> I principi fondamentali</h3>
+                    <div class="schema-container">
+                        <div class="schema-card" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                            <h4>🔄 CONTINUITÀ</h4>
+                            <p>Assenza di interruzioni tra i servizi, monitoraggio costante nel tempo</p>
+                        </div>
+                        <div class="schema-card" style="background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);">
+                            <h4>🤝 COLLABORAZIONE</h4>
+                            <p>Lavoro d'équipe tra diverse figure professionali</p>
+                        </div>
+                        <div class="schema-card" style="background: linear-gradient(135deg, #d4edda 0%, #a8dadc 100%);">
+                            <h4>🌍 GLOBALITÀ</h4>
+                            <p>Attenzione alla persona nella sua totalità: famiglia, territorio, contesto di vita</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn" onclick="salvaPDF('schemi')">💾 Salva in PDF</button>
+                    <button class="btn btn-secondary" onclick="salvaWord('schemi')">📄 Salva in Word</button>
+                </div>
+            </div>
+
+            <!-- TAB 3: ESERCITAZIONI -->
+            <div id="esercitazioni" class="tab-content">
+                <h2 class="section-title">✍️ Esercitazioni interattive</h2>
+
+                <div class="score-display" id="scoreDisplay">
+                    Punteggio: <span id="currentScore">0</span> / <span id="totalScore">0</span>
+                </div>
+
+                <div id="exerciseContainer"></div>
+
+                <div class="button-group">
+                    <button class="btn" onclick="caricaEsercizi()">🔄 Ricomincia esercizi</button>
+                    <button class="btn btn-secondary" onclick="salvaPDF('esercitazioni')">💾 Salva in PDF</button>
+                </div>
+            </div>
+
+            <!-- TAB 4: COMPITI -->
+            <div id="compiti" class="tab-content">
+                <h2 class="section-title">📝 Compiti di riflessione</h2>
+
+                <div class="alert alert-info">
+                    <strong>📌 Istruzioni:</strong> Rispondi alle seguenti domande aperte in modo approfondito. Le tue risposte verranno salvate in un file di testo che potrai consegnare al docente.
+                </div>
+
+                <form id="compitiForm">
+                    <div class="form-group">
+                        <label for="studentName">👤 Nome e Cognome dello studente *</label>
+                        <input type="text" id="studentName" required placeholder="Inserisci il tuo nome completo">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="studentClass">🎓 Classe *</label>
+                        <input type="text" id="studentClass" required placeholder="Es: 3A SSS">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="studentDate">📅 Data *</label>
+                        <input type="date" id="studentDate" required>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Domanda 1</h3>
+                        <div class="box">
+                            <strong>Che cosa significa "presa in carico" in ambito sociale?</strong>
+                            <p style="margin-top: 10px; font-size: 0.95em; color: #666;">Descrivi il concetto di presa in carico, spiegando perché è importante e quali sono le sue caratteristiche fondamentali.</p>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="answer1" required placeholder="Scrivi qui la tua risposta..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Domanda 2</h3>
+                        <div class="box">
+                            <strong>Qual è la differenza tra mandato istituzionale e ruolo professionale?</strong>
+                            <p style="margin-top: 10px; font-size: 0.95em; color: #666;">Spiega questi due concetti facendo esempi concreti di figure professionali operanti nei servizi sociali.</p>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="answer2" required placeholder="Scrivi qui la tua risposta..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Domanda 3</h3>
+                        <div class="box">
+                            <strong>Come si costruisce una relazione di aiuto personalizzata?</strong>
+                            <p style="margin-top: 10px; font-size: 0.95em; color: #666;">Descrivi gli elementi che caratterizzano una relazione di aiuto efficace tra operatore e utente.</p>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="answer3" required placeholder="Scrivi qui la tua risposta..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Domanda 4</h3>
+                        <div class="box">
+                            <strong>Perché è importante la globalità del progetto d'intervento?</strong>
+                            <p style="margin-top: 10px; font-size: 0.95em; color: #666;">Spiega cosa significa "visione globale" e perché non è sufficiente intervenire solo sulla persona, ma occorre considerare anche famiglia e territorio.</p>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="answer4" required placeholder="Scrivi qui la tua risposta..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Domanda 5</h3>
+                        <div class="box">
+                            <strong>Quali vantaggi offre la collaborazione tra figure professionali?</strong>
+                            <p style="margin-top: 10px; font-size: 0.95em; color: #666;">Descrivi i benefici del lavoro d'équipe multiprofessionale per l'utente e per la qualità del progetto d'intervento.</p>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="answer5" required placeholder="Scrivi qui la tua risposta..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="submit" class="btn">📤 Consegna compito</button>
+                        <button type="button" class="btn btn-secondary" onclick="salvaPDF('compiti')">💾 Salva in PDF</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- TAB 5: BANCA CASI -->
+            <div id="casi" class="tab-content">
+                <h2 class="section-title">💼 Banca casi - Analisi situazionale</h2>
+
+                <div class="alert alert-info">
+                    <strong>📌 Istruzioni:</strong> Seleziona un caso dalla lista qui sotto. Ogni caso include una situazione realistica, dati essenziali e domande di valutazione.
+                </div>
+
+                <div class="case-selector" id="caseSelector"></div>
+
+                <div id="caseDetailsContainer" style="display: none;">
+                    <div class="case-details" id="caseDetails"></div>
+                    <div id="caseExercises"></div>
+                    
+                    <div class="button-group">
+                        <button class="btn" onclick="tornaAiCasi()">← Torna alla lista casi</button>
+                        <button class="btn btn-secondary" onclick="esportaCaso()">💾 Esporta caso</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>Prof. Dott. Salvatore Picconi</strong></p>
+            <p>IIS Meucci Mattei - Cagliari, Sede Decimomannu</p>
+            <p>Indirizzo: Servizi per la Sanità e l'Assistenza Sociale</p>
+            <p style="margin-top: 15px;">
+                <a href="https://salvapicconi.github.io/metodologieoperative/" target="_blank">
+                    🌐 Torna al sito Metodologie Operative
+                </a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // GESTIONE TABS
+        function openTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+
+            if (tabName === 'esercitazioni' && !window.exercisesLoaded) {
+                caricaEsercizi();
+            }
+            if (tabName === 'casi' && !window.casesLoaded) {
+                caricaBancaCasi();
+            }
+        }
+
+        // ESERCIZI INTERATTIVI
+        const bankaDomande = [
+            // Quiz a scelta singola (MCQ)
+            {
+                tipo: 'mcq',
+                livello: 'Conoscenza',
+                domanda: 'Chi coordina la presa in carico dell\'utente nei servizi sociali?',
+                opzioni: ['L\'educatore professionale', 'L\'assistente sociale', 'Il medico di base', 'La famiglia dell\'utente'],
+                corretta: 1,
+                spiegazione: 'L\'assistente sociale è la figura professionale che coordina la presa in carico e garantisce la continuità del progetto d\'intervento.'
+            },
+            {
+                tipo: 'mcq',
+                livello: 'Comprensione',
+                domanda: 'Che cosa rappresenta il mandato istituzionale?',
+                opzioni: ['Le competenze personali del professionista', 'L\'incarico formale conferito dal servizio', 'Il consenso della famiglia', 'L\'autonomia decisionale dell\'operatore'],
+                corretta: 1,
+                spiegazione: 'Il mandato istituzionale è l\'incarico ufficiale che il servizio attribuisce a un operatore per seguire un determinato caso.'
+            },
+            {
+                tipo: 'mcq',
+                livello: 'Applicazione',
+                domanda: 'In quale fase del progetto si effettua l\'analisi dei bisogni dell\'utente?',
+                opzioni: ['Fase operativa', 'Fase conclusiva', 'Fase preliminare', 'Fase di recupero'],
+                corretta: 2,
+                spiegazione: 'L\'analisi dei bisogni avviene nella fase preliminare, quando l\'operatore raccoglie informazioni per conoscere l\'utente e definire il progetto.'
+            },
+            {
+                tipo: 'mcq',
+                livello: 'Analisi',
+                domanda: 'Quale tra questi NON è un principio fondamentale della presa in carico?',
+                opzioni: ['Continuità', 'Globalità', 'Collaborazione', 'Separazione dei ruoli'],
+                corretta: 3,
+                spiegazione: 'I principi fondamentali sono continuità, globalità e collaborazione. La separazione rigida dei ruoli impedirebbe il lavoro d\'équipe.'
+            },
+
+            // Vero/Falso
+            {
+                tipo: 'verofalso',
+                livello: 'Conoscenza',
+                domanda: 'La presa in carico si limita al primo colloquio con l\'utente.',
+                corretta: false,
+                spiegazione: 'Falso. La presa in carico richiede continuità e monitoraggio nel tempo, non si esaurisce nel primo incontro.'
+            },
+            {
+                tipo: 'verofalso',
+                livello: 'Comprensione',
+                domanda: 'La globalità significa occuparsi solo dell\'aspetto educativo dell\'utente.',
+                corretta: false,
+                spiegazione: 'Falso. La globalità implica considerare la persona nella sua totalità: famiglia, salute, relazioni, contesto territoriale.'
+            },
+            {
+                tipo: 'verofalso',
+                livello: 'Valutazione',
+                domanda: 'Il lavoro d\'équipe multiprofessionale migliora la qualità del progetto d\'intervento.',
+                corretta: true,
+                spiegazione: 'Vero. La collaborazione tra diverse competenze professionali permette una visione più completa e interventi più efficaci.'
+            },
+
+            // Scelta multipla (MSQ)
+            {
+                tipo: 'msq',
+                livello: 'Comprensione',
+                domanda: 'Quali tra questi sono elementi della fase preliminare? (Seleziona tutte le risposte corrette)',
+                opzioni: [
+                    'Conoscenza dell\'utente',
+                    'Analisi dei bisogni',
+                    'Valutazione conclusiva',
+                    'Analisi delle risorse e limiti',
+                    'Realizzazione delle attività',
+                    'Analisi dei problemi'
+                ],
+                corrette: [0, 1, 3, 5],
+                spiegazione: 'La fase preliminare comprende: conoscenza dell\'utente, analisi dei bisogni, dei problemi e delle risorse. Valutazione e realizzazione avvengono in fasi successive.'
+            },
+            {
+                tipo: 'msq',
+                livello: 'Applicazione',
+                domanda: 'Quali ambiti sono coinvolti in un progetto d\'intervento globale? (Seleziona tutte le risposte corrette)',
+                opzioni: [
+                    'Famiglia',
+                    'Scuola',
+                    'Servizi territoriali',
+                    'Solo l\'utente',
+                    'Rete amicale',
+                    'Contesto lavorativo'
+                ],
+                corrette: [0, 1, 2, 4, 5],
+                spiegazione: 'Un approccio globale considera tutti i contesti di vita dell\'utente: famiglia, scuola, servizi, amici e lavoro. Non si concentra "solo sull\'utente".'
+            },
+
+            // Matching
+            {
+                tipo: 'matching',
+                livello: 'Conoscenza',
+                domanda: 'Abbina ogni concetto alla sua definizione corretta:',
+                coppie: [
+                    {concetto: 'Presa in carico', definizione: 'Accompagnamento continuativo della persona nel tempo'},
+                    {concetto: 'Mandato istituzionale', definizione: 'Incarico formale conferito dal servizio'},
+                    {concetto: 'Globalità', definizione: 'Attenzione alla persona nella sua totalità'},
+                    {concetto: 'Continuità', definizione: 'Assenza di interruzioni tra i servizi'}
+                ],
+                distrattori: [
+                    'Intervento una tantum senza seguito',
+                    'Decisione autonoma dell\'operatore',
+                    'Focus esclusivo sul problema sanitario'
+                ]
+            },
+            {
+                tipo: 'matching',
+                livello: 'Comprensione',
+                domanda: 'Abbina ogni figura professionale al suo ruolo principale:',
+                coppie: [
+                    {concetto: 'Assistente sociale', definizione: 'Coordinamento e presa in carico'},
+                    {concetto: 'Educatore professionale', definizione: 'Sostegno educativo e relazionale'},
+                    {concetto: 'OSS', definizione: 'Assistenza alla persona e cura'},
+                    {concetto: 'Psicologo', definizione: 'Supporto psicologico e valutativo'}
+                ],
+                distrattori: [
+                    'Prescrizione di farmaci',
+                    'Decisioni legali vincolanti',
+                    'Gestione amministrativa esclusiva'
+                ]
+            },
+
+            // Cloze (completamento)
+            {
+                tipo: 'cloze',
+                livello: 'Comprensione',
+                testo: 'La _____ in carico è una procedura professionale che prevede un accompagnamento _____ nel tempo. Essa richiede _____ nei passaggi tra servizi e una visione _____ dell\'utente, considerando famiglia e territorio.',
+                risposte: ['presa', 'continuativo', 'continuità', 'globale'],
+                tolleranza: ['presa', 'continuo', 'continuità', 'complessiva']
+            },
+            {
+                tipo: 'cloze',
+                livello: 'Applicazione',
+                testo: 'Il _____ istituzionale è l\'incarico conferito dal servizio a un _____. Ogni professionista ha un _____ specifico con competenze diverse all\'interno dell\'_____ multiprofessionale.',
+                risposte: ['mandato', 'operatore', 'ruolo', 'équipe'],
+                tolleranza: ['mandato', 'professionista', 'ruolo', 'equipe']
+            },
+
+            // Sequenziamento
+            {
+                tipo: 'sequenza',
+                livello: 'Comprensione',
+                domanda: 'Ordina correttamente le fasi del progetto d\'intervento:',
+                items: [
+                    'Fase preliminare (osservazione)',
+                    'Fase di impostazione progettuale',
+                    'Fase operativa (realizzazione)',
+                    'Fase conclusiva (valutazione)',
+                    'Eventuale fase di recupero'
+                ]
+            },
+            {
+                tipo: 'sequenza',
+                livello: 'Applicazione',
+                domanda: 'Ordina le attività della fase preliminare nel corretto ordine logico:',
+                items: [
+                    'Conoscenza dell\'utente',
+                    'Analisi dei bisogni',
+                    'Analisi dei problemi',
+                    'Analisi delle risorse e dei limiti'
+                ]
+            },
+
+            // Risposta breve
+            {
+                tipo: 'breve',
+                livello: 'Comprensione',
+                domanda: 'In 2-3 frasi, spiega perché la continuità è importante nella presa in carico.',
+                suggerimento: 'Considera: passaggi tra servizi, monitoraggio, raggiungimento obiettivi'
+            },
+            {
+                tipo: 'breve',
+                livello: 'Valutazione',
+                domanda: 'Descrivi in poche frasi i vantaggi della collaborazione interprofessionale per l\'utente.',
+                suggerimento: 'Pensa a: diverse competenze, visione completa, qualità dell\'intervento'
+            }
+        ];
+
+        let currentScore = 0;
+        let totalQuestions = 0;
+        let selectedExercises = [];
+
+        function caricaEsercizi() {
+            // Seleziona casualmente 8 esercizi dalla banca
+            selectedExercises = shuffle([...bankaDomande]).slice(0, 8);
+            totalQuestions = selectedExercises.length;
+            currentScore = 0;
+            
+            updateScore();
+            
+            const container = document.getElementById('exerciseContainer');
+            container.innerHTML = '';
+            
+            selectedExercises.forEach((ex, index) => {
+                const div = document.createElement('div');
+                div.className = 'quiz-container';
+                div.innerHTML = generaEsercizio(ex, index);
+                container.appendChild(div);
+            });
+            
+            window.exercisesLoaded = true;
+        }
+
+        function generaEsercizio(ex, index) {
+            const id = `ex_${index}`;
+            let html = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <span style="background: #ff6b6b; color: white; padding: 5px 15px; border-radius: 15px; font-size: 0.9em;">
+                        ${ex.livello}
+                    </span>
+                    <span style="color: #666; font-size: 0.9em;">Esercizio ${index + 1} di ${totalQuestions}</span>
+                </div>
+                <div class="quiz-question">${ex.domanda}</div>
+            `;
+
+            switch(ex.tipo) {
+                case 'mcq':
+                    html += `<div class="quiz-options">`;
+                    ex.opzioni.forEach((opt, i) => {
+                        html += `
+                            <div class="quiz-option" onclick="checkMCQ('${id}', ${i}, ${ex.corretta})">
+                                <input type="radio" name="${id}" value="${i}" style="margin-right: 10px;">
+                                <span>${opt}</span>
+                            </div>
+                        `;
+                    });
+                    html += `</div><div id="${id}_feedback"></div>`;
+                    break;
+
+                case 'verofalso':
+                    html += `
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkVeroFalso('${id}', true, ${ex.corretta})">
+                                <input type="radio" name="${id}" style="margin-right: 10px;">
+                                <span>✅ Vero</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkVeroFalso('${id}', false, ${ex.corretta})">
+                                <input type="radio" name="${id}" style="margin-right: 10px;">
+                                <span>❌ Falso</span>
+                            </div>
+                        </div>
+                        <div id="${id}_feedback"></div>
+                    `;
+                    break;
+
+                case 'msq':
+                    html += `<div class="quiz-options">`;
+                    ex.opzioni.forEach((opt, i) => {
+                        html += `
+                            <div class="quiz-option" onclick="toggleMSQ('${id}', ${i})">
+                                <input type="checkbox" id="${id}_${i}" style="margin-right: 10px;">
+                                <span>${opt}</span>
+                            </div>
+                        `;
+                    });
+                    html += `</div>
+                        <button class="btn" onclick="checkMSQ('${id}', [${ex.corrette}])" style="margin-top: 15px;">
+                            Verifica risposta
+                        </button>
+                        <div id="${id}_feedback"></div>
+                    `;
+                    break;
+
+                case 'matching':
+                    const shuffledCoppie = shuffle([...ex.coppie]);
+                    const distrattori = ex.distrattori || [];
+                    const allDefinizioni = shuffle([
+                        ...shuffledCoppie.map(c => c.definizione),
+                        ...distrattori
+                    ]);
+                    
+                    html += `
+                        <div class="matching-container">
+                            <div class="matching-column">
+                                <h4 style="color: #667eea; margin-bottom: 15px;">Concetti</h4>
+                                ${shuffledCoppie.map((c, i) => `
+                                    <div class="matching-item" onclick="selectMatchingItem('${id}', 'left', ${i})">
+                                        ${c.concetto}
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="matching-column">
+                                <h4 style="color: #667eea; margin-bottom: 15px;">Definizioni</h4>
+                                ${allDefinizioni.map((def, i) => `
+                                    <div class="matching-item" onclick="selectMatchingItem('${id}', 'right', ${i})">
+                                        ${def}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <button class="btn" onclick="checkMatching('${id}')" style="margin-top: 15px;">
+                            Verifica abbinamenti
+                        </button>
+                        <div id="${id}_feedback"></div>
+                    `;
+                    window[`${id}_data`] = {coppie: shuffledCoppie, definizioni: allDefinizioni, selections: []};
+                    break;
+
+                case 'cloze':
+                    let clozeText = ex.testo;
+                    ex.risposte.forEach((_, i) => {
+                        clozeText = clozeText.replace('_____', `<input type="text" class="cloze-input" id="${id}_${i}">`);
+                    });
+                    // Salvo i dati in variabili globali per evitare problemi con JSON.stringify
+                    window[`${id}_risposte`] = ex.risposte;
+                    window[`${id}_tolleranza`] = ex.tolleranza;
+                    html += `
+                        <div class="cloze-text">${clozeText}</div>
+                        <button class="btn" onclick="checkCloze('${id}')" style="margin-top: 15px;">
+                            Verifica risposte
+                        </button>
+                        <div id="${id}_feedback"></div>
+                    `;
+                    break;
+
+                case 'sequenza':
+                    const shuffledItems = shuffle([...ex.items]);
+                    window[`${id}_correctOrder`] = ex.items;
+                    html += `
+                        <div class="sequence-container" id="${id}_container">
+                            ${shuffledItems.map((item, i) => `
+                                <div class="sequence-item" draggable="true" data-index="${i}">
+                                    ${item}
+                                </div>
+                            `).join('')}
+                        </div>
+                        <button class="btn" onclick="checkSequenza('${id}')" style="margin-top: 15px;">
+                            Verifica ordine
+                        </button>
+                        <div id="${id}_feedback"></div>
+                    `;
+                    setTimeout(() => initDragDrop(`${id}_container`), 100);
+                    break;
+
+                case 'breve':
+                    html += `
+                        <div class="box" style="margin: 15px 0;">
+                            <strong>💡 Suggerimento:</strong> ${ex.suggerimento}
+                        </div>
+                        <textarea id="${id}_textarea" style="width: 100%; min-height: 120px; padding: 15px; border: 2px solid #667eea; border-radius: 10px; font-size: 1em;" placeholder="Scrivi qui la tua risposta..."></textarea>
+                        <div style="margin-top: 10px; color: #666; font-size: 0.9em;">
+                            ℹ️ Questa risposta verrà salvata ma non valutata automaticamente
+                        </div>
+                    `;
+                    break;
+            }
+
+            if (ex.spiegazione) {
+                window[`${id}_spiegazione`] = ex.spiegazione;
+            }
+
+            return html;
+        }
+
+        function checkMCQ(id, selected, correct) {
+            const options = document.querySelectorAll(`[onclick*="${id}"]`);
+            options.forEach((opt, i) => {
+                opt.style.pointerEvents = 'none';
+                if (i === correct) opt.classList.add('correct');
+                if (i === selected && i !== correct) opt.classList.add('incorrect');
+            });
+
+            const feedback = document.getElementById(`${id}_feedback`);
+            const spiegazione = window[`${id}_spiegazione`] || '';
+            
+            if (selected === correct) {
+                feedback.innerHTML = `<div class="feedback correct">✅ Corretto! ${spiegazione}</div>`;
+                if (!window[`${id}_scored`]) {
+                    currentScore++;
+                    window[`${id}_scored`] = true;
+                }
+            } else {
+                feedback.innerHTML = `<div class="feedback incorrect">❌ Non corretto. ${spiegazione}</div>`;
+            }
+            updateScore();
+        }
+
+        function checkVeroFalso(id, selected, correct) {
+            const options = document.querySelectorAll(`[onclick*="${id}"]`);
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+
+            const feedback = document.getElementById(`${id}_feedback`);
+            const spiegazione = window[`${id}_spiegazione`] || '';
+            
+            if (selected === correct) {
+                feedback.innerHTML = `<div class="feedback correct">✅ Corretto! ${spiegazione}</div>`;
+                if (!window[`${id}_scored`]) {
+                    currentScore++;
+                    window[`${id}_scored`] = true;
+                }
+            } else {
+                feedback.innerHTML = `<div class="feedback incorrect">❌ Non corretto. ${spiegazione}</div>`;
+            }
+            updateScore();
+        }
+
+        function toggleMSQ(id, index) {
+            const checkbox = document.getElementById(`${id}_${index}`);
+            checkbox.checked = !checkbox.checked;
+        }
+
+        function checkMSQ(id, corrette) {
+            const checkboxes = document.querySelectorAll(`[id^="${id}_"]`);
+            const selected = [];
+            checkboxes.forEach((cb, i) => {
+                if (cb.checked) selected.push(i);
+                cb.disabled = true;
+            });
+
+            const options = document.querySelectorAll(`[onclick*="toggleMSQ('${id}"]`);
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+
+            const isCorrect = arraysEqual(selected.sort(), corrette.sort());
+            const feedback = document.getElementById(`${id}_feedback`);
+            const spiegazione = window[`${id}_spiegazione`] || '';
+            
+            if (isCorrect) {
+                feedback.innerHTML = `<div class="feedback correct">✅ Corretto! ${spiegazione}</div>`;
+                if (!window[`${id}_scored`]) {
+                    currentScore++;
+                    window[`${id}_scored`] = true;
+                }
+            } else {
+                feedback.innerHTML = `<div class="feedback incorrect">❌ Non tutte le risposte sono corrette. ${spiegazione}</div>`;
+            }
+            updateScore();
+        }
+
+        function selectMatchingItem(id, side, index) {
+            const data = window[`${id}_data`];
+            const item = event.currentTarget;
+            
+            if (item.classList.contains('selected')) {
+                item.classList.remove('selected');
+                data.selections = data.selections.filter(s => !(s.side === side && s.index === index));
+            } else {
+                // Deseleziona altri item dello stesso lato
+                document.querySelectorAll(`[onclick*="${id}"][onclick*="${side}"] .selected`).forEach(el => {
+                    el.classList.remove('selected');
+                });
+                data.selections = data.selections.filter(s => s.side !== side);
+                
+                item.classList.add('selected');
+                data.selections.push({side, index});
+                
+                // Se entrambi i lati hanno una selezione, crea l'abbinamento
+                if (data.selections.length === 2) {
+                    const match = {
+                        left: data.selections.find(s => s.side === 'left').index,
+                        right: data.selections.find(s => s.side === 'right').index
+                    };
+                    if (!data.matches) data.matches = [];
+                    data.matches.push(match);
+                    
+                    // Resetta selezioni
+                    document.querySelectorAll(`[onclick*="${id}"] .selected`).forEach(el => {
+                        el.classList.remove('selected');
+                        el.style.opacity = '0.5';
+                        el.style.pointerEvents = 'none';
+                    });
+                    data.selections = [];
+                }
+            }
+        }
+
+        function checkMatching(id) {
+            const data = window[`${id}_data`];
+            if (!data.matches || data.matches.length !== data.coppie.length) {
+                alert('Completa tutti gli abbinamenti prima di verificare!');
+                return;
+            }
+
+            let correct = 0;
+            data.matches.forEach(match => {
+                const concetto = data.coppie[match.left].concetto;
+                const defCorretta = data.coppie[match.left].definizione;
+                const defScelta = data.definizioni[match.right];
+                
+                if (defCorretta === defScelta) correct++;
+            });
+
+            const feedback = document.getElementById(`${id}_feedback`);
+            const spiegazione = window[`${id}_spiegazione`] || '';
+            
+            if (correct === data.coppie.length) {
+                feedback.innerHTML = `<div class="feedback correct">✅ Tutti gli abbinamenti sono corretti! ${spiegazione}</div>`;
+                if (!window[`${id}_scored`]) {
+                    currentScore++;
+                    window[`${id}_scored`] = true;
+                }
+            } else {
+                feedback.innerHTML = `<div class="feedback incorrect">❌ ${correct}/${data.coppie.length} abbinamenti corretti. ${spiegazione}</div>`;
+            }
+            updateScore();
+        }
+
+        function checkCloze(id) {
+            const risposte = window[`${id}_risposte`];
+            const tolleranza = window[`${id}_tolleranza`];
+            let correct = 0;
+            risposte.forEach((risposta, i) => {
+                const input = document.getElementById(`${id}_${i}`);
+                const value = input.value.trim().toLowerCase();
+                const isCorrect = value === risposta.toLowerCase() || 
+                                 (tolleranza[i] && value === tolleranza[i].toLowerCase());
+                
+                if (isCorrect) {
+                    correct++;
+                    input.style.borderColor = '#28a745';
+                    input.style.background = '#d4edda';
+                } else {
+                    input.style.borderColor = '#dc3545';
+                    input.style.background = '#f8d7da';
+                }
+                input.disabled = true;
+            });
+
+            const feedback = document.getElementById(`${id}_feedback`);
+            if (correct === risposte.length) {
+                feedback.innerHTML = `<div class="feedback correct">✅ Tutte le parole sono corrette!</div>`;
+                if (!window[`${id}_scored`]) {
+                    currentScore++;
+                    window[`${id}_scored`] = true;
+                }
+            } else {
+                feedback.innerHTML = `<div class="feedback incorrect">❌ ${correct}/${risposte.length} parole corrette.</div>`;
+            }
+            updateScore();
+        }
+
+        function checkSequenza(id) {
+            const correctOrder = window[`${id}_correctOrder`];
+            const container = document.getElementById(`${id}_container`);
+            const items = Array.from(container.querySelectorAll('.sequence-item'));
+            const currentOrder = items.map(item => item.textContent.trim());
+            
+            const isCorrect = arraysEqual(currentOrder, correctOrder);
+            
+            const feedback = document.getElementById(`${id}_feedback`);
+            if (isCorrect) {
+                feedback.innerHTML = `<div class="feedback correct">✅ Ordine corretto!</div>`;
+                items.forEach(item => item.style.borderColor = '#28a745');
+                if (!window[`${id}_scored`]) {
+                    currentScore++;
+                    window[`${id}_scored`] = true;
+                }
+            } else {
+                feedback.innerHTML = `<div class="feedback incorrect">❌ Ordine non corretto. Riprova!</div>`;
+                items.forEach(item => item.style.borderColor = '#dc3545');
+            }
+            updateScore();
+        }
+
+        function initDragDrop(containerId) {
+            const container = document.getElementById(containerId);
+            const items = container.querySelectorAll('.sequence-item');
+            
+            items.forEach(item => {
+                item.addEventListener('dragstart', () => {
+                    item.classList.add('dragging');
+                });
+                
+                item.addEventListener('dragend', () => {
+                    item.classList.remove('dragging');
+                });
+            });
+            
+            container.addEventListener('dragover', e => {
+                e.preventDefault();
+                const afterElement = getDragAfterElement(container, e.clientY);
+                const dragging = container.querySelector('.dragging');
+                if (afterElement == null) {
+                    container.appendChild(dragging);
+                } else {
+                    container.insertBefore(dragging, afterElement);
+                }
+            });
+        }
+
+        function getDragAfterElement(container, y) {
+            const draggableElements = [...container.querySelectorAll('.sequence-item:not(.dragging)')];
+            
+            return draggableElements.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = y - box.top - box.height / 2;
+                if (offset < 0 && offset > closest.offset) {
+                    return { offset: offset, element: child };
+                } else {
+                    return closest;
+                }
+            }, { offset: Number.NEGATIVE_INFINITY }).element;
+        }
+
+        function updateScore() {
+            document.getElementById('currentScore').textContent = currentScore;
+            document.getElementById('totalScore').textContent = totalQuestions;
+        }
+
+        function shuffle(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        function arraysEqual(a, b) {
+            if (a.length !== b.length) return false;
+            for (let i = 0; i < a.length; i++) {
+                if (a[i] !== b[i]) return false;
+            }
+            return true;
+        }
+
+        // COMPITI
+        document.getElementById('compitiForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('studentName').value;
+            const classe = document.getElementById('studentClass').value;
+            const date = document.getElementById('studentDate').value;
+            const answers = [
+                document.getElementById('answer1').value,
+                document.getElementById('answer2').value,
+                document.getElementById('answer3').value,
+                document.getElementById('answer4').value,
+                document.getElementById('answer5').value
+            ];
+
+            const questions = [
+                'Che cosa significa "presa in carico" in ambito sociale?',
+                'Qual è la differenza tra mandato istituzionale e ruolo professionale?',
+                'Come si costruisce una relazione di aiuto personalizzata?',
+                'Perché è importante la globalità del progetto d\'intervento?',
+                'Quali vantaggi offre la collaborazione tra figure professionali?'
+            ];
+
+            let content = `COMPITO: La fase preliminare del progetto d'intervento\n\n`;
+            content += `Studente: ${name}\n`;
+            content += `Classe: ${classe}\n`;
+            content += `Data: ${date}\n`;
+            content += `\n${'='.repeat(70)}\n\n`;
+
+            questions.forEach((q, i) => {
+                content += `DOMANDA ${i + 1}: ${q}\n\n`;
+                content += `RISPOSTA:\n${answers[i]}\n\n`;
+                content += `${'-'.repeat(70)}\n\n`;
+            });
+
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Compito_${name.replace(/ /g, '_')}_${classe}.txt`;
+            a.click();
+
+            alert('✅ Compito consegnato con successo!\n\nIl file è stato scaricato e può essere inviato al docente.');
+        });
+
+        // BANCA CASI
+        const bancaCasi = [
+            {
+                id: 1,
+                titolo: 'La presa in carico personalizzata',
+                tema: 'presa in carico, relazione di aiuto, continuità',
+                vignetta: 'Marta, 74 anni, vive sola e da qualche tempo mostra difficoltà nella gestione quotidiana e nella cura personale. La figlia, che abita in un altro comune, contatta il Servizio Sociale comunale chiedendo supporto. Dopo il colloquio iniziale, l\'assistente sociale valuta la necessità di attivare un percorso di presa in carico condiviso con l\'OSS e il medico di base.',
+                dati: ['Età: 74 anni', 'Contesto: domiciliare', 'Servizio: Assistenza domiciliare integrata', 'Bisogni: cura personale, supporto relazionale', 'Rete: famiglia, medico, OSS, assistente sociale'],
+                obiettivi: ['Comprendere il significato di "presa in carico"', 'Riconoscere la collaborazione tra figure professionali', 'Identificare i principi di continuità e globalità'],
+                items: [
+                    {
+                        tipo: 'mcq',
+                        domanda: 'Chi coordina la presa in carico di Marta?',
+                        opzioni: ['La figlia', 'L\'OSS', 'L\'assistente sociale', 'Il medico di base'],
+                        corretta: 2
+                    },
+                    {
+                        tipo: 'verofalso',
+                        domanda: 'La presa in carico si limita al primo colloquio con l\'utente.',
+                        corretta: false
+                    },
+                    {
+                        tipo: 'matching',
+                        coppie: [
+                            {concetto: 'Presa in carico', definizione: 'Accompagnamento nel tempo'},
+                            {concetto: 'Continuità', definizione: 'Assenza di interruzioni tra servizi'},
+                            {concetto: 'Globalità', definizione: 'Attenzione alla persona nella sua totalità'}
+                        ]
+                    },
+                    {
+                        tipo: 'breve',
+                        domanda: 'In che modo la collaborazione tra OSS e assistente sociale migliora la qualità dell\'intervento?'
+                    }
+                ]
+            },
+            {
+                id: 2,
+                titolo: 'Mandato istituzionale e ruolo professionale',
+                tema: 'mandato istituzionale, responsabilità, collaborazione',
+                vignetta: 'Luca, educatore professionale, riceve da parte del Comune l\'incarico di seguire un adolescente con difficoltà comportamentali. Durante gli incontri con la famiglia, emergono richieste che esulano dal suo ruolo specifico e che competono ad altri professionisti. Luca decide di confrontarsi con l\'assistente sociale e con lo psicologo del servizio per ridefinire gli obiettivi del progetto.',
+                dati: ['Età utente: 15 anni', 'Contesto: educativo e familiare', 'Servizio: educativa territoriale comunale', 'Bisogno: supporto comportamentale e relazionale', 'Figure: educatore, assistente sociale, psicologo'],
+                obiettivi: ['Distinguere tra mandato istituzionale e ruolo professionale', 'Comprendere l\'importanza del lavoro d\'équipe', 'Promuovere la collaborazione interprofessionale'],
+                items: [
+                    {
+                        tipo: 'mcq',
+                        domanda: 'Che cosa rappresenta il mandato istituzionale?',
+                        opzioni: ['L\'incarico ricevuto dall\'ente o servizio', 'Le competenze personali del professionista', 'Il consenso della famiglia', 'L\'autonomia decisionale'],
+                        corretta: 0
+                    },
+                    {
+                        tipo: 'mcq',
+                        domanda: 'Se un genitore chiede all\'educatore di svolgere compiti sanitari, cosa dovrebbe fare?',
+                        opzioni: ['Accettare per mantenere il rapporto', 'Rifiutare e segnalare al servizio competente', 'Svolgerli in via eccezionale', 'Decidere autonomamente'],
+                        corretta: 1
+                    },
+                    {
+                        tipo: 'matching',
+                        coppie: [
+                            {concetto: 'Educatore', definizione: 'Sostegno educativo e relazionale'},
+                            {concetto: 'Psicologo', definizione: 'Supporto psicologico e valutativo'},
+                            {concetto: 'Assistente sociale', definizione: 'Coordinamento e presa in carico'}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 3,
+                titolo: 'Globalità e rete dei servizi',
+                tema: 'globalità, approccio sistemico, rete territoriale',
+                vignetta: 'Giulia, 10 anni, vive in una famiglia seguita dai Servizi Sociali. La scuola segnala difficoltà di apprendimento e isolamento. L\'équipe multiprofessionale (educatore, psicologo, assistente sociale, insegnante di sostegno) pianifica un intervento globale che tenga conto della sfera scolastica, familiare e relazionale.',
+                dati: ['Età: 10 anni', 'Contesto: scolastico e familiare', 'Servizi: sociale, educativo, scolastico', 'Bisogni: apprendimento, relazione, inclusione'],
+                obiettivi: ['Comprendere il concetto di globalità', 'Individuare la funzione della rete dei servizi', 'Analizzare i benefici dell\'approccio integrato'],
+                items: [
+                    {
+                        tipo: 'msq',
+                        domanda: 'Quali ambiti sono coinvolti nel progetto globale? (Seleziona tutte le risposte corrette)',
+                        opzioni: ['Scuola', 'Famiglia', 'Servizi territoriali', 'Solo l\'aspetto educativo'],
+                        corrette: [0, 1, 2]
+                    },
+                    {
+                        tipo: 'verofalso',
+                        domanda: 'La globalità significa occuparsi solo dell\'aspetto educativo.',
+                        corretta: false
+                    },
+                    {
+                        tipo: 'breve',
+                        domanda: 'Spiega in che modo la rete tra scuola e servizi sociali favorisce l\'inclusione di Giulia.'
+                    }
+                ]
+            },
+            {
+                id: 4,
+                titolo: 'Bisogni e risorse nella prima infanzia',
+                tema: 'bisogni evolutivi, attaccamento, stimolazione',
+                vignetta: 'Sofia, 18 mesi, frequenta il nido comunale. Le educatrici notano che la bambina presenta difficoltà nel contatto fisico e tende a isolarsi durante le attività di gioco. I genitori, entrambi lavoratori, riferiscono di avere poco tempo da dedicarle. L\'équipe educativa del nido decide di attivare un percorso di supporto alla genitorialità.',
+                dati: ['Età: 18 mesi', 'Contesto: nido comunale', 'Bisogno: stimolazione, attaccamento sicuro', 'Servizio: educativa 0-3 anni', 'Rete: educatrici, genitori, pediatra'],
+                obiettivi: ['Riconoscere i bisogni della prima infanzia', 'Comprendere l\'importanza dell\'attaccamento', 'Identificare strategie di supporto genitoriale'],
+                items: [
+                    {
+                        tipo: 'mcq',
+                        domanda: 'Quale bisogno primario emerge nel caso di Sofia?',
+                        opzioni: ['Bisogno di autonomia', 'Bisogno di attaccamento e contatto', 'Bisogno di socializzazione con i pari', 'Bisogno di apprendimento cognitivo'],
+                        corretta: 1
+                    },
+                    {
+                        tipo: 'breve',
+                        domanda: 'Quali attività potrebbe proporre l\'équipe educativa per favorire il legame di attaccamento sicuro?'
+                    }
+                ]
+            },
+            {
+                id: 5,
+                titolo: 'Adolescente con bisogni educativi speciali',
+                tema: 'BES, inclusione scolastica, PEI',
+                vignetta: 'Marco, 15 anni, presenta una diagnosi di DSA (Disturbo Specifico dell\'Apprendimento). La scuola ha attivato un Piano Educativo Individualizzato, ma Marco manifesta demotivazione e frequenti assenze. La famiglia chiede un supporto educativo extrascolastico. L\'assistente sociale coordina un progetto che coinvolge educatore domiciliare e psicologo.',
+                dati: ['Età: 15 anni', 'Diagnosi: DSA', 'Contesto: scolastico e domiciliare', 'Servizio: educativa territoriale + supporto psicologico', 'Rete: scuola, famiglia, educatore, psicologo'],
+                obiettivi: ['Comprendere i Bisogni Educativi Speciali', 'Riconoscere il ruolo del PEI', 'Identificare strategie di motivazione e inclusione'],
+                items: [
+                    {
+                        tipo: 'mcq',
+                        domanda: 'Che cosa significa DSA?',
+                        opzioni: ['Disturbo dello Sviluppo Affettivo', 'Disturbo Specifico dell\'Apprendimento', 'Deficit Sensoriale Acuto', 'Difficoltà Sociale Adolescenziale'],
+                        corretta: 1
+                    },
+                    {
+                        tipo: 'verofalso',
+                        domanda: 'Il Piano Educativo Individualizzato (PEI) riguarda solo gli studenti con disabilità certificata.',
+                        corretta: false
+                    },
+                    {
+                        tipo: 'breve',
+                        domanda: 'Quali strategie educative potrebbero aiutare Marco a recuperare motivazione?'
+                    }
+                ]
+            },
+            {
+                id: 6,
+                titolo: 'Anziano con demenza lieve',
+                tema: 'demenza, supporto familiare, assistenza domiciliare',
+                vignetta: 'Giuseppe, 78 anni, vive con la moglie Maria, 75 anni. Giuseppe ha ricevuto una diagnosi di demenza lieve. Maria è sempre più affaticata nella gestione quotidiana e chiede aiuto al medico di base, che attiva il servizio di assistenza domiciliare. L\'OSS inizia a supportare la coppia 3 volte a settimana.',
+                dati: ['Età: 78 anni', 'Diagnosi: demenza lieve', 'Contesto: domiciliare', 'Caregiver: moglie (75 anni)', 'Servizio: assistenza domiciliare integrata', 'Figure: OSS, medico, assistente sociale'],
+                obiettivi: ['Riconoscere i bisogni dell\'anziano con demenza', 'Comprendere il ruolo del caregiver familiare', 'Identificare i servizi di supporto domiciliare'],
+                items: [
+                    {
+                        tipo: 'mcq',
+                        domanda: 'Qual è il ruolo principale dell\'OSS in questo caso?',
+                        opzioni: ['Prescrivere terapie farmacologiche', 'Fornire assistenza nella cura personale', 'Coordinare l\'équipe multiprofessionale', 'Effettuare valutazioni psicologiche'],
+                        corretta: 1
+                    },
+                    {
+                        tipo: 'breve',
+                        domanda: 'In che modo il servizio può sostenere Maria, caregiver di Giuseppe?'
+                    }
+                ]
+            },
+            {
+                id: 7,
+                titolo: 'Famiglia multiproblematica',
+                tema: 'fragilità sociale, intervento multiprofessionale, tutela minori',
+                vignetta: 'La famiglia Rossi è composta da madre (35 anni, disoccupata), padre (38 anni, lavoro precario) e due figli (8 e 5 anni). La scuola segnala che i bambini arrivano spesso non curati e senza materiale scolastico. Il Servizio Sociale attiva un progetto di sostegno alla genitorialità con educatore domiciliare e assistente sociale.',
+                dati: ['Nucleo familiare: 4 persone', 'Problematiche: economiche, educative, relazionali', 'Servizio: sostegno genitoriale + educativa domiciliare', 'Rete: scuola, servizi sociali, educatore, pediatra'],
+                obiettivi: ['Riconoscere i segnali di fragilità familiare', 'Comprendere l\'approccio multiprofessionale', 'Identificare gli obiettivi del progetto'],
+                items: [
+                    {
+                        tipo: 'msq',
+                        domanda: 'Quali ambiti richiede intervento in questa famiglia? (Seleziona tutte le risposte corrette)',
+                        opzioni: ['Supporto economico', 'Competenze genitoriali', 'Cura dei minori', 'Inserimento lavorativo', 'Solo aspetto scolastico'],
+                        corrette: [0, 1, 2, 3]
+                    },
+                    {
+                        tipo: 'breve',
+                        domanda: 'Quali obiettivi dovrebbe avere il progetto di sostegno alla genitorialità?'
+                    }
+                ]
+            },
+            {
+                id: 8,
+                titolo: 'Persona con disabilità motoria',
+                tema: 'disabilità, autonomia, barriere architettoniche',
+                vignetta: 'Anna, 42 anni, a seguito di un incidente ha una grave disabilità motoria e si sposta in carrozzina. Vive in un appartamento al terzo piano senza ascensore. Anna chiede al Comune un contributo per l\'abbattimento delle barriere architettoniche e l\'attivazione di un servizio di trasporto per recarsi al centro diurno.',
+                dati: ['Età: 42 anni', 'Disabilità: motoria (carrozzina)', 'Bisogni: mobilità, autonomia, socializzazione', 'Servizi: contributi economici, trasporto sociale, centro diurno', 'Rete: assistente sociale, tecnici comunali, centro diurno'],
+                obiettivi: ['Comprendere i bisogni delle persone con disabilità motoria', 'Riconoscere le barriere architettoniche', 'Identificare risorse e servizi territoriali'],
+                items: [
+                    {
+                        tipo: 'mcq',
+                        domanda: 'Quale risorsa è prioritaria per favorire l\'autonomia di Anna?',
+                        opzioni: ['Supporto psicologico', 'Abbattimento barriere architettoniche', 'Attività ricreative', 'Formazione professionale'],
+                        corretta: 1
+                    },
+                    {
+                        tipo: 'verofalso',
+                        domanda: 'Il centro diurno può favorire la socializzazione e l\'inclusione di Anna.',
+                        corretta: true
+                    }
+                ]
+            },
+            {
+                id: 9,
+                titolo: 'Adulto in difficoltà economica e sociale',
+                tema: 'povertà, inserimento lavorativo, rete di supporto',
+                vignetta: 'Roberto, 50 anni, ha perso il lavoro due anni fa e non ha trovato nuove opportunità. Vive solo, non ha rete familiare e ha accumulato debiti. Si rivolge al Servizio Sociale per richiedere il Reddito di Cittadinanza e un supporto per l\'inserimento lavorativo. L\'assistente sociale attiva un progetto personalizzato.',
+                dati: ['Età: 50 anni', 'Situazione: disoccupato, debiti, isolamento sociale', 'Servizio: servizio sociale comunale + centro per l\'impiego', 'Bisogni: sostegno economico, reinserimento lavorativo, supporto psicologico'],
+                obiettivi: ['Riconoscere i bisogni degli adulti in difficoltà', 'Comprendere i percorsi di inserimento lavorativo', 'Identificare le risorse legislative e territoriali'],
+                items: [
+                    {
+                        tipo: 'matching',
+                        coppie: [
+                            {concetto: 'Reddito di cittadinanza', definizione: 'Sostegno economico per famiglie in difficoltà'},
+                            {concetto: 'Centro per l\'impiego', definizione: 'Servizio per orientamento e ricerca lavoro'},
+                            {concetto: 'Progetto personalizzato', definizione: 'Piano d\'intervento individuale'}
+                        ]
+                    },
+                    {
+                        tipo: 'breve',
+                        domanda: 'Quali azioni concrete potrebbe prevedere il progetto personalizzato di Roberto?'
+                    }
+                ]
+            },
+            {
+                id: 10,
+                titolo: 'Paziente oncologico e assistenza palliativa',
+                tema: 'malattia grave, cure palliative, supporto alla famiglia',
+                vignetta: 'Carla, 68 anni, ha un tumore in fase avanzata. Ha espresso il desiderio di trascorrere gli ultimi mesi a casa con la famiglia. Il medico di base attiva l\'équipe di cure palliative domiciliari. L\'infermiere, il medico palliativista e lo psicologo lavorano insieme per garantire qualità di vita e supporto emotivo a Carla e alla famiglia.',
+                dati: ['Età: 68 anni', 'Diagnosi: tumore avanzato', 'Contesto: domiciliare', 'Servizio: cure palliative domiciliari', 'Rete: medico palliativista, infermiere, psicologo, famiglia'],
+                obiettivi: ['Comprendere il concetto di cure palliative', 'Riconoscere il supporto alla famiglia', 'Identificare l\'équipe multiprofessionale nelle cure di fine vita'],
+                items: [
+                    {
+                        tipo: 'mcq',
+                        domanda: 'Qual è l\'obiettivo principale delle cure palliative?',
+                        opzioni: ['Guarire la malattia', 'Garantire qualità di vita e alleviare le sofferenze', 'Prolungare la vita a ogni costo', 'Effettuare interventi chirurgici'],
+                        corretta: 1
+                    },
+                    {
+                        tipo: 'verofalso',
+                        domanda: 'Le cure palliative riguardano solo il paziente, non la famiglia.',
+                        corretta: false
+                    },
+                    {
+                        tipo: 'breve',
+                        domanda: 'In che modo lo psicologo può supportare Carla e la sua famiglia?'
+                    }
+                ]
+            }
+        ];
+
+        function caricaBancaCasi() {
+            const selector = document.getElementById('caseSelector');
+            selector.innerHTML = '';
+            
+            bancaCasi.forEach(caso => {
+                const card = document.createElement('div');
+                card.className = 'case-card';
+                card.innerHTML = `
+                    <h3>Caso #${caso.id}</h3>
+                    <p>${caso.titolo}</p>
+                `;
+                card.onclick = () => visualizzaCaso(caso);
+                selector.appendChild(card);
+            });
+            
+            window.casesLoaded = true;
+        }
+
+        function visualizzaCaso(caso) {
+            document.getElementById('caseSelector').style.display = 'none';
+            document.getElementById('caseDetailsContainer').style.display = 'block';
+            
+            const details = document.getElementById('caseDetails');
+            details.innerHTML = `
+                <h4>${caso.titolo}</h4>
+                <div class="box highlight">
+                    <strong>📝 Scenario:</strong>
+                    <p>${caso.vignetta}</p>
+                </div>
+                <div style="margin: 20px 0;">
+                    <strong>📊 Dati essenziali:</strong>
+                    <div class="case-data">
+                        ${caso.dati.map(d => `<div class="data-tag">${d}</div>`).join('')}
+                    </div>
+                </div>
+                <div class="box success">
+                    <strong>🎯 Obiettivi di apprendimento:</strong>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        ${caso.obiettivi.map(o => `<li>${o}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+
+            const exercises = document.getElementById('caseExercises');
+            exercises.innerHTML = '<h3 style="color: #ff6b6b; margin: 30px 0 20px 0;">📋 Domande di analisi</h3>';
+            
+            caso.items.forEach((item, i) => {
+                const div = document.createElement('div');
+                div.className = 'quiz-container';
+                div.innerHTML = generaEsercizio(item, `case${caso.id}_${i}`);
+                exercises.appendChild(div);
+            });
+        }
+
+        function tornaAiCasi() {
+            document.getElementById('caseSelector').style.display = 'grid';
+            document.getElementById('caseDetailsContainer').style.display = 'none';
+        }
+
+        function esportaCaso() {
+            alert('📥 Funzione di esportazione caso in sviluppo!\n\nA breve potrai esportare il caso completo con le tue risposte in formato PDF, Word o TXT.');
+        }
+
+        // FUNZIONI SALVATAGGIO
+        function salvaPDF(section) {
+            alert('📥 Funzione salvataggio PDF in sviluppo!\n\nA breve potrai salvare questa sezione in formato PDF.');
+        }
+
+        function salvaWord(section) {
+            alert('📥 Funzione salvataggio Word in sviluppo!\n\nA breve potrai salvare questa sezione in formato Word (.docx).');
+        }
+
+        // Imposta la data odierna nel campo data
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('studentDate').value = today;
+        });
+    </script>
+</body>
+</html>
