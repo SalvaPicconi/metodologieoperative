@@ -774,8 +774,6 @@
                         <li>Comprendere l'evoluzione storica e le tappe fondamentali dell'IA</li>
                         <li>Spiegare i principi del Machine Learning e del Deep Learning</li>
                         <li>Descrivere il funzionamento delle reti neurali artificiali</li>
-                        <li>Costruire prompt efficaci per ottenere risultati ottimali dall'IA</li>
-                        <li>Utilizzare strumenti come NotebookLM per migliorare lo studio</li>
                         <li>Analizzare criticamente rischi e benefici dell'IA nella società contemporanea</li>
                     </ul>
                 </div>
@@ -792,11 +790,9 @@
                         <li><a href="#deep-learning">6. Deep Learning e Reti Neurali</a></li>
                         <li><a href="#hardware">7. Hardware per l'IA</a></li>
                         <li><a href="#aied">8. IA nell'Educazione (AIED)</a></li>
-                        <li><a href="#prompt">9. Costruzione del Prompt per l'IA</a></li>
-                        <li><a href="#notebooklm">10. NotebookLM: Strumento di Studio</a></li>
-                        <li><a href="#etica">11. Etica, Rischi e Benefici</a></li>
-                        <li><a href="#glossario">12. Glossario</a></li>
-                        <li><a href="#faq">13. Domande Frequenti</a></li>
+                        <li><a href="#etica">9. Etica, Rischi e Benefici</a></li>
+                        <li><a href="#glossario">10. Glossario</a></li>
+                        <li><a href="#faq">11. Domande Frequenti</a></li>
                     </ul>
                 </div>
 
@@ -1227,255 +1223,9 @@
                     </div>
                 </div>
 
-                <!-- 9. COSTRUZIONE DEL PROMPT -->
-                <div id="prompt">
-                    <h3>9. 🧩 Costruzione di un Prompt per l'Intelligenza Artificiale</h3>
-                    
-                    <p>Un <strong>prompt</strong> è l'istruzione o la richiesta che fornisci a un sistema di IA (come ChatGPT, Gemini, Claude) per ottenere il risultato desiderato. Scrivere un prompt efficace è un'<strong>abilità fondamentale</strong> per sfruttare al meglio questi strumenti: più sei chiaro e preciso, migliore sarà il risultato.</p>
-
-                    <div class="info-box idea">
-                        <strong>💡 Perché è Importante?</strong>
-                        Un prompt ben costruito fa la differenza tra una risposta generica e inutile e un risultato preciso e personalizzato. È come dare istruzioni chiare a un collaboratore: se sei vago, otterrai un lavoro approssimativo.
-                    </div>
-
-                    <h4>I Sei Elementi di un Prompt Efficace</h4>
-
-                    <p>Un prompt completo è composto da sei elementi chiave. Non è sempre necessario includerli tutti, ma più informazioni fornisci, più preciso sarà il risultato.</p>
-
-                    <h4>🔹 1. RUOLO</h4>
-                    <p>Indica <strong>che ruolo</strong> deve assumere l'IA per svolgere il lavoro al posto tuo. Questo aiuta il sistema a calibrare il tono, il linguaggio e l'approccio.</p>
-                    <div class="info-box example">
-                        <strong>🔎 Esempi di Ruolo:</strong>
-                        <ul>
-                            <li>"Sei un assistente allo studio per studenti di scuola superiore"</li>
-                            <li>"Agisci come un professore di storia esperto in Seconda Guerra Mondiale"</li>
-                            <li>"Sei un tutor di scienze sociali specializzato in welfare"</li>
-                            <li>"Comportati come un esperto di informatica che spiega concetti complessi in modo semplice"</li>
-                        </ul>
-                    </div>
-
-                    <h4>🔹 2. COMPITO / TASK</h4>
-                    <p>Descrivi <strong>cosa deve fare</strong> l'IA con il materiale che le fornisci (documenti, testi, siti web, immagini, dati).</p>
-                    <div class="info-box example">
-                        <strong>🔎 Esempi di Compito:</strong>
-                        <ul>
-                            <li>"Riassumi il testo allegato evidenziando i concetti principali"</li>
-                            <li>"Spiega il significato dei termini tecnici presenti nel documento"</li>
-                            <li>"Confronta questi due articoli e indica differenze e punti in comune"</li>
-                            <li>"Estrai i dati statistici più importanti dal sito web"</li>
-                            <li>"Crea una mappa concettuale del capitolo"</li>
-                        </ul>
-                    </div>
-
-                    <h4>🔹 3. CONTESTO</h4>
-                    <p>Spiega <strong>a chi è destinato</strong> il lavoro o <strong>chi sei tu</strong>, così l'IA può adattare il linguaggio e il livello di difficoltà alle tue esigenze.</p>
-                    <div class="info-box example">
-                        <strong>🔎 Esempi di Contesto:</strong>
-                        <ul>
-                            <li>"Il riassunto è destinato a studenti di scuola media"</li>
-                            <li>"Sono uno studente di quarta superiore, indirizzo Servizi per la Sanità e l'Assistenza Sociale"</li>
-                            <li>"Ho bisogno di materiale per un'esposizione orale davanti alla classe"</li>
-                            <li>"Sto preparando un esame universitario di diritto costituzionale"</li>
-                        </ul>
-                    </div>
-
-                    <h4>🔹 4. RISULTATO / OUTPUT</h4>
-                    <p>Indica <strong>il prodotto finale</strong> che vuoi ottenere e <strong>in che forma</strong> deve essere presentato.</p>
-                    <div class="info-box example">
-                        <strong>🔎 Esempi di Output:</strong>
-                        <ul>
-                            <li>"Un riassunto di una pagina in formato testo"</li>
-                            <li>"Una presentazione con 8 slide e punti chiave"</li>
-                            <li>"Una tabella con tre colonne: concetto, definizione, esempio pratico"</li>
-                            <li>"Un testo pronto per essere studiato, con titoli e sottotitoli"</li>
-                            <li>"Un elenco numerato di 10 domande d'esame con risposte"</li>
-                        </ul>
-                    </div>
-
-                    <h4>🔹 5. REASONING (Ragionamento)</h4>
-                    <p>Dai istruzioni su <strong>come deve lavorare</strong> l'IA, cioè quali caratteristiche e criteri deve seguire il risultato.</p>
-                    <div class="info-box example">
-                        <strong>🔎 Esempi di Reasoning:</strong>
-                        <ul>
-                            <li>"Scrivi solo il riassunto, senza aggiungere commenti personali o introduzioni"</li>
-                            <li>"Per ogni concetto importante aggiungi una spiegazione semplice con un esempio concreto"</li>
-                            <li>"Concentrati esclusivamente sul secondo capitolo, ignorando il resto"</li>
-                            <li>"Usa un linguaggio semplice, frasi brevi e evita termini tecnici complessi"</li>
-                            <li>"Organizza il contenuto in ordine cronologico"</li>
-                        </ul>
-                    </div>
-
-                    <h4>🔹 6. STOP CONDITION (Condizione di Stop)</h4>
-                    <p>Spiega <strong>quando l'IA deve fermarsi</strong> e cosa deve controllare prima di considerare completato il lavoro.</p>
-                    <div class="info-box example">
-                        <strong>🔎 Esempi di Stop Condition:</strong>
-                        <ul>
-                            <li>"Assicurati che tutte le date e i dati numerici siano corretti prima di rispondere"</li>
-                            <li>"Cita le fonti principali per ogni affermazione importante"</li>
-                            <li>"Fermati se mancano informazioni essenziali e segnala quali"</li>
-                            <li>"Controlla che ci siano tutti i punti richiesti nell'elenco"</li>
-                            <li>"Verifica che non ci siano contraddizioni o errori logici"</li>
-                        </ul>
-                    </div>
-
-                    <div class="info-box remember">
-                        <strong>📌 Regola d'Oro</strong>
-                        ✏️ <strong>Scrivi frasi brevi e precise.</strong> Più sei chiaro e specifico, più l'IA lavorerà bene per te. Un prompt vago produce risultati vaghi; un prompt dettagliato produce risultati utili.
-                    </div>
-
-                    <h4>🧠 Template Pronto da Usare</h4>
-
-                    <div style="background: #f8fafc; border: 2px solid #2563eb; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; font-family: monospace;">
-                        <p style="margin: 0.5rem 0;"><strong>RUOLO:</strong> [Indica il ruolo che l'IA deve assumere]</p>
-                        <p style="margin: 0.5rem 0;"><strong>COMPITO/TASK:</strong> [Descrivi cosa deve fare]</p>
-                        <p style="margin: 0.5rem 0;"><strong>CONTESTO:</strong> [Spiega a chi è destinato o chi sei tu]</p>
-                        <p style="margin: 0.5rem 0;"><strong>RISULTATO/OUTPUT:</strong> [Indica il formato del prodotto finale]</p>
-                        <p style="margin: 0.5rem 0;"><strong>REASONING:</strong> [Spiega come deve lavorare]</p>
-                        <p style="margin: 0.5rem 0;"><strong>STOP CONDITION:</strong> [Indica cosa controllare prima di finire]</p>
-                    </div>
-
-                    <h4>Esempio Pratico Completo</h4>
-                    
-                    <div class="info-box example">
-                        <strong>🔎 Prompt per Studiare Storia</strong>
-                        <p style="background: white; padding: 1rem; border-radius: 6px; margin-top: 1rem; font-style: italic;">
-                        "RUOLO: Sei un professore di storia esperto in Rivoluzione Francese.<br><br>
-                        COMPITO: Riassumi il capitolo allegato sulla Rivoluzione Francese.<br><br>
-                        CONTESTO: Il riassunto è per uno studente di terza superiore che deve preparare un'interrogazione orale.<br><br>
-                        RISULTATO: Produci un testo di massimo due pagine, organizzato con titoli chiari per ogni fase della rivoluzione.<br><br>
-                        REASONING: Usa un linguaggio semplice ma preciso. Per ogni data importante aggiungi una breve spiegazione dell'evento. Concentrati sulle cause, sulle fasi principali e sulle conseguenze.<br><br>
-                        STOP CONDITION: Prima di finire, verifica che tutte le date siano corrette e che siano presenti almeno 3 cause, 4 fasi e 3 conseguenze."
-                        </p>
-                    </div>
-
-                    <div class="info-box warning">
-                        <strong>⚠️ Attenzione ai Limiti</strong>
-                        Anche con un prompt perfetto, l'IA può commettere errori ("allucinazioni"), inventare informazioni o interpretare male la richiesta. <strong>Verifica sempre</strong> le informazioni importanti, soprattutto date, dati numerici e citazioni. Usa l'IA come supporto, non come unica fonte.
-                    </div>
-
-                    <h4>💡 Trucco Avanzato: Chiedi Aiuto all'IA per Costruire il Prompt</h4>
-                    
-                    <p>Se non sei sicuro di come formulare un prompt efficace, puoi chiedere all'IA stessa di aiutarti! Prova con:</p>
-                    
-                    <div style="background: #e0f2fe; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-style: italic;">
-                    "Ho bisogno di creare un prompt per [descrivi brevemente cosa vuoi fare]. Puoi aiutarmi a strutturarlo usando il metodo: Ruolo, Compito, Contesto, Risultato, Reasoning, Stop Condition?"
-                    </div>
-
-                    <p>L'IA ti guiderà passo-passo nella costruzione del prompt ottimale!</p>
-                </div>
-
-                <!-- 10. NOTEBOOKLM -->
-                <div id="notebooklm">
-                    <h3>10. 📓 NotebookLM: Strumento di Studio Potenziato dall'IA</h3>
-                    
-                    <p><strong>NotebookLM</strong> è uno strumento sviluppato da Google che utilizza l'intelligenza artificiale per aiutarti a studiare, organizzare informazioni e creare contenuti di sintesi. Pensa a esso come a un <strong>assistente personale di studio</strong> che legge i tuoi materiali e ti aiuta a comprenderli meglio.</p>
-
-                    <h4>Cos'è e Come Funziona</h4>
-
-                    <p>NotebookLM (dove "LM" sta per "Language Model", cioè modello linguistico) è una piattaforma gratuita di Google che ti permette di:</p>
-                    <ul>
-                        <li>Caricare documenti, PDF, siti web e appunti</li>
-                        <li>Porre domande ai tuoi materiali</li>
-                        <li>Generare riassunti, mappe concettuali e guide di studio</li>
-                        <li>Creare <strong>podcast audio</strong> che spiegano i contenuti</li>
-                    </ul>
-
-                    <div class="info-box idea">
-                        <strong>💡 Differenza Chiave</strong>
-                        A differenza di ChatGPT o Gemini, NotebookLM lavora <strong>solo sui documenti che carichi tu</strong>, non su tutta Internet. Questo significa risposte più precise e pertinenti basate esclusivamente sui tuoi materiali di studio.
-                    </div>
-
-                    <h4>Funzioni Principali</h4>
-
-                    <h4>1. 🎙️ Podcast Audio</h4>
-                    <p>Una delle funzioni più innovative: NotebookLM può trasformare i tuoi documenti in un <strong>podcast audio</strong> dove due "presentatori" virtuali discutono il contenuto in modo naturale e coinvolgente.</p>
-                    
-                    <div class="info-box example">
-                        <strong>🔎 Quando Usarlo:</strong>
-                        <ul>
-                            <li>Per ripassare mentre cammini o fai sport</li>
-                            <li>Se impari meglio ascoltando che leggendo</li>
-                            <li>Per avere una panoramica rapida di un argomento complesso</li>
-                        </ul>
-                    </div>
-
-                    <h4>2. 📋 Overview (Panoramica)</h4>
-                    <p>NotebookLM genera automaticamente un <strong>riassunto intelligente</strong> dei documenti caricati, evidenziando:</p>
-                    <ul>
-                        <li>Temi principali</li>
-                        <li>Concetti chiave</li>
-                        <li>Connessioni tra diversi documenti</li>
-                    </ul>
-
-                    <h4>3. 🗺️ Mappe Concettuali</h4>
-                    <p>Puoi chiedere a NotebookLM di creare <strong>mappe visive</strong> che collegano i concetti del tuo materiale, utili per:</p>
-                    <ul>
-                        <li>Visualizzare relazioni tra argomenti</li>
-                        <li>Memorizzare collegamenti logici</li>
-                        <li>Preparare presentazioni o schemi per lo studio</li>
-                    </ul>
-
-                    <h4>4. 📊 Report e Guide di Studio</h4>
-                    <p>NotebookLM può generare:</p>
-                    <ul>
-                        <li><strong>Guide di studio</strong> personalizzate con domande e risposte</li>
-                        <li><strong>Report</strong> che sintetizzano informazioni da più fonti</li>
-                        <li><strong>FAQ</strong> (domande frequenti) basate sui tuoi documenti</li>
-                    </ul>
-
-                    <h4>Come Usare NotebookLM al Meglio</h4>
-
-                    <div class="info-box remember">
-                        <strong>📌 Passo-Passo</strong>
-                        <ol>
-                            <li><strong>Carica i materiali</strong>: PDF, documenti di testo, link a siti web</li>
-                            <li><strong>Esplora l'overview automatica</strong> per avere una prima visione d'insieme</li>
-                            <li><strong>Fai domande specifiche</strong> usando prompt chiari (applica il metodo dei 6 elementi!)</li>
-                            <li><strong>Genera contenuti</strong>: chiedi mappe, riassunti o podcast</li>
-                            <li><strong>Verifica sempre</strong> le informazioni, soprattutto dati e citazioni</li>
-                        </ol>
-                    </div>
-
-                    <h4>🎯 Trucco: Usa i Prompt per Risultati Migliori</h4>
-                    
-                    <p>Anche in NotebookLM, <strong>i prompt ben costruiti fanno la differenza</strong>. Invece di chiedere genericamente "riassumi questo", prova con:</p>
-                    
-                    <div style="background: #e0f2fe; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-style: italic;">
-                    "Crea una guida di studio di 2 pagine su [argomento] per uno studente di quarta superiore. Includi: definizioni chiave, esempi pratici, 5 domande di ripasso con risposte. Usa linguaggio semplice e organizza il contenuto con titoli chiari."
-                    </div>
-
-                    <p>💡 <strong>Consiglio Extra:</strong> Se non sai come formulare il prompt per NotebookLM, chiedilo prima a ChatGPT o Gemini! Scrivi: "Aiutami a creare un prompt efficace per NotebookLM per [cosa vuoi ottenere]".</p>
-
-                    <div class="info-box warning">
-                        <strong>⚠️ Limiti da Conoscere</strong>
-                        <ul>
-                            <li>NotebookLM lavora solo sui documenti che carichi (non cerca su Internet)</li>
-                            <li>La qualità del risultato dipende dalla qualità dei materiali caricati</li>
-                            <li>Può interpretare male documenti con formattazione complessa o immagini</li>
-                            <li>I podcast sono in inglese (al momento), ma puoi richiedere trascrizioni tradotte</li>
-                        </ul>
-                    </div>
-
-                    <h4>Perché Usarlo nello Studio</h4>
-
-                    <p>NotebookLM è particolarmente utile quando:</p>
-                    <ul>
-                        <li>Hai molti documenti diversi sullo stesso argomento e vuoi collegarli</li>
-                        <li>Devi preparare un'interrogazione o un esame e vuoi materiali di ripasso personalizzati</li>
-                        <li>Impari meglio ascoltando che leggendo (grazie ai podcast)</li>
-                        <li>Vuoi verificare la tua comprensione attraverso domande generate dall'IA</li>
-                        <li>Hai bisogno di riassunti rapidi senza perdere informazioni importanti</li>
-                    </ul>
-
-                    <div class="info-box idea">
-                        <strong>💡 Combinazione Potente</strong>
-                        Usa NotebookLM insieme ai prompt ben costruiti: carica i tuoi appunti, chiedi overview e mappe, genera domande di ripasso, crea podcast per ripassare in mobilità. Diventa uno strumento potentissimo se usato con metodo!
-                    </div>
-                </div>
-
-                <!-- 11. ETICA, RISCHI E BENEFICI -->
+                <!-- 9. ETICA, RISCHI E BENEFICI -->
                 <div id="etica">
-                    <h3>11. Etica dell'IA: Rischi e Benefici</h3>
+                    <h3>9. Etica dell'IA: Rischi e Benefici</h3>
                     
                     <p>L'intelligenza artificiale, come ogni tecnologia potente, porta con sé enormi opportunità ma anche rischi significativi. La questione centrale è: <strong>sarà la tecnologia ad adattarsi a noi o saremo noi ad adattarci a essa?</strong> La risposta dipende dalle scelte che faremo come società.</p>
 
@@ -1554,7 +1304,7 @@
 
                 <!-- GLOSSARIO -->
                 <div id="glossario">
-                    <h3>12. 📖 Glossario dei Termini Chiave</h3>
+                    <h3>10. 📖 Glossario dei Termini Chiave</h3>
                     
                     <dl>
                         <div class="glossary-term">
@@ -1608,11 +1358,6 @@
                         </div>
 
                         <div class="glossary-term">
-                            <dt>NotebookLM</dt>
-                            <dd>Strumento sviluppato da Google che utilizza modelli linguistici per analizzare documenti, creare riassunti, mappe concettuali e podcast audio educativi.</dd>
-                        </div>
-
-                        <div class="glossary-term">
                             <dt>Overfitting</dt>
                             <dd>Fenomeno in cui un modello impara troppo bene i dati di addestramento, perdendo capacità di generalizzare su dati nuovi.</dd>
                         </div>
@@ -1625,11 +1370,6 @@
                         <div class="glossary-term">
                             <dt>Peso (Weight)</dt>
                             <dd>Parametro numerico che determina l'importanza di una connessione tra neuroni in una rete neurale.</dd>
-                        </div>
-
-                        <div class="glossary-term">
-                            <dt>Prompt</dt>
-                            <dd>Istruzione o richiesta fornita a un sistema di IA per ottenere un risultato specifico. Un prompt efficace include: ruolo, compito, contesto, risultato atteso, ragionamento e condizioni di stop.</dd>
                         </div>
 
                         <div class="glossary-term">
@@ -1661,7 +1401,7 @@
 
                 <!-- FAQ -->
                 <div id="faq">
-                    <h3>13. ❓ Domande Frequenti (FAQ)</h3>
+                    <h3>11. ❓ Domande Frequenti (FAQ)</h3>
                     
                     <div class="faq-item">
                         <h4>L'IA può davvero "pensare" come un essere umano?</h4>
@@ -1697,11 +1437,6 @@
                         <h4>Esiste un'IA cosciente?</h4>
                         <p>No. Non esistono attualmente sistemi di IA con coscienza, autoconsapevolezza o emozioni genuine. Anche i sistemi più avanzati sono forme sofisticate di elaborazione statistica dei dati. Il tema della "coscienza artificiale" è oggetto di dibattito filosofico, ma non di realtà tecnologica.</p>
                     </div>
-
-                    <div class="faq-item">
-                        <h4>Come posso migliorare i risultati che ottengo dall'IA?</h4>
-                        <p>La chiave è scrivere prompt efficaci. Usa il metodo dei 6 elementi (Ruolo, Compito, Contesto, Risultato, Reasoning, Stop Condition) per strutturare le tue richieste. Più sei specifico e chiaro, migliori saranno i risultati. Se non sai come formulare un prompt, chiedi all'IA stessa di aiutarti a costruirlo!</p>
-                    </div>
                 </div>
 
                 <!-- TAKEAWAYS -->
@@ -1717,8 +1452,6 @@
                         <li><strong>Reti neurali</strong>: Composte da neuroni artificiali organizzati in strati; apprendono aggiustando i pesi tramite backpropagation</li>
                         <li><strong>Hardware specializzato</strong>: GPU e TPU accelerano massivamente i calcoli paralleli necessari al Deep Learning</li>
                         <li><strong>AIED</strong>: L'IA può personalizzare l'educazione e supportare insegnanti, ma non sostituisce la relazione educativa umana</li>
-                        <li><strong>Prompt efficaci</strong>: Usare i 6 elementi (Ruolo, Compito, Contesto, Risultato, Reasoning, Stop Condition) migliora drasticamente la qualità delle risposte dell'IA</li>
-                        <li><strong>NotebookLM</strong>: Strumento Google che trasforma documenti in podcast, mappe, overview e guide di studio personalizzate</li>
                         <li><strong>Etica cruciale</strong>: Rischi (bias, privacy, disoccupazione) e benefici (medicina, educazione, efficienza) richiedono uso consapevole e regolamentazione</li>
                     </ul>
                 </div>
@@ -2449,21 +2182,10 @@
                 <span class="topic-tag">[#Tecnologie]</span>
                 <p>Indica se le seguenti affermazioni sono vere (V) o false (F):</p>
                 <div class="exercise-options">
-                    <p><strong>1. Le GPU sono più efficienti delle CPU per il calcolo parallelo richiesto dal Deep Learning</strong></p>
-                    <label><input type="radio" name="exam-q5-1"> Vero (V)</label>
-                    <label><input type="radio" name="exam-q5-1"> Falso (F)</label>
-                    
-                    <p style="margin-top: 1rem;"><strong>2. Le TPU sono processori generici utilizzabili per qualsiasi tipo di calcolo</strong></p>
-                    <label><input type="radio" name="exam-q5-2"> Vero (V)</label>
-                    <label><input type="radio" name="exam-q5-2"> Falso (F)</label>
-                    
-                    <p style="margin-top: 1rem;"><strong>3. Il Deep Learning richiede enormi quantità di dati e potenza di calcolo</strong></p>
-                    <label><input type="radio" name="exam-q5-3"> Vero (V)</label>
-                    <label><input type="radio" name="exam-q5-3"> Falso (F)</label>
-                    
-                    <p style="margin-top: 1rem;"><strong>4. Una rete neurale può funzionare anche senza strati nascosti</strong></p>
-                    <label><input type="radio" name="exam-q5-4"> Vero (V)</label>
-                    <label><input type="radio" name="exam-q5-4"> Falso (F)</label>
+                    <label><input type="checkbox"> 1. Le GPU sono più efficienti delle CPU per il calcolo parallelo richiesto dal Deep Learning</label>
+                    <label><input type="checkbox"> 2. Le TPU sono processori generici utilizzabili per qualsiasi tipo di calcolo</label>
+                    <label><input type="checkbox"> 3. Il Deep Learning richiede enormi quantità di dati e potenza di calcolo</label>
+                    <label><input type="checkbox"> 4. Una rete neurale può funzionare anche senza strati nascosti</label>
                 </div>
             </div>
 
@@ -2523,15 +2245,6 @@
                 <span class="topic-tag">[#Pensiero Critico]</span>
                 <p>Secondo te, quali sono i principali rischi e benefici dell'uso dell'IA nella società contemporanea? Come possiamo garantire un uso etico e responsabile di queste tecnologie?</p>
                 <div class="exam-answer-space" contenteditable="true" style="min-height: 150px;"></div>
-            </div>
-
-            <!-- DOMANDA 11 -->
-            <div class="exam-question">
-                <h3>Domanda 11: Costruzione del Prompt</h3>
-                <span class="topic-tag">[#Prompt]</span>
-                <span class="topic-tag">[#Applicazioni Pratiche]</span>
-                <p>Costruisci un prompt completo per ottenere da un'IA un riassunto di un capitolo di biologia sul sistema circolatorio. Utilizza tutti i 6 elementi del metodo (Ruolo, Compito, Contesto, Risultato, Reasoning, Stop Condition).</p>
-                <div class="exam-answer-space" contenteditable="true" style="min-height: 200px;"></div>
             </div>
 
             <!-- PULSANTE STAMPA -->
