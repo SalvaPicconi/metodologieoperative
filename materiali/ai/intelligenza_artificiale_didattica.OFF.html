@@ -741,6 +741,30 @@
             font-family: 'Courier New', monospace;
             font-size: 0.9em;
         }
+        .site-footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem 0;
+            font-size: 1rem;
+        }
+
+        .site-footer a {
+            color: #1a5c3a;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease, text-decoration 0.3s ease;
+        }
+
+        .site-footer a:hover {
+            color: #c41e3a;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .site-footer {
+                padding: 0.75rem 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2564,5 +2588,8 @@
             document.getElementById('student-date').value = today;
         });
     </script>
+    <footer class="site-footer">
+      <a href="https://salvopicconi.github.io/metodologieoperative/">🏠 Torna alla Home</a>
+    </footer>
 </body>
 </html>
