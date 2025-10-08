@@ -19,9 +19,15 @@
             font-size: 16px;
         }
 
+        /* // ACCESSIBILITÀ */
+        :focus-visible {
+            outline: 3px solid #c41e3a;
+            outline-offset: 2px;
+        }
+
         .header {
             background: linear-gradient(135deg, #000000 0%, #1a5c3a 50%, #c41e3a 100%);
-            padding: 2rem;
+            padding: clamp(0.5rem, 2vw, 1rem);
             text-align: center;
             box-shadow: 0 4px 6px rgba(0,0,0,0.3);
             position: sticky;
@@ -30,35 +36,43 @@
         }
 
         .header h1 {
-            font-size: 2.5rem;
+            font-size: clamp(1.1rem, 4.5vw, 1.8rem);
             margin-bottom: 0.5rem;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
         .header .subtitle {
-            font-size: 1.1rem;
+            font-size: clamp(0.85rem, 2.8vw, 1rem);
             opacity: 0.9;
             margin-bottom: 1rem;
         }
 
         .nav-buttons {
             display: flex;
-            gap: 0.8rem;
-            justify-content: center;
-            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
             margin-top: 1rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 0.25rem;
+        }
+
+        .nav-buttons::-webkit-scrollbar {
+            display: none;
         }
 
         .nav-btn {
             background: white;
             color: #000;
             border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
+            padding: 0.6rem 0.9rem;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            flex: 0 0 auto;
         }
 
         .nav-btn:hover {
@@ -73,10 +87,12 @@
         .nav-btn.gruppo { background: #000; color: white; }
         .nav-btn.riflessione { background: #f0f0f0; color: #000; }
 
+        /* // BUGFIX */
         .container {
             max-width: 1200px;
             margin: 2rem auto;
             padding: 0 1rem;
+            padding-bottom: 6rem;
         }
 
         .section {
@@ -455,6 +471,12 @@
             margin: 2rem 0;
         }
 
+        #progress-global {
+            margin: 0.5rem 0;
+            color: #1a5c3a;
+            font-weight: 600;
+        }
+
         .connection-item {
             background: white;
             border: 2px solid #ddd;
@@ -579,13 +601,14 @@
             vertical-align: top;
         }
 
+        /* // BUGFIX */
         .work-table input, .work-table textarea {
             width: 100%;
             padding: 0.8rem;
             border: 2px solid #ddd;
             border-radius: 6px;
             font-family: inherit;
-            font-size: 1rem;
+            font-size: 16px;
             transition: all 0.3s;
         }
 
@@ -603,7 +626,7 @@
         }
 
         .work-table textarea {
-            min-height: 100px;
+            min-height: 160px;
             resize: vertical;
             line-height: 1.6;
         }
@@ -614,7 +637,7 @@
             border: 2px solid #ddd;
             border-radius: 6px;
             font-family: inherit;
-            font-size: 1rem;
+            font-size: 16px;
             background: white;
             cursor: pointer;
             transition: all 0.3s;
@@ -842,6 +865,7 @@
             box-shadow: 0 6px 16px rgba(0,0,0,0.4);
         }
 
+        /* // PRINT */
         @media print {
             body {
                 background: white;
@@ -866,8 +890,26 @@
                 border: 1px solid #ddd;
                 margin-bottom: 2rem;
             }
+
+            .section,
+            .work-table tr {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            textarea,
+            input[type="text"] {
+                border: 1px solid #aaa !important;
+                height: auto !important;
+                min-height: 24px !important;
+                white-space: pre-wrap !important;
+                overflow: visible !important;
+                display: block;
+                width: 100%;
+            }
         }
 
+        /* // MOBILE */
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 1.8rem;
@@ -881,12 +923,6 @@
                 grid-template-columns: 1fr;
             }
             
-            .save-buttons {
-                bottom: 1rem;
-                right: 1rem;
-                gap: 0.5rem;
-            }
-
             .connection-row {
                 grid-template-columns: 1fr;
                 gap: 0.5rem;
@@ -894,6 +930,81 @@
 
             .connection-arrow {
                 transform: rotate(90deg);
+            }
+
+            .work-table,
+            .work-table thead,
+            .work-table tbody,
+            .work-table tr,
+            .work-table th,
+            .work-table td {
+                display: block;
+                width: 100%;
+            }
+
+            .work-table thead {
+                display: none;
+            }
+
+            .work-table tr {
+                border: 1px solid #e5e5e5;
+                border-radius: 10px;
+                padding: 0.75rem;
+                margin-bottom: 1rem;
+                background: #fff;
+            }
+
+            .work-table td {
+                border: none;
+                padding: 0.4rem 0;
+            }
+
+            .work-table td::before {
+                content: attr(data-label);
+                display: block;
+                font-weight: 600;
+                color: #1a5c3a;
+                margin-bottom: 0.25rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                position: sticky;
+                top: 0;
+            }
+
+            .nav-buttons {
+                padding-bottom: 0.25rem;
+            }
+
+            .section {
+                padding: 1rem;
+            }
+
+            .container {
+                padding-bottom: 7.5rem;
+            }
+
+            .save-buttons {
+                gap: 0.5rem;
+                bottom: 0.75rem;
+                right: 0.75rem;
+            }
+
+            .save-btn {
+                padding: 0.7rem 1rem;
+                border-radius: 999px;
+                font-size: 0.9rem;
+            }
+
+            .work-table textarea {
+                min-height: 200px;
+            }
+
+            .card,
+            .section {
+                box-shadow: 0 2px 6px rgba(0,0,0,0.15);
             }
         }
     </style>
@@ -903,12 +1014,12 @@
         <h1>🧠 Il Welfare: dai Bisogni alle Risposte</h1>
         <div class="subtitle">Comprendere i collegamenti tra bisogni umani e servizi sociosanitari</div>
         <div class="nav-buttons">
-            <button class="nav-btn teoria" onclick="showSection('teoria')">📘 Teoria Welfare</button>
-            <button class="nav-btn ripasso" onclick="showSection('ripasso')">📚 Ripasso Operatore</button>
-            <button class="nav-btn carte" onclick="showSection('carte')">🃏 Carte Servizio</button>
-            <button class="nav-btn collegamenti" onclick="showSection('collegamenti')">🔗 Mappa Collegamenti</button>
-            <button class="nav-btn gruppo" onclick="showSection('gruppo')">📋 Lavoro Gruppo</button>
-            <button class="nav-btn riflessione" onclick="showSection('riflessione')">📝 Riflessione</button>
+            <button type="button" class="nav-btn teoria" onclick="showSection('teoria')">📘 Teoria Welfare</button>
+            <button type="button" class="nav-btn ripasso" onclick="showSection('ripasso')">📚 Ripasso Operatore</button>
+            <button type="button" class="nav-btn carte" onclick="showSection('carte')">🃏 Carte Servizio</button>
+            <button type="button" class="nav-btn collegamenti" onclick="showSection('collegamenti')">🔗 Mappa Collegamenti</button>
+            <button type="button" class="nav-btn gruppo" onclick="showSection('gruppo')">📋 Lavoro Gruppo</button>
+            <button type="button" class="nav-btn riflessione" onclick="showSection('riflessione')">📝 Riflessione</button>
         </div>
     </div>
 
@@ -1194,6 +1305,7 @@
                 <p style="margin-top: 1rem;">Completa gli esercizi selezionando le opzioni corrette. Clicca "Verifica" per controllare!</p>
             </div>
 
+            <div id="progress-global" aria-live="polite"></div>
             <div class="connections-container" id="connections-container"></div>
         </div>
 
@@ -1226,8 +1338,8 @@
                 </thead>
                 <tbody id="work-tbody">
                     <tr>
-                        <td><input type="text" class="work-input" data-field="servizio" placeholder="Nome del servizio..."></td>
-                        <td>
+                        <td data-label="Servizio"><input type="text" class="work-input" data-field="servizio" placeholder="Nome del servizio..."></td>
+                        <td data-label="Bisogno Maslow">
                             <select class="work-input" data-field="bisogno_maslow">
                                 <option value="">Seleziona...</option>
                                 <option value="Fisiologici">1. Fisiologici (cibo, riparo)</option>
@@ -1240,7 +1352,7 @@
                                 <option value="Trascendenza">8. Trascendenza (senso)</option>
                             </select>
                         </td>
-                        <td>
+                        <td data-label="Pilastro">
                             <select class="work-input" data-field="pilastro">
                                 <option value="">Seleziona...</option>
                                 <option value="Sanità">🏥 Sanità</option>
@@ -1248,10 +1360,10 @@
                                 <option value="Assistenza Sociale">🤝 Assistenza Sociale</option>
                             </select>
                         </td>
-                        <td><textarea class="work-input" data-field="bisogno" placeholder="Quale bisogno specifico..."></textarea></td>
-                        <td><textarea class="work-input" data-field="beneficiari" placeholder="Chi ne beneficia..."></textarea></td>
-                        <td><textarea class="work-input" data-field="essenziale" placeholder="Perché è essenziale..."></textarea></td>
-                        <td class="actions-cell">
+                        <td data-label="Bisogno specifico"><textarea class="work-input" data-field="bisogno" placeholder="Quale bisogno specifico..."></textarea></td>
+                        <td data-label="Beneficiari"><textarea class="work-input" data-field="beneficiari" placeholder="Chi ne beneficia..."></textarea></td>
+                        <td data-label="Perché essenziale"><textarea class="work-input" data-field="essenziale" placeholder="Perché è essenziale..."></textarea></td>
+                        <td class="actions-cell" data-label="Azioni">
                             <button class="delete-row-btn" onclick="deleteRow(this)" title="Elimina riga">🗑️</button>
                         </td>
                     </tr>
@@ -1532,6 +1644,10 @@
 
         let currentCardIndex = 0;
 
+        // BUGFIX: riduce scritture ripetute su localStorage
+        const SAVE_DEBOUNCE = 400;
+        let saveTimeout;
+
         // Genera le carte servizio
         function generateCards() {
             const gridContainer = document.getElementById('cards-grid');
@@ -1598,6 +1714,8 @@
                 
                 container.appendChild(item);
             });
+
+            updateGlobalProgress();
         }
 
         function checkConnection(index) {
@@ -1624,6 +1742,24 @@
                     feedback.textContent = message;
                     item.classList.remove('completed');
                 }
+            } else {
+                item.classList.remove('completed');
+                if (feedback) {
+                    feedback.className = 'feedback';
+                    feedback.textContent = '';
+                }
+            }
+
+            updateGlobalProgress();
+        }
+
+        // ACCESSIBILITÀ & DIDATTICA
+        function updateGlobalProgress() {
+            const total = document.querySelectorAll('.connection-item').length;
+            const completed = document.querySelectorAll('.connection-item.completed').length;
+            const el = document.getElementById('progress-global');
+            if (el) {
+                el.textContent = total ? `Progresso esercizi: ${completed}/${total} completati` : '';
             }
         }
 
@@ -1676,21 +1812,23 @@
             document.querySelectorAll('.section').forEach(section => {
                 section.classList.remove('active');
             });
-            
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.style.opacity = '0.8';
-            });
-            
+
             const targetSection = document.getElementById(sectionId);
             if (targetSection) {
                 targetSection.classList.add('active');
             }
-            
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.style.opacity = '0.8';
+                btn.removeAttribute('aria-current');
+            });
+
             const activeBtn = document.querySelector(`.nav-btn.${sectionId}`);
             if (activeBtn) {
                 activeBtn.style.opacity = '1';
+                activeBtn.setAttribute('aria-current', 'page');
             }
-            
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -1699,21 +1837,21 @@
             const tbody = document.getElementById('work-tbody');
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
-                <td><input type="text" class="work-input" data-field="servizio" placeholder="Nome del servizio..."></td>
-                <td>
+                <td data-label="Servizio"><input type="text" class="work-input" data-field="servizio" placeholder="Nome del servizio..."></td>
+                <td data-label="Bisogno Maslow">
                     <select class="work-input" data-field="bisogno_maslow">
                         <option value="">Seleziona...</option>
-                        <option value="Fisiologici">1. Fisiologici</option>
-                        <option value="Sicurezza">2. Sicurezza</option>
-                        <option value="Appartenenza">3. Appartenenza</option>
-                        <option value="Stima">4. Stima</option>
-                        <option value="Conoscenza">5. Conoscenza</option>
-                        <option value="Estetici">6. Estetici</option>
-                        <option value="Auto-realizzazione">7. Auto-realizzazione</option>
-                        <option value="Trascendenza">8. Trascendenza</option>
+                        <option value="Fisiologici">1. Fisiologici (cibo, riparo)</option>
+                        <option value="Sicurezza">2. Sicurezza (lavoro, risorse)</option>
+                        <option value="Appartenenza">3. Appartenenza (relazioni)</option>
+                        <option value="Stima">4. Stima (riconoscimento)</option>
+                        <option value="Conoscenza">5. Conoscenza (educazione)</option>
+                        <option value="Estetici">6. Estetici (bellezza, arte)</option>
+                        <option value="Auto-realizzazione">7. Auto-realizzazione (potenziale)</option>
+                        <option value="Trascendenza">8. Trascendenza (senso)</option>
                     </select>
                 </td>
-                <td>
+                <td data-label="Pilastro">
                     <select class="work-input" data-field="pilastro">
                         <option value="">Seleziona...</option>
                         <option value="Sanità">🏥 Sanità</option>
@@ -1721,16 +1859,16 @@
                         <option value="Assistenza Sociale">🤝 Assistenza Sociale</option>
                     </select>
                 </td>
-                <td><textarea class="work-input" data-field="bisogno" placeholder="Quale bisogno specifico..."></textarea></td>
-                <td><textarea class="work-input" data-field="beneficiari" placeholder="Chi ne beneficia..."></textarea></td>
-                <td><textarea class="work-input" data-field="essenziale" placeholder="Perché è essenziale..."></textarea></td>
-                <td class="actions-cell">
+                <td data-label="Bisogno specifico"><textarea class="work-input" data-field="bisogno" placeholder="Quale bisogno specifico..."></textarea></td>
+                <td data-label="Beneficiari"><textarea class="work-input" data-field="beneficiari" placeholder="Chi ne beneficia..."></textarea></td>
+                <td data-label="Perché essenziale"><textarea class="work-input" data-field="essenziale" placeholder="Perché è essenziale..."></textarea></td>
+                <td class="actions-cell" data-label="Azioni">
                     <button class="delete-row-btn" onclick="deleteRow(this)">🗑️</button>
                 </td>
             `;
             tbody.appendChild(newRow);
             attachInputListeners();
-            saveData();
+            saveData({ force: true, silent: true });
             showSaveStatus('➕ Nuova riga aggiunta');
         }
 
@@ -1740,7 +1878,7 @@
             
             if (tbody.rows.length > 1) {
                 row.remove();
-                saveData();
+                saveData({ force: true, silent: true });
                 showSaveStatus('🗑️ Riga eliminata');
             } else {
                 showSaveStatus('⚠️ Mantieni almeno una riga');
@@ -1748,63 +1886,83 @@
         }
 
         // Salvataggio automatico
-        function saveData() {
-            const data = {
-                workTable: [],
-                reflection: {},
-                connections: []
-            };
+        function saveData(arg) {
+            let force = false;
+            let silent = false;
 
-            // Salva dati tabella
-            let compiledServices = 0;
-            document.querySelectorAll('#work-tbody tr').forEach((row, index) => {
-                const rowData = {};
-                let hasData = false;
-                
-                row.querySelectorAll('.work-input').forEach(input => {
-                    rowData[input.dataset.field] = input.value;
-                    if (input.value && input.value.trim() !== '') {
-                        hasData = true;
-                    }
-                });
-                
-                data.workTable.push(rowData);
-                if (hasData) compiledServices++;
-            });
-
-            // Aggiorna contatore
-            const counter = document.getElementById('service-counter');
-            if (counter) {
-                counter.textContent = `Servizi analizzati: ${compiledServices}`;
+            if (arg && typeof arg === 'object' && !(arg instanceof Event)) {
+                force = Boolean(arg.force);
+                silent = Boolean(arg.silent);
             }
 
-            // Salva collegamenti
-            connectionExercises.forEach((exercise, index) => {
-                const serviceSelect = document.querySelector(`select[data-index="${index}"][data-type="service"]`);
-                const pillarSelect = document.querySelector(`select[data-index="${index}"][data-type="pillar"]`);
-                if (serviceSelect && pillarSelect) {
-                    data.connections.push({
-                        service: serviceSelect.value,
-                        pillar: pillarSelect.value
-                    });
-                }
-            });
+            const executeSave = () => {
+                const data = {
+                    workTable: [],
+                    reflection: {},
+                    connections: []
+                };
 
-            // Salva riflessione
-            data.reflection = {
-                learned1: document.getElementById('learned1')?.value || '',
-                learned2: document.getElementById('learned2')?.value || '',
-                learned3: document.getElementById('learned3')?.value || '',
-                misconception: document.getElementById('misconception')?.value || '',
-                maslowDifficulty: document.getElementById('maslow-difficulty')?.value || '',
-                operatorExample: document.getElementById('operator-example')?.value || '',
-                networkCollaboration: document.getElementById('network-collaboration')?.value || '',
-                participation: document.querySelector('input[name="participation"]:checked')?.value || '',
-                helpfulAspect: document.getElementById('helpful-aspect')?.value || ''
+                // Salva dati tabella
+                let compiledServices = 0;
+                document.querySelectorAll('#work-tbody tr').forEach(row => {
+                    const rowData = {};
+                    let hasData = false;
+
+                    row.querySelectorAll('.work-input').forEach(input => {
+                        rowData[input.dataset.field] = input.value;
+                        if (input.value && input.value.trim() !== '') {
+                            hasData = true;
+                        }
+                    });
+
+                    data.workTable.push(rowData);
+                    if (hasData) compiledServices++;
+                });
+
+                // Aggiorna contatore
+                const counter = document.getElementById('service-counter');
+                if (counter) {
+                    counter.textContent = `Servizi analizzati: ${compiledServices}`;
+                }
+
+                // Salva collegamenti
+                connectionExercises.forEach((exercise, index) => {
+                    const serviceSelect = document.querySelector(`select[data-index="${index}"][data-type="service"]`);
+                    const pillarSelect = document.querySelector(`select[data-index="${index}"][data-type="pillar"]`);
+                    if (serviceSelect && pillarSelect) {
+                        data.connections.push({
+                            service: serviceSelect.value,
+                            pillar: pillarSelect.value
+                        });
+                    }
+                });
+
+                // Salva riflessione
+                data.reflection = {
+                    learned1: document.getElementById('learned1')?.value || '',
+                    learned2: document.getElementById('learned2')?.value || '',
+                    learned3: document.getElementById('learned3')?.value || '',
+                    misconception: document.getElementById('misconception')?.value || '',
+                    maslowDifficulty: document.getElementById('maslow-difficulty')?.value || '',
+                    operatorExample: document.getElementById('operator-example')?.value || '',
+                    networkCollaboration: document.getElementById('network-collaboration')?.value || '',
+                    participation: document.querySelector('input[name="participation"]:checked')?.value || '',
+                    helpfulAspect: document.getElementById('helpful-aspect')?.value || ''
+                };
+
+                localStorage.setItem('welfareActivity', JSON.stringify(data));
+                updateGlobalProgress();
+                if (!silent) {
+                    showSaveStatus();
+                }
             };
 
-            localStorage.setItem('welfareActivity', JSON.stringify(data));
-            showSaveStatus();
+            clearTimeout(saveTimeout);
+            if (force) {
+                executeSave();
+            } else {
+                saveTimeout = setTimeout(executeSave, SAVE_DEBOUNCE);
+            }
         }
 
         function loadData() {
@@ -1821,21 +1979,21 @@
                 data.workTable.forEach(rowData => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td><input type="text" class="work-input" data-field="servizio" value="${rowData.servizio || ''}" placeholder="Nome del servizio..."></td>
-                        <td>
+                        <td data-label="Servizio"><input type="text" class="work-input" data-field="servizio" value="${rowData.servizio || ''}" placeholder="Nome del servizio..."></td>
+                        <td data-label="Bisogno Maslow">
                             <select class="work-input" data-field="bisogno_maslow">
                                 <option value="">Seleziona...</option>
-                                <option value="Fisiologici" ${rowData.bisogno_maslow === 'Fisiologici' ? 'selected' : ''}>1. Fisiologici</option>
-                                <option value="Sicurezza" ${rowData.bisogno_maslow === 'Sicurezza' ? 'selected' : ''}>2. Sicurezza</option>
-                                <option value="Appartenenza" ${rowData.bisogno_maslow === 'Appartenenza' ? 'selected' : ''}>3. Appartenenza</option>
-                                <option value="Stima" ${rowData.bisogno_maslow === 'Stima' ? 'selected' : ''}>4. Stima</option>
-                                <option value="Conoscenza" ${rowData.bisogno_maslow === 'Conoscenza' ? 'selected' : ''}>5. Conoscenza</option>
-                                <option value="Estetici" ${rowData.bisogno_maslow === 'Estetici' ? 'selected' : ''}>6. Estetici</option>
-                                <option value="Auto-realizzazione" ${rowData.bisogno_maslow === 'Auto-realizzazione' ? 'selected' : ''}>7. Auto-realizzazione</option>
-                                <option value="Trascendenza" ${rowData.bisogno_maslow === 'Trascendenza' ? 'selected' : ''}>8. Trascendenza</option>
+                                <option value="Fisiologici" ${rowData.bisogno_maslow === 'Fisiologici' ? 'selected' : ''}>1. Fisiologici (cibo, riparo)</option>
+                                <option value="Sicurezza" ${rowData.bisogno_maslow === 'Sicurezza' ? 'selected' : ''}>2. Sicurezza (lavoro, risorse)</option>
+                                <option value="Appartenenza" ${rowData.bisogno_maslow === 'Appartenenza' ? 'selected' : ''}>3. Appartenenza (relazioni)</option>
+                                <option value="Stima" ${rowData.bisogno_maslow === 'Stima' ? 'selected' : ''}>4. Stima (riconoscimento)</option>
+                                <option value="Conoscenza" ${rowData.bisogno_maslow === 'Conoscenza' ? 'selected' : ''}>5. Conoscenza (educazione)</option>
+                                <option value="Estetici" ${rowData.bisogno_maslow === 'Estetici' ? 'selected' : ''}>6. Estetici (bellezza, arte)</option>
+                                <option value="Auto-realizzazione" ${rowData.bisogno_maslow === 'Auto-realizzazione' ? 'selected' : ''}>7. Auto-realizzazione (potenziale)</option>
+                                <option value="Trascendenza" ${rowData.bisogno_maslow === 'Trascendenza' ? 'selected' : ''}>8. Trascendenza (senso)</option>
                             </select>
                         </td>
-                        <td>
+                        <td data-label="Pilastro">
                             <select class="work-input" data-field="pilastro">
                                 <option value="">Seleziona...</option>
                                 <option value="Sanità" ${rowData.pilastro === 'Sanità' ? 'selected' : ''}>🏥 Sanità</option>
@@ -1843,10 +2001,10 @@
                                 <option value="Assistenza Sociale" ${rowData.pilastro === 'Assistenza Sociale' ? 'selected' : ''}>🤝 Assistenza Sociale</option>
                             </select>
                         </td>
-                        <td><textarea class="work-input" data-field="bisogno" placeholder="Quale bisogno specifico...">${rowData.bisogno || ''}</textarea></td>
-                        <td><textarea class="work-input" data-field="beneficiari" placeholder="Chi ne beneficia...">${rowData.beneficiari || ''}</textarea></td>
-                        <td><textarea class="work-input" data-field="essenziale" placeholder="Perché è essenziale...">${rowData.essenziale || ''}</textarea></td>
-                        <td class="actions-cell">
+                        <td data-label="Bisogno specifico"><textarea class="work-input" data-field="bisogno" placeholder="Quale bisogno specifico...">${rowData.bisogno || ''}</textarea></td>
+                        <td data-label="Beneficiari"><textarea class="work-input" data-field="beneficiari" placeholder="Chi ne beneficia...">${rowData.beneficiari || ''}</textarea></td>
+                        <td data-label="Perché essenziale"><textarea class="work-input" data-field="essenziale" placeholder="Perché è essenziale...">${rowData.essenziale || ''}</textarea></td>
+                        <td class="actions-cell" data-label="Azioni">
                             <button class="delete-row-btn" onclick="deleteRow(this)">🗑️</button>
                         </td>
                     `;
@@ -1886,7 +2044,8 @@
             }
 
             attachInputListeners();
-            saveData();
+            saveData({ force: true, silent: true });
+            updateGlobalProgress();
         }
 
         function showSaveStatus(message = '✓ Salvato') {
@@ -1932,9 +2091,46 @@
             }
         });
 
+        // PRINT
+        function expandTextareasForPrint() {
+            document.querySelectorAll('textarea').forEach(t => {
+                t.dataset._prevHeight = t.style.height;
+                t.style.height = 'auto';
+                t.style.height = t.scrollHeight + 'px';
+            });
+        }
+
+        function restoreTextareasAfterPrint() {
+            document.querySelectorAll('textarea').forEach(t => {
+                if (t.dataset._prevHeight !== undefined) {
+                    t.style.height = t.dataset._prevHeight;
+                }
+            });
+        }
+
+        if (window.matchMedia) {
+            const mediaQueryList = window.matchMedia('print');
+            const handlePrintChange = (event) => {
+                if (event.matches) {
+                    expandTextareasForPrint();
+                } else {
+                    restoreTextareasAfterPrint();
+                }
+            };
+
+            if (mediaQueryList.addEventListener) {
+                mediaQueryList.addEventListener('change', handlePrintChange);
+            } else if (mediaQueryList.addListener) {
+                mediaQueryList.addListener(handlePrintChange);
+            }
+        }
+
+        window.addEventListener('beforeprint', expandTextareasForPrint);
+        window.addEventListener('afterprint', restoreTextareasAfterPrint);
+
         // Download Word
         function downloadWord() {
-            saveData();
+            saveData({ force: true, silent: true });
             
             const data = JSON.parse(localStorage.getItem('welfareActivity') || '{}');
             
@@ -2020,6 +2216,7 @@
         }
 
         function downloadPDF() {
+            saveData({ force: true, silent: true });
             showSaveStatus('📄 Usa Stampa per salvare PDF');
             setTimeout(() => {
                 window.print();
@@ -2036,21 +2233,24 @@
         }
 
         function downloadCompleteHTML() {
-            saveData();
-            
-            const savedData = localStorage.getItem('welfareActivity') || '{}';
+            saveData({ force: true, silent: true });
+
+            const storedData = localStorage.getItem('welfareActivity');
+            const safeData = (storedData || '"{}"').replace(/<\/script/gi, '<\\/script');
             let htmlContent = document.documentElement.outerHTML;
-            
+
             const preloadScript = `
     <script>
         (function() {
             try {
-                const savedData = ${savedData};
-                localStorage.setItem('welfareActivity', JSON.stringify(savedData));
+                var savedData = ${safeData};
+                if (typeof savedData === 'string') {
+                    localStorage.setItem('welfareActivity', savedData);
+                } else {
+                    localStorage.setItem('welfareActivity', JSON.stringify(savedData));
+                }
                 console.log('✅ Dati caricati automaticamente');
-            } catch(e) {
-                console.error('Errore caricamento:', e);
-            }
+            } catch(e) { console.error('Errore caricamento:', e); }
         })();
     <\/script>`;
             
@@ -2090,11 +2290,8 @@
             generateConnectionExercises();
             loadData();
             attachInputListeners();
-            
-            document.querySelector('.nav-btn.teoria').style.opacity = '1';
-            document.querySelectorAll('.nav-btn:not(.teoria)').forEach(btn => {
-                btn.style.opacity = '0.8';
-            });
+            showSection('teoria');
+            updateGlobalProgress();
             
             const saved = localStorage.getItem('welfareActivity');
             if (saved) {
