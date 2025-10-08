@@ -1,29 +1,33 @@
 // Script per caricare e visualizzare i materiali dal file JSON
 document.addEventListener('DOMContentLoaded', function() {
     // Ottieni la sezione corrente dal nome del file
-    const pagina = window.location.pathname.split('/').pop().replace('.html', '');
+    let pagina = window.location.pathname.split('/').pop().replace('.html', '');
+    if (!pagina) {
+        pagina = 'index';
+    }
     
-    // Mappa delle pagine alle chiavi del JSON
-    const mappaSezioni = {
-        'biennio': 'biennio',
-        'terzo': 'terzo',
-        'quarto': 'quarto',
-        'quinto': 'quinto'
+    // Configurazioni delle pagine che richiedono il caricamento dei materiali
+    const configurazioniPagine = {
+        'biennio': { chiave: 'biennio' },
+        'terzo': { chiave: 'terzo' },
+        'quarto': { chiave: 'quarto' },
+        'quinto': { chiave: 'quinto' },
+        'index': { chiave: 'ai', containerId: 'materiali-ai' }
     };
     
-    const sezione = mappaSezioni[pagina];
+    const configurazione = configurazioniPagine[pagina];
     
-    if (!sezione) {
+    if (!configurazione) {
         console.log('Pagina non richiede caricamento materiali');
         return;
     }
     
     // Carica i materiali
-    caricaMateriali(sezione);
+    caricaMateriali(configurazione.chiave, configurazione.containerId);
 });
 
-async function caricaMateriali(sezione) {
-    const container = document.getElementById('materiali-lista');
+async function caricaMateriali(sezione, containerId = 'materiali-lista') {
+    const container = document.getElementById(containerId);
     
     if (!container) {
         console.error('Container materiali non trovato');

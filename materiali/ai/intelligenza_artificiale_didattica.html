@@ -1,0 +1,2568 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligenza Artificiale - Guida Didattica Completa</title>
+    <style>
+        /* ==================== VARIABILI CSS ==================== */
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #06b6d4;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --warning-color: #f59e0b;
+            --bg-light: #f8fafc;
+            --bg-dark: #1e293b;
+            --text-dark: #0f172a;
+            --text-light: #64748b;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ==================== RESET & BASE ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--bg-light);
+        }
+
+        /* ==================== NAVIGAZIONE ==================== */
+        nav {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-lg);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        nav h1 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        nav button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 0.5rem 1.5rem;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav button:hover,
+        nav button.active {
+            background: white;
+            color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        nav button:focus {
+            outline: 3px solid rgba(255, 255, 255, 0.5);
+            outline-offset: 2px;
+        }
+
+        /* ==================== CONTAINER PRINCIPALE ==================== */
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ==================== CARD & BOX ==================== */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            color: var(--text-dark);
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        h4 {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        /* ==================== BOX DIDATTICI ==================== */
+        .info-box {
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+
+        .info-box.idea {
+            background: #dbeafe;
+            border-color: var(--primary-color);
+        }
+
+        .info-box.warning {
+            background: #fef3c7;
+            border-color: var(--warning-color);
+        }
+
+        .info-box.example {
+            background: #d1fae5;
+            border-color: var(--success-color);
+        }
+
+        .info-box.remember {
+            background: #e0e7ff;
+            border-color: #6366f1;
+        }
+
+        .info-box strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* ==================== LISTE ==================== */
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        ul li, ol li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* ==================== GLOSSARIO & FAQ ==================== */
+        .glossary-term {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .glossary-term dt {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .glossary-term dd {
+            margin-left: 0;
+            color: var(--text-dark);
+        }
+
+        .faq-item {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .faq-item h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        /* ==================== TAKEAWAYS ==================== */
+        .takeaways {
+            background: linear-gradient(135deg, #dbeafe, #e0e7ff);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .takeaways h3 {
+            margin-top: 0;
+        }
+
+        .takeaways ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .takeaways li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.75rem;
+        }
+
+        .takeaways li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* ==================== INDICE NAVIGABILE ==================== */
+        .table-of-contents {
+            background: white;
+            border: 2px solid var(--primary-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .table-of-contents h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .table-of-contents ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .table-of-contents a {
+            color: var(--primary-color);
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .table-of-contents a:hover {
+            background: var(--bg-light);
+            padding-left: 1rem;
+        }
+
+        /* ==================== SCHEMI ==================== */
+        .schema-container {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--border-color);
+        }
+
+        .schema-controls {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .schema-controls button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .schema-controls button:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .schema-controls button:focus {
+            outline: 3px solid rgba(37, 99, 235, 0.3);
+            outline-offset: 2px;
+        }
+
+        .schema-viewport {
+            overflow: auto;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: #fafafa;
+            position: relative;
+        }
+
+        .schema-content {
+            transform-origin: top left;
+            transition: transform 0.3s ease;
+            padding: 2rem;
+        }
+
+        .schema-legend {
+            background: #f0f9ff;
+            border: 1px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .schema-legend h4 {
+            margin-top: 0;
+        }
+
+        /* Elementi SVG comuni */
+        .svg-box {
+            fill: white;
+            stroke: var(--primary-color);
+            stroke-width: 2;
+        }
+
+        .svg-text {
+            font-family: inherit;
+            font-size: 14px;
+            fill: var(--text-dark);
+        }
+
+        .svg-arrow {
+            stroke: var(--text-dark);
+            stroke-width: 2;
+            fill: none;
+            marker-end: url(#arrowhead);
+        }
+
+        .svg-connector {
+            stroke: var(--secondary-color);
+            stroke-width: 2;
+            stroke-dasharray: 5, 5;
+        }
+
+        /* ==================== ACCORDION/TOGGLE ==================== */
+        .accordion-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            cursor: pointer;
+            border-radius: 6px;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-header:hover {
+            background: var(--secondary-color);
+        }
+
+        .accordion-header:after {
+            content: "▼";
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-header.active:after {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 6px 6px;
+        }
+
+        .accordion-content.active {
+            max-height: 2000px;
+            padding: 1rem;
+        }
+
+        /* ==================== ESERCITAZIONI ==================== */
+        .exercise-card {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .exercise-card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .exercise-options {
+            margin: 1rem 0;
+        }
+
+        .exercise-options label {
+            display: block;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            background: var(--bg-light);
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .exercise-options label:hover {
+            background: #e0f2fe;
+            border-color: var(--primary-color);
+        }
+
+        .exercise-options input[type="radio"],
+        .exercise-options input[type="checkbox"] {
+            margin-right: 0.5rem;
+        }
+
+        .exercise-options select,
+        .exercise-options input[type="text"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .exercise-feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 6px;
+            font-weight: 500;
+            display: none;
+        }
+
+        .exercise-feedback.correct {
+            background: #d1fae5;
+            border: 2px solid var(--success-color);
+            color: #065f46;
+            display: block;
+        }
+
+        .exercise-feedback.incorrect {
+            background: #fee2e2;
+            border: 2px solid var(--error-color);
+            color: #991b1b;
+            display: block;
+        }
+
+        .exercise-submit {
+            background: var(--success-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .exercise-submit:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .verify-all-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 2rem auto;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .verify-all-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, #dbeafe, #e0e7ff);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+            display: none;
+        }
+
+        .score-display.show {
+            display: block;
+        }
+
+        .score-display h3 {
+            margin-top: 0;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        /* ==================== VERIFICA FINALE ==================== */
+        .exam-header {
+            background: white;
+            border: 2px solid var(--primary-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .exam-header input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .exam-question {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            page-break-inside: avoid;
+        }
+
+        .exam-question h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .exam-question .topic-tag {
+            display: inline-block;
+            background: var(--bg-light);
+            color: var(--text-light);
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .exam-answer-space {
+            border: 2px dashed var(--border-color);
+            border-radius: 6px;
+            min-height: 100px;
+            padding: 1rem;
+            margin-top: 1rem;
+            background: #fafafa;
+        }
+
+        .print-exam-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 2rem auto;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .print-exam-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 768px) {
+            nav h1 {
+                font-size: 1.2rem;
+            }
+
+            nav button {
+                padding: 0.4rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            h3 {
+                font-size: 1.3rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .schema-content {
+                padding: 1rem;
+            }
+
+            p {
+                text-align: left;
+            }
+        }
+
+        /* ==================== PRINT STYLES ==================== */
+        @media print {
+            body {
+                background: white;
+            }
+
+            nav,
+            .schema-controls,
+            .exercise-submit,
+            .verify-all-btn,
+            .print-exam-btn,
+            button {
+                display: none !important;
+            }
+
+            .main-container {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            section {
+                display: none !important;
+            }
+
+            section.active {
+                display: block !important;
+            }
+
+            .card,
+            .exam-question,
+            .schema-container {
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+
+            h2, h3 {
+                page-break-after: avoid;
+            }
+
+            .exam-header {
+                page-break-after: avoid;
+            }
+
+            /* Mostra solo contenuto stampabile */
+            .print-only {
+                display: block !important;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+        }
+
+        /* ==================== UTILITIES ==================== */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-2 {
+            margin-top: 2rem;
+        }
+
+        .mb-2 {
+            margin-bottom: 2rem;
+        }
+
+        strong {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        em {
+            color: var(--secondary-color);
+            font-style: italic;
+        }
+
+        code {
+            background: var(--bg-light);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <!-- ==================== NAVIGAZIONE ==================== -->
+    <nav>
+        <div class="container">
+            <h1>🤖 Intelligenza Artificiale - Guida Didattica Completa</h1>
+            <ul>
+                <li><button class="nav-btn active" data-section="teoria">📚 Teoria</button></li>
+                <li><button class="nav-btn" data-section="schemi">📊 Schemi</button></li>
+                <li><button class="nav-btn" data-section="esercitazioni">✏️ Esercitazioni</button></li>
+                <li><button class="nav-btn" data-section="verifica">📝 Verifica Finale</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ==================== CONTAINER PRINCIPALE ==================== -->
+    <div class="main-container">
+        
+        <!-- ==================== SEZIONE TEORIA ==================== -->
+        <section id="teoria" class="active">
+            <div class="card">
+                <h2>📚 Fondamenti dell'Intelligenza Artificiale</h2>
+                
+                <!-- OBIETTIVI DI APPRENDIMENTO -->
+                <div class="info-box idea">
+                    <strong>🎯 Obiettivi di Apprendimento</strong>
+                    Al termine di questo modulo sarai in grado di:
+                    <ul>
+                        <li>Definire l'intelligenza artificiale e distinguere tra IA debole e forte</li>
+                        <li>Comprendere l'evoluzione storica e le tappe fondamentali dell'IA</li>
+                        <li>Spiegare i principi del Machine Learning e del Deep Learning</li>
+                        <li>Descrivere il funzionamento delle reti neurali artificiali</li>
+                        <li>Analizzare criticamente rischi e benefici dell'IA nella società contemporanea</li>
+                    </ul>
+                </div>
+
+                <!-- INDICE CLICCABILE -->
+                <div class="table-of-contents">
+                    <h3>📋 Indice dei Contenuti</h3>
+                    <ul>
+                        <li><a href="#cosa-ia">1. Cos'è l'Intelligenza Artificiale</a></li>
+                        <li><a href="#ia-debole-forte">2. IA Debole vs IA Forte</a></li>
+                        <li><a href="#storia">3. Storia ed Evoluzione</a></li>
+                        <li><a href="#data-science">4. Data Science e Tipologie di Dati</a></li>
+                        <li><a href="#machine-learning">5. Machine Learning</a></li>
+                        <li><a href="#deep-learning">6. Deep Learning e Reti Neurali</a></li>
+                        <li><a href="#hardware">7. Hardware per l'IA</a></li>
+                        <li><a href="#aied">8. IA nell'Educazione (AIED)</a></li>
+                        <li><a href="#etica">9. Etica, Rischi e Benefici</a></li>
+                        <li><a href="#glossario">10. Glossario</a></li>
+                        <li><a href="#faq">11. Domande Frequenti</a></li>
+                    </ul>
+                </div>
+
+                <!-- 1. COS'È L'INTELLIGENZA ARTIFICIALE -->
+                <div id="cosa-ia">
+                    <h3>1. Cos'è l'Intelligenza Artificiale</h3>
+                    
+                    <p>L'<strong>intelligenza artificiale</strong> (IA) è un campo di studio dell'informatica che si concentra sulla creazione di sistemi capaci di svolgere compiti che, se eseguiti da esseri umani, richiederebbero intelligenza. La prima definizione storica, risalente al 1955, affermava che "il problema dell'IA consiste nel far sì che una macchina agisca in modi che sarebbero considerati intelligenti se un essere umano si comportasse allo stesso modo".</p>
+
+                    <p>In termini più moderni, possiamo definire l'IA come una <strong>disciplina scientifica</strong> che studia le capacità dei sistemi informatici di simulare processi cognitivi umani come il ragionamento, l'apprendimento e la capacità decisionale. Non si tratta di creare macchine "pensanti" nel senso umano, ma piuttosto sistemi che possono <em>elaborare informazioni</em>, <em>riconoscere pattern</em> e <em>prendere decisioni</em> in modo autonomo o semi-autonomo.</p>
+
+                    <div class="info-box example">
+                        <strong>🔎 Esempio Concreto</strong>
+                        Quando chiedi al tuo smartphone "che tempo farà domani?", l'assistente vocale utilizza l'IA per: riconoscere la tua voce, comprendere il significato della domanda, cercare le informazioni meteo e formulare una risposta appropriata. Tutto questo avviene in pochi secondi grazie a sistemi di IA che operano in background.
+                    </div>
+
+                    <div class="info-box remember">
+                        <strong>📌 Da Ricordare</strong>
+                        L'IA non "pensa" come gli esseri umani, ma elabora dati attraverso algoritmi matematici complessi. La simulazione dell'intelligenza non equivale alla coscienza.
+                    </div>
+
+                    <h4>Perché l'IA è così importante oggi?</h4>
+                    
+                    <p>L'intelligenza artificiale rappresenta la <strong>rivoluzione tecnologica</strong> del nostro tempo. Così come le rivoluzioni industriali del passato hanno trasformato la produzione e l'organizzazione del lavoro, l'IA sta cambiando radicalmente il modo in cui interagiamo con la tecnologia e il mondo circostante.</p>
+
+                    <p>L'automazione e l'ottimizzazione dei processi sono solo l'inizio: l'IA apre nuove possibilità in campi cruciali come la <strong>medicina</strong> (diagnosi precoce, chirurgia robotica), la <strong>finanza</strong> (rilevamento frodi, trading algoritmico), l'<strong>ingegneria</strong> (progettazione assistita), l'<strong>arte</strong> (creazione di contenuti) e, soprattutto, l'<strong>educazione</strong> (personalizzazione dell'apprendimento).</p>
+
+                    <div class="info-box warning">
+                        <strong>⚠️ Attenzione</strong>
+                        Queste opportunità portano con sé anche nuove sfide sociali, etiche ed economiche: impatto sull'occupazione, privacy dei dati, bias algoritmici e questioni di equità. È fondamentale sviluppare un uso critico e consapevole dell'IA.
+                    </div>
+
+                    <h4>Caratteristiche fondamentali dell'IA</h4>
+                    
+                    <p>Le caratteristiche principali che contraddistinguono l'intelligenza artificiale sono:</p>
+                    <ul>
+                        <li><strong>Simulazione di processi cognitivi</strong>: capacità di riprodurre alcuni aspetti del ragionamento umano, come il riconoscimento di pattern, la categorizzazione e la previsione</li>
+                        <li><strong>Apprendimento automatico</strong>: possibilità di migliorare le proprie prestazioni attraverso l'esperienza, senza essere esplicitamente riprogrammate</li>
+                        <li><strong>Elaborazione di grandi quantità di dati</strong>: uso combinato di algoritmi, dati e tecniche di apprendimento per estrarre informazioni significative</li>
+                        <li><strong>Adattabilità</strong>: capacità di adattare le proprie risposte a contesti e situazioni diverse</li>
+                    </ul>
+
+                    <p><a href="#schemi" style="color: var(--primary-color); font-weight: 600;">→ Vai agli schemi per una visualizzazione della relazione AI-ML-DL</a></p>
+                </div>
+
+                <!-- 2. IA DEBOLE VS IA FORTE -->
+                <div id="ia-debole-forte">
+                    <h3>2. IA Debole vs IA Forte</h3>
+                    
+                    <p>L'intelligenza artificiale può essere distinta in due grandi categorie concettuali, che differiscono profondamente per obiettivi, capacità e stato di sviluppo.</p>
+
+                    <h4>IA Debole (o Ristretta - Narrow AI)</h4>
+                    
+                    <p>L'<strong>IA debole</strong> è progettata per svolgere un compito specifico o un insieme molto limitato di compiti. Non possiede una comprensione generale del contesto, ma può essere estremamente efficiente nel lavoro per cui è stata addestrata. Questa è l'IA che utilizziamo quotidianamente.</p>
+
+                    <div class="info-box example">
+                        <strong>🔎 Esempi di IA Debole</strong>
+                        <ul>
+                            <li><strong>Assistenti vocali</strong> (Siri, Alexa, Google Assistant): rispondono a comandi vocali e compiono azioni precise, ma non comprendono realmente il significato delle conversazioni</li>
+                            <li><strong>Sistemi di raccomandazione</strong> (Netflix, Spotify): suggeriscono contenuti in base alle preferenze passate</li>
+                            <li><strong>Filtri antispam</strong>: identificano e bloccano email indesiderate</li>
+                            <li><strong>Riconoscimento facciale</strong>: sblocca smartphone o identifica persone in foto</li>
+                            <li><strong>Navigatori GPS</strong>: calcolano il percorso ottimale in tempo reale</li>
+                        </ul>
+                    </div>
+
+                    <p>Le caratteristiche dell'IA debole sono:</p>
+                    <ul>
+                        <li>Eccelle in un dominio specifico, ma fallisce completamente in altri</li>
+                        <li>Non può trasferire conoscenze da un campo all'altro</li>
+                        <li>Non possiede coscienza, comprensione semantica o intenzionalità</li>
+                        <li>È l'unica forma di IA realmente esistente e operativa oggi</li>
+                    </ul>
+
+                    <h4>IA Forte (o Generale - AGI - Artificial General Intelligence)</h4>
+                    
+                    <p>L'<strong>IA forte</strong> è un concetto teorico che descrive un sistema con intelligenza pari o superiore a quella umana. Un'IA di questo tipo sarebbe in grado di svolgere qualsiasi compito intellettuale che una persona può fare, trasferendo conoscenze e competenze da un campo all'altro, comprendendo il contesto e mostrando creatività genuina.</p>
+
+                    <div class="info-box idea">
+                        <strong>💡 Concetto Chiave</strong>
+                        L'IA forte resta un obiettivo non raggiunto e controverso. Molti esperti dibattono se sia tecnicamente possibile, eticamente desiderabile e quando potrebbe essere sviluppata (se mai lo sarà). Le stime vanno da pochi decenni a "mai".
+                    </div>
+
+                    <p>Le caratteristiche teoriche dell'IA forte sarebbero:</p>
+                    <ul>
+                        <li>Capacità di apprendimento generalizzato e transfer learning completo</li>
+                        <li>Comprensione profonda del linguaggio e del contesto</li>
+                        <li>Ragionamento astratto e risoluzione creativa di problemi</li>
+                        <li>Possibile coscienza o autoconsapevolezza (questione filosofica aperta)</li>
+                    </ul>
+
+                    <div class="info-box warning">
+                        <strong>⚠️ Errore Comune</strong>
+                        Nei media si parla spesso di "IA" come se fosse vicina all'intelligenza umana generale. In realtà, anche i sistemi più avanzati (come i modelli linguistici di grandi dimensioni) sono forme sofisticate di IA debole: eccellono in compiti linguistici ma non possiedono comprensione vera o capacità generalizzate.
+                    </div>
+
+                    <p><a href="#schemi" style="color: var(--primary-color); font-weight: 600;">→ Consulta lo schema sulla timeline dell'IA per vedere l'evoluzione</a></p>
+                </div>
+
+                <!-- 3. STORIA ED EVOLUZIONE -->
+                <div id="storia">
+                    <h3>3. Storia ed Evoluzione dell'IA</h3>
+                    
+                    <p>Lo sviluppo dell'intelligenza artificiale è una storia affascinante di alti e bassi, caratterizzata da momenti di grande entusiasmo seguiti da periodi di disillusione (i cosiddetti "inverni dell'IA"). Comprendere questa storia aiuta a contestualizzare lo stato attuale della tecnologia.</p>
+
+                    <h4>Le Origini (1950-1960)</h4>
+                    
+                    <p>Il campo dell'IA nasce ufficialmente nel 1956 con la <strong>Conferenza di Dartmouth</strong>, dove informatici visionari si riunirono per discutere la possibilità di creare macchine pensanti. Tuttavia, le radici concettuali risalgono a prima:</p>
+
+                    <ul>
+                        <li><strong>1950</strong>: Alan Turing pubblica "Computing Machinery and Intelligence" e propone il celebre <strong>Test di Turing</strong>, concepito per valutare se una macchina possa mostrare un comportamento indistinguibile da quello umano in una conversazione</li>
+                        <li><strong>1956</strong>: La Conferenza di Dartmouth segna la nascita ufficiale dell'IA come disciplina</li>
+                        <li><strong>1960</strong>: Vengono create le prime realizzazioni concrete, come <strong>ELIZA</strong>, un chatbot sviluppato da Joseph Weizenbaum che simulava una conversazione terapeutica</li>
+                    </ul>
+
+                    <div class="info-box example">
+                        <strong>🔎 Il Test di Turing</strong>
+                        Immagina di chattare con due entità sconosciute: una è una persona, l'altra un computer. Se non riesci a distinguere quale sia quale, secondo Turing il computer avrebbe dimostrato "intelligenza". Questo test rimane controverso ancora oggi.
+                    </div>
+
+                    <h4>Il Primo Inverno dell'IA (1970)</h4>
+                    
+                    <p>Negli anni '70, l'entusiasmo iniziale lasciò spazio alla delusione. I <strong>limiti tecnologici</strong> erano evidenti: i computer erano troppo lenti e costosi, la memoria era scarsa, e gli algoritmi non potevano gestire la complessità del mondo reale. Le promesse esagerate non furono mantenute, portando a un drastico taglio dei finanziamenti alla ricerca.</p>
+
+                    <h4>La Rinascita con i Sistemi Esperti (1980)</h4>
+                    
+                    <p>Gli anni '80 videro una rinascita grazie ai <strong>sistemi esperti</strong>: programmi che incorporavano la conoscenza di esperti umani in domini specifici (medicina, ingegneria, finanza) per risolvere problemi complessi. Questi sistemi avevano però un limite: richiedevano che tutta la conoscenza fosse codificata manualmente da programmatori, un processo lungo e costoso.</p>
+
+                    <h4>L'Ascesa del Machine Learning (1990-2000)</h4>
+                    
+                    <p>Negli anni '90 si affermò un nuovo paradigma: il <strong>Machine Learning</strong>. Invece di programmare esplicitamente ogni regola, i sistemi cominciarono ad apprendere autonomamente dai dati. Questo approccio si rivelò molto più flessibile e scalabile.</p>
+
+                    <div class="info-box idea">
+                        <strong>💡 Svolta Concettuale</strong>
+                        Il passaggio dai sistemi basati su regole all'apprendimento dai dati rappresentò una rivoluzione: non più "dì alla macchina cosa fare", ma "mostra alla macchina esempi e lascia che impari da sola".
+                    </div>
+
+                    <h4>Trionfi Simbolici (1997-2011)</h4>
+                    
+                    <p>Una serie di eventi mediatici dimostrò al pubblico le potenzialità dell'IA:</p>
+                    <ul>
+                        <li><strong>1997</strong>: <strong>Deep Blue</strong> della IBM sconfisse il campione mondiale di scacchi Garry Kasparov, dimostrando che le macchine potevano superare l'uomo in compiti cognitivi complessi</li>
+                        <li><strong>2000</strong>: Sviluppo delle prime <strong>auto a guida autonoma</strong>, simbolo dell'applicazione pratica dell'IA</li>
+                        <li><strong>2010</strong>: Diffusione degli <strong>assistenti vocali</strong> sugli smartphone (Siri, Google Now)</li>
+                        <li><strong>2011</strong>: <strong>IBM Watson</strong> vinse il quiz televisivo Jeopardy!, mostrando abilità avanzate di comprensione del linguaggio naturale</li>
+                    </ul>
+
+                    <h4>L'Era del Deep Learning e dell'IA Generativa (2012-oggi)</h4>
+                    
+                    <p>Dal 2012 in poi, grazie alla disponibilità di enormi dataset e alla potenza di calcolo delle GPU, il <strong>Deep Learning</strong> ha trasformato l'IA:</p>
+
+                    <ul>
+                        <li><strong>2012</strong>: Una rete neurale profonda (AlexNet) vinse la competizione ImageNet nel riconoscimento di immagini con un margine enorme</li>
+                        <li><strong>2014</strong>: Lancio di <strong>Alexa</strong> (Amazon) e comparsa di bot come <strong>Eugene Goostman</strong> che in alcuni test superò il Test di Turing</li>
+                        <li><strong>2016</strong>: <strong>AlphaGo</strong> (Google DeepMind) sconfisse il campione mondiale di Go, Lee Sedol, in un gioco considerato molto più complesso degli scacchi</li>
+                        <li><strong>2022-oggi</strong>: Esplosione delle <strong>IA generative</strong> come ChatGPT (modelli linguistici), DALL-E e Midjourney (generazione di immagini), capaci di produrre contenuti originali e creativi</li>
+                    </ul>
+
+                    <div class="info-box remember">
+                        <strong>📌 Da Ricordare</strong>
+                        L'attuale successo dell'IA è dovuto a due fattori chiave: <strong>Big Data</strong> (disponibilità di enormi quantità di dati) e <strong>potenza di calcolo</strong> (GPU e TPU). Senza questi due elementi, il Deep Learning non sarebbe stato possibile.
+                    </div>
+
+                    <p><a href="#schemi" style="color: var(--primary-color); font-weight: 600;">→ Vedi la timeline completa negli schemi interattivi</a></p>
+                </div>
+
+                <!-- 4. DATA SCIENCE E DATI -->
+                <div id="data-science">
+                    <h3>4. Data Science e Tipologie di Dati</h3>
+                    
+                    <p>Dietro il funzionamento di ogni sistema di IA si trova la <strong>scienza dei dati</strong> (Data Science), una disciplina che si occupa di estrarre conoscenza significativa dai dati. Non è un sottoinsieme dell'IA, ma un campo autonomo che utilizza strumenti statistici, informatici e matematici per analizzare, visualizzare e interpretare dati.</p>
+
+                    <h4>Il Ruolo del Data Scientist</h4>
+                    
+                    <p>Il <strong>data scientist</strong> è il professionista che raccoglie, pulisce, analizza e interpreta grandi quantità di dati per ricavarne informazioni utili. Le sue competenze spaziano dalla statistica alla programmazione, dalla visualizzazione dati alla comunicazione dei risultati. La scienza dei dati fornisce le fondamenta su cui l'IA viene addestrata e migliorata.</p>
+
+                    <h4>Tipologie di Dati per l'IA</h4>
+                    
+                    <p>I dati sono il "carburante" dell'intelligenza artificiale. Senza dati di qualità, anche l'algoritmo più sofisticato non può funzionare correttamente. Esistono tre tipologie principali:</p>
+
+                    <h4>1. Dati Strutturati</h4>
+                    <p>Sono organizzati in tabelle o database con righe e colonne, facilmente gestibili dai computer. Ogni informazione ha un posto preciso e un formato predefinito.</p>
+                    <div class="info-box example">
+                        <strong>🔎 Esempi:</strong> fogli Excel, database relazionali (anagrafe scolastica, inventari, registri contabili), file CSV
+                    </div>
+
+                    <h4>2. Dati Non Strutturati</h4>
+                    <p>Sono privi di una struttura fissa: non seguono uno schema predefinito. Rappresentano circa l'80% dei dati prodotti nel mondo e sono la parte più complessa da elaborare, ma anche la più ricca di informazioni.</p>
+                    <div class="info-box example">
+                        <strong>🔎 Esempi:</strong> testi liberi (email, post sui social, articoli), immagini, video, audio, messaggi di chat
+                    </div>
+
+                    <h4>3. Dati Semistrutturati</h4>
+                    <p>Rappresentano una via di mezzo: hanno elementi parzialmente organizzati, ma non seguono rigidamente lo schema di un database.</p>
+                    <div class="info-box example">
+                        <strong>🔎 Esempi:</strong> file XML, JSON (usati nelle API web), log di sistema, dati da sensori IoT
+                    </div>
+
+                    <div class="info-box idea">
+                        <strong>💡 Perché Contano i Dati?</strong>
+                        La capacità dell'IA di sfruttare contemporaneamente queste diverse tipologie di dati è ciò che la rende così potente e versatile. Un sistema moderno può analizzare testi, immagini e dati strutturati insieme per prendere decisioni più accurate.
+                    </div>
+
+                    <div class="info-box warning">
+                        <strong>⚠️ Qualità vs Quantità</strong>
+                        Non basta avere molti dati: devono essere di qualità. Dati incompleti, errati o distorti (bias nei dati) producono IA distorte che possono perpetuare o amplificare discriminazioni.
+                    </div>
+                </div>
+
+                <!-- 5. MACHINE LEARNING -->
+                <div id="machine-learning">
+                    <h3>5. Machine Learning (Apprendimento Automatico)</h3>
+                    
+                    <p>Il <strong>Machine Learning</strong> (ML) è una branca dell'intelligenza artificiale che permette alle macchine di imparare dai dati senza essere programmate esplicitamente per ogni singolo compito. Invece di scrivere regole dettagliate, si forniscono esempi e il sistema impara autonomamente a riconoscere pattern, regole e relazioni.</p>
+
+                    <div class="info-box idea">
+                        <strong>💡 Analogia Didattica</strong>
+                        Pensa a come impari a riconoscere un cane: non ti hanno dato una lista di regole ("ha quattro zampe, pelo, abbaia…"), ma hai visto molti cani e il tuo cervello ha imparato a distinguerli. Il Machine Learning funziona in modo simile.
+                    </div>
+
+                    <h4>Come Funziona il Machine Learning?</h4>
+                    
+                    <p>Un algoritmo di ML riceve dei dati in input, identifica pattern e relazioni, e costruisce un <strong>modello</strong> (una rappresentazione matematica) che può essere usato per fare previsioni o prendere decisioni su nuovi dati mai visti prima.</p>
+
+                    <h4>Le Tre Tipologie di Apprendimento</h4>
+
+                    <h4>1. Supervised Learning (Apprendimento Supervisionato)</h4>
+                    
+                    <p>Nell'apprendimento supervisionato, l'algoritmo viene addestrato su un insieme di dati in cui ogni input è già associato alla "risposta corretta" (etichetta o label). Il sistema impara la relazione tra input e output osservando molti esempi.</p>
+
+                    <div class="info-box example">
+                        <strong>🔎 Esempio Pratico</strong>
+                        Immagina di voler insegnare a un sistema a distinguere email spam da email legittime. Gli fornisci migliaia di email già etichettate ("spam" / "non spam"). Il sistema analizza le caratteristiche (mittente, oggetto, parole chiave) e impara a classificare nuove email mai viste prima.
+                    </div>
+
+                    <p><strong>Applicazioni comuni:</strong></p>
+                    <ul>
+                        <li><strong>Classificazione</strong>: categorizzare elementi (spam/non spam, diagnosi mediche, riconoscimento immagini)</li>
+                        <li><strong>Regressione</strong>: prevedere valori numerici (prezzo di una casa, temperatura futura, vendite previste)</li>
+                    </ul>
+
+                    <h4>2. Unsupervised Learning (Apprendimento Non Supervisionato)</h4>
+                    
+                    <p>L'apprendimento non supervisionato lavora con dati privi di etichette. L'algoritmo cerca autonomamente regolarità, strutture nascoste e raggruppamenti nei dati.</p>
+
+                    <div class="info-box example">
+                        <strong>🔎 Esempio Pratico</strong>
+                        Netflix analizza le preferenze di milioni di utenti senza sapere in anticipo quali "categorie" creare. Il sistema identifica automaticamente gruppi di persone con gusti simili (cluster) e può suggerire film adatti a ciascun gruppo.
+                    </div>
+
+                    <p><strong>Applicazioni comuni:</strong></p>
+                    <ul>
+                        <li><strong>Clustering</strong>: raggruppare elementi simili (segmentazione clienti, organizzazione documenti)</li>
+                        <li><strong>Riduzione dimensionale</strong>: semplificare dati complessi mantenendo le informazioni più importanti</li>
+                        <li><strong>Rilevamento anomalie</strong>: identificare comportamenti insoliti (frodi bancarie, guasti in macchinari)</li>
+                    </ul>
+
+                    <h4>3. Reinforcement Learning (Apprendimento per Rinforzo)</h4>
+                    
+                    <p>In questo approccio, l'IA impara interagendo con un ambiente e ricevendo feedback sotto forma di <strong>ricompense</strong> (per azioni corrette) o <strong>penalità</strong> (per azioni sbagliate). Col tempo, il sistema impara a massimizzare le ricompense ottimizzando le proprie strategie.</p>
+
+                    <div class="info-box example">
+                        <strong>🔎 Esempio Pratico</strong>
+                        Un'IA che impara a giocare a scacchi prova mosse diverse: riceve punteggi positivi quando vince e negativi quando perde. Dopo migliaia di partite, il sistema ha imparato strategie vincenti senza che nessuno gli abbia insegnato esplicitamente le regole strategiche.
+                    </div>
+
+                    <p><strong>Applicazioni comuni:</strong></p>
+                    <ul>
+                        <li><strong>Robotica</strong>: robot che imparano a camminare, afferrare oggetti</li>
+                        <li><strong>Veicoli autonomi</strong>: decisioni di guida in tempo reale</li>
+                        <li><strong>Giochi</strong>: sistemi che battono campioni umani (AlphaGo, OpenAI Dota 2)</li>
+                        <li><strong>Chatbot avanzati</strong>: ChatGPT usa una variante chiamata <strong>RLHF</strong> (Reinforcement Learning from Human Feedback) per affinare le risposte in base ai giudizi degli utenti</li>
+                    </ul>
+
+                    <div class="info-box remember">
+                        <strong>📌 Da Ricordare</strong>
+                        <ul>
+                            <li><strong>Supervised</strong>: imparo da esempi etichettati</li>
+                            <li><strong>Unsupervised</strong>: scopro pattern nei dati senza etichette</li>
+                            <li><strong>Reinforcement</strong>: imparo per prove ed errori, ricevendo feedback</li>
+                        </ul>
+                    </div>
+
+                    <p><a href="#schemi" style="color: var(--primary-color); font-weight: 600;">→ Consulta lo schema della Pipeline ML per vedere il processo completo</a></p>
+                </div>
+
+                <!-- 6. DEEP LEARNING E RETI NEURALI -->
+                <div id="deep-learning">
+                    <h3>6. Deep Learning e Reti Neurali</h3>
+                    
+                    <p>Il <strong>Deep Learning</strong> (apprendimento profondo) è un sottoinsieme del Machine Learning che utilizza <strong>reti neurali artificiali</strong> con molti strati (layer). Queste reti sono vagamente ispirate al funzionamento del cervello umano e sono particolarmente efficaci nell'elaborare dati complessi come immagini, audio, video e testi.</p>
+
+                    <h4>Cosa Sono le Reti Neurali?</h4>
+                    
+                    <p>Le <strong>reti neurali artificiali</strong> sono modelli matematici e computazionali composti da unità chiamate <strong>neuroni artificiali</strong>, organizzate in strati interconnessi. Ogni neurone riceve segnali in ingresso, li elabora e trasmette un segnale in uscita.</p>
+
+                    <h4>Struttura di una Rete Neurale</h4>
+                    
+                    <p>Una rete neurale tipica è organizzata in tre tipi di strati:</p>
+                    <ul>
+                        <li><strong>Strato di input (ingresso)</strong>: riceve le informazioni iniziali, ad esempio i pixel di un'immagine o le parole di una frase</li>
+                        <li><strong>Strati nascosti (hidden layers)</strong>: elaborano i dati attraverso trasformazioni complesse. Più strati ci sono, più la rete è "profonda" (da cui "Deep Learning")</li>
+                        <li><strong>Strato di output (uscita)</strong>: restituisce il risultato finale, ad esempio "questa è un'immagine di un gatto" oppure "la probabilità di pioggia domani è 80%"</li>
+                    </ul>
+
+                    <div class="info-box idea">
+                        <strong>💡 Analogia</strong>
+                        Pensa alla rete neurale come a una catena di montaggio: ogni "stazione" (strato) trasforma il prodotto (dati) un po' di più, fino ad arrivare al prodotto finito (output).
+                    </div>
+
+                    <h4>Il Neurone Artificiale</h4>
+                    
+                    <p>Il <strong>neurone artificiale</strong> è l'unità base di calcolo. Funziona così:</p>
+                    <ol>
+                        <li>Riceve diversi segnali in ingresso (numeri)</li>
+                        <li>Moltiplica ciascun segnale per un <strong>peso</strong> (weight), che rappresenta l'importanza di quell'input</li>
+                        <li>Somma tutti i valori pesati</li>
+                        <li>Applica una <strong>funzione di attivazione</strong>, che decide se e quanto forte sarà il segnale in uscita</li>
+                    </ol>
+
+                    <div class="info-box example">
+                        <strong>🔎 Esempio Semplificato</strong>
+                        Immagina un neurone che decide se comprare un gelato. Riceve tre input: temperatura (30°C), soldi disponibili (5€), voglia di dolce (alta). Ciascun fattore ha un peso diverso. Se la somma pesata supera una certa soglia, il neurone "si attiva" e dice "compra il gelato!".
+                    </div>
+
+                    <h4>Come Impara una Rete Neurale?</h4>
+
+                    <p>L'apprendimento avviene attraverso un processo chiamato <strong>backpropagation</strong> (retropropagazione):</p>
+                    <ol>
+                        <li>La rete fa una previsione su un esempio di addestramento</li>
+                        <li>Confronta la previsione con la risposta corretta e calcola l'<strong>errore</strong></li>
+                        <li>L'errore viene "propagato all'indietro" attraverso i vari strati</li>
+                        <li>I <strong>pesi</strong> dei neuroni vengono aggiustati leggermente per ridurre l'errore</li>
+                        <li>Questo processo si ripete migliaia o milioni di volte (epoche di addestramento)</li>
+                    </ol>
+
+                    <div class="info-box idea">
+                        <strong>💡 Metafora</strong>
+                        È come imparare a giocare a basket: all'inizio sbagli molti tiri, ma dopo ogni errore aggiusti leggermente la forza e l'angolazione. Dopo mille tentativi, hai imparato a centrare il canestro più spesso.
+                    </div>
+
+                    <h4>Tipologie di Reti Neurali</h4>
+
+                    <p>Esistono diverse architetture specializzate per compiti specifici:</p>
+
+                    <ul>
+                        <li><strong>CNN (Convolutional Neural Networks)</strong>: eccellono nel riconoscimento di immagini e video. Usano "filtri" per identificare caratteristiche come bordi, forme, colori</li>
+                        <li><strong>RNN (Recurrent Neural Networks)</strong>: adatte a sequenze temporali come il linguaggio, la musica o i dati di borsa. Hanno una "memoria" degli input precedenti</li>
+                        <li><strong>GAN (Generative Adversarial Networks)</strong>: due reti che "competono": una genera immagini false, l'altra cerca di distinguerle dalle vere. Risultato: immagini realistiche generate dall'IA</li>
+                        <li><strong>Transformer</strong>: architettura rivoluzionaria alla base di modelli linguistici come GPT e BERT. Eccelle nel comprendere e generare linguaggio naturale</li>
+                    </ul>
+
+                    <div class="info-box remember">
+                        <strong>📌 Da Ricordare</strong>
+                        Il Deep Learning ha reso possibili applicazioni un tempo impensabili: riconoscimento vocale accurato, traduzione automatica di qualità, generazione di immagini fotorealistiche, guida autonoma. Ma richiede enormi quantità di dati e potenza di calcolo.
+                    </div>
+
+                    <p><a href="#schemi" style="color: var(--primary-color); font-weight: 600;">→ Vedi lo schema della rete neurale per una visualizzazione grafica</a></p>
+                </div>
+
+                <!-- 7. HARDWARE -->
+                <div id="hardware">
+                    <h3>7. Hardware per l'Intelligenza Artificiale</h3>
+                    
+                    <p>L'addestramento di reti neurali profonde richiede un'enorme quantità di calcoli matematici (moltiplicazioni e addizioni di matrici). I computer tradizionali, progettati per eseguire operazioni in sequenza, non sono ottimali per questo tipo di lavoro. Per questo motivo sono stati sviluppati hardware specializzati.</p>
+
+                    <h4>CPU vs GPU vs TPU</h4>
+
+                    <h4>CPU (Central Processing Unit)</h4>
+                    <p>È il "cervello" generale del computer, ottimizzato per eseguire molti tipi diversi di operazioni in sequenza. È versatile ma non particolarmente veloce nel calcolo parallelo richiesto dall'IA.</p>
+
+                    <h4>GPU (Graphics Processing Unit)</h4>
+                    <p>Nate per la grafica 3D nei videogiochi, le GPU sono eccellenti nell'eseguire lo stesso calcolo su migliaia di dati contemporaneamente (<strong>parallelismo massiccio</strong>). Questo le rende ideali per il Deep Learning.</p>
+
+                    <div class="info-box example">
+                        <strong>🔎 Analogia</strong>
+                        La CPU è come uno chef molto abile che prepara piatti complessi uno alla volta. La GPU è come una catena di montaggio con cento cuochi che preparano tutti lo stesso piatto contemporaneamente: meno versatile, ma molto più veloce per compiti ripetitivi.
+                    </div>
+
+                    <h4>TPU (Tensor Processing Unit)</h4>
+                    <p>Sono chip sviluppati da Google specificamente per il Deep Learning. Sono ancora più specializzati e efficienti delle GPU per addestrare grandi reti neurali, ma meno flessibili per altri scopi.</p>
+
+                    <div class="info-box idea">
+                        <strong>💡 Perché è Importante?</strong>
+                        Senza GPU e TPU, modelli come ChatGPT o i generatori di immagini non esisterebbero. Addestrare una rete neurale di grandi dimensioni su CPU richiederebbe anni invece di settimane.
+                    </div>
+
+                    <h4>Differenze Architetturali</h4>
+                    
+                    <p>A differenza dei computer tradizionali che separano memoria (RAM) ed elaborazione (CPU), le reti neurali integrate nelle GPU/TPU possono memorizzare informazioni nei neuroni stessi, rendendo l'elaborazione molto più rapida ed efficiente.</p>
+                </div>
+
+                <!-- 8. AIED -->
+                <div id="aied">
+                    <h3>8. IA nell'Educazione (AIED - AI in Education)</h3>
+                    
+                    <p>L'intelligenza artificiale applicata all'educazione (AIED) è un settore in rapida crescita che studia come le tecnologie intelligenti possano supportare e migliorare i processi formativi. L'obiettivo non è sostituire gli insegnanti, ma fornire strumenti per personalizzare l'apprendimento e rendere l'educazione più efficace e inclusiva.</p>
+
+                    <h4>Le Quattro Fasi Evolutive dell'AIED</h4>
+
+                    <p>Secondo Panciroli e Rivoltella (2023), possiamo distinguere quattro fasi:</p>
+
+                    <ol>
+                        <li><strong>Fase meccanica</strong>: uso delle prime macchine per attività didattiche elementari (macchine per insegnare, calcolatrici)</li>
+                        <li><strong>Fase della programmazione</strong>: sviluppo di software educativi che seguono percorsi prestabiliti (tutorial, quiz automatici)</li>
+                        <li><strong>Fase della personalizzazione (Self Adaptive Studies)</strong>: sistemi che adattano il percorso educativo al singolo studente in base alle sue prestazioni</li>
+                        <li><strong>Fase dell'adattamento intellettuale (Intellectual Adaptive Studies)</strong>: sistemi avanzati che comprendono lo stile cognitivo dello studente e modificano dinamicamente strategie didattiche, contenuti e modalità di presentazione</li>
+                    </ol>
+
+                    <h4>Applicazioni Attuali dell'AIED</h4>
+
+                    <ul>
+                        <li><strong>Tutoring intelligente</strong>: sistemi che forniscono supporto personalizzato, identificando le lacune di ogni studente</li>
+                        <li><strong>Valutazione automatica</strong>: correzione di test e compiti con feedback immediato</li>
+                        <li><strong>Generazione di contenuti</strong>: creazione automatica di esercizi, schemi, riassunti adattati al livello dello studente</li>
+                        <li><strong>Supporto agli insegnanti</strong>: analisi delle prestazioni della classe, suggerimenti per interventi mirati</li>
+                        <li><strong>Accessibilità</strong>: strumenti per studenti con bisogni educativi speciali (sintesi vocale, traduzione in tempo reale, semplificazione testi)</li>
+                    </ul>
+
+                    <div class="info-box idea">
+                        <strong>💡 Visione</strong>
+                        L'AIED può aprire la strada a un'educazione più flessibile, personalizzata e inclusiva, dove ogni studente riceve il supporto di cui ha bisogno, quando ne ha bisogno.
+                    </div>
+
+                    <div class="info-box warning">
+                        <strong>⚠️ Limiti e Rischi</strong>
+                        L'IA non può sostituire la relazione educativa umana, l'empatia e la motivazione che un buon insegnante sa trasmettere. Inoltre, sistemi mal progettati possono perpetuare disuguaglianze e bias. È fondamentale mantenere un approccio critico e centrato sullo studente.
+                    </div>
+                </div>
+
+                <!-- 9. ETICA, RISCHI E BENEFICI -->
+                <div id="etica">
+                    <h3>9. Etica dell'IA: Rischi e Benefici</h3>
+                    
+                    <p>L'intelligenza artificiale, come ogni tecnologia potente, porta con sé enormi opportunità ma anche rischi significativi. La questione centrale è: <strong>sarà la tecnologia ad adattarsi a noi o saremo noi ad adattarci a essa?</strong> La risposta dipende dalle scelte che faremo come società.</p>
+
+                    <h4>Rischi Principali</h4>
+
+                    <h4>1. Bias Algoritmico</h4>
+                    <p>I sistemi di IA possono incorporare e amplificare pregiudizi presenti nei dati di addestramento. Se i dati storici riflettono discriminazioni (di genere, razza, età), l'IA le riprodurrà.</p>
+                    
+                    <div class="info-box example">
+                        <strong>🔎 Caso Reale: COMPAS</strong>
+                        Negli USA, il software COMPAS viene usato in tribunale per valutare il rischio di recidiva dei detenuti. Studi hanno dimostrato che il sistema presentava forti distorsioni discriminatorie contro persone di colore, sovrastimando il loro rischio.
+                    </div>
+
+                    <h4>2. Privacy e Sorveglianza</h4>
+                    <p>Sistemi di riconoscimento facciale e analisi comportamentale possono essere usati per sorveglianza di massa, minacciando la privacy e le libertà individuali.</p>
+
+                    <h4>3. Disoccupazione Tecnologica</h4>
+                    <p>L'automazione di mansioni tradizionalmente affidate agli esseri umani può causare perdita di posti di lavoro, soprattutto in settori come la produzione, la logistica e alcuni servizi.</p>
+
+                    <h4>4. Deepfake e Manipolazione</h4>
+                    <p>Tecnologie che generano video e audio falsi ma realistici possono essere usate per diffondere disinformazione, truffe e danneggiare reputazioni.</p>
+
+                    <h4>5. Dipendenza e Perdita di Competenze</h4>
+                    <p>Un uso eccessivo dell'IA potrebbe portare a una perdita di capacità critiche e di problem-solving autonomo.</p>
+
+                    <div class="info-box warning">
+                        <strong>⚠️ Responsabilità</strong>
+                        Chi è responsabile quando un'IA sbaglia? Il programmatore? L'azienda? L'utente? Queste domande richiedono una riflessione giuridica ed etica urgente.
+                    </div>
+
+                    <h4>Benefici Principali</h4>
+
+                    <h4>1. Medicina e Salute</h4>
+                    <ul>
+                        <li><strong>Diagnosi precoce</strong>: analisi di immagini mediche per individuare tumori, malattie oculari, patologie cardiovascolari</li>
+                        <li><strong>Chirurgia robotica</strong>: interventi più precisi e meno invasivi</li>
+                        <li><strong>Scoperta di farmaci</strong>: accelerazione della ricerca farmaceutica</li>
+                        <li><strong>Telemedicina</strong>: assistenza sanitaria remota per aree isolate</li>
+                    </ul>
+
+                    <h4>2. Educazione</h4>
+                    <ul>
+                        <li><strong>Personalizzazione</strong>: percorsi di apprendimento adattati a ogni studente</li>
+                        <li><strong>Accessibilità</strong>: strumenti per studenti con disabilità</li>
+                        <li><strong>Supporto agli insegnanti</strong>: analisi delle prestazioni e suggerimenti didattici</li>
+                    </ul>
+
+                    <h4>3. Efficienza e Produttività</h4>
+                    <ul>
+                        <li><strong>Automazione di compiti ripetitivi</strong>: liberare tempo per attività creative e strategiche</li>
+                        <li><strong>Ottimizzazione dei processi</strong>: riduzione sprechi in produzione, logistica, energia</li>
+                        <li><strong>Assistenti virtuali</strong>: supporto in attività quotidiane</li>
+                    </ul>
+
+                    <h4>4. Sostenibilità Ambientale</h4>
+                    <ul>
+                        <li><strong>Ottimizzazione energetica</strong>: gestione intelligente delle reti elettriche</li>
+                        <li><strong>Agricoltura di precisione</strong>: riduzione dell'uso di acqua e pesticidi</li>
+                        <li><strong>Monitoraggio ambientale</strong>: previsione di catastrofi naturali, tutela biodiversità</li>
+                    </ul>
+
+                    <h4>5. Sicurezza</h4>
+                    <ul>
+                        <li><strong>Prevenzione frodi</strong>: rilevamento anomalie in transazioni bancarie</li>
+                        <li><strong>Cybersecurity</strong>: identificazione e neutralizzazione di minacce informatiche</li>
+                        <li><strong>Sistemi di allerta</strong>: previsione di rischi e incidenti</li>
+                    </ul>
+
+                    <div class="info-box idea">
+                        <strong>💡 Uso Consapevole</strong>
+                        La chiave è sviluppare un <strong>uso critico e consapevole</strong> dell'IA: comprendere come funziona, interrogarsi sui suoi limiti, verificare le fonti, mantenere sempre il controllo umano sulle decisioni importanti.
+                    </div>
+
+                    <p><a href="#schemi" style="color: var(--primary-color); font-weight: 600;">→ Vedi lo schema comparativo rischi/benefici</a></p>
+                </div>
+
+                <!-- GLOSSARIO -->
+                <div id="glossario">
+                    <h3>10. 📖 Glossario dei Termini Chiave</h3>
+                    
+                    <dl>
+                        <div class="glossary-term">
+                            <dt>Algoritmo</dt>
+                            <dd>Sequenza finita di istruzioni precise e non ambigue per risolvere un problema o eseguire un compito.</dd>
+                        </div>
+
+                        <div class="glossary-term">
+                            <dt>Backpropagation</dt>
+                            <dd>Tecnica di addestramento delle reti neurali che propaga l'errore dall'output verso gli strati precedenti per aggiustare i pesi.</dd>
+                        </div>
+
+                        <div class="glossary-term">
+                            <dt>Bias (Distorsione)</dt>
+                            <dd>Errore sistematico in un dataset o algoritmo che produce risultati distorti o discriminatori.</dd>
+                        </div>
+
+                        <div class="glossary-term">
+                            <dt>Big Data</dt>
+                            <dd>Enormi quantità di dati che richiedono strumenti e tecniche specializzate per essere raccolti, elaborati e analizzati.</dd>
+                        </div>
+
+                        <div class="glossary-term">
+                            <dt>Clustering</dt>
+                            <dd>Tecnica di apprendimento non supervisionato che raggruppa dati simili in cluster (gruppi).</dd>
+                        </div>
+
+                        <div class="glossary-term">
+                            <dt>Dataset</dt>
+                            <dd>Insieme di dati utilizzati per addestrare, validare o testare un modello di IA.</dd>
+                        </div>
+
+                        <div class="glossary-term">
+                            <dt>Deep Learning</dt>
+                            <dd>Sottoinsieme del Machine Learning che utilizza reti neurali artificiali con molti strati (profonde).</dd>
+                        </div>
+
+                        <div class="glossary-term">
+                            <dt>GPU (Graphics Processing Unit)</dt>
+                            <dd>Processore specializzato originariamente per la grafica, ora ampiamente usato per il calcolo parallelo nell'IA.</dd>
+                        </div>
+
+                        <div class="glossary-term">
+                            <dt>Machine Learning</dt>
+                            <dd>Branca dell'IA che permette ai sistemi di imparare dai dati senza essere programmati esplicitamente.</dd>
+                        </div>
+
+                        <div class="glossary-term">
+                            <dt>Neurone Artificiale</dt>
+                            <dd>Unità di calcolo base di una rete neurale, ispirata ai neuroni biologici, che riceve input, li elabora e produce un output.</dd>
+                        </div>
+
+                        <div class="glossary-term">
+                            <dt>Overfitting</dt>
+                            <dd>Fenomeno in cui un modello impara troppo bene i dati di addestramento, perdendo capacità di generalizzare su dati nuovi.</dd>
+                        </div>
+
+                        <div class="glossary-term">
+                            <dt>Pattern</dt>
+                            <dd>Schema ricorrente o regolarità nei dati che un algoritmo può identificare e utilizzare.</dd>
+                        </div>
+
+                        <div class="glossary-term">
+                            <dt>Peso (Weight)</dt>
+                            <dd>Parametro numerico che determina l'importanza di una connessione tra neuroni in una rete neurale.</dd>
+                        </div>
+
+                        <div class="glossary-term">
+                            <dt>Rete Neurale</dt>
+                            <dd>Modello computazionale composto da neuroni artificiali organizzati in strati interconnessi.</dd>
+                        </div>
+
+                        <div class="glossary-term">
+                            <dt>Test di Turing</dt>
+                            <dd>Test proposto da Alan Turing per valutare se una macchina può esibire comportamento indistinguibile da quello umano.</dd>
+                        </div>
+
+                        <div class="glossary-term">
+                            <dt>TPU (Tensor Processing Unit)</dt>
+                            <dd>Chip sviluppato da Google specificamente ottimizzato per il calcolo tensoriale nel Deep Learning.</dd>
+                        </div>
+
+                        <div class="glossary-term">
+                            <dt>Training (Addestramento)</dt>
+                            <dd>Processo attraverso cui un modello di IA impara dai dati, aggiustando i propri parametri per migliorare le prestazioni.</dd>
+                        </div>
+
+                        <div class="glossary-term">
+                            <dt>Transformer</dt>
+                            <dd>Architettura di rete neurale rivoluzionaria, alla base dei moderni modelli linguistici (GPT, BERT).</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <!-- FAQ -->
+                <div id="faq">
+                    <h3>11. ❓ Domande Frequenti (FAQ)</h3>
+                    
+                    <div class="faq-item">
+                        <h4>L'IA può davvero "pensare" come un essere umano?</h4>
+                        <p>No. L'IA attuale simula alcuni aspetti del ragionamento umano attraverso calcoli matematici, ma non possiede coscienza, intenzionalità o comprensione semantica. I sistemi di IA elaborano pattern nei dati, non "comprendono" nel senso umano del termine.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h4>Quali lavori sostituirà l'IA?</h4>
+                        <p>L'IA tende a sostituire compiti ripetitivi e standardizzabili più che interi lavori. Mansioni che richiedono creatività, empatia, giudizio etico e interazione umana complessa sono meno suscettibili all'automazione. Tuttavia, molte professioni subiranno trasformazioni significative.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h4>Come posso sapere se un'informazione è generata dall'IA?</h4>
+                        <p>È sempre più difficile. Alcuni segnali: testo eccessivamente formale o generico, immagini con dettagli strani (mani malformate, testi illeggibili), inconsistenze logiche. Tuttavia, gli strumenti di rilevamento sono ancora imperfetti. La strategia migliore è verificare le fonti e usare spirito critico.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h4>L'IA è pericolosa?</h4>
+                        <p>L'IA in sé è uno strumento neutro. I rischi derivano dall'uso che ne facciamo: discriminazioni algoritmiche, violazioni della privacy, diffusione di disinformazione. Per questo serve una regolamentazione etica e un uso consapevole. L'IA può essere sia dannosa che benefica, a seconda di come la utilizziamo.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h4>Posso fidarmi delle risposte di ChatGPT o altre IA?</h4>
+                        <p>Con cautela. I modelli linguistici possono generare informazioni errate o inventate con grande sicurezza (fenomeno chiamato "allucinazione"). È sempre necessario verificare le informazioni con fonti affidabili, soprattutto per argomenti importanti o specialistici.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h4>Cosa significa "addestrare" un'IA?</h4>
+                        <p>Significa fornire al sistema molti esempi di dati (input e, nel caso supervisionato, le risposte corrette) in modo che possa identificare pattern e regole. Durante l'addestramento, l'algoritmo aggiusta ripetutamente i propri parametri interni per migliorare le prestazioni.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h4>Esiste un'IA cosciente?</h4>
+                        <p>No. Non esistono attualmente sistemi di IA con coscienza, autoconsapevolezza o emozioni genuine. Anche i sistemi più avanzati sono forme sofisticate di elaborazione statistica dei dati. Il tema della "coscienza artificiale" è oggetto di dibattito filosofico, ma non di realtà tecnologica.</p>
+                    </div>
+                </div>
+
+                <!-- TAKEAWAYS -->
+                <div class="takeaways">
+                    <h3>🎯 Punti Chiave da Ricordare (Takeaways)</h3>
+                    <ul>
+                        <li><strong>Cos'è l'IA</strong>: Disciplina che simula processi cognitivi umani attraverso algoritmi e dati; non è "pensiero" ma elaborazione statistica complessa</li>
+                        <li><strong>IA Debole vs Forte</strong>: L'IA debole (specializzata in un compito) è l'unica esistente oggi; l'IA forte (intelligenza generale) resta teorica</li>
+                        <li><strong>Evoluzione storica</strong>: Dagli anni '50 a oggi, con "inverni" (crisi) e rinascite; il successo attuale è dovuto a Big Data e potenza di calcolo (GPU/TPU)</li>
+                        <li><strong>Dati sono fondamentali</strong>: Strutturati, semistrutturati e non strutturati; senza dati di qualità, l'IA non può funzionare</li>
+                        <li><strong>Machine Learning</strong>: Tre approcci principali: supervisionato (con etichette), non supervisionato (scoperta pattern), rinforzo (prove ed errori)</li>
+                        <li><strong>Deep Learning</strong>: Usa reti neurali profonde con molti strati; eccelle in compiti complessi come visione e linguaggio</li>
+                        <li><strong>Reti neurali</strong>: Composte da neuroni artificiali organizzati in strati; apprendono aggiustando i pesi tramite backpropagation</li>
+                        <li><strong>Hardware specializzato</strong>: GPU e TPU accelerano massivamente i calcoli paralleli necessari al Deep Learning</li>
+                        <li><strong>AIED</strong>: L'IA può personalizzare l'educazione e supportare insegnanti, ma non sostituisce la relazione educativa umana</li>
+                        <li><strong>Etica cruciale</strong>: Rischi (bias, privacy, disoccupazione) e benefici (medicina, educazione, efficienza) richiedono uso consapevole e regolamentazione</li>
+                    </ul>
+                </div>
+
+                <!-- CONCLUSIONE MOTIVAZIONALE -->
+                <div class="info-box idea" style="margin-top: 3rem;">
+                    <strong>🚀 In Conclusione</strong>
+                    <p>L'intelligenza artificiale non è magia, ma scienza: una combinazione di matematica, statistica, ingegneria e creatività umana. Comprendere come funziona, con i suoi limiti e le sue potenzialità, è fondamentale per diventare cittadini consapevoli e protagonisti della rivoluzione tecnologica in corso.</p>
+                    <p>Come studenti di oggi, siete la generazione che vivrà e lavorerà immersa nell'IA. Non limitatevi a usarla passivamente: imparate a padroneggiarla, interrogatela criticamente, usatela in modo etico. L'IA è uno strumento potente che può amplificare le vostre capacità e aprire opportunità straordinarie, ma solo se la comprendete veramente.</p>
+                    <p><strong>Il futuro non è qualcosa che subiamo, ma qualcosa che costruiamo insieme.</strong> Buono studio! 📚✨</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SEZIONE SCHEMI ==================== -->
+        <section id="schemi">
+            <div class="card">
+                <h2>📊 Schemi Interattivi</h2>
+                <p>Esplora gli schemi concettuali per visualizzare le relazioni tra i concetti. Ogni schema può essere ingrandito, compresso ed espanso per facilitare la comprensione.</p>
+            </div>
+
+            <!-- SCHEMA 1: MAPPA AI-ML-DL-DATA SCIENCE -->
+            <div class="schema-container" id="schema1">
+                <h3>1. Mappa Concettuale: AI, ML, DL e Data Science</h3>
+                <p>Questo schema mostra le relazioni gerarchiche e parallele tra le principali discipline.</p>
+                
+                <div class="schema-controls">
+                    <button onclick="zoomSchema('schema1-content', 1.2)">🔍 Zoom +</button>
+                    <button onclick="zoomSchema('schema1-content', 0.8)">🔍 Zoom -</button>
+                    <button onclick="resetZoom('schema1-content')">↺ Reset</button>
+                    <button onclick="printSchema('schema1')">🖨️ Stampa Schema</button>
+                </div>
+
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                    Mostra/Nascondi Dettagli
+                </button>
+                <div class="accordion-content">
+                    <p><strong>Spiegazione:</strong> L'Informatica è il contesto più ampio. Al suo interno, l'Intelligenza Artificiale (AI) è un campo che comprende il Machine Learning (ML), che a sua volta include il Deep Learning (DL). La Data Science è una disciplina parallela che si interseca con l'IA nell'uso dei dati.</p>
+                </div>
+
+                <div class="schema-viewport">
+                    <div class="schema-content" id="schema1-content">
+                        <svg width="800" height="500" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mappa concettuale AI-ML-DL-Data Science">
+                            <defs>
+                                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                    <polygon points="0 0, 10 3, 0 6" fill="#334155" />
+                                </marker>
+                            </defs>
+                            
+                            <!-- Informatica (cerchio esterno) -->
+                            <ellipse cx="400" cy="250" rx="380" ry="230" fill="#e0e7ff" stroke="#6366f1" stroke-width="3" />
+                            <text x="400" y="50" text-anchor="middle" class="svg-text" font-size="18" font-weight="bold" fill="#4338ca">INFORMATICA</text>
+                            
+                            <!-- AI (cerchio intermedio) -->
+                            <ellipse cx="400" cy="270" rx="300" ry="180" fill="#dbeafe" stroke="#2563eb" stroke-width="3" />
+                            <text x="400" y="120" text-anchor="middle" class="svg-text" font-size="16" font-weight="bold" fill="#1e40af">INTELLIGENZA ARTIFICIALE (AI)</text>
+                            
+                            <!-- ML (cerchio interno) -->
+                            <ellipse cx="400" cy="290" rx="200" ry="120" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="2" />
+                            <text x="400" y="200" text-anchor="middle" class="svg-text" font-size="14" font-weight="bold" fill="#1e3a8a">MACHINE LEARNING (ML)</text>
+                            
+                            <!-- DL (cerchio più interno) -->
+                            <ellipse cx="400" cy="310" rx="100" ry="60" fill="#93c5fd" stroke="#1e3a8a" stroke-width="2" />
+                            <text x="400" y="310" text-anchor="middle" class="svg-text" font-size="12" font-weight="bold" fill="#0f172a">DEEP</text>
+                            <text x="400" y="325" text-anchor="middle" class="svg-text" font-size="12" font-weight="bold" fill="#0f172a">LEARNING</text>
+                            
+                            <!-- Data Science (area separata) -->
+                            <rect x="50" y="350" width="200" height="100" rx="10" fill="#d1fae5" stroke="#10b981" stroke-width="3" />
+                            <text x="150" y="390" text-anchor="middle" class="svg-text" font-size="14" font-weight="bold" fill="#065f46">DATA SCIENCE</text>
+                            <text x="150" y="410" text-anchor="middle" class="svg-text" font-size="11" fill="#064e3b">(Disciplina parallela)</text>
+                            
+                            <!-- Freccia da Data Science ad AI -->
+                            <path d="M 250 400 L 300 320" class="svg-connector" />
+                            <text x="280" y="360" class="svg-text" font-size="11" fill="#475569">fornisce</text>
+                            <text x="280" y="375" class="svg-text" font-size="11" fill="#475569">dati</text>
+                            
+                            <!-- Etichette relazioni -->
+                            <text x="550" y="250" class="svg-text" font-size="11" fill="#475569">è sottoinsieme di →</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="schema-legend">
+                    <h4>Legenda</h4>
+                    <p><strong>Cerchi concentrici:</strong> rappresentano relazioni di inclusione (A contiene B)</p>
+                    <p><strong>Rettangolo separato:</strong> disciplina parallela che si interseca con l'IA</p>
+                    <p><strong>Frecce tratteggiate:</strong> flusso di dati e conoscenza</p>
+                </div>
+            </div>
+
+            <!-- SCHEMA 2: TIMELINE IA -->
+            <div class="schema-container" id="schema2">
+                <h3>2. Timeline Essenziale dell'Intelligenza Artificiale</h3>
+                <p>Tappe fondamentali dall'origine dell'IA ai giorni nostri.</p>
+                
+                <div class="schema-controls">
+                    <button onclick="zoomSchema('schema2-content', 1.2)">🔍 Zoom +</button>
+                    <button onclick="zoomSchema('schema2-content', 0.8)">🔍 Zoom -</button>
+                    <button onclick="resetZoom('schema2-content')">↺ Reset</button>
+                    <button onclick="printSchema('schema2')">🖨️ Stampa Schema</button>
+                </div>
+
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                    Mostra/Nascondi Dettagli
+                </button>
+                <div class="accordion-content">
+                    <p><strong>Spiegazione:</strong> Questa timeline mostra l'evoluzione storica dell'IA, dalle origini teoriche fino alle moderne IA generative. Nota i periodi di "inverno" (crisi) alternati a rinascite tecnologiche.</p>
+                </div>
+
+                <div class="schema-viewport">
+                    <div class="schema-content" id="schema2-content">
+                        <svg width="1000" height="600" viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Timeline storica dell'IA">
+                            <!-- Linea temporale principale -->
+                            <line x1="50" y1="300" x2="950" y2="300" stroke="#334155" stroke-width="4" />
+                            
+                            <!-- 1950: Test di Turing -->
+                            <circle cx="100" cy="300" r="8" fill="#2563eb" />
+                            <line x1="100" y1="300" x2="100" y2="200" stroke="#cbd5e1" stroke-width="2" />
+                            <rect x="50" y="100" width="100" height="90" rx="8" class="svg-box" fill="#dbeafe" />
+                            <text x="100" y="130" text-anchor="middle" class="svg-text" font-weight="bold">1950</text>
+                            <text x="100" y="150" text-anchor="middle" class="svg-text" font-size="12">Test di</text>
+                            <text x="100" y="165" text-anchor="middle" class="svg-text" font-size="12">Turing</text>
+                            
+                            <!-- 1956: Dartmouth -->
+                            <circle cx="180" cy="300" r="8" fill="#2563eb" />
+                            <line x1="180" y1="300" x2="180" y2="400" stroke="#cbd5e1" stroke-width="2" />
+                            <rect x="130" y="410" width="100" height="90" rx="8" class="svg-box" fill="#dbeafe" />
+                            <text x="180" y="440" text-anchor="middle" class="svg-text" font-weight="bold">1956</text>
+                            <text x="180" y="460" text-anchor="middle" class="svg-text" font-size="12">Conferenza</text>
+                            <text x="180" y="475" text-anchor="middle" class="svg-text" font-size="12">Dartmouth</text>
+                            
+                            <!-- 1970: Inverno -->
+                            <circle cx="280" cy="300" r="8" fill="#ef4444" />
+                            <line x1="280" y1="300" x2="280" y2="200" stroke="#cbd5e1" stroke-width="2" />
+                            <rect x="230" y="100" width="100" height="90" rx="8" class="svg-box" fill="#fee2e2" />
+                            <text x="280" y="130" text-anchor="middle" class="svg-text" font-weight="bold">1970</text>
+                            <text x="280" y="150" text-anchor="middle" class="svg-text" font-size="12">Primo</text>
+                            <text x="280" y="165" text-anchor="middle" class="svg-text" font-size="12">Inverno AI</text>
+                            
+                            <!-- 1980: Sistemi Esperti -->
+                            <circle cx="380" cy="300" r="8" fill="#10b981" />
+                            <line x1="380" y1="300" x2="380" y2="400" stroke="#cbd5e1" stroke-width="2" />
+                            <rect x="330" y="410" width="100" height="90" rx="8" class="svg-box" fill="#d1fae5" />
+                            <text x="380" y="440" text-anchor="middle" class="svg-text" font-weight="bold">1980</text>
+                            <text x="380" y="460" text-anchor="middle" class="svg-text" font-size="12">Sistemi</text>
+                            <text x="380" y="475" text-anchor="middle" class="svg-text" font-size="12">Esperti</text>
+                            
+                            <!-- 1997: Deep Blue -->
+                            <circle cx="520" cy="300" r="8" fill="#10b981" />
+                            <line x1="520" y1="300" x2="520" y2="200" stroke="#cbd5e1" stroke-width="2" />
+                            <rect x="470" y="100" width="100" height="90" rx="8" class="svg-box" fill="#d1fae5" />
+                            <text x="520" y="130" text-anchor="middle" class="svg-text" font-weight="bold">1997</text>
+                            <text x="520" y="150" text-anchor="middle" class="svg-text" font-size="12">Deep Blue</text>
+                            <text x="520" y="165" text-anchor="middle" class="svg-text" font-size="12">vs Kasparov</text>
+                            
+                            <!-- 2011: Watson -->
+                            <circle cx="650" cy="300" r="8" fill="#10b981" />
+                            <line x1="650" y1="300" x2="650" y2="400" stroke="#cbd5e1" stroke-width="2" />
+                            <rect x="600" y="410" width="100" height="90" rx="8" class="svg-box" fill="#d1fae5" />
+                            <text x="650" y="440" text-anchor="middle" class="svg-text" font-weight="bold">2011</text>
+                            <text x="650" y="460" text-anchor="middle" class="svg-text" font-size="12">IBM Watson</text>
+                            <text x="650" y="475" text-anchor="middle" class="svg-text" font-size="12">Jeopardy!</text>
+                            
+                            <!-- 2012: Deep Learning -->
+                            <circle cx="730" cy="300" r="8" fill="#8b5cf6" />
+                            <line x1="730" y1="300" x2="730" y2="200" stroke="#cbd5e1" stroke-width="2" />
+                            <rect x="680" y="100" width="100" height="90" rx="8" class="svg-box" fill="#ede9fe" />
+                            <text x="730" y="130" text-anchor="middle" class="svg-text" font-weight="bold">2012</text>
+                            <text x="730" y="150" text-anchor="middle" class="svg-text" font-size="12">Rinascita</text>
+                            <text x="730" y="165" text-anchor="middle" class="svg-text" font-size="12">Deep Learning</text>
+                            
+                            <!-- 2022: IA Generativa -->
+                            <circle cx="880" cy="300" r="8" fill="#8b5cf6" />
+                            <line x1="880" y1="300" x2="880" y2="400" stroke="#cbd5e1" stroke-width="2" />
+                            <rect x="830" y="410" width="100" height="90" rx="8" class="svg-box" fill="#ede9fe" />
+                            <text x="880" y="440" text-anchor="middle" class="svg-text" font-weight="bold">2022+</text>
+                            <text x="880" y="460" text-anchor="middle" class="svg-text" font-size="12">IA Generativa</text>
+                            <text x="880" y="475" text-anchor="middle" class="svg-text" font-size="12">ChatGPT/DALL-E</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="schema-legend">
+                    <h4>Legenda</h4>
+                    <p><strong>Punti blu:</strong> tappe fondamentali e progressi</p>
+                    <p><strong>Punti rossi:</strong> periodi di crisi ("inverni" dell'IA)</p>
+                    <p><strong>Punti verdi:</strong> trionfi simbolici e applicazioni pratiche</p>
+                    <p><strong>Punti viola:</strong> rivoluzioni tecnologiche recenti</p>
+                </div>
+            </div>
+
+            <!-- SCHEMA 3: PIPELINE ML -->
+            <div class="schema-container" id="schema3">
+                <h3>3. Pipeline del Machine Learning</h3>
+                <p>Fasi principali del processo di sviluppo di un modello di ML.</p>
+                
+                <div class="schema-controls">
+                    <button onclick="zoomSchema('schema3-content', 1.2)">🔍 Zoom +</button>
+                    <button onclick="zoomSchema('schema3-content', 0.8)">🔍 Zoom -</button>
+                    <button onclick="resetZoom('schema3-content')">↺ Reset</button>
+                    <button onclick="printSchema('schema3')">🖨️ Stampa Schema</button>
+                </div>
+
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                    Mostra/Nascondi Dettagli
+                </button>
+                <div class="accordion-content">
+                    <p><strong>Spiegazione:</strong> Questo schema mostra il flusso di lavoro tipico per creare un sistema di ML: dalla raccolta dati all'uso pratico del modello, passando per addestramento e validazione.</p>
+                </div>
+
+                <div class="schema-viewport">
+                    <div class="schema-content" id="schema3-content">
+                        <svg width="900" height="400" viewBox="0 0 900 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pipeline Machine Learning">
+                            <defs>
+                                <marker id="arrowhead2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                    <polygon points="0 0, 10 3, 0 6" fill="#2563eb" />
+                                </marker>
+                            </defs>
+                            
+                            <!-- Step 1: Raccolta Dati -->
+                            <rect x="20" y="150" width="120" height="100" rx="10" class="svg-box" fill="#dbeafe" />
+                            <text x="80" y="190" text-anchor="middle" class="svg-text" font-weight="bold" font-size="14">1. Raccolta</text>
+                            <text x="80" y="210" text-anchor="middle" class="svg-text" font-size="12">Dati</text>
+                            <text x="80" y="230" text-anchor="middle" class="svg-text" font-size="11" fill="#64748b">Dataset</text>
+                            
+                            <!-- Freccia -->
+                            <path d="M 140 200 L 170 200" class="svg-arrow" marker-end="url(#arrowhead2)" stroke="#2563eb" />
+                            
+                            <!-- Step 2: Preparazione -->
+                            <rect x="170" y="150" width="120" height="100" rx="10" class="svg-box" fill="#bfdbfe" />
+                            <text x="230" y="190" text-anchor="middle" class="svg-text" font-weight="bold" font-size="14">2. Preparazione</text>
+                            <text x="230" y="210" text-anchor="middle" class="svg-text" font-size="12">e Pulizia</text>
+                            <text x="230" y="230" text-anchor="middle" class="svg-text" font-size="11" fill="#64748b">Preprocessing</text>
+                            
+                            <!-- Freccia -->
+                            <path d="M 290 200 L 320 200" class="svg-arrow" marker-end="url(#arrowhead2)" stroke="#2563eb" />
+                            
+                            <!-- Step 3: Addestramento -->
+                            <rect x="320" y="150" width="120" height="100" rx="10" class="svg-box" fill="#93c5fd" />
+                            <text x="380" y="190" text-anchor="middle" class="svg-text" font-weight="bold" font-size="14">3. Addestramento</text>
+                            <text x="380" y="210" text-anchor="middle" class="svg-text" font-size="12">Modello</text>
+                            <text x="380" y="230" text-anchor="middle" class="svg-text" font-size="11" fill="#64748b">Training</text>
+                            
+                            <!-- Freccia -->
+                            <path d="M 440 200 L 470 200" class="svg-arrow" marker-end="url(#arrowhead2)" stroke="#2563eb" />
+                            
+                            <!-- Step 4: Validazione -->
+                            <rect x="470" y="150" width="120" height="100" rx="10" class="svg-box" fill="#60a5fa" />
+                            <text x="530" y="190" text-anchor="middle" class="svg-text" font-weight="bold" font-size="14">4. Validazione</text>
+                            <text x="530" y="210" text-anchor="middle" class="svg-text" font-size="12">e Test</text>
+                            <text x="530" y="230" text-anchor="middle" class="svg-text" font-size="11" fill="#1e3a8a">Evaluation</text>
+                            
+                            <!-- Freccia -->
+                            <path d="M 590 200 L 620 200" class="svg-arrow" marker-end="url(#arrowhead2)" stroke="#2563eb" />
+                            
+                            <!-- Step 5: Inferenza -->
+                            <rect x="620" y="150" width="120" height="100" rx="10" class="svg-box" fill="#3b82f6" />
+                            <text x="680" y="190" text-anchor="middle" class="svg-text" font-weight="bold" font-size="14" fill="white">5. Inferenza</text>
+                            <text x="680" y="210" text-anchor="middle" class="svg-text" font-size="12" fill="white">Uso Pratico</text>
+                            <text x="680" y="230" text-anchor="middle" class="svg-text" font-size="11" fill="#dbeafe">Deployment</text>
+                            
+                            <!-- Freccia -->
+                            <path d="M 740 200 L 770 200" class="svg-arrow" marker-end="url(#arrowhead2)" stroke="#2563eb" />
+                            
+                            <!-- Step 6: Monitoraggio -->
+                            <rect x="770" y="150" width="120" height="100" rx="10" class="svg-box" fill="#1e40af" />
+                            <text x="830" y="190" text-anchor="middle" class="svg-text" font-weight="bold" font-size="14" fill="white">6. Monitoraggio</text>
+                            <text x="830" y="210" text-anchor="middle" class="svg-text" font-size="12" fill="white">Continuo</text>
+                            <text x="830" y="230" text-anchor="middle" class="svg-text" font-size="11" fill="#bfdbfe">Monitoring</text>
+                            
+                            <!-- Ciclo di feedback -->
+                            <path d="M 830 250 Q 830 320 230 320 Q 230 280 230 250" stroke="#10b981" stroke-width="2" fill="none" stroke-dasharray="5,5" marker-end="url(#arrowhead2)" />
+                            <text x="500" y="340" text-anchor="middle" class="svg-text" font-size="12" fill="#10b981" font-weight="bold">Ciclo di Miglioramento Continuo</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="schema-legend">
+                    <h4>Legenda</h4>
+                    <p><strong>Frecce blu:</strong> flusso di lavoro principale</p>
+                    <p><strong>Freccia verde tratteggiata:</strong> ciclo di feedback per migliorare il modello</p>
+                    <p><strong>Tonalità più scure:</strong> indicano fasi più avanzate del processo</p>
+                </div>
+            </div>
+
+            <!-- SCHEMA 4: RETE NEURALE -->
+            <div class="schema-container" id="schema4">
+                <h3>4. Struttura di una Rete Neurale</h3>
+                <p>Visualizzazione di neuroni, strati, pesi e backpropagation.</p>
+                
+                <div class="schema-controls">
+                    <button onclick="zoomSchema('schema4-content', 1.2)">🔍 Zoom +</button>
+                    <button onclick="zoomSchema('schema4-content', 0.8)">🔍 Zoom -</button>
+                    <button onclick="resetZoom('schema4-content')">↺ Reset</button>
+                    <button onclick="printSchema('schema4')">🖨️ Stampa Schema</button>
+                </div>
+
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                    Mostra/Nascondi Dettagli
+                </button>
+                <div class="accordion-content">
+                    <p><strong>Spiegazione:</strong> Una rete neurale è composta da neuroni (cerchi) organizzati in strati. Ogni connessione ha un peso. Durante l'addestramento, i pesi vengono aggiustati tramite backpropagation.</p>
+                </div>
+
+                <div class="schema-viewport">
+                    <div class="schema-content" id="schema4-content">
+                        <svg width="800" height="500" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Struttura rete neurale">
+                            <!-- Strato Input -->
+                            <text x="100" y="30" text-anchor="middle" class="svg-text" font-weight="bold" font-size="16">INPUT</text>
+                            <circle cx="100" cy="100" r="25" fill="#dbeafe" stroke="#2563eb" stroke-width="3" />
+                            <text x="100" y="107" text-anchor="middle" class="svg-text" font-size="12">x1</text>
+                            
+                            <circle cx="100" cy="200" r="25" fill="#dbeafe" stroke="#2563eb" stroke-width="3" />
+                            <text x="100" y="207" text-anchor="middle" class="svg-text" font-size="12">x2</text>
+                            
+                            <circle cx="100" cy="300" r="25" fill="#dbeafe" stroke="#2563eb" stroke-width="3" />
+                            <text x="100" y="307" text-anchor="middle" class="svg-text" font-size="12">x3</text>
+                            
+                            <circle cx="100" cy="400" r="25" fill="#dbeafe" stroke="#2563eb" stroke-width="3" />
+                            <text x="100" y="407" text-anchor="middle" class="svg-text" font-size="12">x4</text>
+                            
+                            <!-- Strato Hidden 1 -->
+                            <text x="300" y="30" text-anchor="middle" class="svg-text" font-weight="bold" font-size="16">HIDDEN 1</text>
+                            <circle cx="300" cy="120" r="25" fill="#93c5fd" stroke="#1e40af" stroke-width="3" />
+                            <text x="300" y="127" text-anchor="middle" class="svg-text" font-size="12">h1</text>
+                            
+                            <circle cx="300" cy="220" r="25" fill="#93c5fd" stroke="#1e40af" stroke-width="3" />
+                            <text x="300" y="227" text-anchor="middle" class="svg-text" font-size="12">h2</text>
+                            
+                            <circle cx="300" cy="320" r="25" fill="#93c5fd" stroke="#1e40af" stroke-width="3" />
+                            <text x="300" y="327" text-anchor="middle" class="svg-text" font-size="12">h3</text>
+                            
+                            <!-- Strato Hidden 2 -->
+                            <text x="500" y="30" text-anchor="middle" class="svg-text" font-weight="bold" font-size="16">HIDDEN 2</text>
+                            <circle cx="500" cy="150" r="25" fill="#60a5fa" stroke="#1e3a8a" stroke-width="3" />
+                            <text x="500" y="157" text-anchor="middle" class="svg-text" font-size="12">h4</text>
+                            
+                            <circle cx="500" cy="270" r="25" fill="#60a5fa" stroke="#1e3a8a" stroke-width="3" />
+                            <text x="500" y="277" text-anchor="middle" class="svg-text" font-size="12">h5</text>
+                            
+                            <!-- Strato Output -->
+                            <text x="700" y="30" text-anchor="middle" class="svg-text" font-weight="bold" font-size="16">OUTPUT</text>
+                            <circle cx="700" cy="210" r="30" fill="#10b981" stroke="#065f46" stroke-width="3" />
+                            <text x="700" y="217" text-anchor="middle" class="svg-text" font-size="14" font-weight="bold">y</text>
+                            
+                            <!-- Connessioni Input -> Hidden 1 (esempio alcune) -->
+                            <line x1="125" y1="100" x2="275" y2="120" stroke="#cbd5e1" stroke-width="2" opacity="0.6" />
+                            <line x1="125" y1="100" x2="275" y2="220" stroke="#cbd5e1" stroke-width="2" opacity="0.6" />
+                            <line x1="125" y1="200" x2="275" y2="120" stroke="#cbd5e1" stroke-width="2" opacity="0.6" />
+                            <line x1="125" y1="200" x2="275" y2="220" stroke="#cbd5e1" stroke-width="2" opacity="0.6" />
+                            <line x1="125" y1="200" x2="275" y2="320" stroke="#cbd5e1" stroke-width="2" opacity="0.6" />
+                            <line x1="125" y1="300" x2="275" y2="220" stroke="#cbd5e1" stroke-width="2" opacity="0.6" />
+                            <line x1="125" y1="300" x2="275" y2="320" stroke="#cbd5e1" stroke-width="2" opacity="0.6" />
+                            <line x1="125" y1="400" x2="275" y2="320" stroke="#cbd5e1" stroke-width="2" opacity="0.6" />
+                            
+                            <!-- Connessioni Hidden 1 -> Hidden 2 -->
+                            <line x1="325" y1="120" x2="475" y2="150" stroke="#cbd5e1" stroke-width="2" opacity="0.6" />
+                            <line x1="325" y1="120" x2="475" y2="270" stroke="#cbd5e1" stroke-width="2" opacity="0.6" />
+                            <line x1="325" y1="220" x2="475" y2="150" stroke="#cbd5e1" stroke-width="2" opacity="0.6" />
+                            <line x1="325" y1="220" x2="475" y2="270" stroke="#cbd5e1" stroke-width="2" opacity="0.6" />
+                            <line x1="325" y1="320" x2="475" y2="150" stroke="#cbd5e1" stroke-width="2" opacity="0.6" />
+                            <line x1="325" y1="320" x2="475" y2="270" stroke="#cbd5e1" stroke-width="2" opacity="0.6" />
+                            
+                            <!-- Connessioni Hidden 2 -> Output -->
+                            <line x1="525" y1="150" x2="670" y2="210" stroke="#cbd5e1" stroke-width="2" opacity="0.6" />
+                            <line x1="525" y1="270" x2="670" y2="210" stroke="#cbd5e1" stroke-width="2" opacity="0.6" />
+                            
+                            <!-- Freccia Backpropagation -->
+                            <path d="M 670 240 Q 400 450 125 240" stroke="#ef4444" stroke-width="3" fill="none" stroke-dasharray="5,5" marker-end="url(#arrowhead2)" />
+                            <text x="400" y="470" text-anchor="middle" class="svg-text" font-size="14" fill="#ef4444" font-weight="bold">← Backpropagation (correzione pesi)</text>
+                            
+                            <!-- Etichetta pesi -->
+                            <text x="200" y="160" text-anchor="middle" class="svg-text" font-size="11" fill="#64748b">pesi (w)</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="schema-legend">
+                    <h4>Legenda</h4>
+                    <p><strong>Cerchi:</strong> neuroni artificiali organizzati in strati</p>
+                    <p><strong>Linee grigie:</strong> connessioni con pesi che determinano l'importanza dei segnali</p>
+                    <p><strong>Freccia rossa tratteggiata:</strong> backpropagation (aggiustamento pesi durante addestramento)</p>
+                    <p><strong>Flusso:</strong> da sinistra (input) a destra (output) in avanti; da destra a sinistra per correzione errori</p>
+                </div>
+            </div>
+
+            <!-- SCHEMA 5: RISCHI VS BENEFICI -->
+            <div class="schema-container" id="schema5">
+                <h3>5. Etica dell'IA: Rischi e Benefici</h3>
+                <p>Confronto visivo tra le principali criticità e opportunità dell'intelligenza artificiale.</p>
+                
+                <div class="schema-controls">
+                    <button onclick="zoomSchema('schema5-content', 1.2)">🔍 Zoom +</button>
+                    <button onclick="zoomSchema('schema5-content', 0.8)">🔍 Zoom -</button>
+                    <button onclick="resetZoom('schema5-content')">↺ Reset</button>
+                    <button onclick="printSchema('schema5')">🖨️ Stampa Schema</button>
+                </div>
+
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                    Mostra/Nascondi Dettagli
+                </button>
+                <div class="accordion-content">
+                    <p><strong>Spiegazione:</strong> Questo schema a bilancia mostra come l'IA presenti sia rischi significativi che benefici straordinari. Un uso responsabile e critico è fondamentale per massimizzare i benefici minimizzando i rischi.</p>
+                </div>
+
+                <div class="schema-viewport">
+                    <div class="schema-content" id="schema5-content">
+                        <svg width="900" height="700" viewBox="0 0 900 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Rischi e benefici dell'IA">
+                            <!-- Titolo centrale -->
+                            <text x="450" y="40" text-anchor="middle" class="svg-text" font-weight="bold" font-size="20" fill="#1e293b">⚖️ ETICA DELL'IA: RISCHI VS BENEFICI</text>
+                            
+                            <!-- Linea divisoria centrale -->
+                            <line x1="450" y1="80" x2="450" y2="680" stroke="#cbd5e1" stroke-width="3" stroke-dasharray="10,5" />
+                            
+                            <!-- RISCHI (sinistra) -->
+                            <text x="225" y="100" text-anchor="middle" class="svg-text" font-weight="bold" font-size="18" fill="#ef4444">⚠️ RISCHI</text>
+                            
+                            <!-- Rischio 1: Bias -->
+                            <rect x="50" y="130" width="350" height="80" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2" />
+                            <text x="225" y="160" text-anchor="middle" class="svg-text" font-weight="bold" font-size="14">Bias Algoritmico</text>
+                            <text x="225" y="180" text-anchor="middle" class="svg-text" font-size="12">Discriminazioni nei dati → sistemi ingiusti</text>
+                            <text x="225" y="195" text-anchor="middle" class="svg-text" font-size="11" fill="#64748b">(es. COMPAS, recruitment)</text>
+                            
+                            <!-- Rischio 2: Privacy -->
+                            <rect x="50" y="230" width="350" height="80" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2" />
+                            <text x="225" y="260" text-anchor="middle" class="svg-text" font-weight="bold" font-size="14">Privacy e Sorveglianza</text>
+                            <text x="225" y="280" text-anchor="middle" class="svg-text" font-size="12">Riconoscimento facciale, tracciamento</text>
+                            <text x="225" y="295" text-anchor="middle" class="svg-text" font-size="11" fill="#64748b">(minaccia libertà individuali)</text>
+                            
+                            <!-- Rischio 3: Disoccupazione -->
+                            <rect x="50" y="330" width="350" height="80" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2" />
+                            <text x="225" y="360" text-anchor="middle" class="svg-text" font-weight="bold" font-size="14">Disoccupazione Tecnologica</text>
+                            <text x="225" y="380" text-anchor="middle" class="svg-text" font-size="12">Automazione → perdita posti di lavoro</text>
+                            <text x="225" y="395" text-anchor="middle" class="svg-text" font-size="11" fill="#64748b">(disuguaglianze economiche)</text>
+                            
+                            <!-- Rischio 4: Manipolazione -->
+                            <rect x="50" y="430" width="350" height="80" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2" />
+                            <text x="225" y="460" text-anchor="middle" class="svg-text" font-weight="bold" font-size="14">Deepfake e Manipolazione</text>
+                            <text x="225" y="480" text-anchor="middle" class="svg-text" font-size="12">Disinformazione, truffe, fake news</text>
+                            <text x="225" y="495" text-anchor="middle" class="svg-text" font-size="11" fill="#64748b">(erosione fiducia)</text>
+                            
+                            <!-- Rischio 5: Dipendenza -->
+                            <rect x="50" y="530" width="350" height="80" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2" />
+                            <text x="225" y="560" text-anchor="middle" class="svg-text" font-weight="bold" font-size="14">Dipendenza Tecnologica</text>
+                            <text x="225" y="580" text-anchor="middle" class="svg-text" font-size="12">Perdita competenze critiche e autonomia</text>
+                            <text x="225" y="595" text-anchor="middle" class="svg-text" font-size="11" fill="#64748b">(deleghe eccessive)</text>
+                            
+                            <!-- BENEFICI (destra) -->
+                            <text x="675" y="100" text-anchor="middle" class="svg-text" font-weight="bold" font-size="18" fill="#10b981">✅ BENEFICI</text>
+                            
+                            <!-- Beneficio 1: Medicina -->
+                            <rect x="500" y="130" width="350" height="80" rx="10" fill="#d1fae5" stroke="#10b981" stroke-width="2" />
+                            <text x="675" y="160" text-anchor="middle" class="svg-text" font-weight="bold" font-size="14">Medicina Avanzata</text>
+                            <text x="675" y="180" text-anchor="middle" class="svg-text" font-size="12">Diagnosi precoce, chirurgia robotica</text>
+                            <text x="675" y="195" text-anchor="middle" class="svg-text" font-size="11" fill="#64748b">(salva vite umane)</text>
+                            
+                            <!-- Beneficio 2: Educazione -->
+                            <rect x="500" y="230" width="350" height="80" rx="10" fill="#d1fae5" stroke="#10b981" stroke-width="2" />
+                            <text x="675" y="260" text-anchor="middle" class="svg-text" font-weight="bold" font-size="14">Educazione Personalizzata</text>
+                            <text x="675" y="280" text-anchor="middle" class="svg-text" font-size="12">Apprendimento adattivo, accessibilità</text>
+                            <text x="675" y="295" text-anchor="middle" class="svg-text" font-size="11" fill="#64748b">(pari opportunità)</text>
+                            
+                            <!-- Beneficio 3: Efficienza -->
+                            <rect x="500" y="330" width="350" height="80" rx="10" fill="#d1fae5" stroke="#10b981" stroke-width="2" />
+                            <text x="675" y="360" text-anchor="middle" class="svg-text" font-weight="bold" font-size="14">Efficienza e Produttività</text>
+                            <text x="675" y="380" text-anchor="middle" class="svg-text" font-size="12">Automazione task ripetitivi</text>
+                            <text x="675" y="395" text-anchor="middle" class="svg-text" font-size="11" fill="#64748b">(più tempo per creatività)</text>
+                            
+                            <!-- Beneficio 4: Sostenibilità -->
+                            <rect x="500" y="430" width="350" height="80" rx="10" fill="#d1fae5" stroke="#10b981" stroke-width="2" />
+                            <text x="675" y="460" text-anchor="middle" class="svg-text" font-weight="bold" font-size="14">Sostenibilità Ambientale</text>
+                            <text x="675" y="480" text-anchor="middle" class="svg-text" font-size="12">Ottimizzazione energetica, agricoltura</text>
+                            <text x="675" y="495" text-anchor="middle" class="svg-text" font-size="11" fill="#64748b">(tutela pianeta)</text>
+                            
+                            <!-- Beneficio 5: Sicurezza -->
+                            <rect x="500" y="530" width="350" height="80" rx="10" fill="#d1fae5" stroke="#10b981" stroke-width="2" />
+                            <text x="675" y="560" text-anchor="middle" class="svg-text" font-weight="bold" font-size="14">Sicurezza Aumentata</text>
+                            <text x="675" y="580" text-anchor="middle" class="svg-text" font-size="12">Prevenzione frodi, cybersecurity</text>
+                            <text x="675" y="595" text-anchor="middle" class="svg-text" font-size="11" fill="#64748b">(protezione cittadini)</text>
+                            
+                            <!-- Messaggio conclusivo -->
+                            <rect x="150" y="640" width="600" height="50" rx="10" fill="#e0e7ff" stroke="#6366f1" stroke-width="2" />
+                            <text x="450" y="670" text-anchor="middle" class="svg-text" font-size="14" font-weight="bold" fill="#4338ca">🔑 La Chiave: Uso Consapevole, Critico e Regolamentato</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="schema-legend">
+                    <h4>Legenda</h4>
+                    <p><strong>Colonna rossa (sinistra):</strong> rischi e criticità dell'IA</p>
+                    <p><strong>Colonna verde (destra):</strong> benefici e opportunità dell'IA</p>
+                    <p><strong>Linea tratteggiata centrale:</strong> equilibrio necessario tra rischi e benefici</p>
+                    <p><strong>Messaggio finale:</strong> l'importanza dell'approccio critico e responsabile</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SEZIONE ESERCITAZIONI ==================== -->
+        <section id="esercitazioni">
+            <div class="card">
+                <h2>✏️ Esercitazioni Interattive</h2>
+                <p>Metti alla prova la tua comprensione con questi esercizi. Riceverai feedback immediato per ogni risposta!</p>
+            </div>
+
+            <!-- ESERCIZIO 1: Scelta Multipla -->
+            <div class="exercise-card">
+                <h3>Esercizio 1: Definizione di IA</h3>
+                <p>Quale delle seguenti affermazioni descrive meglio l'Intelligenza Artificiale?</p>
+                
+                <div class="exercise-options">
+                    <label>
+                        <input type="radio" name="ex1" value="a">
+                        A) Un sistema che possiede coscienza e può pensare come un essere umano
+                    </label>
+                    <label>
+                        <input type="radio" name="ex1" value="b">
+                        B) Un campo di studio che simula processi cognitivi umani attraverso algoritmi e dati
+                    </label>
+                    <label>
+                        <input type="radio" name="ex1" value="c">
+                        C) Un robot fisico capace di svolgere qualsiasi compito umano
+                    </label>
+                    <label>
+                        <input type="radio" name="ex1" value="d">
+                        D) Un software che sostituisce completamente il cervello umano
+                    </label>
+                </div>
+                
+                <button class="exercise-submit" onclick="checkExercise('ex1', 'b', this)">Verifica Risposta</button>
+                <div class="exercise-feedback" id="feedback-ex1"></div>
+            </div>
+
+            <!-- ESERCIZIO 2: Vero/Falso -->
+            <div class="exercise-card">
+                <h3>Esercizio 2: Vero o Falso</h3>
+                <p>Indica se le seguenti affermazioni sono vere o false:</p>
+                
+                <div class="exercise-options">
+                    <label>
+                        <input type="checkbox" name="ex2-1" value="true">
+                        1. L'IA forte (AGI) è già stata realizzata e viene utilizzata nei nostri smartphone
+                    </label>
+                    <label>
+                        <input type="checkbox" name="ex2-2" value="false">
+                        2. Le GPU sono hardware specializzati utili per il Deep Learning
+                    </label>
+                    <label>
+                        <input type="checkbox" name="ex2-3" value="true">
+                        3. Il Machine Learning permette ai sistemi di imparare dai dati senza programmazione esplicita
+                    </label>
+                    <label>
+                        <input type="checkbox" name="ex2-4" value="false">
+                        4. Il bias algoritmico non è un problema rilevante per l'IA
+                    </label>
+                </div>
+                
+                <button class="exercise-submit" onclick="checkExerciseMultiple('ex2', [false, true, true, false], this)">Verifica Risposte</button>
+                <div class="exercise-feedback" id="feedback-ex2"></div>
+            </div>
+
+            <!-- ESERCIZIO 3: Associazione -->
+            <div class="exercise-card">
+                <h3>Esercizio 3: Associazione</h3>
+                <p>Associa ogni tipo di Machine Learning alla sua descrizione corretta:</p>
+                
+                <div class="exercise-options">
+                    <p><strong>1. Supervised Learning</strong></p>
+                    <select name="ex3-1">
+                        <option value="">-- Seleziona --</option>
+                        <option value="a">Impara da dati con etichette (risposte corrette)</option>
+                        <option value="b">Scopre pattern in dati senza etichette</option>
+                        <option value="c">Impara per prove ed errori ricevendo ricompense</option>
+                    </select>
+                    
+                    <p><strong>2. Unsupervised Learning</strong></p>
+                    <select name="ex3-2">
+                        <option value="">-- Seleziona --</option>
+                        <option value="a">Impara da dati con etichette (risposte corrette)</option>
+                        <option value="b">Scopre pattern in dati senza etichette</option>
+                        <option value="c">Impara per prove ed errori ricevendo ricompense</option>
+                    </select>
+                    
+                    <p><strong>3. Reinforcement Learning</strong></p>
+                    <select name="ex3-3">
+                        <option value="">-- Seleziona --</option>
+                        <option value="a">Impara da dati con etichette (risposte corrette)</option>
+                        <option value="b">Scopre pattern in dati senza etichette</option>
+                        <option value="c">Impara per prove ed errori ricevendo ricompense</option>
+                    </select>
+                </div>
+                
+                <button class="exercise-submit" onclick="checkExerciseSelect('ex3', ['a', 'b', 'c'], this)">Verifica Associazioni</button>
+                <div class="exercise-feedback" id="feedback-ex3"></div>
+            </div>
+
+            <!-- ESERCIZIO 4: Completamento -->
+            <div class="exercise-card">
+                <h3>Esercizio 4: Completamento</h3>
+                <p>Completa le seguenti frasi con le parole mancanti:</p>
+                
+                <div class="exercise-options">
+                    <p>1. Il <input type="text" name="ex4-1" placeholder="..." style="width:150px;display:inline-block;"> è un processo attraverso cui una rete neurale aggiusta i propri pesi propagando l'errore all'indietro.</p>
+                    
+                    <p>2. Le <input type="text" name="ex4-2" placeholder="..." style="width:150px;display:inline-block;"> sono processori specializzati originariamente per la grafica, ora usati per accelerare il calcolo nell'IA.</p>
+                    
+                    <p>3. L'IA <input type="text" name="ex4-3" placeholder="..." style="width:150px;display:inline-block;"> è progettata per svolgere un compito specifico ed è l'unica forma di IA realmente esistente oggi.</p>
+                </div>
+                
+                <button class="exercise-submit" onclick="checkExerciseText('ex4', ['backpropagation', 'gpu', 'debole'], this)">Verifica Completamenti</button>
+                <div class="exercise-feedback" id="feedback-ex4"></div>
+            </div>
+
+            <!-- ESERCIZIO 5: Riordino -->
+            <div class="exercise-card">
+                <h3>Esercizio 5: Riordino Pipeline ML</h3>
+                <p>Ordina correttamente le fasi della Pipeline del Machine Learning (inserisci i numeri da 1 a 6):</p>
+                
+                <div class="exercise-options">
+                    <p><input type="number" name="ex5-1" min="1" max="6" style="width:60px;"> Validazione e Test</p>
+                    <p><input type="number" name="ex5-2" min="1" max="6" style="width:60px;"> Raccolta Dati</p>
+                    <p><input type="number" name="ex5-3" min="1" max="6" style="width:60px;"> Monitoraggio Continuo</p>
+                    <p><input type="number" name="ex5-4" min="1" max="6" style="width:60px;"> Preparazione e Pulizia</p>
+                    <p><input type="number" name="ex5-5" min="1" max="6" style="width:60px;"> Addestramento Modello</p>
+                    <p><input type="number" name="ex5-6" min="1" max="6" style="width:60px;"> Inferenza (Uso Pratico)</p>
+                </div>
+                
+                <button class="exercise-submit" onclick="checkExerciseOrder('ex5', [4, 1, 6, 2, 3, 5], this)">Verifica Ordine</button>
+                <div class="exercise-feedback" id="feedback-ex5"></div>
+            </div>
+
+            <!-- ESERCIZIO 6: Scelta Multipla Avanzata -->
+            <div class="exercise-card">
+                <h3>Esercizio 6: Rischi e Benefici</h3>
+                <p>Quale dei seguenti NON è un rischio etico dell'Intelligenza Artificiale?</p>
+                
+                <div class="exercise-options">
+                    <label>
+                        <input type="radio" name="ex6" value="a">
+                        A) Bias algoritmico che perpetua discriminazioni
+                    </label>
+                    <label>
+                        <input type="radio" name="ex6" value="b">
+                        B) Violazione della privacy tramite sorveglianza massiva
+                    </label>
+                    <label>
+                        <input type="radio" name="ex6" value="c">
+                        C) Miglioramento della diagnosi medica precoce
+                    </label>
+                    <label>
+                        <input type="radio" name="ex6" value="d">
+                        D) Diffusione di deepfake e disinformazione
+                    </label>
+                </div>
+                
+                <button class="exercise-submit" onclick="checkExercise('ex6', 'c', this)">Verifica Risposta</button>
+                <div class="exercise-feedback" id="feedback-ex6"></div>
+            </div>
+
+            <!-- PULSANTE VERIFICA GENERALE -->
+            <button class="verify-all-btn" onclick="verifyAllExercises()">📊 Verifica Tutte le Risposte e Mostra Punteggio</button>
+            
+            <div class="score-display" id="score-display">
+                <h3>Punteggio Finale</h3>
+                <p id="score-text"></p>
+                <p id="score-message"></p>
+            </div>
+        </section>
+
+        <!-- ==================== SEZIONE VERIFICA FINALE ==================== -->
+        <section id="verifica">
+            <div class="card">
+                <h2>📝 Verifica Finale</h2>
+                <p>Completa questa verifica per dimostrare la tua comprensione degli argomenti trattati. Le risposte non verranno corrette automaticamente: salva la pagina o stampala per la correzione del docente.</p>
+            </div>
+
+            <!-- INTESTAZIONE STUDENTE -->
+            <div class="exam-header">
+                <h3>Dati Studente</h3>
+                <input type="text" id="student-name" placeholder="Nome e Cognome">
+                <input type="text" id="student-class" placeholder="Classe">
+                <input type="date" id="student-date">
+            </div>
+
+            <!-- DOMANDA 1 -->
+            <div class="exam-question">
+                <h3>Domanda 1: Definizioni</h3>
+                <span class="topic-tag">[#Concetti Base]</span>
+                <span class="topic-tag">[#IA Debole-Forte]</span>
+                <p>Spiega con parole tue la differenza tra IA debole e IA forte. Fornisci un esempio concreto per ciascuna tipologia.</p>
+                <div class="exam-answer-space" contenteditable="true"></div>
+            </div>
+
+            <!-- DOMANDA 2 -->
+            <div class="exam-question">
+                <h3>Domanda 2: Storia</h3>
+                <span class="topic-tag">[#Storia]</span>
+                <span class="topic-tag">[#Evoluzione]</span>
+                <p>Indica almeno tre tappe fondamentali nella storia dell'Intelligenza Artificiale e spiega perché sono importanti.</p>
+                <div class="exam-answer-space" contenteditable="true"></div>
+            </div>
+
+            <!-- DOMANDA 3 -->
+            <div class="exam-question">
+                <h3>Domanda 3: Machine Learning</h3>
+                <span class="topic-tag">[#ML]</span>
+                <p>Descrivi brevemente i tre tipi principali di Machine Learning (supervisionato, non supervisionato, rinforzo) e fornisci un'applicazione pratica per ciascuno.</p>
+                <div class="exam-answer-space" contenteditable="true"></div>
+            </div>
+
+            <!-- DOMANDA 4 -->
+            <div class="exam-question">
+                <h3>Domanda 4: Scelta Multipla</h3>
+                <span class="topic-tag">[#Deep Learning]</span>
+                <span class="topic-tag">[#Reti Neurali]</span>
+                <p>Cosa significa "backpropagation" nel contesto delle reti neurali?</p>
+                <div class="exercise-options">
+                    <label><input type="radio" name="exam-q4"> A) Il flusso di dati dall'input all'output</label>
+                    <label><input type="radio" name="exam-q4"> B) La propagazione dell'errore dall'output verso gli strati precedenti per aggiustare i pesi</label>
+                    <label><input type="radio" name="exam-q4"> C) L'eliminazione dei neuroni inutili</label>
+                    <label><input type="radio" name="exam-q4"> D) Il processo di creazione di nuovi strati nascosti</label>
+                </div>
+            </div>
+
+            <!-- DOMANDA 5 -->
+            <div class="exam-question">
+                <h3>Domanda 5: Vero o Falso</h3>
+                <span class="topic-tag">[#Hardware]</span>
+                <span class="topic-tag">[#Tecnologie]</span>
+                <p>Indica se le seguenti affermazioni sono vere (V) o false (F):</p>
+                <div class="exercise-options">
+                    <label><input type="checkbox"> 1. Le GPU sono più efficienti delle CPU per il calcolo parallelo richiesto dal Deep Learning</label>
+                    <label><input type="checkbox"> 2. Le TPU sono processori generici utilizzabili per qualsiasi tipo di calcolo</label>
+                    <label><input type="checkbox"> 3. Il Deep Learning richiede enormi quantità di dati e potenza di calcolo</label>
+                    <label><input type="checkbox"> 4. Una rete neurale può funzionare anche senza strati nascosti</label>
+                </div>
+            </div>
+
+            <!-- DOMANDA 6 -->
+            <div class="exam-question">
+                <h3>Domanda 6: Applicazioni</h3>
+                <span class="topic-tag">[#AIED]</span>
+                <span class="topic-tag">[#Applicazioni]</span>
+                <p>Elenca tre applicazioni concrete dell'IA nell'educazione (AIED) e spiega come possono migliorare l'apprendimento degli studenti.</p>
+                <div class="exam-answer-space" contenteditable="true"></div>
+            </div>
+
+            <!-- DOMANDA 7 -->
+            <div class="exam-question">
+                <h3>Domanda 7: Etica</h3>
+                <span class="topic-tag">[#Etica]</span>
+                <span class="topic-tag">[#Rischi]</span>
+                <p>Cosa si intende per "bias algoritmico"? Fornisci un esempio di come può manifestarsi e quali conseguenze può avere nella società.</p>
+                <div class="exam-answer-space" contenteditable="true"></div>
+            </div>
+
+            <!-- DOMANDA 8 -->
+            <div class="exam-question">
+                <h3>Domanda 8: Associazione</h3>
+                <span class="topic-tag">[#Concetti]</span>
+                <span class="topic-tag">[#Terminologia]</span>
+                <p>Associa ogni termine alla sua definizione corretta:</p>
+                <p>1. Dataset → <input type="text" placeholder="Lettera..." style="width:80px;"></p>
+                <p>2. Neurone artificiale → <input type="text" placeholder="Lettera..." style="width:80px;"></p>
+                <p>3. Overfitting → <input type="text" placeholder="Lettera..." style="width:80px;"></p>
+                <br>
+                <p><strong>A)</strong> Fenomeno in cui un modello impara troppo bene i dati di training perdendo capacità di generalizzazione</p>
+                <p><strong>B)</strong> Insieme di dati utilizzati per addestrare un modello di IA</p>
+                <p><strong>C)</strong> Unità di calcolo base di una rete neurale che riceve input, li elabora e produce output</p>
+            </div>
+
+            <!-- DOMANDA 9 -->
+            <div class="exam-question">
+                <h3>Domanda 9: Completamento</h3>
+                <span class="topic-tag">[#ML]</span>
+                <span class="topic-tag">[#Pipeline]</span>
+                <p>Completa la frase:</p>
+                <p>La Pipeline del Machine Learning è composta da sei fasi principali: 
+                   <input type="text" placeholder="1..." style="width:120px;">, 
+                   preparazione e pulizia, 
+                   <input type="text" placeholder="2..." style="width:120px;">, 
+                   validazione, 
+                   <input type="text" placeholder="3..." style="width:120px;"> 
+                   e monitoraggio continuo.
+                </p>
+            </div>
+
+            <!-- DOMANDA 10 -->
+            <div class="exam-question">
+                <h3>Domanda 10: Riflessione Critica</h3>
+                <span class="topic-tag">[#Etica]</span>
+                <span class="topic-tag">[#Pensiero Critico]</span>
+                <p>Secondo te, quali sono i principali rischi e benefici dell'uso dell'IA nella società contemporanea? Come possiamo garantire un uso etico e responsabile di queste tecnologie?</p>
+                <div class="exam-answer-space" contenteditable="true" style="min-height: 150px;"></div>
+            </div>
+
+            <!-- PULSANTE STAMPA -->
+            <button class="print-exam-btn" onclick="printExam()">🖨️ Stampa Verifica in PDF</button>
+        </section>
+    </div>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        // ==================== NAVIGAZIONE TRA SEZIONI ====================
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Rimuovi active da tutti i pulsanti
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                // Aggiungi active al pulsante cliccato
+                this.classList.add('active');
+                
+                // Nascondi tutte le sezioni
+                document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+                // Mostra la sezione corrispondente
+                const sectionId = this.dataset.section;
+                document.getElementById(sectionId).classList.add('active');
+                
+                // Scroll smooth in alto
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // ==================== ANCORE INTERNE (INDICE CLICCABILE) ====================
+        document.querySelectorAll('.table-of-contents a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // ==================== FUNZIONI SCHEMI: ZOOM ====================
+        let zoomLevels = {};
+        
+        function zoomSchema(contentId, factor) {
+            if (!zoomLevels[contentId]) {
+                zoomLevels[contentId] = 1;
+            }
+            zoomLevels[contentId] *= factor;
+            const content = document.getElementById(contentId);
+            content.style.transform = `scale(${zoomLevels[contentId]})`;
+        }
+        
+        function resetZoom(contentId) {
+            zoomLevels[contentId] = 1;
+            const content = document.getElementById(contentId);
+            content.style.transform = 'scale(1)';
+        }
+
+        // ==================== FUNZIONI SCHEMI: ACCORDION ====================
+        function toggleAccordion(header) {
+            header.classList.toggle('active');
+            const content = header.nextElementSibling;
+            content.classList.toggle('active');
+        }
+
+        // ==================== FUNZIONI SCHEMI: STAMPA SINGOLO SCHEMA ====================
+        function printSchema(schemaId) {
+            const schemaContainer = document.getElementById(schemaId);
+            const originalContent = document.body.innerHTML;
+            
+            // Prepara contenuto da stampare
+            const printContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Schema - ${schemaContainer.querySelector('h3').textContent}</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 20px; }
+                        h3 { color: #2563eb; }
+                        .schema-content { page-break-inside: avoid; }
+                        .schema-legend { margin-top: 20px; padding: 15px; background: #f0f9ff; border: 1px solid #2563eb; }
+                    </style>
+                </head>
+                <body>
+                    ${schemaContainer.innerHTML}
+                </body>
+                </html>
+            `;
+            
+            // Apri finestra di stampa
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(printContent);
+            printWindow.document.close();
+            printWindow.focus();
+            setTimeout(() => {
+                printWindow.print();
+                printWindow.close();
+            }, 250);
+        }
+
+        // ==================== ESERCITAZIONI: VERIFICA SINGOLA ====================
+        function checkExercise(name, correctAnswer, button) {
+            const selected = document.querySelector(`input[name="${name}"]:checked`);
+            const feedback = document.getElementById(`feedback-${name}`);
+            
+            if (!selected) {
+                feedback.className = 'exercise-feedback incorrect';
+                feedback.innerHTML = '⚠️ Seleziona una risposta prima di verificare.';
+                return;
+            }
+            
+            if (selected.value === correctAnswer) {
+                feedback.className = 'exercise-feedback correct';
+                feedback.innerHTML = '✅ <strong>Corretto!</strong> Ottimo lavoro.';
+                button.disabled = true;
+                button.style.opacity = '0.5';
+            } else {
+                feedback.className = 'exercise-feedback incorrect';
+                feedback.innerHTML = '❌ <strong>Non corretto.</strong> Riprova o rileggi la sezione teoria per trovare la risposta giusta.';
+            }
+        }
+
+        // ==================== ESERCITAZIONI: VERIFICA MULTIPLA (V/F) ====================
+        function checkExerciseMultiple(baseName, correctAnswers, button) {
+            let allCorrect = true;
+            const feedback = document.getElementById(`feedback-${baseName}`);
+            
+            correctAnswers.forEach((correct, index) => {
+                const checkbox = document.querySelector(`input[name="${baseName}-${index + 1}"]`);
+                if (checkbox.checked !== correct) {
+                    allCorrect = false;
+                }
+            });
+            
+            if (allCorrect) {
+                feedback.className = 'exercise-feedback correct';
+                feedback.innerHTML = '✅ <strong>Tutte corrette!</strong> Eccellente comprensione.';
+                button.disabled = true;
+                button.style.opacity = '0.5';
+            } else {
+                feedback.className = 'exercise-feedback incorrect';
+                feedback.innerHTML = '❌ <strong>Alcune risposte non sono corrette.</strong> Hint: ricontrolla le affermazioni sul Test di Turing e sulla GPU.';
+            }
+        }
+
+        // ==================== ESERCITAZIONI: VERIFICA SELECT (ASSOCIAZIONE) ====================
+        function checkExerciseSelect(baseName, correctAnswers, button) {
+            let allCorrect = true;
+            const feedback = document.getElementById(`feedback-${baseName}`);
+            
+            correctAnswers.forEach((correct, index) => {
+                const select = document.querySelector(`select[name="${baseName}-${index + 1}"]`);
+                if (select.value !== correct) {
+                    allCorrect = false;
+                }
+            });
+            
+            if (allCorrect) {
+                feedback.className = 'exercise-feedback correct';
+                feedback.innerHTML = '✅ <strong>Associazioni corrette!</strong> Hai compreso bene i tipi di ML.';
+                button.disabled = true;
+                button.style.opacity = '0.5';
+            } else {
+                feedback.className = 'exercise-feedback incorrect';
+                feedback.innerHTML = '❌ <strong>Alcune associazioni non sono corrette.</strong> Hint: pensa a quale tipo di ML usa etichette, quale scopre pattern autonomamente e quale impara per tentativi.';
+            }
+        }
+
+        // ==================== ESERCITAZIONI: VERIFICA TESTO (COMPLETAMENTO) ====================
+        function checkExerciseText(baseName, correctAnswers, button) {
+            let allCorrect = true;
+            const feedback = document.getElementById(`feedback-${baseName}`);
+            
+            correctAnswers.forEach((correct, index) => {
+                const input = document.querySelector(`input[name="${baseName}-${index + 1}"]`);
+                const value = input.value.toLowerCase().trim();
+                // Accetta varianti comuni
+                const variants = {
+                    'backpropagation': ['backpropagation', 'back propagation', 'retropropagazione'],
+                    'gpu': ['gpu', 'graphics processing unit'],
+                    'debole': ['debole', 'ristretta', 'narrow']
+                };
+                
+                const acceptedAnswers = variants[correct] || [correct];
+                if (!acceptedAnswers.some(ans => value.includes(ans))) {
+                    allCorrect = false;
+                }
+            });
+            
+            if (allCorrect) {
+                feedback.className = 'exercise-feedback correct';
+                feedback.innerHTML = '✅ <strong>Completamenti corretti!</strong> Conosci bene i termini tecnici.';
+                button.disabled = true;
+                button.style.opacity = '0.5';
+            } else {
+                feedback.className = 'exercise-feedback incorrect';
+                feedback.innerHTML = '❌ <strong>Alcuni completamenti non sono corretti.</strong> Hint: pensa al processo di correzione pesi nelle reti neurali, all\'hardware per grafica e al tipo di IA specializzata.';
+            }
+        }
+
+        // ==================== ESERCITAZIONI: VERIFICA ORDINE (RIORDINO) ====================
+        function checkExerciseOrder(baseName, correctOrder, button) {
+            let allCorrect = true;
+            const feedback = document.getElementById(`feedback-${baseName}`);
+            
+            correctOrder.forEach((correct, index) => {
+                const input = document.querySelector(`input[name="${baseName}-${index + 1}"]`);
+                if (parseInt(input.value) !== correct) {
+                    allCorrect = false;
+                }
+            });
+            
+            if (allCorrect) {
+                feedback.className = 'exercise-feedback correct';
+                feedback.innerHTML = '✅ <strong>Ordine corretto!</strong> Hai compreso perfettamente la Pipeline ML.';
+                button.disabled = true;
+                button.style.opacity = '0.5';
+            } else {
+                feedback.className = 'exercise-feedback incorrect';
+                feedback.innerHTML = '❌ <strong>L\'ordine non è corretto.</strong> Hint: pensa al flusso logico: prima raccogli, poi prepari, poi addestri, poi validi, poi usi, infine monitori.';
+            }
+        }
+
+        // ==================== ESERCITAZIONI: VERIFICA GLOBALE E PUNTEGGIO ====================
+        function verifyAllExercises() {
+            let correctCount = 0;
+            let totalCount = 6;
+            
+            // Ex1
+            const ex1 = document.querySelector('input[name="ex1"]:checked');
+            if (ex1 && ex1.value === 'b') correctCount++;
+            
+            // Ex2
+            const ex2checks = [
+                document.querySelector('input[name="ex2-1"]').checked === false,
+                document.querySelector('input[name="ex2-2"]').checked === true,
+                document.querySelector('input[name="ex2-3"]').checked === true,
+                document.querySelector('input[name="ex2-4"]').checked === false
+            ];
+            if (ex2checks.every(c => c === true)) correctCount++;
+            
+            // Ex3
+            const ex3_1 = document.querySelector('select[name="ex3-1"]').value;
+            const ex3_2 = document.querySelector('select[name="ex3-2"]').value;
+            const ex3_3 = document.querySelector('select[name="ex3-3"]').value;
+            if (ex3_1 === 'a' && ex3_2 === 'b' && ex3_3 === 'c') correctCount++;
+            
+            // Ex4
+            const ex4_1 = document.querySelector('input[name="ex4-1"]').value.toLowerCase().trim();
+            const ex4_2 = document.querySelector('input[name="ex4-2"]').value.toLowerCase().trim();
+            const ex4_3 = document.querySelector('input[name="ex4-3"]').value.toLowerCase().trim();
+            if ((ex4_1.includes('backpropagation') || ex4_1.includes('retropropagazione')) &&
+                ex4_2.includes('gpu') &&
+                (ex4_3.includes('debole') || ex4_3.includes('ristretta'))) {
+                correctCount++;
+            }
+            
+            // Ex5
+            const ex5vals = [
+                parseInt(document.querySelector('input[name="ex5-1"]').value),
+                parseInt(document.querySelector('input[name="ex5-2"]').value),
+                parseInt(document.querySelector('input[name="ex5-3"]').value),
+                parseInt(document.querySelector('input[name="ex5-4"]').value),
+                parseInt(document.querySelector('input[name="ex5-5"]').value),
+                parseInt(document.querySelector('input[name="ex5-6"]').value)
+            ];
+            if (ex5vals[0] === 4 && ex5vals[1] === 1 && ex5vals[2] === 6 && 
+                ex5vals[3] === 2 && ex5vals[4] === 3 && ex5vals[5] === 5) {
+                correctCount++;
+            }
+            
+            // Ex6
+            const ex6 = document.querySelector('input[name="ex6"]:checked');
+            if (ex6 && ex6.value === 'c') correctCount++;
+            
+            // Mostra punteggio
+            const scoreDisplay = document.getElementById('score-display');
+            const scoreText = document.getElementById('score-text');
+            const scoreMessage = document.getElementById('score-message');
+            
+            const percentage = (correctCount / totalCount * 100).toFixed(0);
+            scoreText.innerHTML = `<strong>Hai risposto correttamente a ${correctCount} su ${totalCount} esercizi (${percentage}%)</strong>`;
+            
+            if (percentage >= 90) {
+                scoreMessage.innerHTML = '🎉 <strong>Eccellente!</strong> Hai dimostrato una comprensione profonda degli argomenti.';
+            } else if (percentage >= 70) {
+                scoreMessage.innerHTML = '👍 <strong>Buon lavoro!</strong> Hai una solida comprensione di base. Rileggi le sezioni dove hai avuto difficoltà.';
+            } else if (percentage >= 50) {
+                scoreMessage.innerHTML = '📚 <strong>Puoi migliorare.</strong> Rileggi attentamente la sezione teoria e riprova gli esercizi.';
+            } else {
+                scoreMessage.innerHTML = '💡 <strong>Ti consiglio di studiare ancora.</strong> Prenditi il tempo necessario per comprendere i concetti base prima di proseguire.';
+            }
+            
+            scoreDisplay.classList.add('show');
+            scoreDisplay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // ==================== VERIFICA FINALE: STAMPA ====================
+        function printExam() {
+            // Verifica che l'utente abbia compilato i dati
+            const name = document.getElementById('student-name').value;
+            const studentClass = document.getElementById('student-class').value;
+            const date = document.getElementById('student-date').value;
+            
+            if (!name || !studentClass || !date) {
+                alert('⚠️ Compila Nome, Classe e Data prima di stampare!');
+                return;
+            }
+            
+            window.print();
+        }
+
+        // ==================== INIZIALIZZAZIONE ====================
+        // Imposta data odierna nel campo data della verifica
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('student-date').value = today;
+        });
+    </script>
+</body>
+</html>
