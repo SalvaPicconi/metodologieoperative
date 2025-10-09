@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligenza Artificiale - Versione Semplificata</title>
+    <style>
+        /* ==================== VARIABILI CSS ACCESSIBILI ==================== */
+        :root {
+            --primary-color: #7c9bbf;
+            --secondary-color: #a8c5e0;
+            --success-color: #88c699;
+            --bg-light: #f5f7fa;
+            --text-dark: #2d3748;
+            --border-color: #d4dce6;
+            --box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* ==================== RESET & BASE ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', 'Verdana', sans-serif;
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text-dark);
+            background: var(--bg-light);
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* ==================== HEADER ==================== */
+        .header {
+            background: linear-gradient(135deg, #7c9bbf, #a8c5e0);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.95;
+        }
+
+        /* ==================== BARRA PROGRESSO ==================== */
+        .progress-container {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 30px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .progress-label {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e2e8f0;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success-color), var(--secondary-color));
+            width: 0%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* ==================== TIMER PAUSE ==================== */
+        .timer-box {
+            background: white;
+            border: 3px solid var(--success-color);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .timer-box.show {
+            display: block;
+        }
+
+        .timer-box h3 {
+            color: var(--success-color);
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .timer-display {
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 20px 0;
+        }
+
+        .timer-buttons button {
+            background: var(--success-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .timer-buttons button:hover {
+            opacity: 0.9;
+        }
+
+        /* ==================== NAVIGAZIONE SEMPLICE ==================== */
+        .nav-simple {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-simple button {
+            flex: 1;
+            min-width: 150px;
+            background: white;
+            color: var(--primary-color);
+            border: 3px solid var(--primary-color);
+            padding: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-simple button:hover,
+        .nav-simple button.active {
+            background: var(--primary-color);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* ==================== SEZIONI ==================== */
+        section {
+            display: none;
+        }
+
+        section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* ==================== CARD SEMPLICE ==================== */
+        .simple-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: var(--box-shadow);
+            border-left: 6px solid var(--primary-color);
+        }
+
+        .simple-card h2 {
+            color: var(--primary-color);
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        .simple-card h3 {
+            color: var(--text-dark);
+            font-size: 22px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .simple-card p {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .simple-card ul {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .simple-card li {
+            margin-bottom: 12px;
+        }
+
+        /* ==================== BOX COLORATI ==================== */
+        .info-simple {
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 6px solid;
+            font-size: 17px;
+        }
+
+        .info-simple.blue {
+            background: #e6f2ff;
+            border-color: #4d94ff;
+        }
+
+        .info-simple.green {
+            background: #e6ffe6;
+            border-color: #66cc66;
+        }
+
+        .info-simple.yellow {
+            background: #fff9e6;
+            border-color: #ffcc66;
+        }
+
+        .info-simple strong {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* ==================== ESERCIZI SEMPLICI ==================== */
+        .exercise-simple {
+            background: white;
+            border: 3px solid var(--secondary-color);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .exercise-simple h3 {
+            color: var(--primary-color);
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .exercise-simple .question {
+            font-size: 19px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .exercise-simple label {
+            display: block;
+            padding: 18px;
+            margin-bottom: 12px;
+            background: var(--bg-light);
+            border: 3px solid var(--border-color);
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .exercise-simple label:hover {
+            background: #e6f2ff;
+            border-color: var(--primary-color);
+        }
+
+        .exercise-simple input[type="radio"] {
+            width: 25px;
+            height: 25px;
+            margin-right: 15px;
+            vertical-align: middle;
+        }
+
+        .exercise-simple button {
+            background: var(--success-color);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .exercise-simple button:hover {
+            opacity: 0.9;
+        }
+
+        .feedback-simple {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 19px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .feedback-simple.show {
+            display: block;
+        }
+
+        .feedback-simple.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 3px solid #28a745;
+        }
+
+        .feedback-simple.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 3px solid #dc3545;
+        }
+
+        /* ==================== PULSANTI GRANDI ==================== */
+        .big-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 25px 50px;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 15px;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            box-shadow: var(--box-shadow);
+        }
+
+        .big-button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        /* ==================== ICONE GRANDI ==================== */
+        .big-icon {
+            font-size: 60px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* ==================== SCHEMI SEMPLIFICATI ==================== */
+        .schema-simple {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .schema-simple h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .schema-simple img,
+        .schema-simple svg {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        /* ==================== VERIFICA SEMPLICE ==================== */
+        .exam-simple {
+            background: white;
+            border: 3px solid var(--primary-color);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .exam-simple h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .exam-simple input[type="text"],
+        .exam-simple textarea {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border: 3px solid var(--border-color);
+            border-radius: 10px;
+            margin: 10px 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .exam-simple textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 600px) {
+            body {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .simple-card {
+                padding: 20px;
+            }
+
+            .nav-simple button {
+                min-width: 100%;
+            }
+        }
+
+        /* ==================== STAMPA ==================== */
+        @media print {
+            .header,
+            .progress-container,
+            .timer-box,
+            .nav-simple,
+            button {
+                display: none !important;
+            }
+
+            body {
+                background: white;
+            }
+
+            .simple-card,
+            .exam-simple {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* ==================== HELPER ==================== */
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+
+        strong {
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- ==================== HEADER ==================== -->
+    <div class="header">
+        <h1>🤖 Intelligenza Artificiale</h1>
+        <p>Versione Semplificata e Accessibile</p>
+    </div>
+
+    <!-- ==================== BARRA PROGRESSO ==================== -->
+    <div class="progress-container">
+        <div class="progress-label">📊 Il tuo progresso:</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill">0%</div>
+        </div>
+    </div>
+
+    <!-- ==================== TIMER PAUSE ==================== -->
+    <div class="timer-box" id="timer-box">
+        <h3>⏱️ Pausa Concentrazione</h3>
+        <p>Prenditi una pausa di 5 minuti!</p>
+        <div class="timer-display" id="timer-display">5:00</div>
+        <div class="timer-buttons">
+            <button onclick="startTimer()">▶️ Inizia Pausa</button>
+            <button onclick="closeTimer()">✅ Continua a Studiare</button>
+        </div>
+    </div>
+
+    <!-- ==================== NAVIGAZIONE ==================== -->
+    <div class="nav-simple">
+        <button class="nav-btn active" data-section="intro">📖 Introduzione</button>
+        <button class="nav-btn" data-section="teoria">📚 Lezioni</button>
+        <button class="nav-btn" data-section="schemi">📊 Schemi</button>
+        <button class="nav-btn" data-section="esercizi">✏️ Esercizi</button>
+        <button class="nav-btn" data-section="verifica">📝 Verifica</button>
+    </div>
+
+    <!-- ==================== INTRODUZIONE ==================== -->
+    <section id="intro" class="active">
+        <div class="simple-card">
+            <h2>👋 Benvenuto!</h2>
+            
+            <div class="big-icon">🤖</div>
+            
+            <p><strong>Cosa imparerai:</strong></p>
+            <ul>
+                <li>Cos'è l'Intelligenza Artificiale</li>
+                <li>Come funziona</li>
+                <li>Dove la usiamo ogni giorno</li>
+                <li>Come parlare con l'IA</li>
+            </ul>
+
+            <div class="info-simple blue">
+                <strong>💡 Come usare questa guida</strong>
+                <p>1. Leggi una lezione alla volta<br>
+                2. Guarda gli schemi<br>
+                3. Fai gli esercizi<br>
+                4. Fai la verifica finale<br>
+                5. Prendi pause quando serve!</p>
+            </div>
+
+            <div class="info-simple green">
+                <strong>✅ Suggerimento</strong>
+                <p>Vai piano. Non devi finire tutto subito. Puoi fare una pausa ogni 20 minuti. C'è un timer che ti aiuta!</p>
+            </div>
+
+            <button class="big-button" onclick="showSection('teoria')">📚 Inizia le Lezioni</button>
+        </div>
+    </section>
+
+    <!-- ==================== TEORIA SEMPLIFICATA ==================== -->
+    <section id="teoria">
+        <div class="simple-card">
+            <h2>📚 Lezione 1: Cos'è l'Intelligenza Artificiale</h2>
+            
+            <div class="big-icon">🤖</div>
+
+            <p><strong>Intelligenza Artificiale (IA)</strong> significa: computer che imparano a fare cose.</p>
+
+            <p>È come quando tu impari a giocare a un gioco. All'inizio non sai come fare, poi piano piano migliori. Anche i computer possono imparare!</p>
+
+            <div class="info-simple blue">
+                <strong>🔎 Esempio della vita quotidiana</strong>
+                <p>Quando chiedi al telefono "che tempo fa?" e lui ti risponde: questa è Intelligenza Artificiale!</p>
+            </div>
+
+            <h3>📱 Dove usi già l'IA ogni giorno</h3>
+            <ul>
+                <li><strong>Assistenti vocali</strong>: Siri, Alexa, Google Assistant</li>
+                <li><strong>Netflix e YouTube</strong>: ti suggeriscono video che ti piacciono</li>
+                <li><strong>Filtri foto</strong>: riconoscono i volti nelle foto</li>
+                <li><strong>Traduttore</strong>: traduce lingue diverse</li>
+                <li><strong>Mappe</strong>: ti dicono la strada migliore</li>
+            </ul>
+
+            <div class="info-simple green">
+                <strong>✅ Ricorda</strong>
+                <p>L'IA non è magica. È un programma del computer che impara dai dati.</p>
+            </div>
+        </div>
+
+        <div class="simple-card">
+            <h2>📚 Lezione 2: Come Funziona l'IA</h2>
+            
+            <div class="big-icon">🧠</div>
+
+            <p>L'IA impara <strong>guardando tanti esempi</strong>, come fai tu a scuola.</p>
+
+            <h3>Esempio: Riconoscere un Gatto</h3>
+            <ol>
+                <li>Dai al computer 1000 foto di gatti</li>
+                <li>Il computer guarda tutte le foto</li>
+                <li>Il computer impara: "I gatti hanno orecchie a punta, baffi, pelo..."</li>
+                <li>Ora può riconoscere un gatto in una nuova foto!</li>
+            </ol>
+
+            <div class="info-simple blue">
+                <strong>💡 È come quando impari</strong>
+                <p>Tu vedi tante parole scritte e impari a leggere. L'IA vede tante foto e impara a riconoscere le cose.</p>
+            </div>
+
+            <h3>🔢 Cosa Serve all'IA</h3>
+            <ul>
+                <li><strong>Dati</strong>: foto, testi, numeri (tante informazioni!)</li>
+                <li><strong>Computer potenti</strong>: per calcolare veloce</li>
+                <li><strong>Tempo</strong>: per imparare bene</li>
+            </ul>
+        </div>
+
+        <div class="simple-card">
+            <h2>📚 Lezione 3: Parlare con l'IA (Prompt)</h2>
+            
+            <div class="big-icon">💬</div>
+
+            <p>Per parlare bene con l'IA (come ChatGPT), devi dirle cose chiare.</p>
+
+            <h3>🎯 Come Fare una Buona Richiesta</h3>
+
+            <div class="info-simple yellow">
+                <strong>Esempio MALE ❌</strong>
+                <p>"Fai un riassunto"</p>
+                <p>→ L'IA non sa di cosa fare il riassunto!</p>
+            </div>
+
+            <div class="info-simple green">
+                <strong>Esempio BENE ✅</strong>
+                <p>"Fai un riassunto semplice di questo testo. Usa frasi corte. È per studiare per la scuola."</p>
+                <p>→ L'IA sa esattamente cosa vuoi!</p>
+            </div>
+
+            <h3>📝 Regole per Parlare con l'IA</h3>
+            <ol>
+                <li><strong>Spiega cosa vuoi</strong>: "Fai un riassunto"</li>
+                <li><strong>Spiega per chi</strong>: "Per uno studente"</li>
+                <li><strong>Spiega come lo vuoi</strong>: "Semplice, con frasi corte"</li>
+            </ol>
+
+            <div class="info-simple blue">
+                <strong>💡 Consiglio</strong>
+                <p>Se l'IA non capisce, prova a spiegare in modo diverso. Proprio come quando parli con una persona!</p>
+            </div>
+        </div>
+
+        <div class="simple-card">
+            <h2>📚 Lezione 4: L'IA a Scuola (NotebookLM)</h2>
+            
+            <div class="big-icon">📓</div>
+
+            <p><strong>NotebookLM</strong> è un programma di Google che ti aiuta a studiare.</p>
+
+            <h3>🎙️ Cosa Può Fare</h3>
+            <ul>
+                <li><strong>Podcast audio</strong>: trasforma i tuoi appunti in un audio da ascoltare</li>
+                <li><strong>Riassunti</strong>: fa un riassunto dei tuoi documenti</li>
+                <li><strong>Mappe</strong>: crea schemi dei concetti</li>
+                <li><strong>Domande</strong>: ti fa domande per ripassare</li>
+            </ul>
+
+            <div class="info-simple green">
+                <strong>✅ Come Usarlo</strong>
+                <p>1. Carica i tuoi appunti o PDF<br>
+                2. Chiedi cosa vuoi (riassunto, domande...)<br>
+                3. Studia con quello che ti dà!</p>
+            </div>
+
+            <div class="info-simple yellow">
+                <strong>⚠️ Attenzione</strong>
+                <p>Controlla sempre che le informazioni siano giuste. L'IA può sbagliare!</p>
+            </div>
+        </div>
+
+        <div class="simple-card">
+            <h2>📚 Lezione 5: Cose Buone e Problemi dell'IA</h2>
+            
+            <div class="big-icon">⚖️</div>
+
+            <h3>✅ Cose Buone</h3>
+            <ul>
+                <li><strong>Medicina</strong>: aiuta i dottori a trovare malattie</li>
+                <li><strong>Scuola</strong>: ti aiuta a studiare meglio</li>
+                <li><strong>Casa</strong>: assistenti vocali che ti aiutano</li>
+                <li><strong>Sicurezza</strong>: trova cose pericolose (virus, truffe...)</li>
+            </ul>
+
+            <h3>⚠️ Problemi</h3>
+            <ul>
+                <li><strong>Errori</strong>: l'IA può sbagliare</li>
+                <li><strong>Privacy</strong>: può sapere troppe cose di te</li>
+                <li><strong>Lavoro</strong>: alcuni lavori possono sparire</li>
+                <li><strong>Fake</strong>: può creare foto e video falsi</li>
+            </ul>
+
+            <div class="info-simple blue">
+                <strong>💡 Come Usarla Bene</strong>
+                <p>1. Non credere a tutto quello che dice l'IA<br>
+                2. Controlla le informazioni importanti<br>
+                3. Non darle informazioni personali<br>
+                4. Usala per imparare, non per copiare!</p>
+            </div>
+        </div>
+
+        <div class="simple-card">
+            <h2>📚 Lezione 6: Parole da Ricordare</h2>
+            
+            <div class="big-icon">📖</div>
+
+            <h3>Dizionario Semplice</h3>
+
+            <p><strong>Intelligenza Artificiale (IA)</strong><br>
+            Computer che imparano a fare cose.</p>
+
+            <p><strong>Dati</strong><br>
+            Informazioni (foto, testi, numeri) che l'IA usa per imparare.</p>
+
+            <p><strong>Prompt</strong><br>
+            La domanda o richiesta che fai all'IA.</p>
+
+            <p><strong>ChatGPT</strong><br>
+            Un programma di IA con cui puoi parlare e fare domande.</p>
+
+            <p><strong>NotebookLM</strong><br>
+            Programma di Google che ti aiuta a studiare con l'IA.</p>
+
+            <div class="info-simple green">
+                <strong>✅ Fine delle Lezioni!</strong>
+                <p>Ora puoi guardare gli schemi, fare gli esercizi e poi la verifica.</p>
+            </div>
+
+            <button class="big-button" onclick="showSection('schemi')">📊 Vai agli Schemi</button>
+        </div>
+    </section>
+
+    <!-- ==================== SCHEMI SEMPLIFICATI ==================== -->
+    <section id="schemi">
+        <div class="simple-card">
+            <h2>📊 Schemi Visivi</h2>
+            <p>Questi schemi ti aiutano a vedere come funziona l'IA.</p>
+        </div>
+
+        <div class="schema-simple">
+            <h3>1. Come Impara l'IA</h3>
+            <svg width="600" height="300" viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+                <!-- Dati -->
+                <rect x="50" y="100" width="120" height="100" rx="10" fill="#a8c5e0" stroke="#7c9bbf" stroke-width="3"/>
+                <text x="110" y="140" text-anchor="middle" font-size="18" font-weight="bold">📊 DATI</text>
+                <text x="110" y="165" text-anchor="middle" font-size="14">(foto, testi)</text>
+                
+                <!-- Freccia -->
+                <path d="M 170 150 L 220 150" stroke="#2d3748" stroke-width="4" marker-end="url(#arrow1)"/>
+                <defs>
+                    <marker id="arrow1" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#2d3748"/>
+                    </marker>
+                </defs>
+                
+                <!-- Computer -->
+                <rect x="220" y="100" width="120" height="100" rx="10" fill="#88c699" stroke="#66cc66" stroke-width="3"/>
+                <text x="280" y="140" text-anchor="middle" font-size="18" font-weight="bold">🤖 IA</text>
+                <text x="280" y="165" text-anchor="middle" font-size="14">(impara)</text>
+                
+                <!-- Freccia -->
+                <path d="M 340 150 L 390 150" stroke="#2d3748" stroke-width="4" marker-end="url(#arrow1)"/>
+                
+                <!-- Risultato -->
+                <rect x="390" y="100" width="150" height="100" rx="10" fill="#fff9e6" stroke="#ffcc66" stroke-width="3"/>
+                <text x="465" y="140" text-anchor="middle" font-size="18" font-weight="bold">✅ RISULTATO</text>
+                <text x="465" y="165" text-anchor="middle" font-size="14">(riconosce cose)</text>
+            </svg>
+            <p style="margin-top: 20px;"><strong>Spiegazione:</strong> L'IA guarda i dati, impara e poi sa fare cose nuove.</p>
+        </div>
+
+        <div class="schema-simple">
+            <h3>2. Dove Usi l'IA Ogni Giorno</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: left;">
+                <div class="info-simple blue">
+                    <strong>📱 Telefono</strong>
+                    <p>• Siri/Google<br>• Foto<br>• Tastiera</p>
+                </div>
+                <div class="info-simple blue">
+                    <strong>🎮 Intrattenimento</strong>
+                    <p>• Netflix<br>• YouTube<br>• Spotify</p>
+                </div>
+                <div class="info-simple blue">
+                    <strong>🏠 Casa</strong>
+                    <p>• Alexa<br>• Google Home<br>• TV Smart</p>
+                </div>
+                <div class="info-simple blue">
+                    <strong>🚗 Auto</strong>
+                    <p>• Navigatore<br>• Parcheggio<br>• Assistente</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="schema-simple">
+            <h3>3. Come Parlare con l'IA (Prompt)</h3>
+            <div class="info-simple green" style="text-align: left;">
+                <strong>✅ ESEMPIO BUONO</strong>
+                <p style="background: white; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                "Fai un riassunto semplice del capitolo sui dinosauri. Usa 5 frasi corte. È per uno studente di 3° superiore che deve studiare per un'interrogazione."
+                </p>
+            </div>
+            <div class="info-simple yellow" style="text-align: left; margin-top: 20px;">
+                <strong>❌ ESEMPIO CATTIVO</strong>
+                <p style="background: white; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                "Fai un riassunto"
+                </p>
+                <p style="margin-top: 10px;">→ Troppo vago! L'IA non sa cosa riassumere.</p>
+            </div>
+        </div>
+
+        <button class="big-button" onclick="showSection('esercizi')">✏️ Vai agli Esercizi</button>
+    </section>
+
+    <!-- ==================== ESERCIZI SEMPLIFICATI ==================== -->
+    <section id="esercizi">
+        <div class="simple-card">
+            <h2>✏️ Esercizi</h2>
+            <p>Fai questi esercizi per vedere se hai capito. Riceverai subito un messaggio che ti dice se è giusto o sbagliato.</p>
+        </div>
+
+        <!-- ESERCIZIO 1 -->
+        <div class="exercise-simple">
+            <h3>Esercizio 1</h3>
+            <div class="question">Cos'è l'Intelligenza Artificiale?</div>
+            
+            <label>
+                <input type="radio" name="ex1" value="a">
+                Computer che imparano a fare cose
+            </label>
+            <label>
+                <input type="radio" name="ex1" value="b">
+                Un robot con le gambe
+            </label>
+            <label>
+                <input type="radio" name="ex1" value="c">
+                Una persona molto intelligente
+            </label>
+            
+            <button onclick="checkExercise(1, 'a')">Verifica Risposta</button>
+            <div class="feedback-simple" id="feedback1"></div>
+        </div>
+
+        <!-- ESERCIZIO 2 -->
+        <div class="exercise-simple">
+            <h3>Esercizio 2</h3>
+            <div class="question">Dove usi già l'IA ogni giorno?</div>
+            
+            <label>
+                <input type="radio" name="ex2" value="a">
+                Quando chiedo a Siri che tempo fa
+            </label>
+            <label>
+                <input type="radio" name="ex2" value="b">
+                Quando leggo un libro di carta
+            </label>
+            <label>
+                <input type="radio" name="ex2" value="c">
+                Quando scrivo con una penna
+            </label>
+            
+            <button onclick="checkExercise(2, 'a')">Verifica Risposta</button>
+            <div class="feedback-simple" id="feedback2"></div>
+        </div>
+
+        <!-- ESERCIZIO 3 -->
+        <div class="exercise-simple">
+            <h3>Esercizio 3</h3>
+            <div class="question">Come impara l'IA a riconoscere un gatto?</div>
+            
+            <label>
+                <input type="radio" name="ex3" value="a">
+                Guarda tante foto di gatti e impara
+            </label>
+            <label>
+                <input type="radio" name="ex3" value="b">
+                Qualcuno le spiega con le parole
+            </label>
+            <label>
+                <input type="radio" name="ex3" value="c">
+                Lo sa già da sola
+            </label>
+            
+            <button onclick="checkExercise(3, 'a')">Verifica Risposta</button>
+            <div class="feedback-simple" id="feedback3"></div>
+        </div>
+
+        <!-- ESERCIZIO 4 -->
+        <div class="exercise-simple">
+            <h3>Esercizio 4</h3>
+            <div class="question">Quale richiesta (prompt) è migliore?</div>
+            
+            <label>
+                <input type="radio" name="ex4" value="a">
+                "Fai qualcosa"
+            </label>
+            <label>
+                <input type="radio" name="ex4" value="b">
+                "Fai un riassunto semplice del testo. Usa frasi corte. È per studiare."
+            </label>
+            <label>
+                <input type="radio" name="ex4" value="c">
+                "Ciao"
+            </label>
+            
+            <button onclick="checkExercise(4, 'b')">Verifica Risposta</button>
+            <div class="feedback-simple" id="feedback4"></div>
+        </div>
+
+        <button class="big-button" onclick="calculateScore()">📊 Vedi il Punteggio</button>
+        
+        <div class="simple-card" id="score-card" style="display: none; background: #e6ffe6; border-color: #66cc66;">
+            <h2>🎉 Risultato</h2>
+            <div class="big-icon" id="score-icon"></div>
+            <p id="score-text" style="font-size: 24px; font-weight: bold; text-align: center;"></p>
+            <p id="score-message" style="text-align: center; margin-top: 20px;"></p>
+            <button class="big-button" onclick="showSection('verifica')">📝 Vai alla Verifica Finale</button>
+        </div>
+    </section>
+
+    <!-- ==================== VERIFICA SEMPLIFICATA ==================== -->
+    <section id="verifica">
+        <div class="simple-card">
+            <h2>📝 Verifica Finale</h2>
+            <p>Rispondi a queste domande per mostrare cosa hai imparato.</p>
+        </div>
+
+        <!-- DATI STUDENTE -->
+        <div class="exam-simple">
+            <h3>I Tuoi Dati</h3>
+            <input type="text" id="nome" placeholder="Il tuo nome">
+            <input type="text" id="classe" placeholder="La tua classe">
+            <input type="date" id="data">
+        </div>
+
+        <!-- DOMANDA 1 -->
+        <div class="exam-simple">
+            <h3>Domanda 1</h3>
+            <p><strong>Cos'è l'Intelligenza Artificiale? Spiega con parole tue.</strong></p>
+            <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+        </div>
+
+        <!-- DOMANDA 2 -->
+        <div class="exam-simple">
+            <h3>Domanda 2</h3>
+            <p><strong>Scrivi 3 posti dove usi l'IA ogni giorno.</strong></p>
+            <p>1. <input type="text" placeholder="Esempio: telefono"></p>
+            <p>2. <input type="text" placeholder="Esempio: Netflix"></p>
+            <p>3. <input type="text" placeholder="Esempio: assistente vocale"></p>
+        </div>
+
+        <!-- DOMANDA 3 -->
+        <div class="exam-simple">
+            <h3>Domanda 3</h3>
+            <p><strong>Come fa l'IA a imparare? Spiega con un esempio.</strong></p>
+            <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+        </div>
+
+        <!-- DOMANDA 4 -->
+        <div class="exam-simple">
+            <h3>Domanda 4</h3>
+            <p><strong>Scrivi una buona richiesta (prompt) per chiedere all'IA di fare un riassunto.</strong></p>
+            <textarea placeholder="Scrivi qui il tuo prompt..."></textarea>
+        </div>
+
+        <!-- DOMANDA 5 -->
+        <div class="exam-simple">
+            <h3>Domanda 5</h3>
+            <p><strong>Scrivi 2 cose buone e 2 problemi dell'Intelligenza Artificiale.</strong></p>
+            <p><strong>Cose buone:</strong></p>
+            <p>1. <input type="text"></p>
+            <p>2. <input type="text"></p>
+            <p><strong>Problemi:</strong></p>
+            <p>1. <input type="text"></p>
+            <p>2. <input type="text"></p>
+        </div>
+
+        <!-- DOMANDA 6 -->
+        <div class="exam-simple">
+            <h3>Domanda 6</h3>
+            <p><strong>Come puoi usare l'IA per studiare meglio?</strong></p>
+            <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+        </div>
+
+        <button class="big-button" onclick="window.print()">🖨️ Stampa la Verifica</button>
+
+        <div class="simple-card" style="background: #e6f2ff; margin-top: 30px;">
+            <h2>🎉 Complimenti!</h2>
+            <div class="big-icon">⭐</div>
+            <p style="text-align: center; font-size: 20px;">Hai finito tutto il percorso sull'Intelligenza Artificiale!</p>
+            <p style="text-align: center; margin-top: 20px;">Ora sai cos'è l'IA, come funziona e come usarla bene. Bravo! 👏</p>
+        </div>
+    </section>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        // ==================== NAVIGAZIONE ====================
+        let currentSection = 'intro';
+        const totalSections = 5;
+        let completedSections = [];
+
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const section = this.dataset.section;
+                showSection(section);
+            });
+        });
+
+        function showSection(sectionId) {
+            // Aggiorna pulsanti
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector(`[data-section="${sectionId}"]`).classList.add('active');
+            
+            // Mostra sezione
+            document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Scroll in alto
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Aggiorna progresso
+            if (!completedSections.includes(sectionId)) {
+                completedSections.push(sectionId);
+            }
+            updateProgress();
+            
+            // Mostra timer pause ogni 2 sezioni
+            if (completedSections.length % 2 === 0 && completedSections.length > 0) {
+                showPauseTimer();
+            }
+            
+            currentSection = sectionId;
+        }
+
+        // ==================== PROGRESSO ====================
+        function updateProgress() {
+            const percentage = (completedSections.length / totalSections) * 100;
+            const progressFill = document.getElementById('progress-fill');
+            progressFill.style.width = percentage + '%';
+            progressFill.textContent = Math.round(percentage) + '%';
+        }
+
+        // ==================== TIMER PAUSE ====================
+        let timerInterval;
+        let timeLeft = 300; // 5 minuti
+
+        function showPauseTimer() {
+            document.getElementById('timer-box').classList.add('show');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function closeTimer() {
+            document.getElementById('timer-box').classList.remove('show');
+            clearInterval(timerInterval);
+            timeLeft = 300;
+            document.getElementById('timer-display').textContent = '5:00';
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                document.getElementById('timer-display').textContent = 
+                    `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    alert('⏰ Pausa finita! Puoi continuare a studiare.');
+                    closeTimer();
+                }
+            }, 1000);
+        }
+
+        // ==================== ESERCIZI ====================
+        let correctAnswers = 0;
+
+        function checkExercise(exerciseNum, correctAnswer) {
+            const selected = document.querySelector(`input[name="ex${exerciseNum}"]:checked`);
+            const feedback = document.getElementById(`feedback${exerciseNum}`);
+            
+            if (!selected) {
+                feedback.className = 'feedback-simple show incorrect';
+                feedback.textContent = '⚠️ Devi scegliere una risposta!';
+                return;
+            }
+            
+            if (selected.value === correctAnswer) {
+                feedback.className = 'feedback-simple show correct';
+                feedback.textContent = '✅ Esatto! Risposta corretta! 🎉';
+            } else {
+                feedback.className = 'feedback-simple show incorrect';
+                feedback.textContent = '❌ Non è giusto. Riprova! Rileggi la lezione se serve.';
+            }
+        }
+
+        function calculateScore() {
+            correctAnswers = 0;
+            const totalExercises = 4;
+            
+            // Controlla tutte le risposte
+            const answers = ['a', 'a', 'a', 'b'];
+            for (let i = 1; i <= totalExercises; i++) {
+                const selected = document.querySelector(`input[name="ex${i}"]:checked`);
+                if (selected && selected.value === answers[i-1]) {
+                    correctAnswers++;
+                }
+            }
+            
+            // Mostra risultato
+            const scoreCard = document.getElementById('score-card');
+            const scoreIcon = document.getElementById('score-icon');
+            const scoreText = document.getElementById('score-text');
+            const scoreMessage = document.getElementById('score-message');
+            
+            scoreCard.style.display = 'block';
+            scoreText.textContent = `Hai fatto ${correctAnswers} su ${totalExercises} giusti!`;
+            
+            if (correctAnswers === totalExercises) {
+                scoreIcon.textContent = '🌟';
+                scoreMessage.textContent = 'Perfetto! Hai capito tutto! Sei bravissimo! 🎉';
+            } else if (correctAnswers >= 3) {
+                scoreIcon.textContent = '👍';
+                scoreMessage.textContent = 'Molto bene! Hai capito quasi tutto!';
+            } else if (correctAnswers >= 2) {
+                scoreIcon.textContent = '📚';
+                scoreMessage.textContent = 'Buon lavoro! Rileggi le lezioni per migliorare.';
+            } else {
+                scoreIcon.textContent = '💪';
+                scoreMessage.textContent = 'Continua così! Rileggi le lezioni con calma.';
+            }
+            
+            scoreCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // ==================== INIZIALIZZAZIONE ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Imposta data odierna
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('data').value = today;
+            
+            // Inizia progresso
+            updateProgress();
+        });
+    </script>
+</body>
+</html>
