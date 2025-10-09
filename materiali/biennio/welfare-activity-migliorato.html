@@ -601,6 +601,51 @@
             vertical-align: top;
         }
 
+        .student-info {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.08) 0%, rgba(76, 175, 80, 0.08) 100%);
+            border: 1px solid rgba(33, 150, 243, 0.2);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+
+        .student-info h3 {
+            color: #1a5c3a;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .student-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .student-info label {
+            display: block;
+            font-weight: 600;
+            color: #1a5c3a;
+            margin-bottom: 0.5rem;
+        }
+
+        .student-info input {
+            width: 100%;
+            padding: 0.9rem;
+            border: 2px solid #c8e6c9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-family: inherit;
+            background: white;
+        }
+
+        .student-info input:focus {
+            outline: none;
+            border-color: #1a5c3a;
+            box-shadow: 0 0 0 3px rgba(26, 92, 58, 0.12);
+        }
+
         /* // BUGFIX */
         .work-table input, .work-table textarea {
             width: 100%;
@@ -865,6 +910,108 @@
             box-shadow: 0 6px 16px rgba(0,0,0,0.4);
         }
 
+        .reasoning-lab {
+            margin-top: 2.5rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.12) 0%, rgba(118, 75, 162, 0.12) 100%);
+            border: 1px solid rgba(102, 126, 234, 0.35);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(23, 43, 77, 0.12);
+        }
+
+        .reasoning-lab h3 {
+            font-size: 1.7rem;
+            color: #2d3180;
+            margin-bottom: 1rem;
+        }
+
+        .reasoning-lab > p {
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+            color: #2f3a4c;
+        }
+
+        .scenario-card {
+            background: white;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 12px 30px rgba(31, 38, 135, 0.12);
+        }
+
+        .scenario-card h4 {
+            font-size: 1.3rem;
+            color: #1a5c3a;
+            margin-bottom: 0.75rem;
+        }
+
+        .scenario-card p {
+            margin-bottom: 1rem;
+            color: #354052;
+        }
+
+        .scenario-steps {
+            margin-left: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .scenario-steps li {
+            margin-bottom: 0.6rem;
+        }
+
+        .solution-box {
+            margin-top: 1rem;
+            border: 1px dashed rgba(196, 30, 58, 0.4);
+            border-radius: 14px;
+            padding: 0.75rem 1rem;
+            background: rgba(196, 30, 58, 0.05);
+        }
+
+        .solution-box summary {
+            cursor: pointer;
+            font-weight: 600;
+            color: #c41e3a;
+        }
+
+        .solution-box ul {
+            margin-top: 0.75rem;
+            margin-left: 1.2rem;
+        }
+
+        .challenge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .challenge-card {
+            background: rgba(26, 92, 58, 0.08);
+            border: 1px solid rgba(26, 92, 58, 0.2);
+            border-radius: 14px;
+            padding: 1rem;
+            color: #1a5c3a;
+            box-shadow: 0 8px 24px rgba(26, 92, 58, 0.15);
+        }
+
+        .challenge-card strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        .self-check {
+            margin-top: 1.5rem;
+            padding: 1rem 1.25rem;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 12px;
+            background: rgba(255, 196, 0, 0.12);
+            color: #5b4500;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
         /* // PRINT */
         @media print {
             body {
@@ -906,6 +1053,75 @@
                 overflow: visible !important;
                 display: block;
                 width: 100%;
+            }
+
+            body[data-print-scope="gruppo"] nav,
+            body[data-print-scope="gruppo"] .nav-buttons,
+            body[data-print-scope="gruppo"] .add-row-btn,
+            body[data-print-scope="gruppo"] .actions-cell,
+            body[data-print-scope="gruppo"] .reasoning-lab,
+            body[data-print-scope="gruppo"] #collegamenti,
+            body[data-print-scope="gruppo"] #ripasso,
+            body[data-print-scope="gruppo"] #carte 
+            {
+                display: none !important;
+            }
+
+            body[data-print-scope="gruppo"] .section {
+                display: none !important;
+            }
+
+            body[data-print-scope="gruppo"] #gruppo {
+                display: block !important;
+            }
+
+            body[data-print-scope="gruppo"] #gruppo .work-table,
+            body[data-print-scope="gruppo"] #gruppo .work-table thead,
+            body[data-print-scope="gruppo"] #gruppo .work-table tbody,
+            body[data-print-scope="gruppo"] #gruppo .work-table tr,
+            body[data-print-scope="gruppo"] #gruppo .work-table td {
+                display: block;
+                width: 100%;
+            }
+
+            body[data-print-scope="gruppo"] #gruppo .work-table thead {
+                display: none;
+            }
+
+            body[data-print-scope="gruppo"] #gruppo .work-table tr {
+                border: 1px solid #bbb;
+                border-radius: 10px;
+                padding: 1rem;
+                margin-bottom: 1rem;
+                background: #fff;
+            }
+
+            body[data-print-scope="gruppo"] #gruppo .work-table td {
+                border: none;
+                padding: 0.5rem 0;
+            }
+
+            body[data-print-scope="gruppo"] #gruppo .work-table td::before {
+                content: attr(data-label) ":";
+                font-weight: 600;
+                color: #1a5c3a;
+                display: block;
+                margin-bottom: 0.3rem;
+            }
+
+            body[data-print-scope="gruppo"] textarea,
+            body[data-print-scope="gruppo"] input[type="text"],
+            body[data-print-scope="gruppo"] input[type="date"] {
+                font-size: 1rem !important;
+                padding: 0.4rem 0 !important;
+                border: none !important;
+                border-bottom: 1px solid #999 !important;
+                background: transparent !important;
+            }
+
+            body[data-print-scope="gruppo"] .student-info {
+                box-shadow: none;
+                border: 1px solid #bbb;
             }
         }
 
@@ -965,6 +1181,10 @@
                 font-weight: 600;
                 color: #1a5c3a;
                 margin-bottom: 0.25rem;
+            }
+
+            .student-info-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -1271,6 +1491,68 @@
                     </div>
                 </div>
 
+
+                <div class="reasoning-lab">
+                    <h3>Laboratorio di ragionamento operativo</h3>
+                    <p>Usa gli scenari per allenarti a collegare bisogni, reti e risposte: parti dall'ascolto, passa per l'analisi e chiudi con un'azione misurabile.</p>
+
+                    <div class="scenario-card">
+                        <h4>Scenario 1 — Rientro a casa dopo la dimissione ospedaliera</h4>
+                        <p>Maria, 78 anni, vive sola e rientra a domicilio dopo una frattura al femore. Ha dolore nel movimento, si muove con il deambulatore e teme di cadere di nuovo.</p>
+                        <ol class="scenario-steps">
+                            <li>Individua i bisogni prioritari lungo la scala di Maslow.</li>
+                            <li>Decidi quali risorse formali e informali attivare entro la prima settimana.</li>
+                            <li>Formula due azioni che aumentino sicurezza e continuità assistenziale.</li>
+                        </ol>
+                        <details class="solution-box">
+                            <summary>Possibile risposta operativa</summary>
+                            <ul>
+                                <li><strong>Bisogni:</strong> fisiologici (autonomie ADL), sicurezza (prevenzione cadute), appartenenza (rete di supporto).</li>
+                                <li><strong>Rete formale:</strong> ADI, fisioterapista territoriale, MMG per la gestione del dolore.</li>
+                                <li><strong>Rete informale:</strong> vicina per monitoraggio giornaliero, nipote per accompagnamenti.</li>
+                                <li><strong>Azioni:</strong> checklist di sicurezza domestica condivisa e diario delle autonomie aggiornato con la rete.</li>
+                            </ul>
+                        </details>
+                    </div>
+
+                    <div class="scenario-card">
+                        <h4>Scenario 2 — Adolescente con bisogni educativi e relazionali</h4>
+                        <p>Yara, 16 anni, frequenta il CFP e mostra calo motivazionale, assenze frequenti e conflitti familiari. Ha un PEI ma non lo segue.</p>
+                        <ol class="scenario-steps">
+                            <li>Classifica i bisogni coinvolti (personale, familiare, scolastico, comunitario).</li>
+                            <li>Scegli due strumenti di relazione d'aiuto per riattivare l'alleanza educativa.</li>
+                            <li>Indica un indicatore misurabile per valutare l'intervento dopo un mese.</li>
+                        </ol>
+                        <details class="solution-box">
+                            <summary>Possibile risposta operativa</summary>
+                            <ul>
+                                <li><strong>Bisogni:</strong> appartenenza (gruppo classe), stima (successo scolastico), autorealizzazione (progetto futuro).</li>
+                                <li><strong>Strumenti:</strong> colloqui motivazionali con metodologia MI, patto educativo condiviso con famiglia e tutor, attivazione di mentoring tra pari.</li>
+                                <li><strong>Indicatore:</strong> 75% di presenze e autovalutazione motivazionale su scala Likert compilata ogni settimana.</li>
+                            </ul>
+                        </details>
+                    </div>
+
+                    <div class="challenge-grid">
+                        <div class="challenge-card">
+                            <strong>Match bisogno → servizio</strong>
+                            <p>Abbina ogni bisogno di sicurezza a una risposta della rete formale e a una della rete informale. Giustifica in tre righe la scelta.</p>
+                        </div>
+                        <div class="challenge-card">
+                            <strong>Piano in 5 mosse</strong>
+                            <p>Prendi un utente reale (o simulato) e descrivi 5 azioni: ascolto, valutazione, attivazione rete, follow-up, verifica finale.</p>
+                        </div>
+                        <div class="challenge-card">
+                            <strong>Check etico</strong>
+                            <p>Individua due rischi etici per ciascuno scenario (privacy, consenso, asimmetria) e spiega come li mitigheresti.</p>
+                        </div>
+                    </div>
+
+                    <div class="self-check">
+                        ✅ Prima di continuare, verifica di aver collegato ogni azione a un bisogno, motivato la scelta delle reti e saputo spiegare il tuo intervento in meno di 60 secondi.
+                    </div>
+                </div>
+
                 <div class="info-box success" style="margin-top: 2rem;">
                     <h4>✅ Perché questa sezione è importante?</h4>
                     <p>Questi concetti sono la base per capire <strong>come si passa dal bisogno alla risposta del welfare</strong>. Nelle prossime sezioni userai queste conoscenze per:</p>
@@ -1349,6 +1631,24 @@
                 </ul>
             </div>
 
+            <div class="student-info" aria-label="Dati studente lavoro di gruppo">
+                <h3>🧑‍🎓 Dati studente (lavoro di gruppo)</h3>
+                <div class="student-info-grid">
+                    <div>
+                        <label for="group-student-name">Nome e Cognome</label>
+                        <input type="text" id="group-student-name" class="student-input" placeholder="Inserisci nome e cognome">
+                    </div>
+                    <div>
+                        <label for="group-student-class">Classe</label>
+                        <input type="text" id="group-student-class" class="student-input" placeholder="Es. 3B OSS">
+                    </div>
+                    <div>
+                        <label for="group-activity-date">Data</label>
+                        <input type="date" id="group-activity-date" class="student-input">
+                    </div>
+                </div>
+            </div>
+
             <table class="work-table" id="work-table">
                 <thead>
                     <tr>
@@ -1420,6 +1720,24 @@
             
             <div class="info-box success">
                 <p><strong>✅ Completa questa riflessione finale!</strong> Ricorda di salvare cliccando su "💾 Salva HTML Completo".</p>
+            </div>
+
+            <div class="student-info" aria-label="Dati studente riflessione">
+                <h3>🧑‍🎓 Dati studente (riflessione)</h3>
+                <div class="student-info-grid">
+                    <div>
+                        <label for="reflection-student-name">Nome e Cognome</label>
+                        <input type="text" id="reflection-student-name" class="student-input" placeholder="Inserisci nome e cognome">
+                    </div>
+                    <div>
+                        <label for="reflection-student-class">Classe</label>
+                        <input type="text" id="reflection-student-class" class="student-input" placeholder="Es. 3B OSS">
+                    </div>
+                    <div>
+                        <label for="reflection-date">Data</label>
+                        <input type="date" id="reflection-date" class="student-input">
+                    </div>
+                </div>
             </div>
             
             <form class="reflection-form" id="reflection-form">
@@ -1672,6 +1990,8 @@
         // BUGFIX: riduce scritture ripetute su localStorage
         const SAVE_DEBOUNCE = 400;
         let saveTimeout;
+        let skipBeforeUnload = false;
+        let currentPrintScope = null;
 
         // Genera le carte servizio
         function generateCards() {
@@ -1921,10 +2241,24 @@
             }
 
             const executeSave = () => {
+                const groupInfo = {
+                    studentName: document.getElementById('group-student-name')?.value || '',
+                    studentClass: document.getElementById('group-student-class')?.value || '',
+                    date: document.getElementById('group-activity-date')?.value || ''
+                };
+
+                const reflectionInfo = {
+                    studentName: document.getElementById('reflection-student-name')?.value || '',
+                    studentClass: document.getElementById('reflection-student-class')?.value || '',
+                    date: document.getElementById('reflection-date')?.value || ''
+                };
+
                 const data = {
                     workTable: [],
                     reflection: {},
-                    connections: []
+                    connections: [],
+                    groupInfo,
+                    reflectionInfo
                 };
 
                 // Salva dati tabella
@@ -1995,6 +2329,32 @@
             if (!saved) return;
 
             const data = JSON.parse(saved);
+
+            if (data.groupInfo) {
+                const gi = data.groupInfo;
+                const fieldMap = {
+                    'group-student-name': gi.studentName || '',
+                    'group-student-class': gi.studentClass || '',
+                    'group-activity-date': gi.date || ''
+                };
+                Object.entries(fieldMap).forEach(([id, value]) => {
+                    const el = document.getElementById(id);
+                    if (el) el.value = value;
+                });
+            }
+
+            if (data.reflectionInfo) {
+                const ri = data.reflectionInfo;
+                const fieldMap = {
+                    'reflection-student-name': ri.studentName || '',
+                    'reflection-student-class': ri.studentClass || '',
+                    'reflection-date': ri.date || ''
+                };
+                Object.entries(fieldMap).forEach(([id, value]) => {
+                    const el = document.getElementById(id);
+                    if (el) el.value = value;
+                });
+            }
 
             // Carica tabella
             if (data.workTable && data.workTable.length > 0) {
@@ -2087,6 +2447,13 @@
                 input.addEventListener('input', saveData);
                 input.addEventListener('change', saveData);
             });
+
+            document.querySelectorAll('.student-input').forEach(input => {
+                input.removeEventListener('input', saveData);
+                input.removeEventListener('change', saveData);
+                input.addEventListener('input', saveData);
+                input.addEventListener('change', saveData);
+            });
             
             ['learned1', 'learned2', 'learned3', 'misconception', 'maslow-difficulty', 
              'operator-example', 'network-collaboration', 'helpful-aspect'].forEach(id => {
@@ -2131,6 +2498,11 @@
                     t.style.height = t.dataset._prevHeight;
                 }
             });
+
+            if (currentPrintScope) {
+                document.body.removeAttribute('data-print-scope');
+                currentPrintScope = null;
+            }
         }
 
         if (window.matchMedia) {
@@ -2161,7 +2533,13 @@
             
             let content = `IL WELFARE: DAI BISOGNI ALLE RISPOSTE - LAVORO COMPLETATO\n`;
             content += `${'='.repeat(80)}\n\n`;
-            
+
+            const groupInfo = data.groupInfo || {};
+            content += `DATI STUDENTE - LAVORO DI GRUPPO\n${'-'.repeat(80)}\n`;
+            content += `Nome e Cognome: ${groupInfo.studentName || 'Non indicato'}\n`;
+            content += `Classe: ${groupInfo.studentClass || 'Non indicata'}\n`;
+            content += `Data: ${groupInfo.date || 'Non indicata'}\n\n`;
+
             // Collegamenti completati
             content += `MAPPA DEI COLLEGAMENTI COMPLETATI\n${'-'.repeat(80)}\n`;
             if (data.connections && data.connections.length > 0) {
@@ -2198,6 +2576,12 @@
             }
             
             content += `\n${'='.repeat(80)}\n`;
+            const reflectionInfo = data.reflectionInfo || {};
+            content += `DATI STUDENTE - RIFLESSIONE\n${'-'.repeat(80)}\n`;
+            content += `Nome e Cognome: ${reflectionInfo.studentName || 'Non indicato'}\n`;
+            content += `Classe: ${reflectionInfo.studentClass || 'Non indicata'}\n`;
+            content += `Data: ${reflectionInfo.date || 'Non indicata'}\n\n`;
+
             content += `RIFLESSIONE INDIVIDUALE\n${'-'.repeat(80)}\n\n`;
             
             if (data.reflection) {
@@ -2242,10 +2626,12 @@
 
         function downloadPDF() {
             saveData({ force: true, silent: true });
-            showSaveStatus('📄 Usa Stampa per salvare PDF');
+            showSaveStatus('📄 Preparazione stampa (solo Lavoro di Gruppo)');
             setTimeout(() => {
+                currentPrintScope = 'gruppo';
+                document.body.setAttribute('data-print-scope', 'gruppo');
                 window.print();
-            }, 500);
+            }, 400);
         }
 
         function resetData() {
@@ -2309,6 +2695,56 @@
             }, 300);
         }
 
+        function hasPendingWork() {
+            const saved = localStorage.getItem('welfareActivity');
+            if (!saved || saved === '{}') {
+                return false;
+            }
+
+            try {
+                const data = JSON.parse(saved);
+
+                const tableHasData = Array.isArray(data.workTable) && data.workTable.some(row =>
+                    row && Object.values(row).some(val => typeof val === 'string' ? val.trim() !== '' : Boolean(val))
+                );
+
+                const reflectionHasData = data.reflection && Object.values(data.reflection).some(val =>
+                    typeof val === 'string' ? val.trim() !== '' : Boolean(val)
+                );
+
+                const connectionsHasData = Array.isArray(data.connections) && data.connections.some(conn =>
+                    conn && (conn.service || conn.pillar)
+                );
+
+                const groupInfoHasData = data.groupInfo && Object.values(data.groupInfo).some(val =>
+                    typeof val === 'string' ? val.trim() !== '' : Boolean(val)
+                );
+
+                const reflectionInfoHasData = data.reflectionInfo && Object.values(data.reflectionInfo).some(val =>
+                    typeof val === 'string' ? val.trim() !== '' : Boolean(val)
+                );
+
+                return tableHasData || reflectionHasData || connectionsHasData || groupInfoHasData || reflectionInfoHasData;
+            } catch (error) {
+                console.error('Errore controllo dati salvati:', error);
+            }
+
+            return false;
+        }
+
+        function handleBeforeUnload(e) {
+            if (skipBeforeUnload) {
+                skipBeforeUnload = false;
+                return;
+            }
+
+            if (hasPendingWork()) {
+                e.preventDefault();
+                e.returnValue = '⚠️ Lavoro non salvato! Clicca "💾 Salva HTML" prima di chiudere.';
+                return e.returnValue;
+            }
+        }
+
         // Inizializzazione
         document.addEventListener('DOMContentLoaded', () => {
             generateCards();
@@ -2322,30 +2758,25 @@
             if (saved) {
                 showSaveStatus('📂 Lavoro caricato');
             }
+
+            document.querySelectorAll('[data-skip-unload="home"]').forEach(link => {
+                link.addEventListener('click', (event) => {
+                    if (hasPendingWork()) {
+                        const conferma = confirm('Hai ancora attività compilate. Vuoi davvero uscire senza scaricare il lavoro?');
+                        if (!conferma) {
+                            event.preventDefault();
+                            return;
+                        }
+                    }
+                    skipBeforeUnload = true;
+                });
+            });
         });
 
-        window.addEventListener('beforeunload', (e) => {
-            const saved = localStorage.getItem('welfareActivity');
-            if (saved && saved !== '{}') {
-                const data = JSON.parse(saved);
-                let hasData = false;
-                
-                if (data.workTable && data.workTable.some(row => 
-                    Object.values(row).some(val => val && val.trim() !== '')
-                )) {
-                    hasData = true;
-                }
-                
-                if (hasData) {
-                    e.preventDefault();
-                    e.returnValue = '⚠️ Lavoro non salvato! Clicca "💾 Salva HTML" prima di chiudere.';
-                    return e.returnValue;
-                }
-            }
-        });
+        window.addEventListener('beforeunload', handleBeforeUnload);
     </script>
     <footer class="site-footer">
-      <a href="https://salvopicconi.github.io/metodologieoperative/">🏠 Torna alla Home</a>
+      <a href="https://salvopicconi.github.io/metodologieoperative/" data-skip-unload="home">🏠 Torna alla Home</a>
     </footer>
 </body>
 </html>

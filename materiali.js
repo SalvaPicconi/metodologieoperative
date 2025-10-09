@@ -57,16 +57,18 @@ async function caricaMateriali(sezione, containerId = 'materiali-lista') {
             return acc;
         }, { download: [], interattivo: [] });
 
+        const defaultTab = materialiPerTipo.download.length ? 'download' : 'interattivo';
+
         container.innerHTML = `
             <div class="materiali-tabs">
-                <button class="tab-btn active" data-tab="download">📁 Materiali da scaricare</button>
-                <button class="tab-btn" data-tab="interattivo">🧠 Apprendimento interattivo</button>
+                <button class="tab-btn ${defaultTab === 'download' ? 'active' : ''}" data-tab="download">📁 Materiali da scaricare</button>
+                <button class="tab-btn ${defaultTab === 'interattivo' ? 'active' : ''}" data-tab="interattivo">🧠 Apprendimento interattivo</button>
             </div>
             <div class="tab-panels">
-                <div class="tab-panel active" data-panel="download">
+                <div class="tab-panel ${defaultTab === 'download' ? 'active' : ''}" data-panel="download">
                     ${renderDownloadList(materialiPerTipo.download)}
                 </div>
-                <div class="tab-panel" data-panel="interattivo">
+                <div class="tab-panel ${defaultTab === 'interattivo' ? 'active' : ''}" data-panel="interattivo">
                     ${renderInteractiveList(materialiPerTipo.interattivo)}
                 </div>
             </div>
