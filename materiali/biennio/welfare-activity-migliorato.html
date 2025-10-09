@@ -2212,6 +2212,7 @@
                 </td>
             `;
             tbody.appendChild(newRow);
+            applyAutoResize(newRow);
             attachInputListeners();
             saveData({ force: true, silent: true });
             showSaveStatus('➕ Nuova riga aggiunta');
@@ -2428,6 +2429,7 @@
                 }
             }
 
+            applyAutoResize();
             attachInputListeners();
             saveData({ force: true, silent: true });
             updateGlobalProgress();
@@ -2446,6 +2448,9 @@
                 input.removeEventListener('change', saveData);
                 input.addEventListener('input', saveData);
                 input.addEventListener('change', saveData);
+                if (input.tagName === 'TEXTAREA') {
+                    enableAutoResize(input);
+                }
             });
 
             document.querySelectorAll('.student-input').forEach(input => {
@@ -2461,6 +2466,9 @@
                 if (element) {
                     element.removeEventListener('input', saveData);
                     element.addEventListener('input', saveData);
+                    if (element.tagName === 'TEXTAREA') {
+                        enableAutoResize(element);
+                    }
                 }
             });
             
@@ -2468,6 +2476,28 @@
                 radio.removeEventListener('change', saveData);
                 radio.addEventListener('change', saveData);
             });
+        }
+
+        function enableAutoResize(element) {
+            if (!element || element.dataset.autoresize === 'true') {
+                if (element) adjustTextareaHeight(element);
+                return;
+            }
+            const resizeHandler = () => adjustTextareaHeight(element);
+            element.addEventListener('input', resizeHandler);
+            element.addEventListener('change', resizeHandler);
+            element.dataset.autoresize = 'true';
+            adjustTextareaHeight(element);
+        }
+
+        function adjustTextareaHeight(element) {
+            if (!element || element.tagName !== 'TEXTAREA') return;
+            element.style.height = 'auto';
+            element.style.height = element.scrollHeight + 'px';
+        }
+
+        function applyAutoResize(scope = document) {
+            scope.querySelectorAll('textarea').forEach(textarea => enableAutoResize(textarea));
         }
 
         function scrollToTop() {
@@ -2751,6 +2781,7 @@
             generateConnectionExercises();
             loadData();
             attachInputListeners();
+            applyAutoResize();
             showSection('teoria');
             updateGlobalProgress();
             
