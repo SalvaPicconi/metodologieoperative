@@ -1,0 +1,2050 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il Welfare: dalle Basi all'Azione - 4 Fasi di Apprendimento</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        :focus-visible {
+            outline: 3px solid #c41e3a;
+            outline-offset: 2px;
+        }
+
+        /* HEADER FISSO */
+        .header {
+            background: linear-gradient(135deg, #000000 0%, #1a5c3a 50%, #c41e3a 100%);
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header h1 {
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* BARRA PROGRESSO FASI */
+        .phase-progress {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .phase-dot {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .phase-dot.completed {
+            background: #1a5c3a;
+            box-shadow: 0 0 15px #1a5c3a;
+        }
+
+        .phase-dot.active {
+            background: #c41e3a;
+            transform: scale(1.3);
+            box-shadow: 0 0 20px #c41e3a;
+        }
+
+        .phase-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+
+        /* CONTAINER PRINCIPALE */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem 8rem;
+        }
+
+        /* FASE - CONTENITORE */
+        .phase {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .phase.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* CARD BIANCA */
+        .white-card {
+            background: white;
+            color: #333;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        /* BOX COLORATI INFORMATIVI */
+        .info-box {
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            border-left: 5px solid;
+        }
+
+        .info-box.yellow {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            border-left-color: #ffc107;
+            color: #5b4500;
+        }
+
+        .info-box.green {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-left-color: #4caf50;
+            color: #1b5e20;
+        }
+
+        .info-box.blue {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-left-color: #2196f3;
+            color: #0d47a1;
+        }
+
+        .info-box.red {
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+            border-left-color: #e91e63;
+            color: #880e4f;
+        }
+
+        .info-box h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-box ul {
+            margin-left: 1.5rem;
+        }
+
+        .info-box li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        /* TITOLI GRANDI */
+        .phase-title {
+            color: #1a5c3a;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-title {
+            color: #1a5c3a;
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #c41e3a;
+        }
+
+        /* ISTRUZIONI NUMERATE */
+        .instructions {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .instructions h4 {
+            color: #1a5c3a;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .instructions ol {
+            margin-left: 1.5rem;
+            counter-reset: item;
+            list-style-type: none;
+        }
+
+        .instructions ol li {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            position: relative;
+            padding-left: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .instructions ol li::before {
+            content: counter(item) ".";
+            counter-increment: item;
+            position: absolute;
+            left: 0;
+            color: #c41e3a;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        /* CAMPI INPUT */
+        .input-field {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s;
+            margin: 0.5rem 0;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #1a5c3a;
+            box-shadow: 0 0 0 3px rgba(26, 92, 58, 0.1);
+        }
+
+        textarea.input-field {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* TABELLE */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        .data-table th {
+            background: #1a5c3a;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-size: 1rem;
+        }
+
+        .data-table td {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+
+        .data-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        /* PULSANTI */
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: #c41e3a;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #a01830;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(196, 30, 58, 0.4);
+        }
+
+        .btn-secondary {
+            background: #1a5c3a;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #145030;
+            transform: translateY(-2px);
+        }
+
+        .btn-next {
+            width: 100%;
+            max-width: 400px;
+            margin: 2rem auto;
+            display: block;
+            font-size: 1.2rem;
+            padding: 1.2rem;
+        }
+
+        /* CARTE SERVIZIO */
+        .cards-container {
+            margin: 2rem 0;
+        }
+
+        .cards-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .cards-slider {
+            display: none;
+        }
+
+        .cards-slider.active {
+            display: block;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+            border-left: 5px solid #1a5c3a;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+            border-left-color: #c41e3a;
+        }
+
+        .card-title {
+            color: #1a5c3a;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.8rem;
+        }
+
+        .card-description {
+            color: #555;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .card-pillar {
+            display: inline-block;
+            background: #1a5c3a;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 0.8rem;
+        }
+
+        .card-need {
+            background: #f9f9f9;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 3px solid #c41e3a;
+            margin-top: 1rem;
+        }
+
+        /* SLIDER CARTE */
+        .slider-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+
+        .slider-btn {
+            background: #1a5c3a;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .slider-btn:hover {
+            background: #c41e3a;
+        }
+
+        .slider-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .slider-counter {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #1a5c3a;
+        }
+
+        /* PIRAMIDE MASLOW */
+        .maslow-pyramid {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 2rem 0;
+        }
+
+        .pyramid-level {
+            width: 100%;
+            max-width: 900px;
+            background: #f5f5f5;
+            border: 2px solid #1a5c3a;
+            padding: 1rem;
+            margin: 0.3rem 0;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .pyramid-level:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(26, 92, 58, 0.2);
+        }
+
+        .pyramid-level:nth-child(1) { width: 95%; background: #ffebee; }
+        .pyramid-level:nth-child(2) { width: 85%; background: #fff3e0; }
+        .pyramid-level:nth-child(3) { width: 75%; background: #fff9c4; }
+        .pyramid-level:nth-child(4) { width: 65%; background: #e1f5fe; }
+        .pyramid-level:nth-child(5) { width: 55%; background: #e8f5e9; }
+        .pyramid-level:nth-child(6) { width: 45%; background: #f3e5f5; }
+        .pyramid-level:nth-child(7) { width: 35%; background: #fce4ec; }
+        .pyramid-level:nth-child(8) { width: 25%; background: #e8eaf6; }
+
+        .pyramid-level h4 {
+            color: #1a5c3a;
+            margin-bottom: 0.5rem;
+        }
+
+        /* CARATTERISTICHE RELAZIONE D'AIUTO */
+        .help-characteristics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .characteristic-card {
+            background: white;
+            border: 2px solid #1a5c3a;
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .characteristic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(26, 92, 58, 0.2);
+        }
+
+        .characteristic-card h4 {
+            color: #c41e3a;
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        /* SCENARI */
+        .scenario-card {
+            background: white;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .scenario-card h4 {
+            font-size: 1.3rem;
+            color: #1a5c3a;
+            margin-bottom: 0.75rem;
+        }
+
+        /* COLLEGAMENTI */
+        .connection-item {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .connection-item.completed {
+            border-color: #4caf50;
+            background: #e8f5e9;
+        }
+
+        .connection-row {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr auto 1fr;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .connection-box {
+            background: #f5f5f5;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .connection-box.need { 
+            background: #ffebee; 
+            border-color: #ef5350;
+        }
+
+        .connection-box.service { 
+            background: #e3f2fd; 
+            border-color: #2196f3;
+        }
+
+        .connection-box.pillar { 
+            background: #e8f5e9; 
+            border-color: #4caf50;
+        }
+
+        .connection-arrow {
+            font-size: 2rem;
+            color: #1a5c3a;
+            font-weight: bold;
+        }
+
+        .connection-select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            background: white;
+        }
+
+        .feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: #c8e6c9;
+            color: #2e7d32;
+            border: 2px solid #4caf50;
+            display: block;
+        }
+
+        .feedback.incorrect {
+            background: #ffcdd2;
+            color: #c62828;
+            border: 2px solid #f44336;
+            display: block;
+        }
+
+        /* TABELLA LAVORO */
+        .work-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        .work-table th {
+            background: #1a5c3a;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-size: 1rem;
+        }
+
+        .work-table td {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+
+        .work-table input,
+        .work-table textarea,
+        .work-table select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .work-table textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* SALVATAGGIO */
+        .save-buttons {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 1rem;
+            z-index: 999;
+            flex-direction: column;
+        }
+
+        .save-btn {
+            background: #c41e3a;
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .save-btn:hover {
+            background: #1a5c3a;
+            transform: translateY(-2px);
+        }
+
+        .save-status {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1a5c3a;
+            color: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+
+        .save-status.show {
+            opacity: 1;
+        }
+
+        /* DATI STUDENTE */
+        .student-info {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.08) 0%, rgba(76, 175, 80, 0.08) 100%);
+            border: 1px solid rgba(33, 150, 243, 0.2);
+        }
+
+        .student-info h3 {
+            color: #1a5c3a;
+            margin-bottom: 1rem;
+        }
+
+        .student-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .student-info label {
+            display: block;
+            font-weight: 600;
+            color: #1a5c3a;
+            margin-bottom: 0.5rem;
+        }
+
+        /* MAPPA CONCETTUALE */
+        .concept-map-area {
+            border: 3px dashed #1a5c3a;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            background: #f9f9f9;
+            margin: 1.5rem 0;
+        }
+
+        .concept-map-area textarea {
+            width: 100%;
+            min-height: 200px;
+            margin-top: 1rem;
+        }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            .connection-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .connection-arrow {
+                transform: rotate(90deg);
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .work-table,
+            .work-table thead,
+            .work-table tbody,
+            .work-table tr,
+            .work-table td {
+                display: block;
+                width: 100%;
+            }
+
+            .work-table thead {
+                display: none;
+            }
+
+            .work-table tr {
+                margin-bottom: 1rem;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                padding: 1rem;
+            }
+
+            .work-table td::before {
+                content: attr(data-label);
+                display: block;
+                font-weight: bold;
+                color: #1a5c3a;
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        /* STAMPA */
+        @media print {
+            .header,
+            .save-buttons,
+            .save-status,
+            .btn-next,
+            .phase-progress {
+                display: none !important;
+            }
+
+            .phase {
+                display: block !important;
+                page-break-after: always;
+            }
+
+            body {
+                background: white;
+                color: black;
+            }
+
+            .white-card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <div class="header">
+        <h1>🎓 Il Welfare: dalle Basi all'Azione</h1>
+        <p style="font-size: 1rem; opacity: 0.9;">Percorso di apprendimento in 4 fasi</p>
+        
+        <!-- BARRA PROGRESSO -->
+        <div class="phase-progress">
+            <div>
+                <div class="phase-dot active" data-phase="1" onclick="goToPhase(1)">1</div>
+                <div class="phase-label">SCOPRO</div>
+            </div>
+            <div style="font-size: 2rem; opacity: 0.5;">→</div>
+            <div>
+                <div class="phase-dot" data-phase="2" onclick="goToPhase(2)">2</div>
+                <div class="phase-label">ESPLORO</div>
+            </div>
+            <div style="font-size: 2rem; opacity: 0.5;">→</div>
+            <div>
+                <div class="phase-dot" data-phase="3" onclick="goToPhase(3)">3</div>
+                <div class="phase-label">APPLICO</div>
+            </div>
+            <div style="font-size: 2rem; opacity: 0.5;">→</div>
+            <div>
+                <div class="phase-dot" data-phase="4" onclick="goToPhase(4)">4</div>
+                <div class="phase-label">RIFLETTO</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- ================================ -->
+        <!-- FASE 1: SCOPRO -->
+        <!-- ================================ -->
+        <div class="phase active" id="phase-1">
+            <div class="white-card">
+                <h2 class="phase-title">🚀 FASE 1: SCOPRO - Cos'è il Welfare</h2>
+                
+                <div class="info-box yellow">
+                    <h3>🎯 COSA FAI ORA (3 minuti)</h3>
+                    <ul>
+                        <li><strong>Scrivi</strong> cosa significa per te "benessere"</li>
+                        <li><strong>Leggi</strong> la definizione di welfare</li>
+                        <li><strong>Studia</strong> i 3 pilastri fondamentali</li>
+                    </ul>
+                </div>
+
+                <div class="info-box green">
+                    <h3>💡 PERCHÉ LO FAI</h3>
+                    <p>Devi capire le basi prima di vedere come funziona nella pratica!</p>
+                </div>
+
+                <!-- BRAINSTORMING -->
+                <div class="instructions">
+                    <h4>📝 Passo 1: Brainstorming iniziale</h4>
+                    <ol>
+                        <li><strong>Scrivi</strong> nel campo qui sotto cosa significa per te "benessere" (3-5 parole chiave)</li>
+                        <li><strong>Pensa</strong> a cosa serve per vivere bene</li>
+                    </ol>
+                </div>
+
+                <div class="student-info">
+                    <h3>👤 I tuoi dati</h3>
+                    <div class="student-info-grid">
+                        <div>
+                            <label for="student-name-p1">Nome e Cognome</label>
+                            <input type="text" id="student-name-p1" class="input-field" placeholder="Il tuo nome...">
+                        </div>
+                        <div>
+                            <label for="student-class-p1">Classe</label>
+                            <input type="text" id="student-class-p1" class="input-field" placeholder="Es. 3B OSS">
+                        </div>
+                        <div>
+                            <label for="activity-date-p1">Data</label>
+                            <input type="date" id="activity-date-p1" class="input-field">
+                        </div>
+                    </div>
+                </div>
+
+                <label for="brainstorm-welfare" style="display: block; font-weight: bold; color: #1a5c3a; margin: 1rem 0 0.5rem;">
+                    Per me "benessere" significa...
+                </label>
+                <textarea id="brainstorm-welfare" class="input-field" placeholder="Scrivi qui le tue idee (es: salute, casa, lavoro, amici...)"></textarea>
+
+                <!-- TEORIA WELFARE -->
+                <h2 class="section-title">📘 Cos'è il Welfare?</h2>
+                
+                <div class="instructions">
+                    <h4>📖 Passo 2: Leggi la definizione</h4>
+                    <ol>
+                        <li><strong>Leggi</strong> con attenzione la definizione di welfare</li>
+                        <li><strong>Sottolinea</strong> mentalmente le parole chiave</li>
+                        <li><strong>Confronta</strong> con quello che hai scritto prima</li>
+                    </ol>
+                </div>
+
+                <div class="info-box blue">
+                    <p style="font-size: 1.1rem; line-height: 1.8;">
+                        <strong>"Welfare"</strong> significa <strong>benessere</strong>. Il <strong>Welfare State</strong> (Stato del Benessere) 
+                        è il sistema con cui lo Stato garantisce ai cittadini condizioni di vita dignitose attraverso 
+                        <strong>servizi, tutele e prestazioni sociali</strong>.
+                    </p>
+                </div>
+
+                <p style="margin: 1.5rem 0; font-size: 1.05rem; line-height: 1.8;">
+                    Il welfare è un <strong>sistema organizzato</strong> di norme, regole e azioni che ha l'obiettivo di 
+                    garantire il benessere generale dei cittadini attraverso tre aree principali:
+                </p>
+
+                <!-- TABELLA 3 PILASTRI -->
+                <h3 style="color: #c41e3a; font-size: 1.5rem; margin: 2rem 0 1rem;">I Tre Pilastri del Welfare</h3>
+                
+                <div class="instructions">
+                    <h4>🏛️ Passo 3: Studia i 3 pilastri</h4>
+                    <ol>
+                        <li><strong>Leggi</strong> ogni pilastro nella tabella</li>
+                        <li><strong>Guarda</strong> gli esempi di servizi</li>
+                        <li><strong>Pensa</strong> a quali servizi conosci nella tua città</li>
+                    </ol>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Pilastro</th>
+                            <th>Cosa garantisce</th>
+                            <th>Esempi di servizi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>🏥 Sistema Sanitario</strong></td>
+                            <td>Tutela della salute e prevenzione</td>
+                            <td>Ospedali, medico di base, vaccinazioni, 118, riabilitazione, salute mentale</td>
+                        </tr>
+                        <tr>
+                            <td><strong>💰 Sistema Previdenziale</strong></td>
+                            <td>Sicurezza economica</td>
+                            <td>Pensioni, disoccupazione, assegni familiari, bonus bebè, invalidità</td>
+                        </tr>
+                        <tr>
+                            <td><strong>🤝 Assistenza Sociale</strong></td>
+                            <td>Supporto a persone fragili</td>
+                            <td>Asili nido, assistenza domiciliare, centri disabilità, senza fissa dimora</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- MAPPA CONCETTUALE INIZIALE -->
+                <h3 style="color: #c41e3a; font-size: 1.5rem; margin: 3rem 0 1rem;">🗺️ La tua prima mappa concettuale</h3>
+                
+                <div class="instructions">
+                    <h4>✏️ Passo 4: Crea la tua mappa</h4>
+                    <ol>
+                        <li><strong>Disegna</strong> nel riquadro sotto i 3 pilastri collegati al welfare</li>
+                        <li><strong>Scrivi</strong> per ogni pilastro 2-3 esempi di servizi</li>
+                        <li><strong>Usa</strong> frecce per collegare i concetti</li>
+                    </ol>
+                </div>
+
+                <div class="concept-map-area">
+                    <p style="font-size: 1.1rem; color: #555;">
+                        💡 <strong>Disegna la tua mappa qui</strong><br>
+                        (Esempio: WELFARE al centro, i 3 pilastri collegati, e sotto di essi i servizi)
+                    </p>
+                    <textarea id="concept-map-initial" class="input-field" 
+                              placeholder="Scrivi qui la tua mappa usando testo (es: WELFARE → SANITÀ (ospedali, medico) → PREVIDENZA (pensioni) → ASSISTENZA (asili))"></textarea>
+                </div>
+
+                <div class="info-box green" style="margin-top: 2rem;">
+                    <h3>✅ Hai finito la Fase 1!</h3>
+                    <p>Ora hai le basi: sai cos'è il welfare e quali sono i suoi 3 pilastri fondamentali.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Prossima tappa:</strong> Vedremo come funziona nella pratica!</p>
+                </div>
+
+                <button class="btn btn-primary btn-next" onclick="completePhase(1)">
+                    ✅ HAI FINITO? → VAI ALLA FASE 2: ESPLORO
+                </button>
+            </div>
+        </div>
+
+        <!-- ================================ -->
+        <!-- FASE 2: ESPLORO -->
+        <!-- ================================ -->
+        <div class="phase" id="phase-2">
+            <div class="white-card">
+                <h2 class="phase-title">📚 FASE 2: ESPLORO - Come funziona il welfare</h2>
+                
+                <div class="info-box yellow">
+                    <h3>🎯 COSA FAI ORA (15 minuti)</h3>
+                    <ul>
+                        <li><strong>Rivedi</strong> la piramide dei bisogni di Maslow</li>
+                        <li><strong>Esplora</strong> le 18 carte dei servizi welfare</li>
+                        <li><strong>Risolvi</strong> i 2 scenari pratici</li>
+                    </ul>
+                </div>
+
+                <div class="info-box green">
+                    <h3>💡 PERCHÉ LO FAI</h3>
+                    <p>Devi capire come il welfare risponde ai bisogni delle persone nella vita reale!</p>
+                </div>
+
+                <!-- MASLOW -->
+                <h2 class="section-title">🔺 La Piramide di Maslow e il Welfare</h2>
+                
+                <div class="instructions">
+                    <h4>👁️ Passo 1: Osserva la piramide</h4>
+                    <ol>
+                        <li><strong>Leggi</strong> ogni livello di bisogno</li>
+                        <li><strong>Guarda</strong> come il welfare risponde a ciascun bisogno</li>
+                        <li><strong>Nota</strong> che si parte dai bisogni base (cibo, casa) per arrivare a quelli più alti</li>
+                    </ol>
+                </div>
+
+                <div class="maslow-pyramid">
+                    <div class="pyramid-level">
+                        <h4>8️⃣ Trascendenza</h4>
+                        <p><strong>Welfare:</strong> Programmi volontariato, iniziative comunitarie</p>
+                    </div>
+                    <div class="pyramid-level">
+                        <h4>7️⃣ Auto-realizzazione</h4>
+                        <p><strong>Welfare:</strong> Sviluppo professionale, coaching, crescita personale</p>
+                    </div>
+                    <div class="pyramid-level">
+                        <h4>6️⃣ Bisogni Estetici</h4>
+                        <p><strong>Welfare:</strong> Arte, cultura, eventi pubblici, spazi accoglienti</p>
+                    </div>
+                    <div class="pyramid-level">
+                        <h4>5️⃣ Bisogni di Conoscenza</h4>
+                        <p><strong>Welfare:</strong> Educazione, biblioteche, formazione continua</p>
+                    </div>
+                    <div class="pyramid-level">
+                        <h4>4️⃣ Bisogni di Stima</h4>
+                        <p><strong>Welfare:</strong> Formazione professionale, riconoscimento, opportunità</p>
+                    </div>
+                    <div class="pyramid-level">
+                        <h4>3️⃣ Bisogni di Appartenenza</h4>
+                        <p><strong>Welfare:</strong> Gruppi supporto, centri aggregazione, socializzazione</p>
+                    </div>
+                    <div class="pyramid-level">
+                        <h4>2️⃣ Bisogni di Sicurezza</h4>
+                        <p><strong>Welfare:</strong> Supporto psicologico, casa, lavoro, sicurezza sociale</p>
+                    </div>
+                    <div class="pyramid-level">
+                        <h4>1️⃣ Bisogni Fisiologici</h4>
+                        <p><strong>Welfare:</strong> Cibo, rifugi emergenza, cure sanitarie base</p>
+                    </div>
+                </div>
+
+                <!-- CARATTERISTICHE RELAZIONE D'AIUTO -->
+                <h2 class="section-title">❤️ La Relazione d'Aiuto</h2>
+                
+                <div class="instructions">
+                    <h4>🤝 Passo 2: Studia le caratteristiche</h4>
+                    <ol>
+                        <li><strong>Leggi</strong> ogni caratteristica della relazione d'aiuto</li>
+                        <li><strong>Pensa</strong> a come l'operatore deve comportarsi</li>
+                        <li><strong>Ricorda</strong> che ogni servizio nasce da una relazione tra operatore e utente</li>
+                    </ol>
+                </div>
+
+                <p style="margin: 1rem 0; font-size: 1.05rem;">
+                    Ogni azione sociosanitaria si sviluppa in una <strong>relazione d'aiuto</strong> con queste caratteristiche:
+                </p>
+
+                <div class="help-characteristics">
+                    <div class="characteristic-card">
+                        <h4>❤️ Empatia</h4>
+                        <p>Comprendere i sentimenti dell'altro senza giudicare</p>
+                    </div>
+                    <div class="characteristic-card">
+                        <h4>👥 Asimmetria</h4>
+                        <p>L'operatore ha competenze, l'utente porta il suo bisogno</p>
+                    </div>
+                    <div class="characteristic-card">
+                        <h4>📋 Etica</h4>
+                        <p>Rispetto della dignità e riservatezza</p>
+                    </div>
+                    <div class="characteristic-card">
+                        <h4>🧑‍💼 Professionalità</h4>
+                        <p>Competenza tecnica + capacità relazionali</p>
+                    </div>
+                    <div class="characteristic-card">
+                        <h4>🙏 Scambio</h4>
+                        <p>Anche l'operatore cresce dall'incontro</p>
+                    </div>
+                    <div class="characteristic-card">
+                        <h4>🎁 Dono</h4>
+                        <p>Tempo, ascolto e competenze per il benessere</p>
+                    </div>
+                </div>
+
+                <!-- CARTE SERVIZIO -->
+                <h2 class="section-title">🃏 Le 18 Carte dei Servizi Welfare</h2>
+                
+                <div class="instructions">
+                    <h4>👀 Passo 3: Esplora le carte</h4>
+                    <ol>
+                        <li><strong>Scegli</strong> la visualizzazione (Griglia o Scorrimento)</li>
+                        <li><strong>Leggi</strong> ogni carta: nome, descrizione, pilastro</li>
+                        <li><strong>Nota</strong> il collegamento tra servizio e bisogni di Maslow</li>
+                    </ol>
+                </div>
+
+                <div class="cards-container">
+                    <div class="cards-controls">
+                        <button class="btn btn-secondary" onclick="toggleCardsView('grid')" id="btn-grid">
+                            📊 Vista Griglia
+                        </button>
+                        <button class="btn btn-secondary" onclick="toggleCardsView('slider')" id="btn-slider">
+                            ➡️ Scorrimento
+                        </button>
+                    </div>
+
+                    <div id="cards-grid" class="cards-grid"></div>
+                    
+                    <div id="cards-slider" class="cards-slider">
+                        <div id="current-card"></div>
+                        <div class="slider-controls">
+                            <button class="slider-btn" id="prev-btn" onclick="changeCard(-1)">⬅️ Prec</button>
+                            <div class="slider-counter">
+                                <span id="card-counter">1</span> / 18
+                            </div>
+                            <button class="slider-btn" id="next-btn" onclick="changeCard(1)">Succ ➡️</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SCENARI -->
+                <h2 class="section-title">🎭 Laboratorio: Scenari Reali</h2>
+                
+                <div class="instructions">
+                    <h4>🔍 Passo 4: Risolvi gli scenari</h4>
+                    <ol>
+                        <li><strong>Leggi</strong> attentamente ogni scenario</li>
+                        <li><strong>Individua</strong> i bisogni delle persone</li>
+                        <li><strong>Pensa</strong> a quali servizi del welfare possono aiutare</li>
+                        <li><strong>Scrivi</strong> le tue risposte nei campi</li>
+                    </ol>
+                </div>
+
+                <div class="scenario-card">
+                    <h4>Scenario 1 – Maria, 78 anni</h4>
+                    <p>Maria vive sola e rientra a casa dopo una frattura al femore. Ha dolore, si muove con il deambulatore e teme di cadere di nuovo.</p>
+                    
+                    <label style="display: block; font-weight: bold; margin-top: 1rem;">
+                        Quali bisogni ha Maria? (usa la piramide di Maslow)
+                    </label>
+                    <textarea id="scenario1-needs" class="input-field" 
+                              placeholder="Es: Bisogni fisiologici (movimento), sicurezza (paura cadute), appartenenza..."></textarea>
+                    
+                    <label style="display: block; font-weight: bold; margin-top: 1rem;">
+                        Quali servizi del welfare possono aiutarla?
+                    </label>
+                    <textarea id="scenario1-services" class="input-field" 
+                              placeholder="Es: Assistenza domiciliare, fisioterapia, telesoccorso..."></textarea>
+                </div>
+
+                <div class="scenario-card">
+                    <h4>Scenario 2 – Yara, 16 anni</h4>
+                    <p>Yara frequenta il CFP ma mostra calo motivazionale, assenze frequenti e conflitti familiari.</p>
+                    
+                    <label style="display: block; font-weight: bold; margin-top: 1rem;">
+                        Quali bisogni ha Yara?
+                    </label>
+                    <textarea id="scenario2-needs" class="input-field" 
+                              placeholder="Es: Appartenenza (relazioni), stima (successo scolastico), conoscenza..."></textarea>
+                    
+                    <label style="display: block; font-weight: bold; margin-top: 1rem;">
+                        Quali servizi e quali strumenti usa l'operatore?
+                    </label>
+                    <textarea id="scenario2-services" class="input-field" 
+                              placeholder="Es: Colloquio motivazionale, supporto psicologico, patto educativo..."></textarea>
+                </div>
+
+                <div class="info-box green" style="margin-top: 2rem;">
+                    <h3>✅ Hai finito la Fase 2!</h3>
+                    <p>Ora sai come i servizi rispondono ai bisogni e hai visto esempi concreti.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Prossima tappa:</strong> Mettere in pratica i collegamenti!</p>
+                </div>
+
+                <button class="btn btn-primary btn-next" onclick="completePhase(2)">
+                    ✅ HAI FINITO? → VAI ALLA FASE 3: APPLICO
+                </button>
+            </div>
+        </div>
+
+        <!-- ================================ -->
+        <!-- FASE 3: APPLICO -->
+        <!-- ================================ -->
+        <div class="phase" id="phase-3">
+            <div class="white-card">
+                <h2 class="phase-title">🛠️ FASE 3: APPLICO - Faccio i collegamenti</h2>
+                
+                <div class="info-box yellow">
+                    <h3>🎯 COSA FAI ORA (20 minuti)</h3>
+                    <ul>
+                        <li><strong>Completa</strong> i 6 esercizi di collegamento</li>
+                        <li><strong>Compila</strong> la tabella di analisi servizi</li>
+                        <li><strong>Presenta</strong> il tuo lavoro al gruppo</li>
+                    </ul>
+                </div>
+
+                <div class="info-box green">
+                    <h3>💡 PERCHÉ LO FAI</h3>
+                    <p>È qui che impari davvero: collegando bisogni → servizi → pilastri!</p>
+                </div>
+
+                <!-- COLLEGAMENTI -->
+                <h2 class="section-title">🔗 Mappa dei Collegamenti</h2>
+                
+                <div class="instructions">
+                    <h4>🎯 Passo 1: Completa gli esercizi</h4>
+                    <ol>
+                        <li><strong>Leggi</strong> il bisogno della persona</li>
+                        <li><strong>Seleziona</strong> quale servizio risponde a quel bisogno</li>
+                        <li><strong>Scegli</strong> quale pilastro offre quel servizio</li>
+                        <li><strong>Verifica</strong> se è corretto (diventa verde)</li>
+                    </ol>
+                </div>
+
+                <div id="connections-container"></div>
+
+                <!-- LAVORO DI GRUPPO -->
+                <h2 class="section-title">👥 Lavoro di Gruppo: Analisi Servizi</h2>
+                
+                <div class="instructions">
+                    <h4>📋 Passo 2: Compila la tabella</h4>
+                    <ol>
+                        <li><strong>Scegli</strong> un servizio del welfare</li>
+                        <li><strong>Identifica</strong> a quale bisogno di Maslow risponde</li>
+                        <li><strong>Scrivi</strong> il pilastro di appartenenza</li>
+                        <li><strong>Spiega</strong> perché è essenziale</li>
+                        <li><strong>Clicca</strong> "+ Aggiungi servizio" per analizzarne altri</li>
+                    </ol>
+                </div>
+
+                <div class="student-info">
+                    <h3>👤 Dati del gruppo</h3>
+                    <div class="student-info-grid">
+                        <div>
+                            <label for="group-members">Componenti del gruppo</label>
+                            <input type="text" id="group-members" class="input-field" 
+                                   placeholder="Nomi degli studenti del gruppo...">
+                        </div>
+                        <div>
+                            <label for="group-class">Classe</label>
+                            <input type="text" id="group-class" class="input-field" placeholder="Es. 3B OSS">
+                        </div>
+                        <div>
+                            <label for="group-date">Data</label>
+                            <input type="date" id="group-date" class="input-field">
+                        </div>
+                    </div>
+                </div>
+
+                <table class="work-table" id="work-table">
+                    <thead>
+                        <tr>
+                            <th>Servizio</th>
+                            <th>Bisogno Maslow</th>
+                            <th>Pilastro</th>
+                            <th>Beneficiari</th>
+                            <th>Perché essenziale</th>
+                        </tr>
+                    </thead>
+                    <tbody id="work-tbody">
+                        <tr>
+                            <td data-label="Servizio">
+                                <input type="text" class="work-input" data-field="servizio" 
+                                       placeholder="Nome del servizio...">
+                            </td>
+                            <td data-label="Bisogno Maslow">
+                                <select class="work-input" data-field="bisogno_maslow">
+                                    <option value="">Seleziona...</option>
+                                    <option value="Fisiologici">1. Fisiologici</option>
+                                    <option value="Sicurezza">2. Sicurezza</option>
+                                    <option value="Appartenenza">3. Appartenenza</option>
+                                    <option value="Stima">4. Stima</option>
+                                    <option value="Conoscenza">5. Conoscenza</option>
+                                    <option value="Estetici">6. Estetici</option>
+                                    <option value="Auto-realizzazione">7. Auto-realizzazione</option>
+                                    <option value="Trascendenza">8. Trascendenza</option>
+                                </select>
+                            </td>
+                            <td data-label="Pilastro">
+                                <select class="work-input" data-field="pilastro">
+                                    <option value="">Seleziona...</option>
+                                    <option value="Sanità">🏥 Sanità</option>
+                                    <option value="Previdenza">💰 Previdenza</option>
+                                    <option value="Assistenza">🤝 Assistenza Sociale</option>
+                                </select>
+                            </td>
+                            <td data-label="Beneficiari">
+                                <textarea class="work-input" data-field="beneficiari" 
+                                          placeholder="Chi ne beneficia..."></textarea>
+                            </td>
+                            <td data-label="Perché essenziale">
+                                <textarea class="work-input" data-field="essenziale" 
+                                          placeholder="Perché è essenziale..."></textarea>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <button class="btn btn-secondary" onclick="addWorkRow()" style="margin-top: 1rem;">
+                    ➕ Aggiungi servizio
+                </button>
+
+                <!-- PRESENTAZIONE -->
+                <h2 class="section-title">🎤 Presentazione dei risultati</h2>
+                
+                <div class="instructions">
+                    <h4>🗣️ Passo 3: Prepara la presentazione</h4>
+                    <ol>
+                        <li><strong>Scegli</strong> i 3 servizi più importanti che avete analizzato</li>
+                        <li><strong>Prepara</strong> una breve presentazione (3 minuti)</li>
+                        <li><strong>Spiega</strong> il collegamento bisogno → servizio → pilastro</li>
+                        <li><strong>Presenta</strong> alla classe</li>
+                    </ol>
+                </div>
+
+                <label style="display: block; font-weight: bold; margin-top: 1rem;">
+                    Note per la presentazione
+                </label>
+                <textarea id="presentation-notes" class="input-field" 
+                          placeholder="Scrivi qui i punti chiave della tua presentazione..."></textarea>
+
+                <div class="info-box green" style="margin-top: 2rem;">
+                    <h3>✅ Hai finito la Fase 3!</h3>
+                    <p>Hai messo in pratica tutti i collegamenti e creato una vera analisi dei servizi welfare.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Ultima tappa:</strong> Riflettere su cosa hai imparato!</p>
+                </div>
+
+                <button class="btn btn-primary btn-next" onclick="completePhase(3)">
+                    ✅ HAI FINITO? → VAI ALLA FASE 4: RIFLETTO
+                </button>
+            </div>
+        </div>
+
+        <!-- ================================ -->
+        <!-- FASE 4: RIFLETTO -->
+        <!-- ================================ -->
+        <div class="phase" id="phase-4">
+            <div class="white-card">
+                <h2 class="phase-title">💡 FASE 4: RIFLETTO - Cosa ho imparato</h2>
+                
+                <div class="info-box yellow">
+                    <h3>🎯 COSA FAI ORA (15 minuti)</h3>
+                    <ul>
+                        <li><strong>Rispondi</strong> alle 7 domande di riflessione</li>
+                        <li><strong>Crea</strong> la mappa concettuale finale</li>
+                        <li><strong>Progetta</strong> un intervento reale</li>
+                    </ul>
+                </div>
+
+                <div class="info-box green">
+                    <h3>💡 PERCHÉ LO FAI</h3>
+                    <p>La riflessione ti fa capire cosa hai davvero imparato e come puoi usarlo!</p>
+                </div>
+
+                <!-- RIFLESSIONE -->
+                <h2 class="section-title">📝 Riflessione Individuale</h2>
+                
+                <div class="instructions">
+                    <h4>🤔 Passo 1: Rispondi alle domande</h4>
+                    <ol>
+                        <li><strong>Pensa</strong> a tutto quello che hai fatto nelle 4 fasi</li>
+                        <li><strong>Scrivi</strong> risposte sincere e personali</li>
+                        <li><strong>Spiega</strong> con esempi concreti</li>
+                    </ol>
+                </div>
+
+                <div class="student-info">
+                    <h3>👤 I tuoi dati</h3>
+                    <div class="student-info-grid">
+                        <div>
+                            <label for="reflection-name">Nome e Cognome</label>
+                            <input type="text" id="reflection-name" class="input-field">
+                        </div>
+                        <div>
+                            <label for="reflection-class">Classe</label>
+                            <input type="text" id="reflection-class" class="input-field">
+                        </div>
+                        <div>
+                            <label for="reflection-date">Data</label>
+                            <input type="date" id="reflection-date" class="input-field">
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <label style="display: block; font-weight: bold; color: #1a5c3a; margin-bottom: 0.5rem;">
+                        1. Tre collegamenti importanti che ho imparato
+                    </label>
+                    <input type="text" id="learned1" class="input-field" 
+                           placeholder="Primo collegamento..." style="margin-bottom: 0.5rem;">
+                    <input type="text" id="learned2" class="input-field" 
+                           placeholder="Secondo collegamento..." style="margin-bottom: 0.5rem;">
+                    <input type="text" id="learned3" class="input-field" 
+                           placeholder="Terzo collegamento...">
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <label style="display: block; font-weight: bold; color: #1a5c3a; margin-bottom: 0.5rem;">
+                        2. Un servizio che pensavo fosse di un pilastro ma in realtà è di un altro. Perché mi sono confuso/a?
+                    </label>
+                    <textarea id="misconception" class="input-field"></textarea>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <label style="display: block; font-weight: bold; color: #1a5c3a; margin-bottom: 0.5rem;">
+                        3. Quale livello di Maslow è più difficile da soddisfare con il welfare? Perché?
+                    </label>
+                    <textarea id="maslow-difficulty" class="input-field"></textarea>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <label style="display: block; font-weight: bold; color: #1a5c3a; margin-bottom: 0.5rem;">
+                        4. Esempio concreto: come l'operatore usa le sue competenze (sapere, saper fare, saper essere)
+                    </label>
+                    <textarea id="operator-example" class="input-field"></textarea>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <label style="display: block; font-weight: bold; color: #1a5c3a; margin-bottom: 0.5rem;">
+                        5. Come la rete formale e informale lavorano insieme?
+                    </label>
+                    <textarea id="network-collaboration" class="input-field"></textarea>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <label style="display: block; font-weight: bold; color: #1a5c3a; margin-bottom: 0.5rem;">
+                        6. Autovalutazione: quanto ho partecipato?
+                    </label>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap; padding: 1rem; background: #f9f9f9; border-radius: 8px;">
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="radio" name="participation" value="1"> 1 - Poco
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="radio" name="participation" value="2"> 2 - Insufficiente
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="radio" name="participation" value="3"> 3 - Sufficiente
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="radio" name="participation" value="4"> 4 - Buono
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="radio" name="participation" value="5"> 5 - Ottimo
+                        </label>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <label style="display: block; font-weight: bold; color: #1a5c3a; margin-bottom: 0.5rem;">
+                        7. Quale aspetto dell'attività mi ha aiutato di più?
+                    </label>
+                    <textarea id="helpful-aspect" class="input-field"></textarea>
+                </div>
+
+                <!-- MAPPA CONCETTUALE FINALE -->
+                <h2 class="section-title">🗺️ Mappa Concettuale Finale</h2>
+                
+                <div class="instructions">
+                    <h4>🎨 Passo 2: Crea la mappa finale</h4>
+                    <ol>
+                        <li><strong>Confronta</strong> con la mappa iniziale (Fase 1)</li>
+                        <li><strong>Aggiungi</strong> tutti i collegamenti che hai imparato</li>
+                        <li><strong>Rendi</strong> più completa e dettagliata</li>
+                    </ol>
+                </div>
+
+                <div class="info-box blue">
+                    <h3>💡 Cosa inserire nella mappa finale</h3>
+                    <ul>
+                        <li>I 3 pilastri del welfare</li>
+                        <li>I livelli di Maslow più importanti</li>
+                        <li>Esempi di servizi specifici</li>
+                        <li>Collegamenti tra bisogni e servizi</li>
+                        <li>Il ruolo dell'operatore</li>
+                    </ul>
+                </div>
+
+                <div class="concept-map-area">
+                    <p style="font-size: 1.1rem; color: #555;">
+                        🎨 <strong>La tua mappa concettuale completa</strong>
+                    </p>
+                    <textarea id="concept-map-final" class="input-field" 
+                              placeholder="Crea qui la tua mappa finale, più ricca e dettagliata di quella iniziale..."></textarea>
+                </div>
+
+                <!-- PROGETTO FINALE -->
+                <h2 class="section-title">🚀 Compito Finale: Progetta un Intervento</h2>
+                
+                <div class="instructions">
+                    <h4>📋 Passo 3: Progetta un intervento reale</h4>
+                    <ol>
+                        <li><strong>Scegli</strong> una situazione di bisogno (es: anziano solo, famiglia in difficoltà...)</li>
+                        <li><strong>Identifica</strong> i bisogni secondo Maslow</li>
+                        <li><strong>Seleziona</strong> i servizi welfare che possono aiutare</li>
+                        <li><strong>Descrivi</strong> come l'operatore dovrebbe intervenire</li>
+                        <li><strong>Spiega</strong> quali reti (formali/informali) coinvolgere</li>
+                    </ol>
+                </div>
+
+                <div style="background: #f9f9f9; padding: 2rem; border-radius: 10px; margin: 2rem 0;">
+                    <h3 style="color: #1a5c3a; margin-bottom: 1rem;">Il tuo progetto di intervento</h3>
+                    
+                    <label style="display: block; font-weight: bold; margin-top: 1.5rem;">
+                        Situazione / Persona in difficoltà
+                    </label>
+                    <textarea id="project-situation" class="input-field" 
+                              placeholder="Descrivi la situazione..."></textarea>
+                    
+                    <label style="display: block; font-weight: bold; margin-top: 1.5rem;">
+                        Bisogni identificati (usa Maslow)
+                    </label>
+                    <textarea id="project-needs" class="input-field" 
+                              placeholder="Quali bisogni ha questa persona?"></textarea>
+                    
+                    <label style="display: block; font-weight: bold; margin-top: 1.5rem;">
+                        Servizi welfare da attivare
+                    </label>
+                    <textarea id="project-services" class="input-field" 
+                              placeholder="Quali servizi (con i loro pilastri) possono aiutare?"></textarea>
+                    
+                    <label style="display: block; font-weight: bold; margin-top: 1.5rem;">
+                        Azioni dell'operatore
+                    </label>
+                    <textarea id="project-actions" class="input-field" 
+                              placeholder="Cosa fa l'operatore? (colloquio, visita domiciliare, ecc.)"></textarea>
+                    
+                    <label style="display: block; font-weight: bold; margin-top: 1.5rem;">
+                        Reti da coinvolgere (formali e informali)
+                    </label>
+                    <textarea id="project-networks" class="input-field" 
+                              placeholder="Chi coinvolgi? (ASL, famiglia, associazioni...)"></textarea>
+                </div>
+
+                <div class="info-box green" style="margin-top: 3rem;">
+                    <h3>🎉 COMPLIMENTI! Hai completato tutte le 4 fasi!</h3>
+                    <p style="margin-top: 1rem;">
+                        Ora hai una conoscenza completa del welfare: sai cos'è, come funziona, 
+                        come fare i collegamenti e sei capace di progettare un intervento reale.
+                    </p>
+                    <p style="margin-top: 1rem; font-weight: bold;">
+                        📄 Ricordati di stampare e consegnare il tuo lavoro al docente!
+                    </p>
+                </div>
+
+                <div style="display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; justify-content: center;">
+                    <button class="btn btn-primary" onclick="printWork()" style="font-size: 1.1rem;">
+                        🖨️ STAMPA PER CONSEGNA
+                    </button>
+                    <button class="btn btn-secondary" onclick="downloadCompleteHTML()" style="font-size: 1.1rem;">
+                        💾 SALVA HTML COMPLETO
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PULSANTI SALVATAGGIO -->
+    <div class="save-buttons">
+        <button class="save-btn" onclick="downloadCompleteHTML()" title="Salva HTML completo">
+            💾 Salva
+        </button>
+    </div>
+
+    <div class="save-status" id="save-status">✓ Salvato</div>
+
+    <script>
+        // ========== DATI ==========
+        const servicesData = [
+            { title: "Ospedali pubblici", description: "Cure specialistiche e ricoveri", pillar: "🏥 Sanità", need: "Risponde ai bisogni fisiologici (salute fisica) e di sicurezza (protezione dalla malattia)" },
+            { title: "Medico di famiglia", description: "Cure di base e prevenzione", pillar: "🏥 Sanità", need: "Risponde ai bisogni fisiologici (salute) e di sicurezza (monitoraggio continuo)" },
+            { title: "Vaccinazioni e screening", description: "Prevenzione e diagnosi precoce", pillar: "🏥 Sanità", need: "Risponde ai bisogni di sicurezza (prevenzione malattie)" },
+            { title: "Centri di riabilitazione", description: "Recupero fisico e funzionale", pillar: "🏥 Sanità", need: "Risponde ai bisogni fisiologici (recupero fisico) e di stima (recupero autonomia)" },
+            { title: "Servizi di salute mentale", description: "Supporto psicologico e psichiatrico", pillar: "🏥 Sanità", need: "Risponde ai bisogni di sicurezza (equilibrio psicologico) e di stima (benessere emotivo)" },
+            { title: "Assistenza domiciliare anziani", description: "Cura a casa per persone fragili", pillar: "🤝 Assistenza Sociale", need: "Risponde ai bisogni fisiologici (cura quotidiana) e di appartenenza (non isolamento)" },
+            { title: "Pensione di vecchiaia", description: "Reddito per chi non lavora più", pillar: "💰 Previdenza", need: "Risponde ai bisogni fisiologici (sostentamento) e di sicurezza (stabilità economica)" },
+            { title: "Indennità di disoccupazione", description: "Sostegno a chi perde il lavoro", pillar: "💰 Previdenza", need: "Risponde ai bisogni di sicurezza (protezione economica temporanea)" },
+            { title: "Assegni familiari / Bonus bebè", description: "Aiuto economico alle famiglie", pillar: "💰 Previdenza", need: "Risponde ai bisogni fisiologici (cura figli) e di appartenenza (sostegno famiglia)" },
+            { title: "Indennità per non autosufficienza", description: "Contributi per persone con disabilità", pillar: "💰 Previdenza", need: "Risponde ai bisogni fisiologici (cure necessarie) e di sicurezza (copertura spese)" },
+            { title: "Asili nido", description: "Cura ed educazione per l'infanzia", pillar: "🤝 Assistenza Sociale", need: "Risponde ai bisogni di appartenenza (socializzazione) e conoscenza (educazione precoce)" },
+            { title: "Centri per persone con disabilità", description: "Inclusione e riabilitazione", pillar: "🤝 Assistenza Sociale", need: "Risponde ai bisogni di appartenenza (inclusione sociale) e stima (riconoscimento abilità)" },
+            { title: "Servizi per senza fissa dimora", description: "Accoglienza e pasti", pillar: "🤝 Assistenza Sociale", need: "Risponde ai bisogni fisiologici (cibo, riparo) e di sicurezza (protezione)" },
+            { title: "Corsi di formazione professionale", description: "Riqualificazione e reinserimento", pillar: "🤝 Assistenza Sociale", need: "Risponde ai bisogni di conoscenza (apprendimento) e auto-realizzazione (crescita)" },
+            { title: "Reddito di cittadinanza", description: "Sostegno economico minimo", pillar: "💰 Previdenza", need: "Risponde ai bisogni fisiologici (sostentamento di base) e di sicurezza (dignità)" },
+            { title: "Corsi di lingua per immigrati", description: "Inclusione socio-lavorativa", pillar: "🤝 Assistenza Sociale", need: "Risponde ai bisogni di appartenenza (integrazione) e conoscenza (lingua)" },
+            { title: "Programmi contro le dipendenze", description: "Prevenzione e riabilitazione", pillar: "🏥 Sanità", need: "Risponde ai bisogni di sicurezza (salute) e auto-realizzazione (recupero vita)" },
+            { title: "Centri diurni territoriali", description: "Supporto e socializzazione", pillar: "🤝 Assistenza Sociale", need: "Risponde ai bisogni di appartenenza (comunità) e stima (partecipazione)" }
+        ];
+
+        const connectionExercises = [
+            { need: "Persona anziana sola che ha difficoltà a muoversi e fare la spesa", correctService: "Assistenza domiciliare anziani", correctPillar: "🤝 Assistenza Sociale", options: { services: ["Assistenza domiciliare anziani", "Pensione di vecchiaia", "Ospedali pubblici"], pillars: ["🤝 Assistenza Sociale", "💰 Previdenza", "🏥 Sanità"] }},
+            { need: "Famiglia con neonato che non può permettersi il latte artificiale", correctService: "Assegni familiari / Bonus bebè", correctPillar: "💰 Previdenza", options: { services: ["Assegni familiari / Bonus bebè", "Asili nido", "Medico di famiglia"], pillars: ["💰 Previdenza", "🤝 Assistenza Sociale", "🏥 Sanità"] }},
+            { need: "Persona disoccupata che cerca lavoro ma non ha reddito", correctService: "Indennità di disoccupazione", correctPillar: "💰 Previdenza", options: { services: ["Indennità di disoccupazione", "Corsi di formazione professionale", "Centri diurni territoriali"], pillars: ["💰 Previdenza", "🤝 Assistenza Sociale", "🏥 Sanità"] }},
+            { need: "Bambino che necessita di socializzare con altri coetanei mentre i genitori lavorano", correctService: "Asili nido", correctPillar: "🤝 Assistenza Sociale", options: { services: ["Asili nido", "Assegni familiari / Bonus bebè", "Medico di famiglia"], pillars: ["🤝 Assistenza Sociale", "💰 Previdenza", "🏥 Sanità"] }},
+            { need: "Persona con dipendenza da sostanze che vuole uscirne", correctService: "Programmi contro le dipendenze", correctPillar: "🏥 Sanità", options: { services: ["Programmi contro le dipendenze", "Servizi di salute mentale", "Centri diurni territoriali"], pillars: ["🏥 Sanità", "🤝 Assistenza Sociale", "💰 Previdenza"] }},
+            { need: "Immigrato che non parla italiano e cerca lavoro", correctService: "Corsi di lingua per immigrati", correctPillar: "🤝 Assistenza Sociale", options: { services: ["Corsi di lingua per immigrati", "Corsi di formazione professionale", "Reddito di cittadinanza"], pillars: ["🤝 Assistenza Sociale", "💰 Previdenza", "🏥 Sanità"] }}
+        ];
+
+        let currentCardIndex = 0;
+        let currentPhase = 1;
+
+        // ========== NAVIGAZIONE FASI ==========
+        function goToPhase(phaseNumber) {
+            document.querySelectorAll('.phase').forEach(p => p.classList.remove('active'));
+            document.getElementById('phase-' + phaseNumber).classList.add('active');
+            
+            document.querySelectorAll('.phase-dot').forEach(dot => {
+                dot.classList.remove('active', 'completed');
+                const dotPhase = parseInt(dot.dataset.phase);
+                if (dotPhase < phaseNumber) {
+                    dot.classList.add('completed');
+                } else if (dotPhase === phaseNumber) {
+                    dot.classList.add('active');
+                }
+            });
+            
+            currentPhase = phaseNumber;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            saveData();
+        }
+
+        function completePhase(phaseNumber) {
+            goToPhase(phaseNumber + 1);
+        }
+
+        // ========== CARTE SERVIZIO ==========
+        function generateCards() {
+            const gridContainer = document.getElementById('cards-grid');
+            servicesData.forEach((service, index) => {
+                const card = createCardElement(service, index);
+                gridContainer.appendChild(card);
+            });
+            updateSliderCard();
+        }
+
+        function createCardElement(service, index) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div class="card-title">${index + 1}. ${service.title}</div>
+                <div class="card-description">${service.description}</div>
+                <div class="card-pillar">${service.pillar}</div>
+                <div class="card-need">
+                    <strong>🔗 Collegamento:</strong>
+                    <p style="margin: 0.5rem 0 0; color: #555; font-size: 0.95rem;">${service.need}</p>
+                </div>
+            `;
+            return card;
+        }
+
+        function toggleCardsView(view) {
+            const grid = document.getElementById('cards-grid');
+            const slider = document.getElementById('cards-slider');
+            const btnGrid = document.getElementById('btn-grid');
+            const btnSlider = document.getElementById('btn-slider');
+            
+            if (view === 'grid') {
+                grid.style.display = 'grid';
+                slider.classList.remove('active');
+                btnGrid.style.opacity = '1';
+                btnSlider.style.opacity = '0.7';
+            } else {
+                grid.style.display = 'none';
+                slider.classList.add('active');
+                btnGrid.style.opacity = '0.7';
+                btnSlider.style.opacity = '1';
+            }
+        }
+
+        function updateSliderCard() {
+            const container = document.getElementById('current-card');
+            const service = servicesData[currentCardIndex];
+            container.innerHTML = '';
+            container.appendChild(createCardElement(service, currentCardIndex));
+            
+            document.getElementById('card-counter').textContent = currentCardIndex + 1;
+            document.getElementById('prev-btn').disabled = currentCardIndex === 0;
+            document.getElementById('next-btn').disabled = currentCardIndex === servicesData.length - 1;
+        }
+
+        function changeCard(direction) {
+            currentCardIndex += direction;
+            if (currentCardIndex < 0) currentCardIndex = 0;
+            if (currentCardIndex >= servicesData.length) currentCardIndex = servicesData.length - 1;
+            updateSliderCard();
+        }
+
+        // ========== COLLEGAMENTI ==========
+        function generateConnectionExercises() {
+            const container = document.getElementById('connections-container');
+            connectionExercises.forEach((exercise, index) => {
+                const item = document.createElement('div');
+                item.className = 'connection-item';
+                item.id = 'connection-' + index;
+                
+                item.innerHTML = `
+                    <h3 style="color: #1a5c3a; margin-bottom: 1rem;">Esercizio ${index + 1}</h3>
+                    <div class="connection-row">
+                        <div class="connection-box need">
+                            <div>
+                                <strong>🚨 BISOGNO</strong><br>
+                                <span style="font-size: 0.9rem;">${exercise.need}</span>
+                            </div>
+                        </div>
+                        <div class="connection-arrow">→</div>
+                        <div class="connection-box service">
+                            <div style="width: 100%;">
+                                <strong>🎯 SERVIZIO</strong><br>
+                                <select class="connection-select" data-index="${index}" data-type="service" onchange="checkConnection(${index})">
+                                    <option value="">Seleziona...</option>
+                                    ${exercise.options.services.map(s => `<option value="${s}">${s}</option>`).join('')}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="connection-arrow">→</div>
+                        <div class="connection-box pillar">
+                            <div style="width: 100%;">
+                                <strong>🏛️ PILASTRO</strong><br>
+                                <select class="connection-select" data-index="${index}" data-type="pillar" onchange="checkConnection(${index})">
+                                    <option value="">Seleziona...</option>
+                                    ${exercise.options.pillars.map(p => `<option value="${p}">${p}</option>`).join('')}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback-${index}"></div>
+                `;
+                
+                container.appendChild(item);
+            });
+        }
+
+        function checkConnection(index) {
+            const exercise = connectionExercises[index];
+            const serviceSelect = document.querySelector(`select[data-index="${index}"][data-type="service"]`);
+            const pillarSelect = document.querySelector(`select[data-index="${index}"][data-type="pillar"]`);
+            const feedback = document.getElementById('feedback-' + index);
+            const item = document.getElementById('connection-' + index);
+            
+            if (serviceSelect.value && pillarSelect.value) {
+                const serviceCorrect = serviceSelect.value === exercise.correctService;
+                const pillarCorrect = pillarSelect.value === exercise.correctPillar;
+                
+                if (serviceCorrect && pillarCorrect) {
+                    feedback.className = 'feedback correct';
+                    feedback.textContent = '✅ Perfetto! Hai fatto il collegamento corretto!';
+                    item.classList.add('completed');
+                } else {
+                    feedback.className = 'feedback incorrect';
+                    let message = '❌ Non è corretto. ';
+                    if (!serviceCorrect) message += 'Rifletti sul servizio. ';
+                    if (!pillarCorrect) message += 'Rifletti sul pilastro. ';
+                    feedback.textContent = message;
+                    item.classList.remove('completed');
+                }
+                saveData();
+            }
+        }
+
+        // ========== TABELLA LAVORO ==========
+        function addWorkRow() {
+            const tbody = document.getElementById('work-tbody');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td data-label="Servizio">
+                    <input type="text" class="work-input" data-field="servizio" placeholder="Nome del servizio...">
+                </td>
+                <td data-label="Bisogno Maslow">
+                    <select class="work-input" data-field="bisogno_maslow">
+                        <option value="">Seleziona...</option>
+                        <option value="Fisiologici">1. Fisiologici</option>
+                        <option value="Sicurezza">2. Sicurezza</option>
+                        <option value="Appartenenza">3. Appartenenza</option>
+                        <option value="Stima">4. Stima</option>
+                        <option value="Conoscenza">5. Conoscenza</option>
+                        <option value="Estetici">6. Estetici</option>
+                        <option value="Auto-realizzazione">7. Auto-realizzazione</option>
+                        <option value="Trascendenza">8. Trascendenza</option>
+                    </select>
+                </td>
+                <td data-label="Pilastro">
+                    <select class="work-input" data-field="pilastro">
+                        <option value="">Seleziona...</option>
+                        <option value="Sanità">🏥 Sanità</option>
+                        <option value="Previdenza">💰 Previdenza</option>
+                        <option value="Assistenza">🤝 Assistenza Sociale</option>
+                    </select>
+                </td>
+                <td data-label="Beneficiari">
+                    <textarea class="work-input" data-field="beneficiari" placeholder="Chi ne beneficia..."></textarea>
+                </td>
+                <td data-label="Perché essenziale">
+                    <textarea class="work-input" data-field="essenziale" placeholder="Perché è essenziale..."></textarea>
+                </td>
+            `;
+            tbody.appendChild(newRow);
+            attachInputListeners();
+            saveData();
+        }
+
+        // ========== SALVATAGGIO ==========
+        function saveData() {
+            const data = {
+                phase: currentPhase,
+                phase1: {
+                    studentName: document.getElementById('student-name-p1')?.value || '',
+                    studentClass: document.getElementById('student-class-p1')?.value || '',
+                    date: document.getElementById('activity-date-p1')?.value || '',
+                    brainstorm: document.getElementById('brainstorm-welfare')?.value || '',
+                    conceptMapInitial: document.getElementById('concept-map-initial')?.value || ''
+                },
+                phase2: {
+                    scenario1Needs: document.getElementById('scenario1-needs')?.value || '',
+                    scenario1Services: document.getElementById('scenario1-services')?.value || '',
+                    scenario2Needs: document.getElementById('scenario2-needs')?.value || '',
+                    scenario2Services: document.getElementById('scenario2-services')?.value || ''
+                },
+                phase3: {
+                    groupMembers: document.getElementById('group-members')?.value || '',
+                    groupClass: document.getElementById('group-class')?.value || '',
+                    groupDate: document.getElementById('group-date')?.value || '',
+                    presentationNotes: document.getElementById('presentation-notes')?.value || '',
+                    workTable: [],
+                    connections: []
+                },
+                phase4: {
+                    studentName: document.getElementById('reflection-name')?.value || '',
+                    studentClass: document.getElementById('reflection-class')?.value || '',
+                    date: document.getElementById('reflection-date')?.value || '',
+                    learned1: document.getElementById('learned1')?.value || '',
+                    learned2: document.getElementById('learned2')?.value || '',
+                    learned3: document.getElementById('learned3')?.value || '',
+                    misconception: document.getElementById('misconception')?.value || '',
+                    maslowDifficulty: document.getElementById('maslow-difficulty')?.value || '',
+                    operatorExample: document.getElementById('operator-example')?.value || '',
+                    networkCollaboration: document.getElementById('network-collaboration')?.value || '',
+                    participation: document.querySelector('input[name="participation"]:checked')?.value || '',
+                    helpfulAspect: document.getElementById('helpful-aspect')?.value || '',
+                    conceptMapFinal: document.getElementById('concept-map-final')?.value || '',
+                    projectSituation: document.getElementById('project-situation')?.value || '',
+                    projectNeeds: document.getElementById('project-needs')?.value || '',
+                    projectServices: document.getElementById('project-services')?.value || '',
+                    projectActions: document.getElementById('project-actions')?.value || '',
+                    projectNetworks: document.getElementById('project-networks')?.value || ''
+                }
+            };
+
+            // Salva tabella lavoro
+            document.querySelectorAll('#work-tbody tr').forEach(row => {
+                const rowData = {};
+                row.querySelectorAll('.work-input').forEach(input => {
+                    rowData[input.dataset.field] = input.value;
+                });
+                data.phase3.workTable.push(rowData);
+            });
+
+            // Salva collegamenti
+            connectionExercises.forEach((exercise, index) => {
+                const serviceSelect = document.querySelector(`select[data-index="${index}"][data-type="service"]`);
+                const pillarSelect = document.querySelector(`select[data-index="${index}"][data-type="pillar"]`);
+                if (serviceSelect && pillarSelect) {
+                    data.phase3.connections.push({
+                        service: serviceSelect.value,
+                        pillar: pillarSelect.value
+                    });
+                }
+            });
+
+            localStorage.setItem('welfareActivity4Fasi', JSON.stringify(data));
+            showSaveStatus();
+        }
+
+        function loadData() {
+            const saved = localStorage.getItem('welfareActivity4Fasi');
+            if (!saved) return;
+
+            const data = JSON.parse(saved);
+
+            // Carica fase corrente
+            if (data.phase) {
+                goToPhase(data.phase);
+            }
+
+            // Carica Fase 1
+            if (data.phase1) {
+                if (document.getElementById('student-name-p1')) document.getElementById('student-name-p1').value = data.phase1.studentName;
+                if (document.getElementById('student-class-p1')) document.getElementById('student-class-p1').value = data.phase1.studentClass;
+                if (document.getElementById('activity-date-p1')) document.getElementById('activity-date-p1').value = data.phase1.date;
+                if (document.getElementById('brainstorm-welfare')) document.getElementById('brainstorm-welfare').value = data.phase1.brainstorm;
+                if (document.getElementById('concept-map-initial')) document.getElementById('concept-map-initial').value = data.phase1.conceptMapInitial;
+            }
+
+            // Carica Fase 2
+            if (data.phase2) {
+                if (document.getElementById('scenario1-needs')) document.getElementById('scenario1-needs').value = data.phase2.scenario1Needs;
+                if (document.getElementById('scenario1-services')) document.getElementById('scenario1-services').value = data.phase2.scenario1Services;
+                if (document.getElementById('scenario2-needs')) document.getElementById('scenario2-needs').value = data.phase2.scenario2Needs;
+                if (document.getElementById('scenario2-services')) document.getElementById('scenario2-services').value = data.phase2.scenario2Services;
+            }
+
+            // Carica Fase 3
+            if (data.phase3) {
+                if (document.getElementById('group-members')) document.getElementById('group-members').value = data.phase3.groupMembers;
+                if (document.getElementById('group-class')) document.getElementById('group-class').value = data.phase3.groupClass;
+                if (document.getElementById('group-date')) document.getElementById('group-date').value = data.phase3.groupDate;
+                if (document.getElementById('presentation-notes')) document.getElementById('presentation-notes').value = data.phase3.presentationNotes;
+
+                // Carica tabella
+                if (data.phase3.workTable && data.phase3.workTable.length > 0) {
+                    const tbody = document.getElementById('work-tbody');
+                    tbody.innerHTML = '';
+                    data.phase3.workTable.forEach(rowData => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td data-label="Servizio">
+                                <input type="text" class="work-input" data-field="servizio" value="${rowData.servizio || ''}">
+                            </td>
+                            <td data-label="Bisogno Maslow">
+                                <select class="work-input" data-field="bisogno_maslow">
+                                    <option value="">Seleziona...</option>
+                                    <option value="Fisiologici" ${rowData.bisogno_maslow === 'Fisiologici' ? 'selected' : ''}>1. Fisiologici</option>
+                                    <option value="Sicurezza" ${rowData.bisogno_maslow === 'Sicurezza' ? 'selected' : ''}>2. Sicurezza</option>
+                                    <option value="Appartenenza" ${rowData.bisogno_maslow === 'Appartenenza' ? 'selected' : ''}>3. Appartenenza</option>
+                                    <option value="Stima" ${rowData.bisogno_maslow === 'Stima' ? 'selected' : ''}>4. Stima</option>
+                                    <option value="Conoscenza" ${rowData.bisogno_maslow === 'Conoscenza' ? 'selected' : ''}>5. Conoscenza</option>
+                                    <option value="Estetici" ${rowData.bisogno_maslow === 'Estetici' ? 'selected' : ''}>6. Estetici</option>
+                                    <option value="Auto-realizzazione" ${rowData.bisogno_maslow === 'Auto-realizzazione' ? 'selected' : ''}>7. Auto-realizzazione</option>
+                                    <option value="Trascendenza" ${rowData.bisogno_maslow === 'Trascendenza' ? 'selected' : ''}>8. Trascendenza</option>
+                                </select>
+                            </td>
+                            <td data-label="Pilastro">
+                                <select class="work-input" data-field="pilastro">
+                                    <option value="">Seleziona...</option>
+                                    <option value="Sanità" ${rowData.pilastro === 'Sanità' ? 'selected' : ''}>🏥 Sanità</option>
+                                    <option value="Previdenza" ${rowData.pilastro === 'Previdenza' ? 'selected' : ''}>💰 Previdenza</option>
+                                    <option value="Assistenza" ${rowData.pilastro === 'Assistenza' ? 'selected' : ''}>🤝 Assistenza Sociale</option>
+                                </select>
+                            </td>
+                            <td data-label="Beneficiari">
+                                <textarea class="work-input" data-field="beneficiari">${rowData.beneficiari || ''}</textarea>
+                            </td>
+                            <td data-label="Perché essenziale">
+                                <textarea class="work-input" data-field="essenziale">${rowData.essenziale || ''}</textarea>
+                            </td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                }
+
+                // Carica collegamenti
+                if (data.phase3.connections) {
+                    data.phase3.connections.forEach((conn, index) => {
+                        const serviceSelect = document.querySelector(`select[data-index="${index}"][data-type="service"]`);
+                        const pillarSelect = document.querySelector(`select[data-index="${index}"][data-type="pillar"]`);
+                        if (serviceSelect) serviceSelect.value = conn.service || '';
+                        if (pillarSelect) pillarSelect.value = conn.pillar || '';
+                        if (conn.service && conn.pillar) {
+                            checkConnection(index);
+                        }
+                    });
+                }
+            }
+
+            // Carica Fase 4
+            if (data.phase4) {
+                if (document.getElementById('reflection-name')) document.getElementById('reflection-name').value = data.phase4.studentName;
+                if (document.getElementById('reflection-class')) document.getElementById('reflection-class').value = data.phase4.studentClass;
+                if (document.getElementById('reflection-date')) document.getElementById('reflection-date').value = data.phase4.date;
+                if (document.getElementById('learned1')) document.getElementById('learned1').value = data.phase4.learned1;
+                if (document.getElementById('learned2')) document.getElementById('learned2').value = data.phase4.learned2;
+                if (document.getElementById('learned3')) document.getElementById('learned3').value = data.phase4.learned3;
+                if (document.getElementById('misconception')) document.getElementById('misconception').value = data.phase4.misconception;
+                if (document.getElementById('maslow-difficulty')) document.getElementById('maslow-difficulty').value = data.phase4.maslowDifficulty;
+                if (document.getElementById('operator-example')) document.getElementById('operator-example').value = data.phase4.operatorExample;
+                if (document.getElementById('network-collaboration')) document.getElementById('network-collaboration').value = data.phase4.networkCollaboration;
+                if (document.getElementById('helpful-aspect')) document.getElementById('helpful-aspect').value = data.phase4.helpfulAspect;
+                if (document.getElementById('concept-map-final')) document.getElementById('concept-map-final').value = data.phase4.conceptMapFinal;
+                if (document.getElementById('project-situation')) document.getElementById('project-situation').value = data.phase4.projectSituation;
+                if (document.getElementById('project-needs')) document.getElementById('project-needs').value = data.phase4.projectNeeds;
+                if (document.getElementById('project-services')) document.getElementById('project-services').value = data.phase4.projectServices;
+                if (document.getElementById('project-actions')) document.getElementById('project-actions').value = data.phase4.projectActions;
+                if (document.getElementById('project-networks')) document.getElementById('project-networks').value = data.phase4.projectNetworks;
+                
+                if (data.phase4.participation) {
+                    const radio = document.querySelector(`input[name="participation"][value="${data.phase4.participation}"]`);
+                    if (radio) radio.checked = true;
+                }
+            }
+
+            attachInputListeners();
+        }
+
+        function showSaveStatus() {
+            const status = document.getElementById('save-status');
+            status.classList.add('show');
+            setTimeout(() => status.classList.remove('show'), 2000);
+        }
+
+        function attachInputListeners() {
+            document.querySelectorAll('input, textarea, select').forEach(input => {
+                input.removeEventListener('input', saveData);
+                input.removeEventListener('change', saveData);
+                input.addEventListener('input', saveData);
+                input.addEventListener('change', saveData);
+            });
+        }
+
+        // ========== STAMPA E DOWNLOAD ==========
+        function printWork() {
+            window.print();
+        }
+
+        function downloadCompleteHTML() {
+            saveData();
+            const storedData = localStorage.getItem('welfareActivity4Fasi');
+            const safeData = (storedData || '"{}"').replace(/<\/script/gi, '<\\/script');
+            let htmlContent = document.documentElement.outerHTML;
+
+            const preloadScript = `
+    <script>
+        (function() {
+            try {
+                var savedData = ${safeData};
+                if (typeof savedData === 'string') {
+                    localStorage.setItem('welfareActivity4Fasi', savedData);
+                } else {
+                    localStorage.setItem('welfareActivity4Fasi', JSON.stringify(savedData));
+                }
+            } catch(e) { console.error('Errore:', e); }
+        })();
+    <\/script>`;
+            
+            htmlContent = htmlContent.replace('</body>', preloadScript + '\n</body>');
+            
+            const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            
+            const now = new Date();
+            const filename = `welfare_4fasi_${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}.html`;
+            
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('✅ File salvato!\n\n📂 ' + filename + '\n\n💡 Conserva questo file!');
+        }
+
+        // ========== INIZIALIZZAZIONE ==========
+        document.addEventListener('DOMContentLoaded', () => {
+            generateCards();
+            generateConnectionExercises();
+            loadData();
+            attachInputListeners();
+        });
+    </script>
+</body>
+</html>
