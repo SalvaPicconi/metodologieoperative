@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Il Welfare: dalle Basi all'Azione - 4 Fasi di Apprendimento COMPLETO</title>
+    <title>Il Welfare: dalle Basi all'Azione - 4 Fasi di Apprendimento</title>
     <style>
         * {
             margin: 0;
@@ -33,12 +33,19 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
 
         .header h1 {
             font-size: clamp(1.2rem, 4vw, 1.8rem);
             margin-bottom: 0.5rem;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .header.header-hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
         }
 
         /* BARRA PROGRESSO FASI */
@@ -853,7 +860,7 @@
 <body>
     <!-- HEADER -->
     <div class="header">
-        <h1>🎓 Il Welfare: dalle Basi all'Azione - COMPLETO</h1>
+        <h1>🎓 Il Welfare: dalle Basi all'Azione</h1>
         <p style="font-size: 1rem; opacity: 0.9;">Percorso di apprendimento in 4 fasi - Versione Integrata</p>
         
         <!-- BARRA PROGRESSO -->
@@ -2142,6 +2149,28 @@
         let currentCardIndex = 0;
         let currentPhase = 1;
 
+        function initHeaderHideOnScroll() {
+            const header = document.querySelector('.header');
+            if (!header) {
+                return;
+            }
+
+            let lastScrollY = window.pageYOffset || document.documentElement.scrollTop;
+            const threshold = 80;
+
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+                
+                if (currentScroll > threshold && currentScroll > lastScrollY) {
+                    header.classList.add('header-hidden');
+                } else {
+                    header.classList.remove('header-hidden');
+                }
+
+                lastScrollY = currentScroll <= 0 ? 0 : currentScroll;
+            }, { passive: true });
+        }
+
         // ========== NAVIGAZIONE FASI ==========
         function goToPhase(phaseNumber) {
             document.querySelectorAll('.phase').forEach(p => p.classList.remove('active'));
@@ -2680,6 +2709,7 @@
 
         // ========== INIZIALIZZAZIONE ==========
         document.addEventListener('DOMContentLoaded', () => {
+            initHeaderHideOnScroll();
             generateCards();
             generateConnectionExercises();
             loadData();
