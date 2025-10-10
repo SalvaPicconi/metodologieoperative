@@ -48,6 +48,77 @@
             pointer-events: none;
         }
 
+        /* MODALITÀ STAMPA */
+        body.print-mode {
+            background: #ffffff !important;
+            color: #000000 !important;
+        }
+
+        body.print-mode .header {
+            position: static !important;
+            transform: none !important;
+            opacity: 1 !important;
+            box-shadow: none !important;
+            background: #ffffff !important;
+            color: #000000 !important;
+            border-bottom: 2px solid #1a5c3a;
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        body.print-mode .header h1 {
+            color: #000000 !important;
+            text-shadow: none !important;
+        }
+
+        body.print-mode .phase-progress,
+        body.print-mode .save-buttons,
+        body.print-mode .save-status,
+        body.print-mode .btn-next,
+        body.print-mode .btn-download,
+        body.print-mode .btn-primary,
+        body.print-mode .btn-secondary,
+        body.print-mode .slider-controls,
+        body.print-mode .card-actions,
+        body.print-mode .save-btn {
+            display: none !important;
+        }
+
+        body.print-mode .container {
+            padding: 1.5rem !important;
+            margin-top: 0 !important;
+        }
+
+        body.print-mode .phase {
+            display: block !important;
+            page-break-after: always;
+            break-after: page;
+        }
+
+        body.print-mode .phase:last-of-type {
+            page-break-after: auto;
+            break-after: auto;
+        }
+
+        body.print-mode .white-card {
+            background: #ffffff !important;
+            color: #000000 !important;
+            box-shadow: none !important;
+            border: 1px solid #dfe6e9;
+        }
+
+        body.print-mode .info-box {
+            border-left-width: 3px;
+        }
+
+        body.print-mode .cards-grid {
+            display: grid !important;
+        }
+
+        body.print-mode #cards-slider {
+            display: none !important;
+        }
+
         /* BARRA PROGRESSO FASI */
         .phase-progress {
             display: flex;
@@ -832,27 +903,74 @@
 
         /* STAMPA */
         @media print {
-            .header,
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+            }
+
+            .header {
+                position: static !important;
+                transform: none !important;
+                opacity: 1 !important;
+                box-shadow: none !important;
+                background: #ffffff !important;
+                color: #000000 !important;
+                border-bottom: 2px solid #1a5c3a;
+                padding-bottom: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .header h1 {
+                color: #000000 !important;
+                text-shadow: none !important;
+            }
+
+            .phase-progress,
             .save-buttons,
             .save-status,
             .btn-next,
-            .phase-progress {
+            .btn-download,
+            .btn-primary,
+            .btn-secondary,
+            .slider-controls,
+            .card-actions,
+            .save-btn {
                 display: none !important;
+            }
+
+            .container {
+                padding: 1.5rem !important;
+                margin-top: 0 !important;
             }
 
             .phase {
                 display: block !important;
                 page-break-after: always;
+                break-after: page;
             }
 
-            body {
-                background: white;
-                color: black;
+            .phase:last-of-type {
+                page-break-after: auto;
+                break-after: auto;
             }
 
             .white-card {
-                box-shadow: none;
-                border: 1px solid #ddd;
+                background: #ffffff !important;
+                color: #000000 !important;
+                box-shadow: none !important;
+                border: 1px solid #dfe6e9;
+            }
+
+            .info-box {
+                border-left-width: 3px;
+            }
+
+            .cards-grid {
+                display: grid !important;
+            }
+
+            #cards-slider {
+                display: none !important;
             }
         }
     </style>
@@ -2171,6 +2289,42 @@
             }, { passive: true });
         }
 
+        function enablePrintMode() {
+            const body = document.body;
+            const header = document.querySelector('.header');
+            const cardsGrid = document.getElementById('cards-grid');
+            const cardsSlider = document.getElementById('cards-slider');
+
+            const previousGridDisplay = cardsGrid ? cardsGrid.style.display : '';
+            const previousSliderDisplay = cardsSlider ? cardsSlider.style.display : '';
+            const headerWasHidden = header ? header.classList.contains('header-hidden') : false;
+
+            body.classList.add('print-mode');
+
+            if (header) {
+                header.classList.remove('header-hidden');
+            }
+            if (cardsGrid) {
+                cardsGrid.style.display = 'grid';
+            }
+            if (cardsSlider) {
+                cardsSlider.style.display = 'none';
+            }
+
+            return () => {
+                body.classList.remove('print-mode');
+                if (header && headerWasHidden) {
+                    header.classList.add('header-hidden');
+                }
+                if (cardsGrid) {
+                    cardsGrid.style.display = previousGridDisplay;
+                }
+                if (cardsSlider) {
+                    cardsSlider.style.display = previousSliderDisplay;
+                }
+            };
+        }
+
         // ========== NAVIGAZIONE FASI ==========
         function goToPhase(phaseNumber) {
             document.querySelectorAll('.phase').forEach(p => p.classList.remove('active'));
@@ -2665,7 +2819,27 @@
 
         // ========== STAMPA E DOWNLOAD ==========
         function printWork() {
+            saveData();
+            const cleanup = enablePrintMode();
+            let cleaned = false;
+
+            const doCleanup = () => {
+                if (cleaned) return;
+                cleaned = true;
+                cleanup();
+            };
+
+            const afterPrintHandler = () => {
+                doCleanup();
+                window.removeEventListener('afterprint', afterPrintHandler);
+            };
+
+            window.addEventListener('afterprint', afterPrintHandler);
             window.print();
+
+            setTimeout(() => {
+                doCleanup();
+            }, 1500);
         }
 
         function downloadCompleteHTML() {
