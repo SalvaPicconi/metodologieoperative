@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il Tecnico dei Servizi Socio-Sanitari (TSSAS) - Percorso di Autoapprendimento</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .progress-bar-container {
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .progress-step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .progress-step.active {
+            background: #4CAF50;
+            transform: scale(1.2);
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
+        }
+
+        .progress-step.completed {
+            background: #2196F3;
+        }
+
+        .progress-text {
+            color: white;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .fase {
+            display: none;
+        }
+
+        .fase.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .box {
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .box-yellow {
+            background: linear-gradient(135deg, #FFF59D 0%, #FFF176 100%);
+            border-left: 5px solid #FBC02D;
+        }
+
+        .box-green {
+            background: linear-gradient(135deg, #A5D6A7 0%, #81C784 100%);
+            border-left: 5px solid #4CAF50;
+        }
+
+        .box-blue {
+            background: linear-gradient(135deg, #90CAF9 0%, #64B5F6 100%);
+            border-left: 5px solid #2196F3;
+        }
+
+        .box-purple {
+            background: linear-gradient(135deg, #CE93D8 0%, #BA68C8 100%);
+            border-left: 5px solid #9C27B0;
+        }
+
+        .box h3 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .box ul li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .box ul li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .instructions {
+            background: #f5f5f5;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .instructions h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .instructions ol {
+            padding-left: 20px;
+        }
+
+        .instructions ol li {
+            padding: 10px 0;
+            line-height: 1.6;
+        }
+
+        .input-area {
+            margin: 20px 0;
+        }
+
+        .input-area label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .input-area textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1em;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+
+        .input-area textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .input-area input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .input-area input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .checkbox-group {
+            margin: 15px 0;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin: 8px 0;
+            background: white;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .checkbox-item:hover {
+            background: #f0f0f0;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .checkbox-item label {
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border-radius: 50px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .button-secondary {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+        }
+
+        .button-print {
+            background: linear-gradient(135deg, #FF6B6B 0%, #EE5A6F 100%);
+        }
+
+        .button-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #667eea;
+        }
+
+        .card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .highlight {
+            background: #FFF9C4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .emoji {
+            font-size: 1.5em;
+        }
+
+        .teoria-section {
+            background: #E3F2FD;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .teoria-section h4 {
+            color: #1976D2;
+            margin-bottom: 15px;
+        }
+
+        .concept-box {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 3px solid #2196F3;
+        }
+
+        .quote {
+            background: #F3E5F5;
+            padding: 15px;
+            border-left: 4px solid #9C27B0;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-style: italic;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+
+        .mappa-upload {
+            border: 3px dashed #667eea;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+            background: #f9f9f9;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .mappa-upload:hover {
+            background: #f0f0f0;
+            border-color: #764ba2;
+        }
+
+        .connection-exercise {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .connection-exercise h5 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .button-container,
+            .progress-bar-container {
+                display: none;
+            }
+            
+            .fase {
+                display: block !important;
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 Il Tecnico dei Servizi per la Sanità e l'Assistenza Sociale (TSSAS)</h1>
+            <p>Percorso di Autoapprendimento Progressivo Guidato</p>
+        </div>
+
+        <div class="progress-bar-container">
+            <div class="progress-bar">
+                <div class="progress-step active" id="step1">1</div>
+                <div class="progress-step" id="step2">2</div>
+                <div class="progress-step" id="step3">3</div>
+                <div class="progress-step" id="step4">4</div>
+            </div>
+            <div class="progress-text" id="progress-text">Sei nella Fase 1 di 4</div>
+        </div>
+
+        <div class="content">
+            <!-- FASE 1: INIZIO -->
+            <div class="fase active" id="fase1">
+                <h2 style="color: #667eea; font-size: 2em; margin-bottom: 20px;">🚀 FASE 1: SCOPRI COS'È IL TSSAS</h2>
+
+                <div class="box box-yellow">
+                    <h3><span class="emoji">🎯</span> COSA FAI ORA (30 secondi)</h3>
+                    <ul>
+                        <li>Scrivi cosa pensi sia un Tecnico dei Servizi Socio-Sanitari</li>
+                        <li>Leggi la definizione ufficiale del ruolo</li>
+                        <li>Crea la tua prima mappa mentale del concetto</li>
+                    </ul>
+                </div>
+
+                <div class="box box-green">
+                    <h3><span class="emoji">💡</span> PERCHÉ LO FAI</h3>
+                    <p style="font-size: 1.1em;"><strong>Attivare le tue conoscenze pregresse ti aiuta a costruire un apprendimento significativo e personalizzato!</strong></p>
+                </div>
+
+                <div class="instructions">
+                    <h4>📋 ISTRUZIONI OPERATIVE</h4>
+                    <ol>
+                        <li><strong>Brainstorming iniziale:</strong> Scrivi nel campo qui sotto tutto quello che pensi di sapere sul ruolo del TSSAS</li>
+                        <li><strong>Leggi la teoria:</strong> Scorri e leggi attentamente la sezione teorica</li>
+                        <li><strong>Crea la mappa:</strong> Disegna o scrivi una mappa concettuale con i concetti chiave</li>
+                    </ol>
+                </div>
+
+                <div class="input-area">
+                    <label>✏️ BRAINSTORMING: Cos'è per te un Tecnico dei Servizi Socio-Sanitari?</label>
+                    <textarea id="brainstorming1" placeholder="Scrivi qui le tue idee iniziali... Cosa fa? Dove lavora? Con chi lavora?"></textarea>
+                </div>
+
+                <div class="teoria-section">
+                    <h4>📚 TEORIA: Chi è il TSSAS?</h4>
+                    
+                    <div class="concept-box">
+                        <h5><strong>Definizione ufficiale</strong></h5>
+                        <p>Il <span class="highlight">Tecnico dei Servizi per la Sanità e l'Assistenza Sociale (TSSAS)</span> è la figura professionale che lavora come <strong>soggetto portatore di diritti e di doveri</strong>, parte del <span class="highlight">modello sistemico bio-psico-sociale</span>.</p>
+                    </div>
+
+                    <div class="concept-box">
+                        <h5><strong>📌 Cosa significa "modello sistemico bio-psico-sociale"?</strong></h5>
+                        <p>È un metodo organizzativo di assistenza sociale dove ogni situazione di salute o malattia è la conseguenza di tre fattori:</p>
+                        <ul style="margin-top: 10px;">
+                            <li><strong>Biologico</strong> - aspetti fisici della persona</li>
+                            <li><strong>Psicologico</strong> - aspetti mentali ed emotivi</li>
+                            <li><strong>Sociale</strong> - contesto relazionale e ambientale</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-box">
+                        <h5><strong>🎯 Quale figura si delinea?</strong></h5>
+                        <p>Il TSSAS deve acquisire competenze per:</p>
+                        <ul style="margin-top: 10px;">
+                            <li><strong>Organizzare</strong> e attuare interventi per rispondere alle esigenze sociali e sanitarie</li>
+                            <li><strong>Promuovere</strong> il benessere bio-psico-sociale negli ambiti dell'assistenza e della salute</li>
+                            <li><strong>Collaborare</strong> nella gestione di progetti e attività dei servizi sociali</li>
+                            <li><strong>Facilitare</strong> la comunicazione tra persone e gruppi</li>
+                            <li><strong>Realizzare</strong> attività educative, di animazione sociale</li>
+                            <li><strong>Raccogliere, conservare, elaborare e trasmettere</strong> dati relativi alle attività professionali</li>
+                        </ul>
+                    </div>
+
+                    <div class="quote">
+                        <p><strong>💬 In sintesi:</strong> Il TSSAS è un professionista della relazione d'aiuto che lavora con soggetti di diverse età (individui e gruppi) per sostenere e potenziare la loro capacità di crescita personale e partecipazione sociale.</p>
+                    </div>
+
+                    <div class="concept-box">
+                        <h5><strong>🌐 Dove lavora il TSSAS?</strong></h5>
+                        <ul style="margin-top: 10px;">
+                            <li>Istituzioni pubbliche e private</li>
+                            <li>Con soggetti di diverse età (bambini, adolescenti, adulti, anziani, persone con disabilità)</li>
+                            <li>Servizi sociosanitari del territorio</li>
+                            <li>Strutture residenziali e semiresidenziali</li>
+                            <li>Progetti educativi e di animazione sociale</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-box">
+                        <h5><strong>🤝 Come lavora? Il LAVORO DI RETE</strong></h5>
+                        <p>Il lavoro di rete significa <span class="highlight">creare collegamenti e sinergie tra risorse</span> formali e informali:</p>
+                        <ul style="margin-top: 10px;">
+                            <li><strong>Con le persone:</strong> attivando la presa in carico</li>
+                            <li><strong>Nel servizio e tra i servizi:</strong> creando connessioni utili</li>
+                            <li><strong>Sul territorio:</strong> creando sinergie tra servizi territoriali</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><strong>Reti informali:</strong> famiglia, amici, vicini di casa, volontari, associazioni</p>
+                        <p><strong>Reti secondarie formali:</strong> servizi strutturati del Servizio Sanitario Nazionale</p>
+                    </div>
+                </div>
+
+                <div class="input-area">
+                    <label>🗺️ MAPPA CONCETTUALE INIZIALE</label>
+                    <p style="margin-bottom: 10px; color: #666;">Disegna su carta la tua mappa concettuale con i concetti chiave che hai appena letto, poi caricala o descrivila:</p>
+                    <textarea id="mappa1" placeholder="Descrivi qui la tua mappa concettuale: quali concetti chiave hai individuato? Come li hai collegati?
+Esempio: TSSAS al centro, collegato a: modello bio-psico-sociale, utenti (bambini, adulti, anziani), servizi (pubblici/privati), competenze (organizzare, collaborare, facilitare)..."></textarea>
+                </div>
+
+                <div class="button-container">
+                    <button class="button" onclick="goToPhase(2)">
+                        ✅ HAI FINITO? → VAI ALLA FASE 2
+                    </button>
+                </div>
+            </div>
+
+            <!-- FASE 2: ESPLORO -->
+            <div class="fase" id="fase2">
+                <h2 style="color: #667eea; font-size: 2em; margin-bottom: 20px;">📚 FASE 2: ESPLORO - VEDO COME FUNZIONA</h2>
+
+                <div class="box box-yellow">
+                    <h3><span class="emoji">🎯</span> COSA FAI ORA (30 secondi)</h3>
+                    <ul>
+                        <li>Leggi casi concreti di intervento del TSSAS</li>
+                        <li>Scopri chi sono gli utenti dei servizi</li>
+                        <li>Analizza le diverse tipologie di bisogni</li>
+                    </ul>
+                </div>
+
+                <div class="box box-green">
+                    <h3><span class="emoji">💡</span> PERCHÉ LO FAI</h3>
+                    <p style="font-size: 1.1em;"><strong>Collegare la teoria a situazioni reali ti aiuta a capire il significato concreto del tuo futuro lavoro!</strong></p>
+                </div>
+
+                <div class="instructions">
+                    <h4>📋 ISTRUZIONI OPERATIVE</h4>
+                    <ol>
+                        <li><strong>Leggi le schede:</strong> Scorri tutte le schede sugli utenti dei servizi</li>
+                        <li><strong>Rifletti sui bisogni:</strong> Per ogni tipologia, identifica i bisogni principali</li>
+                        <li><strong>Completa l'esercizio:</strong> Rispondi alle domande operative sul lavoro del TSSAS</li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h4>🎯 CHI SONO GLI UTENTI DEI SERVIZI?</h4>
+                    <p style="margin: 10px 0;"><strong>Gli utenti</strong> sono persone che usufruiscono di un servizio, portatrici di valori fondamentali come la <span class="highlight">libertà di agire</span>, il rispetto degli altri e la <span class="highlight">responsabilità</span> vista come <span class="highlight">consapevolezza delle proprie azioni</span>.</p>
+                    <p style="margin: 10px 0;">Tu, come TSSAS, eserciterai una <strong>professione in stretta relazione con gli utenti</strong>, attivando un percorso educativo che conduca all'assunzione delle loro responsabilità e consapevolezza.</p>
+                    <div class="quote" style="margin-top: 15px;">
+                        <p><strong>Relazione d'aiuto:</strong> percorso basato su intenti comuni, condivisione dell'interesse e presa in carico dei problemi per favorire il cambiamento. Il tuo ruolo sarà fare emergere i potenziali e le abilità sociali e personali (life skills) per incentivare l'autogestione e il ruolo attivo.</p>
+                    </div>
+                </div>
+
+                <h4 style="color: #667eea; margin: 30px 0 20px 0;">👥 LE TIPOLOGIE DI UTENZA</h4>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>👨‍👩‍👧‍👦 LA FAMIGLIA</h4>
+                        <p><strong>Definizione:</strong> Istituzione di base della società, composta da genitori e prole (famiglia nucleare), con tabù che vieta le unioni tra membri dello stesso nucleo.</p>
+                        <p style="margin-top: 10px;"><strong>Situazione oggi:</strong> Le famiglie italiane hanno un <span class="highlight">basso numero di componenti</span>, con nuove forme:</p>
+                        <ul style="margin-top: 10px;">
+                            <li>Famiglie di single</li>
+                            <li>Famiglie ricostituite dopo lo scioglimento di una unione precedente</li>
+                            <li>Convivenze senza matrimonio</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><strong>Obiettivo della famiglia:</strong> garantire la sopravvivenza, lo sviluppo e il sostegno di ciascuno dei suoi membri.</p>
+                        <p style="margin-top: 10px;"><strong>Problemi attuali:</strong> fragilità dell'istituzione, flessione del mercato del lavoro, allungamento della vita, bisogno di assistenza degli anziani.</p>
+                    </div>
+
+                    <div class="card">
+                        <h4>👶 L'INFANZIA (0-3 e 3-6 anni)</h4>
+                        <p><strong>Prima infanzia (0-3 anni):</strong> Periodo di totale dipendenza dai genitori</p>
+                        <p style="margin-top: 10px;"><strong>Seconda infanzia (3-6 anni):</strong> Inizio affermazione della propria personalità e interesse ai rapporti sociali interpersonali</p>
+                        <p style="margin-top: 10px;"><strong>Terza infanzia (6-10 anni):</strong> Periodo della scuola primaria</p>
+                        
+                        <div style="background: #E8F5E9; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                            <p><strong>🧠 Sviluppi importanti nell'infanzia:</strong></p>
+                            <ul style="margin-top: 10px;">
+                                <li><strong>Sviluppo percettivo-motorio:</strong> formazione del sistema nervoso e coordinazione</li>
+                                <li><strong>Sviluppo linguistico:</strong> dal balbettio alla lallazione, poi uso di parole e frasi complete</li>
+                                <li><strong>Sviluppo affettivo-relazionale:</strong> primo legame con la mamma, poi con la famiglia e altri</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h4>🧒 L'ADOLESCENZA (10-18 anni)</h4>
+                        <p><strong>Fase di passaggio</strong> dall'infanzia all'età adulta, molto tormentata e critica.</p>
+                        <ul style="margin-top: 10px;">
+                            <li><strong>Pubertà (10-14 anni):</strong> cambiamenti corporei</li>
+                            <li><strong>Adolescenza vera e propria (fino a 18 anni)</strong></li>
+                            <li><strong>Tarda adolescenza (fino a 25 anni):</strong> per ragioni economiche, dipendenza prolungata</li>
+                        </ul>
+                        
+                        <div style="background: #FFF3E0; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                            <p><strong>⚠️ Crisi dell'adolescenza:</strong></p>
+                            <ul style="margin-top: 10px;">
+                                <li>Insofferenza e contestazioni verso gli adulti</li>
+                                <li>Ribellione contro regole e responsabilità</li>
+                                <li>Difficoltà ad abbandonare il sé infantile per costruire uno adulto</li>
+                                <li>Rischio di disadattamento se manca educazione appropriata</li>
+                            </ul>
+                        </div>
+                        
+                        <p style="margin-top: 15px;"><strong>🎯 Ruolo delle figure adulte:</strong> essenziale prevenire situazioni di conflitto cercando di discutere e concertare regole ed eventuali sanzioni. Ogni <span class="highlight">intervento deve essere individualizzato</span>, con realismo e umanità.</p>
+                    </div>
+
+                    <div class="card">
+                        <h4>👴 LA TERZA ETÀ</h4>
+                        <p><strong>Nuova definizione:</strong> Non più solo "assenza di malattia" ma <span class="highlight">risorsa per la vita quotidiana e per l'intera società</span>.</p>
+                        <p style="margin-top: 10px;"><strong>Confine della terza età:</strong> oggi si sposta a 70 anni e oltre (Vasco Rossi, Zucchero, Gigi Proietti hanno più di 60 anni ma sono in salute!)</p>
+                        
+                        <div style="background: #E1F5FE; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                            <p><strong>📊 Le tre tappe della vita umana:</strong></p>
+                            <ul style="margin-top: 10px;">
+                                <li><strong>Lo sviluppo:</strong> dalla nascita all'età adulta</li>
+                                <li><strong>L'adultità:</strong> ingresso nel mondo del lavoro con assunzione di responsabilità</li>
+                                <li><strong>La senilità:</strong> dall'età pensionabile in poi</li>
+                            </ul>
+                        </div>
+                        
+                        <p style="margin-top: 15px;"><strong>⚠️ Sfide dell'invecchiamento:</strong> inevitabile involuzione (corpo e mente), aumento rischio malattie e difficoltà economica. <span class="highlight">L'anima (soffio vitale, energia, spiritualità) non invecchia</span> e va mantenuta attenta, allenata, attiva.</p>
+                    </div>
+
+                    <div class="card">
+                        <h4>♿ LA DISABILITÀ</h4>
+                        <p><strong>Definizione OMS (IFC):</strong> La salute viene valutata secondo il <span class="highlight">modello bio-psico-sociale</span> - la disabilità è conseguenza di una relazione complessa tra salute e fattori personali e ambientali.</p>
+                        
+                        <div style="background: #F3E5F5; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                            <p><strong>🔍 Dimensioni dell'IFC:</strong></p>
+                            <ul style="margin-top: 10px;">
+                                <li><strong>Condizioni di salute:</strong> grado di salute delle strutture e funzioni corporee</li>
+                                <li><strong>Attività:</strong> grado di autonomia nell'esecuzione</li>
+                                <li><strong>Partecipazione:</strong> grado di coinvolgimento nelle situazioni di vita</li>
+                                <li><strong>Fattori ambientali:</strong> contesto socio-ambientale</li>
+                                <li><strong>Fattori personali:</strong> atteggiamenti che possono avere impatto</li>
+                            </ul>
+                        </div>
+                        
+                        <p style="margin-top: 15px;"><strong>🎯 Obiettivo:</strong> <span class="highlight">Promozione di forme di partecipazione e integrazione sociale</span>. Gli individui con disabilità hanno bisogno di essere amati, considerati, trovare gratificazione, essere integrati.</p>
+                        <p style="margin-top: 10px;"><strong>📜 Certificazione di disabilità (Legge 104/92):</strong> strumento fondamentale per mettere in atto percorsi personalizzati.</p>
+                    </div>
+
+                    <div class="card">
+                        <h4>🔗 LE DIPENDENZE</h4>
+                        <p><strong>Definizione:</strong> Condizione in cui un individuo è coinvolto in una qualsiasi forma di comportamento ripetitivo, basato sul bisogno psicologico e/o fisico.</p>
+                        <p style="margin-top: 10px;"><strong>Conseguenze:</strong> la mancanza provoca sintomi stressanti di astinenza.</p>
+                        
+                        <div style="background: #FFEBEE; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                            <p><strong>📋 Categorie di dipendenza:</strong></p>
+                            <ul style="margin-top: 10px;">
+                                <li><strong>Biologica:</strong> mancata assunzione della sostanza provoca effetti fisici</li>
+                                <li><strong>Psicologica:</strong> mancanza provoca alterazioni umorali e relazionali</li>
+                                <li><strong>Coniugazione di entrambi gli aspetti</strong></li>
+                            </ul>
+                        </div>
+                        
+                        <p style="margin-top: 15px;"><strong>🚫 Chi sviluppa dipendenza:</strong> non sopporta la frustrazione, ricerca l'indipendenza assoluta ed è <span class="highlight">incapace di accettare la vita di tutti i giorni</span>. Può diventare patologica e portare all'isolamento e rinuncia progressiva.</p>
+                        
+                        <div style="background: #FFF9C4; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                            <p><strong>📊 Forme di dipendenza "classiche":</strong></p>
+                            <ul style="margin-top: 10px;">
+                                <li><strong>Alcoldipendenza:</strong> molto diffusa, in progressivo calo in Italia (~25% popolazione)</li>
+                                <li><strong>Tossicodipendenza:</strong> età di primo contatto ~14 anni</li>
+                                <li><strong>Tabagismo:</strong> ~25% degli italiani fuma, causa principale di morti evitabili</li>
+                                <li><strong>Farmacodipendenza:</strong> dipendenza fisica e psichica da farmaci</li>
+                                <li><strong>Eccessoressia:</strong> acquisto compulsivo di oggetti inutili o superflui</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="background: #E8EAF6; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                            <p><strong>🌐 Nuove dipendenze (Internet Addiction):</strong></p>
+                            <ul style="margin-top: 10px;">
+                                <li><strong>Dipendenza da smartphone (nomofobia):</strong> paura di essere senza cellulare</li>
+                                <li><strong>Dipendenza da sovraccarico informazioni:</strong> controllo compulsivo di notizie e video</li>
+                                <li><strong>Cyberpedofilia:</strong> abuso sessuale online di minori</li>
+                                <li><strong>Hikikomori:</strong> isolamento sociale, unica forma di contatto con il mondo è la tecnologia</li>
+                                <li><strong>Cyber-relation:</strong> relazioni virtuali che diventano più importanti di quelle reali</li>
+                            </ul>
+                        </div>
+                        
+                        <p style="margin-top: 15px;"><strong>⚠️ Nota importante:</strong> Le dipendenze provocano reazioni emotive e neurobiologiche, alterazioni dell'attività on line e sensazioni ed esperienze.</p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 30px;">
+                    <h4>🔍 LABORATORIO DI RAGIONAMENTO OPERATIVO</h4>
+                    <p style="margin-bottom: 15px;">Ora che hai letto tutte le tipologie di utenza, rifletti e rispondi:</p>
+                    
+                    <div class="input-area">
+                        <label>1. Quali sono i bisogni comuni a tutte queste tipologie di utenti?</label>
+                        <textarea id="bisogni-comuni" placeholder="Esempio: bisogno di essere ascoltati, di autonomia, di relazioni significative..."></textarea>
+                    </div>
+
+                    <div class="input-area">
+                        <label>2. Scegli UNA tipologia di utenza e descrivi un intervento concreto che il TSSAS potrebbe realizzare:</label>
+                        <textarea id="intervento-concreto" placeholder="Esempio: Per gli adolescenti → laboratorio di educazione affettiva e prevenzione delle dipendenze..."></textarea>
+                    </div>
+
+                    <div class="input-area">
+                        <label>3. Perché è importante il modello bio-psico-sociale nel lavoro con gli utenti?</label>
+                        <textarea id="importanza-modello" placeholder="Rifletti: cosa succederebbe se considerassimo solo l'aspetto biologico? O solo quello psicologico?"></textarea>
+                    </div>
+                </div>
+
+                <div class="button-container">
+                    <button class="button button-secondary" onclick="goToPhase(1)">
+                        ← TORNA ALLA FASE 1
+                    </button>
+                    <button class="button" onclick="goToPhase(3)">
+                        ✅ HAI FINITO? → VAI ALLA FASE 3
+                    </button>
+                </div>
+            </div>
+
+            <!-- FASE 3: APPLICO -->
+            <div class="fase" id="fase3">
+                <h2 style="color: #667eea; font-size: 2em; margin-bottom: 20px;">🛠️ FASE 3: APPLICO - FACCIO I COLLEGAMENTI</h2>
+
+                <div class="box box-yellow">
+                    <h3><span class="emoji">🎯</span> COSA FAI ORA (30 secondi)</h3>
+                    <ul>
+                        <li>Collega teoria e pratica con esercizi operativi</li>
+                        <li>Analizza casi concreti e proponi soluzioni</li>
+                        <li>Costruisci una mappa dei collegamenti tra concetti</li>
+                    </ul>
+                </div>
+
+                <div class="box box-green">
+                    <h3><span class="emoji">💡</span> PERCHÉ LO FAI</h3>
+                    <p style="font-size: 1.1em;"><strong>Mettere in pratica ciò che hai imparato trasforma il sapere in competenza professionale!</strong></p>
+                </div>
+
+                <div class="instructions">
+                    <h4>📋 ISTRUZIONI OPERATIVE</h4>
+                    <ol>
+                        <li><strong>Completa gli esercizi:</strong> Rispondi a tutti i 6 esercizi di collegamento</li>
+                        <li><strong>Crea la mappa:</strong> Costruisci una mappa che collega tutti i concetti appresi</li>
+                        <li><strong>Prepara la presentazione:</strong> Sintetizza il tuo apprendimento per la prossima fase</li>
+                    </ol>
+                </div>
+
+                <h4 style="color: #667eea; margin: 30px 0 20px 0;">🔗 ESERCIZI DI COLLEGAMENTO</h4>
+
+                <div class="connection-exercise">
+                    <h5>Esercizio 1: ANALISI DI CASO - La famiglia in difficoltà</h5>
+                    <div class="card" style="background: #FFF3E0; margin: 15px 0;">
+                        <p><strong>CASO:</strong> Maria, 35 anni, madre single di due bambini (8 e 5 anni), ha perso il lavoro e fatica a gestire l'educazione dei figli. Il figlio maggiore ha iniziato ad avere problemi comportamentali a scuola.</p>
+                    </div>
+                    <div class="input-area">
+                        <label>Come TSSAS, quali azioni concrete metteresti in atto? Applica il modello bio-psico-sociale:</label>
+                        <textarea id="caso1" placeholder="Considera gli aspetti:
+- BIOLOGICO: bisogni materiali (cibo, casa, salute)
+- PSICOLOGICO: supporto emotivo, autostima, gestione stress
+- SOCIALE: rete di supporto, servizi territoriali, scuola
+Proponi almeno 3 azioni concrete..."></textarea>
+                    </div>
+                </div>
+
+                <div class="connection-exercise">
+                    <h5>Esercizio 2: IL LAVORO DI RETE</h5>
+                    <div class="input-area">
+                        <label>Elenca almeno 5 soggetti (reti formali e informali) che potrebbero collaborare nel caso di Maria:</label>
+                        <textarea id="rete1" placeholder="Esempio:
+RETI INFORMALI: famiglia allargata di Maria, vicini di casa...
+RETI FORMALI: servizi sociali del Comune, scuola dei bambini, centro per l'impiego..."></textarea>
+                    </div>
+                </div>
+
+                <div class="connection-exercise">
+                    <h5>Esercizio 3: ADOLESCENZA E PREVENZIONE</h5>
+                    <div class="card" style="background: #E8F5E9; margin: 15px 0;">
+                        <p><strong>SITUAZIONE:</strong> Nella tua scuola hai notato che alcuni adolescenti mostrano comportamenti a rischio (isolamento, uso eccessivo dello smartphone, conflitti con gli adulti).</p>
+                    </div>
+                    <div class="input-area">
+                        <label>Progetta un intervento preventivo di gruppo. Cosa faresti?</label>
+                        <textarea id="adolescenti1" placeholder="Considera:
+- Obiettivi dell'intervento
+- Metodologie (laboratori, circle time, peer education?)
+- Temi da affrontare (life skills, gestione emozioni, uso consapevole tecnologia?)
+- Coinvolgimento delle famiglie
+- Durata e modalità"></textarea>
+                    </div>
+                </div>
+
+                <div class="connection-exercise">
+                    <h5>Esercizio 4: TERZA ETÀ E QUALITÀ DELLA VITA</h5>
+                    <div class="card" style="background: #E1F5FE; margin: 15px 0;">
+                        <p><strong>CASO:</strong> Giuseppe, 75 anni, vedovo, vive solo. È in buona salute fisica ma ultimamente sembra triste e isolato. I figli abitano lontano e lo vedono raramente.</p>
+                    </div>
+                    <div class="input-area">
+                        <label>Come promuoveresti il benessere bio-psico-sociale di Giuseppe?</label>
+                        <textarea id="anziani1" placeholder="Rifletti su:
+- Come valorizzare le risorse e le competenze di Giuseppe
+- Attività per mantenerlo attivo fisicamente e mentalmente
+- Opportunità di socializzazione e partecipazione
+- Servizi territoriali da attivare
+- Coinvolgimento della famiglia"></textarea>
+                    </div>
+                </div>
+
+                <div class="connection-exercise">
+                    <h5>Esercizio 5: DIPENDENZE E INTERVENTO</h5>
+                    <div class="input-area">
+                        <label>Scegli UNA forma di dipendenza tra quelle studiate. Descrivi: cause, conseguenze, possibili interventi di un TSSAS:</label>
+                        <textarea id="dipendenze1" placeholder="Struttura così:
+1. Dipendenza scelta: ...
+2. Cause principali: ...
+3. Conseguenze sulla persona: ...
+4. Ruolo del TSSAS nell'intervento: ...
+5. Altri professionisti da coinvolgere: ..."></textarea>
+                    </div>
+                </div>
+
+                <div class="connection-exercise">
+                    <h5>Esercizio 6: DEONTOLOGIA PROFESSIONALE</h5>
+                    <div class="card" style="background: #F3E5F5; margin: 15px 0;">
+                        <p><strong>RICORDA:</strong> Il TSSAS deve sempre manifestare:</p>
+                        <ul>
+                            <li>Capacità di accogliere ogni persona come unica</li>
+                            <li>Capacità di ascolto delle emozioni e dei desideri</li>
+                            <li>Empatia e capacità di calarsi nei panni dell'altro</li>
+                            <li>Creatività e flessibilità</li>
+                        </ul>
+                    </div>
+                    <div class="input-area">
+                        <label>Descrivi una situazione in cui queste competenze deontologiche sono fondamentali:</label>
+                        <textarea id="deontologia1" placeholder="Esempio: Durante un colloquio con un adolescente che ha tentato di scappare di casa..."></textarea>
+                    </div>
+                </div>
+
+                <h4 style="color: #667eea; margin: 40px 0 20px 0;">🗺️ MAPPA DEI COLLEGAMENTI</h4>
+
+                <div class="card">
+                    <h5>Crea la tua MAPPA COMPLETA dei collegamenti tra i concetti</h5>
+                    <p style="margin: 15px 0;">Ora che hai completato gli esercizi, è il momento di vedere il quadro d'insieme!</p>
+                    <p style="margin-bottom: 20px;"><strong>Disegna o descrivi una mappa che colleghi:</strong></p>
+                    <ul style="margin-bottom: 20px;">
+                        <li>Il ruolo del TSSAS</li>
+                        <li>Il modello bio-psico-sociale</li>
+                        <li>Le diverse tipologie di utenza</li>
+                        <li>Il lavoro di rete</li>
+                        <li>Le competenze deontologiche</li>
+                        <li>Le metodologie operative</li>
+                    </ul>
+                    
+                    <div class="input-area">
+                        <label>📝 Descrivi la tua mappa (oppure disegnala su carta e caricala):</label>
+                        <textarea id="mappa-completa" style="min-height: 200px;" placeholder="Esempio di struttura:
+AL CENTRO: TSSAS come professionista della relazione d'aiuto
+COLLEGATO A:
+- MODELLO BIO-PSICO-SOCIALE (che si applica a...)
+  → UTENTI (famiglia, infanzia, adolescenza, terza età, disabilità, dipendenze)
+- METODOLOGIE (analisi situazione, lavoro di rete, interventi mirati)
+- COMPETENZE (organizzare, collaborare, facilitare, realizzare)
+- DEONTOLOGIA (ascolto, empatia, creatività, flessibilità)
+- RETI (informali: famiglia, amici / formali: servizi pubblici)
+
+Descrivi qui i tuoi collegamenti..."></textarea>
+                    </div>
+                </div>
+
+                <div class="button-container">
+                    <button class="button button-secondary" onclick="goToPhase(2)">
+                        ← TORNA ALLA FASE 2
+                    </button>
+                    <button class="button" onclick="goToPhase(4)">
+                        ✅ HAI FINITO? → VAI ALLA FASE 4
+                    </button>
+                </div>
+            </div>
+
+            <!-- FASE 4: RIFLETTO -->
+            <div class="fase" id="fase4">
+                <h2 style="color: #667eea; font-size: 2em; margin-bottom: 20px;">💡 FASE 4: RIFLETTO - COSA HO IMPARATO</h2>
+
+                <div class="box box-yellow">
+                    <h3><span class="emoji">🎯</span> COSA FAI ORA (30 secondi)</h3>
+                    <ul>
+                        <li>Rifletti sul tuo processo di apprendimento</li>
+                        <li>Confronta la tua comprensione iniziale con quella finale</li>
+                        <li>Progetta un intervento completo come compito finale</li>
+                    </ul>
+                </div>
+
+                <div class="box box-green">
+                    <h3><span class="emoji">💡</span> PERCHÉ LO FAI</h3>
+                    <p style="font-size: 1.1em;"><strong>La riflessione metacognitiva consolida l'apprendimento e ti rende consapevole di come impari e di come puoi migliorare!</strong></p>
+                </div>
+
+                <div class="instructions">
+                    <h4>📋 ISTRUZIONI OPERATIVE</h4>
+                    <ol>
+                        <li><strong>Autovalutazione:</strong> Rispondi alle 7 domande riflessive con sincerità</li>
+                        <li><strong>Confronto mappe:</strong> Guarda la differenza tra la tua mappa iniziale e quella finale</li>
+                        <li><strong>Compito finale:</strong> Progetta un intervento completo applicando tutto ciò che hai imparato</li>
+                        <li><strong>Stampa:</strong> Al termine, clicca su "Stampa il tuo lavoro" per consegnare al docente</li>
+                    </ol>
+                </div>
+
+                <h4 style="color: #667eea; margin: 30px 0 20px 0;">🧠 AUTOVALUTAZIONE E RIFLESSIONE</h4>
+
+                <div class="connection-exercise">
+                    <h5>Domanda 1: Consapevolezza iniziale vs finale</h5>
+                    <div class="input-area">
+                        <label>Cosa pensavi del TSSAS all'inizio? Cosa pensi ora? Cosa è cambiato nella tua comprensione?</label>
+                        <textarea id="riflessione1" placeholder="Confronta il tuo brainstorming iniziale con ciò che sai ora..."></textarea>
+                    </div>
+                </div>
+
+                <div class="connection-exercise">
+                    <h5>Domanda 2: Concetti chiave</h5>
+                    <div class="input-area">
+                        <label>Quali sono i 3 concetti più importanti che hai scoperto durante questo percorso?</label>
+                        <textarea id="riflessione2" placeholder="Esempio:
+1. Il modello bio-psico-sociale perché...
+2. L'importanza del lavoro di rete perché...
+3. ..."></textarea>
+                    </div>
+                </div>
+
+                <div class="connection-exercise">
+                    <h5>Domanda 3: Difficoltà incontrate</h5>
+                    <div class="input-area">
+                        <label>Quali argomenti o concetti hai trovato più difficili da comprendere? Perché?</label>
+                        <textarea id="riflessione3" placeholder="Sii sincero: cosa è stato più complesso? Cosa vorresti approfondire?"></textarea>
+                    </div>
+                </div>
+
+                <div class="connection-exercise">
+                    <h5>Domanda 4: Applicazione pratica</h5>
+                    <div class="input-area">
+                        <label>Quale esercizio o caso pratico ti ha fatto riflettere di più? Perché?</label>
+                        <textarea id="riflessione4" placeholder="Tra tutti gli esercizi della Fase 3, quale ti ha fatto capire meglio il ruolo del TSSAS?"></textarea>
+                    </div>
+                </div>
+
+                <div class="connection-exercise">
+                    <h5>Domanda 5: Competenze personali</h5>
+                    <div class="input-area">
+                        <label>Quali competenze deontologiche (ascolto, empatia, creatività, flessibilità) ritieni di possedere già? Quali dovresti sviluppare?</label>
+                        <textarea id="riflessione5" placeholder="Autovalutazione sincera:
+Competenze che ho: ...
+Competenze da sviluppare: ...
+Come posso allenarle: ..."></textarea>
+                    </div>
+                </div>
+
+                <div class="connection-exercise">
+                    <h5>Domanda 6: Processo di apprendimento</h5>
+                    <div class="input-area">
+                        <label>Cosa hai scoperto sul TUO modo di apprendere? Quale fase (1-2-3-4) ti è stata più utile?</label>
+                        <textarea id="riflessione6" placeholder="Rifletti: impari meglio leggendo teoria, analizzando casi pratici, facendo esercizi, o riflettendo?"></textarea>
+                    </div>
+                </div>
+
+                <div class="connection-exercise">
+                    <h5>Domanda 7: Motivazione e futuro</h5>
+                    <div class="input-area">
+                        <label>Questo percorso ha modificato la tua motivazione verso la professione di TSSAS? Come ti vedi tra 5 anni?</label>
+                        <textarea id="riflessione7" placeholder="Sei più motivato? Meno? Cosa ti entusiasma di questa professione? Cosa ti preoccupa?"></textarea>
+                    </div>
+                </div>
+
+                <h4 style="color: #667eea; margin: 40px 0 20px 0;">📊 CONFRONTO MAPPE CONCETTUALI</h4>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h5>🗺️ MAPPA INIZIALE (Fase 1)</h5>
+                        <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; min-height: 150px; margin-top: 10px;">
+                            <p id="display-mappa1" style="white-space: pre-line; color: #666; font-style: italic;">La tua mappa iniziale apparirà qui...</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h5>🗺️ MAPPA FINALE (Fase 3)</h5>
+                        <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; min-height: 150px; margin-top: 10px;">
+                            <p id="display-mappa-completa" style="white-space: pre-line; color: #666; font-style: italic;">La tua mappa finale apparirà qui...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-area">
+                    <label>✍️ Analisi del confronto: Cosa è cambiato tra la prima e la seconda mappa?</label>
+                    <textarea id="confronto-mappe" placeholder="Osserva le due mappe: hai aggiunto concetti? Hai capito meglio i collegamenti? La tua visione è più completa e articolata?"></textarea>
+                </div>
+
+                <h4 style="color: #667eea; margin: 40px 0 20px 0;">🎯 COMPITO FINALE: PROGETTA UN INTERVENTO</h4>
+
+                <div class="box box-blue">
+                    <h3>📋 CONSEGNA FINALE</h3>
+                    <p style="margin: 15px 0; font-size: 1.1em;">Ora sei pronto per mettere insieme tutto quello che hai imparato!</p>
+                    <p style="font-weight: bold;">Progetta un intervento completo come TSSAS seguendo questa traccia:</p>
+                </div>
+
+                <div class="card">
+                    <h5>🎯 IL TUO PROGETTO DI INTERVENTO</h5>
+                    
+                    <div class="input-area">
+                        <label>1. TITOLO DEL PROGETTO</label>
+                        <input type="text" id="progetto-titolo" placeholder='Esempio: "Laboratorio di life skills per adolescenti" oppure "Progetto benessere attivo per anziani"'>
+                    </div>
+
+                    <div class="input-area">
+                        <label>2. DESTINATARI (Chi sono gli utenti? Quanti? Età? Caratteristiche?)</label>
+                        <textarea id="progetto-destinatari" placeholder="Esempio: 15 adolescenti tra i 14 e i 16 anni della scuola, con difficoltà relazionali..."></textarea>
+                    </div>
+
+                    <div class="input-area">
+                        <label>3. ANALISI DEL BISOGNO (Quale problema vuoi affrontare? Applica il modello bio-psico-sociale)</label>
+                        <textarea id="progetto-bisogno" placeholder="Aspetto BIOLOGICO: ...
+Aspetto PSICOLOGICO: ...
+Aspetto SOCIALE: ..."></textarea>
+                    </div>
+
+                    <div class="input-area">
+                        <label>4. OBIETTIVI (Cosa vuoi raggiungere? Almeno 3 obiettivi concreti e misurabili)</label>
+                        <textarea id="progetto-obiettivi" placeholder="Esempio:
+- Obiettivo 1: Migliorare le competenze comunicative degli adolescenti
+- Obiettivo 2: Favorire l'espressione emotiva in contesto protetto
+- Obiettivo 3: ..."></textarea>
+                    </div>
+
+                    <div class="input-area">
+                        <label>5. METODOLOGIE OPERATIVE (Come lavorerai? Quali tecniche userai?)</label>
+                        <textarea id="progetto-metodologie" placeholder="Esempio: laboratori esperienziali, circle time, role playing, lavoro di gruppo, attività creative..."></textarea>
+                    </div>
+
+                    <div class="input-area">
+                        <label>6. LAVORO DI RETE (Chi coinvolgerai? Reti formali e informali)</label>
+                        <textarea id="progetto-rete" placeholder="RETI INFORMALI: famiglie, associazioni di volontariato...
+RETI FORMALI: scuola, servizi sociali, ASL..."></textarea>
+                    </div>
+
+                    <div class="input-area">
+                        <label>7. TEMPI E FASI (Quanto dura il progetto? Quali sono le fasi?)</label>
+                        <textarea id="progetto-tempi" placeholder="Esempio:
+Fase 1 (2 settimane): Conoscenza del gruppo e analisi bisogni
+Fase 2 (6 settimane): Laboratori tematici
+Fase 3 (2 settimane): Verifica e restituzione
+Durata totale: 3 mesi, 1 incontro settimanale di 2 ore"></textarea>
+                    </div>
+
+                    <div class="input-area">
+                        <label>8. VERIFICA E VALUTAZIONE (Come capirai se il progetto ha funzionato?)</label>
+                        <textarea id="progetto-valutazione" placeholder="Strumenti di verifica: osservazione, questionari di autovalutazione, colloqui individuali, feedback del gruppo...
+Indicatori di successo: maggiore partecipazione, miglioramento delle relazioni, feedback positivi..."></textarea>
+                    </div>
+
+                    <div class="input-area">
+                        <label>9. COMPETENZE DEONTOLOGICHE APPLICATE (Come userai ascolto, empatia, creatività, flessibilità?)</label>
+                        <textarea id="progetto-deontologia" placeholder="Descrivi come applicherai concretamente le competenze deontologiche nel tuo intervento..."></textarea>
+                    </div>
+
+                    <div class="input-area">
+                        <label>10. RIFLESSIONE FINALE SUL PROGETTO (Perché hai scelto questo intervento? Cosa ti aspetti? Quali difficoltà prevedi?)</label>
+                        <textarea id="progetto-riflessione" placeholder="Motivazioni personali, aspettative, possibili criticità e come affrontarle..."></textarea>
+                    </div>
+                </div>
+
+                <div class="box box-purple" style="margin-top: 30px;">
+                    <h3><span class="emoji">🎉</span> COMPLIMENTI!</h3>
+                    <p style="font-size: 1.1em; margin: 15px 0;">Hai completato il percorso di autoapprendimento sul TSSAS!</p>
+                    <p>Ora clicca sul pulsante qui sotto per stampare tutto il tuo lavoro e consegnarlo al docente.</p>
+                </div>
+
+                <div class="button-container">
+                    <button class="button button-secondary" onclick="goToPhase(3)">
+                        ← TORNA ALLA FASE 3
+                    </button>
+                    <button class="button button-print" onclick="stampaLavoro()">
+                        🖨️ STAMPA IL TUO LAVORO
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Funzione per cambiare fase
+        function goToPhase(phaseNumber) {
+            // Nascondi tutte le fasi
+            document.querySelectorAll('.fase').forEach(fase => {
+                fase.classList.remove('active');
+            });
+
+            // Mostra la fase selezionata
+            document.getElementById('fase' + phaseNumber).classList.add('active');
+
+            // Aggiorna la barra di progresso
+            updateProgressBar(phaseNumber);
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Carica i contenuti salvati
+            if (phaseNumber === 4) {
+                caricaConfrontoMappe();
+            }
+        }
+
+        // Funzione per aggiornare la barra di progresso
+        function updateProgressBar(phaseNumber) {
+            // Reset tutti gli step
+            for (let i = 1; i <= 4; i++) {
+                const step = document.getElementById('step' + i);
+                step.classList.remove('active', 'completed');
+                
+                if (i < phaseNumber) {
+                    step.classList.add('completed');
+                } else if (i === phaseNumber) {
+                    step.classList.add('active');
+                }
+            }
+
+            // Aggiorna il testo
+            const texts = {
+                1: 'Sei nella Fase 1 di 4 - SCOPRI',
+                2: 'Sei nella Fase 2 di 4 - ESPLORO',
+                3: 'Sei nella Fase 3 di 4 - APPLICO',
+                4: 'Sei nella Fase 4 di 4 - RIFLETTO'
+            };
+            document.getElementById('progress-text').textContent = texts[phaseNumber];
+        }
+
+        // Funzione per caricare il confronto delle mappe nella Fase 4
+        function caricaConfrontoMappe() {
+            const mappa1 = document.getElementById('mappa1').value;
+            const mappaCompleta = document.getElementById('mappa-completa').value;
+
+            if (mappa1) {
+                document.getElementById('display-mappa1').textContent = mappa1;
+                document.getElementById('display-mappa1').style.fontStyle = 'normal';
+                document.getElementById('display-mappa1').style.color = '#333';
+            }
+
+            if (mappaCompleta) {
+                document.getElementById('display-mappa-completa').textContent = mappaCompleta;
+                document.getElementById('display-mappa-completa').style.fontStyle = 'normal';
+                document.getElementById('display-mappa-completa').style.color = '#333';
+            }
+        }
+
+        // Funzione per stampare il lavoro
+        function stampaLavoro() {
+            // Salva i dati prima di stampare
+            salvaRisposte();
+            
+            // Mostra tutte le fasi per la stampa
+            document.querySelectorAll('.fase').forEach(fase => {
+                fase.style.display = 'block';
+            });
+
+            // Crea una pagina di copertina
+            const dataOggi = new Date().toLocaleDateString('it-IT');
+            const nomeStudente = prompt('Inserisci il tuo nome e cognome:', '') || 'Studente';
+            const classe = prompt('Inserisci la tua classe:', '') || '';
+
+            const copertina = `
+                <div style="page-break-after: always; text-align: center; padding: 100px 20px;">
+                    <h1 style="color: #667eea; font-size: 2.5em; margin-bottom: 30px;">
+                        Il Tecnico dei Servizi per la Sanità<br>e l'Assistenza Sociale (TSSAS)
+                    </h1>
+                    <h2 style="color: #764ba2; margin: 30px 0;">
+                        Percorso di Autoapprendimento Progressivo Guidato
+                    </h2>
+                    <div style="margin-top: 80px; font-size: 1.3em;">
+                        <p><strong>Studente:</strong> ${nomeStudente}</p>
+                        <p><strong>Classe:</strong> ${classe}</p>
+                        <p><strong>Data:</strong> ${dataOggi}</p>
+                    </div>
+                    <div style="margin-top: 80px; color: #666;">
+                        <p>IIS Meucci Mattei - Cagliari</p>
+                        <p>Sede Decimomannu</p>
+                        <p>Indirizzo: Servizi per la Sanità e l'Assistenza Sociale</p>
+                    </div>
+                </div>
+            `;
+
+            // Inserisci la copertina
+            const container = document.querySelector('.container');
+            container.insertAdjacentHTML('afterbegin', copertina);
+
+            // Stampa
+            window.print();
+
+            // Rimuovi la copertina dopo la stampa
+            setTimeout(() => {
+                const copertinaDiv = container.firstElementChild;
+                if (copertinaDiv && copertinaDiv.innerHTML.includes('Percorso di Autoapprendimento')) {
+                    copertinaDiv.remove();
+                }
+                
+                // Ripristina la visualizzazione normale
+                document.querySelectorAll('.fase').forEach(fase => {
+                    fase.style.display = 'none';
+                });
+                document.querySelector('.fase.active').style.display = 'block';
+            }, 1000);
+        }
+
+        // Funzione per salvare le risposte nel localStorage
+        function salvaRisposte() {
+            const campi = document.querySelectorAll('textarea, input[type="text"]');
+            campi.forEach(campo => {
+                if (campo.id) {
+                    localStorage.setItem(campo.id, campo.value);
+                }
+            });
+        }
+
+        // Funzione per caricare le risposte dal localStorage
+        function caricaRisposte() {
+            const campi = document.querySelectorAll('textarea, input[type="text"]');
+            campi.forEach(campo => {
+                if (campo.id) {
+                    const valore = localStorage.getItem(campo.id);
+                    if (valore) {
+                        campo.value = valore;
+                    }
+                }
+            });
+        }
+
+        // Salvataggio automatico ogni 30 secondi
+        setInterval(salvaRisposte, 30000);
+
+        // Carica le risposte all'avvio
+        window.addEventListener('load', caricaRisposte);
+
+        // Salva prima di chiudere la pagina
+        window.addEventListener('beforeunload', salvaRisposte);
+
+        // Aggiungi animazioni ai box quando entrano in viewport
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '0';
+                    entry.target.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        entry.target.style.transition = 'all 0.5s ease';
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, 100);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.box, .card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
