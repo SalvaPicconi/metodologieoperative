@@ -39,7 +39,7 @@ async function caricaMateriali(sezione, containerId = 'materiali-lista') {
     
     try {
         // Carica il file JSON
-        const cacheBustParam = 'v=20251010';
+        const cacheBustParam = 'v=20251011';
         const response = await fetch(`materiali.json?${cacheBustParam}`, {
             cache: 'no-cache'
         });
