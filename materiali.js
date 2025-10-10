@@ -39,7 +39,10 @@ async function caricaMateriali(sezione, containerId = 'materiali-lista') {
     
     try {
         // Carica il file JSON
-        const response = await fetch('materiali.json');
+        const cacheBustParam = 'v=20251010';
+        const response = await fetch(`materiali.json?${cacheBustParam}`, {
+            cache: 'no-cache'
+        });
         
         if (!response.ok) {
             throw new Error('Impossibile caricare i materiali');
