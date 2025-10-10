@@ -1,0 +1,2343 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 Imparo l'Intelligenza Artificiale - Percorso Guidato</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', 'Verdana', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 15px;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .header p {
+            font-size: 1.3em;
+        }
+
+        /* INTESTAZIONE STAMPA */
+        .print-header {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            border-bottom: 3px solid #667eea;
+            margin-bottom: 20px;
+        }
+
+        .print-header h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .print-header .student-info {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        /* BARRA PROGRESSO SEMPLIFICATA */
+        .progress-container {
+            background: rgba(255,255,255,0.2);
+            padding: 25px;
+            text-align: center;
+        }
+
+        .progress-visual {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .progress-box {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            border: 3px solid transparent;
+        }
+
+        .progress-box.active {
+            background: #4CAF50;
+            transform: scale(1.15);
+            border: 3px solid white;
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.8);
+        }
+
+        .progress-box.completed {
+            background: #2196F3;
+        }
+
+        .progress-box .num {
+            font-size: 2em;
+            color: white;
+        }
+
+        .progress-box .label {
+            font-size: 0.8em;
+            color: white;
+            margin-top: 5px;
+            text-align: center;
+            width: 100%;
+            display: block;
+        }
+
+        .progress-text {
+            color: white;
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* BARRA RISULTATI */
+        .stats-bar {
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .stat-item {
+            background: rgba(255,255,255,0.4);
+            padding: 15px 25px;
+            border-radius: 15px;
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .stat-emoji {
+            font-size: 2.5em;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: white;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            color: white;
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        /* CONTENUTO */
+        .content {
+            padding: 40px 30px;
+        }
+
+        .fase {
+            display: none;
+        }
+
+        .fase.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* TITOLI */
+        h2 {
+            color: #667eea;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #667eea;
+        }
+
+        h3 {
+            color: #333;
+            font-size: 1.6em;
+            margin: 25px 0 15px 0;
+        }
+
+        h4 {
+            color: #667eea;
+            font-size: 1.3em;
+            margin: 20px 0 10px 0;
+        }
+
+        /* BOX COLORATI */
+        .info-box {
+            border-radius: 20px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 8px solid;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .box-blue {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            border-left-color: #2196F3;
+        }
+
+        .box-green {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            border-left-color: #4CAF50;
+        }
+
+        .box-yellow {
+            background: linear-gradient(135deg, #FFF9C4 0%, #FFF59D 100%);
+            border-left-color: #FBC02D;
+        }
+
+        .box-purple {
+            background: linear-gradient(135deg, #F3E5F5 0%, #E1BEE7 100%);
+            border-left-color: #9C27B0;
+        }
+
+        .box-orange {
+            background: linear-gradient(135deg, #FFE0B2 0%, #FFCC80 100%);
+            border-left-color: #FF9800;
+        }
+
+        /* ISTRUZIONI PASSO-PASSO */
+        .instructions {
+            background: #F5F5F5;
+            border: 3px solid #667eea;
+            border-radius: 20px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .instructions h4 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .step {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            display: flex;
+            align-items: start;
+            gap: 15px;
+        }
+
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex-grow: 1;
+        }
+
+        .step-content strong {
+            color: #667eea;
+            font-size: 1.2em;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* ATTIVITÀ */
+        .activity {
+            background: linear-gradient(135deg, #FFF9C4 0%, #FFF59D 100%);
+            border: 4px solid #FBC02D;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .activity h4 {
+            color: #F57C00;
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* FORM E INPUT */
+        .input-group {
+            margin: 25px 0;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+        .input-group textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 20px;
+            border: 3px solid #ddd;
+            border-radius: 15px;
+            font-family: inherit;
+            font-size: 1.1em;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .input-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .input-group input[type="text"] {
+            width: 100%;
+            padding: 18px;
+            border: 3px solid #ddd;
+            border-radius: 15px;
+            font-size: 1.1em;
+        }
+
+        .input-group input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .helper-text {
+            color: #666;
+            font-size: 0.95em;
+            font-style: italic;
+            margin-top: 8px;
+            padding-left: 5px;
+        }
+
+        /* QUIZ */
+        .quiz {
+            background: white;
+            border: 4px solid #2196F3;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .quiz h4 {
+            color: #2196F3;
+            margin-bottom: 25px;
+            font-size: 1.6em;
+        }
+
+        .question {
+            background: #E3F2FD;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .question p {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            color: #1976D2;
+        }
+
+        .options {
+            margin-top: 15px;
+        }
+
+        .options label {
+            display: block;
+            padding: 18px 20px;
+            margin: 12px 0;
+            background: white;
+            border: 3px solid #ddd;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.1em;
+        }
+
+        .options label:hover {
+            background: #BBDEFB;
+            border-color: #2196F3;
+            transform: translateX(5px);
+        }
+
+        .options input[type="radio"] {
+            margin-right: 12px;
+            width: 20px;
+            height: 20px;
+        }
+
+        /* ESEMPI */
+        .example {
+            background: #E8F5E9;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #4CAF50;
+        }
+
+        .example h5 {
+            color: #2E7D32;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        /* PULSANTI */
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.3em;
+            border-radius: 50px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+        }
+
+        .btn-large {
+            padding: 25px 50px;
+            font-size: 1.5em;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        /* FEEDBACK */
+        .feedback {
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            display: none;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .feedback.show {
+            display: block;
+            animation: slideIn 0.5s;
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(-20px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+
+        .feedback.success {
+            background: #C8E6C9;
+            border: 3px solid #4CAF50;
+            color: #2E7D32;
+        }
+
+        .feedback.error {
+            background: #FFCDD2;
+            border: 3px solid #F44336;
+            color: #C62828;
+        }
+
+        .feedback.info {
+            background: #BBDEFB;
+            border: 3px solid #2196F3;
+            color: #1565C0;
+        }
+
+        /* CONCETTI CHIAVE */
+        .concept {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 3px solid #667eea;
+        }
+
+        .concept h5 {
+            color: #667eea;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+
+        .concept p {
+            margin: 10px 0;
+        }
+
+        .highlight {
+            background: #FFF9C4;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: bold;
+            color: #F57C00;
+        }
+
+        /* EMOJI */
+        .emoji {
+            font-size: 1.8em;
+        }
+
+        .big-emoji {
+            font-size: 3em;
+            display: block;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* LISTA SEMPLICE */
+        .simple-list {
+            background: white;
+            padding: 20px 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .simple-list li {
+            padding: 12px 0;
+            font-size: 1.1em;
+            border-bottom: 1px solid #eee;
+            padding-left: 35px;
+            position: relative;
+        }
+
+        .simple-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+
+        .simple-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* BADGE */
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            margin: 10px;
+            font-size: 1.2em;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        /* PIANO D'AZIONE */
+        .action-plan {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            border: 4px solid #4CAF50;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .action-plan h3 {
+            color: #2E7D32;
+            margin-bottom: 25px;
+        }
+
+        /* PAUSA VISIVA */
+        .break {
+            background: linear-gradient(135deg, #E1BEE7 0%, #CE93D8 100%);
+            border: 3px solid #9C27B0;
+            border-radius: 20px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .break h4 {
+            color: #6A1B9A;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .break p {
+            font-size: 1.2em;
+            color: #4A148C;
+        }
+
+        /* RIEPILOGO STAMPA */
+        .print-summary {
+            display: none;
+            background: #f0f0f0;
+            padding: 30px;
+            margin: 20px 0;
+            border: 3px solid #667eea;
+            border-radius: 15px;
+        }
+
+        .print-summary h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .print-summary p {
+            margin: 10px 0;
+            font-size: 1.1em;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            .content {
+                padding: 25px 20px;
+            }
+
+            .progress-visual {
+                flex-wrap: wrap;
+            }
+
+            .progress-box {
+                width: 70px;
+                height: 70px;
+            }
+
+            h2 {
+                font-size: 1.8em;
+            }
+
+            .btn-container {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* STAMPA */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+
+            .print-header {
+                display: block !important;
+            }
+
+            .print-summary {
+                display: block !important;
+                page-break-before: always;
+            }
+
+            .progress-container,
+            .stats-bar,
+            .btn-container,
+            .btn,
+            .break {
+                display: none !important;
+            }
+
+            .fase {
+                display: block !important;
+                page-break-after: always;
+            }
+
+            .header {
+                background: #667eea;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+
+            .info-box, .activity, .quiz, .concept {
+                page-break-inside: avoid;
+            }
+
+            h2 {
+                page-break-after: avoid;
+            }
+
+            .feedback {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- INTESTAZIONE -->
+        <div class="header">
+            <h1>🤖 Imparo l'Intelligenza Artificiale</h1>
+            <p>Percorso di Autoapprendimento Progressivo</p>
+        </div>
+
+        <!-- INTESTAZIONE STAMPA (visibile solo in stampa) -->
+        <div class="print-header" id="printHeader">
+            <h1>📋 Il Mio Percorso di Apprendimento sull'IA</h1>
+            <div class="student-info">
+                <p><strong>Nome:</strong> <span id="printNome"></span></p>
+                <p><strong>Classe:</strong> <span id="printClasse"></span></p>
+                <p><strong>Data completamento:</strong> <span id="printData"></span></p>
+                <p><strong>Punti totali:</strong> <span id="printPunti"></span> | <strong>Badge:</strong> <span id="printBadges"></span></p>
+            </div>
+        </div>
+
+        <!-- BARRA PROGRESSO -->
+        <div class="progress-container">
+            <div class="progress-visual">
+                <div class="progress-box active" id="box1">
+                    <span class="num">1</span>
+                    <span class="label">Scopro</span>
+                </div>
+                <div class="progress-box" id="box2">
+                    <span class="num">2</span>
+                    <span class="label">Capisco</span>
+                </div>
+                <div class="progress-box" id="box3">
+                    <span class="num">3</span>
+                    <span class="label">Provo</span>
+                </div>
+                <div class="progress-box" id="box4">
+                    <span class="num">4</span>
+                    <span class="label">Penso</span>
+                </div>
+            </div>
+            <div class="progress-text" id="progressText">
+                Sei nella FASE 1: SCOPRO cos'è l'IA
+            </div>
+        </div>
+
+        <!-- STATISTICHE -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-emoji">⭐</span>
+                <div class="stat-label">I Tuoi Punti</div>
+                <div class="stat-value" id="points">0</div>
+            </div>
+            <div class="stat-item">
+                <span class="stat-emoji">🏆</span>
+                <div class="stat-label">Badge Vinti</div>
+                <div class="stat-value" id="badges">0</div>
+            </div>
+            <div class="stat-item">
+                <span class="stat-emoji">✅</span>
+                <div class="stat-label">Completato</div>
+                <div class="stat-value" id="completion">0%</div>
+            </div>
+        </div>
+
+        <!-- CONTENUTO -->
+        <div class="content">
+            
+            <!-- ========================================== -->
+            <!-- FASE 1: SCOPRO -->
+            <!-- ========================================== -->
+            <div class="fase active" id="fase1">
+                <h2>🔍 FASE 1: SCOPRO - Cos'è l'Intelligenza Artificiale?</h2>
+
+                <div class="info-box box-blue">
+                    <h3>📋 Cosa farai in questa fase:</h3>
+                    <ul class="simple-list">
+                        <li>Scriverai cosa pensi dell'Intelligenza Artificiale</li>
+                        <li>Risponderai a 3 domande semplici</li>
+                        <li>Leggerai una spiegazione chiara</li>
+                        <li>Troverai esempi nella tua vita</li>
+                    </ul>
+                    <p style="margin-top: 20px; font-weight: bold; color: #1976D2;">⏱️ Tempo: circa 15 minuti</p>
+                </div>
+
+                <div class="instructions">
+                    <h4>🗺️ Come procedere - Passo dopo passo:</h4>
+                    
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <strong>Scrivi cosa pensi</strong>
+                            <p>Scrivi tutto quello che sai sull'Intelligenza Artificiale. Non importa se sbagli!</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <strong>Rispondi alle domande</strong>
+                            <p>Ci sono 3 domande semplici. Scegli la risposta che pensi sia giusta.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <strong>Leggi con calma</strong>
+                            <p>Leggi la spiegazione dell'Intelligenza Artificiale. Prenditi il tempo che ti serve.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <strong>Trova esempi</strong>
+                            <p>Pensa a 3 cose che usi ogni giorno che hanno l'Intelligenza Artificiale.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ATTIVITÀ 1: BRAINSTORMING -->
+                <div class="activity">
+                    <h4><span class="emoji">✏️</span> ATTIVITÀ 1: Cosa penso dell'IA?</h4>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">
+                        Scrivi tutto quello che ti viene in mente quando pensi all'<strong>Intelligenza Artificiale</strong>.
+                    </p>
+
+                    <div class="example">
+                        <h5>💡 Alcuni esempi per aiutarti:</h5>
+                        <p>• "L'IA sono i robot"</p>
+                        <p>• "L'IA è il computer che pensa"</p>
+                        <p>• "L'IA serve per fare le cose automatiche"</p>
+                        <p>• "L'IA è come Siri o Alexa"</p>
+                    </div>
+
+                    <div class="input-group">
+                        <label>✏️ Scrivi qui i tuoi pensieri:</label>
+                        <textarea id="brainstorm1" placeholder="Esempio: Io penso che l'Intelligenza Artificiale..."></textarea>
+                        <p class="helper-text">💡 Scrivi almeno 3 righe. Non c'è una risposta sbagliata!</p>
+                    </div>
+
+                    <button class="btn btn-success" onclick="saveBrainstorm()">
+                        ✅ Ho Finito - Salva
+                    </button>
+                    <div class="feedback" id="feedback1"></div>
+                </div>
+
+                <!-- PAUSA -->
+                <div class="break">
+                    <h4>☕ Pausa se ne hai bisogno</h4>
+                    <p>Puoi fermarti qui e continuare dopo. Il tuo lavoro si salva automaticamente ogni 30 secondi.</p>
+                </div>
+
+                <!-- QUIZ SEMPLICE -->
+                <div class="quiz">
+                    <h4><span class="emoji">❓</span> 3 DOMANDE per capire cosa sai già</h4>
+                    
+                    <p style="font-size: 1.1em; margin-bottom: 25px;">
+                        Rispondi scegliendo quello che pensi sia giusto. <strong>Non cercare su Internet!</strong> 
+                        Vogliamo solo capire da dove parti.
+                    </p>
+
+                    <div class="question">
+                        <p>1️⃣ L'Intelligenza Artificiale può pensare come una persona?</p>
+                        <div class="options">
+                            <label>
+                                <input type="radio" name="q1" value="si">
+                                Sì, pensa esattamente come noi
+                            </label>
+                            <label>
+                                <input type="radio" name="q1" value="no">
+                                No, fa finta di pensare ma non pensa davvero
+                            </label>
+                            <label>
+                                <input type="radio" name="q1" value="nonso">
+                                Non lo so
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <p>2️⃣ L'Intelligenza Artificiale ha bisogno di dati per funzionare?</p>
+                        <div class="options">
+                            <label>
+                                <input type="radio" name="q2" value="si">
+                                Sì, ha bisogno di tanti dati
+                            </label>
+                            <label>
+                                <input type="radio" name="q2" value="no">
+                                No, funziona da sola senza dati
+                            </label>
+                            <label>
+                                <input type="radio" name="q2" value="nonso">
+                                Non lo so
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <p>3️⃣ L'Intelligenza Artificiale può essere pericolosa?</p>
+                        <div class="options">
+                            <label>
+                                <input type="radio" name="q3" value="sempre">
+                                Sì, è sempre pericolosa
+                            </label>
+                            <label>
+                                <input type="radio" name="q3" value="dipende">
+                                Dipende da come la usiamo
+                            </label>
+                            <label>
+                                <input type="radio" name="q3" value="mai">
+                                No, non è mai pericolosa
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="checkQuiz1()">
+                        🎯 Controlla le Risposte
+                    </button>
+                    <div class="feedback" id="feedbackQuiz1"></div>
+                </div>
+
+                <!-- SPIEGAZIONE CHIARA -->
+                <div class="info-box box-green">
+                    <h3>📚 SPIEGAZIONE: Cos'è l'Intelligenza Artificiale?</h3>
+                    
+                    <div class="concept">
+                        <h5>🔎 Definizione Semplice</h5>
+                        <p style="font-size: 1.15em;">
+                            L'<span class="highlight">Intelligenza Artificiale</span> (o <span class="highlight">IA</span>) 
+                            è quando un <strong>computer</strong> riesce a fare cose che normalmente 
+                            farebbe una <strong>persona</strong>.
+                        </p>
+                        <p style="font-size: 1.15em; margin-top: 15px;">
+                            Per esempio: riconoscere facce, parlare, giocare, scegliere canzoni.
+                        </p>
+                    </div>
+
+                    <span class="big-emoji">🤖</span>
+
+                    <div class="concept">
+                        <h5>⚙️ Come Funziona?</h5>
+                        <p style="font-size: 1.15em;">
+                            L'IA <strong>non pensa davvero</strong> come le persone.
+                        </p>
+                        <p style="font-size: 1.15em; margin-top: 10px;">
+                            Invece, il computer:
+                        </p>
+                        <ul class="simple-list" style="margin-top: 15px;">
+                            <li>Riceve tanti dati (informazioni)</li>
+                            <li>Trova schemi e regole nei dati</li>
+                            <li>Usa queste regole per decidere</li>
+                        </ul>
+                    </div>
+
+                    <div class="example">
+                        <h5>💡 Esempio Pratico</h5>
+                        <p><strong>Come l'IA riconosce un gatto in una foto:</strong></p>
+                        <p>1️⃣ Gli fai vedere 1000 foto di gatti</p>
+                        <p>2️⃣ L'IA impara: "I gatti hanno orecchie a punta, baffi, 4 zampe"</p>
+                        <p>3️⃣ Quando vede una nuova foto, cerca questi elementi</p>
+                        <p>4️⃣ Se li trova, dice: "Questo è un gatto!"</p>
+                    </div>
+
+                    <div class="concept">
+                        <h5>✅ Cose Importanti da Sapere</h5>
+                        <ul class="simple-list">
+                            <li>L'IA <strong>impara dai dati</strong> che le diamo</li>
+                            <li>L'IA può <strong>sbagliare</strong>, come tutti</li>
+                            <li>L'IA fa <strong>un compito alla volta</strong> (esempio: solo riconoscere foto)</li>
+                            <li>L'IA è uno <strong>strumento</strong>, come un martello o una calcolatrice</li>
+                            <li>Dobbiamo usare l'IA in modo <strong>buono e giusto</strong></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ATTIVITÀ 2: ESEMPI -->
+                <div class="activity">
+                    <h4><span class="emoji">🔎</span> ATTIVITÀ 2: Trova l'IA nella tua vita</h4>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">
+                        Pensa a <strong>3 cose che usi ogni giorno</strong> che hanno l'Intelligenza Artificiale dentro.
+                    </p>
+
+                    <div class="example">
+                        <h5>💡 Alcuni esempi per aiutarti:</h5>
+                        <p>📱 <strong>Smartphone:</strong> Siri, l'assistente vocale</p>
+                        <p>📸 <strong>Instagram:</strong> I filtri che cambiano la faccia</p>
+                        <p>🎵 <strong>Spotify:</strong> Le canzoni suggerite per te</p>
+                        <p>🗺️ <strong>Google Maps:</strong> Trova la strada più veloce</p>
+                        <p>🎬 <strong>Netflix:</strong> Suggerisce film che ti piacciono</p>
+                        <p>🔍 <strong>Google:</strong> Ti dà i risultati che cerchi</p>
+                    </div>
+
+                    <div class="input-group">
+                        <label>1️⃣ Primo esempio di IA che uso:</label>
+                        <input type="text" id="esempio1" placeholder="Esempio: Uso Alexa per chiedere che ore sono">
+                        <p class="helper-text">💡 Scrivi che cos'è e cosa fa</p>
+                    </div>
+
+                    <div class="input-group">
+                        <label>2️⃣ Secondo esempio di IA che uso:</label>
+                        <input type="text" id="esempio2" placeholder="Esempio: Uso i filtri di TikTok">
+                    </div>
+
+                    <div class="input-group">
+                        <label>3️⃣ Terzo esempio di IA che uso:</label>
+                        <input type="text" id="esempio3" placeholder="Esempio: Google mi suggerisce le parole quando scrivo">
+                    </div>
+
+                    <button class="btn btn-success" onclick="saveEsempi()">
+                        ✅ Ho Finito - Vai Avanti
+                    </button>
+                    <div class="feedback" id="feedbackEsempi"></div>
+                </div>
+
+                <!-- CONGRATULAZIONI FASE 1 -->
+                <div class="info-box box-purple" style="text-align: center;">
+                    <span class="big-emoji">🎉</span>
+                    <h3>Bravissimo/a! Hai finito la FASE 1!</h3>
+                    <p style="font-size: 1.2em; margin: 20px 0;">
+                        Ora sai cos'è l'Intelligenza Artificiale e hai trovato esempi nella tua vita!
+                    </p>
+                    <p style="font-size: 1.1em; color: #6A1B9A;">
+                        Sei pronto/a per la FASE 2?
+                    </p>
+                </div>
+
+                <div class="btn-container">
+                    <button class="btn btn-large" onclick="goToFase(2)">
+                        ➡️ Vai alla FASE 2
+                    </button>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- FASE 2: CAPISCO -->
+            <!-- ========================================== -->
+            <div class="fase" id="fase2">
+                <h2>🧠 FASE 2: CAPISCO - Come funziona l'IA?</h2>
+
+                <div class="info-box box-blue">
+                    <h3>📋 Cosa farai in questa fase:</h3>
+                    <ul class="simple-list">
+                        <li>Scoprirai come "impara" un computer</li>
+                        <li>Vedrai 3 modi diversi di imparare</li>
+                        <li>Proverai tu stesso/a un esempio</li>
+                        <li>Risponderai a domande per verificare</li>
+                    </ul>
+                    <p style="margin-top: 20px; font-weight: bold; color: #1976D2;">⏱️ Tempo: circa 15 minuti</p>
+                </div>
+
+                <div class="instructions">
+                    <h4>🗺️ Come procedere - Passo dopo passo:</h4>
+                    
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <strong>Leggi i 3 modi di imparare</strong>
+                            <p>Il computer può imparare in 3 modi diversi. Li spiegheremo uno alla volta.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <strong>Fai un esercizio pratico</strong>
+                            <p>Proverai tu stesso/a a "insegnare" al computer a riconoscere cose.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <strong>Rispondi alle domande</strong>
+                            <p>Alla fine ci sono domande per vedere se hai capito bene.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SPIEGAZIONE MACHINE LEARNING -->
+                <div class="info-box box-green">
+                    <h3>🎓 Come "Impara" un Computer?</h3>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 25px;">
+                        Questa cosa si chiama <span class="highlight">Machine Learning</span>, 
+                        che in italiano significa <strong>"Apprendimento della Macchina"</strong>.
+                    </p>
+
+                    <span class="big-emoji">🤖📚</span>
+
+                    <div class="concept">
+                        <h5>💡 Pensa a come tu hai imparato a riconoscere un cane</h5>
+                        <p style="font-size: 1.15em;">
+                            Nessuno ti ha detto: "Un cane ha 4 zampe, pelo, abbaia".
+                        </p>
+                        <p style="font-size: 1.15em; margin-top: 10px;">
+                            Invece, hai <strong>visto tanti cani</strong> e il tuo cervello ha capito da solo!
+                        </p>
+                        <p style="font-size: 1.15em; margin-top: 10px; font-weight: bold; color: #2E7D32;">
+                            L'IA funziona in modo simile! 🎯
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 3 MODI DI IMPARARE -->
+                <h3 style="text-align: center; color: #667eea; margin: 40px 0 30px 0;">
+                    I 3 Modi in cui l'IA Impara
+                </h3>
+
+                <!-- MODO 1 -->
+                <div class="info-box box-yellow">
+                    <h4>1️⃣ MODO 1: Imparo con le Risposte Giuste</h4>
+                    
+                    <div class="concept">
+                        <p style="font-size: 1.15em;">
+                            Qualcuno dà al computer tante informazioni e dice: "Questa è giusta, questa è sbagliata".
+                        </p>
+                        <p style="font-size: 1.15em; margin-top: 15px;">
+                            Il computer impara guardando gli esempi con le risposte.
+                        </p>
+                    </div>
+
+                    <div class="example">
+                        <h5>💡 Esempio: Riconoscere le Email Spam</h5>
+                        <p><strong>PASSO 1:</strong> Diamo al computer 1000 email</p>
+                        <p><strong>PASSO 2:</strong> Su ogni email c'è scritto: "Questa è spam" o "Questa è vera"</p>
+                        <p><strong>PASSO 3:</strong> Il computer impara: "Le spam hanno parole come GRATIS, VINCI, CLICCA"</p>
+                        <p><strong>PASSO 4:</strong> Quando arriva una email nuova, il computer controlla queste parole</p>
+                        <p><strong>RISULTATO:</strong> Ora sa riconoscere lo spam da solo! ✅</p>
+                    </div>
+
+                    <div class="concept">
+                        <h5>🎯 Quando si usa questo modo?</h5>
+                        <ul class="simple-list">
+                            <li>Per riconoscere spam nelle email</li>
+                            <li>Per diagnosticare malattie (foto di pelle sana o malata)</li>
+                            <li>Per riconoscere oggetti nelle foto</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- MODO 2 -->
+                <div class="info-box box-orange">
+                    <h4>2️⃣ MODO 2: Imparo da Solo Cercando Gruppi</h4>
+                    
+                    <div class="concept">
+                        <p style="font-size: 1.15em;">
+                            Nessuno dice al computer cosa è giusto o sbagliato.
+                        </p>
+                        <p style="font-size: 1.15em; margin-top: 15px;">
+                            Il computer guarda i dati e trova <strong>gruppi di cose simili</strong> da solo.
+                        </p>
+                    </div>
+
+                    <div class="example">
+                        <h5>💡 Esempio: Netflix che Suggerisce Film</h5>
+                        <p><strong>PASSO 1:</strong> Netflix guarda cosa piace a milioni di persone</p>
+                        <p><strong>PASSO 2:</strong> Trova gruppi: "Queste persone guardano film d'azione"</p>
+                        <p><strong>PASSO 3:</strong> Trova gruppi: "Queste persone guardano commedie romantiche"</p>
+                        <p><strong>PASSO 4:</strong> Quando ti vede guardare 3 film d'azione, ti mette nel gruppo "Azione"</p>
+                        <p><strong>RISULTATO:</strong> Ti suggerisce altri film d'azione! 🎬</p>
+                    </div>
+
+                    <div class="concept">
+                        <h5>🎯 Quando si usa questo modo?</h5>
+                        <ul class="simple-list">
+                            <li>Per suggerire canzoni su Spotify</li>
+                            <li>Per suggerire prodotti su Amazon</li>
+                            <li>Per organizzare foto simili</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- MODO 3 -->
+                <div class="info-box box-purple">
+                    <h4>3️⃣ MODO 3: Imparo Provando e Sbagliando</h4>
+                    
+                    <div class="concept">
+                        <p style="font-size: 1.15em;">
+                            Il computer prova tante cose diverse.
+                        </p>
+                        <p style="font-size: 1.15em; margin-top: 15px;">
+                            Se va bene → riceve un <strong>premio</strong> ⭐
+                        </p>
+                        <p style="font-size: 1.15em; margin-top: 10px;">
+                            Se va male → riceve una <strong>punizione</strong> ❌
+                        </p>
+                        <p style="font-size: 1.15em; margin-top: 15px;">
+                            Dopo tanti tentativi, impara cosa funziona meglio!
+                        </p>
+                    </div>
+
+                    <div class="example">
+                        <h5>💡 Esempio: Computer che Impara a Giocare</h5>
+                        <p><strong>PASSO 1:</strong> Il computer gioca 1000 partite a scacchi</p>
+                        <p><strong>PASSO 2:</strong> Ogni volta che vince → riceve punti ⭐</p>
+                        <p><strong>PASSO 3:</strong> Ogni volta che perde → perde punti ❌</p>
+                        <p><strong>PASSO 4:</strong> Il computer capisce quali mosse portano a vincere</p>
+                        <p><strong>RISULTATO:</strong> Dopo tante partite, diventa bravissimo! 🏆</p>
+                    </div>
+
+                    <div class="concept">
+                        <h5>🎯 Quando si usa questo modo?</h5>
+                        <ul class="simple-list">
+                            <li>Per insegnare ai robot a camminare</li>
+                            <li>Per le auto che si guidano da sole</li>
+                            <li>Per i videogiochi dove l'IA gioca contro di te</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- PAUSA -->
+                <div class="break">
+                    <h4>☕ Pausa se ne hai bisogno</h4>
+                    <p>Stai facendo un ottimo lavoro! Puoi fermarti qui e continuare dopo.</p>
+                </div>
+
+                <!-- ATTIVITÀ PRATICA -->
+                <div class="activity">
+                    <h4><span class="emoji">🧪</span> ATTIVITÀ: Prova Tu a Insegnare all'IA</h4>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">
+                        Immagina di dover insegnare a un computer a capire se una recensione 
+                        di un ristorante è <strong>POSITIVA</strong> o <strong>NEGATIVA</strong>.
+                    </p>
+
+                    <p style="font-size: 1.15em; margin-bottom: 25px;">
+                        Scrivi <strong>3 parole</strong> che secondo te si trovano nelle recensioni positive,
+                        e <strong>3 parole</strong> che si trovano nelle recensioni negative.
+                    </p>
+
+                    <div class="example">
+                        <h5>💡 Esempio per aiutarti:</h5>
+                        <p><strong>Recensione POSITIVA:</strong> "Il cibo era buonissimo! Servizio ottimo. Ci tornerò!"</p>
+                        <p>Parole positive: buonissimo, ottimo, tornerò</p>
+                        <p style="margin-top: 15px;"><strong>Recensione NEGATIVA:</strong> "Cibo freddo e cattivo. Servizio lento. Non ci torno più!"</p>
+                        <p>Parole negative: freddo, cattivo, lento</p>
+                    </div>
+
+                    <div class="input-group">
+                        <label>😊 Parole per Recensioni POSITIVE (scrivine 3):</label>
+                        <textarea id="parolePositive" placeholder="Esempio: buono, delizioso, consiglio..."></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <label>😞 Parole per Recensioni NEGATIVE (scrivine 3):</label>
+                        <textarea id="paroleNegative" placeholder="Esempio: brutto, terribile, sconsiglio..."></textarea>
+                    </div>
+
+                    <button class="btn btn-success" onclick="saveAttivita2()">
+                        ✅ Ho Finito
+                    </button>
+                    <div class="feedback" id="feedbackAttivita2"></div>
+                </div>
+
+                <!-- VERIFICA COMPRENSIONE -->
+                <div class="quiz">
+                    <h4><span class="emoji">✅</span> Verifica: Hai Capito Bene?</h4>
+                    
+                    <div class="question">
+                        <p>1️⃣ Nel MODO 1 (con le risposte giuste), il computer riceve:</p>
+                        <div class="options">
+                            <label>
+                                <input type="radio" name="q2_1" value="a">
+                                Tanti dati con le risposte giuste già segnate
+                            </label>
+                            <label>
+                                <input type="radio" name="q2_1" value="b">
+                                Dati senza nessuna indicazione
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <p>2️⃣ Netflix usa quale modo per suggerirti film?</p>
+                        <div class="options">
+                            <label>
+                                <input type="radio" name="q2_2" value="a">
+                                MODO 1 - Con le risposte giuste
+                            </label>
+                            <label>
+                                <input type="radio" name="q2_2" value="b">
+                                MODO 2 - Trova gruppi di persone simili
+                            </label>
+                            <label>
+                                <input type="radio" name="q2_2" value="c">
+                                MODO 3 - Prova e sbaglia
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <p>3️⃣ Nel MODO 3, il computer impara:</p>
+                        <div class="options">
+                            <label>
+                                <input type="radio" name="q2_3" value="a">
+                                Provando tante volte e imparando dagli errori
+                            </label>
+                            <label>
+                                <input type="radio" name="q2_3" value="b">
+                                Guardando esempi con risposte giuste
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="checkQuiz2()">
+                        🎯 Controlla le Risposte
+                    </button>
+                    <div class="feedback" id="feedbackQuiz2"></div>
+                </div>
+
+                <!-- CONGRATULAZIONI FASE 2 -->
+                <div class="info-box box-purple" style="text-align: center;">
+                    <span class="big-emoji">🎉</span>
+                    <h3>Bravissimo/a! Hai finito la FASE 2!</h3>
+                    <p style="font-size: 1.2em; margin: 20px 0;">
+                        Ora sai come l'IA impara! Hai scoperto i 3 modi diversi.
+                    </p>
+                    <p style="font-size: 1.1em; color: #6A1B9A;">
+                        Sei pronto/a per provare a usare l'IA tu stesso/a?
+                    </p>
+                </div>
+
+                <div class="btn-container">
+                    <button class="btn" onclick="goToFase(1)">
+                        ⬅️ Torna alla Fase 1
+                    </button>
+                    <button class="btn btn-large" onclick="goToFase(3)">
+                        ➡️ Vai alla FASE 3
+                    </button>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- FASE 3: PROVO -->
+            <!-- ========================================== -->
+            <div class="fase" id="fase3">
+                <h2>🛠️ FASE 3: PROVO - Uso l'IA per Studiare</h2>
+
+                <div class="info-box box-blue">
+                    <h3>📋 Cosa farai in questa fase:</h3>
+                    <ul class="simple-list">
+                        <li>Imparerai a dare comandi chiari all'IA</li>
+                        <li>Scriverai 2 comandi per aiutarti a studiare</li>
+                        <li>Scoprirai uno strumento utile: NotebookLM</li>
+                        <li>Penserai a come usare l'IA in modo giusto</li>
+                    </ul>
+                    <p style="margin-top: 20px; font-weight: bold; color: #1976D2;">⏱️ Tempo: circa 15-20 minuti</p>
+                </div>
+
+                <div class="instructions">
+                    <h4>🗺️ Come procedere - Passo dopo passo:</h4>
+                    
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <strong>Impara a dare comandi</strong>
+                            <p>Scoprirai come parlare all'IA per ottenere quello che vuoi.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <strong>Scrivi i tuoi comandi</strong>
+                            <p>Proverai a scrivere 2 comandi per aiutarti nello studio.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <strong>Conosci NotebookLM</strong>
+                            <p>Ti mostreremo uno strumento che ti aiuta a studiare meglio.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <strong>Rifletti sull'uso giusto</strong>
+                            <p>Penserai a come usare l'IA in modo buono e responsabile.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SPIEGAZIONE COMANDI -->
+                <div class="info-box box-green">
+                    <h3>💬 Come Parlare con l'IA</h3>
+                    
+                    <div class="concept">
+                        <h5>🎯 Cos'è un Comando?</h5>
+                        <p style="font-size: 1.15em;">
+                            Un <span class="highlight">comando</span> è quello che scrivi per dire all'IA cosa fare.
+                        </p>
+                        <p style="font-size: 1.15em; margin-top: 15px;">
+                            Si chiama anche <span class="highlight">PROMPT</span> (in inglese).
+                        </p>
+                    </div>
+
+                    <span class="big-emoji">💭➡️🤖</span>
+
+                    <div class="concept">
+                        <h5>✅ Regola Importante</h5>
+                        <p style="font-size: 1.2em; font-weight: bold; color: #2E7D32;">
+                            Più sei CHIARO e PRECISO, migliore è il risultato! 🎯
+                        </p>
+                    </div>
+
+                    <div class="example">
+                        <h5>❌ Comando NON Chiaro</h5>
+                        <p style="font-size: 1.1em; color: #C62828;">
+                            "Dimmi qualcosa sulla storia"
+                        </p>
+                        <p style="margin-top: 10px;">
+                            → Questo è troppo vago! L'IA non sa cosa vuoi sapere.
+                        </p>
+                    </div>
+
+                    <div class="example">
+                        <h5>✅ Comando Chiaro</h5>
+                        <p style="font-size: 1.1em; color: #2E7D32;">
+                            "Spiega in modo semplice cos'è la Rivoluzione Francese. 
+                            Usa parole facili e fai un riassunto di 10 righe."
+                        </p>
+                        <p style="margin-top: 10px;">
+                            → Questo è chiaro! L'IA sa esattamente cosa fare.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ELEMENTI DEL COMANDO -->
+                <div class="info-box box-yellow">
+                    <h3>📝 Le 3 Cose da Dire nel Comando</h3>
+                    
+                    <div class="concept">
+                        <h5>1️⃣ COSA Vuoi?</h5>
+                        <p style="font-size: 1.15em;">
+                            Spiega chiaramente cosa deve fare l'IA.
+                        </p>
+                        <div class="example">
+                            <p>Esempio: "Spiega", "Riassumi", "Fammi domande su", "Crea una lista"</p>
+                        </div>
+                    </div>
+
+                    <div class="concept" style="margin-top: 25px;">
+                        <h5>2️⃣ SU COSA?</h5>
+                        <p style="font-size: 1.15em;">
+                            Di' l'argomento preciso.
+                        </p>
+                        <div class="example">
+                            <p>Esempio: "La Seconda Guerra Mondiale", "Il sistema circolatorio", "Le frazioni in matematica"</p>
+                        </div>
+                    </div>
+
+                    <div class="concept" style="margin-top: 25px;">
+                        <h5>3️⃣ COME Lo Vuoi?</h5>
+                        <p style="font-size: 1.15em;">
+                            Spiega come vuoi la risposta.
+                        </p>
+                        <div class="example">
+                            <p>Esempio: "Con parole semplici", "In 10 righe", "Con esempi", "Come una lista"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ESEMPI COMPLETI -->
+                <div class="info-box box-blue">
+                    <h3>✨ Esempi Completi di Comandi Buoni</h3>
+                    
+                    <div class="example">
+                        <h5>Esempio 1 - Per Studiare Storia</h5>
+                        <p style="font-size: 1.1em; background: white; padding: 15px; border-radius: 10px; margin-top: 10px;">
+                            <strong>1️⃣ COSA:</strong> Spiega<br>
+                            <strong>2️⃣ SU COSA:</strong> la scoperta dell'America<br>
+                            <strong>3️⃣ COME:</strong> con parole semplici, in massimo 15 righe, e aggiungi 3 date importanti
+                        </p>
+                    </div>
+
+                    <div class="example">
+                        <h5>Esempio 2 - Per Ripasso</h5>
+                        <p style="font-size: 1.1em; background: white; padding: 15px; border-radius: 10px; margin-top: 10px;">
+                            <strong>1️⃣ COSA:</strong> Fammi 5 domande<br>
+                            <strong>2️⃣ SU COSA:</strong> sul corpo umano e il sistema digestivo<br>
+                            <strong>3️⃣ COME:</strong> domande facili, per aiutarmi a ripassare per la verifica
+                        </p>
+                    </div>
+
+                    <div class="example">
+                        <h5>Esempio 3 - Per Capire Meglio</h5>
+                        <p style="font-size: 1.1em; background: white; padding: 15px; border-radius: 10px; margin-top: 10px;">
+                            <strong>1️⃣ COSA:</strong> Spiega<br>
+                            <strong>2️⃣ SU COSA:</strong> come funziona la fotosintesi delle piante<br>
+                            <strong>3️⃣ COME:</strong> come se stessi spiegando a un bambino, con esempi semplici
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ATTIVITÀ COMANDI -->
+                <div class="activity">
+                    <h4><span class="emoji">✏️</span> ATTIVITÀ: Scrivi i Tuoi Comandi</h4>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 25px;">
+                        Ora prova tu! Scrivi <strong>2 comandi</strong> che potresti usare per studiare meglio.
+                    </p>
+
+                    <p style="font-size: 1.1em; margin-bottom: 20px; font-weight: bold;">
+                        Ricorda di includere sempre:
+                    </p>
+                    <ul class="simple-list" style="margin-bottom: 30px;">
+                        <li>1️⃣ COSA vuoi (spiega, riassumi, fammi domande...)</li>
+                        <li>2️⃣ SU COSA (l'argomento preciso)</li>
+                        <li>3️⃣ COME lo vuoi (semplice, breve, con esempi...)</li>
+                    </ul>
+
+                    <div class="input-group">
+                        <label>📚 COMANDO 1 - Per studiare un argomento:</label>
+                        <textarea id="comando1" placeholder="Esempio: Spiega in modo semplice la Rivoluzione Industriale. Usa parole facili e scrivi massimo 20 righe con esempi concreti."></textarea>
+                        <p class="helper-text">💡 Pensa a una materia che studi e a cosa vorresti capire meglio</p>
+                    </div>
+
+                    <div class="input-group">
+                        <label>📝 COMANDO 2 - Per prepararti a una verifica:</label>
+                        <textarea id="comando2" placeholder="Esempio: Fammi 10 domande facili sul sistema solare per aiutarmi a ripassare. Fai domande chiare con risposte vero/falso."></textarea>
+                        <p class="helper-text">💡 Pensa a come l'IA potrebbe aiutarti a prepararti meglio</p>
+                    </div>
+
+                    <button class="btn btn-success" onclick="saveComandi()">
+                        ✅ Ho Finito
+                    </button>
+                    <div class="feedback" id="feedbackComandi"></div>
+                </div>
+
+                <!-- PAUSA -->
+                <div class="break">
+                    <h4>☕ Pausa se ne hai bisogno</h4>
+                    <p>Ottimo lavoro finora! Puoi fermarti qui e continuare dopo.</p>
+                </div>
+
+                <!-- NOTEBOOKLM -->
+                <div class="info-box box-purple">
+                    <h3>📱 Strumento Utile: NotebookLM</h3>
+                    
+                    <div class="concept">
+                        <h5>🤔 Cos'è NotebookLM?</h5>
+                        <p style="font-size: 1.15em;">
+                            È uno strumento fatto da Google che usa l'IA per <strong>aiutarti a studiare</strong>.
+                        </p>
+                    </div>
+
+                    <span class="big-emoji">📚🤖✨</span>
+
+                    <div class="concept">
+                        <h5>✨ Cosa Può Fare per Te?</h5>
+                        <ul class="simple-list">
+                            <li>📄 Legge i tuoi appunti o PDF</li>
+                            <li>🎙️ Crea un PODCAST audio che spiega l'argomento</li>
+                            <li>❓ Risponde alle tue domande sui materiali</li>
+                            <li>📋 Fa riassunti dei tuoi documenti</li>
+                            <li>🗺️ Crea mappe per capire meglio</li>
+                        </ul>
+                    </div>
+
+                    <div class="example">
+                        <h5>💡 Esempio di Come Usarlo</h5>
+                        <p><strong>SITUAZIONE:</strong> Hai 10 pagine di appunti di storia sulla Prima Guerra Mondiale</p>
+                        <p><strong>COSA FAI:</strong></p>
+                        <p>1️⃣ Carichi gli appunti su NotebookLM</p>
+                        <p>2️⃣ Chiedi: "Fai un riassunto semplice in 20 righe"</p>
+                        <p>3️⃣ Oppure: "Crea un podcast di 5 minuti che spiega questo"</p>
+                        <p>4️⃣ Oppure: "Fammi 10 domande per ripassare"</p>
+                        <p><strong>RISULTATO:</strong> Hai materiali personalizzati per studiare meglio! 🎯</p>
+                    </div>
+
+                    <div class="concept">
+                        <h5>⚠️ Cosa Ricordare</h5>
+                        <p style="font-size: 1.1em;">
+                            NotebookLM è uno <strong>strumento di aiuto</strong>, non fa i compiti al posto tuo!
+                        </p>
+                        <p style="font-size: 1.1em; margin-top: 10px;">
+                            Usalo per <strong>capire meglio</strong> e <strong>studiare in modo diverso</strong>.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- USO RESPONSABILE -->
+                <div class="info-box box-orange">
+                    <h3>⚖️ Usare l'IA in Modo Giusto</h3>
+                    
+                    <div class="concept">
+                        <h5>✅ COSE GIUSTE da Fare con l'IA</h5>
+                        <ul class="simple-list">
+                            <li>Usarla per <strong>capire meglio</strong> le cose difficili</li>
+                            <li>Farsi <strong>aiutare a studiare</strong> in modo diverso</li>
+                            <li>Farsi fare <strong>domande per ripassare</strong></li>
+                            <li>Chiedere <strong>spiegazioni semplici</strong></li>
+                            <li><strong>Verificare sempre</strong> se le informazioni sono vere</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept" style="margin-top: 25px;">
+                        <h5>❌ COSE SBAGLIATE da NON Fare</h5>
+                        <ul class="simple-list">
+                            <li>Copiare i compiti fatti dall'IA senza capire</li>
+                            <li>Far fare all'IA tutto il lavoro al posto tuo</li>
+                            <li>Credere a tutto quello che dice senza controllare</li>
+                            <li>Usarla per imbrogliare nelle verifiche</li>
+                            <li>Fidarsi solo dell'IA senza usare il tuo cervello</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept" style="margin-top: 25px; background: #FFF9C4; padding: 20px; border-radius: 15px;">
+                        <h5 style="color: #F57C00;">💡 Regola d'Oro</h5>
+                        <p style="font-size: 1.2em; font-weight: bold; color: #F57C00;">
+                            L'IA è come una BICICLETTA per andare più veloce,
+                            ma sei TU che pedali! 🚴‍♀️
+                        </p>
+                        <p style="font-size: 1.1em; margin-top: 15px;">
+                            L'IA ti AIUTA, ma non fa il lavoro AL POSTO TUO.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- RIFLESSIONE -->
+                <div class="activity">
+                    <h4><span class="emoji">💭</span> RIFLESSIONE: Come Userò l'IA?</h4>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 25px;">
+                        Rispondi a queste 2 domande per riflettere su come userai l'IA.
+                    </p>
+
+                    <div class="input-group">
+                        <label>1️⃣ Come pensi di usare l'IA per studiare meglio?</label>
+                        <textarea id="riflessione1" placeholder="Esempio: Userò l'IA per farmi spiegare le cose difficili in modo più semplice..."></textarea>
+                        <p class="helper-text">💡 Pensa a come potrebbe aiutarti davvero</p>
+                    </div>
+
+                    <div class="input-group">
+                        <label>2️⃣ Qual è una cosa che NON farai con l'IA? Perché?</label>
+                        <textarea id="riflessione2" placeholder="Esempio: Non le farò fare i compiti al posto mio perché voglio imparare davvero..."></textarea>
+                        <p class="helper-text">💡 Pensa a cosa sarebbe sbagliato fare</p>
+                    </div>
+
+                    <button class="btn btn-success" onclick="saveRiflessione()">
+                        ✅ Ho Finito
+                    </button>
+                    <div class="feedback" id="feedbackRiflessione"></div>
+                </div>
+
+                <!-- CONGRATULAZIONI FASE 3 -->
+                <div class="info-box box-purple" style="text-align: center;">
+                    <span class="big-emoji">🎉</span>
+                    <h3>Bravissimo/a! Hai finito la FASE 3!</h3>
+                    <p style="font-size: 1.2em; margin: 20px 0;">
+                        Ora sai come usare l'IA per studiare meglio e in modo giusto!
+                    </p>
+                    <p style="font-size: 1.1em; color: #6A1B9A;">
+                        Ultima fase: riflettiamo su tutto quello che hai imparato!
+                    </p>
+                </div>
+
+                <div class="btn-container">
+                    <button class="btn" onclick="goToFase(2)">
+                        ⬅️ Torna alla Fase 2
+                    </button>
+                    <button class="btn btn-large" onclick="goToFase(4)">
+                        ➡️ Vai alla FASE 4
+                    </button>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- FASE 4: PENSO -->
+            <!-- ========================================== -->
+            <div class="fase" id="fase4">
+                <h2>💡 FASE 4: PENSO - Cosa Ho Imparato?</h2>
+
+                <div class="info-box box-blue">
+                    <h3>📋 Cosa farai in questa fase:</h3>
+                    <ul class="simple-list">
+                        <li>Ripenserai a tutto il percorso fatto</li>
+                        <li>Scriverai cosa hai imparato</li>
+                        <li>Farai un piano di come userai l'IA</li>
+                        <li>Stamperai o salverai tutto il tuo lavoro</li>
+                    </ul>
+                    <p style="margin-top: 20px; font-weight: bold; color: #1976D2;">⏱️ Tempo: circa 10-15 minuti</p>
+                </div>
+
+                <div class="instructions">
+                    <h4>🗺️ Come procedere - Passo dopo passo:</h4>
+                    
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <strong>Guarda indietro</strong>
+                            <p>Pensa a cosa sapevi prima e cosa sai adesso.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <strong>Scrivi cosa hai imparato</strong>
+                            <p>Le 3 cose più importanti che ti sono rimaste in mente.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <strong>Fai il tuo piano</strong>
+                            <p>Decidi come userai l'IA da oggi in poi.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <strong>Salva tutto</strong>
+                            <p>Stampa o salva il tuo lavoro per non perderlo.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIPENSAMENTO -->
+                <div class="info-box box-yellow">
+                    <h3>📙 Guarda il Percorso che Hai Fatto</h3>
+                    
+                    <div class="concept">
+                        <h5>🔍 Cosa Hai Fatto in Ogni Fase:</h5>
+                        
+                        <div style="background: white; padding: 20px; border-radius: 15px; margin: 15px 0;">
+                            <p style="font-size: 1.1em;"><strong>FASE 1 - SCOPRO:</strong></p>
+                            <p>✓ Hai scritto cosa pensavi dell'IA</p>
+                            <p>✓ Hai risposto a domande</p>
+                            <p>✓ Hai scoperto cos'è davvero l'IA</p>
+                            <p>✓ Hai trovato esempi nella tua vita</p>
+                        </div>
+
+                        <div style="background: white; padding: 20px; border-radius: 15px; margin: 15px 0;">
+                            <p style="font-size: 1.1em;"><strong>FASE 2 - CAPISCO:</strong></p>
+                            <p>✓ Hai imparato i 3 modi in cui l'IA impara</p>
+                            <p>✓ Hai provato a insegnare tu all'IA</p>
+                            <p>✓ Hai visto esempi pratici</p>
+                        </div>
+
+                        <div style="background: white; padding: 20px; border-radius: 15px; margin: 15px 0;">
+                            <p style="font-size: 1.1em;"><strong>FASE 3 - PROVO:</strong></p>
+                            <p>✓ Hai imparato a dare comandi chiari</p>
+                            <p>✓ Hai scritto i tuoi comandi per studiare</p>
+                            <p>✓ Hai conosciuto NotebookLM</p>
+                            <p>✓ Hai pensato all'uso giusto dell'IA</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COSA HO IMPARATO -->
+                <div class="activity">
+                    <h4><span class="emoji">📝</span> RIFLESSIONE: Cosa Ho Imparato</h4>
+                    
+                    <div class="input-group">
+                        <label>1️⃣ Prima di iniziare, cosa pensavi dell'Intelligenza Artificiale?</label>
+                        <textarea id="prima" placeholder="Pensa a cosa hai scritto all'inizio nella Fase 1..."></textarea>
+                        <p class="helper-text">💡 È cambiato qualcosa rispetto a prima?</p>
+                    </div>
+
+                    <div class="input-group">
+                        <label>2️⃣ Quali sono le 3 cose più importanti che hai imparato?</label>
+                        <textarea id="imparato" placeholder="Esempio: 1. Ho imparato che l'IA non pensa davvero come noi... 2. Ho imparato che..."></textarea>
+                        <p class="helper-text">💡 Scrivi le cose che ti sono rimaste più impresse</p>
+                    </div>
+
+                    <div class="input-group">
+                        <label>3️⃣ C'è qualcosa che non hai capito bene?</label>
+                        <textarea id="nonCapito" placeholder="Va benissimo non aver capito tutto! Scrivi cosa vorresti capire meglio..."></textarea>
+                        <p class="helper-text">💡 Sii sincero/a, questo aiuta il/la tuo/a insegnante a spiegarti meglio</p>
+                    </div>
+
+                    <button class="btn btn-success" onclick="saveRiflessione4()">
+                        ✅ Ho Finito
+                    </button>
+                    <div class="feedback" id="feedbackRiflessione4"></div>
+                </div>
+
+                <!-- IL MIO PIANO -->
+                <div class="action-plan">
+                    <h3>🎯 Il Mio Piano: Come Userò l'IA</h3>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 25px;">
+                        Ora che sai cos'è l'IA e come usarla, fai un piano per te!
+                    </p>
+
+                    <div class="input-group">
+                        <label>📚 Come userò l'IA per studiare meglio?</label>
+                        <textarea id="pianoStudio" placeholder="Esempio: Userò l'IA per farmi spiegare le cose difficili, per farmi domande prima delle verifiche..."></textarea>
+                        <p class="helper-text">💡 Pensa a come potrebbe aiutarti veramente</p>
+                    </div>
+
+                    <div class="input-group">
+                        <label>✅ Quale strumento proverò questa settimana?</label>
+                        <textarea id="pianoStrumento" placeholder="Esempio: Proverò a usare ChatGPT per farmi spiegare la fotosintesi..."></textarea>
+                        <p class="helper-text">💡 Scegli una cosa piccola e concreta da provare</p>
+                    </div>
+
+                    <div class="input-group">
+                        <label>⚖️ Come userò l'IA in modo giusto e responsabile?</label>
+                        <textarea id="pianoGiusto" placeholder="Esempio: La userò solo per aiutarmi a capire, non per copiare. Controllerò sempre se le informazioni sono vere..."></textarea>
+                        <p class="helper-text">💡 Pensa alle regole che ti sei dato/a</p>
+                    </div>
+
+                    <button class="btn btn-success btn-large" onclick="savePiano()">
+                        ✅ Salva il Mio Piano
+                    </button>
+                    <div class="feedback" id="feedbackPiano"></div>
+                </div>
+
+                <!-- BADGE FINALI -->
+                <div class="info-box box-purple" style="text-align: center;" id="badgeArea">
+                    <span class="big-emoji">🏆</span>
+                    <h3>I Tuoi Badge Guadagnati!</h3>
+                    <div id="badgeContainer" style="margin: 20px 0;"></div>
+                </div>
+
+                <!-- CONGRATULAZIONI FINALI -->
+                <div class="info-box box-green" style="text-align: center; padding: 40px;">
+                    <span class="big-emoji">🎉🎊✨</span>
+                    <h2 style="color: #2E7D32; font-size: 2.5em;">COMPLIMENTI!</h2>
+                    <h3 style="color: #2E7D32; margin: 20px 0;">Hai Finito Tutto il Percorso!</h3>
+                    
+                    <div style="background: white; padding: 25px; border-radius: 20px; margin: 25px 0;">
+                        <p style="font-size: 1.3em; margin: 15px 0;">
+                            <strong>Ora sai:</strong>
+                        </p>
+                        <ul class="simple-list" style="text-align: left; font-size: 1.1em;">
+                            <li>Cos'è l'Intelligenza Artificiale</li>
+                            <li>Come funziona e come impara</li>
+                            <li>Come usarla per studiare meglio</li>
+                            <li>Come usarla in modo giusto</li>
+                        </ul>
+                    </div>
+
+                    <p style="font-size: 1.3em; color: #2E7D32; margin-top: 30px; font-weight: bold;">
+                        Sei diventato/a un/a esperto/a di IA! 🌟
+                    </p>
+
+                    <p style="font-size: 1.2em; margin-top: 20px;">
+                        Continua a imparare e a usare l'IA in modo intelligente! 🚀
+                    </p>
+                </div>
+
+                <!-- RIEPILOGO STAMPA -->
+                <div class="print-summary" id="printSummarySection">
+                    <h3>📊 Riepilogo del Tuo Percorso</h3>
+                    <div id="printSummaryContent"></div>
+                </div>
+
+                <!-- PULSANTI FINALI -->
+                <div class="btn-container">
+                    <button class="btn" onclick="goToFase(3)">
+                        ⬅️ Torna alla Fase 3
+                    </button>
+                    <button class="btn btn-large" onclick="stampaTutto()" style="background: linear-gradient(135deg, #FF6B6B 0%, #EE5A6F 100%);">
+                        🖨️ Stampa Tutto il Lavoro
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // VARIABILI GLOBALI
+        let punti = 0;
+        let badgesGuadagnati = 0;
+        let completamento = 0;
+        let faseCorrente = 1;
+
+        // CARICAMENTO INIZIALE
+        window.addEventListener('load', function() {
+            caricaDati();
+            console.log('Percorso IA Accessibile - Caricato con successo!');
+        });
+
+        // SALVATAGGIO AUTOMATICO
+        setInterval(salvaDati, 30000); // Ogni 30 secondi
+        window.addEventListener('beforeunload', salvaDati);
+
+        // NAVIGAZIONE TRA FASI
+        function goToFase(numeroFase) {
+            // Nascondi tutte le fasi
+            document.querySelectorAll('.fase').forEach(f => f.classList.remove('active'));
+            
+            // Mostra fase selezionata
+            document.getElementById('fase' + numeroFase).classList.add('active');
+            faseCorrente = numeroFase;
+            
+            // Aggiorna barra progresso
+            aggiornaProgressoVisivo(numeroFase);
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            salvaDati();
+        }
+
+        function aggiornaProgressoVisivo(fase) {
+            // Aggiorna box progresso
+            for(let i = 1; i <= 4; i++) {
+                const box = document.getElementById('box' + i);
+                box.classList.remove('active', 'completed');
+                
+                if(i < fase) {
+                    box.classList.add('completed');
+                } else if(i === fase) {
+                    box.classList.add('active');
+                }
+            }
+            
+            // Aggiorna testo
+            const testi = {
+                1: 'Sei nella FASE 1: SCOPRO cos\'è l\'IA',
+                2: 'Sei nella FASE 2: CAPISCO come funziona',
+                3: 'Sei nella FASE 3: PROVO a usare l\'IA',
+                4: 'Sei nella FASE 4: PENSO a cosa ho imparato'
+            };
+            document.getElementById('progressText').textContent = testi[fase];
+        }
+
+        // SISTEMA PUNTI
+        function aggiungiPunti(quantita) {
+            punti += quantita;
+            document.getElementById('points').textContent = punti;
+            aggiornaCompletamento();
+            salvaDati();
+            
+            // Badge automatici
+            if(punti >= 50 && badgesGuadagnati === 0) {
+                guadagnaBadge('🌟 Esploratore IA');
+            }
+            if(punti >= 150 && badgesGuadagnati === 1) {
+                guadagnaBadge('🧠 Apprendista ML');
+            }
+            if(punti >= 250 && badgesGuadagnati === 2) {
+                guadagnaBadge('💡 Utente Consapevole');
+            }
+            if(punti >= 350 && badgesGuadagnati === 3) {
+                guadagnaBadge('🏆 Esperto/a di IA');
+            }
+        }
+
+        function guadagnaBadge(nome) {
+            badgesGuadagnati++;
+            document.getElementById('badges').textContent = badgesGuadagnati;
+            
+            // Mostra badge nella fase 4
+            const container = document.getElementById('badgeContainer');
+            if(container) {
+                const badge = document.createElement('span');
+                badge.className = 'badge';
+                badge.textContent = nome;
+                container.appendChild(badge);
+            }
+            
+            mostraNotifica('🎉 Hai guadagnato: ' + nome + '!', 'success');
+        }
+
+        function aggiornaCompletamento() {
+            completamento = Math.min(100, Math.floor((punti / 400) * 100));
+            document.getElementById('completion').textContent = completamento + '%';
+        }
+
+        // FEEDBACK VISIVO
+        function mostraFeedback(idElemento, tipo, messaggio) {
+            const el = document.getElementById(idElemento);
+            el.className = 'feedback show ' + tipo;
+            el.textContent = messaggio;
+            el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function mostraNotifica(messaggio, tipo) {
+            // Crea elemento notifica temporaneo
+            const notif = document.createElement('div');
+            notif.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${tipo === 'success' ? '#4CAF50' : '#2196F3'};
+                color: white;
+                padding: 20px 30px;
+                border-radius: 15px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+                z-index: 10000;
+                font-size: 1.2em;
+                font-weight: bold;
+                animation: slideIn 0.5s;
+            `;
+            notif.textContent = messaggio;
+            document.body.appendChild(notif);
+            
+            setTimeout(() => notif.remove(), 3000);
+        }
+
+        // ===== FASE 1 =====
+        function saveBrainstorm() {
+            const testo = document.getElementById('brainstorm1').value.trim();
+            
+            if(testo.length < 50) {
+                mostraFeedback('feedback1', 'error', '❌ Scrivi almeno qualche riga! Pensa a tutto quello che sai.');
+                return;
+            }
+            
+            localStorage.setItem('ia_brainstorm', testo);
+            mostraFeedback('feedback1', 'success', '✅ Perfetto! Hai scritto i tuoi pensieri. +20 punti! 🌟');
+            aggiungiPunti(20);
+        }
+
+        function checkQuiz1() {
+            const risposte = {
+                'q1': 'no',
+                'q2': 'si',
+                'q3': 'dipende'
+            };
+            
+            let corrette = 0;
+            for(let q in risposte) {
+                const sel = document.querySelector(`input[name="${q}"]:checked`);
+                if(sel && sel.value === risposte[q]) corrette++;
+            }
+            
+            let msg = '';
+            let puntiDaAggiungere = 0;
+            
+            if(corrette === 3) {
+                msg = '✅ Perfetto! Hai risposto giusto a tutte e 3! +50 punti! 🎉';
+                puntiDaAggiungere = 50;
+            } else if(corrette === 2) {
+                msg = '👍 Bene! 2 su 3 giuste! +30 punti!';
+                puntiDaAggiungere = 30;
+            } else {
+                msg = '📚 Hai risposto a ' + corrette + ' su 3. Va bene, stai imparando! +15 punti!';
+                puntiDaAggiungere = 15;
+            }
+            
+            mostraFeedback('feedbackQuiz1', 'success', msg);
+            aggiungiPunti(puntiDaAggiungere);
+        }
+
+        function saveEsempi() {
+            const es1 = document.getElementById('esempio1').value.trim();
+            const es2 = document.getElementById('esempio2').value.trim();
+            const es3 = document.getElementById('esempio3').value.trim();
+            
+            if(es1.length < 5 || es2.length < 5 || es3.length < 5) {
+                mostraFeedback('feedbackEsempi', 'error', '❌ Compila tutti e 3 gli esempi!');
+                return;
+            }
+            
+            localStorage.setItem('ia_es1', es1);
+            localStorage.setItem('ia_es2', es2);
+            localStorage.setItem('ia_es3', es3);
+            
+            mostraFeedback('feedbackEsempi', 'success', '✅ Bravissimo/a! Hai trovato l\'IA nella tua vita! +30 punti! 🌟 Ora vai alla Fase 2!');
+            aggiungiPunti(30);
+            
+            setTimeout(() => goToFase(2), 2000);
+        }
+
+        // ===== FASE 2 =====
+        function saveAttivita2() {
+            const pos = document.getElementById('parolePositive').value.trim();
+            const neg = document.getElementById('paroleNegative').value.trim();
+            
+            if(pos.length < 10 || neg.length < 10) {
+                mostraFeedback('feedbackAttivita2', 'error', '❌ Scrivi almeno 3 parole per ogni tipo!');
+                return;
+            }
+            
+            localStorage.setItem('ia_positive', pos);
+            localStorage.setItem('ia_negative', neg);
+            
+            mostraFeedback('feedbackAttivita2', 'success', '✅ Ottimo lavoro! Hai capito come insegnare all\'IA! +40 punti! 🧠');
+            aggiungiPunti(40);
+        }
+
+        function checkQuiz2() {
+            const risposte = {
+                'q2_1': 'a',
+                'q2_2': 'b',
+                'q2_3': 'a'
+            };
+            
+            let corrette = 0;
+            for(let q in risposte) {
+                const sel = document.querySelector(`input[name="${q}"]:checked`);
+                if(sel && sel.value === risposte[q]) corrette++;
+            }
+            
+            let msg = '';
+            let puntiDaAggiungere = 0;
+            
+            if(corrette === 3) {
+                msg = '✅ Perfetto! Tutte giuste! Hai capito bene! +50 punti! 🎉';
+                puntiDaAggiungere = 50;
+            } else if(corrette === 2) {
+                msg = '👍 Bene! 2 su 3! +30 punti!';
+                puntiDaAggiungere = 30;
+            } else {
+                msg = '📚 ' + corrette + ' su 3. Rileggi la spiegazione se vuoi! +15 punti!';
+                puntiDaAggiungere = 15;
+            }
+            
+            mostraFeedback('feedbackQuiz2', 'success', msg);
+            aggiungiPunti(puntiDaAggiungere);
+        }
+
+        // ===== FASE 3 =====
+        function saveComandi() {
+            const c1 = document.getElementById('comando1').value.trim();
+            const c2 = document.getElementById('comando2').value.trim();
+            
+            if(c1.length < 30 || c2.length < 30) {
+                mostraFeedback('feedbackComandi', 'error', '❌ Scrivi comandi più completi! Ricorda: COSA vuoi, SU COSA, COME lo vuoi.');
+                return;
+            }
+            
+            localStorage.setItem('ia_cmd1', c1);
+            localStorage.setItem('ia_cmd2', c2);
+            
+            mostraFeedback('feedbackComandi', 'success', '✅ Fantastico! Hai imparato a dare comandi chiari! +50 punti! 💡');
+            aggiungiPunti(50);
+        }
+
+        function saveRiflessione() {
+            const r1 = document.getElementById('riflessione1').value.trim();
+            const r2 = document.getElementById('riflessione2').value.trim();
+            
+            if(r1.length < 20 || r2.length < 20) {
+                mostraFeedback('feedbackRiflessione', 'error', '❌ Scrivi qualche riga in più per riflettere bene!');
+                return;
+            }
+            
+            localStorage.setItem('ia_rifl1', r1);
+            localStorage.setItem('ia_rifl2', r2);
+            
+            mostraFeedback('feedbackRiflessione', 'success', '✅ Ottima riflessione! Hai pensato bene all\'uso responsabile! +40 punti! ⚖️');
+            aggiungiPunti(40);
+        }
+
+        // ===== FASE 4 =====
+        function saveRiflessione4() {
+            const prima = document.getElementById('prima').value.trim();
+            const imparato = document.getElementById('imparato').value.trim();
+            const nonCapito = document.getElementById('nonCapito').value.trim();
+            
+            if(prima.length < 20 || imparato.length < 30) {
+                mostraFeedback('feedbackRiflessione4', 'error', '❌ Scrivi qualche riga in più per riflettere sul tuo percorso!');
+                return;
+            }
+            
+            localStorage.setItem('ia_prima', prima);
+            localStorage.setItem('ia_imparato', imparato);
+            localStorage.setItem('ia_nonCapito', nonCapito);
+            
+            mostraFeedback('feedbackRiflessione4', 'success', '✅ Bravissimo/a! Hai riflettuto sul tuo apprendimento! +40 punti! 🧠');
+            aggiungiPunti(40);
+        }
+
+        function savePiano() {
+            const studio = document.getElementById('pianoStudio').value.trim();
+            const strumento = document.getElementById('pianoStrumento').value.trim();
+            const giusto = document.getElementById('pianoGiusto').value.trim();
+            
+            if(studio.length < 20 || strumento.length < 10 || giusto.length < 20) {
+                mostraFeedback('feedbackPiano', 'error', '❌ Completa tutte le parti del tuo piano!');
+                return;
+            }
+            
+            localStorage.setItem('ia_pianoStudio', studio);
+            localStorage.setItem('ia_pianoStrumento', strumento);
+            localStorage.setItem('ia_pianoGiusto', giusto);
+            
+            mostraFeedback('feedbackPiano', 'success', '✅ FANTASTICO! Hai completato tutto il percorso! +60 punti! 🎉🏆');
+            aggiungiPunti(60);
+            
+            // Mostra tutti i badge
+            setTimeout(() => {
+                document.getElementById('badgeArea').scrollIntoView({ behavior: 'smooth' });
+            }, 1000);
+        }
+
+        // SALVATAGGIO E CARICAMENTO
+        function salvaDati() {
+            // Salva tutti i campi input
+            document.querySelectorAll('textarea, input[type="text"]').forEach(campo => {
+                if(campo.id && campo.value) {
+                    localStorage.setItem('ia_campo_' + campo.id, campo.value);
+                }
+            });
+            
+            // Salva radio buttons
+            document.querySelectorAll('input[type="radio"]:checked').forEach(radio => {
+                localStorage.setItem('ia_radio_' + radio.name, radio.value);
+            });
+            
+            // Salva stato
+            localStorage.setItem('ia_punti', punti);
+            localStorage.setItem('ia_badges', badgesGuadagnati);
+            localStorage.setItem('ia_completamento', completamento);
+            localStorage.setItem('ia_fase', faseCorrente);
+        }
+
+        function caricaDati() {
+            // Carica campi
+            document.querySelectorAll('textarea, input[type="text"]').forEach(campo => {
+                if(campo.id) {
+                    const salvato = localStorage.getItem('ia_campo_' + campo.id);
+                    if(salvato) campo.value = salvato;
+                }
+            });
+            
+            // Carica radio
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                const salvato = localStorage.getItem('ia_radio_' + radio.name);
+                if(salvato === radio.value) radio.checked = true;
+            });
+            
+            // Carica stato
+            const puntiSalvati = localStorage.getItem('ia_punti');
+            if(puntiSalvati) {
+                punti = parseInt(puntiSalvati);
+                document.getElementById('points').textContent = punti;
+            }
+            
+            const badgesSalvati = localStorage.getItem('ia_badges');
+            if(badgesSalvati) {
+                badgesGuadagnati = parseInt(badgesSalvati);
+                document.getElementById('badges').textContent = badgesGuadagnati;
+                
+                // Ricrea badge
+                const badges = ['🌟 Esploratore IA', '🧠 Apprendista ML', '💡 Utente Consapevole', '🏆 Esperto/a di IA'];
+                const container = document.getElementById('badgeContainer');
+                for(let i = 0; i < badgesGuadagnati; i++) {
+                    const badge = document.createElement('span');
+                    badge.className = 'badge';
+                    badge.textContent = badges[i];
+                    container.appendChild(badge);
+                }
+            }
+            
+            const compSalvato = localStorage.getItem('ia_completamento');
+            if(compSalvato) {
+                document.getElementById('completion').textContent = compSalvato + '%';
+            }
+        }
+
+        // STAMPA MIGLIORATA
+        function stampaTutto() {
+            salvaDati();
+            
+            // Chiedi info studente
+            const nome = prompt('Come ti chiami?', '') || 'Studente';
+            const classe = prompt('Che classe fai?', '') || '3ª';
+            
+            // Aggiorna intestazione stampa
+            document.getElementById('printNome').textContent = nome;
+            document.getElementById('printClasse').textContent = classe;
+            document.getElementById('printData').textContent = new Date().toLocaleDateString('it-IT');
+            document.getElementById('printPunti').textContent = punti;
+            document.getElementById('printBadges').textContent = badgesGuadagnati;
+            
+            // Crea riepilogo
+            const riepilogo = document.getElementById('printSummaryContent');
+            riepilogo.innerHTML = `
+                <p><strong>📝 Le mie risposte principali:</strong></p>
+                <p><strong>Fase 1 - Cosa pensavo dell'IA:</strong><br>${document.getElementById('brainstorm1').value || '...'}</p>
+                <p><strong>Fase 3 - Comando 1:</strong><br>${document.getElementById('comando1').value || '...'}</p>
+                <p><strong>Fase 4 - Cosa ho imparato:</strong><br>${document.getElementById('imparato').value || '...'}</p>
+                <p><strong>Il mio piano:</strong><br>${document.getElementById('pianoStudio').value || '...'}</p>
+            `;
+            
+            // Mostra tutte le fasi per la stampa
+            document.querySelectorAll('.fase').forEach(f => {
+                f.style.display = 'block';
+            });
+            
+            // Attendi rendering e stampa
+            setTimeout(() => {
+                window.print();
+                
+                // Ripristina visualizzazione dopo stampa
+                setTimeout(() => {
+                    document.querySelectorAll('.fase').forEach(f => {
+                        f.style.display = 'none';
+                    });
+                    document.getElementById('fase' + faseCorrente).style.display = 'block';
+                }, 500);
+            }, 300);
+        }
+    </script>
+</body>
+</html>
