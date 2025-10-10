@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Il Welfare: dalle Basi all'Azione - 4 Fasi di Apprendimento</title>
+    <title>Il Welfare: dalle Basi all'Azione - 4 Fasi di Apprendimento COMPLETO</title>
     <style>
         * {
             margin: 0;
@@ -711,6 +711,75 @@
             margin-top: 1rem;
         }
 
+        /* DIAMANTE WELFARE */
+        .diamond-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .diamond-box {
+            background: white;
+            border: 3px solid;
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .diamond-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+        }
+
+        .diamond-box.state { border-color: #2196f3; }
+        .diamond-box.family { border-color: #e91e63; }
+        .diamond-box.market { border-color: #ff9800; }
+        .diamond-box.third-sector { border-color: #4caf50; }
+
+        .diamond-box h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        /* QUIZ MULTIPLA */
+        .quiz-question {
+            background: white;
+            border-left: 5px solid #2196f3;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 10px;
+        }
+
+        .quiz-question h4 {
+            color: #1a5c3a;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-options {
+            margin: 1rem 0;
+        }
+
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            background: #f9f9f9;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .quiz-option:hover {
+            background: #e3f2fd;
+        }
+
+        .quiz-option input[type="radio"] {
+            cursor: pointer;
+        }
+
         /* MOBILE */
         @media (max-width: 768px) {
             .connection-row {
@@ -784,8 +853,8 @@
 <body>
     <!-- HEADER -->
     <div class="header">
-        <h1>🎓 Il Welfare: dalle Basi all'Azione</h1>
-        <p style="font-size: 1rem; opacity: 0.9;">Percorso di apprendimento in 4 fasi</p>
+        <h1>🎓 Il Welfare: dalle Basi all'Azione - COMPLETO</h1>
+        <p style="font-size: 1rem; opacity: 0.9;">Percorso di apprendimento in 4 fasi - Versione Integrata</p>
         
         <!-- BARRA PROGRESSO -->
         <div class="phase-progress">
@@ -817,20 +886,22 @@
         <!-- ================================ -->
         <div class="phase active" id="phase-1">
             <div class="white-card">
-                <h2 class="phase-title">🚀 FASE 1: SCOPRO - Cos'è il Welfare</h2>
+                <h2 class="phase-title">🚀 FASE 1: SCOPRO - Le Basi del Welfare</h2>
                 
                 <div class="info-box yellow">
-                    <h3>🎯 COSA FAI ORA (3 minuti)</h3>
+                    <h3>🎯 COSA FAI ORA (5 minuti)</h3>
                     <ul>
                         <li><strong>Scrivi</strong> cosa significa per te "benessere"</li>
                         <li><strong>Leggi</strong> la definizione di welfare</li>
                         <li><strong>Studia</strong> i 3 pilastri fondamentali</li>
+                        <li><strong>Scopri</strong> le tue competenze come operatore</li>
+                        <li><strong>Conosci</strong> i 4 attori del welfare (Diamante)</li>
                     </ul>
                 </div>
 
                 <div class="info-box green">
                     <h3>💡 PERCHÉ LO FAI</h3>
-                    <p>Devi capire le basi prima di vedere come funziona nella pratica!</p>
+                    <p>Devi capire le basi prima di vedere come funziona nella pratica! Questa fase ti dà il quadro generale.</p>
                 </div>
 
                 <!-- BRAINSTORMING -->
@@ -929,14 +1000,136 @@
                     </tbody>
                 </table>
 
+                <!-- NUOVO: COMPETENZE OPERATORE -->
+                <h2 class="section-title">🎓 Le Tue Competenze come Operatore</h2>
+                
+                <div class="instructions">
+                    <h4>💼 Passo 4: Scopri le competenze</h4>
+                    <ol>
+                        <li><strong>Leggi</strong> le tre dimensioni della competenza professionale</li>
+                        <li><strong>Rifletti</strong> su quali hai già e quali devi sviluppare</li>
+                        <li><strong>Compila</strong> l'autovalutazione sotto</li>
+                    </ol>
+                </div>
+
+                <div class="help-characteristics">
+                    <div class="characteristic-card">
+                        <h4>📚 SAPERE</h4>
+                        <p><strong>Conoscenze teoriche</strong></p>
+                        <ul style="margin-left: 1rem; margin-top: 0.5rem;">
+                            <li>Normative e legislazione</li>
+                            <li>Metodologie di intervento</li>
+                            <li>Principi del welfare</li>
+                            <li>Psicologia e sociologia</li>
+                        </ul>
+                    </div>
+                    <div class="characteristic-card">
+                        <h4>🛠️ SAPER FARE</h4>
+                        <p><strong>Capacità pratiche</strong></p>
+                        <ul style="margin-left: 1rem; margin-top: 0.5rem;">
+                            <li>Condurre colloqui</li>
+                            <li>Progettare interventi</li>
+                            <li>Applicare tecniche</li>
+                            <li>Collaborare in équipe</li>
+                        </ul>
+                    </div>
+                    <div class="characteristic-card">
+                        <h4>❤️ SAPER ESSERE</h4>
+                        <p><strong>Atteggiamenti personali</strong></p>
+                        <ul style="margin-left: 1rem; margin-top: 0.5rem;">
+                            <li>Empatia e ascolto</li>
+                            <li>Etica professionale</li>
+                            <li>Gestione emotiva</li>
+                            <li>Rispetto e non giudizio</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <label style="display: block; font-weight: bold; color: #1a5c3a; margin: 1.5rem 0 0.5rem;">
+                    Autovalutazione: Quali competenze hai già? Quali vuoi sviluppare?
+                </label>
+                <textarea id="competenze-autoval" class="input-field" 
+                          placeholder="Esempio: Ho già sviluppato l'empatia, voglio migliorare nel condurre colloqui..."></textarea>
+
+                <!-- NUOVO: DIAMANTE DEL WELFARE -->
+                <h2 class="section-title">💎 Il Diamante del Welfare: I 4 Attori</h2>
+                
+                <div class="instructions">
+                    <h4>🔷 Passo 5: Conosci i 4 attori</h4>
+                    <ol>
+                        <li><strong>Leggi</strong> il ruolo di ogni attore del welfare</li>
+                        <li><strong>Nota</strong> come collaborano tra loro</li>
+                        <li><strong>Pensa</strong> a esempi concreti nella tua zona</li>
+                    </ol>
+                </div>
+
+                <div class="info-box blue">
+                    <p>Il welfare non è solo lo Stato! Il benessere è garantito dalla collaborazione di 
+                    <strong>quattro attori</strong> diversi: Stato, Famiglia, Mercato e Terzo Settore. 
+                    Questo si chiama <strong>Welfare Mix</strong>.</p>
+                </div>
+
+                <div class="diamond-grid">
+                    <div class="diamond-box state">
+                        <h4>🏛️ STATO</h4>
+                        <p><strong>Ruolo:</strong> Definisce politiche, garantisce servizi essenziali</p>
+                        <p style="margin-top: 0.5rem;"><strong>Esempi:</strong></p>
+                        <ul style="margin-left: 1rem; margin-top: 0.5rem;">
+                            <li>Sanità pubblica (SSN)</li>
+                            <li>Scuola obbligatoria</li>
+                            <li>Pensioni</li>
+                            <li>NASpI</li>
+                        </ul>
+                    </div>
+
+                    <div class="diamond-box family">
+                        <h4>👨‍👩‍👧 FAMIGLIA</h4>
+                        <p><strong>Ruolo:</strong> Prima rete di supporto</p>
+                        <p style="margin-top: 0.5rem;"><strong>Esempi:</strong></p>
+                        <ul style="margin-left: 1rem; margin-top: 0.5rem;">
+                            <li>Nonni che curano nipoti</li>
+                            <li>Figli che sostengono genitori</li>
+                            <li>Aiuti economici familiari</li>
+                        </ul>
+                    </div>
+
+                    <div class="diamond-box third-sector">
+                        <h4>🤝 TERZO SETTORE</h4>
+                        <p><strong>Ruolo:</strong> Associazioni e volontariato</p>
+                        <p style="margin-top: 0.5rem;"><strong>Esempi:</strong></p>
+                        <ul style="margin-left: 1rem; margin-top: 0.5rem;">
+                            <li>Caritas</li>
+                            <li>Croce Rossa</li>
+                            <li>Cooperative sociali</li>
+                        </ul>
+                    </div>
+
+                    <div class="diamond-box market">
+                        <h4>💼 MERCATO</h4>
+                        <p><strong>Ruolo:</strong> Produce reddito e innovazione</p>
+                        <p style="margin-top: 0.5rem;"><strong>Esempi:</strong></p>
+                        <ul style="margin-left: 1rem; margin-top: 0.5rem;">
+                            <li>Benefit aziendali</li>
+                            <li>Fondi pensione privati</li>
+                            <li>Polizze sanitarie</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <label style="display: block; font-weight: bold; color: #1a5c3a; margin: 1.5rem 0 0.5rem;">
+                    Esempio concreto: Pensa a una persona anziana che conosci. Quali dei 4 attori la supportano?
+                </label>
+                <textarea id="diamond-example" class="input-field" 
+                          placeholder="Es: Lo Stato con la pensione, la famiglia con cure, il terzo settore con volontari..."></textarea>
+
                 <!-- MAPPA CONCETTUALE INIZIALE -->
                 <h3 style="color: #c41e3a; font-size: 1.5rem; margin: 3rem 0 1rem;">🗺️ La tua prima mappa concettuale</h3>
                 
                 <div class="instructions">
-                    <h4>✏️ Passo 4: Crea la tua mappa</h4>
+                    <h4>✏️ Passo 6: Crea la tua mappa</h4>
                     <ol>
-                        <li><strong>Disegna</strong> nel riquadro sotto i 3 pilastri collegati al welfare</li>
-                        <li><strong>Scrivi</strong> per ogni pilastro 2-3 esempi di servizi</li>
+                        <li><strong>Disegna</strong> i concetti chiave: welfare, 3 pilastri, 4 attori, competenze</li>
+                        <li><strong>Scrivi</strong> esempi di servizi</li>
                         <li><strong>Usa</strong> frecce per collegare i concetti</li>
                     </ol>
                 </div>
@@ -944,15 +1137,15 @@
                 <div class="concept-map-area">
                     <p style="font-size: 1.1rem; color: #555;">
                         💡 <strong>Disegna la tua mappa qui</strong><br>
-                        (Esempio: WELFARE al centro, i 3 pilastri collegati, e sotto di essi i servizi)
+                        (Esempio: WELFARE al centro → 3 PILASTRI → 4 ATTORI → SERVIZI → COMPETENZE OPERATORE)
                     </p>
                     <textarea id="concept-map-initial" class="input-field" 
-                              placeholder="Scrivi qui la tua mappa usando testo (es: WELFARE → SANITÀ (ospedali, medico) → PREVIDENZA (pensioni) → ASSISTENZA (asili))"></textarea>
+                              placeholder="Scrivi qui la tua mappa usando testo e frecce (→)"></textarea>
                 </div>
 
                 <div class="info-box green" style="margin-top: 2rem;">
                     <h3>✅ Hai finito la Fase 1!</h3>
-                    <p>Ora hai le basi: sai cos'è il welfare e quali sono i suoi 3 pilastri fondamentali.</p>
+                    <p>Ora hai le basi: sai cos'è il welfare, i suoi 3 pilastri, i 4 attori e le competenze dell'operatore.</p>
                     <p style="margin-top: 0.5rem;"><strong>Prossima tappa:</strong> Vedremo come funziona nella pratica!</p>
                 </div>
 
@@ -970,9 +1163,12 @@
                 <h2 class="phase-title">📚 FASE 2: ESPLORO - Come funziona il welfare</h2>
                 
                 <div class="info-box yellow">
-                    <h3>🎯 COSA FAI ORA (15 minuti)</h3>
+                    <h3>🎯 COSA FAI ORA (20 minuti)</h3>
                     <ul>
                         <li><strong>Rivedi</strong> la piramide dei bisogni di Maslow</li>
+                        <li><strong>Studia</strong> la relazione d'aiuto e gli strumenti dell'operatore</li>
+                        <li><strong>Conosci</strong> gli enti del welfare (INPS, ASL, Comuni)</li>
+                        <li><strong>Scopri</strong> le leggi fondamentali</li>
                         <li><strong>Esplora</strong> le 18 carte dei servizi welfare</li>
                         <li><strong>Risolvi</strong> i 2 scenari pratici</li>
                     </ul>
@@ -984,7 +1180,7 @@
                 </div>
 
                 <!-- MASLOW -->
-                <h2 class="section-title">🔺 La Piramide di Maslow e il Welfare</h2>
+                <h2 class="section-title">📺 La Piramide di Maslow e il Welfare</h2>
                 
                 <div class="instructions">
                     <h4>👁️ Passo 1: Osserva la piramide</h4>
@@ -1073,11 +1269,208 @@
                     </div>
                 </div>
 
+                <!-- NUOVO: STRUMENTI OPERATORE -->
+                <h2 class="section-title">🛠️ Gli Strumenti dell'Operatore</h2>
+                
+                <div class="instructions">
+                    <h4>📋 Passo 3: Conosci gli strumenti</h4>
+                    <ol>
+                        <li><strong>Leggi</strong> le caratteristiche di colloquio e visita domiciliare</li>
+                        <li><strong>Nota</strong> vantaggi e limiti di ogni strumento</li>
+                        <li><strong>Rifletti</strong> su quando usare ciascuno</li>
+                    </ol>
+                </div>
+
+                <div class="help-characteristics">
+                    <div class="characteristic-card">
+                        <h4>💬 IL COLLOQUIO</h4>
+                        <p><strong>✅ Vantaggi:</strong></p>
+                        <ul style="margin-left: 1rem; margin-top: 0.5rem;">
+                            <li>Comunicazione diretta</li>
+                            <li>Esplora aspetti emotivi</li>
+                            <li>Indaga motivazioni</li>
+                        </ul>
+                        <p style="margin-top: 0.5rem;"><strong>⚠️ Limiti:</strong></p>
+                        <ul style="margin-left: 1rem;">
+                            <li>Dipende dalla disponibilità</li>
+                            <li>Può essere influenzato da emozioni</li>
+                        </ul>
+                    </div>
+
+                    <div class="characteristic-card">
+                        <h4>🏠 VISITA DOMICILIARE</h4>
+                        <p><strong>✅ Vantaggi:</strong></p>
+                        <ul style="margin-left: 1rem; margin-top: 0.5rem;">
+                            <li>Visione concreta della realtà</li>
+                            <li>Osservazione diretta</li>
+                            <li>Più naturale per l'utente</li>
+                        </ul>
+                        <p style="margin-top: 0.5rem;"><strong>⚠️ Limiti:</strong></p>
+                        <ul style="margin-left: 1rem;">
+                            <li>Può suscitare disagio</li>
+                            <li>Questioni di privacy</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-box yellow">
+                    <h3>💡 Tecniche per un colloquio efficace</h3>
+                    <ul>
+                        <li><strong>Ascolto attivo:</strong> Concentrarsi senza interrompere</li>
+                        <li><strong>Domande aperte:</strong> "Come si sente?" invece di "Sta bene?"</li>
+                        <li><strong>Riformulazione:</strong> Ripetere con parole proprie</li>
+                        <li><strong>Empatia:</strong> Mostrare comprensione dei sentimenti</li>
+                        <li><strong>Non giudizio:</strong> Accettare senza criticare</li>
+                    </ul>
+                </div>
+
+                <!-- NUOVO: ENTI DEL WELFARE -->
+                <h2 class="section-title">🏢 Gli Enti del Welfare</h2>
+                
+                <div class="instructions">
+                    <h4>🎯 Passo 4: Conosci gli enti</h4>
+                    <ol>
+                        <li><strong>Leggi</strong> il ruolo di ogni ente</li>
+                        <li><strong>Memorizza</strong> quali servizi gestisce ciascuno</li>
+                        <li><strong>Compila</strong> l'esercizio sotto</li>
+                    </ol>
+                </div>
+
+                <div class="help-characteristics">
+                    <div class="characteristic-card">
+                        <h4>💼 INPS</h4>
+                        <p><strong>Istituto Nazionale Previdenza Sociale</strong></p>
+                        <p style="margin-top: 0.5rem;">Gestisce:</p>
+                        <ul style="margin-left: 1rem; margin-top: 0.5rem;">
+                            <li>Pensioni</li>
+                            <li>Indennità disoccupazione</li>
+                            <li>Assegni familiari</li>
+                            <li>Invalidità</li>
+                        </ul>
+                    </div>
+
+                    <div class="characteristic-card">
+                        <h4>🏥 ASL</h4>
+                        <p><strong>Aziende Sanitarie Locali</strong></p>
+                        <p style="margin-top: 0.5rem;">Gestiscono:</p>
+                        <ul style="margin-left: 1rem; margin-top: 0.5rem;">
+                            <li>Ospedali</li>
+                            <li>Medici di base</li>
+                            <li>Vaccinazioni</li>
+                            <li>Servizi specialistici</li>
+                        </ul>
+                    </div>
+
+                    <div class="characteristic-card">
+                        <h4>🏛️ COMUNI</h4>
+                        <p><strong>Enti Locali</strong></p>
+                        <p style="margin-top: 0.5rem;">Gestiscono:</p>
+                        <ul style="margin-left: 1rem; margin-top: 0.5rem;">
+                            <li>Assistenza domiciliare</li>
+                            <li>Asili nido</li>
+                            <li>Servizi sociali</li>
+                            <li>Centri diurni</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <label style="display: block; font-weight: bold; color: #1a5c3a; margin: 1.5rem 0 0.5rem;">
+                    Esercizio: A quale ente ti rivolgi per...?
+                </label>
+                <div style="background: #f9f9f9; padding: 1.5rem; border-radius: 8px;">
+                    <p>1. Una persona che ha perso il lavoro e cerca sostegno economico → 
+                    <select id="ente-ex1" class="input-field" style="width: auto; display: inline-block; margin-left: 0.5rem;">
+                        <option value="">Seleziona...</option>
+                        <option value="INPS">INPS</option>
+                        <option value="ASL">ASL</option>
+                        <option value="Comune">Comune</option>
+                    </select></p>
+                    
+                    <p style="margin-top: 1rem;">2. Un anziano che ha bisogno di assistenza a casa → 
+                    <select id="ente-ex2" class="input-field" style="width: auto; display: inline-block; margin-left: 0.5rem;">
+                        <option value="">Seleziona...</option>
+                        <option value="INPS">INPS</option>
+                        <option value="ASL">ASL</option>
+                        <option value="Comune">Comune</option>
+                    </select></p>
+                    
+                    <p style="margin-top: 1rem;">3. Una persona che deve fare una visita specialistica → 
+                    <select id="ente-ex3" class="input-field" style="width: auto; display: inline-block; margin-left: 0.5rem;">
+                        <option value="">Seleziona...</option>
+                        <option value="INPS">INPS</option>
+                        <option value="ASL">ASL</option>
+                        <option value="Comune">Comune</option>
+                    </select></p>
+                </div>
+
+                <!-- NUOVO: LEGGI FONDAMENTALI -->
+                <h2 class="section-title">⚖️ Leggi Fondamentali del Welfare</h2>
+                
+                <div class="instructions">
+                    <h4>📜 Passo 5: Conosci le leggi principali</h4>
+                    <ol>
+                        <li><strong>Leggi</strong> ogni legge e cosa garantisce</li>
+                        <li><strong>Memorizza</strong> almeno 3 leggi fondamentali</li>
+                        <li><strong>Risolvi</strong> il quiz sotto</li>
+                    </ol>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">Legge</th>
+                            <th style="width: 75%;">Cosa garantisce</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>L. 833/1978</strong></td>
+                            <td>Ha istituito il <strong>Servizio Sanitario Nazionale (SSN)</strong> - assistenza sanitaria universale e gratuita</td>
+                        </tr>
+                        <tr>
+                            <td><strong>L. 328/2000</strong></td>
+                            <td><strong>Sistema Integrato di Servizi Sociali</strong> - programmazione servizi sociali a livello locale</td>
+                        </tr>
+                        <tr>
+                            <td><strong>L. 104/1992</strong></td>
+                            <td><strong>Assistenza persone con disabilità</strong> - permessi lavoro, integrazione, supporto familiare</td>
+                        </tr>
+                        <tr>
+                            <td><strong>L. 180/1978</strong></td>
+                            <td><strong>Legge Basaglia</strong> - chiusura manicomi, assistenza psichiatrica territoriale</td>
+                        </tr>
+                        <tr>
+                            <td><strong>L. 68/1999</strong></td>
+                            <td><strong>Diritto al lavoro dei disabili</strong> - quote riservate nelle assunzioni</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="quiz-question">
+                    <h4>📝 Quiz: Collega la situazione alla legge corretta</h4>
+                    <p><strong>Situazione:</strong> Marco ha una disabilità e cerca lavoro. Quale legge lo tutela?</p>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="quiz-legge1" value="A">
+                            A) Legge 833/1978 (SSN)
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="quiz-legge1" value="B">
+                            B) Legge 68/1999 (Diritto al lavoro disabili)
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="quiz-legge1" value="C">
+                            C) Legge 180/1978 (Basaglia)
+                        </label>
+                    </div>
+                    <div class="feedback" id="feedback-legge1"></div>
+                </div>
+
                 <!-- CARTE SERVIZIO -->
                 <h2 class="section-title">🃏 Le 18 Carte dei Servizi Welfare</h2>
                 
                 <div class="instructions">
-                    <h4>👀 Passo 3: Esplora le carte</h4>
+                    <h4>👀 Passo 6: Esplora le carte</h4>
                     <ol>
                         <li><strong>Scegli</strong> la visualizzazione (Griglia o Scorrimento)</li>
                         <li><strong>Leggi</strong> ogni carta: nome, descrizione, pilastro</li>
@@ -1113,7 +1506,7 @@
                 <h2 class="section-title">🎭 Laboratorio: Scenari Reali</h2>
                 
                 <div class="instructions">
-                    <h4>🔍 Passo 4: Risolvi gli scenari</h4>
+                    <h4>📝 Passo 7: Risolvi gli scenari</h4>
                     <ol>
                         <li><strong>Leggi</strong> attentamente ogni scenario</li>
                         <li><strong>Individua</strong> i bisogni delle persone</li>
@@ -1158,7 +1551,7 @@
 
                 <div class="info-box green" style="margin-top: 2rem;">
                     <h3>✅ Hai finito la Fase 2!</h3>
-                    <p>Ora sai come i servizi rispondono ai bisogni e hai visto esempi concreti.</p>
+                    <p>Ora sai come i servizi rispondono ai bisogni, conosci gli enti e le leggi fondamentali, e hai visto esempi concreti.</p>
                     <p style="margin-top: 0.5rem;"><strong>Prossima tappa:</strong> Mettere in pratica i collegamenti!</p>
                 </div>
 
@@ -1176,9 +1569,10 @@
                 <h2 class="phase-title">🛠️ FASE 3: APPLICO - Faccio i collegamenti</h2>
                 
                 <div class="info-box yellow">
-                    <h3>🎯 COSA FAI ORA (20 minuti)</h3>
+                    <h3>🎯 COSA FAI ORA (25 minuti)</h3>
                     <ul>
-                        <li><strong>Completa</strong> i 6 esercizi di collegamento</li>
+                        <li><strong>Completa</strong> i 6 esercizi di collegamento bisogni-servizi-pilastri</li>
+                        <li><strong>Risolvi</strong> il quiz sui modelli di welfare</li>
                         <li><strong>Compila</strong> la tabella di analisi servizi</li>
                         <li><strong>Presenta</strong> il tuo lavoro al gruppo</li>
                     </ul>
@@ -1186,7 +1580,7 @@
 
                 <div class="info-box green">
                     <h3>💡 PERCHÉ LO FAI</h3>
-                    <p>È qui che impari davvero: collegando bisogni → servizi → pilastri!</p>
+                    <p>È qui che impari davvero: collegando bisogni → servizi → pilastri e applicando la teoria alla pratica!</p>
                 </div>
 
                 <!-- COLLEGAMENTI -->
@@ -1204,11 +1598,82 @@
 
                 <div id="connections-container"></div>
 
+                <!-- NUOVO: QUIZ MODELLI WELFARE -->
+                <h2 class="section-title">🌍 Esercizio: Riconosci i Modelli di Welfare</h2>
+                
+                <div class="instructions">
+                    <h4>📊 Passo 2: Modelli di welfare</h4>
+                    <ol>
+                        <li><strong>Leggi</strong> ogni domanda sui modelli di welfare</li>
+                        <li><strong>Ricorda</strong> le caratteristiche: Selettività vs Universalità</li>
+                        <li><strong>Rispondi</strong> alle domande quiz</li>
+                    </ol>
+                </div>
+
+                <div class="info-box blue">
+                    <h3>💡 Ricorda:</h3>
+                    <ul>
+                        <li><strong>Modello Selettivo:</strong> Servizi solo per chi ha certi requisiti (es. reddito basso)</li>
+                        <li><strong>Modello Universale:</strong> Servizi per tutti i cittadini, senza limitazioni</li>
+                    </ul>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>Quiz 1: Un sistema che offre sanità gratuita a TUTTI i cittadini, ricchi o poveri, è...</h4>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="quiz-modello1" value="A" onchange="checkQuizModello(1, 'A')">
+                            A) Modello Selettivo
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="quiz-modello1" value="B" onchange="checkQuizModello(1, 'B')">
+                            B) Modello Universale
+                        </label>
+                    </div>
+                    <div class="feedback" id="feedback-modello1"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>Quiz 2: Un bonus economico dato SOLO alle famiglie con reddito sotto i 20.000€ è...</h4>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="quiz-modello2" value="A" onchange="checkQuizModello(2, 'A')">
+                            A) Modello Selettivo
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="quiz-modello2" value="B" onchange="checkQuizModello(2, 'B')">
+                            B) Modello Universale
+                        </label>
+                    </div>
+                    <div class="feedback" id="feedback-modello2"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>Quiz 3: Quale modello rischia maggiormente di creare stigmatizzazione?</h4>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="quiz-modello3" value="A" onchange="checkQuizModello(3, 'A')">
+                            A) Modello Selettivo
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="quiz-modello3" value="B" onchange="checkQuizModello(3, 'B')">
+                            B) Modello Universale
+                        </label>
+                    </div>
+                    <div class="feedback" id="feedback-modello3"></div>
+                </div>
+
+                <label style="display: block; font-weight: bold; color: #1a5c3a; margin: 2rem 0 0.5rem;">
+                    Riflessione: Quale modello preferisci e perché?
+                </label>
+                <textarea id="modello-riflessione" class="input-field" 
+                          placeholder="Spiega quale modello secondo te è migliore e perché..."></textarea>
+
                 <!-- LAVORO DI GRUPPO -->
                 <h2 class="section-title">👥 Lavoro di Gruppo: Analisi Servizi</h2>
                 
                 <div class="instructions">
-                    <h4>📋 Passo 2: Compila la tabella</h4>
+                    <h4>📋 Passo 3: Compila la tabella</h4>
                     <ol>
                         <li><strong>Scegli</strong> un servizio del welfare</li>
                         <li><strong>Identifica</strong> a quale bisogno di Maslow risponde</li>
@@ -1294,7 +1759,7 @@
                 <h2 class="section-title">🎤 Presentazione dei risultati</h2>
                 
                 <div class="instructions">
-                    <h4>🗣️ Passo 3: Prepara la presentazione</h4>
+                    <h4>🗣️ Passo 4: Prepara la presentazione</h4>
                     <ol>
                         <li><strong>Scegli</strong> i 3 servizi più importanti che avete analizzato</li>
                         <li><strong>Prepara</strong> una breve presentazione (3 minuti)</li>
@@ -1311,7 +1776,7 @@
 
                 <div class="info-box green" style="margin-top: 2rem;">
                     <h3>✅ Hai finito la Fase 3!</h3>
-                    <p>Hai messo in pratica tutti i collegamenti e creato una vera analisi dei servizi welfare.</p>
+                    <p>Hai messo in pratica tutti i collegamenti, analizzato i modelli di welfare e creato una vera analisi dei servizi.</p>
                     <p style="margin-top: 0.5rem;"><strong>Ultima tappa:</strong> Riflettere su cosa hai imparato!</p>
                 </div>
 
@@ -1329,17 +1794,18 @@
                 <h2 class="phase-title">💡 FASE 4: RIFLETTO - Cosa ho imparato</h2>
                 
                 <div class="info-box yellow">
-                    <h3>🎯 COSA FAI ORA (15 minuti)</h3>
+                    <h3>🎯 COSA FAI ORA (20 minuti)</h3>
                     <ul>
-                        <li><strong>Rispondi</strong> alle 7 domande di riflessione</li>
+                        <li><strong>Rispondi</strong> alle domande di riflessione</li>
+                        <li><strong>Autovaluta</strong> le competenze acquisite</li>
                         <li><strong>Crea</strong> la mappa concettuale finale</li>
-                        <li><strong>Progetta</strong> un intervento reale</li>
+                        <li><strong>Progetta</strong> un intervento reale completo</li>
                     </ul>
                 </div>
 
                 <div class="info-box green">
                     <h3>💡 PERCHÉ LO FAI</h3>
-                    <p>La riflessione ti fa capire cosa hai davvero imparato e come puoi usarlo!</p>
+                    <p>La riflessione ti fa capire cosa hai davvero imparato e come puoi usarlo nella tua futura professione!</p>
                 </div>
 
                 <!-- RIFLESSIONE -->
@@ -1407,14 +1873,98 @@
 
                 <div style="margin-top: 2rem;">
                     <label style="display: block; font-weight: bold; color: #1a5c3a; margin-bottom: 0.5rem;">
-                        5. Come la rete formale e informale lavorano insieme?
+                        5. Come i 4 attori del welfare (Stato, Famiglia, Mercato, Terzo Settore) lavorano insieme?
                     </label>
                     <textarea id="network-collaboration" class="input-field"></textarea>
                 </div>
 
+                <!-- NUOVO: AUTOVALUTAZIONE COMPETENZE -->
+                <h2 class="section-title">📊 Autovalutazione Competenze Acquisite</h2>
+                
+                <div class="instructions">
+                    <h4>✅ Passo 2: Valuta le tue competenze</h4>
+                    <ol>
+                        <li><strong>Rileggi</strong> le competenze viste in Fase 1</li>
+                        <li><strong>Valuta</strong> quanto hai sviluppato ciascuna</li>
+                        <li><strong>Sii onesto</strong> con te stesso</li>
+                    </ol>
+                </div>
+
+                <div style="background: #f9f9f9; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+                    <h4 style="color: #1a5c3a; margin-bottom: 1rem;">📚 SAPERE (conoscenze teoriche)</h4>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox" id="comp-pilastri"> 
+                        Conosco i 3 pilastri del welfare
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox" id="comp-maslow"> 
+                        So usare la piramide di Maslow
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox" id="comp-enti"> 
+                        Conosco gli enti (INPS, ASL, Comuni)
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox" id="comp-leggi"> 
+                        Conosco le leggi fondamentali
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox" id="comp-modelli"> 
+                        Comprendo i modelli di welfare
+                    </label>
+                </div>
+
+                <div style="background: #f9f9f9; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+                    <h4 style="color: #1a5c3a; margin-bottom: 1rem;">🛠️ SAPER FARE (capacità pratiche)</h4>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox" id="comp-collegamenti"> 
+                        So collegare bisogni → servizi → pilastri
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox" id="comp-analisi"> 
+                        So analizzare situazioni reali
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox" id="comp-strumenti"> 
+                        Conosco gli strumenti dell'operatore (colloquio, visita)
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox" id="comp-progetto"> 
+                        So progettare un intervento
+                    </label>
+                </div>
+
+                <div style="background: #f9f9f9; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+                    <h4 style="color: #1a5c3a; margin-bottom: 1rem;">❤️ SAPER ESSERE (atteggiamenti)</h4>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox" id="comp-empatia"> 
+                        Ho sviluppato empatia
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox" id="comp-ascolto"> 
+                        So ascoltare attivamente
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox" id="comp-etica"> 
+                        Ho compreso l'importanza dell'etica
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox" id="comp-riflessione"> 
+                        So riflettere sulla mia pratica
+                    </label>
+                </div>
+
                 <div style="margin-top: 2rem;">
                     <label style="display: block; font-weight: bold; color: #1a5c3a; margin-bottom: 0.5rem;">
-                        6. Autovalutazione: quanto ho partecipato?
+                        6. Quale competenza devo ancora sviluppare maggiormente?
+                    </label>
+                    <textarea id="competenza-sviluppare" class="input-field" 
+                              placeholder="Scrivi quale competenza vuoi migliorare e come pensi di farlo..."></textarea>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <label style="display: block; font-weight: bold; color: #1a5c3a; margin-bottom: 0.5rem;">
+                        7. Autovalutazione: quanto ho partecipato?
                     </label>
                     <div style="display: flex; gap: 1rem; flex-wrap: wrap; padding: 1rem; background: #f9f9f9; border-radius: 8px;">
                         <label style="display: flex; align-items: center; gap: 0.5rem;">
@@ -1437,7 +1987,7 @@
 
                 <div style="margin-top: 2rem;">
                     <label style="display: block; font-weight: bold; color: #1a5c3a; margin-bottom: 0.5rem;">
-                        7. Quale aspetto dell'attività mi ha aiutato di più?
+                        8. Quale aspetto dell'attività mi ha aiutato di più?
                     </label>
                     <textarea id="helpful-aspect" class="input-field"></textarea>
                 </div>
@@ -1446,7 +1996,7 @@
                 <h2 class="section-title">🗺️ Mappa Concettuale Finale</h2>
                 
                 <div class="instructions">
-                    <h4>🎨 Passo 2: Crea la mappa finale</h4>
+                    <h4>🎨 Passo 3: Crea la mappa finale</h4>
                     <ol>
                         <li><strong>Confronta</strong> con la mappa iniziale (Fase 1)</li>
                         <li><strong>Aggiungi</strong> tutti i collegamenti che hai imparato</li>
@@ -1458,10 +2008,13 @@
                     <h3>💡 Cosa inserire nella mappa finale</h3>
                     <ul>
                         <li>I 3 pilastri del welfare</li>
+                        <li>I 4 attori (Diamante)</li>
                         <li>I livelli di Maslow più importanti</li>
                         <li>Esempi di servizi specifici</li>
                         <li>Collegamenti tra bisogni e servizi</li>
-                        <li>Il ruolo dell'operatore</li>
+                        <li>Gli enti (INPS, ASL, Comuni)</li>
+                        <li>Il ruolo dell'operatore e le sue competenze</li>
+                        <li>Gli strumenti dell'operatore</li>
                     </ul>
                 </div>
 
@@ -1470,25 +2023,25 @@
                         🎨 <strong>La tua mappa concettuale completa</strong>
                     </p>
                     <textarea id="concept-map-final" class="input-field" 
-                              placeholder="Crea qui la tua mappa finale, più ricca e dettagliata di quella iniziale..."></textarea>
+                              placeholder="Crea qui la tua mappa finale, molto più ricca della iniziale..."></textarea>
                 </div>
 
                 <!-- PROGETTO FINALE -->
-                <h2 class="section-title">🚀 Compito Finale: Progetta un Intervento</h2>
+                <h2 class="section-title">🚀 Compito Finale: Progetta un Intervento Completo</h2>
                 
                 <div class="instructions">
-                    <h4>📋 Passo 3: Progetta un intervento reale</h4>
+                    <h4>📋 Passo 4: Progetta un intervento reale</h4>
                     <ol>
                         <li><strong>Scegli</strong> una situazione di bisogno (es: anziano solo, famiglia in difficoltà...)</li>
                         <li><strong>Identifica</strong> i bisogni secondo Maslow</li>
-                        <li><strong>Seleziona</strong> i servizi welfare che possono aiutare</li>
-                        <li><strong>Descrivi</strong> come l'operatore dovrebbe intervenire</li>
-                        <li><strong>Spiega</strong> quali reti (formali/informali) coinvolgere</li>
+                        <li><strong>Seleziona</strong> i servizi welfare (indicando pilastri ed enti)</li>
+                        <li><strong>Descrivi</strong> strumenti e competenze dell'operatore</li>
+                        <li><strong>Spiega</strong> come coinvolgere i 4 attori del welfare</li>
                     </ol>
                 </div>
 
                 <div style="background: #f9f9f9; padding: 2rem; border-radius: 10px; margin: 2rem 0;">
-                    <h3 style="color: #1a5c3a; margin-bottom: 1rem;">Il tuo progetto di intervento</h3>
+                    <h3 style="color: #1a5c3a; margin-bottom: 1rem;">Il tuo progetto di intervento completo</h3>
                     
                     <label style="display: block; font-weight: bold; margin-top: 1.5rem;">
                         Situazione / Persona in difficoltà
@@ -1503,29 +2056,30 @@
                               placeholder="Quali bisogni ha questa persona?"></textarea>
                     
                     <label style="display: block; font-weight: bold; margin-top: 1.5rem;">
-                        Servizi welfare da attivare
+                        Servizi welfare da attivare (indica pilastro ed ente)
                     </label>
                     <textarea id="project-services" class="input-field" 
-                              placeholder="Quali servizi (con i loro pilastri) possono aiutare?"></textarea>
+                              placeholder="Es: Assistenza domiciliare (Pilastro: Assistenza Sociale, Ente: Comune)..."></textarea>
                     
                     <label style="display: block; font-weight: bold; margin-top: 1.5rem;">
-                        Azioni dell'operatore
+                        Strumenti e competenze dell'operatore
                     </label>
                     <textarea id="project-actions" class="input-field" 
-                              placeholder="Cosa fa l'operatore? (colloquio, visita domiciliare, ecc.)"></textarea>
+                              placeholder="Quali strumenti usi (colloquio, visita...)? Quali competenze (sapere, saper fare, saper essere)?"></textarea>
                     
                     <label style="display: block; font-weight: bold; margin-top: 1.5rem;">
-                        Reti da coinvolgere (formali e informali)
+                        Come coinvolgi i 4 attori del welfare (Diamante)
                     </label>
                     <textarea id="project-networks" class="input-field" 
-                              placeholder="Chi coinvolgi? (ASL, famiglia, associazioni...)"></textarea>
+                              placeholder="STATO (es: ASL per cure), FAMIGLIA (es: figlia), TERZO SETTORE (es: volontari), MERCATO (es: benefit aziendali)..."></textarea>
                 </div>
 
                 <div class="info-box green" style="margin-top: 3rem;">
                     <h3>🎉 COMPLIMENTI! Hai completato tutte le 4 fasi!</h3>
                     <p style="margin-top: 1rem;">
-                        Ora hai una conoscenza completa del welfare: sai cos'è, come funziona, 
-                        come fare i collegamenti e sei capace di progettare un intervento reale.
+                        Ora hai una conoscenza completa del welfare: sai cos'è, come funziona, i suoi attori, 
+                        come fare i collegamenti, le tue competenze professionali, e sei capace di progettare 
+                        un intervento reale completo.
                     </p>
                     <p style="margin-top: 1rem; font-weight: bold;">
                         📄 Ricordati di stampare e consegnare il tuo lavoro al docente!
@@ -1746,6 +2300,25 @@
             }
         }
 
+        // ========== QUIZ MODELLI ==========
+        function checkQuizModello(quizNum, answer) {
+            const feedback = document.getElementById('feedback-modello' + quizNum);
+            const correct = {
+                1: 'B', // Universale
+                2: 'A', // Selettivo
+                3: 'A'  // Selettivo
+            };
+            
+            if (answer === correct[quizNum]) {
+                feedback.className = 'feedback correct';
+                feedback.textContent = '✅ Corretto!';
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.textContent = '❌ Non è corretto. Rifletti sulle caratteristiche dei modelli.';
+            }
+            saveData();
+        }
+
         // ========== TABELLA LAVORO ==========
         function addWorkRow() {
             const tbody = document.getElementById('work-tbody');
@@ -1796,9 +2369,14 @@
                     studentClass: document.getElementById('student-class-p1')?.value || '',
                     date: document.getElementById('activity-date-p1')?.value || '',
                     brainstorm: document.getElementById('brainstorm-welfare')?.value || '',
+                    competenzeAutoval: document.getElementById('competenze-autoval')?.value || '',
+                    diamondExample: document.getElementById('diamond-example')?.value || '',
                     conceptMapInitial: document.getElementById('concept-map-initial')?.value || ''
                 },
                 phase2: {
+                    enteEx1: document.getElementById('ente-ex1')?.value || '',
+                    enteEx2: document.getElementById('ente-ex2')?.value || '',
+                    enteEx3: document.getElementById('ente-ex3')?.value || '',
                     scenario1Needs: document.getElementById('scenario1-needs')?.value || '',
                     scenario1Services: document.getElementById('scenario1-services')?.value || '',
                     scenario2Needs: document.getElementById('scenario2-needs')?.value || '',
@@ -1808,9 +2386,15 @@
                     groupMembers: document.getElementById('group-members')?.value || '',
                     groupClass: document.getElementById('group-class')?.value || '',
                     groupDate: document.getElementById('group-date')?.value || '',
+                    modelloRiflessione: document.getElementById('modello-riflessione')?.value || '',
                     presentationNotes: document.getElementById('presentation-notes')?.value || '',
                     workTable: [],
-                    connections: []
+                    connections: [],
+                    quizModello: {
+                        q1: document.querySelector('input[name="quiz-modello1"]:checked')?.value || '',
+                        q2: document.querySelector('input[name="quiz-modello2"]:checked')?.value || '',
+                        q3: document.querySelector('input[name="quiz-modello3"]:checked')?.value || ''
+                    }
                 },
                 phase4: {
                     studentName: document.getElementById('reflection-name')?.value || '',
@@ -1823,6 +2407,7 @@
                     maslowDifficulty: document.getElementById('maslow-difficulty')?.value || '',
                     operatorExample: document.getElementById('operator-example')?.value || '',
                     networkCollaboration: document.getElementById('network-collaboration')?.value || '',
+                    competenzaSviluppare: document.getElementById('competenza-sviluppare')?.value || '',
                     participation: document.querySelector('input[name="participation"]:checked')?.value || '',
                     helpfulAspect: document.getElementById('helpful-aspect')?.value || '',
                     conceptMapFinal: document.getElementById('concept-map-final')?.value || '',
@@ -1830,7 +2415,22 @@
                     projectNeeds: document.getElementById('project-needs')?.value || '',
                     projectServices: document.getElementById('project-services')?.value || '',
                     projectActions: document.getElementById('project-actions')?.value || '',
-                    projectNetworks: document.getElementById('project-networks')?.value || ''
+                    projectNetworks: document.getElementById('project-networks')?.value || '',
+                    competenze: {
+                        pilastri: document.getElementById('comp-pilastri')?.checked || false,
+                        maslow: document.getElementById('comp-maslow')?.checked || false,
+                        enti: document.getElementById('comp-enti')?.checked || false,
+                        leggi: document.getElementById('comp-leggi')?.checked || false,
+                        modelli: document.getElementById('comp-modelli')?.checked || false,
+                        collegamenti: document.getElementById('comp-collegamenti')?.checked || false,
+                        analisi: document.getElementById('comp-analisi')?.checked || false,
+                        strumenti: document.getElementById('comp-strumenti')?.checked || false,
+                        progetto: document.getElementById('comp-progetto')?.checked || false,
+                        empatia: document.getElementById('comp-empatia')?.checked || false,
+                        ascolto: document.getElementById('comp-ascolto')?.checked || false,
+                        etica: document.getElementById('comp-etica')?.checked || false,
+                        riflessione: document.getElementById('comp-riflessione')?.checked || false
+                    }
                 }
             };
 
@@ -1855,12 +2455,12 @@
                 }
             });
 
-            localStorage.setItem('welfareActivity4Fasi', JSON.stringify(data));
+            localStorage.setItem('welfareActivity4FasiCompleto', JSON.stringify(data));
             showSaveStatus();
         }
 
         function loadData() {
-            const saved = localStorage.getItem('welfareActivity4Fasi');
+            const saved = localStorage.getItem('welfareActivity4FasiCompleto');
             if (!saved) return;
 
             const data = JSON.parse(saved);
@@ -1876,11 +2476,16 @@
                 if (document.getElementById('student-class-p1')) document.getElementById('student-class-p1').value = data.phase1.studentClass;
                 if (document.getElementById('activity-date-p1')) document.getElementById('activity-date-p1').value = data.phase1.date;
                 if (document.getElementById('brainstorm-welfare')) document.getElementById('brainstorm-welfare').value = data.phase1.brainstorm;
+                if (document.getElementById('competenze-autoval')) document.getElementById('competenze-autoval').value = data.phase1.competenzeAutoval;
+                if (document.getElementById('diamond-example')) document.getElementById('diamond-example').value = data.phase1.diamondExample;
                 if (document.getElementById('concept-map-initial')) document.getElementById('concept-map-initial').value = data.phase1.conceptMapInitial;
             }
 
             // Carica Fase 2
             if (data.phase2) {
+                if (document.getElementById('ente-ex1')) document.getElementById('ente-ex1').value = data.phase2.enteEx1;
+                if (document.getElementById('ente-ex2')) document.getElementById('ente-ex2').value = data.phase2.enteEx2;
+                if (document.getElementById('ente-ex3')) document.getElementById('ente-ex3').value = data.phase2.enteEx3;
                 if (document.getElementById('scenario1-needs')) document.getElementById('scenario1-needs').value = data.phase2.scenario1Needs;
                 if (document.getElementById('scenario1-services')) document.getElementById('scenario1-services').value = data.phase2.scenario1Services;
                 if (document.getElementById('scenario2-needs')) document.getElementById('scenario2-needs').value = data.phase2.scenario2Needs;
@@ -1892,7 +2497,33 @@
                 if (document.getElementById('group-members')) document.getElementById('group-members').value = data.phase3.groupMembers;
                 if (document.getElementById('group-class')) document.getElementById('group-class').value = data.phase3.groupClass;
                 if (document.getElementById('group-date')) document.getElementById('group-date').value = data.phase3.groupDate;
+                if (document.getElementById('modello-riflessione')) document.getElementById('modello-riflessione').value = data.phase3.modelloRiflessione;
                 if (document.getElementById('presentation-notes')) document.getElementById('presentation-notes').value = data.phase3.presentationNotes;
+
+                // Carica quiz modelli
+                if (data.phase3.quizModello) {
+                    if (data.phase3.quizModello.q1) {
+                        const radio1 = document.querySelector(`input[name="quiz-modello1"][value="${data.phase3.quizModello.q1}"]`);
+                        if (radio1) {
+                            radio1.checked = true;
+                            checkQuizModello(1, data.phase3.quizModello.q1);
+                        }
+                    }
+                    if (data.phase3.quizModello.q2) {
+                        const radio2 = document.querySelector(`input[name="quiz-modello2"][value="${data.phase3.quizModello.q2}"]`);
+                        if (radio2) {
+                            radio2.checked = true;
+                            checkQuizModello(2, data.phase3.quizModello.q2);
+                        }
+                    }
+                    if (data.phase3.quizModello.q3) {
+                        const radio3 = document.querySelector(`input[name="quiz-modello3"][value="${data.phase3.quizModello.q3}"]`);
+                        if (radio3) {
+                            radio3.checked = true;
+                            checkQuizModello(3, data.phase3.quizModello.q3);
+                        }
+                    }
+                }
 
                 // Carica tabella
                 if (data.phase3.workTable && data.phase3.workTable.length > 0) {
@@ -1962,6 +2593,7 @@
                 if (document.getElementById('maslow-difficulty')) document.getElementById('maslow-difficulty').value = data.phase4.maslowDifficulty;
                 if (document.getElementById('operator-example')) document.getElementById('operator-example').value = data.phase4.operatorExample;
                 if (document.getElementById('network-collaboration')) document.getElementById('network-collaboration').value = data.phase4.networkCollaboration;
+                if (document.getElementById('competenza-sviluppare')) document.getElementById('competenza-sviluppare').value = data.phase4.competenzaSviluppare;
                 if (document.getElementById('helpful-aspect')) document.getElementById('helpful-aspect').value = data.phase4.helpfulAspect;
                 if (document.getElementById('concept-map-final')) document.getElementById('concept-map-final').value = data.phase4.conceptMapFinal;
                 if (document.getElementById('project-situation')) document.getElementById('project-situation').value = data.phase4.projectSituation;
@@ -1973,6 +2605,14 @@
                 if (data.phase4.participation) {
                     const radio = document.querySelector(`input[name="participation"][value="${data.phase4.participation}"]`);
                     if (radio) radio.checked = true;
+                }
+
+                // Carica competenze
+                if (data.phase4.competenze) {
+                    Object.keys(data.phase4.competenze).forEach(key => {
+                        const checkbox = document.getElementById('comp-' + key);
+                        if (checkbox) checkbox.checked = data.phase4.competenze[key];
+                    });
                 }
             }
 
@@ -2001,7 +2641,7 @@
 
         function downloadCompleteHTML() {
             saveData();
-            const storedData = localStorage.getItem('welfareActivity4Fasi');
+            const storedData = localStorage.getItem('welfareActivity4FasiCompleto');
             const safeData = (storedData || '"{}"').replace(/<\/script/gi, '<\\/script');
             let htmlContent = document.documentElement.outerHTML;
 
@@ -2011,9 +2651,9 @@
             try {
                 var savedData = ${safeData};
                 if (typeof savedData === 'string') {
-                    localStorage.setItem('welfareActivity4Fasi', savedData);
+                    localStorage.setItem('welfareActivity4FasiCompleto', savedData);
                 } else {
-                    localStorage.setItem('welfareActivity4Fasi', JSON.stringify(savedData));
+                    localStorage.setItem('welfareActivity4FasiCompleto', JSON.stringify(savedData));
                 }
             } catch(e) { console.error('Errore:', e); }
         })();
@@ -2027,7 +2667,7 @@
             a.href = url;
             
             const now = new Date();
-            const filename = `welfare_4fasi_${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}.html`;
+            const filename = `welfare_4fasi_COMPLETO_${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}.html`;
             
             a.download = filename;
             document.body.appendChild(a);
