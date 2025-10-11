@@ -34,6 +34,9 @@ class ProgressStore {
     const body = [{ class_code: classCode, student_code: studentCode, page_path: pagePath, data }];
     return this._req(`${this.table}?on_conflict=student_code,page_path`, {
       method: 'POST',
+      headers: {
+        'Prefer': 'return=representation,resolution=merge-duplicates'
+      },
       body: JSON.stringify(body)
     });
   }
