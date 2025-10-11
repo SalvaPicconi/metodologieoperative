@@ -82,24 +82,33 @@ function restoreData(selector, saved) {
       const isPlainObject = value && typeof value === 'object' && !isArrayValue;
       const normalized = isPlainObject ? '' : value;
 
+      const normalizedStr = normalized == null ? '' : String(normalized);
+      const safeValue = normalizedStr === '[object Object]' ? '' : normalizedStr;
+
       if (type === 'checkbox') {
         el.checked = Boolean(normalized);
       } else if (type === 'radio') {
-        el.checked = el.value === normalized;
+        el.checked = normalizedStr && el.value === normalizedStr;
       } else if (type === 'date') {
-        if (normalized) {
+        if (safeValue) {
           try {
             const key = el.id || el.name || el.getAttribute('data-progress');
-            if (key) sessionStorage.setItem(`mo:date:${key}`, normalized);
-            el.value = normalized;
+            if (key) sessionStorage.setItem(`mo:date:${key}`, safeValue);
+            el.value = safeValue;
           } catch (storageError) {
-            el.value = normalized;
+            el.value = safeValue;
           }
         } else {
           const key = el.id || el.name || el.getAttribute('data-progress');
           if (key) {
             const stored = sessionStorage.getItem(`mo:date:${key}`);
-            if (stored) el.value = stored;
+            if (stored) {
+              el.value = stored;
+            } else {
+              el.value = '';
+            }
+          } else {
+            el.value = '';
           }
         }
       } else if (type === 'select-multiple' && isArrayValue) {
@@ -107,9 +116,9 @@ function restoreData(selector, saved) {
           opt.selected = normalized.includes(opt.value);
         });
       } else if (el.isContentEditable) {
-        el.innerHTML = normalized ?? '';
+        el.innerHTML = safeValue;
       } else {
-        el.value = normalized ?? '';
+        el.value = safeValue;
       }
     });
   });
