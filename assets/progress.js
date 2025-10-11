@@ -1,0 +1,105 @@
+const SUPABASE_URL = "https://IL-TUO-PROJECT-URL.supabase.co";
+const SUPABASE_ANON_KEY = "LA-TUA-ANON-KEY";
+
+class ProgressStore {
+  constructor({ url, key }) {
+    this.url = url;
+    this.key = key;
+    this.table = 'progress';
+  }
+
+  async _req(path, opts = {}) {
+    const res = await fetch(`${this.url}/rest/v1/${path}`, {
+      ...opts,
+      headers: {
+        'apikey': this.key,
+        'Authorization': `Bearer ${this.key}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=representation',
+        ...(opts.headers || {})
+      }
+    });
+    if (!res.ok) throw new Error(await res.text());
+    return res.headers.get('content-type')?.includes('application/json') ? res.json() : res.text();
+  }
+
+  async save({ classCode, studentCode, pagePath, data }) {
+    const body = [{ class_code: classCode, student_code: studentCode, page_path: pagePath, data }];
+    return this._req(`${this.table}?on_conflict=student_code,page_path`, {
+      method: 'POST',
+      body: JSON.stringify(body)
+    });
+  }
+
+  async load({ studentCode, pagePath }) {
+    const q = new URLSearchParams({
+      select: '*',
+      student_code: `eq.${studentCode}`,
+      page_path: `eq.${pagePath}`,
+      limit: '1'
+    }).toString();
+    const rows = await this._req(`${this.table}?${q}`);
+    return rows?.[0]?.data || null;
+  }
+}
+
+function askIdentity() {
+  let cls = localStorage.getItem('mo:class');
+  let code = localStorage.getItem('mo:code');
+  if (cls && code) return { classCode: cls, studentCode: code };
+
+  // crea popup grafico
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;display:grid;place-items:center;background:#0007;z-index:9999;';
+  overlay.innerHTML = `
+    <div style="background:#fff;padding:20px;border-radius:12px;max-width:360px;width:90%;font:16px system-ui;">
+      <h3>Accedi come studente</h3>
+      <p style="margin:0 0 8px;">Inserisci la tua classe e il codice personale.</p>
+      <input id="cls" placeholder="Classe (es. 3B)" style="width:100%;margin-bottom:8px;padding:6px;border:1px solid #ccc;border-radius:6px;">
+      <input id="cod" placeholder="Codice (es. 3B-AB12CD)" style="width:100%;margin-bottom:12px;padding:6px;border:1px solid #ccc;border-radius:6px;">
+      <div style="text-align:right;">
+        <button id="gen" style="margin-right:8px;padding:6px 10px;">Genera codice</button>
+        <button id="ok" style="background:#0ea5e9;color:#fff;padding:6px 10px;border:none;border-radius:6px;">Continua</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+
+  return new Promise(resolve => {
+    overlay.querySelector('#gen').onclick = () => {
+      const c = overlay.querySelector('#cls').value.trim() || '3B';
+      overlay.querySelector('#cod').value = `${c}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
+    };
+    overlay.querySelector('#ok').onclick = () => {
+      const c1 = overlay.querySelector('#cls').value.trim();
+      const c2 = overlay.querySelector('#cod').value.trim();
+      if (!c1 || !c2) return alert('Inserisci classe e codice');
+      localStorage.setItem('mo:class', c1);
+      localStorage.setItem('mo:code', c2);
+      overlay.remove();
+      resolve({ classCode: c1, studentCode: c2 });
+    };
+  });
+}
+
+export const Progress = (() => {
+  const store = new ProgressStore({ url: SUPABASE_URL, key: SUPABASE_ANON_KEY });
+
+  async function ensureIdentity() {
+    const cls = localStorage.getItem('mo:class');
+    const code = localStorage.getItem('mo:code');
+    if (cls && code) return { classCode: cls, studentCode: code };
+    return askIdentity();
+  }
+
+  async function load(pagePath = location.pathname) {
+    const id = await ensureIdentity();
+    return store.load({ studentCode: id.studentCode, pagePath });
+  }
+
+  async function save(data, pagePath = location.pathname) {
+    const id = await ensureIdentity();
+    return store.save({ classCode: id.classCode, studentCode: id.studentCode, pagePath, data });
+  }
+
+  return { load, save };
+})();
