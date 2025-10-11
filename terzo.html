@@ -57,10 +57,12 @@
     </footer>
 
     <script src="materiali.js"></script>
-
-    <script type="module">
-      import { setupProgress } from './assets/progress-page.js?v=20251015';
-      setupProgress();
+    <script>
+        window.MO_PROGRESS_CONFIG = {
+            inputSelector: '.progress-box textarea',
+            pagePath: window.location.pathname
+        };
     </script>
+    <script type="module" src="assets/progress-auto.js?v=20251016"></script>
 </body>
 </html>

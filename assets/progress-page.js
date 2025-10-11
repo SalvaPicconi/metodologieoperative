@@ -1,4 +1,4 @@
-import { Progress } from './progress.js?v=20251015';
+import { Progress } from './progress.js?v=20251016';
 
 const DEFAULTS = {
   inputSelector: 'input:not([type="file"]), textarea, select',
@@ -83,7 +83,10 @@ function ensureButton({ buttonId, buttonLabel, buttonStyles, autoCreateButton })
 }
 
 export async function setupProgress(options = {}) {
-  const config = { ...DEFAULTS, ...options };
+  const globalOptions = (typeof window !== 'undefined' && window.MO_PROGRESS_CONFIG)
+    ? window.MO_PROGRESS_CONFIG
+    : {};
+  const config = { ...DEFAULTS, ...globalOptions, ...options };
   const pagePath = config.pagePath || window.location.pathname;
   const inputsSelector = config.inputSelector;
 

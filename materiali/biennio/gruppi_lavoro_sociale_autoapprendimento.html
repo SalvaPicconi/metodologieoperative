@@ -1715,10 +1715,8 @@
             }
         });
     </script>
-    <script type="module">
-        import { setupProgress } from '../../assets/progress-page.js?v=20251015';
-
-        setupProgress({
+    <script>
+        window.MO_PROGRESS_CONFIG = {
             pagePath: window.location.pathname,
             inputSelector: 'textarea, input:not([type=\"file\"])',
             onBeforeSave(data) {
@@ -1733,7 +1731,8 @@
                     }
                 }
             }
-        });
+        };
     </script>
+    <script type="module" src="../../assets/progress-auto.js?v=20251016"></script>
 </body>
 </html>
