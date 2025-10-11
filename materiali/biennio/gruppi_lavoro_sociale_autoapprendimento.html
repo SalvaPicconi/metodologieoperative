@@ -551,7 +551,9 @@
         </div>
 
         <!-- BARRA DI PROGRESSO -->
-        <div class="progress-bar-container">
+            <input type="hidden" id="fase_corrente" name="fase_corrente" value="1">
+
+            <div class="progress-bar-container">
             <div class="progress-bar">
                 <div class="progress-step active" data-fase="1">
                     <div class="progress-circle">1</div>
@@ -1619,6 +1621,10 @@
     <script>
         // GESTIONE NAVIGAZIONE FASI
         let faseCorrente = 1;
+        const faseHiddenInput = document.getElementById('fase_corrente');
+        if (faseHiddenInput) {
+            faseHiddenInput.value = String(faseCorrente);
+        }
 
         function cambiaFase(nuovaFase) {
             // Nascondi fase corrente
@@ -1639,6 +1645,9 @@
             // Mostra nuova fase
             document.getElementById('fase' + nuovaFase).classList.add('active');
             faseCorrente = nuovaFase;
+            if (faseHiddenInput) {
+                faseHiddenInput.value = String(faseCorrente);
+            }
 
             // Aggiorna testo progresso
             const progressText = document.getElementById('progress-text');
@@ -1682,27 +1691,6 @@
             window.print();
         }
 
-        // SALVATAGGIO AUTOMATICO NEL BROWSER
-        setInterval(function() {
-            const allInputs = document.querySelectorAll('textarea, input[type="text"]');
-            allInputs.forEach(input => {
-                if (input.value) {
-                    localStorage.setItem(input.id, input.value);
-                }
-            });
-        }, 30000); // Salva ogni 30 secondi
-
-        // CARICAMENTO DATI SALVATI
-        window.addEventListener('load', function() {
-            const allInputs = document.querySelectorAll('textarea, input[type="text"]');
-            allInputs.forEach(input => {
-                const savedValue = localStorage.getItem(input.id);
-                if (savedValue) {
-                    input.value = savedValue;
-                }
-            });
-        });
-
         // ANIMAZIONI SCROLL
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -1724,6 +1712,26 @@
             if (hasContent) {
                 e.preventDefault();
                 e.returnValue = '';
+            }
+        });
+    </script>
+    <script type="module">
+        import { setupProgress } from '../../assets/progress-page.js?v=20251015';
+
+        setupProgress({
+            pagePath: window.location.pathname,
+            inputSelector: 'textarea, input:not([type=\"file\"])',
+            onBeforeSave(data) {
+                data.fase_corrente = String(faseCorrente);
+                return data;
+            },
+            onRestore(saved) {
+                if (saved && saved.fase_corrente) {
+                    const fase = parseInt(saved.fase_corrente, 10);
+                    if (!Number.isNaN(fase) && fase >= 1 && fase <= 4 && fase !== faseCorrente) {
+                        cambiaFase(fase);
+                    }
+                }
             }
         });
     </script>

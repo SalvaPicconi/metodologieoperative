@@ -1,27 +1,45 @@
 import { Progress } from './progress.js?v=20251015';
 
 const DEFAULTS = {
-  inputSelector: 'input[name], textarea[name], select[name]',
+  inputSelector: 'input:not([type="file"]), textarea, select',
   buttonId: 'saveProgressBtn',
   buttonLabel: '💾 Salva progressi',
   buttonStyles: 'position:fixed;right:16px;bottom:16px;padding:10px 14px;border-radius:10px;border:0;background:#0ea5e9;color:#fff;box-shadow:0 6px 14px rgba(0,0,0,.15);z-index:99999;cursor:pointer;',
   autoCreateButton: true,
   pagePath: null,
+  onBeforeSave: null,
+  onRestore: null,
   debug: false
 };
+
+function getFieldKey(el) {
+  if (el.matches('[data-progress-ignore]')) return null;
+  return el.getAttribute('data-progress') || el.getAttribute('name') || el.id || null;
+}
+
+function escapeSelector(value) {
+  if (typeof CSS !== 'undefined' && typeof CSS.escape === 'function') {
+    return CSS.escape(value);
+  }
+  return String(value).replace(/([ !"#$%&'()*+,./:;<=>?@[\\\]^`{|}~])/g, '\\$1');
+}
 
 function collectData(selector) {
   const data = {};
   document.querySelectorAll(selector).forEach(el => {
-    const name = el.getAttribute('name');
-    if (!name) return;
+    const key = getFieldKey(el);
+    if (!key) return;
 
-    if (el.type === 'checkbox') {
-      data[name] = el.checked;
-    } else if (el.type === 'radio') {
-      if (el.checked) data[name] = el.value;
+    const type = (el.type || '').toLowerCase();
+
+    if (type === 'checkbox') {
+      data[key] = el.checked;
+    } else if (type === 'radio') {
+      if (el.checked) data[key] = el.value;
+    } else if (type === 'select-multiple') {
+      data[key] = Array.from(el.selectedOptions).map(opt => opt.value);
     } else {
-      data[name] = el.value;
+      data[key] = el.value;
     }
   });
   return data;
@@ -29,15 +47,21 @@ function collectData(selector) {
 
 function restoreData(selector, saved) {
   if (!saved) return;
-  Object.entries(saved).forEach(([name, value]) => {
-    const elements = document.querySelectorAll(`${selector}[name="${name}"]`);
+  Object.entries(saved).forEach(([key, value]) => {
+    const escaped = escapeSelector(key);
+    const elements = document.querySelectorAll(`${selector}[name="${key}"], ${selector}[data-progress="${key}"], ${selector}#${escaped}`);
     if (!elements.length) return;
 
     elements.forEach(el => {
-      if (el.type === 'checkbox') {
+      const type = (el.type || '').toLowerCase();
+      if (type === 'checkbox') {
         el.checked = Boolean(value);
-      } else if (el.type === 'radio') {
+      } else if (type === 'radio') {
         el.checked = el.value === value;
+      } else if (type === 'select-multiple' && Array.isArray(value)) {
+        Array.from(el.options).forEach(opt => {
+          opt.selected = value.includes(opt.value);
+        });
       } else {
         el.value = value ?? '';
       }
@@ -73,6 +97,13 @@ export async function setupProgress(options = {}) {
     try {
       const saved = await Progress.load(pagePath);
       restoreData(inputsSelector, saved);
+      if (typeof config.onRestore === 'function') {
+        try {
+          config.onRestore(saved);
+        } catch (hookErr) {
+          console.error('[Progress] Errore in onRestore:', hookErr);
+        }
+      }
       if (config.debug) {
         console.log('[Progress] Dati ripristinati', saved);
       }
@@ -86,9 +117,25 @@ export async function setupProgress(options = {}) {
     const originalLabel = button.textContent;
     button.textContent = '⏳ Salvataggio...';
     try {
-      const data = collectData(inputsSelector);
+      let data = collectData(inputsSelector);
+      if (typeof config.onBeforeSave === 'function') {
+        try {
+          const extra = config.onBeforeSave(data) || {};
+          if (extra && typeof extra === 'object') {
+            data = { ...data, ...extra };
+          }
+        } catch (hookErr) {
+          console.error('[Progress] Errore in onBeforeSave:', hookErr);
+        }
+      }
       await Progress.save(data, pagePath);
-      if (config.onSave) config.onSave(data);
+      if (typeof config.onSave === 'function') {
+        try {
+          config.onSave(data);
+        } catch (hookErr) {
+          console.error('[Progress] Errore in onSave:', hookErr);
+        }
+      }
       if (config.debug) console.log('[Progress] Salvataggio riuscito', data);
       alert('Progressi salvati!');
     } catch (error) {
@@ -106,10 +153,22 @@ export async function setupProgress(options = {}) {
     document.addEventListener('DOMContentLoaded', loadAndRestore, { once: true });
   } else {
     await loadAndRestore();
+  return {
+    save: handleSave,
+    reload: loadAndRestore,
+    button
+  };
+}
+
+export function resetProgressSession() {
+  sessionStorage.removeItem('mo:class');
+  sessionStorage.removeItem('mo:code');
+  if (window.MOProgress) {
+    window.MOProgress.identityCleared = true;
   }
 }
 
 // per debug manuale
 if (window && !window.MOProgress) {
-  window.MOProgress = { Progress, setupProgress };
+    window.MOProgress = { Progress, setupProgress, resetProgressSession };
 }
