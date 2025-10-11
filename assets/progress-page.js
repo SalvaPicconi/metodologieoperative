@@ -1,4 +1,4 @@
-import { Progress } from './progress.js?v=20251016';
+import { Progress } from './progress.js?v=20251017';
 
 const DEFAULTS = {
   inputSelector: 'input:not([type="file"]), textarea, select',
@@ -184,6 +184,8 @@ export async function setupProgress(options = {}) {
     document.addEventListener('DOMContentLoaded', loadAndRestore, { once: true });
   } else {
     await loadAndRestore();
+  }
+
   return {
     save: handleSave,
     reload: loadAndRestore,
