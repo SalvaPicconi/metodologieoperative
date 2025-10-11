@@ -93,12 +93,18 @@ function askIdentity() {
 
 export const Progress = (() => {
   const store = new ProgressStore({ url: SUPABASE_URL, key: SUPABASE_ANON_KEY });
+  let identityPromise = null;
 
   async function ensureIdentity() {
     const cls = localStorage.getItem('mo:class');
     const code = localStorage.getItem('mo:code');
     if (cls && code) return { classCode: cls, studentCode: code };
-    return askIdentity();
+    if (!identityPromise) {
+      identityPromise = askIdentity().finally(() => {
+        identityPromise = null;
+      });
+    }
+    return identityPromise;
   }
 
   async function load(pagePath = location.pathname) {
