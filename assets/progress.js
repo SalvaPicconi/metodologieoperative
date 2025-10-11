@@ -1,5 +1,5 @@
-const SUPABASE_URL = "https://IL-TUO-PROJECT-URL.supabase.co";
-const SUPABASE_ANON_KEY = "LA-TUA-ANON-KEY";
+const SUPABASE_URL = "https://ruplzgcnheddmqqdephp.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1cGx6Z2NuaGVkZG1xcWRlcGhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAxMTYyMjksImV4cCI6MjA3NTY5MjIyOX0.tOLIkgi5yTt61_0rMlXUqxnbil4DLD7kBaqZBVAv1CI";
 
 class ProgressStore {
   constructor({ url, key }) {
