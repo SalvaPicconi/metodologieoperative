@@ -1,4 +1,4 @@
-import { Progress } from './progress.js?v=20251018';
+import { Progress } from './progress.js?v=20251019';
 
 const DEFAULTS = {
   inputSelector: 'input:not([type="file"]), textarea, select',
@@ -86,6 +86,22 @@ function restoreData(selector, saved) {
         el.checked = Boolean(normalized);
       } else if (type === 'radio') {
         el.checked = el.value === normalized;
+      } else if (type === 'date') {
+        if (normalized) {
+          try {
+            const key = el.id || el.name || el.getAttribute('data-progress');
+            if (key) sessionStorage.setItem(`mo:date:${key}`, normalized);
+            el.value = normalized;
+          } catch (storageError) {
+            el.value = normalized;
+          }
+        } else {
+          const key = el.id || el.name || el.getAttribute('data-progress');
+          if (key) {
+            const stored = sessionStorage.getItem(`mo:date:${key}`);
+            if (stored) el.value = stored;
+          }
+        }
       } else if (type === 'select-multiple' && isArrayValue) {
         Array.from(el.options).forEach(opt => {
           opt.selected = normalized.includes(opt.value);
