@@ -33,6 +33,8 @@
                 <p>Classe Terza</p>
             </div>
 
+            <input name="prova" placeholder="Scrivi qui per test" />
+
             <div id="materiali-lista">
                 <div class="loading">Caricamento materiali in corso...</div>
             </div>
@@ -52,5 +54,48 @@
     </footer>
 
     <script src="materiali.js"></script>
+
+    <!-- Libreria progressi -->
+    <script type="module" src="/assets/progress.js"></script>
+
+    <!-- Integrazione minima: carica/salva tutti i campi con name -->
+    <script type="module">
+      import { Progress } from '/assets/progress.js';
+
+      function collectData() {
+        const data = {};
+        document.querySelectorAll('input, textarea, select').forEach(el => {
+          if (el.name) data[el.name] = el.value;
+        });
+        return data;
+      }
+
+      function restoreData(saved) {
+        if (!saved) return;
+        for (const [k, v] of Object.entries(saved)) {
+          const el = document.querySelector(`[name="${k}"]`);
+          if (el) el.value = v;
+        }
+      }
+
+      // Carica all’avvio
+      (async () => {
+        const saved = await Progress.load();
+        restoreData(saved);
+      })();
+
+      // Salva al click
+      document.addEventListener('click', async (e) => {
+        if (e.target.matches('[data-save-progress]')) {
+          await Progress.save(collectData());
+          alert('Progressi salvati!');
+        }
+      });
+    </script>
+
+    <!-- Pulsante visibile per il salvataggio -->
+    <button data-save-progress style="position:fixed;right:16px;bottom:16px;padding:10px 14px;border-radius:10px;border:0;background:#0ea5e9;color:#fff;box-shadow:0 6px 14px rgba(0,0,0,.15);z-index:999;">
+      💾 Salva progressi
+    </button>
 </body>
 </html>
