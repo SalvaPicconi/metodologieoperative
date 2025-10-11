@@ -33,6 +33,11 @@
                 <p>Classe Quinta</p>
             </div>
 
+            <section class="progress-box">
+                <h3>📝 Le mie annotazioni</h3>
+                <textarea name="progress_note" placeholder="Annota qui il lavoro svolto, le attività completate o i dubbi da rivedere." rows="6"></textarea>
+            </section>
+
             <div id="materiali-lista">
                 <div class="loading">Caricamento materiali in corso...</div>
             </div>
@@ -52,5 +57,9 @@
     </footer>
 
     <script src="materiali.js"></script>
+    <script type="module">
+        import { setupProgress } from './assets/progress-page.js?v=20251015';
+        setupProgress();
+    </script>
 </body>
 </html>

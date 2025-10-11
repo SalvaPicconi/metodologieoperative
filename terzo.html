@@ -33,7 +33,10 @@
                 <p>Classe Terza</p>
             </div>
 
-            <input name="prova" placeholder="Scrivi qui per test" />
+            <section class="progress-box">
+                <h3>📝 Le mie annotazioni</h3>
+                <textarea name="progress_note" placeholder="Annota qui il lavoro svolto, le attività completate o i dubbi da rivedere." rows="6"></textarea>
+            </section>
 
             <div id="materiali-lista">
                 <div class="loading">Caricamento materiali in corso...</div>
@@ -55,78 +58,9 @@
 
     <script src="materiali.js"></script>
 
-    <!-- Libreria progressi -->
-    <script type="module" src="assets/progress.js?v=20251015"></script>
-
-    <!-- Integrazione e debug -->
     <script type="module">
-      import { Progress } from './assets/progress.js?v=20251015';
-      console.log('Progress loaded?', !!Progress);
-
-      // Test rapido: forza una lettura (SELECT) per vedere se risponde
-      (async () => {
-        try {
-          const fake = await Progress.load('/__health__/terzo');
-          console.log('Health check SELECT ok:', fake);
-        } catch (e) {
-          console.error('Health check error:', e);
-        }
-      })();
-
-      // Forza la richiesta di Classe/Codice al primo caricamento (solo per test)
-      (async () => {
-        try { await Progress.save({ _ping: Date.now() }); }
-        catch (e) { console.warn('Ping save error (ok per test):', e); }
-      })();
-
-      function collectData() {
-        const d = {};
-        document.querySelectorAll('input, textarea, select').forEach(el => {
-          if (el.name) d[el.name] = el.value;
-        });
-        return d;
-      }
-
-      function restoreData(s) {
-        if (!s) return;
-        for (const [k, v] of Object.entries(s)) {
-          const el = document.querySelector(`[name="${k}"]`);
-          if (el) el.value = v;
-        }
-      }
-
-      // Carica all’avvio
-      (async () => {
-        try {
-          const saved = await Progress.load();
-          restoreData(saved);
-        } catch (e) {
-          console.error('Load error:', e);
-        }
-      })();
-
-      // Salva al click
-      document.addEventListener('click', async (e) => {
-        if (e.target.matches('#saveProgressBtn')) {
-          console.log('Save button clicked');
-          e.target.textContent = '⏳ Salvataggio...';
-          try {
-            await Progress.save(collectData());
-            alert('Progressi salvati!');
-          } catch (err) {
-            console.error('Save error:', err);
-            alert('Errore salvataggio: ' + (err.message || err));
-          } finally {
-            e.target.textContent = '💾 Salva progressi';
-          }
-        }
-      });
+      import { setupProgress } from './assets/progress-page.js?v=20251015';
+      setupProgress();
     </script>
-
-    <!-- Pulsante visibile per il salvataggio -->
-    <button id="saveProgressBtn" data-save-progress
-      style="position:fixed;right:16px;bottom:16px;padding:10px 14px;border-radius:10px;border:0;background:#0ea5e9;color:#fff;box-shadow:0 6px 14px rgba(0,0,0,.15);z-index:99999;cursor:pointer;">
-      💾 Salva progressi
-    </button>
 </body>
 </html>
