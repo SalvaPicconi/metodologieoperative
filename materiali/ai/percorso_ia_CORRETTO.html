@@ -2339,5 +2339,47 @@
             }, 300);
         }
     </script>
+    <script>
+        window.MO_PROGRESS_CONFIG = {
+            pagePath: window.location.pathname,
+            inputSelector: 'textarea, input:not([type="file"]), select, [contenteditable="true"]',
+            onBeforeSave(data) {
+                data.punti = punti;
+                data.badgesGuadagnati = badgesGuadagnati;
+                data.completamento = completamento;
+                data.faseCorrente = faseCorrente;
+                const badgeContainer = document.getElementById('badgeContainer');
+                if (badgeContainer) data.badgesHTML = badgeContainer.innerHTML;
+                return data;
+            },
+            onRestore(saved) {
+                if (!saved) return;
+                if (typeof saved.punti !== 'undefined') {
+                    punti = parseInt(saved.punti, 10) || 0;
+                    document.getElementById('points').textContent = punti;
+                    aggiornaCompletamento();
+                }
+                if (typeof saved.badgesGuadagnati !== 'undefined') {
+                    badgesGuadagnati = parseInt(saved.badgesGuadagnati, 10) || 0;
+                    document.getElementById('badges').textContent = badgesGuadagnati;
+                }
+                if (typeof saved.completamento !== 'undefined') {
+                    completamento = parseInt(saved.completamento, 10) || 0;
+                    document.getElementById('completion').textContent = completamento + '%';
+                }
+                if (saved.badgesHTML) {
+                    const container = document.getElementById('badgeContainer');
+                    if (container) container.innerHTML = saved.badgesHTML;
+                }
+                if (saved.faseCorrente) {
+                    const fase = parseInt(saved.faseCorrente, 10);
+                    if (!Number.isNaN(fase) && fase >= 1 && fase <= 4) {
+                        goToFase(fase);
+                    }
+                }
+            }
+        };
+    </script>
+    <script type="module" src="../../assets/progress-auto.js?v=20251016"></script>
 </body>
 </html>

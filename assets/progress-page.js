@@ -12,9 +12,31 @@ const DEFAULTS = {
   debug: false
 };
 
-function getFieldKey(el) {
+const AUTO_KEY_MAP = new WeakMap();
+let autoKeyCounter = 0;
+
+function ensureFieldKey(el) {
   if (el.matches('[data-progress-ignore]')) return null;
-  return el.getAttribute('data-progress') || el.getAttribute('name') || el.id || null;
+
+  const existing = el.getAttribute('data-progress') || el.getAttribute('name') || el.id;
+  if (existing) {
+    AUTO_KEY_MAP.set(el, existing);
+    return existing;
+  }
+
+  const cached = AUTO_KEY_MAP.get(el);
+  if (cached) return cached;
+
+  const generated = `auto_field_${autoKeyCounter++}`;
+  el.setAttribute('data-progress', generated);
+  AUTO_KEY_MAP.set(el, generated);
+  return generated;
+}
+
+function prepareFields(selector) {
+  document.querySelectorAll(selector).forEach(el => {
+    ensureFieldKey(el);
+  });
 }
 
 function escapeSelector(value) {
@@ -27,7 +49,7 @@ function escapeSelector(value) {
 function collectData(selector) {
   const data = {};
   document.querySelectorAll(selector).forEach(el => {
-    const key = getFieldKey(el);
+    const key = ensureFieldKey(el);
     if (!key) return;
 
     const type = (el.type || '').toLowerCase();
@@ -38,6 +60,8 @@ function collectData(selector) {
       if (el.checked) data[key] = el.value;
     } else if (type === 'select-multiple') {
       data[key] = Array.from(el.selectedOptions).map(opt => opt.value);
+    } else if (el.isContentEditable) {
+      data[key] = el.innerHTML;
     } else {
       data[key] = el.value;
     }
@@ -62,6 +86,8 @@ function restoreData(selector, saved) {
         Array.from(el.options).forEach(opt => {
           opt.selected = value.includes(opt.value);
         });
+      } else if (el.isContentEditable) {
+        el.innerHTML = value ?? '';
       } else {
         el.value = value ?? '';
       }
@@ -89,6 +115,8 @@ export async function setupProgress(options = {}) {
   const config = { ...DEFAULTS, ...globalOptions, ...options };
   const pagePath = config.pagePath || window.location.pathname;
   const inputsSelector = config.inputSelector;
+
+  prepareFields(inputsSelector);
 
   const button = ensureButton(config);
   if (!button) {

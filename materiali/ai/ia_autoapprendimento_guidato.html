@@ -1298,6 +1298,7 @@ STOP CONDITION: ..."></textarea>
         let points = 0;
         let badgesEarned = 0;
         let completionPercentage = 0;
+        let currentPhase = 1;
 
         // ==================== SISTEMA PUNTI E GAMIFICATION ====================
         function addPoints(amount, reason) {
@@ -1379,6 +1380,8 @@ STOP CONDITION: ..."></textarea>
 
             // Aggiorna la barra di progresso
             updateProgressBar(phaseNumber);
+
+            currentPhase = phaseNumber;
 
             // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1688,5 +1691,48 @@ STOP CONDITION: ..."></textarea>
         // Salva prima di chiudere
         window.addEventListener('beforeunload', salvaRisposte);
     </script>
+    <script>
+        window.MO_PROGRESS_CONFIG = {
+            pagePath: window.location.pathname,
+            inputSelector: 'textarea, input:not([type="file"]), select, [contenteditable="true"]',
+            onBeforeSave(data) {
+                data.points = points;
+                data.badgesEarned = badgesEarned;
+                data.completionPercentage = completionPercentage;
+                data.currentPhase = currentPhase;
+                const badgeContainer = document.getElementById('badges-earned');
+                if (badgeContainer) {
+                    data.badgesHTML = badgeContainer.innerHTML;
+                }
+                return data;
+            },
+            onRestore(saved) {
+                if (!saved) return;
+                if (typeof saved.points !== 'undefined') {
+                    points = parseInt(saved.points, 10) || 0;
+                    document.getElementById('points').textContent = points;
+                }
+                if (typeof saved.badgesEarned !== 'undefined') {
+                    badgesEarned = parseInt(saved.badgesEarned, 10) || 0;
+                    document.getElementById('badges').textContent = badgesEarned;
+                }
+                if (typeof saved.completionPercentage !== 'undefined') {
+                    completionPercentage = parseInt(saved.completionPercentage, 10) || 0;
+                    document.getElementById('completion').textContent = completionPercentage + '%';
+                }
+                if (saved.badgesHTML) {
+                    const container = document.getElementById('badges-earned');
+                    if (container) container.innerHTML = saved.badgesHTML;
+                }
+                if (saved.currentPhase) {
+                    const phase = parseInt(saved.currentPhase, 10);
+                    if (!Number.isNaN(phase) && phase >= 1 && phase <= 4) {
+                        goToPhase(phase);
+                    }
+                }
+            }
+        };
+    </script>
+    <script type="module" src="../../assets/progress-auto.js?v=20251016"></script>
 </body>
 </html>
