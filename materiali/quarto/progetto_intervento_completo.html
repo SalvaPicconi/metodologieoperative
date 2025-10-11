@@ -646,11 +646,11 @@
         </header>
 
         <div class="tabs">
-            <button class="tab-button active" onclick="openTab('teoria')">📚 TEORIA</button>
-            <button class="tab-button" onclick="openTab('schemi')">🗺️ SCHEMI</button>
-            <button class="tab-button" onclick="openTab('esercitazioni')">✍️ ESERCITAZIONI</button>
-            <button class="tab-button" onclick="openTab('compiti')">📝 COMPITI</button>
-            <button class="tab-button" onclick="openTab('casi')">💼 BANCA CASI</button>
+            <button class="tab-button active" onclick="openTab(this, 'teoria')">📚 TEORIA</button>
+            <button class="tab-button" onclick="openTab(this, 'schemi')">🗺️ SCHEMI</button>
+            <button class="tab-button" onclick="openTab(this, 'esercitazioni')">✍️ ESERCITAZIONI</button>
+            <button class="tab-button" onclick="openTab(this, 'compiti')">📝 COMPITI</button>
+            <button class="tab-button" onclick="openTab(this, 'casi')">💼 BANCA CASI</button>
         </div>
 
         <div class="content">
@@ -1011,7 +1011,7 @@
 
     <script>
         // GESTIONE TABS
-        function openTab(tabName) {
+        function openTab(buttonEl, tabName) {
             const tabs = document.querySelectorAll('.tab-content');
             const buttons = document.querySelectorAll('.tab-button');
             
@@ -1019,7 +1019,7 @@
             buttons.forEach(btn => btn.classList.remove('active'));
             
             document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
+            if (buttonEl) buttonEl.classList.add('active');
 
             if (tabName === 'esercitazioni' && !window.exercisesLoaded) {
                 caricaEsercizi();
@@ -2053,7 +2053,7 @@
                     if (saved && saved._progettoTab) {
                         const button = document.querySelector(`.tab-button[onclick*="${saved._progettoTab}"]`);
                         if (button && typeof openTab === 'function') {
-                            openTab({ currentTarget: button }, saved._progettoTab);
+                            openTab(button, saved._progettoTab);
                         }
                     }
                 } catch (error) {
