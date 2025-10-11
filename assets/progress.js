@@ -53,10 +53,61 @@ class ProgressStore {
   }
 }
 
+const STORAGE_KEYS = {
+  classCode: 'mo:class',
+  studentCode: 'mo:code'
+};
+
+const identityCache = {
+  classCode: null,
+  studentCode: null
+};
+
+function clearLegacyIdentity() {
+  try {
+    localStorage.removeItem(STORAGE_KEYS.classCode);
+    localStorage.removeItem(STORAGE_KEYS.studentCode);
+  } catch (error) {
+    // ignoriamo browser che bloccano localStorage
+  }
+}
+
+clearLegacyIdentity();
+
+function readIdentity() {
+  if (identityCache.classCode && identityCache.studentCode) {
+    return { ...identityCache };
+  }
+  try {
+    const cls = sessionStorage.getItem(STORAGE_KEYS.classCode);
+    const code = sessionStorage.getItem(STORAGE_KEYS.studentCode);
+    if (cls && code) {
+      identityCache.classCode = cls;
+      identityCache.studentCode = code;
+      return { classCode: cls, studentCode: code };
+    }
+  } catch (error) {
+    console.warn('SessionStorage non disponibile, uso memoria volatile:', error);
+  }
+  return identityCache.classCode && identityCache.studentCode
+    ? { ...identityCache }
+    : null;
+}
+
+function writeIdentity(cls, code) {
+  identityCache.classCode = cls;
+  identityCache.studentCode = code;
+  try {
+    sessionStorage.setItem(STORAGE_KEYS.classCode, cls);
+    sessionStorage.setItem(STORAGE_KEYS.studentCode, code);
+  } catch (error) {
+    console.warn('Impossibile salvare in sessionStorage:', error);
+  }
+}
+
 function askIdentity() {
-  let cls = localStorage.getItem('mo:class');
-  let code = localStorage.getItem('mo:code');
-  if (cls && code) return { classCode: cls, studentCode: code };
+  const existing = readIdentity();
+  if (existing) return Promise.resolve(existing);
 
   // crea popup grafico
   const overlay = document.createElement('div');
@@ -83,8 +134,7 @@ function askIdentity() {
       const c1 = overlay.querySelector('#cls').value.trim();
       const c2 = overlay.querySelector('#cod').value.trim();
       if (!c1 || !c2) return alert('Inserisci classe e codice');
-      localStorage.setItem('mo:class', c1);
-      localStorage.setItem('mo:code', c2);
+      writeIdentity(c1, c2);
       overlay.remove();
       resolve({ classCode: c1, studentCode: c2 });
     };
@@ -96,9 +146,8 @@ export const Progress = (() => {
   let identityPromise = null;
 
   async function ensureIdentity() {
-    const cls = localStorage.getItem('mo:class');
-    const code = localStorage.getItem('mo:code');
-    if (cls && code) return { classCode: cls, studentCode: code };
+    const cached = readIdentity();
+    if (cached) return cached;
     if (!identityPromise) {
       identityPromise = askIdentity().finally(() => {
         identityPromise = null;
