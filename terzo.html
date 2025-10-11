@@ -63,6 +63,16 @@
       import { Progress } from './assets/progress.js';
       console.log('Progress loaded?', !!Progress);
 
+      // Test rapido: forza una lettura (SELECT) per vedere se risponde
+      (async () => {
+        try {
+          const fake = await Progress.load('/__health__/terzo');
+          console.log('Health check SELECT ok:', fake);
+        } catch (e) {
+          console.error('Health check error:', e);
+        }
+      })();
+
       // Forza la richiesta di Classe/Codice al primo caricamento (solo per test)
       (async () => {
         try { await Progress.save({ _ping: Date.now() }); }
@@ -105,7 +115,7 @@
             alert('Progressi salvati!');
           } catch (err) {
             console.error('Save error:', err);
-            alert('Errore salvataggio (vedi Console).');
+            alert('Errore salvataggio: ' + (err.message || err));
           } finally {
             e.target.textContent = '💾 Salva progressi';
           }

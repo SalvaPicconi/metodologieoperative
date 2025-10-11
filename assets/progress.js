@@ -9,7 +9,9 @@ class ProgressStore {
   }
 
   async _req(path, opts = {}) {
-    const res = await fetch(`${this.url}/rest/v1/${path}`, {
+    const url = `${this.url}/rest/v1/${path}`;
+    console.log('[SUPABASE REQUEST]', opts.method || 'GET', url, opts.body || null);
+    const res = await fetch(url, {
       ...opts,
       headers: {
         'apikey': this.key,
@@ -19,8 +21,13 @@ class ProgressStore {
         ...(opts.headers || {})
       }
     });
-    if (!res.ok) throw new Error(await res.text());
-    return res.headers.get('content-type')?.includes('application/json') ? res.json() : res.text();
+    const text = await res.text();
+    if (!res.ok) {
+      const msg = `HTTP ${res.status} ${res.statusText} — ${text.slice(0, 200)}`;
+      console.error('[SUPABASE ERROR]', msg);
+      throw new Error(msg);
+    }
+    try { return JSON.parse(text); } catch { return text; }
   }
 
   async save({ classCode, studentCode, pagePath, data }) {
