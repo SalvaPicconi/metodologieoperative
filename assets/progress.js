@@ -95,11 +95,13 @@ function readIdentity() {
 }
 
 function writeIdentity(cls, code) {
-  identityCache.classCode = cls;
-  identityCache.studentCode = code;
+  const normalizedClass = String(cls || '').trim().toUpperCase();
+  const normalizedCode = String(code || '').trim().toUpperCase();
+  identityCache.classCode = normalizedClass;
+  identityCache.studentCode = normalizedCode;
   try {
-    sessionStorage.setItem(STORAGE_KEYS.classCode, cls);
-    sessionStorage.setItem(STORAGE_KEYS.studentCode, code);
+    sessionStorage.setItem(STORAGE_KEYS.classCode, normalizedClass);
+    sessionStorage.setItem(STORAGE_KEYS.studentCode, normalizedCode);
   } catch (error) {
     console.warn('Impossibile salvare in sessionStorage:', error);
   }
