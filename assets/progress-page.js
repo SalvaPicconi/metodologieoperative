@@ -1,4 +1,4 @@
-import { Progress } from './progress.js?v=20251017';
+import { Progress } from './progress.js?v=20251018';
 
 const DEFAULTS = {
   inputSelector: 'input:not([type="file"]), textarea, select',
@@ -78,18 +78,22 @@ function restoreData(selector, saved) {
 
     elements.forEach(el => {
       const type = (el.type || '').toLowerCase();
+      const isArrayValue = Array.isArray(value);
+      const isPlainObject = value && typeof value === 'object' && !isArrayValue;
+      const normalized = isPlainObject ? '' : value;
+
       if (type === 'checkbox') {
-        el.checked = Boolean(value);
+        el.checked = Boolean(normalized);
       } else if (type === 'radio') {
-        el.checked = el.value === value;
-      } else if (type === 'select-multiple' && Array.isArray(value)) {
+        el.checked = el.value === normalized;
+      } else if (type === 'select-multiple' && isArrayValue) {
         Array.from(el.options).forEach(opt => {
-          opt.selected = value.includes(opt.value);
+          opt.selected = normalized.includes(opt.value);
         });
       } else if (el.isContentEditable) {
-        el.innerHTML = value ?? '';
+        el.innerHTML = normalized ?? '';
       } else {
-        el.value = value ?? '';
+        el.value = normalized ?? '';
       }
     });
   });
