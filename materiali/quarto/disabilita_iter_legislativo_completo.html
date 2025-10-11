@@ -3020,5 +3020,56 @@ Ecc." style="min-height: 250px;"></textarea>
     <footer class="site-footer">
       <a href="https://salvapicconi.github.io/metodologieoperative/">🏠 Torna alla Home</a>
     </footer>
+    <script>
+        window.MO_PROGRESS_CONFIG = {
+            pagePath: window.location.pathname,
+            inputSelector: 'textarea, input:not([type="file"]), select, [contenteditable="true"]',
+            onBeforeSave(data) {
+                try {
+                    const activeSection = document.querySelector('.tab-content.active');
+                    data._disabilitaState = {
+                        totalExerciseScore,
+                        caseScores,
+                        activeTab: activeSection ? activeSection.id : null
+                    };
+                } catch (error) {
+                    console.error('Errore onBeforeSave disabilità:', error);
+                }
+                return data;
+            },
+            onRestore(saved) {
+                try {
+                    const state = saved && saved._disabilitaState;
+                    if (state) {
+                        totalExerciseScore = parseInt(state.totalExerciseScore, 10) || 0;
+                        if (state.caseScores) {
+                            caseScores = state.caseScores;
+                            Object.keys(caseScores).forEach(num => {
+                                ['analysis','coherence','proposal','lexicon','ethics'].forEach(field => {
+                                    const el = document.getElementById(`case${num}-score-${field}`);
+                                    if (el) el.textContent = caseScores[num][field] ?? 0;
+                                });
+                                const total = caseScores[num].analysis + caseScores[num].coherence + caseScores[num].proposal + caseScores[num].lexicon + caseScores[num].ethics;
+                                const totalEl = document.getElementById(`case${num}-total-score`);
+                                if (totalEl) totalEl.textContent = `${total}/20`;
+                            });
+                        }
+                        if (typeof updateExerciseScore === 'function') {
+                            updateExerciseScore();
+                        }
+                        if (state.activeTab) {
+                            const button = document.querySelector(`.tab-button[onclick*="'${state.activeTab}'"]`);
+                            if (button && typeof openTab === 'function') {
+                                openTab({ currentTarget: button }, state.activeTab);
+                            }
+                        }
+                    }
+                } catch (error) {
+                    console.error('Errore onRestore disabilità:', error);
+                }
+            }
+        };
+    </script>
+    <script type="module" src="../../assets/progress-auto.js?v=20251016"></script>
 </body>
 </html>

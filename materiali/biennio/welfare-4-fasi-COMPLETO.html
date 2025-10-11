@@ -2890,5 +2890,35 @@
             attachInputListeners();
         });
     </script>
+    <script>
+        window.MO_PROGRESS_CONFIG = {
+            pagePath: window.location.pathname,
+            inputSelector: 'textarea, input:not([type="file"]), select, [contenteditable="true"]',
+            onBeforeSave(data) {
+                try {
+                    saveData();
+                    const raw = localStorage.getItem('welfareActivity4FasiCompleto');
+                    if (raw) {
+                        data._welfareState = JSON.parse(raw);
+                    }
+                } catch (error) {
+                    console.error('Errore durante onBeforeSave welfare:', error);
+                }
+                return data;
+            },
+            onRestore(saved) {
+                try {
+                    const state = saved && (saved._welfareState || saved);
+                    if (state) {
+                        localStorage.setItem('welfareActivity4FasiCompleto', JSON.stringify(state));
+                        loadData();
+                    }
+                } catch (error) {
+                    console.error('Errore durante onRestore welfare:', error);
+                }
+            }
+        };
+    </script>
+    <script type="module" src="../../assets/progress-auto.js?v=20251016"></script>
 </body>
 </html>

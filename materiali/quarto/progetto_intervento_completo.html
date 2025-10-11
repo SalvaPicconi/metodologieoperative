@@ -2018,5 +2018,50 @@
     <footer class="site-footer">
       <a href="https://salvapicconi.github.io/metodologieoperative/">🏠 Torna alla Home</a>
     </footer>
+    <script>
+        window.MO_PROGRESS_CONFIG = {
+            pagePath: window.location.pathname,
+            inputSelector: 'textarea, input:not([type="file"]), select, [contenteditable="true"]',
+            onBeforeSave(data) {
+                try {
+                    const activeTab = document.querySelector('.tab-content.active');
+                    if (activeTab) {
+                        data._progettoTab = activeTab.id;
+                    }
+                    data._progettoScore = {
+                        currentScore,
+                        totalQuestions,
+                        exercisesLoaded: window.exercisesLoaded || false,
+                        casesLoaded: window.casesLoaded || false
+                    };
+                } catch (error) {
+                    console.error('Errore onBeforeSave progetto intervento:', error);
+                }
+                return data;
+            },
+            onRestore(saved) {
+                try {
+                    if (saved && saved._progettoScore) {
+                        currentScore = parseInt(saved._progettoScore.currentScore, 10) || 0;
+                        totalQuestions = parseInt(saved._progettoScore.totalQuestions, 10) || totalQuestions;
+                        if (typeof updateScore === 'function') {
+                            updateScore();
+                        }
+                        window.exercisesLoaded = saved._progettoScore.exercisesLoaded;
+                        window.casesLoaded = saved._progettoScore.casesLoaded;
+                    }
+                    if (saved && saved._progettoTab) {
+                        const button = document.querySelector(`.tab-button[onclick*="${saved._progettoTab}"]`);
+                        if (button && typeof openTab === 'function') {
+                            openTab({ currentTarget: button }, saved._progettoTab);
+                        }
+                    }
+                } catch (error) {
+                    console.error('Errore onRestore progetto intervento:', error);
+                }
+            }
+        };
+    </script>
+    <script type="module" src="../../assets/progress-auto.js?v=20251016"></script>
 </body>
 </html>

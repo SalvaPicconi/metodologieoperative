@@ -678,5 +678,37 @@
     <footer class="site-footer">
       <a href="https://salvapicconi.github.io/metodologieoperative/">🏠 Torna alla Home</a>
     </footer>
+    <script>
+        window.MO_PROGRESS_CONFIG = {
+            pagePath: window.location.pathname,
+            inputSelector: 'textarea, input:not([type="file"]), select, [contenteditable="true"]',
+            onBeforeSave(data) {
+                try {
+                    data._semplificataState = {
+                        score,
+                        answered: Array.from(answeredQuestions || []),
+                        matchedPairs
+                    };
+                } catch (error) {
+                    console.error('Errore onBeforeSave incroci semplificata:', error);
+                }
+                return data;
+            },
+            onRestore(saved) {
+                try {
+                    const state = saved && saved._semplificataState;
+                    if (state) {
+                        score = parseInt(state.score, 10) || 0;
+                        matchedPairs = parseInt(state.matchedPairs, 10) || 0;
+                        answeredQuestions = new Set(state.answered || []);
+                        updateProgress();
+                    }
+                } catch (error) {
+                    console.error('Errore onRestore incroci semplificata:', error);
+                }
+            }
+        };
+    </script>
+    <script type="module" src="../../assets/progress-auto.js?v=20251016"></script>
 </body>
 </html>

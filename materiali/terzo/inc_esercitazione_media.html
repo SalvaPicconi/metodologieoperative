@@ -1001,5 +1001,35 @@
     <footer class="site-footer">
       <a href="https://salvapicconi.github.io/metodologieoperative/">🏠 Torna alla Home</a>
     </footer>
+    <script>
+        window.MO_PROGRESS_CONFIG = {
+            pagePath: window.location.pathname,
+            inputSelector: 'textarea, input:not([type="file"]), select, [contenteditable="true"]',
+            onBeforeSave(data) {
+                try {
+                    data._mediaState = {
+                        score,
+                        completed: Array.from(completedActivities || [])
+                    };
+                } catch (error) {
+                    console.error('Errore onBeforeSave media incroci:', error);
+                }
+                return data;
+            },
+            onRestore(saved) {
+                try {
+                    const state = saved && saved._mediaState;
+                    if (state) {
+                        score = parseInt(state.score, 10) || 0;
+                        completedActivities = new Set(state.completed || []);
+                        updateProgress();
+                    }
+                } catch (error) {
+                    console.error('Errore onRestore media incroci:', error);
+                }
+            }
+        };
+    </script>
+    <script type="module" src="../../assets/progress-auto.js?v=20251016"></script>
 </body>
 </html>
