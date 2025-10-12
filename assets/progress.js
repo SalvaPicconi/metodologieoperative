@@ -53,6 +53,27 @@ class ProgressStore {
   }
 }
 
+// ✅ NUOVA FUNZIONE: Normalizza il path per evitare duplicati
+function normalizePath(path) {
+  if (!path) return '/';
+  
+  // Rimuovi il dominio se presente
+  path = path.replace(/^https?:\/\/[^\/]+/, '');
+  
+  // Assicurati che inizi con /
+  if (!path.startsWith('/')) path = '/' + path;
+  
+  // Rimuovi trailing slash (eccetto per root)
+  if (path.length > 1 && path.endsWith('/')) {
+    path = path.slice(0, -1);
+  }
+  
+  // Rimuovi query string e hash
+  path = path.split('?')[0].split('#')[0];
+  
+  return path;
+}
+
 const STORAGE_KEYS = {
   classCode: 'mo:class',
   studentCode: 'mo:code'
@@ -64,46 +85,93 @@ const identityCache = {
 };
 
 function clearLegacyIdentity() {
-  try {
-    localStorage.removeItem(STORAGE_KEYS.classCode);
-    localStorage.removeItem(STORAGE_KEYS.studentCode);
-  } catch (error) {
-    // ignoriamo browser che bloccano localStorage
-  }
+  // Funzione deprecata - manteniamo per retrocompatibilità ma non fa nulla
+  console.log('[Progress] clearLegacyIdentity: funzione deprecata');
 }
 
 clearLegacyIdentity();
 
+// ✅ MODIFICATO: Usa localStorage invece di sessionStorage per persistenza
 function readIdentity() {
   if (identityCache.classCode && identityCache.studentCode) {
     return { ...identityCache };
   }
   try {
-    const cls = sessionStorage.getItem(STORAGE_KEYS.classCode);
-    const code = sessionStorage.getItem(STORAGE_KEYS.studentCode);
+    // Prova prima localStorage (persistente tra sessioni)
+    let cls = localStorage.getItem(STORAGE_KEYS.classCode);
+    let code = localStorage.getItem(STORAGE_KEYS.studentCode);
+    
+    // Fallback a sessionStorage per retrocompatibilità
+    if (!cls || !code) {
+      cls = sessionStorage.getItem(STORAGE_KEYS.classCode);
+      code = sessionStorage.getItem(STORAGE_KEYS.studentCode);
+      
+      // Se trovato in sessionStorage, migra a localStorage
+      if (cls && code) {
+        console.log('[Progress] Migrazione da sessionStorage a localStorage');
+        localStorage.setItem(STORAGE_KEYS.classCode, cls);
+        localStorage.setItem(STORAGE_KEYS.studentCode, code);
+      }
+    }
+    
     if (cls && code) {
       identityCache.classCode = cls;
       identityCache.studentCode = code;
+      console.log('[Progress] ✅ Identità caricata:', cls, '-', code);
       return { classCode: cls, studentCode: code };
     }
   } catch (error) {
-    console.warn('SessionStorage non disponibile, uso memoria volatile:', error);
+    console.warn('[Progress] Storage non disponibile, uso memoria volatile:', error);
   }
   return identityCache.classCode && identityCache.studentCode
     ? { ...identityCache }
     : null;
 }
 
+// ✅ MODIFICATO: Salva in localStorage per persistenza tra sessioni
 function writeIdentity(cls, code) {
   const normalizedClass = String(cls || '').trim().toUpperCase();
   const normalizedCode = String(code || '').trim().toUpperCase();
   identityCache.classCode = normalizedClass;
   identityCache.studentCode = normalizedCode;
   try {
+    // Salva in localStorage per persistenza
+    localStorage.setItem(STORAGE_KEYS.classCode, normalizedClass);
+    localStorage.setItem(STORAGE_KEYS.studentCode, normalizedCode);
+    
+    // Mantieni anche in sessionStorage per retrocompatibilità
     sessionStorage.setItem(STORAGE_KEYS.classCode, normalizedClass);
     sessionStorage.setItem(STORAGE_KEYS.studentCode, normalizedCode);
+    
+    console.log('[Progress] ✅ Identità salvata in localStorage:', normalizedClass, '-', normalizedCode);
   } catch (error) {
-    console.warn('Impossibile salvare in sessionStorage:', error);
+    console.warn('[Progress] Impossibile salvare in storage:', error);
+  }
+}
+
+// ✅ NUOVA FUNZIONE: Visualizza identità corrente (per debug)
+function getCurrentIdentity() {
+  const identity = readIdentity();
+  if (identity) {
+    console.log('👤 Studente attivo:', identity.classCode, '-', identity.studentCode);
+    return identity;
+  }
+  console.log('❌ Nessuna identità salvata');
+  return null;
+}
+
+// ✅ NUOVA FUNZIONE: Cancella identità (per debug e reset)
+function clearIdentity() {
+  try {
+    localStorage.removeItem(STORAGE_KEYS.classCode);
+    localStorage.removeItem(STORAGE_KEYS.studentCode);
+    sessionStorage.removeItem(STORAGE_KEYS.classCode);
+    sessionStorage.removeItem(STORAGE_KEYS.studentCode);
+    identityCache.classCode = null;
+    identityCache.studentCode = null;
+    console.log('✅ Identità cancellata');
+  } catch (error) {
+    console.warn('Errore durante cancellazione identità:', error);
   }
 }
 
@@ -115,14 +183,14 @@ function askIdentity() {
   const overlay = document.createElement('div');
   overlay.style.cssText = 'position:fixed;inset:0;display:grid;place-items:center;background:#0007;z-index:9999;';
   overlay.innerHTML = `
-    <div style="background:#fff;padding:20px;border-radius:12px;max-width:360px;width:90%;font:16px system-ui;">
-      <h3>Accedi come studente</h3>
-      <p style="margin:0 0 8px;">Inserisci la tua classe e il codice personale.</p>
+    <div style="background:#fff;padding:20px;border-radius:12px;max-width:360px;width:90%;font:16px system-ui;color:#000;">
+      <h3 style="margin-top:0;color:#000;">Accedi come studente</h3>
+      <p style="margin:0 0 8px;color:#666;">Inserisci la tua classe e il codice personale.</p>
       <input id="cls" placeholder="Classe (es. 3B)" style="width:100%;margin-bottom:8px;padding:6px;border:1px solid #ccc;border-radius:6px;">
       <input id="cod" placeholder="Codice (es. 3B-AB12CD)" style="width:100%;margin-bottom:12px;padding:6px;border:1px solid #ccc;border-radius:6px;">
       <div style="text-align:right;">
-        <button id="gen" style="margin-right:8px;padding:6px 10px;">Genera codice</button>
-        <button id="ok" style="background:#0ea5e9;color:#fff;padding:6px 10px;border:none;border-radius:6px;">Continua</button>
+        <button id="gen" style="margin-right:8px;padding:6px 10px;border:1px solid #ccc;background:#fff;border-radius:6px;cursor:pointer;">Genera codice</button>
+        <button id="ok" style="background:#0ea5e9;color:#fff;padding:6px 10px;border:none;border-radius:6px;cursor:pointer;">Continua</button>
       </div>
     </div>`;
   document.body.appendChild(overlay);
@@ -158,15 +226,44 @@ export const Progress = (() => {
     return identityPromise;
   }
 
+  // ✅ MODIFICATO: Usa path normalizzato
   async function load(pagePath = location.pathname) {
+    const normalizedPath = normalizePath(pagePath);
     const id = await ensureIdentity();
-    return store.load({ studentCode: id.studentCode, pagePath });
+    console.log('[Progress] 📥 Caricamento da:', normalizedPath);
+    return store.load({ studentCode: id.studentCode, pagePath: normalizedPath });
   }
 
+  // ✅ MODIFICATO: Usa path normalizzato e log migliorati
   async function save(data, pagePath = location.pathname) {
+    const normalizedPath = normalizePath(pagePath);
     const id = await ensureIdentity();
-    return store.save({ classCode: id.classCode, studentCode: id.studentCode, pagePath, data });
+    console.log('[Progress] 💾 Salvataggio su:', normalizedPath, '| Campi:', Object.keys(data).length);
+    return store.save({ 
+      classCode: id.classCode, 
+      studentCode: id.studentCode, 
+      pagePath: normalizedPath, 
+      data 
+    });
   }
 
   return { load, save };
 })();
+
+// ✅ Esponi funzioni di debug globalmente
+if (typeof window !== 'undefined' && !window.MODebug) {
+  window.MODebug = {
+    getCurrentIdentity,
+    clearIdentity,
+    showIdentity: () => {
+      const id = getCurrentIdentity();
+      if (id) {
+        alert(`👤 Studente attivo:\n\nClasse: ${id.classCode}\nCodice: ${id.studentCode}\n\n✅ L'identità è salvata e persisterà anche dopo aver chiuso il browser.`);
+      } else {
+        alert('❌ Nessuno studente è attualmente loggato.\n\nAll\'apertura della prossima pagina interattiva ti verrà chiesto di inserire i dati.');
+      }
+      return id;
+    }
+  };
+  console.log('[Progress] 🔧 Debug abilitato: usa window.MODebug nel console');
+}

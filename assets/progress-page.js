@@ -15,6 +15,63 @@ const DEFAULTS = {
 const AUTO_KEY_MAP = new WeakMap();
 let autoKeyCounter = 0;
 
+// ✅ NUOVA FUNZIONE: Sistema di notifiche eleganti
+function showNotification(message, type = 'info') {
+  // Rimuovi notifiche esistenti
+  document.querySelectorAll('.mo-notification').forEach(el => el.remove());
+  
+  const notification = document.createElement('div');
+  notification.className = 'mo-notification';
+  notification.textContent = message;
+  
+  const colors = {
+    success: '#10b981',
+    error: '#ef4444',
+    warning: '#f59e0b',
+    info: '#3b82f6'
+  };
+  
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    background: ${colors[type] || colors.info};
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    z-index: 100000;
+    font-weight: 500;
+    animation: slideIn 0.3s ease-out;
+    font-family: system-ui, -apple-system, sans-serif;
+  `;
+  
+  // Aggiungi animazione
+  if (!document.querySelector('#mo-notification-styles')) {
+    const style = document.createElement('style');
+    style.id = 'mo-notification-styles';
+    style.textContent = `
+      @keyframes slideIn {
+        from { transform: translateX(400px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+      @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(400px); opacity: 0; }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+  
+  document.body.appendChild(notification);
+  
+  // Rimuovi dopo 3 secondi
+  setTimeout(() => {
+    notification.style.animation = 'slideOut 0.3s ease-out';
+    setTimeout(() => notification.remove(), 300);
+  }, 3000);
+}
+
 function ensureFieldKey(el) {
   if (el.matches('[data-progress-ignore]')) return null;
 
@@ -153,10 +210,21 @@ export async function setupProgress(options = {}) {
     return;
   }
 
+  // ✅ MODIFICATO: Feedback migliorato sul caricamento
   async function loadAndRestore() {
     try {
       const saved = await Progress.load(pagePath);
       restoreData(inputsSelector, saved);
+      
+      // ✅ AGGIUNTO: Notifica visiva sul ripristino
+      if (saved && Object.keys(saved).length > 0) {
+        const filledCount = Object.keys(saved).length;
+        showNotification(`✅ ${filledCount} ${filledCount === 1 ? 'campo ripristinato' : 'campi ripristinati'}`, 'success');
+        console.log('[Progress] Dati ripristinati:', filledCount, 'campi');
+      } else {
+        console.log('[Progress] Nessun dato salvato trovato per questa pagina');
+      }
+      
       if (typeof config.onRestore === 'function') {
         try {
           config.onRestore(saved);
@@ -169,15 +237,31 @@ export async function setupProgress(options = {}) {
       }
     } catch (error) {
       console.error('[Progress] Errore durante il caricamento:', error);
+      showNotification('⚠️ Errore nel caricamento dei progressi', 'error');
     }
   }
 
+  // ✅ MODIFICATO: Feedback migliorato sul salvataggio
   async function handleSave() {
     button.disabled = true;
     const originalLabel = button.textContent;
     button.textContent = '⏳ Salvataggio...';
     try {
       let data = collectData(inputsSelector);
+      
+      // ✅ AGGIUNTO: Conta campi effettivamente compilati
+      const filledFields = Object.entries(data).filter(([k, v]) => {
+        if (typeof v === 'string') return v.trim().length > 0;
+        if (typeof v === 'boolean') return v;
+        if (Array.isArray(v)) return v.length > 0;
+        return v != null;
+      }).length;
+      
+      if (filledFields === 0) {
+        showNotification('⚠️ Nessun campo da salvare', 'warning');
+        return;
+      }
+      
       if (typeof config.onBeforeSave === 'function') {
         try {
           const extra = config.onBeforeSave(data) || {};
@@ -188,7 +272,9 @@ export async function setupProgress(options = {}) {
           console.error('[Progress] Errore in onBeforeSave:', hookErr);
         }
       }
+      
       await Progress.save(data, pagePath);
+      
       if (typeof config.onSave === 'function') {
         try {
           config.onSave(data);
@@ -196,11 +282,16 @@ export async function setupProgress(options = {}) {
           console.error('[Progress] Errore in onSave:', hookErr);
         }
       }
+      
       if (config.debug) console.log('[Progress] Salvataggio riuscito', data);
-      alert('Progressi salvati!');
+      
+      // ✅ MIGLIORATO: Feedback più informativo
+      showNotification(`✅ ${filledFields} ${filledFields === 1 ? 'campo salvato' : 'campi salvati'}!`, 'success');
     } catch (error) {
       console.error('[Progress] Errore durante il salvataggio:', error);
-      alert('Errore salvataggio: ' + (error.message || error));
+      // ✅ MIGLIORATO: Messaggio di errore più chiaro
+      const errorMsg = error.message || 'Errore sconosciuto';
+      showNotification('❌ Errore nel salvataggio: ' + errorMsg, 'error');
     } finally {
       button.textContent = originalLabel;
       button.disabled = false;
@@ -225,12 +316,27 @@ export async function setupProgress(options = {}) {
 export function resetProgressSession() {
   sessionStorage.removeItem('mo:class');
   sessionStorage.removeItem('mo:code');
+  localStorage.removeItem('mo:class');
+  localStorage.removeItem('mo:code');
   if (window.MOProgress) {
     window.MOProgress.identityCleared = true;
+  }
+  console.log('[Progress] Sessione resettata');
+}
+
+// ✅ NUOVA FUNZIONE: Mostra informazioni studente corrente
+export function showCurrentStudent() {
+  if (typeof window !== 'undefined' && window.MODebug) {
+    window.MODebug.showIdentity();
   }
 }
 
 // per debug manuale
 if (window && !window.MOProgress) {
-    window.MOProgress = { Progress, setupProgress, resetProgressSession };
+  window.MOProgress = { 
+    Progress, 
+    setupProgress, 
+    resetProgressSession,
+    showCurrentStudent  // ✅ AGGIUNTO
+  };
 }
