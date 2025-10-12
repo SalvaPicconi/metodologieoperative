@@ -1,4 +1,4 @@
-import { Progress } from './progress.js?v=20251021';
+import { Progress } from './progress.js?v=20251022';
 
 const DEFAULTS = {
   inputSelector: 'input:not([type="file"]), textarea, select',
