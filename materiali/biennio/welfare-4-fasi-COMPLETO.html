@@ -1043,15 +1043,15 @@
                     <div class="student-info-grid">
                         <div>
                             <label for="student-name-p1">Nome e Cognome</label>
-                            <input type="text" id="student-name-p1" class="input-field" placeholder="Il tuo nome...">
+                            <input type="text" id="student-name-p1" name="student-name-p1" class="input-field" placeholder="Il tuo nome...">
                         </div>
                         <div>
                             <label for="student-class-p1">Classe</label>
-                            <input type="text" id="student-class-p1" class="input-field" placeholder="Es. 3B OSS">
+                            <input type="text" id="student-class-p1" name="student-class-p1" class="input-field" placeholder="Es. 3B OSS">
                         </div>
                         <div>
                             <label for="activity-date-p1">Data</label>
-                            <input type="date" id="activity-date-p1" class="input-field">
+                            <input type="date" id="activity-date-p1" name="activity-date-p1" class="input-field">
                         </div>
                     </div>
                 </div>
@@ -1059,7 +1059,7 @@
                 <label for="brainstorm-welfare" style="display: block; font-weight: bold; color: #1a5c3a; margin: 1rem 0 0.5rem;">
                     Per me "benessere" significa...
                 </label>
-                <textarea id="brainstorm-welfare" class="input-field" placeholder="Scrivi qui le tue idee (es: salute, casa, lavoro, amici...)"></textarea>
+                <textarea id="brainstorm-welfare" name="brainstorm-welfare" class="input-field" placeholder="Scrivi qui le tue idee (es: salute, casa, lavoro, amici...)"></textarea>
 
                 <!-- TEORIA WELFARE -->
                 <h2 class="section-title">📘 Cos'è il Welfare?</h2>
@@ -1173,7 +1173,7 @@
                 <label style="display: block; font-weight: bold; color: #1a5c3a; margin: 1.5rem 0 0.5rem;">
                     Autovalutazione: Quali competenze hai già? Quali vuoi sviluppare?
                 </label>
-                <textarea id="competenze-autoval" class="input-field" 
+                <textarea id="competenze-autoval" name="competenze-autoval" class="input-field" 
                           placeholder="Esempio: Ho già sviluppato l'empatia, voglio migliorare nel condurre colloqui..."></textarea>
 
                 <!-- NUOVO: DIAMANTE DEL WELFARE -->
@@ -1244,7 +1244,7 @@
                 <label style="display: block; font-weight: bold; color: #1a5c3a; margin: 1.5rem 0 0.5rem;">
                     Esempio concreto: Pensa a una persona anziana che conosci. Quali dei 4 attori la supportano?
                 </label>
-                <textarea id="diamond-example" class="input-field" 
+                <textarea id="diamond-example" name="diamond-example" class="input-field" 
                           placeholder="Es: Lo Stato con la pensione, la famiglia con cure, il terzo settore con volontari..."></textarea>
 
                 <!-- MAPPA CONCETTUALE INIZIALE -->
@@ -1264,7 +1264,7 @@
                         💡 <strong>Disegna la tua mappa qui</strong><br>
                         (Esempio: WELFARE al centro → 3 PILASTRI → 4 ATTORI → SERVIZI → COMPETENZE OPERATORE)
                     </p>
-                    <textarea id="concept-map-initial" class="input-field" 
+                    <textarea id="concept-map-initial" name="concept-map-initial" class="input-field" 
                               placeholder="Scrivi qui la tua mappa usando testo e frecce (→)"></textarea>
                 </div>
 
@@ -1504,7 +1504,7 @@
                 </label>
                 <div style="background: #f9f9f9; padding: 1.5rem; border-radius: 8px;">
                     <p>1. Una persona che ha perso il lavoro e cerca sostegno economico → 
-                    <select id="ente-ex1" class="input-field" style="width: auto; display: inline-block; margin-left: 0.5rem;">
+                    <select id="ente-ex1" name="ente-ex1" class="input-field" style="width: auto; display: inline-block; margin-left: 0.5rem;">
                         <option value="">Seleziona...</option>
                         <option value="INPS">INPS</option>
                         <option value="ASL">ASL</option>
@@ -1512,7 +1512,7 @@
                     </select></p>
                     
                     <p style="margin-top: 1rem;">2. Un anziano che ha bisogno di assistenza a casa → 
-                    <select id="ente-ex2" class="input-field" style="width: auto; display: inline-block; margin-left: 0.5rem;">
+                    <select id="ente-ex2" name="ente-ex2" class="input-field" style="width: auto; display: inline-block; margin-left: 0.5rem;">
                         <option value="">Seleziona...</option>
                         <option value="INPS">INPS</option>
                         <option value="ASL">ASL</option>
@@ -1520,7 +1520,7 @@
                     </select></p>
                     
                     <p style="margin-top: 1rem;">3. Una persona che deve fare una visita specialistica → 
-                    <select id="ente-ex3" class="input-field" style="width: auto; display: inline-block; margin-left: 0.5rem;">
+                    <select id="ente-ex3" name="ente-ex3" class="input-field" style="width: auto; display: inline-block; margin-left: 0.5rem;">
                         <option value="">Seleziona...</option>
                         <option value="INPS">INPS</option>
                         <option value="ASL">ASL</option>
@@ -1647,13 +1647,13 @@
                     <label style="display: block; font-weight: bold; margin-top: 1rem;">
                         Quali bisogni ha Maria? (usa la piramide di Maslow)
                     </label>
-                    <textarea id="scenario1-needs" class="input-field" 
+                    <textarea id="scenario1-needs" name="scenario1-needs" class="input-field" 
                               placeholder="Es: Bisogni fisiologici (movimento), sicurezza (paura cadute), appartenenza..."></textarea>
                     
                     <label style="display: block; font-weight: bold; margin-top: 1rem;">
                         Quali servizi del welfare possono aiutarla?
                     </label>
-                    <textarea id="scenario1-services" class="input-field" 
+                    <textarea id="scenario1-services" name="scenario1-services" class="input-field" 
                               placeholder="Es: Assistenza domiciliare, fisioterapia, telesoccorso..."></textarea>
                 </div>
 
@@ -1664,13 +1664,13 @@
                     <label style="display: block; font-weight: bold; margin-top: 1rem;">
                         Quali bisogni ha Yara?
                     </label>
-                    <textarea id="scenario2-needs" class="input-field" 
+                    <textarea id="scenario2-needs" name="scenario2-needs" class="input-field" 
                               placeholder="Es: Appartenenza (relazioni), stima (successo scolastico), conoscenza..."></textarea>
                     
                     <label style="display: block; font-weight: bold; margin-top: 1rem;">
                         Quali servizi e quali strumenti usa l'operatore?
                     </label>
-                    <textarea id="scenario2-services" class="input-field" 
+                    <textarea id="scenario2-services" name="scenario2-services" class="input-field" 
                               placeholder="Es: Colloquio motivazionale, supporto psicologico, patto educativo..."></textarea>
                 </div>
 
@@ -1791,7 +1791,7 @@
                 <label style="display: block; font-weight: bold; color: #1a5c3a; margin: 2rem 0 0.5rem;">
                     Riflessione: Quale modello preferisci e perché?
                 </label>
-                <textarea id="modello-riflessione" class="input-field" 
+                <textarea id="modello-riflessione" name="modello-riflessione" class="input-field" 
                           placeholder="Spiega quale modello secondo te è migliore e perché..."></textarea>
 
                 <!-- LAVORO DI GRUPPO -->
@@ -1813,16 +1813,16 @@
                     <div class="student-info-grid">
                         <div>
                             <label for="group-members">Componenti del gruppo</label>
-                            <input type="text" id="group-members" class="input-field" 
+                            <input type="text" id="group-members" name="group-members" class="input-field" 
                                    placeholder="Nomi degli studenti del gruppo...">
                         </div>
                         <div>
                             <label for="group-class">Classe</label>
-                            <input type="text" id="group-class" class="input-field" placeholder="Es. 3B OSS">
+                            <input type="text" id="group-class" name="group-class" class="input-field" placeholder="Es. 3B OSS">
                         </div>
                         <div>
                             <label for="group-date">Data</label>
-                            <input type="date" id="group-date" class="input-field">
+                            <input type="date" id="group-date" name="group-date" class="input-field">
                         </div>
                     </div>
                 </div>
@@ -1896,7 +1896,7 @@
                 <label style="display: block; font-weight: bold; margin-top: 1rem;">
                     Note per la presentazione
                 </label>
-                <textarea id="presentation-notes" class="input-field" 
+                <textarea id="presentation-notes" name="presentation-notes" class="input-field" 
                           placeholder="Scrivi qui i punti chiave della tua presentazione..."></textarea>
 
                 <div class="info-box green" style="margin-top: 2rem;">
@@ -1950,15 +1950,15 @@
                     <div class="student-info-grid">
                         <div>
                             <label for="reflection-name">Nome e Cognome</label>
-                            <input type="text" id="reflection-name" class="input-field">
+                            <input type="text" id="reflection-name" name="reflection-name" class="input-field">
                         </div>
                         <div>
                             <label for="reflection-class">Classe</label>
-                            <input type="text" id="reflection-class" class="input-field">
+                            <input type="text" id="reflection-class" name="reflection-class" class="input-field">
                         </div>
                         <div>
                             <label for="reflection-date">Data</label>
-                            <input type="date" id="reflection-date" class="input-field">
+                            <input type="date" id="reflection-date" name="reflection-date" class="input-field">
                         </div>
                     </div>
                 </div>
@@ -1967,11 +1967,11 @@
                     <label style="display: block; font-weight: bold; color: #1a5c3a; margin-bottom: 0.5rem;">
                         1. Tre collegamenti importanti che ho imparato
                     </label>
-                    <input type="text" id="learned1" class="input-field" 
+                    <input type="text" id="learned1" name="learned1" class="input-field" 
                            placeholder="Primo collegamento..." style="margin-bottom: 0.5rem;">
-                    <input type="text" id="learned2" class="input-field" 
+                    <input type="text" id="learned2" name="learned2" class="input-field" 
                            placeholder="Secondo collegamento..." style="margin-bottom: 0.5rem;">
-                    <input type="text" id="learned3" class="input-field" 
+                    <input type="text" id="learned3" name="learned3" class="input-field" 
                            placeholder="Terzo collegamento...">
                 </div>
 
@@ -1979,28 +1979,28 @@
                     <label style="display: block; font-weight: bold; color: #1a5c3a; margin-bottom: 0.5rem;">
                         2. Un servizio che pensavo fosse di un pilastro ma in realtà è di un altro. Perché mi sono confuso/a?
                     </label>
-                    <textarea id="misconception" class="input-field"></textarea>
+                    <textarea id="misconception" name="misconception" class="input-field"></textarea>
                 </div>
 
                 <div style="margin-top: 2rem;">
                     <label style="display: block; font-weight: bold; color: #1a5c3a; margin-bottom: 0.5rem;">
                         3. Quale livello di Maslow è più difficile da soddisfare con il welfare? Perché?
                     </label>
-                    <textarea id="maslow-difficulty" class="input-field"></textarea>
+                    <textarea id="maslow-difficulty" name="maslow-difficulty" class="input-field"></textarea>
                 </div>
 
                 <div style="margin-top: 2rem;">
                     <label style="display: block; font-weight: bold; color: #1a5c3a; margin-bottom: 0.5rem;">
                         4. Esempio concreto: come l'operatore usa le sue competenze (sapere, saper fare, saper essere)
                     </label>
-                    <textarea id="operator-example" class="input-field"></textarea>
+                    <textarea id="operator-example" name="operator-example" class="input-field"></textarea>
                 </div>
 
                 <div style="margin-top: 2rem;">
                     <label style="display: block; font-weight: bold; color: #1a5c3a; margin-bottom: 0.5rem;">
                         5. Come i 4 attori del welfare (Stato, Famiglia, Mercato, Terzo Settore) lavorano insieme?
                     </label>
-                    <textarea id="network-collaboration" class="input-field"></textarea>
+                    <textarea id="network-collaboration" name="network-collaboration" class="input-field"></textarea>
                 </div>
 
                 <!-- NUOVO: AUTOVALUTAZIONE COMPETENZE -->
@@ -2018,23 +2018,23 @@
                 <div style="background: #f9f9f9; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
                     <h4 style="color: #1a5c3a; margin-bottom: 1rem;">📚 SAPERE (conoscenze teoriche)</h4>
                     <label style="display: block; margin-bottom: 0.5rem;">
-                        <input type="checkbox" id="comp-pilastri"> 
+                        <input type="checkbox" id="comp-pilastri" name="comp-pilastri"> 
                         Conosco i 3 pilastri del welfare
                     </label>
                     <label style="display: block; margin-bottom: 0.5rem;">
-                        <input type="checkbox" id="comp-maslow"> 
+                        <input type="checkbox" id="comp-maslow" name="comp-maslow"> 
                         So usare la piramide di Maslow
                     </label>
                     <label style="display: block; margin-bottom: 0.5rem;">
-                        <input type="checkbox" id="comp-enti"> 
+                        <input type="checkbox" id="comp-enti" name="comp-enti"> 
                         Conosco gli enti (INPS, ASL, Comuni)
                     </label>
                     <label style="display: block; margin-bottom: 0.5rem;">
-                        <input type="checkbox" id="comp-leggi"> 
+                        <input type="checkbox" id="comp-leggi" name="comp-leggi"> 
                         Conosco le leggi fondamentali
                     </label>
                     <label style="display: block; margin-bottom: 0.5rem;">
-                        <input type="checkbox" id="comp-modelli"> 
+                        <input type="checkbox" id="comp-modelli" name="comp-modelli"> 
                         Comprendo i modelli di welfare
                     </label>
                 </div>
@@ -2042,19 +2042,19 @@
                 <div style="background: #f9f9f9; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
                     <h4 style="color: #1a5c3a; margin-bottom: 1rem;">🛠️ SAPER FARE (capacità pratiche)</h4>
                     <label style="display: block; margin-bottom: 0.5rem;">
-                        <input type="checkbox" id="comp-collegamenti"> 
+                        <input type="checkbox" id="comp-collegamenti" name="comp-collegamenti"> 
                         So collegare bisogni → servizi → pilastri
                     </label>
                     <label style="display: block; margin-bottom: 0.5rem;">
-                        <input type="checkbox" id="comp-analisi"> 
+                        <input type="checkbox" id="comp-analisi" name="comp-analisi"> 
                         So analizzare situazioni reali
                     </label>
                     <label style="display: block; margin-bottom: 0.5rem;">
-                        <input type="checkbox" id="comp-strumenti"> 
+                        <input type="checkbox" id="comp-strumenti" name="comp-strumenti"> 
                         Conosco gli strumenti dell'operatore (colloquio, visita)
                     </label>
                     <label style="display: block; margin-bottom: 0.5rem;">
-                        <input type="checkbox" id="comp-progetto"> 
+                        <input type="checkbox" id="comp-progetto" name="comp-progetto"> 
                         So progettare un intervento
                     </label>
                 </div>
@@ -2062,19 +2062,19 @@
                 <div style="background: #f9f9f9; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
                     <h4 style="color: #1a5c3a; margin-bottom: 1rem;">❤️ SAPER ESSERE (atteggiamenti)</h4>
                     <label style="display: block; margin-bottom: 0.5rem;">
-                        <input type="checkbox" id="comp-empatia"> 
+                        <input type="checkbox" id="comp-empatia" name="comp-empatia"> 
                         Ho sviluppato empatia
                     </label>
                     <label style="display: block; margin-bottom: 0.5rem;">
-                        <input type="checkbox" id="comp-ascolto"> 
+                        <input type="checkbox" id="comp-ascolto" name="comp-ascolto"> 
                         So ascoltare attivamente
                     </label>
                     <label style="display: block; margin-bottom: 0.5rem;">
-                        <input type="checkbox" id="comp-etica"> 
+                        <input type="checkbox" id="comp-etica" name="comp-etica"> 
                         Ho compreso l'importanza dell'etica
                     </label>
                     <label style="display: block; margin-bottom: 0.5rem;">
-                        <input type="checkbox" id="comp-riflessione"> 
+                        <input type="checkbox" id="comp-riflessione" name="comp-riflessione"> 
                         So riflettere sulla mia pratica
                     </label>
                 </div>
@@ -2083,7 +2083,7 @@
                     <label style="display: block; font-weight: bold; color: #1a5c3a; margin-bottom: 0.5rem;">
                         6. Quale competenza devo ancora sviluppare maggiormente?
                     </label>
-                    <textarea id="competenza-sviluppare" class="input-field" 
+                    <textarea id="competenza-sviluppare" name="competenza-sviluppare" class="input-field" 
                               placeholder="Scrivi quale competenza vuoi migliorare e come pensi di farlo..."></textarea>
                 </div>
 
@@ -2114,7 +2114,7 @@
                     <label style="display: block; font-weight: bold; color: #1a5c3a; margin-bottom: 0.5rem;">
                         8. Quale aspetto dell'attività mi ha aiutato di più?
                     </label>
-                    <textarea id="helpful-aspect" class="input-field"></textarea>
+                    <textarea id="helpful-aspect" name="helpful-aspect" class="input-field"></textarea>
                 </div>
 
                 <!-- MAPPA CONCETTUALE FINALE -->
@@ -2147,7 +2147,7 @@
                     <p style="font-size: 1.1rem; color: #555;">
                         🎨 <strong>La tua mappa concettuale completa</strong>
                     </p>
-                    <textarea id="concept-map-final" class="input-field" 
+                    <textarea id="concept-map-final" name="concept-map-final" class="input-field" 
                               placeholder="Crea qui la tua mappa finale, molto più ricca della iniziale..."></textarea>
                 </div>
 
@@ -2171,31 +2171,31 @@
                     <label style="display: block; font-weight: bold; margin-top: 1.5rem;">
                         Situazione / Persona in difficoltà
                     </label>
-                    <textarea id="project-situation" class="input-field" 
+                    <textarea id="project-situation" name="project-situation" class="input-field" 
                               placeholder="Descrivi la situazione..."></textarea>
                     
                     <label style="display: block; font-weight: bold; margin-top: 1.5rem;">
                         Bisogni identificati (usa Maslow)
                     </label>
-                    <textarea id="project-needs" class="input-field" 
+                    <textarea id="project-needs" name="project-needs" class="input-field" 
                               placeholder="Quali bisogni ha questa persona?"></textarea>
                     
                     <label style="display: block; font-weight: bold; margin-top: 1.5rem;">
                         Servizi welfare da attivare (indica pilastro ed ente)
                     </label>
-                    <textarea id="project-services" class="input-field" 
+                    <textarea id="project-services" name="project-services" class="input-field" 
                               placeholder="Es: Assistenza domiciliare (Pilastro: Assistenza Sociale, Ente: Comune)..."></textarea>
                     
                     <label style="display: block; font-weight: bold; margin-top: 1.5rem;">
                         Strumenti e competenze dell'operatore
                     </label>
-                    <textarea id="project-actions" class="input-field" 
+                    <textarea id="project-actions" name="project-actions" class="input-field" 
                               placeholder="Quali strumenti usi (colloquio, visita...)? Quali competenze (sapere, saper fare, saper essere)?"></textarea>
                     
                     <label style="display: block; font-weight: bold; margin-top: 1.5rem;">
                         Come coinvolgi i 4 attori del welfare (Diamante)
                     </label>
-                    <textarea id="project-networks" class="input-field" 
+                    <textarea id="project-networks" name="project-networks" class="input-field" 
                               placeholder="STATO (es: ASL per cure), FAMIGLIA (es: figlia), TERZO SETTORE (es: volontari), MERCATO (es: benefit aziendali)..."></textarea>
                 </div>
 

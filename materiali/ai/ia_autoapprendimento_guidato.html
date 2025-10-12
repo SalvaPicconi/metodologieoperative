@@ -588,7 +588,7 @@
                     <p><strong>Tempo: 2 minuti</strong></p>
                     <div class="input-area">
                         <label>Cos'è per te l'Intelligenza Artificiale? Scrivi tutto quello che ti viene in mente:</label>
-                        <textarea id="brainstorming-ia" placeholder="Esempio: L'IA è un computer che pensa... / L'IA sono i robot... / L'IA serve per..."></textarea>
+                        <textarea id="brainstorming-ia" name="brainstorming-ia" placeholder="Esempio: L'IA è un computer che pensa... / L'IA sono i robot... / L'IA serve per..."></textarea>
                     </div>
                     <button class="button button-secondary" onclick="saveBrainstorming()">✅ Salva e Continua</button>
                     <div class="feedback-message" id="feedback-brainstorm"></div>
@@ -708,15 +708,15 @@
                     <p>Elenca <strong>3 esempi concreti</strong> di IA che usi nella tua vita quotidiana. Per ognuno, spiega COSA FA.</p>
                     <div class="input-area">
                         <label>1. Primo esempio di IA che uso:</label>
-                        <input type="text" id="esempio-ia-1" placeholder="Esempio: Filtri Instagram che riconoscono il mio viso">
+                        <input type="text" id="esempio-ia-1" name="esempio-ia-1" placeholder="Esempio: Filtri Instagram che riconoscono il mio viso">
                     </div>
                     <div class="input-area">
                         <label>2. Secondo esempio di IA che uso:</label>
-                        <input type="text" id="esempio-ia-2" placeholder="Esempio: Netflix che mi suggerisce serie TV">
+                        <input type="text" id="esempio-ia-2" name="esempio-ia-2" placeholder="Esempio: Netflix che mi suggerisce serie TV">
                     </div>
                     <div class="input-area">
                         <label>3. Terzo esempio di IA che uso:</label>
-                        <input type="text" id="esempio-ia-3" placeholder="Esempio: Google Maps che calcola il percorso più veloce">
+                        <input type="text" id="esempio-ia-3" name="esempio-ia-3" placeholder="Esempio: Google Maps che calcola il percorso più veloce">
                     </div>
                     <button class="button button-secondary" onclick="saveEsempiIA()">✅ Salva e Vai alla Fase 2</button>
                     <div class="feedback-message" id="feedback-esempi"></div>
@@ -837,12 +837,12 @@
                     
                     <div class="input-area">
                         <label>RECENSIONE POSITIVA - Parole chiave:</label>
-                        <textarea id="parole-positive" placeholder="Esempio: bellissimo, emozionante, consiglio, capolavoro, fantastico..."></textarea>
+                        <textarea id="parole-positive" name="parole-positive" placeholder="Esempio: bellissimo, emozionante, consiglio, capolavoro, fantastico..."></textarea>
                     </div>
                     
                     <div class="input-area">
                         <label>RECENSIONE NEGATIVA - Parole chiave:</label>
-                        <textarea id="parole-negative" placeholder="Esempio: noioso, terribile, sconsiglio, brutto, deludente..."></textarea>
+                        <textarea id="parole-negative" name="parole-negative" placeholder="Esempio: noioso, terribile, sconsiglio, brutto, deludente..."></textarea>
                     </div>
                     
                     <button class="button button-secondary" onclick="saveEsperimentoML()">✅ Salva e Continua</button>
@@ -1035,7 +1035,7 @@
                     
                     <div class="input-area">
                         <label>PROMPT 1 - Per riassumere un capitolo:</label>
-                        <textarea id="prompt-1" placeholder="Scrivi il prompt completo con tutti i 6 elementi:
+                        <textarea id="prompt-1" name="prompt-1" placeholder="Scrivi il prompt completo con tutti i 6 elementi:
 RUOLO: ...
 COMPITO: ...
 CONTESTO: ...
@@ -1046,12 +1046,12 @@ STOP CONDITION: ..."></textarea>
 
                     <div class="input-area">
                         <label>PROMPT 2 - Per creare domande di ripasso:</label>
-                        <textarea id="prompt-2" placeholder="Scrivi il prompt completo con tutti i 6 elementi"></textarea>
+                        <textarea id="prompt-2" name="prompt-2" placeholder="Scrivi il prompt completo con tutti i 6 elementi"></textarea>
                     </div>
 
                     <div class="input-area">
                         <label>PROMPT 3 - Per spiegare un concetto difficile:</label>
-                        <textarea id="prompt-3" placeholder="Scrivi il prompt completo con tutti i 6 elementi"></textarea>
+                        <textarea id="prompt-3" name="prompt-3" placeholder="Scrivi il prompt completo con tutti i 6 elementi"></textarea>
                     </div>
 
                     <button class="button button-secondary" onclick="savePrompts()">✅ Salva i Prompt</button>
@@ -1137,12 +1137,12 @@ STOP CONDITION: ..."></textarea>
                     
                     <div class="input-area">
                         <label>1. Secondo te, qual è il rischio più grande dell'IA oggi? Perché?</label>
-                        <textarea id="rischio-principale" placeholder="Rifletti: cosa ti preoccupa di più? Privacy? Bias? Deepfake? Altro?"></textarea>
+                        <textarea id="rischio-principale" name="rischio-principale" placeholder="Rifletti: cosa ti preoccupa di più? Privacy? Bias? Deepfake? Altro?"></textarea>
                     </div>
 
                     <div class="input-area">
                         <label>2. Come pensi di usare l'IA in modo RESPONSABILE nel tuo studio e nella tua vita?</label>
-                        <textarea id="uso-responsabile" placeholder="Esempio: verificare sempre le informazioni, non copiare senza capire, usarla come supporto non sostituto..."></textarea>
+                        <textarea id="uso-responsabile" name="uso-responsabile" placeholder="Esempio: verificare sempre le informazioni, non copiare senza capire, usarla come supporto non sostituto..."></textarea>
                     </div>
 
                     <button class="button button-secondary" onclick="saveRiflessioneEtica()">✅ Salva Riflessione</button>
@@ -1194,27 +1194,27 @@ STOP CONDITION: ..."></textarea>
                     
                     <div class="input-area">
                         <label>1. Prima di iniziare, cosa pensavi dell'Intelligenza Artificiale? Cosa è cambiato?</label>
-                        <textarea id="rifl-1" placeholder="Confronta il tuo brainstorming iniziale con ciò che sai ora..."></textarea>
+                        <textarea id="rifl-1" name="rifl-1" placeholder="Confronta il tuo brainstorming iniziale con ciò che sai ora..."></textarea>
                     </div>
 
                     <div class="input-area">
                         <label>2. Quali sono i 3 concetti più importanti che hai imparato?</label>
-                        <textarea id="rifl-2" placeholder="Esempio: 1. L'IA non pensa, elabora dati / 2. Il Machine Learning impara dai dati / 3. ..."></textarea>
+                        <textarea id="rifl-2" name="rifl-2" placeholder="Esempio: 1. L'IA non pensa, elabora dati / 2. Il Machine Learning impara dai dati / 3. ..."></textarea>
                     </div>
 
                     <div class="input-area">
                         <label>3. Cosa hai trovato più difficile da capire? Cosa vorresti approfondire?</label>
-                        <textarea id="rifl-3" placeholder="Sii sincero: c'è qualcosa che non ti è chiaro?"></textarea>
+                        <textarea id="rifl-3" name="rifl-3" placeholder="Sii sincero: c'è qualcosa che non ti è chiaro?"></textarea>
                     </div>
 
                     <div class="input-area">
                         <label>4. Quale fase (1-4) ti è stata più utile? Perché?</label>
-                        <textarea id="rifl-4" placeholder="Fase 1 Scopri / Fase 2 Esploro / Fase 3 Applico / Fase 4 Rifletto"></textarea>
+                        <textarea id="rifl-4" name="rifl-4" placeholder="Fase 1 Scopri / Fase 2 Esploro / Fase 3 Applico / Fase 4 Rifletto"></textarea>
                     </div>
 
                     <div class="input-area">
                         <label>5. Come impari meglio? (leggendo, facendo, sperimentando, riflettendo?)</label>
-                        <textarea id="rifl-5" placeholder="Rifletti sul tuo stile di apprendimento..."></textarea>
+                        <textarea id="rifl-5" name="rifl-5" placeholder="Rifletti sul tuo stile di apprendimento..."></textarea>
                     </div>
                 </div>
 
@@ -1239,27 +1239,27 @@ STOP CONDITION: ..."></textarea>
                     
                     <div class="input-area">
                         <label>1. STUDIO: Come userò l'IA per studiare meglio?</label>
-                        <textarea id="piano-studio" placeholder="Esempio: Userò NotebookLM per creare podcast dai miei appunti, costruirò prompt per riassumere capitoli, chiederò all'IA di farmi domande di ripasso..."></textarea>
+                        <textarea id="piano-studio" name="piano-studio" placeholder="Esempio: Userò NotebookLM per creare podcast dai miei appunti, costruirò prompt per riassumere capitoli, chiederò all'IA di farmi domande di ripasso..."></textarea>
                     </div>
 
                     <div class="input-area">
                         <label>2. FUTURO PROFESSIONALE: Come l'IA può aiutarmi nel mio percorso di Servizi Sociosanitari?</label>
-                        <textarea id="piano-professionale" placeholder="Esempio: Posso usare l'IA per preparare piani di intervento, cercare normative aggiornate, creare materiali informativi per utenti..."></textarea>
+                        <textarea id="piano-professionale" name="piano-professionale" placeholder="Esempio: Posso usare l'IA per preparare piani di intervento, cercare normative aggiornate, creare materiali informativi per utenti..."></textarea>
                     </div>
 
                     <div class="input-area">
                         <label>3. USO RESPONSABILE: Quali regole mi do per usare l'IA in modo etico?</label>
-                        <textarea id="piano-etica" placeholder="Esempio: Verificherò sempre le informazioni, non copierò senza capire, rispetterò la privacy, non userò l'IA per imbrogliare..."></textarea>
+                        <textarea id="piano-etica" name="piano-etica" placeholder="Esempio: Verificherò sempre le informazioni, non copierò senza capire, rispetterò la privacy, non userò l'IA per imbrogliare..."></textarea>
                     </div>
 
                     <div class="input-area">
                         <label>4. STRUMENTI: Quali strumenti IA proverò nel prossimo mese?</label>
-                        <textarea id="piano-strumenti" placeholder="Esempio: NotebookLM per studio, ChatGPT per dubbi, ..."></textarea>
+                        <textarea id="piano-strumenti" name="piano-strumenti" placeholder="Esempio: NotebookLM per studio, ChatGPT per dubbi, ..."></textarea>
                     </div>
 
                     <div class="input-area">
                         <label>5. OBIETTIVO CONCRETO: Qual è UNA cosa specifica che farò questa settimana con l'IA?</label>
-                        <textarea id="piano-obiettivo" placeholder="Esempio: Creerò 5 prompt per il mio prossimo test di metodologie operative"></textarea>
+                        <textarea id="piano-obiettivo" name="piano-obiettivo" placeholder="Esempio: Creerò 5 prompt per il mio prossimo test di metodologie operative"></textarea>
                     </div>
 
                     <button class="button button-secondary" onclick="savePianoDiAzione()">✅ Salva Piano d'Azione</button>

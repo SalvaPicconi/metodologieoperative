@@ -506,15 +506,15 @@
         <div class="student-info">
             <div class="info-field">
                 <label>Nome e Cognome:</label>
-                <input type="text" id="nome" placeholder="Scrivi qui il tuo nome">
+                <input type="text" id="nome" name="nome" placeholder="Scrivi qui il tuo nome">
             </div>
             <div class="info-field">
                 <label>Classe:</label>
-                <input type="text" id="classe" placeholder="Es: 1A">
+                <input type="text" id="classe" name="classe" placeholder="Es: 1A">
             </div>
             <div class="info-field">
                 <label>Data:</label>
-                <input type="date" id="data">
+                <input type="date" id="data" name="data">
             </div>
             <div class="info-field">
                 <label>Materia:</label>
@@ -711,16 +711,16 @@
 
             <div class="complete-sentence">
                 <div class="sentence">
-                    1. L'<input type="text" id="blank1" style="width: 200px; padding: 5px; border: 2px solid #3498db; border-radius: 5px;"> aiuta le persone che hanno problemi e non sanno a chi rivolgersi.
+                    1. L'<input type="text" id="blank1" name="blank1" style="width: 200px; padding: 5px; border: 2px solid #3498db; border-radius: 5px;"> aiuta le persone che hanno problemi e non sanno a chi rivolgersi.
                 </div>
                 <div class="sentence">
-                    2. Il <input type="text" id="blank2" style="width: 200px; padding: 5px; border: 2px solid #3498db; border-radius: 5px;"> è un luogo dove le persone possono passare la giornata e fare attività insieme.
+                    2. Il <input type="text" id="blank2" name="blank2" style="width: 200px; padding: 5px; border: 2px solid #3498db; border-radius: 5px;"> è un luogo dove le persone possono passare la giornata e fare attività insieme.
                 </div>
                 <div class="sentence">
-                    3. L'<input type="text" id="blank3" style="width: 200px; padding: 5px; border: 2px solid #3498db; border-radius: 5px;"> va a casa delle persone anziane o malate per aiutarle.
+                    3. L'<input type="text" id="blank3" name="blank3" style="width: 200px; padding: 5px; border: 2px solid #3498db; border-radius: 5px;"> va a casa delle persone anziane o malate per aiutarle.
                 </div>
                 <div class="sentence">
-                    4. La <input type="text" id="blank4" style="width: 200px; padding: 5px; border: 2px solid #3498db; border-radius: 5px;"> è un posto dove vivono persone che non possono stare con la loro famiglia.
+                    4. La <input type="text" id="blank4" name="blank4" style="width: 200px; padding: 5px; border: 2px solid #3498db; border-radius: 5px;"> è un posto dove vivono persone che non possono stare con la loro famiglia.
                 </div>
 
                 <div class="word-bank">
@@ -744,19 +744,19 @@
             <div class="sequence-box">
                 <div class="sequence-items">
                     <div class="sequence-item">
-                        <input type="number" min="1" max="4" id="seq1" style="width: 60px; padding: 8px; font-size: 18px; text-align: center; border: 2px solid #3498db; border-radius: 5px;">
+                        <input type="number" min="1" max="4" id="seq1" name="seq1" style="width: 60px; padding: 8px; font-size: 18px; text-align: center; border: 2px solid #3498db; border-radius: 5px;">
                         <span>La persona parla con l'Assistente Sociale del suo problema</span>
                     </div>
                     <div class="sequence-item">
-                        <input type="number" min="1" max="4" id="seq2" style="width: 60px; padding: 8px; font-size: 18px; text-align: center; border: 2px solid #3498db; border-radius: 5px;">
+                        <input type="number" min="1" max="4" id="seq2" name="seq2" style="width: 60px; padding: 8px; font-size: 18px; text-align: center; border: 2px solid #3498db; border-radius: 5px;">
                         <span>La persona riceve l'aiuto dal servizio attivato</span>
                     </div>
                     <div class="sequence-item">
-                        <input type="number" min="1" max="4" id="seq3" style="width: 60px; padding: 8px; font-size: 18px; text-align: center; border: 2px solid #3498db; border-radius: 5px;">
+                        <input type="number" min="1" max="4" id="seq3" name="seq3" style="width: 60px; padding: 8px; font-size: 18px; text-align: center; border: 2px solid #3498db; border-radius: 5px;">
                         <span>L'Assistente Sociale attiva il servizio più adatto</span>
                     </div>
                     <div class="sequence-item">
-                        <input type="number" min="1" max="4" id="seq4" style="width: 60px; padding: 8px; font-size: 18px; text-align: center; border: 2px solid #3498db; border-radius: 5px;">
+                        <input type="number" min="1" max="4" id="seq4" name="seq4" style="width: 60px; padding: 8px; font-size: 18px; text-align: center; border: 2px solid #3498db; border-radius: 5px;">
                         <span>La persona si rende conto di avere bisogno di aiuto</span>
                     </div>
                 </div>
@@ -775,7 +775,7 @@
             
             <div class="question">
                 <div class="question-text">Secondo te, perché è importante che esistano questi servizi per aiutare le persone? Scrivi almeno 3 righe.</div>
-                <textarea id="open-answer" placeholder="Scrivi qui la tua risposta..."></textarea>
+                <textarea id="open-answer" name="open-answer" placeholder="Scrivi qui la tua risposta..."></textarea>
                 <div class="hint-box">
                     <strong>💡 Per aiutarti:</strong> Pensa a cosa succederebbe se questi servizi non esistessero. Chi aiuterebbe le persone anziane? Chi aiuterebbe le famiglie in difficoltà?
                 </div>

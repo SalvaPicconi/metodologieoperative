@@ -900,17 +900,17 @@
                 <form id="compitiForm">
                     <div class="form-group">
                         <label for="studentName">👤 Nome e Cognome dello studente *</label>
-                        <input type="text" id="studentName" required placeholder="Inserisci il tuo nome completo">
+                        <input type="text" id="studentName" name="studentName" required placeholder="Inserisci il tuo nome completo">
                     </div>
 
                     <div class="form-group">
                         <label for="studentClass">🎓 Classe *</label>
-                        <input type="text" id="studentClass" required placeholder="Es: 3A SSS">
+                        <input type="text" id="studentClass" name="studentClass" required placeholder="Es: 3A SSS">
                     </div>
 
                     <div class="form-group">
                         <label for="studentDate">📅 Data *</label>
-                        <input type="date" id="studentDate" required>
+                        <input type="date" id="studentDate" name="studentDate" required>
                     </div>
 
                     <div class="subsection">
@@ -920,7 +920,7 @@
                             <p style="margin-top: 10px; font-size: 0.95em; color: #666;">Descrivi il concetto di presa in carico, spiegando perché è importante e quali sono le sue caratteristiche fondamentali.</p>
                         </div>
                         <div class="form-group">
-                            <textarea id="answer1" required placeholder="Scrivi qui la tua risposta..."></textarea>
+                            <textarea id="answer1" name="answer1" required placeholder="Scrivi qui la tua risposta..."></textarea>
                         </div>
                     </div>
 
@@ -931,7 +931,7 @@
                             <p style="margin-top: 10px; font-size: 0.95em; color: #666;">Spiega questi due concetti facendo esempi concreti di figure professionali operanti nei servizi sociali.</p>
                         </div>
                         <div class="form-group">
-                            <textarea id="answer2" required placeholder="Scrivi qui la tua risposta..."></textarea>
+                            <textarea id="answer2" name="answer2" required placeholder="Scrivi qui la tua risposta..."></textarea>
                         </div>
                     </div>
 
@@ -942,7 +942,7 @@
                             <p style="margin-top: 10px; font-size: 0.95em; color: #666;">Descrivi gli elementi che caratterizzano una relazione di aiuto efficace tra operatore e utente.</p>
                         </div>
                         <div class="form-group">
-                            <textarea id="answer3" required placeholder="Scrivi qui la tua risposta..."></textarea>
+                            <textarea id="answer3" name="answer3" required placeholder="Scrivi qui la tua risposta..."></textarea>
                         </div>
                     </div>
 
@@ -953,7 +953,7 @@
                             <p style="margin-top: 10px; font-size: 0.95em; color: #666;">Spiega cosa significa "visione globale" e perché non è sufficiente intervenire solo sulla persona, ma occorre considerare anche famiglia e territorio.</p>
                         </div>
                         <div class="form-group">
-                            <textarea id="answer4" required placeholder="Scrivi qui la tua risposta..."></textarea>
+                            <textarea id="answer4" name="answer4" required placeholder="Scrivi qui la tua risposta..."></textarea>
                         </div>
                     </div>
 
@@ -964,7 +964,7 @@
                             <p style="margin-top: 10px; font-size: 0.95em; color: #666;">Descrivi i benefici del lavoro d'équipe multiprofessionale per l'utente e per la qualità del progetto d'intervento.</p>
                         </div>
                         <div class="form-group">
-                            <textarea id="answer5" required placeholder="Scrivi qui la tua risposta..."></textarea>
+                            <textarea id="answer5" name="answer5" required placeholder="Scrivi qui la tua risposta..."></textarea>
                         </div>
                     </div>
 
@@ -1282,7 +1282,7 @@
                     ex.opzioni.forEach((opt, i) => {
                         html += `
                             <div class="quiz-option" onclick="toggleMSQ('${id}', ${i})">
-                                <input type="checkbox" id="${id}_${i}" style="margin-right: 10px;">
+                                <input type="checkbox" id="${id}_${i}" name="${id}_${i}" style="margin-right: 10px;">
                                 <span>${opt}</span>
                             </div>
                         `;
@@ -1333,7 +1333,7 @@
                 case 'cloze':
                     let clozeText = ex.testo;
                     ex.risposte.forEach((_, i) => {
-                        clozeText = clozeText.replace('_____', `<input type="text" class="cloze-input" id="${id}_${i}">`);
+                        clozeText = clozeText.replace('_____', `<input type="text" class="cloze-input" id="${id}_${i}" name="${id}_${i}">`);
                     });
                     // Salvo i dati in variabili globali per evitare problemi con JSON.stringify
                     window[`${id}_risposte`] = ex.risposte;
@@ -1371,7 +1371,7 @@
                         <div class="box" style="margin: 15px 0;">
                             <strong>💡 Suggerimento:</strong> ${ex.suggerimento}
                         </div>
-                        <textarea id="${id}_textarea" style="width: 100%; min-height: 120px; padding: 15px; border: 2px solid #667eea; border-radius: 10px; font-size: 1em;" placeholder="Scrivi qui la tua risposta..."></textarea>
+                        <textarea id="${id}_textarea" name="${id}_textarea" style="width: 100%; min-height: 120px; padding: 15px; border: 2px solid #667eea; border-radius: 10px; font-size: 1em;" placeholder="Scrivi qui la tua risposta..."></textarea>
                         <div style="margin-top: 10px; color: #666; font-size: 0.9em;">
                             ℹ️ Questa risposta verrà salvata ma non valutata automaticamente
                         </div>
