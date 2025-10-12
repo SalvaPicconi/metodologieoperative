@@ -1,4 +1,4 @@
-import { Progress } from './progress.js?v=20251020';
+import { Progress } from './progress.js?v=20251021';
 
 const DEFAULTS = {
   inputSelector: 'input:not([type="file"]), textarea, select',
@@ -130,7 +130,16 @@ function restoreData(selector, saved) {
   if (!saved) return;
   Object.entries(saved).forEach(([key, value]) => {
     const escaped = escapeSelector(key);
-    const elements = document.querySelectorAll(`${selector}[name="${key}"], ${selector}[data-progress="${key}"], ${selector}#${escaped}`);
+    const baseSelectors = [s.trim() for s in selector.split(',') if s.trim()];
+    const queryParts = [];
+    baseSelectors.forEach(base => {
+      queryParts.push(`${base}[name="${key}"]`);
+      queryParts.push(`${base}[data-progress="${key}"]`);
+      queryParts.push(`${base}#${escaped}`);
+    });
+    const query = queryParts.join(', ');
+    if (!query) return;
+    const elements = document.querySelectorAll(query);
     if (!elements.length) return;
 
     elements.forEach(el => {
