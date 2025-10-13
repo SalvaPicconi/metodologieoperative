@@ -26,7 +26,7 @@ function ensureSaveButton() {
     saveButtonEl.textContent = '💾 Salva progressi';
     saveButtonEl.id = 'saveProgressBtn';
     saveButtonEl.setAttribute('data-save-progress', '');
-    saveButtonEl.style.cssText = 'position:fixed;right:16px;bottom:16px;padding:10px 14px;border-radius:10px;border:0;background:#0ea5e9;color:#fff;box-shadow:0 6px 14px rgba(0,0,0,.15);z-index:9999;cursor:pointer;';
+    saveButtonEl.style.cssText = 'position:fixed;right:16px;bottom:16px;padding:10px 14px;border-radius:10px;border:0;background:#0ea5e9;color:#fff;box-shadow:0 6px 14px rgba(0,0,0,.15);z-index:2147483647;cursor:pointer;pointer-events:auto;';
     document.body.appendChild(saveButtonEl);
   }
 }
@@ -38,7 +38,7 @@ function ensureResetButton() {
     resetButtonEl = document.createElement('button');
     resetButtonEl.textContent = '🔄 Cambia studente';
     resetButtonEl.id = 'resetStudent';
-    resetButtonEl.style.cssText = 'position:fixed;left:16px;bottom:16px;padding:8px 12px;border-radius:10px;border:0;background:#f97316;color:white;box-shadow:0 6px 14px rgba(0,0,0,.15);z-index:9999;cursor:pointer;';
+    resetButtonEl.style.cssText = 'position:fixed;left:16px;bottom:16px;padding:10px 14px;border-radius:10px;border:0;background:#f97316;color:white;box-shadow:0 6px 14px rgba(0,0,0,.15);z-index:2147483647;cursor:pointer;pointer-events:auto;';
     document.body.appendChild(resetButtonEl);
   }
 }
@@ -66,7 +66,7 @@ function ensureStudentLabel() {
   if (!studentLabelEl) {
     studentLabelEl = document.createElement('div');
     studentLabelEl.id = 'studentLabel';
-    studentLabelEl.style.cssText = 'position:fixed;top:8px;right:16px;background:#0ea5e9;color:#fff;padding:4px 10px;border-radius:6px;font-size:14px;z-index:9999;';
+    studentLabelEl.style.cssText = 'position:fixed;top:8px;right:16px;background:#0ea5e9;color:#fff;padding:4px 10px;border-radius:6px;font-size:14px;z-index:2147483647;pointer-events:auto;';
     document.body.appendChild(studentLabelEl);
   }
   updateStudentLabel();
@@ -92,7 +92,8 @@ function observeUI() {
   uiObserver = new MutationObserver(() => {
     ensureUI();
   });
-  uiObserver.observe(document.body, { childList: true });
+  // osserva tutto il sottoalbero per re-iniettare i bottoni quando il DOM viene rimpiazzato
+  uiObserver.observe(document.body, { childList: true, subtree: true });
 }
 
 function collectData() {
@@ -136,10 +137,10 @@ function init() {
   const interval = setInterval(() => {
     ensureUI();
     attempts += 1;
-    if (attempts >= 20 || (saveButtonEl && resetButtonEl && studentLabelEl)) {
+    if (attempts >= 40 || (saveButtonEl && resetButtonEl && studentLabelEl)) {
       clearInterval(interval);
     }
-  }, 300);
+  }, 250);
 }
 
 if (document.readyState === 'loading') {
