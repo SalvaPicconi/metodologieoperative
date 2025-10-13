@@ -4,6 +4,7 @@ console.log('✅ progress-global attivo');
 
 // Rileva ID della pagina (meta o path)
 const PAGE_ID = document.querySelector('meta[name="page-id"]')?.content || location.pathname;
+let studentLabel = null;
 
 // Crea pulsanti se non esistono già
 document.addEventListener('DOMContentLoaded', () => {
@@ -24,14 +25,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // etichetta studente attivo
+  studentLabel = document.createElement('div');
+  studentLabel.id = 'studentLabel';
+  studentLabel.style.cssText = 'position:fixed;top:8px;right:16px;background:#0ea5e9;color:#fff;padding:4px 10px;border-radius:6px;font-size:14px;z-index:9999;';
+  document.body.appendChild(studentLabel);
+  updateStudentLabel();
+});
+
+function updateStudentLabel() {
+  if (!studentLabel) return;
   const c = localStorage.getItem('mo:class');
   const s = localStorage.getItem('mo:code');
-  const label = document.createElement('div');
-  label.id = 'studentLabel';
-  label.style.cssText = 'position:fixed;top:8px;right:16px;background:#0ea5e9;color:#fff;padding:4px 10px;border-radius:6px;font-size:14px;z-index:9999;';
-  label.textContent = c && s ? `Classe ${c} • Codice ${s}` : 'Studente non identificato';
-  document.body.appendChild(label);
-});
+  studentLabel.textContent = c && s ? `Classe ${c} • Codice ${s}` : 'Studente non identificato';
+}
 
 function collectData() {
   const d = {};
@@ -50,13 +56,17 @@ function restoreData(saved) {
 }
 
 // carica automaticamente i dati salvati
-document.addEventListener('DOMContentLoaded', async () => {
+async function loadAndRestore() {
   try {
     const saved = await Progress.load(PAGE_ID);
     restoreData(saved);
   } catch (error) {
     console.error('Errore caricamento progressi:', error);
   }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadAndRestore();
 });
 
 // gestisci click su salva
@@ -87,4 +97,10 @@ document.addEventListener('click', (event) => {
       location.reload();
     }
   }
+});
+
+// Aggiorna UI quando cambia identità
+window.addEventListener('mo:identity-change', () => {
+  updateStudentLabel();
+  loadAndRestore();
 });
