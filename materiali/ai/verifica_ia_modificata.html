@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta name="page-id" content="attivita-materiali-ai-verifica-ia-modificata-01">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="IIS Meucci Mattei">
+    <meta name="description" content="Verifica sull'Intelligenza Artificiale - Servizi Sociosanitari">
+    <title>🤖 Verifica IA | Metodologie Operative</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #FF3CAC 0%, #784BA0 25%, #2B86C5 50%, #00C9FF 75%, #92FE9D 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        /* PASSWORD SCREEN */
+        #passwordScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .password-box {
+            background: white;
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            text-align: center;
+            max-width: 500px;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .password-box h2 {
+            color: #784BA0;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+
+        .password-box input {
+            width: 100%;
+            padding: 20px;
+            font-size: 1.3em;
+            border: 4px solid #784BA0;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .password-box button {
+            background: linear-gradient(135deg, #FF3CAC 0%, #784BA0 100%);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.3em;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(120, 75, 160, 0.4);
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .password-box button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(120, 75, 160, 0.6);
+        }
+
+        .password-error {
+            color: #E74C3C;
+            font-weight: bold;
+            margin-top: 15px;
+            display: none;
+        }
+
+        #mainContent {
+            display: none;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            border-bottom: 8px solid #FFD700;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .header .subtitle {
+            font-size: 1.3em;
+            opacity: 0.95;
+            margin-bottom: 10px;
+        }
+
+        .header .info {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header .info p {
+            margin: 5px 0;
+            font-size: 1.05em;
+        }
+
+        /* BARRA INFORMAZIONI */
+        .info-bar {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            border-bottom: 5px solid #FF3CAC;
+        }
+
+        .info-item {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .info-item .emoji {
+            font-size: 2.5em;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .info-item .label {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .info-item .value {
+            font-size: 1.3em;
+            color: #c0392b;
+            font-weight: bold;
+        }
+
+        /* CONTENUTO */
+        .content {
+            padding: 40px 35px;
+        }
+
+        /* SEZIONI COLORATE */
+        .section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 20px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 4px solid transparent;
+            border-image: linear-gradient(45deg, #FF3CAC, #784BA0, #2B86C5, #92FE9D) 1;
+        }
+
+        .section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section h2 .emoji {
+            font-size: 1.3em;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .section.green {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        .section.orange {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .section.purple {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .section.red {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .section.blue {
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+        }
+
+        /* BOX DOMANDE */
+        .question-box {
+            background: white;
+            color: #2c3e50;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 8px solid #FF3CAC;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .question-box h3 {
+            color: #784BA0;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .question-box h4 {
+            color: #2B86C5;
+            font-size: 1.3em;
+            margin: 20px 0 10px 0;
+        }
+
+        .question-box p {
+            margin: 10px 0;
+            line-height: 1.8;
+        }
+
+        /* SCENARIO BOX */
+        .scenario {
+            background: linear-gradient(135deg, #FFF9C4 0%, #FFE082 100%);
+            border: 4px solid #FFA000;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .scenario::before {
+            content: "📋";
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 60px;
+            background: white;
+            border-radius: 50%;
+            padding: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .scenario h3 {
+            color: #E65100;
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .scenario p {
+            font-size: 1.1em;
+            line-height: 1.9;
+            color: #5D4037;
+            margin: 15px 0;
+        }
+
+        .scenario strong {
+            color: #BF360C;
+            font-size: 1.15em;
+        }
+
+        /* INPUT AREAS */
+        .input-group {
+            margin: 25px 0;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 12px;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%);
+            padding: 12px 20px;
+            border-radius: 10px;
+            border-left: 6px solid #FF3CAC;
+        }
+
+        .input-group textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 20px;
+            border: 4px solid #784BA0;
+            border-radius: 15px;
+            font-family: inherit;
+            font-size: 1.05em;
+            resize: vertical;
+            line-height: 1.8;
+            transition: all 0.3s;
+            overflow-y: hidden;
+        }
+
+        .input-group textarea:focus {
+            outline: none;
+            border-color: #FF3CAC;
+            box-shadow: 0 0 20px rgba(255, 60, 172, 0.4);
+            transform: scale(1.01);
+        }
+
+        .input-group .helper {
+            color: #7f8c8d;
+            font-size: 0.95em;
+            font-style: italic;
+            margin-top: 8px;
+            padding-left: 10px;
+        }
+
+        /* INPUT TEXT GENERICI */
+        input[type="text"] {
+            min-height: 50px;
+            padding: 15px;
+            font-size: 1.05em;
+        }
+
+        /* TABELLA PROMPT */
+        .prompt-table {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .prompt-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .prompt-table th {
+            background: linear-gradient(135deg, #FF3CAC 0%, #784BA0 100%);
+            color: white;
+            padding: 18px;
+            text-align: left;
+            font-size: 1.2em;
+            border-bottom: 4px solid #FFD700;
+        }
+
+        .prompt-table td {
+            padding: 20px;
+            border-bottom: 2px solid #ecf0f1;
+            font-size: 1.05em;
+        }
+
+        .prompt-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .prompt-table .component {
+            font-weight: bold;
+            color: #784BA0;
+            font-size: 1.1em;
+        }
+
+        .prompt-table input[type="text"],
+        .prompt-table textarea {
+            width: 100%;
+            padding: 12px;
+            border: 3px solid #2B86C5;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1em;
+            transition: all 0.3s;
+            overflow: hidden;
+        }
+
+        .prompt-table input[type="text"]:focus,
+        .prompt-table textarea:focus {
+            outline: none;
+            border-color: #FF3CAC;
+            box-shadow: 0 0 15px rgba(255, 60, 172, 0.3);
+        }
+
+        .prompt-table textarea {
+            min-height: 120px;
+            resize: vertical;
+            overflow-y: hidden;
+        }
+
+        /* CHECKLIST */
+        .checklist {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .checklist .item {
+            background: #E8F5E9;
+            padding: 18px;
+            margin: 12px 0;
+            border-radius: 12px;
+            border-left: 6px solid #4CAF50;
+            display: flex;
+            align-items: start;
+            gap: 15px;
+            transition: all 0.3s;
+        }
+
+        .checklist .item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .checklist input[type="checkbox"] {
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            margin-top: 3px;
+        }
+
+        .checklist label {
+            font-size: 1.1em;
+            line-height: 1.6;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        /* ALERT BOX */
+        .alert {
+            background: linear-gradient(135deg, #FFE5E5 0%, #FFB3B3 100%);
+            border: 4px solid #E74C3C;
+            border-radius: 20px;
+            padding: 25px;
+            margin: 25px 0;
+            color: #C0392B;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .alert .emoji {
+            font-size: 2em;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* ESEMPI */
+        .example {
+            background: #E3F2FD;
+            border: 3px solid #2196F3;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .example h4 {
+            color: #1565C0;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .example p {
+            margin: 10px 0;
+            line-height: 1.7;
+        }
+
+        .example .good {
+            color: #2E7D32;
+            font-weight: bold;
+        }
+
+        .example .bad {
+            color: #C62828;
+            font-weight: bold;
+        }
+
+        /* OPZIONI MULTIPLE */
+        .options {
+            margin: 20px 0;
+        }
+
+        .options label {
+            display: block;
+            background: #F5F5F5;
+            padding: 18px 20px;
+            margin: 12px 0;
+            border-radius: 12px;
+            border: 3px solid #BDC3C7;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.05em;
+        }
+
+        .options label:hover {
+            background: #E8F5E9;
+            border-color: #4CAF50;
+            transform: translateX(5px);
+        }
+
+        .options input[type="radio"] {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        /* PULSANTI */
+        .btn {
+            background: linear-gradient(135deg, #FF3CAC 0%, #784BA0 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(120, 75, 160, 0.4);
+            transition: all 0.3s;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(120, 75, 160, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-top: 6px solid #FFD700;
+        }
+
+        .footer p {
+            margin: 8px 0;
+            font-size: 1.05em;
+        }
+
+        .footer a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: #2980b9;
+        }
+
+        /* TEORIA BOX */
+        .teoria-box {
+            background: linear-gradient(135deg, #E8EAF6 0%, #C5CAE9 100%);
+            border: 4px solid #5C6BC0;
+            border-radius: 20px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .teoria-box h4 {
+            color: #3F51B5;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .teoria-box p {
+            line-height: 1.8;
+            color: #37474F;
+            margin: 10px 0;
+        }
+
+        .teoria-box strong {
+            color: #1A237E;
+        }
+
+        /* STAMPA */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+
+            .section,
+            .question-box,
+            .scenario {
+                page-break-inside: avoid;
+            }
+
+            .btn-container,
+            .alert {
+                display: none;
+            }
+
+            .header {
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+
+            #passwordScreen {
+                display: none !important;
+            }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .content {
+                padding: 25px 20px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .section h2 {
+                font-size: 1.6em;
+            }
+
+            .info-bar {
+                flex-direction: column;
+            }
+
+            .password-box {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- SCHERMATA PASSWORD -->
+    <div id="passwordScreen">
+        <div class="password-box">
+            <h2>🔐 Accesso Verifica</h2>
+            <p style="color: #555; margin-bottom: 25px;">Inserisci la password fornita dal docente</p>
+            <input type="password" id="passwordInput" placeholder="Password..." onkeypress="if(event.key==='Enter') verificaPassword()">
+            <button onclick="verificaPassword()">Accedi</button>
+            <p class="password-error" id="passwordError">❌ Password errata!</p>
+        </div>
+    </div>
+
+    <!-- CONTENUTO PRINCIPALE -->
+    <div id="mainContent">
+        <div class="container">
+            <!-- HEADER -->
+            <div class="header">
+                <h1>🤖 VERIFICA: Intelligenza Artificiale</h1>
+                <div class="subtitle">L'IA nel mio futuro e nei servizi sociosanitari</div>
+                <div class="info">
+                    <p><strong>Disciplina:</strong> Metodologie Operative</p>
+                    <p><strong>Servizi per la Sanità e l'Assistenza Sociale</strong></p>
+                    <p><strong>IIS Meucci Mattei - Cagliari (Sede Decimomannu)</strong></p>
+                </div>
+            </div>
+
+            <!-- BARRA INFO -->
+            <div class="info-bar">
+                <div class="info-item">
+                    <span class="emoji">⏱️</span>
+                    <div class="label">Tempo</div>
+                    <div class="value">60 min</div>
+                </div>
+                <div class="info-item">
+                    <span class="emoji">📝</span>
+                    <div class="label">Modalità</div>
+                    <div class="value">Individuale</div>
+                </div>
+                <div class="info-item">
+                    <span class="emoji">💯</span>
+                    <div class="label">Valutazione</div>
+                    <div class="value">In decimi</div>
+                </div>
+            </div>
+
+            <!-- CONTENUTO -->
+            <div class="content">
+                
+                <!-- ISTRUZIONI INIZIALI -->
+                <div class="alert">
+                    <span class="emoji">⚠️</span>
+                    <p>IMPORTANTE: Compila tutti i campi con nome, cognome e data prima di iniziare!</p>
+                    <p>Le risposte si salvano automaticamente ogni 30 secondi.</p>
+                </div>
+
+                <div class="question-box">
+                    <h3>📋 DATI DELLO STUDENTE</h3>
+                    <div class="input-group">
+                        <label>Nome e Cognome:</label>
+                        <input type="text" id="nomeStudente" placeholder="Inserisci nome e cognome" style="width: 100%; padding: 15px; font-size: 1.1em; border: 3px solid #784BA0; border-radius: 10px;">
+                    </div>
+                    <div class="input-group">
+                        <label>Data:</label>
+                        <input type="date" id="dataVerifica" style="width: 100%; padding: 15px; font-size: 1.1em; border: 3px solid #784BA0; border-radius: 10px;">
+                    </div>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- TEORIA INTRODUTTIVA -->
+                <!-- ========================================== -->
+                <div class="section blue">
+                    <h2><span class="emoji">📚</span> SEZIONE TEORICA - Fondamenti dell'IA</h2>
+                    
+                    <div class="teoria-box">
+                        <h4>💡 Richiami Teorici Essenziali</h4>
+                        <p>
+                            <strong>Intelligenza Artificiale (IA):</strong> capacità di un sistema informatico di svolgere compiti 
+                            che normalmente richiederebbero l'intelligenza umana, come ragionamento, apprendimento, 
+                            percezione e comprensione del linguaggio naturale.
+                        </p>
+                        <p>
+                            <strong>Machine Learning (ML):</strong> sottocampo dell'IA in cui i sistemi "imparano" dai dati 
+                            senza essere esplicitamente programmati per ogni situazione. Esistono tre tipi principali:
+                        </p>
+                        <ul style="margin: 15px 0 15px 30px; line-height: 2;">
+                            <li><strong>Supervised Learning:</strong> il sistema impara da dati etichettati (esempi con risposte corrette)</li>
+                            <li><strong>Unsupervised Learning:</strong> il sistema trova pattern e strutture in dati non etichettati</li>
+                            <li><strong>Reinforcement Learning:</strong> il sistema impara per tentativi ed errori, ricevendo ricompense o penalità</li>
+                        </ul>
+                    </div>
+
+                    <div class="question-box">
+                        <h3>📝 DOMANDA T1 - Comprensione dei concetti base (8 punti)</h3>
+                        <p><strong>Cosa significa "Machine Learning" (apprendimento automatico)?</strong></p>
+                        <div class="options">
+                            <label>
+                                <input type="radio" name="t1" value="a">
+                                Un computer che fa calcoli molto velocemente
+                            </label>
+                            <label>
+                                <input type="radio" name="t1" value="b">
+                                Un programma che impara dai dati invece di seguire regole fisse scritte dal programmatore
+                            </label>
+                            <label>
+                                <input type="radio" name="t1" value="c">
+                                Un robot che copia il comportamento umano
+                            </label>
+                            <label>
+                                <input type="radio" name="t1" value="d">
+                                Un software che memorizza tante informazioni in un database
+                            </label>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Fai un ESEMPIO semplice di Machine Learning che usi nella vita quotidiana:</label>
+                            <textarea id="t1_explain" placeholder="Esempio: Quando Netflix mi suggerisce film..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="question-box">
+                        <h3>📝 DOMANDA T2 - IA Debole vs IA Forte (8 punti)</h3>
+                        <p><strong>Qual è la differenza principale tra IA Debole e IA Forte?</strong></p>
+                        <div class="options">
+                            <label>
+                                <input type="radio" name="t2" value="a">
+                                L'IA Debole fa poche cose, l'IA Forte fa tante cose diverse
+                            </label>
+                            <label>
+                                <input type="radio" name="t2" value="b">
+                                L'IA Debole è specializzata in un compito specifico; l'IA Forte può ragionare, imparare e adattarsi a qualsiasi situazione nuova come un essere umano
+                            </label>
+                            <label>
+                                <input type="radio" name="t2" value="c">
+                                L'IA Debole è vecchia, l'IA Forte è moderna
+                            </label>
+                            <label>
+                                <input type="radio" name="t2" value="d">
+                                L'IA Debole lavora lentamente, l'IA Forte è velocissima
+                            </label>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>L'IA Forte esiste già? Fai un esempio per spiegare la tua risposta:</label>
+                            <textarea id="t2_explain" placeholder="Scrivi qui la tua spiegazione con un esempio..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="question-box">
+                        <h3>📝 DOMANDA T3 - Bias e Discriminazione nell'IA (8 punti)</h3>
+                        
+                        <div class="teoria-box">
+                            <h4>📖 Richiamo teorico: Bias algoritmico</h4>
+                            <p>
+                                Il <strong>bias algoritmico</strong> succede quando l'IA fa errori o discriminazioni 
+                                perché ha imparato da dati che contenevano già dei pregiudizi.
+                            </p>
+                        </div>
+
+                        <p><strong>Quale situazione è un esempio di bias?</strong></p>
+                        <div class="options">
+                            <label>
+                                <input type="radio" name="t3" value="a">
+                                Un'app di riconoscimento vocale che capisce meglio chi parla con accento americano rispetto ad altri accenti
+                            </label>
+                            <label>
+                                <input type="radio" name="t3" value="b">
+                                Un'IA che a volte sbaglia a rispondere a domande difficili
+                            </label>
+                            <label>
+                                <input type="radio" name="t3" value="c">
+                                Un chatbot che impiega 10 secondi per rispondere invece di 2 secondi
+                            </label>
+                            <label>
+                                <input type="radio" name="t3" value="d">
+                                Un sistema che consiglia film in base a cosa hai guardato
+                            </label>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Inventa un ESEMPIO SEMPLICE di bias che potrebbe accadere in una scuola o in un centro per anziani:</label>
+                            <textarea id="t3_example" placeholder="Esempio: Un'IA per scegliere le attività potrebbe sempre proporre..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="question-box">
+                        <h3>📝 DOMANDA T4 - Esempi di Machine Learning nella vita quotidiana (6 punti)</h3>
+                        <p><strong>Quale di questi NON è un esempio corretto di Machine Learning?</strong></p>
+                        <div class="options">
+                            <label>
+                                <input type="radio" name="t4" value="a">
+                                Netflix che suggerisce film in base a ciò che hai guardato in passato
+                            </label>
+                            <label>
+                                <input type="radio" name="t4" value="b">
+                                Un calcolatore che esegue operazioni matematiche seguendo un programma fisso
+                            </label>
+                            <label>
+                                <input type="radio" name="t4" value="c">
+                                Google Foto che riconosce automaticamente le persone nelle tue foto
+                            </label>
+                            <label>
+                                <input type="radio" name="t4" value="d">
+                                Un'app che ti avvisa quando un pacco sta per arrivare in base agli orari passati
+                            </label>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Spiega perché l'opzione che hai scelto NON è Machine Learning:</label>
+                            <textarea id="t4_explain" placeholder="Argomenta la tua risposta..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- PARTE 1A: SCENARIO CENTRO DIURNO -->
+                <!-- ========================================== -->
+                <div class="section">
+                    <h2><span class="emoji">🎯</span> PARTE 1A: Centro Diurno - Assistente del Coordinatore (25 punti)</h2>
+                    
+                    <div class="scenario">
+                        <h3>🏫 IL CASO: Centro Diurno "Stella del Mattino"</h3>
+                        <p>
+                            Sei <strong>Assistente del coordinatore</strong> del Centro Diurno "Stella del Mattino" 
+                            che accoglie 7 utenti adulti con diverse diagnosi sociosanitarie.
+                        </p>
+                        <p>
+                            <strong>CONTESTO:</strong> Il centro ha digitalizzato tutte le cartelle sociosanitarie 
+                            e il coordinatore ti chiede di utilizzare l'IA per:
+                        </p>
+                        <ul style="margin: 15px 0; padding-left: 40px; line-height: 2;">
+                            <li>📁 Analizzare le diagnosi degli utenti (anonimizzati con codici: 01_cd, 02_cd, ... 07_cd)</li>
+                            <li>📊 Identificare pattern e bisogni comuni tra gli utenti</li>
+                            <li>📋 Creare materiali informativi per l'équipe multidisciplinare</li>
+                            <li>🎯 Proporre interventi personalizzati basati sulle diagnosi specifiche</li>
+                        </ul>
+                        <p>
+                            <strong>ÉQUIPE:</strong> OSS, Assistente sociale, Psicologo, Educatore
+                        </p>
+                        <p>
+                            <strong>TUO COMPITO:</strong> Usare NotebookLM per analizzare i dati e supportare 
+                            la pianificazione degli interventi sociosanitari.
+                        </p>
+                    </div>
+
+                    <div class="question-box">
+                        <h3>📝 DOMANDA 1A.1 - Scelta del tipo di Machine Learning (8 punti)</h3>
+                        <p>
+                            Vuoi usare l'IA per <strong>raggruppare automaticamente gli utenti che hanno bisogni simili</strong>, 
+                            guardando le loro cartelle. Non sai ancora quali gruppi verranno fuori, vuoi che l'IA li scopra da sola.
+                        </p>
+                        <p><strong>Quale tipo di Machine Learning è più adatto?</strong></p>
+                        <div class="options">
+                            <label>
+                                <input type="radio" name="q1a_1" value="a">
+                                <strong>Supervised Learning</strong> - perché devo dire all'IA in quale gruppo mettere ogni persona
+                            </label>
+                            <label>
+                                <input type="radio" name="q1a_1" value="b">
+                                <strong>Unsupervised Learning</strong> - perché l'IA trova da sola i gruppi guardando le somiglianze
+                            </label>
+                            <label>
+                                <input type="radio" name="q1a_1" value="c">
+                                <strong>Reinforcement Learning</strong> - perché l'IA prova diverse soluzioni e impara dagli errori
+                            </label>
+                        </div>
+                        <div class="input-group">
+                            <label>Spiega con parole semplici perché hai scelto questa risposta:</label>
+                            <textarea id="q1a_1_explain" placeholder="Spiega come funzionerebbe in questo caso..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="question-box">
+                        <h3>📝 DOMANDA 1A.2 - Costruisci un PROMPT professionale (17 punti)</h3>
+                        <p>
+                            Devi usare <strong>NotebookLM</strong> per analizzare le cartelle sociosanitarie digitalizzate 
+                            degli utenti del centro diurno, e devi esaminare le diagnosi. Una volta anonimizzati 
+                            (ma riconoscibili a te attraverso codici es. 01_cd, 02_cd) devi creare dei materiali 
+                            informativi per l'équipe (tra cui OSS, Assistente sociale, Psicologo, Educatore). 
+                        </p>
+                        <p>
+                            <strong>IL TUO OBIETTIVO:</strong> Capire quale intervento predisporre data la diagnosi 
+                            specifica dei 7 pazienti frequentanti il centro diurno.
+                        </p>
+                        <p style="background: #FFF9C4; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                            <strong>⚠️ IMPORTANTE:</strong> Usa il metodo <strong>R.C.C.R.R.S.</strong> 
+                            (Ruolo - Compito - Contesto - Risultato - Reasoning - Stop Condition)
+                        </p>
+
+                        <div class="prompt-table">
+                            <table>
+                                <tr>
+                                    <th style="width: 25%;">Componente</th>
+                                    <th>Il tuo PROMPT</th>
+                                </tr>
+                                <tr>
+                                    <td class="component">R - RUOLO</td>
+                                    <td><textarea id="prompt_ruolo" placeholder="Definisci chi deve essere l'IA (ruolo, competenze, prospettiva)"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td class="component">C - COMPITO</td>
+                                    <td><textarea id="prompt_compito" placeholder="Spiega cosa deve fare l'IA (azione principale, obiettivo)"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td class="component">C - CONTESTO</td>
+                                    <td><textarea id="prompt_contesto" placeholder="Fornisci le informazioni di sfondo necessarie (destinatari, situazione, vincoli)"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td class="component">R - RISULTATO</td>
+                                    <td><textarea id="prompt_risultato" placeholder="Specifica il formato e le caratteristiche dell'output desiderato"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td class="component">R - REASONING</td>
+                                    <td><textarea id="prompt_reasoning" placeholder="Indica come l'IA deve ragionare (criteri, metodo, stile)"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td class="component">S - STOP CONDITION</td>
+                                    <td><textarea id="prompt_stop" placeholder="Definisci quando il compito è completato correttamente (verifiche, controlli qualità)"></textarea></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- PARTE 1B: SCENARIO SCUOLA DELL'INFANZIA -->
+                <!-- ========================================== -->
+                <div class="section blue">
+                    <h2><span class="emoji">🎨</span> PARTE 1B: Scuola dell'Infanzia - Esperto in AI Educativo (25 punti)</h2>
+                    
+                    <div class="scenario">
+                        <h3>🏫 IL CASO: Scuola dell'Infanzia "Girotondo"</h3>
+                        <p>
+                            Sei <strong>Assistente del coordinatore didattico</strong> della Scuola dell'Infanzia "Girotondo" 
+                            che accoglie 20 bambini di età compresa tra 3 e 5 anni.
+                        </p>
+                        <p>
+                            <strong>CONTESTO:</strong> Le maestre hanno raccolto durante l'anno <strong>osservazioni sistematiche</strong> 
+                            su ogni bambino, documentate in diari e resoconti che descrivono:
+                        </p>
+                        <ul style="margin: 15px 0; padding-left: 40px; line-height: 2;">
+                            <li>🗣️ Sviluppo del linguaggio (vocabolario, comprensione, espressione)</li>
+                            <li>🤸 Sviluppo psicomotorio e motricità globale</li>
+                            <li>✋ Motricità fine (coordinazione mano-occhio, manipolazione)</li>
+                            <li>👥 Socialità e relazioni con i pari</li>
+                            <li>💚 Emotività e gestione delle emozioni</li>
+                            <li>⚖️ Moralità e rispetto delle regole</li>
+                        </ul>
+                        <p>
+                            <strong>TUO COMPITO:</strong> Usare <strong>ChatGPT</strong> per analizzare i resoconti delle maestre 
+                            e progettare <strong>attività educative personalizzate</strong> per ogni bambino, 
+                            considerando i suoi specifici bisogni di sviluppo.
+                        </p>
+                    </div>
+
+                    <div class="question-box">
+                        <h3>📝 DOMANDA 1B.1 - Scelta del tipo di Machine Learning (8 punti)</h3>
+                        <p>
+                            Il coordinatore vuole che l'IA <strong>consigli automaticamente attività specifiche</strong> per ogni bambino. 
+                            Per farlo, l'IA deve imparare da tanti esempi dove per ogni bambino ci sono: 
+                            le osservazioni delle maestre + le attività che hanno funzionato meglio in passato.
+                        </p>
+                        <p><strong>Quale tipo di Machine Learning serve?</strong></p>
+                        <div class="options">
+                            <label>
+                                <input type="radio" name="q1b_1" value="a">
+                                <strong>Supervised Learning</strong> - perché ho esempi con le "risposte giuste" (attività che hanno funzionato)
+                            </label>
+                            <label>
+                                <input type="radio" name="q1b_1" value="b">
+                                <strong>Unsupervised Learning</strong> - perché voglio scoprire schemi nascosti nelle osservazioni
+                            </label>
+                            <label>
+                                <input type="radio" name="q1b_1" value="c">
+                                <strong>Reinforcement Learning</strong> - perché l'IA prova diverse attività e vede quali funzionano
+                            </label>
+                        </div>
+                        <div class="input-group">
+                            <label>Spiega con un esempio pratico come funzionerebbe:</label>
+                            <textarea id="q1b_1_explain" placeholder="Esempio: Se un bambino ha difficoltà nel linguaggio, l'IA suggerirebbe..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="question-box">
+                        <h3>📝 DOMANDA 1B.2 - Costruisci un PROMPT per ChatGPT (17 punti)</h3>
+                        <p>
+                            Devi usare <strong>ChatGPT</strong> per analizzare i resoconti delle maestre su 5 bambini 
+                            (identificati con codici: A1, A2, A3, A4, A5) e creare <strong>attività educative personalizzate</strong> 
+                            per ognuno di loro.
+                        </p>
+                        <p>
+                            <strong>OBIETTIVO:</strong> Per ogni bambino, proporre 3 attività concrete che lavorino su:
+                            <strong>linguaggio, psicomotricità, socialità</strong> - in base ai bisogni emersi dalle osservazioni.
+                        </p>
+                        <p style="background: #FFF9C4; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                            <strong>⚠️ IMPORTANTE:</strong> Usa il metodo <strong>R.C.C.R.R.S.</strong> 
+                            (Ruolo - Compito - Contesto - Risultato - Reasoning - Stop Condition)
+                        </p>
+
+                        <div class="prompt-table">
+                            <table>
+                                <tr>
+                                    <th style="width: 25%;">Componente</th>
+                                    <th>Il tuo PROMPT per ChatGPT</th>
+                                </tr>
+                                <tr>
+                                    <td class="component">R - RUOLO</td>
+                                    <td><textarea id="prompt_ruolo_scuola" placeholder="Definisci chi deve essere l'IA (ruolo, competenze, prospettiva)"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td class="component">C - COMPITO</td>
+                                    <td><textarea id="prompt_compito_scuola" placeholder="Spiega cosa deve fare l'IA (azione principale, obiettivo)"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td class="component">C - CONTESTO</td>
+                                    <td><textarea id="prompt_contesto_scuola" placeholder="Fornisci le informazioni di sfondo necessarie (destinatari, situazione, vincoli)"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td class="component">R - RISULTATO</td>
+                                    <td><textarea id="prompt_risultato_scuola" placeholder="Specifica il formato e le caratteristiche dell'output desiderato"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td class="component">R - REASONING</td>
+                                    <td><textarea id="prompt_reasoning_scuola" placeholder="Indica come l'IA deve ragionare (criteri, metodo, stile)"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td class="component">S - STOP CONDITION</td>
+                                    <td><textarea id="prompt_stop_scuola" placeholder="Definisci quando il compito è completato correttamente (verifiche, controlli qualità)"></textarea></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- PARTE 2: DEBUG DELL'IA -->
+                <!-- ========================================== -->
+                <div class="section green">
+                    <h2><span class="emoji">🛠</span> PARTE 2: Correggi gli Errori (20 punti)</h2>
+
+                    <div class="question-box">
+                        <h3>📝 DOMANDA 2.1 - Prompt Sbagliato (10 punti)</h3>
+                        <p>Uno studente ha scritto questo prompt per ChatGPT:</p>
+                        
+                        <div class="example">
+                            <p class="bad">
+                                ❌ "Fammi un riassunto del documento"
+                            </p>
+                        </div>
+
+                        <p><strong>COMPITO:</strong> Elenca ALMENO 4 cose che mancano o che sono sbagliate:</p>
+                        
+                        <div class="input-group">
+                            <label>1. Cosa manca o è sbagliato?</label>
+                            <input type="text" id="errore1" placeholder="Es: Non specifica quale documento...">
+                        </div>
+                        <div class="input-group">
+                            <label>2. Cosa manca o è sbagliato?</label>
+                            <input type="text" id="errore2" placeholder="Scrivi qui...">
+                        </div>
+                        <div class="input-group">
+                            <label>3. Cosa manca o è sbagliato?</label>
+                            <input type="text" id="errore3" placeholder="Scrivi qui...">
+                        </div>
+                        <div class="input-group">
+                            <label>4. Cosa manca o è sbagliato?</label>
+                            <input type="text" id="errore4" placeholder="Scrivi qui...">
+                        </div>
+                    </div>
+
+                    <div class="question-box">
+                        <h3>📝 DOMANDA 2.2 - Riconoscimento Errori IA (10 punti)</h3>
+                        <p>
+                            Un centro socio-educativo usa un'IA per selezionare educatori. L'IA è stata addestrata 
+                            con <strong>dati storici</strong> delle assunzioni degli ultimi 15 anni.
+                        </p>
+                        <p>
+                            <strong>PROBLEMA:</strong> L'IA tende a preferire candidati di un certo genere e 
+                            con determinate caratteristiche demografiche, riproducendo pattern del passato.
+                        </p>
+
+                        <div class="input-group">
+                            <label>A) Come si chiama questo problema? Definiscilo con parole tue:</label>
+                            <textarea id="q2_2a" placeholder="Spiega che tipo di problema è..."></textarea>
+                            <p class="helper">💡 Riferisciti a quanto studiato sui rischi dell'IA</p>
+                        </div>
+
+                        <div class="input-group">
+                            <label>B) Fai un ESEMPIO SEMPLICE di come questo problema potrebbe manifestarsi in un contesto educativo che conosci:</label>
+                            <textarea id="q2_2b" placeholder="Descrivi un esempio concreto e semplice..."></textarea>
+                        </div>
+
+                        <div class="input-group">
+                            <label>C) Proponi DUE soluzioni concrete per prevenire questo problema:</label>
+                            <textarea id="q2_2c" placeholder="Soluzione 1:... Soluzione 2:..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- PARTE 3: CONOSCENZE TEORICHE -->
+                <!-- ========================================== -->
+                <div class="section orange">
+                    <h2><span class="emoji">📚</span> PARTE 3: Teoria dell'IA (20 punti)</h2>
+
+                    <div class="question-box">
+                        <h3>📝 DOMANDA 3.1 - Machine Learning (8 punti)</h3>
+                        <p>Associa ogni ESEMPIO al tipo di Machine Learning corretto:</p>
+
+                        <div style="background: #F5F5F5; padding: 20px; border-radius: 15px; margin: 20px 0;">
+                            <p style="margin: 15px 0;"><strong>ESEMPIO A:</strong> 
+                                Spotify suggerisce canzoni simili a quelle che ascolti, 
+                                raggruppando utenti con gusti musicali simili senza avere categorie predefinite
+                            </p>
+                            <div class="options">
+                                <label><input type="radio" name="es_a" value="1"> Supervised Learning</label>
+                                <label><input type="radio" name="es_a" value="2"> Unsupervised Learning</label>
+                                <label><input type="radio" name="es_a" value="3"> Reinforcement Learning</label>
+                            </div>
+                        </div>
+
+                        <div style="background: #F5F5F5; padding: 20px; border-radius: 15px; margin: 20px 0;">
+                            <p style="margin: 15px 0;"><strong>ESEMPIO B:</strong> 
+                                Un robot impara a camminare provando diverse combinazioni di movimenti 
+                                e ricevendo punti quando cammina bene, migliorando autonomamente
+                            </p>
+                            <div class="options">
+                                <label><input type="radio" name="es_b" value="1"> Supervised Learning</label>
+                                <label><input type="radio" name="es_b" value="2"> Unsupervised Learning</label>
+                                <label><input type="radio" name="es_b" value="3"> Reinforcement Learning</label>
+                            </div>
+                        </div>
+
+                        <div style="background: #F5F5F5; padding: 20px; border-radius: 15px; margin: 20px 0;">
+                            <p style="margin: 15px 0;"><strong>ESEMPIO C:</strong> 
+                                Un sistema riconosce email spam dopo essere stato addestrato 
+                                con 10.000 email già etichettate come "spam" o "non spam"
+                            </p>
+                            <div class="options">
+                                <label><input type="radio" name="es_c" value="1"> Supervised Learning</label>
+                                <label><input type="radio" name="es_c" value="2"> Unsupervised Learning</label>
+                                <label><input type="radio" name="es_c" value="3"> Reinforcement Learning</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-box">
+                        <h3>📝 DOMANDA 3.2 - NotebookLM (6 punti)</h3>
+                        <p>Abbiamo usato <strong>NotebookLM</strong> in classe. Rispondi:</p>
+
+                        <div class="input-group">
+                            <label>A) Cosa può fare NotebookLM che ChatGPT da solo non può fare?</label>
+                            <textarea id="q3_2a" placeholder="Spiega almeno 2 funzionalità specifiche di NotebookLM..."></textarea>
+                        </div>
+
+                        <div class="input-group">
+                            <label>B) Quale funzione ti è sembrata più utile per studiare? Perché?</label>
+                            <textarea id="q3_2b" placeholder="Es: Il podcast audio perché..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="question-box">
+                        <h3>📝 DOMANDA 3.3 - IA Debole vs IA Forte (6 punti)</h3>
+                        
+                        <p><strong>Vero o Falso?</strong> (Segna V o F e motiva brevemente)</p>
+
+                        <div style="background: #F5F5F5; padding: 20px; border-radius: 10px; margin: 15px 0;">
+                            <p>
+                                <input type="radio" name="q3_3a" value="v"> V 
+                                <input type="radio" name="q3_3a" value="f"> F 
+                                &nbsp;&nbsp;
+                                <strong>Alexa è un esempio di IA Forte perché risponde a molte domande diverse</strong>
+                            </p>
+                            <input type="text" id="q3_3a_motiv" placeholder="Motivazione (1-2 righe)..." style="width: 100%; margin-top: 10px; padding: 10px; border: 2px solid #ccc; border-radius: 8px;">
+                        </div>
+
+                        <div style="background: #F5F5F5; padding: 20px; border-radius: 10px; margin: 15px 0;">
+                            <p>
+                                <input type="radio" name="q3_3b" value="v"> V 
+                                <input type="radio" name="q3_3b" value="f"> F 
+                                &nbsp;&nbsp;
+                                <strong>L'IA Forte è ancora un obiettivo teorico non raggiunto</strong>
+                            </p>
+                            <input type="text" id="q3_3b_motiv" placeholder="Motivazione (1-2 righe)..." style="width: 100%; margin-top: 10px; padding: 10px; border: 2px solid #ccc; border-radius: 8px;">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- PARTE 4: ETICA E RIFLESSIONE -->
+                <!-- ========================================== -->
+                <div class="section purple">
+                    <h2><span class="emoji">⚖️</span> PARTE 4: Uso Etico dell'IA (15 punti)</h2>
+
+                    <div class="question-box">
+                        <h3>📝 DOMANDA 4.1 - Dilemma Etico (10 punti)</h3>
+                        
+                        <div class="scenario">
+                            <h3>⚡ SITUAZIONE</h3>
+                            <p>
+                                Hai una <strong>verifica difficile</strong> di Igiene e Cultura Medico-Sanitaria domani.
+                            </p>
+                            <p>
+                                Il tuo compagno ti propone: 
+                                <em>"Dai il PDF del libro a ChatGPT, fagli fare il riassunto e studiamo quello. 
+                                Poi chiediamo all'IA di farci le domande probabili della verifica!"</em>
+                            </p>
+                        </div>
+
+                        <div class="input-group">
+                            <label>A) Questa proposta è corretta dal punto di vista dell'uso etico dell'IA? Perché SÌ o perché NO?</label>
+                            <textarea id="q4_1a" placeholder="Argomenta la tua posizione in modo chiaro..."></textarea>
+                        </div>
+
+                        <div class="input-group">
+                            <label>B) Come useresti TU l'IA in questa situazione in modo etico e utile?</label>
+                            <textarea id="q4_1b" placeholder="Proponi un uso corretto dell'IA per studiare..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="question-box">
+                        <h3>📝 DOMANDA 4.2 - Rischi dell'IA (5 punti)</h3>
+                        <p>
+                            Abbiamo studiato i <strong>rischi</strong> dell'IA. 
+                            Elenca <strong>3 rischi concreti</strong> che l'IA può avere nei servizi sociosanitari:
+                        </p>
+
+                        <div class="input-group">
+                            <label>RISCHIO 1:</label>
+                            <textarea id="rischio1" placeholder="Es: Violazione della privacy dei dati sensibili..."></textarea>
+                        </div>
+
+                        <div class="input-group">
+                            <label>RISCHIO 2:</label>
+                            <textarea id="rischio2" placeholder="Scrivi qui..."></textarea>
+                        </div>
+
+                        <div class="input-group">
+                            <label>RISCHIO 3:</label>
+                            <textarea id="rischio3" placeholder="Scrivi qui..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- PARTE 5: APPLICAZIONE AL TUO FUTURO -->
+                <!-- ========================================== -->
+                <div class="section red">
+                    <h2><span class="emoji">🚀</span> PARTE 5: L'IA nel Tuo Futuro Professionale (15 punti)</h2>
+
+                    <div class="question-box">
+                        <h3>📝 DOMANDA 5 - Progetta il Tuo Uso dell'IA (15 punti)</h3>
+                        
+                        <p style="font-size: 1.15em; line-height: 1.8; margin: 20px 0;">
+                            Immagina di lavorare tra 5 anni in una <strong>struttura educativa o sociosanitaria</strong> 
+                            (scuola dell'infanzia, centro diurno, comunità, cooperativa sociale...).
+                        </p>
+
+                        <div class="input-group">
+                            <label>A) Descrivi 2 modi CONCRETI in cui useresti l'IA nel tuo lavoro quotidiano</label>
+                            <textarea id="q5a" placeholder="Esempio: Userei l'IA per analizzare i progressi degli utenti/bambini e..."></textarea>
+                            <p class="helper">💡 Sii specifico/a: cosa farebbe l'IA? Come ti aiuterebbe?</p>
+                        </div>
+
+                        <div class="input-group">
+                            <label>B) Quale competenza sull'IA che hai imparato in questo percorso ti sarà più utile?</label>
+                            <textarea id="q5b" placeholder="Esempio: Saper costruire prompt efficaci perché..."></textarea>
+                        </div>
+
+                        <div class="input-group">
+                            <label>C) Cosa NON delegheresti MAI all'IA nel rapporto con le persone? Perché?</label>
+                            <textarea id="q5c" placeholder="Rifletti sul valore umano del lavoro educativo e di cura..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SALVATAGGIO FINALE -->
+                <div class="alert" style="background: linear-gradient(135deg, #D4EDDA 0%, #C3E6CB 100%); border-color: #28A745; color: #155724;">
+                    <span class="emoji">💾</span>
+                    <p>Ricorda: Le tue risposte si salvano automaticamente!</p>
+                    <p>Prima di consegnare, rileggi tutto con attenzione.</p>
+                </div>
+
+                <div class="btn-container">
+                    <button class="btn" onclick="salvaTutto()">
+                        💾 Salva e Verifica Completamento
+                    </button>
+                    <button class="btn" onclick="stampaPDF()" style="margin-left: 20px; background: linear-gradient(135deg, #2B86C5 0%, #00C9FF 100%);">
+                        🖨️ Stampa in PDF
+                    </button>
+                </div>
+
+                <!-- CHECKLIST FINALE -->
+                <div class="question-box" style="margin-top: 40px;">
+                    <h3>✅ CHECKLIST FINALE - Prima di Consegnare</h3>
+                    <div class="checklist">
+                        <div class="item">
+                            <input type="checkbox" id="check1">
+                            <label for="check1">Ho compilato Nome, Cognome e Data</label>
+                        </div>
+                        <div class="item">
+                            <input type="checkbox" id="check2">
+                            <label for="check2">Ho risposto a TUTTE le domande teoriche (T1-T4)</label>
+                        </div>
+                        <div class="item">
+                            <input type="checkbox" id="check3">
+                            <label for="check3">Ho completato la PARTE 1A (Centro Diurno) con il prompt R.C.C.R.R.S.</label>
+                        </div>
+                        <div class="item">
+                            <input type="checkbox" id="check4">
+                            <label for="check4">Ho completato la PARTE 1B (Scuola Infanzia) con il prompt R.C.C.R.R.S.</label>
+                        </div>
+                        <div class="item">
+                            <input type="checkbox" id="check5">
+                            <label for="check5">Ho risposto alle domande della PARTE 2 (Debug ed Errori IA)</label>
+                        </div>
+                        <div class="item">
+                            <input type="checkbox" id="check6">
+                            <label for="check6">Ho completato la PARTE 3 (Teoria ML e NotebookLM)</label>
+                        </div>
+                        <div class="item">
+                            <input type="checkbox" id="check7">
+                            <label for="check7">Ho risposto alle domande di Etica (PARTE 4)</label>
+                        </div>
+                        <div class="item">
+                            <input type="checkbox" id="check8">
+                            <label for="check8">Ho completato la PARTE 5 (Futuro Professionale)</label>
+                        </div>
+                        <div class="item">
+                            <input type="checkbox" id="check9">
+                            <label for="check9">Ho riletto tutto per controllare errori o dimenticanze</label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- FOOTER -->
+            <div class="footer">
+                <p>Metodologie Operative - Servizi per la Sanità e l'Assistenza Sociale</p>
+                <p>IIS Meucci Mattei - Cagliari (Sede Decimomannu)</p>
+                <p style="margin-top: 15px;">© 2025 - Tutti i diritti riservati</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // PASSWORD PROTECTION
+        function verificaPassword() {
+            const password = document.getElementById('passwordInput').value;
+            const correctPassword = 'x456y!7540';
+            
+            if (password === correctPassword) {
+                document.getElementById('passwordScreen').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                // Inizializza l'autosave
+                inizializzaVerifica();
+            } else {
+                document.getElementById('passwordError').style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+                setTimeout(() => {
+                    document.getElementById('passwordError').style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        // AUTO-EXPAND TEXTAREAS
+        function setupAutoExpand() {
+            document.querySelectorAll('textarea').forEach(textarea => {
+                // Imposta l'altezza iniziale
+                textarea.style.height = 'auto';
+                textarea.style.height = (textarea.scrollHeight) + 'px';
+                
+                // Aggiungi listener per input
+                textarea.addEventListener('input', function() {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight + 5) + 'px';
+                });
+                
+                // Aggiungi listener per paste
+                textarea.addEventListener('paste', function() {
+                    setTimeout(() => {
+                        this.style.height = 'auto';
+                        this.style.height = (this.scrollHeight + 5) + 'px';
+                    }, 0);
+                });
+            });
+        }
+
+        // SALVATAGGIO AUTOMATICO
+        let autoSaveInterval;
+
+        function inizializzaVerifica() {
+            caricaDati();
+            setupAutoExpand();
+            // Auto-save ogni 30 secondi
+            autoSaveInterval = setInterval(salvaDati, 30000);
+            console.log('✅ Verifica caricata - Salvataggio automatico attivo');
+            
+            // Imposta data di oggi
+            const oggi = new Date().toISOString().split('T')[0];
+            document.getElementById('dataVerifica').value = oggi;
+        }
+
+        // Salva prima di chiudere
+        window.addEventListener('beforeunload', function(e) {
+            if(document.getElementById('mainContent').style.display === 'block') {
+                salvaDati();
+            }
+        });
+
+        // FUNZIONE SALVATAGGIO
+        function salvaDati() {
+            // Salva tutti gli input text e textarea
+            document.querySelectorAll('input[type="text"], input[type="date"], textarea').forEach(campo => {
+                if(campo.id && campo.value) {
+                    localStorage.setItem('verifica_ia_' + campo.id, campo.value);
+                }
+            });
+
+            // Salva radio buttons
+            document.querySelectorAll('input[type="radio"]:checked').forEach(radio => {
+                localStorage.setItem('verifica_ia_radio_' + radio.name, radio.value);
+            });
+
+            // Salva checkbox
+            document.querySelectorAll('input[type="checkbox"]').forEach(check => {
+                localStorage.setItem('verifica_ia_check_' + check.id, check.checked);
+            });
+
+            console.log('💾 Dati salvati:', new Date().toLocaleTimeString());
+        }
+
+        // FUNZIONE CARICAMENTO
+        function caricaDati() {
+            // Carica input text e textarea
+            document.querySelectorAll('input[type="text"], input[type="date"], textarea').forEach(campo => {
+                if(campo.id) {
+                    const salvato = localStorage.getItem('verifica_ia_' + campo.id);
+                    if(salvato) {
+                        campo.value = salvato;
+                        // Trigger auto-expand per textarea
+                        if(campo.tagName === 'TEXTAREA') {
+                            campo.style.height = 'auto';
+                            campo.style.height = (campo.scrollHeight) + 'px';
+                        }
+                    }
+                }
+            });
+
+            // Carica radio buttons
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                const salvato = localStorage.getItem('verifica_ia_radio_' + radio.name);
+                if(salvato === radio.value) radio.checked = true;
+            });
+
+            // Carica checkbox
+            document.querySelectorAll('input[type="checkbox"]').forEach(check => {
+                const salvato = localStorage.getItem('verifica_ia_check_' + check.id);
+                if(salvato === 'true') check.checked = true;
+            });
+
+            console.log('📂 Dati precedenti caricati');
+        }
+
+        // SALVATAGGIO MANUALE CON VERIFICA
+        function salvaTutto() {
+            salvaDati();
+            
+            // Conta campi vuoti
+            let campiVuoti = 0;
+            let messaggi = [];
+
+            // Controlla nome studente
+            if(!document.getElementById('nomeStudente').value.trim()) {
+                campiVuoti++;
+                messaggi.push("❌ Nome e Cognome mancante");
+            }
+
+            // Controlla data
+            if(!document.getElementById('dataVerifica').value) {
+                campiVuoti++;
+                messaggi.push("❌ Data mancante");
+            }
+
+            // Controlla prompt (componenti essenziali)
+            const componentiPrompt = ['prompt_ruolo', 'prompt_compito', 'prompt_contesto', 'prompt_risultato', 'prompt_reasoning', 'prompt_stop'];
+            const componentiPromptScuola = ['prompt_ruolo_scuola', 'prompt_compito_scuola', 'prompt_contesto_scuola', 'prompt_risultato_scuola', 'prompt_reasoning_scuola', 'prompt_stop_scuola'];
+            
+            let promptCentroIncompleto = false;
+            componentiPrompt.forEach(id => {
+                if(!document.getElementById(id).value.trim()) {
+                    promptCentroIncompleto = true;
+                }
+            });
+            
+            let promptScuolaIncompleto = false;
+            componentiPromptScuola.forEach(id => {
+                if(!document.getElementById(id).value.trim()) {
+                    promptScuolaIncompleto = true;
+                }
+            });
+            
+            if(promptCentroIncompleto) {
+                messaggi.push("⚠️ PROMPT Centro Diurno incompleto (mancano alcune componenti R.C.C.R.R.S.)");
+            }
+            if(promptScuolaIncompleto) {
+                messaggi.push("⚠️ PROMPT Scuola Infanzia incompleto (mancano alcune componenti R.C.C.R.R.S.)");
+            }
+
+            // Controlla domande teoriche
+            const domandeTeoriche = ['t1', 't2', 't3', 't4'];
+            let teoriaCompleta = 0;
+            domandeTeoriche.forEach(nome => {
+                const checked = document.querySelector(`input[name="${nome}"]:checked`);
+                if(checked) teoriaCompleta++;
+            });
+
+            // Controlla textarea principali
+            const textareaImportanti = ['t1_explain', 't2_explain', 't3_example', 't4_explain',
+                                        'q1a_1_explain', 'q1b_1_explain',
+                                        'q2_2a', 'q2_2b', 'q2_2c', 
+                                        'q4_1a', 'q4_1b', 
+                                        'q5a', 'q5b', 'q5c'];
+            let risposteAperte = 0;
+            textareaImportanti.forEach(id => {
+                if(document.getElementById(id) && document.getElementById(id).value.trim()) {
+                    risposteAperte++;
+                }
+            });
+
+            // REPORT FINALE
+            let report = "📊 VERIFICA COMPLETAMENTO\n\n";
+            
+            if(campiVuoti === 0 && !promptCentroIncompleto && !promptScuolaIncompleto && teoriaCompleta === 4 && risposteAperte >= 11) {
+                report += "✅ OTTIMO! La verifica sembra completa!\n\n";
+                report += "✓ Dati studente: OK\n";
+                report += "✓ Domande teoriche: " + teoriaCompleta + "/4\n";
+                report += "✓ PROMPT Centro Diurno: Completo\n";
+                report += "✓ PROMPT Scuola Infanzia: Completo\n";
+                report += `✓ Risposte aperte: ${risposteAperte}/${textareaImportanti.length}\n\n`;
+                report += "💾 Tutto è stato salvato correttamente.\n";
+                report += "Ora puoi stampare in PDF o consegnare al docente.";
+            } else {
+                report += "⚠️ ATTENZIONE: La verifica non è completa!\n\n";
+                messaggi.forEach(msg => report += msg + "\n");
+                report += `\n📚 Domande teoriche: ${teoriaCompleta}/4\n`;
+                report += `📝 Risposte aperte completate: ${risposteAperte}/${textareaImportanti.length}\n\n`;
+                report += "Controlla la CHECKLIST in fondo e completa le parti mancanti.";
+            }
+
+            alert(report);
+        }
+
+        // FUNZIONE STAMPA PDF
+        function stampaPDF() {
+            salvaDati();
+            window.print();
+        }
+
+        // Previeni perdita dati accidentale
+        let cambiamenti = false;
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                document.querySelectorAll('input, textarea').forEach(elemento => {
+                    elemento.addEventListener('input', () => {
+                        cambiamenti = true;
+                    });
+                });
+            }, 1000);
+        });
+    </script>
+
+    <script type="module" src="../../assets/progress.js"></script>
+    <script type="module" src="../../assets/progress-global.js"></script>
+</body>
+</html>
