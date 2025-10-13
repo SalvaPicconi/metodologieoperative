@@ -84,6 +84,30 @@ const identityCache = {
   studentCode: null
 };
 
+function notifyIdentityChange(detail) {
+  try {
+    const target = typeof window !== 'undefined' && typeof window.dispatchEvent === 'function'
+      ? window
+      : (typeof document !== 'undefined' && typeof document.dispatchEvent === 'function' ? document : null);
+
+    if (!target) return;
+
+    let event;
+    if (typeof CustomEvent === 'function') {
+      event = new CustomEvent('mo:identity-change', { detail });
+    } else if (typeof document !== 'undefined' && typeof document.createEvent === 'function') {
+      event = document.createEvent('CustomEvent');
+      event.initCustomEvent('mo:identity-change', false, false, detail);
+    }
+
+    if (event) {
+      target.dispatchEvent(event);
+    }
+  } catch (error) {
+    console.warn('[Progress] Impossibile notificare il cambio identità:', error);
+  }
+}
+
 function clearLegacyIdentity() {
   // Funzione deprecata - manteniamo per retrocompatibilità ma non fa nulla
   console.log('[Progress] clearLegacyIdentity: funzione deprecata');
@@ -147,6 +171,8 @@ function writeIdentity(cls, code) {
   } catch (error) {
     console.warn('[Progress] Impossibile salvare in storage:', error);
   }
+
+  notifyIdentityChange({ classCode: normalizedClass, studentCode: normalizedCode });
 }
 
 // ✅ NUOVA FUNZIONE: Visualizza identità corrente (per debug)
@@ -173,6 +199,8 @@ function clearIdentity() {
   } catch (error) {
     console.warn('Errore durante cancellazione identità:', error);
   }
+
+  notifyIdentityChange({ classCode: null, studentCode: null });
 }
 
 function askIdentity() {
