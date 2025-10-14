@@ -1275,7 +1275,7 @@
                     <p style="margin-top: 0.5rem;"><strong>Prossima tappa:</strong> Vedremo come funziona nella pratica!</p>
                 </div>
 
-                <button class="btn btn-primary btn-next" onclick="completePhase(1)">
+                <button type="button" class="btn btn-primary btn-next" onclick="completePhase(1)">
                     ✅ HAI FINITO? → VAI ALLA FASE 2: ESPLORO
                 </button>
             </div>
@@ -1681,7 +1681,7 @@
                     <p style="margin-top: 0.5rem;"><strong>Prossima tappa:</strong> Mettere in pratica i collegamenti!</p>
                 </div>
 
-                <button class="btn btn-primary btn-next" onclick="completePhase(2)">
+                <button type="button" class="btn btn-primary btn-next" onclick="completePhase(2)">
                     ✅ HAI FINITO? → VAI ALLA FASE 3: APPLICO
                 </button>
             </div>
@@ -1906,7 +1906,7 @@
                     <p style="margin-top: 0.5rem;"><strong>Ultima tappa:</strong> Riflettere su cosa hai imparato!</p>
                 </div>
 
-                <button class="btn btn-primary btn-next" onclick="completePhase(3)">
+                <button type="button" class="btn btn-primary btn-next" onclick="completePhase(3)">
                     ✅ HAI FINITO? → VAI ALLA FASE 4: RIFLETTO
                 </button>
             </div>
@@ -2337,9 +2337,14 @@
             const targetPhase = Math.min(Math.max(parseInt(phaseNumber, 10) || 1, 1), maxPhase);
 
             phases.forEach(p => p.classList.remove('active'));
-            const target = document.getElementById('phase-' + targetPhase);
+            let target = document.getElementById('phase-' + targetPhase);
+            if (!target) {
+                target = document.getElementById('phase-1');
+            }
             if (target) {
                 target.classList.add('active');
+            } else if (phases.length) {
+                phases[0].classList.add('active');
             }
 
             document.querySelectorAll('.phase-dot').forEach(dot => {
