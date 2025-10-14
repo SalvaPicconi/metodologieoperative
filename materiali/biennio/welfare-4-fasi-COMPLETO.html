@@ -2328,25 +2328,41 @@
 
         // ========== NAVIGAZIONE FASI ==========
         function goToPhase(phaseNumber) {
-            document.querySelectorAll('.phase').forEach(p => p.classList.remove('active'));
-            document.getElementById('phase-' + phaseNumber).classList.add('active');
-            
+            const phases = Array.from(document.querySelectorAll('.phase'));
+            if (!phases.length) {
+                return;
+            }
+
+            const maxPhase = phases.length;
+            const targetPhase = Math.min(Math.max(parseInt(phaseNumber, 10) || 1, 1), maxPhase);
+
+            phases.forEach(p => p.classList.remove('active'));
+            const target = document.getElementById('phase-' + targetPhase);
+            if (target) {
+                target.classList.add('active');
+            }
+
             document.querySelectorAll('.phase-dot').forEach(dot => {
                 dot.classList.remove('active', 'completed');
                 const dotPhase = parseInt(dot.dataset.phase);
-                if (dotPhase < phaseNumber) {
+                if (dotPhase < targetPhase) {
                     dot.classList.add('completed');
-                } else if (dotPhase === phaseNumber) {
+                } else if (dotPhase === targetPhase) {
                     dot.classList.add('active');
                 }
             });
             
-            currentPhase = phaseNumber;
+            currentPhase = targetPhase;
             window.scrollTo({ top: 0, behavior: 'smooth' });
             saveData();
         }
 
         function completePhase(phaseNumber) {
+            const totalPhases = document.querySelectorAll('.phase').length || 1;
+            if (phaseNumber >= totalPhases) {
+                goToPhase(totalPhases);
+                return;
+            }
             goToPhase(phaseNumber + 1);
         }
 
