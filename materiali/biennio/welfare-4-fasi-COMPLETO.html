@@ -2884,9 +2884,7 @@
         })();
     <\/script>`;
             
-            htmlContent = htmlContent.replace('
-
-</body>', preloadScript + '\n</body>');
+            htmlContent = htmlContent.replace('</body>', preloadScript + '\n</body>');
             
             const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
             const url = URL.createObjectURL(blob);
