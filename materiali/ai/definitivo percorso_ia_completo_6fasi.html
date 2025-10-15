@@ -2765,6 +2765,12 @@
                     <button class="btn" onclick="goToFase(3.5)">
                         ⬅️ Torna alla Fase 3.5
                     </button>
+                    <button class="btn btn-success" onclick="scaricaPDFTestuale()">
+                        📄 Scarica PDF Testo
+                    </button>
+                    <button class="btn btn-success" onclick="scaricaFileTesto()">
+                        📝 Scarica File TXT
+                    </button>
                     <button class="btn btn-large" onclick="stampaTutto()" style="background: linear-gradient(135deg, #FF6B6B 0%, #EE5A6F 100%);">
                         🖨️ Stampa Tutto il Lavoro
                     </button>
@@ -2775,12 +2781,14 @@
     </div>
 
     <!-- JAVASCRIPT -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
         // VARIABILI GLOBALI
         let punti = 0;
         let badgesGuadagnati = 0;
         let completamento = 0;
         let faseCorrente = 1;
+        let infoStudente = null;
 
         // CARICAMENTO INIZIALE
         window.addEventListener('load', function() {
@@ -3270,7 +3278,9 @@
             
             const compSalvato = localStorage.getItem('ia_completamento');
             if(compSalvato) {
-                document.getElementById('completion').textContent = compSalvato + '%';
+                const valoreNumerico = parseFloat(compSalvato);
+                completamento = Number.isNaN(valoreNumerico) ? completamento : valoreNumerico;
+                document.getElementById('completion').textContent = completamento + '%';
             }
 
             const faseSalvata = localStorage.getItem('ia_fase');
@@ -3280,18 +3290,106 @@
             }
         }
 
+        function ottieniInfoStudente(forcePrompt = false) {
+            if (!forcePrompt && infoStudente) {
+                return {
+                    ...infoStudente,
+                    data: new Date().toLocaleDateString('it-IT')
+                };
+            }
+
+            const nomePredefinito = infoStudente?.nome || '';
+            const classePredefinita = infoStudente?.classe || '';
+
+            const nomeInserito = (prompt('Come ti chiami?', nomePredefinito) || '').trim() || 'Studente';
+            const classeInserita = (prompt('Che classe fai?', classePredefinita) || '').trim() || '3ª';
+
+            infoStudente = {
+                nome: nomeInserito,
+                classe: classeInserita
+            };
+
+            return {
+                ...infoStudente,
+                data: new Date().toLocaleDateString('it-IT')
+            };
+        }
+
+        function normalizzaPerFile(valore) {
+            return (valore || '')
+                .toString()
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/gi, '-')
+                .replace(/^-+|-+$/g, '') || 'studente';
+        }
+
+        function raccogliRisposteQuiz() {
+            const righe = [];
+            document.querySelectorAll('.question').forEach(question => {
+                const domanda = question.querySelector('p')?.textContent?.trim();
+                if (!domanda) return;
+
+                const selezionate = question.querySelectorAll('input[type="radio"]:checked, input[type="checkbox"]:checked');
+                if (!selezionate.length) return;
+
+                selezionate.forEach(input => {
+                    let risposta = '';
+                    if (input.type === 'radio' || input.type === 'checkbox') {
+                        const label = input.closest('label');
+                        risposta = label ? label.textContent.replace(/\s+/g, ' ').trim() : input.value;
+                    } else {
+                        risposta = input.value || '';
+                    }
+                    righe.push(`${domanda}`, `→ ${risposta}`, '');
+                });
+            });
+            return righe;
+        }
+
+        function generaTestoRiepilogo(infoStud) {
+            const dataEsportazione = infoStud.data || new Date().toLocaleDateString('it-IT');
+            const completamentoFormattato = typeof completamento === 'number' ? Math.round(completamento) : completamento;
+            const righe = [
+                'Percorso Completo di Intelligenza Artificiale - Riepilogo',
+                `Data esportazione: ${dataEsportazione}`,
+                `Studente: ${infoStud.nome}`,
+                `Classe: ${infoStud.classe}`,
+                '',
+                'Progressi:',
+                `- Punti totali: ${punti}`,
+                `- Badge guadagnati: ${badgesGuadagnati}`,
+                `- Completamento stimato: ${completamentoFormattato}%`,
+                ''
+            ];
+
+            const campiTestuali = Array.from(document.querySelectorAll('textarea, input[type="text"]'));
+            campiTestuali.forEach(campo => {
+                const label = campo.id ? document.querySelector(`label[for="${campo.id}"]`) : null;
+                const labelText = label ? label.textContent.replace(/\s+/g, ' ').trim() : (campo.placeholder || campo.name || campo.id || 'Campo senza titolo');
+                righe.push(labelText.endsWith(':') ? labelText : `${labelText}:`);
+                const valore = campo.value && campo.value.trim() ? campo.value.trim() : '...';
+                righe.push(valore, '');
+            });
+
+            const risposteQuiz = raccogliRisposteQuiz();
+            if (risposteQuiz.length) {
+                righe.push('Risposte ai quiz e alle domande a scelta:', '');
+                righe.push(...risposteQuiz);
+            }
+
+            return righe.join('\n').trimEnd();
+        }
+
         // STAMPA MIGLIORATA
         function stampaTutto() {
             salvaDati();
             
-            // Chiedi info studente
-            const nome = prompt('Come ti chiami?', '') || 'Studente';
-            const classe = prompt('Che classe fai?', '') || '3ª';
+            const info = ottieniInfoStudente(true);
             
             // Aggiorna intestazione stampa
-            document.getElementById('printNome').textContent = nome;
-            document.getElementById('printClasse').textContent = classe;
-            document.getElementById('printData').textContent = new Date().toLocaleDateString('it-IT');
+            document.getElementById('printNome').textContent = info.nome;
+            document.getElementById('printClasse').textContent = info.classe;
+            document.getElementById('printData').textContent = info.data;
             document.getElementById('printPunti').textContent = punti;
             document.getElementById('printBadges').textContent = badgesGuadagnati;
             
@@ -3332,6 +3430,63 @@
                     document.getElementById(faseId).style.display = 'block';
                 }, 500);
             }, 300);
+        }
+
+        function scaricaFileTesto() {
+            try {
+                salvaDati();
+            } catch (error) {
+                console.warn('Impossibile salvare prima di esportare il TXT:', error);
+            }
+
+            const info = ottieniInfoStudente();
+            const contenuto = generaTestoRiepilogo(info);
+            const blob = new Blob([contenuto], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `percorso-ia-${normalizzaPerFile(info.nome)}.txt`;
+            document.body.appendChild(link);
+            link.click();
+            setTimeout(() => {
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            }, 0);
+        }
+
+        function scaricaPDFTestuale() {
+            try {
+                salvaDati();
+            } catch (error) {
+                console.warn('Impossibile salvare prima di esportare il PDF:', error);
+            }
+
+            if (!window.jspdf || !window.jspdf.jsPDF) {
+                alert('Impossibile generare il PDF perché la libreria jsPDF non è disponibile.');
+                return;
+            }
+
+            const info = ottieniInfoStudente();
+            const contenuto = generaTestoRiepilogo(info);
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+            const margin = 40;
+            const lineHeight = 18;
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const pageHeight = doc.internal.pageSize.getHeight();
+            const lines = doc.splitTextToSize(contenuto, pageWidth - margin * 2);
+            let y = margin;
+
+            lines.forEach(line => {
+                if (y > pageHeight - margin) {
+                    doc.addPage();
+                    y = margin;
+                }
+                doc.text(line, margin, y);
+                y += lineHeight;
+            });
+
+            doc.save(`percorso-ia-${normalizzaPerFile(info.nome)}.pdf`);
         }
     </script>
     <script>
