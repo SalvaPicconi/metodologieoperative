@@ -1720,17 +1720,17 @@
 
                     <div class="input-group">
                         <label>1. Perché secondo te l'IA si comporta così? Qual è il bias?</label>
-                        <textarea id="bias_causa" placeholder="Esempio: L'IA ha imparato che nel passato..."></textarea>
+                        <textarea id="bias_causa" name="bias_causa" placeholder="Esempio: L'IA ha imparato che nel passato..."></textarea>
                     </div>
 
                     <div class="input-group">
                         <label>2. Come si potrebbe risolvere questo problema?</label>
-                        <textarea id="bias_soluzione" placeholder="Scrivi almeno 2 soluzioni possibili..."></textarea>
+                        <textarea id="bias_soluzione" name="bias_soluzione" placeholder="Scrivi almeno 2 soluzioni possibili..."></textarea>
                     </div>
 
                     <div class="input-group">
                         <label>3. Inventa un ALTRO esempio di bias che potrebbe succedere in una scuola o in un centro per anziani:</label>
-                        <textarea id="bias_esempio" placeholder="Esempio: Un'IA per scegliere le attività per anziani potrebbe..."></textarea>
+                        <textarea id="bias_esempio" name="bias_esempio" placeholder="Esempio: Un'IA per scegliere le attività per anziani potrebbe..."></textarea>
                     </div>
 
                     <button class="btn btn-success" onclick="saveAttivitaBias()">
@@ -2446,37 +2446,37 @@
                     <div class="prompt-template">
                         <div class="input-group">
                             <label>R - RUOLO: Chi deve essere l'IA?</label>
-                            <textarea id="prompt_r_ruolo" placeholder="Esempio: Sei un educatore esperto in..."></textarea>
+                            <textarea id="prompt_r_ruolo" name="prompt_r_ruolo" placeholder="Esempio: Sei un educatore esperto in..."></textarea>
                             <p class="helper-text">💡 Pensa a quale esperto ti servirebbe per questo caso</p>
                         </div>
 
                         <div class="input-group">
                             <label>C - COMPITO: Cosa deve fare l'IA?</label>
-                            <textarea id="prompt_r_compito" placeholder="Esempio: Analizza le difficoltà dei 3 bambini e suggerisci..."></textarea>
+                            <textarea id="prompt_r_compito" name="prompt_r_compito" placeholder="Esempio: Analizza le difficoltà dei 3 bambini e suggerisci..."></textarea>
                             <p class="helper-text">💡 Descrivi l'azione principale e l'obiettivo</p>
                         </div>
 
                         <div class="input-group">
                             <label>C - CONTESTO: Quali informazioni di sfondo servono?</label>
-                            <textarea id="prompt_r_contesto" placeholder="Esempio: Siamo in una scuola dell'infanzia con..."></textarea>
+                            <textarea id="prompt_r_contesto" name="prompt_r_contesto" placeholder="Esempio: Siamo in una scuola dell'infanzia con..."></textarea>
                             <p class="helper-text">💡 Descrivi la situazione, i vincoli, le risorse</p>
                         </div>
 
                         <div class="input-group">
                             <label>R - RISULTATO: Come vuoi la risposta?</label>
-                            <textarea id="prompt_r_risultato" placeholder="Esempio: Crea una tabella con 3 righe (una per bambino)..."></textarea>
+                            <textarea id="prompt_r_risultato" name="prompt_r_risultato" placeholder="Esempio: Crea una tabella con 3 righe (una per bambino)..."></textarea>
                             <p class="helper-text">💡 Specifica formato, struttura, dettagli</p>
                         </div>
 
                         <div class="input-group">
                             <label>R - REASONING: Come deve ragionare l'IA?</label>
-                            <textarea id="prompt_r_reasoning" placeholder="Esempio: Le attività devono essere adatte all'età..."></textarea>
+                            <textarea id="prompt_r_reasoning" name="prompt_r_reasoning" placeholder="Esempio: Le attività devono essere adatte all'età..."></textarea>
                             <p class="helper-text">💡 Criteri, priorità, stile</p>
                         </div>
 
                         <div class="input-group">
                             <label>S - STOP: Quando il compito è completo?</label>
-                            <textarea id="prompt_r_stop" placeholder="Esempio: Verifica che ci siano 2 attività per bambino e che..."></textarea>
+                            <textarea id="prompt_r_stop" name="prompt_r_stop" placeholder="Esempio: Verifica che ci siano 2 attività per bambino e che..."></textarea>
                             <p class="helper-text">💡 Controlli di qualità, verifiche</p>
                         </div>
 
@@ -3334,5 +3334,119 @@
             }, 300);
         }
     </script>
+    <script>
+        window.MO_PROGRESS_CONFIG = {
+            pagePath: window.location.pathname,
+            inputSelector: 'textarea, input:not([type="file"]), select, [contenteditable="true"]',
+            onBeforeSave(data) {
+                try {
+                    salvaDati();
+                } catch (error) {
+                    console.error('Errore durante salvaDati:', error);
+                }
+
+                const extra = {
+                    punti,
+                    badgesGuadagnati,
+                    completamento,
+                    faseCorrente,
+                    badgeContainerHTML: document.getElementById('badgeContainer')?.innerHTML || '',
+                    localState: {}
+                };
+
+                const storageKeys = new Set([
+                    'ia_punti',
+                    'ia_badges',
+                    'ia_completamento',
+                    'ia_fase'
+                ]);
+
+                document.querySelectorAll('textarea, input[type="text"], input[type="number"]').forEach(field => {
+                    if (field.id) {
+                        storageKeys.add(`ia_campo_${field.id}`);
+                    }
+                });
+
+                document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    if (radio.name) {
+                        storageKeys.add(`ia_radio_${radio.name}`);
+                    }
+                });
+
+                document.querySelectorAll('input[type="checkbox"]').forEach(check => {
+                    if (check.id) {
+                        storageKeys.add(`ia_check_${check.id}`);
+                    }
+                });
+
+                storageKeys.forEach(key => {
+                    const value = localStorage.getItem(key);
+                    if (value !== null) {
+                        extra.localState[key] = value;
+                    }
+                });
+
+                return extra;
+            },
+            onRestore(saved) {
+                if (!saved) return;
+
+                const {
+                    localState,
+                    punti: puntiSalvati,
+                    badgesGuadagnati: badgesSalvati,
+                    completamento: completamentoSalvato,
+                    faseCorrente: faseSalvata,
+                    badgeContainerHTML
+                } = saved;
+
+                if (localState && typeof localState === 'object') {
+                    Object.entries(localState).forEach(([key, value]) => {
+                        if (typeof value === 'string') {
+                            localStorage.setItem(key, value);
+                        }
+                    });
+                }
+
+                if (typeof puntiSalvati !== 'undefined') {
+                    localStorage.setItem('ia_punti', String(puntiSalvati));
+                }
+
+                if (typeof badgesSalvati !== 'undefined') {
+                    localStorage.setItem('ia_badges', String(badgesSalvati));
+                }
+
+                if (typeof completamentoSalvato !== 'undefined') {
+                    localStorage.setItem('ia_completamento', String(completamentoSalvato));
+                }
+
+                if (typeof faseSalvata !== 'undefined') {
+                    localStorage.setItem('ia_fase', String(faseSalvata));
+                }
+
+                try {
+                    caricaDati();
+                } catch (error) {
+                    console.error('Errore durante caricaDati in onRestore:', error);
+                }
+
+                if (badgeContainerHTML) {
+                    const container = document.getElementById('badgeContainer');
+                    if (container) {
+                        container.innerHTML = badgeContainerHTML;
+                    }
+                }
+
+                if (typeof faseSalvata !== 'undefined') {
+                    const faseNum = parseFloat(faseSalvata);
+                    if (!Number.isNaN(faseNum)) {
+                        goToFase(faseNum);
+                    }
+                }
+            }
+        };
+    </script>
+    <script type="module" src="../../assets/progress.js"></script>
+    <script type="module" src="../../assets/progress-global.js"></script>
 </body>
 </html>
