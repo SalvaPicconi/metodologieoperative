@@ -47,7 +47,7 @@ function escapeSelector(value) {
   if (typeof window !== 'undefined' && window.CSS && typeof CSS.escape === 'function') {
     return CSS.escape(value);
   }
-  return value.replace(/([\\^$*+?.()|[\\]{}])/g, '\\\\$1');
+  return value.replace(/([\\^$*+?.()|{}\[\]])/g, '\\$1');
 }
 
 function dispatchProgressRestored(data) {
