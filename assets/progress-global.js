@@ -42,14 +42,6 @@ function updateStudentLabel() {
   studentLabel.textContent = c && s ? `Classe ${c} • Codice ${s}` : 'Studente non identificato';
 }
 
-function escapeSelector(value) {
-  if (typeof value !== 'string') return value;
-  if (typeof window !== 'undefined' && window.CSS && typeof CSS.escape === 'function') {
-    return CSS.escape(value);
-  }
-  return value.replace(/([\\^$*+?.()|{}\[\]])/g, '\\$1');
-}
-
 function dispatchProgressRestored(data) {
   try {
     const detail = { pageId: PAGE_PATH, data };
@@ -82,8 +74,9 @@ function collectData() {
     if (el instanceof HTMLInputElement && el.type === 'radio') {
       if (processedRadio.has(key)) return;
       processedRadio.add(key);
-      const radios = document.querySelectorAll(`[name="${escapeSelector(key)}"]`);
-      const checked = Array.from(radios).find(radio => radio.checked);
+      const radios = Array.from(document.getElementsByName(key))
+        .filter(node => node instanceof HTMLInputElement && node.type === 'radio');
+      const checked = radios.find(radio => radio.checked);
       data[key] = checked ? checked.value : null;
       return;
     }
@@ -91,9 +84,10 @@ function collectData() {
     if (el instanceof HTMLInputElement && el.type === 'checkbox') {
       if (processedCheckbox.has(key)) return;
       processedCheckbox.add(key);
-      const checkboxes = document.querySelectorAll(`[name="${escapeSelector(key)}"]`);
+      const checkboxes = Array.from(document.getElementsByName(key))
+        .filter(node => node instanceof HTMLInputElement && node.type === 'checkbox');
       if (checkboxes.length > 1) {
-        data[key] = Array.from(checkboxes)
+        data[key] = checkboxes
           .filter(cb => cb.checked)
           .map(cb => cb.value ?? 'on');
       } else {
@@ -119,8 +113,7 @@ function restoreData(saved) {
   }
 
   for (const [name, value] of Object.entries(saved)) {
-    const selector = name ? `[name="${escapeSelector(name)}"]` : null;
-    const elements = selector ? document.querySelectorAll(selector) : [];
+    const elements = name ? Array.from(document.getElementsByName(name)) : [];
 
     if (elements.length > 0) {
       const first = elements[0];
@@ -135,12 +128,13 @@ function restoreData(saved) {
       if (first instanceof HTMLInputElement && first.type === 'checkbox') {
         if (elements.length > 1) {
           const values = Array.isArray(value) ? value.map(val => String(val)) : [];
-          elements.forEach(cb => {
+          elements.forEach(node => {
+            const cb = node;
             const cbValue = cb.value ?? 'on';
             cb.checked = values.includes(cbValue);
           });
         } else {
-          first.checked = Boolean(value);
+          (first).checked = Boolean(value);
         }
         continue;
       }
