@@ -2630,41 +2630,33 @@ Tempi di monitoraggio: ..." name="task3-valutazione"></textarea>
         // ESPORTAZIONE
         // =======================
         function exportTXT() {
-            let content = '='.repeat(60) + '
-';
-            content += 'IL TECNICO DEI SERVIZI SOCIO-SANITARI (TSSAS)
-';
-            content += 'Percorso Interattivo Gamificato - Il Mio Lavoro
-';
-            content += '='.repeat(60) + '
+            const lines = [];
+            lines.push('='.repeat(60));
+            lines.push('IL TECNICO DEI SERVIZI SOCIO-SANITARI (TSSAS)');
+            lines.push('Percorso Interattivo Gamificato - Il Mio Lavoro');
+            lines.push('='.repeat(60));
+            lines.push('');
+            lines.push('Data: ' + new Date().toLocaleDateString('it-IT'));
+            lines.push('Punteggio totale: ' + totalScore + '/290 punti');
+            lines.push('Badge sbloccati: ' + unlockedBadges.size + '/6');
+            lines.push('');
+            lines.push('='.repeat(60));
+            lines.push('');
 
-';
-            content += 'Data: ' + new Date().toLocaleDateString('it-IT') + '
-';
-            content += 'Punteggio totale: ' + totalScore + '/290 punti
-';
-            content += 'Badge sbloccati: ' + unlockedBadges.size + '/6
-';
-            content += '
-' + '='.repeat(60) + '
-
-';
-
-            document.querySelectorAll('textarea, input[type="text"]').forEach(el => {
-                if (el.value.trim()) {
+            document.querySelectorAll('textarea, input[type=\"text\"]').forEach(el => {
+                const value = el.value.trim();
+                if (value) {
                     const label = el.parentElement.querySelector('label');
                     if (label) {
-                        content += label.textContent.trim() + '
-';
-                        content += '-'.repeat(40) + '
-';
-                        content += el.value.trim() + '
-
-';
+                        lines.push(label.textContent.trim());
+                        lines.push('-'.repeat(40));
+                        lines.push(value);
+                        lines.push('');
                     }
                 }
             });
 
+            const content = lines.join('\\n');
             const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
