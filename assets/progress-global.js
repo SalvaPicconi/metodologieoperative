@@ -4,6 +4,9 @@ console.log('✅ progress-global attivo');
 
 // Rileva ID della pagina (meta o path)
 const PAGE_ID = document.querySelector('meta[name="page-id"]')?.content || location.pathname;
+const CONFIG = window.MO_PROGRESS_CONFIG || {};
+const PAGE_PATH = CONFIG.pagePath || PAGE_ID;
+const INPUT_SELECTOR = CONFIG.inputSelector || 'input, textarea, select';
 let studentLabel = null;
 
 // Crea pulsanti se non esistono già
@@ -39,26 +42,144 @@ function updateStudentLabel() {
   studentLabel.textContent = c && s ? `Classe ${c} • Codice ${s}` : 'Studente non identificato';
 }
 
+function escapeSelector(value) {
+  if (typeof value !== 'string') return value;
+  if (typeof window !== 'undefined' && window.CSS && typeof CSS.escape === 'function') {
+    return CSS.escape(value);
+  }
+  return value.replace(/([\\^$*+?.()|[\\]{}])/g, '\\\\$1');
+}
+
+function dispatchProgressRestored(data) {
+  try {
+    const detail = { pageId: PAGE_PATH, data };
+    const target = typeof window !== 'undefined' ? window : document;
+    if (!target) return;
+    let event;
+    if (typeof CustomEvent === 'function') {
+      event = new CustomEvent('mo:progress-restored', { detail });
+    } else if (target.createEvent) {
+      event = target.createEvent('CustomEvent');
+      event.initCustomEvent('mo:progress-restored', false, false, detail);
+    }
+    if (event && typeof target.dispatchEvent === 'function') {
+      target.dispatchEvent(event);
+    }
+  } catch (error) {
+    console.warn('Impossibile inviare evento di ripristino progressi:', error);
+  }
+}
+
 function collectData() {
-  const d = {};
-  document.querySelectorAll('input, textarea, select').forEach(el => {
-    if (el.name) d[el.name] = el.value;
+  const data = {};
+  const processedRadio = new Set();
+  const processedCheckbox = new Set();
+
+  document.querySelectorAll(INPUT_SELECTOR).forEach(el => {
+    const key = el.name || el.id;
+    if (!key) return;
+
+    if (el instanceof HTMLInputElement && el.type === 'radio') {
+      if (processedRadio.has(key)) return;
+      processedRadio.add(key);
+      const radios = document.querySelectorAll(`[name="${escapeSelector(key)}"]`);
+      const checked = Array.from(radios).find(radio => radio.checked);
+      data[key] = checked ? checked.value : null;
+      return;
+    }
+
+    if (el instanceof HTMLInputElement && el.type === 'checkbox') {
+      if (processedCheckbox.has(key)) return;
+      processedCheckbox.add(key);
+      const checkboxes = document.querySelectorAll(`[name="${escapeSelector(key)}"]`);
+      if (checkboxes.length > 1) {
+        data[key] = Array.from(checkboxes)
+          .filter(cb => cb.checked)
+          .map(cb => cb.value ?? 'on');
+      } else {
+        data[key] = el.checked;
+      }
+      return;
+    }
+
+    if (el instanceof HTMLSelectElement && el.multiple) {
+      data[key] = Array.from(el.selectedOptions).map(opt => opt.value);
+      return;
+    }
+
+    data[key] = el.value;
   });
-  return d;
+  return data;
 }
 
 function restoreData(saved) {
-  if (!saved) return;
-  for (const [name, value] of Object.entries(saved)) {
-    const el = document.querySelector(`[name="${name}"]`);
-    if (el) el.value = value;
+  if (!saved) {
+    dispatchProgressRestored(null);
+    return;
   }
+
+  for (const [name, value] of Object.entries(saved)) {
+    const selector = name ? `[name="${escapeSelector(name)}"]` : null;
+    const elements = selector ? document.querySelectorAll(selector) : [];
+
+    if (elements.length > 0) {
+      const first = elements[0];
+
+      if (first instanceof HTMLInputElement && first.type === 'radio') {
+        elements.forEach(radio => {
+          radio.checked = value === null ? false : radio.value === value;
+        });
+        continue;
+      }
+
+      if (first instanceof HTMLInputElement && first.type === 'checkbox') {
+        if (elements.length > 1) {
+          const values = Array.isArray(value) ? value.map(val => String(val)) : [];
+          elements.forEach(cb => {
+            const cbValue = cb.value ?? 'on';
+            cb.checked = values.includes(cbValue);
+          });
+        } else {
+          first.checked = Boolean(value);
+        }
+        continue;
+      }
+
+      if (first instanceof HTMLSelectElement && first.multiple) {
+        const selectedValues = Array.isArray(value) ? value.map(val => String(val)) : [];
+        Array.from(first.options).forEach(option => {
+          option.selected = selectedValues.includes(option.value);
+        });
+        continue;
+      }
+
+      first.value = value ?? '';
+      continue;
+    }
+
+    if (name) {
+      const byId = document.getElementById(name);
+      if (byId) {
+        if (byId instanceof HTMLInputElement && byId.type === 'checkbox') {
+          byId.checked = Boolean(value);
+        } else if (byId instanceof HTMLSelectElement && byId.multiple && Array.isArray(value)) {
+          Array.from(byId.options).forEach(option => {
+            option.selected = value.includes(option.value);
+          });
+        } else {
+          byId.value = value ?? '';
+        }
+      }
+    }
+  }
+
+  dispatchProgressRestored(saved);
 }
 
 // carica automaticamente i dati salvati
 async function loadAndRestore() {
   try {
-    const saved = await Progress.load(PAGE_ID);
+    const saved = await Progress.load(PAGE_PATH);
     restoreData(saved);
   } catch (error) {
     console.error('Errore caricamento progressi:', error);
@@ -76,7 +197,7 @@ document.addEventListener('click', async (event) => {
     const originalText = button.textContent;
     button.textContent = '⏳ Salvataggio...';
     try {
-      await Progress.save(collectData(), PAGE_ID);
+      await Progress.save(collectData(), PAGE_PATH);
       alert('Progressi salvati!');
     } catch (error) {
       alert('Errore salvataggio: ' + error.message);

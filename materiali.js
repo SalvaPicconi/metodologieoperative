@@ -57,24 +57,39 @@ async function caricaMateriali(sezione, containerId = 'materiali-lista') {
         
         const materialiPerTipo = materiali.reduce((acc, materiale) => {
             const tipo = determinaTipoMateriale(materiale);
+            if (!acc[tipo]) {
+                acc[tipo] = [];
+            }
             acc[tipo].push(materiale);
             return acc;
-        }, { download: [], interattivo: [] });
+        }, { download: [], interattivo: [], autentico: [] });
 
-        const defaultTab = materialiPerTipo.download.length ? 'download' : 'interattivo';
+        const tabsConfig = [
+            { key: 'download', label: '📁 Materiali da scaricare', renderer: renderDownloadList },
+            { key: 'interattivo', label: '🧠 Apprendimento interattivo', renderer: renderInteractiveList },
+            { key: 'autentico', label: '🧪 Prove autentiche / Compiti di realtà', renderer: renderAuthenticList }
+        ];
+
+        const defaultTab = tabsConfig.find(tab => (materialiPerTipo[tab.key] || []).length)?.key || 'download';
+
+        const tabButtonsHtml = tabsConfig.map(tab => `
+            <button class="tab-btn ${defaultTab === tab.key ? 'active' : ''}" data-tab="${tab.key}">
+                ${tab.label}
+            </button>
+        `).join('');
+
+        const tabPanelsHtml = tabsConfig.map(tab => `
+            <div class="tab-panel ${defaultTab === tab.key ? 'active' : ''}" data-panel="${tab.key}">
+                ${tab.renderer(materialiPerTipo[tab.key] || [])}
+            </div>
+        `).join('');
 
         container.innerHTML = `
             <div class="materiali-tabs">
-                <button class="tab-btn ${defaultTab === 'download' ? 'active' : ''}" data-tab="download">📁 Materiali da scaricare</button>
-                <button class="tab-btn ${defaultTab === 'interattivo' ? 'active' : ''}" data-tab="interattivo">🧠 Apprendimento interattivo</button>
+                ${tabButtonsHtml}
             </div>
             <div class="tab-panels">
-                <div class="tab-panel ${defaultTab === 'download' ? 'active' : ''}" data-panel="download">
-                    ${renderDownloadList(materialiPerTipo.download)}
-                </div>
-                <div class="tab-panel ${defaultTab === 'interattivo' ? 'active' : ''}" data-panel="interattivo">
-                    ${renderInteractiveList(materialiPerTipo.interattivo)}
-                </div>
+                ${tabPanelsHtml}
             </div>
         `;
 
@@ -111,6 +126,17 @@ function renderInteractiveList(materiali) {
     }
 
     return materiali.map(renderInteractiveCard).join('');
+}
+
+function renderAuthenticList(materiali) {
+    if (!materiali.length) {
+        return creaMessaggioVuoto(
+            '🧪 Nessuna prova autentica o compito di realtà disponibile al momento.',
+            'Caricheremo presto nuove prove autentiche. Torna a dare un\'occhiata!'
+        );
+    }
+
+    return materiali.map(renderAuthenticCard).join('');
 }
 
 function renderDownloadCard(materiale) {
@@ -152,6 +178,33 @@ function renderInteractiveCard(materiale) {
             ${descrizione}
             <a href="${filePath}" class="btn-download btn-interattivo" target="_blank" rel="noopener noreferrer">
                 🚀 Apri attività
+            </a>
+        </div>
+    `;
+}
+
+function renderAuthenticCard(materiale) {
+    const dataFormattata = formattaData(materiale.data);
+    const rawFile = materiale.file || '';
+    const filePath = escapeHtml(rawFile);
+    const href = filePath || '#';
+    const titolo = escapeHtml(materiale.titolo || 'Prova autentica');
+    const descrizione = materiale.descrizione ? `<p>${escapeHtml(materiale.descrizione)}</p>` : '';
+    const isExternal = /^https?:\/\//.test(rawFile);
+    const isHtml = rawFile.toLowerCase().endsWith('.html') || rawFile.toLowerCase().endsWith('.htm');
+    const linkAttributes = rawFile
+        ? (isExternal || isHtml ? 'target="_blank" rel="noopener noreferrer"' : 'download')
+        : 'aria-disabled="true"';
+
+    return `
+        <div class="materiale-item materiale-prova">
+            <div class="materiale-header">
+                <h3>${titolo}</h3>
+                <span class="materiale-data">${dataFormattata}</span>
+            </div>
+            ${descrizione}
+            <a href="${href}" class="btn-download btn-prova" ${linkAttributes}>
+                🧪 Apri prova
             </a>
         </div>
     `;
@@ -212,13 +265,21 @@ function escapeHtml(text) {
 }
 
 function determinaTipoMateriale(materiale) {
-    const tipoDichiarato = (materiale.tipo || '').toLowerCase();
+    const tipoDichiarato = (materiale.tipo || '').toLowerCase().trim();
+    const tipoNormalizzato = typeof tipoDichiarato.normalize === 'function'
+        ? tipoDichiarato.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        : tipoDichiarato;
+    const paroleChiaveAutentico = ['autentico', 'autentica', 'prove', 'prova', 'compito', 'compiti', 'realta'];
     
-    if (tipoDichiarato === 'interattivo') {
+    if (paroleChiaveAutentico.some(keyword => tipoNormalizzato.includes(keyword))) {
+        return 'autentico';
+    }
+    
+    if (tipoNormalizzato === 'interattivo' || tipoNormalizzato === 'interactive') {
         return 'interattivo';
     }
     
-    if (tipoDichiarato === 'download') {
+    if (tipoNormalizzato === 'download') {
         return 'download';
     }
     
