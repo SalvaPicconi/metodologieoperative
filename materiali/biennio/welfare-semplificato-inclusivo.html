@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta name="page-id" content="attivita-materiali-biennio-welfare-semplificato-inclusivo-01">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il Benessere - Versione Facilitata</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
+            background: linear-gradient(135deg, #FFE5E5 0%, #FFF8DC 50%, #E0F2F7 100%);
+            color: #333;
+            line-height: 1.8;
+            font-size: 20px;
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 30px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #FF6B9D 0%, #FFA07A 100%);
+            padding: 2rem;
+            text-align: center;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(255,107,157,0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            color: white;
+        }
+
+        .section {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: linear-gradient(135deg, #FFF9E6 0%, #FFFACD 100%);
+            border-radius: 20px;
+            border: 4px solid #FFD700;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #FF1493;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .emoji-big {
+            font-size: 4rem;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border: 3px solid #87CEEB;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            color: #FF6347;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .card-content {
+            font-size: 1.3rem;
+            line-height: 2;
+            color: #333;
+        }
+
+        .activity-box {
+            background: linear-gradient(135deg, #E6F3FF 0%, #CCE5FF 100%);
+            border: 4px dashed #4169E1;
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .activity-title {
+            font-size: 1.8rem;
+            color: #4169E1;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 1.5rem;
+            border: 3px solid #87CEEB;
+            border-radius: 15px;
+            font-family: inherit;
+            font-size: 1.3rem;
+            margin: 1rem 0;
+            background: white;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #FF6B9D;
+            box-shadow: 0 0 0 4px rgba(255,107,157,0.2);
+        }
+
+        textarea.input-field {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .matching-game {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .matching-item {
+            background: white;
+            border: 3px solid #98FB98;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .matching-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .matching-item.selected {
+            background: #98FB98;
+            border-color: #32CD32;
+        }
+
+        .matching-item.correct {
+            background: #90EE90;
+            border-color: #228B22;
+            animation: celebrate 0.5s;
+        }
+
+        @keyframes celebrate {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .emoji-card {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn {
+            padding: 1.5rem 3rem;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: block;
+            width: 100%;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #FF6B9D 0%, #FFA07A 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255,107,157,0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255,107,157,0.5);
+        }
+
+        .visual-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .visual-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            border: 4px solid #FFD700;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .visual-card-emoji {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+
+        .visual-card-title {
+            font-size: 1.5rem;
+            color: #FF6347;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .visual-card-text {
+            font-size: 1.2rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .feedback {
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1rem 0;
+            font-size: 1.3rem;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: #90EE90;
+            color: #006400;
+            border: 3px solid #228B22;
+            display: block;
+            animation: celebrate 0.5s;
+        }
+
+        .feedback.try-again {
+            background: #FFE4B5;
+            color: #8B4513;
+            border: 3px solid #FFA500;
+            display: block;
+        }
+
+        .student-info {
+            background: linear-gradient(135deg, #FFE5E5 0%, #FFD1DC 100%);
+            padding: 2rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            border: 3px solid #FF69B4;
+        }
+
+        .student-info h3 {
+            color: #FF1493;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .checkbox-big {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            border: 2px solid #87CEEB;
+        }
+
+        .checkbox-big input[type="checkbox"] {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            margin-right: 1rem;
+            vertical-align: middle;
+        }
+
+        .checkbox-big label {
+            font-size: 1.3rem;
+            cursor: pointer;
+            vertical-align: middle;
+        }
+
+        .progress-bar {
+            background: #E0E0E0;
+            border-radius: 20px;
+            height: 40px;
+            margin: 2rem 0;
+            overflow: hidden;
+            border: 3px solid #4169E1;
+        }
+
+        .progress-fill {
+            background: linear-gradient(135deg, #FF6B9D 0%, #FFA07A 100%);
+            height: 100%;
+            transition: width 0.5s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .star-rating {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .star {
+            font-size: 3rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: inline-block;
+            margin: 0 0.5rem;
+        }
+
+        .star:hover {
+            transform: scale(1.2);
+        }
+
+        .star.selected {
+            animation: star-glow 0.5s;
+        }
+
+        @keyframes star-glow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        .celebration {
+            text-align: center;
+            font-size: 4rem;
+            margin: 2rem 0;
+            display: none;
+        }
+
+        .celebration.show {
+            display: block;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+            .btn {
+                display: none;
+            }
+        }
+
+        .example-box {
+            background: white;
+            border-left: 6px solid #32CD32;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .example-title {
+            color: #228B22;
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .example-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- INTESTAZIONE -->
+        <div class="header">
+            <div class="emoji-big">🌈 ❤️ 🏠</div>
+            <h1>Il Benessere</h1>
+            <p>Stare bene e vivere felici!</p>
+        </div>
+
+        <!-- INFORMAZIONI STUDENTE -->
+        <div class="student-info">
+            <h3>👤 I tuoi dati</h3>
+            <input type="text" id="student-name" name="student_name" class="input-field" placeholder="Il tuo nome...">
+            <input type="text" id="student-class" name="student_class" class="input-field" placeholder="La tua classe...">
+            <input type="date" id="student-date" name="student_date" class="input-field">
+        </div>
+
+        <!-- BARRA PROGRESSO -->
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width: 0%;">0%</div>
+        </div>
+
+        <!-- SEZIONE 1: COS'È IL BENESSERE -->
+        <div class="section">
+            <h2 class="section-title">🌟 Cos'è il Benessere?</h2>
+            
+            <div class="emoji-big">😊</div>
+            
+            <div class="card">
+                <div class="card-title">Stare bene significa...</div>
+                <div class="card-content">
+                    ✨ Essere felici<br>
+                    💪 Essere in salute<br>
+                    🏠 Avere una casa<br>
+                    🍕 Avere cibo<br>
+                    👨‍👩‍👧‍👦 Avere la famiglia e gli amici<br>
+                    🎓 Andare a scuola<br>
+                </div>
+            </div>
+
+            <div class="activity-box">
+                <div class="activity-title">✏️ La tua prima attività!</div>
+                <p style="font-size: 1.3rem; text-align: center; margin-bottom: 1rem;">
+                    <strong>Scrivi 3 cose che ti fanno stare bene:</strong>
+                </p>
+                <input type="text" id="wellbeing1" name="wellbeing_1" class="input-field" placeholder="1. Una cosa che mi fa stare bene...">
+                <input type="text" id="wellbeing2" name="wellbeing_2" class="input-field" placeholder="2. Un'altra cosa che mi fa stare bene...">
+                <input type="text" id="wellbeing3" name="wellbeing_3" class="input-field" placeholder="3. Un'altra ancora...">
+            </div>
+
+            <div class="card">
+                <div class="card-title">🎯 Cosa significa "Welfare"?</div>
+                <div class="card-content">
+                    <strong>"Welfare"</strong> è una parola inglese che significa <strong>"benessere"</strong>.
+                    <br><br>
+                    Il welfare sono tutti gli aiuti che le persone ricevono per vivere bene!
+                    <br><br>
+                    Ad esempio: ospedali, scuole, aiuti per la famiglia.
+                </div>
+            </div>
+        </div>
+
+        <!-- SEZIONE 2: CHI CI AIUTA -->
+        <div class="section">
+            <h2 class="section-title">🤝 Chi ci aiuta a stare bene?</h2>
+            
+            <div class="emoji-big">👨‍⚕️ 👩‍🏫 👮‍♀️</div>
+
+            <div class="visual-grid">
+                <div class="visual-card">
+                    <div class="visual-card-emoji">👨‍⚕️</div>
+                    <div class="visual-card-title">Dottori</div>
+                    <div class="visual-card-text">
+                        Ci curano quando stiamo male
+                    </div>
+                </div>
+
+                <div class="visual-card">
+                    <div class="visual-card-emoji">👩‍🏫</div>
+                    <div class="visual-card-title">Maestri</div>
+                    <div class="visual-card-text">
+                        Ci insegnano cose nuove
+                    </div>
+                </div>
+
+                <div class="visual-card">
+                    <div class="visual-card-emoji">🧑‍⚕️</div>
+                    <div class="visual-card-title">Assistenti</div>
+                    <div class="visual-card-text">
+                        Aiutano chi ha bisogno
+                    </div>
+                </div>
+
+                <div class="visual-card">
+                    <div class="visual-card-emoji">👨‍👩‍👧</div>
+                    <div class="visual-card-title">Famiglia</div>
+                    <div class="visual-card-text">
+                        Ci vuole bene e ci protegge
+                    </div>
+                </div>
+
+                <div class="visual-card">
+                    <div class="visual-card-emoji">❤️</div>
+                    <div class="visual-card-title">Volontari</div>
+                    <div class="visual-card-text">
+                        Aiutano senza soldi
+                    </div>
+                </div>
+
+                <div class="visual-card">
+                    <div class="visual-card-emoji">🏛️</div>
+                    <div class="visual-card-title">Lo Stato</div>
+                    <div class="visual-card-text">
+                        Organizza gli aiuti per tutti
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">📖 Esempio:</div>
+                <div class="example-text">
+                    <strong>Luca</strong> è un bambino che va a scuola. 
+                    <br><br>
+                    👩‍🏫 Le <strong>maestre</strong> lo aiutano a imparare.
+                    <br>
+                    👨‍👩‍👧 La <strong>famiglia</strong> lo porta a scuola.
+                    <br>
+                    🏛️ Lo <strong>Stato</strong> paga la scuola gratis per tutti!
+                    <br><br>
+                    Questo è il <strong>welfare</strong>! 🎉
+                </div>
+            </div>
+
+            <div class="activity-box">
+                <div class="activity-title">✏️ Ora tocca a te!</div>
+                <p style="font-size: 1.3rem; text-align: center; margin-bottom: 1rem;">
+                    <strong>Chi ti aiuta nella vita? Scrivi i nomi:</strong>
+                </p>
+                <textarea id="helpers" name="helpers" class="input-field" placeholder="Esempio: La mamma mi aiuta a casa, la maestra mi aiuta a scuola, il dottore mi cura quando sto male..."></textarea>
+            </div>
+        </div>
+
+        <!-- SEZIONE 3: I SERVIZI -->
+        <div class="section">
+            <h2 class="section-title">🏥 I Servizi del Welfare</h2>
+            
+            <div class="emoji-big">🏥 🏫 🏠</div>
+
+            <div class="card">
+                <div class="card-title">Ci sono 3 tipi principali di aiuti:</div>
+            </div>
+
+            <div class="visual-grid">
+                <div class="visual-card">
+                    <div class="visual-card-emoji">🏥</div>
+                    <div class="visual-card-title">SALUTE</div>
+                    <div class="visual-card-text">
+                        <strong>Esempi:</strong><br>
+                        • Ospedale<br>
+                        • Dottore<br>
+                        • Medicine<br>
+                        • Ambulanza
+                    </div>
+                </div>
+
+                <div class="visual-card">
+                    <div class="visual-card-emoji">💰</div>
+                    <div class="visual-card-title">SOLDI</div>
+                    <div class="visual-card-text">
+                        <strong>Esempi:</strong><br>
+                        • Pensione per i nonni<br>
+                        • Soldi per le famiglie<br>
+                        • Aiuto se perdi il lavoro
+                    </div>
+                </div>
+
+                <div class="visual-card">
+                    <div class="visual-card-emoji">🤝</div>
+                    <div class="visual-card-title">AIUTO</div>
+                    <div class="visual-card-text">
+                        <strong>Esempi:</strong><br>
+                        • Asilo nido<br>
+                        • Aiuto a casa<br>
+                        • Centri per bambini<br>
+                        • Mensa per chi ha fame
+                    </div>
+                </div>
+            </div>
+
+            <div class="activity-box">
+                <div class="activity-title">🎮 Gioco: Abbina!</div>
+                <p style="font-size: 1.3rem; text-align: center; margin-bottom: 1rem;">
+                    <strong>Clicca la persona, poi clicca l'aiuto giusto!</strong>
+                </p>
+
+                <div id="matching-game">
+                    <!-- Generato dinamicamente -->
+                </div>
+
+                <div class="feedback" id="match-feedback"></div>
+            </div>
+        </div>
+
+        <!-- SEZIONE 4: ESEMPI REALI -->
+        <div class="section">
+            <h2 class="section-title">📚 Storie vere</h2>
+            
+            <div class="emoji-big">📖</div>
+
+            <div class="card">
+                <div class="card-title">👵 Storia 1: La Nonna Maria</div>
+                <div class="card-content">
+                    La nonna Maria ha 80 anni. Lei:
+                    <br><br>
+                    💰 Riceve la <strong>pensione</strong> ogni mese (SOLDI)<br>
+                    🏥 Va dal <strong>dottore</strong> gratis (SALUTE)<br>
+                    🤝 Un'assistente viene a casa ad <strong>aiutarla</strong> (AIUTO)<br>
+                    <br>
+                    Così la nonna Maria vive bene! 😊
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">👶 Storia 2: Il piccolo Marco</div>
+                <div class="card-content">
+                    Marco ha 2 anni. I suoi genitori lavorano. Marco:
+                    <br><br>
+                    🏫 Va all'<strong>asilo nido</strong> (AIUTO)<br>
+                    💰 La famiglia riceve un <strong>bonus bebè</strong> (SOLDI)<br>
+                    🏥 Se si ammala, il <strong>pediatra</strong> lo visita gratis (SALUTE)<br>
+                    <br>
+                    Marco cresce sano e felice! 😊
+                </div>
+            </div>
+
+            <div class="activity-box">
+                <div class="activity-title">✏️ Inventa la tua storia!</div>
+                <p style="font-size: 1.3rem; text-align: center; margin-bottom: 1rem;">
+                    <strong>Pensa a qualcuno che conosci. Come lo aiuta il welfare?</strong>
+                </p>
+                <input type="text" id="story-person" name="story_person" class="input-field" placeholder="Chi è? (es: il nonno, un amico, una vicina...)">
+                <textarea id="story-help" name="story_help" class="input-field" placeholder="Come viene aiutato? (es: va all'ospedale, riceve soldi, qualcuno lo aiuta a casa...)"></textarea>
+            </div>
+        </div>
+
+        <!-- SEZIONE 5: COSA HO IMPARATO -->
+        <div class="section">
+            <h2 class="section-title">🎓 Cosa ho imparato?</h2>
+            
+            <div class="emoji-big">⭐</div>
+
+            <div class="activity-box">
+                <div class="activity-title">✅ Segna quello che hai capito!</div>
+                
+                <div class="checkbox-big">
+                    <input type="checkbox" id="learn1" name="learn_1" onchange="updateProgress()">
+                    <label for="learn1">So cos'è il benessere (stare bene)</label>
+                </div>
+
+                <div class="checkbox-big">
+                    <input type="checkbox" id="learn2" name="learn_2" onchange="updateProgress()">
+                    <label for="learn2">So cosa significa "welfare"</label>
+                </div>
+
+                <div class="checkbox-big">
+                    <input type="checkbox" id="learn3" name="learn_3" onchange="updateProgress()">
+                    <label for="learn3">Conosco chi ci aiuta (dottori, maestri, assistenti)</label>
+                </div>
+
+                <div class="checkbox-big">
+                    <input type="checkbox" id="learn4" name="learn_4" onchange="updateProgress()">
+                    <label for="learn4">So i 3 tipi di aiuto: Salute 🏥, Soldi 💰, Aiuto 🤝</label>
+                </div>
+
+                <div class="checkbox-big">
+                    <input type="checkbox" id="learn5" name="learn_5" onchange="updateProgress()">
+                    <label for="learn5">Ho capito gli esempi (Nonna Maria, piccolo Marco)</label>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🌟 Quanto ti è piaciuto questo lavoro?</div>
+                <div class="star-rating" id="star-rating">
+                    <span class="star" onclick="selectStar(1)">⭐</span>
+                    <span class="star" onclick="selectStar(2)">⭐</span>
+                    <span class="star" onclick="selectStar(3)">⭐</span>
+                    <span class="star" onclick="selectStar(4)">⭐</span>
+                    <span class="star" onclick="selectStar(5)">⭐</span>
+                </div>
+            </div>
+
+            <div class="activity-box">
+                <div class="activity-title">💭 La cosa più importante che ho imparato è...</div>
+                <textarea id="final-reflection" name="final_reflection" class="input-field" placeholder="Scrivi qui la cosa più importante..."></textarea>
+            </div>
+        </div>
+
+        <!-- CELEBRAZIONE FINALE -->
+        <div class="celebration" id="celebration">
+            🎉 🎊 🎈
+            <br>
+            <span style="font-size: 2rem;">BRAVISSIMA!</span>
+            <br>
+            🏆 ⭐ 🌟
+        </div>
+
+        <!-- PULSANTE STAMPA -->
+        <button class="btn btn-primary" onclick="printWork()">
+            🖨️ STAMPA IL TUO LAVORO
+        </button>
+    </div>
+
+    <script>
+        const STORAGE_KEY = 'welfareSimplificatoV2';
+        const matchingPairs = [
+            { id: 1, person: '👵 Nonna anziana', help: '🏥 Dottore', emoji: '👵', correct: '🏥' },
+            { id: 2, person: '👶 Bambino piccolo', help: '🏫 Asilo nido', emoji: '👶', correct: '🏫' },
+            { id: 3, person: '🤕 Persona malata', help: '🏥 Ospedale', emoji: '🤕', correct: '🏥' },
+            { id: 4, person: '😢 Famiglia povera', help: '💰 Soldi aiuto', emoji: '😢', correct: '💰' },
+            { id: 5, person: '🧓 Nonno solo', help: '🤝 Assistente', emoji: '🧓', correct: '🤝' }
+        ];
+
+        let selectedPerson = null;
+        let completedMatches = new Set();
+        let correctMatches = 0;
+        let userRating = 0;
+        let progressValue = 0;
+        let isRestoring = false;
+        let matchingGameInitialized = false;
+
+        function generateMatchingGame() {
+            const container = document.getElementById('matching-game');
+            if (!container) return;
+
+            const personsDiv = document.createElement('div');
+            personsDiv.className = 'matching-game';
+            personsDiv.innerHTML = '<h3 style="grid-column: 1/-1; text-align: center; color: #4169E1; margin-bottom: 1rem;">👥 LE PERSONE:</h3>';
+
+            matchingPairs.forEach(pair => {
+                const item = document.createElement('div');
+                item.className = 'matching-item';
+                item.dataset.id = String(pair.id);
+                item.dataset.type = 'person';
+                item.innerHTML = `
+                    <div class="emoji-card">${pair.emoji}</div>
+                    <div>${pair.person.split(' ').slice(1).join(' ')}</div>
+                `;
+                item.addEventListener('click', () => selectPerson(pair.id, item));
+                personsDiv.appendChild(item);
+            });
+
+            container.appendChild(personsDiv);
+
+            const helpsDiv = document.createElement('div');
+            helpsDiv.className = 'matching-game';
+            helpsDiv.innerHTML = '<h3 style="grid-column: 1/-1; text-align: center; color: #32CD32; margin-bottom: 1rem; margin-top: 2rem;">🎯 GLI AIUTI:</h3>';
+
+            const shuffledHelps = [...matchingPairs].sort(() => Math.random() - 0.5);
+
+            shuffledHelps.forEach(pair => {
+                const item = document.createElement('div');
+                item.className = 'matching-item';
+                item.dataset.id = String(pair.id);
+                item.dataset.type = 'help';
+                item.innerHTML = `
+                    <div class="emoji-card">${pair.correct}</div>
+                    <div>${pair.help.split(' ').slice(1).join(' ')}</div>
+                `;
+                item.addEventListener('click', () => selectHelp(pair.id, item));
+                helpsDiv.appendChild(item);
+            });
+
+            container.appendChild(helpsDiv);
+            matchingGameInitialized = true;
+            applyMatchingState();
+        }
+
+        function applyMatchingState() {
+            if (!matchingGameInitialized) return;
+
+            const celebration = document.getElementById('celebration');
+            document.querySelectorAll('.matching-item').forEach(item => {
+                item.classList.remove('correct');
+                item.classList.remove('selected');
+                item.style.pointerEvents = '';
+            });
+
+            completedMatches.forEach(id => {
+                const person = document.querySelector(`[data-type="person"][data-id="${id}"]`);
+                const help = document.querySelector(`[data-type="help"][data-id="${id}"]`);
+                if (person) {
+                    person.classList.add('correct');
+                    person.style.pointerEvents = 'none';
+                }
+                if (help) {
+                    help.classList.add('correct');
+                    help.style.pointerEvents = 'none';
+                }
+            });
+
+            if (celebration) {
+                if (completedMatches.size === matchingPairs.length) {
+                    celebration.classList.add('show');
+                } else {
+                    celebration.classList.remove('show');
+                }
+            }
+        }
+
+        function selectPerson(id, element) {
+            document.querySelectorAll('[data-type="person"]').forEach(el => el.classList.remove('selected'));
+            selectedPerson = id;
+            element.classList.add('selected');
+        }
+
+        function selectHelp(id, element) {
+            if (!selectedPerson) {
+                showFeedback('Prima scegli una persona! 👆', 'try-again');
+                return;
+            }
+
+            if (completedMatches.has(selectedPerson)) {
+                showFeedback('Hai già aiutato questa persona! ✅', 'correct');
+                selectedPerson = null;
+                document.querySelectorAll('[data-type="person"]').forEach(el => el.classList.remove('selected'));
+                return;
+            }
+
+            if (selectedPerson === id) {
+                const personEl = document.querySelector(`[data-type="person"][data-id="${id}"]`);
+                if (personEl) {
+                    personEl.classList.add('correct');
+                    personEl.classList.remove('selected');
+                    personEl.style.pointerEvents = 'none';
+                }
+                element.classList.add('correct');
+                element.style.pointerEvents = 'none';
+
+                completedMatches.add(id);
+                correctMatches = completedMatches.size;
+
+                showFeedback('✅ BRAVO! Abbinamento corretto! 🎉', 'correct');
+
+                if (completedMatches.size === matchingPairs.length) {
+                    setTimeout(() => {
+                        showFeedback('🎊 HAI COMPLETATO TUTTO! SEI BRAVISSIMO/A! 🏆', 'correct');
+                        const celebration = document.getElementById('celebration');
+                        if (celebration) {
+                            celebration.classList.add('show');
+                        }
+                    }, 300);
+                }
+            } else {
+                showFeedback('❌ Ops! Riprova! 💪', 'try-again');
+            }
+
+            selectedPerson = null;
+            document.querySelectorAll('[data-type="person"]').forEach(el => el.classList.remove('selected'));
+
+            updateProgress();
+        }
+
+        function showFeedback(message, type) {
+            const feedback = document.getElementById('match-feedback');
+            if (!feedback) return;
+            feedback.textContent = message;
+            feedback.className = `feedback ${type}`;
+            feedback.style.display = 'block';
+
+            if (type === 'try-again') {
+                setTimeout(() => {
+                    feedback.style.display = 'none';
+                }, 2000);
+            }
+        }
+
+        function renderRating(value) {
+            const stars = document.querySelectorAll('.star');
+            stars.forEach((star, index) => {
+                star.classList.toggle('selected', index < value);
+            });
+        }
+
+        function setRating(value, { emitSave = true } = {}) {
+            userRating = value;
+            renderRating(userRating);
+            if (emitSave) {
+                updateProgress();
+            }
+        }
+
+        function selectStar(rating) {
+            setRating(rating);
+        }
+
+        function getElement(id) {
+            return document.getElementById(id);
+        }
+
+        function getInputValue(id) {
+            const el = getElement(id);
+            return el ? el.value : '';
+        }
+
+        function setInputValue(id, value) {
+            const el = getElement(id);
+            if (el) el.value = value ?? '';
+        }
+
+        function getCheckboxValue(id) {
+            const el = getElement(id);
+            return el ? Boolean(el.checked) : false;
+        }
+
+        function setCheckboxValue(id, value) {
+            const el = getElement(id);
+            if (el) el.checked = toBoolean(value);
+        }
+
+        function toBoolean(value) {
+            if (typeof value === 'boolean') return value;
+            if (typeof value === 'string') {
+                return value === 'true' || value === '1' || value === 'on';
+            }
+            return Boolean(value);
+        }
+
+        function parseMatches(value) {
+            if (Array.isArray(value)) {
+                return value.map(Number).filter(Number.isFinite);
+            }
+            if (typeof value === 'string' && value.trim()) {
+                try {
+                    const parsed = JSON.parse(value);
+                    if (Array.isArray(parsed)) {
+                        return parsed.map(Number).filter(Number.isFinite);
+                    }
+                } catch {
+                    return value.split(',').map(v => Number(v.trim())).filter(Number.isFinite);
+                }
+            }
+            if (typeof value === 'number') {
+                return [Number(value)].filter(Number.isFinite);
+            }
+            return [];
+        }
+
+        function collectCurrentData() {
+            return {
+                student_name: getInputValue('student-name'),
+                student_class: getInputValue('student-class'),
+                student_date: getInputValue('student-date'),
+                wellbeing_1: getInputValue('wellbeing1'),
+                wellbeing_2: getInputValue('wellbeing2'),
+                wellbeing_3: getInputValue('wellbeing3'),
+                helpers: getInputValue('helpers'),
+                story_person: getInputValue('story-person'),
+                story_help: getInputValue('story-help'),
+                final_reflection: getInputValue('final-reflection'),
+                learn_1: getCheckboxValue('learn1'),
+                learn_2: getCheckboxValue('learn2'),
+                learn_3: getCheckboxValue('learn3'),
+                learn_4: getCheckboxValue('learn4'),
+                learn_5: getCheckboxValue('learn5'),
+                rating_value: userRating,
+                matching_completed: Array.from(completedMatches),
+                correct_matches: completedMatches.size,
+                progress_percentage: progressValue
+            };
+        }
+
+        function saveData() {
+            if (isRestoring) return;
+            const data = collectCurrentData();
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+            } catch (error) {
+                console.warn('Impossibile salvare localmente:', error);
+            }
+            return data;
+        }
+
+        function loadLocalData() {
+            const fallback = localStorage.getItem('welfareSimplificato');
+            const raw = localStorage.getItem(STORAGE_KEY) || fallback;
+            if (!raw) return;
+            try {
+                const data = JSON.parse(raw);
+                applyData(data);
+            } catch (error) {
+                console.error('Errore nel caricamento dei dati locali:', error);
+            }
+        }
+
+        function applyData(data) {
+            if (!data) return;
+            isRestoring = true;
+            try {
+                setInputValue('student-name', data.student_name ?? data.studentName ?? '');
+                setInputValue('student-class', data.student_class ?? data.studentClass ?? '');
+                setInputValue('student-date', data.student_date ?? data.studentDate ?? '');
+                setInputValue('wellbeing1', data.wellbeing_1 ?? data.wellbeing1 ?? '');
+                setInputValue('wellbeing2', data.wellbeing_2 ?? data.wellbeing2 ?? '');
+                setInputValue('wellbeing3', data.wellbeing_3 ?? data.wellbeing3 ?? '');
+                setInputValue('helpers', data.helpers ?? '');
+                setInputValue('story-person', data.story_person ?? data.storyPerson ?? '');
+                setInputValue('story-help', data.story_help ?? data.storyHelp ?? '');
+                setInputValue('final-reflection', data.final_reflection ?? data.finalReflection ?? '');
+
+                setCheckboxValue('learn1', data.learn_1 ?? data.learn1 ?? false);
+                setCheckboxValue('learn2', data.learn_2 ?? data.learn2 ?? false);
+                setCheckboxValue('learn3', data.learn_3 ?? data.learn3 ?? false);
+                setCheckboxValue('learn4', data.learn_4 ?? data.learn4 ?? false);
+                setCheckboxValue('learn5', data.learn_5 ?? data.learn5 ?? false);
+
+                const rating = Number(data.rating_value ?? data.rating ?? 0) || 0;
+                userRating = rating;
+                renderRating(userRating);
+
+                const matches = parseMatches(data.matching_completed ?? data.completedMatches ?? data.correctMatches);
+                completedMatches = new Set(matches);
+                correctMatches = completedMatches.size;
+                applyMatchingState();
+                updateProgress({ emitSave: false });
+            } finally {
+                isRestoring = false;
+            }
+        }
+
+        function updateProgress({ emitSave = true } = {}) {
+            const checkboxes = [
+                getElement('learn1'),
+                getElement('learn2'),
+                getElement('learn3'),
+                getElement('learn4'),
+                getElement('learn5')
+            ].filter(Boolean);
+
+            const checkedCount = checkboxes.filter(cb => cb.checked).length;
+            const totalBase = checkboxes.length;
+            const matchBonus = completedMatches.size * 0.5;
+            const ratingBonus = userRating > 0 ? 1 : 0;
+            const totalPossible = totalBase + matchingPairs.length * 0.5 + 1;
+            const rawScore = checkedCount + matchBonus + ratingBonus;
+            progressValue = Math.min(100, Math.round((rawScore / totalPossible) * 100));
+
+            const progressFill = getElement('progress-fill');
+            if (progressFill) {
+                progressFill.style.width = `${progressValue}%`;
+                progressFill.textContent = `${progressValue}%`;
+            }
+
+            if (emitSave && !isRestoring) {
+                saveData();
+            }
+        }
+
+        function attachInputListeners() {
+            document.querySelectorAll('input, textarea').forEach(el => {
+                const type = (el.type || '').toLowerCase();
+                const handler = () => {
+                    if (type === 'checkbox') {
+                        updateProgress();
+                    } else {
+                        saveData();
+                    }
+                };
+                el.addEventListener('input', handler);
+                el.addEventListener('change', handler);
+            });
+        }
+
+        function printWork() {
+            window.print();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            generateMatchingGame();
+            attachInputListeners();
+            loadLocalData();
+            updateProgress({ emitSave: false });
+        });
+
+        window.MO_PROGRESS_CONFIG = {
+            pagePath: window.location.pathname,
+            inputSelector: 'input[name], textarea[name]',
+            onBeforeSave: () => collectCurrentData(),
+            onRestore: saved => applyData(saved)
+        };
+    </script>
+    <script type="module" src="../../assets/progress.js"></script>
+    <script type="module" src="../../assets/progress-global.js"></script>
+</body>
+</html>
