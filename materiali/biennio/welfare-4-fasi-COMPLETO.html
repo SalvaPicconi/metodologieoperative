@@ -2394,19 +2394,9 @@
                     <button class="btn btn-primary" onclick="printWork()" style="font-size: 1.1rem;">
                         🖨️ STAMPA PER CONSEGNA
                     </button>
-                    <button class="btn btn-secondary" onclick="downloadCompleteHTML()" style="font-size: 1.1rem;">
-                        💾 SALVA HTML COMPLETO
-                    </button>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- PULSANTI SALVATAGGIO -->
-    <div class="save-buttons">
-        <button class="save-btn" onclick="downloadCompleteHTML()" title="Salva HTML completo">
-            💾 Salva
-        </button>
     </div>
 
     <div class="save-status" id="save-status">✓ Salvato</div>
@@ -3023,23 +3013,6 @@
                 doCleanup();
             }, 1500);
         }
-
-        function downloadCompleteHTML() {
-            saveData();
-            const storedData = localStorage.getItem('welfareActivity4FasiCompleto');
-            const safeData = (storedData || '"{}"').replace(/<\/script/gi, '<\\/script');
-            let htmlContent = document.documentElement.outerHTML;
-
-            const preloadScript = `
-    <script>
-        (function() {
-            try {
-                var savedData = ${safeData};
-                if (typeof savedData === 'string') {
-                    localStorage.setItem('welfareActivity4FasiCompleto', savedData);
-                } else {
-                    localStorage.setItem('welfareActivity4FasiCompleto', JSON.stringify(savedData));
-                }
             } catch(e) { console.error('Errore:', e); }
         })();
     <\/script>`;
