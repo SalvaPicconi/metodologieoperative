@@ -2989,7 +2989,7 @@
             });
         }
 
-        // ========== STAMPA E DOWNLOAD ==========
+        // ========== STAMPA ==========
         function printWork() {
             saveData();
             const cleanup = enablePrintMode();
@@ -3012,28 +3012,6 @@
             setTimeout(() => {
                 doCleanup();
             }, 1500);
-        }
-            } catch(e) { console.error('Errore:', e); }
-        })();
-    <\/script>`;
-            
-            htmlContent = htmlContent.replace('</body>', preloadScript + '\n</body>');
-            
-            const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            
-            const now = new Date();
-            const filename = `welfare_4fasi_COMPLETO_${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}.html`;
-            
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            
-            alert('✅ File salvato!\n\n📂 ' + filename + '\n\n💡 Conserva questo file!');
         }
 
         // ========== INIZIALIZZAZIONE ==========
