@@ -31,10 +31,10 @@
             padding: 1rem;
             text-align: center;
             box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            position: sticky;
-            top: 0;
+            position: relative;
+            top: auto;
             z-index: 1000;
-            transition: transform 0.3s ease, opacity 0.3s ease;
+            transition: opacity 0.3s ease;
         }
 
         .header h1 {
@@ -72,7 +72,7 @@
             text-shadow: none !important;
         }
 
-        body.print-mode .phase-progress,
+        body.print-mode .phase-nav,
         body.print-mode .save-buttons,
         body.print-mode .save-status,
         body.print-mode .btn-next,
@@ -121,45 +121,85 @@
         }
 
         /* BARRA PROGRESSO FASI */
-        .phase-progress {
+        .phase-nav {
+            position: sticky;
+            top: 0;
+            z-index: 950;
+            background: rgba(15, 15, 15, 0.92);
+            backdrop-filter: blur(6px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding: 0.75rem 1.25rem;
+        }
+
+        .phase-nav-list {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 0.5rem;
-            margin-top: 1rem;
-            padding: 0.5rem;
+            gap: 0.75rem;
             flex-wrap: wrap;
         }
 
         .phase-dot {
-            width: 40px;
-            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 0.45rem 1.1rem;
+            border-radius: 999px;
+            border: 2px solid rgba(255,255,255,0.35);
+            background: rgba(255,255,255,0.1);
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+            font-family: inherit;
+            appearance: none;
+            line-height: 1.2;
+        }
+
+        .phase-dot .phase-number {
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.3);
-            display: flex;
+            border: 2px solid rgba(255,255,255,0.4);
+            background: rgba(0,0,0,0.2);
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-            transition: all 0.3s;
-            cursor: pointer;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #ffffff;
         }
 
         .phase-dot.completed {
-            background: #1a5c3a;
-            box-shadow: 0 0 15px #1a5c3a;
+            border-color: rgba(76, 175, 80, 0.8);
+            background: rgba(76, 175, 80, 0.15);
         }
 
         .phase-dot.active {
-            background: #c41e3a;
-            transform: scale(1.3);
-            box-shadow: 0 0 20px #c41e3a;
+            border-color: #c41e3a;
+            background: linear-gradient(135deg, rgba(196,30,58,0.85) 0%, rgba(26,92,58,0.85) 100%);
+            box-shadow: 0 0 18px rgba(196, 30, 58, 0.45);
+            transform: translateY(-2px);
+        }
+
+        .phase-dot.active .phase-number {
+            border-color: #ffffff;
+            background: rgba(0,0,0,0.25);
+        }
+
+        .phase-dot.completed .phase-number {
+            border-color: rgba(76, 175, 80, 0.9);
+            background: rgba(76, 175, 80, 0.2);
         }
 
         .phase-label {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            margin-top: 0.5rem;
+            display: inline-block;
+            font-size: 0.8rem;
+            line-height: 1;
+        }
         }
 
         /* CONTAINER PRINCIPALE */
@@ -776,13 +816,22 @@
                 padding: 1.25rem;
             }
 
-            .phase-progress {
-                gap: 0.4rem;
+            .phase-nav {
+                padding: 0.65rem 1rem;
+            }
+
+            .phase-nav-list {
+                gap: 0.6rem;
             }
 
             .phase-dot {
-                width: 34px;
-                height: 34px;
+                padding: 0.4rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .phase-dot .phase-number {
+                width: 32px;
+                height: 32px;
                 font-size: 1rem;
             }
 
@@ -832,7 +881,7 @@
                 font-size: 1.35rem;
             }
 
-            .phase-progress {
+            .phase-nav-list {
                 justify-content: flex-start;
                 overflow-x: auto;
                 padding-bottom: 0.5rem;
@@ -842,19 +891,25 @@
                 padding-right: 0.5rem;
             }
 
-            .phase-progress::-webkit-scrollbar {
+            .phase-nav-list::-webkit-scrollbar {
                 display: none;
             }
 
-            .phase-progress {
+            .phase-nav-list {
+                flex-wrap: nowrap;
                 -ms-overflow-style: none;
                 scrollbar-width: none;
             }
 
             .phase-dot {
-                width: 30px;
-                height: 30px;
-                font-size: 0.9rem;
+                padding: 0.35rem 0.85rem;
+                font-size: 0.85rem;
+            }
+
+            .phase-dot .phase-number {
+                width: 28px;
+                height: 28px;
+                font-size: 0.95rem;
             }
 
             .save-buttons {
@@ -1051,7 +1106,7 @@
                 text-shadow: none !important;
             }
 
-            .phase-progress,
+            .phase-nav,
             .save-buttons,
             .save-status,
             .btn-next,
@@ -1106,30 +1161,28 @@
     <div class="header">
         <h1>🎓 Il Welfare: dalle Basi all'Azione</h1>
         <p style="font-size: 1rem; opacity: 0.9;">Percorso di apprendimento in 4 fasi - Versione Integrata</p>
-        
-        <!-- BARRA PROGRESSO -->
-        <div class="phase-progress">
-            <div>
-                <div class="phase-dot active" data-phase="1" onclick="goToPhase(1)">1</div>
-                <div class="phase-label">SCOPRO</div>
-            </div>
-            <div style="font-size: 2rem; opacity: 0.5;">→</div>
-            <div>
-                <div class="phase-dot" data-phase="2" onclick="goToPhase(2)">2</div>
-                <div class="phase-label">ESPLORO</div>
-            </div>
-            <div style="font-size: 2rem; opacity: 0.5;">→</div>
-            <div>
-                <div class="phase-dot" data-phase="3" onclick="goToPhase(3)">3</div>
-                <div class="phase-label">APPLICO</div>
-            </div>
-            <div style="font-size: 2rem; opacity: 0.5;">→</div>
-            <div>
-                <div class="phase-dot" data-phase="4" onclick="goToPhase(4)">4</div>
-                <div class="phase-label">RIFLETTO</div>
-            </div>
-        </div>
     </div>
+
+    <nav class="phase-nav" aria-label="Navigazione fasi del percorso">
+        <div class="phase-nav-list">
+            <button class="phase-dot active" type="button" data-phase="1" onclick="goToPhase(1)">
+                <span class="phase-number">1</span>
+                <span class="phase-label">Scopro</span>
+            </button>
+            <button class="phase-dot" type="button" data-phase="2" onclick="goToPhase(2)">
+                <span class="phase-number">2</span>
+                <span class="phase-label">Esploro</span>
+            </button>
+            <button class="phase-dot" type="button" data-phase="3" onclick="goToPhase(3)">
+                <span class="phase-number">3</span>
+                <span class="phase-label">Applico</span>
+            </button>
+            <button class="phase-dot" type="button" data-phase="4" onclick="goToPhase(4)">
+                <span class="phase-number">4</span>
+                <span class="phase-label">Rifletto</span>
+            </button>
+        </div>
+    </nav>
 
     <div class="container">
         <!-- ================================ -->
@@ -2394,54 +2447,7 @@
         let currentPhase = 1;
 
         function initHeaderHideOnScroll() {
-            const header = document.querySelector('.header');
-            if (!header) {
-                return;
-            }
-
-            let lastScrollY = window.pageYOffset || document.documentElement.scrollTop;
-            let accumulatedDown = 0;
-            let accumulatedUp = 0;
-            let headerHidden = false;
-            const hideOffset = 140;
-            const hideDistance = 120;
-            const showDistance = 80;
-
-            window.addEventListener('scroll', () => {
-                const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-                const delta = currentScroll - lastScrollY;
-
-                if (currentScroll <= hideOffset) {
-                    if (headerHidden) {
-                        header.classList.remove('header-hidden');
-                        headerHidden = false;
-                    }
-                    accumulatedDown = 0;
-                    accumulatedUp = 0;
-                    lastScrollY = currentScroll <= 0 ? 0 : currentScroll;
-                    return;
-                }
-
-                if (delta > 0) {
-                    accumulatedDown += delta;
-                    accumulatedUp = 0;
-                    if (!headerHidden && accumulatedDown >= hideDistance) {
-                        header.classList.add('header-hidden');
-                        headerHidden = true;
-                        accumulatedDown = 0;
-                    }
-                } else if (delta < 0) {
-                    accumulatedUp += Math.abs(delta);
-                    accumulatedDown = 0;
-                    if (headerHidden && accumulatedUp >= showDistance) {
-                        header.classList.remove('header-hidden');
-                        headerHidden = false;
-                        accumulatedUp = 0;
-                    }
-                }
-
-                lastScrollY = currentScroll <= 0 ? 0 : currentScroll;
-            }, { passive: true });
+            // Il titolo resta visibile solo all'inizio: non servono animazioni di scomparsa.
         }
 
         function enablePrintMode() {
