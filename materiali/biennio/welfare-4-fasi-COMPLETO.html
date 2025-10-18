@@ -361,10 +361,30 @@
         }
 
         /* TABELLE */
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            background: white;
+            padding: 1rem;
+        }
+
+        .table-wrapper::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-thumb {
+            background: rgba(26, 92, 58, 0.4);
+            border-radius: 4px;
+        }
+
         .data-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 1.5rem 0;
+            table-layout: fixed;
+            min-width: 620px;
         }
 
         .data-table th {
@@ -379,6 +399,8 @@
             padding: 1rem;
             border: 1px solid #ddd;
             vertical-align: top;
+            word-break: break-word;
+            hyphens: auto;
         }
 
         .data-table tr:nth-child(even) {
@@ -541,17 +563,23 @@
             flex-direction: column;
             align-items: center;
             margin: 2rem 0;
+            gap: 0.35rem;
         }
 
         .pyramid-level {
-            width: 100%;
+            --level-width: 95%;
+            width: clamp(260px, var(--level-width), 95%);
             max-width: 900px;
             background: #f5f5f5;
             border: 2px solid #1a5c3a;
             padding: 1rem;
-            margin: 0.3rem 0;
             border-radius: 8px;
             transition: all 0.3s;
+            margin: 0 auto;
+        }
+
+        .pyramid-level + .pyramid-level {
+            margin-top: 0.2rem;
         }
 
         .pyramid-level:hover {
@@ -559,14 +587,14 @@
             box-shadow: 0 4px 12px rgba(26, 92, 58, 0.2);
         }
 
-        .pyramid-level:nth-child(1) { width: 95%; background: #ffebee; }
-        .pyramid-level:nth-child(2) { width: 85%; background: #fff3e0; }
-        .pyramid-level:nth-child(3) { width: 75%; background: #fff9c4; }
-        .pyramid-level:nth-child(4) { width: 65%; background: #e1f5fe; }
-        .pyramid-level:nth-child(5) { width: 55%; background: #e8f5e9; }
-        .pyramid-level:nth-child(6) { width: 45%; background: #f3e5f5; }
-        .pyramid-level:nth-child(7) { width: 35%; background: #fce4ec; }
-        .pyramid-level:nth-child(8) { width: 25%; background: #e8eaf6; }
+        .pyramid-level:nth-child(1) { --level-width: 95%; background: #ffebee; }
+        .pyramid-level:nth-child(2) { --level-width: 85%; background: #fff3e0; }
+        .pyramid-level:nth-child(3) { --level-width: 75%; background: #fff9c4; }
+        .pyramid-level:nth-child(4) { --level-width: 65%; background: #e1f5fe; }
+        .pyramid-level:nth-child(5) { --level-width: 55%; background: #e8f5e9; }
+        .pyramid-level:nth-child(6) { --level-width: 45%; background: #f3e5f5; }
+        .pyramid-level:nth-child(7) { --level-width: 35%; background: #fce4ec; }
+        .pyramid-level:nth-child(8) { --level-width: 25%; background: #e8eaf6; }
 
         .pyramid-level h4 {
             color: #1a5c3a;
@@ -803,6 +831,22 @@
                 margin-bottom: 1.5rem;
             }
 
+            .table-wrapper {
+                margin: 1.2rem 0;
+            }
+
+            .data-table {
+                min-width: 520px;
+            }
+
+            .maslow-pyramid {
+                gap: 0.25rem;
+            }
+
+            .pyramid-level {
+                padding: 0.9rem;
+            }
+
             .phase-title {
                 font-size: 2rem;
             }
@@ -871,6 +915,23 @@
 
             .white-card {
                 padding: 1.2rem;
+            }
+
+            .table-wrapper {
+                margin: 1rem 0;
+            }
+
+            .data-table {
+                min-width: 480px;
+            }
+
+            .maslow-pyramid {
+                gap: 0.2rem;
+            }
+
+            .pyramid-level {
+                width: clamp(230px, var(--level-width), 92%);
+                text-align: left;
             }
 
             .phase-title {
@@ -1277,32 +1338,34 @@
                     </ol>
                 </div>
 
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Pilastro</th>
-                            <th>Cosa garantisce</th>
-                            <th>Esempi di servizi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>🏥 Sistema Sanitario</strong></td>
-                            <td>Tutela della salute e prevenzione</td>
-                            <td>Ospedali, medico di base, vaccinazioni, 118, riabilitazione, salute mentale</td>
-                        </tr>
-                        <tr>
-                            <td><strong>💰 Sistema Previdenziale</strong></td>
-                            <td>Sicurezza economica</td>
-                            <td>Pensioni, disoccupazione, assegni familiari, bonus bebè, invalidità</td>
-                        </tr>
-                        <tr>
-                            <td><strong>🤝 Assistenza Sociale</strong></td>
-                            <td>Supporto a persone fragili</td>
-                            <td>Asili nido, assistenza domiciliare, centri disabilità, senza fissa dimora</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Pilastro</th>
+                                <th>Cosa garantisce</th>
+                                <th>Esempi di servizi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>🏥 Sistema Sanitario</strong></td>
+                                <td>Tutela della salute e prevenzione</td>
+                                <td>Ospedali, medico di base, vaccinazioni, 118, riabilitazione, salute mentale</td>
+                            </tr>
+                            <tr>
+                                <td><strong>💰 Sistema Previdenziale</strong></td>
+                                <td>Sicurezza economica</td>
+                                <td>Pensioni, disoccupazione, assegni familiari, bonus bebè, invalidità</td>
+                            </tr>
+                            <tr>
+                                <td><strong>🤝 Assistenza Sociale</strong></td>
+                                <td>Supporto a persone fragili</td>
+                                <td>Asili nido, assistenza domiciliare, centri disabilità, senza fissa dimora</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
                 <!-- NUOVO: COMPETENZE OPERATORE -->
                 <h2 class="section-title">🎓 Le Tue Competenze come Operatore</h2>
@@ -1719,36 +1782,38 @@
                     </ol>
                 </div>
 
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th style="width: 25%;">Legge</th>
-                            <th style="width: 75%;">Cosa garantisce</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>L. 833/1978</strong></td>
-                            <td>Ha istituito il <strong>Servizio Sanitario Nazionale (SSN)</strong> - assistenza sanitaria universale e gratuita</td>
-                        </tr>
-                        <tr>
-                            <td><strong>L. 328/2000</strong></td>
-                            <td><strong>Sistema Integrato di Servizi Sociali</strong> - programmazione servizi sociali a livello locale</td>
-                        </tr>
-                        <tr>
-                            <td><strong>L. 104/1992</strong></td>
-                            <td><strong>Assistenza persone con disabilità</strong> - permessi lavoro, integrazione, supporto familiare</td>
-                        </tr>
-                        <tr>
-                            <td><strong>L. 180/1978</strong></td>
-                            <td><strong>Legge Basaglia</strong> - chiusura manicomi, assistenza psichiatrica territoriale</td>
-                        </tr>
-                        <tr>
-                            <td><strong>L. 68/1999</strong></td>
-                            <td><strong>Diritto al lavoro dei disabili</strong> - quote riservate nelle assunzioni</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 25%;">Legge</th>
+                                <th style="width: 75%;">Cosa garantisce</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>L. 833/1978</strong></td>
+                                <td>Ha istituito il <strong>Servizio Sanitario Nazionale (SSN)</strong> - assistenza sanitaria universale e gratuita</td>
+                            </tr>
+                            <tr>
+                                <td><strong>L. 328/2000</strong></td>
+                                <td><strong>Sistema Integrato di Servizi Sociali</strong> - programmazione servizi sociali a livello locale</td>
+                            </tr>
+                            <tr>
+                                <td><strong>L. 104/1992</strong></td>
+                                <td><strong>Assistenza persone con disabilità</strong> - permessi lavoro, integrazione, supporto familiare</td>
+                            </tr>
+                            <tr>
+                                <td><strong>L. 180/1978</strong></td>
+                                <td><strong>Legge Basaglia</strong> - chiusura manicomi, assistenza psichiatrica territoriale</td>
+                            </tr>
+                            <tr>
+                                <td><strong>L. 68/1999</strong></td>
+                                <td><strong>Diritto al lavoro dei disabili</strong> - quote riservate nelle assunzioni</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
                 <div class="quiz-question">
                     <h4>📝 Quiz: Collega la situazione alla legge corretta</h4>
