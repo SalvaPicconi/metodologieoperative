@@ -2174,7 +2174,8 @@ Tempi di monitoraggio: ..." name="task3-valutazione"></textarea>
     </div>
 
     <script>
-        const PAGE_ID = document.querySelector('meta[name="page-id"]')?.content || window.location.pathname;
+        const pageMeta = document.querySelector('meta[name="page-id"]');
+        const PAGE_ID = (pageMeta && pageMeta.content) ? pageMeta.content : window.location.pathname;
         const PHASE_MAP = { 1: 'fase1', 2: 'fase2', 3: 'fase3', 4: 'fase4', 5: 'fase5', 6: 'fase6', 7: 'fase7' };
         const stateInputs = {
             totalScore: document.getElementById('stateTotalScore'),
@@ -2205,7 +2206,7 @@ Tempi di monitoraggio: ..." name="task3-valutazione"></textarea>
 
         // Phase descriptions
         const phaseDescriptions = {
-            1: 'Fase 1: Attivazione - Scopri l'Operatore sociale',
+            1: "Fase 1: Attivazione - Scopri l'Operatore sociale",
             2: 'Fase 2: Esplorazione - Costruisci le basi',
             3: 'Fase 2.5: Approfondimento - Le tipologie di utenza',
             4: 'Fase 3: Sperimentazione - Applica le conoscenze',
@@ -2223,7 +2224,7 @@ Tempi di monitoraggio: ..." name="task3-valutazione"></textarea>
         });
 
         window.addEventListener('mo:progress-restored', (event) => {
-            const detail = event?.detail || {};
+            const detail = (event && event.detail) ? event.detail : {};
             if (detail.pageId && detail.pageId !== PAGE_ID) return;
             if (detail.data) {
                 applyStateFromData(detail.data, { activatePhase: true, scroll: false });
@@ -2561,11 +2562,11 @@ Tempi di monitoraggio: ..." name="task3-valutazione"></textarea>
                 completedTextareas: Array.from(completedTextareas),
                 unlockedBadges: Array.from(unlockedBadges),
                 quizScores: { ...quizScores },
-                stateTotalScore: stateInputs.totalScore?.value,
-                stateCurrentPhase: stateInputs.currentPhase?.value,
-                stateCompletedTextareas: stateInputs.completed?.value,
-                stateUnlockedBadges: stateInputs.badges?.value,
-                stateQuizScores: stateInputs.quizScores?.value
+                stateTotalScore: stateInputs.totalScore ? stateInputs.totalScore.value : undefined,
+                stateCurrentPhase: stateInputs.currentPhase ? stateInputs.currentPhase.value : undefined,
+                stateCompletedTextareas: stateInputs.completed ? stateInputs.completed.value : undefined,
+                stateUnlockedBadges: stateInputs.badges ? stateInputs.badges.value : undefined,
+                stateQuizScores: stateInputs.quizScores ? stateInputs.quizScores.value : undefined
             };
 
             document.querySelectorAll('textarea, input[type="text"]').forEach(el => {
@@ -2632,7 +2633,7 @@ Tempi di monitoraggio: ..." name="task3-valutazione"></textarea>
         function exportTXT() {
             const lines = [];
             lines.push('='.repeat(60));
-            lines.push(\"L'OPERATORE SOCIALE DEI SERVIZI SOCIO-SANITARI\");
+            lines.push("L'OPERATORE SOCIALE DEI SERVIZI SOCIO-SANITARI");
             lines.push('Percorso Interattivo Gamificato - Il Mio Lavoro');
             lines.push('='.repeat(60));
             lines.push('');
