@@ -518,6 +518,153 @@ textarea {
     line-height: 1.6;
 }
 
+.meeting2-progress {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 10px;
+    margin: 6px 0 22px;
+}
+
+.meeting2-step {
+    text-align: center;
+    padding: 14px 10px;
+    background: rgba(74, 144, 226, 0.08);
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--muted);
+    transition: var(--transition);
+}
+
+.meeting2-step.active {
+    background: rgba(74, 144, 226, 0.18);
+    color: var(--accent-strong);
+}
+
+.meeting2-step.completed {
+    background: rgba(34, 197, 94, 0.18);
+    color: var(--success);
+}
+
+.meeting2-step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid rgba(74, 144, 226, 0.2);
+    margin-bottom: 6px;
+    font-weight: 700;
+}
+
+.meeting2-step.active .meeting2-step-number {
+    border-color: var(--accent-strong);
+}
+
+.meeting2-step.completed .meeting2-step-number {
+    border-color: var(--success);
+}
+
+.meeting2-body {
+    background: var(--surface);
+}
+
+.meeting2-section {
+    display: none;
+    background: var(--surface-strong);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(74, 144, 226, 0.12);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+}
+
+.meeting2-section.active {
+    display: block;
+    animation: fadeIn 0.4s ease;
+}
+
+.meeting2-split {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+    margin-top: 18px;
+}
+
+.meeting2-box {
+    background: rgba(74, 144, 226, 0.08);
+    border-radius: var(--radius-sm);
+    padding: 18px;
+}
+
+.meeting2-box.tutor {
+    border-left: 4px solid var(--accent-strong);
+}
+
+.meeting2-box.tutee {
+    border-left: 4px solid var(--rosa);
+}
+
+.meeting2-checkboxes {
+    display: grid;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.meeting2-checkboxes label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: #fff;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.meeting2-checkboxes label:hover {
+    background: rgba(74, 144, 226, 0.12);
+    transform: translateX(4px);
+}
+
+.meeting2-checkboxes input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
+}
+
+.meeting2-word-summary {
+    margin-top: 16px;
+    padding: 18px;
+    background: linear-gradient(135deg, rgba(225, 245, 254, 0.8) 0%, rgba(179, 229, 252, 0.9) 100%);
+    border-radius: var(--radius-sm);
+    text-align: center;
+    display: none;
+}
+
+.meeting2-word-summary.visible {
+    display: block;
+}
+
+.meeting2-word-summary strong {
+    font-size: 1.4rem;
+    margin: 0 12px;
+}
+
+.meeting2-alert {
+    margin-top: 16px;
+    padding: 16px;
+    border-radius: var(--radius-sm);
+    background: rgba(34, 197, 94, 0.12);
+    border: 1px solid rgba(34, 197, 94, 0.25);
+    color: #166534;
+    display: none;
+}
+
+.meeting2-alert.visible {
+    display: block;
+}
 .resource-badge {
     position: absolute;
     top: 18px;
@@ -866,8 +1013,11 @@ footer.crediti {
                         <span>🎯 Focus: ascolto e obiettivi</span>
                     </div>
                     <div class="meeting-actions">
-                        <button type="button" class="nav-button next" onclick="window.peerTutoring.openMeeting('meeting2')" disabled>
+                        <button type="button" class="nav-button next" onclick="window.peerTutoring.openMeeting('meeting2')" data-meeting2-start disabled>
                             Presto disponibile
+                        </button>
+                        <button type="button" class="nav-button prev" onclick="window.peerTutoring.viewSummary('meeting2')" data-summary-button="meeting2" disabled>
+                            Rivedi sintesi
                         </button>
                     </div>
                 </article>
@@ -1014,6 +1164,213 @@ footer.crediti {
                 <button type="button" class="nav-button prev" onclick="window.peerTutoring.closeMeeting()">Annulla</button>
                 <button type="button" class="nav-button next" onclick="window.peerTutoring.completeMeeting('meeting1')">Completa l'incontro</button>
             </div>
+</div>
+</div>
+</div>
+
+<div class="modal-overlay" id="meeting2Modal">
+    <div class="modal-dialog">
+        <button type="button" class="modal-close" onclick="window.peerTutoring.closeMeeting()">×</button>
+        <header class="modal-header">
+            <h3>📖 Incontro 2 &mdash; Le nostre storie</h3>
+            <p>Dalla condivisione delle difficoltà al patto di crescita reciproco. Seguite i cinque momenti guidati.</p>
+        </header>
+        <div class="modal-body meeting2-body">
+            <div class="info-banner">
+                Compilate insieme i campi di ogni momento. Potete fare pausa e tornare quando volete: i dati vengono salvati automaticamente.
+            </div>
+
+            <div class="meeting2-progress" id="meeting2Progress">
+                <div class="meeting2-step active" data-step="1">
+                    <div class="meeting2-step-number">1</div>
+                    <div>Storie personali</div>
+                </div>
+                <div class="meeting2-step" data-step="2">
+                    <div class="meeting2-step-number">2</div>
+                    <div>Ascolto attivo</div>
+                </div>
+                <div class="meeting2-step" data-step="3">
+                    <div class="meeting2-step-number">3</div>
+                    <div>Mappa risorse</div>
+                </div>
+                <div class="meeting2-step" data-step="4">
+                    <div class="meeting2-step-number">4</div>
+                    <div>Patto di crescita</div>
+                </div>
+                <div class="meeting2-step" data-step="5">
+                    <div class="meeting2-step-number">5</div>
+                    <div>Parola del giorno</div>
+                </div>
+            </div>
+
+            <section class="meeting2-section active" data-meeting2-step="1">
+                <h4>📖 Momento 1 &bull; Il nostro primo giorno difficile</h4>
+                <p style="color:var(--muted); margin-bottom:16px;">Raccontate una situazione in cui avete trovato difficile imparare qualcosa. Questo crea empatia e fiducia.</p>
+                <div class="meeting2-split">
+                    <div class="meeting2-box tutor">
+                        <h5>🔵 Tutor</h5>
+                        <div class="form-group">
+                            <label for="meeting2_story_tutor">La tua storia personale</label>
+                            <textarea id="meeting2_story_tutor" name="meeting2_story_tutor" placeholder="Es. In seconda non riuscivo a capire la progettazione sociale..."></textarea>
+                        </div>
+                    </div>
+                    <div class="meeting2-box tutee">
+                        <h5>🔴 Tutee</h5>
+                        <div class="form-group">
+                            <label for="meeting2_story_tutee">La tua storia personale</label>
+                            <textarea id="meeting2_story_tutee" name="meeting2_story_tutee" placeholder="Es. Alle medie facevo fatica con la matematica..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="nav-button next" onclick="window.peerTutoring.meeting2.next(1)">Avanti →</button>
+                </div>
+            </section>
+
+            <section class="meeting2-section" data-meeting2-step="2">
+                <h4>🎧 Momento 2 &bull; Ascoltiamoci con il cuore</h4>
+                <p style="color:var(--muted); margin-bottom:16px;">Leggete le vostre storie e formulate due domande di ascolto attivo ciascuno.</p>
+                <div class="meeting2-split">
+                    <div class="meeting2-box tutor">
+                        <h5>🔵 Domande del tutor al tutee</h5>
+                        <div class="form-group">
+                            <label for="meeting2_q1_tutor">Prima domanda</label>
+                            <input type="text" id="meeting2_q1_tutor" name="meeting2_q1_tutor" placeholder="Es. Come ti sei sentito in quel momento?">
+                        </div>
+                        <div class="form-group">
+                            <label for="meeting2_q2_tutor">Seconda domanda</label>
+                            <input type="text" id="meeting2_q2_tutor" name="meeting2_q2_tutor" placeholder="Es. Cosa ti ha aiutato ad andare avanti?">
+                        </div>
+                    </div>
+                    <div class="meeting2-box tutee">
+                        <h5>🔴 Domande del tutee al tutor</h5>
+                        <div class="form-group">
+                            <label for="meeting2_q1_tutee">Prima domanda</label>
+                            <input type="text" id="meeting2_q1_tutee" name="meeting2_q1_tutee" placeholder="Es. Hai chiesto aiuto a qualcuno?">
+                        </div>
+                        <div class="form-group">
+                            <label for="meeting2_q2_tutee">Seconda domanda</label>
+                            <input type="text" id="meeting2_q2_tutee" name="meeting2_q2_tutee" placeholder="Es. Cosa hai imparato da quell'esperienza?">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="nav-button prev" onclick="window.peerTutoring.meeting2.prev(2)">← Indietro</button>
+                    <button type="button" class="nav-button next" onclick="window.peerTutoring.meeting2.next(2)">Avanti →</button>
+                </div>
+            </section>
+
+            <section class="meeting2-section" data-meeting2-step="3">
+                <h4>🗺️ Momento 3 &bull; La nostra mappa delle risorse</h4>
+                <p style="color:var(--muted); margin-bottom:16px;">Individuate punti di forza, curiosità e strumenti che supportano l'apprendimento di entrambi.</p>
+                <div class="meeting2-box tutee">
+                    <h5>🔴 Tutee</h5>
+                    <div class="form-group">
+                        <label for="meeting2_strengths_tutee">Le mie forze</label>
+                        <textarea id="meeting2_strengths_tutee" name="meeting2_strengths_tutee" placeholder="Cosa già so fare bene..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="meeting2_growth_tutee">Cosa vorrei migliorare</label>
+                        <textarea id="meeting2_growth_tutee" name="meeting2_growth_tutee" placeholder="Cosa vorrei imparare..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Come imparo meglio</label>
+                        <div class="meeting2-checkboxes">
+                            <label><input type="checkbox" name="meeting2_tools_tutee" value="esempi">📚 Esempi concreti</label>
+                            <label><input type="checkbox" name="meeting2_tools_tutee" value="schemi">🗺️ Schemi e mappe</label>
+                            <label><input type="checkbox" name="meeting2_tools_tutee" value="video">🎥 Video tutorial</label>
+                            <label><input type="checkbox" name="meeting2_tools_tutee" value="pratica">🎨 Esercitazioni pratiche</label>
+                            <label><input type="checkbox" name="meeting2_tools_tutee" value="discussione">💬 Discussioni insieme</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="meeting2-box tutor" style="margin-top:18px;">
+                    <h5>🔵 Tutor</h5>
+                    <div class="form-group">
+                        <label for="meeting2_strengths_tutor">Le mie forze come tutor</label>
+                        <textarea id="meeting2_strengths_tutor" name="meeting2_strengths_tutor" placeholder="Cosa so fare bene come tutor..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="meeting2_growth_tutor">Cosa voglio migliorare</label>
+                        <textarea id="meeting2_growth_tutor" name="meeting2_growth_tutor" placeholder="Cosa voglio migliorare come tutor..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Strumenti che userò</label>
+                        <div class="meeting2-checkboxes">
+                            <label><input type="checkbox" name="meeting2_tools_tutor" value="spiegazione">🗣️ Spiegazione orale</label>
+                            <label><input type="checkbox" name="meeting2_tools_tutor" value="esempi">📖 Esempi reali</label>
+                            <label><input type="checkbox" name="meeting2_tools_tutor" value="schemi">✏️ Creazione di schemi</label>
+                            <label><input type="checkbox" name="meeting2_tools_tutor" value="esercizi">🎯 Esercizi pratici</label>
+                            <label><input type="checkbox" name="meeting2_tools_tutor" value="domande">❓ Stimolare il ragionamento</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="nav-button prev" onclick="window.peerTutoring.meeting2.prev(3)">← Indietro</button>
+                    <button type="button" class="nav-button next" onclick="window.peerTutoring.meeting2.next(3)">Avanti →</button>
+                </div>
+            </section>
+
+            <section class="meeting2-section" data-meeting2-step="4">
+                <h4>🤝 Momento 4 &bull; Il nostro patto di crescita</h4>
+                <p style="color:var(--muted); margin-bottom:16px;">Definite impegni concreti e un obiettivo comune.</p>
+                <div class="meeting2-split">
+                    <div class="meeting2-box tutor">
+                        <h5>🔵 Impegno del tutor</h5>
+                        <div class="form-group">
+                            <textarea id="meeting2_commit_tutor" name="meeting2_commit_tutor" placeholder="Mi impegno a..."></textarea>
+                        </div>
+                    </div>
+                    <div class="meeting2-box tutee">
+                        <h5>🔴 Impegno del tutee</h5>
+                        <div class="form-group">
+                            <textarea id="meeting2_commit_tutee" name="meeting2_commit_tutee" placeholder="Mi impegno a..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top:18px;">
+                    <label for="meeting2_goal">🎯 Il nostro obiettivo comune</label>
+                    <textarea id="meeting2_goal" name="meeting2_goal" placeholder="Insieme vogliamo..."></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="nav-button prev" onclick="window.peerTutoring.meeting2.prev(4)">← Indietro</button>
+                    <button type="button" class="nav-button next" onclick="window.peerTutoring.meeting2.next(4)">Avanti →</button>
+                </div>
+            </section>
+
+            <section class="meeting2-section" data-meeting2-step="5">
+                <h4>✨ Momento 5 &bull; La parola del giorno</h4>
+                <p style="color:var(--muted); margin-bottom:16px;">Scegliete una parola che descriva come vi sentite ora.</p>
+                <div class="meeting2-split">
+                    <div class="meeting2-box tutor">
+                        <h5>🔵 Parola del tutor</h5>
+                        <div class="form-group">
+                            <input type="text" id="meeting2_word_tutor" name="meeting2_word_tutor" placeholder="Fiducia, energia, motivazione..." maxlength="30">
+                        </div>
+                    </div>
+                    <div class="meeting2-box tutee">
+                        <h5>🔴 Parola del tutee</h5>
+                        <div class="form-group">
+                            <input type="text" id="meeting2_word_tutee" name="meeting2_word_tutee" placeholder="Curiosità, serenità, speranza..." maxlength="30">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="meeting2-word-summary" id="meeting2WordSummary">
+                    <strong id="meeting2WordTutor">—</strong>
+                    <span>+</span>
+                    <strong id="meeting2WordTutee">—</strong>
+                </div>
+
+                <div class="meeting2-alert" id="meeting2CompletionMessage">
+                    Incontro completato! Badge e punti verranno aggiornati automaticamente al salvataggio.
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="nav-button prev" onclick="window.peerTutoring.meeting2.prev(5)">← Indietro</button>
+                    <button type="button" class="nav-button next" onclick="window.peerTutoring.meeting2.finish()">Completa l'incontro ✅</button>
+                </div>
+            </section>
         </div>
     </div>
 </div>
@@ -1021,6 +1378,9 @@ footer.crediti {
 <input type="hidden" id="peerTutoringState" name="peerTutoringState" value="">
 <input type="hidden" id="meeting1_status" name="meeting1_status" value="">
 <input type="checkbox" id="meeting1_completed" name="meeting1_completed" data-progress-checkbox style="display:none">
+<input type="hidden" id="meeting2_status" name="meeting2_status" value="">
+<input type="hidden" id="meeting2_step" name="meeting2_step" value="1">
+<input type="checkbox" id="meeting2_completed" name="meeting2_completed" data-progress-checkbox style="display:none">
 
 <script>
 (function() {
@@ -1028,7 +1388,7 @@ footer.crediti {
     const STORAGE_KEY = 'peerTutoringPlatform_v2';
     const sectionLabels = {
         1: 'Materiali da scaricare',
-        2: 'Apprendimento interattivo',
+        2: 'Incontri guidati',
         3: 'Prove autentiche / Compiti di realtà'
     };
 
@@ -1041,6 +1401,8 @@ footer.crediti {
     const progressCount = document.getElementById('progressCount');
     const progressTotal = document.getElementById('progressTotal');
     const stateInput = document.getElementById('peerTutoringState');
+
+    let storageAvailable = true;
 
     let activeSection = 1;
 
@@ -1103,11 +1465,12 @@ footer.crediti {
             activeSection,
             fields: {},
             checkboxes: {},
+            checkboxGroups: {},
             progress: {},
             updatedAt: new Date().toISOString()
         };
 
-        document.querySelectorAll('textarea, input[type="text"], input[type="date"], input[type="url"]').forEach(field => {
+        document.querySelectorAll('textarea, input[type="text"], input[type="date"], input[type="url"], input[type="hidden"]').forEach(field => {
             const key = field.id || field.name;
             if (!key) return;
             snapshot.fields[key] = field.value;
@@ -1118,6 +1481,17 @@ footer.crediti {
             if (!key) return;
             snapshot.checkboxes[key] = cb.checked;
         });
+
+        const grouped = {};
+        document.querySelectorAll('input[type="checkbox"]:not([data-progress-checkbox])').forEach(cb => {
+            const key = cb.name || cb.id;
+            if (!key) return;
+            if (!grouped[key]) grouped[key] = [];
+            if (cb.checked) {
+                grouped[key].push(cb.value || 'on');
+            }
+        });
+        snapshot.checkboxGroups = grouped;
 
         const total = Object.keys(snapshot.checkboxes).length;
         const completed = Object.values(snapshot.checkboxes).filter(Boolean).length;
@@ -1133,10 +1507,15 @@ footer.crediti {
     function saveLocalState() {
         const snapshot = collectState();
 
+        if (!storageAvailable) {
+            return;
+        }
+
         try {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(snapshot));
         } catch (error) {
             console.warn('Impossibile salvare in locale lo stato del Peer Tutoring:', error);
+            storageAvailable = false;
         }
 
         if (stateInput) {
@@ -1176,10 +1555,31 @@ footer.crediti {
                 });
             }
 
+            if (parsed.checkboxGroups) {
+                Object.entries(parsed.checkboxGroups).forEach(([key, values]) => {
+                    const boxes = document.getElementsByName(key);
+                    if (boxes && boxes.length) {
+                        const activeValues = Array.isArray(values) ? values.map(String) : [];
+                        Array.from(boxes).forEach(box => {
+                            const val = box.value || 'on';
+                            box.checked = activeValues.includes(String(val));
+                        });
+                    } else {
+                        const single = document.getElementById(key);
+                        if (single) {
+                            single.checked = Boolean(values && values.length);
+                        }
+                    }
+                });
+            }
+
             const section = parsed.activeSection || 1;
             goToSection(section, { preventScroll: true });
             updateOverallProgress();
+            const storedStep = parseInt(document.getElementById('meeting2_step')?.value || '1', 10);
+            setMeeting2Step(isNaN(storedStep) ? 1 : storedStep, { silent: true });
             syncMeetingStatus('meeting1');
+            syncMeetingStatus('meeting2');
             syncMeetingDependencies();
 
             if (stateInput) {
@@ -1190,6 +1590,7 @@ footer.crediti {
             goToSection(1, { preventScroll: true });
             updateOverallProgress();
             syncMeetingStatus('meeting1');
+            syncMeetingStatus('meeting2');
             syncMeetingDependencies();
         }
     }
@@ -1199,11 +1600,11 @@ footer.crediti {
         saveLocalState();
     }
 
-    const MEETING_CONFIG = {
-        meeting1: {
-            modalId: 'meeting1Modal',
-            statusInputId: 'meeting1_status',
-            cardId: 'meeting1Card',
+const MEETING_CONFIG = {
+    meeting1: {
+        modalId: 'meeting1Modal',
+        statusInputId: 'meeting1_status',
+        cardId: 'meeting1Card',
             statusTagId: 'meeting1StatusTag',
             progressCheckboxId: 'meeting1_completed',
             requiredFields: [
@@ -1216,8 +1617,43 @@ footer.crediti {
                 'meeting1_first_impression',
                 'meeting1_signature'
             ]
+        },
+        meeting2: {
+            modalId: 'meeting2Modal',
+            statusInputId: 'meeting2_status',
+            cardId: 'meeting2Card',
+            statusTagId: 'meeting2StatusTag',
+            progressCheckboxId: 'meeting2_completed',
+            stepInputId: 'meeting2_step',
+            requiredFields: [
+                'meeting2_story_tutor',
+                'meeting2_story_tutee',
+                'meeting2_q1_tutor',
+                'meeting2_q2_tutor',
+                'meeting2_q1_tutee',
+                'meeting2_q2_tutee',
+                'meeting2_strengths_tutee',
+                'meeting2_growth_tutee',
+                'meeting2_strengths_tutor',
+                'meeting2_growth_tutor',
+                'meeting2_commit_tutor',
+                'meeting2_commit_tutee',
+                'meeting2_goal',
+                'meeting2_word_tutor',
+                'meeting2_word_tutee'
+            ]
         }
-    };
+};
+
+const meetingMessages = {
+    meeting1: '🎉 Ottimo lavoro! L\'Incontro 1 è stato completato e salvato.',
+    meeting2: '🎉 Fantastico! L\'Incontro 2 è completato: storie, risorse e patto salvati.'
+};
+
+const meeting2Flow = {
+    currentStep: parseInt(document.getElementById('meeting2_step')?.value || '1', 10) || 1,
+    totalSteps: 5
+};
 
     function syncMeetingStatus(meetingId) {
         const config = MEETING_CONFIG[meetingId];
@@ -1246,23 +1682,57 @@ footer.crediti {
 
     function syncMeetingDependencies() {
         const meeting1Done = document.getElementById('meeting1_status')?.value === 'completed';
-        const meeting2Button = document.querySelector('#meeting2Card .meeting-actions button');
+        const meeting2StartBtn = document.querySelector('[data-meeting2-start]');
+        const meeting2SummaryBtn = document.querySelector('[data-summary-button="meeting2"]');
         const meeting2Tag = document.getElementById('meeting2StatusTag');
+        const meeting2Done = document.getElementById('meeting2_status')?.value === 'completed';
 
-        if (meeting2Button) {
-            meeting2Button.disabled = true;
-            meeting2Button.textContent = meeting1Done ? 'Contenuto in arrivo' : 'Presto disponibile';
+        if (meeting2StartBtn) {
+            if (meeting1Done) {
+                meeting2StartBtn.disabled = false;
+                meeting2StartBtn.textContent = meeting2Done ? 'Rivedi / Modifica incontro' : 'Avvia / Modifica incontro';
+            } else {
+                meeting2StartBtn.disabled = true;
+                meeting2StartBtn.textContent = 'Disponibile dopo l\'Incontro 1';
+            }
+        }
+
+        if (meeting2SummaryBtn) {
+            meeting2SummaryBtn.disabled = !meeting2Done;
         }
 
         if (meeting2Tag) {
-            meeting2Tag.textContent = meeting1Done ? 'In preparazione' : 'Disponibile dopo l\'Incontro 1';
+            if (meeting2Done) {
+                meeting2Tag.textContent = 'Completato';
+            } else if (meeting1Done) {
+                meeting2Tag.textContent = 'Pronto per l\'avvio';
+            } else {
+                meeting2Tag.textContent = 'Disponibile dopo l\'Incontro 1';
+            }
         }
     }
 
     function openMeeting(meetingId) {
         if (meetingId === 'meeting2') {
-            alert('L\'Incontro 2 sarà disponibile dopo il primo incontro. Restate sintonizzati!');
-            return;
+            const meeting1Done = document.getElementById('meeting1_status')?.value === 'completed';
+            if (!meeting1Done) {
+                alert('⚠️ Completa prima l\'Incontro 1 per accedere alle storie del secondo incontro.');
+                return;
+            }
+            const storedStep = parseInt(document.getElementById('meeting2_step')?.value || '1', 10);
+            setMeeting2Step(isNaN(storedStep) ? 1 : storedStep, { silent: true });
+            const status = document.getElementById('meeting2_status')?.value;
+            if (status !== 'completed') {
+                const summary = document.getElementById('meeting2CompletionMessage');
+                if (summary) summary.classList.remove('visible');
+                const wordSummary = document.getElementById('meeting2WordSummary');
+                if (wordSummary) wordSummary.classList.remove('visible');
+            } else {
+                const wordSummary = document.getElementById('meeting2WordSummary');
+                if (wordSummary) wordSummary.classList.add('visible');
+                const summary = document.getElementById('meeting2CompletionMessage');
+                if (summary) summary.classList.add('visible');
+            }
         }
         const config = MEETING_CONFIG[meetingId];
         if (!config) return;
@@ -1290,6 +1760,139 @@ footer.crediti {
         return true;
     }
 
+    function setMeeting2Step(step, options = {}) {
+        const config = MEETING_CONFIG.meeting2;
+        if (!config) return;
+
+        const target = Math.min(Math.max(parseInt(step, 10) || 1, 1), meeting2Flow.totalSteps);
+        meeting2Flow.currentStep = target;
+
+        document.querySelectorAll('[data-meeting2-step]').forEach(section => {
+            const value = parseInt(section.getAttribute('data-meeting2-step'), 10);
+            section.classList.toggle('active', value === target);
+        });
+
+        document.querySelectorAll('#meeting2Progress .meeting2-step').forEach(stepEl => {
+            const value = parseInt(stepEl.getAttribute('data-step'), 10);
+            stepEl.classList.toggle('active', value === target);
+            stepEl.classList.toggle('completed', value < target);
+        });
+
+        const hiddenStep = document.getElementById(config.stepInputId);
+        if (hiddenStep) {
+            hiddenStep.value = String(target);
+        }
+
+        if (!options.silent) {
+            saveLocalState();
+        }
+    }
+
+    function validateMeeting2Step(step) {
+        switch (step) {
+            case 1: {
+                const tutor = document.getElementById('meeting2_story_tutor')?.value.trim();
+                const tutee = document.getElementById('meeting2_story_tutee')?.value.trim();
+                if (!tutor || !tutee) {
+                    alert('⚠️ Completate entrambe le storie prima di proseguire.');
+                    return false;
+                }
+                if (tutor.length < 50 || tutee.length < 50) {
+                    alert('💭 Provate ad aggiungere qualche dettaglio in più alle vostre storie.');
+                    return false;
+                }
+                return true;
+            }
+            case 2: {
+                const required = ['meeting2_q1_tutor', 'meeting2_q2_tutor', 'meeting2_q1_tutee', 'meeting2_q2_tutee'];
+                for (const id of required) {
+                    if (!document.getElementById(id)?.value.trim()) {
+                        alert('⚠️ Scrivete le due domande di ascolto attivo ciascuno.');
+                        return false;
+                    }
+                }
+                return true;
+            }
+            case 3: {
+                const strengthTutee = document.getElementById('meeting2_strengths_tutee')?.value.trim();
+                const growthTutee = document.getElementById('meeting2_growth_tutee')?.value.trim();
+                const strengthTutor = document.getElementById('meeting2_strengths_tutor')?.value.trim();
+                const growthTutor = document.getElementById('meeting2_growth_tutor')?.value.trim();
+                const toolsTutee = Array.from(document.querySelectorAll('input[name="meeting2_tools_tutee"]:checked'));
+                const toolsTutor = Array.from(document.querySelectorAll('input[name="meeting2_tools_tutor"]:checked'));
+
+                if (!strengthTutee || !growthTutee || !strengthTutor || !growthTutor) {
+                    alert('⚠️ Completa i campi su forze e crescita di tutor e tutee.');
+                    return false;
+                }
+                if (!toolsTutee.length || !toolsTutor.length) {
+                    alert('⚠️ Seleziona almeno uno strumento per tutee e tutor.');
+                    return false;
+                }
+                return true;
+            }
+            case 4: {
+                const tutorCommit = document.getElementById('meeting2_commit_tutor')?.value.trim();
+                const tuteeCommit = document.getElementById('meeting2_commit_tutee')?.value.trim();
+                const goal = document.getElementById('meeting2_goal')?.value.trim();
+                if (!tutorCommit || !tuteeCommit || !goal) {
+                    alert('⚠️ Indicate gli impegni reciproci e l\'obiettivo comune.');
+                    return false;
+                }
+                return true;
+            }
+            case 5: {
+                const tutorWord = document.getElementById('meeting2_word_tutor')?.value.trim();
+                const tuteeWord = document.getElementById('meeting2_word_tutee')?.value.trim();
+                if (!tutorWord || !tuteeWord) {
+                    alert('⚠️ Scegliete una parola ciascuno per concludere l\'incontro.');
+                    return false;
+                }
+                return true;
+            }
+            default:
+                return true;
+        }
+    }
+
+    function meeting2Next(currentStep) {
+        if (!validateMeeting2Step(currentStep)) return;
+        setMeeting2Step(currentStep + 1);
+    }
+
+    function meeting2Prev(currentStep) {
+        setMeeting2Step(currentStep - 1);
+    }
+
+    function meeting2Go(step) {
+        setMeeting2Step(step);
+    }
+
+    function meeting2Finish() {
+        if (!validateMeeting2Step(5)) return;
+
+        const wordTutor = document.getElementById('meeting2_word_tutor')?.value.trim() || '—';
+        const wordTutee = document.getElementById('meeting2_word_tutee')?.value.trim() || '—';
+
+        const summaryBlock = document.getElementById('meeting2WordSummary');
+        if (summaryBlock) {
+            summaryBlock.classList.add('visible');
+        }
+        const summaryTutor = document.getElementById('meeting2WordTutor');
+        const summaryTutee = document.getElementById('meeting2WordTutee');
+        if (summaryTutor) summaryTutor.textContent = wordTutor;
+        if (summaryTutee) summaryTutee.textContent = wordTutee;
+
+        const completionMessage = document.getElementById('meeting2CompletionMessage');
+        if (completionMessage) {
+            completionMessage.classList.add('visible');
+        }
+
+        setMeeting2Step(5, { silent: true });
+        saveLocalState();
+        completeMeeting('meeting2');
+    }
+
     function completeMeeting(meetingId) {
         const config = MEETING_CONFIG[meetingId];
         if (!config) return;
@@ -1311,7 +1914,8 @@ footer.crediti {
         syncMeetingDependencies();
         closeMeeting();
 
-        alert('🎉 Ottimo lavoro! L\'Incontro 1 è stato completato e salvato.');
+        const message = meetingMessages[meetingId] || '🎉 Incontro completato! Ottimo lavoro!';
+        alert(message);
     }
 
     function viewMeetingSummary(meetingId) {
@@ -1338,6 +1942,47 @@ footer.crediti {
             ].join('\n');
 
             alert(summary);
+            return;
+        }
+
+        if (meetingId === 'meeting2') {
+            const status = document.getElementById('meeting2_status')?.value;
+            if (status !== 'completed') {
+                openMeeting('meeting2');
+                return;
+            }
+
+            const storyTutor = document.getElementById('meeting2_story_tutor')?.value || '—';
+            const storyTutee = document.getElementById('meeting2_story_tutee')?.value || '—';
+            const qTutor = [
+                document.getElementById('meeting2_q1_tutor')?.value || '—',
+                document.getElementById('meeting2_q2_tutor')?.value || '—'
+            ];
+            const qTutee = [
+                document.getElementById('meeting2_q1_tutee')?.value || '—',
+                document.getElementById('meeting2_q2_tutee')?.value || '—'
+            ];
+            const goal = document.getElementById('meeting2_goal')?.value || '—';
+            const wordTutor = document.getElementById('meeting2_word_tutor')?.value || '—';
+            const wordTutee = document.getElementById('meeting2_word_tutee')?.value || '—';
+
+            const summary = [
+                '📝 Sintesi Incontro 2',
+                '',
+                '📖 Storie condivise',
+                `Tutor: ${storyTutor}`,
+                `Tutee: ${storyTutee}`,
+                '',
+                '🎧 Domande di ascolto',
+                `Tutor → Tutee: ${qTutor.join(' | ')}`,
+                `Tutee → Tutor: ${qTutee.join(' | ')}`,
+                '',
+                `🎯 Obiettivo comune: ${goal}`,
+                '',
+                `✨ Parole finali: ${wordTutor} + ${wordTutee}`
+            ].join('\n');
+
+            alert(summary);
         }
     }
 
@@ -1345,10 +1990,16 @@ footer.crediti {
         openMeeting,
         closeMeeting,
         completeMeeting,
-        viewSummary: viewMeetingSummary
+        viewSummary: viewMeetingSummary,
+        meeting2: {
+            next: meeting2Next,
+            prev: meeting2Prev,
+            finish: meeting2Finish,
+            go: meeting2Go
+        }
     };
 
-    document.querySelectorAll('textarea, input[type="text"], input[type="date"], input[type="url"]').forEach(field => {
+    document.querySelectorAll('textarea, input[type="text"], input[type="date"], input[type="url"], input[type="hidden"]').forEach(field => {
         field.addEventListener('input', handleInputEvent);
     });
 
@@ -1356,10 +2007,16 @@ footer.crediti {
         cb.addEventListener('change', handleInputEvent);
     });
 
+    document.querySelectorAll('input[type="checkbox"]:not([data-progress-checkbox])').forEach(cb => {
+        cb.addEventListener('change', handleInputEvent);
+    });
+
     restoreLocalState();
     updateOverallProgress();
     syncMeetingStatus('meeting1');
+    syncMeetingStatus('meeting2');
     syncMeetingDependencies();
+    setMeeting2Step(parseInt(document.getElementById('meeting2_step')?.value || '1', 10) || 1, { silent: true });
 
     setInterval(saveLocalState, 30000);
     window.addEventListener('beforeunload', saveLocalState);
