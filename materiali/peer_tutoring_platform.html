@@ -325,6 +325,199 @@ textarea {
     line-height: 1.55;
 }
 
+.meeting-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin: 28px 0;
+}
+
+.meeting-card {
+    background: var(--surface-strong);
+    border: 1px solid rgba(74, 144, 226, 0.12);
+    border-left: 5px solid rgba(74, 144, 226, 0.4);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    transition: var(--transition);
+}
+
+.meeting-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.meeting-card.completed {
+    border-left-color: var(--success);
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.12) 0%, rgba(59, 130, 246, 0.08) 100%);
+}
+
+.meeting-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.meeting-card h3 {
+    font-size: 1.25rem;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.meeting-status {
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    background: rgba(74, 144, 226, 0.12);
+    color: var(--accent-strong);
+    white-space: nowrap;
+}
+
+.meeting-card.completed .meeting-status {
+    background: rgba(34, 197, 94, 0.15);
+    color: var(--success);
+}
+
+.meeting-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 0.9rem;
+    color: var(--muted);
+}
+
+.meeting-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(74, 144, 226, 0.08);
+    padding: 6px 10px;
+    border-radius: 999px;
+}
+
+.meeting-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.55);
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px 16px;
+    z-index: 1200;
+    overflow-y: auto;
+}
+
+.modal-overlay.show {
+    display: flex;
+}
+
+.modal-dialog {
+    background: var(--surface-strong);
+    border-radius: var(--radius-lg);
+    max-width: 960px;
+    width: 100%;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    animation: fadeIn 0.3s ease;
+    position: relative;
+}
+
+.modal-header {
+    padding: 26px 30px 22px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+    color: #fff;
+}
+
+.modal-header h3 {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+.modal-header p {
+    opacity: 0.9;
+}
+
+.modal-body {
+    padding: 30px;
+    display: grid;
+    gap: 22px;
+    background: var(--surface);
+}
+
+.modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.modal-close:hover {
+    transform: scale(1.05) rotate(90deg);
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.modal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 22px;
+}
+
+.modal-panel {
+    background: var(--surface-strong);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    border: 1px solid rgba(74, 144, 226, 0.12);
+    box-shadow: var(--shadow-sm);
+}
+
+.modal-panel h4 {
+    font-size: 1.1rem;
+    margin-bottom: 14px;
+    color: var(--accent-secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.modal-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 14px;
+    margin-top: 6px;
+}
+
+.info-banner {
+    padding: 18px 20px;
+    border-radius: var(--radius-md);
+    background: rgba(118, 75, 162, 0.08);
+    border: 1px solid rgba(118, 75, 162, 0.2);
+    color: var(--accent-secondary);
+    line-height: 1.6;
+}
+
 .resource-badge {
     position: absolute;
     top: 18px;
@@ -629,57 +822,60 @@ footer.crediti {
             </div>
 
             <div class="section-actions">
-                <button type="button" class="nav-button next" onclick="goToSection(2)">Vai a Apprendimento interattivo →</button>
+                <button type="button" class="nav-button next" onclick="goToSection(2)">Vai agli Incontri guidati →</button>
             </div>
         </section>
 
         <section class="sezione" id="sezione2">
             <div class="section-header">
-                <h2>🧠 Apprendimento interattivo</h2>
-                <p>Integra attività digitali e simulazioni per rendere gli incontri dinamici ed esperienziali. Registra qui ciò che assegni e i feedback raccolti.</p>
+                <h2>🧭 Incontri guidati</h2>
+                <p>Utilizza queste tracce per condurre gli incontri chiave del peer tutoring. Compila i campi durante la sessione: tutto viene salvato automaticamente e potrai esportarlo nel diario finale.</p>
             </div>
 
-            <div class="activity-grid">
-                <article class="activity-card">
-                    <h3>Simulazione Ice-Breaker</h3>
-                    <p>Scenario guidato per allenare il primo incontro e la costruzione del clima di fiducia.</p>
-                    <div class="activity-actions">
-                        <a class="resource-link" href="#" target="_blank" rel="noopener">Apri la simulazione</a>
+            <div class="meeting-grid">
+                <article class="meeting-card" id="meeting1Card">
+                    <div class="meeting-card-header">
+                        <h3>🎉 Incontro 1 • Ice-Breaker & Manifesto</h3>
+                        <span class="meeting-status" id="meeting1StatusTag">Da iniziare</span>
                     </div>
-                    <label class="check-row">
-                        <input type="checkbox" id="interattivo_simulazione" name="interattivo_simulazione" data-progress-checkbox>
-                        <span>Attività svolta dalla coppia</span>
-                    </label>
+                    <p>Avvicinamento reciproco, condivisione di passioni e aspettative, definizione del manifesto della coppia tutor/tutee.</p>
+                    <div class="meeting-meta">
+                        <span>⏱️ 30 minuti</span>
+                        <span>🏆 Badge: Spezza-ghiaccio</span>
+                        <span>🎯 Focus: relazione e fiducia</span>
+                    </div>
+                    <div class="meeting-actions">
+                        <button type="button" class="nav-button next" onclick="window.peerTutoring.openMeeting('meeting1')">
+                            Avvia / Modifica incontro
+                        </button>
+                        <button type="button" class="nav-button prev" onclick="window.peerTutoring.viewSummary('meeting1')" data-summary-button="meeting1" disabled>
+                            Rivedi sintesi
+                        </button>
+                    </div>
                 </article>
 
-                <article class="activity-card">
-                    <h3>Toolkit metodologie attive</h3>
-                    <p>Raccolta di micro-strumenti (role play, mappe mentali, quiz live) da integrare negli incontri.</p>
-                    <div class="activity-actions">
-                        <a class="resource-link" href="#" target="_blank" rel="noopener">Esplora il toolkit</a>
+                <article class="meeting-card" id="meeting2Card">
+                    <div class="meeting-card-header">
+                        <h3>📖 Incontro 2 • Le nostre storie</h3>
+                        <span class="meeting-status" id="meeting2StatusTag">Disponibile dopo l'Incontro 1</span>
                     </div>
-                    <label class="check-row">
-                        <input type="checkbox" id="interattivo_toolkit" name="interattivo_toolkit" data-progress-checkbox>
-                        <span>Toolkit condiviso</span>
-                    </label>
-                </article>
-
-                <article class="activity-card">
-                    <h3>Osservazione guidata</h3>
-                    <p>Scheda interattiva per raccogliere evidenze sulle dinamiche relazionali durante gli incontri.</p>
-                    <div class="activity-actions">
-                        <a class="resource-link" href="#" target="_blank" rel="noopener">Apri la scheda</a>
+                    <p>Condivisione di storie personali, ascolto attivo, mappatura delle risorse reciproche e patto di crescita.</p>
+                    <div class="meeting-meta">
+                        <span>⏱️ 45 minuti</span>
+                        <span>🏆 Badge: Ascoltatore Empatico</span>
+                        <span>🎯 Focus: ascolto e obiettivi</span>
                     </div>
-                    <label class="check-row">
-                        <input type="checkbox" id="interattivo_osservazione" name="interattivo_osservazione" data-progress-checkbox>
-                        <span>Compilazione avviata</span>
-                    </label>
+                    <div class="meeting-actions">
+                        <button type="button" class="nav-button next" onclick="window.peerTutoring.openMeeting('meeting2')" disabled>
+                            Presto disponibile
+                        </button>
+                    </div>
                 </article>
             </div>
 
             <div class="note-area">
-                <label for="riflessioniInterattivo">Riflessioni e spunti emersi dalle attività</label>
-                <textarea id="riflessioniInterattivo" name="riflessioniInterattivo" placeholder="Annota insight significativi, adattamenti necessari, suggerimenti per i prossimi incontri..."></textarea>
+                <label for="riflessioniInterattivo">Riflessioni sull'incontro</label>
+                <textarea id="riflessioniInterattivo" name="riflessioniInterattivo" placeholder="Annota insight significativi, punti di forza emersi e aspetti da riprendere nel prossimo incontro..."></textarea>
             </div>
 
             <div class="section-actions">
@@ -756,7 +952,75 @@ footer.crediti {
     Piattaforma Peer Tutoring – a cura di Prof. Picconi • Metodologie Operative S.S.S.
 </footer>
 
+<div class="modal-overlay" id="meeting1Modal">
+    <div class="modal-dialog">
+        <button type="button" class="modal-close" onclick="window.peerTutoring.closeMeeting()">×</button>
+        <header class="modal-header">
+            <h3>🎉 Incontro 1 &mdash; Ice-Breaker e Manifesto</h3>
+            <p>Crea un clima di fiducia: presentazioni, scoperta reciproca, definizione del vostro patto di coppia.</p>
+        </header>
+        <div class="modal-body">
+            <div class="info-banner">
+                Alternati nella compilazione: ogni risposta guida la costruzione del vostro manifesto. Al termine ricordati di premere “Completa l’incontro”.
+            </div>
+
+            <div class="modal-grid">
+                <div class="modal-panel">
+                    <h4>🔵 Tutor &bull; Presentati</h4>
+                    <div class="form-group">
+                        <label for="meeting1_tutor_name">Il tuo nome</label>
+                        <input type="text" id="meeting1_tutor_name" name="meeting1_tutor_name" placeholder="Es. Marco Rossi">
+                    </div>
+                    <div class="form-group">
+                        <label for="meeting1_tutor_passions">Le tue 3 passioni principali</label>
+                        <textarea id="meeting1_tutor_passions" name="meeting1_tutor_passions" placeholder="Sport, musica, volontariato..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="meeting1_tutor_motivation">Perché vuoi fare il tutor?</label>
+                        <textarea id="meeting1_tutor_motivation" name="meeting1_tutor_motivation" placeholder="Racconta cosa ti ha spinto a candidarti come tutor."></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-panel">
+                    <h4>🔴 Tutee &bull; Presentati</h4>
+                    <div class="form-group">
+                        <label for="meeting1_tutee_name">Il tuo nome</label>
+                        <input type="text" id="meeting1_tutee_name" name="meeting1_tutee_name" placeholder="Es. Sofia Bianchi">
+                    </div>
+                    <div class="form-group">
+                        <label for="meeting1_tutee_interests">Le tue 3 passioni/interessi</label>
+                        <textarea id="meeting1_tutee_interests" name="meeting1_tutee_interests" placeholder="Arte, videogiochi, animali..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="meeting1_tutee_expectations">Cosa ti aspetti da questo percorso?</label>
+                        <textarea id="meeting1_tutee_expectations" name="meeting1_tutee_expectations" placeholder="Scrivi come pensi che il tutor possa aiutarti."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-panel">
+                <h4>📜 Il vostro manifesto</h4>
+                <div class="form-group">
+                    <label for="meeting1_first_impression">Prima impressione reciproca</label>
+                    <textarea id="meeting1_first_impression" name="meeting1_first_impression" placeholder="Cosa vi ha colpito l’uno dell’altro?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="meeting1_signature">La vostra frase-simbolo</label>
+                    <input type="text" id="meeting1_signature" name="meeting1_signature" placeholder="Es. Insieme trasformiamo gli ostacoli in opportunità">
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="nav-button prev" onclick="window.peerTutoring.closeMeeting()">Annulla</button>
+                <button type="button" class="nav-button next" onclick="window.peerTutoring.completeMeeting('meeting1')">Completa l'incontro</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <input type="hidden" id="peerTutoringState" name="peerTutoringState" value="">
+<input type="hidden" id="meeting1_status" name="meeting1_status" value="">
+<input type="checkbox" id="meeting1_completed" name="meeting1_completed" data-progress-checkbox style="display:none">
 
 <script>
 (function() {
@@ -885,6 +1149,8 @@ footer.crediti {
         if (!saved) {
             goToSection(1, { preventScroll: true });
             updateOverallProgress();
+            syncMeetingStatus('meeting1');
+            syncMeetingDependencies();
             saveLocalState();
             return;
         }
@@ -913,6 +1179,8 @@ footer.crediti {
             const section = parsed.activeSection || 1;
             goToSection(section, { preventScroll: true });
             updateOverallProgress();
+            syncMeetingStatus('meeting1');
+            syncMeetingDependencies();
 
             if (stateInput) {
                 stateInput.value = saved;
@@ -921,6 +1189,8 @@ footer.crediti {
             console.error('Errore nel ripristino dello stato del Peer Tutoring:', error);
             goToSection(1, { preventScroll: true });
             updateOverallProgress();
+            syncMeetingStatus('meeting1');
+            syncMeetingDependencies();
         }
     }
 
@@ -928,6 +1198,155 @@ footer.crediti {
         updateOverallProgress();
         saveLocalState();
     }
+
+    const MEETING_CONFIG = {
+        meeting1: {
+            modalId: 'meeting1Modal',
+            statusInputId: 'meeting1_status',
+            cardId: 'meeting1Card',
+            statusTagId: 'meeting1StatusTag',
+            progressCheckboxId: 'meeting1_completed',
+            requiredFields: [
+                'meeting1_tutor_name',
+                'meeting1_tutor_passions',
+                'meeting1_tutor_motivation',
+                'meeting1_tutee_name',
+                'meeting1_tutee_interests',
+                'meeting1_tutee_expectations',
+                'meeting1_first_impression',
+                'meeting1_signature'
+            ]
+        }
+    };
+
+    function syncMeetingStatus(meetingId) {
+        const config = MEETING_CONFIG[meetingId];
+        if (!config) return;
+        const statusInput = document.getElementById(config.statusInputId);
+        const card = document.getElementById(config.cardId);
+        const tag = document.getElementById(config.statusTagId);
+        const progressCheckbox = document.getElementById(config.progressCheckboxId);
+        const summaryButton = document.querySelector(`[data-summary-button="${meetingId}"]`);
+        const statusValue = statusInput ? statusInput.value : '';
+        const completed = statusValue === 'completed';
+
+        if (card) {
+            card.classList.toggle('completed', completed);
+        }
+        if (tag) {
+            tag.textContent = completed ? 'Completato' : 'Da iniziare';
+        }
+        if (progressCheckbox) {
+            progressCheckbox.checked = completed;
+        }
+        if (summaryButton) {
+            summaryButton.disabled = !completed;
+        }
+    }
+
+    function syncMeetingDependencies() {
+        const meeting1Done = document.getElementById('meeting1_status')?.value === 'completed';
+        const meeting2Button = document.querySelector('#meeting2Card .meeting-actions button');
+        const meeting2Tag = document.getElementById('meeting2StatusTag');
+
+        if (meeting2Button) {
+            meeting2Button.disabled = true;
+            meeting2Button.textContent = meeting1Done ? 'Contenuto in arrivo' : 'Presto disponibile';
+        }
+
+        if (meeting2Tag) {
+            meeting2Tag.textContent = meeting1Done ? 'In preparazione' : 'Disponibile dopo l\'Incontro 1';
+        }
+    }
+
+    function openMeeting(meetingId) {
+        if (meetingId === 'meeting2') {
+            alert('L\'Incontro 2 sarà disponibile dopo il primo incontro. Restate sintonizzati!');
+            return;
+        }
+        const config = MEETING_CONFIG[meetingId];
+        if (!config) return;
+        const modal = document.getElementById(config.modalId);
+        if (modal) {
+            modal.classList.add('show');
+        }
+    }
+
+    function closeMeeting() {
+        document.querySelectorAll('.modal-overlay.show').forEach(modal => modal.classList.remove('show'));
+        saveLocalState();
+    }
+
+    function validateMeetingFields(config) {
+        if (!config) return false;
+        for (const fieldId of config.requiredFields) {
+            const field = document.getElementById(fieldId);
+            if (!field || !field.value.trim()) {
+                field?.focus();
+                alert('⚠️ Compila tutti i campi dell\'incontro prima di continuare.');
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function completeMeeting(meetingId) {
+        const config = MEETING_CONFIG[meetingId];
+        if (!config) return;
+        if (!validateMeetingFields(config)) return;
+
+        const statusInput = document.getElementById(config.statusInputId);
+        if (statusInput) {
+            statusInput.value = 'completed';
+        }
+
+        const progressCheckbox = document.getElementById(config.progressCheckboxId);
+        if (progressCheckbox) {
+            progressCheckbox.checked = true;
+        }
+
+        updateOverallProgress();
+        saveLocalState();
+        syncMeetingStatus(meetingId);
+        syncMeetingDependencies();
+        closeMeeting();
+
+        alert('🎉 Ottimo lavoro! L\'Incontro 1 è stato completato e salvato.');
+    }
+
+    function viewMeetingSummary(meetingId) {
+        if (meetingId === 'meeting1') {
+            const status = document.getElementById('meeting1_status')?.value;
+            if (status !== 'completed') {
+                openMeeting('meeting1');
+                return;
+            }
+
+            const tutor = document.getElementById('meeting1_tutor_name')?.value || '—';
+            const tutee = document.getElementById('meeting1_tutee_name')?.value || '—';
+            const impression = document.getElementById('meeting1_first_impression')?.value || '—';
+            const motto = document.getElementById('meeting1_signature')?.value || '—';
+
+            const summary = [
+                '📝 Sintesi Incontro 1',
+                '',
+                `Tutor: ${tutor}`,
+                `Tutee: ${tutee}`,
+                '',
+                `Prima impressione: ${impression}`,
+                `Motto della coppia: ${motto}`
+            ].join('\n');
+
+            alert(summary);
+        }
+    }
+
+    window.peerTutoring = {
+        openMeeting,
+        closeMeeting,
+        completeMeeting,
+        viewSummary: viewMeetingSummary
+    };
 
     document.querySelectorAll('textarea, input[type="text"], input[type="date"], input[type="url"]').forEach(field => {
         field.addEventListener('input', handleInputEvent);
@@ -939,6 +1358,8 @@ footer.crediti {
 
     restoreLocalState();
     updateOverallProgress();
+    syncMeetingStatus('meeting1');
+    syncMeetingDependencies();
 
     setInterval(saveLocalState, 30000);
     window.addEventListener('beforeunload', saveLocalState);
