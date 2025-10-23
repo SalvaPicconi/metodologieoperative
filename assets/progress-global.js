@@ -103,7 +103,22 @@ function collectData() {
 
     data[key] = el.value;
   });
-  return data;
+
+  let result = data;
+  if (typeof CONFIG.onBeforeSave === 'function') {
+    try {
+      const hookResponse = CONFIG.onBeforeSave(result);
+      if (hookResponse && typeof hookResponse === 'object') {
+        result = hookResponse;
+      } else if (hookResponse !== undefined) {
+        result = hookResponse;
+      }
+    } catch (error) {
+      console.error('Errore durante onBeforeSave progress:', error);
+    }
+  }
+
+  return result;
 }
 
 function restoreData(saved) {
@@ -174,7 +189,21 @@ function restoreData(saved) {
 async function loadAndRestore() {
   try {
     const saved = await Progress.load(PAGE_PATH);
-    restoreData(saved);
+    let dataToRestore = saved;
+    if (typeof CONFIG.onRestore === 'function') {
+      try {
+        const hookResponse = CONFIG.onRestore(saved);
+        if (hookResponse === false) {
+          return;
+        }
+        if (hookResponse && typeof hookResponse === 'object') {
+          dataToRestore = hookResponse;
+        }
+      } catch (error) {
+        console.error('Errore durante onRestore progress:', error);
+      }
+    }
+    restoreData(dataToRestore);
   } catch (error) {
     console.error('Errore caricamento progressi:', error);
   }
