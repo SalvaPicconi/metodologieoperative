@@ -81,8 +81,15 @@ const STORAGE_KEYS = {
 
 const identityCache = {
   classCode: null,
-  studentCode: null
+  studentCode: null,
+  isGuest: false
 };
+
+function getIdentityConfig() {
+  if (typeof window === 'undefined') return {};
+  const cfg = window.MO_IDENTITY_CONFIG;
+  return cfg && typeof cfg === 'object' ? cfg : {};
+}
 
 function notifyIdentityChange(detail) {
   try {
@@ -137,10 +144,11 @@ function readIdentity() {
         localStorage.setItem(STORAGE_KEYS.studentCode, code);
       }
     }
-    
+
     if (cls && code) {
       identityCache.classCode = cls;
       identityCache.studentCode = code;
+      identityCache.isGuest = false;
       console.log('[Progress] ✅ Identità caricata:', cls, '-', code);
       return { classCode: cls, studentCode: code };
     }
@@ -158,6 +166,7 @@ function writeIdentity(cls, code) {
   const normalizedCode = String(code || '').trim().toUpperCase();
   identityCache.classCode = normalizedClass;
   identityCache.studentCode = normalizedCode;
+  identityCache.isGuest = false;
   try {
     // Salva in localStorage per persistenza
     localStorage.setItem(STORAGE_KEYS.classCode, normalizedClass);
@@ -208,33 +217,123 @@ function askIdentity() {
   if (existing) return Promise.resolve(existing);
 
   // crea popup grafico
+  const config = getIdentityConfig();
+  const classPlaceholder = config.classPlaceholder || 'Classe (es. 3B)';
+  const codePlaceholder = config.codePlaceholder || (config.codeExample ? `Codice (es. ${config.codeExample})` : 'Codice (es. 3B-AB12CD)');
+  const instructions = config.message || (config.codeExample
+    ? `Inserisci la tua classe e il codice personale. Es.: ${config.codeExample}`
+    : 'Inserisci la tua classe e il codice personale.');
+  const showGenerator = !config.hideGenerator;
+  const allowGuest = Boolean(config.guestAllowed);
+
   const overlay = document.createElement('div');
   overlay.style.cssText = 'position:fixed;inset:0;display:grid;place-items:center;background:#0007;z-index:9999;';
   overlay.innerHTML = `
     <div style="background:#fff;padding:20px;border-radius:12px;max-width:360px;width:90%;font:16px system-ui;color:#000;">
       <h3 style="margin-top:0;color:#000;">Accedi come studente</h3>
-      <p style="margin:0 0 8px;color:#666;">Inserisci la tua classe e il codice personale.</p>
-      <input id="cls" placeholder="Classe (es. 3B)" style="width:100%;margin-bottom:8px;padding:6px;border:1px solid #ccc;border-radius:6px;">
-      <input id="cod" placeholder="Codice (es. 3B-AB12CD)" style="width:100%;margin-bottom:12px;padding:6px;border:1px solid #ccc;border-radius:6px;">
-      <div style="text-align:right;">
-        <button id="gen" style="margin-right:8px;padding:6px 10px;border:1px solid #ccc;background:#fff;border-radius:6px;cursor:pointer;">Genera codice</button>
+      <p style="margin:0 0 8px;color:#666;">${instructions}</p>
+      <input id="cls" placeholder="${classPlaceholder}" style="width:100%;margin-bottom:8px;padding:6px;border:1px solid #ccc;border-radius:6px;">
+      <input id="cod" placeholder="${codePlaceholder}" style="width:100%;margin-bottom:12px;padding:6px;border:1px solid #ccc;border-radius:6px;">
+      <div style="display:flex;justify-content:flex-end;gap:8px;">
+        ${allowGuest ? '<button id="guest" style="padding:6px 10px;border:1px solid #ccc;background:#fff;border-radius:6px;cursor:pointer;">Entra come ospite</button>' : ''}
+        ${showGenerator ? '<button id="gen" style="padding:6px 10px;border:1px solid #ccc;background:#fff;border-radius:6px;cursor:pointer;">Genera codice</button>' : ''}
         <button id="ok" style="background:#0ea5e9;color:#fff;padding:6px 10px;border:none;border-radius:6px;cursor:pointer;">Continua</button>
       </div>
     </div>`;
   document.body.appendChild(overlay);
 
+  const classPattern = config.classPattern ? new RegExp(config.classPattern) : null;
+  const codePattern = config.codePattern ? new RegExp(config.codePattern) : null;
+
+  const sanitizeClass = (value) => {
+    let v = String(value ?? '');
+    if (config.stripWhitespaceInClass) v = v.replace(/\s+/g, '');
+    if (config.classLowercase) v = v.toLowerCase();
+    if (config.classUppercase) v = v.toUpperCase();
+    if (config.classSanitizeFn && typeof config.classSanitizeFn === 'function') {
+      try { v = config.classSanitizeFn(v); } catch (error) { console.warn('classSanitizeFn error:', error); }
+    }
+    return v.trim();
+  };
+
+  const sanitizeCode = (value) => {
+    let v = String(value ?? '');
+    if (config.stripWhitespaceInCode) v = v.replace(/\s+/g, '');
+    if (config.sanitizeCode) v = v.replace(/[^A-Za-z0-9]/g, '');
+    if (config.codeUppercase) v = v.toUpperCase();
+    if (config.codeLowercase) v = v.toLowerCase();
+    if (config.codeSanitizeFn && typeof config.codeSanitizeFn === 'function') {
+      try { v = config.codeSanitizeFn(v); } catch (error) { console.warn('codeSanitizeFn error:', error); }
+    }
+    return v.trim();
+  };
+
   return new Promise(resolve => {
-    overlay.querySelector('#gen').onclick = () => {
-      const c = overlay.querySelector('#cls').value.trim() || '3B';
-      overlay.querySelector('#cod').value = `${c}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
-    };
-    overlay.querySelector('#ok').onclick = () => {
-      const c1 = overlay.querySelector('#cls').value.trim();
-      const c2 = overlay.querySelector('#cod').value.trim();
-      if (!c1 || !c2) return alert('Inserisci classe e codice');
-      writeIdentity(c1, c2);
+    const classInput = overlay.querySelector('#cls');
+    const codeInput = overlay.querySelector('#cod');
+
+    const getClassValue = () => sanitizeClass(classInput.value);
+    const getCodeValue = () => sanitizeCode(codeInput.value);
+
+    const generatorBtn = overlay.querySelector('#gen');
+    if (generatorBtn) {
+      generatorBtn.onclick = () => {
+        const prefix = (getClassValue() || '3b').toUpperCase();
+        codeInput.value = `${prefix}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
+      };
+    }
+
+    const completeIdentity = (cls, cod, isGuest = false) => {
       overlay.remove();
-      resolve({ classCode: c1, studentCode: c2 });
+      if (isGuest) {
+        identityCache.classCode = cls;
+        identityCache.studentCode = cod;
+        identityCache.isGuest = true;
+        notifyIdentityChange({ classCode: cls, studentCode: cod, guest: true });
+        resolve({ classCode: cls, studentCode: cod, isGuest: true });
+        return;
+      }
+      writeIdentity(cls, cod);
+      overlay.remove();
+      resolve({ classCode: cls, studentCode: cod, isGuest: false });
+    };
+
+    const okBtn = overlay.querySelector('#ok');
+    overlay.querySelector('#ok').onclick = () => {
+      let cls = getClassValue();
+      let cod = getCodeValue();
+
+      classInput.value = cls;
+      codeInput.value = cod;
+
+      if ((config.classRequired ?? true) && !cls) {
+        alert(config.classRequiredMessage || 'Inserisci la classe.');
+        return;
+      }
+      if (classPattern && cls && !classPattern.test(cls)) {
+        alert(config.classErrorMessage || (config.classExample ? `Formato classe non valido. Esempio: ${config.classExample}` : 'Formato classe non valido.'));
+        return;
+      }
+
+      if ((config.codeRequired ?? true) && !cod) {
+        alert(config.codeRequiredMessage || 'Inserisci il codice personale.');
+        return;
+      }
+      if (codePattern && cod && !codePattern.test(cod)) {
+        alert(config.codeErrorMessage || (config.codeExample ? `Formato codice non valido. Esempio: ${config.codeExample}` : 'Formato codice non valido.'));
+        return;
+      }
+
+      completeIdentity(cls, cod, false);
+    };
+
+    const guestBtn = overlay.querySelector('#guest');
+    if (guestBtn) {
+      guestBtn.onclick = () => {
+        const guestClass = config.guestClassCode || 'ospite';
+        const guestCode = config.guestStudentCode || 'ospite';
+        completeIdentity(guestClass, guestCode, true);
+      };
     };
   });
 }
@@ -258,6 +357,10 @@ export const Progress = (() => {
   async function load(pagePath = location.pathname) {
     const normalizedPath = normalizePath(pagePath);
     const id = await ensureIdentity();
+     if (!id || id.isGuest) {
+      console.log('[Progress] 📥 Modalità ospite attiva: caricamento remoto disabilitato.');
+      return null;
+    }
     console.log('[Progress] 📥 Caricamento da:', normalizedPath);
     return store.load({ studentCode: id.studentCode, pagePath: normalizedPath });
   }
@@ -266,6 +369,10 @@ export const Progress = (() => {
   async function save(data, pagePath = location.pathname) {
     const normalizedPath = normalizePath(pagePath);
     const id = await ensureIdentity();
+    if (!id || id.isGuest) {
+      console.log('[Progress] ⚠️ Modalità ospite: salvataggio remoto saltato.');
+      return null;
+    }
     console.log('[Progress] 💾 Salvataggio su:', normalizedPath, '| Campi:', Object.keys(data).length);
     return store.save({ 
       classCode: id.classCode, 
