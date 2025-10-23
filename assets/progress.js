@@ -162,26 +162,42 @@ function readIdentity() {
 
 // ✅ MODIFICATO: Salva in localStorage per persistenza tra sessioni
 function writeIdentity(cls, code) {
-  const normalizedClass = String(cls || '').trim().toUpperCase();
-  const normalizedCode = String(code || '').trim().toUpperCase();
-  identityCache.classCode = normalizedClass;
-  identityCache.studentCode = normalizedCode;
+  const config = getIdentityConfig();
+  const normalizedClass = String(cls || '').trim();
+  const normalizedCode = String(code || '').trim();
+
+  let finalClass = normalizedClass;
+  if (config.storeClassLowercase) {
+    finalClass = finalClass.toLowerCase();
+  } else if (config.storeClassUppercase ?? true) {
+    finalClass = finalClass.toUpperCase();
+  }
+
+  let finalCode = normalizedCode;
+  if (config.storeCodeLowercase) {
+    finalCode = finalCode.toLowerCase();
+  } else if (config.storeCodeUppercase ?? true) {
+    finalCode = finalCode.toUpperCase();
+  }
+
+  identityCache.classCode = finalClass;
+  identityCache.studentCode = finalCode;
   identityCache.isGuest = false;
   try {
     // Salva in localStorage per persistenza
-    localStorage.setItem(STORAGE_KEYS.classCode, normalizedClass);
-    localStorage.setItem(STORAGE_KEYS.studentCode, normalizedCode);
-    
+    localStorage.setItem(STORAGE_KEYS.classCode, finalClass);
+    localStorage.setItem(STORAGE_KEYS.studentCode, finalCode);
+
     // Mantieni anche in sessionStorage per retrocompatibilità
-    sessionStorage.setItem(STORAGE_KEYS.classCode, normalizedClass);
-    sessionStorage.setItem(STORAGE_KEYS.studentCode, normalizedCode);
-    
-    console.log('[Progress] ✅ Identità salvata in localStorage:', normalizedClass, '-', normalizedCode);
+    sessionStorage.setItem(STORAGE_KEYS.classCode, finalClass);
+    sessionStorage.setItem(STORAGE_KEYS.studentCode, finalCode);
+
+    console.log('[Progress] ✅ Identità salvata in storage:', finalClass, '-', finalCode);
   } catch (error) {
     console.warn('[Progress] Impossibile salvare in storage:', error);
   }
 
-  notifyIdentityChange({ classCode: normalizedClass, studentCode: normalizedCode });
+  notifyIdentityChange({ classCode: finalClass, studentCode: finalCode });
 }
 
 // ✅ NUOVA FUNZIONE: Visualizza identità corrente (per debug)
@@ -234,7 +250,7 @@ function askIdentity() {
       <p style="margin:0 0 8px;color:#666;">${instructions}</p>
       <input id="cls" placeholder="${classPlaceholder}" style="width:100%;margin-bottom:8px;padding:6px;border:1px solid #ccc;border-radius:6px;">
       <input id="cod" placeholder="${codePlaceholder}" style="width:100%;margin-bottom:12px;padding:6px;border:1px solid #ccc;border-radius:6px;">
-      <div style="display:flex;justify-content:flex-end;gap:8px;">
+      <div style="display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px;">
         ${allowGuest ? '<button id="guest" style="padding:6px 10px;border:1px solid #ccc;background:#fff;border-radius:6px;cursor:pointer;">Entra come ospite</button>' : ''}
         ${showGenerator ? '<button id="gen" style="padding:6px 10px;border:1px solid #ccc;background:#fff;border-radius:6px;cursor:pointer;">Genera codice</button>' : ''}
         <button id="ok" style="background:#0ea5e9;color:#fff;padding:6px 10px;border:none;border-radius:6px;cursor:pointer;">Continua</button>
@@ -278,7 +294,8 @@ function askIdentity() {
     const generatorBtn = overlay.querySelector('#gen');
     if (generatorBtn) {
       generatorBtn.onclick = () => {
-        const prefix = (getClassValue() || '3b').toUpperCase();
+        const prefixRaw = getClassValue() || '3b';
+        const prefix = config.generatorUppercasePrefix ? prefixRaw.toUpperCase() : prefixRaw;
         codeInput.value = `${prefix}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
       };
     }
@@ -357,7 +374,7 @@ export const Progress = (() => {
   async function load(pagePath = location.pathname) {
     const normalizedPath = normalizePath(pagePath);
     const id = await ensureIdentity();
-     if (!id || id.isGuest) {
+    if (!id || id.isGuest) {
       console.log('[Progress] 📥 Modalità ospite attiva: caricamento remoto disabilitato.');
       return null;
     }

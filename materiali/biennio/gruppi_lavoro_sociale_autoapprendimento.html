@@ -1734,6 +1734,30 @@
             }
         };
     </script>
+    <script>
+        window.MO_IDENTITY_CONFIG = {
+            message: 'Inserisci la classe (es. 3sa) e il codice cognome+iniziale (es. ROSSI G → ROSSIG).',
+            classPlaceholder: 'classe (es. 3sa)',
+            classPattern: '^[1-5][a-z]{1,2}$',
+            classExample: '3sa',
+            classErrorMessage: 'Classe non valida: usa una cifra da 1 a 5 seguita da 1-2 lettere minuscole (es. 3sa).',
+            classLowercase: true,
+            stripWhitespaceInClass: true,
+            storeClassLowercase: true,
+            storeClassUppercase: false,
+            codePlaceholder: 'Codice (es. ROSSIG)',
+            codePattern: '^[A-ZÀ-Ü]{2,}[A-Z]$',
+            codeExample: 'ROSSIG',
+            codeErrorMessage: 'Codice non valido: usa cognome tutto maiuscolo + iniziale del nome (es. ROSSI G → ROSSIG).',
+            sanitizeCode: true,
+            stripWhitespaceInCode: true,
+            codeUppercase: true,
+            hideGenerator: true,
+            guestAllowed: true,
+            guestClassCode: 'ospite',
+            guestStudentCode: 'ospite'
+        };
+    </script>
 
     <script type="module" src="../../assets/progress.js"></script>
     <script type="module" src="../../assets/progress-global.js"></script>
