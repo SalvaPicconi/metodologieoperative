@@ -8,23 +8,29 @@ const CONFIG = window.MO_PROGRESS_CONFIG || {};
 const PAGE_PATH = CONFIG.pagePath || PAGE_ID;
 const INPUT_SELECTOR = CONFIG.inputSelector || 'input, textarea, select';
 let studentLabel = null;
+let saveBtnElement = null;
+let resetBtnElement = null;
+let isGuestMode = false;
 
 // Crea pulsanti se non esistono già
 document.addEventListener('DOMContentLoaded', () => {
-  if (!document.querySelector('[data-save-progress]')) {
-    const saveBtn = document.createElement('button');
-    saveBtn.textContent = '💾 Salva progressi';
-    saveBtn.id = 'saveProgressBtn';
-    saveBtn.setAttribute('data-save-progress', '');
-    saveBtn.style.cssText = 'position:fixed;right:16px;bottom:16px;padding:10px 14px;border-radius:10px;border:0;background:#0ea5e9;color:#fff;box-shadow:0 6px 14px rgba(0,0,0,.15);z-index:9999;cursor:pointer;';
-    document.body.appendChild(saveBtn);
+  saveBtnElement = document.querySelector('[data-save-progress]');
+  if (!saveBtnElement) {
+    saveBtnElement = document.createElement('button');
+    saveBtnElement.textContent = '💾 Salva progressi';
+    saveBtnElement.id = 'saveProgressBtn';
+    saveBtnElement.setAttribute('data-save-progress', '');
+    saveBtnElement.style.cssText = 'position:fixed;right:16px;bottom:16px;padding:10px 14px;border-radius:10px;border:0;background:#0ea5e9;color:#fff;box-shadow:0 6px 14px rgba(0,0,0,.15);z-index:9999;cursor:pointer;';
+    document.body.appendChild(saveBtnElement);
   }
-  if (!document.querySelector('#resetStudent')) {
-    const resetBtn = document.createElement('button');
-    resetBtn.textContent = '🔄 Cambia studente';
-    resetBtn.id = 'resetStudent';
-    resetBtn.style.cssText = 'position:fixed;left:16px;bottom:16px;padding:8px 12px;border-radius:10px;border:0;background:#f97316;color:white;box-shadow:0 6px 14px rgba(0,0,0,.15);z-index:9999;cursor:pointer;';
-    document.body.appendChild(resetBtn);
+
+  resetBtnElement = document.querySelector('#resetStudent');
+  if (!resetBtnElement) {
+    resetBtnElement = document.createElement('button');
+    resetBtnElement.textContent = '🔄 Cambia studente';
+    resetBtnElement.id = 'resetStudent';
+    resetBtnElement.style.cssText = 'position:fixed;left:16px;bottom:16px;padding:8px 12px;border-radius:10px;border:0;background:#f97316;color:white;box-shadow:0 6px 14px rgba(0,0,0,.15);z-index:9999;cursor:pointer;';
+    document.body.appendChild(resetBtnElement);
   }
 
   // etichetta studente attivo
@@ -32,14 +38,30 @@ document.addEventListener('DOMContentLoaded', () => {
   studentLabel.id = 'studentLabel';
   studentLabel.style.cssText = 'position:fixed;top:8px;right:16px;background:#0ea5e9;color:#fff;padding:4px 10px;border-radius:6px;font-size:14px;z-index:9999;';
   document.body.appendChild(studentLabel);
+  isGuestMode = document.body?.dataset?.moGuest === 'true';
+  updateSaveButtonsVisibility();
   updateStudentLabel();
 });
 
-function updateStudentLabel() {
+function updateStudentLabel(detail) {
   if (!studentLabel) return;
-  const c = localStorage.getItem('mo:class');
-  const s = localStorage.getItem('mo:code');
+  const detailData = detail || {};
+  if (isGuestMode || detailData.guest) {
+    studentLabel.textContent = 'Modalità ospite: progressi locali';
+    return;
+  }
+  const c = detailData.classCode ?? localStorage.getItem('mo:class');
+  const s = detailData.studentCode ?? localStorage.getItem('mo:code');
   studentLabel.textContent = c && s ? `Classe ${c} • Codice ${s}` : 'Studente non identificato';
+}
+
+function updateSaveButtonsVisibility() {
+  if (saveBtnElement) {
+    saveBtnElement.style.display = isGuestMode ? 'none' : 'inline-block';
+  }
+  if (resetBtnElement) {
+    resetBtnElement.style.display = 'inline-block';
+  }
 }
 
 function dispatchProgressRestored(data) {
@@ -217,6 +239,10 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('click', async (event) => {
   if (event.target.matches('[data-save-progress]')) {
     const button = event.target;
+    if (isGuestMode) {
+      alert('Sei in modalità ospite: il salvataggio online è disattivato.');
+      return;
+    }
     const originalText = button.textContent;
     button.textContent = '⏳ Salvataggio...';
     try {
@@ -244,7 +270,10 @@ document.addEventListener('click', (event) => {
 });
 
 // Aggiorna UI quando cambia identità
-window.addEventListener('mo:identity-change', () => {
-  updateStudentLabel();
+window.addEventListener('mo:identity-change', (event) => {
+  const detail = event?.detail || {};
+  isGuestMode = Boolean(detail.guest);
+  updateSaveButtonsVisibility();
+  updateStudentLabel(detail);
   loadAndRestore();
 });

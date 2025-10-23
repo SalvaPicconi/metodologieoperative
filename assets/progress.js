@@ -85,6 +85,21 @@ const identityCache = {
   isGuest: false
 };
 
+function setGuestMode(isGuest) {
+  identityCache.isGuest = Boolean(isGuest);
+  try {
+    if (typeof document !== 'undefined' && document.body) {
+      if (identityCache.isGuest) {
+        document.body.setAttribute('data-mo-guest', 'true');
+      } else {
+        document.body.removeAttribute('data-mo-guest');
+      }
+    }
+  } catch (error) {
+    console.warn('[Progress] Impossibile aggiornare stato guest:', error);
+  }
+}
+
 function getIdentityConfig() {
   if (typeof window === 'undefined') return {};
   const cfg = window.MO_IDENTITY_CONFIG;
@@ -148,7 +163,7 @@ function readIdentity() {
     if (cls && code) {
       identityCache.classCode = cls;
       identityCache.studentCode = code;
-      identityCache.isGuest = false;
+      setGuestMode(false);
       console.log('[Progress] ✅ Identità caricata:', cls, '-', code);
       return { classCode: cls, studentCode: code };
     }
@@ -182,7 +197,7 @@ function writeIdentity(cls, code) {
 
   identityCache.classCode = finalClass;
   identityCache.studentCode = finalCode;
-  identityCache.isGuest = false;
+  setGuestMode(false);
   try {
     // Salva in localStorage per persistenza
     localStorage.setItem(STORAGE_KEYS.classCode, finalClass);
@@ -305,7 +320,7 @@ function askIdentity() {
       if (isGuest) {
         identityCache.classCode = cls;
         identityCache.studentCode = cod;
-        identityCache.isGuest = true;
+        setGuestMode(true);
         notifyIdentityChange({ classCode: cls, studentCode: cod, guest: true });
         resolve({ classCode: cls, studentCode: cod, isGuest: true });
         return;
