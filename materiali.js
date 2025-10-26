@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
         'terzo': { chiave: 'terzo' },
         'quarto': { chiave: 'quarto' },
         'quinto': { chiave: 'quinto' },
+        'peer_tutoring': { chiave: 'peer_tutoring' },
         'compresenza': { chiave: 'compresenza' },
         'index': { chiave: 'ai', containerId: 'materiali-ai' }
     };
