@@ -2766,10 +2766,10 @@
                         ⬅️ Torna alla Fase 3.5
                     </button>
                     <button class="btn btn-success" onclick="scaricaPDFTestuale()">
-                        📄 Scarica PDF Testo
+                        📄 Scarica PDF
                     </button>
-                    <button class="btn btn-success" onclick="scaricaFileTesto()">
-                        📝 Scarica File TXT
+                    <button class="btn btn-success" onclick="scaricaFileHTML()">
+                        🌐 Scarica HTML
                     </button>
                     <button class="btn btn-large" onclick="stampaTutto()" style="background: linear-gradient(135deg, #FF6B6B 0%, #EE5A6F 100%);">
                         🖨️ Stampa Tutto il Lavoro
@@ -3432,25 +3432,57 @@
             }, 300);
         }
 
-        function scaricaFileTesto() {
-            try {
-                salvaDati();
-            } catch (error) {
-                console.warn('Impossibile salvare prima di esportare il TXT:', error);
-            }
+function scaricaFileHTML() {
+    try {
+        salvaDati();
+    } catch (error) {
+        console.warn('Impossibile salvare prima di esportare l\'HTML:', error);
+    }
 
-            const info = ottieniInfoStudente();
-            const contenuto = generaTestoRiepilogo(info);
-            const blob = new Blob([contenuto], { type: 'text/plain;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `percorso-ia-${normalizzaPerFile(info.nome)}.txt`;
-            document.body.appendChild(link);
-            link.click();
-            setTimeout(() => {
-                document.body.removeChild(link);
-                URL.revokeObjectURL(url);
+    const info = ottieniInfoStudente();
+    const contenuto = generaTestoRiepilogo(info);
+    const dataEsportazione = info.data || new Date().toLocaleDateString('it-IT');
+    const escapeHtml = (testo = '') => testo
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+
+    const html = `<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Percorso IA – Riepilogo di ${escapeHtml(info.nome || 'Studente')}</title>
+<style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#f7f9fc; color:#1f2937; margin:0; padding:40px 24px; line-height:1.65; }
+    .wrapper { max-width:960px; margin:0 auto; background:#ffffff; border-radius:18px; box-shadow:0 18px 45px rgba(15,23,42,0.12); padding:32px 36px; }
+    h1 { font-size:1.9rem; color:#2563eb; margin-bottom:0.75rem; }
+    p.meta { margin:0.25rem 0; color:#475569; }
+    pre { margin-top:1.75rem; padding:24px; background:#f1f5f9; border-radius:12px; border:1px solid #e2e8f0; white-space:pre-wrap; word-break:break-word; font-family:'IBM Plex Mono', 'Source Code Pro', monospace; font-size:0.95rem; }
+</style>
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Percorso IA – Riepilogo</h1>
+        <p class="meta"><strong>Studente:</strong> ${escapeHtml(info.nome || '---')}</p>
+        <p class="meta"><strong>Classe:</strong> ${escapeHtml(info.classe || '---')}</p>
+        <p class="meta"><strong>Data esportazione:</strong> ${escapeHtml(dataEsportazione)}</p>
+        <pre>${escapeHtml(contenuto)}</pre>
+    </div>
+</body>
+</html>`;
+
+    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `percorso-ia-${normalizzaPerFile(info.nome)}.html`;
+    document.body.appendChild(link);
+    link.click();
+    setTimeout(() => {
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
             }, 0);
         }
 
