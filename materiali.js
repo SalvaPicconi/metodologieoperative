@@ -140,9 +140,15 @@ function setupMobileNav() {
         nav.classList.remove('nav-open');
         if (mobileQuery.matches) {
             navList.style.maxHeight = '0px';
+            navList.style.opacity = '0';
+            navList.style.visibility = 'hidden';
+            navList.style.pointerEvents = 'none';
             toggle.setAttribute('aria-expanded', 'false');
         } else {
             navList.style.maxHeight = '';
+            navList.style.opacity = '';
+            navList.style.visibility = '';
+            navList.style.pointerEvents = '';
             toggle.setAttribute('aria-expanded', 'true');
         }
     };
@@ -150,6 +156,9 @@ function setupMobileNav() {
     const expandNav = () => {
         nav.classList.add('nav-open');
         navList.style.maxHeight = `${navList.scrollHeight}px`;
+        navList.style.opacity = '1';
+        navList.style.visibility = 'visible';
+        navList.style.pointerEvents = 'auto';
         toggle.setAttribute('aria-expanded', 'true');
         nav.classList.remove('nav-hidden');
     };
@@ -161,6 +170,9 @@ function setupMobileNav() {
         } else {
             nav.classList.remove('nav-collapsible', 'nav-hidden', 'nav-open');
             navList.style.maxHeight = '';
+            navList.style.opacity = '';
+            navList.style.visibility = '';
+            navList.style.pointerEvents = '';
             toggle.setAttribute('aria-expanded', 'true');
         }
     };
