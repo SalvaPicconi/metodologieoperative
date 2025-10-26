@@ -466,6 +466,104 @@
             color: #0c5460;
         }
 
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+                font-size: 16px;
+            }
+
+            .container {
+                padding: 20px;
+                border-radius: 16px;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 26px;
+            }
+
+            .header p {
+                font-size: 16px;
+            }
+
+            .student-info {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .progress-bar {
+                height: 24px;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .section-title {
+                font-size: 20px;
+            }
+
+            .service-card {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+                gap: 12px;
+            }
+
+            .service-icon {
+                font-size: 40px;
+                min-width: auto;
+            }
+
+            .buttons {
+                flex-direction: column;
+                gap: 12px;
+                align-items: stretch;
+            }
+
+            .buttons button {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+                font-size: 15px;
+            }
+
+            .container {
+                padding: 18px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .header p {
+                font-size: 15px;
+            }
+
+            .section-title {
+                font-size: 19px;
+            }
+
+            .service-content h3 {
+                font-size: 18px;
+            }
+
+            .service-content p {
+                font-size: 15px;
+            }
+
+            .case-title {
+                font-size: 18px;
+            }
+        }
+
         @media print {
             .buttons {
                 display: none;

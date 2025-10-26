@@ -56,6 +56,51 @@
                 page-break-before: always;
             }
         }
+
+        @media (max-width: 640px) {
+            .header-gradient {
+                padding: 1.25rem;
+            }
+
+            #progress-bar {
+                flex-wrap: wrap;
+                gap: 0.75rem;
+            }
+
+            #progress-bar .progress-box {
+                width: calc(50% - 0.75rem);
+            }
+
+            #progress-bar .progress-box div {
+                height: 2.5rem;
+                width: 2.5rem;
+                font-size: 1rem;
+            }
+
+            main.container {
+                padding: 1rem 0.75rem;
+            }
+
+            .phase {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 420px) {
+            #progress-bar {
+                gap: 0.5rem;
+            }
+
+            #progress-bar .progress-box {
+                width: calc(50% - 0.5rem);
+            }
+
+            #progress-bar .progress-box div {
+                height: 2.25rem;
+                width: 2.25rem;
+                font-size: 0.95rem;
+            }
+        }
     </style>
 </head>
 
