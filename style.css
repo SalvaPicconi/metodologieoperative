@@ -54,6 +54,12 @@ nav {
     position: sticky;
     top: 0;
     z-index: 1000;
+    transition: transform 0.3s ease;
+    will-change: transform;
+}
+
+nav.nav-hidden {
+    transform: translateY(-100%);
 }
 
 nav ul {
@@ -81,6 +87,66 @@ nav a.active {
     background-color: #2c3e50;
 }
 
+nav .nav-toggle {
+    display: none;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    background: rgba(0, 0, 0, 0.18);
+    border: none;
+    color: #f7f9fc;
+    padding: 0.85rem 1.2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+nav .nav-toggle:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.6);
+    outline-offset: -2px;
+}
+
+nav .nav-toggle-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+nav .nav-toggle-icon {
+    font-size: 1.3rem;
+    line-height: 1;
+}
+
+nav.nav-collapsible {
+    display: block;
+}
+
+nav.nav-collapsible .nav-toggle {
+    display: flex;
+}
+
+nav.nav-collapsible ul {
+    flex-direction: column;
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+nav.nav-collapsible li {
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+nav.nav-collapsible a {
+    padding: 0.95rem 1.4rem;
+}
+
+nav.nav-open ul {
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
 /* Evidenzia la sezione AI nel menu */
 nav li.nav-ai {
     margin-left: 1rem;
@@ -99,6 +165,10 @@ nav li.nav-ai a:hover,
 nav li.nav-ai a:focus {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+nav.nav-collapsible li.nav-ai {
+    margin-left: 0;
 }
 
 /* Contenuto principale */
@@ -404,6 +474,10 @@ footer a:hover {
 
 /* Responsive */
 @media (max-width: 768px) {
+    header {
+        padding: 1.6rem 0 1.2rem;
+    }
+    
     header h1 {
         font-size: 1.5rem;
     }
@@ -445,17 +519,8 @@ footer a:hover {
         padding: 0 15px;
     }
     
-    nav ul {
-        flex-direction: column;
-    }
-    
-    nav a {
+    nav.nav-collapsible a {
         text-align: center;
-        padding: 0.8rem;
-    }
-
-    nav li.nav-ai {
-        margin-left: 0;
     }
     
     .intro,
