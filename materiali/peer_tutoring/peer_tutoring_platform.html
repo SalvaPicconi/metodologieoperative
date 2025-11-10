@@ -325,6 +325,54 @@ textarea {
     line-height: 1.55;
 }
 
+.resource-card details {
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--text);
+    border: 1px dashed rgba(74, 144, 226, 0.25);
+}
+
+.resource-card details + details {
+    margin-top: 12px;
+}
+
+.resource-card summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.resource-card summary::before {
+    content: 'ℹ️';
+    font-size: 0.9rem;
+}
+
+.resource-card details[open] {
+    box-shadow: inset 0 0 0 1px rgba(74, 144, 226, 0.1);
+}
+
+.resource-card details h4 {
+    font-size: 1rem;
+    margin-top: 14px;
+    margin-bottom: 6px;
+    color: var(--accent-secondary);
+}
+
+.resource-card details ul {
+    padding-left: 18px;
+    margin-bottom: 6px;
+}
+
+.resource-card details li + li {
+    margin-top: 4px;
+}
+
 .meeting-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -722,6 +770,139 @@ textarea {
     margin-bottom: 10px;
 }
 
+.register-area {
+    margin-top: 34px;
+    padding: 28px;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(74, 144, 226, 0.2);
+    background: var(--surface);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+
+.register-area h3 {
+    font-size: 1.6rem;
+    color: var(--accent-secondary);
+    margin-bottom: 12px;
+}
+
+.register-area p {
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.register-grid {
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.register-card {
+    background: #fff;
+    border-radius: var(--radius-md);
+    padding: 18px;
+    border: 1px solid rgba(74, 144, 226, 0.12);
+    box-shadow: var(--shadow-sm);
+}
+
+.register-card strong {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--accent);
+}
+
+.register-card ul {
+    padding-left: 18px;
+    color: var(--muted);
+}
+
+.register-form {
+    margin-top: 26px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    align-items: end;
+}
+
+.register-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.register-form button {
+    height: 48px;
+    border-radius: var(--radius-sm);
+    border: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+    color: #fff;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.register-form button:hover {
+    transform: translateY(-2px);
+}
+
+.register-table-wrapper {
+    margin-top: 22px;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(74, 144, 226, 0.2);
+    overflow-x: auto;
+    background: #fff;
+}
+
+.register-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.register-table th,
+.register-table td {
+    padding: 14px;
+    border-bottom: 1px solid rgba(74, 144, 226, 0.1);
+    vertical-align: top;
+}
+
+.register-table th {
+    background: rgba(74, 144, 226, 0.07);
+    text-align: left;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.register-table-empty {
+    text-align: center;
+    color: var(--muted);
+    padding: 18px;
+}
+
+.register-remove {
+    margin-top: 8px;
+    background: transparent;
+    border: 1px solid rgba(255, 107, 107, 0.4);
+    color: var(--danger);
+    border-radius: var(--radius-sm);
+    padding: 4px 10px;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.register-hints {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.register-reflection p {
+    color: var(--muted);
+    margin-bottom: 8px;
+}
+
 .section-actions {
     display: flex;
     flex-wrap: wrap;
@@ -933,6 +1114,40 @@ footer.crediti {
                     <span class="resource-badge">PDF</span>
                     <h3>Linee guida Peer Tutoring</h3>
                     <p>Vademecum con ruoli, obiettivi e fasi operative del peer tutoring nella nostra scuola.</p>
+                    <details>
+                        <summary>Leggi le linee guida complete</summary>
+                        <p><strong>Titolo:</strong> Come funziona il Peer Tutoring "Di madre/padre in figlio"</p>
+                        <h4>💡 Che cos'è</h4>
+                        <p>È un percorso in cui gli studenti più grandi (tutor) accompagnano quelli più piccoli (tutee) nell'inserimento, nelle relazioni e nella scoperta delle risorse della scuola.</p>
+                        <p>Non è una lezione frontale: è un'esperienza per imparare insieme, aiutandosi e ascoltandosi.</p>
+                        <h4>🎯 Gli obiettivi</h4>
+                        <ul>
+                            <li>Accogliere e orientare le nuove classi prime.</li>
+                            <li>Far crescere la fiducia e la collaborazione tra pari.</li>
+                            <li>Allenare empatia, ascolto e rispetto reciproco.</li>
+                            <li>Usare strumenti digitali e giochi (badge, punti, bacheche online) per rendere l'esperienza coinvolgente.</li>
+                            <li>Imparare a gestire i conflitti e promuovere relazioni positive.</li>
+                        </ul>
+                        <h4>👥 I ruoli</h4>
+                        <ul>
+                            <li><strong>Tutor:</strong> studente/ssa di terza o quarta che accompagna un compagno più giovane, lo aiuta a capire come funziona la scuola e resta un punto di riferimento.</li>
+                            <li><strong>Tutee:</strong> studente/ssa di prima che riceve supporto, fa domande, partecipa e cresce grazie al confronto.</li>
+                            <li><strong>Docente referente:</strong> coordina le coppie, monitora l'andamento e sostiene miglioramenti.</li>
+                        </ul>
+                        <h4>🪜 Le fasi</h4>
+                        <ul>
+                            <li><strong>Conosciamoci!</strong> Presentazioni, prime attività di gruppo e costruzione della fiducia.</li>
+                            <li><strong>Lavoriamo insieme:</strong> tre incontri da due ore con attività pratiche, giochi di ruolo e simulazioni sulle Metodologie Operative.</li>
+                            <li><strong>Riflessione e crescita:</strong> ogni coppia compila il registro, guadagna badge e riflette sugli apprendimenti.</li>
+                        </ul>
+                        <h4>💬 Regole d'oro</h4>
+                        <ul>
+                            <li>Puntualità e rispetto reciproco.</li>
+                            <li>Ascoltare prima di parlare.</li>
+                            <li>Essere sinceri e gentili.</li>
+                            <li>Aiutarsi a migliorare, non giudicare.</li>
+                        </ul>
+                    </details>
                     <a class="resource-link" href="#" target="_blank" rel="noopener">Scarica il materiale</a>
                     <label class="check-row">
                         <input type="checkbox" id="download_linee_guida" name="download_linee_guida" data-progress-checkbox>
@@ -944,6 +1159,31 @@ footer.crediti {
                     <span class="resource-badge">DOCX</span>
                     <h3>Patto formativo</h3>
                     <p>Modello editabile per concordare regole, impegni reciproci e criteri di valutazione.</p>
+                    <details>
+                        <summary>Compila il patto anche online</summary>
+                        <p><strong>Titolo:</strong> Il nostro accordo di collaborazione</p>
+                        <p>Noi, tutor e tutee, scegliamo di partecipare al progetto "Di madre/padre in figlio" con impegno, rispetto e voglia di crescere insieme.</p>
+                        <h4>🔵 Tutor</h4>
+                        <ul>
+                            <li>Mi impegno ad ascoltare, sostenere e incoraggiare il mio compagno o la mia compagna.</li>
+                            <li>Sarò un punto di riferimento, non un giudice.</li>
+                            <li>Rispetterò tempi, impegni e riservatezza.</li>
+                        </ul>
+                        <h4>🔴 Tutee</h4>
+                        <ul>
+                            <li>Parteciperò agli incontri con curiosità e apertura.</li>
+                            <li>Farò domande, darò il mio contributo e rispetterò le regole del gruppo.</li>
+                            <li>Proverò a riconoscere e valorizzare ciò che imparo.</li>
+                        </ul>
+                        <h4>🤝 Insieme</h4>
+                        <ul>
+                            <li>Creiamo un clima positivo e inclusivo.</li>
+                            <li>Usiamo la piattaforma digitale per documentare le attività.</li>
+                            <li>Valutiamo insieme progressi e punti di forza.</li>
+                        </ul>
+                        <p><strong>📅 Durata:</strong> dal ___ / ___ / ___ al ___ / ___ / ___</p>
+                        <p><strong>✍️ Firme:</strong> Tutor __________ &nbsp; Tutee __________ &nbsp; Docente referente __________</p>
+                    </details>
                     <a class="resource-link" href="#" target="_blank" rel="noopener">Scarica il modello</a>
                     <label class="check-row">
                         <input type="checkbox" id="download_patto_formativo" name="download_patto_formativo" data-progress-checkbox>
@@ -955,12 +1195,111 @@ footer.crediti {
                     <span class="resource-badge">XLSX</span>
                     <h3>Registro incontri</h3>
                     <p>Foglio di monitoraggio con indicatori di partecipazione, obiettivi settimanali e feedback.</p>
+                    <details>
+                        <summary>Anteprima: il diario del nostro percorso</summary>
+                        <p><strong>Titolo:</strong> Il diario del nostro percorso</p>
+                        <p>Colonne consigliate: Data, Attività svolta, Cosa abbiamo imparato, Come ci siamo sentiti, Badge / feedback.</p>
+                        <p><strong>Esempi di attività:</strong></p>
+                        <ul>
+                            <li>Presentazioni e giochi di conoscenza.</li>
+                            <li>Role playing su ascolto ed empatia.</li>
+                            <li>Laboratorio "Come accogliere gli altri".</li>
+                            <li>Uso della piattaforma per badge e feedback.</li>
+                        </ul>
+                        <p><strong>Indicatori di crescita personale:</strong></p>
+                        <ul>
+                            <li>Partecipazione e costanza.</li>
+                            <li>Ascolto e collaborazione.</li>
+                            <li>Rispetto di regole e ruoli.</li>
+                            <li>Capacità di riflessione e miglioramento.</li>
+                        </ul>
+                        <p>Più sotto trovi una sezione interattiva per compilare direttamente il registro online e salvare i dati nella piattaforma.</p>
+                        <p><strong>🗣️ Riflessione finale:</strong> Cosa ho imparato? In cosa mi sento migliorato/a? Come userò queste competenze?</p>
+                    </details>
                     <a class="resource-link" href="#" target="_blank" rel="noopener">Scarica il registro</a>
                     <label class="check-row">
                         <input type="checkbox" id="download_registro" name="download_registro" data-progress-checkbox>
                         <span>Registro attivato</span>
                     </label>
                 </article>
+            </div>
+
+            <div class="register-area" id="registro-online">
+                <h3>🟨 Il diario del nostro percorso</h3>
+                <p>Questa sezione traduce il registro degli incontri direttamente nella piattaforma per permettere alle coppie di documentare subito il lavoro svolto. Ogni riga rimane salvata nel browser e può essere condivisa con il docente referente.</p>
+
+                <div class="register-grid">
+                    <div class="register-card">
+                        <strong>Esempi di attività</strong>
+                        <ul>
+                            <li>Presentazioni e giochi di conoscenza.</li>
+                            <li>Role playing su ascolto ed empatia.</li>
+                            <li>Laboratorio "Come accogliere gli altri".</li>
+                            <li>Uso della piattaforma per badge e feedback.</li>
+                        </ul>
+                    </div>
+                    <div class="register-card">
+                        <strong>Indicatori di crescita personale</strong>
+                        <ul>
+                            <li>Partecipazione e costanza.</li>
+                            <li>Ascolto e collaborazione.</li>
+                            <li>Rispetto di regole e ruoli.</li>
+                            <li>Capacità di riflessione e miglioramento.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <form class="register-form" id="registroForm">
+                    <div class="form-group">
+                        <label for="registroData">Data</label>
+                        <input type="date" id="registroData" name="registroData" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registroAttivita">Attività svolta</label>
+                        <input type="text" id="registroAttivita" name="registroAttivita" placeholder="Presentazioni, laboratorio, gioco..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registroApprendimento">Cosa abbiamo imparato</label>
+                        <textarea id="registroApprendimento" name="registroApprendimento" placeholder="Nuove competenze, intuizioni, risultati..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="registroEmozioni">Come ci siamo sentiti</label>
+                        <textarea id="registroEmozioni" name="registroEmozioni" placeholder="Emozioni, clima del gruppo, parole chiave..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="registroBadge">Badge / feedback</label>
+                        <input type="text" id="registroBadge" name="registroBadge" placeholder="Badge ottenuto o feedback del docente">
+                    </div>
+                    <button type="submit">+ Aggiungi riga</button>
+                </form>
+                <div class="register-hints">Suggerimento: compila la riga insieme e usa il campo badge per annotare feedback o punti extra.</div>
+
+                <div class="register-table-wrapper">
+                    <table class="register-table">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Attività svolta</th>
+                                <th>Cosa abbiamo imparato</th>
+                                <th>Come ci siamo sentiti</th>
+                                <th>Badge / feedback</th>
+                            </tr>
+                        </thead>
+                        <tbody id="registroTableBody">
+                            <tr>
+                                <td colspan="5" class="register-table-empty">Nessuna registrazione ancora. Usa il modulo per aggiungere la prima riga.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="note-area register-reflection">
+                    <label for="registroRiflessioneFinale">🗣️ Riflessione finale</label>
+                    <p>Cosa ho imparato da questo percorso?</p>
+                    <p>In cosa mi sento migliorato/a?</p>
+                    <p>Come posso usare queste competenze nella vita di tutti i giorni?</p>
+                    <textarea id="registroRiflessioneFinale" name="registroRiflessioneFinale" placeholder="Raccogli qui la tua riflessione personale o scrivila insieme al tuo compagno/a."></textarea>
+                </div>
             </div>
 
             <div class="note-area">
@@ -1376,6 +1715,7 @@ footer.crediti {
 </div>
 
 <input type="hidden" id="peerTutoringState" name="peerTutoringState" value="">
+<input type="hidden" id="registroEntries" name="registroEntries" value="[]">
 <input type="hidden" id="meeting1_status" name="meeting1_status" value="">
 <input type="checkbox" id="meeting1_completed" name="meeting1_completed" data-progress-checkbox style="display:none">
 <input type="hidden" id="meeting2_status" name="meeting2_status" value="">
@@ -1401,8 +1741,12 @@ footer.crediti {
     const progressCount = document.getElementById('progressCount');
     const progressTotal = document.getElementById('progressTotal');
     const stateInput = document.getElementById('peerTutoringState');
+    const registerForm = document.getElementById('registroForm');
+    const registerTableBody = document.getElementById('registroTableBody');
+    const registerEntriesInput = document.getElementById('registroEntries');
 
     let storageAvailable = true;
+    let registerEntries = [];
 
     let activeSection = 1;
 
@@ -1598,6 +1942,119 @@ footer.crediti {
     function handleInputEvent() {
         updateOverallProgress();
         saveLocalState();
+    }
+
+    function renderRegisterEntries() {
+        if (!registerTableBody) return;
+        registerTableBody.innerHTML = '';
+
+        if (!registerEntries.length) {
+            const emptyRow = document.createElement('tr');
+            const emptyCell = document.createElement('td');
+            emptyCell.colSpan = 5;
+            emptyCell.className = 'register-table-empty';
+            emptyCell.textContent = 'Nessuna registrazione ancora. Usa il modulo per aggiungere la prima riga.';
+            emptyRow.appendChild(emptyCell);
+            registerTableBody.appendChild(emptyRow);
+            return;
+        }
+
+        registerEntries.forEach((entry, index) => {
+            const row = document.createElement('tr');
+
+            const cells = [
+                entry.date || '—',
+                entry.activity || '—',
+                entry.learning || '—',
+                entry.feelings || '—'
+            ];
+
+            cells.forEach(value => {
+                const cell = document.createElement('td');
+                cell.textContent = value || '—';
+                row.appendChild(cell);
+            });
+
+            const badgeCell = document.createElement('td');
+            const badgeText = document.createElement('div');
+            badgeText.textContent = entry.badge || '—';
+            badgeCell.appendChild(badgeText);
+
+            const removeBtn = document.createElement('button');
+            removeBtn.type = 'button';
+            removeBtn.className = 'register-remove';
+            removeBtn.setAttribute('data-register-remove', index);
+            removeBtn.textContent = 'Rimuovi';
+            badgeCell.appendChild(removeBtn);
+
+            row.appendChild(badgeCell);
+            registerTableBody.appendChild(row);
+        });
+    }
+
+    function persistRegisterEntries() {
+        if (!registerEntriesInput) return;
+        registerEntriesInput.value = JSON.stringify(registerEntries);
+        saveLocalState();
+    }
+
+    function hydrateRegisterFromHidden() {
+        if (!registerEntriesInput) {
+            registerEntries = [];
+            renderRegisterEntries();
+            return;
+        }
+
+        const raw = registerEntriesInput.value;
+        if (!raw) {
+            registerEntries = [];
+        } else {
+            try {
+                const parsed = JSON.parse(raw);
+                registerEntries = Array.isArray(parsed) ? parsed : [];
+            } catch (error) {
+                console.warn('Impossibile leggere il registro salvato:', error);
+                registerEntries = [];
+            }
+        }
+
+        renderRegisterEntries();
+    }
+
+    if (registerForm) {
+        registerForm.addEventListener('submit', event => {
+            event.preventDefault();
+            const entry = {
+                date: registerForm.registroData?.value || '',
+                activity: (registerForm.registroAttivita?.value || '').trim(),
+                learning: (registerForm.registroApprendimento?.value || '').trim(),
+                feelings: (registerForm.registroEmozioni?.value || '').trim(),
+                badge: (registerForm.registroBadge?.value || '').trim()
+            };
+
+            if (!entry.date || !entry.activity || !entry.learning || !entry.feelings) {
+                alert('Compila data, attività, cosa avete imparato e come vi siete sentiti prima di aggiungere la riga.');
+                return;
+            }
+
+            registerEntries.push(entry);
+            renderRegisterEntries();
+            persistRegisterEntries();
+            registerForm.reset();
+            registerForm.registroData?.focus();
+        });
+    }
+
+    if (registerTableBody) {
+        registerTableBody.addEventListener('click', event => {
+            const button = event.target.closest('[data-register-remove]');
+            if (!button) return;
+            const index = parseInt(button.getAttribute('data-register-remove'), 10);
+            if (Number.isNaN(index)) return;
+            registerEntries.splice(index, 1);
+            renderRegisterEntries();
+            persistRegisterEntries();
+        });
     }
 
 const MEETING_CONFIG = {
@@ -2012,6 +2469,7 @@ const meeting2Flow = {
     });
 
     restoreLocalState();
+    hydrateRegisterFromHidden();
     updateOverallProgress();
     syncMeetingStatus('meeting1');
     syncMeetingStatus('meeting2');
