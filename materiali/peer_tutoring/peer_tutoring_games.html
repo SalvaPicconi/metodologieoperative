@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giochi di Peer Tutoring - Metodologie Operative</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .intro {
+            padding: 40px;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            text-align: center;
+        }
+
+        .intro h2 {
+            color: #6B46C1;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .intro p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #4a5568;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            background: #f7fafc;
+            padding: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tab {
+            padding: 15px 30px;
+            background: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .tab:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .game-section {
+            display: none;
+        }
+
+        .game-section.active {
+            display: block;
+        }
+
+        .game-card {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .game-card:hover {
+            transform: scale(1.02);
+        }
+
+        .game-card h3 {
+            color: #E53E3E;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .game-card .icon {
+            font-size: 1.5em;
+        }
+
+        .game-info {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .info-badge {
+            background: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .objectives {
+            background: rgba(255,255,255,0.7);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .objectives h4 {
+            color: #6B46C1;
+            margin-bottom: 10px;
+        }
+
+        .objectives ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .objectives li {
+            padding: 8px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .objectives li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #48BB78;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .instructions {
+            background: rgba(255,255,255,0.7);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .instructions h4 {
+            color: #E53E3E;
+            margin-bottom: 15px;
+        }
+
+        .instructions ol {
+            padding-left: 20px;
+        }
+
+        .instructions li {
+            padding: 10px 0;
+            line-height: 1.6;
+        }
+
+        .tips {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .tips h4 {
+            color: white;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .tips p {
+            color: white;
+            line-height: 1.6;
+        }
+
+        footer {
+            background: #2d3748;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        footer a {
+            color: #90cdf4;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            
+            .tab {
+                font-size: 0.9em;
+                padding: 12px 20px;
+            }
+            
+            .game-card {
+                padding: 20px;
+            }
+            
+            .game-card h3 {
+                font-size: 1.4em;
+            }
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .note {
+            background: #bee3f8;
+            border-left: 4px solid #3182ce;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .difficulty-easy {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .difficulty-medium {
+            background: #feebc8;
+            color: #7c2d12;
+        }
+
+        .difficulty-hard {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+        .participants-2 {
+            background: #e6fffa;
+            color: #234e52;
+        }
+
+        .participants-small {
+            background: #fef5e7;
+            color: #7b341e;
+        }
+
+        .participants-large {
+            background: #e8daef;
+            color: #4a235a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎮 Giochi di Peer Tutoring</h1>
+            <p>Impariamo insieme divertendoci!</p>
+        </header>
+
+        <div class="intro">
+            <h2>Benvenuti nella Ludoteca del Peer Tutoring! 🌟</h2>
+            <p>
+                Qui troverete giochi pensati per rafforzare le relazioni tra tutor e tutee, 
+                sviluppare competenze sociali, e rendere l'apprendimento un'esperienza 
+                divertente e memorabile. Ogni gioco è progettato per promuovere la 
+                collaborazione, l'empatia e la crescita personale in un clima sereno e inclusivo.
+            </p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showSection('coppie')">👥 Giochi di Coppia</button>
+            <button class="tab" onclick="showSection('gruppo')">👨‍👩‍👧‍👦 Giochi di Gruppo</button>
+            <button class="tab" onclick="showSection('misti')">🔄 Coppia → Gruppo</button>
+        </div>
+
+        <div class="content">
+            <!-- SEZIONE GIOCHI DI COPPIA -->
+            <div id="coppie" class="game-section active">
+                <div class="game-card">
+                    <h3><span class="icon">🎯</span> Speed Friending</h3>
+                    <div class="game-info">
+                        <span class="info-badge participants-2">👥 2 studenti</span>
+                        <span class="info-badge difficulty-easy">⭐ Facile</span>
+                        <span class="info-badge">⏱️ 2 minuti per coppia</span>
+                    </div>
+                    
+                    <div class="objectives">
+                        <h4>🎯 Obiettivi:</h4>
+                        <ul>
+                            <li>Conoscersi rapidamente in modo strutturato</li>
+                            <li>Rompere il ghiaccio all'inizio dell'anno</li>
+                            <li>Sviluppare capacità di ascolto attivo</li>
+                            <li>Creare connessioni autentiche tra pari</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>📋 Come si gioca:</h4>
+                        <ol>
+                            <li>Gli studenti si siedono in due file parallele, uno di fronte all'altro</li>
+                            <li>Ogni coppia ha <span class="highlight">2 minuti</span> per chiacchierare seguendo domande guida</li>
+                            <li>Al segnale, una fila si sposta di un posto e si formano nuove coppie</li>
+                            <li>Si ripete finché tutti hanno incontrato diversi compagni</li>
+                        </ol>
+                    </div>
+
+                    <div class="tips">
+                        <h4>💡 Suggerimenti per l'insegnante:</h4>
+                        <p>
+                            Preparate domande guida interessanti: "Qual è un talento segreto che hai?", 
+                            "Se potessi viaggiare nel tempo, quale epoca visiteresti?", 
+                            "Qual è il libro o film che ti ha cambiato la vita?". 
+                            Le domande devono essere leggere ma significative!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <h3><span class="icon">🎨</span> Paired Reading - Lettura in Tandem</h3>
+                    <div class="game-info">
+                        <span class="info-badge participants-2">👥 2 studenti</span>
+                        <span class="info-badge difficulty-medium">⭐⭐ Medio</span>
+                        <span class="info-badge">⏱️ 15-20 minuti</span>
+                    </div>
+                    
+                    <div class="objectives">
+                        <h4>🎯 Obiettivi:</h4>
+                        <ul>
+                            <li>Migliorare le competenze di lettura e comprensione</li>
+                            <li>Applicare il "protégé effect" (insegnando si impara meglio)</li>
+                            <li>Sviluppare pazienza e capacità di spiegazione</li>
+                            <li>Rafforzare la fiducia reciproca</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>📋 Come si gioca:</h4>
+                        <ol>
+                            <li>Scegliete un testo leggermente sfidante per il tutee</li>
+                            <li>Il tutor legge ad alta voce un paragrafo con espressione</li>
+                            <li>Il tutee ripete leggendo lo stesso paragrafo</li>
+                            <li>Insieme discutono il significato e chiariscono dubbi</li>
+                            <li>I ruoli possono alternarsi ogni 5 minuti</li>
+                        </ol>
+                    </div>
+
+                    <div class="note">
+                        <strong>📝 Variante digitale:</strong> Create video tutorial dove il tutor spiega un concetto 
+                        difficile al tutee. Questi video possono essere salvati e utilizzati per aiutare altri studenti!
+                    </div>
+
+                    <div class="tips">
+                        <h4>💡 Suggerimenti:</h4>
+                        <p>
+                            Usate materiali del programma curricolare! Questo permette al tutor di consolidare 
+                            le sue conoscenze mentre aiuta il compagno. Create una "biblioteca di aiuto" 
+                            con i video tutorial realizzati dagli studenti.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <h3><span class="icon">🧩</span> Flashcard Game (Metodo Kagan)</h3>
+                    <div class="game-info">
+                        <span class="info-badge participants-2">👥 2 studenti</span>
+                        <span class="info-badge difficulty-easy">⭐ Facile</span>
+                        <span class="info-badge">⏱️ 10-15 minuti</span>
+                    </div>
+                    
+                    <div class="objectives">
+                        <h4>🎯 Obiettivi:</h4>
+                        <ul>
+                            <li>Memorizzare vocaboli, formule o concetti chiave</li>
+                            <li>Fornire feedback immediato e costruttivo</li>
+                            <li>Creare automatismo nell'apprendimento</li>
+                            <li>Rendere divertente la ripetizione</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>📋 Come si gioca:</h4>
+                        <ol>
+                            <li>Preparate flashcard con domande su un lato e risposte sull'altro</li>
+                            <li>Il tutor mostra la domanda al tutee</li>
+                            <li>Il tutee risponde e il tutor conferma o corregge gentilmente</li>
+                            <li>Le carte indovinate vanno in un mazzo, quelle sbagliate tornano nel gioco</li>
+                            <li>Dopo 5 minuti, si scambiano i ruoli</li>
+                        </ol>
+                    </div>
+
+                    <div class="tips">
+                        <h4>💡 Suggerimenti:</h4>
+                        <p>
+                            Create flashcard colorate per diversi argomenti (es: blu per matematica, 
+                            verde per scienze). Gli studenti possono creare le proprie flashcard come attività 
+                            preparatoria - questo processo di creazione è già apprendimento!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <h3><span class="icon">🎭</span> Role Playing in Coppia</h3>
+                    <div class="game-info">
+                        <span class="info-badge participants-2">👥 2 studenti</span>
+                        <span class="info-badge difficulty-medium">⭐⭐ Medio</span>
+                        <span class="info-badge">⏱️ 10-15 minuti</span>
+                    </div>
+                    
+                    <div class="objectives">
+                        <h4>🎯 Obiettivi:</h4>
+                        <ul>
+                            <li>Sviluppare empatia e comprensione reciproca</li>
+                            <li>Praticare abilità comunicative e sociali</li>
+                            <li>Simulare situazioni reali in ambiente protetto</li>
+                            <li>Migliorare problem-solving e gestione conflitti</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>📋 Come si gioca:</h4>
+                        <ol>
+                            <li>Scegliete una situazione da interpretare (es: colloquio di lavoro, risoluzione di un problema, dialogo difficile)</li>
+                            <li>Assegnate i ruoli a ciascuno studente</li>
+                            <li>Date 2 minuti per preparare il personaggio</li>
+                            <li>Interpretate la scena per 5-7 minuti</li>
+                            <li>Riflettete insieme: cosa avete imparato? Come vi siete sentiti?</li>
+                        </ol>
+                    </div>
+
+                    <div class="tips">
+                        <h4>💡 Suggerimenti:</h4>
+                        <p>
+                            Usate scenari legati al curriculum (es: dibattito storico, intervista a uno scienziato, 
+                            dialogo tra personaggi letterari). Potete anche simulare situazioni di tutoraggio 
+                            per migliorare le competenze dei tutor!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <h3><span class="icon">🎬</span> Tutorial Video Challenge</h3>
+                    <div class="game-info">
+                        <span class="info-badge participants-2">👥 2 studenti</span>
+                        <span class="info-badge difficulty-hard">⭐⭐⭐ Avanzato</span>
+                        <span class="info-badge">⏱️ 30-45 minuti</span>
+                    </div>
+                    
+                    <div class="objectives">
+                        <h4>🎯 Obiettivi:</h4>
+                        <ul>
+                            <li>Applicare il "protégé effect" attraverso la tecnologia</li>
+                            <li>Sviluppare competenze digitali e di comunicazione</li>
+                            <li>Creare risorse riutilizzabili per la classe</li>
+                            <li>Aumentare motivazione e senso di responsabilità</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>📋 Come si gioca:</h4>
+                        <ol>
+                            <li>La coppia sceglie un concetto da spiegare (es: teorema matematico, processo scientifico)</li>
+                            <li>Pianificano insieme la struttura del video (introduzione, spiegazione, esempio, conclusione)</li>
+                            <li>Uno fa da "presentatore" e l'altro da "cameraman/editor"</li>
+                            <li>Registrano il video tutorial di 3-5 minuti</li>
+                            <li>Condividono con la classe per aiutare altri studenti</li>
+                        </ol>
+                    </div>
+
+                    <div class="note">
+                        <strong>🔧 Strumenti suggeriti:</strong> Smartphone, tablet, app come Seesaw, 
+                        Google Classroom, Flipgrid, o semplicemente la fotocamera del telefono!
+                    </div>
+
+                    <div class="tips">
+                        <h4>💡 Suggerimenti:</h4>
+                        <p>
+                            Create una "biblioteca video" della classe dove archiviare tutti i tutorial. 
+                            Gli studenti possono consultare questi video quando hanno difficoltà. 
+                            Questo crea una risorsa permanente e dà valore al lavoro degli studenti!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEZIONE GIOCHI DI GRUPPO -->
+            <div id="gruppo" class="game-section">
+                <div class="game-card">
+                    <h3><span class="icon">🏗️</span> Torre di Blocchi Cooperativa</h3>
+                    <div class="game-info">
+                        <span class="info-badge participants-small">👥 4-6 studenti</span>
+                        <span class="info-badge difficulty-easy">⭐ Facile</span>
+                        <span class="info-badge">⏱️ 10-15 minuti</span>
+                    </div>
+                    
+                    <div class="objectives">
+                        <h4>🎯 Obiettivi:</h4>
+                        <ul>
+                            <li>Sviluppare coordinazione e pianificazione di gruppo</li>
+                            <li>Praticare comunicazione chiara e ascolto</li>
+                            <li>Imparare a gestire il successo e il fallimento insieme</li>
+                            <li>Costruire fiducia reciproca</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>📋 Come si gioca:</h4>
+                        <ol>
+                            <li>Date a ogni gruppo 20-30 blocchi (o bicchieri di plastica)</li>
+                            <li>A turno, ogni studente aggiunge un blocco alla torre</li>
+                            <li>Prima di posizionare il blocco, deve spiegare perché lo mette lì</li>
+                            <li>Il gruppo può dare suggerimenti ma deve rispettare la decisione finale</li>
+                            <li>Obiettivo: costruire la torre più alta possibile senza farla cadere</li>
+                        </ol>
+                    </div>
+
+                    <div class="note">
+                        <strong>🎲 Variante con dado:</strong> Lanciate un dado e aggiungete quel numero 
+                        di blocchi alla torre. Aumenta la sfida e richiede più strategia!
+                    </div>
+
+                    <div class="tips">
+                        <h4>💡 Suggerimenti:</h4>
+                        <p>
+                            Dopo il gioco, fate un debriefing: "Quale strategia avete usato?", 
+                            "Come avete comunicato?", "Cosa migliorereste la prossima volta?". 
+                            Questo momento riflessivo è prezioso quanto il gioco stesso!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <h3><span class="icon">🎈</span> Keep the Balloon Up!</h3>
+                    <div class="game-info">
+                        <span class="info-badge participants-small">👥 5-8 studenti</span>
+                        <span class="info-badge difficulty-easy">⭐ Facile</span>
+                        <span class="info-badge">⏱️ 5-10 minuti</span>
+                    </div>
+                    
+                    <div class="objectives">
+                        <h4>🎯 Obiettivi:</h4>
+                        <ul>
+                            <li>Sviluppare coordinazione e sincronizzazione di gruppo</li>
+                            <li>Praticare supporto reciproco e incoraggiamento</li>
+                            <li>Gestire energia fisica e mentale insieme</li>
+                            <li>Celebrare successi collettivi</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>📋 Come si gioca:</h4>
+                        <ol>
+                            <li>Il gruppo forma un cerchio tenendosi per mano</li>
+                            <li>Lanciate un palloncino (o più palloncini) nel cerchio</li>
+                            <li>Obiettivo: mantenere i palloncini in aria senza mai lasciare le mani dei compagni</li>
+                            <li>Potete usare testa, spalle, braccia, ginocchia - ma NON i piedi!</li>
+                            <li>Contate quanti tocchi riuscite a fare senza far cadere il palloncino</li>
+                        </ol>
+                    </div>
+
+                    <div class="note">
+                        <strong>⚡ Livelli di difficoltà:</strong> 
+                        <br>Principianti: 1 palloncino
+                        <br>Intermedio: 2 palloncini
+                        <br>Esperto: 3+ palloncini o con musica di sottofondo!
+                    </div>
+
+                    <div class="tips">
+                        <h4>💡 Suggerimenti:</h4>
+                        <p>
+                            Perfetto come energizer quando l'attenzione cala! Aiuta a rilassare 
+                            l'atmosfera e crea un senso di unità. Potete usarlo anche come "premio" 
+                            dopo un'attività impegnativa.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <h3><span class="icon">🗣️</span> Storia in 5 Parole</h3>
+                    <div class="game-info">
+                        <span class="info-badge participants-large">👥 Tutta la classe</span>
+                        <span class="info-badge difficulty-medium">⭐⭐ Medio</span>
+                        <span class="info-badge">⏱️ 10-15 minuti</span>
+                    </div>
+                    
+                    <div class="objectives">
+                        <h4>🎯 Obiettivi:</h4>
+                        <ul>
+                            <li>Sviluppare ascolto attivo e attenzione</li>
+                            <li>Praticare sintesi e comunicazione efficace</li>
+                            <li>Stimolare creatività e pensiero narrativo</li>
+                            <li>Creare coesione di gruppo attraverso storytelling</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>📋 Come si gioca:</h4>
+                        <ol>
+                            <li>Il primo studente inizia una storia con esattamente 5 parole</li>
+                            <li>Il secondo continua la storia con altre 5 parole</li>
+                            <li>Si prosegue in cerchio finché la storia non si conclude naturalmente</li>
+                            <li>Opzionale: registrate o scrivete la storia finale</li>
+                            <li>Alla fine, rileggetela insieme e godetevi il risultato!</li>
+                        </ol>
+                    </div>
+
+                    <div class="note">
+                        <strong>📚 Variante didattica:</strong> Invece di creare una storia nuova, 
+                        fate riassumere un testo o articolo studiato in classe. Ogni studente 
+                        contribuisce con 5 parole chiave del contenuto!
+                    </div>
+
+                    <div class="tips">
+                        <h4>💡 Suggerimenti:</h4>
+                        <p>
+                            Per rendere più accessibile, permettete agli studenti con difficoltà 
+                            di usare 3-4 parole invece di 5. Create una "galleria di storie" 
+                            appendendo le migliori produzioni in classe!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <h3><span class="icon">🔍</span> Escape Room Educativa</h3>
+                    <div class="game-info">
+                        <span class="info-badge participants-small">👥 4-6 studenti</span>
+                        <span class="info-badge difficulty-hard">⭐⭐⭐ Avanzato</span>
+                        <span class="info-badge">⏱️ 30-45 minuti</span>
+                    </div>
+                    
+                    <div class="objectives">
+                        <h4>🎯 Obiettivi:</h4>
+                        <ul>
+                            <li>Sviluppare problem-solving collaborativo</li>
+                            <li>Applicare conoscenze curricolari in contesto ludico</li>
+                            <li>Praticare gestione del tempo e delle priorità</li>
+                            <li>Rafforzare pensiero critico e deduzione</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>📋 Come si gioca:</h4>
+                        <ol>
+                            <li>Create una serie di enigmi legati al programma di studio</li>
+                            <li>Organizzate gli enigmi in sequenza logica con indizi</li>
+                            <li>Date al gruppo una "missione" e un tempo limite (30 minuti)</li>
+                            <li>Gli studenti devono collaborare per risolvere gli enigmi</li>
+                            <li>Ogni enigma risolto fornisce un indizio per il successivo</li>
+                            <li>Obiettivo finale: "fuggire" risolvendo l'ultimo enigma!</li>
+                        </ol>
+                    </div>
+
+                    <div class="note">
+                        <strong>💻 Escape Room Digitale:</strong> Provate "Escape Fake" - un'escape room 
+                        che sfida gli studenti a riconoscere fake news e disinformazione online. 
+                        Perfetta per l'educazione civica digitale!
+                    </div>
+
+                    <div class="tips">
+                        <h4>💡 Suggerimenti:</h4>
+                        <p>
+                            Create escape room tematiche per ogni materia: "Fuga dal Laboratorio" 
+                            per scienze, "Il Mistero del Manoscritto" per letteratura, 
+                            "La Cripta dei Numeri" per matematica. Gli studenti possono anche 
+                            creare escape room per altri gruppi!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <h3><span class="icon">🤫</span> Linea Silenziosa</h3>
+                    <div class="game-info">
+                        <span class="info-badge participants-large">👥 10-20 studenti</span>
+                        <span class="info-badge difficulty-medium">⭐⭐ Medio</span>
+                        <span class="info-badge">⏱️ 10-15 minuti</span>
+                    </div>
+                    
+                    <div class="objectives">
+                        <h4>🎯 Obiettivi:</h4>
+                        <ul>
+                            <li>Sviluppare comunicazione non-verbale</li>
+                            <li>Praticare problem-solving creativo</li>
+                            <li>Migliorare osservazione e attenzione ai dettagli</li>
+                            <li>Rafforzare inclusione e collaborazione</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>📋 Come si gioca:</h4>
+                        <ol>
+                            <li>Gli studenti si dispongono in una linea casuale</li>
+                            <li>Date loro un criterio di ordinamento (es: data di nascita, altezza, ordine alfabetico del nome)</li>
+                            <li><span class="highlight">REGOLA D'ORO:</span> Non possono parlare!</li>
+                            <li>Devono riorganizzarsi nell'ordine corretto usando solo gesti e linguaggio del corpo</li>
+                            <li>Cronometrate il tempo e celebrate quando ci riescono!</li>
+                        </ol>
+                    </div>
+
+                    <div class="note">
+                        <strong>🎯 Varianti creative:</strong>
+                        <br>• Ordine per numero di fratelli
+                        <br>• Ordine per distanza casa-scuola
+                        <br>• Ordine alfabetico del libro preferito
+                        <br>• Ordine per nota ottenuta nell'ultimo compito (divertente e auto-ironico!)
+                    </div>
+
+                    <div class="tips">
+                        <h4>💡 Suggerimenti:</h4>
+                        <p>
+                            Ottimo icebreaker e fantastico per sviluppare empatia! Dopo il gioco, 
+                            discutete: "Come vi siete sentiti senza poter parlare?", 
+                            "Quali strategie avete usato per comunicare?". Perfetto anche per 
+                            studenti timidi che trovano più facile partecipare senza parlare.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <h3><span class="icon">📸</span> 4 Immagini, 1 Storia</h3>
+                    <div class="game-info">
+                        <span class="info-badge participants-small">👥 4-5 studenti</span>
+                        <span class="info-badge difficulty-medium">⭐⭐ Medio</span>
+                        <span class="info-badge">⏱️ 20-25 minuti</span>
+                    </div>
+                    
+                    <div class="objectives">
+                        <h4>🎯 Obiettivi:</h4>
+                        <ul>
+                            <li>Stimolare creatività e pensiero narrativo</li>
+                            <li>Praticare brainstorming collaborativo</li>
+                            <li>Sviluppare capacità di sintesi e presentazione</li>
+                            <li>Imparare a costruire consenso in gruppo</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>📋 Come si gioca:</h4>
+                        <ol>
+                            <li>Fornite a ogni gruppo 4 immagini casuali (oggetti, luoghi, persone, animali)</li>
+                            <li>Il gruppo ha 15 minuti per inventare una storia che colleghi tutte e 4 le immagini</li>
+                            <li>La storia deve avere inizio, sviluppo e conclusione</li>
+                            <li>Ogni membro deve contribuire con almeno un elemento</li>
+                            <li>Alla fine, ogni gruppo presenta la sua storia alla classe (3-5 minuti)</li>
+                        </ol>
+                    </div>
+
+                    <div class="note">
+                        <strong>🎨 Estensione creativa:</strong> Dopo aver creato la storia, 
+                        gli studenti possono creare un fumetto, uno storyboard, o persino 
+                        registrare un video della loro narrazione!
+                    </div>
+
+                    <div class="tips">
+                        <h4>💡 Suggerimenti:</h4>
+                        <p>
+                            Potete tematizzare le immagini in base alla materia: immagini storiche 
+                            per storia, elementi naturali per scienze, opere d'arte per letteratura. 
+                            Create una "galleria delle storie" in classe o online!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEZIONE GIOCHI MISTI (COPPIA → GRUPPO) -->
+            <div id="misti" class="game-section">
+                <div class="game-card">
+                    <h3><span class="icon">🍽️</span> Il Ristorante Sei Tu!</h3>
+                    <div class="game-info">
+                        <span class="info-badge participants-2">👥 Prima in coppia</span>
+                        <span class="info-badge participants-large">👥 Poi tutta la classe</span>
+                        <span class="info-badge difficulty-easy">⭐ Facile</span>
+                        <span class="info-badge">⏱️ 30 minuti totali</span>
+                    </div>
+                    
+                    <div class="objectives">
+                        <h4>🎯 Obiettivi:</h4>
+                        <ul>
+                            <li>Presentarsi in modo creativo e personale</li>
+                            <li>Sviluppare identità e auto-consapevolezza</li>
+                            <li>Conoscere interessi e passioni dei compagni</li>
+                            <li>Creare clima positivo e divertente in classe</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>📋 Come si gioca:</h4>
+                        <ol>
+                            <li><strong>Fase 1 - Individuale (10 min):</strong> Ogni studente crea il proprio "menù ristorante" con:
+                                <ul style="margin-top: 10px;">
+                                    <li>Nome del ristorante (che rappresenti la tua personalità)</li>
+                                    <li>Primo piatto (un tuo interesse principale)</li>
+                                    <li>Secondo piatto (un tuo talento o hobby)</li>
+                                    <li>Dolce (un tuo sogno o aspirazione)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Fase 2 - In coppia (10 min):</strong> Tutor e tutee si intervistano a vicenda sui loro menù, aiutandosi a perfezionare le descrizioni</li>
+                            <li><strong>Fase 3 - Presentazione (10 min):</strong> Ogni coppia presenta i propri "ristoranti" alla classe, spiegando le scelte</li>
+                            <li><strong>Fase 4 - Voting (opzionale):</strong> Votate in modo non competitivo il menù più creativo, il nome più originale, ecc.</li>
+                        </ol>
+                    </div>
+
+                    <div class="note">
+                        <strong>♿ Accessibilità:</strong> Per studenti con difficoltà di scrittura, 
+                        permettete l'uso di immagini ritagliate da riviste o disegni. Per chi ha 
+                        difficoltà espressive, il tutor può aiutare nell'elaborazione!
+                    </div>
+
+                    <div class="tips">
+                        <h4>💡 Suggerimenti:</h4>
+                        <p>
+                            Create veri e propri menù su cartoncino colorato! Appendeteli in classe 
+                            come "galleria dei ristoranti". Ottimo per l'inizio dell'anno o per 
+                            integrare nuovi studenti. Potete anche creare un "libro dei ristoranti" 
+                            digitale della classe!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <h3><span class="icon">🎥</span> Ecosistema QR Code</h3>
+                    <div class="game-info">
+                        <span class="info-badge participants-2">👥 Prima in coppia</span>
+                        <span class="info-badge participants-large">👥 Poi tutta la classe</span>
+                        <span class="info-badge difficulty-hard">⭐⭐⭐ Avanzato</span>
+                        <span class="info-badge">⏱️ 2-3 sessioni</span>
+                    </div>
+                    
+                    <div class="objectives">
+                        <h4>🎯 Obiettivi:</h4>
+                        <ul>
+                            <li>Sviluppare competenze digitali (video editing, QR codes)</li>
+                            <li>Praticare collaborazione in ruoli alternati</li>
+                            <li>Creare risorse permanenti per la scuola</li>
+                            <li>Valorizzare spazi e cultura scolastica</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>📋 Come si gioca:</h4>
+                        <ol>
+                            <li><strong>Sessione 1 - Pianificazione (coppia):</strong>
+                                <ul style="margin-top: 10px;">
+                                    <li>Scegliete uno spazio della scuola da documentare</li>
+                                    <li>Ricercate informazioni e storie su quello spazio</li>
+                                    <li>Scrivete un breve testo descrittivo (max 200 parole)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Sessione 2 - Produzione (coppia):</strong>
+                                <ul style="margin-top: 10px;">
+                                    <li>Uno fa da voce narrante, l'altro da videomaker</li>
+                                    <li>Registrate un video di 1-2 minuti sullo spazio</li>
+                                    <li>Alternate i ruoli per documentare più luoghi</li>
+                                    <li>Create QR code che linkano ai vostri video</li>
+                                </ul>
+                            </li>
+                            <li><strong>Sessione 3 - Condivisione (classe):</strong>
+                                <ul style="margin-top: 10px;">
+                                    <li>Posizionate i QR codes negli spazi documentati</li>
+                                    <li>Create una bacheca digitale con tutti i contenuti</li>
+                                    <li>Presentate il progetto ad altre classi</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <div class="note">
+                        <strong>🔧 Strumenti necessari:</strong> Smartphone/tablet, app per QR code 
+                        (QR Code Generator, QRStuff), piattaforma per bacheca digitale (Padlet, 
+                        Wakelet, Google Sites). Tutto gratuito!
+                    </div>
+
+                    <div class="tips">
+                        <h4>💡 Suggerimenti:</h4>
+                        <p>
+                            Perfetto per progetti interdisciplinari! Potete documentare: luoghi 
+                            storici della città, specie botaniche del giardino scolastico, opere 
+                            d'arte della scuola, o creare una "guida turistica" digitale della scuola 
+                            per le future prime classi!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <h3><span class="icon">⚔️</span> Class Wide Peer Tutoring (CWPT)</h3>
+                    <div class="game-info">
+                        <span class="info-badge participants-2">👥 Coppie tutor-tutee</span>
+                        <span class="info-badge participants-large">👥 Due squadre classe</span>
+                        <span class="info-badge difficulty-medium">⭐⭐ Medio</span>
+                        <span class="info-badge">⏱️ 20-30 minuti</span>
+                    </div>
+                    
+                    <div class="objectives">
+                        <h4>🎯 Obiettivi:</h4>
+                        <ul>
+                            <li>Aumentare tempo di pratica attiva per ogni studente</li>
+                            <li>Fornire feedback immediato e correzione errori</li>
+                            <li>Motivare attraverso competizione costruttiva</li>
+                            <li>Sviluppare auto-regolazione e monitoraggio</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>📋 Come si gioca:</h4>
+                        <ol>
+                            <li><strong>Setup:</strong> Dividete la classe in due squadre bilanciate</li>
+                            <li><strong>Accoppiamento:</strong> All'interno di ogni squadra, create coppie tutor-tutee</li>
+                            <li><strong>Round 1 (10 min):</strong>
+                                <ul style="margin-top: 10px;">
+                                    <li>Il tutor pone domande/problemi al tutee</li>
+                                    <li>Per ogni risposta corretta del tutee: +2 punti alla squadra</li>
+                                    <li>Per ogni correzione gentile del tutor: +1 punto bonus</li>
+                                </ul>
+                            </li>
+                            <li><strong>Round 2 (10 min):</strong> Si invertono i ruoli!</li>
+                            <li><strong>Finale:</strong> Si sommano i punti e si proclama la squadra vincitrice</li>
+                        </ol>
+                    </div>
+
+                    <div class="note">
+                        <strong>📊 Sistema di punteggio:</strong>
+                        <br>• Risposta corretta: +2 punti
+                        <br>• Correzione efficace: +1 punto
+                        <br>• Buon comportamento collaborativo: +1 punto bonus
+                        <br>• Alla fine: tutti vincono perché tutti imparano!
+                    </div>
+
+                    <div class="tips">
+                        <h4>💡 Suggerimenti:</h4>
+                        <p>
+                            Usatelo per ripassare contenuti: spelling in inglese, tabelline in 
+                            matematica, definizioni in scienze. Preparate materiali specifici per 
+                            ogni coppia. Fate una classifica settimanale ma cambiate le squadre 
+                            ogni volta per promuovere l'inclusione!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <h3><span class="icon">🧩</span> Jigsaw Collaborativo</h3>
+                    <div class="game-info">
+                        <span class="info-badge participants-small">👥 Gruppi base di 4-5</span>
+                        <span class="info-badge participants-small">👥 Poi gruppi esperti</span>
+                        <span class="info-badge difficulty-hard">⭐⭐⭐ Avanzato</span>
+                        <span class="info-badge">⏱️ 45-60 minuti</span>
+                    </div>
+                    
+                    <div class="objectives">
+                        <h4>🎯 Obiettivi:</h4>
+                        <ul>
+                            <li>Sviluppare interdipendenza positiva</li>
+                            <li>Diventare "esperti" in un sotto-argomento</li>
+                            <li>Praticare insegnamento reciproco strutturato</li>
+                            <li>Costruire visione d'insieme collaborando</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>📋 Come si gioca:</h4>
+                        <ol>
+                            <li><strong>Fase 1 - Gruppi Base (5 min):</strong> Create gruppi "casa" di 4-5 studenti</li>
+                            <li><strong>Fase 2 - Assegnazione (2 min):</strong> Ogni membro riceve un sotto-argomento diverso da studiare</li>
+                            <li><strong>Fase 3 - Gruppi Esperti (20 min):</strong>
+                                <ul style="margin-top: 10px;">
+                                    <li>Gli studenti con lo stesso sotto-argomento si riuniscono</li>
+                                    <li>Studiano insieme e diventano "esperti"</li>
+                                    <li>Preparano come spiegarlo ai compagni</li>
+                                </ul>
+                            </li>
+                            <li><strong>Fase 4 - Ritorno alla Base (20 min):</strong>
+                                <ul style="margin-top: 10px;">
+                                    <li>Tornano al gruppo originale</li>
+                                    <li>A turno, ogni "esperto" insegna il suo pezzo</li>
+                                    <li>Il gruppo ricostruisce l'intero argomento</li>
+                                </ul>
+                            </li>
+                            <li><strong>Fase 5 - Verifica (10 min):</strong> Quiz o discussione finale per consolidare</li>
+                        </ol>
+                    </div>
+
+                    <div class="note">
+                        <strong>📚 Esempio pratico:</strong> Per studiare "La Seconda Guerra Mondiale", 
+                        i sotto-argomenti potrebbero essere: Cause, Europa, Pacifico, Olocausto, 
+                        Conseguenze. Ogni studente diventa esperto di uno e poi insegna agli altri!
+                    </div>
+
+                    <div class="tips">
+                        <h4>💡 Suggerimenti:</h4>
+                        <p>
+                            Fornite materiali strutturati per ogni sotto-argomento (schede, video, 
+                            capitoli specifici). Nei gruppi esperti, inserite un mix di abilità. 
+                            Create badge o certificati "Esperto di..." per valorizzare il ruolo! 
+                            Perfetto per argomenti complessi con diverse componenti.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <h3><span class="icon">🎤</span> Playlist di Classe</h3>
+                    <div class="game-info">
+                        <span class="info-badge participants-2">👥 Prima in coppia</span>
+                        <span class="info-badge participants-large">👥 Poi tutta la classe</span>
+                        <span class="info-badge difficulty-easy">⭐ Facile</span>
+                        <span class="info-badge">⏱️ 30-40 minuti</span>
+                    </div>
+                    
+                    <div class="objectives">
+                        <h4>🎯 Obiettivi:</h4>
+                        <ul>
+                            <li>Esprimere identità attraverso la musica</li>
+                            <li>Praticare ascolto empatico e rispetto delle differenze</li>
+                            <li>Creare connessioni emotive tra compagni</li>
+                            <li>Costruire patrimonio culturale condiviso</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>📋 Come si gioca:</h4>
+                        <ol>
+                            <li><strong>Fase 1 - Scelta (5 min):</strong> Ogni studente sceglie UNA canzone significativa per loro</li>
+                            <li><strong>Fase 2 - Coppia (10 min):</strong>
+                                <ul style="margin-top: 10px;">
+                                    <li>Condividete la vostra canzone con il partner</li>
+                                    <li>Spiegate PERCHÉ l'avete scelta (memoria, emozione, messaggio)</li>
+                                    <li>Ascoltate attivamente la canzone dell'altro</li>
+                                </ul>
+                            </li>
+                            <li><strong>Fase 3 - Presentazione (15 min):</strong>
+                                <ul style="margin-top: 10px;">
+                                    <li>Il tutor presenta la canzone del tutee alla classe</li>
+                                    <li>Fate ascoltare 30-60 secondi di ogni canzone</li>
+                                    <li>Alternate presentatori e presentati</li>
+                                </ul>
+                            </li>
+                            <li><strong>Fase 4 - Playlist (5 min):</strong> Create una playlist condivisa su Spotify/YouTube</li>
+                        </ol>
+                    </div>
+
+                    <div class="note">
+                        <strong>🎵 Variante "Memorie in 6 Parole":</strong> Invece di una canzone, 
+                        ogni studente scrive un racconto autobiografico in esattamente 6 parole 
+                        (es: "Sempre timida, ora finalmente coraggiosa oggi"). Ancora più intimo e personale!
+                    </div>
+
+                    <div class="tips">
+                        <h4>💡 Suggerimenti:</h4>
+                        <p>
+                            Create una playlist fisica della classe con post-it colorati su un cartellone! 
+                            Potete tematizzare: "Canzone che mi dà energia", "Canzone che mi rilassa", 
+                            "Canzone che mi rappresenta". Ascoltate la playlist nei momenti di pausa. 
+                            Celebra la diversità musicale e culturale!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <h3><span class="icon">🔬</span> Teach-Back Challenge</h3>
+                    <div class="game-info">
+                        <span class="info-badge participants-2">👥 Prima coppia</span>
+                        <span class="info-badge participants-large">👥 Poi presentazione</span>
+                        <span class="info-badge difficulty-medium">⭐⭐ Medio</span>
+                        <span class="info-badge">⏱️ 40-50 minuti</span>
+                    </div>
+                    
+                    <div class="objectives">
+                        <h4>🎯 Obiettivi:</h4>
+                        <ul>
+                            <li>Applicare il "protégé effect" (insegnando si impara meglio)</li>
+                            <li>Sviluppare capacità di spiegazione chiara</li>
+                            <li>Creare materiali didattici riutilizzabili</li>
+                            <li>Aumentare sicurezza e autoefficacia</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>📋 Come si gioca:</h4>
+                        <ol>
+                            <li><strong>Fase 1 - Assegnazione (5 min):</strong> Ogni coppia riceve un concetto da padroneggiare (teorema, processo, evento storico)</li>
+                            <li><strong>Fase 2 - Studio Coppia (15 min):</strong>
+                                <ul style="margin-top: 10px;">
+                                    <li>Studiate insieme il materiale fornito</li>
+                                    <li>Identificate punti chiave e difficoltà</li>
+                                    <li>Preparate una mini-lezione di 3-5 minuti</li>
+                                    <li>Create supporti visivi (disegni, schemi, esempi)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Fase 3 - Teach-Back (20 min):</strong>
+                                <ul style="margin-top: 10px;">
+                                    <li>Ogni coppia "insegna" il concetto alla classe</li>
+                                    <li>La classe fa domande e richiede chiarimenti</li>
+                                    <li>L'insegnante valuta comprensione e qualità spiegazione</li>
+                                </ul>
+                            </li>
+                            <li><strong>Fase 4 - Feedback (10 min):</strong> Discussione su cosa ha funzionato e cosa migliorare</li>
+                        </ol>
+                    </div>
+
+                    <div class="note">
+                        <strong>🌟 Power-Up:</strong> Registrate le mini-lezioni e create una 
+                        "videoteca di classe" dove gli studenti possono rivedere i concetti. 
+                        Questi video diventano risorse preziose per ripassi e recuperi!
+                    </div>
+
+                    <div class="tips">
+                        <h4>💡 Suggerimenti:</h4>
+                        <p>
+                            Date una rubrica di valutazione chiara: chiarezza (1-5), creatività (1-5), 
+                            completezza (1-5), risposta a domande (1-5). Create una "hall of fame" 
+                            delle migliori spiegazioni. Ricordate: l'obiettivo è imparare insegnando, 
+                            non essere perfetti!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>Prof. Salva Picconi</strong></p>
+            <p>IIS Meucci Mattei - Sede Decimomannu</p>
+            <p>Indirizzo Servizi per la Sanità e l'Assistenza Sociale</p>
+            <p style="margin-top: 20px;">
+                💡 <em>"Il miglior modo per imparare è insegnare"</em> 💡
+            </p>
+            <p style="margin-top: 15px;">
+                <a href="https://salvapicconi.github.io/metodologieoperative/">← Torna alla home</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Nascondi tutte le sezioni
+            const sections = document.querySelectorAll('.game-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Rimuovi active da tutti i tab
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Mostra la sezione selezionata
+            document.getElementById(sectionId).classList.add('active');
+
+            // Aggiungi active al tab cliccato
+            event.target.classList.add('active');
+
+            // Scroll smooth alla sezione
+            document.querySelector('.content').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Aggiungi animazione di entrata alle card
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.game-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
