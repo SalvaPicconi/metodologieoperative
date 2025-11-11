@@ -2164,9 +2164,6 @@ Tempi di monitoraggio: ..." name="task3-valutazione"></textarea>
                     <button class="button button-success" onclick="printWork()">
                         🖨️ Stampa il tuo lavoro completo
                     </button>
-                    <button class="button" onclick="exportTXT()">
-                        💾 Esporta TXT
-                    </button>
                 </div>
             </div>
 
@@ -2626,46 +2623,6 @@ Tempi di monitoraggio: ..." name="task3-valutazione"></textarea>
 
         setInterval(saveProgress, 30000);
         window.addEventListener('beforeunload', saveProgress);
-
-        // =======================
-        // ESPORTAZIONE
-        // =======================
-        function exportTXT() {
-            const lines = [];
-            lines.push('='.repeat(60));
-            lines.push("L'OPERATORE SOCIALE DEI SERVIZI SOCIO-SANITARI");
-            lines.push('Percorso Interattivo Gamificato - Il Mio Lavoro');
-            lines.push('='.repeat(60));
-            lines.push('');
-            lines.push('Data: ' + new Date().toLocaleDateString('it-IT'));
-            lines.push('Punteggio totale: ' + totalScore + '/290 punti');
-            lines.push('Badge sbloccati: ' + unlockedBadges.size + '/6');
-            lines.push('');
-            lines.push('='.repeat(60));
-            lines.push('');
-
-            document.querySelectorAll('textarea, input[type=\"text\"]').forEach(el => {
-                const value = el.value.trim();
-                if (value) {
-                    const label = el.parentElement.querySelector('label');
-                    if (label) {
-                        lines.push(label.textContent.trim());
-                        lines.push('-'.repeat(40));
-                        lines.push(value);
-                        lines.push('');
-                    }
-                }
-            });
-
-            const content = lines.join('\\n');
-            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'Operatore sociale_Percorso_' + new Date().toISOString().slice(0, 10) + '.txt';
-            a.click();
-            URL.revokeObjectURL(url);
-        }
 
         function printWork() {
             saveProgress();
