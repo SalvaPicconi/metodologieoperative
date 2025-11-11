@@ -391,6 +391,7 @@ textarea {
     flex-direction: column;
     gap: 18px;
     transition: var(--transition);
+    min-height: 320px;
 }
 
 .meeting-card:hover {
@@ -408,6 +409,7 @@ textarea {
     justify-content: space-between;
     align-items: flex-start;
     gap: 12px;
+    flex-wrap: wrap;
 }
 
 .meeting-card h3 {
@@ -416,6 +418,8 @@ textarea {
     display: flex;
     align-items: center;
     gap: 10px;
+    line-height: 1.35;
+    flex: 1 1 220px;
 }
 
 .meeting-status {
@@ -427,6 +431,7 @@ textarea {
     background: rgba(74, 144, 226, 0.12);
     color: var(--accent-strong);
     white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .meeting-card.completed .meeting-status {
@@ -1034,6 +1039,16 @@ footer.crediti {
     .progress-step .step-label {
         font-size: 0.95rem;
     }
+
+    .meeting-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .meeting-status {
+        white-space: normal;
+    }
 }
 </style>
 </head>
@@ -1377,9 +1392,6 @@ footer.crediti {
                         <button type="button" class="nav-button next" onclick="window.open('peer_tutoring_games.html', '_blank')">
                             Apri il laboratorio Giochi →
                         </button>
-                        <a class="nav-button prev" href="peer_tutoring_games.html" download>
-                            Scarica la versione offline
-                        </a>
                     </div>
                 </article>
             </div>
