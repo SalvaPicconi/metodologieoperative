@@ -65,6 +65,34 @@ async function supabaseRequest(path, options = {}) {
     }
 }
 
+function fetchTestsFromSupabase(filter = {}) {
+    if (!SUPABASE_CONFIG.ENABLED) {
+        return Promise.resolve([]);
+    }
+
+    const params = new URLSearchParams();
+    params.set('select', 'id,class_code,student_code,participant,results,responses,created_at,started_at,ended_at');
+    params.set('order', 'created_at.desc');
+    if (filter.classCode) {
+        params.set('class_code', `eq.${filter.classCode}`);
+    }
+
+    return supabaseRequest(`${SUPABASE_CONFIG.TESTS_TABLE}?${params.toString()}`);
+}
+
+function fetchReflectionsFromSupabase(filter = {}) {
+    if (!SUPABASE_CONFIG.ENABLED) {
+        return Promise.resolve([]);
+    }
+    const params = new URLSearchParams();
+    params.set('select', 'id,class_code,student_code,participant,reflections,submitted_at');
+    params.set('order', 'submitted_at.desc');
+    if (filter.classCode) {
+        params.set('class_code', `eq.${filter.classCode}`);
+    }
+    return supabaseRequest(`${SUPABASE_CONFIG.REFLECTIONS_TABLE}?${params.toString()}`);
+}
+
 // === SALVATAGGIO LOCALE ===
 function saveToLocalStorage(testData) {
     try {
@@ -455,6 +483,12 @@ window.exportToCSV = exportToCSV;
 window.exportDetailedCSV = exportDetailedCSV;
 window.getAggregateStats = getAggregateStats;
 window.anonymizeData = anonymizeData;
+window.StroopDataAPI = {
+    isSupabaseEnabled: () => SUPABASE_CONFIG.ENABLED,
+    fetchAllTests: () => fetchTestsFromSupabase(),
+    fetchTestsByClass: (classCode) => fetchTestsFromSupabase({ classCode }),
+    fetchReflections: (classCode) => fetchReflectionsFromSupabase({ classCode })
+};
 
 // === CONFIGURAZIONE GOOGLE SHEETS (GUIDA) ===
 window.STROOP_DATA_SETUP = {

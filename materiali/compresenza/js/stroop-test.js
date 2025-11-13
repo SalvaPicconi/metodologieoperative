@@ -34,6 +34,13 @@ const appState = {
     }
 };
 
+const classStatsState = {
+    allTests: [],
+    filteredTests: [],
+    summaries: [],
+    currentClass: ''
+};
+
 // === GESTIONE SEZIONI ===
 function showSection(sectionId) {
     // Nascondi tutte le sezioni
@@ -562,72 +569,75 @@ function handleAuth(e) {
     }
 }
 
-function loadClassStatistics() {
-    const allTests = JSON.parse(localStorage.getItem('stroopTests') || '[]');
+async function loadClassStatistics() {
+    const statsContent = document.getElementById('stats-content');
+    const tbody = document.getElementById('participants-tbody');
+    const summaryBody = document.querySelector('#class-summary-table tbody');
     
-    if (allTests.length === 0) {
-        document.getElementById('stats-content').innerHTML = '<p>Nessun dato disponibile. Completa almeno un test per vedere le statistiche.</p>';
+    if (!statsContent || !tbody || !summaryBody) {
+        return;
+    }
+
+    tbody.innerHTML = '<tr><td colspan="7">Caricamento dati...</td></tr>';
+    summaryBody.innerHTML = '<tr><td colspan="4">Caricamento dati...</td></tr>';
+    updateFilterMessage('Caricamento dati...');
+    
+    let records = [];
+    try {
+        if (window.StroopDataAPI?.isSupabaseEnabled()) {
+            records = await window.StroopDataAPI.fetchAllTests();
+        }
+    } catch (error) {
+        console.error('Errore nel recupero dei dati da Supabase:', error);
+    }
+    
+    if (!records.length) {
+        records = JSON.parse(localStorage.getItem('stroopTests') || '[]');
+    }
+    
+    if (!records.length) {
+        statsContent.innerHTML = '<p>Nessun dato disponibile. Completa almeno un test per vedere le statistiche.</p>';
         return;
     }
     
-    // Calcola statistiche aggregate
-    const totalParticipants = allTests.length;
-    const avgScore = allTests.reduce((sum, test) => sum + test.testData.results.finalScore, 0) / totalParticipants;
-    const avgTime = allTests.reduce((sum, test) => sum + test.testData.results.avgTime, 0) / totalParticipants;
-    const avgAccuracy = allTests.reduce((sum, test) => sum + test.testData.results.accuracy, 0) / totalParticipants;
+    const normalizedTests = records
+        .map(normalizeTestRecord)
+        .filter(Boolean);
     
-    // Aggiorna UI
-    document.getElementById('total-participants').textContent = totalParticipants;
-    document.getElementById('class-avg-score').textContent = Math.round(avgScore);
-    document.getElementById('class-avg-time').textContent = avgTime.toFixed(2) + 's';
-    document.getElementById('class-avg-accuracy').textContent = avgAccuracy.toFixed(1) + '%';
-    
-    // Popola tabella
-    const tbody = document.getElementById('participants-tbody');
-    tbody.innerHTML = '';
-    
-    allTests.forEach(test => {
-        const row = document.createElement('tr');
-        const date = new Date(test.participant.timestamp);
-        row.innerHTML = `
-            <td>${date.toLocaleDateString('it-IT')} ${date.toLocaleTimeString('it-IT')}</td>
-            <td>${test.participant.name}</td>
-            <td>${test.participant.age}</td>
-            <td>${test.participant.gender}</td>
-            <td>${test.testData.results.finalScore}</td>
-            <td>${test.testData.results.totalTime.toFixed(1)}s</td>
-            <td>${test.testData.results.accuracy.toFixed(1)}%</td>
-        `;
-        tbody.appendChild(row);
-    });
-    
-    // Genera grafici (implementato in stroop-results.js)
-    if (typeof displayClassCharts === 'function') {
-        displayClassCharts(allTests);
-    }
+    classStatsState.allTests = normalizedTests;
+    populateClassFilter(normalizedTests);
+    populateClassSummary(normalizedTests);
+    applyClassFilter(classStatsState.currentClass || '');
 }
 
 function exportClassData() {
-    const allTests = JSON.parse(localStorage.getItem('stroopTests') || '[]');
+    const data = classStatsState.filteredTests.length
+        ? classStatsState.filteredTests
+        : classStatsState.allTests;
     
-    if (allTests.length === 0) {
-        alert('Nessun dato da esportare');
+    if (!data.length) {
+        alert('Nessun dato da esportare. Carica prima le statistiche.');
         return;
     }
     
     // Crea CSV
-    let csv = 'Data,Nome,Età,Sesso,Punteggio,Tempo Totale,Tempo Medio,Accuratezza\n';
+    let csv = 'Classe,Data,Nome,Età,Sesso,Punteggio,Tempo Totale,Tempo Medio,Accuratezza\n';
     
-    allTests.forEach(test => {
-        const date = new Date(test.participant.timestamp);
+    data.forEach(test => {
+        const results = test.testData.results || {};
+        const date = new Date(test.participant.timestamp || test.created_at || new Date());
+        csv += `${(test.class_code || 'N/D').toUpperCase()},`;
         csv += `${date.toLocaleDateString('it-IT')},`;
         csv += `${test.participant.name},`;
         csv += `${test.participant.age},`;
         csv += `${test.participant.gender},`;
-        csv += `${test.testData.results.finalScore},`;
-        csv += `${test.testData.results.totalTime.toFixed(1)},`;
-        csv += `${test.testData.results.avgTime.toFixed(2)},`;
-        csv += `${test.testData.results.accuracy.toFixed(1)}\n`;
+        csv += `${results.finalScore ?? 0},`;
+        const totalTime = typeof results.totalTime === 'number' ? results.totalTime : 0;
+        const avgTime = typeof results.avgTime === 'number' ? results.avgTime : 0;
+        const accuracy = typeof results.accuracy === 'number' ? results.accuracy : 0;
+        csv += `${totalTime.toFixed(1)},`;
+        csv += `${avgTime.toFixed(2)},`;
+        csv += `${accuracy.toFixed(1)}\n`;
     });
     
     // Download
@@ -636,6 +646,194 @@ function exportClassData() {
     link.href = URL.createObjectURL(blob);
     link.download = 'stroop_test_data_' + new Date().toISOString().split('T')[0] + '.csv';
     link.click();
+}
+
+function populateClassFilter(tests) {
+    const select = document.getElementById('class-filter-select');
+    if (!select) return;
+
+    const classMap = new Map();
+    tests.forEach(test => {
+        const raw = (test.class_code || '').trim();
+        if (!raw) return;
+        const key = raw.toLowerCase();
+        if (!classMap.has(key)) {
+            classMap.set(key, raw);
+        }
+    });
+
+    const options = ['<option value="">Tutte le classi</option>'];
+    Array.from(classMap.entries())
+        .sort((a, b) => a[1].localeCompare(b[1], 'it', { numeric: true }))
+        .forEach(([key, label]) => {
+            const selected = classStatsState.currentClass && classStatsState.currentClass.toLowerCase() === key ? 'selected' : '';
+            options.push(`<option value="${label}" ${selected}>${label.toUpperCase()}</option>`);
+        });
+
+    select.innerHTML = options.join('');
+    select.disabled = options.length === 1;
+    select.value = classStatsState.currentClass || '';
+    select.onchange = (event) => {
+        classStatsState.currentClass = event.target.value;
+        applyClassFilter(event.target.value);
+    };
+}
+
+function applyClassFilter(classCode = '') {
+    classStatsState.currentClass = classCode;
+    let dataset = classStatsState.allTests;
+    if (classCode) {
+        const key = classCode.toLowerCase();
+        dataset = dataset.filter(test => (test.class_code || '').toLowerCase() === key);
+    }
+    classStatsState.filteredTests = dataset;
+
+    const countLabel = dataset.length === 1 ? 'studente' : 'studenti';
+    const message = classCode
+        ? `Classe ${classCode.toUpperCase()} • ${dataset.length} ${countLabel}`
+        : `Tutte le classi • ${dataset.length} ${countLabel}`;
+    updateFilterMessage(message);
+
+    updateStatCards(dataset);
+    populateParticipantsTable(dataset);
+    if (typeof displayClassCharts === 'function') {
+        displayClassCharts(dataset);
+    }
+}
+
+function updateStatCards(tests) {
+    const total = tests.length;
+    const avgScore = total ? tests.reduce((sum, test) => sum + (test.testData.results.finalScore || 0), 0) / total : 0;
+    const avgTime = total ? tests.reduce((sum, test) => sum + (test.testData.results.avgTime || 0), 0) / total : 0;
+    const avgAccuracy = total ? tests.reduce((sum, test) => sum + (test.testData.results.accuracy || 0), 0) / total : 0;
+
+    document.getElementById('total-participants').textContent = total;
+    document.getElementById('class-avg-score').textContent = Math.round(avgScore);
+    document.getElementById('class-avg-time').textContent = avgTime.toFixed(2) + 's';
+    document.getElementById('class-avg-accuracy').textContent = avgAccuracy.toFixed(1) + '%';
+}
+
+function populateParticipantsTable(tests) {
+    const tbody = document.getElementById('participants-tbody');
+    if (!tbody) return;
+
+    if (!tests.length) {
+        tbody.innerHTML = '<tr><td colspan="7">Nessun dato disponibile per questa selezione.</td></tr>';
+        return;
+    }
+
+    const rows = tests.map(test => {
+        const results = test.testData.results || {};
+        const date = new Date(test.participant.timestamp || test.created_at || new Date());
+        return `
+            <tr>
+                <td>${date.toLocaleDateString('it-IT')} ${date.toLocaleTimeString('it-IT')}</td>
+                <td>${test.participant.name || 'Anonimo'}</td>
+                <td>${test.participant.age ?? 'N/D'}</td>
+                <td>${test.participant.gender || 'N/D'}</td>
+                <td>${results.finalScore ?? 0}</td>
+                <td>${formatSeconds(results.totalTime)}</td>
+                <td>${(results.accuracy ?? 0).toFixed(1)}%</td>
+            </tr>
+        `;
+    });
+
+    tbody.innerHTML = rows.join('');
+}
+
+function populateClassSummary(tests) {
+    const tbody = document.querySelector('#class-summary-table tbody');
+    if (!tbody) return;
+
+    const summary = buildClassSummary(tests);
+    classStatsState.summaries = summary;
+
+    if (!summary.length) {
+        tbody.innerHTML = '<tr><td colspan="4">Nessuna classe con dati disponibili.</td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = summary.map(item => `
+        <tr>
+            <td>${item.label}</td>
+            <td>${item.count}</td>
+            <td>${item.avgScore.toFixed(1)}</td>
+            <td>${item.avgAccuracy.toFixed(1)}%</td>
+        </tr>
+    `).join('');
+}
+
+function buildClassSummary(tests) {
+    const map = new Map();
+    tests.forEach(test => {
+        const label = (test.class_code || 'N/D').toUpperCase();
+        if (!map.has(label)) {
+            map.set(label, { label, count: 0, totalScore: 0, totalAccuracy: 0 });
+        }
+        const entry = map.get(label);
+        entry.count += 1;
+        entry.totalScore += test.testData.results.finalScore || 0;
+        entry.totalAccuracy += test.testData.results.accuracy || 0;
+    });
+
+    return Array.from(map.values())
+        .sort((a, b) => a.label.localeCompare(b.label, 'it', { numeric: true }))
+        .map(entry => ({
+            label: entry.label,
+            count: entry.count,
+            avgScore: entry.count ? entry.totalScore / entry.count : 0,
+            avgAccuracy: entry.count ? entry.totalAccuracy / entry.count : 0
+        }));
+}
+
+function normalizeTestRecord(record) {
+    if (!record) {
+        return null;
+    }
+
+    if (record.testData?.results) {
+        return {
+            ...record,
+            class_code: record.class_code || record.classCode || record.participant?.class_code || ''
+        };
+    }
+
+    const participant = record.participant || {};
+    const results = record.results || record.testData?.results || {};
+
+    return {
+        participant: {
+            name: participant.name || 'Anonimo',
+            age: participant.age || participant.eta || null,
+            gender: participant.gender || 'N/D',
+            timestamp: participant.timestamp || record.created_at || new Date().toISOString()
+        },
+        class_code: (record.class_code || participant.class_code || participant.class || '').trim(),
+        student_code: record.student_code || '',
+        created_at: record.created_at || new Date().toISOString(),
+        testData: {
+            results: {
+                finalScore: results.finalScore || 0,
+                totalTime: typeof results.totalTime === 'number' ? results.totalTime : 0,
+                avgTime: typeof results.avgTime === 'number' ? results.avgTime : 0,
+                accuracy: typeof results.accuracy === 'number' ? results.accuracy : 0,
+                difficultyStats: results.difficultyStats || {}
+            },
+            responses: record.responses || []
+        }
+    };
+}
+
+function formatSeconds(value) {
+    const seconds = typeof value === 'number' ? value : 0;
+    return seconds.toFixed(1) + 's';
+}
+
+function updateFilterMessage(message) {
+    const target = document.getElementById('class-filter-message');
+    if (target) {
+        target.textContent = message;
+    }
 }
 
 // === RIAVVIO TEST ===

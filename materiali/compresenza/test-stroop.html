@@ -584,16 +584,26 @@
 
             <div id="stats-content" class="stats-content hidden">
                 <h2>📊 Statistiche Classe</h2>
-                <div class="stats-dashboard">
-                    <div class="dashboard-header">
-                        <h3>Dashboard Generale</h3>
-                        <button id="btn-export-data" class="btn btn-secondary">📥 Esporta Dati CSV</button>
-                    </div>
-                    
-                    <div class="stats-overview">
-                        <div class="stat-card">
-                            <h4>👥 Partecipanti Totali</h4>
-                            <p id="total-participants" class="stat-value">0</p>
+                    <div class="stats-dashboard">
+                        <div class="dashboard-header">
+                            <h3>Dashboard Generale</h3>
+                            <button id="btn-export-data" class="btn btn-secondary">📥 Esporta Dati CSV</button>
+                        </div>
+
+                        <div class="class-filter-bar">
+                            <div class="filter-control">
+                                <label for="class-filter-select">Filtra per classe</label>
+                                <select id="class-filter-select">
+                                    <option value="">Tutte le classi</option>
+                                </select>
+                            </div>
+                            <p id="class-filter-message" class="filter-message">Mostrando tutte le classi</p>
+                        </div>
+                        
+                        <div class="stats-overview">
+                            <div class="stat-card">
+                                <h4>👥 Partecipanti Totali</h4>
+                                <p id="total-participants" class="stat-value">0</p>
                         </div>
                         <div class="stat-card">
                             <h4>📊 Punteggio Medio Classe</h4>
@@ -618,6 +628,23 @@
                             <h4>Performance per Età</h4>
                             <canvas id="age-performance-chart"></canvas>
                         </div>
+                    </div>
+
+                    <div class="class-summary-container">
+                        <h4>📚 Riepilogo per Classe</h4>
+                        <table class="data-table" id="class-summary-table">
+                            <thead>
+                                <tr>
+                                    <th>Classe</th>
+                                    <th>Partecipanti</th>
+                                    <th>Punteggio Medio</th>
+                                    <th>Accuratezza Media</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Riepilogo classi -->
+                            </tbody>
+                        </table>
                     </div>
 
                     <div class="data-table-container">
