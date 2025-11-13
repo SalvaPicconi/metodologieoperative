@@ -5,84 +5,89 @@ console.log('✅ progress-global attivo');
 // Rileva ID della pagina (meta o path)
 const PAGE_ID = document.querySelector('meta[name="page-id"]')?.content || location.pathname;
 const CONFIG = window.MO_PROGRESS_CONFIG || {};
-const PAGE_PATH = CONFIG.pagePath || PAGE_ID;
-const INPUT_SELECTOR = CONFIG.inputSelector || 'input, textarea, select';
-let studentLabel = null;
-let saveBtnElement = null;
-let resetBtnElement = null;
-let isGuestMode = false;
+const IS_DISABLED = CONFIG.disabled === true;
 
-// Crea pulsanti se non esistono già
-document.addEventListener('DOMContentLoaded', () => {
-  saveBtnElement = document.querySelector('[data-save-progress]');
-  if (!saveBtnElement) {
-    saveBtnElement = document.createElement('button');
-    saveBtnElement.textContent = '💾 Salva progressi';
-    saveBtnElement.id = 'saveProgressBtn';
-    saveBtnElement.setAttribute('data-save-progress', '');
-    saveBtnElement.style.cssText = 'position:fixed;right:16px;bottom:16px;padding:10px 14px;border-radius:10px;border:0;background:#0ea5e9;color:#fff;box-shadow:0 6px 14px rgba(0,0,0,.15);z-index:9999;cursor:pointer;';
-    document.body.appendChild(saveBtnElement);
-  }
+if (IS_DISABLED) {
+  console.log('⏸️ progress tracking disattivato su questa pagina');
+} else {
+  const PAGE_PATH = CONFIG.pagePath || PAGE_ID;
+  const INPUT_SELECTOR = CONFIG.inputSelector || 'input, textarea, select';
+  let studentLabel = null;
+  let saveBtnElement = null;
+  let resetBtnElement = null;
+  let isGuestMode = false;
 
-  resetBtnElement = document.querySelector('#resetStudent');
-  if (!resetBtnElement) {
-    resetBtnElement = document.createElement('button');
-    resetBtnElement.textContent = '🔄 Cambia studente';
-    resetBtnElement.id = 'resetStudent';
-    resetBtnElement.style.cssText = 'position:fixed;left:16px;bottom:16px;padding:8px 12px;border-radius:10px;border:0;background:#f97316;color:white;box-shadow:0 6px 14px rgba(0,0,0,.15);z-index:9999;cursor:pointer;';
-    document.body.appendChild(resetBtnElement);
-  }
-
-  // etichetta studente attivo
-  studentLabel = document.createElement('div');
-  studentLabel.id = 'studentLabel';
-  studentLabel.style.cssText = 'position:fixed;top:8px;right:16px;background:#0ea5e9;color:#fff;padding:4px 10px;border-radius:6px;font-size:14px;z-index:9999;';
-  document.body.appendChild(studentLabel);
-  isGuestMode = document.body?.dataset?.moGuest === 'true';
-  updateSaveButtonsVisibility();
-  updateStudentLabel();
-});
-
-function updateStudentLabel(detail) {
-  if (!studentLabel) return;
-  const detailData = detail || {};
-  if (isGuestMode || detailData.guest) {
-    studentLabel.textContent = 'Modalità ospite: progressi locali';
-    return;
-  }
-  const c = detailData.classCode ?? localStorage.getItem('mo:class');
-  const s = detailData.studentCode ?? localStorage.getItem('mo:code');
-  studentLabel.textContent = c && s ? `Classe ${c} • Codice ${s}` : 'Studente non identificato';
-}
-
-function updateSaveButtonsVisibility() {
-  if (saveBtnElement) {
-    saveBtnElement.style.display = isGuestMode ? 'none' : 'inline-block';
-  }
-  if (resetBtnElement) {
-    resetBtnElement.style.display = 'inline-block';
-  }
-}
-
-function dispatchProgressRestored(data) {
-  try {
-    const detail = { pageId: PAGE_PATH, data };
-    const target = typeof window !== 'undefined' ? window : document;
-    if (!target) return;
-    let event;
-    if (typeof CustomEvent === 'function') {
-      event = new CustomEvent('mo:progress-restored', { detail });
-    } else if (target.createEvent) {
-      event = target.createEvent('CustomEvent');
-      event.initCustomEvent('mo:progress-restored', false, false, detail);
+  // Crea pulsanti se non esistono già
+  document.addEventListener('DOMContentLoaded', () => {
+    saveBtnElement = document.querySelector('[data-save-progress]');
+    if (!saveBtnElement) {
+      saveBtnElement = document.createElement('button');
+      saveBtnElement.textContent = '💾 Salva progressi';
+      saveBtnElement.id = 'saveProgressBtn';
+      saveBtnElement.setAttribute('data-save-progress', '');
+      saveBtnElement.style.cssText = 'position:fixed;right:16px;bottom:16px;padding:10px 14px;border-radius:10px;border:0;background:#0ea5e9;color:#fff;box-shadow:0 6px 14px rgba(0,0,0,.15);z-index:9999;cursor:pointer;';
+      document.body.appendChild(saveBtnElement);
     }
-    if (event && typeof target.dispatchEvent === 'function') {
-      target.dispatchEvent(event);
+
+    resetBtnElement = document.querySelector('#resetStudent');
+    if (!resetBtnElement) {
+      resetBtnElement = document.createElement('button');
+      resetBtnElement.textContent = '🔄 Cambia studente';
+      resetBtnElement.id = 'resetStudent';
+      resetBtnElement.style.cssText = 'position:fixed;left:16px;bottom:16px;padding:8px 12px;border-radius:10px;border:0;background:#f97316;color:white;box-shadow:0 6px 14px rgba(0,0,0,.15);z-index:9999;cursor:pointer;';
+      document.body.appendChild(resetBtnElement);
     }
-  } catch (error) {
-    console.warn('Impossibile inviare evento di ripristino progressi:', error);
+
+    // etichetta studente attivo
+    studentLabel = document.createElement('div');
+    studentLabel.id = 'studentLabel';
+    studentLabel.style.cssText = 'position:fixed;top:8px;right:16px;background:#0ea5e9;color:#fff;padding:4px 10px;border-radius:6px;font-size:14px;z-index:9999;';
+    document.body.appendChild(studentLabel);
+    isGuestMode = document.body?.dataset?.moGuest === 'true';
+    updateSaveButtonsVisibility();
+    updateStudentLabel();
+  });
+
+  function updateStudentLabel(detail) {
+    if (!studentLabel) return;
+    const detailData = detail || {};
+    if (isGuestMode || detailData.guest) {
+      studentLabel.textContent = 'Modalità ospite: progressi locali';
+      return;
+    }
+    const c = detailData.classCode ?? localStorage.getItem('mo:class');
+    const s = detailData.studentCode ?? localStorage.getItem('mo:code');
+    studentLabel.textContent = c && s ? `Classe ${c} • Codice ${s}` : 'Studente non identificato';
   }
-}
+
+  function updateSaveButtonsVisibility() {
+    if (saveBtnElement) {
+      saveBtnElement.style.display = isGuestMode ? 'none' : 'inline-block';
+    }
+    if (resetBtnElement) {
+      resetBtnElement.style.display = 'inline-block';
+    }
+  }
+
+  function dispatchProgressRestored(data) {
+    try {
+      const detail = { pageId: PAGE_PATH, data };
+      const target = typeof window !== 'undefined' ? window : document;
+      if (!target) return;
+      let event;
+      if (typeof CustomEvent === 'function') {
+        event = new CustomEvent('mo:progress-restored', { detail });
+      } else if (target.createEvent) {
+        event = target.createEvent('CustomEvent');
+        event.initCustomEvent('mo:progress-restored', false, false, detail);
+      }
+      if (event && typeof target.dispatchEvent === 'function') {
+        target.dispatchEvent(event);
+      }
+    } catch (error) {
+      console.warn('Impossibile inviare evento di ripristino progressi:', error);
+    }
+  }
 
 function collectData() {
   const data = {};
@@ -277,3 +282,4 @@ window.addEventListener('mo:identity-change', (event) => {
   updateStudentLabel(detail);
   loadAndRestore();
 });
+}
