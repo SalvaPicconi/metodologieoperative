@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Test di Stroop - Strumento didattico per la valutazione delle funzioni cognitive nei servizi sociosanitari">
+    <meta name="keywords" content="Test di Stroop, valutazione cognitiva, OSS, metodologie operative, funzioni esecutive">
+    <meta name="author" content="Prof. Salvatore Picconi - IIS Meucci Mattei">
+    <title>Test di Stroop - Laboratorio di Valutazione Cognitiva</title>
+    <link rel="stylesheet" href="css/stroop.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1>🧠 Test di Stroop</h1>
+            <p class="subtitle">Laboratorio di Valutazione Cognitiva - Metodologie Operative</p>
+            <p class="institution">IIS Meucci Mattei - Servizi per la Sanità e l'Assistenza Sociale</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        
+        <!-- Sezione Introduttiva -->
+        <section id="intro" class="section intro-section">
+            <h2>Benvenuto al Test di Stroop</h2>
+            <p class="intro-text">
+                Il Test di Stroop è uno strumento fondamentale nella valutazione neuropsicologica, 
+                utilizzato per misurare l'<strong>attenzione selettiva</strong>, il <strong>controllo inibitorio</strong> 
+                e le <strong>funzioni esecutive</strong>. Questo test è particolarmente utile nella valutazione 
+                di persone anziane, pazienti con deterioramento cognitivo o disturbi dell'attenzione.
+            </p>
+            <div class="intro-buttons">
+                <button id="btn-start" class="btn btn-primary">🚀 Inizia il Test</button>
+                <button id="btn-theory" class="btn btn-secondary">📚 Approfondimenti Teorici</button>
+            </div>
+        </section>
+
+        <!-- Sezione Teorica (Collassabile) -->
+        <section id="theory" class="section theory-section hidden">
+            <button class="close-btn" id="btn-close-theory">✕</button>
+            
+            <h2>📖 Fondamenti Teorici del Test di Stroop</h2>
+            
+            <div class="theory-content">
+                <div class="theory-card">
+                    <h3>🕰️ Storia e Origine</h3>
+                    <p>
+                        Il Test di Stroop prende il nome da <strong>John Ridley Stroop</strong>, 
+                        psicologo americano che pubblicò il suo studio pioneristico nel <strong>1935</strong>. 
+                        La ricerca dimostrava come l'interferenza tra due processi cognitivi automatici 
+                        (lettura della parola e denominazione del colore) genera un conflitto misurabile 
+                        attraverso il rallentamento dei tempi di reazione.
+                    </p>
+                    <p>
+                        Questo fenomeno, noto come <strong>"Effetto Stroop"</strong>, è diventato uno 
+                        dei paradigmi più studiati in psicologia cognitiva e neuropsicologia.
+                    </p>
+                </div>
+
+                <div class="theory-card">
+                    <h3>🧠 Base Neuropsicologica</h3>
+                    <ul>
+                        <li>
+                            <strong>Attenzione Selettiva:</strong> Capacità di focalizzarsi su uno stimolo 
+                            specifico ignorando distrattori (in questo caso, il significato della parola).
+                        </li>
+                        <li>
+                            <strong>Controllo Inibitorio:</strong> Abilità di sopprimere risposte automatiche 
+                            (leggere la parola) a favore di risposte richieste (nominare il colore).
+                        </li>
+                        <li>
+                            <strong>Funzioni Esecutive:</strong> Processi cognitivi di alto livello che 
+                            regolano pianificazione, flessibilità mentale e problem-solving, localizzati 
+                            principalmente nella <strong>corteccia prefrontale</strong>.
+                        </li>
+                        <li>
+                            <strong>Velocità di Elaborazione:</strong> Rapidità con cui il cervello processa 
+                            le informazioni e produce una risposta appropriata.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="theory-card">
+                    <h3>🏥 Applicazioni Cliniche</h3>
+                    <div class="clinical-grid">
+                        <div class="clinical-item">
+                            <h4>Demenze e Deterioramento Cognitivo</h4>
+                            <p>Utile per identificare deficit nelle funzioni esecutive in pazienti con 
+                            Alzheimer, demenza vascolare o altre forme di deterioramento cognitivo.</p>
+                        </div>
+                        <div class="clinical-item">
+                            <h4>ADHD (Disturbo da Deficit di Attenzione/Iperattività)</h4>
+                            <p>Valuta difficoltà nel controllo inibitorio e nell'attenzione sostenuta, 
+                            caratteristiche centrali del disturbo.</p>
+                        </div>
+                        <div class="clinical-item">
+                            <h4>Parkinson e Disturbi del Movimento</h4>
+                            <p>Identifica rallentamento psicomotorio e deficit nelle funzioni esecutive 
+                            associati a patologie neurodegenerative.</p>
+                        </div>
+                        <div class="clinical-item">
+                            <h4>Trauma Cranico</h4>
+                            <p>Screening per valutare recupero delle funzioni cognitive dopo lesioni cerebrali.</p>
+                        </div>
+                        <div class="clinical-item">
+                            <h4>Depressione</h4>
+                            <p>Alcuni pazienti mostrano rallentamento cognitivo e difficoltà attentive.</p>
+                        </div>
+                        <div class="clinical-item">
+                            <h4>Screening Neuropsicologico</h4>
+                            <p>Test rapido per identificare necessità di approfondimenti diagnostici.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="theory-card">
+                    <h3>👨‍⚕️ Ruolo dell'Operatore Sociosanitario</h3>
+                    <p>
+                        Come futuri <strong>Operatori dei Servizi per la Sanità e l'Assistenza Sociale</strong>, 
+                        è fondamentale comprendere strumenti come il Test di Stroop perché:
+                    </p>
+                    <ul>
+                        <li>Vi permette di <strong>riconoscere segnali precoci</strong> di difficoltà cognitive negli assistiti</li>
+                        <li>Vi aiuta a <strong>comunicare efficacemente</strong> con équipe multidisciplinari (psicologi, medici, fisioterapisti)</li>
+                        <li>Facilita la <strong>comprensione delle difficoltà quotidiane</strong> che possono sperimentare persone con deficit cognitivi</li>
+                        <li>Supporta la <strong>personalizzazione dell'assistenza</strong> in base alle capacità cognitive dell'utente</li>
+                        <li>Contribuisce alla <strong>segnalazione tempestiva</strong> di cambiamenti nello stato cognitivo degli assistiti</li>
+                    </ul>
+                    <div class="note">
+                        <strong>⚠️ Nota Importante:</strong> Questo è uno strumento didattico. 
+                        La somministrazione diagnostica del Test di Stroop deve essere effettuata 
+                        esclusivamente da professionisti qualificati (psicologi, neuropsicologi).
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" id="btn-start-from-theory">Inizia il Test</button>
+        </section>
+
+        <!-- Sezione Raccolta Dati Iniziali -->
+        <section id="data-collection" class="section data-section hidden">
+            <h2>📋 Informazioni Preliminari</h2>
+            <p class="instruction">
+                Prima di iniziare, inserisci alcune informazioni. I dati sono anonimi e utilizzati 
+                esclusivamente per scopi didattici e statistici della classe.
+            </p>
+            
+            <form id="form-participant" class="participant-form">
+                <div class="form-group">
+                    <label for="participant-name">Nome o Nickname (opzionale)</label>
+                    <input type="text" id="participant-name" placeholder="Es: Marco R.">
+                    <small>Puoi usare iniziali o uno pseudonimo</small>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="participant-age">Età *</label>
+                        <input type="number" id="participant-age" min="14" max="99" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="participant-gender">Sesso *</label>
+                        <select id="participant-gender" required>
+                            <option value="">Seleziona...</option>
+                            <option value="M">Maschio</option>
+                            <option value="F">Femmina</option>
+                            <option value="A">Preferisco non specificare</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="consent" required>
+                        Acconsento al trattamento dei dati per finalità didattiche *
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Continua</button>
+            </form>
+        </section>
+
+        <!-- Sezione Istruzioni -->
+        <section id="instructions" class="section instructions-section hidden">
+            <h2>📝 Istruzioni del Test</h2>
+            
+            <div class="instructions-content">
+                <div class="instruction-box important">
+                    <h3>🎯 Obiettivo</h3>
+                    <p>
+                        Ti verranno mostrate delle <strong>parole che indicano colori</strong> 
+                        (come ROSSO, BLU, VERDE, ecc.), ma queste parole saranno scritte 
+                        con <strong>colori diversi</strong> da quello che indicano.
+                    </p>
+                    <p class="highlight">
+                        Il tuo compito è <strong>indicare il COLORE dell'inchiostro</strong>, 
+                        NON leggere la parola!
+                    </p>
+                </div>
+
+                <div class="instruction-example">
+                    <h3>💡 Esempio</h3>
+                    <div class="example-word">
+                        <span style="color: #0066ff; font-size: 2em; font-weight: bold;">ROSSO</span>
+                    </div>
+                    <p>
+                        In questo caso, la risposta corretta è <strong>BLU</strong>, 
+                        perché la parola è scritta in blu, anche se la parola dice "ROSSO".
+                    </p>
+                </div>
+
+                <div class="instructions-list">
+                    <h3>⚡ Regole Importanti</h3>
+                    <ul>
+                        <li>✓ Rispondi il <strong>più velocemente possibile</strong></li>
+                        <li>✓ Cerca di essere <strong>preciso</strong></li>
+                        <li>✓ Concentrati sul <strong>COLORE</strong>, ignora la parola</li>
+                        <li>✓ Il test è <strong>cronometrato</strong></li>
+                        <li>✓ Non ci sono pause tra una prova e l'altra</li>
+                        <li>✓ Ci saranno <strong>30 prove</strong> in totale</li>
+                    </ul>
+                </div>
+
+                <div class="difficulty-info">
+                    <h3>📊 Difficoltà Progressiva</h3>
+                    <p>
+                        Il test aumenterà gradualmente di difficoltà attraverso 4 livelli:
+                    </p>
+                    <div class="difficulty-levels">
+                        <div class="level">
+                            <span class="level-badge base">BASE</span>
+                            <span>Prove 1-8</span>
+                        </div>
+                        <div class="level">
+                            <span class="level-badge medium">MEDIA</span>
+                            <span>Prove 9-16</span>
+                        </div>
+                        <div class="level">
+                            <span class="level-badge high">ALTA</span>
+                            <span>Prove 17-24</span>
+                        </div>
+                        <div class="level">
+                            <span class="level-badge max">MASSIMA</span>
+                            <span>Prove 25-30</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ready-check">
+                    <p class="ready-text">✓ Ho letto e compreso le istruzioni</p>
+                    <button id="btn-start-test" class="btn btn-primary btn-large">
+                        🚀 Inizia il Test Ora
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sezione Test Interattivo -->
+        <section id="test" class="section test-section hidden">
+            <div class="test-header">
+                <div class="progress-info">
+                    <span id="current-trial">1</span> / <span id="total-trials">30</span>
+                </div>
+                <div class="difficulty-indicator">
+                    <span id="current-difficulty">BASE</span>
+                </div>
+                <div class="timer">
+                    <span id="timer-display">0.0s</span>
+                </div>
+            </div>
+
+            <div class="progress-bar-container">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+
+            <div class="test-area">
+                <div id="stimulus-word" class="stimulus-word"></div>
+                <div id="color-buttons" class="color-buttons">
+                    <!-- I pulsanti verranno generati dinamicamente -->
+                </div>
+            </div>
+
+            <div class="test-footer">
+                <p class="test-hint">Clicca sul colore dell'inchiostro, non sulla parola!</p>
+            </div>
+        </section>
+
+        <!-- Sezione Risultati -->
+        <section id="results" class="section results-section hidden">
+            <h2>🎉 Test Completato!</h2>
+            
+            <div class="score-container">
+                <div class="main-score">
+                    <div class="score-circle">
+                        <span id="final-score">0</span>
+                        <span class="score-max">/1000</span>
+                    </div>
+                    <div id="performance-level" class="performance-level"></div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>⏱️ Tempo Totale</h3>
+                    <p id="total-time" class="stat-value">0s</p>
+                </div>
+                <div class="stat-card">
+                    <h3>⚡ Tempo Medio</h3>
+                    <p id="avg-time" class="stat-value">0s</p>
+                </div>
+                <div class="stat-card">
+                    <h3>✓ Risposte Corrette</h3>
+                    <p id="correct-answers" class="stat-value">0/30</p>
+                </div>
+                <div class="stat-card">
+                    <h3>🎯 Accuratezza</h3>
+                    <p id="accuracy" class="stat-value">0%</p>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3>📈 Andamento dei Tempi di Risposta</h3>
+                <canvas id="response-chart"></canvas>
+            </div>
+
+            <div class="difficulty-analysis">
+                <h3>📊 Analisi per Livello di Difficoltà</h3>
+                <div id="difficulty-stats" class="difficulty-stats-grid">
+                    <!-- Generato dinamicamente -->
+                </div>
+            </div>
+
+            <div class="interpretation">
+                <h3>💡 Interpretazione dei Risultati</h3>
+                <div id="interpretation-text" class="interpretation-content">
+                    <!-- Generato dinamicamente -->
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button id="btn-download-certificate" class="btn btn-primary">
+                    📄 Scarica Attestato PDF
+                </button>
+                <button id="btn-reflect" class="btn btn-secondary">
+                    💭 Prosegui con la Riflessione
+                </button>
+                <button id="btn-restart" class="btn btn-outline">
+                    🔄 Ripeti il Test
+                </button>
+            </div>
+        </section>
+
+        <!-- Sezione Riflessione -->
+        <section id="reflection" class="section reflection-section hidden">
+            <h2>💭 Riflessione sull'Esperienza</h2>
+            <p class="instruction">
+                Rispondi alle seguenti domande per riflettere sulla tua esperienza con il test 
+                e comprendere meglio le implicazioni per il lavoro sociosanitario.
+            </p>
+
+            <form id="form-reflection" class="reflection-form">
+                <div class="form-group">
+                    <label>1. Come ti sei sentito durante il test?</label>
+                    <textarea id="reflection-1" rows="3" placeholder="Descrivi le tue sensazioni, emozioni, livello di stress..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>2. In quale momento hai trovato più difficoltà? Perché?</label>
+                    <textarea id="reflection-2" rows="3" placeholder="Es: nelle prove veloci, quando i colori erano simili..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>3. Hai notato interferenze tra la lettura della parola e l'identificazione del colore?</label>
+                    <textarea id="reflection-3" rows="3" placeholder="Descrivi l'effetto Stroop che hai sperimentato..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>4. Come pensi che questo test possa essere utile nella valutazione di una persona anziana?</label>
+                    <textarea id="reflection-4" rows="3" placeholder="Rifletti sull'applicazione pratica nel contesto sociosanitario..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>5. Quali difficoltà potrebbe incontrare una persona con deficit cognitivo in questo test?</label>
+                    <textarea id="reflection-5" rows="3" placeholder="Pensa a specifici deficit (attenzione, memoria, elaborazione...)"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Invia Riflessione</button>
+            </form>
+
+            <div id="reflection-thanks" class="thanks-message hidden">
+                <h3>✅ Grazie per la tua riflessione!</h3>
+                <p>Le tue risposte sono state salvate e contribuiranno all'analisi didattica.</p>
+                <button id="btn-cases" class="btn btn-primary">📚 Esplora i Casi Clinici</button>
+            </div>
+        </section>
+
+        <!-- Sezione Casi Clinici -->
+        <section id="cases" class="section cases-section hidden">
+            <h2>📚 Casi Clinici - Applicazioni Pratiche</h2>
+            <p class="intro-text">
+                Analizza i seguenti casi clinici per comprendere come il Test di Stroop viene 
+                utilizzato nella pratica professionale e quali informazioni può fornire.
+            </p>
+
+            <div class="cases-container">
+                <!-- Caso 1 -->
+                <div class="case-card">
+                    <div class="case-header">
+                        <h3>👵 Caso 1: Signora Maria, 78 anni</h3>
+                        <span class="case-tag">Sospetto Deterioramento Cognitivo</span>
+                    </div>
+                    <div class="case-content">
+                        <div class="case-section">
+                            <h4>📋 Anamnesi</h4>
+                            <p>
+                                La Sig.ra Maria viene accompagnata dalla figlia per difficoltà crescenti 
+                                nella gestione delle attività quotidiane. La figlia riferisce che la madre 
+                                "si confonde facilmente", "dimentica spesso le cose" e "ha difficoltà a 
+                                concentrarsi quando ci sono distrazioni".
+                            </p>
+                        </div>
+                        <div class="case-section">
+                            <h4>🧪 Risultati Test di Stroop</h4>
+                            <ul>
+                                <li>Tempo medio di risposta: 3.8 secondi (norma: 1.5-2.5s)</li>
+                                <li>Accuratezza: 60% (norma: >85%)</li>
+                                <li>Errori particolarmente frequenti nelle prove incongruenti</li>
+                                <li>Affaticamento marcato nella seconda metà del test</li>
+                            </ul>
+                        </div>
+                        <div class="case-section">
+                            <h4>💡 Interpretazione</h4>
+                            <p>
+                                I risultati suggeriscono <strong>difficoltà significative nelle funzioni esecutive</strong> 
+                                e nel controllo inibitorio. Il rallentamento marcato e la bassa accuratezza, 
+                                combinati con l'anamnesi, indicano la necessità di approfondimenti diagnostici.
+                            </p>
+                        </div>
+                        <div class="case-section case-action">
+                            <h4>🎯 Azione dell'Operatore</h4>
+                            <p>
+                                Come OSS, dovresti <strong>segnalare tempestivamente</strong> questi risultati 
+                                al coordinatore e suggerire una valutazione neuropsicologica completa. 
+                                Nel frattempo, adattare l'assistenza riducendo stimoli distrattori e 
+                                semplificando le richieste.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Caso 2 -->
+                <div class="case-card">
+                    <div class="case-header">
+                        <h3>👴 Caso 2: Signor Giuseppe, 65 anni</h3>
+                        <span class="case-tag">Parkinson Iniziale</span>
+                    </div>
+                    <div class="case-content">
+                        <div class="case-section">
+                            <h4>📋 Anamnesi</h4>
+                            <p>
+                                Il Sig. Giuseppe ha ricevuto diagnosi di Malattia di Parkinson da 2 anni. 
+                                I sintomi motori sono ben controllati con la terapia farmacologica. 
+                                Riferisce però crescenti difficoltà nel "prendere decisioni rapidamente" 
+                                e nel "fare più cose contemporaneamente".
+                            </p>
+                        </div>
+                        <div class="case-section">
+                            <h4>🧪 Risultati Test di Stroop</h4>
+                            <ul>
+                                <li>Tempo medio di risposta: 2.9 secondi (rallentamento moderato)</li>
+                                <li>Accuratezza: 88% (nella norma)</li>
+                                <li>Prestazione stabile durante tutto il test</li>
+                                <li>Nessun pattern di errori sistematici</li>
+                            </ul>
+                        </div>
+                        <div class="case-section">
+                            <h4>💡 Interpretazione</h4>
+                            <p>
+                                Il rallentamento nei tempi di risposta con accuratezza preservata è tipico 
+                                del <strong>rallentamento psicomotorio</strong> associato al Parkinson. 
+                                Le funzioni cognitive (attenzione, controllo inibitorio) sono integre, 
+                                ma la velocità di elaborazione è ridotta.
+                            </p>
+                        </div>
+                        <div class="case-section case-action">
+                            <h4>🎯 Differenziazione Importante</h4>
+                            <p>
+                                È fondamentale distinguere tra <strong>rallentamento motorio</strong> 
+                                (presente in questo caso) e <strong>deficit cognitivo</strong> (assente). 
+                                Questo paziente beneficia di tempo extra per completare i compiti, 
+                                non di semplificazione cognitiva.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Caso 3 -->
+                <div class="case-card">
+                    <div class="case-header">
+                        <h3>👦 Caso 3: Marco, 17 anni</h3>
+                        <span class="case-tag">ADHD</span>
+                    </div>
+                    <div class="case-content">
+                        <div class="case-section">
+                            <h4>📋 Anamnesi</h4>
+                            <p>
+                                Marco è uno studente con diagnosi di ADHD (Disturbo da Deficit di 
+                                Attenzione/Iperattività). Ha difficoltà a mantenere l'attenzione durante 
+                                le lezioni e tende ad agire impulsivamente. È in trattamento farmacologico 
+                                e segue un percorso di supporto psicologico.
+                            </p>
+                        </div>
+                        <div class="case-section">
+                            <h4>🧪 Risultati Test di Stroop</h4>
+                            <ul>
+                                <li>Tempo medio di risposta: 1.2 secondi (molto veloce)</li>
+                                <li>Accuratezza: 68% (sotto la norma)</li>
+                                <li>Molti errori per risposte impulsive</li>
+                                <li>Difficoltà crescente con l'aumentare delle prove</li>
+                                <li>Tendenza a rispondere prima di elaborare completamente lo stimolo</li>
+                            </ul>
+                        </div>
+                        <div class="case-section">
+                            <h4>💡 Interpretazione</h4>
+                            <p>
+                                I risultati mostrano il pattern tipico dell'ADHD: <strong>velocità elevata 
+                                ma bassa accuratezza</strong>, indicando difficoltà nel controllo inibitorio 
+                                e nell'attenzione sostenuta. La rapidità non compensa gli errori dovuti 
+                                all'impulsività.
+                            </p>
+                        </div>
+                        <div class="case-section case-action">
+                            <h4>🎯 Strategie di Intervento</h4>
+                            <p>
+                                Nel lavoro con persone con ADHD, è importante: incoraggiare la 
+                                <strong>riflessione prima dell'azione</strong>, strutturare l'ambiente 
+                                riducendo distrazioni, fornire feedback frequenti e positivi, 
+                                suddividere compiti complessi in step più semplici.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cases-conclusion">
+                <h3>🎓 Conclusioni Didattiche</h3>
+                <p>
+                    Questi casi dimostrano come lo stesso strumento (Test di Stroop) possa rivelare 
+                    <strong>pattern diversi</strong> di funzionamento cognitivo in condizioni cliniche differenti:
+                </p>
+                <ul>
+                    <li><strong>Deterioramento cognitivo:</strong> rallentamento + bassa accuratezza + affaticamento</li>
+                    <li><strong>Parkinson:</strong> rallentamento + accuratezza normale + prestazione stabile</li>
+                    <li><strong>ADHD:</strong> velocità alta + bassa accuratezza + impulsività</li>
+                </ul>
+                <p class="highlight">
+                    Come futuri operatori sociosanitari, la vostra capacità di <strong>osservare</strong> 
+                    questi pattern e <strong>comunicarli</strong> all'équipe è fondamentale per garantire 
+                    interventi appropriati e personalizzati.
+                </p>
+            </div>
+
+            <div class="final-actions">
+                <button id="btn-restart-from-cases" class="btn btn-primary">🔄 Ripeti il Test</button>
+                <button id="btn-view-class-stats" class="btn btn-secondary">📊 Visualizza Statistiche Classe</button>
+            </div>
+        </section>
+
+        <!-- Sezione Statistiche Classe (Protetta) -->
+        <section id="class-stats" class="section class-stats-section hidden">
+            <div class="auth-overlay" id="auth-overlay">
+                <div class="auth-box">
+                    <h3>🔐 Area Riservata Docente</h3>
+                    <p>Inserisci la password per accedere alle statistiche della classe</p>
+                    <form id="form-auth">
+                        <input type="password" id="auth-password" placeholder="Password" required>
+                        <button type="submit" class="btn btn-primary">Accedi</button>
+                    </form>
+                    <button id="btn-close-auth" class="btn btn-outline">Annulla</button>
+                </div>
+            </div>
+
+            <div id="stats-content" class="stats-content hidden">
+                <h2>📊 Statistiche Classe</h2>
+                <div class="stats-dashboard">
+                    <div class="dashboard-header">
+                        <h3>Dashboard Generale</h3>
+                        <button id="btn-export-data" class="btn btn-secondary">📥 Esporta Dati CSV</button>
+                    </div>
+                    
+                    <div class="stats-overview">
+                        <div class="stat-card">
+                            <h4>👥 Partecipanti Totali</h4>
+                            <p id="total-participants" class="stat-value">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>📊 Punteggio Medio Classe</h4>
+                            <p id="class-avg-score" class="stat-value">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>⏱️ Tempo Medio Classe</h4>
+                            <p id="class-avg-time" class="stat-value">0s</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>🎯 Accuratezza Media</h4>
+                            <p id="class-avg-accuracy" class="stat-value">0%</p>
+                        </div>
+                    </div>
+
+                    <div class="charts-grid">
+                        <div class="chart-box">
+                            <h4>Distribuzione Punteggi</h4>
+                            <canvas id="score-distribution-chart"></canvas>
+                        </div>
+                        <div class="chart-box">
+                            <h4>Performance per Età</h4>
+                            <canvas id="age-performance-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="data-table-container">
+                        <h4>📋 Dati Dettagliati</h4>
+                        <table id="participants-table" class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Nome</th>
+                                    <th>Età</th>
+                                    <th>Sesso</th>
+                                    <th>Punteggio</th>
+                                    <th>Tempo Totale</th>
+                                    <th>Accuratezza</th>
+                                </tr>
+                            </thead>
+                            <tbody id="participants-tbody">
+                                <!-- Popolato dinamicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2024-2025 Prof. Salvatore Picconi - IIS Meucci Mattei, Decimomannu</p>
+            <p>Test di Stroop - Strumento Didattico per Metodologie Operative</p>
+            <p class="disclaimer">
+                ⚠️ Questo è uno strumento educativo. Non sostituisce una valutazione clinica professionale.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Script -->
+    <script src="js/stroop-test.js"></script>
+    <script src="js/stroop-results.js"></script>
+    <script src="js/stroop-data.js"></script>
+</body>
+</html>

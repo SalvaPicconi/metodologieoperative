@@ -1,0 +1,235 @@
+═══════════════════════════════════════════════════════════════
+   TEST DI STROOP - ISTRUZIONI RAPIDE
+   Prof. Salvatore Picconi - IIS Meucci Mattei
+═══════════════════════════════════════════════════════════════
+
+🚀 INSTALLAZIONE IN 5 PASSI
+
+1️⃣  CARICA SU GITHUB
+   └─ Vai al tuo repository: github.com/salvapicconi/metodologieoperative
+   └─ Carica tutta la cartella "materiali" (mantieni la struttura)
+   └─ Struttura richiesta:
+       metodologieoperative/
+       └── materiali/
+           ├── test-stroop.html
+           ├── css/
+           │   └── stroop.css
+           └── js/
+               ├── stroop-test.js
+               ├── stroop-results.js
+               └── stroop-data.js
+
+2️⃣  VERIFICA GITHUB PAGES
+   └─ Settings → Pages
+   └─ Source: main branch
+   └─ Aspetta il deploy (2-5 minuti)
+
+3️⃣  TESTA IL LINK
+   └─ Apri: https://salvapicconi.github.io/metodologieoperative/materiali/test-stroop.html
+   └─ Verifica che tutto funzioni
+   └─ Completa un test di prova
+
+4️⃣  AGGIUNGI LINK A COMPRESENZA.HTML
+   └─ Apri compresenza.html
+   └─ Aggiungi questo codice dove vuoi:
+   
+   <a href="materiali/test-stroop.html" class="btn-stroop">
+       🧠 Test di Stroop - Valutazione Cognitiva
+   </a>
+
+5️⃣  FATTO! CONDIVIDI
+   └─ Link per studenti: https://salvapicconi.github.io/metodologieoperative/compresenza.html
+   └─ Link diretto test: https://salvapicconi.github.io/metodologieoperative/materiali/test-stroop.html
+
+═══════════════════════════════════════════════════════════════
+
+📊 ACCESSO STATISTICHE CLASSE
+
+1. Completare almeno 1 test come prova
+2. Nella sezione "Casi Clinici" cliccare "Visualizza Statistiche Classe"
+3. Inserire password: metodologie2024  (oppure: picconi)
+4. Visualizzare dashboard e esportare CSV
+
+═══════════════════════════════════════════════════════════════
+
+⚙️ CONFIGURAZIONE GOOGLE SHEETS (OPZIONALE)
+
+Se vuoi che i dati vengano salvati automaticamente su Google Sheets:
+
+1. Crea nuovo Google Sheet
+2. Estensioni → Apps Script
+3. Incolla il codice fornito nel README.md
+4. Deploy come Web App (accesso: Anyone)
+5. Copia URL generato
+6. Modifica js/stroop-data.js:
+   - GOOGLE_SHEETS_URL: 'il_tuo_url'
+   - USE_GOOGLE_SHEETS: true
+7. Ricarica file su GitHub
+
+Dettagli completi nel README.md
+
+═══════════════════════════════════════════════════════════════
+
+🔧 RISOLUZIONE PROBLEMI COMUNI
+
+PROBLEMA: Il test non si carica
+SOLUZIONE: 
+  - Verifica che tutti i file siano caricati
+  - Controlla percorsi in test-stroop.html (devono essere corretti)
+  - Premi F12 e guarda Console per errori
+
+PROBLEMA: Grafici non appaiono
+SOLUZIONE:
+  - Attendi 5-10 secondi (Chart.js carica da internet)
+  - Verifica connessione internet
+  - Ricarica la pagina
+
+PROBLEMA: PDF non si scarica
+SOLUZIONE:
+  - Attendi caricamento jsPDF (primi secondi)
+  - Verifica che browser non blocchi download
+  - Prova con Chrome/Firefox
+
+PROBLEMA: Statistiche classe vuote
+SOLUZIONE:
+  - Completa almeno 1 test prima
+  - I dati sono nel localStorage del browser
+  - Usa sempre lo stesso browser/dispositivo
+
+═══════════════════════════════════════════════════════════════
+
+📱 COMPATIBILITÀ
+
+✅ Browser: Chrome, Firefox, Safari, Edge
+✅ Dispositivi: PC, Tablet, Smartphone
+❌ NON supportato: Internet Explorer
+
+Requisiti:
+  - JavaScript abilitato
+  - Connessione internet (per grafici e PDF)
+  - LocalStorage disponibile
+
+═══════════════════════════════════════════════════════════════
+
+🎓 UTILIZZO DIDATTICO
+
+PRIMA (30 min):
+  - Lezione su funzioni esecutive
+  - Spiegazione Test di Stroop
+  - Discussione ruolo OSS
+
+DURANTE (15 min):
+  - Studenti completano test
+  - Osservano proprie reazioni
+  - Prendono appunti
+
+DOPO (45 min):
+  - Analisi risultati (10 min)
+  - Discussione classe (15 min)
+  - Casi clinici in gruppo (15 min)
+  - Sintesi (5 min)
+
+═══════════════════════════════════════════════════════════════
+
+📂 FILE INCLUSI
+
+✅ test-stroop.html        → Pagina principale (34 KB)
+✅ css/stroop.css          → Stile completo (23 KB)
+✅ js/stroop-test.js       → Logica test (24 KB)
+✅ js/stroop-results.js    → Grafici e PDF (13 KB)
+✅ js/stroop-data.js       → Gestione dati (13 KB)
+✅ README.md               → Documentazione completa
+✅ ESEMPIO_INTEGRAZIONE.html → Come integrare in compresenza
+✅ ISTRUZIONI_RAPIDE.txt   → Questo file
+
+═══════════════════════════════════════════════════════════════
+
+📋 CHECKLIST PRIMA DI PUBBLICARE
+
+□ Tutti i file caricati su GitHub
+□ GitHub Pages attivo e funzionante
+□ Link al test testato manualmente
+□ Test di prova completato con successo
+□ Grafici visualizzati correttamente
+□ PDF scaricabile
+□ Statistiche classe accessibili con password
+□ Export CSV funzionante
+□ Link aggiunto a compresenza.html
+□ Testato su mobile
+□ Studenti informati
+
+═══════════════════════════════════════════════════════════════
+
+🎯 CARATTERISTICHE PRINCIPALI
+
+PER STUDENTI:
+  ✓ 30 prove progressive
+  ✓ Punteggio 0-1000 gamificato
+  ✓ Certificato PDF personalizzato
+  ✓ Riflessione guidata
+  ✓ 3 casi clinici commentati
+  ✓ Responsive (PC, tablet, mobile)
+
+PER DOCENTI:
+  ✓ Dashboard statistiche
+  ✓ Export CSV
+  ✓ Grafici classe
+  ✓ Dati anonimi
+  ✓ Password protetto
+  ✓ Google Sheets (opzionale)
+
+DIDATTICA:
+  ✓ Teoria completa
+  ✓ Basi neuropsicologiche
+  ✓ Applicazioni cliniche
+  ✓ Ruolo OSS
+  ✓ Interpretazione risultati
+
+═══════════════════════════════════════════════════════════════
+
+⚠️ DISCLAIMER IMPORTANTE
+
+Questo è uno STRUMENTO DIDATTICO per uso educativo.
+
+❌ NON sostituisce valutazione clinica professionale
+❌ NON può essere usato per diagnosi
+❌ NON ha validità clinica certificata
+
+✅ SOLO per scopi didattici
+✅ SOLO interpretazione educativa
+
+═══════════════════════════════════════════════════════════════
+
+📞 SUPPORTO
+
+Per problemi o domande:
+  1. Consulta README.md
+  2. Verifica ESEMPIO_INTEGRAZIONE.html
+  3. Controlla Console browser (F12)
+  4. Contatta Prof. Picconi
+
+═══════════════════════════════════════════════════════════════
+
+💡 SUGGERIMENTI
+
+✓ Fai sempre un test di prova prima di usare con classe
+✓ Testa su diversi browser
+✓ Verifica su mobile
+✓ Prepara domande discussione
+✓ Esporta regolarmente i dati CSV
+✓ Cambia password statistiche se necessario
+✓ Integra con altre attività didattiche
+
+═══════════════════════════════════════════════════════════════
+
+🎉 BUON LAVORO!
+
+Il Test di Stroop è pronto per essere utilizzato.
+Ricorda: è uno strumento per innovare la didattica laboratoriale
+e insegnare agli studenti un uso consapevole della tecnologia.
+
+© 2024 Prof. Salvatore Picconi
+IIS Meucci Mattei - Decimomannu
+Innovare la didattica attraverso la tecnologia
+
+═══════════════════════════════════════════════════════════════

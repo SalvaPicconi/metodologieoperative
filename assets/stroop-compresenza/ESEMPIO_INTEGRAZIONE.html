@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESEMPIO - Integrazione Test Stroop</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2563eb;
+            border-bottom: 3px solid #2563eb;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #0891b2;
+            margin-top: 30px;
+        }
+        .highlight {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .code-block {
+            background: #1f2937;
+            color: #f3f4f6;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .btn-stroop {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 18px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        .btn-stroop:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        .example-preview {
+            border: 2px dashed #2563eb;
+            padding: 30px;
+            margin: 20px 0;
+            text-align: center;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-radius: 12px;
+        }
+        .steps {
+            counter-reset: step-counter;
+            list-style: none;
+            padding: 0;
+        }
+        .steps li {
+            counter-increment: step-counter;
+            margin: 15px 0;
+            padding: 15px 15px 15px 60px;
+            background: #f0f9ff;
+            border-left: 4px solid #2563eb;
+            border-radius: 6px;
+            position: relative;
+        }
+        .steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #2563eb;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>📘 ESEMPIO - Come Integrare il Test di Stroop</h1>
+    <p>Questa pagina mostra come aggiungere il link al Test di Stroop nella tua pagina <code>compresenza.html</code></p>
+</div>
+
+<div class="card">
+    <h2>🎯 Opzione 1: Bottone Semplice</h2>
+    <p>Aggiungi questo codice HTML nella tua pagina dove vuoi far apparire il bottone:</p>
+    
+    <div class="code-block">
+&lt;!-- Bottone Test di Stroop --&gt;
+&lt;a href="materiali/test-stroop.html" class="btn-test-stroop"&gt;
+    🧠 Test di Stroop - Valutazione Cognitiva
+&lt;/a&gt;
+    </div>
+
+    <p><strong>Aggiungi questo CSS per lo stile del bottone:</strong></p>
+    
+    <div class="code-block">
+.btn-test-stroop {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-test-stroop:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+    </div>
+
+    <div class="example-preview">
+        <p><strong>Anteprima:</strong></p>
+        <a href="test-stroop.html" class="btn-stroop">🧠 Test di Stroop - Valutazione Cognitiva</a>
+    </div>
+</div>
+
+<div class="card">
+    <h2>🎯 Opzione 2: Card Descrittiva</h2>
+    <p>Per una presentazione più dettagliata, usa questa card:</p>
+    
+    <div class="code-block">
+&lt;div class="test-card"&gt;
+    &lt;h3&gt;🧠 Test di Stroop&lt;/h3&gt;
+    &lt;p class="test-description"&gt;
+        Strumento interattivo per la valutazione delle funzioni cognitive.
+        Include teoria, test pratico, certificato PDF e casi clinici.
+    &lt;/p&gt;
+    &lt;ul class="test-features"&gt;
+        &lt;li&gt;✓ 30 prove con difficoltà progressiva&lt;/li&gt;
+        &lt;li&gt;✓ Punteggio gamificato e feedback dettagliato&lt;/li&gt;
+        &lt;li&gt;✓ Certificato PDF scaricabile&lt;/li&gt;
+        &lt;li&gt;✓ Studio di casi clinici reali&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;a href="materiali/test-stroop.html" class="btn-primary"&gt;
+        Inizia il Test →
+    &lt;/a&gt;
+&lt;/div&gt;
+    </div>
+
+    <p><strong>CSS per la card:</strong></p>
+    
+    <div class="code-block">
+.test-card {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border: 2px solid #2563eb;
+    border-radius: 12px;
+    padding: 25px;
+    margin: 20px 0;
+}
+
+.test-card h3 {
+    color: #2563eb;
+    margin-top: 0;
+    font-size: 24px;
+}
+
+.test-description {
+    color: #374151;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.test-features {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0;
+}
+
+.test-features li {
+    padding: 5px 0;
+    color: #1f2937;
+}
+
+.btn-primary {
+    display: inline-block;
+    background: #2563eb;
+    color: white;
+    padding: 12px 30px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: #1e40af;
+}
+    </div>
+</div>
+
+<div class="card">
+    <h2>📋 Procedura di Installazione Completa</h2>
+    
+    <ol class="steps">
+        <li>
+            <strong>Carica i file su GitHub</strong><br>
+            Carica la cartella <code>materiali</code> completa nel tuo repository<br>
+            Path: <code>metodologieoperative/materiali/</code>
+        </li>
+        
+        <li>
+            <strong>Verifica GitHub Pages</strong><br>
+            Vai su Settings → Pages<br>
+            Verifica che sia attivo e deployato
+        </li>
+        
+        <li>
+            <strong>Testa il link diretto</strong><br>
+            Apri: <code>https://salvapicconi.github.io/metodologieoperative/materiali/test-stroop.html</code><br>
+            Verifica che tutto funzioni
+        </li>
+        
+        <li>
+            <strong>Modifica compresenza.html</strong><br>
+            Apri il file <code>compresenza.html</code><br>
+            Aggiungi uno dei codici sopra dove preferisci
+        </li>
+        
+        <li>
+            <strong>Carica le modifiche</strong><br>
+            Commit e push su GitHub<br>
+            Attendi qualche minuto per il deploy
+        </li>
+        
+        <li>
+            <strong>Testa tutto</strong><br>
+            Clicca sul bottone dalla pagina compresenza<br>
+            Verifica che ti porti al test<br>
+            Completa un test di prova
+        </li>
+        
+        <li>
+            <strong>Condividi con gli studenti</strong><br>
+            Fornisci il link: <code>https://salvapicconi.github.io/metodologieoperative/compresenza.html</code><br>
+            O il link diretto al test
+        </li>
+    </ol>
+</div>
+
+<div class="card">
+    <h2>🎨 Opzione 3: Sezione Dedicata</h2>
+    <p>Se vuoi creare una sezione completamente nuova nella pagina:</p>
+    
+    <div class="code-block">
+&lt;section class="stroop-section"&gt;
+    &lt;h2&gt;🧪 Laboratorio Digitale: Test di Stroop&lt;/h2&gt;
+    
+    &lt;div class="stroop-intro"&gt;
+        &lt;p&gt;
+            Il Test di Stroop è uno degli strumenti più utilizzati in neuropsicologia 
+            per valutare le funzioni cognitive, in particolare l'attenzione selettiva 
+            e il controllo inibitorio.
+        &lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class="stroop-grid"&gt;
+        &lt;div class="stroop-box"&gt;
+            &lt;h3&gt;📚 Per Cosa Serve&lt;/h3&gt;
+            &lt;ul&gt;
+                &lt;li&gt;Valutazione demenze&lt;/li&gt;
+                &lt;li&gt;Screening ADHD&lt;/li&gt;
+                &lt;li&gt;Monitoraggio Parkinson&lt;/li&gt;
+                &lt;li&gt;Valutazione traumi cranici&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+
+        &lt;div class="stroop-box"&gt;
+            &lt;h3&gt;✨ Cosa Include&lt;/h3&gt;
+            &lt;ul&gt;
+                &lt;li&gt;Fondamenti teorici&lt;/li&gt;
+                &lt;li&gt;Test interattivo (30 prove)&lt;/li&gt;
+                &lt;li&gt;Certificato scaricabile&lt;/li&gt;
+                &lt;li&gt;Casi clinici commentati&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+
+        &lt;div class="stroop-box"&gt;
+            &lt;h3&gt;⏱️ Tempo Richiesto&lt;/h3&gt;
+            &lt;ul&gt;
+                &lt;li&gt;Teoria: 15 minuti&lt;/li&gt;
+                &lt;li&gt;Test: 5-7 minuti&lt;/li&gt;
+                &lt;li&gt;Riflessione: 10 minuti&lt;/li&gt;
+                &lt;li&gt;Casi clinici: 15 minuti&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="stroop-cta"&gt;
+        &lt;a href="materiali/test-stroop.html" class="btn-large"&gt;
+            🚀 Accedi al Test di Stroop
+        &lt;/a&gt;
+    &lt;/div&gt;
+&lt;/section&gt;
+    </div>
+</div>
+
+<div class="card">
+    <div class="highlight">
+        <h3>⚠️ IMPORTANTE - Verifica Prima di Pubblicare</h3>
+        <ul>
+            <li>✅ Testa il test completamente</li>
+            <li>✅ Verifica che il certificato PDF si scarichi</li>
+            <li>✅ Controlla che i grafici appaiano</li>
+            <li>✅ Prova l'accesso alle statistiche classe</li>
+            <li>✅ Testa su mobile (smartphone e tablet)</li>
+            <li>✅ Verifica su diversi browser</li>
+        </ul>
+        
+        <p><strong>Password statistiche:</strong> <code>metodologie2024</code> o <code>picconi</code></p>
+    </div>
+</div>
+
+<div class="card">
+    <h2>🎓 Suggerimenti Didattici</h2>
+    
+    <h3>Prima della Lezione</h3>
+    <ul>
+        <li>Invia il link agli studenti con anticipo</li>
+        <li>Chiedi di leggere la parte teorica a casa</li>
+        <li>Prepara domande di discussione</li>
+    </ul>
+
+    <h3>Durante la Lezione</h3>
+    <ul>
+        <li>Fai completare il test in classe (15 min)</li>
+        <li>Discussione collettiva sull'esperienza (20 min)</li>
+        <li>Analisi casi clinici in gruppi (25 min)</li>
+    </ul>
+
+    <h3>Dopo la Lezione</h3>
+    <ul>
+        <li>Analizza le statistiche della classe</li>
+        <li>Prepara feedback personalizzati</li>
+        <li>Esporta i dati per analisi future</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h2>📞 Hai Bisogno di Aiuto?</h2>
+    <p>Consulta il file <strong>README.md</strong> nella cartella materiali per:</p>
+    <ul>
+        <li>📖 Documentazione completa</li>
+        <li>🔧 Risoluzione problemi</li>
+        <li>⚙️ Configurazione avanzata</li>
+        <li>📊 Guida statistiche</li>
+        <li>🔒 Privacy e GDPR</li>
+    </ul>
+</div>
+
+<div class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+    <h2 style="color: white; border-bottom-color: white;">✅ Checklist Finale</h2>
+    <ul style="font-size: 16px; line-height: 2;">
+        <li>□ File caricati su GitHub</li>
+        <li>□ Link testato e funzionante</li>
+        <li>□ Bottone aggiunto a compresenza.html</li>
+        <li>□ Test di prova completato</li>
+        <li>□ Password statistiche verificata</li>
+        <li>□ Export CSV testato</li>
+        <li>□ Tutto pronto per gli studenti! 🎉</li>
+    </ul>
+</div>
+
+</body>
+</html>

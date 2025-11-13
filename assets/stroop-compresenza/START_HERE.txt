@@ -1,0 +1,364 @@
+╔═══════════════════════════════════════════════════════════════╗
+║                                                               ║
+║    🧠  TEST DI STROOP - LABORATORIO DIGITALE  🧠              ║
+║                                                               ║
+║    Prof. Salvatore Picconi                                    ║
+║    IIS Meucci Mattei - Decimomannu                           ║
+║    Metodologie Operative per Servizi Sociosanitari           ║
+║                                                               ║
+╚═══════════════════════════════════════════════════════════════╝
+
+👋 BENVENUTO!
+
+Hai appena ricevuto un Test di Stroop interattivo completo,
+pronto per essere utilizzato con i tuoi studenti.
+
+═══════════════════════════════════════════════════════════════
+
+📦 COSA HAI RICEVUTO
+
+Questa cartella "materiali" contiene:
+
+📄 test-stroop.html (34 KB)
+   └─ Pagina principale del test
+   └─ Include tutte le sezioni (intro, teoria, test, risultati, casi)
+
+🎨 css/stroop.css (23 KB)
+   └─ Stile completo e professionale
+   └─ Design responsive per tutti i dispositivi
+   └─ Palette colori coerente
+
+⚙️ js/stroop-test.js (24 KB)
+   └─ Logica principale del test
+   └─ Gestione 30 prove progressive
+   └─ Sistema punteggio gamificato
+
+📊 js/stroop-results.js (13 KB)
+   └─ Generazione grafici (Chart.js)
+   └─ Creazione certificato PDF (jsPDF)
+   └─ Dashboard risultati
+
+💾 js/stroop-data.js (13 KB)
+   └─ Salvataggio dati localStorage
+   └─ Export CSV
+   └─ Integrazione Google Sheets (opzionale)
+
+📖 README.md (15 KB)
+   └─ Documentazione completa
+   └─ Guida installazione dettagliata
+   └─ Tutte le funzionalità spiegate
+
+💡 ESEMPIO_INTEGRAZIONE.html (12 KB)
+   └─ Come linkare il test da compresenza.html
+   └─ Codici HTML/CSS pronti all'uso
+   └─ Anteprima visiva
+
+⚡ ISTRUZIONI_RAPIDE.txt (9 KB)
+   └─ Guida veloce 5 passi
+   └─ Risoluzione problemi comuni
+   └─ Checklist installazione
+
+📝 START_HERE.txt
+   └─ Questo file di benvenuto
+
+═══════════════════════════════════════════════════════════════
+
+🚀 INIZIA QUI - 3 STEP RAPIDI
+
+1️⃣  LEGGI
+    └─ Apri: ISTRUZIONI_RAPIDE.txt
+    └─ Tempo: 5 minuti
+    └─ Avrai tutto chiaro per iniziare
+
+2️⃣  INSTALLA
+    └─ Carica cartella "materiali" su GitHub
+    └─ Tempo: 10 minuti
+    └─ Segui i 5 passi nelle istruzioni
+
+3️⃣  TESTA
+    └─ Completa un test di prova
+    └─ Tempo: 10 minuti
+    └─ Verifica che tutto funzioni
+
+TOTALE: 25 minuti e sei pronto! 🎉
+
+═══════════════════════════════════════════════════════════════
+
+📋 ORDINE DI LETTURA CONSIGLIATO
+
+1. START_HERE.txt (questo file) ✓ Stai già leggendo!
+2. ISTRUZIONI_RAPIDE.txt → Guida essenziale
+3. ESEMPIO_INTEGRAZIONE.html → Come integrare nel sito
+4. README.md → Approfondimenti completi
+
+═══════════════════════════════════════════════════════════════
+
+✨ CARATTERISTICHE PRINCIPALI
+
+TEST INTERATTIVO:
+  ✓ 30 prove con difficoltà progressiva (BASE → MASSIMA)
+  ✓ 6 colori: Rosso, Blu, Verde, Giallo, Viola, Arancione
+  ✓ Cronometro in tempo reale
+  ✓ Punteggio gamificato 0-1000
+  ✓ Durata: ~5-7 minuti
+
+CONTENUTI DIDATTICI:
+  ✓ Teoria completa del Test di Stroop (1935)
+  ✓ Basi neuropsicologiche (attenzione, controllo inibitorio)
+  ✓ Applicazioni cliniche (demenze, ADHD, Parkinson)
+  ✓ Ruolo dell'Operatore Sociosanitario
+  ✓ 3 casi clinici reali commentati
+
+RISULTATI:
+  ✓ Punteggio finale con livello performance
+  ✓ Statistiche dettagliate (tempo, accuratezza)
+  ✓ Grafici interattivi (Chart.js)
+  ✓ Analisi per livello difficoltà
+  ✓ Interpretazione guidata
+
+CERTIFICATO PDF:
+  ✓ Generato automaticamente (jsPDF)
+  ✓ Design professionale
+  ✓ Dati personalizzati studente
+  ✓ Scaricabile e stampabile
+
+RIFLESSIONE:
+  ✓ 5 domande guidate
+  ✓ Focus su applicazioni sociosanitarie
+  ✓ Sviluppo pensiero critico
+
+STATISTICHE DOCENTE:
+  ✓ Dashboard classe completa
+  ✓ Grafici aggregati
+  ✓ Export CSV per analisi
+  ✓ Password protetto
+  ✓ Dati anonimi GDPR compliant
+
+═══════════════════════════════════════════════════════════════
+
+🎯 A CHI È RIVOLTO
+
+STUDENTI:
+  Per apprendere strumenti di valutazione cognitiva
+  attraverso esperienza diretta e riflessione guidata
+
+DOCENTI:
+  Per insegnare metodologie operative in modo
+  innovativo, interattivo e basato su evidenze
+
+CONTESTO:
+  Servizi per la Sanità e l'Assistenza Sociale
+  Formazione Operatori Sociosanitari (OSS)
+  Metodologie Operative e Scienze Umane
+
+═══════════════════════════════════════════════════════════════
+
+💻 REQUISITI TECNICI
+
+HOSTING:
+  ✓ GitHub Pages (gratis, già hai account)
+  ✓ O qualsiasi hosting HTML statico
+
+BROWSER:
+  ✓ Chrome, Firefox, Safari, Edge
+  ✗ NON Internet Explorer
+
+CONNESSIONE:
+  ✓ Internet (per librerie CDN: Chart.js, jsPDF)
+  ✓ Funziona anche su mobile 4G/5G
+
+DISPOSITIVI:
+  ✓ Desktop/Laptop
+  ✓ Tablet (iPad, Android)
+  ✓ Smartphone (iOS, Android)
+
+═══════════════════════════════════════════════════════════════
+
+🔐 PRIVACY E SICUREZZA
+
+DATI STUDENTI:
+  ✓ Nome opzionale (può essere pseudonimo)
+  ✓ Solo età e sesso obbligatori
+  ✓ Nessun dato sensibile
+  ✓ Consenso esplicito richiesto
+
+STORAGE:
+  ✓ Salvataggio locale (localStorage browser)
+  ✓ Nessun server esterno (a meno di Google Sheets)
+  ✓ Studente può cancellare propri dati
+
+ACCESSO STATISTICHE:
+  ✓ Password protetto
+  ✓ Solo docente può vedere dati aggregati
+  ✓ Export controllato
+
+GDPR COMPLIANT:
+  ✓ Finalità didattiche esplicite
+  ✓ Dati minimali
+  ✓ Trasparenza totale
+
+═══════════════════════════════════════════════════════════════
+
+📊 STATISTICHE TECNICHE
+
+DIMENSIONI:
+  └─ Totale cartella: ~110 KB
+  └─ HTML: 34 KB
+  └─ CSS: 23 KB
+  └─ JS totale: 50 KB
+  └─ Documentazione: 38 KB
+
+PERFORMANCE:
+  └─ Caricamento: <2 secondi
+  └─ Test completo: ~6 minuti
+  └─ Generazione PDF: <3 secondi
+  └─ Export CSV: istantaneo
+
+BROWSER STORAGE:
+  └─ ~50 KB per test salvato
+  └─ Limite: 100 test (configurabile)
+  └─ Totale max: ~5 MB
+
+═══════════════════════════════════════════════════════════════
+
+🎓 VALORE DIDATTICO
+
+COMPETENZE SVILUPPATE:
+  ✓ Uso strumenti valutazione neuropsicologica
+  ✓ Osservazione sistematica comportamenti
+  ✓ Interpretazione dati clinici
+  ✓ Comunicazione équipe multidisciplinare
+  ✓ Pensiero critico e riflessivo
+
+METODOLOGIE:
+  ✓ Apprendimento esperienziale
+  ✓ Flipped classroom (teoria a casa)
+  ✓ Peer learning (discussione casi)
+  ✓ Problem-based learning
+  ✓ Digital literacy
+
+COLLEGAMENTI CURRICULARI:
+  ✓ Metodologie Operative
+  ✓ Scienze Umane e Sociali
+  ✓ Igiene e Cultura Medico-Sanitaria
+  ✓ Psicologia Generale e Applicata
+  ✓ PCTO (ore riconoscibili)
+
+═══════════════════════════════════════════════════════════════
+
+🛠️ PERSONALIZZAZIONI POSSIBILI
+
+FACILI:
+  ✓ Cambio password statistiche
+  ✓ Modifica colori tema (CSS)
+  ✓ Aggiunta casi clinici
+  ✓ Modifica testi introduttivi
+
+MEDIE:
+  ✓ Numero prove test (30 → altro)
+  ✓ Colori stimoli (6 → altro numero)
+  ✓ Sistema punteggio
+  ✓ Livelli difficoltà
+
+AVANZATE:
+  ✓ Integrazione Google Sheets
+  ✓ Database esterno
+  ✓ Autenticazione studenti
+  ✓ Confronto pre/post test
+
+Tutte le personalizzazioni sono spiegate nel README.md
+
+═══════════════════════════════════════════════════════════════
+
+❓ FAQ RAPIDE
+
+Q: Quanto costa?
+A: GRATIS! GitHub Pages è gratuito.
+
+Q: Serve conoscere programmazione?
+A: NO! Basta seguire le istruzioni.
+
+Q: Funziona su smartphone?
+A: SÌ! Design 100% responsive.
+
+Q: I dati sono al sicuro?
+A: SÌ! Salvati localmente nel browser studente.
+
+Q: Posso modificare i contenuti?
+A: SÌ! Tutti i file sono editabili.
+
+Q: Serve installare qualcosa?
+A: NO! Solo caricare file su GitHub.
+
+Q: Gli studenti devono registrarsi?
+A: NO! Accesso libero, dati anonimi.
+
+Q: Quanti studenti possono usarlo?
+A: ILLIMITATI! Nessun limite tecnico.
+
+═══════════════════════════════════════════════════════════════
+
+🆘 SUPPORTO
+
+PROBLEMI TECNICI:
+  1. Consulta ISTRUZIONI_RAPIDE.txt (sezione problemi)
+  2. Leggi README.md (risoluzione problemi)
+  3. Controlla Console browser (F12)
+  4. Verifica che tutti i file siano caricati
+
+DOMANDE DIDATTICHE:
+  1. Leggi sezione "Utilizzo Didattico" nel README
+  2. Consulta esempi integrazione
+  3. Adatta alle tue esigenze classe
+
+═══════════════════════════════════════════════════════════════
+
+🎉 SEI PRONTO!
+
+Hai tutto il necessario per iniziare.
+I tuoi studenti apprezzeranno questo strumento innovativo.
+
+PROSSIMI PASSI:
+  1. Leggi ISTRUZIONI_RAPIDE.txt (5 min)
+  2. Carica su GitHub (10 min)
+  3. Testa il funzionamento (10 min)
+  4. Presenta agli studenti
+
+LINK UTILI:
+  ✓ GitHub: github.com/salvapicconi/metodologieoperative
+  ✓ GitHub Pages: settings → pages
+  ✓ Test live: tuolink.github.io/metodologieoperative/materiali/test-stroop.html
+
+═══════════════════════════════════════════════════════════════
+
+💡 SUGGERIMENTO FINALE
+
+Prima di usare con la classe:
+  ✓ Completa personalmente il test
+  ✓ Studia tutti i casi clinici
+  ✓ Prova funzione statistiche
+  ✓ Scarica certificato PDF di prova
+  ✓ Esporta CSV di prova
+
+Questo ti darà sicurezza e autorevolezza quando
+presenterai lo strumento agli studenti.
+
+═══════════════════════════════════════════════════════════════
+
+📞 CREDITI
+
+Sviluppato da: Prof. Salvatore Picconi
+Istituto: IIS Meucci Mattei - Decimomannu
+Disciplina: Metodologie Operative
+Indirizzo: Servizi per la Sanità e l'Assistenza Sociale
+Anno: 2024-2025
+
+Obiettivo: Innovare la didattica laboratoriale attraverso
+l'uso consapevole e critico dell'intelligenza artificiale,
+generando materiali innovativi per l'apprendimento.
+
+═══════════════════════════════════════════════════════════════
+
+🚀 BUON LAVORO E BUONA DIDATTICA INNOVATIVA!
+
+═══════════════════════════════════════════════════════════════
