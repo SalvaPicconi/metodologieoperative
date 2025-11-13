@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistiche Test di Stroop</title>
+    <meta name="description" content="Dashboard riservata per consultare i risultati del Test di Stroop.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Statistiche Test di Stroop</h1>
+            <p>Monitoraggio risultati, punteggi e accuratezza per classe</p>
+            <p style="font-size: 0.9rem; margin-top: 0.5rem;">Metodologie Operative · IIS Meucci Mattei</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="area_docente.html">Area Docente</a></li>
+            <li><a href="stroop_statistiche.html" class="active">Statistiche Stroop</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="container">
+            <section class="docente-hero">
+                <div>
+                    <h2>Dashboard dedicata</h2>
+                    <p>Questa pagina raccoglie i dati salvati nella tabella <strong>stroop_tests</strong> su Supabase. Puoi filtrare per classe, ordinare i risultati e scaricare l’elenco dei partecipanti.</p>
+                    <p style="margin-top: 0.8rem;">
+                        <a class="btn btn-secondary" href="area_docente.html">← Torna all'Area Docente</a>
+                    </p>
+                </div>
+            </section>
+
+            <section class="docente-dashboard card">
+                <div id="stroop-auth-overlay">
+                    <div class="auth-box">
+                        <h3>🔐 Accesso riservato</h3>
+                        <p>Inserisci la password docente per visualizzare i risultati.</p>
+                        <form id="stroop-login-form">
+                            <input type="password" id="stroop-password" placeholder="Password" required>
+                            <button type="submit" class="btn btn-primary">Accedi</button>
+                        </form>
+                        <p class="small-note">Usa la stessa password delle altre sezioni riservate.</p>
+                    </div>
+                </div>
+
+                <div id="stroop-dashboard-content" class="hidden">
+                    <div class="dashboard-topbar">
+                        <div>
+                            <p class="muted">Ultimo aggiornamento</p>
+                            <p id="stroop-last-refresh">-</p>
+                        </div>
+                        <button id="stroop-refresh" class="btn btn-secondary">🔄 Aggiorna dati</button>
+                    </div>
+
+                    <div class="dashboard-filters">
+                        <div class="filter-control">
+                            <label for="stroop-class-filter">Classe</label>
+                            <select id="stroop-class-filter">
+                                <option value="">Tutte le classi</option>
+                            </select>
+                        </div>
+                        <div class="filter-control">
+                            <label for="stroop-student-search">Studente</label>
+                            <input type="text" id="stroop-student-search" placeholder="Cognome / codice">
+                        </div>
+                        <div class="filter-control">
+                            <label>&nbsp;</label>
+                            <button id="stroop-export" class="btn btn-primary" type="button">📥 Esporta CSV</button>
+                        </div>
+                    </div>
+
+                    <div class="stats-overview docente-stats">
+                        <div class="stat-card">
+                            <h4>👥 Partecipanti</h4>
+                            <p id="stroop-stat-students" class="stat-value">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>📊 Punteggio medio</h4>
+                            <p id="stroop-stat-score" class="stat-value">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>🎯 Accuratezza media</h4>
+                            <p id="stroop-stat-accuracy" class="stat-value">0%</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>⏱️ Ultimo test</h4>
+                            <p id="stroop-stat-last" class="stat-value">-</p>
+                        </div>
+                    </div>
+
+                    <section class="summary-section">
+                        <div class="section-header">
+                            <h3>Riepilogo per classe</h3>
+                            <p class="muted">Media punteggi e accuratezza</p>
+                        </div>
+                        <div class="table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Classe</th>
+                                        <th>Partecipanti</th>
+                                        <th>Punteggio medio</th>
+                                        <th>Accuratezza media</th>
+                                        <th>Ultimo aggiornamento</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="stroop-class-summary">
+                                    <tr><td colspan="5">Nessun dato disponibile.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <section class="summary-section">
+                        <div class="section-header">
+                            <h3>Dettaglio studenti</h3>
+                            <p class="muted">Risultati individuali ordinati per data</p>
+                        </div>
+                        <div class="table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Classe</th>
+                                        <th>Studente</th>
+                                        <th>Punteggio</th>
+                                        <th>Accuratezza</th>
+                                        <th>Data</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="stroop-detail-body">
+                                    <tr><td colspan="5">Nessun risultato disponibile.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p><strong>Prof. Dott. Picconi</strong></p>
+            <p>Metodologie Operative - Servizi Sociosanitari</p>
+            <p>IIS Meucci Mattei - Cagliari</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem;">&copy; 2025 - Tutti i diritti riservati</p>
+        </div>
+    </footer>
+
+    <script>
+        window.MO_PROGRESS_CONFIG = { disabled: true };
+    </script>
+    <script type="module" src="assets/stroop-dashboard.js"></script>
+</body>
+</html>

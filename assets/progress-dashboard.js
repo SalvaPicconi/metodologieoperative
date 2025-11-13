@@ -326,13 +326,18 @@ function renderStudentTable(records) {
         .sort((a, b) => new Date(b.lastUpdate || 0) - new Date(a.lastUpdate || 0))
         .map(entry => {
             const link = entry.pagePath ? `${SITE_BASE}${entry.pagePath.startsWith('/') ? '' : '/'}${entry.pagePath}` : '#';
+            const statsLink = `${STROOP_STATS_URL}?classe=${encodeURIComponent(entry.classCode.toLowerCase())}`;
             return `
                 <tr>
                     <td>${entry.classCode}</td>
                     <td>${entry.studentCode}</td>
                     <td>${formatActivityName(entry.pagePath)}</td>
                     <td>${formatDateTime(entry.lastUpdate)}</td>
-                    <td><a class="btn-link" href="${link}" target="_blank" rel="noopener">Apri</a></td>
+                    <td>
+                        <a class="btn-link" href="${statsLink}" target="_blank" rel="noopener">Statistiche</a>
+                        <span class="divider">·</span>
+                        <a class="btn-link" href="${link}" target="_blank" rel="noopener">Pagina</a>
+                    </td>
                 </tr>
             `;
         });
@@ -409,7 +414,11 @@ function renderAssessmentTable(data) {
                 <td>${entry.results.finalScore ?? 0}</td>
                 <td>${(entry.results.accuracy ?? 0).toFixed(1)}%</td>
                 <td>${formatDateTime(entry.created_at)}</td>
-                <td><a class="btn-link" href="${STROOP_BASE_URL}" target="_blank" rel="noopener">Apri test</a></td>
+                <td>
+                    <a class="btn-link" href="${STROOP_STATS_URL}?classe=${encodeURIComponent(entry.classCode.toLowerCase())}" target="_blank" rel="noopener">Statistiche</a>
+                    <span class="divider">·</span>
+                    <a class="btn-link" href="${STROOP_BASE_URL}" target="_blank" rel="noopener">Pagina</a>
+                </td>
             </tr>
         `);
 
