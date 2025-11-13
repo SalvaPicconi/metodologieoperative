@@ -60,8 +60,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function handleLogin(event) {
     event.preventDefault();
-    const value = elements.passwordInput?.value?.trim();
-    if (value === 'metodologie2024' || value === 'picconi') {
+    const value = elements.passwordInput?.value ?? '';
+    const normalized = value.trim().toLowerCase();
+    const allowed = ['metodologie2024', 'picconi'];
+
+    if (allowed.includes(normalized)) {
         elements.overlay?.classList.add('hidden');
         elements.dashboard?.classList.remove('hidden');
         refreshDashboard();
