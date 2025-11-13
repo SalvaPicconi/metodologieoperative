@@ -236,7 +236,6 @@ function showTrial() {
         const button = document.createElement('button');
         button.className = 'color-button';
         button.textContent = color.name;
-        button.style.backgroundColor = color.hex;
         button.dataset.color = color.name;
         button.addEventListener('click', () => handleResponse(color.name));
         buttonsContainer.appendChild(button);

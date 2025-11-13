@@ -598,24 +598,27 @@ body {
 
 .color-button {
     padding: var(--spacing-xl);
-    border: 3px solid transparent;
+    border: 3px solid var(--gray-300);
     border-radius: var(--radius-lg);
     font-size: 1.25rem;
     font-weight: 700;
-    color: white;
+    color: var(--gray-800);
     cursor: pointer;
     transition: all var(--transition-fast);
     text-transform: uppercase;
     box-shadow: var(--shadow-md);
+    background: var(--gray-50);
 }
 
 .color-button:hover {
     transform: scale(1.05);
     box-shadow: var(--shadow-xl);
+    background: white;
 }
 
 .color-button:active {
     transform: scale(0.95);
+    background: var(--gray-100);
 }
 
 .test-footer {
