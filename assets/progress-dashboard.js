@@ -3,12 +3,16 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 const PROGRESS_ENDPOINT = `${SUPABASE_URL}/rest/v1/progress`;
 const SITE_BASE = window.location.origin.replace(/\/$/, '');
 
+const STROOP_BASE_URL = `${SITE_BASE}/materiali/compresenza/test-stroop.html`;
+
 const dashboardState = {
     records: [],
     filtered: [],
     classFilter: '',
     activityFilter: '',
-    searchTerm: ''
+    searchTerm: '',
+    assessments: [],
+    filteredAssessments: []
 };
 
 const elements = {};
@@ -31,6 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.activityFocus = document.getElementById('doc-activity-focus');
     elements.activityBody = document.getElementById('activity-summary-body');
     elements.studentBody = document.getElementById('student-detail-body');
+    elements.assessmentClassBody = document.getElementById('assessment-class-summary');
+    elements.assessmentDetailBody = document.getElementById('assessment-detail-body');
 
     if (elements.loginForm) {
         elements.loginForm.addEventListener('submit', handleLogin);
@@ -78,12 +84,17 @@ async function refreshDashboard() {
     setStatus('Caricamento dati...');
     toggleLoading(true);
     try {
-        const records = await fetchProgressData();
+        const [records, assessments] = await Promise.all([
+            fetchProgressData(),
+            fetchAssessmentData()
+        ]);
         dashboardState.records = records;
+        dashboardState.assessments = assessments.map(normalizeAssessmentRecord);
         populateFilters(records);
         dashboardState.classFilter = elements.classFilter?.value || '';
         dashboardState.activityFilter = elements.activityFilter?.value || '';
         applyFilters();
+        applyAssessmentFilter(dashboardState.classFilter || '');
         const now = new Date();
         if (elements.lastRefresh) {
             elements.lastRefresh.textContent = now.toLocaleString('it-IT');
@@ -111,6 +122,25 @@ async function fetchProgressData() {
     });
     if (!response.ok) {
         throw new Error(`Supabase error ${response.status}`);
+    }
+    return response.json();
+}
+
+async function fetchAssessmentData() {
+    const params = new URLSearchParams({
+        select: 'id,class_code,student_code,participant,results,created_at',
+        order: 'created_at.desc',
+        limit: '500'
+    });
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/stroop_tests?${params.toString()}`, {
+        headers: {
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${SUPABASE_ANON_KEY}`
+        }
+    });
+    if (!response.ok) {
+        console.warn('Impossibile caricare i test strutturati:', response.status);
+        return [];
     }
     return response.json();
 }
@@ -308,6 +338,102 @@ function renderStudentTable(records) {
         });
 
     elements.studentBody.innerHTML = rows.join('');
+}
+
+function applyAssessmentFilter(classCode = '') {
+    let dataset = dashboardState.assessments;
+    if (classCode) {
+        dataset = dataset.filter(entry => entry.classCode.toLowerCase() === classCode.toLowerCase());
+    }
+    dashboardState.filteredAssessments = dataset;
+    renderAssessmentSummary(dataset);
+    renderAssessmentTable(dataset);
+}
+
+function renderAssessmentSummary(data) {
+    if (!elements.assessmentClassBody) return;
+    if (!data.length) {
+        elements.assessmentClassBody.innerHTML = '<tr><td colspan="5">Nessun risultato disponibile.</td></tr>';
+        return;
+    }
+
+    const map = new Map();
+    data.forEach(entry => {
+        const key = entry.classCode;
+        if (!map.has(key)) {
+            map.set(key, {
+                label: key.toUpperCase(),
+                count: 0,
+                sumScore: 0,
+                sumAccuracy: 0,
+                lastUpdate: entry.created_at
+            });
+        }
+        const obj = map.get(key);
+        obj.count += 1;
+        obj.sumScore += entry.results.finalScore || 0;
+        obj.sumAccuracy += entry.results.accuracy || 0;
+        if (!obj.lastUpdate || new Date(entry.created_at) > new Date(obj.lastUpdate)) {
+            obj.lastUpdate = entry.created_at;
+        }
+    });
+
+    const rows = Array.from(map.values())
+        .sort((a, b) => a.label.localeCompare(b.label, 'it', { numeric: true }))
+        .map(entry => `
+            <tr>
+                <td>${entry.label}</td>
+                <td>${entry.count}</td>
+                <td>${(entry.sumScore / entry.count).toFixed(1)}</td>
+                <td>${(entry.sumAccuracy / entry.count).toFixed(1)}%</td>
+                <td>${formatDateTime(entry.lastUpdate)}</td>
+            </tr>
+        `);
+
+    elements.assessmentClassBody.innerHTML = rows.join('');
+}
+
+function renderAssessmentTable(data) {
+    if (!elements.assessmentDetailBody) return;
+    if (!data.length) {
+        elements.assessmentDetailBody.innerHTML = '<tr><td colspan="6">Nessun risultato disponibile.</td></tr>';
+        return;
+    }
+
+    const rows = data
+        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+        .map(entry => `
+            <tr>
+                <td>${entry.classCode}</td>
+                <td>${entry.participant.name || 'Anonimo'}</td>
+                <td>${entry.results.finalScore ?? 0}</td>
+                <td>${(entry.results.accuracy ?? 0).toFixed(1)}%</td>
+                <td>${formatDateTime(entry.created_at)}</td>
+                <td><a class="btn-link" href="${STROOP_BASE_URL}" target="_blank" rel="noopener">Apri test</a></td>
+            </tr>
+        `);
+
+    elements.assessmentDetailBody.innerHTML = rows.join('');
+}
+ 
+function normalizeAssessmentRecord(record) {
+    if (!record) return null;
+    const participant = record.participant || {};
+    const results = record.results || {};
+    return {
+        id: record.id,
+        classCode: (record.class_code || 'N/D').toUpperCase(),
+        participant: {
+            name: participant.name || 'Anonimo',
+            age: participant.age ?? null,
+            gender: participant.gender || 'N/D'
+        },
+        results: {
+            finalScore: results.finalScore ?? 0,
+            accuracy: results.accuracy ?? 0
+        },
+        created_at: record.created_at || new Date().toISOString()
+    };
 }
 
 function toggleLoading(isLoading) {
