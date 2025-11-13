@@ -377,8 +377,8 @@ function generateCertificatePDF(participantData, results) {
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
-    doc.text('Prof. Salvatore Picconi', 105, 280, { align: 'center' });
-    doc.text('Docente di Metodologie Operative', 105, 286, { align: 'center' });
+    doc.text('Metodologie Operative - Servizi Sociosanitari', 105, 280, { align: 'center' });
+    doc.text('Laboratorio Compresenza Scienze Umane', 105, 286, { align: 'center' });
     doc.text('IIS Meucci Mattei - Sede Decimomannu', 105, 292, { align: 'center' });
     
     // Salva PDF
