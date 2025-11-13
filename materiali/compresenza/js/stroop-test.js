@@ -485,10 +485,14 @@ function saveTestData() {
         }
     };
     
-    // Salva in localStorage
-    let allTests = JSON.parse(localStorage.getItem('stroopTests') || '[]');
-    allTests.push(fullData);
-    localStorage.setItem('stroopTests', JSON.stringify(allTests));
+    // Salva in localStorage (preferisci l'helper se disponibile)
+    if (typeof saveToLocalStorage === 'function') {
+        saveToLocalStorage(fullData);
+    } else {
+        let allTests = JSON.parse(localStorage.getItem('stroopTests') || '[]');
+        allTests.push(fullData);
+        localStorage.setItem('stroopTests', JSON.stringify(allTests));
+    }
     
     // Invia al server (se configurato)
     // Questa funzione sarà implementata in stroop-data.js
@@ -531,7 +535,7 @@ function handleReflectionForm(e) {
     
     // Invia al server
     if (typeof sendReflectionToServer === 'function') {
-        sendReflectionToServer(reflections);
+        sendReflectionToServer(reflections, appState.participantData);
     }
     
     // Mostra messaggio di ringraziamento

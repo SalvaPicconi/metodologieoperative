@@ -15,6 +15,56 @@ const DATA_CONFIG = {
     MAX_LOCAL_STORAGE: 100 // Numero massimo test in localStorage
 };
 
+const SUPABASE_CONFIG = {
+    ENABLED: true,
+    URL: 'https://ruplzgcnheddmqqdephp.supabase.co',
+    ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1cGx6Z2NuaGVkZG1xcWRlcGhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAxMTYyMjksImV4cCI6MjA3NTY5MjIyOX0.tOLIkgi5yTt61_0rMlXUqxnbil4DLD7kBaqZBVAv1CI',
+    TESTS_TABLE: 'stroop_tests',
+    REFLECTIONS_TABLE: 'stroop_reflections'
+};
+
+function getStoredIdentity() {
+    try {
+        const classCode = localStorage.getItem('mo:class') || sessionStorage.getItem('mo:class');
+        const studentCode = localStorage.getItem('mo:code') || sessionStorage.getItem('mo:code');
+        if (classCode && studentCode) {
+            return { classCode, studentCode };
+        }
+    } catch (error) {
+        console.warn('Impossibile leggere i dati di identità:', error);
+    }
+    return null;
+}
+
+async function supabaseRequest(path, options = {}) {
+    if (!SUPABASE_CONFIG.ENABLED) {
+        return Promise.resolve(null);
+    }
+    const url = `${SUPABASE_CONFIG.URL}/rest/v1/${path}`;
+    const response = await fetch(url, {
+        ...options,
+        headers: {
+            apikey: SUPABASE_CONFIG.ANON_KEY,
+            Authorization: `Bearer ${SUPABASE_CONFIG.ANON_KEY}`,
+            'Content-Type': 'application/json',
+            Prefer: 'return=representation',
+            ...(options.headers || {})
+        }
+    });
+
+    const text = await response.text();
+    if (!response.ok) {
+        const errorMessage = `Supabase error ${response.status}: ${text}`;
+        console.error(errorMessage);
+        throw new Error(errorMessage);
+    }
+    try {
+        return JSON.parse(text);
+    } catch {
+        return text;
+    }
+}
+
 // === SALVATAGGIO LOCALE ===
 function saveToLocalStorage(testData) {
     try {
@@ -42,12 +92,11 @@ function saveToLocalStorage(testData) {
 }
 
 // === INVIO DATI AL SERVER (GOOGLE SHEETS) ===
-function sendDataToServer(testData) {
+function sendToGoogleSheets(testData) {
     if (!DATA_CONFIG.USE_GOOGLE_SHEETS || !DATA_CONFIG.GOOGLE_SHEETS_URL) {
-        console.log('ℹ Google Sheets non configurato - solo salvataggio locale');
         return Promise.resolve(false);
     }
-    
+
     return fetch(DATA_CONFIG.GOOGLE_SHEETS_URL, {
         method: 'POST',
         mode: 'no-cors',
@@ -71,39 +120,105 @@ function sendDataToServer(testData) {
     });
 }
 
+function sendDataToSupabase(testData) {
+    if (!SUPABASE_CONFIG.ENABLED) {
+        return Promise.resolve(false);
+    }
+
+    const identity = getStoredIdentity();
+    const payload = {
+        class_code: identity?.classCode || null,
+        student_code: identity?.studentCode || null,
+        participant: testData.participant,
+        results: testData.testData?.results,
+        responses: testData.testData?.responses,
+        started_at: testData.testData?.startTime ? new Date(testData.testData.startTime).toISOString() : null,
+        ended_at: testData.testData?.endTime ? new Date(testData.testData.endTime).toISOString() : null
+    };
+
+    return supabaseRequest(`${SUPABASE_CONFIG.TESTS_TABLE}`, {
+        method: 'POST',
+        body: JSON.stringify(payload)
+    })
+    .then(() => {
+        console.log('✓ Dati inviati a Supabase');
+        return true;
+    })
+    .catch(error => {
+        console.error('✗ Errore invio Supabase:', error);
+        return false;
+    });
+}
+
+function sendDataToServer(testData) {
+    const operations = [];
+    if (DATA_CONFIG.USE_GOOGLE_SHEETS && DATA_CONFIG.GOOGLE_SHEETS_URL) {
+        operations.push(sendToGoogleSheets(testData));
+    }
+    if (SUPABASE_CONFIG.ENABLED) {
+        operations.push(sendDataToSupabase(testData));
+    }
+
+    if (!operations.length) {
+        console.log('ℹ Nessun backend configurato - dati solo locali');
+        return Promise.resolve(false);
+    }
+
+    return Promise.allSettled(operations).then(results => {
+        return results.some(result => result.status === 'fulfilled' && result.value);
+    });
+}
+
 // === INVIO RIFLESSIONI ===
-function sendReflectionToServer(reflections) {
-    if (!DATA_CONFIG.USE_GOOGLE_SHEETS) {
+function sendReflectionToServer(reflections, participant = null) {
+    const tasks = [];
+    
+    if (DATA_CONFIG.USE_GOOGLE_SHEETS && DATA_CONFIG.GOOGLE_SHEETS_URL) {
+        tasks.push(
+            fetch(DATA_CONFIG.GOOGLE_SHEETS_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    type: 'reflection',
+                    timestamp: new Date().toISOString(),
+                    reflections: reflections
+                })
+            }).catch(error => {
+                console.error('Errore invio riflessioni a Google Sheets:', error);
+            })
+        );
+    }
+
+    if (SUPABASE_CONFIG.ENABLED) {
+        const identity = getStoredIdentity();
+        const payload = {
+            class_code: identity?.classCode || null,
+            student_code: identity?.studentCode || null,
+            participant: participant || null,
+            reflections,
+            submitted_at: new Date().toISOString()
+        };
+        tasks.push(
+            supabaseRequest(`${SUPABASE_CONFIG.REFLECTIONS_TABLE}`, {
+                method: 'POST',
+                body: JSON.stringify(payload)
+            }).then(() => {
+                console.log('✓ Riflessioni inviate a Supabase');
+            }).catch(error => {
+                console.error('Errore invio riflessioni a Supabase:', error);
+            })
+        );
+    }
+    
+    if (!tasks.length) {
         console.log('ℹ Riflessioni salvate solo localmente');
         return Promise.resolve(false);
     }
-    
-    // Aggiungi riflessioni all'ultimo test salvato
-    try {
-        let allTests = JSON.parse(localStorage.getItem(DATA_CONFIG.STORAGE_KEY) || '[]');
-        if (allTests.length > 0) {
-            allTests[allTests.length - 1].reflections = reflections;
-            localStorage.setItem(DATA_CONFIG.STORAGE_KEY, JSON.stringify(allTests));
-        }
-    } catch (error) {
-        console.error('Errore salvataggio riflessioni:', error);
-    }
-    
-    return fetch(DATA_CONFIG.GOOGLE_SHEETS_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            type: 'reflection',
-            timestamp: new Date().toISOString(),
-            reflections: reflections
-        })
-    })
-    .catch(error => {
-        console.error('Errore invio riflessioni:', error);
-    });
+
+    return Promise.allSettled(tasks);
 }
 
 // === RECUPERO DATI ===
