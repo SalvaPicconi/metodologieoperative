@@ -6,6 +6,7 @@ console.log('✅ progress-global attivo');
 const PAGE_ID = document.querySelector('meta[name="page-id"]')?.content || location.pathname;
 const CONFIG = window.MO_PROGRESS_CONFIG || {};
 const IS_DISABLED = CONFIG.disabled === true;
+const HOME_URL = CONFIG.homeUrl || guessHomeUrl();
 
 if (IS_DISABLED) {
   console.log('⏸️ progress tracking disattivato su questa pagina');
@@ -16,6 +17,7 @@ if (IS_DISABLED) {
   let saveBtnElement = null;
   let resetBtnElement = null;
   let isGuestMode = false;
+  let homeLinkElement = null;
 
   // Crea pulsanti se non esistono già
   document.addEventListener('DOMContentLoaded', () => {
@@ -43,6 +45,16 @@ if (IS_DISABLED) {
     studentLabel.id = 'studentLabel';
     studentLabel.style.cssText = 'position:fixed;top:8px;right:16px;background:#0ea5e9;color:#fff;padding:4px 10px;border-radius:6px;font-size:14px;z-index:9999;';
     document.body.appendChild(studentLabel);
+
+    if (!document.querySelector('.home-floating-link')) {
+      homeLinkElement = document.createElement('a');
+      homeLinkElement.href = HOME_URL;
+      homeLinkElement.textContent = '🏠 Home';
+      homeLinkElement.className = 'home-floating-link';
+      homeLinkElement.title = 'Torna alla Home';
+      document.body.appendChild(homeLinkElement);
+    }
+
     isGuestMode = document.body?.dataset?.moGuest === 'true';
     updateSaveButtonsVisibility();
     updateStudentLabel();
@@ -282,4 +294,20 @@ window.addEventListener('mo:identity-change', (event) => {
   updateStudentLabel(detail);
   loadAndRestore();
 });
+}
+
+function guessHomeUrl() {
+  try {
+    const { origin, pathname } = window.location;
+    const match = pathname.match(/^(.*?\/metodologieoperative)\//);
+    if (match) {
+      return `${origin}${match[1]}/index.html`;
+    }
+    if (origin && origin !== 'null' && origin !== 'file://') {
+      return `${origin}/index.html`;
+    }
+  } catch (error) {
+    console.warn('Impossibile determinare la home, uso percorso relativo:', error);
+  }
+  return 'index.html';
 }
