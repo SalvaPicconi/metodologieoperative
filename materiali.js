@@ -1,4 +1,20 @@
 // Script per caricare e visualizzare i materiali dal file JSON
+const MATERIALI_JSON_URL = (() => {
+    try {
+        const currentScript = document.currentScript;
+        if (currentScript) {
+            const scriptUrl = new URL(currentScript.src, window.location.href);
+            scriptUrl.pathname = scriptUrl.pathname.replace(/[^\/]+$/, 'materiali.json');
+            scriptUrl.search = '';
+            scriptUrl.hash = '';
+            return scriptUrl.toString();
+        }
+    } catch (error) {
+        console.warn('Impossibile determinare il percorso di materiali.json:', error);
+    }
+    return 'materiali.json';
+})();
+
 document.addEventListener('DOMContentLoaded', function() {
     // Ottieni la sezione corrente dal nome del file
     let pagina = window.location.pathname.split('/').pop().replace('.html', '');
@@ -14,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
         'terzo': { chiave: 'terzo' },
         'quarto': { chiave: 'quarto' },
         'quinto': { chiave: 'quinto' },
+        'laboratorio': { chiave: 'laboratorio' },
         'peer_tutoring': { chiave: 'peer_tutoring' },
         'compresenza': { chiave: 'compresenza' },
         'index': { chiave: 'ai', containerId: 'materiali-ai' }
@@ -44,7 +61,7 @@ async function caricaMateriali(sezione, containerId = 'materiali-lista') {
     try {
         // Carica il file JSON
         const cacheBustParam = 'v=20251016';
-        const response = await fetch(`materiali.json?${cacheBustParam}`, {
+        const response = await fetch(`${MATERIALI_JSON_URL}?${cacheBustParam}`, {
             cache: 'no-cache'
         });
         
