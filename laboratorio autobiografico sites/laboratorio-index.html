@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio di Scrittura Autobiografica - IIS Meucci Mattei</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="cosmic-bg"></div>
+    
+    <nav class="main-nav">
+        <div class="nav-content">
+            <h1 class="site-title">Laboratorio di Scrittura Autobiografica</h1>
+            <p class="subtitle">Metodologie Operative - IIS Meucci Mattei, Decimomannu</p>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Intro Section -->
+        <section class="intro-section">
+            <div class="intro-card">
+                <h2>Un Viaggio nella Propria Storia</h2>
+                <p>Questo laboratorio è progettato per gli studenti del terzo anno dell'indirizzo Servizi per la Sanità e l'Assistenza Sociale. Attraverso la scrittura autobiografica, sperimenterete tecniche di animazione che vi prepareranno a lavorare con diverse utenze, in particolare con le persone anziane.</p>
+                <div class="objectives">
+                    <h3>Obiettivi del Laboratorio</h3>
+                    <ul>
+                        <li>Sperimentare la scrittura autobiografica come strumento di cura di sé</li>
+                        <li>Costruire mappe mentali della propria crescita personale</li>
+                        <li>Sviluppare competenze di ascolto empatico e narrazione</li>
+                        <li>Apprendere a condurre laboratori autobiografici con utenti fragili</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phase Navigation -->
+        <section class="phases-nav">
+            <h2>Le Fasi del Laboratorio</h2>
+            <div class="phases-grid">
+                <button class="phase-btn" data-phase="teoria">
+                    <span class="phase-number">1</span>
+                    <span class="phase-title">Fondamenti Teorici</span>
+                </button>
+                <button class="phase-btn" data-phase="mappe">
+                    <span class="phase-number">2</span>
+                    <span class="phase-title">Mappe Mentali</span>
+                </button>
+                <button class="phase-btn" data-phase="scrittura">
+                    <span class="phase-number">3</span>
+                    <span class="phase-title">Scrittura Guidata</span>
+                </button>
+                <button class="phase-btn" data-phase="condivisione">
+                    <span class="phase-number">4</span>
+                    <span class="phase-title">Rilettura e Condivisione</span>
+                </button>
+                <button class="phase-btn" data-phase="trasfigurazione">
+                    <span class="phase-number">5</span>
+                    <span class="phase-title">Trasfigurazione Creativa</span>
+                </button>
+                <button class="phase-btn" data-phase="conduzione">
+                    <span class="phase-number">6</span>
+                    <span class="phase-title">Progetto Operativo</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Content Sections -->
+        <div class="content-sections">
+            
+            <!-- Fase 1: Teoria -->
+            <section id="fase-teoria" class="phase-content">
+                <div class="phase-header">
+                    <h2>Fase 1: Fondamenti Teorici della Scrittura Autobiografica</h2>
+                </div>
+                
+                <div class="theory-content">
+                    <div class="concept-card">
+                        <h3>Che cos'è la Scrittura Autobiografica?</h3>
+                        <p>La scrittura autobiografica è il racconto retrospettivo in prima persona della propria esistenza, con focus sulla vita individuale e sulla storia della personalità. Non è un esercizio narcisistico, ma un bisogno autentico di dare senso alla propria storia.</p>
+                        <div class="key-points">
+                            <h4>Caratteristiche principali:</h4>
+                            <ul>
+                                <li><strong>Io narrante e io protagonista:</strong> Chi scrive è sia autore che personaggio principale</li>
+                                <li><strong>Metodologia formativa:</strong> Strumento di comprensione e cura di sé</li>
+                                <li><strong>Memoria e immaginazione:</strong> Intreccia ricordi ed elaborazione creativa</li>
+                                <li><strong>Costruzione di senso:</strong> Conferisce struttura e significato ai ricordi</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="concept-card">
+                        <h3>Perché Utilizzare l'Autobiografia?</h3>
+                        <div class="benefits-grid">
+                            <div class="benefit">
+                                <h4>🗺️ Fare il punto della propria vita</h4>
+                                <p>Guardare indietro dalla "cima della montagna" per riflettere sul percorso fatto</p>
+                            </div>
+                            <div class="benefit">
+                                <h4>💭 Elaborare esperienze significative</h4>
+                                <p>Metabolizzare eventi forti: traumi, perdite, gioie, cambiamenti</p>
+                            </div>
+                            <div class="benefit">
+                                <h4>🌱 Conoscersi e dare senso ai cambiamenti</h4>
+                                <p>Riconoscere i fili conduttori, le svolte e i fattori che hanno influenzato l'identità</p>
+                            </div>
+                            <div class="benefit">
+                                <h4>🔍 Aumentare la consapevolezza</h4>
+                                <p>Stimolare pensiero introspettivo e auto-riflessione fondamentali per la crescita</p>
+                            </div>
+                            <div class="benefit">
+                                <h4>📖 Lasciare testimonianza</h4>
+                                <p>Salvare memorie preziose e trasmettere esperienza alle generazioni future</p>
+                            </div>
+                            <div class="benefit">
+                                <h4>❤️ Cura di sé</h4>
+                                <p>Rielaborare emozioni con effetti positivi sul benessere personale</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="concept-card">
+                        <h3>L'Autobiografia nel Contesto SSAS</h3>
+                        <p>Nel vostro percorso di studi, la metodologia autobiografica è uno strumento essenziale per:</p>
+                        <ul>
+                            <li><strong>Lavorare con persone anziane:</strong> Valorizzare la loro storia e dignità</li>
+                            <li><strong>Contrastare stereotipi:</strong> Vedere la persona oltre i bisogni assistenziali</li>
+                            <li><strong>Creare ponti generazionali:</strong> Imparare dalla saggezza degli anziani mentre li supportate</li>
+                            <li><strong>Sviluppare competenze professionali:</strong> Ascolto empatico, comunicazione, comprensione dell'altro</li>
+                        </ul>
+                        <div class="quote">
+                            <p>"Il sé narrante diventa un 'io tessitore' che collega e intreccia esperienze, e ricostruendo la propria storia costruisce senso"</p>
+                            <cite>— Duccio Demetrio</cite>
+                        </div>
+                    </div>
+
+                    <div class="inspiration-phrases">
+                        <h3>Frasi Guida per il Percorso</h3>
+                        <div class="phrases-container">
+                            <div class="phrase-mini">Ricordare per capirsi</div>
+                            <div class="phrase-mini">La storia che abitiamo</div>
+                            <div class="phrase-mini">Dare forma al vissuto</div>
+                            <div class="phrase-mini">Scrivere per fare ordine</div>
+                            <div class="phrase-mini">Memoria che illumina il presente</div>
+                            <div class="phrase-mini">Piccoli eventi, grandi significati</div>
+                            <div class="phrase-mini">Raccontarsi senza giudizio</div>
+                            <div class="phrase-mini">L'autobiografia come cura di sé</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fase 2: Mappe Mentali -->
+            <section id="fase-mappe" class="phase-content">
+                <div class="phase-header">
+                    <h2>Fase 2: Costruzione delle Mappe Mentali della Crescita</h2>
+                </div>
+                
+                <div class="maps-content">
+                    <div class="concept-card">
+                        <h3>Cos'è una Mappa Mentale della Crescita?</h3>
+                        <p>Una rappresentazione grafica delle tappe principali della tua vita: eventi chiave, persone significative, svolte importanti, esperienze formative. È una "mappa della vita" che visualizza il percorso evolutivo personale.</p>
+                    </div>
+
+                    <div class="map-template">
+                        <h3>Come Costruire la Tua Mappa</h3>
+                        <div class="steps-grid">
+                            <div class="step">
+                                <span class="step-num">1</span>
+                                <h4>Centro: Il Tuo IO</h4>
+                                <p>Scrivi il tuo nome al centro del foglio. Questo sei tu, oggi.</p>
+                            </div>
+                            <div class="step">
+                                <span class="step-num">2</span>
+                                <h4>Rami Temporali</h4>
+                                <p>Crea rami per le diverse fasi della vita: infanzia, fanciullezza, adolescenza, presente</p>
+                            </div>
+                            <div class="step">
+                                <span class="step-num">3</span>
+                                <h4>Eventi Chiave</h4>
+                                <p>Su ogni ramo, segna gli eventi significativi: momenti felici, difficoltà superate, scoperte importanti</p>
+                            </div>
+                            <div class="step">
+                                <span class="step-num">4</span>
+                                <h4>Persone Significative</h4>
+                                <p>Aggiungi i nomi di chi ha influenzato la tua crescita: familiari, amici, mentori, maestri</p>
+                            </div>
+                            <div class="step">
+                                <span class="step-num">5</span>
+                                <h4>Valori e Passioni</h4>
+                                <p>Indica cosa è importante per te, cosa ti appassiona, i tuoi talenti emersi nel tempo</p>
+                            </div>
+                            <div class="step">
+                                <span class="step-num">6</span>
+                                <h4>Connessioni</h4>
+                                <p>Usa frecce e linee per collegare eventi, persone e valori che si influenzano a vicenda</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reflection-prompts">
+                        <h3>Domande Guida per la Mappa</h3>
+                        <div class="prompts-list">
+                            <div class="prompt-group">
+                                <h4>Infanzia (0-10 anni)</h4>
+                                <ul>
+                                    <li>Qual è il tuo primo ricordo?</li>
+                                    <li>Cosa ti piaceva fare da piccolo/a?</li>
+                                    <li>Chi erano le persone più importanti?</li>
+                                    <li>C'è un evento che ti ha segnato particolarmente?</li>
+                                </ul>
+                            </div>
+                            <div class="prompt-group">
+                                <h4>Fanciullezza (10-14 anni)</h4>
+                                <ul>
+                                    <li>Quando hai iniziato a sentirti più grande?</li>
+                                    <li>Quali scoperte o passioni sono nate?</li>
+                                    <li>Hai affrontato qualche difficoltà importante?</li>
+                                    <li>Chi ti ha aiutato a crescere in questo periodo?</li>
+                                </ul>
+                            </div>
+                            <div class="prompt-group">
+                                <h4>Adolescenza (14-oggi)</h4>
+                                <ul>
+                                    <li>Quali sono stati i cambiamenti più grandi?</li>
+                                    <li>Cosa ti appassiona ora?</li>
+                                    <li>Quali scelte importanti hai fatto?</li>
+                                    <li>Come immagini il tuo futuro?</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="visual-example">
+                        <h3>Esempio di Struttura della Mappa</h3>
+                        <div class="map-visual">
+                            <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Centro -->
+                                <circle cx="400" cy="300" r="60" fill="#f97316" opacity="0.2"/>
+                                <circle cx="400" cy="300" r="50" fill="#f97316" opacity="0.5"/>
+                                <text x="400" y="305" text-anchor="middle" fill="#fff" font-size="20" font-weight="bold">IO</text>
+                                
+                                <!-- Ramo Infanzia -->
+                                <line x1="400" y1="300" x2="200" y2="150" stroke="#38bdf8" stroke-width="3"/>
+                                <circle cx="200" cy="150" r="40" fill="#38bdf8" opacity="0.3"/>
+                                <text x="200" y="155" text-anchor="middle" fill="#fff" font-size="14">Infanzia</text>
+                                <circle cx="150" cy="100" r="20" fill="#38bdf8" opacity="0.5"/>
+                                <circle cx="180" cy="80" r="20" fill="#38bdf8" opacity="0.5"/>
+                                
+                                <!-- Ramo Fanciullezza -->
+                                <line x1="400" y1="300" x2="250" y2="400" stroke="#a855f7" stroke-width="3"/>
+                                <circle cx="250" cy="400" r="40" fill="#a855f7" opacity="0.3"/>
+                                <text x="250" y="405" text-anchor="middle" fill="#fff" font-size="14">Fanciullezza</text>
+                                <circle cx="200" cy="450" r="20" fill="#a855f7" opacity="0.5"/>
+                                <circle cx="280" cy="440" r="20" fill="#a855f7" opacity="0.5"/>
+                                
+                                <!-- Ramo Adolescenza -->
+                                <line x1="400" y1="300" x2="600" y2="200" stroke="#f97316" stroke-width="3"/>
+                                <circle cx="600" cy="200" r="40" fill="#f97316" opacity="0.3"/>
+                                <text x="600" y="205" text-anchor="middle" fill="#fff" font-size="14">Adolescenza</text>
+                                <circle cx="650" cy="150" r="20" fill="#f97316" opacity="0.5"/>
+                                <circle cx="630" cy="250" r="20" fill="#f97316" opacity="0.5"/>
+                                <circle cx="680" cy="180" r="20" fill="#f97316" opacity="0.5"/>
+                                
+                                <!-- Ramo Futuro -->
+                                <line x1="400" y1="300" x2="550" y2="450" stroke="#10b981" stroke-width="3" stroke-dasharray="5,5"/>
+                                <circle cx="550" cy="450" r="40" fill="#10b981" opacity="0.3"/>
+                                <text x="550" y="455" text-anchor="middle" fill="#fff" font-size="14">Futuro</text>
+                            </svg>
+                        </div>
+                        <p class="visual-note">La mappa è personale e unica: usa colori, simboli, disegni che rappresentano te!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fase 3: Scrittura -->
+            <section id="fase-scrittura" class="phase-content">
+                <div class="phase-header">
+                    <h2>Fase 3: Scrittura di Sé - Contesto Guidato e Supportivo</h2>
+                </div>
+                
+                <div class="writing-content">
+                    <div class="concept-card">
+                        <h3>Preparazione dello Spazio Narrativo</h3>
+                        <p>La scrittura autobiografica richiede un ambiente sicuro, silenzioso e accogliente. Ecco come preparare il contesto ideale:</p>
+                        <div class="environment-setup">
+                            <div class="setup-item">
+                                <h4>🎵 Musica d'Ispirazione</h4>
+                                <p>Melodie strumentali dolci che favoriscono l'introspezione senza distrarre con le parole</p>
+                            </div>
+                            <div class="setup-item">
+                                <h4>🕯️ Atmosfera Calma</h4>
+                                <p>Luci soffuse, disposizione a cerchio o semicerchio per sentirsi parte di una comunità</p>
+                            </div>
+                            <div class="setup-item">
+                                <h4>📝 Materiali Pronti</h4>
+                                <p>Quaderni, penne, matite colorate - strumenti per dar forma ai pensieri</p>
+                            </div>
+                            <div class="setup-item">
+                                <h4>🤝 Patto di Fiducia</h4>
+                                <p>Nessun giudizio, rispetto delle emozioni, riservatezza assoluta</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="writing-guide">
+                        <h3>Tracce per la Scrittura</h3>
+                        <p>Scegli una o più tracce dalla tua mappa mentale. Non c'è un modo "giusto" di scrivere - lascia che le parole fluiscano naturalmente.</p>
+                        
+                        <div class="writing-prompts">
+                            <div class="prompt-card">
+                                <h4>📍 Un Luogo della Memoria</h4>
+                                <p>Descrivi un luogo significativo della tua infanzia. Cosa vedevi? Cosa sentivi? Chi c'era con te? Cosa facevi lì? Perché è importante per te?</p>
+                            </div>
+                            <div class="prompt-card">
+                                <h4>👤 Una Persona Speciale</h4>
+                                <p>Racconta di qualcuno che ha lasciato un segno nella tua vita. Com'è entrata nella tua storia? Cosa ti ha insegnato? Come ti fa sentire oggi il ricordo?</p>
+                            </div>
+                            <div class="prompt-card">
+                                <h4>🌟 Un Momento di Svolta</h4>
+                                <p>Narra un evento che ti ha cambiato. Cosa è successo? Come ti sei sentito/a? Cosa hai scoperto di te? Come sei diverso/a oggi?</p>
+                            </div>
+                            <div class="prompt-card">
+                                <h4>💭 Una Scoperta</h4>
+                                <p>Quando hai capito qualcosa di importante su te stesso/a? Una passione, un talento, un valore che guida le tue scelte?</p>
+                            </div>
+                            <div class="prompt-card">
+                                <h4>🌈 Difficoltà e Rinascita</h4>
+                                <p>Racconta un momento difficile che hai superato. Cosa ti ha aiutato? Chi ti ha sostenuto? Cosa hai imparato?</p>
+                            </div>
+                            <div class="prompt-card">
+                                <h4>✉️ Lettera al Me del Passato</h4>
+                                <p>Scrivi una lettera a te stesso/a di 5 anni fa. Cosa gli/le diresti? Quali consigli? Quali incoraggiamenti?</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="writing-tips">
+                        <h3>Consigli per Scrivere</h3>
+                        <ul>
+                            <li>✍️ <strong>Non censurarti:</strong> Scrivi liberamente, senza preoccuparti della forma. Potrai rivedere dopo.</li>
+                            <li>🎯 <strong>Usa i dettagli:</strong> Non dire solo "ero felice", ma descrivi quella felicità con immagini, sensazioni, emozioni.</li>
+                            <li>💭 <strong>Ascolta le emozioni:</strong> Se provi tristezza, rabbia o gioia mentre scrivi, accogli queste emozioni. Fanno parte del processo.</li>
+                            <li>⏰ <strong>Prenditi il tuo tempo:</strong> Non c'è fretta. Alcune persone scrivono velocemente, altre lentamente. Va bene così.</li>
+                            <li>🔐 <strong>È solo tuo:</strong> Deciderai tu se e cosa condividere. Adesso scrivi per te stesso/a.</li>
+                        </ul>
+                    </div>
+
+                    <div class="music-suggestions">
+                        <h3>🎵 Playlist Suggerite per la Scrittura</h3>
+                        <div class="playlist">
+                            <div class="music-track">Ludovico Einaudi - Nuvole Bianche</div>
+                            <div class="music-track">Max Richter - On The Nature of Daylight</div>
+                            <div class="music-track">Yiruma - River Flows In You</div>
+                            <div class="music-track">Ólafur Arnalds - Saman</div>
+                            <div class="music-track">Nils Frahm - Says</div>
+                            <div class="music-track">Sigur Rós - Hoppípolla (strumentale)</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fase 4: Condivisione -->
+            <section id="fase-condivisione" class="phase-content">
+                <div class="phase-header">
+                    <h2>Fase 4: Rilettura a Voce Alta e Condivisione</h2>
+                </div>
+                
+                <div class="sharing-content">
+                    <div class="concept-card">
+                        <h3>Il Cerchio della Narrazione</h3>
+                        <p>La lettura in gruppo è un momento prezioso dove le storie individuali diventano patrimonio collettivo. È un atto di coraggio e fiducia reciproca.</p>
+                        <div class="key-principles">
+                            <h4>Principi Fondamentali:</h4>
+                            <ul>
+                                <li><strong>Libertà di scelta:</strong> Nessuno è obbligato a leggere. Chi preferisce può solo ascoltare.</li>
+                                <li><strong>Ascolto attivo:</strong> Quando qualcuno legge, gli altri ascoltano con attenzione e rispetto.</li>
+                                <li><strong>Non giudizio:</strong> Ogni storia è valida, ogni emozione è legittima.</li>
+                                <li><strong>Riservatezza:</strong> Ciò che si ascolta nel cerchio resta nel cerchio.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="sharing-process">
+                        <h3>Come Funziona la Condivisione</h3>
+                        <div class="process-steps">
+                            <div class="sharing-step">
+                                <span class="step-icon">1️⃣</span>
+                                <h4>Preparazione</h4>
+                                <p>Ci si dispone in cerchio. Il facilitatore ricorda le regole: ascolto, rispetto, non interruzioni.</p>
+                            </div>
+                            <div class="sharing-step">
+                                <span class="step-icon">2️⃣</span>
+                                <h4>Lettura Volontaria</h4>
+                                <p>Chi si sente pronto può alzare la mano. Legge il proprio testo (tutto o una parte scelta).</p>
+                            </div>
+                            <div class="sharing-step">
+                                <span class="step-icon">3️⃣</span>
+                                <h4>Momento di Silenzio</h4>
+                                <p>Dopo ogni lettura, qualche secondo di silenzio per accogliere le emozioni.</p>
+                            </div>
+                            <div class="sharing-step">
+                                <span class="step-icon">4️⃣</span>
+                                <h4>Risonanze</h4>
+                                <p>Chi vuole può condividere brevemente cosa lo ha colpito, senza giudicare o interpretare.</p>
+                                <div class="risonanze-examples">
+                                    <p class="risonanza-ex">✓ "Mi ha emozionato quando hai parlato di..."</p>
+                                    <p class="risonanza-ex">✓ "Anche io ho vissuto qualcosa di simile..."</p>
+                                    <p class="risonanza-ex">✓ "Sono stato colpito dalla tua sincerità..."</p>
+                                </div>
+                            </div>
+                            <div class="sharing-step">
+                                <span class="step-icon">5️⃣</span>
+                                <h4>Ringraziamento</h4>
+                                <p>Il gruppo ringrazia chi ha condiviso per il dono della sua storia.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="benefits-sharing">
+                        <h3>Benefici della Condivisione</h3>
+                        <div class="benefits-cards">
+                            <div class="benefit-card">
+                                <h4>🤝 Empatia e Connessione</h4>
+                                <p>Scoprire che altri hanno vissuto emozioni simili riduce la solitudine e crea legami profondi.</p>
+                            </div>
+                            <div class="benefit-card">
+                                <h4>🎭 Coraggio di Mostrarsi</h4>
+                                <p>Leggere di fronte agli altri sviluppa autostima e capacità di esporsi in modo autentico.</p>
+                            </div>
+                            <div class="benefit-card">
+                                <h4>👂 Ascolto Professionale</h4>
+                                <p>Per futuri operatori SSAS, è fondamentale saper ascoltare storie di vita con empatia e rispetto.</p>
+                            </div>
+                            <div class="benefit-card">
+                                <h4>🌟 Riconoscimento</h4>
+                                <p>Sentirsi ascoltati e accolti fa capire che la propria storia ha valore.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="facilitator-role">
+                        <h3>Il Ruolo del Facilitatore</h3>
+                        <p>Chi conduce la fase di condivisione deve:</p>
+                        <ul>
+                            <li>Creare e mantenere uno spazio sicuro e accogliente</li>
+                            <li>Ricordare le regole con gentilezza</li>
+                            <li>Intervenire solo se necessario per proteggere il gruppo</li>
+                            <li>Accogliere ogni emozione senza minimizzare</li>
+                            <li>Gestire i tempi in modo equilibrato</li>
+                            <li>Ringraziare ogni partecipante per il contributo</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fase 5: Trasfigurazione -->
+            <section id="fase-trasfigurazione" class="phase-content">
+                <div class="phase-header">
+                    <h2>Fase 5: Trasfigurazione Creativa</h2>
+                </div>
+                
+                <div class="transformation-content">
+                    <div class="concept-card">
+                        <h3>Dalla Prosa alla Creazione Artistica</h3>
+                        <p>La trasfigurazione è il processo creativo attraverso cui il testo autobiografico si trasforma in altre forme espressive: poesia, prosa letteraria, canzone, immagine. Questo passaggio permette di elaborare ulteriormente il vissuto e di scoprire nuove dimensioni della propria storia.</p>
+                    </div>
+
+                    <div class="transformation-options">
+                        <h3>Modalità di Trasfigurazione</h3>
+                        
+                        <div class="transform-option">
+                            <h4>🌸 Poesia</h4>
+                            <p>Distillare l'essenza del racconto in versi. La poesia usa metafore, ritmo e immagini per esprimere emozioni profonde con poche parole.</p>
+                            <div class="example-box">
+                                <h5>Esempio di trasformazione:</h5>
+                                <div class="before-after">
+                                    <div class="before">
+                                        <strong>Prosa originale:</strong>
+                                        <p>"Ricordo quella casa al mare dove andavamo ogni estate. Il profumo della salsedine, il rumore delle onde, mia nonna che preparava la focaccia. Mi sentivo libero e protetto allo stesso tempo."</p>
+                                    </div>
+                                    <div class="after">
+                                        <strong>Poesia:</strong>
+                                        <p style="font-style: italic;">
+                                            Onde che sussurrano segreti d'estate,<br>
+                                            profumo di salsedine e focaccia dorata.<br>
+                                            Le mani di nonna, la casa sul mare:<br>
+                                            libertà e rifugio nello stesso battito.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tips">
+                                <h5>Come fare:</h5>
+                                <ul>
+                                    <li>Individua le immagini più potenti del tuo racconto</li>
+                                    <li>Scegli le parole che evocano sensazioni (odori, suoni, colori)</li>
+                                    <li>Non preoccuparti della rima, cerca il ritmo naturale</li>
+                                    <li>Condensa: ogni parola deve contare</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="transform-option">
+                            <h4>📖 Prosa Letteraria</h4>
+                            <p>Rielaborare il testo autobiografico con tecniche narrative: dialoghi, descrizioni evocative, uso del tempo narrativo.</p>
+                            <div class="tips">
+                                <h5>Tecniche:</h5>
+                                <ul>
+                                    <li>Usa dialoghi per dare vita ai personaggi</li>
+                                    <li>Descrivi con i cinque sensi</li>
+                                    <li>Crea suspense, anche in eventi che conosci</li>
+                                    <li>Alterna ritmo: momenti rapidi e momenti lenti</li>
+                                    <li>Usa metafore per esprimere stati d'animo</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="transform-option">
+                            <h4>🎵 Testo di Canzone</h4>
+                            <p>Trasformare la storia in versi musicali con ritornello e strofe. La canzone aggiunge ritmo e melodia emotiva alla narrazione.</p>
+                            <div class="tips">
+                                <h5>Struttura tipica:</h5>
+                                <ul>
+                                    <li><strong>Strofa 1:</strong> Introduce la scena o il ricordo</li>
+                                    <li><strong>Ritornello:</strong> Il messaggio/emozione principale (ripetuto)</li>
+                                    <li><strong>Strofa 2:</strong> Sviluppa la storia o aggiunge dettagli</li>
+                                    <li><strong>Ritornello</strong></li>
+                                    <li><strong>Bridge:</strong> Svolta o riflessione</li>
+                                    <li><strong>Ritornello finale:</strong> Con variazione o enfasi</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="transform-option">
+                            <h4>🎨 Espressione Visiva</h4>
+                            <p>Tradurre la storia in immagini: disegno, collage, fotografia, fumetto. Le immagini comunicano ciò che le parole a volte non riescono a dire.</p>
+                            <div class="tips">
+                                <h5>Idee creative:</h5>
+                                <ul>
+                                    <li><strong>Illustrazione simbolica:</strong> Disegna un'immagine che rappresenta l'essenza del ricordo</li>
+                                    <li><strong>Collage fotografico:</strong> Combina foto, ritagli, oggetti che evocano la tua storia</li>
+                                    <li><strong>Fumetto/Storyboard:</strong> Racconta la storia per sequenze visive</li>
+                                    <li><strong>Mappa emotiva:</strong> Usa colori e forme astratte per rappresentare emozioni</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="transform-option">
+                            <h4>🎭 Performance/Teatro</h4>
+                            <p>Mettere in scena un frammento della propria storia attraverso recitazione, movimento, voce.</p>
+                            <div class="tips">
+                                <h5>Modalità:</h5>
+                                <ul>
+                                    <li>Monologo narrativo con interpretazione emotiva</li>
+                                    <li>Tableaux vivant (scene fisse che rappresentano momenti chiave)</li>
+                                    <li>Movimento espressivo guidato dalla musica</li>
+                                    <li>Lettura drammatica con cambi di voce per i personaggi</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="workshop-activity">
+                        <h3>Attività di Laboratorio</h3>
+                        <div class="activity">
+                            <h4>Esercizio Guidato: Dal Racconto alla Poesia</h4>
+                            <ol>
+                                <li>Rileggi il tuo testo autobiografico</li>
+                                <li>Sottolinea: 3 immagini concrete, 3 emozioni, 3 parole-chiave</li>
+                                <li>Scrivi questi 9 elementi su un foglio a parte</li>
+                                <li>Componi 4-6 versi che contengano almeno 6 di questi elementi</li>
+                                <li>Leggi ad alta voce e modifica finché non "suona" bene</li>
+                            </ol>
+                        </div>
+                        <div class="activity">
+                            <h4>Laboratorio Multimediale</h4>
+                            <p>Divisi in gruppi, create diverse versioni della stessa storia:</p>
+                            <ul>
+                                <li>Gruppo 1: Poesia</li>
+                                <li>Gruppo 2: Testo di canzone</li>
+                                <li>Gruppo 3: Illustrazione/collage</li>
+                                <li>Gruppo 4: Scena teatrale</li>
+                            </ul>
+                            <p>Presentate poi le diverse trasfigurazioni e discutete come cambia la percezione della storia in base al medium.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fase 6: Conduzione -->
+            <section id="fase-conduzione" class="phase-content">
+                <div class="phase-header">
+                    <h2>Fase 6: Dal Laboratorio al Progetto Operativo</h2>
+                    <p class="subtitle-phase">Imparare a Condurre Laboratori Autobiografici</p>
+                </div>
+                
+                <div class="operational-content">
+                    <div class="concept-card">
+                        <h3>Dalla Partecipazione alla Conduzione</h3>
+                        <p>Dopo aver sperimentato in prima persona il percorso autobiografico, siete pronti per il passaggio fondamentale: imparare a condurre laboratori con le vostre utenze, in particolare con le persone anziane.</p>
+                        <div class="transition">
+                            <div class="from-to">
+                                <div class="from">
+                                    <strong>Da:</strong> Studenti partecipanti
+                                </div>
+                                <div class="arrow">→</div>
+                                <div class="to">
+                                    <strong>A:</strong> Facilitatori professionali
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="competenze">
+                        <h3>Competenze del Facilitatore Autobiografico</h3>
+                        <div class="competenze-grid">
+                            <div class="competenza">
+                                <h4>👂 Ascolto Empatico</h4>
+                                <p>Saper ascoltare senza giudicare, accogliere le emozioni, cogliere ciò che non viene detto esplicitamente.</p>
+                            </div>
+                            <div class="competenza">
+                                <h4>🛡️ Creazione di Spazi Sicuri</h4>
+                                <p>Stabilire regole chiare, proteggere la vulnerabilità dei partecipanti, gestire le dinamiche di gruppo.</p>
+                            </div>
+                            <div class="competenza">
+                                <h4>❓ Formulare Domande</h4>
+                                <p>Porre domande aperte che stimolino la narrazione senza essere invasive o direttive.</p>
+                            </div>
+                            <div class="competenza">
+                                <h4>⏱️ Gestione del Tempo</h4>
+                                <p>Bilanciare i tempi tra scrittura, condivisione e riflessione; dare spazio equo a tutti.</p>
+                            </div>
+                            <div class="competenza">
+                                <h4>🔄 Flessibilità</h4>
+                                <p>Adattare il programma alle esigenze del gruppo, accogliere l'imprevisto, modificare in corso d'opera.</p>
+                            </div>
+                            <div class="competenza">
+                                <h4>❤️ Presenza Emotiva</h4>
+                                <p>Rimanere presenti anche di fronte a storie dolorose, senza farsi travolgere emotivamente.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-structure">
+                        <h3>Struttura di un Progetto con Utenti Anziani</h3>
+                        
+                        <div class="project-phase">
+                            <h4>📋 1. Preparazione e Progettazione</h4>
+                            <div class="phase-details">
+                                <h5>Obiettivi del progetto:</h5>
+                                <ul>
+                                    <li>Valorizzare la biografia delle persone anziane</li>
+                                    <li>Contrastare la solitudine attraverso la narrazione</li>
+                                    <li>Creare un ponte generazionale studenti-anziani</li>
+                                    <li>Produrre un documento (video, libro, mostra) con le storie raccolte</li>
+                                </ul>
+                                
+                                <h5>Pianificazione:</h5>
+                                <ul>
+                                    <li>Quanti incontri? (es. 6-8 incontri di 90 minuti ciascuno)</li>
+                                    <li>Con quante persone? (gruppi piccoli di 5-8 anziani sono ideali)</li>
+                                    <li>Dove? (centro anziani, casa di riposo, spazi comunali)</li>
+                                    <li>Con quali materiali? (quaderni, registratore audio/video, foto, oggetti-ricordo)</li>
+                                </ul>
+
+                                <h5>Preparazione del gruppo studenti:</h5>
+                                <ul>
+                                    <li>Formare coppie o piccoli gruppi di facilitatori</li>
+                                    <li>Assegnare ruoli: conduttore principale, supporto, documentarista</li>
+                                    <li>Preparare tracce narrative adatte all'utenza anziana</li>
+                                    <li>Simulare incontri con role-playing</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="project-phase">
+                            <h4>🤝 2. Primo Incontro - Conoscenza e Patto</h4>
+                            <div class="phase-details">
+                                <h5>Obiettivi:</h5>
+                                <ul>
+                                    <li>Creare un clima di fiducia</li>
+                                    <li>Presentare il progetto in modo chiaro</li>
+                                    <li>Stabilire le "regole del gioco"</li>
+                                    <li>Raccogliere prime informazioni biografiche</li>
+                                </ul>
+
+                                <h5>Attività:</h5>
+                                <ol>
+                                    <li><strong>Presentazioni circolari:</strong> Ogni persona dice nome, da dove viene, un ricordo felice legato al proprio nome</li>
+                                    <li><strong>Spiegazione del progetto:</strong> "Vorremmo ascoltare e raccogliere le vostre storie di vita, perché hanno un grande valore"</li>
+                                    <li><strong>Patto di fiducia:</strong> Riservatezza, rispetto, libertà di non rispondere</li>
+                                    <li><strong>Prima traccia leggera:</strong> "Il luogo dove sono nato/a" oppure "Un oggetto che conservo da tanto tempo"</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="project-phase">
+                            <h4>📖 3. Incontri Tematici (2-6)</h4>
+                            <div class="phase-details">
+                                <p>Ogni incontro approfondisce un nucleo tematico della vita:</p>
+                                
+                                <div class="temi-incontri">
+                                    <div class="tema">
+                                        <h5>Incontro 2: Infanzia e Famiglia</h5>
+                                        <p>Ricordi dei genitori, fratelli, la casa d'infanzia, giochi, tradizioni familiari</p>
+                                    </div>
+                                    <div class="tema">
+                                        <h5>Incontro 3: Giovinezza e Formazione</h5>
+                                        <p>Scuola, lavoro, amicizie, primi amori, sogni giovanili</p>
+                                    </div>
+                                    <div class="tema">
+                                        <h5>Incontro 4: Vita Adulta</h5>
+                                        <p>Matrimonio/famiglia, carriera, svolte importanti, momenti difficili superati</p>
+                                    </div>
+                                    <div class="tema">
+                                        <h5>Incontro 5: Valori e Saggezza</h5>
+                                        <p>Cosa è davvero importante nella vita? Cosa vorreste trasmettere ai giovani?</p>
+                                    </div>
+                                    <div class="tema">
+                                        <h5>Incontro 6: Felicità e Benessere</h5>
+                                        <p>Cosa vi rende felici oggi? Cosa vi fa stare bene? Le piccole gioie quotidiane</p>
+                                    </div>
+                                </div>
+
+                                <h5>Struttura tipo di ogni incontro:</h5>
+                                <ol>
+                                    <li>Accoglienza e riepilogo (10 min)</li>
+                                    <li>Introduzione al tema con stimolo (foto, oggetto, musica) (15 min)</li>
+                                    <li>Narrazione individuale o a coppie (40 min)</li>
+                                    <li>Condivisione in gruppo (20 min)</li>
+                                    <li>Chiusura e anticipo prossimo incontro (5 min)</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="project-phase">
+                            <h4>🎬 4. Documentazione</h4>
+                            <div class="phase-details">
+                                <p>Durante gli incontri, raccogliete il materiale biografico:</p>
+                                <ul>
+                                    <li><strong>Registrazioni audio/video</strong> (con consenso firmato)</li>
+                                    <li><strong>Trascrizioni</strong> delle narrazioni più significative</li>
+                                    <li><strong>Fotografie</strong> portate dagli anziani</li>
+                                    <li><strong>Oggetti-ricordo</strong> e loro storie</li>
+                                    <li><strong>Disegni o scritti</strong> prodotti durante i laboratori</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="project-phase">
+                            <h4>🎨 5. Elaborazione e Restituzione</h4>
+                            <div class="phase-details">
+                                <p>Trasformate il materiale raccolto in un prodotto finale:</p>
+                                <div class="prodotti-finali">
+                                    <div class="prodotto">
+                                        <h5>📚 Libro/Fascicolo</h5>
+                                        <p>Raccolta delle storie trascritte, con foto e illustrazioni. Ogni anziano riceve una copia.</p>
+                                    </div>
+                                    <div class="prodotto">
+                                        <h5>🎥 Video Documentario</h5>
+                                        <p>Montaggio delle interviste video con sottotitoli, musica, foto d'epoca.</p>
+                                    </div>
+                                    <div class="prodotto">
+                                        <h5>🖼️ Mostra</h5>
+                                        <p>Pannelli espositivi con foto, citazioni, oggetti. Da allestire a scuola o nel centro anziani.</p>
+                                    </div>
+                                    <div class="prodotto">
+                                        <h5>🎭 Evento Finale</h5>
+                                        <p>Presentazione pubblica con lettura di brani, proiezione video, momento conviviale.</p>
+                                    </div>
+                                </div>
+
+                                <h5>Restituzione agli anziani:</h5>
+                                <p>È fondamentale che i partecipanti vedano valorizzato il loro contributo:</p>
+                                <ul>
+                                    <li>Invito a evento finale con familiari</li>
+                                    <li>Consegna del prodotto finale (libro, DVD)</li>
+                                    <li>Ringraziamento formale per la generosità nel condividere</li>
+                                    <li>Possibilità di feedback sul progetto</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sfide-soluzioni">
+                        <h3>Sfide Comuni e Soluzioni</h3>
+                        <div class="sfide-list">
+                            <div class="sfida">
+                                <h4>⚠️ Sfida: Persone che non vogliono parlare</h4>
+                                <div class="soluzione">
+                                    <strong>Soluzione:</strong> Rispettare i silenzi. Offrire domande alternative più semplici. Usare stimoli visivi (foto, oggetti). Non forzare mai.
+                                </div>
+                            </div>
+                            <div class="sfida">
+                                <h4>⚠️ Sfida: Emozioni forti (pianto, rabbia)</h4>
+                                <div class="soluzione">
+                                    <strong>Soluzione:</strong> Accogliere l'emozione senza minimizzare ("Va bene piangere, questi ricordi sono importanti"). Offrire una pausa. Chiedere se vuole continuare o fermarsi.
+                                </div>
+                            </div>
+                            <div class="sfida">
+                                <h4>⚠️ Sfida: Persone che divagano troppo</h4>
+                                <div class="soluzione">
+                                    <strong>Soluzione:</strong> Ascoltare con pazienza, poi riportare gentilmente al tema ("Questo è interessante... tornando a quello che dicevi prima su..."). Gestire i tempi con delicatezza.
+                                </div>
+                            </div>
+                            <div class="sfida">
+                                <h4>⚠️ Sfida: Difficoltà cognitive (demenza lieve)</h4>
+                                <div class="soluzione">
+                                    <strong>Soluzione:</strong> Usare stimoli sensoriali (musica, profumi). Concentrarsi su ricordi molto lontani (infanzia) che spesso sono preservati. Valorizzare frammenti anche brevi.
+                                </div>
+                            </div>
+                            <div class="sfida">
+                                <h4>⚠️ Sfida: Dinamiche di gruppo negative</h4>
+                                <div class="soluzione">
+                                    <strong>Soluzione:</strong> Ricordare le regole. Dare spazio equo a tutti. Se necessario, fare colloqui individuali. Mediare con empatia.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="valutazione-progetto">
+                        <h3>Valutazione del Progetto</h3>
+                        <div class="valutazione-items">
+                            <div class="val-item">
+                                <h4>Per gli anziani partecipanti:</h4>
+                                <ul>
+                                    <li>Questionario di gradimento</li>
+                                    <li>Osservazione del benessere e della partecipazione</li>
+                                    <li>Feedback verbali spontanei</li>
+                                </ul>
+                            </div>
+                            <div class="val-item">
+                                <h4>Per gli studenti facilitatori:</h4>
+                                <ul>
+                                    <li>Diario di bordo riflessivo</li>
+                                    <li>Autovalutazione delle competenze acquisite</li>
+                                    <li>Relazione finale sul progetto</li>
+                                    <li>Presentazione in classe del lavoro svolto</li>
+                                </ul>
+                            </div>
+                            <div class="val-item">
+                                <h4>Impatto generale:</h4>
+                                <ul>
+                                    <li>Qualità dei prodotti finali realizzati</li>
+                                    <li>Risonanza nella comunità (famiglie, struttura, territorio)</li>
+                                    <li>Possibilità di continuità o replica del progetto</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="risorse-utili">
+                        <h3>Risorse e Approfondimenti</h3>
+                        <div class="risorse-grid">
+                            <div class="risorsa">
+                                <h4>📚 Letture Consigliate</h4>
+                                <ul>
+                                    <li>Duccio Demetrio - <em>Raccontarsi. L'autobiografia come cura di sé</em></li>
+                                    <li>Duccio Demetrio - <em>La scrittura clinica</em></li>
+                                    <li>Daniel Pennac - <em>Come un romanzo</em></li>
+                                </ul>
+                            </div>
+                            <div class="risorsa">
+                                <h4>🌐 Siti Web</h4>
+                                <ul>
+                                    <li>Libera Università dell'Autobiografia (Anghiari)</li>
+                                    <li>Associazione Italiana Storie di Vita</li>
+                                </ul>
+                            </div>
+                            <div class="risorsa">
+                                <h4>🎓 Formazione Continua</h4>
+                                <ul>
+                                    <li>Corsi di facilitazione autobiografica</li>
+                                    <li>Supervisione con esperti</li>
+                                    <li>Partecipazione a gruppi di scrittura</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Footer -->
+        <footer class="lab-footer">
+            <div class="footer-content">
+                <p>Laboratorio di Scrittura Autobiografica</p>
+                <p>Prof. Salvatore Picconi - IIS Meucci Mattei, Decimomannu</p>
+                <p>Metodologie Operative - Servizi per la Sanità e l'Assistenza Sociale</p>
+                <p class="footer-link"><a href="https://salvapicconi.github.io/metodologieoperative" target="_blank">salvapicconi.github.io/metodologieoperative</a></p>
+            </div>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
