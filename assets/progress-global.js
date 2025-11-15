@@ -63,6 +63,15 @@ if (IS_DISABLED) {
   function updateStudentLabel(detail) {
     if (!studentLabel) return;
     const detailData = detail || {};
+    const isSuperMode = document.body?.dataset?.moSuper === 'true';
+    if (isSuperMode) {
+      const superClass = document.body?.dataset?.moSuperClass || detailData.classCode || '—';
+      const superStudent = document.body?.dataset?.moSuperStudent || detailData.studentCode || '—';
+      studentLabel.textContent = `Modalità docente · ${superClass} • ${superStudent}`;
+      studentLabel.classList.add('super-mode');
+      return;
+    }
+    studentLabel.classList.remove('super-mode');
     if (isGuestMode || detailData.guest) {
       studentLabel.textContent = 'Modalità ospite: progressi locali';
       return;
@@ -277,6 +286,9 @@ document.addEventListener('click', async (event) => {
 document.addEventListener('click', (event) => {
   if (event.target.matches('#resetStudent')) {
     if (confirm('Vuoi cambiare studente?')) {
+      if (typeof Progress?.clearSuperSession === 'function') {
+        Progress.clearSuperSession();
+      }
       localStorage.removeItem('mo:class');
       localStorage.removeItem('mo:code');
       sessionStorage.removeItem('mo:class');

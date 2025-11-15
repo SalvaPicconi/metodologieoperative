@@ -287,6 +287,119 @@ nav.nav-collapsible li.nav-ai {
     color: #6b7280;
 }
 
+.class-progress-section {
+    margin-top: 3rem;
+}
+
+.class-progress-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.class-block,
+.student-block {
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    background: #f8fbff;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+    overflow: hidden;
+}
+
+.student-block {
+    background: #fff;
+}
+
+.class-block summary,
+.student-block summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.2rem 1.5rem;
+}
+
+.class-block summary::-webkit-details-marker,
+.student-block summary::-webkit-details-marker {
+    display: none;
+}
+
+.class-block[open] summary,
+.student-block[open] summary {
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.class-info h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #1e293b;
+}
+
+.class-info p {
+    margin: 0.2rem 0 0;
+    color: #64748b;
+    font-size: 0.95rem;
+}
+
+.class-chevron,
+.student-chevron {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid #cbd5f5;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: #1d4ed8;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.class-block[open] .class-chevron,
+.student-block[open] .student-chevron {
+    transform: rotate(90deg);
+    background: #dbeafe;
+}
+
+.class-body {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.student-meta {
+    display: flex;
+    flex-direction: column;
+}
+
+.student-meta strong {
+    font-size: 1rem;
+    color: #0f172a;
+}
+
+.student-meta span {
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+.student-activities {
+    padding: 0;
+}
+
+.data-table.compact th,
+.data-table.compact td {
+    padding: 0.45rem 0.6rem;
+    font-size: 0.9rem;
+}
+
+.class-progress-container .empty-state {
+    box-shadow: none;
+    background: #f8fbff;
+}
+
 .summary-section {
     margin-top: 2.5rem;
 }
@@ -327,6 +440,15 @@ nav.nav-collapsible li.nav-ai {
     font-size: 0.9rem;
     color: #9ca3af;
     text-align: center;
+}
+
+.muted {
+    color: #6b7280;
+}
+
+#studentLabel.super-mode {
+    background: #7c3aed !important;
+    box-shadow: 0 10px 30px rgba(124, 58, 237, 0.35) !important;
 }
 
 /* Contenuto principale */

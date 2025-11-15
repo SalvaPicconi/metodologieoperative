@@ -85,6 +85,21 @@ const identityCache = {
   isGuest: false
 };
 
+const SUPER_STORAGE_KEY = 'mo:super-impersonations';
+const SUPER_PARAM_KEYS = ['docente', 'super'];
+const SUPER_SESSION_DURATION = 1000 * 60 * 15;
+const CURRENT_PAGE_PATH = typeof window !== 'undefined' ? normalizePath(window.location.pathname) : '/';
+const SUPER_PARAM_ACTIVE = (() => {
+  if (typeof window === 'undefined') return false;
+  try {
+    const params = new URLSearchParams(window.location.search);
+    return SUPER_PARAM_KEYS.some(key => params.has(key));
+  } catch {
+    return false;
+  }
+})();
+let superIdentity = null;
+
 function setGuestMode(isGuest) {
   identityCache.isGuest = Boolean(isGuest);
   try {
@@ -97,6 +112,80 @@ function setGuestMode(isGuest) {
     }
   } catch (error) {
     console.warn('[Progress] Impossibile aggiornare stato guest:', error);
+  }
+}
+
+function setSuperModeAttributes(identity) {
+  try {
+    if (typeof document === 'undefined' || !document.body) return;
+    if (identity) {
+      document.body.setAttribute('data-mo-super', 'true');
+      if (identity.classCode) {
+        document.body.setAttribute('data-mo-super-class', identity.classCode);
+      }
+      if (identity.studentCode) {
+        document.body.setAttribute('data-mo-super-student', identity.studentCode);
+      }
+    } else {
+      document.body.removeAttribute('data-mo-super');
+      document.body.removeAttribute('data-mo-super-class');
+      document.body.removeAttribute('data-mo-super-student');
+    }
+  } catch (error) {
+    console.warn('[Progress] Impossibile aggiornare attributi super user:', error);
+  }
+}
+
+function getSuperStore() {
+  if (typeof window === 'undefined') return {};
+  try {
+    const raw = sessionStorage.getItem(SUPER_STORAGE_KEY);
+    if (!raw) return {};
+    const data = JSON.parse(raw) || {};
+    const now = Date.now();
+    let mutated = false;
+    Object.keys(data).forEach(key => {
+      if (data[key].expires && data[key].expires < now) {
+        delete data[key];
+        mutated = true;
+      }
+    });
+    if (mutated) {
+      sessionStorage.setItem(SUPER_STORAGE_KEY, JSON.stringify(data));
+    }
+    return data;
+  } catch (error) {
+    console.warn('[Progress] Impossibile leggere archivio super user:', error);
+    return {};
+  }
+}
+
+function readSuperSessionEntry(path = CURRENT_PAGE_PATH) {
+  if (!SUPER_PARAM_ACTIVE) return null;
+  try {
+    const store = getSuperStore();
+    return store[path] || null;
+  } catch (error) {
+    console.warn('[Progress] Impossibile leggere la sessione docente:', error);
+    return null;
+  }
+}
+
+function clearSuperSessionEntry(path = CURRENT_PAGE_PATH) {
+  if (typeof window === 'undefined') return;
+  try {
+    if (path === '*') {
+      sessionStorage.removeItem(SUPER_STORAGE_KEY);
+      return;
+    }
+    const normalized = normalizePath(path);
+    const store = getSuperStore();
+    if (store[normalized]) {
+      delete store[normalized];
+      sessionStorage.setItem(SUPER_STORAGE_KEY, JSON.stringify(store));
+    }
+  } catch (error) {
+    console.warn('[Progress] Impossibile cancellare la sessione docente:', error);
   }
 }
 
@@ -136,6 +225,20 @@ function clearLegacyIdentity() {
 }
 
 clearLegacyIdentity();
+
+const initialSuperEntry = readSuperSessionEntry(CURRENT_PAGE_PATH);
+if (initialSuperEntry && initialSuperEntry.classCode && initialSuperEntry.studentCode) {
+  superIdentity = {
+    classCode: initialSuperEntry.classCode,
+    studentCode: initialSuperEntry.studentCode,
+    superUser: true
+  };
+  identityCache.classCode = initialSuperEntry.classCode;
+  identityCache.studentCode = initialSuperEntry.studentCode;
+  identityCache.isGuest = false;
+  setSuperModeAttributes(superIdentity);
+  notifyIdentityChange({ ...superIdentity, superUser: true });
+}
 
 // ✅ MODIFICATO: Usa localStorage invece di sessionStorage per persistenza
 function readIdentity() {
@@ -235,6 +338,9 @@ function clearIdentity() {
     sessionStorage.removeItem(STORAGE_KEYS.studentCode);
     identityCache.classCode = null;
     identityCache.studentCode = null;
+    superIdentity = null;
+    clearSuperSessionEntry('*');
+    setSuperModeAttributes(null);
     console.log('✅ Identità cancellata');
   } catch (error) {
     console.warn('Errore durante cancellazione identità:', error);
@@ -375,6 +481,9 @@ export const Progress = (() => {
   let identityPromise = null;
 
   async function ensureIdentity() {
+    if (superIdentity) {
+      return superIdentity;
+    }
     const cached = readIdentity();
     if (cached) return cached;
     if (!identityPromise) {
@@ -414,7 +523,18 @@ export const Progress = (() => {
     });
   }
 
-  return { load, save };
+  function clearSuperSession(path = CURRENT_PAGE_PATH) {
+    clearSuperSessionEntry(path);
+    if (superIdentity && normalizePath(path) === CURRENT_PAGE_PATH) {
+      superIdentity = null;
+      identityCache.classCode = null;
+      identityCache.studentCode = null;
+      setSuperModeAttributes(null);
+      notifyIdentityChange({ classCode: null, studentCode: null });
+    }
+  }
+
+  return { load, save, clearSuperSession };
 })();
 
 // ✅ Esponi funzioni di debug globalmente
