@@ -678,11 +678,20 @@ function buildActivityLink(path, { superMode = false } = {}) {
     }
 
     const normalized = path.startsWith('/') ? path : `/${path}`;
-    let base = SITE_ROOT;
-    if (!base) {
-        base = window.location.pathname.replace(/\/[^\/]*$/, '') || '';
+    let href = '';
+    const repoPath = BASE_PATHNAME && BASE_PATHNAME !== '/' ? BASE_PATHNAME : '';
+
+    if (repoPath && normalized.startsWith(`${repoPath}/`)) {
+        href = `${SITE_BASE}${normalized}`;
+    } else if (repoPath && normalized === repoPath) {
+        href = `${SITE_BASE}${repoPath}`;
+    } else if (SITE_ROOT) {
+        href = `${SITE_ROOT}${normalized}`;
+    } else {
+        const fallbackBase = window.location.pathname.replace(/\/[^\/]*$/, '') || '';
+        href = `${fallbackBase}${normalized}`;
     }
-    let href = `${base}${normalized}`;
+
     if (superMode) {
         href += (href.includes('?') ? '&' : '?') + 'docente=1';
     }
