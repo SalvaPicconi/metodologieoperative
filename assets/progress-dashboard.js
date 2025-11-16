@@ -663,13 +663,15 @@ function normalizePath(path) {
     return clean.replace(/\/{2,}/g, '/');
 }
 
-function buildActivityLink(path, { superMode = false } = {}) {
+function buildActivityLink(path, { superMode = false, classCode = '', studentCode = '' } = {}) {
     if (!path) return '#';
     if (/^https?:\/\//i.test(path)) {
         try {
             const url = new URL(path);
             if (superMode) {
                 url.searchParams.set('docente', '1');
+                if (classCode) url.searchParams.set('doc_class', classCode);
+                if (studentCode) url.searchParams.set('doc_student', studentCode);
             }
             return url.toString();
         } catch {
@@ -693,7 +695,10 @@ function buildActivityLink(path, { superMode = false } = {}) {
     }
 
     if (superMode) {
-        href += (href.includes('?') ? '&' : '?') + 'docente=1';
+        const params = new URLSearchParams({ docente: '1' });
+        if (classCode) params.set('doc_class', classCode);
+        if (studentCode) params.set('doc_student', studentCode);
+        href += (href.includes('?') ? '&' : '?') + params.toString();
     }
     return href;
 }
@@ -750,15 +755,11 @@ function openActivityAsDocente(dataset = {}) {
         alert('Seleziona una voce valida per aprire la modalità docente.');
         return;
     }
-    const prepared = prepareSuperSession({
+    prepareSuperSession({
         classCode,
         studentCode,
         pagePath
     });
-    if (!prepared) {
-        alert('Impossibile attivare la modalità docente su questo browser. Usa "Apri pagina" per consultare i contenuti.');
-        return;
-    }
-    const link = buildActivityLink(pagePath, { superMode: true });
+    const link = buildActivityLink(pagePath, { superMode: true, classCode, studentCode });
     window.open(link, '_blank', 'noopener');
 }

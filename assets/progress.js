@@ -93,12 +93,36 @@ const SUPER_PARAM_ACTIVE = (() => {
   if (typeof window === 'undefined') return false;
   try {
     const params = new URLSearchParams(window.location.search);
-    return SUPER_PARAM_KEYS.some(key => params.has(key));
+    return params.has('docente');
   } catch {
     return false;
   }
 })();
 let superIdentity = null;
+
+function getSuperIdentityFromQuery() {
+  if (typeof window === 'undefined') return null;
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const docenteFlag = params.get('docente');
+    if (!docenteFlag || (docenteFlag !== '1' && docenteFlag.toLowerCase() !== 'true')) {
+      return null;
+    }
+    const classCode = params.get('doc_class') || params.get('doc_class_code');
+    const studentCode = params.get('doc_student') || params.get('doc_student_code');
+    if (!classCode || !studentCode) {
+      return null;
+    }
+    return {
+      classCode: classCode.trim(),
+      studentCode: studentCode.trim(),
+      superUser: true
+    };
+  } catch (error) {
+    console.warn('[Progress] Impossibile leggere i parametri docente:', error);
+    return null;
+  }
+}
 
 function setGuestMode(isGuest) {
   identityCache.isGuest = Boolean(isGuest);
@@ -189,6 +213,21 @@ function clearSuperSessionEntry(path = CURRENT_PAGE_PATH) {
   }
 }
 
+function removeDocenteParamsFromUrl() {
+  if (typeof window === 'undefined' || !window.history || typeof window.history.replaceState !== 'function') {
+    return;
+  }
+  try {
+    const url = new URL(window.location.href);
+    ['docente', 'doc_class', 'doc_class_code', 'doc_student', 'doc_student_code'].forEach(param => {
+      url.searchParams.delete(param);
+    });
+    window.history.replaceState({}, document.title, url.toString());
+  } catch (error) {
+    console.warn('[Progress] Impossibile aggiornare l\'URL docente:', error);
+  }
+}
+
 function getIdentityConfig() {
   if (typeof window === 'undefined') return {};
   const cfg = window.MO_IDENTITY_CONFIG;
@@ -226,7 +265,8 @@ function clearLegacyIdentity() {
 
 clearLegacyIdentity();
 
-const initialSuperEntry = readSuperSessionEntry(CURRENT_PAGE_PATH);
+const querySuperIdentity = getSuperIdentityFromQuery();
+const initialSuperEntry = querySuperIdentity || (SUPER_PARAM_ACTIVE ? readSuperSessionEntry(CURRENT_PAGE_PATH) : null);
 if (initialSuperEntry && initialSuperEntry.classCode && initialSuperEntry.studentCode) {
   superIdentity = {
     classCode: initialSuperEntry.classCode,
@@ -530,6 +570,7 @@ export const Progress = (() => {
       identityCache.classCode = null;
       identityCache.studentCode = null;
       setSuperModeAttributes(null);
+      removeDocenteParamsFromUrl();
       notifyIdentityChange({ classCode: null, studentCode: null });
     }
   }
