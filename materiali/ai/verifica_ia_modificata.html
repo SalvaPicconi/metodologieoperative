@@ -14,6 +14,13 @@
             box-sizing: border-box;
         }
 
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('docente') === '1') {
+                setTimeout(() => sbloccaVerifica(true), 0);
+            }
+        });
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #FF3CAC 0%, #784BA0 25%, #2B86C5 50%, #00C9FF 75%, #92FE9D 100%);
@@ -1439,15 +1446,27 @@
     <!-- JAVASCRIPT -->
     <script>
         // PASSWORD PROTECTION
+        let verificaSbloccata = false;
+        let verificaInizializzata = false;
+        const STORAGE_NAMESPACE = 'verifica_ia';
+
+        function sbloccaVerifica(isDocente = false) {
+            if (verificaSbloccata) return;
+            verificaSbloccata = true;
+            document.getElementById('passwordScreen').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+            inizializzaVerifica();
+            if (isDocente) {
+                console.log('👩‍🏫 Modalità docente attiva');
+            }
+        }
+
         function verificaPassword() {
             const password = document.getElementById('passwordInput').value;
             const correctPassword = 'x456y!7540';
             
             if (password === correctPassword) {
-                document.getElementById('passwordScreen').style.display = 'none';
-                document.getElementById('mainContent').style.display = 'block';
-                // Inizializza l'autosave
-                inizializzaVerifica();
+                sbloccaVerifica(false);
             } else {
                 document.getElementById('passwordError').style.display = 'block';
                 document.getElementById('passwordInput').value = '';
@@ -1484,8 +1503,10 @@
         let autoSaveInterval;
 
         function inizializzaVerifica() {
-            caricaDati();
+            if (verificaInizializzata) return;
+            verificaInizializzata = true;
             setupAutoExpand();
+            caricaDati();
             // Auto-save ogni 30 secondi
             autoSaveInterval = setInterval(salvaDati, 30000);
             console.log('✅ Verifica caricata - Salvataggio automatico attivo');
@@ -1502,58 +1523,130 @@
             }
         });
 
-        // FUNZIONE SALVATAGGIO
-        function salvaDati() {
-            // Salva tutti gli input text e textarea
+        function collectVerificaData() {
+            const snapshot = {
+                inputs: {},
+                radios: {},
+                checks: {},
+                timestamp: new Date().toISOString()
+            };
+
             document.querySelectorAll('input[type="text"], input[type="date"], textarea').forEach(campo => {
-                if(campo.id && campo.value) {
-                    localStorage.setItem('verifica_ia_' + campo.id, campo.value);
+                if (campo.id) {
+                    snapshot.inputs[campo.id] = campo.value || '';
                 }
             });
 
-            // Salva radio buttons
-            document.querySelectorAll('input[type="radio"]:checked').forEach(radio => {
-                localStorage.setItem('verifica_ia_radio_' + radio.name, radio.value);
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                if (!radio.name) return;
+                if (!(radio.name in snapshot.radios)) {
+                    snapshot.radios[radio.name] = null;
+                }
+                if (radio.checked) {
+                    snapshot.radios[radio.name] = radio.value;
+                }
             });
 
-            // Salva checkbox
             document.querySelectorAll('input[type="checkbox"]').forEach(check => {
-                localStorage.setItem('verifica_ia_check_' + check.id, check.checked);
+                if (check.id) {
+                    snapshot.checks[check.id] = Boolean(check.checked);
+                }
             });
 
+            return snapshot;
+        }
+
+        function persistSnapshotLocally(snapshot) {
+            if (!snapshot) return;
+
+            Object.entries(snapshot.inputs || {}).forEach(([id, value]) => {
+                localStorage.setItem(`${STORAGE_NAMESPACE}_${id}`, value ?? '');
+            });
+
+            Object.entries(snapshot.radios || {}).forEach(([name, value]) => {
+                if (value === null || value === undefined) {
+                    localStorage.removeItem(`${STORAGE_NAMESPACE}_radio_${name}`);
+                } else {
+                    localStorage.setItem(`${STORAGE_NAMESPACE}_radio_${name}`, value);
+                }
+            });
+
+            Object.entries(snapshot.checks || {}).forEach(([id, checked]) => {
+                localStorage.setItem(`${STORAGE_NAMESPACE}_check_${id}`, checked ? 'true' : 'false');
+            });
+        }
+
+        function buildSnapshotFromLocalStorage() {
+            const snapshot = { inputs: {}, radios: {}, checks: {} };
+
+            document.querySelectorAll('input[type="text"], input[type="date"], textarea').forEach(campo => {
+                if (!campo.id) return;
+                const stored = localStorage.getItem(`${STORAGE_NAMESPACE}_${campo.id}`);
+                if (stored !== null) {
+                    snapshot.inputs[campo.id] = stored;
+                }
+            });
+
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                if (!radio.name || Object.prototype.hasOwnProperty.call(snapshot.radios, radio.name)) return;
+                const stored = localStorage.getItem(`${STORAGE_NAMESPACE}_radio_${radio.name}`);
+                if (stored !== null) {
+                    snapshot.radios[radio.name] = stored;
+                }
+            });
+
+            document.querySelectorAll('input[type="checkbox"]').forEach(check => {
+                if (!check.id) return;
+                const stored = localStorage.getItem(`${STORAGE_NAMESPACE}_check_${check.id}`);
+                if (stored !== null) {
+                    snapshot.checks[check.id] = stored === 'true';
+                }
+            });
+
+            return snapshot;
+        }
+
+        function applySnapshotToForm(snapshot) {
+            if (!snapshot) return;
+
+            Object.entries(snapshot.inputs || {}).forEach(([id, value]) => {
+                const campo = document.getElementById(id);
+                if (!campo) return;
+                campo.value = value ?? '';
+                if (campo.tagName === 'TEXTAREA') {
+                    campo.style.height = 'auto';
+                    campo.style.height = (campo.scrollHeight) + 'px';
+                }
+            });
+
+            Object.entries(snapshot.radios || {}).forEach(([name, value]) => {
+                if (value === null || value === undefined) return;
+                document.querySelectorAll(`input[type=\"radio\"][name=\"${name}\"]`).forEach(radio => {
+                    radio.checked = radio.value === value;
+                });
+            });
+
+            Object.entries(snapshot.checks || {}).forEach(([id, checked]) => {
+                const check = document.getElementById(id);
+                if (check) {
+                    check.checked = Boolean(checked);
+                }
+            });
+        }
+
+        // FUNZIONE SALVATAGGIO
+        function salvaDati() {
+            const snapshot = collectVerificaData();
+            persistSnapshotLocally(snapshot);
             console.log('💾 Dati salvati:', new Date().toLocaleTimeString());
+            return snapshot;
         }
 
         // FUNZIONE CARICAMENTO
-        function caricaDati() {
-            // Carica input text e textarea
-            document.querySelectorAll('input[type="text"], input[type="date"], textarea').forEach(campo => {
-                if(campo.id) {
-                    const salvato = localStorage.getItem('verifica_ia_' + campo.id);
-                    if(salvato) {
-                        campo.value = salvato;
-                        // Trigger auto-expand per textarea
-                        if(campo.tagName === 'TEXTAREA') {
-                            campo.style.height = 'auto';
-                            campo.style.height = (campo.scrollHeight) + 'px';
-                        }
-                    }
-                }
-            });
-
-            // Carica radio buttons
-            document.querySelectorAll('input[type="radio"]').forEach(radio => {
-                const salvato = localStorage.getItem('verifica_ia_radio_' + radio.name);
-                if(salvato === radio.value) radio.checked = true;
-            });
-
-            // Carica checkbox
-            document.querySelectorAll('input[type="checkbox"]').forEach(check => {
-                const salvato = localStorage.getItem('verifica_ia_check_' + check.id);
-                if(salvato === 'true') check.checked = true;
-            });
-
-            console.log('📂 Dati precedenti caricati');
+        function caricaDati(sourceSnapshot = null) {
+            const snapshot = sourceSnapshot || buildSnapshotFromLocalStorage();
+            applySnapshotToForm(snapshot);
+            console.log(sourceSnapshot ? '☁️ Dati caricati dal cloud' : '📂 Dati precedenti caricati');
         }
 
         // SALVATAGGIO MANUALE CON VERIFICA
@@ -1663,6 +1756,23 @@
             }, 1000);
         });
     </script>
+    <script>
+        window.MO_PROGRESS_CONFIG = {
+            pagePath: '/materiali/ai/verifica_ia_modificata.html',
+            pathPrefixes: ['/metodologieoperative'],
+            inputSelector: 'input[type="text"], input[type="date"], textarea, input[type="radio"], input[type="checkbox"]',
+            onBeforeSave() {
+                return collectVerificaData();
+            },
+            onRestore(saved) {
+                if (saved) {
+                    caricaDati(saved);
+                    sbloccaVerifica(true);
+                }
+            }
+        };
+    </script>
+
     <script>
         window.MO_IDENTITY_CONFIG = {
             message: 'Inserisci la classe (es. 3sa) e il codice cognome+iniziale tutto minuscolo (es. rossi g → rossig).',
