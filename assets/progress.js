@@ -573,8 +573,54 @@ export const Progress = (() => {
       console.log('[Progress] 📥 Modalità ospite attiva: caricamento remoto disabilitato.');
       return null;
     }
-    console.log('[Progress] 📥 Caricamento da:', normalizedPath);
-    return store.load({ studentCode: id.studentCode, pagePath: normalizedPath });
+
+    const candidates = [];
+    const tryAdd = (value) => {
+      if (!value) return;
+      const clean = value.replace(/\/{2,}/g, '/');
+      if (!candidates.includes(clean)) {
+        candidates.push(clean);
+      }
+    };
+
+    tryAdd(normalizedPath);
+
+    const prefixes = getKnownPathPrefixes();
+    prefixes.forEach(prefix => {
+      if (!prefix || prefix === '/') return;
+      const base = prefix.endsWith('/') ? prefix.slice(0, -1) : prefix;
+      if (normalizedPath === '/') {
+        tryAdd(base || '/');
+      } else {
+        tryAdd(`${base}${normalizedPath.startsWith('/') ? '' : '/'}${normalizedPath}`);
+      }
+    });
+
+    const rawPath = (pagePath || '').split(/[?#]/)[0];
+    tryAdd(rawPath);
+
+    for (const candidate of candidates) {
+      console.log('[Progress] 📥 Caricamento da:', candidate);
+      const data = await store.load({ studentCode: id.studentCode, pagePath: candidate });
+      if (data) {
+        if (candidate !== normalizedPath) {
+          console.log('[Progress] 🔁 Conversione path legacy →', normalizedPath);
+          try {
+            await store.save({
+              classCode: id.classCode,
+              studentCode: id.studentCode,
+              pagePath: normalizedPath,
+              data
+            });
+          } catch (error) {
+            console.warn('[Progress] Impossibile sincronizzare il path legacy:', error);
+          }
+        }
+        return data;
+      }
+    }
+
+    return null;
   }
 
   // ✅ MODIFICATO: Usa path normalizzato e log migliorati
