@@ -2,9 +2,33 @@ import { Progress } from './progress.js';
 
 console.log('✅ progress-global attivo');
 
+const DEFAULT_CONFIG = {
+  pathPrefixes: ['/metodologieoperative']
+};
+
+function resolveConfig() {
+  const userConfig = window.MO_PROGRESS_CONFIG && typeof window.MO_PROGRESS_CONFIG === 'object'
+    ? window.MO_PROGRESS_CONFIG
+    : {};
+
+  const merged = {
+    ...DEFAULT_CONFIG,
+    ...userConfig
+  };
+
+  const pathPrefixes = new Set(DEFAULT_CONFIG.pathPrefixes);
+  if (Array.isArray(userConfig.pathPrefixes)) {
+    userConfig.pathPrefixes.filter(Boolean).forEach(prefix => pathPrefixes.add(prefix));
+  }
+  merged.pathPrefixes = Array.from(pathPrefixes);
+  window.MO_PROGRESS_CONFIG = merged;
+  return merged;
+}
+
+const CONFIG = resolveConfig();
+
 // Rileva ID della pagina (meta o path)
 const PAGE_ID = document.querySelector('meta[name="page-id"]')?.content || location.pathname;
-const CONFIG = window.MO_PROGRESS_CONFIG || {};
 const IS_DISABLED = CONFIG.disabled === true;
 const HOME_URL = CONFIG.homeUrl || guessHomeUrl();
 
