@@ -53,6 +53,19 @@ class ProgressStore {
   }
 }
 
+const DEFAULT_PATH_PREFIXES = ['/metodologieoperative'];
+
+function getKnownPathPrefixes() {
+  try {
+    const configPrefixes = Array.isArray(window?.MO_PROGRESS_CONFIG?.pathPrefixes)
+      ? window.MO_PROGRESS_CONFIG.pathPrefixes
+      : [];
+    return [...DEFAULT_PATH_PREFIXES, ...configPrefixes].filter(Boolean);
+  } catch {
+    return [...DEFAULT_PATH_PREFIXES];
+  }
+}
+
 // ✅ NUOVA FUNZIONE: Normalizza il path per evitare duplicati
 function normalizePath(path) {
   if (!path) return '/';
@@ -63,13 +76,31 @@ function normalizePath(path) {
   // Assicurati che inizi con /
   if (!path.startsWith('/')) path = '/' + path;
   
+  // Rimuovi query string e hash
+  path = path.split('?')[0].split('#')[0];
+
+  // Rimuovi prefissi noti del sito (es. /metodologieoperative)
+  const prefixes = getKnownPathPrefixes();
+  for (const prefix of prefixes) {
+    if (!prefix || prefix === '/') continue;
+    if (path === prefix) {
+      path = '/';
+      break;
+    }
+    const normalizedPrefix = prefix.endsWith('/') ? prefix : `${prefix}/`;
+    if (path.startsWith(normalizedPrefix)) {
+      path = path.slice(prefix.length);
+      if (!path.startsWith('/')) {
+        path = `/${path}`;
+      }
+      break;
+    }
+  }
+  
   // Rimuovi trailing slash (eccetto per root)
   if (path.length > 1 && path.endsWith('/')) {
     path = path.slice(0, -1);
   }
-  
-  // Rimuovi query string e hash
-  path = path.split('?')[0].split('#')[0];
   
   return path;
 }
