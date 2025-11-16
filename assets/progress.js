@@ -139,7 +139,7 @@ function setSuperModeAttributes(identity) {
 function getSuperStore() {
   if (typeof window === 'undefined') return {};
   try {
-    const raw = sessionStorage.getItem(SUPER_STORAGE_KEY);
+    const raw = localStorage.getItem(SUPER_STORAGE_KEY);
     if (!raw) return {};
     const data = JSON.parse(raw) || {};
     const now = Date.now();
@@ -151,7 +151,7 @@ function getSuperStore() {
       }
     });
     if (mutated) {
-      sessionStorage.setItem(SUPER_STORAGE_KEY, JSON.stringify(data));
+      localStorage.setItem(SUPER_STORAGE_KEY, JSON.stringify(data));
     }
     return data;
   } catch (error) {
@@ -175,14 +175,14 @@ function clearSuperSessionEntry(path = CURRENT_PAGE_PATH) {
   if (typeof window === 'undefined') return;
   try {
     if (path === '*') {
-      sessionStorage.removeItem(SUPER_STORAGE_KEY);
+      localStorage.removeItem(SUPER_STORAGE_KEY);
       return;
     }
     const normalized = normalizePath(path);
     const store = getSuperStore();
     if (store[normalized]) {
       delete store[normalized];
-      sessionStorage.setItem(SUPER_STORAGE_KEY, JSON.stringify(store));
+      localStorage.setItem(SUPER_STORAGE_KEY, JSON.stringify(store));
     }
   } catch (error) {
     console.warn('[Progress] Impossibile cancellare la sessione docente:', error);

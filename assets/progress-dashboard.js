@@ -700,7 +700,7 @@ function buildActivityLink(path, { superMode = false } = {}) {
 
 function readSuperStore() {
     try {
-        const raw = sessionStorage.getItem(SUPER_STORAGE_KEY);
+        const raw = localStorage.getItem(SUPER_STORAGE_KEY);
         if (!raw) return {};
         const data = JSON.parse(raw) || {};
         const now = Date.now();
@@ -713,7 +713,7 @@ function readSuperStore() {
             }
         });
         if (mutated) {
-            sessionStorage.setItem(SUPER_STORAGE_KEY, JSON.stringify(data));
+            localStorage.setItem(SUPER_STORAGE_KEY, JSON.stringify(data));
         }
         return data;
     } catch (error) {
@@ -734,7 +734,7 @@ function prepareSuperSession({ classCode, studentCode, pagePath }) {
             studentCode,
             expires: Date.now() + SUPER_SESSION_DURATION
         };
-        sessionStorage.setItem(SUPER_STORAGE_KEY, JSON.stringify(store));
+        localStorage.setItem(SUPER_STORAGE_KEY, JSON.stringify(store));
         return true;
     } catch (error) {
         console.warn('Impossibile predisporre la modalità docente:', error);
