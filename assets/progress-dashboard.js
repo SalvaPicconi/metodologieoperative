@@ -28,7 +28,8 @@ const dashboardState = {
     activityFilter: '',
     searchTerm: '',
     assessments: [],
-    filteredAssessments: []
+    filteredAssessments: [],
+    assessmentIndex: new Map()
 };
 
 const elements = {};
@@ -53,7 +54,10 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.studentBody = document.getElementById('student-detail-body');
     elements.assessmentClassBody = document.getElementById('assessment-class-summary');
     elements.assessmentDetailBody = document.getElementById('assessment-detail-body');
+    elements.assessmentInsights = document.getElementById('assessment-insights');
     elements.classProgressContainer = document.getElementById('class-student-progress');
+    elements.assessmentModal = document.getElementById('assessment-modal');
+    elements.assessmentModalBody = document.getElementById('assessment-modal-body');
 
     if (elements.loginForm) {
         elements.loginForm.addEventListener('submit', handleLogin);
@@ -87,6 +91,22 @@ document.addEventListener('click', (event) => {
         event.preventDefault();
         openActivityAsDocente(trigger.dataset);
     }
+
+    const detailTrigger = event.target.closest('[data-assessment-detail]');
+    if (detailTrigger) {
+        event.preventDefault();
+        openAssessmentDetail(detailTrigger.dataset.assessmentDetail);
+    }
+
+    if (event.target.matches('[data-assessment-close]') || event.target === elements.assessmentModal) {
+        closeAssessmentDetail();
+    }
+});
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+        closeAssessmentDetail();
+    }
 });
 
 function handleLogin(event) {
@@ -115,6 +135,12 @@ async function refreshDashboard() {
         ]);
         dashboardState.records = records;
         dashboardState.assessments = assessments.map(normalizeAssessmentRecord);
+        dashboardState.assessmentIndex = new Map();
+        dashboardState.assessments.forEach(entry => {
+            if (entry?.id !== undefined) {
+                dashboardState.assessmentIndex.set(String(entry.id), entry);
+            }
+        });
         populateFilters(records);
         dashboardState.classFilter = elements.classFilter?.value || '';
         dashboardState.activityFilter = elements.activityFilter?.value || '';
@@ -153,7 +179,7 @@ async function fetchProgressData() {
 
 async function fetchAssessmentData() {
     const params = new URLSearchParams({
-        select: 'id,class_code,student_code,participant,results,created_at',
+        select: 'id,class_code,student_code,participant,results,responses,created_at,started_at,ended_at',
         order: 'created_at.desc',
         limit: '500'
     });
@@ -518,8 +544,52 @@ function applyAssessmentFilter(classCode = '') {
         dataset = dataset.filter(entry => entry.classCode.toLowerCase() === classCode.toLowerCase());
     }
     dashboardState.filteredAssessments = dataset;
+    renderAssessmentInsights(dataset);
     renderAssessmentSummary(dataset);
     renderAssessmentTable(dataset);
+}
+
+function renderAssessmentInsights(data) {
+    if (!elements.assessmentInsights) return;
+    if (!data.length) {
+        elements.assessmentInsights.innerHTML = `
+            <div class="empty-state">
+                <p>Nessun test registrato nel periodo selezionato.</p>
+            </div>
+        `;
+        return;
+    }
+
+    const total = data.length;
+    const avgScore = data.reduce((sum, entry) => sum + (entry.results.finalScore || 0), 0) / total;
+    const avgAccuracy = data.reduce((sum, entry) => sum + (entry.results.accuracy || 0), 0) / total;
+    const avgTime = data.reduce((sum, entry) => sum + (entry.results.totalTime || 0), 0) / total;
+    const best = data.reduce((prev, curr) => (curr.results.finalScore > prev.results.finalScore ? curr : prev), data[0]);
+    const recent = data[0];
+
+    elements.assessmentInsights.innerHTML = `
+        <article class="assessment-card">
+            <h4>Test registrati</h4>
+            <div class="value">${total}</div>
+            <div class="meta">Ultimo aggiornamento ${formatDateTime(recent.created_at)}</div>
+        </article>
+        <article class="assessment-card">
+            <h4>Punteggio medio</h4>
+            <div class="value">${avgScore.toFixed(1)}</div>
+            <div class="meta">Accuratezza media ${(avgAccuracy).toFixed(1)}%</div>
+        </article>
+        <article class="assessment-card">
+            <h4>Tempo medio</h4>
+            <div class="value">${formatSeconds(avgTime)}</div>
+            <div class="meta">Durata media di completamento</div>
+        </article>
+        <article class="assessment-card">
+            <h4>Migliore prestazione</h4>
+            <div class="value">${best.results.finalScore ?? 0}</div>
+            <div class="meta">${best.classCode} · ${best.participant.name || best.studentCode}</div>
+            <div class="trend positive">Accuratezza ${(best.results.accuracy ?? 0).toFixed(1)}%</div>
+        </article>
+    `;
 }
 
 function renderAssessmentSummary(data) {
@@ -568,26 +638,31 @@ function renderAssessmentSummary(data) {
 function renderAssessmentTable(data) {
     if (!elements.assessmentDetailBody) return;
     if (!data.length) {
-        elements.assessmentDetailBody.innerHTML = '<tr><td colspan="6">Nessun risultato disponibile.</td></tr>';
+        elements.assessmentDetailBody.innerHTML = '<tr><td colspan="7">Nessun risultato disponibile.</td></tr>';
         return;
     }
 
     const rows = data
         .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-        .map(entry => `
-            <tr>
-                <td>${entry.classCode}</td>
-                <td>${entry.participant.name || 'Anonimo'}</td>
-                <td>${entry.results.finalScore ?? 0}</td>
-                <td>${(entry.results.accuracy ?? 0).toFixed(1)}%</td>
-                <td>${formatDateTime(entry.created_at)}</td>
-                <td>
-                    <a class="btn-link" href="${STROOP_STATS_URL}?classe=${encodeURIComponent(entry.classCode.toLowerCase())}" target="_blank" rel="noopener">Statistiche</a>
-                    <span class="divider">·</span>
-                    <a class="btn-link" href="${STROOP_BASE_URL}" target="_blank" rel="noopener">Pagina</a>
-                </td>
-            </tr>
-        `);
+        .map(entry => {
+            const duration = formatSeconds(entry.results.totalTime);
+            const docLink = `${STROOP_BASE_URL}?docente=1&doc_class=${encodeURIComponent(entry.classCode.toLowerCase())}&doc_student=${encodeURIComponent((entry.studentCode || '').toLowerCase())}`;
+            return `
+                <tr>
+                    <td>${entry.classCode}</td>
+                    <td>${entry.participant.name || entry.studentCode || 'Anonimo'}</td>
+                    <td>${entry.results.finalScore ?? 0}</td>
+                    <td>${(entry.results.accuracy ?? 0).toFixed(1)}%</td>
+                    <td>${duration}</td>
+                    <td>${formatDateTime(entry.created_at)}</td>
+                    <td>
+                        <button class="btn-link" type="button" data-assessment-detail="${entry.id}">Dettagli</button>
+                        <span class="divider">·</span>
+                        <a class="btn-link" href="${docLink}" target="_blank" rel="noopener">Apri test</a>
+                    </td>
+                </tr>
+            `;
+        });
 
     elements.assessmentDetailBody.innerHTML = rows.join('');
 }
@@ -606,20 +681,147 @@ function normalizeAssessmentRecord(record) {
     if (!record) return null;
     const participant = record.participant || {};
     const results = record.results || {};
+    const responses = ensureArray(record.responses);
     return {
         id: record.id,
         classCode: (record.class_code || 'N/D').toUpperCase(),
+        studentCode: record.student_code || '',
         participant: {
-            name: participant.name || 'Anonimo',
+            name: participant.name || record.student_code || 'Anonimo',
             age: participant.age ?? null,
             gender: participant.gender || 'N/D'
         },
         results: {
             finalScore: results.finalScore ?? 0,
-            accuracy: results.accuracy ?? 0
+            accuracy: results.accuracy ?? 0,
+            totalTime: results.totalTime ?? null,
+            avgTime: results.avgTime ?? null,
+            correctCount: results.correctCount ?? null,
+            performanceLevel: results.performanceLevel || '',
+            difficultyStats: results.difficultyStats || {}
         },
+        responses,
+        started_at: record.started_at || null,
+        ended_at: record.ended_at || null,
         created_at: record.created_at || new Date().toISOString()
     };
+}
+
+function openAssessmentDetail(id) {
+    if (!elements.assessmentModal) return;
+    const entry = dashboardState.assessmentIndex.get(String(id));
+    if (!entry) {
+        alert('Impossibile trovare il test selezionato.');
+        return;
+    }
+
+    const detailsHtml = buildAssessmentDetail(entry);
+    if (elements.assessmentModalBody) {
+        elements.assessmentModalBody.innerHTML = detailsHtml;
+    }
+    elements.assessmentModal.classList.add('open');
+    elements.assessmentModal.setAttribute('aria-hidden', 'false');
+}
+
+function closeAssessmentDetail() {
+    if (!elements.assessmentModal) return;
+    elements.assessmentModal.classList.remove('open');
+    elements.assessmentModal.setAttribute('aria-hidden', 'true');
+}
+
+function buildAssessmentDetail(entry) {
+    const result = entry.results || {};
+    const docLink = `${STROOP_BASE_URL}?docente=1&doc_class=${encodeURIComponent(entry.classCode.toLowerCase())}&doc_student=${encodeURIComponent((entry.studentCode || '').toLowerCase())}`;
+    const difficultyHtml = Object.entries(result.difficultyStats || {})
+        .map(([level, stats]) => `
+            <div class="assessment-detail-item">
+                <span>${formatDifficulty(level)}</span>
+                <strong>${(stats.accuracy ?? 0).toFixed(1)}% accurate</strong>
+                <p style="margin:0.25rem 0 0;font-size:0.85rem;color:#475569;">
+                    ${stats.correct ?? 0}/${stats.total ?? 0} risposte · ${stats.avgTime ? stats.avgTime.toFixed(2) + 's' : '-'}
+                </p>
+            </div>
+        `).join('');
+
+    const responsesRows = (entry.responses || []).map((response, index) => `
+        <tr>
+            <td>${response.trialNumber ?? index + 1}</td>
+            <td>${response.displayWord || '-'}</td>
+            <td>${response.displayColor || '-'}</td>
+            <td>${response.selectedColor || '-'}</td>
+            <td>${formatSeconds(response.responseTime ? response.responseTime / 1000 : null)}</td>
+            <td>${formatDifficulty(response.difficulty)}</td>
+            <td class="${response.isCorrect ? 'success' : 'error'}">${response.isCorrect ? '✓' : '✗'}</td>
+        </tr>
+    `).join('');
+
+    return `
+        <div class="assessment-modal-body">
+            <h2 style="margin-top:0;">Dettaglio Test · ${entry.classCode}</h2>
+            <p class="muted" style="margin-bottom:1rem;">${entry.participant.name || entry.studentCode || 'Anonimo'} · ${formatDateTime(entry.created_at)}</p>
+
+            <div class="assessment-detail-grid">
+                <div class="assessment-detail-item">
+                    <span>Punteggio</span>
+                    <strong>${result.finalScore ?? 0}</strong>
+                </div>
+                <div class="assessment-detail-item">
+                    <span>Accuratezza</span>
+                    <strong>${(result.accuracy ?? 0).toFixed(1)}%</strong>
+                </div>
+                <div class="assessment-detail-item">
+                    <span>Durata totale</span>
+                    <strong>${formatSeconds(result.totalTime)}</strong>
+                </div>
+                <div class="assessment-detail-item">
+                    <span>Risposte corrette</span>
+                    <strong>${result.correctCount ?? '-'} / ${(entry.responses || []).length}</strong>
+                </div>
+            </div>
+
+            <div class="assessment-detail-grid">
+                <div class="assessment-detail-item">
+                    <span>Performance</span>
+                    <strong>${result.performanceLevel || '—'}</strong>
+                </div>
+                <div class="assessment-detail-item">
+                    <span>Studente / codice</span>
+                    <strong>${entry.participant.name || entry.studentCode || 'Anonimo'}</strong>
+                </div>
+                <div class="assessment-detail-item">
+                    <span>Classe</span>
+                    <strong>${entry.classCode}</strong>
+                </div>
+                <div class="assessment-detail-item">
+                    <span>Apri il test</span>
+                    <strong><a href="${docLink}" target="_blank" rel="noopener">Modalità docente →</a></strong>
+                </div>
+            </div>
+
+            ${difficultyHtml ? `
+                <h4>Prestazioni per difficoltà</h4>
+                <div class="assessment-detail-grid">${difficultyHtml}</div>
+            ` : ''}
+
+            <h4>Risposte registrate</h4>
+            ${responsesRows
+                ? `<div class="table-wrapper"><table class="assessment-response-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Parola</th>
+                                <th>Colore mostrato</th>
+                                <th>Risposta</th>
+                                <th>Tempo</th>
+                                <th>Difficoltà</th>
+                                <th>Esito</th>
+                            </tr>
+                        </thead>
+                        <tbody>${responsesRows}</tbody>
+                    </table></div>`
+                : '<p class="muted">Nessuna risposta salvata.</p>'}
+        </div>
+    `;
 }
 
 function toggleLoading(isLoading) {
@@ -663,6 +865,47 @@ function formatActivityName(path) {
 function capitalize(value) {
     if (!value) return '';
     return value.replace(/\b\w/g, match => match.toUpperCase());
+}
+
+function formatDifficulty(level) {
+    if (!level) return '—';
+    const map = {
+        BASE: 'Base',
+        MEDIUM: 'Intermedio',
+        HIGH: 'Avanzato',
+        MAX: 'Expert'
+    };
+    return map[level] || capitalize(level.toLowerCase());
+}
+
+function formatSeconds(value) {
+    if (value === null || value === undefined || isNaN(value)) {
+        return '—';
+    }
+    const num = Number(value);
+    if (num >= 60) {
+        const minutes = Math.floor(num / 60);
+        const seconds = Math.round(num % 60);
+        return `${minutes}m ${seconds}s`;
+    }
+    return `${num.toFixed(1)}s`;
+}
+
+function ensureArray(value) {
+    if (!value) return [];
+    if (Array.isArray(value)) return value;
+    if (typeof value === 'string') {
+        try {
+            const parsed = JSON.parse(value);
+            return Array.isArray(parsed) ? parsed : [];
+        } catch {
+            return [];
+        }
+    }
+    if (typeof value === 'object' && value !== null) {
+        return Array.isArray(value) ? value : Object.values(value);
+    }
+    return [];
 }
 
 function normalizePath(path) {

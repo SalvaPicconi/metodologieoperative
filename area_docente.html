@@ -166,20 +166,31 @@
                         </div>
                     </section>
 
-                    <section class="summary-section">
+                    <section class="summary-section assessment-section">
                         <div class="section-header">
-                            <h3>Risultati Test · Verifiche · Laboratori</h3>
-                            <p class="muted">Dati provenienti dalle attività strutturate (es. Test di Stroop)</p>
-                            <a class="btn btn-secondary" href="stroop_statistiche.html" target="_blank" rel="noopener">Apri dashboard completa</a>
+                            <div>
+                                <h3>Risultati Test · Verifiche · Laboratori</h3>
+                                <p class="muted">Stroop test, verifiche digitali e laboratori interattivi con punteggi e risposte salvate</p>
+                            </div>
+                            <div class="section-actions">
+                                <a class="btn btn-secondary" href="stroop_statistiche.html" target="_blank" rel="noopener">Dashboard Stroop</a>
+                            </div>
                         </div>
-                        <div class="table-wrapper">
+
+                        <div id="assessment-insights" class="assessment-insights">
+                            <div class="empty-state">
+                                <p>Nessun test registrato.</p>
+                            </div>
+                        </div>
+
+                        <div class="table-wrapper" style="margin-top:1.5rem;">
                             <table class="data-table">
                                 <thead>
                                     <tr>
                                         <th>Classe</th>
                                         <th>Partecipanti</th>
-                                        <th>Punteggio Medio</th>
-                                        <th>Accuratezza Media</th>
+                                        <th>Punteggio medio</th>
+                                        <th>Accuratezza media</th>
                                         <th>Ultimo aggiornamento</th>
                                     </tr>
                                 </thead>
@@ -197,12 +208,13 @@
                                         <th>Studente</th>
                                         <th>Punteggio</th>
                                         <th>Accuratezza</th>
+                                        <th>Durata</th>
                                         <th>Data</th>
-                                        <th>Apri</th>
+                                        <th>Azioni</th>
                                     </tr>
                                 </thead>
                                 <tbody id="assessment-detail-body">
-                                    <tr><td colspan="6">Nessun risultato disponibile.</td></tr>
+                                    <tr><td colspan="7">Nessun risultato disponibile.</td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -222,5 +234,12 @@
     </footer>
 
     <script type="module" src="assets/progress-dashboard.js"></script>
+
+    <div id="assessment-modal" class="assessment-modal" aria-hidden="true">
+        <div class="assessment-modal-content" role="dialog" aria-modal="true">
+            <button type="button" class="assessment-modal-close" aria-label="Chiudi dettagli" data-assessment-close>×</button>
+            <div id="assessment-modal-body"></div>
+        </div>
+    </div>
 </body>
 </html>
