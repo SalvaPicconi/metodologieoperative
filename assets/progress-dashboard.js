@@ -17,6 +17,9 @@ const STROOP_BASE_URL = `${SITE_ROOT}/materiali/compresenza/test-stroop.html`;
 const STROOP_STATS_URL = `${SITE_ROOT}/stroop_statistiche.html`;
 const SUPER_STORAGE_KEY = 'mo:super-impersonations';
 const SUPER_SESSION_DURATION = 1000 * 60 * 15;
+const PAGE_ALIAS_OVERRIDES = {
+    'attivita-materiali-ai-verifica-ia-modificata-01': '/materiali/ai/verifica_ia_modificata.html'
+};
 
 const dashboardState = {
     records: [],
@@ -302,10 +305,11 @@ function renderActivitySummary(records) {
     const rows = Array.from(map.values())
         .sort((a, b) => new Date(b.lastUpdate || 0) - new Date(a.lastUpdate || 0))
         .map(entry => {
-            const link = buildActivityLink(entry.pagePath);
+            const resolvedPath = resolveActivityPath(entry.pagePath);
+            const link = buildActivityLink(resolvedPath || entry.pagePath);
             return `
                 <tr>
-                    <td>${formatActivityName(entry.pagePath)}</td>
+                    <td>${formatActivityName(resolvedPath || entry.pagePath)}</td>
                     <td>${entry.classCode}</td>
                     <td>${entry.students.size}</td>
                     <td>${formatDateTime(entry.lastUpdate)}</td>
@@ -355,7 +359,7 @@ function renderStudentTable(records) {
                 <tr>
                     <td>${entry.classCode}</td>
                     <td>${entry.studentCode}</td>
-                    <td>${formatActivityName(entry.pagePath)}</td>
+                    <td>${formatActivityName(resolveActivityPath(entry.pagePath))}</td>
                     <td>${formatDateTime(entry.lastUpdate)}</td>
                     <td>
                         <a class="btn-link" href="#" role="button" data-open-as-docente data-class-code="${entry.classCodeRaw}" data-student-code="${entry.studentCode}" data-page-path="${entry.pagePath}">Modalità docente</a>
@@ -388,7 +392,8 @@ function renderClassGroups(records) {
         const classCode = (record.class_code || 'N/D').toUpperCase();
         const studentCode = (record.student_code || 'Sconosciuto').trim();
         const normalizedStudent = studentCode.toLowerCase();
-        const normalizedPath = normalizePath(record.page_path);
+        const resolvedPath = resolveActivityPath(record.page_path);
+        const normalizedPath = normalizePath(resolvedPath);
 
         if (!classMap.has(classCode)) {
             classMap.set(classCode, {
@@ -415,7 +420,8 @@ function renderClassGroups(records) {
         const existingActivity = studentEntry.activities.get(normalizedPath);
         if (!existingActivity || new Date(record.updated_at) > new Date(existingActivity.updated_at)) {
             studentEntry.activities.set(normalizedPath, {
-                pagePath: record.page_path,
+                pagePath: resolvedPath,
+                originalPath: record.page_path,
                 updated_at: record.updated_at
             });
         }
@@ -440,18 +446,18 @@ function renderClassGroups(records) {
                         .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
                         .map(activity => `
                             <tr>
-                                <td>${formatActivityName(activity.pagePath)}</td>
+                                <td>${formatActivityName(activity.pagePath || activity.originalPath)}</td>
                                 <td>${formatDateTime(activity.updated_at)}</td>
                                 <td>
                                     <a class="btn-link" href="#" role="button"
                                         data-open-as-docente
                                         data-class-code="${studentEntry.classCode}"
                                         data-student-code="${studentEntry.label}"
-                                        data-page-path="${activity.pagePath}">
+                                        data-page-path="${activity.originalPath || activity.pagePath}">
                                         Apri come docente
                                     </a>
                                     <span class="divider">·</span>
-                                    <a class="btn-link" href="${buildActivityLink(activity.pagePath)}" target="_blank" rel="noopener">Apri pagina</a>
+                                    <a class="btn-link" href="${buildActivityLink(activity.pagePath || activity.originalPath)}" target="_blank" rel="noopener">Apri pagina</a>
                                 </td>
                             </tr>
                         `).join('');
@@ -585,7 +591,17 @@ function renderAssessmentTable(data) {
 
     elements.assessmentDetailBody.innerHTML = rows.join('');
 }
- 
+
+function resolveActivityPath(path) {
+    if (!path) return '';
+    const trimmed = String(path).trim();
+    if (!trimmed) return '';
+    if (PAGE_ALIAS_OVERRIDES[trimmed]) {
+        return PAGE_ALIAS_OVERRIDES[trimmed];
+    }
+    return trimmed;
+}
+
 function normalizeAssessmentRecord(record) {
     if (!record) return null;
     const participant = record.participant || {};
@@ -664,10 +680,12 @@ function normalizePath(path) {
 }
 
 function buildActivityLink(path, { superMode = false, classCode = '', studentCode = '' } = {}) {
-    if (!path) return '#';
-    if (/^https?:\/\//i.test(path)) {
+    const resolvedPath = resolveActivityPath(path);
+    if (!resolvedPath) return '#';
+    const pathValue = resolvedPath;
+    if (/^https?:\/\//i.test(pathValue)) {
         try {
-            const url = new URL(path);
+            const url = new URL(pathValue);
             if (superMode) {
                 url.searchParams.set('docente', '1');
                 if (classCode) url.searchParams.set('doc_class', classCode);
@@ -679,7 +697,7 @@ function buildActivityLink(path, { superMode = false, classCode = '', studentCod
         }
     }
 
-    const normalized = path.startsWith('/') ? path : `/${path}`;
+    const normalized = pathValue.startsWith('/') ? pathValue : `/${pathValue}`;
     let href = '';
     const repoPath = BASE_PATHNAME && BASE_PATHNAME !== '/' ? BASE_PATHNAME : '';
 
@@ -729,7 +747,8 @@ function readSuperStore() {
 
 function prepareSuperSession({ classCode, studentCode, pagePath }) {
     try {
-        const normalizedPath = normalizePath(pagePath);
+        const resolved = resolveActivityPath(pagePath);
+        const normalizedPath = normalizePath(resolved);
         if (!normalizedPath) {
             throw new Error('Percorso attività non valido.');
         }
@@ -750,7 +769,8 @@ function prepareSuperSession({ classCode, studentCode, pagePath }) {
 function openActivityAsDocente(dataset = {}) {
     const classCode = (dataset.classCode || dataset.class || '').trim();
     const studentCode = (dataset.studentCode || '').trim();
-    const pagePath = (dataset.pagePath || dataset.page || '').trim();
+    const rawPath = (dataset.pagePath || dataset.page || '').trim();
+    const pagePath = resolveActivityPath(rawPath);
     if (!classCode || !studentCode || !pagePath) {
         alert('Seleziona una voce valida per aprire la modalità docente.');
         return;
