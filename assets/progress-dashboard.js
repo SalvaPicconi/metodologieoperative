@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.statLastUpdate = document.getElementById('doc-stat-last-update');
     elements.classFocus = document.getElementById('doc-class-focus');
     elements.activityFocus = document.getElementById('doc-activity-focus');
+    elements.activityInsights = document.getElementById('activity-insights');
     elements.activityBody = document.getElementById('activity-summary-body');
     elements.studentBody = document.getElementById('student-detail-body');
     elements.assessmentClassBody = document.getElementById('assessment-class-summary');
@@ -115,7 +116,7 @@ function handleLogin(event) {
     event.preventDefault();
     const value = elements.passwordInput?.value ?? '';
     const normalized = value.trim().toLowerCase();
-    const allowed = ['metodologie2024', 'picconi'];
+    const allowed = ['metodologie!237038'];
 
     if (allowed.includes(normalized)) {
         persistDocenteSession();
@@ -254,6 +255,7 @@ function applyFilters() {
 
     dashboardState.filtered = dataset;
     updateStats(dataset);
+    renderActivityInsights(dataset);
     renderActivitySummary(dataset);
     renderStudentTable(dataset);
     renderClassGroups(dataset);
@@ -300,6 +302,71 @@ function updateStats(records) {
     if (elements.statLastUpdate) {
         elements.statLastUpdate.textContent = lastUpdate ? formatDateTime(lastUpdate) : '-';
     }
+}
+
+function renderActivityInsights(records) {
+    if (!elements.activityInsights) {
+        return;
+    }
+
+    if (!records.length) {
+        elements.activityInsights.innerHTML = `
+            <div class="empty-state">
+                <p>Nessuna attività salvata per i filtri selezionati.</p>
+            </div>
+        `;
+        return;
+    }
+
+    const totalEntries = records.length;
+    const activitySet = new Set();
+    const studentSet = new Set();
+    let latestRecord = null;
+
+    records.forEach(record => {
+        const activityPath = resolveActivityPath(record.page_path || '');
+        if (activityPath) {
+            activitySet.add(activityPath);
+        }
+        if (record.student_code) {
+            const key = `${(record.class_code || '').toLowerCase()}|${record.student_code.toLowerCase()}`;
+            studentSet.add(key);
+        }
+        if (!latestRecord || (record.updated_at && new Date(record.updated_at) > new Date(latestRecord.updated_at))) {
+            latestRecord = record;
+        }
+    });
+
+    const avgPerActivity = activitySet.size ? (totalEntries / activitySet.size).toFixed(1) : '—';
+    const avgPerStudent = studentSet.size ? (totalEntries / studentSet.size).toFixed(1) : '—';
+    const latestActivityName = latestRecord ? formatActivityName(resolveActivityPath(latestRecord.page_path)) : '—';
+    const latestActivityInfo = latestRecord
+        ? `${(latestRecord.class_code || '—').toUpperCase()} · ${latestRecord.student_code || 'anonimo'}`
+        : '';
+
+    elements.activityInsights.innerHTML = `
+        <article class="assessment-card">
+            <h4>Salvataggi registrati</h4>
+            <div class="value">${totalEntries}</div>
+            <div class="meta">Attività monitorate in tempo reale</div>
+        </article>
+        <article class="assessment-card">
+            <h4>Attività monitorate</h4>
+            <div class="value">${activitySet.size}</div>
+            <div class="meta">Media ${avgPerActivity} salvataggi per attività</div>
+        </article>
+        <article class="assessment-card">
+            <h4>Studenti attivi</h4>
+            <div class="value">${studentSet.size}</div>
+            <div class="meta">Media ${avgPerStudent} salvataggi per studente</div>
+        </article>
+        <article class="assessment-card">
+            <h4>Ultimo aggiornamento</h4>
+            <div class="value">${latestRecord ? formatDateTime(latestRecord.updated_at) : '—'}</div>
+            <div class="meta">${latestActivityName}</div>
+            <div class="trend positive">${latestActivityInfo}</div>
+        </article>
+    `;
 }
 
 function renderActivitySummary(records) {

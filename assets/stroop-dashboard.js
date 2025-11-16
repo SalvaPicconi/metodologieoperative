@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', (event) => {
       event.preventDefault();
       const value = $('stroop-password')?.value?.trim().toLowerCase();
-      if (value === 'metodologie2024' || value === 'picconi') {
+      if (value === 'metodologie!237038') {
         persistDocenteSession();
         overlay?.classList.add('hidden');
         dashboard?.classList.remove('hidden');

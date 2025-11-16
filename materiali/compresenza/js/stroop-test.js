@@ -560,7 +560,7 @@ function handleAuth(e) {
     const password = document.getElementById('auth-password').value;
     
     // Password semplice per demo (in produzione usare autenticazione seria)
-    if (password === 'metodologie2024' || password === 'picconi') {
+    if (password === 'Metodologie!237038') {
         document.getElementById('auth-overlay').style.display = 'none';
         document.getElementById('stats-content').classList.remove('hidden');
         loadClassStatistics();
