@@ -1,6 +1,8 @@
 const SUPABASE_URL = 'https://ruplzgcnheddmqqdephp.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1cGx6Z2NuaGVkZG1xcWRlcGhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAxMTYyMjksImV4cCI6MjA3NTY5MjIyOX0.tOLIkgi5yTt61_0rMlXUqxnbil4DLD7kBaqZBVAv1CI';
 const STROOP_ENDPOINT = `${SUPABASE_URL}/rest/v1/stroop_tests`;
+const DOCENTE_SESSION_KEY = 'mo:docente-session';
+const DOCENTE_SESSION_DURATION = 1000 * 60 * 60 * 6;
 
 const state = {
   records: [],
@@ -23,11 +25,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchInput = $('stroop-student-search');
   const exportBtn = $('stroop-export');
 
+  const sessionValid = isDocenteSessionValid();
+
+  if (sessionValid) {
+    overlay?.classList.add('hidden');
+    dashboard?.classList.remove('hidden');
+    refresh();
+  }
+
   if (form) {
     form.addEventListener('submit', (event) => {
       event.preventDefault();
       const value = $('stroop-password')?.value?.trim().toLowerCase();
       if (value === 'metodologie2024' || value === 'picconi') {
+        persistDocenteSession();
         overlay?.classList.add('hidden');
         dashboard?.classList.remove('hidden');
         refresh();
@@ -259,5 +270,34 @@ function formatDateTime(value) {
     return new Date(value).toLocaleString('it-IT');
   } catch {
     return value;
+  }
+}
+
+function persistDocenteSession() {
+  try {
+    const payload = {
+      issuedAt: Date.now(),
+      expiresAt: Date.now() + DOCENTE_SESSION_DURATION
+    };
+    localStorage.setItem(DOCENTE_SESSION_KEY, JSON.stringify(payload));
+  } catch (error) {
+    console.warn('Impossibile salvare la sessione docente:', error);
+  }
+}
+
+function isDocenteSessionValid() {
+  try {
+    const raw = localStorage.getItem(DOCENTE_SESSION_KEY);
+    if (!raw) return false;
+    const data = JSON.parse(raw);
+    if (!data?.expiresAt) return false;
+    if (Date.now() > data.expiresAt) {
+      localStorage.removeItem(DOCENTE_SESSION_KEY);
+      return false;
+    }
+    return true;
+  } catch (error) {
+    console.warn('Impossibile leggere la sessione docente:', error);
+    return false;
   }
 }

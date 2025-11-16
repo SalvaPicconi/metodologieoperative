@@ -20,6 +20,8 @@ const SUPER_SESSION_DURATION = 1000 * 60 * 15;
 const PAGE_ALIAS_OVERRIDES = {
     'attivita-materiali-ai-verifica-ia-modificata-01': '/materiali/ai/verifica_ia_modificata.html'
 };
+const DOCENTE_SESSION_KEY = 'mo:docente-session';
+const DOCENTE_SESSION_DURATION = 1000 * 60 * 60 * 6; // 6 ore
 
 const dashboardState = {
     records: [],
@@ -116,6 +118,7 @@ function handleLogin(event) {
     const allowed = ['metodologie2024', 'picconi'];
 
     if (allowed.includes(normalized)) {
+        persistDocenteSession();
         elements.overlay?.classList.add('hidden');
         elements.dashboard?.classList.remove('hidden');
         refreshDashboard();
@@ -822,6 +825,35 @@ function buildAssessmentDetail(entry) {
                 : '<p class="muted">Nessuna risposta salvata.</p>'}
         </div>
     `;
+}
+
+function persistDocenteSession() {
+    try {
+        const payload = {
+            issuedAt: Date.now(),
+            expiresAt: Date.now() + DOCENTE_SESSION_DURATION
+        };
+        localStorage.setItem(DOCENTE_SESSION_KEY, JSON.stringify(payload));
+    } catch (error) {
+        console.warn('Impossibile salvare la sessione docente:', error);
+    }
+}
+
+function isDocenteSessionValid() {
+    try {
+        const raw = localStorage.getItem(DOCENTE_SESSION_KEY);
+        if (!raw) return false;
+        const data = JSON.parse(raw);
+        if (!data?.expiresAt) return false;
+        if (Date.now() > data.expiresAt) {
+            localStorage.removeItem(DOCENTE_SESSION_KEY);
+            return false;
+        }
+        return true;
+    } catch (error) {
+        console.warn('Impossibile leggere la sessione docente:', error);
+        return false;
+    }
 }
 
 function toggleLoading(isLoading) {
