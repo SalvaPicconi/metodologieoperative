@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+    <!-- PWA meta e asset -->
+    <meta name="theme-color" content="#4A90E2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="MetOp Lab">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="/metodologieoperative/manifest.json">
+    <link rel="apple-touch-icon" sizes="72x72" href="/metodologieoperative/icons/icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="96x96" href="/metodologieoperative/icons/icon-96x96.png">
+    <link rel="apple-touch-icon" sizes="128x128" href="/metodologieoperative/icons/icon-128x128.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/metodologieoperative/icons/icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/metodologieoperative/icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="/metodologieoperative/icons/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="384x384" href="/metodologieoperative/icons/icon-384x384.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="/metodologieoperative/icons/icon-512x512.png">
+    <link rel="apple-touch-startup-image" href="/metodologieoperative/icons/icon-512x512.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/metodologieoperative/icons/icon-72x72.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/metodologieoperative/icons/icon-72x72.png">
     <meta name="page-id" content="attivita-index-01">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -163,5 +181,340 @@
 
     <script type="module" src="assets/progress.js"></script>
     <script type="module" src="assets/progress-global.js"></script>
+<script>
+// ============================================
+// PWA - Registrazione Service Worker
+// ============================================
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/metodologieoperative/service-worker.js')
+      .then(registration => {
+        console.log('✅ Service Worker registrato con successo:', registration.scope);
+        
+        // Verifica aggiornamenti
+        registration.addEventListener('updatefound', () => {
+          const newWorker = registration.installing;
+          console.log('🔄 Nuovo Service Worker in installazione...');
+          
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              // Mostra notifica di aggiornamento disponibile
+              mostrarNotificaAggiornamento();
+            }
+          });
+        });
+      })
+      .catch(error => {
+        console.error('❌ Errore registrazione Service Worker:', error);
+      });
+  });
+}
+
+// ============================================
+// PWA - Prompt Installazione
+// ============================================
+
+let deferredPrompt;
+const installButton = document.createElement('button');
+installButton.id = 'pwa-install-button';
+installButton.innerHTML = '📱 Installa App';
+installButton.style.cssText = `
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 15px 25px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  z-index: 10000;
+  display: none;
+  transition: all 0.3s ease;
+`;
+
+installButton.addEventListener('mouseenter', () => {
+  installButton.style.transform = 'translateY(-2px)';
+  installButton.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.6)';
+});
+
+installButton.addEventListener('mouseleave', () => {
+  installButton.style.transform = 'translateY(0)';
+  installButton.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.4)';
+});
+
+document.body.appendChild(installButton);
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Previeni il prompt automatico
+  e.preventDefault();
+  deferredPrompt = e;
+  
+  // Mostra il bottone di installazione personalizzato
+  installButton.style.display = 'block';
+  
+  console.log('💡 Prompt installazione PWA disponibile');
+});
+
+installButton.addEventListener('click', async () => {
+  if (!deferredPrompt) {
+    return;
+  }
+  
+  // Mostra il prompt di installazione
+  deferredPrompt.prompt();
+  
+  // Aspetta la scelta dell'utente
+  const { outcome } = await deferredPrompt.userChoice;
+  
+  console.log(`👤 Scelta utente: ${outcome}`);
+  
+  if (outcome === 'accepted') {
+    console.log('✅ Utente ha accettato l\'installazione');
+    
+    // Mostra messaggio di conferma
+    const toast = document.createElement('div');
+    toast.innerHTML = '🎉 App installata con successo!';
+    toast.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #28a745;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+      z-index: 10001;
+      animation: slideIn 0.3s ease;
+    `;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+      toast.style.animation = 'slideOut 0.3s ease';
+      setTimeout(() => toast.remove(), 300);
+    }, 3000);
+  } else {
+    console.log('❌ Utente ha rifiutato l\'installazione');
+  }
+  
+  // Nascondi il bottone
+  installButton.style.display = 'none';
+  deferredPrompt = null;
+});
+
+// Nascondi bottone dopo installazione
+window.addEventListener('appinstalled', () => {
+  console.log('✅ PWA installata con successo');
+  installButton.style.display = 'none';
+  deferredPrompt = null;
+  
+  // Salva stato installazione
+  localStorage.setItem('pwaInstalled', 'true');
+});
+
+// ============================================
+// PWA - Notifiche Push (opzionale)
+// ============================================
+
+async function richiediPermessoNotifiche() {
+  if (!('Notification' in window)) {
+    console.log('❌ Browser non supporta notifiche');
+    return;
+  }
+  
+  if (Notification.permission === 'granted') {
+    console.log('✅ Permesso notifiche già concesso');
+    return;
+  }
+  
+  if (Notification.permission !== 'denied') {
+    const permission = await Notification.requestPermission();
+    
+    if (permission === 'granted') {
+      console.log('✅ Permesso notifiche concesso');
+      
+      // Mostra notifica di benvenuto
+      new Notification('Metodologie Operative Lab', {
+        body: 'Notifiche attivate! Ti avviseremo quando ci sono nuovi contenuti.',
+        icon: '/metodologieoperative/icons/icon-192x192.png',
+        badge: '/metodologieoperative/icons/icon-72x72.png'
+      });
+    }
+  }
+}
+
+// Richiedi permesso dopo 30 secondi (non invasivo)
+if (localStorage.getItem('pwaInstalled') === 'true') {
+  setTimeout(richiediPermessoNotifiche, 30000);
+}
+
+// ============================================
+// PWA - Gestione Aggiornamenti
+// ============================================
+
+function mostrarNotificaAggiornamento() {
+  const updateToast = document.createElement('div');
+  updateToast.innerHTML = `
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span>🔄 Nuova versione disponibile!</span>
+      <button id="update-reload-btn" style="
+        background: white;
+        color: #667eea;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+      ">Aggiorna</button>
+    </div>
+  `;
+  updateToast.style.cssText = `
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #667eea;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    z-index: 10001;
+    animation: slideDown 0.3s ease;
+  `;
+  
+  document.body.appendChild(updateToast);
+  
+  document.getElementById('update-reload-btn').addEventListener('click', () => {
+    // Invia messaggio al Service Worker per attivarsi
+    navigator.serviceWorker.controller.postMessage({ action: 'skipWaiting' });
+    
+    // Ricarica la pagina
+    window.location.reload();
+  });
+}
+
+// ============================================
+// PWA - Stato Connessione
+// ============================================
+
+function aggiornaStatoConnessione() {
+  if (!navigator.onLine) {
+    const offlineToast = document.createElement('div');
+    offlineToast.innerHTML = '📡 Modalità Offline - Contenuti salvati disponibili';
+    offlineToast.style.cssText = `
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ffc107;
+      color: #333;
+      padding: 12px 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
+      z-index: 9999;
+      animation: slideUp 0.3s ease;
+      font-weight: bold;
+    `;
+    
+    offlineToast.id = 'offline-toast';
+    document.body.appendChild(offlineToast);
+  } else {
+    const existingToast = document.getElementById('offline-toast');
+    if (existingToast) {
+      existingToast.remove();
+    }
+  }
+}
+
+window.addEventListener('online', () => {
+  console.log('🌐 Connessione ripristinata');
+  aggiornaStatoConnessione();
+  
+  const onlineToast = document.createElement('div');
+  onlineToast.innerHTML = '✅ Connesso!';
+  onlineToast.style.cssText = `
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #28a745;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+    z-index: 9999;
+    animation: slideUp 0.3s ease;
+  `;
+  
+  document.body.appendChild(onlineToast);
+  setTimeout(() => onlineToast.remove(), 3000);
+});
+
+window.addEventListener('offline', () => {
+  console.log('📡 Connessione persa');
+  aggiornaStatoConnessione();
+});
+
+// Verifica stato iniziale
+aggiornaStatoConnessione();
+
+// ============================================
+// Animazioni CSS
+// ============================================
+
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideOut {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes slideDown {
+    from {
+      transform: translate(-50%, -100%);
+      opacity: 0;
+    }
+    to {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      transform: translate(-50%, 100%);
+      opacity: 0;
+    }
+    to {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+  }
+`;
+document.head.appendChild(style);
+
+</script>
+
 </body>
 </html>

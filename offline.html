@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline - Metodologie Operative Lab</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .offline-container {
+            background: white;
+            border-radius: 20px;
+            padding: 50px 40px;
+            text-align: center;
+            max-width: 500px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .offline-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .retry-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .retry-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .retry-button:active {
+            transform: translateY(0);
+        }
+
+        .cached-info {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .cached-info h3 {
+            color: #667eea;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .cached-info ul {
+            list-style: none;
+            text-align: left;
+        }
+
+        .cached-info li {
+            padding: 8px 0;
+            color: #555;
+            display: flex;
+            align-items: center;
+        }
+
+        .cached-info li:before {
+            content: "✓";
+            color: #28a745;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        .connection-status {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #999;
+        }
+
+        .online {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .offline-status {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .offline-container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .offline-icon {
+                font-size: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container">
+        <div class="offline-icon">📡❌</div>
+        
+        <h1>Sei Offline!</h1>
+        
+        <p>
+            Non sei connesso a Internet, ma puoi comunque accedere ai contenuti 
+            che hai già visitato in precedenza.
+        </p>
+
+        <button class="retry-button" onclick="location.reload()">
+            🔄 Riprova Connessione
+        </button>
+
+        <div class="cached-info">
+            <h3>📚 Contenuti Disponibili Offline:</h3>
+            <ul id="cached-list">
+                <li>Homepage percorsi didattici</li>
+                <li>Pagine già visitate</li>
+                <li>Progressi salvati localmente</li>
+            </ul>
+        </div>
+
+        <div class="connection-status">
+            Stato connessione: <span id="status" class="offline-status">Offline</span>
+        </div>
+    </div>
+
+    <script>
+        // Verifica stato connessione
+        function updateConnectionStatus() {
+            const statusElement = document.getElementById('status');
+            
+            if (navigator.onLine) {
+                statusElement.textContent = 'Online';
+                statusElement.className = 'online';
+                
+                // Ricarica automaticamente quando torna online
+                setTimeout(() => {
+                    location.href = '/metodologieoperative/';
+                }, 1000);
+            } else {
+                statusElement.textContent = 'Offline';
+                statusElement.className = 'offline-status';
+            }
+        }
+
+        // Controlla connessione ogni 3 secondi
+        setInterval(updateConnectionStatus, 3000);
+        updateConnectionStatus();
+
+        // Event listener per cambio stato connessione
+        window.addEventListener('online', () => {
+            console.log('Connessione ripristinata!');
+            location.href = '/metodologieoperative/';
+        });
+
+        window.addEventListener('offline', () => {
+            console.log('Connessione persa');
+            updateConnectionStatus();
+        });
+
+        // Mostra contenuti cachati disponibili
+        if ('caches' in window) {
+            caches.keys().then(cacheNames => {
+                if (cacheNames.length > 0) {
+                    caches.open(cacheNames[0]).then(cache => {
+                        cache.keys().then(requests => {
+                            const cachedList = document.getElementById('cached-list');
+                            
+                            // Filtra e mostra pagine HTML cachate
+                            const htmlPages = requests
+                                .filter(req => req.url.includes('.html') || req.url.endsWith('/'))
+                                .slice(0, 5);
+                            
+                            if (htmlPages.length > 0) {
+                                cachedList.innerHTML = '';
+                                htmlPages.forEach(req => {
+                                    const li = document.createElement('li');
+                                    const url = new URL(req.url);
+                                    li.textContent = url.pathname.split('/').pop() || 'Homepage';
+                                    cachedList.appendChild(li);
+                                });
+                            }
+                        });
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
