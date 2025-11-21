@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="page-id" content="attivita-terzo-modulo-progetto-intervento-01">
+    <meta name="description" content="Modulo didattico di autoapprendimento sulla fase preliminare del progetto d'intervento sociosanitario - Prof. Salva Picconi">
+    <meta name="keywords" content="progettazione sociale, metodologie operative, servizi sociosanitari, didattica innovativa">
+    <meta name="author" content="Prof. Salva Picconi">
+    <title>La Fase Preliminare del Progetto d'Intervento | Metodologie Operative</title>
+    
+    <style>
+        /* Reset e variabili CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #c41e3a;
+            --secondary-color: #0891b2;
+            --accent-color: #f59e0b;
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+            --text-dark: #1e293b;
+            --text-gray: #475569;
+            --border-color: #e2e8f0;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #991628 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin-bottom: 1rem;
+        }
+
+        .header .meta {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Navigation */
+        .nav-pills {
+            background: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+        }
+
+        .nav-pill {
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            border: 2px solid var(--border-color);
+            background: white;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: all 0.3s;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+
+        .nav-pill:hover, .nav-pill.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Container principale */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+
+        /* Info box */
+        .info-box {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .info-box.warning {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left-color: var(--warning-color);
+        }
+
+        .info-box.success {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border-left-color: var(--success-color);
+        }
+
+        /* Section headers */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .section-number {
+            background: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .section-header h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-gray);
+            font-size: 1rem;
+            font-style: italic;
+            margin-top: 0.25rem;
+        }
+
+        /* Fase badge */
+        .fase-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .fase-1 { background: #dbeafe; color: #1e40af; }
+        .fase-2 { background: #fce7f3; color: #be185d; }
+        .fase-3 { background: #d1fae5; color: #065f46; }
+        .fase-4 { background: #fef3c7; color: #92400e; }
+
+        /* Attività */
+        .attivita {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border: 2px solid var(--border-color);
+        }
+
+        .attivita-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .attivita-icon {
+            background: var(--secondary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .attivita h3 {
+            color: var(--secondary-color);
+            font-size: 1.3rem;
+        }
+
+        /* Tabelle */
+        .table-responsive {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:nth-child(even) {
+            background: var(--bg-light);
+        }
+
+        /* Liste */
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist li {
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            background: var(--bg-light);
+            border-radius: 6px;
+            padding-left: 2.5rem;
+            position: relative;
+        }
+
+        .checklist li:before {
+            content: "✓";
+            position: absolute;
+            left: 0.75rem;
+            color: var(--success-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #991628;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(196, 30, 58, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #0e7490;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Download section */
+        .download-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #991628 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .download-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .download-card {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .download-card:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* AI Integration box */
+        .ai-box {
+            background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+            border: 2px solid #a855f7;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .ai-box-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .ai-icon {
+            background: #a855f7;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .ai-box h4 {
+            color: #7c3aed;
+            font-size: 1.2rem;
+        }
+
+        .prompt-example {
+            background: white;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #a855f7;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 80px;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 15px;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 0 0 4px white;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .timeline:before {
+                left: 15px;
+            }
+
+            .timeline-item {
+                padding-left: 60px;
+            }
+        }
+
+        /* Utilities */
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mt-3 { margin-top: 1.5rem; }
+
+        .text-center { text-align: center; }
+        .text-muted { color: var(--text-gray); }
+
+        /* Print styles */
+        @media print {
+            .nav-pills, .download-section, .footer, .btn { display: none; }
+            .card { box-shadow: none; border: 1px solid var(--border-color); }
+        }
+
+        /* Accordion styles */
+        .accordion {
+            margin: 1.5rem 0;
+        }
+
+        .accordion-item {
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background: var(--bg-light);
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .accordion-header:hover {
+            background: #e2e8f0;
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s;
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 2000px;
+        }
+
+        .accordion-body {
+            padding: 1.5rem;
+        }
+
+        /* Progress bar */
+        .progress-container {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .progress-bar {
+            background: #e2e8f0;
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--success-color) 0%, #059669 100%);
+            height: 100%;
+            border-radius: 15px;
+            transition: width 1s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1>🎓 La Fase Preliminare del Progetto d'Intervento</h1>
+            <p class="subtitle">Modulo di Autoapprendimento Progressivo Guidato</p>
+            <div class="meta">
+                <div class="meta-item">
+                    <span>📚</span>
+                    <span>Metodologie Operative</span>
+                </div>
+                <div class="meta-item">
+                    <span>👥</span>
+                    <span>Classe 3ª - Servizi Sociosanitari</span>
+                </div>
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>8-10 ore</span>
+                </div>
+                <div class="meta-item">
+                    <span>👨‍🏫</span>
+                    <span>Prof. Salva Picconi</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-pills">
+        <div class="nav-container">
+            <a href="#introduzione" class="nav-pill">📖 Introduzione</a>
+            <a href="#fase1" class="nav-pill">1️⃣ Concettualizzazione</a>
+            <a href="#fase2" class="nav-pill">2️⃣ Coinvolgimento</a>
+            <a href="#fase3" class="nav-pill">3️⃣ Applicazione</a>
+            <a href="#fase4" class="nav-pill">4️⃣ Riflessione</a>
+            <a href="#valutazione" class="nav-pill">📊 Valutazione</a>
+            <a href="#risorse" class="nav-pill">📥 Risorse</a>
+        </div>
+    </nav>
+
+    <!-- Container principale -->
+    <div class="container">
+        
+        <!-- Introduzione -->
+        <section id="introduzione" class="card">
+            <div class="section-header">
+                <div class="section-number">📖</div>
+                <div>
+                    <h2>Introduzione al Modulo</h2>
+                    <p class="section-subtitle">Scopri come progettare interventi sociosanitari efficaci</p>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h3>🎯 Obiettivi di Apprendimento</h3>
+                <p>Al termine di questo modulo sarai in grado di:</p>
+                <ul class="checklist">
+                    <li>Analizzare i bisogni di una persona in difficoltà utilizzando strumenti professionali</li>
+                    <li>Distinguere tra problemi urgenti e secondari applicando criteri di priorità</li>
+                    <li>Identificare risorse e limiti di un contesto territoriale</li>
+                    <li>Progettare interventi concreti rispondendo alle 7 domande fondamentali</li>
+                    <li>Utilizzare l'intelligenza artificiale come supporto critico all'apprendimento</li>
+                </ul>
+            </div>
+
+            <h3>🧠 Il Metodo: Autoapprendimento Progressivo Guidato</h3>
+            <p>Questo modulo segue un approccio innovativo basato su <strong>4 fasi ricorsive</strong> che ti permetteranno di costruire autonomamente le tue competenze:</p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">1</div>
+                    <div class="timeline-content">
+                        <h4>Curiosità → Concettualizzazione</h4>
+                        <p>Attivare l'interesse e costruire il quadro teorico di riferimento</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">2</div>
+                    <div class="timeline-content">
+                        <h4>Comprensione → Coinvolgimento</h4>
+                        <p>Collegare la teoria alla realtà attraverso casi concreti</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">3</div>
+                    <div class="timeline-content">
+                        <h4>Applicazione → Azione</h4>
+                        <p>Trasformare il sapere in competenza attraverso la pratica</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">4</div>
+                    <div class="timeline-content">
+                        <h4>Riflessione → Interiorizzazione</h4>
+                        <p>Consolidare l'apprendimento attraverso l'autovalutazione</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box warning">
+                <h4>⚠️ Importante</h4>
+                <p>Questo è un percorso di <strong>autoapprendimento guidato</strong>. Non ti verranno date tutte le risposte, ma gli strumenti per trovarle autonomamente. Sfrutta al massimo:</p>
+                <ul>
+                    <li>Il manuale (pagine 170-183)</li>
+                    <li>Il confronto con i compagni</li>
+                    <li>L'intelligenza artificiale (Claude.ai) come tutor personale</li>
+                    <li>La tua capacità di riflessione critica</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- FASE 1 -->
+        <section id="fase1" class="card">
+            <span class="fase-badge fase-1">FASE 1: INTRODUZIONE E CONCETTUALIZZAZIONE</span>
+            <div class="section-header">
+                <div class="section-number">1️⃣</div>
+                <div>
+                    <h2>Curiosità e Quadro di Riferimento</h2>
+                    <p class="section-subtitle">"Perché si progetta? Dalla necessità alla risposta professionale"</p>
+                </div>
+            </div>
+
+            <!-- Attività 1.1 -->
+            <div class="attivita">
+                <div class="attivita-header">
+                    <div class="attivita-icon">📍</div>
+                    <h3>Attività 1.1 - Stimolo Iniziale (15 min)</h3>
+                </div>
+
+                <div class="info-box">
+                    <h4>🤔 Situazione-problema</h4>
+                    <p><em>"Maria, 82 anni, vive sola. Ha difficoltà a camminare e non esce più di casa. I figli abitano lontano. Un giorno cade in bagno. Chi dovrebbe occuparsi di lei? Come? Perché?"</em></p>
+                </div>
+
+                <h4 class="mt-3">📝 Consegna</h4>
+                <p>Rifletti individualmente e scrivi su un foglio (o un documento digitale):</p>
+                <ol>
+                    <li>3 cose che secondo te Maria potrebbe aver bisogno</li>
+                    <li>Chi potrebbe aiutarla (persone, servizi, organizzazioni)</li>
+                    <li>Se tu fossi un operatore sociosanitario, da dove inizieresti?</li>
+                </ol>
+
+                <div class="info-box success mt-3">
+                    <h4>✅ Prodotto atteso</h4>
+                    <p>Post-it con le tue risposte da condividere con la classe (su Padlet, Mentimeter o lavagna fisica)</p>
+                </div>
+            </div>
+
+            <!-- Attività 1.2 -->
+            <div class="attivita">
+                <div class="attivita-header">
+                    <div class="attivita-icon">📍</div>
+                    <h3>Attività 1.2 - Concetti Chiave (30 min)</h3>
+                </div>
+
+                <h4>📖 Lettura attiva</h4>
+                <p>Leggi attentamente le seguenti sezioni del tuo manuale:</p>
+                <ul>
+                    <li><strong>Pagina 170:</strong> "La presa in carico dell'utente"</li>
+                    <li><strong>Pagina 171:</strong> "Che cos'è un progetto d'intervento"</li>
+                    <li><strong>Pagina 172:</strong> "A cosa serve un progetto d'intervento - Le 7 domande"</li>
+                </ul>
+
+                <div class="ai-box mt-3">
+                    <div class="ai-box-header">
+                        <div class="ai-icon">🤖</div>
+                        <h4>Supporto IA per la Lettura</h4>
+                    </div>
+                    <p>Usa Claude.ai come assistente per comprendere meglio i concetti:</p>
+                    
+                    <div class="prompt-example">
+                        <strong>Esempio di prompt:</strong><br>
+                        "Spiega con parole semplici cosa significa 'presa in carico' nei servizi sociali. Dammi un esempio concreto con una persona anziana."
+                    </div>
+
+                    <div class="prompt-example">
+                        <strong>Altro esempio:</strong><br>
+                        "Qual è la differenza tra 'mandato istituzionale' e 'responsabilità personale' dell'operatore? Usa un esempio pratico."
+                    </div>
+                </div>
+
+                <h4 class="mt-3">🗺️ Crea la tua Mappa Concettuale</h4>
+                <p>Dopo la lettura, costruisci una mappa concettuale (su carta o digitale con Canva/Coggle) che risponda a:</p>
+                <ul class="checklist">
+                    <li>Cos'è un progetto d'intervento?</li>
+                    <li>Perché si progetta?</li>
+                    <li>Chi sono i soggetti coinvolti?</li>
+                    <li>Quali sono le caratteristiche essenziali (continuità, globalità)?</li>
+                </ul>
+
+                <div class="info-box success mt-3">
+                    <h4>✅ Prodotto atteso</h4>
+                    <p>Mappa concettuale individuale o di gruppo (da condividere in classe)</p>
+                </div>
+            </div>
+
+            <!-- Attività 1.3 -->
+            <div class="attivita">
+                <div class="attivita-header">
+                    <div class="attivita-icon">📍</div>
+                    <h3>Attività 1.3 - Le 7 Domande della Progettazione (20 min)</h3>
+                </div>
+
+                <p>Riprendi il caso di Maria dell'attività 1.1. Ora che conosci il metodo delle 7 domande, rispondi in modo più strutturato:</p>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Domanda</th>
+                                <th>Risposta per il caso di Maria</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>A CHI?</strong><br>(utente e contesto)</td>
+                                <td><em>Compila tu...</em></td>
+                            </tr>
+                            <tr>
+                                <td><strong>PERCHÉ?</strong><br>(obiettivi)</td>
+                                <td><em>Compila tu...</em></td>
+                            </tr>
+                            <tr>
+                                <td><strong>CHE COSA?</strong><br>(attività e interventi)</td>
+                                <td><em>Compila tu...</em></td>
+                            </tr>
+                            <tr>
+                                <td><strong>COME?</strong><br>(metodo)</td>
+                                <td><em>Compila tu...</em></td>
+                            </tr>
+                            <tr>
+                                <td><strong>QUANDO?</strong><br>(tempi di realizzazione)</td>
+                                <td><em>Compila tu...</em></td>
+                            </tr>
+                            <tr>
+                                <td><strong>CON CHE COSA?</strong><br>(strumenti)</td>
+                                <td><em>Compila tu...</em></td>
+                            </tr>
+                            <tr>
+                                <td><strong>DOVE?</strong><br>(spazi)</td>
+                                <td><em>Compila tu...</em></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="ai-box mt-3">
+                    <div class="ai-box-header">
+                        <div class="ai-icon">🤖</div>
+                        <h4>Verifica con l'IA</h4>
+                    </div>
+                    <div class="prompt-example">
+                        <strong>Prompt suggerito:</strong><br>
+                        "Ho risposto alle 7 domande per progettare un intervento per Maria, 82 anni con difficoltà motorie. Le mie risposte sono coerenti e realistiche? [inserire le tue risposte]"
+                    </div>
+                </div>
+
+                <div class="info-box success mt-3">
+                    <h4>✅ Prodotto atteso</h4>
+                    <p>Tabella compilata (individuale o a coppie) da consegnare o caricare su Google Classroom</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FASE 2 -->
+        <section id="fase2" class="card">
+            <span class="fase-badge fase-2">FASE 2: COINVOLGIMENTO E PARTECIPAZIONE</span>
+            <div class="section-header">
+                <div class="section-number">2️⃣</div>
+                <div>
+                    <h2>I Bisogni Reali: Riconoscere, Analizzare, Scegliere</h2>
+                    <p class="section-subtitle">"Dalla teoria alla realtà attraverso casi concreti"</p>
+                </div>
+            </div>
+
+            <!-- Attività 2.1 -->
+            <div class="attivita">
+                <div class="attivita-header">
+                    <div class="attivita-icon">📍</div>
+                    <h3>Attività 2.1 - Analisi dei Bisogni: Il Caso di Marco (40 min)</h3>
+                </div>
+
+                <div class="info-box">
+                    <h4>📖 Il Caso</h4>
+                    <p><em>"Marco ha 16 anni, frequenta la 2ª superiore. Negli ultimi mesi è spesso assente, arriva a scuola stanco, non partecipa. I professori si sono accorti che ha difficoltà a concentrarsi. La madre lavora su turni, il padre è all'estero. Marco passa molto tempo solo a casa, di notte gioca online fino a tardi. Ha pochi amici."</em></p>
+                </div>
+
+                <h4 class="mt-3">📝 Consegna</h4>
+                <p>Individua i bisogni di Marco utilizzando la classificazione del manuale (pagine 174-177):</p>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Categoria di Bisogno</th>
+                                <th>Cosa emerge nel caso di Marco?</th>
+                                <th>Chi potrebbe aiutare?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Bisogni primari</strong><br>(alimentazione, sonno)</td>
+                                <td><em>Compila tu...</em></td>
+                                <td><em>Compila tu...</em></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bisogni di supporto psicologico</strong></td>
+                                <td><em>Compila tu...</em></td>
+                                <td><em>Compila tu...</em></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bisogni di relazioni amicali</strong></td>
+                                <td><em>Compila tu...</em></td>
+                                <td><em>Compila tu...</em></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bisogni di sostegno educativo</strong></td>
+                                <td><em>Compila tu...</em></td>
+                                <td><em>Compila tu...</em></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="ai-box mt-3">
+                    <div class="ai-box-header">
+                        <div class="ai-icon">🤖</div>
+                        <h4>Analisi Approfondita con IA</h4>
+                    </div>
+                    <div class="prompt-example">
+                        <strong>Prompt suggerito:</strong><br>
+                        "Analizza il caso di Marco usando la piramide dei bisogni di Maslow. Quali bisogni sono compromessi? Suggerisci 3 interventi possibili partendo dai bisogni più urgenti."
+                    </div>
+                </div>
+
+                <div class="info-box success mt-3">
+                    <h4>✅ Prodotto atteso</h4>
+                    <p>Scheda compilata + presentazione in piccoli gruppi (3-4 studenti)</p>
+                </div>
+            </div>
+
+            <!-- Attività 2.2 -->
+            <div class="attivita">
+                <div class="attivita-header">
+                    <div class="attivita-icon">📍</div>
+                    <h3>Attività 2.2 - Gerarchia dei Problemi (30 min)</h3>
+                </div>
+
+                <p>Nel caso di Marco, distingui tra problemi manifesti (quello che si vede) e problemi latenti (le cause profonde).</p>
+
+                <h4 class="mt-3">🌳 Costruisci l'Albero dei Problemi</h4>
+                <p>Struttura:</p>
+                <ul>
+                    <li><strong>In alto (rami):</strong> Le conseguenze possibili</li>
+                    <li><strong>Al centro (tronco):</strong> Il problema principale</li>
+                    <li><strong>In basso (radici):</strong> Le cause profonde</li>
+                </ul>
+
+                <div class="info-box warning">
+                    <h4>💡 Esempio guidato</h4>
+                    <pre style="background: white; padding: 1rem; border-radius: 6px; overflow-x: auto;">
+CONSEGUENZE → Rischio abbandono scolastico, isolamento totale
+       ↑
+PROBLEMA CENTRALE → Difficoltà di concentrazione e partecipazione
+       ↑
+CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
+                    </pre>
+                </div>
+
+                <div class="ai-box mt-3">
+                    <div class="ai-box-header">
+                        <div class="ai-icon">🤖</div>
+                        <h4>Supporto IA</h4>
+                    </div>
+                    <div class="prompt-example">
+                        <strong>Prompt suggerito:</strong><br>
+                        "Aiutami a costruire un albero dei problemi per Marco. Quali sono le cause principali del suo disagio? Quali potrebbero essere le conseguenze se non si interviene?"
+                    </div>
+                </div>
+
+                <div class="info-box success mt-3">
+                    <h4>✅ Prodotto atteso</h4>
+                    <p>Diagramma/albero dei problemi (formato cartaceo o digitale con Canva/Draw.io)</p>
+                </div>
+            </div>
+
+            <!-- Attività 2.3 -->
+            <div class="attivita">
+                <div class="attivita-header">
+                    <div class="attivita-icon">📍</div>
+                    <h3>Attività 2.3 - Selezione dei Problemi Prioritari (20 min)</h3>
+                </div>
+
+                <p>Hai individuato molti problemi. Su quale dovresti intervenire per primo?</p>
+
+                <h4 class="mt-3">🎯 Criteri di Priorità (vedi pagina 177)</h4>
+                <ul>
+                    <li><strong>Urgenza:</strong> Quanto è grave? (scala 1-5)</li>
+                    <li><strong>Fattibilità:</strong> Possiamo intervenire realisticamente? (scala 1-5)</li>
+                    <li><strong>Impatto:</strong> Se risolvo questo, migliora anche il resto? (scala 1-5)</li>
+                </ul>
+
+                <div class="table-responsive mt-3">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Problema</th>
+                                <th>Urgenza<br>(1-5)</th>
+                                <th>Fattibilità<br>(1-5)</th>
+                                <th>Impatto<br>(1-5)</th>
+                                <th>TOTALE</th>
+                                <th>Priorità</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Es. Mancanza di sonno</td>
+                                <td>5</td>
+                                <td>3</td>
+                                <td>4</td>
+                                <td><strong>12</strong></td>
+                                <td><span style="background: #fca5a5; padding: 0.25rem 0.5rem; border-radius: 4px;">ALTA</span></td>
+                            </tr>
+                            <tr>
+                                <td>Es. Isolamento sociale</td>
+                                <td>4</td>
+                                <td>4</td>
+                                <td>5</td>
+                                <td><strong>13</strong></td>
+                                <td><span style="background: #fca5a5; padding: 0.25rem 0.5rem; border-radius: 4px;">ALTA</span></td>
+                            </tr>
+                            <tr>
+                                <td>Es. Difficoltà scolastiche</td>
+                                <td>3</td>
+                                <td>3</td>
+                                <td>3</td>
+                                <td><strong>9</strong></td>
+                                <td><span style="background: #fde047; padding: 0.25rem 0.5rem; border-radius: 4px;">MEDIA</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="info-box success mt-3">
+                    <h4>✅ Prodotto atteso</h4>
+                    <p>Classifica dei problemi prioritari con motivazione scritta</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FASE 3 -->
+        <section id="fase3" class="card">
+            <span class="fase-badge fase-3">FASE 3: APPLICAZIONE OPERATIVA</span>
+            <div class="section-header">
+                <div class="section-number">3️⃣</div>
+                <div>
+                    <h2>Dal Bisogno al Progetto: Costruire la Risposta</h2>
+                    <p class="section-subtitle">"Tradurre il sapere in competenza operativa"</p>
+                </div>
+            </div>
+
+            <!-- Attività 3.1 -->
+            <div class="attivita">
+                <div class="attivita-header">
+                    <div class="attivita-icon">📍</div>
+                    <h3>Attività 3.1 - Analisi Risorse e Limiti (40 min)</h3>
+                </div>
+
+                <p>Per progettare un intervento per Marco, devi conoscere le risorse disponibili nel territorio.</p>
+
+                <h4 class="mt-3">🗺️ Mappa delle Risorse Territoriali</h4>
+                <p>Riferimento: Pagine 178-179 del manuale</p>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 25%;">Categoria</th>
+                                <th>Risorse Disponibili</th>
+                                <th>Limiti/Vincoli</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>STRUMENTI</strong><br><small>(computer, materiali didattici)</small></td>
+                                <td><em>Compila tu...</em></td>
+                                <td><em>Compila tu...</em></td>
+                            </tr>
+                            <tr>
+                                <td><strong>STRUTTURE</strong><br><small>(centro giovani, biblioteca)</small></td>
+                                <td><em>Compila tu...</em></td>
+                                <td><em>Compila tu...</em></td>
+                            </tr>
+                            <tr>
+                                <td><strong>BUDGET</strong><br><small>(fondi disponibili)</small></td>
+                                <td><em>Compila tu...</em></td>
+                                <td><em>Compila tu...</em></td>
+                            </tr>
+                            <tr>
+                                <td><strong>PERSONALE</strong><br><small>(educatori, psicologi)</small></td>
+                                <td><em>Compila tu...</em></td>
+                                <td><em>Compila tu...</em></td>
+                            </tr>
+                            <tr>
+                                <td><strong>RISORSE LEGISLATIVE</strong><br><small>(leggi, diritti)</small></td>
+                                <td><em>Compila tu...</em></td>
+                                <td><em>Compila tu...</em></td>
+                            </tr>
+                            <tr>
+                                <td><strong>RISORSE TEMPORALI</strong><br><small>(orari servizi)</small></td>
+                                <td><em>Compila tu...</em></td>
+                                <td><em>Compila tu...</em></td>
+                            </tr>
+                            <tr>
+                                <td><strong>RISORSE SPAZIALI</strong><br><small>(luoghi disponibili)</small></td>
+                                <td><em>Compila tu...</em></td>
+                                <td><em>Compila tu...</em></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="info-box warning mt-3">
+                    <h4>🎭 Simulazione Realistica</h4>
+                    <p>Immagina che il tuo Comune abbia:</p>
+                    <ul>
+                        <li>Un centro giovani aperto 3 pomeriggi a settimana</li>
+                        <li>Un educatore disponibile 10 ore/settimana</li>
+                        <li>Un budget di €500 per materiali</li>
+                        <li>Collaborazione con associazioni sportive locali</li>
+                    </ul>
+                </div>
+
+                <div class="ai-box mt-3">
+                    <div class="ai-box-header">
+                        <div class="ai-icon">🤖</div>
+                        <h4>Esplora il Territorio con IA</h4>
+                    </div>
+                    <div class="prompt-example">
+                        <strong>Prompt suggerito:</strong><br>
+                        "Sto progettando un intervento per un adolescente con difficoltà scolastiche e isolamento sociale in un piccolo comune della Sardegna. Quali risorse territoriali potrei utilizzare? Quali servizi pubblici e del terzo settore potrebbero collaborare?"
+                    </div>
+                </div>
+
+                <div class="info-box success mt-3">
+                    <h4>✅ Prodotto atteso</h4>
+                    <p>Mappa delle risorse territoriali (anche utilizzando Google Maps per geolocalizzare i servizi)</p>
+                </div>
+            </div>
+
+            <!-- Attività 3.2 -->
+            <div class="attivita">
+                <div class="attivita-header">
+                    <div class="attivita-icon">📍</div>
+                    <h3>Attività 3.2 - Progettazione Completa per Marco (90 min - LABORATORIO)</h3>
+                </div>
+
+                <div class="info-box">
+                    <h4>👥 Lavoro di Gruppo</h4>
+                    <p>In gruppo (3-4 persone), progettate un intervento concreto per Marco seguendo la struttura delle 7 domande e integrando:</p>
+                    <ul class="checklist">
+                        <li>L'analisi dei bisogni</li>
+                        <li>La gerarchia dei problemi</li>
+                        <li>Le risorse e i limiti del territorio</li>
+                    </ul>
+                </div>
+
+                <h4 class="mt-3">📋 Template di Progetto</h4>
+                <p>Il vostro progetto deve includere le seguenti sezioni:</p>
+
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>1. PRESA IN CARICO (A CHI)</span>
+                            <span class="accordion-icon">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-body">
+                                <ul>
+                                    <li>Dati anagrafici completi</li>
+                                    <li>Situazione economica/sociale/lavorativa</li>
+                                    <li>Profilo psicologico</li>
+                                    <li>Capacità e non (della persona)</li>
+                                    <li>Rete parentale e amicale</li>
+                                    <li>Servizi territoriali già utilizzati</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>2. ANALISI DEI BISOGNI (PERCHÉ)</span>
+                            <span class="accordion-icon">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-body">
+                                <p>Indicate chiaramente:</p>
+                                <ul>
+                                    <li>Il bisogno principale individuato</li>
+                                    <li>La gerarchia dei problemi (con albero)</li>
+                                    <li>I problemi prioritari su cui intervenire</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>3. OBIETTIVI (PERCHÉ - finalità)</span>
+                            <span class="accordion-icon">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-body">
+                                <p><strong>Obiettivo generale:</strong> (es. Favorire il reinserimento scolastico e sociale di Marco)</p>
+                                <p><strong>Obiettivi specifici SMART</strong> (Specifici, Misurabili, Raggiungibili, Realistici, Temporizzati):</p>
+                                <ol>
+                                    <li>Es. Ridurre le assenze scolastiche del 50% in 3 mesi</li>
+                                    <li>Es. Marco partecipa ad almeno 1 attività di gruppo a settimana</li>
+                                    <li>Es. Migliorare l'organizzazione del sonno: dormire almeno 7 ore/notte</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>4. ATTIVITÀ E INTERVENTI (CHE COSA)</span>
+                            <span class="accordion-icon">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-body">
+                                <p>Descrivete nel dettaglio le attività concrete che realizzerete, con frequenza e durata.</p>
+                                <p><em>Es. Doposcuola con supporto compiti 2 volte/settimana per 1 ora</em></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>5. METODO (COME)</span>
+                            <span class="accordion-icon">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-body">
+                                <ul>
+                                    <li>Approccio educativo (es. peer education, tutoraggio)</li>
+                                    <li>Strumenti utilizzati (es. planning settimanale, diario)</li>
+                                    <li>Modalità (individuale/gruppo/mista)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>6. TEMPI (QUANDO)</span>
+                            <span class="accordion-icon">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-body">
+                                <ul>
+                                    <li>Durata complessiva del progetto</li>
+                                    <li>Fase di avvio</li>
+                                    <li>Fase operativa</li>
+                                    <li>Fase di verifica</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>7. RISORSE (CON CHE COSA)</span>
+                            <span class="accordion-icon">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-body">
+                                <ul>
+                                    <li>Personale coinvolto</li>
+                                    <li>Budget stimato</li>
+                                    <li>Materiali necessari</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>8. SPAZI (DOVE)</span>
+                            <span class="accordion-icon">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-body">
+                                <ul>
+                                    <li>Luogo principale di realizzazione</li>
+                                    <li>Altri spazi utilizzati</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ai-box mt-3">
+                    <div class="ai-box-header">
+                        <div class="ai-icon">🤖</div>
+                        <h4>IA come Consulente di Progetto</h4>
+                    </div>
+                    <p>Usate Claude.ai per:</p>
+                    <div class="prompt-example">
+                        <strong>1. Verificare gli obiettivi SMART:</strong><br>
+                        "Gli obiettivi che ho scritto sono SMART (specifici, misurabili, raggiungibili, realistici, temporizzati)? [inserire obiettivi]"
+                    </div>
+                    <div class="prompt-example">
+                        <strong>2. Generare idee per attività:</strong><br>
+                        "Suggerisci 5 attività concrete per favorire la socializzazione di un adolescente di 16 anni che ama i videogiochi"
+                    </div>
+                    <div class="prompt-example">
+                        <strong>3. Revisione critica:</strong><br>
+                        "Leggi il mio progetto e dimmi se manca qualcosa o se ci sono incoerenze [inserire progetto]"
+                    </div>
+                </div>
+
+                <div class="info-box success mt-3">
+                    <h4>✅ Prodotto atteso</h4>
+                    <p>Progetto completo in formato digitale (Google Docs condiviso o Canva Presentation) da presentare alla classe</p>
+                </div>
+            </div>
+
+            <!-- Attività 3.3 -->
+            <div class="attivita">
+                <div class="attivita-header">
+                    <div class="attivita-icon">📍</div>
+                    <h3>Attività 3.3 - Presentazione dei Progetti (60 min)</h3>
+                </div>
+
+                <p>Ogni gruppo presenta il proprio progetto (max 7 minuti). Gli altri gruppi compilano una griglia di ascolto attivo.</p>
+
+                <h4 class="mt-3">👂 Griglia di Ascolto Attivo</h4>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Criterio</th>
+                                <th>Sì/No</th>
+                                <th>Note e Suggerimenti</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Gli obiettivi sono chiari e SMART?</td>
+                                <td><em>☐ Sì ☐ No</em></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Le attività sono concrete e fattibili?</td>
+                                <td><em>☐ Sì ☐ No</em></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Hanno considerato i limiti del territorio?</td>
+                                <td><em>☐ Sì ☐ No</em></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Il progetto risponde ai bisogni prioritari?</td>
+                                <td><em>☐ Sì ☐ No</em></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>I tempi sono realistici?</td>
+                                <td><em>☐ Sì ☐ No</em></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="info-box mt-3">
+                    <h4>💬 Feedback tra Pari</h4>
+                    <p>Ogni gruppo riceve almeno 2 domande/suggerimenti costruttivi dagli altri compagni.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FASE 4 -->
+        <section id="fase4" class="card">
+            <span class="fase-badge fase-4">FASE 4: RIFLESSIVITÀ E VERIFICA</span>
+            <div class="section-header">
+                <div class="section-number">4️⃣</div>
+                <div>
+                    <h2>Cosa Ho Imparato? Come Posso Applicarlo?</h2>
+                    <p class="section-subtitle">"Consolidare e interiorizzare attraverso la metacognizione"</p>
+                </div>
+            </div>
+
+            <!-- Attività 4.1 -->
+            <div class="attivita">
+                <div class="attivita-header">
+                    <div class="attivita-icon">📍</div>
+                    <h3>Attività 4.1 - Diario Riflessivo Individuale (30 min)</h3>
+                </div>
+
+                <p>Rispondi alle seguenti domande in forma di diario personale (scritto, vocale registrato o video-diario).</p>
+
+                <h4 class="mt-3">🤔 Domande per la Riflessione Metacognitiva</h4>
+
+                <div class="info-box">
+                    <h4>1. Cosa ho scoperto che non sapevo prima?</h4>
+                    <ul>
+                        <li>Quali concetti erano nuovi per me?</li>
+                        <li>Cosa mi ha sorpreso del lavoro di progettazione?</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>2. Quali difficoltà ho incontrato?</h4>
+                    <ul>
+                        <li>Nella fase di analisi dei bisogni?</li>
+                        <li>Nella scelta delle priorità?</li>
+                        <li>Nella definizione degli obiettivi SMART?</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>3. Cosa farei diversamente se dovessi rifare il progetto?</h4>
+                    <ul>
+                        <li>Cambierei qualche attività?</li>
+                        <li>Darei più importanza a qualche aspetto?</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>4. Come posso applicare quello che ho imparato nella mia vita?</h4>
+                    <ul>
+                        <li>C'è qualcuno vicino a me che potrebbe aver bisogno di un "progetto"?</li>
+                        <li>Come posso usare il "metodo delle 7 domande" per organizzare meglio le mie attività?</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>5. Come mi sono sentito/a durante il lavoro di gruppo?</h4>
+                    <ul>
+                        <li>Quali competenze ho messo in gioco?</li>
+                        <li>Cosa ho imparato dai miei compagni?</li>
+                    </ul>
+                </div>
+
+                <div class="ai-box mt-3">
+                    <div class="ai-box-header">
+                        <div class="ai-icon">🤖</div>
+                        <h4>Supporto IA per la Riflessione</h4>
+                    </div>
+                    <div class="prompt-example">
+                        <strong>Prompt suggerito:</strong><br>
+                        "Ho appena finito un progetto di intervento sociosanitario per un caso di adolescente in difficoltà. Mi aiuti a riflettere su cosa ho imparato? Quali competenze professionali ho sviluppato? Come potrei migliorare?"
+                    </div>
+                </div>
+
+                <div class="info-box success mt-3">
+                    <h4>✅ Prodotto atteso</h4>
+                    <p>Diario riflessivo (1-2 pagine) da consegnare al docente</p>
+                </div>
+            </div>
+
+            <!-- Attività 4.2 -->
+            <div class="attivita">
+                <div class="attivita-header">
+                    <div class="attivita-icon">📍</div>
+                    <h3>Attività 4.2 - Autovalutazione delle Competenze (20 min)</h3>
+                </div>
+
+                <p>Valuta onestamente il tuo livello di competenza prima e dopo il modulo.</p>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>COMPETENZA</th>
+                                <th>Prima<br>del modulo</th>
+                                <th>Dopo<br>il modulo</th>
+                                <th>Cosa devo ancora<br>migliorare?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>So analizzare i bisogni di una persona</td>
+                                <td><em>1 2 3 4</em></td>
+                                <td><em>1 2 3 4</em></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>So distinguere tra problemi urgenti e secondari</td>
+                                <td><em>1 2 3 4</em></td>
+                                <td><em>1 2 3 4</em></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>So identificare risorse e limiti di un contesto</td>
+                                <td><em>1 2 3 4</em></td>
+                                <td><em>1 2 3 4</em></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>So formulare obiettivi chiari e misurabili (SMART)</td>
+                                <td><em>1 2 3 4</em></td>
+                                <td><em>1 2 3 4</em></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>So progettare attività concrete</td>
+                                <td><em>1 2 3 4</em></td>
+                                <td><em>1 2 3 4</em></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>So lavorare in gruppo rispettando i ruoli</td>
+                                <td><em>1 2 3 4</em></td>
+                                <td><em>1 2 3 4</em></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>So usare l'IA in modo critico per il mio lavoro</td>
+                                <td><em>1 2 3 4</em></td>
+                                <td><em>1 2 3 4</em></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="info-box warning mt-3">
+                    <h4>📊 Legenda</h4>
+                    <p>1 = Non so farlo | 2 = So farlo con aiuto | 3 = So farlo autonomamente | 4 = So farlo e spiegarlo ad altri</p>
+                </div>
+
+                <div class="info-box success mt-3">
+                    <h4>✅ Prodotto atteso</h4>
+                    <p>Griglia compilata + piano di miglioramento personale (1 paragrafo su cosa vuoi migliorare)</p>
+                </div>
+            </div>
+
+            <!-- Attività 4.3 -->
+            <div class="attivita">
+                <div class="attivita-header">
+                    <div class="attivita-icon">📍</div>
+                    <h3>Attività 4.3 - Sintesi Collaborativa Finale (30 min)</h3>
+                </div>
+
+                <h4>⭕ Circle Time Conclusivo</h4>
+                <p>Gli studenti in cerchio condividono brevemente:</p>
+                <ul class="checklist">
+                    <li>1 cosa che porteranno con sé da questo modulo</li>
+                    <li>1 difficoltà che hanno superato</li>
+                    <li>1 domanda che rimane aperta</li>
+                </ul>
+
+                <h4 class="mt-3">📜 Decalogo del "Buon Progettista"</h4>
+                <p>Costruite insieme alla classe un decalogo (10 principi) del buon progettista sociale. Esempio di inizio:</p>
+                <ol>
+                    <li>Ascolta prima di agire</li>
+                    <li>I bisogni delle persone vengono prima delle tue idee</li>
+                    <li>Analizza le risorse, non solo i problemi</li>
+                    <li>Un obiettivo senza tempi e modalità è solo un desiderio</li>
+                    <li><em>[Completate voi...]</em></li>
+                </ol>
+
+                <div class="info-box success mt-3">
+                    <h4>✅ Prodotto atteso</h4>
+                    <p>Poster del decalogo da appendere in classe (o versione digitale condivisa)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- VALUTAZIONE -->
+        <section id="valutazione" class="card">
+            <div class="section-header">
+                <div class="section-number">📊</div>
+                <div>
+                    <h2>Valutazione del Modulo</h2>
+                    <p class="section-subtitle">Criteri e modalità di valutazione</p>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h3>⚖️ Valutazione Formativa (Durante il Percorso)</h3>
+                <p>Viene valutata:</p>
+                <ul class="checklist">
+                    <li>Partecipazione attiva alle discussioni</li>
+                    <li>Completamento delle schede intermedie</li>
+                    <li>Contributo costruttivo al lavoro di gruppo</li>
+                    <li>Utilizzo critico e consapevole dell'IA</li>
+                </ul>
+            </div>
+
+            <div class="info-box warning mt-3">
+                <h3>📝 Valutazione Sommativa (Finale)</h3>
+                <p>La valutazione finale si compone di:</p>
+                <ul>
+                    <li><strong>50%</strong> - Progetto di gruppo per il caso Marco</li>
+                    <li><strong>30%</strong> - Compito autentico individuale (vedi sotto)</li>
+                    <li><strong>20%</strong> - Diario riflessivo e autovalutazione</li>
+                </ul>
+            </div>
+
+            <h3 class="mt-3">🎯 Compito Autentico Finale (VALUTAZIONE INDIVIDUALE)</h3>
+            
+            <div class="attivita">
+                <div class="info-box">
+                    <h4>📋 Situazione-Problema Autentica</h4>
+                    <p><em>"L'associazione 'Mani Amiche' del tuo paese ti chiede una consulenza. Vogliono attivare un servizio di sostegno per anziani soli che vivono in campagna. Hanno un budget limitato (€1000), 3 volontari disponibili il sabato pomeriggio e uno spazio in prestito dalla parrocchia. Non sanno da dove iniziare."</em></p>
+                </div>
+
+                <h4 class="mt-3">📝 Consegna</h4>
+                <p>Prepara una <strong>scheda di progetto preliminare</strong> (2-3 pagine) che includa:</p>
+                <ol>
+                    <li>Analisi dell'utente (a chi è rivolto il servizio)</li>
+                    <li>Analisi dei bisogni (quali problemi vuole risolvere)</li>
+                    <li>Analisi delle risorse e limiti</li>
+                    <li>Proposta di 3 possibili attività concrete</li>
+                    <li>Indicazione dei tempi e degli spazi</li>
+                    <li>Suggerimenti su come potrebbero iniziare (fase preliminare)</li>
+                </ol>
+
+                <h4 class="mt-3">🎯 Griglia di Valutazione</h4>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Criterio</th>
+                                <th>Punti</th>
+                                <th>Indicatori</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Analisi dell'utente</strong></td>
+                                <td>0-5</td>
+                                <td>Completezza dei dati, attenzione al contesto</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Analisi dei bisogni</strong></td>
+                                <td>0-5</td>
+                                <td>Uso corretto della classificazione, individuazione priorità</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Analisi risorse/limiti</strong></td>
+                                <td>0-5</td>
+                                <td>Realismo, completezza delle categorie (vedi pag. 178-179)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Progettazione attività</strong></td>
+                                <td>0-5</td>
+                                <td>Coerenza con bisogni, fattibilità, creatività</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Organizzazione</strong></td>
+                                <td>0-5</td>
+                                <td>Chiarezza espositiva, uso corretto della terminologia</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Riflessione critica</strong></td>
+                                <td>0-5</td>
+                                <td>Capacità di prevedere difficoltà, proposte di miglioramento</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><strong>TOTALE</strong></td>
+                                <td><strong>/30</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="info-box success mt-3">
+                    <h4>📅 Scadenza</h4>
+                    <p>Il compito va consegnato entro <strong>1 settimana</strong> dalla fine del modulo tramite Google Classroom o email al docente.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- RISORSE -->
+        <section id="risorse" class="card">
+            <div class="section-header">
+                <div class="section-number">📥</div>
+                <div>
+                    <h2>Risorse e Materiali Scaricabili</h2>
+                    <p class="section-subtitle">Tutto ciò che ti serve per completare il modulo</p>
+                </div>
+            </div>
+
+            <div class="download-section">
+                <h3>📚 Materiali Didattici</h3>
+                <p>Scarica le schede operative e i template per le attività</p>
+
+                <div class="download-grid">
+                    <div class="download-card">
+                        <h4>📋 Scheda 7 Domande</h4>
+                        <p>Template per l'attività 1.3</p>
+                        <a href="#" class="btn btn-outline" style="color: white; border-color: white; margin-top: 0.5rem;">Scarica PDF</a>
+                    </div>
+                    <div class="download-card">
+                        <h4>🌳 Albero dei Problemi</h4>
+                        <p>Template per l'attività 2.2</p>
+                        <a href="#" class="btn btn-outline" style="color: white; border-color: white; margin-top: 0.5rem;">Scarica PDF</a>
+                    </div>
+                    <div class="download-card">
+                        <h4>📊 Griglia Priorità</h4>
+                        <p>Template per l'attività 2.3</p>
+                        <a href="#" class="btn btn-outline" style="color: white; border-color: white; margin-top: 0.5rem;">Scarica PDF</a>
+                    </div>
+                    <div class="download-card">
+                        <h4>🗺️ Mappa Risorse</h4>
+                        <p>Template per l'attività 3.1</p>
+                        <a href="#" class="btn btn-outline" style="color: white; border-color: white; margin-top: 0.5rem;">Scarica PDF</a>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="mt-3">🔗 Collegamenti Utili</h3>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Risorsa</th>
+                            <th>Descrizione</th>
+                            <th>Link</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Claude.ai</strong></td>
+                            <td>Assistente IA per supporto allo studio</td>
+                            <td><a href="https://claude.ai" target="_blank" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Accedi</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Canva</strong></td>
+                            <td>Per creare presentazioni e infografiche</td>
+                            <td><a href="https://www.canva.com" target="_blank" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Accedi</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Padlet</strong></td>
+                            <td>Per condividere idee e brainstorming</td>
+                            <td><a href="https://padlet.com" target="_blank" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Accedi</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Google Classroom</strong></td>
+                            <td>Piattaforma per consegne e materiali</td>
+                            <td><a href="#" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Accedi</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-box mt-3">
+                <h3>📖 Bibliografia Essenziale</h3>
+                <ul>
+                    <li><strong>Manuale del corso:</strong> Metodologie Operative, Unità 1 (pagine 170-183)</li>
+                    <li>Approfondimenti sulla progettazione sociale su siti istituzionali (ASL, Servizi Sociali)</li>
+                    <li>Documentazione territoriale sui servizi disponibili in Sardegna</li>
+                </ul>
+            </div>
+
+            <div class="info-box warning mt-3">
+                <h3>💡 Come Usare l'IA in Modo Etico</h3>
+                <p><strong>Regole d'Oro:</strong></p>
+                <ul class="checklist">
+                    <li>Usa l'IA per comprendere meglio, non per copiare</li>
+                    <li>Verifica sempre le informazioni con il manuale e altre fonti</li>
+                    <li>Cita sempre quando usi suggerimenti dell'IA nei tuoi lavori</li>
+                    <li>L'IA è un tutor, non un sostituto del tuo pensiero critico</li>
+                    <li>Non condividere dati sensibili o personali con l'IA</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Progresso -->
+        <div class="progress-container">
+            <h3>🎯 Il Tuo Progresso nel Modulo</h3>
+            <p class="text-muted mb-2">Completa tutte le attività per padroneggiare la fase preliminare del progetto d'intervento</p>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 0%;" id="progressBar">0%</div>
+            </div>
+            <p class="text-center mt-2 text-muted" id="progressText">Inizia con la Fase 1 per vedere i tuoi progressi!</p>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <h3>Prof. Salva Picconi</h3>
+            <p>IIS Meucci Mattei - Cagliari Sede Decimomannu</p>
+            <p>Indirizzo: Servizi per la Sanità e l'Assistenza Sociale</p>
+            
+            <div class="footer-links">
+                <a href="https://salvapicconi.github.io/metodologieoperative" target="_blank">🌐 Sito del Corso</a>
+                <a href="mailto:picconi@example.com">📧 Contatti</a>
+                <a href="https://www.facebook.com/dottpicconi" target="_blank">📘 Facebook</a>
+                <a href="#" onclick="window.print(); return false;">🖨️ Stampa Pagina</a>
+            </div>
+            
+            <p style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.8;">
+                © 2024 - Materiale didattico ad uso esclusivo degli studenti dell'IIS Meucci Mattei
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Smooth scroll per la navigazione
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Aggiorna active state della navigazione
+                    document.querySelectorAll('.nav-pill').forEach(pill => {
+                        pill.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Accordion functionality
+        function toggleAccordion(header) {
+            const item = header.parentElement;
+            const wasActive = item.classList.contains('active');
+            
+            // Chiudi tutti gli altri accordion
+            document.querySelectorAll('.accordion-item').forEach(i => {
+                i.classList.remove('active');
+            });
+            
+            // Toggle quello corrente
+            if (!wasActive) {
+                item.classList.add('active');
+            }
+        }
+
+        // Progress tracker
+        function updateProgress() {
+            // Questa funzione può essere espansa per tracciare il completamento effettivo
+            const completedActivities = localStorage.getItem('completedActivities') || 0;
+            const totalActivities = 13; // Numero totale di attività nel modulo
+            const percentage = Math.round((completedActivities / totalActivities) * 100);
+            
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            
+            if (progressBar) {
+                progressBar.style.width = percentage + '%';
+                progressBar.textContent = percentage + '%';
+            }
+            
+            if (progressText) {
+                if (percentage === 0) {
+                    progressText.textContent = 'Inizia con la Fase 1 per vedere i tuoi progressi!';
+                } else if (percentage < 25) {
+                    progressText.textContent = 'Ottimo inizio! Continua così!';
+                } else if (percentage < 50) {
+                    progressText.textContent = 'Stai facendo progressi significativi!';
+                } else if (percentage < 75) {
+                    progressText.textContent = 'Più di metà strada! Sei sulla buona strada!';
+                } else if (percentage < 100) {
+                    progressText.textContent = 'Quasi finito! Ultimo sforzo!';
+                } else {
+                    progressText.textContent = '🎉 Complimenti! Hai completato il modulo!';
+                }
+            }
+        }
+
+        // Highlight della sezione corrente nella navigazione
+        function updateActiveSection() {
+            const sections = document.querySelectorAll('section[id]');
+            const navPills = document.querySelectorAll('.nav-pill');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 100) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            navPills.forEach(pill => {
+                pill.classList.remove('active');
+                if (pill.getAttribute('href') === '#' + currentSection) {
+                    pill.classList.add('active');
+                }
+            });
+        }
+
+        // Event listeners
+        window.addEventListener('scroll', updateActiveSection);
+        window.addEventListener('load', () => {
+            updateProgress();
+            updateActiveSection();
+        });
+
+        // Console message
+        console.log('%c🎓 Benvenuto nel Modulo di Metodologie Operative! ', 'background: #c41e3a; color: white; font-size: 16px; padding: 10px;');
+        console.log('%cRicorda di usare Claude.ai in modo etico e critico! 🤖', 'color: #0891b2; font-size: 14px;');
+    </script>
+    <script type="module" src="../../assets/progress.js"></script>
+    <script type="module" src="../../assets/progress-global.js"></script>
+</body>
+</html>
