@@ -154,6 +154,7 @@ const CONFIG = resolveConfig();
   async function runAutoSave() {
     autoSaveTimer = null;
     const payload = collectData();
+    if (!payload || payload.__skipSave) return;
     const snapshot = JSON.stringify(payload);
     if (snapshot === lastSavedSnapshot) {
       return; // evita write identiche
@@ -341,13 +342,18 @@ document.addEventListener('click', async (event) => {
       alert('Sei in modalità ospite: il salvataggio online è disattivato.');
       return;
     }
+    const payload = collectData();
+    if (!payload || payload.__skipSave) {
+      alert('Nessun dato da salvare.');
+      return;
+    }
     const originalText = button.textContent;
     button.textContent = '⏳ Salvataggio...';
     try {
-      await Progress.save(collectData(), PAGE_PATH);
+      await Progress.save(payload, PAGE_PATH);
       lastAutoSave = Date.now();
       try {
-        lastSavedSnapshot = JSON.stringify(collectData());
+        lastSavedSnapshot = JSON.stringify(payload);
       } catch {
         lastSavedSnapshot = null;
       }
