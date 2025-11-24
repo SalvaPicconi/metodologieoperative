@@ -171,8 +171,18 @@ async function refreshDashboard() {
             populateFilters(records);
             dashboardState.classFilter = elements.classFilter?.value || '';
             dashboardState.activityFilter = elements.activityFilter?.value || '';
-            applyFilters();
-            applyAssessmentFilter(dashboardState.classFilter || '');
+            try {
+                applyFilters();
+            } catch (filterError) {
+                console.error('Errore durante applyFilters:', filterError, { recordsSample: records.slice(0, 5) });
+                throw filterError;
+            }
+            try {
+                applyAssessmentFilter(dashboardState.classFilter || '');
+            } catch (assessmentError) {
+                console.error('Errore durante applyAssessmentFilter:', assessmentError, { assessmentsSample: dashboardState.assessments.slice(0, 5) });
+                throw assessmentError;
+            }
             const now = new Date();
             if (elements.lastRefresh) {
                 elements.lastRefresh.textContent = now.toLocaleString('it-IT');
@@ -183,7 +193,10 @@ async function refreshDashboard() {
         }
     } catch (error) {
         console.error('Impossibile caricare i dati dalla dashboard docente:', error);
-        alert('Errore durante il caricamento dei dati. Riprova più tardi.');
+        if (elements.lastRefresh) {
+            elements.lastRefresh.textContent = `Errore: ${error.message || error}`;
+        }
+        alert('Errore durante il caricamento dei dati. Vedi console per dettagli e riprova più tardi.');
     } finally {
         toggleLoading(false);
     }
