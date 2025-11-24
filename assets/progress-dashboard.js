@@ -152,29 +152,34 @@ async function refreshDashboard() {
             fetchProgressData(),
             fetchAssessmentData()
         ]);
-        const records = rawRecords.map(normalizeProgressRecord).filter(Boolean);
-        dashboardState.records = records;
-        dashboardState.assessments = assessments.map(normalizeAssessmentRecord).filter(Boolean);
-        dashboardState.assessmentIndex = new Map();
-        dashboardState.progressIndex = new Map();
-        dashboardState.assessments.forEach(entry => {
-            if (entry?.id !== undefined) {
-                dashboardState.assessmentIndex.set(String(entry.id), entry);
+        try {
+            const records = rawRecords.map(normalizeProgressRecord).filter(Boolean);
+            dashboardState.records = records;
+            dashboardState.assessments = assessments.map(normalizeAssessmentRecord).filter(Boolean);
+            dashboardState.assessmentIndex = new Map();
+            dashboardState.progressIndex = new Map();
+            dashboardState.assessments.forEach(entry => {
+                if (entry?.id !== undefined) {
+                    dashboardState.assessmentIndex.set(String(entry.id), entry);
+                }
+            });
+            records.forEach(entry => {
+                if (entry?.id !== undefined) {
+                    dashboardState.progressIndex.set(String(entry.id), entry);
+                }
+            });
+            populateFilters(records);
+            dashboardState.classFilter = elements.classFilter?.value || '';
+            dashboardState.activityFilter = elements.activityFilter?.value || '';
+            applyFilters();
+            applyAssessmentFilter(dashboardState.classFilter || '');
+            const now = new Date();
+            if (elements.lastRefresh) {
+                elements.lastRefresh.textContent = now.toLocaleString('it-IT');
             }
-        });
-        records.forEach(entry => {
-            if (entry?.id !== undefined) {
-                dashboardState.progressIndex.set(String(entry.id), entry);
-            }
-        });
-        populateFilters(records);
-        dashboardState.classFilter = elements.classFilter?.value || '';
-        dashboardState.activityFilter = elements.activityFilter?.value || '';
-        applyFilters();
-        applyAssessmentFilter(dashboardState.classFilter || '');
-        const now = new Date();
-        if (elements.lastRefresh) {
-            elements.lastRefresh.textContent = now.toLocaleString('it-IT');
+        } catch (processingError) {
+            console.error('Errore durante l\'elaborazione dei dati dashboard:', processingError);
+            throw processingError;
         }
     } catch (error) {
         console.error('Impossibile caricare i dati dalla dashboard docente:', error);
@@ -198,7 +203,8 @@ async function fetchProgressData() {
         }
     });
     if (!response.ok) {
-        throw new Error(`Supabase error ${response.status}`);
+        const text = await response.text().catch(() => '');
+        throw new Error(`Supabase error ${response.status}: ${text}`);
     }
     return response.json();
 }
@@ -216,7 +222,8 @@ async function fetchAssessmentData() {
         }
     });
     if (!response.ok) {
-        console.warn('Impossibile caricare i test strutturati:', response.status);
+        const text = await response.text().catch(() => '');
+        console.warn('Impossibile caricare i test strutturati:', response.status, text);
         return [];
     }
     return response.json();
@@ -806,17 +813,22 @@ function normalizeAssessmentRecord(record) {
 
 function normalizeProgressRecord(record) {
     if (!record) return null;
-    const parsedData = parseProgressData(record.data);
-    const pagePath = resolveActivityPath(record.page_path);
-    return {
-        id: record.id,
-        class_code: record.class_code || '',
-        student_code: record.student_code || '',
-        page_path: pagePath,
-        original_path: record.page_path || pagePath,
-        updated_at: record.updated_at,
-        data: parsedData
-    };
+    try {
+        const parsedData = parseProgressData(record.data);
+        const pagePath = resolveActivityPath(record.page_path);
+        return {
+            id: record.id,
+            class_code: record.class_code || '',
+            student_code: record.student_code || '',
+            page_path: pagePath,
+            original_path: record.page_path || pagePath,
+            updated_at: record.updated_at,
+            data: parsedData
+        };
+    } catch (error) {
+        console.warn('Record progress non valido, ignorato:', record, error);
+        return null;
+    }
 }
 
 function parseProgressData(value) {
