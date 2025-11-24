@@ -31,7 +31,8 @@ const dashboardState = {
     searchTerm: '',
     assessments: [],
     filteredAssessments: [],
-    assessmentIndex: new Map()
+    assessmentIndex: new Map(),
+    progressIndex: new Map()
 };
 
 const elements = {};
@@ -61,6 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.classProgressContainer = document.getElementById('class-student-progress');
     elements.assessmentModal = document.getElementById('assessment-modal');
     elements.assessmentModalBody = document.getElementById('assessment-modal-body');
+    elements.progressModal = document.getElementById('progress-modal');
+    elements.progressModalBody = document.getElementById('progress-modal-body');
 
     if (elements.loginForm) {
         elements.loginForm.addEventListener('submit', handleLogin);
@@ -104,11 +107,23 @@ document.addEventListener('click', (event) => {
     if (event.target.matches('[data-assessment-close]') || event.target === elements.assessmentModal) {
         closeAssessmentDetail();
     }
+
+    const progressTrigger = event.target.closest('[data-progress-detail]');
+    if (progressTrigger) {
+        event.preventDefault();
+        const id = progressTrigger.getAttribute('data-progress-detail');
+        openProgressDetail(id);
+    }
+
+    if (event.target.matches('[data-progress-close]') || event.target === elements.progressModal) {
+        closeProgressDetail();
+    }
 });
 
 document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
         closeAssessmentDetail();
+        closeProgressDetail();
     }
 });
 
@@ -133,16 +148,23 @@ async function refreshDashboard() {
     setStatus('Caricamento dati...');
     toggleLoading(true);
     try {
-        const [records, assessments] = await Promise.all([
+        const [rawRecords, assessments] = await Promise.all([
             fetchProgressData(),
             fetchAssessmentData()
         ]);
+        const records = rawRecords.map(normalizeProgressRecord).filter(Boolean);
         dashboardState.records = records;
         dashboardState.assessments = assessments.map(normalizeAssessmentRecord);
         dashboardState.assessmentIndex = new Map();
+        dashboardState.progressIndex = new Map();
         dashboardState.assessments.forEach(entry => {
             if (entry?.id !== undefined) {
                 dashboardState.assessmentIndex.set(String(entry.id), entry);
+            }
+        });
+        records.forEach(entry => {
+            if (entry?.id !== undefined) {
+                dashboardState.progressIndex.set(String(entry.id), entry);
             }
         });
         populateFilters(records);
@@ -164,7 +186,7 @@ async function refreshDashboard() {
 
 async function fetchProgressData() {
     const params = new URLSearchParams({
-        select: 'id,class_code,student_code,page_path,updated_at',
+        select: 'id,class_code,student_code,page_path,data,updated_at',
         order: 'updated_at.desc',
         limit: '1000'
     });
@@ -435,13 +457,15 @@ function renderStudentTable(records) {
                 classCodeRaw: record.class_code || classCode,
                 studentCode: student,
                 lastUpdate: record.updated_at,
-                pagePath: record.page_path
+                pagePath: record.page_path,
+                recordId: record.id
             });
         } else {
             const current = map.get(key);
             if (new Date(record.updated_at) > new Date(current.lastUpdate)) {
                 current.lastUpdate = record.updated_at;
                 current.pagePath = record.page_path;
+                current.recordId = record.id;
             }
         }
     });
@@ -461,6 +485,7 @@ function renderStudentTable(records) {
                         <a class="btn-link" href="#" role="button" data-open-as-docente data-class-code="${entry.classCodeRaw}" data-student-code="${entry.studentCode}" data-page-path="${entry.pagePath}">Modalità docente</a>
                         <span class="divider">·</span>
                         <a class="btn-link" href="${link}" target="_blank" rel="noopener">Pagina</a>
+                        ${entry.recordId ? `<span class="divider">·</span><button class="btn-link" type="button" data-progress-detail="${entry.recordId}">Dettagli</button>` : ''}
                         <span class="divider">·</span>
                         <a class="btn-link" href="${statsLink}" target="_blank" rel="noopener">Statistiche</a>
                     </td>
@@ -518,7 +543,8 @@ function renderClassGroups(records) {
             studentEntry.activities.set(normalizedPath, {
                 pagePath: resolvedPath,
                 originalPath: record.page_path,
-                updated_at: record.updated_at
+                updated_at: record.updated_at,
+                recordId: record.id
             });
         }
     });
@@ -554,6 +580,7 @@ function renderClassGroups(records) {
                                     </a>
                                     <span class="divider">·</span>
                                     <a class="btn-link" href="${buildActivityLink(activity.pagePath || activity.originalPath)}" target="_blank" rel="noopener">Apri pagina</a>
+                                    ${activity.recordId ? `<span class="divider">·</span><button class="btn-link" type="button" data-progress-detail="${activity.recordId}">Dettagli</button>` : ''}
                                 </td>
                             </tr>
                         `).join('');
@@ -777,6 +804,34 @@ function normalizeAssessmentRecord(record) {
     };
 }
 
+function normalizeProgressRecord(record) {
+    if (!record) return null;
+    const parsedData = parseProgressData(record.data);
+    const pagePath = resolveActivityPath(record.page_path);
+    return {
+        id: record.id,
+        class_code: record.class_code || '',
+        student_code: record.student_code || '',
+        page_path: pagePath,
+        original_path: record.page_path || pagePath,
+        updated_at: record.updated_at,
+        data: parsedData
+    };
+}
+
+function parseProgressData(value) {
+    if (value === null || value === undefined) return {};
+    if (typeof value === 'object') return value;
+    if (typeof value === 'string') {
+        try {
+            return JSON.parse(value);
+        } catch {
+            return { raw: value };
+        }
+    }
+    return { value };
+}
+
 function openAssessmentDetail(id) {
     if (!elements.assessmentModal) return;
     const entry = dashboardState.assessmentIndex.get(String(id));
@@ -797,6 +852,27 @@ function closeAssessmentDetail() {
     if (!elements.assessmentModal) return;
     elements.assessmentModal.classList.remove('open');
     elements.assessmentModal.setAttribute('aria-hidden', 'true');
+}
+
+function openProgressDetail(id) {
+    if (!elements.progressModal) return;
+    const entry = dashboardState.progressIndex.get(String(id));
+    if (!entry) {
+        alert('Impossibile trovare il salvataggio selezionato.');
+        return;
+    }
+    const detailHtml = buildProgressDetail(entry);
+    if (elements.progressModalBody) {
+        elements.progressModalBody.innerHTML = detailHtml;
+    }
+    elements.progressModal.classList.add('open');
+    elements.progressModal.setAttribute('aria-hidden', 'false');
+}
+
+function closeProgressDetail() {
+    if (!elements.progressModal) return;
+    elements.progressModal.classList.remove('open');
+    elements.progressModal.setAttribute('aria-hidden', 'true');
 }
 
 function buildAssessmentDetail(entry) {
@@ -890,6 +966,37 @@ function buildAssessmentDetail(entry) {
                         <tbody>${responsesRows}</tbody>
                     </table></div>`
                 : '<p class="muted">Nessuna risposta salvata.</p>'}
+        </div>
+    `;
+}
+
+function buildProgressDetail(entry) {
+    const activityLabel = formatActivityName(entry.page_path || entry.original_path);
+    const docLink = buildActivityLink(entry.page_path || entry.original_path, {
+        superMode: true,
+        classCode: entry.class_code,
+        studentCode: entry.student_code
+    });
+    const dataPreview = formatProgressData(entry.data);
+    const metaList = `
+        <li><strong>Classe:</strong> ${entry.class_code || 'N/D'}</li>
+        <li><strong>Studente:</strong> ${entry.student_code || 'N/D'}</li>
+        <li><strong>Attività:</strong> ${activityLabel}</li>
+        <li><strong>Path:</strong> ${entry.page_path || entry.original_path || '-'}</li>
+        <li><strong>Ultimo salvataggio:</strong> ${formatDateTime(entry.updated_at)}</li>
+    `;
+
+    return `
+        <div class="progress-detail">
+            <h2 style="margin-top:0;">Dettaglio salvataggio</h2>
+            <ul class="progress-meta">
+                ${metaList}
+            </ul>
+            <p style="margin:0.5rem 0 1rem;">
+                <a href="${docLink}" target="_blank" rel="noopener">Apri in modalità docente →</a>
+            </p>
+            <h4>Dati salvati</h4>
+            ${dataPreview}
         </div>
     `;
 }
@@ -988,6 +1095,27 @@ function formatSeconds(value) {
         return `${minutes}m ${seconds}s`;
     }
     return `${num.toFixed(1)}s`;
+}
+
+function formatProgressData(data) {
+    if (!data || (typeof data === 'object' && Object.keys(data).length === 0)) {
+        return '<p class="muted">Nessun contenuto salvato.</p>';
+    }
+    try {
+        const json = JSON.stringify(data, null, 2);
+        return `<pre class="progress-json">${escapeHtml(json)}</pre>`;
+    } catch {
+        return `<pre class="progress-json">${escapeHtml(String(data))}</pre>`;
+    }
+}
+
+function escapeHtml(str) {
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
 }
 
 function ensureArray(value) {
