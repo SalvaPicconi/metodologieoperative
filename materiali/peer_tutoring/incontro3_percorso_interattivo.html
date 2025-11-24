@@ -2680,7 +2680,32 @@ Tempi di monitoraggio: ..." name="task3-valutazione"></textarea>
     <script>
         window.MO_PROGRESS_CONFIG = {
             pagePath: window.location.pathname,
-            inputSelector: 'textarea, input, select'
+            inputSelector: 'textarea, input, select',
+            autoSave: true,
+            autoSaveDebounceMs: 7000,
+            autoSaveMinIntervalMs: 20000,
+            autoSaveJitterMs: 3000,
+            onBeforeSave: (data) => {
+                let filled = 0;
+                Object.values(data || {}).forEach(val => {
+                    if (val === null || val === undefined) return;
+                    if (typeof val === 'string' && val.trim().length > 0) {
+                        filled += 1;
+                        return;
+                    }
+                    if (Array.isArray(val) && val.length > 0) {
+                        filled += 1;
+                        return;
+                    }
+                    if (typeof val === 'object' && Object.keys(val).length > 0) {
+                        filled += 1;
+                    }
+                });
+                if (filled === 0) {
+                    return { __skipSave: true };
+                }
+                return data;
+            }
         };
     </script>
     <script>
