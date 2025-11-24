@@ -154,7 +154,7 @@ async function refreshDashboard() {
         ]);
         const records = rawRecords.map(normalizeProgressRecord).filter(Boolean);
         dashboardState.records = records;
-        dashboardState.assessments = assessments.map(normalizeAssessmentRecord);
+        dashboardState.assessments = assessments.map(normalizeAssessmentRecord).filter(Boolean);
         dashboardState.assessmentIndex = new Map();
         dashboardState.progressIndex = new Map();
         dashboardState.assessments.forEach(entry => {
