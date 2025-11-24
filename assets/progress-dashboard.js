@@ -116,7 +116,7 @@ function handleLogin(event) {
     event.preventDefault();
     const value = elements.passwordInput?.value ?? '';
     const normalized = value.trim().toLowerCase();
-    const allowed = ['metodologie!237038'];
+    const allowed = ['palimet!237038'];
 
     if (allowed.includes(normalized)) {
         persistDocenteSession();
