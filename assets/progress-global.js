@@ -28,13 +28,17 @@ function resolveConfig() {
 const CONFIG = resolveConfig();
 
 // Rileva ID della pagina (meta o path)
-const PAGE_ID = document.querySelector('meta[name="page-id"]')?.content || location.pathname;
-const IS_DISABLED = CONFIG.disabled === true;
-const HOME_URL = CONFIG.homeUrl || guessHomeUrl();
+  const PAGE_ID = document.querySelector('meta[name="page-id"]')?.content || location.pathname;
+  const IS_DISABLED = CONFIG.disabled === true;
+  const HOME_URL = CONFIG.homeUrl || guessHomeUrl();
+  const AUTO_SAVE_ENABLED = CONFIG.autoSave === true;
+  const AUTO_SAVE_DEBOUNCE = typeof CONFIG.autoSaveDebounceMs === 'number' ? CONFIG.autoSaveDebounceMs : 6000;
+  const AUTO_SAVE_MIN_INTERVAL = typeof CONFIG.autoSaveMinIntervalMs === 'number' ? CONFIG.autoSaveMinIntervalMs : 15000;
+  const AUTO_SAVE_JITTER = typeof CONFIG.autoSaveJitterMs === 'number' ? CONFIG.autoSaveJitterMs : 3000;
 
-if (IS_DISABLED) {
-  console.log('⏸️ progress tracking disattivato su questa pagina');
-} else {
+  if (IS_DISABLED) {
+    console.log('⏸️ progress tracking disattivato su questa pagina');
+  } else {
   const PAGE_PATH = CONFIG.pagePath || PAGE_ID;
   const INPUT_SELECTOR = CONFIG.inputSelector || 'input, textarea, select';
   let studentLabel = null;
@@ -42,6 +46,10 @@ if (IS_DISABLED) {
   let resetBtnElement = null;
   let isGuestMode = false;
   let homeLinkElement = null;
+  let autoSaveTimer = null;
+  let autoSaveInFlight = false;
+  let lastAutoSave = 0;
+  let lastSavedSnapshot = null;
 
   // Crea pulsanti se non esistono già
   document.addEventListener('DOMContentLoaded', () => {
@@ -131,6 +139,43 @@ if (IS_DISABLED) {
       }
     } catch (error) {
       console.warn('Impossibile inviare evento di ripristino progressi:', error);
+    }
+  }
+
+  function scheduleAutoSave(reason = 'input') {
+    if (!AUTO_SAVE_ENABLED || IS_DISABLED || isGuestMode) return;
+    if (autoSaveTimer) {
+      clearTimeout(autoSaveTimer);
+    }
+    const jitter = AUTO_SAVE_JITTER ? Math.random() * AUTO_SAVE_JITTER : 0;
+    autoSaveTimer = setTimeout(runAutoSave, AUTO_SAVE_DEBOUNCE + jitter);
+  }
+
+  async function runAutoSave() {
+    autoSaveTimer = null;
+    const payload = collectData();
+    const snapshot = JSON.stringify(payload);
+    if (snapshot === lastSavedSnapshot) {
+      return; // evita write identiche
+    }
+
+    const elapsed = Date.now() - lastAutoSave;
+    if (elapsed < AUTO_SAVE_MIN_INTERVAL) {
+      const jitter = AUTO_SAVE_JITTER ? Math.random() * AUTO_SAVE_JITTER : 0;
+      autoSaveTimer = setTimeout(runAutoSave, AUTO_SAVE_MIN_INTERVAL - elapsed + jitter);
+      return;
+    }
+    if (autoSaveInFlight) return;
+    autoSaveInFlight = true;
+    try {
+      await Progress.save(payload, PAGE_PATH);
+      lastAutoSave = Date.now();
+      lastSavedSnapshot = snapshot;
+      console.debug('[Progress] 💾 Salvataggio automatico completato');
+    } catch (error) {
+      console.warn('Errore salvataggio automatico progressi:', error);
+    } finally {
+      autoSaveInFlight = false;
     }
   }
 
@@ -285,6 +330,9 @@ document.addEventListener('DOMContentLoaded', () => {
   loadAndRestore();
 });
 
+document.addEventListener('input', () => scheduleAutoSave('input'));
+document.addEventListener('change', () => scheduleAutoSave('change'));
+
 // gestisci click su salva
 document.addEventListener('click', async (event) => {
   if (event.target.matches('[data-save-progress]')) {
@@ -297,6 +345,12 @@ document.addEventListener('click', async (event) => {
     button.textContent = '⏳ Salvataggio...';
     try {
       await Progress.save(collectData(), PAGE_PATH);
+      lastAutoSave = Date.now();
+      try {
+        lastSavedSnapshot = JSON.stringify(collectData());
+      } catch {
+        lastSavedSnapshot = null;
+      }
       alert('Progressi salvati!');
     } catch (error) {
       alert('Errore salvataggio: ' + error.message);

@@ -2503,7 +2503,11 @@ const meeting2Flow = {
 <script>
 window.MO_PROGRESS_CONFIG = {
     pagePath: window.location.pathname,
-    inputSelector: 'textarea, input:not([type="file"])'
+    inputSelector: 'textarea, input:not([type="file"])',
+    autoSave: true,
+    autoSaveDebounceMs: 7000,
+    autoSaveMinIntervalMs: 20000,
+    autoSaveJitterMs: 3000
 };
 </script>
 <script>
