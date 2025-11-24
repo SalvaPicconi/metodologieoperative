@@ -204,9 +204,9 @@ async function refreshDashboard() {
 
 async function fetchProgressData() {
     const params = new URLSearchParams({
-        select: 'id,class_code,student_code,page_path,data,updated_at',
+        select: 'id,class_code,student_code,page_path,updated_at',
         order: 'updated_at.desc',
-        limit: '1000'
+        limit: '500'
     });
     const response = await fetch(`${PROGRESS_ENDPOINT}?${params.toString()}`, {
         headers: {
@@ -224,9 +224,9 @@ async function fetchProgressData() {
 
 async function fetchAssessmentData() {
     const params = new URLSearchParams({
-        select: 'id,class_code,student_code,participant,results,responses,created_at,started_at,ended_at',
+        select: 'id,class_code,student_code,participant,results,created_at',
         order: 'created_at.desc',
-        limit: '500'
+        limit: '200'
     });
     const response = await fetch(`${SUPABASE_URL}/rest/v1/stroop_tests?${params.toString()}`, {
         headers: {
@@ -798,7 +798,6 @@ function normalizeAssessmentRecord(record) {
     if (!record) return null;
     const participant = record.participant || {};
     const results = record.results || {};
-    const responses = ensureArray(record.responses);
     return {
         id: record.id,
         classCode: (record.class_code || 'N/D').toUpperCase(),
@@ -817,9 +816,7 @@ function normalizeAssessmentRecord(record) {
             performanceLevel: results.performanceLevel || '',
             difficultyStats: results.difficultyStats || {}
         },
-        responses,
-        started_at: record.started_at || null,
-        ended_at: record.ended_at || null,
+        responses: null,
         created_at: record.created_at || new Date().toISOString()
     };
 }
@@ -865,12 +862,38 @@ function openAssessmentDetail(id) {
         return;
     }
 
-    const detailsHtml = buildAssessmentDetail(entry);
-    if (elements.assessmentModalBody) {
-        elements.assessmentModalBody.innerHTML = detailsHtml;
+    const showContent = (data) => {
+        const detailsHtml = buildAssessmentDetail(data);
+        if (elements.assessmentModalBody) {
+            elements.assessmentModalBody.innerHTML = detailsHtml;
+        }
+        elements.assessmentModal.classList.add('open');
+        elements.assessmentModal.setAttribute('aria-hidden', 'false');
+    };
+
+    // se mancano le risposte, carica dettaglio dal server
+    if (!entry.responses) {
+        if (elements.assessmentModalBody) {
+            elements.assessmentModalBody.innerHTML = '<p style="padding:1rem;">Caricamento dettagli...</p>';
+        }
+        elements.assessmentModal.classList.add('open');
+        elements.assessmentModal.setAttribute('aria-hidden', 'false');
+        fetchAssessmentDetail(id)
+            .then(detail => {
+                const merged = { ...entry, ...detail, responses: detail.responses || [] };
+                dashboardState.assessmentIndex.set(String(id), merged);
+                showContent(merged);
+            })
+            .catch(err => {
+                console.error('Errore caricamento dettaglio test:', err);
+                if (elements.assessmentModalBody) {
+                    elements.assessmentModalBody.innerHTML = '<p style="padding:1rem;">Impossibile caricare i dettagli del test.</p>';
+                }
+            });
+        return;
     }
-    elements.assessmentModal.classList.add('open');
-    elements.assessmentModal.setAttribute('aria-hidden', 'false');
+
+    showContent(entry);
 }
 
 function closeAssessmentDetail() {
@@ -886,12 +909,37 @@ function openProgressDetail(id) {
         alert('Impossibile trovare il salvataggio selezionato.');
         return;
     }
-    const detailHtml = buildProgressDetail(entry);
-    if (elements.progressModalBody) {
-        elements.progressModalBody.innerHTML = detailHtml;
+    const showContent = (data) => {
+        const detailHtml = buildProgressDetail(data);
+        if (elements.progressModalBody) {
+            elements.progressModalBody.innerHTML = detailHtml;
+        }
+        elements.progressModal.classList.add('open');
+        elements.progressModal.setAttribute('aria-hidden', 'false');
+    };
+
+    if (!entry.data || Object.keys(entry.data || {}).length === 0) {
+        if (elements.progressModalBody) {
+            elements.progressModalBody.innerHTML = '<p style="padding:1rem;">Caricamento dettagli...</p>';
+        }
+        elements.progressModal.classList.add('open');
+        elements.progressModal.setAttribute('aria-hidden', 'false');
+        fetchProgressDetail(id)
+            .then(detail => {
+                const merged = { ...entry, ...detail };
+                dashboardState.progressIndex.set(String(id), merged);
+                showContent(merged);
+            })
+            .catch(err => {
+                console.error('Errore caricamento dettaglio progress:', err);
+                if (elements.progressModalBody) {
+                    elements.progressModalBody.innerHTML = '<p style="padding:1rem;">Impossibile caricare i dettagli del salvataggio.</p>';
+                }
+            });
+        return;
     }
-    elements.progressModal.classList.add('open');
-    elements.progressModal.setAttribute('aria-hidden', 'false');
+
+    showContent(entry);
 }
 
 function closeProgressDetail() {
@@ -903,8 +951,7 @@ function closeProgressDetail() {
 function buildAssessmentDetail(entry) {
     const result = entry.results || {};
     const docLink = `${STROOP_BASE_URL}?docente=1&doc_class=${encodeURIComponent(entry.classCode.toLowerCase())}&doc_student=${encodeURIComponent((entry.studentCode || '').toLowerCase())}`;
-    const difficultyHtml = Object.entries(result.difficultyStats || {})
-        .map(([level, stats]) => `
+    const difficultyHtml = Object.entries(result.difficultyStats || {}).map(([level, stats]) => `
             <div class="assessment-detail-item">
                 <span>${formatDifficulty(level)}</span>
                 <strong>${(stats.accuracy ?? 0).toFixed(1)}% accurate</strong>
@@ -1024,6 +1071,57 @@ function buildProgressDetail(entry) {
             ${dataPreview}
         </div>
     `;
+}
+
+async function fetchAssessmentDetail(id) {
+    const params = new URLSearchParams({
+        select: 'id,class_code,student_code,participant,results,responses,created_at',
+        id: `eq.${id}`,
+        limit: '1'
+    });
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/stroop_tests?${params.toString()}`, {
+        headers: {
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${SUPABASE_ANON_KEY}`
+        }
+    });
+    if (!response.ok) {
+        const text = await response.text().catch(() => '');
+        throw new Error(`Supabase detail error ${response.status}: ${text}`);
+    }
+    const rows = await response.json();
+    const row = rows?.[0];
+    if (!row) {
+        throw new Error('Dettaglio test non trovato');
+    }
+    const normalized = normalizeAssessmentRecord({ ...row, responses: ensureArray(row.responses) });
+    return normalized;
+}
+
+async function fetchProgressDetail(id) {
+    const params = new URLSearchParams({
+        select: 'id,data',
+        id: `eq.${id}`,
+        limit: '1'
+    });
+    const response = await fetch(`${PROGRESS_ENDPOINT}?${params.toString()}`, {
+        headers: {
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${SUPABASE_ANON_KEY}`
+        }
+    });
+    if (!response.ok) {
+        const text = await response.text().catch(() => '');
+        throw new Error(`Supabase detail error ${response.status}: ${text}`);
+    }
+    const rows = await response.json();
+    const row = rows?.[0];
+    if (!row) {
+        throw new Error('Dettaglio salvataggio non trovato');
+    }
+    return {
+        data: parseProgressData(row.data || {})
+    };
 }
 
 function persistDocenteSession() {
