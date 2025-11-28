@@ -1,721 +1,1705 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta name="page-id" content="laboratorio-collage-autobiografico-01">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Collage Autobiografico - Laboratorio Metodologie Operative</title>
-    <meta name="description" content="Percorso laboratoriale guidato sul collage autobiografico: storia, strumenti, checklist e autovalutazione con report finale.">
-    <link rel="stylesheet" href="../../style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400;FILL@0&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#d78c47",
-                        "background-light": "#f8f7f6",
-                        "background-dark": "#201912",
-                        "surface-light": "#ffffff",
-                        "surface-dark": "#302d29",
-                        "text-light": "#171412",
-                        "text-dark": "#f0ede9",
-                        "muted-light": "#857566",
-                        "muted-dark": "#c9bfb3"
-                    },
-                    fontFamily: {
-                        "display": ["Lexend", "sans-serif"]
-                    },
-                    borderRadius: {
-                        "DEFAULT": "1rem",
-                        "lg": "1.5rem",
-                        "xl": "2rem",
-                        "full": "9999px"
-                    }
-                }
+    <title>Il Collage Autobiografico - Percorso di Apprendimento Interattivo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .progress-container {
+            background: white;
+            padding: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .progress-step {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            background: #e0e0e0;
+            margin: 0 5px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .progress-step.completed {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .progress-step.active {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.5em;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .fase {
+            display: none;
+        }
+
+        .fase.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fase-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .fase-header h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .info-box {
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid;
+        }
+
+        .info-box.blue {
+            background: #e3f2fd;
+            border-color: #2196F3;
+        }
+
+        .info-box.green {
+            background: #e8f5e9;
+            border-color: #4CAF50;
+        }
+
+        .info-box.yellow {
+            background: #fff3e0;
+            border-color: #FF9800;
+        }
+
+        .info-box.purple {
+            background: #f3e5f5;
+            border-color: #9C27B0;
+        }
+
+        .info-box h3 {
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: inherit;
+            margin: 10px 0;
+            min-height: 100px;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .quiz-container {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .quiz-question {
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .quiz-question h4 {
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .quiz-option {
+            padding: 12px;
+            margin: 8px 0;
+            background: #f8f9fa;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .quiz-option:hover {
+            background: #e9ecef;
+            border-color: #667eea;
+        }
+
+        .quiz-option.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .quiz-option.correct {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+
+        .quiz-option.incorrect {
+            background: #f44336;
+            color: white;
+            border-color: #f44336;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct {
+            background: #c8e6c9;
+            color: #2e7d32;
+        }
+
+        .feedback.incorrect {
+            background: #ffcdd2;
+            color: #c62828;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+            flex: 1;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .badge-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .badge {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            opacity: 0.3;
+            transition: all 0.3s;
+            min-width: 150px;
+        }
+
+        .badge.earned {
+            opacity: 1;
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+        }
+
+        .badge-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .badge-name {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .step-indicator {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .step-indicator strong {
+            color: #667eea;
+            font-size: 1.1em;
+        }
+
+        .case-study {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 3px solid #ff6b6b;
+        }
+
+        .case-study h3 {
+            color: #c92a2a;
+            margin-bottom: 15px;
+        }
+
+        .evaluation-grid {
+            display: grid;
+            grid-template-columns: 1fr 4fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .evaluation-item {
+            display: contents;
+        }
+
+        .evaluation-label {
+            font-weight: bold;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .evaluation-scale {
+            display: flex;
+            gap: 10px;
+        }
+
+        .scale-option {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            background: #f8f9fa;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .scale-option:hover {
+            background: #e9ecef;
+        }
+
+        .scale-option.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .final-summary {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .final-summary h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        .points-animation {
+            display: inline-block;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .export-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .checklist {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .checklist-item {
+            padding: 10px;
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .buttons, .progress-container, header {
+                display: none;
+            }
+            .container {
+                box-shadow: none;
             }
         }
-    </script>
-    <style>
-        body { font-family: "Lexend", "Segoe UI", system-ui, -apple-system, sans-serif; }
-        .lab-step { display: none; }
-        .lab-step.active { display: block; }
-        .step-badge { background: rgba(215, 140, 71, 0.15); color: #d78c47; }
-        .report-card { box-shadow: 0 10px 40px rgba(0,0,0,0.06); }
-        .glass { background: rgba(255,255,255,0.85); backdrop-filter: blur(10px); }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            font-family: 'Material Symbols Outlined';
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+            }
+            header h1 {
+                font-size: 1.8em;
+            }
+            .content {
+                padding: 20px;
+            }
+            .progress-step {
+                font-size: 0.7em;
+                padding: 8px 4px;
+            }
+            .buttons {
+                flex-direction: column;
+            }
+            .evaluation-grid {
+                grid-template-columns: 1fr;
+            }
         }
-        .floating-actions {
-            position: fixed;
-            right: 16px;
-            bottom: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            z-index: 9999;
-            align-items: flex-end;
+
+        .celebration {
+            text-align: center;
+            font-size: 4em;
+            animation: bounce 1s infinite;
         }
-        .floating-actions .row {
-            display: flex;
-            gap: 8px;
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
-        .floating-actions button {
-            border: 0;
-            border-radius: 12px;
-            padding: 10px 14px;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+
+        .template-box {
+            background: #fff9e6;
+            border: 2px dashed #ffa500;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
         }
-        .floating-actions .nav-btn {
-            background: #1f2937;
-            color: #fff;
+
+        .template-box h4 {
+            color: #ff8c00;
+            margin-bottom: 15px;
         }
-        .floating-actions .nav-btn[disabled] {
-            opacity: 0.4;
-            cursor: not-allowed;
-            box-shadow: none;
+
+        .example-list {
+            list-style: none;
+            padding-left: 0;
         }
-        .floating-actions .save-btn {
-            background: #0ea5e9;
-            color: #fff;
+
+        .example-list li {
+            padding: 8px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 5px;
+            padding-left: 30px;
+            position: relative;
         }
-        .floating-actions .reset-btn {
-            background: #f97316;
-            color: #fff;
+
+        .example-list li:before {
+            content: "✂️";
+            position: absolute;
+            left: 8px;
         }
     </style>
 </head>
-<body class="bg-background-light text-text-light">
-    <header>
-        <div class="container">
-            <h1>Laboratorio - Collage Autobiografico</h1>
-            <p>Percorso guidato in cinque fasi: storia, sicurezza, realizzazione e autovalutazione</p>
-            <p style="font-size: 0.9rem; margin-top: 0.5rem;">IIS Meucci Mattei - Cagliari (Sede Decimomannu)</p>
-        </div>
-    </header>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎨 Il Collage Autobiografico</h1>
+            <p>Percorso di Apprendimento Interattivo</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Metodologie Operative - Servizi Socio-Sanitari<br>IIS Meucci Mattei - Decimomannu</p>
+        </header>
 
-    <nav>
-        <ul>
-            <li><a href="../../index.html">Home</a></li>
-            <li><a href="../../biennio.html">Biennio</a></li>
-            <li><a href="../../terzo.html">Terzo Anno</a></li>
-            <li><a href="../../quarto.html">Quarto Anno</a></li>
-            <li><a href="../../quinto.html">Quinto Anno</a></li>
-            <li><a href="../../laboratorio.html" class="active">Laboratorio</a></li>
-            <li><a href="../../peer_tutoring.html">Peer Tutoring</a></li>
-            <li><a href="../../compresenza.html">Compresenza Scienze Umane</a></li>
-            <li class="nav-ai"><a href="../../index.html#intelligenza-artificiale">Spazio AI</a></li>
-        </ul>
-    </nav>
-
-    <main class="relative">
-        <div class="absolute inset-0 bg-gradient-to-b from-[#f3e6d8] via-[#f8f7f6] to-white -z-10"></div>
-        <div class="container max-w-6xl py-10">
-            <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between mb-6">
-                <div>
-                    <p class="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold step-badge">Percorso in 5 fasi + report</p>
-                    <h2 class="text-3xl md:text-4xl font-bold mt-3 leading-tight">Collage autobiografico</h2>
-                    <p class="text-base text-muted-light mt-2 max-w-3xl">Avvia l'attivit&agrave; con la classe: quiz rapidi sulla storia del collage, sicurezza degli strumenti, checklist guidata, autovalutazione e report finale.</p>
-                </div>
-                <div class="flex items-center gap-3">
-                    <div class="rounded-full h-3 w-3 bg-emerald-500 animate-pulse"></div>
-                    <p class="text-sm text-muted-light">Salva i progressi in locale</p>
-                </div>
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-step" data-fase="1">1️⃣ Attivazione</div>
+                <div class="progress-step" data-fase="2">2️⃣ Esplorazione</div>
+                <div class="progress-step" data-fase="3">3️⃣ Sperimentazione</div>
+                <div class="progress-step" data-fase="4">4️⃣ Riflessione</div>
+                <div class="progress-step" data-fase="5">5️⃣ Applicazione</div>
+                <div class="progress-step" data-fase="6">6️⃣ Valutazione</div>
             </div>
-
-            <div class="rounded-3xl bg-white/90 shadow-xl ring-1 ring-black/5 overflow-hidden">
-                <!-- Progress indicator -->
-                <div class="flex items-center justify-between px-6 py-4 bg-gradient-to-r from-primary/15 via-white to-primary/5">
-                    <div>
-                        <p class="text-sm text-muted-light">Avanzamento laboratorio</p>
-                        <p class="text-lg font-semibold">Passo <span id="progress-step">1</span> di <span id="progress-total">6</span></p>
-                    </div>
-                    <div class="w-48 h-2 bg-black/10 rounded-full overflow-hidden">
-                        <div id="progress-bar" class="h-full bg-primary transition-all duration-300" style="width: 20%;"></div>
-                    </div>
+            <div class="score-display">
+                Punti Totali: <span id="totalScore">0</span> / 240
+            </div>
+            <div class="badge-container" style="margin-top: 15px;">
+                <div class="badge" id="badge1">
+                    <div class="badge-icon">📜</div>
+                    <div class="badge-name">Esploratore Cubista</div>
                 </div>
-
-                <div class="p-6 space-y-10">
-                    <!-- Step 0: Benvenuto -->
-                    <section class="lab-step active" data-step="0">
-                        <div class="grid md:grid-cols-2 gap-6 items-center">
-                            <div class="space-y-4">
-                                <h3 class="text-2xl font-bold leading-tight">Il Collage: arte, tecnica e s&eacute;</h3>
-                                <p class="text-base text-muted-light">Breve percorso per introdurre e condurre l'esercitazione sul collage autobiografico. Inserisci nome/classe se vuoi personalizzare il report finale.</p>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <label class="flex flex-col gap-2">
-                            <span class="text-sm font-medium text-muted-light">Nome studente</span>
-                            <input id="student-name" class="rounded-xl border border-black/10 px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none" placeholder="Es. Maria" type="text">
-                        </label>
-                        <label class="flex flex-col gap-2">
-                            <span class="text-sm font-medium text-muted-light">Classe / gruppo</span>
-                            <input id="student-class" class="rounded-xl border border-black/10 px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none" placeholder="Es. 3SA" type="text">
-                        </label>
-                    </div>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div class="rounded-2xl bg-black/5 px-4 py-3">
-                            <p class="text-sm font-semibold text-primary mb-2">Come usare questa dispensa</p>
-                            <ul class="text-sm text-muted-light space-y-1 list-disc list-inside">
-                                <li>Teoria: origini, correnti e concetti chiave del collage.</li>
-                                <li>Pratica: materiali, strumenti, varianti e procedura passo-passo.</li>
-                                <li>Educazione: benefici cognitivi, emotivi e sociali.</li>
-                                <li>Autobiografia: racconta chi sei con immagini, parole e oggetti.</li>
-                                <li>Laboratori pronti: idee per classe, gruppo e contesti SSAS.</li>
-                            </ul>
-                        </div>
-                        <div class="rounded-2xl bg-black/5 px-4 py-3">
-                            <p class="text-sm font-semibold text-primary mb-2">Obiettivi formativi</p>
-                            <ul class="text-sm text-muted-light space-y-1 list-disc list-inside">
-                                <li>Usare immagini e colori per comunicare idee ed emozioni.</li>
-                                <li>Organizzare materiali, tempi e fasi di lavoro.</li>
-                                <li>Collaborare e presentare il proprio messaggio visivo.</li>
-                                <li>Allenare manualit&agrave; fine e competenza narrativa.</li>
-                                <li>Progettare mini-laboratori per diversi pubblici (bambini, anziani, gruppo classe).</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <button data-next class="flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-lg font-bold text-white shadow-md hover:opacity-90 transition">
-                        <span class="material-symbols-outlined" aria-hidden="true">play_arrow</span>
-                        Inizia l'attivit&agrave;
-                    </button>
+                <div class="badge" id="badge2">
+                    <div class="badge-icon">✂️</div>
+                    <div class="badge-name">Artista Narrativo</div>
                 </div>
-                            <div class="bg-center bg-cover rounded-2xl shadow-lg overflow-hidden">
-                                <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzU-HZ3Shi2mdsxluF-dIvKCgiuOtfBhrtgDr-tjklZUv42UBz5o1BknU04oDGBsG3EpH21J9ZYyU9F-UqXp91Y2x2RVkXD8Dvok64OB_6j0ow9poDBTHBsQGtb1myjlmw_2ul5XDO2LeyL2XlK9lA_-LVs3qP021gEQqOIdngjuWWD56gFpk8EmMA5Q-xCxs7sInA3hOoAwIDskHqTJ6ue8EX8Gq8IjIzlPqj1lklZtEF3lV43is4_fzVgWD0sqip-GVRiws_Eo0f" alt="Collage artistico in toni caldi">
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Step 1: Quiz storia -->
-                    <section class="lab-step" data-step="1">
-                        <div class="flex items-center justify-between gap-3">
-                            <p class="text-sm font-semibold step-badge px-3 py-1 rounded-full">Fase 1 · Storia e concetti</p>
-                            <button data-prev class="text-sm font-semibold text-primary hover:underline">Indietro</button>
-                        </div>
-                        <div class="space-y-6 mt-4">
-                            <div class="rounded-2xl bg-surface-light shadow-sm border border-black/5 p-5">
-                                <div class="flex items-center justify-between">
-                                    <h3 class="text-xl font-bold">Domanda 1</h3>
-                                    <span class="text-xs font-semibold px-3 py-1 rounded-full bg-primary/15 text-primary">Storia</span>
-                                </div>
-                                <p class="mt-2 text-muted-light">Chi sono considerati i pionieri del collage?</p>
-                                <div class="mt-4 space-y-3" id="quiz1-q1">
-                                    <label class="flex items-center gap-3 rounded-xl border border-black/10 p-3 hover:border-primary/60">
-                                        <input type="radio" name="quiz1-q1" value="picasso" class="h-5 w-5 text-primary focus:ring-primary">
-                                        <span>Pablo Picasso e Georges Braque</span>
-                                    </label>
-                                    <label class="flex items-center gap-3 rounded-xl border border-black/10 p-3 hover:border-primary/60">
-                                        <input type="radio" name="quiz1-q1" value="vangogh" class="h-5 w-5 text-primary focus:ring-primary">
-                                        <span>Vincent van Gogh e Paul Gauguin</span>
-                                    </label>
-                                    <label class="flex items-center gap-3 rounded-xl border border-black/10 p-3 hover:border-primary/60">
-                                        <input type="radio" name="quiz1-q1" value="rinascimento" class="h-5 w-5 text-primary focus:ring-primary">
-                                        <span>Leonardo da Vinci e Michelangelo</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="rounded-2xl bg-surface-light shadow-sm border border-black/5 p-5">
-                                <div class="flex items-center justify-between">
-                                    <h3 class="text-xl font-bold">Domanda 2</h3>
-                                    <span class="text-xs font-semibold px-3 py-1 rounded-full bg-primary/15 text-primary">Movimenti</span>
-                                </div>
-                                <p class="mt-2 text-muted-light">In quale movimento artistico il collage ha avuto un ruolo centrale?</p>
-                                <div class="mt-4 space-y-3" id="quiz1-q2">
-                                    <label class="flex items-center gap-3 rounded-xl border border-black/10 p-3 hover:border-primary/60">
-                                        <input type="radio" name="quiz1-q2" value="rinascimento" class="h-5 w-5 text-primary focus:ring-primary">
-                                        <span>Rinascimento</span>
-                                    </label>
-                                    <label class="flex items-center gap-3 rounded-xl border border-black/10 p-3 hover:border-primary/60">
-                                        <input type="radio" name="quiz1-q2" value="cubismo" class="h-5 w-5 text-primary focus:ring-primary">
-                                        <span>Cubismo</span>
-                                    </label>
-                                    <label class="flex items-center gap-3 rounded-xl border border-black/10 p-3 hover:border-primary/60">
-                                        <input type="radio" name="quiz1-q2" value="impressionismo" class="h-5 w-5 text-primary focus:ring-primary">
-                                        <span>Impressionismo</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="rounded-2xl bg-black/5 p-4">
-                                <p class="text-sm font-semibold text-primary mb-2">Mini mappa teorica</p>
-                                <ul class="text-sm text-muted-light space-y-1 list-disc list-inside">
-                                    <li>Origini (1912): Picasso e Braque introducono i <em>papiers coll&eacute;s</em> nel Cubismo.</li>
-                                    <li>Futurismo e Dadaismo: parole in libert&agrave;, fotomontaggi critici (H&ouml;ch, Schwitters).</li>
-                                    <li>Surrealismo: collage onirici (Max Ernst); Pop e Neo-Dada (Rauschenberg).</li>
-                                    <li>D&eacute;collage e assemblage: Rotella strappa manifesti, il collage diventa materico.</li>
-                                    <li>Collage digitale: software e immagini online per creare nuovi significati.</li>
-                                    <li>Concetti chiave: libert&agrave; dei materiali, stratificazione di sensi, arte-vita intrecciate.</li>
-                                </ul>
-                            </div>
-                            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                                <p id="quiz1-feedback" class="text-sm text-muted-light">Scegli le risposte e clicca Verifica.</p>
-                                <div class="flex gap-3">
-                                    <button data-next class="hidden rounded-full px-5 py-3 font-semibold bg-black/5 text-text-light" id="quiz1-next">Prosegui</button>
-                                    <button id="quiz1-submit" class="rounded-full px-5 py-3 font-bold bg-primary text-white shadow-md hover:opacity-90">Verifica risposte</button>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Step 2: Strumenti -->
-                    <section class="lab-step" data-step="2">
-                        <div class="flex items-center justify-between gap-3">
-                            <p class="text-sm font-semibold step-badge px-3 py-1 rounded-full">Fase 2 · Strumenti e sicurezza</p>
-                            <button data-prev class="text-sm font-semibold text-primary hover:underline">Indietro</button>
-                        </div>
-                        <div class="space-y-6 mt-4">
-                            <div class="rounded-2xl bg-surface-light shadow-sm border border-black/5 p-5">
-                                <p class="text-base font-medium">Quale strumento &egrave; pi&ugrave; sicuro per tagliare la carta?</p>
-                                <div class="mt-3 space-y-3" id="quiz2-q1">
-                                    <label class="flex items-center gap-3 rounded-xl border border-black/10 p-3 hover:border-primary/60">
-                                        <input type="radio" name="quiz2-q1" value="forbici" class="h-5 w-5 text-primary focus:ring-primary">
-                                        <span>Forbici con punta arrotondata</span>
-                                    </label>
-                                    <label class="flex items-center gap-3 rounded-xl border border-black/10 p-3 hover:border-primary/60">
-                                        <input type="radio" name="quiz2-q1" value="taglierino" class="h-5 w-5 text-primary focus:ring-primary">
-                                        <span>Taglierino affilato</span>
-                                    </label>
-                                    <label class="flex items-center gap-3 rounded-xl border border-black/10 p-3 hover:border-primary/60">
-                                        <input type="radio" name="quiz2-q1" value="coltello" class="h-5 w-5 text-primary focus:ring-primary">
-                                        <span>Coltello da cucina</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="rounded-2xl bg-surface-light shadow-sm border border-black/5 p-5">
-                                <p class="text-base font-medium">Cosa dovresti fare prima di usare la colla a caldo?</p>
-                                <div class="mt-3 space-y-3" id="quiz2-q2">
-                                    <label class="flex items-center gap-3 rounded-xl border border-black/10 p-3 hover:border-primary/60">
-                                        <input type="radio" name="quiz2-q2" value="bagnare" class="h-5 w-5 text-primary focus:ring-primary">
-                                        <span>Bagnare la punta con acqua</span>
-                                    </label>
-                                    <label class="flex items-center gap-3 rounded-xl border border-black/10 p-3 hover:border-primary/60">
-                                        <input type="radio" name="quiz2-q2" value="permesso" class="h-5 w-5 text-primary focus:ring-primary">
-                                        <span>Chiedere il permesso a un adulto</span>
-                                    </label>
-                                    <label class="flex items-center gap-3 rounded-xl border border-black/10 p-3 hover:border-primary/60">
-                                        <input type="radio" name="quiz2-q2" value="incustodita" class="h-5 w-5 text-primary focus:ring-primary">
-                                        <span>Collegarla e lasciarla incustodita</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="rounded-2xl bg-black/5 p-4 space-y-3">
-                                <p class="text-sm font-semibold text-primary">Strumenti, varianti e sicurezza</p>
-                                <ul class="text-sm text-muted-light space-y-1 list-disc list-inside">
-                                    <li>Strumenti: forbici con punta arrotondata, taglierino solo se autorizzato, colla stick o vinilica, righello, matita, piano protetto.</li>
-                                    <li>Materiali: ritagli di riviste, foto (meglio copie), carta colorata, tessuti, cartone, materiali di recupero per un approccio sostenibile.</li>
-                                    <li>Varianti: collage cartaceo, materico, fotomontaggio, d&eacute;collage (strappi), collage digitale.</li>
-                                    <li>Procedura breve: tema &rarr; raccolta immagini &rarr; bozzetto &rarr; ritaglio &rarr; prove di composizione &rarr; incollaggio e titolo.</li>
-                                    <li>Sicurezza: lame retrattili, colle atossiche, piano protetto, supervisione docente; con bambini/anziani usa formati grandi e pre-tagli.</li>
-                                </ul>
-                            </div>
-                            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                                <p id="quiz2-feedback" class="text-sm text-muted-light">Verifica per sbloccare la fase successiva.</p>
-                                <div class="flex gap-3">
-                                    <button data-next class="hidden rounded-full px-5 py-3 font-semibold bg-black/5 text-text-light" id="quiz2-next">Vai alla checklist</button>
-                                    <button id="quiz2-submit" class="rounded-full px-5 py-3 font-bold bg-primary text-white shadow-md hover:opacity-90">Verifica risposte</button>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Step 3: Checklist -->
-                    <section class="lab-step" data-step="3">
-                        <div class="flex items-center justify-between gap-3">
-                            <p class="text-sm font-semibold step-badge px-3 py-1 rounded-full">Fase 3 · Checklist operativa</p>
-                            <button data-prev class="text-sm font-semibold text-primary hover:underline">Indietro</button>
-                        </div>
-                        <div class="mt-5 space-y-3">
-                            <p class="text-muted-light">Spunta i passaggi completati nella realizzazione del collage autobiografico.</p>
-                            <div class="grid md:grid-cols-2 gap-3" id="checklist">
-                                <label class="flex gap-3 rounded-xl bg-black/5 px-4 py-3 items-start">
-                                    <input type="checkbox" value="tema" class="mt-1 h-5 w-5 text-primary focus:ring-primary">
-                                    <span>Ho selezionato un tema per il collage</span>
-                                </label>
-                                <label class="flex gap-3 rounded-xl bg-black/5 px-4 py-3 items-start">
-                                    <input type="checkbox" value="materiali" class="mt-1 h-5 w-5 text-primary focus:ring-primary">
-                                    <span>Ho raccolto i materiali (riviste, foto, tessuti...)</span>
-                                </label>
-                                <label class="flex gap-3 rounded-xl bg-black/5 px-4 py-3 items-start">
-                                    <input type="checkbox" value="ritagli" class="mt-1 h-5 w-5 text-primary focus:ring-primary">
-                                    <span>Ho ritagliato immagini e forme necessarie</span>
-                                </label>
-                                <label class="flex gap-3 rounded-xl bg-black/5 px-4 py-3 items-start">
-                                    <input type="checkbox" value="disposizione" class="mt-1 h-5 w-5 text-primary focus:ring-primary">
-                                    <span>Ho disposto gli elementi sul supporto</span>
-                                </label>
-                                <label class="flex gap-3 rounded-xl bg-black/5 px-4 py-3 items-start">
-                                    <input type="checkbox" value="incollato" class="mt-1 h-5 w-5 text-primary focus:ring-primary">
-                                    <span>Ho incollato la composizione finale</span>
-                                </label>
-                                <label class="flex gap-3 rounded-xl bg-black/5 px-4 py-3 items-start">
-                                    <input type="checkbox" value="tocchi" class="mt-1 h-5 w-5 text-primary focus:ring-primary">
-                                    <span>Ho aggiunto tocchi personali e rifiniture</span>
-                                </label>
-                            </div>
-                            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                                <p id="checklist-feedback" class="text-sm text-muted-light">Sommario automatico per il report finale.</p>
-                                <button data-next class="rounded-full px-5 py-3 font-bold bg-primary text-white shadow-md hover:opacity-90">Passa all'autovalutazione</button>
-                            </div>
-                            <div class="rounded-2xl bg-surface-light border border-black/5 p-4">
-                                <p class="text-sm font-semibold text-primary mb-2">Procedura passo-passo (riepilogo)</p>
-                                <ol class="text-sm text-muted-light space-y-1 list-decimal list-inside">
-                                    <li>Ideazione: tema (emozione, identit&agrave;, futuro) e raccolta immagini/testi.</li>
-                                    <li>Preparazione: scegli supporto, proteggi il piano, schizza un bozzetto se utile.</li>
-                                    <li>Ritaglio: prova bordi netti e strappi sfrangiati; prepara opzioni di colore e forme.</li>
-                                    <li>Composizione: disponi senza incollare; cerca equilibrio tra pieni/vuoti e contrasti.</li>
-                                    <li>Incollaggio: parti dallo sfondo, pressa bene, aggiungi dettagli finali e titolo.</li>
-                                    <li>Presentazione facoltativa: racconta scelte e significati; condividi solo ci&ograve; che desideri.</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Step 4: Autovalutazione -->
-                    <section class="lab-step" data-step="4">
-                        <div class="flex items-center justify-between gap-3">
-                            <p class="text-sm font-semibold step-badge px-3 py-1 rounded-full">Fase 4 · Autovalutazione</p>
-                            <button data-prev class="text-sm font-semibold text-primary hover:underline">Indietro</button>
-                        </div>
-                        <div class="grid md:grid-cols-2 gap-5 mt-5">
-                            <div class="rounded-2xl bg-surface-light shadow-sm border border-black/5 p-5 space-y-4">
-                                <p class="font-semibold">Quanto sei soddisfatto/a del tuo collage?</p>
-                                <div class="flex items-center gap-3">
-                                    <span class="text-muted-light text-sm">Poco</span>
-                                    <input id="satisfaction" type="range" min="0" max="100" value="70" class="w-full accent-primary">
-                                    <span class="text-muted-light text-sm">Molto</span>
-                                </div>
-                                <p class="text-sm text-muted-light">Valore attuale: <span id="satisfaction-value" class="font-semibold text-primary">70%</span></p>
-                            </div>
-                            <div class="rounded-2xl bg-surface-light shadow-sm border border-black/5 p-5 space-y-4">
-                                <label class="flex flex-col gap-2">
-                                    <span class="font-semibold">Quale emozione prevale?</span>
-                                    <input id="emotion" type="text" class="rounded-xl border border-black/10 px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none" placeholder="Es. soddisfazione, calma...">
-                                </label>
-                                <label class="flex flex-col gap-2">
-                                    <span class="font-semibold">Quale competenza hai allenato di pi&ugrave;?</span>
-                                    <input id="skill" type="text" class="rounded-xl border border-black/10 px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none" placeholder="Es. creativit&agrave;, organizzazione...">
-                                </label>
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mt-6">
-                            <p class="text-sm text-muted-light">Genera il report con punteggi, checklist e riflessione finale.</p>
-                            <button id="generate-report" class="rounded-full px-5 py-3 font-bold bg-primary text-white shadow-md hover:opacity-90">Genera report finale</button>
-                        </div>
-                        <div class="rounded-2xl bg-black/5 p-4 space-y-2 mt-4">
-                            <p class="text-sm font-semibold text-primary">Domande guida per autovalutazione e peer review</p>
-                            <ul class="text-sm text-muted-light space-y-1 list-disc list-inside">
-                                <li>Cosa volevo comunicare con il mio collage? Quali immagini funzionano meglio?</li>
-                                <li>Quale titolo scelgo e perch&eacute;? Cosa migliorerei la prossima volta?</li>
-                                <li>Peer review: un punto forte del lavoro di un compagno e un suggerimento di sviluppo.</li>
-                                <li>Privacy: puoi coprire volti/dati personali e condividere solo ci&ograve; che desideri.</li>
-                            </ul>
-                        </div>
-                    </section>
-
-                    <!-- Step 5: Report -->
-                    <section class="lab-step" data-step="5">
-                        <div class="flex items-center justify-between gap-3">
-                            <p class="text-sm font-semibold step-badge px-3 py-1 rounded-full">Report finale</p>
-                            <div class="flex gap-2">
-                                <button data-prev class="text-sm font-semibold text-primary hover:underline">Torna indietro</button>
-                                <button id="restart" class="text-sm font-semibold text-muted-light hover:text-primary">Ricomincia</button>
-                            </div>
-                        </div>
-                        <div class="mt-5 space-y-4">
-                            <div class="rounded-2xl bg-gradient-to-r from-primary/15 to-white p-5 report-card">
-                                <h3 class="text-2xl font-bold leading-tight" id="report-title">Ottimo lavoro!</h3>
-                                <p class="text-muted-light mt-1" id="report-subtitle">Ecco il riepilogo della tua esercitazione sul collage.</p>
-                            </div>
-                            <div class="grid md:grid-cols-2 gap-4">
-                                <div class="rounded-2xl bg-surface-light p-5 border border-black/5 report-card">
-                                    <p class="text-sm text-muted-light">Punteggio quiz</p>
-                                    <p class="text-4xl font-bold mt-1" id="report-quiz">0/4</p>
-                                    <p class="text-sm text-muted-light" id="report-quiz-detail">Risposte corrette sui fondamenti e sulla sicurezza.</p>
-                                </div>
-                                <div class="rounded-2xl bg-surface-light p-5 border border-black/5 report-card">
-                                    <p class="text-sm text-muted-light">Checklist collage</p>
-                                    <p class="text-4xl font-bold mt-1" id="report-checklist">0/6</p>
-                                    <p class="text-sm text-muted-light">Passaggi completati nella realizzazione.</p>
-                                </div>
-                                <div class="rounded-2xl bg-surface-light p-5 border border-black/5 report-card">
-                                    <p class="text-sm text-muted-light">Soddisfazione</p>
-                                    <div class="flex items-end gap-3 mt-1">
-                                        <p class="text-4xl font-bold" id="report-satisfaction">0%</p>
-                                        <span class="text-sm text-muted-light">percezione personale</span>
-                                    </div>
-                                </div>
-                                <div class="rounded-2xl bg-surface-light p-5 border border-black/5 report-card">
-                                    <p class="text-sm text-muted-light">Competenza chiave</p>
-                                    <p class="text-xl font-semibold mt-1" id="report-skill">Creativit&agrave;</p>
-                                    <p class="text-sm text-muted-light">Indicata durante l'autovalutazione.</p>
-                                </div>
-                            </div>
-                            <div class="rounded-2xl bg-surface-light p-5 border border-black/5 report-card">
-                                <p class="text-sm text-muted-light">Emozione prevalente</p>
-                                <p class="text-xl font-semibold mt-1" id="report-emotion">—</p>
-                                <p class="text-sm text-muted-light mt-1">Annota come ti sei sentito/a durante l'attivit&agrave;.</p>
-                            </div>
-                            <div class="rounded-2xl bg-surface-light p-5 border border-black/5 report-card space-y-2">
-                                <p class="text-sm font-semibold text-primary">Criteri di valutazione sintetici</p>
-                                <ul class="text-sm text-muted-light space-y-1 list-disc list-inside">
-                                    <li>Creativit&agrave; e originalit&agrave; degli accostamenti.</li>
-                                    <li>Composizione ed equilibrio (spazi, ritmo visivo, contrasti).</li>
-                                    <li>Tecnica e cura (ritagli, incollaggio, integrazione di materiali).</li>
-                                    <li>Pertinenza al tema e coerenza del messaggio.</li>
-                                    <li>Espressivit&agrave; e riflessione nel racconto orale o scritto.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </section>
+                <div class="badge" id="badge3">
+                    <div class="badge-icon">💡</div>
+                    <div class="badge-name">Facilitatore Creativo</div>
+                </div>
+                <div class="badge" id="badge4">
+                    <div class="badge-icon">🏆</div>
+                    <div class="badge-name">Maestro del Collage</div>
                 </div>
             </div>
         </div>
-    </main>
 
-    <div class="floating-actions" aria-label="Azioni rapide">
-        <div class="row">
-            <button type="button" class="nav-btn" id="quickPrev">← Indietro</button>
-            <button type="button" class="nav-btn" id="quickNext">Avanti →</button>
-        </div>
-        <div class="row">
-            <button type="button" class="save-btn" data-save-progress id="saveProgressBtn">💾 Salva progressi</button>
-            <button type="button" class="reset-btn" id="resetStudent">🔄 Cambia studente</button>
+        <div class="content">
+            <!-- FASE 1: ATTIVAZIONE -->
+            <div class="fase active" id="fase1">
+                <div class="fase-header">
+                    <h2>🎯 FASE 1: Attivazione delle Conoscenze</h2>
+                    <p>Scopriamo insieme cosa già sai sul collage e l'autobiografia visiva</p>
+                </div>
+
+                <div class="info-box blue">
+                    <h3>📝 Cosa sai già sul collage?</h3>
+                    <p>Il collage è molto più di un semplice "incollare immagini". È una tecnica artistica nata nel 1912 con Picasso e Braque, ed è diventata uno strumento potente per raccontare storie, esprimere emozioni e perfino aiutare le persone a conoscere se stesse.</p>
+                    <p><strong>Prima di iniziare, vogliamo sapere cosa TU già conosci!</strong></p>
+                </div>
+
+                <h3 style="margin-top: 30px;">✍️ Scrivi liberamente...</h3>
+                <textarea id="priorKnowledge" placeholder="Cosa sai già sul collage? Hai mai fatto collage a scuola o a casa? Cosa ti viene in mente quando pensi a 'raccontare te stesso con le immagini'? Non ci sono risposte giuste o sbagliate, scrivi tutto quello che ti viene in mente..."></textarea>
+
+                <div class="info-box green" style="margin-top: 30px;">
+                    <h3>🖼️ Guarda questa immagine storica</h3>
+                    <p><strong>Hannah Höch - Fotomontaggio Dadaista (1920)</strong></p>
+                    <p>Hannah Höch è stata una pioniera del collage. Negli anni '20 del Novecento, ritagliava fotografie da riviste e giornali per creare immagini provocatorie che criticavano i ruoli femminili imposti dalla società e la politica del suo tempo.</p>
+                    <p>🎨 <em>Immaginala: ritagli di volti, corpi assemblati in modo surreale, parole mescolate a figure... Un modo di "fare arte" che rompeva tutte le regole!</em></p>
+                </div>
+
+                <div class="info-box yellow" style="margin-top: 20px;">
+                    <h3>💭 Domanda guida per te</h3>
+                    <p><strong>Se dovessi raccontare chi sei SENZA usare parole, ma solo con immagini ritagliate da riviste, fotografie e oggetti... quali sceglieresti?</strong></p>
+                    <textarea id="guidingQuestion" placeholder="Pensa a immagini che ti rappresentano: un paesaggio che ami, un colore che ti descrive, una foto di quando eri piccolo/a, un oggetto simbolico... Scrivi cosa useresti e perché..."></textarea>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-primary" onclick="completeFase1()">Avanti alla Fase 2 ➡️</button>
+                </div>
+            </div>
+
+            <!-- FASE 2: ESPLORAZIONE -->
+            <div class="fase" id="fase2">
+                <div class="fase-header">
+                    <h2>📚 FASE 2: Esplorazione Teorica e Tecnica</h2>
+                    <p>Impariamo la storia, le tecniche e le potenzialità del collage</p>
+                </div>
+
+                <div class="info-box blue">
+                    <h3>🔵 Storia del Collage: Un Viaggio nel Tempo</h3>
+                    <p><strong>1912 - Cubismo:</strong> Pablo Picasso e Georges Braque incollano per la prima volta pezzi di giornale sulle loro tele. Nasce il "papier collé". Rivoluzione: l'arte non deve più solo imitare la realtà, può INCLUDERE pezzi di realtà!</p>
+                    <p><strong>1915-1922 - Dadaismo:</strong> Hannah Höch, Kurt Schwitters e altri artisti dada usano il collage per protestare, ironizzare, criticare la società. Schwitters crea i "Merzbild" con biglietti del tram, etichette, materiali trovati per strada.</p>
+                    <p><strong>Anni '20-'30 - Surrealismo:</strong> Max Ernst combina illustrazioni antiche in collage onirici che sembrano sogni o incubi.</p>
+                    <p><strong>Anni '50-'60 - Pop Art:</strong> Richard Hamilton e Robert Rauschenberg usano ritagli pubblicitari per commentare la società dei consumi.</p>
+                    <p><strong>Oggi:</strong> Il collage è diventato digitale! Ma la sua essenza resta: mescolare frammenti per creare nuovi significati.</p>
+                </div>
+
+                <div class="info-box green">
+                    <h3>🟢 Materiali e Strumenti: Cosa Serve?</h3>
+                    <p><strong>Strumenti base:</strong></p>
+                    <ul class="example-list">
+                        <li>Forbici e taglierino (con lama protetta!)</li>
+                        <li>Colla stick (per carta leggera) o vinilica (per materiali pesanti)</li>
+                        <li>Supporto rigido: cartoncino A3, cartone, compensato</li>
+                        <li>Matita e righello per tracciare</li>
+                    </ul>
+                    <p><strong>Materiali creativi:</strong> Riviste, giornali, fotografie personali (SEMPRE fotocopie, mai originali!), carta colorata, tessuti, nastri, foglie secche, sabbia... La creatività non ha limiti!</p>
+                    <p><strong>Varianti tecniche:</strong> Collage cartaceo, collage materico (con materiali spessi), fotomontaggio, décollage (strappare strati), collage digitale.</p>
+                </div>
+
+                <div class="info-box purple">
+                    <h3>🟣 Il Collage in Arteterapia: Aiutare con le Immagini</h3>
+                    <p>Secondo l'arteterapeuta <strong>Silvia Adiutori</strong>, il collage è un "mediatore artistico" potentissimo perché:</p>
+                    <p><strong>Con gli anziani:</strong> Stimola la memoria autobiografica. Ritagliare foto d'epoca li aiuta a ricordare e raccontare la loro vita.</p>
+                    <p><strong>Con persone con disabilità:</strong> È accessibile anche a chi ha difficoltà motorie. Non serve saper disegnare!</p>
+                    <p><strong>Con adolescenti in difficoltà:</strong> Permette di esprimere conflitti interiori difficili da dire a parole.</p>
+                    <p><strong>In contesti interculturali:</strong> Quando mancano le parole per comunicare (lingue diverse), le immagini diventano un linguaggio universale.</p>
+                </div>
+
+                <h3 style="margin-top: 30px;">✅ QUIZ: Verifica la tua comprensione</h3>
+                <div class="quiz-container">
+                    <div class="quiz-question">
+                        <h4>1. In che anno è nato il collage e chi lo ha inventato?</h4>
+                        <div class="quiz-option" data-quiz="q1" data-answer="a">A) 1912, Pablo Picasso e Georges Braque</div>
+                        <div class="quiz-option" data-quiz="q1" data-answer="b">B) 1920, Hannah Höch</div>
+                        <div class="quiz-option" data-quiz="q1" data-answer="c">C) 1950, Andy Warhol</div>
+                        <div class="quiz-option" data-quiz="q1" data-answer="d">D) 1990, con i computer</div>
+                        <div class="feedback" id="feedback-q1"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>2. Cosa faceva Kurt Schwitters nei suoi "Merzbild"?</h4>
+                        <div class="quiz-option" data-quiz="q2" data-answer="a">A) Dipingeva solo con colori puri</div>
+                        <div class="quiz-option" data-quiz="q2" data-answer="b">B) Assemblava biglietti, etichette e materiali di recupero trovati per strada</div>
+                        <div class="quiz-option" data-quiz="q2" data-answer="c">C) Faceva solo fotografie</div>
+                        <div class="quiz-option" data-quiz="q2" data-answer="d">D) Scolpiva statue di marmo</div>
+                        <div class="feedback" id="feedback-q2"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>3. Quale tipo di colla è meglio per carta leggera?</h4>
+                        <div class="quiz-option" data-quiz="q3" data-answer="a">A) Colla a caldo</div>
+                        <div class="quiz-option" data-quiz="q3" data-answer="b">B) Colla stick</div>
+                        <div class="quiz-option" data-quiz="q3" data-answer="c">C) Colla per legno</div>
+                        <div class="quiz-option" data-quiz="q3" data-answer="d">D) Scotch</div>
+                        <div class="feedback" id="feedback-q3"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>4. Secondo l'arteterapia, perché il collage è utile con persone anziane?</h4>
+                        <div class="quiz-option" data-quiz="q4" data-answer="a">A) Perché è un'attività che richiede molta forza fisica</div>
+                        <div class="quiz-option" data-quiz="q4" data-answer="b">B) Perché stimola la memoria autobiografica e la manualità</div>
+                        <div class="quiz-option" data-quiz="q4" data-answer="c">C) Perché è molto costosa</div>
+                        <div class="quiz-option" data-quiz="q4" data-answer="d">D) Perché serve saper dipingere bene</div>
+                        <div class="feedback" id="feedback-q4"></div>
+                    </div>
+                </div>
+
+                <!-- SOTTOFASE 2.5 -->
+                <div class="info-box yellow" style="margin-top: 30px;">
+                    <h3>⚠️ SOTTOFASE 2.5: Privacy e Consenso</h3>
+                    <p><strong>Quando usi fotografie personali nel collage autobiografico, devi rispettare alcune regole importanti:</strong></p>
+                    <p>✅ Usa sempre FOTOCOPIE delle foto, mai gli originali (potrebbero rovinarsi!)</p>
+                    <p>✅ Se ci sono altre persone nelle foto, chiedi il loro permesso prima di usarle</p>
+                    <p>✅ Puoi coprire i volti con simboli o altri ritagli se vuoi mantenere la privacy</p>
+                    <p>✅ La condivisione del tuo collage con la classe è SEMPRE facoltativa. Nessuno ti obbliga a mostrare cose personali!</p>
+                    <p>✅ Se durante il lavoro emergono ricordi o emozioni forti, puoi chiedere aiuto al docente o al counselor</p>
+                    <p>✅ Tutto ciò che condividi in classe resta riservato. Rispetto reciproco!</p>
+                    <textarea placeholder="Scrivi qui: Cosa ti fa sentire a tuo agio quando condividi qualcosa di personale? Ci sono aspetti della tua vita che preferiresti non condividere? È importante saperlo..."></textarea>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-secondary" onclick="goToFase(1)">⬅️ Indietro</button>
+                    <button class="btn-primary" onclick="completeFase2()">Avanti alla Fase 3 ➡️</button>
+                </div>
+            </div>
+
+            <!-- FASE 3: SPERIMENTAZIONE -->
+            <div class="fase" id="fase3">
+                <div class="fase-header">
+                    <h2>🎨 FASE 3: Sperimentazione Pratica</h2>
+                    <p>Ora creiamo il tuo primo collage autobiografico!</p>
+                </div>
+
+                <div class="template-box">
+                    <h4>📐 PROCEDURA GUIDATA: I 6 Step del Collage</h4>
+                    <p>Segui questi passaggi per creare il tuo autoritratto in collage:</p>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="step1">
+                            <label for="step1"><strong>STEP 1 - Ideazione:</strong> Pensa a 3 caratteristiche che ti rappresentano (es: "curioso", "creativo", "timido", "sportivo"...)</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="step2">
+                            <label for="step2"><strong>STEP 2 - Raccolta materiali:</strong> Cerca in riviste/giornali immagini che rappresentano queste caratteristiche</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="step3">
+                            <label for="step3"><strong>STEP 3 - Ritaglio:</strong> Ritaglia con cura le immagini scelte (forme precise O bordi strappati per effetto artistico)</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="step4">
+                            <label for="step4"><strong>STEP 4 - Composizione:</strong> Disponi i ritagli sul supporto SENZA incollare. Prova diverse combinazioni!</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="step5">
+                            <label for="step5"><strong>STEP 5 - Incollaggio:</strong> Quando sei soddisfatto/a, incolla partendo dallo sfondo verso il primo piano</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="step6">
+                            <label for="step6"><strong>STEP 6 - Titolo:</strong> Dai un titolo al tuo collage che esprima il suo significato</label>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 30px;">✍️ Progetta il tuo collage "Autoritratto"</h3>
+                <div class="info-box blue">
+                    <h3>Caratteristiche che mi rappresentano</h3>
+                    <p>Scrivi 3 caratteristiche della tua personalità:</p>
+                    <textarea id="characteristics" placeholder="Es: 1) Sono una persona curiosa - 2) Amo la musica - 3) Mi piace aiutare gli altri..."></textarea>
+                </div>
+
+                <div class="info-box green">
+                    <h3>Materiali e immagini che userò</h3>
+                    <p>Descrivi quali immagini cercherai per rappresentare queste caratteristiche:</p>
+                    <textarea id="materials" placeholder="Es: Per 'curioso' cercherò immagini di telescopi, libri, mappe... Per 'musica' userò note musicali, strumenti... Per 'aiutare' immagini di mani che si stringono..."></textarea>
+                </div>
+
+                <div class="info-box purple">
+                    <h3>Composizione: come organizzerò il mio collage?</h3>
+                    <p>Immagina come disporrai gli elementi sul foglio:</p>
+                    <textarea id="composition" placeholder="Es: Metterò al centro una grande immagine che mi rappresenta, intorno più piccole per i dettagli. Userò colori caldi a sinistra e freddi a destra..."></textarea>
+                </div>
+
+                <div class="info-box yellow">
+                    <h3>Titolo del mio collage</h3>
+                    <p>Scegli un titolo che racconti l'essenza del tuo autoritratto:</p>
+                    <textarea id="title" placeholder="Es: 'Frammenti di me', 'Il mio mosaico interiore', 'Chi sono oggi'..."></textarea>
+                </div>
+
+                <!-- SOTTOFASE 3.5 -->
+                <div style="margin-top: 40px; border-top: 3px dashed #764ba2; padding-top: 30px;">
+                    <h3>💪 SOTTOFASE 3.5: Collage Autobiografico "Chi sono / Chi sarò"</h3>
+                    <div class="info-box purple">
+                        <h3>🔮 Versione Avanzata: Passato-Presente-Futuro</h3>
+                        <p>Ora che hai compreso la tecnica base, proviamo un collage più complesso che racconta la tua <strong>evoluzione nel tempo</strong>.</p>
+                        <p><strong>Istruzioni:</strong> Immagina di dividere il tuo foglio in due metà (o tre sezioni):</p>
+                        <p>📍 <strong>CHI SONO OGGI:</strong> Foto, immagini, parole che descrivono la tua vita attuale</p>
+                        <p>🚀 <strong>CHI SARÒ TRA 10 ANNI:</strong> Aspirazioni, sogni professionali, ruoli che desideri (es: operatore socio-sanitario, infermiere, educatore...)</p>
+                    </div>
+
+                    <h4>Riflessione guidata:</h4>
+                    <p><strong>Chi sono oggi?</strong></p>
+                    <textarea placeholder="Descrivi te stesso/a adesso: interessi, relazioni, sfide, passioni..."></textarea>
+
+                    <p><strong>Chi vorrei essere tra 10 anni?</strong></p>
+                    <textarea placeholder="Immagina il tuo futuro: che lavoro fai? Dove vivi? Che competenze hai sviluppato? Quali valori guidano le tue scelte?"></textarea>
+
+                    <p><strong>Quali immagini collegano presente e futuro?</strong></p>
+                    <textarea placeholder="Pensa a simboli di transizione: ponti, strade, scale, mani che si passano oggetti, metamorfosi (bruco-farfalla)..."></textarea>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-secondary" onclick="goToFase(2)">⬅️ Indietro</button>
+                    <button class="btn-primary" onclick="completeFase3()">Avanti alla Fase 4 ➡️</button>
+                </div>
+            </div>
+
+            <!-- FASE 4: RIFLESSIONE -->
+            <div class="fase" id="fase4">
+                <div class="fase-header">
+                    <h2>🧠 FASE 4: Riflessione sull'Apprendimento</h2>
+                    <p>Fermiamoci a pensare a quello che abbiamo imparato e sperimentato</p>
+                </div>
+
+                <div class="info-box blue">
+                    <h3>💭 Metacognizione: Rifletti sul tuo percorso</h3>
+                    <p>La riflessione è fondamentale per fissare gli apprendimenti. Rispondi con sincerità a queste domande:</p>
+                </div>
+
+                <h3 style="margin-top: 25px;">1️⃣ Cosa ho imparato sul collage?</h3>
+                <textarea id="learned" placeholder="Scrivi cosa hai scoperto sulla storia del collage, sulle tecniche, sulle sue applicazioni in ambito socio-sanitario..."></textarea>
+
+                <h3 style="margin-top: 25px;">2️⃣ Come è cambiata la mia comprensione?</h3>
+                <div class="info-box green">
+                    <p><strong>Confronta con la Fase 1!</strong> Rileggi cosa avevi scritto all'inizio nel campo "Cosa sai già sul collage?"</p>
+                    <p id="phase1Recap" style="background: white; padding: 15px; border-radius: 5px; margin-top: 10px; font-style: italic;"></p>
+                </div>
+                <textarea id="understanding" placeholder="Prima pensavo che il collage fosse solo... Ora invece ho capito che... La mia idea è cambiata perché..."></textarea>
+
+                <h3 style="margin-top: 25px;">3️⃣ Quali difficoltà ho incontrato?</h3>
+                <textarea id="difficulties" placeholder="Cosa è stato più difficile? Scegliere le immagini? Organizzare la composizione? Riflettere su me stesso/a? Come ho superato queste difficoltà?"></textarea>
+
+                <h3 style="margin-top: 25px;">4️⃣ Cosa ho scoperto su me stesso/a?</h3>
+                <div class="info-box purple">
+                    <p>Il collage autobiografico è uno specchio. Cosa hai visto riflesso?</p>
+                </div>
+                <textarea id="selfDiscovery" placeholder="Lavorando al mio collage ho capito che io... Mi sono sorpreso/a scoprendo... Le immagini che ho scelto rivelano che..."></textarea>
+
+                <h3 style="margin-top: 25px;">5️⃣ Dove posso applicare quello che ho imparato?</h3>
+                <textarea id="application" placeholder="Pensa a situazioni concrete nel tuo futuro professionale: con quali utenti useresti il collage? In quale contesto (RSA, centro infanzia, laboratorio territoriale)? Per quale scopo?"></textarea>
+
+                <div class="info-box yellow" style="margin-top: 30px;">
+                    <h3>🎯 Sintesi riflessiva</h3>
+                    <p>Riassumi in 3-5 righe l'esperienza complessiva di questo percorso sul collage:</p>
+                    <textarea id="synthesis" placeholder="Questo percorso mi ha insegnato che... La cosa più importante che porto con me è... Userò il collage nel mio futuro per..."></textarea>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-secondary" onclick="goToFase(3)">⬅️ Indietro</button>
+                    <button class="btn-primary" onclick="completeFase4()">Avanti alla Fase 5 ➡️</button>
+                </div>
+            </div>
+
+            <!-- FASE 5: APPLICAZIONE PROFESSIONALE -->
+            <div class="fase" id="fase5">
+                <div class="fase-header">
+                    <h2>🏥 FASE 5: Applicazione al Contesto Professionale</h2>
+                    <p>Metti in pratica le competenze acquisite in un caso reale</p>
+                </div>
+
+                <div class="case-study">
+                    <h3>📋 CASO STUDIO: Signora Angela</h3>
+                    <p><strong>Contesto:</strong> RSA "Villa Serena"</p>
+                    <p><strong>Utente:</strong> Angela, 78 anni, vedova da 2 anni</p>
+                    <p><strong>Situazione:</strong> Angela è ospite della RSA da 6 mesi. Da quando è arrivata si è progressivamente isolata: non partecipa alle attività ricreative, mangia in camera, evita le conversazioni con gli altri ospiti. Il personale ha notato che passa molto tempo a guardare vecchie fotografie che tiene sul comodino.</p>
+                    <p><strong>Risorsa disponibile:</strong> La figlia di Angela ha portato un album di famiglia con foto degli anni '50-'70: il matrimonio, le vacanze al mare, le feste di paese, i nipoti da piccoli.</p>
+                    <p><strong>Obiettivo educativo:</strong> Favorire l'espressione emotiva, stimolare la memoria autobiografica, creare occasioni di socializzazione con altri ospiti.</p>
+                </div>
+
+                <h3 style="margin-top: 30px;">🎯 IL TUO COMPITO (articolato in 3 parti):</h3>
+
+                <div class="info-box blue">
+                    <h3>PARTE 1: Progettazione del laboratorio</h3>
+                    <p><strong>Progetta un laboratorio di collage autobiografico per Angela.</strong> Descrivi:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Titolo e durata del laboratorio</li>
+                        <li>Obiettivi specifici (cosa vuoi ottenere?)</li>
+                        <li>Materiali che userai (ricorda: Angela ha 78 anni!)</li>
+                        <li>Fasi dell'attività passo per passo</li>
+                    </ul>
+                    <textarea id="labDesign" placeholder="PROGETTAZIONE LABORATORIO:
+Titolo: ...
+Durata: ...
+Obiettivi: 1) ... 2) ... 3) ...
+Materiali adatti ad Angela: ...
+Fasi: 1) Accoglienza e presentazione ... 2) ... 3) ..."></textarea>
+                </div>
+
+                <div class="info-box green">
+                    <h3>PARTE 2: Gestione aspetti emotivi e relazionali</h3>
+                    <p><strong>Le fotografie possono risvegliare ricordi dolorosi</strong> (morte del marito, lontananza dai figli). Come gestiresti la situazione se:</p>
+                    <p>• Angela comincia a piangere guardando le foto del marito?</p>
+                    <p>• Angela si chiude e dice "non voglio fare niente, lasciatemi in pace"?</p>
+                    <p>• Angela si entusiasma e vuole raccontare tutta la sua vita?</p>
+                    <textarea id="emotionalManagement" placeholder="Gestione emotiva:
+Se Angela piange: ...
+Se si rifiuta di partecipare: ...
+Se si entusiasma molto: ...
+Tecniche di ascolto attivo che userò: ..."></textarea>
+                </div>
+
+                <div class="info-box purple">
+                    <h3>PARTE 3: Coinvolgimento altri ospiti e socializzazione</h3>
+                    <p><strong>Il collage può diventare un'occasione di socializzazione.</strong> Come faresti per:</p>
+                    <p>• Invitare altri ospiti a partecipare?</p>
+                    <p>• Creare momenti di condivisione tra Angela e gli altri?</p>
+                    <p>• Valorizzare le storie di ciascuno rispettando chi non vuole condividere?</p>
+                    <textarea id="socialization" placeholder="Strategie di socializzazione:
+Invito altri ospiti: ...
+Momenti di condivisione: ...
+Esposizione finale dei collage: ...
+Rispetto della privacy: ..."></textarea>
+                </div>
+
+                <div class="info-box yellow">
+                    <h3>⚖️ Elementi da considerare (integra nella tua risposta):</h3>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="consider1">
+                            <label for="consider1"><strong>Aspetti normativi:</strong> Privacy delle foto, consenso all'uso delle immagini</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="consider2">
+                            <label for="consider2"><strong>Dimensione etica:</strong> Dignità della persona, autodeterminazione, non forzare la partecipazione</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="consider3">
+                            <label for="consider3"><strong>Relazione con l'utente:</strong> Empatia, ascolto attivo, validazione emotiva</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="consider4">
+                            <label for="consider4"><strong>Lavoro in équipe:</strong> Coordinamento con OSS, infermieri, psicologo, coinvolgimento famiglia</label>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 30px;">📝 Riflessione finale sul caso</h3>
+                <textarea id="caseReflection" placeholder="Cosa rende il collage uno strumento adatto per Angela? Quali sono i rischi da prevenire? Quali i benefici attesi? Come valuteresti il successo di questo laboratorio?"></textarea>
+
+                <div class="buttons">
+                    <button class="btn-secondary" onclick="goToFase(4)">⬅️ Indietro</button>
+                    <button class="btn-primary" onclick="completeFase5()">Avanti alla Fase 6 ➡️</button>
+                </div>
+            </div>
+
+            <!-- FASE 6: VALUTAZIONE -->
+            <div class="fase" id="fase6">
+                <div class="fase-header">
+                    <h2>📊 FASE 6: Valutazione e Piano d'Azione</h2>
+                    <p>Valutiamo insieme le competenze acquisite e pianifichiamo i prossimi passi</p>
+                </div>
+
+                <h3>🎯 AUTOVALUTAZIONE COMPETENZE</h3>
+                <p>Valuta il tuo livello di competenza attuale su scala da 1 (principiante) a 5 (esperto):</p>
+
+                <div class="evaluation-grid">
+                    <div class="evaluation-item">
+                        <div class="evaluation-label">1. Competenza Espressiva<br><small>Usare immagini per comunicare</small></div>
+                        <div class="evaluation-scale">
+                            <div class="scale-option" data-skill="skill1" data-value="1">1</div>
+                            <div class="scale-option" data-skill="skill1" data-value="2">2</div>
+                            <div class="scale-option" data-skill="skill1" data-value="3">3</div>
+                            <div class="scale-option" data-skill="skill1" data-value="4">4</div>
+                            <div class="scale-option" data-skill="skill1" data-value="5">5</div>
+                        </div>
+                    </div>
+
+                    <div class="evaluation-item">
+                        <div class="evaluation-label">2. Competenza Tecnica<br><small>Conoscere materiali e procedure</small></div>
+                        <div class="evaluation-scale">
+                            <div class="scale-option" data-skill="skill2" data-value="1">1</div>
+                            <div class="scale-option" data-skill="skill2" data-value="2">2</div>
+                            <div class="scale-option" data-skill="skill2" data-value="3">3</div>
+                            <div class="scale-option" data-skill="skill2" data-value="4">4</div>
+                            <div class="scale-option" data-skill="skill2" data-value="5">5</div>
+                        </div>
+                    </div>
+
+                    <div class="evaluation-item">
+                        <div class="evaluation-label">3. Competenza Relazionale<br><small>Gestire emozioni e condivisione</small></div>
+                        <div class="evaluation-scale">
+                            <div class="scale-option" data-skill="skill3" data-value="1">1</div>
+                            <div class="scale-option" data-skill="skill3" data-value="2">2</div>
+                            <div class="scale-option" data-skill="skill3" data-value="3">3</div>
+                            <div class="scale-option" data-skill="skill3" data-value="4">4</div>
+                            <div class="scale-option" data-skill="skill3" data-value="5">5</div>
+                        </div>
+                    </div>
+
+                    <div class="evaluation-item">
+                        <div class="evaluation-label">4. Competenza Progettuale<br><small>Progettare laboratori per utenti</small></div>
+                        <div class="evaluation-scale">
+                            <div class="scale-option" data-skill="skill4" data-value="1">1</div>
+                            <div class="scale-option" data-skill="skill4" data-value="2">2</div>
+                            <div class="scale-option" data-skill="skill4" data-value="3">3</div>
+                            <div class="scale-option" data-skill="skill4" data-value="4">4</div>
+                            <div class="scale-option" data-skill="skill4" data-value="5">5</div>
+                        </div>
+                    </div>
+
+                    <div class="evaluation-item">
+                        <div class="evaluation-label">5. Competenza Riflessiva<br><small>Consapevolezza metacognitiva</small></div>
+                        <div class="evaluation-scale">
+                            <div class="scale-option" data-skill="skill5" data-value="1">1</div>
+                            <div class="scale-option" data-skill="skill5" data-value="2">2</div>
+                            <div class="scale-option" data-skill="skill5" data-value="3">3</div>
+                            <div class="scale-option" data-skill="skill5" data-value="4">4</div>
+                            <div class="scale-option" data-skill="skill5" data-value="5">5</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 40px;">✅ QUIZ FINALE RICAPITOLATIVO</h3>
+                <div class="quiz-container">
+                    <div class="quiz-question">
+                        <h4>1. Qual è la differenza principale tra collage e pittura tradizionale?</h4>
+                        <div class="quiz-option" data-quiz="final1" data-answer="b">A) Il collage usa solo colori</div>
+                        <div class="quiz-option" data-quiz="final1" data-answer="b">B) Il collage incorpora frammenti di realtà (ritagli, foto, oggetti) invece di imitarla</div>
+                        <div class="quiz-option" data-quiz="final1" data-answer="c">C) Il collage è più difficile</div>
+                        <div class="quiz-option" data-quiz="final1" data-answer="d">D) Non c'è differenza</div>
+                        <div class="feedback" id="feedback-final1"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>2. Hannah Höch usava il collage per:</h4>
+                        <div class="quiz-option" data-quiz="final2" data-answer="a">A) Criticare i ruoli femminili imposti e fare satira politica</div>
+                        <div class="quiz-option" data-quiz="final2" data-answer="b">B) Decorare case</div>
+                        <div class="quiz-option" data-quiz="final2" data-answer="c">C) Vendere pubblicità</div>
+                        <div class="quiz-option" data-quiz="final2" data-answer="d">D) Fare ritratti realistici</div>
+                        <div class="feedback" id="feedback-final2"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>3. Quale materiale NON è adatto per un collage con anziani in RSA?</h4>
+                        <div class="quiz-option" data-quiz="final3" data-answer="d">A) Fotografie vintage grandi e nitide</div>
+                        <div class="quiz-option" data-quiz="final3" data-answer="b">B) Ritagli colorati di grandi dimensioni</div>
+                        <div class="quiz-option" data-quiz="final3" data-answer="c">C) Colla stick atossica</div>
+                        <div class="quiz-option" data-quiz="final3" data-answer="d">D) Taglierini professionali con lame scoperte</div>
+                        <div class="feedback" id="feedback-final3"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>4. Il "décollage" è:</h4>
+                        <div class="quiz-option" data-quiz="final4" data-answer="a">A) Una tecnica di pittura</div>
+                        <div class="quiz-option" data-quiz="final4" data-answer="b">B) La tecnica di strappare strati di manifesti sovrapposti</div>
+                        <div class="quiz-option" data-quiz="final4" data-answer="c">C) Un tipo di colla</div>
+                        <div class="quiz-option" data-quiz="final4" data-answer="d">D) Un artista francese</div>
+                        <div class="feedback" id="feedback-final4"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>5. Perché il collage è uno strumento utile in contesti interculturali?</h4>
+                        <div class="quiz-option" data-quiz="final5" data-answer="c">A) Perché è economico</div>
+                        <div class="quiz-option" data-quiz="final5" data-answer="b">B) Perché è facile</div>
+                        <div class="quiz-option" data-quiz="final5" data-answer="c">C) Perché le immagini sono un linguaggio universale quando mancano parole comuni</div>
+                        <div class="quiz-option" data-quiz="final5" data-answer="d">D) Perché usa molti colori</div>
+                        <div class="feedback" id="feedback-final5"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>6. Quale regola di privacy devi rispettare nel collage autobiografico?</h4>
+                        <div class="quiz-option" data-quiz="final6" data-answer="b">A) Puoi usare qualsiasi foto trovata online</div>
+                        <div class="quiz-option" data-quiz="final6" data-answer="b">B) Usa fotocopie di foto personali e chiedi consenso alle persone ritratte</div>
+                        <div class="quiz-option" data-quiz="final6" data-answer="c">C) Devi sempre mostrare il tuo collage a tutti</div>
+                        <div class="quiz-option" data-quiz="final6" data-answer="d">D) Non importa, è solo arte</div>
+                        <div class="feedback" id="feedback-final6"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>7. I "Merzbild" di Kurt Schwitters erano fatti con:</h4>
+                        <div class="quiz-option" data-quiz="final7" data-answer="a">A) Materiali di recupero: biglietti, etichette, oggetti trovati</div>
+                        <div class="quiz-option" data-quiz="final7" data-answer="b">B) Solo pittura a olio</div>
+                        <div class="quiz-option" data-quiz="final7" data-answer="c">C) Marmo e bronzo</div>
+                        <div class="quiz-option" data-quiz="final7" data-answer="d">D) Fotografie digitali</div>
+                        <div class="feedback" id="feedback-final7"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>8. In arteterapia, il collage con adolescenti in difficoltà serve per:</h4>
+                        <div class="quiz-option" data-quiz="final8" data-answer="b">A) Passare il tempo</div>
+                        <div class="quiz-option" data-quiz="final8" data-answer="b">B) Esternare conflitti interiori difficili da esprimere a parole</div>
+                        <div class="quiz-option" data-quiz="final8" data-answer="c">C) Imparare a disegnare</div>
+                        <div class="quiz-option" data-quiz="final8" data-answer="d">D) Creare opere da vendere</div>
+                        <div class="feedback" id="feedback-final8"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>9. Quale fase della procedura di collage viene PRIMA dell'incollaggio?</h4>
+                        <div class="quiz-option" data-quiz="final9" data-answer="c">A) Dare il titolo</div>
+                        <div class="quiz-option" data-quiz="final9" data-answer="b">B) Presentazione al gruppo</div>
+                        <div class="quiz-option" data-quiz="final9" data-answer="c">C) Composizione: disporre i ritagli senza incollare per provare diverse soluzioni</div>
+                        <div class="quiz-option" data-quiz="final9" data-answer="d">D) Rifinitura con pennarelli</div>
+                        <div class="feedback" id="feedback-final9"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>10. Il collage autobiografico "Chi sono/Chi sarò" serve per:</h4>
+                        <div class="quiz-option" data-quiz="final10" data-answer="d">A) Copiare foto di riviste</div>
+                        <div class="quiz-option" data-quiz="final10" data-answer="b">B) Fare un compito scolastico</div>
+                        <div class="quiz-option" data-quiz="final10" data-answer="c">C) Decorare la classe</div>
+                        <div class="quiz-option" data-quiz="final10" data-answer="d">D) Riflettere sulla propria identità presente e sulle aspirazioni future</div>
+                        <div class="feedback" id="feedback-final10"></div>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 40px;">📝 IL MIO PIANO D'AZIONE PERSONALIZZATO</h3>
+                <div class="info-box blue">
+                    <h3>Cosa voglio approfondire sul collage?</h3>
+                    <textarea id="actionWhat" placeholder="Es: Voglio sperimentare il collage digitale, studiare più artisti dadaisti, praticare la tecnica con materiali naturali..."></textarea>
+                </div>
+
+                <div class="info-box green">
+                    <h3>Come intendo farlo?</h3>
+                    <textarea id="actionHow" placeholder="Es: Cercherò tutorial su Canva, visiterò una mostra d'arte, farò un laboratorio con i miei nonni, proporrò un progetto in stage..."></textarea>
+                </div>
+
+                <div class="info-box purple">
+                    <h3>Quando lo farò? (timeline realistica)</h3>
+                    <textarea id="actionWhen" placeholder="Es: Entro dicembre proverò 3 collage personali, a gennaio proporrò un laboratorio durante lo stage, in primavera organizzerò una mostra di classe..."></textarea>
+                </div>
+
+                <div class="info-box yellow">
+                    <h3>Quale laboratorio vorrei progettare in futuro?</h3>
+                    <p>Descrivi brevemente un'idea di laboratorio che ti piacerebbe realizzare:</p>
+                    <textarea id="futureProject" placeholder="Target (anziani/bambini/disabili/altro): ...
+Titolo del laboratorio: ...
+Obiettivo principale: ...
+Materiali specifici: ...
+Perché mi interessa: ..."></textarea>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-secondary" onclick="goToFase(5)">⬅️ Indietro</button>
+                    <button class="btn-primary" onclick="completeFase6()">Completa il Percorso 🎉</button>
+                </div>
+            </div>
+
+            <!-- SCHERMATA FINALE -->
+            <div class="fase" id="faseComplete">
+                <div class="final-summary">
+                    <div class="celebration">🎉🎨🏆</div>
+                    <h2>PERCORSO COMPLETATO!</h2>
+                    <p style="font-size: 1.5em; margin: 20px 0;">
+                        Hai ottenuto <span class="points-animation" id="finalScore">0</span> punti su 240!
+                    </p>
+                    <div id="finalBadges" style="margin-top: 30px;"></div>
+                </div>
+
+                <div class="info-box blue" style="margin-top: 30px;">
+                    <h3>🎓 Competenze Acquisite</h3>
+                    <p>Hai completato con successo il percorso sul collage autobiografico. Ora sei in grado di:</p>
+                    <ul style="margin-left: 25px; margin-top: 15px;">
+                        <li>✅ Conoscere la storia del collage e le sue principali correnti artistiche</li>
+                        <li>✅ Applicare la tecnica del collage in modo autonomo</li>
+                        <li>✅ Utilizzare il collage come strumento di auto-narrazione</li>
+                        <li>✅ Progettare laboratori di collage per utenti in contesti socio-sanitari</li>
+                        <li>✅ Gestire aspetti emotivi e privacy nella relazione d'aiuto</li>
+                        <li>✅ Riflettere criticamente sul tuo apprendimento</li>
+                    </ul>
+                </div>
+
+                <div class="info-box green">
+                    <h3>💼 Prossimi Passi</h3>
+                    <p>Continua il tuo percorso formativo:</p>
+                    <ul style="margin-left: 25px; margin-top: 15px;">
+                        <li>📚 Approfondisci gli autori che ti hanno colpito di più</li>
+                        <li>🎨 Realizza concretamente il tuo collage autobiografico</li>
+                        <li>🏥 Proponi un laboratorio durante il tirocinio/stage</li>
+                        <li>👥 Condividi l'esperienza con compagni e docenti</li>
+                        <li>📖 Consulta i riferimenti bibliografici della dispensa</li>
+                    </ul>
+                </div>
+
+                <h3 style="text-align: center; margin-top: 40px;">📥 Esporta il tuo lavoro</h3>
+                <div class="export-buttons">
+                    <button class="btn-success" onclick="exportToText()">💾 Scarica TXT</button>
+                    <button class="btn-success" onclick="exportToPDF()">📄 Scarica PDF</button>
+                    <button class="btn-success" onclick="window.print()">🖨️ Stampa</button>
+                </div>
+
+                <div class="buttons" style="margin-top: 40px;">
+                    <button class="btn-secondary" onclick="goToFase(6)">⬅️ Torna alla Fase 6</button>
+                    <button class="btn-primary" onclick="resetPercorso()">🔄 Ricomincia il Percorso</button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <footer>
-        <div class="container">
-            <p><strong>Prof. Dott. Picconi</strong></p>
-            <p>Metodologie Operative - Servizi Sociosanitari</p>
-            <p>IIS Meucci Mattei - Cagliari</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem;">&copy; 2025 - Tutti i diritti riservati</p>
-            <div class="home-link">
-                <a href="https://salvapicconi.github.io/metodologieoperative/">🏠 Torna alla Home</a>
-            </div>
-        </div>
-    </footer>
-
     <script>
-        const STATE_KEY = 'mo_collage_autobio';
-        const steps = Array.from(document.querySelectorAll('.lab-step'));
-        const totalSteps = steps.length;
-        const progressBar = document.getElementById('progress-bar');
-        const progressStep = document.getElementById('progress-step');
-        const progressTotal = document.getElementById('progress-total');
-        const satisfactionInput = document.getElementById('satisfaction');
-        const satisfactionValue = document.getElementById('satisfaction-value');
-        const quickPrev = document.getElementById('quickPrev');
-        const quickNext = document.getElementById('quickNext');
-
-        const defaultState = {
-            currentStep: 0,
-            name: '',
-            class: '',
-            quiz1: { score: 0, completed: false },
-            quiz2: { score: 0, completed: false },
-            checklist: [],
-            emotion: '',
-            skill: '',
-            satisfaction: 70
+        // STATO GLOBALE
+        let currentFase = 1;
+        let totalPoints = 0;
+        let fasePoints = {
+            fase1: 15,
+            fase2: 40,
+            fase3: 55,
+            fase4: 30,
+            fase5: 50,
+            fase6: 50
         };
+        let completedFases = new Set();
+        let quizAnswers = {};
+        let skillRatings = {};
 
-        const loadState = () => {
-            try {
-                const stored = localStorage.getItem(STATE_KEY);
-                return stored ? { ...defaultState, ...JSON.parse(stored) } : { ...defaultState };
-            } catch (e) {
-                return { ...defaultState };
-            }
-        };
+        // INIZIALIZZAZIONE
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProgress();
+            updateProgressBar();
+            setupQuizListeners();
+            setupSkillListeners();
+        });
 
-        const saveState = (state) => {
-            try { localStorage.setItem(STATE_KEY, JSON.stringify(state)); } catch (e) { /* ignore */ }
-        };
-
-        let state = loadState();
-
-        function goToStep(index) {
-            const clamped = Math.max(0, Math.min(index, steps.length - 1));
-            steps.forEach((step, i) => step.classList.toggle('active', i === clamped));
-            state.currentStep = clamped;
-            const percent = ((clamped + 1) / totalSteps) * 100;
-            progressBar.style.width = `${Math.min(100, Math.max(0, percent))}%`;
-            progressStep.textContent = clamped + 1;
-            if (progressTotal) progressTotal.textContent = totalSteps;
-            if (quickPrev) quickPrev.disabled = clamped === 0;
-            if (quickNext) quickNext.disabled = clamped === totalSteps - 1;
-            saveState(state);
+        // NAVIGAZIONE
+        function goToFase(faseNum) {
+            document.querySelectorAll('.fase').forEach(f => f.classList.remove('active'));
+            document.getElementById('fase' + faseNum).classList.add('active');
+            currentFase = faseNum;
+            updateProgressBar();
+            window.scrollTo(0, 0);
+            saveProgress();
         }
 
-        function requireAnswers(names) {
-            return names.every(name => document.querySelector(`input[name="${name}"]:checked`));
-        }
-
-        function checkQuiz(correctMap, feedbackId, nextButtonId) {
-            const names = Object.keys(correctMap);
-            if (!requireAnswers(names)) {
-                document.getElementById(feedbackId).textContent = 'Seleziona una risposta per ogni domanda.';
-                document.getElementById(feedbackId).classList.remove('text-emerald-600');
-                return 0;
-            }
-            let score = 0;
-            names.forEach(name => {
-                const selected = document.querySelector(`input[name="${name}"]:checked`).value;
-                if (selected === correctMap[name]) score += 1;
+        function updateProgressBar() {
+            document.querySelectorAll('.progress-step').forEach((step, index) => {
+                step.classList.remove('active', 'completed');
+                const faseNum = index + 1;
+                if (faseNum < currentFase) {
+                    step.classList.add('completed');
+                } else if (faseNum === currentFase) {
+                    step.classList.add('active');
+                }
             });
-            const feedback = document.getElementById(feedbackId);
-            feedback.textContent = `Hai risposto correttamente a ${score} su ${names.length} domande.`;
-            feedback.classList.toggle('text-emerald-600', score === names.length);
-            const nextBtn = document.getElementById(nextButtonId);
-            if (nextBtn) nextBtn.classList.remove('hidden');
-            return score;
         }
 
-        document.querySelectorAll('[data-next]').forEach(btn => {
-            btn.addEventListener('click', () => goToStep(state.currentStep + 1));
-        });
-
-        document.querySelectorAll('[data-prev]').forEach(btn => {
-            btn.addEventListener('click', () => goToStep(state.currentStep - 1));
-        });
-
-        document.getElementById('quiz1-submit').addEventListener('click', () => {
-            const score = checkQuiz(
-                { 'quiz1-q1': 'picasso', 'quiz1-q2': 'cubismo' },
-                'quiz1-feedback',
-                'quiz1-next'
-            );
-            state.quiz1 = { score, completed: true };
-            saveState(state);
-        });
-
-        document.getElementById('quiz2-submit').addEventListener('click', () => {
-            const score = checkQuiz(
-                { 'quiz2-q1': 'forbici', 'quiz2-q2': 'permesso' },
-                'quiz2-feedback',
-                'quiz2-next'
-            );
-            state.quiz2 = { score, completed: true };
-            saveState(state);
-        });
-
-        document.getElementById('generate-report').addEventListener('click', () => {
-            state.emotion = document.getElementById('emotion').value.trim();
-            state.skill = document.getElementById('skill').value.trim() || 'Creativit&agrave;';
-            state.satisfaction = Number(satisfactionInput.value || 0);
-            state.name = document.getElementById('student-name').value.trim();
-            state.class = document.getElementById('student-class').value.trim();
-            const checklistValues = Array.from(document.querySelectorAll('#checklist input[type="checkbox"]:checked')).map(el => el.value);
-            state.checklist = checklistValues;
-            saveState(state);
-            updateReport();
-            goToStep(5);
-        });
-
-        document.getElementById('restart').addEventListener('click', () => {
-            state = { ...defaultState };
-            saveState(state);
-            resetForm();
-            updateReport();
-            goToStep(0);
-        });
-
-        satisfactionInput.addEventListener('input', () => {
-            satisfactionValue.textContent = `${satisfactionInput.value}%`;
-        });
-
-        function resetForm() {
-            document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
-            document.querySelectorAll('#checklist input[type="checkbox"]').forEach(c => c.checked = false);
-            document.getElementById('emotion').value = '';
-            document.getElementById('skill').value = '';
-            document.getElementById('student-name').value = '';
-            document.getElementById('student-class').value = '';
-            satisfactionInput.value = defaultState.satisfaction;
-            satisfactionValue.textContent = `${defaultState.satisfaction}%`;
+        // COMPLETAMENTO FASI
+        function completeFase1() {
+            const priorKnowledge = document.getElementById('priorKnowledge').value;
+            const guidingQuestion = document.getElementById('guidingQuestion').value;
+            
+            if (priorKnowledge.length < 50 || guidingQuestion.length < 50) {
+                alert('⚠️ Per favore, completa entrambi i campi di riflessione (almeno 50 caratteri ciascuno)!');
+                return;
+            }
+            
+            if (!completedFases.has('fase1')) {
+                totalPoints += fasePoints.fase1;
+                completedFases.add('fase1');
+                updateScore();
+                showNotification('✅ Fase 1 completata! +' + fasePoints.fase1 + ' punti');
+            }
+            
+            goToFase(2);
         }
 
-        function restoreState() {
-            document.getElementById('student-name').value = state.name || '';
-            document.getElementById('student-class').value = state.class || '';
-            satisfactionInput.value = state.satisfaction || defaultState.satisfaction;
-            satisfactionValue.textContent = `${satisfactionInput.value}%`;
-            document.getElementById('emotion').value = state.emotion || '';
-            document.getElementById('skill').value = state.skill || '';
-            state.checklist.forEach(val => {
-                const el = document.querySelector(`#checklist input[value="${val}"]`);
-                if (el) el.checked = true;
+        function completeFase2() {
+            const requiredQuizzes = ['q1', 'q2', 'q3', 'q4'];
+            let allAnswered = true;
+            
+            requiredQuizzes.forEach(q => {
+                if (!quizAnswers[q]) {
+                    allAnswered = false;
+                }
             });
-            goToStep(state.currentStep || 0);
-            updateReport();
+            
+            if (!allAnswered) {
+                alert('⚠️ Completa tutti i quiz prima di procedere!');
+                return;
+            }
+            
+            if (!completedFases.has('fase2')) {
+                totalPoints += fasePoints.fase2;
+                completedFases.add('fase2');
+                updateScore();
+                checkBadge('badge1'); // Esploratore Cubista
+                showNotification('✅ Fase 2 completata! +' + fasePoints.fase2 + ' punti - Badge Sbloccato! 📜');
+            }
+            
+            goToFase(3);
         }
 
-        function updateReport() {
-            const totalQuiz = (state.quiz1?.score || 0) + (state.quiz2?.score || 0);
-            document.getElementById('report-quiz').textContent = `${totalQuiz}/4`;
-            document.getElementById('report-checklist').textContent = `${state.checklist.length}/6`;
-            document.getElementById('report-satisfaction').textContent = `${state.satisfaction || 0}%`;
-            document.getElementById('report-emotion').textContent = state.emotion || 'Non indicata';
-            document.getElementById('report-skill').textContent = state.skill || 'Creativit&agrave;';
-            const name = state.name ? `Ottimo lavoro, ${state.name}!` : 'Ottimo lavoro!';
-            const classe = state.class ? `Classe/ gruppo: ${state.class}.` : 'Riepilogo completo del percorso.';
-            document.getElementById('report-title').textContent = name;
-            document.getElementById('report-subtitle').textContent = classe;
+        function completeFase3() {
+            const characteristics = document.getElementById('characteristics').value;
+            const materials = document.getElementById('materials').value;
+            const composition = document.getElementById('composition').value;
+            const title = document.getElementById('title').value;
+            
+            if (characteristics.length < 50 || materials.length < 50 || composition.length < 50 || title.length < 5) {
+                alert('⚠️ Completa tutti i campi della progettazione del collage!');
+                return;
+            }
+            
+            if (!completedFases.has('fase3')) {
+                totalPoints += fasePoints.fase3;
+                completedFases.add('fase3');
+                updateScore();
+                checkBadge('badge2'); // Artista Narrativo
+                showNotification('✅ Fase 3 completata! +' + fasePoints.fase3 + ' punti - Badge Sbloccato! ✂️');
+            }
+            
+            goToFase(4);
         }
 
-        document.getElementById('quiz1-next').addEventListener('click', () => goToStep(2));
-        document.getElementById('quiz2-next').addEventListener('click', () => goToStep(3));
+        function completeFase4() {
+            const learned = document.getElementById('learned').value;
+            const understanding = document.getElementById('understanding').value;
+            const difficulties = document.getElementById('difficulties').value;
+            const selfDiscovery = document.getElementById('selfDiscovery').value;
+            const application = document.getElementById('application').value;
+            
+            if (learned.length < 50 || understanding.length < 50 || difficulties.length < 30 || 
+                selfDiscovery.length < 50 || application.length < 50) {
+                alert('⚠️ Completa tutte le riflessioni metacognitive!');
+                return;
+            }
+            
+            if (!completedFases.has('fase4')) {
+                totalPoints += fasePoints.fase4;
+                completedFases.add('fase4');
+                updateScore();
+                showNotification('✅ Fase 4 completata! +' + fasePoints.fase4 + ' punti');
+            }
+            
+            // Mostra il recap della fase 1
+            const phase1Recap = document.getElementById('phase1Recap');
+            const priorKnowledge = localStorage.getItem('priorKnowledge') || 'Nessuna nota precedente';
+            phase1Recap.textContent = priorKnowledge;
+            
+            goToFase(5);
+        }
 
-        document.querySelector('[data-step="3"] [data-next]').addEventListener('click', () => {
-            const checklistValues = Array.from(document.querySelectorAll('#checklist input[type="checkbox"]:checked')).map(el => el.value);
-            state.checklist = checklistValues;
-            saveState(state);
-            goToStep(4);
-        });
+        function completeFase5() {
+            const labDesign = document.getElementById('labDesign').value;
+            const emotionalManagement = document.getElementById('emotionalManagement').value;
+            const socialization = document.getElementById('socialization').value;
+            const caseReflection = document.getElementById('caseReflection').value;
+            
+            if (labDesign.length < 100 || emotionalManagement.length < 100 || 
+                socialization.length < 100 || caseReflection.length < 50) {
+                alert('⚠️ Completa tutte le parti del caso professionale in modo dettagliato!');
+                return;
+            }
+            
+            if (!completedFases.has('fase5')) {
+                totalPoints += fasePoints.fase5;
+                completedFases.add('fase5');
+                updateScore();
+                checkBadge('badge3'); // Facilitatore Creativo
+                showNotification('✅ Fase 5 completata! +' + fasePoints.fase5 + ' punti - Badge Sbloccato! 💡');
+            }
+            
+            goToFase(6);
+        }
 
-        if (quickPrev) quickPrev.addEventListener('click', () => goToStep(state.currentStep - 1));
-        if (quickNext) quickNext.addEventListener('click', () => goToStep(state.currentStep + 1));
+        function completeFase6() {
+            // Verifica autovalutazione
+            const skills = ['skill1', 'skill2', 'skill3', 'skill4', 'skill5'];
+            let allRated = true;
+            skills.forEach(skill => {
+                if (!skillRatings[skill]) {
+                    allRated = false;
+                }
+            });
+            
+            if (!allRated) {
+                alert('⚠️ Completa l\'autovalutazione di tutte le 5 competenze!');
+                return;
+            }
+            
+            // Verifica quiz finale
+            const finalQuizzes = ['final1', 'final2', 'final3', 'final4', 'final5', 
+                                  'final6', 'final7', 'final8', 'final9', 'final10'];
+            let allQuizAnswered = true;
+            finalQuizzes.forEach(q => {
+                if (!quizAnswers[q]) {
+                    allQuizAnswered = false;
+                }
+            });
+            
+            if (!allQuizAnswered) {
+                alert('⚠️ Completa tutti i 10 quiz finali!');
+                return;
+            }
+            
+            // Verifica piano d'azione
+            const actionWhat = document.getElementById('actionWhat').value;
+            const actionHow = document.getElementById('actionHow').value;
+            const actionWhen = document.getElementById('actionWhen').value;
+            const futureProject = document.getElementById('futureProject').value;
+            
+            if (actionWhat.length < 30 || actionHow.length < 30 || 
+                actionWhen.length < 30 || futureProject.length < 50) {
+                alert('⚠️ Completa il Piano d\'Azione Personalizzato!');
+                return;
+            }
+            
+            if (!completedFases.has('fase6')) {
+                totalPoints += fasePoints.fase6;
+                completedFases.add('fase6');
+                updateScore();
+                checkBadge('badge4'); // Maestro del Collage
+            }
+            
+            showFinalSummary();
+        }
 
-        restoreState();
+        // QUIZ MANAGEMENT
+        function setupQuizListeners() {
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const quizId = this.getAttribute('data-quiz');
+                    const answer = this.getAttribute('data-answer');
+                    const correctAnswer = getCorrectAnswer(quizId);
+                    
+                    // Rimuovi selezioni precedenti
+                    document.querySelectorAll(`[data-quiz="${quizId}"]`).forEach(opt => {
+                        opt.classList.remove('selected', 'correct', 'incorrect');
+                    });
+                    
+                    // Marca la risposta
+                    this.classList.add('selected');
+                    const isCorrect = (answer === correctAnswer);
+                    
+                    if (isCorrect) {
+                        this.classList.add('correct');
+                        quizAnswers[quizId] = true;
+                    } else {
+                        this.classList.add('incorrect');
+                        // Mostra la risposta corretta
+                        document.querySelector(`[data-quiz="${quizId}"][data-answer="${correctAnswer}"]`).classList.add('correct');
+                    }
+                    
+                    // Mostra feedback
+                    showFeedback(quizId, isCorrect);
+                    saveProgress();
+                });
+            });
+        }
+
+        function getCorrectAnswer(quizId) {
+            const answers = {
+                'q1': 'a',
+                'q2': 'b',
+                'q3': 'b',
+                'q4': 'b',
+                'final1': 'b',
+                'final2': 'a',
+                'final3': 'd',
+                'final4': 'b',
+                'final5': 'c',
+                'final6': 'b',
+                'final7': 'a',
+                'final8': 'b',
+                'final9': 'c',
+                'final10': 'd'
+            };
+            return answers[quizId];
+        }
+
+        function showFeedback(quizId, isCorrect) {
+            const feedbackEl = document.getElementById('feedback-' + quizId);
+            const feedbacks = {
+                'q1': {
+                    correct: '✅ Esatto! Il collage è nato nel 1912 con Picasso e Braque, artisti cubisti.',
+                    incorrect: '❌ La risposta corretta è: 1912, Pablo Picasso e Georges Braque. Hanno iniziato a incollare pezzi di giornale sulle tele!'
+                },
+                'q2': {
+                    correct: '✅ Corretto! Schwitters trasformava oggetti di scarto in arte, creando composizioni astratte.',
+                    incorrect: '❌ Schwitters assemblava biglietti, etichette e materiali trovati per strada nei suoi "Merzbild".'
+                },
+                'q3': {
+                    correct: '✅ Giusto! La colla stick è perfetta per carta leggera come ritagli di riviste.',
+                    incorrect: '❌ La colla stick è la migliore per carta leggera. La vinilica si usa per materiali più pesanti.'
+                },
+                'q4': {
+                    correct: '✅ Perfetto! Il collage con anziani riattiva ricordi e mantiene attive le capacità manuali.',
+                    incorrect: '❌ In arteterapia, il collage stimola la memoria autobiografica e la manualità degli anziani.'
+                },
+                'final1': {
+                    correct: '✅ Esatto! Il collage rompe con la tradizione perché include pezzi di realtà invece di imitarla.',
+                    incorrect: '❌ Il collage incorpora frammenti di realtà (ritagli, foto, oggetti) invece di imitarla con la pittura.'
+                },
+                'final2': {
+                    correct: '✅ Corretto! Hannah Höch era un\'artista critica e impegnata politicamente.',
+                    incorrect: '❌ Hannah Höch usava il collage per criticare i ruoli femminili e fare satira politica.'
+                },
+                'final3': {
+                    correct: '✅ Perfetto! Con anziani serve sicurezza: niente lame scoperte! Forbici con punta arrotondata.',
+                    incorrect: '❌ I taglierini professionali con lame scoperte sono pericolosi. Meglio forbici sicure!'
+                },
+                'final4': {
+                    correct: '✅ Esatto! Décollage = strappare. Mimmo Rotella era maestro di questa tecnica.',
+                    incorrect: '❌ Il décollage è la tecnica di strappare strati di manifesti sovrapposti per rivelare ciò che sta sotto.'
+                },
+                'final5': {
+                    correct: '✅ Perfetto! Le immagini superano le barriere linguistiche.',
+                    incorrect: '❌ In contesti interculturali le immagini sono un linguaggio universale quando mancano parole comuni.'
+                },
+                'final6': {
+                    correct: '✅ Corretto! Privacy e consenso sono fondamentali. Sempre fotocopie e permessi!',
+                    incorrect: '❌ Devi sempre usare fotocopie e chiedere il consenso delle persone ritratte nelle foto.'
+                },
+                'final7': {
+                    correct: '✅ Giusto! Schwitters vedeva bellezza nei materiali di scarto quotidiani.',
+                    incorrect: '❌ I Merzbild erano fatti con materiali di recupero: biglietti del tram, etichette, oggetti trovati.'
+                },
+                'final8': {
+                    correct: '✅ Esatto! Il collage permette di esprimere ciò che è difficile dire a parole.',
+                    incorrect: '❌ Con adolescenti in difficoltà, il collage aiuta a esternare conflitti interiori.'
+                },
+                'final9': {
+                    correct: '✅ Perfetto! Prima di incollare, bisogna provare diverse composizioni!',
+                    incorrect: '❌ Prima dell\'incollaggio c\'è la fase di COMPOSIZIONE: disporre i ritagli per provare l\'effetto.'
+                },
+                'final10': {
+                    correct: '✅ Corretto! Il collage autobiografico è uno strumento di autoriflessione profonda.',
+                    incorrect: '❌ Il collage "Chi sono/Chi sarò" serve per riflettere sulla propria identità e aspirazioni future.'
+                }
+            };
+            
+            feedbackEl.textContent = isCorrect ? feedbacks[quizId].correct : feedbacks[quizId].incorrect;
+            feedbackEl.className = 'feedback show ' + (isCorrect ? 'correct' : 'incorrect');
+        }
+
+        // SKILL RATING
+        function setupSkillListeners() {
+            document.querySelectorAll('.scale-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const skill = this.getAttribute('data-skill');
+                    const value = this.getAttribute('data-value');
+                    
+                    // Rimuovi selezione precedente
+                    document.querySelectorAll(`[data-skill="${skill}"]`).forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Seleziona nuovo valore
+                    this.classList.add('selected');
+                    skillRatings[skill] = parseInt(value);
+                    saveProgress();
+                });
+            });
+        }
+
+        // BADGES
+        function checkBadge(badgeId) {
+            const badge = document.getElementById(badgeId);
+            if (badge && !badge.classList.contains('earned')) {
+                badge.classList.add('earned');
+                badge.style.animation = 'pulse 1s';
+            }
+        }
+
+        // SCORE
+        function updateScore() {
+            document.getElementById('totalScore').textContent = totalPoints;
+            saveProgress();
+        }
+
+        function showNotification(message) {
+            alert(message);
+        }
+
+        // FINAL SUMMARY
+        function showFinalSummary() {
+            document.querySelectorAll('.fase').forEach(f => f.classList.remove('active'));
+            document.getElementById('faseComplete').classList.add('active');
+            document.getElementById('finalScore').textContent = totalPoints;
+            
+            // Mostra badge guadagnati
+            let badgesHTML = '<h3>Badge Ottenuti:</h3><div class="badge-container">';
+            const badges = [
+                {id: 'badge1', icon: '📜', name: 'Esploratore Cubista'},
+                {id: 'badge2', icon: '✂️', name: 'Artista Narrativo'},
+                {id: 'badge3', icon: '💡', name: 'Facilitatore Creativo'},
+                {id: 'badge4', icon: '🏆', name: 'Maestro del Collage'}
+            ];
+            
+            badges.forEach(badge => {
+                const el = document.getElementById(badge.id);
+                if (el && el.classList.contains('earned')) {
+                    badgesHTML += `<div class="badge earned"><div class="badge-icon">${badge.icon}</div><div class="badge-name">${badge.name}</div></div>`;
+                }
+            });
+            badgesHTML += '</div>';
+            document.getElementById('finalBadges').innerHTML = badgesHTML;
+            
+            window.scrollTo(0, 0);
+        }
+
+        // EXPORT FUNCTIONS
+        function exportToText() {
+            let content = `PERCORSO DI APPRENDIMENTO: IL COLLAGE AUTOBIOGRAFICO\n`;
+            content += `Studente: [Nome Cognome]\n`;
+            content += `Data completamento: ${new Date().toLocaleDateString('it-IT')}\n`;
+            content += `Punteggio totale: ${totalPoints}/240\n\n`;
+            content += `=" ${'='.repeat(60)}\n\n`;
+            
+            // Raccolta risposte
+            const fields = [
+                {id: 'priorKnowledge', title: 'FASE 1 - Conoscenze Pregresse'},
+                {id: 'guidingQuestion', title: 'FASE 1 - Domanda Guida'},
+                {id: 'characteristics', title: 'FASE 3 - Caratteristiche Personali'},
+                {id: 'materials', title: 'FASE 3 - Materiali Progettati'},
+                {id: 'composition', title: 'FASE 3 - Composizione'},
+                {id: 'title', title: 'FASE 3 - Titolo Collage'},
+                {id: 'learned', title: 'FASE 4 - Cosa ho imparato'},
+                {id: 'understanding', title: 'FASE 4 - Come è cambiata la comprensione'},
+                {id: 'difficulties', title: 'FASE 4 - Difficoltà incontrate'},
+                {id: 'selfDiscovery', title: 'FASE 4 - Scoperta di sé'},
+                {id: 'application', title: 'FASE 4 - Applicazioni future'},
+                {id: 'labDesign', title: 'FASE 5 - Progettazione Laboratorio'},
+                {id: 'emotionalManagement', title: 'FASE 5 - Gestione Emotiva'},
+                {id: 'socialization', title: 'FASE 5 - Socializzazione'},
+                {id: 'caseReflection', title: 'FASE 5 - Riflessione sul Caso'},
+                {id: 'actionWhat', title: 'FASE 6 - Piano: Cosa approfondire'},
+                {id: 'actionHow', title: 'FASE 6 - Piano: Come'},
+                {id: 'actionWhen', title: 'FASE 6 - Piano: Quando'},
+                {id: 'futureProject', title: 'FASE 6 - Progetto Futuro'}
+            ];
+            
+            fields.forEach(field => {
+                const el = document.getElementById(field.id);
+                if (el && el.value) {
+                    content += `\n${field.title}\n${'-'.repeat(field.title.length)}\n${el.value}\n`;
+                }
+            });
+            
+            // Autovalutazione competenze
+            content += `\n\nAUTOVALUTAZIONE COMPETENZE (1-5)\n${'='.repeat(40)}\n`;
+            const skillNames = {
+                skill1: 'Competenza Espressiva',
+                skill2: 'Competenza Tecnica',
+                skill3: 'Competenza Relazionale',
+                skill4: 'Competenza Progettuale',
+                skill5: 'Competenza Riflessiva'
+            };
+            Object.keys(skillRatings).forEach(skill => {
+                content += `${skillNames[skill]}: ${skillRatings[skill]}/5\n`;
+            });
+            
+            // Download
+            const blob = new Blob([content], {type: 'text/plain'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Percorso_Collage_${new Date().toISOString().split('T')[0]}.txt`;
+            a.click();
+        }
+
+        function exportToPDF() {
+            alert('💡 Usa la funzione Stampa e seleziona "Salva come PDF" per creare il documento PDF del tuo percorso!');
+            window.print();
+        }
+
+        // SAVE/LOAD PROGRESS
+        function saveProgress() {
+            const progress = {
+                currentFase,
+                totalPoints,
+                completedFases: Array.from(completedFases),
+                quizAnswers,
+                skillRatings,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Salva anche i contenuti dei campi
+            document.querySelectorAll('textarea').forEach(textarea => {
+                localStorage.setItem(textarea.id, textarea.value);
+            });
+            
+            localStorage.setItem('collageProgress', JSON.stringify(progress));
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem('collageProgress');
+            if (saved) {
+                const progress = JSON.parse(saved);
+                currentFase = progress.currentFase || 1;
+                totalPoints = progress.totalPoints || 0;
+                completedFases = new Set(progress.completedFases || []);
+                quizAnswers = progress.quizAnswers || {};
+                skillRatings = progress.skillRatings || {};
+                
+                updateScore();
+                
+                // Ripristina badge
+                completedFases.forEach(fase => {
+                    if (fase === 'fase2') checkBadge('badge1');
+                    if (fase === 'fase3') checkBadge('badge2');
+                    if (fase === 'fase5') checkBadge('badge3');
+                    if (fase === 'fase6') checkBadge('badge4');
+                });
+            }
+            
+            // Ripristina contenuti textarea
+            document.querySelectorAll('textarea').forEach(textarea => {
+                const saved = localStorage.getItem(textarea.id);
+                if (saved) {
+                    textarea.value = saved;
+                }
+            });
+        }
+
+        function resetPercorso() {
+            if (confirm('⚠️ Sei sicuro di voler ricominciare? Tutti i progressi saranno cancellati.')) {
+                localStorage.clear();
+                location.reload();
+            }
+        }
+
+        // AUTO-SAVE ogni 30 secondi
+        setInterval(saveProgress, 30000);
     </script>
-    <script>
-        window.MO_PROGRESS_CONFIG = {
-            inputSelector: 'input, textarea, select',
-            pagePath: 'collage-autobiografico',
-            autoSave: true,
-            autoSaveDebounceMs: 5000,
-            autoSaveMinIntervalMs: 12000
-        };
-        window.MO_IDENTITY_CONFIG = {
-            message: 'Inserisci la classe (es. 3sa) e il codice cognome+iniziale (es. rossi g → rossig).',
-            classPlaceholder: 'Classe (es. 3sa)',
-            classPattern: '^[1-5][a-z]{1,2}$',
-            classExample: '3sa',
-            classErrorMessage: 'Classe non valida: usa una cifra da 1 a 5 seguita da 1-2 lettere minuscole (es. 3sa).',
-            stripWhitespaceInClass: true,
-            storeClassLowercase: true,
-            storeClassUppercase: false,
-            codePlaceholder: 'Codice (es. rossig)',
-            codePattern: '^[a-zà-ü]{2,}[a-z]$',
-            codeExample: 'rossig',
-            codeErrorMessage: 'Codice non valido: usa cognome tutto minuscolo + iniziale del nome (es. rossi g → rossig).',
-            sanitizeCode: true,
-            stripWhitespaceInCode: true,
-            storeCodeLowercase: true,
-            storeCodeUppercase: false,
-            hideGenerator: true,
-            guestAllowed: true,
-            guestClassCode: 'ospite',
-            guestStudentCode: 'ospite'
-        };
-    </script>
-    <script type="module" src="../../assets/progress.js"></script>
-    <script type="module" src="../../assets/progress-global.js"></script>
 </body>
 </html>
