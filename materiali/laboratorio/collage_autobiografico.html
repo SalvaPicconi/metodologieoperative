@@ -1712,11 +1712,25 @@ Perché mi interessa: ..."></textarea>
     </script>
     <script>
         window.MO_PROGRESS_CONFIG = {
-            inputSelector: 'input, textarea, select',
-            pagePath: '/materiali/laboratorio/collage_autobiografico.html',
+            pagePath: window.location.pathname,
+            inputSelector: 'textarea, input:not([type="file"]), select',
             autoSave: true,
-            autoSaveDebounceMs: 5000,
-            autoSaveMinIntervalMs: 12000
+            autoSaveDebounceMs: 7000,
+            autoSaveMinIntervalMs: 20000,
+            autoSaveJitterMs: 3000,
+            onBeforeSave: (data) => {
+                let filled = 0;
+                Object.values(data || {}).forEach(val => {
+                    if (val === null || val === undefined) return;
+                    if (typeof val === 'string' && val.trim().length > 0) { filled += 1; return; }
+                    if (Array.isArray(val) && val.length > 0) { filled += 1; return; }
+                    if (typeof val === 'object' && Object.keys(val).length > 0) { filled += 1; }
+                });
+                if (filled === 0) {
+                    return { __skipSave: true };
+                }
+                return data;
+            }
         };
         window.MO_IDENTITY_CONFIG = {
             message: 'Inserisci la classe (es. 3sa) e il codice cognome+iniziale (es. rossi g → rossig). Modalità ospite disponibile.',
