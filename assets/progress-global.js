@@ -41,6 +41,7 @@ const CONFIG = resolveConfig();
   } else {
   const PAGE_PATH = CONFIG.pagePath || PAGE_ID;
   const INPUT_SELECTOR = CONFIG.inputSelector || 'input, textarea, select';
+  const LOCAL_FALLBACK_KEY = `mo:progress-local:${PAGE_PATH}`;
   let studentLabel = null;
   let saveBtnElement = null;
   let resetBtnElement = null;
@@ -175,6 +176,11 @@ const CONFIG = resolveConfig();
       console.debug('[Progress] 💾 Salvataggio automatico completato');
     } catch (error) {
       console.warn('Errore salvataggio automatico progressi:', error);
+      const savedLocally = saveLocalFallback(payload);
+      if (savedLocally) {
+        lastSavedSnapshot = snapshot;
+        console.debug('[Progress] 💾 Salvataggio locale di fallback completato');
+      }
     } finally {
       autoSaveInFlight = false;
     }
@@ -237,6 +243,29 @@ function collectData() {
   }
 
   return result;
+}
+
+function saveLocalFallback(data) {
+  try {
+    const payload = { data, savedAt: new Date().toISOString() };
+    localStorage.setItem(LOCAL_FALLBACK_KEY, JSON.stringify(payload));
+    return true;
+  } catch (error) {
+    console.warn('Impossibile salvare localmente il fallback:', error);
+    return false;
+  }
+}
+
+function loadLocalFallback() {
+  try {
+    const raw = localStorage.getItem(LOCAL_FALLBACK_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    return parsed?.data || null;
+  } catch (error) {
+    console.warn('Impossibile leggere il fallback locale:', error);
+    return null;
+  }
 }
 
 function restoreData(saved) {
@@ -307,7 +336,8 @@ function restoreData(saved) {
 async function loadAndRestore() {
   try {
     const saved = await Progress.load(PAGE_PATH);
-    let dataToRestore = saved;
+    const localFallback = loadLocalFallback();
+    let dataToRestore = saved || localFallback;
     if (typeof CONFIG.onRestore === 'function') {
       try {
         const hookResponse = CONFIG.onRestore(saved);
@@ -359,7 +389,11 @@ document.addEventListener('click', async (event) => {
       }
       alert('Progressi salvati!');
     } catch (error) {
-      alert('Errore salvataggio: ' + error.message);
+      const savedLocally = saveLocalFallback(payload);
+      const msg = savedLocally
+        ? 'Salvataggio remoto non disponibile, dati salvati in locale sul browser.'
+        : 'Errore salvataggio: ' + error.message;
+      alert(msg);
     } finally {
       button.textContent = originalText;
     }
