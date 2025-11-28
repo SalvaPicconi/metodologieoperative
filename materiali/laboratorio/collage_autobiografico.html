@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta name="page-id" content="laboratorio-collage-autobiografico-01">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collage Autobiografico - Laboratorio Metodologie Operative</title>
+    <meta name="description" content="Percorso laboratoriale guidato sul collage autobiografico: storia, strumenti, checklist e autovalutazione con report finale.">
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400;FILL@0&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d78c47",
+                        "background-light": "#f8f7f6",
+                        "background-dark": "#201912",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#302d29",
+                        "text-light": "#171412",
+                        "text-dark": "#f0ede9",
+                        "muted-light": "#857566",
+                        "muted-dark": "#c9bfb3"
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "1.5rem",
+                        "xl": "2rem",
+                        "full": "9999px"
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: "Lexend", "Segoe UI", system-ui, -apple-system, sans-serif; }
+        .lab-step { display: none; }
+        .lab-step.active { display: block; }
+        .step-badge { background: rgba(215, 140, 71, 0.15); color: #d78c47; }
+        .report-card { box-shadow: 0 10px 40px rgba(0,0,0,0.06); }
+        .glass { background: rgba(255,255,255,0.85); backdrop-filter: blur(10px); }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-family: 'Material Symbols Outlined';
+        }
+    </style>
+</head>
+<body class="bg-background-light text-text-light">
+    <header>
+        <div class="container">
+            <h1>Laboratorio - Collage Autobiografico</h1>
+            <p>Percorso guidato in cinque fasi: storia, sicurezza, realizzazione e autovalutazione</p>
+            <p style="font-size: 0.9rem; margin-top: 0.5rem;">IIS Meucci Mattei - Cagliari (Sede Decimomannu)</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../../biennio.html">Biennio</a></li>
+            <li><a href="../../terzo.html">Terzo Anno</a></li>
+            <li><a href="../../quarto.html">Quarto Anno</a></li>
+            <li><a href="../../quinto.html">Quinto Anno</a></li>
+            <li><a href="../../laboratorio.html" class="active">Laboratorio</a></li>
+            <li><a href="../../peer_tutoring.html">Peer Tutoring</a></li>
+            <li><a href="../../compresenza.html">Compresenza Scienze Umane</a></li>
+            <li class="nav-ai"><a href="../../index.html#intelligenza-artificiale">Spazio AI</a></li>
+        </ul>
+    </nav>
+
+    <main class="relative">
+        <div class="absolute inset-0 bg-gradient-to-b from-[#f3e6d8] via-[#f8f7f6] to-white -z-10"></div>
+        <div class="container max-w-6xl py-10">
+            <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between mb-6">
+                <div>
+                    <p class="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold step-badge">Percorso in 5 fasi + report</p>
+                    <h2 class="text-3xl md:text-4xl font-bold mt-3 leading-tight">Collage autobiografico</h2>
+                    <p class="text-base text-muted-light mt-2 max-w-3xl">Avvia l'attivit&agrave; con la classe: quiz rapidi sulla storia del collage, sicurezza degli strumenti, checklist guidata, autovalutazione e report finale.</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="rounded-full h-3 w-3 bg-emerald-500 animate-pulse"></div>
+                    <p class="text-sm text-muted-light">Salva i progressi in locale</p>
+                </div>
+            </div>
+
+            <div class="rounded-3xl bg-white/90 shadow-xl ring-1 ring-black/5 overflow-hidden">
+                <!-- Progress indicator -->
+                <div class="flex items-center justify-between px-6 py-4 bg-gradient-to-r from-primary/15 via-white to-primary/5">
+                    <div>
+                        <p class="text-sm text-muted-light">Avanzamento laboratorio</p>
+                        <p class="text-lg font-semibold">Passo <span id="progress-step">1</span> di <span id="progress-total">6</span></p>
+                    </div>
+                    <div class="w-48 h-2 bg-black/10 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="h-full bg-primary transition-all duration-300" style="width: 20%;"></div>
+                    </div>
+                </div>
+
+                <div class="p-6 space-y-10">
+                    <!-- Step 0: Benvenuto -->
+                    <section class="lab-step active" data-step="0">
+                        <div class="grid md:grid-cols-2 gap-6 items-center">
+                            <div class="space-y-4">
+                                <h3 class="text-2xl font-bold leading-tight">Il Collage: arte, tecnica e s&eacute;</h3>
+                                <p class="text-base text-muted-light">Breve percorso per introdurre e condurre l'esercitazione sul collage autobiografico. Inserisci nome/classe se vuoi personalizzare il report finale.</p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    <label class="flex flex-col gap-2">
+                                        <span class="text-sm font-medium text-muted-light">Nome studente</span>
+                                        <input id="student-name" class="rounded-xl border border-black/10 px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none" placeholder="Es. Maria" type="text">
+                                    </label>
+                                    <label class="flex flex-col gap-2">
+                                        <span class="text-sm font-medium text-muted-light">Classe / gruppo</span>
+                                        <input id="student-class" class="rounded-xl border border-black/10 px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none" placeholder="Es. 3SA" type="text">
+                                    </label>
+                                </div>
+                                <button data-next class="flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-lg font-bold text-white shadow-md hover:opacity-90 transition">
+                                    <span class="material-symbols-outlined" aria-hidden="true">play_arrow</span>
+                                    Inizia l'attivit&agrave;
+                                </button>
+                            </div>
+                            <div class="bg-center bg-cover rounded-2xl shadow-lg overflow-hidden">
+                                <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzU-HZ3Shi2mdsxluF-dIvKCgiuOtfBhrtgDr-tjklZUv42UBz5o1BknU04oDGBsG3EpH21J9ZYyU9F-UqXp91Y2x2RVkXD8Dvok64OB_6j0ow9poDBTHBsQGtb1myjlmw_2ul5XDO2LeyL2XlK9lA_-LVs3qP021gEQqOIdngjuWWD56gFpk8EmMA5Q-xCxs7sInA3hOoAwIDskHqTJ6ue8EX8Gq8IjIzlPqj1lklZtEF3lV43is4_fzVgWD0sqip-GVRiws_Eo0f" alt="Collage artistico in toni caldi">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Step 1: Quiz storia -->
+                    <section class="lab-step" data-step="1">
+                        <div class="flex items-center justify-between gap-3">
+                            <p class="text-sm font-semibold step-badge px-3 py-1 rounded-full">Fase 1 · Storia e concetti</p>
+                            <button data-prev class="text-sm font-semibold text-primary hover:underline">Indietro</button>
+                        </div>
+                        <div class="space-y-6 mt-4">
+                            <div class="rounded-2xl bg-surface-light shadow-sm border border-black/5 p-5">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="text-xl font-bold">Domanda 1</h3>
+                                    <span class="text-xs font-semibold px-3 py-1 rounded-full bg-primary/15 text-primary">Storia</span>
+                                </div>
+                                <p class="mt-2 text-muted-light">Chi sono considerati i pionieri del collage?</p>
+                                <div class="mt-4 space-y-3" id="quiz1-q1">
+                                    <label class="flex items-center gap-3 rounded-xl border border-black/10 p-3 hover:border-primary/60">
+                                        <input type="radio" name="quiz1-q1" value="picasso" class="h-5 w-5 text-primary focus:ring-primary">
+                                        <span>Pablo Picasso e Georges Braque</span>
+                                    </label>
+                                    <label class="flex items-center gap-3 rounded-xl border border-black/10 p-3 hover:border-primary/60">
+                                        <input type="radio" name="quiz1-q1" value="vangogh" class="h-5 w-5 text-primary focus:ring-primary">
+                                        <span>Vincent van Gogh e Paul Gauguin</span>
+                                    </label>
+                                    <label class="flex items-center gap-3 rounded-xl border border-black/10 p-3 hover:border-primary/60">
+                                        <input type="radio" name="quiz1-q1" value="rinascimento" class="h-5 w-5 text-primary focus:ring-primary">
+                                        <span>Leonardo da Vinci e Michelangelo</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="rounded-2xl bg-surface-light shadow-sm border border-black/5 p-5">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="text-xl font-bold">Domanda 2</h3>
+                                    <span class="text-xs font-semibold px-3 py-1 rounded-full bg-primary/15 text-primary">Movimenti</span>
+                                </div>
+                                <p class="mt-2 text-muted-light">In quale movimento artistico il collage ha avuto un ruolo centrale?</p>
+                                <div class="mt-4 space-y-3" id="quiz1-q2">
+                                    <label class="flex items-center gap-3 rounded-xl border border-black/10 p-3 hover:border-primary/60">
+                                        <input type="radio" name="quiz1-q2" value="rinascimento" class="h-5 w-5 text-primary focus:ring-primary">
+                                        <span>Rinascimento</span>
+                                    </label>
+                                    <label class="flex items-center gap-3 rounded-xl border border-black/10 p-3 hover:border-primary/60">
+                                        <input type="radio" name="quiz1-q2" value="cubismo" class="h-5 w-5 text-primary focus:ring-primary">
+                                        <span>Cubismo</span>
+                                    </label>
+                                    <label class="flex items-center gap-3 rounded-xl border border-black/10 p-3 hover:border-primary/60">
+                                        <input type="radio" name="quiz1-q2" value="impressionismo" class="h-5 w-5 text-primary focus:ring-primary">
+                                        <span>Impressionismo</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                                <p id="quiz1-feedback" class="text-sm text-muted-light">Scegli le risposte e clicca Verifica.</p>
+                                <div class="flex gap-3">
+                                    <button data-next class="hidden rounded-full px-5 py-3 font-semibold bg-black/5 text-text-light" id="quiz1-next">Prosegui</button>
+                                    <button id="quiz1-submit" class="rounded-full px-5 py-3 font-bold bg-primary text-white shadow-md hover:opacity-90">Verifica risposte</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Step 2: Strumenti -->
+                    <section class="lab-step" data-step="2">
+                        <div class="flex items-center justify-between gap-3">
+                            <p class="text-sm font-semibold step-badge px-3 py-1 rounded-full">Fase 2 · Strumenti e sicurezza</p>
+                            <button data-prev class="text-sm font-semibold text-primary hover:underline">Indietro</button>
+                        </div>
+                        <div class="space-y-6 mt-4">
+                            <div class="rounded-2xl bg-surface-light shadow-sm border border-black/5 p-5">
+                                <p class="text-base font-medium">Quale strumento &egrave; pi&ugrave; sicuro per tagliare la carta?</p>
+                                <div class="mt-3 space-y-3" id="quiz2-q1">
+                                    <label class="flex items-center gap-3 rounded-xl border border-black/10 p-3 hover:border-primary/60">
+                                        <input type="radio" name="quiz2-q1" value="forbici" class="h-5 w-5 text-primary focus:ring-primary">
+                                        <span>Forbici con punta arrotondata</span>
+                                    </label>
+                                    <label class="flex items-center gap-3 rounded-xl border border-black/10 p-3 hover:border-primary/60">
+                                        <input type="radio" name="quiz2-q1" value="taglierino" class="h-5 w-5 text-primary focus:ring-primary">
+                                        <span>Taglierino affilato</span>
+                                    </label>
+                                    <label class="flex items-center gap-3 rounded-xl border border-black/10 p-3 hover:border-primary/60">
+                                        <input type="radio" name="quiz2-q1" value="coltello" class="h-5 w-5 text-primary focus:ring-primary">
+                                        <span>Coltello da cucina</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="rounded-2xl bg-surface-light shadow-sm border border-black/5 p-5">
+                                <p class="text-base font-medium">Cosa dovresti fare prima di usare la colla a caldo?</p>
+                                <div class="mt-3 space-y-3" id="quiz2-q2">
+                                    <label class="flex items-center gap-3 rounded-xl border border-black/10 p-3 hover:border-primary/60">
+                                        <input type="radio" name="quiz2-q2" value="bagnare" class="h-5 w-5 text-primary focus:ring-primary">
+                                        <span>Bagnare la punta con acqua</span>
+                                    </label>
+                                    <label class="flex items-center gap-3 rounded-xl border border-black/10 p-3 hover:border-primary/60">
+                                        <input type="radio" name="quiz2-q2" value="permesso" class="h-5 w-5 text-primary focus:ring-primary">
+                                        <span>Chiedere il permesso a un adulto</span>
+                                    </label>
+                                    <label class="flex items-center gap-3 rounded-xl border border-black/10 p-3 hover:border-primary/60">
+                                        <input type="radio" name="quiz2-q2" value="incustodita" class="h-5 w-5 text-primary focus:ring-primary">
+                                        <span>Collegarla e lasciarla incustodita</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                                <p id="quiz2-feedback" class="text-sm text-muted-light">Verifica per sbloccare la fase successiva.</p>
+                                <div class="flex gap-3">
+                                    <button data-next class="hidden rounded-full px-5 py-3 font-semibold bg-black/5 text-text-light" id="quiz2-next">Vai alla checklist</button>
+                                    <button id="quiz2-submit" class="rounded-full px-5 py-3 font-bold bg-primary text-white shadow-md hover:opacity-90">Verifica risposte</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Step 3: Checklist -->
+                    <section class="lab-step" data-step="3">
+                        <div class="flex items-center justify-between gap-3">
+                            <p class="text-sm font-semibold step-badge px-3 py-1 rounded-full">Fase 3 · Checklist operativa</p>
+                            <button data-prev class="text-sm font-semibold text-primary hover:underline">Indietro</button>
+                        </div>
+                        <div class="mt-5 space-y-3">
+                            <p class="text-muted-light">Spunta i passaggi completati nella realizzazione del collage autobiografico.</p>
+                            <div class="grid md:grid-cols-2 gap-3" id="checklist">
+                                <label class="flex gap-3 rounded-xl bg-black/5 px-4 py-3 items-start">
+                                    <input type="checkbox" value="tema" class="mt-1 h-5 w-5 text-primary focus:ring-primary">
+                                    <span>Ho selezionato un tema per il collage</span>
+                                </label>
+                                <label class="flex gap-3 rounded-xl bg-black/5 px-4 py-3 items-start">
+                                    <input type="checkbox" value="materiali" class="mt-1 h-5 w-5 text-primary focus:ring-primary">
+                                    <span>Ho raccolto i materiali (riviste, foto, tessuti...)</span>
+                                </label>
+                                <label class="flex gap-3 rounded-xl bg-black/5 px-4 py-3 items-start">
+                                    <input type="checkbox" value="ritagli" class="mt-1 h-5 w-5 text-primary focus:ring-primary">
+                                    <span>Ho ritagliato immagini e forme necessarie</span>
+                                </label>
+                                <label class="flex gap-3 rounded-xl bg-black/5 px-4 py-3 items-start">
+                                    <input type="checkbox" value="disposizione" class="mt-1 h-5 w-5 text-primary focus:ring-primary">
+                                    <span>Ho disposto gli elementi sul supporto</span>
+                                </label>
+                                <label class="flex gap-3 rounded-xl bg-black/5 px-4 py-3 items-start">
+                                    <input type="checkbox" value="incollato" class="mt-1 h-5 w-5 text-primary focus:ring-primary">
+                                    <span>Ho incollato la composizione finale</span>
+                                </label>
+                                <label class="flex gap-3 rounded-xl bg-black/5 px-4 py-3 items-start">
+                                    <input type="checkbox" value="tocchi" class="mt-1 h-5 w-5 text-primary focus:ring-primary">
+                                    <span>Ho aggiunto tocchi personali e rifiniture</span>
+                                </label>
+                            </div>
+                            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                                <p id="checklist-feedback" class="text-sm text-muted-light">Sommario automatico per il report finale.</p>
+                                <button data-next class="rounded-full px-5 py-3 font-bold bg-primary text-white shadow-md hover:opacity-90">Passa all'autovalutazione</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Step 4: Autovalutazione -->
+                    <section class="lab-step" data-step="4">
+                        <div class="flex items-center justify-between gap-3">
+                            <p class="text-sm font-semibold step-badge px-3 py-1 rounded-full">Fase 4 · Autovalutazione</p>
+                            <button data-prev class="text-sm font-semibold text-primary hover:underline">Indietro</button>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-5 mt-5">
+                            <div class="rounded-2xl bg-surface-light shadow-sm border border-black/5 p-5 space-y-4">
+                                <p class="font-semibold">Quanto sei soddisfatto/a del tuo collage?</p>
+                                <div class="flex items-center gap-3">
+                                    <span class="text-muted-light text-sm">Poco</span>
+                                    <input id="satisfaction" type="range" min="0" max="100" value="70" class="w-full accent-primary">
+                                    <span class="text-muted-light text-sm">Molto</span>
+                                </div>
+                                <p class="text-sm text-muted-light">Valore attuale: <span id="satisfaction-value" class="font-semibold text-primary">70%</span></p>
+                            </div>
+                            <div class="rounded-2xl bg-surface-light shadow-sm border border-black/5 p-5 space-y-4">
+                                <label class="flex flex-col gap-2">
+                                    <span class="font-semibold">Quale emozione prevale?</span>
+                                    <input id="emotion" type="text" class="rounded-xl border border-black/10 px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none" placeholder="Es. soddisfazione, calma...">
+                                </label>
+                                <label class="flex flex-col gap-2">
+                                    <span class="font-semibold">Quale competenza hai allenato di pi&ugrave;?</span>
+                                    <input id="skill" type="text" class="rounded-xl border border-black/10 px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none" placeholder="Es. creativit&agrave;, organizzazione...">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mt-6">
+                            <p class="text-sm text-muted-light">Genera il report con punteggi, checklist e riflessione finale.</p>
+                            <button id="generate-report" class="rounded-full px-5 py-3 font-bold bg-primary text-white shadow-md hover:opacity-90">Genera report finale</button>
+                        </div>
+                    </section>
+
+                    <!-- Step 5: Report -->
+                    <section class="lab-step" data-step="5">
+                        <div class="flex items-center justify-between gap-3">
+                            <p class="text-sm font-semibold step-badge px-3 py-1 rounded-full">Report finale</p>
+                            <div class="flex gap-2">
+                                <button data-prev class="text-sm font-semibold text-primary hover:underline">Torna indietro</button>
+                                <button id="restart" class="text-sm font-semibold text-muted-light hover:text-primary">Ricomincia</button>
+                            </div>
+                        </div>
+                        <div class="mt-5 space-y-4">
+                            <div class="rounded-2xl bg-gradient-to-r from-primary/15 to-white p-5 report-card">
+                                <h3 class="text-2xl font-bold leading-tight" id="report-title">Ottimo lavoro!</h3>
+                                <p class="text-muted-light mt-1" id="report-subtitle">Ecco il riepilogo della tua esercitazione sul collage.</p>
+                            </div>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="rounded-2xl bg-surface-light p-5 border border-black/5 report-card">
+                                    <p class="text-sm text-muted-light">Punteggio quiz</p>
+                                    <p class="text-4xl font-bold mt-1" id="report-quiz">0/4</p>
+                                    <p class="text-sm text-muted-light" id="report-quiz-detail">Risposte corrette sui fondamenti e sulla sicurezza.</p>
+                                </div>
+                                <div class="rounded-2xl bg-surface-light p-5 border border-black/5 report-card">
+                                    <p class="text-sm text-muted-light">Checklist collage</p>
+                                    <p class="text-4xl font-bold mt-1" id="report-checklist">0/6</p>
+                                    <p class="text-sm text-muted-light">Passaggi completati nella realizzazione.</p>
+                                </div>
+                                <div class="rounded-2xl bg-surface-light p-5 border border-black/5 report-card">
+                                    <p class="text-sm text-muted-light">Soddisfazione</p>
+                                    <div class="flex items-end gap-3 mt-1">
+                                        <p class="text-4xl font-bold" id="report-satisfaction">0%</p>
+                                        <span class="text-sm text-muted-light">percezione personale</span>
+                                    </div>
+                                </div>
+                                <div class="rounded-2xl bg-surface-light p-5 border border-black/5 report-card">
+                                    <p class="text-sm text-muted-light">Competenza chiave</p>
+                                    <p class="text-xl font-semibold mt-1" id="report-skill">Creativit&agrave;</p>
+                                    <p class="text-sm text-muted-light">Indicata durante l'autovalutazione.</p>
+                                </div>
+                            </div>
+                            <div class="rounded-2xl bg-surface-light p-5 border border-black/5 report-card">
+                                <p class="text-sm text-muted-light">Emozione prevalente</p>
+                                <p class="text-xl font-semibold mt-1" id="report-emotion">—</p>
+                                <p class="text-sm text-muted-light mt-1">Annota come ti sei sentito/a durante l'attivit&agrave;.</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p><strong>Prof. Dott. Picconi</strong></p>
+            <p>Metodologie Operative - Servizi Sociosanitari</p>
+            <p>IIS Meucci Mattei - Cagliari</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem;">&copy; 2025 - Tutti i diritti riservati</p>
+            <div class="home-link">
+                <a href="https://salvapicconi.github.io/metodologieoperative/">🏠 Torna alla Home</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const STATE_KEY = 'mo_collage_autobio';
+        const steps = Array.from(document.querySelectorAll('.lab-step'));
+        const totalSteps = steps.length;
+        const progressBar = document.getElementById('progress-bar');
+        const progressStep = document.getElementById('progress-step');
+        const progressTotal = document.getElementById('progress-total');
+        const satisfactionInput = document.getElementById('satisfaction');
+        const satisfactionValue = document.getElementById('satisfaction-value');
+
+        const defaultState = {
+            currentStep: 0,
+            name: '',
+            class: '',
+            quiz1: { score: 0, completed: false },
+            quiz2: { score: 0, completed: false },
+            checklist: [],
+            emotion: '',
+            skill: '',
+            satisfaction: 70
+        };
+
+        const loadState = () => {
+            try {
+                const stored = localStorage.getItem(STATE_KEY);
+                return stored ? { ...defaultState, ...JSON.parse(stored) } : { ...defaultState };
+            } catch (e) {
+                return { ...defaultState };
+            }
+        };
+
+        const saveState = (state) => {
+            try { localStorage.setItem(STATE_KEY, JSON.stringify(state)); } catch (e) { /* ignore */ }
+        };
+
+        let state = loadState();
+
+        function goToStep(index) {
+            const clamped = Math.max(0, Math.min(index, steps.length - 1));
+            steps.forEach((step, i) => step.classList.toggle('active', i === clamped));
+            state.currentStep = clamped;
+            const percent = ((clamped + 1) / totalSteps) * 100;
+            progressBar.style.width = `${Math.min(100, Math.max(0, percent))}%`;
+            progressStep.textContent = clamped + 1;
+            if (progressTotal) progressTotal.textContent = totalSteps;
+            saveState(state);
+        }
+
+        function requireAnswers(names) {
+            return names.every(name => document.querySelector(`input[name="${name}"]:checked`));
+        }
+
+        function checkQuiz(correctMap, feedbackId, nextButtonId) {
+            const names = Object.keys(correctMap);
+            if (!requireAnswers(names)) {
+                document.getElementById(feedbackId).textContent = 'Seleziona una risposta per ogni domanda.';
+                document.getElementById(feedbackId).classList.remove('text-emerald-600');
+                return 0;
+            }
+            let score = 0;
+            names.forEach(name => {
+                const selected = document.querySelector(`input[name="${name}"]:checked`).value;
+                if (selected === correctMap[name]) score += 1;
+            });
+            const feedback = document.getElementById(feedbackId);
+            feedback.textContent = `Hai risposto correttamente a ${score} su ${names.length} domande.`;
+            feedback.classList.toggle('text-emerald-600', score === names.length);
+            const nextBtn = document.getElementById(nextButtonId);
+            if (nextBtn) nextBtn.classList.remove('hidden');
+            return score;
+        }
+
+        document.querySelectorAll('[data-next]').forEach(btn => {
+            btn.addEventListener('click', () => goToStep(state.currentStep + 1));
+        });
+
+        document.querySelectorAll('[data-prev]').forEach(btn => {
+            btn.addEventListener('click', () => goToStep(state.currentStep - 1));
+        });
+
+        document.getElementById('quiz1-submit').addEventListener('click', () => {
+            const score = checkQuiz(
+                { 'quiz1-q1': 'picasso', 'quiz1-q2': 'cubismo' },
+                'quiz1-feedback',
+                'quiz1-next'
+            );
+            state.quiz1 = { score, completed: true };
+            saveState(state);
+        });
+
+        document.getElementById('quiz2-submit').addEventListener('click', () => {
+            const score = checkQuiz(
+                { 'quiz2-q1': 'forbici', 'quiz2-q2': 'permesso' },
+                'quiz2-feedback',
+                'quiz2-next'
+            );
+            state.quiz2 = { score, completed: true };
+            saveState(state);
+        });
+
+        document.getElementById('generate-report').addEventListener('click', () => {
+            state.emotion = document.getElementById('emotion').value.trim();
+            state.skill = document.getElementById('skill').value.trim() || 'Creativit&agrave;';
+            state.satisfaction = Number(satisfactionInput.value || 0);
+            state.name = document.getElementById('student-name').value.trim();
+            state.class = document.getElementById('student-class').value.trim();
+            const checklistValues = Array.from(document.querySelectorAll('#checklist input[type="checkbox"]:checked')).map(el => el.value);
+            state.checklist = checklistValues;
+            saveState(state);
+            updateReport();
+            goToStep(5);
+        });
+
+        document.getElementById('restart').addEventListener('click', () => {
+            state = { ...defaultState };
+            saveState(state);
+            resetForm();
+            updateReport();
+            goToStep(0);
+        });
+
+        satisfactionInput.addEventListener('input', () => {
+            satisfactionValue.textContent = `${satisfactionInput.value}%`;
+        });
+
+        function resetForm() {
+            document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+            document.querySelectorAll('#checklist input[type="checkbox"]').forEach(c => c.checked = false);
+            document.getElementById('emotion').value = '';
+            document.getElementById('skill').value = '';
+            document.getElementById('student-name').value = '';
+            document.getElementById('student-class').value = '';
+            satisfactionInput.value = defaultState.satisfaction;
+            satisfactionValue.textContent = `${defaultState.satisfaction}%`;
+        }
+
+        function restoreState() {
+            document.getElementById('student-name').value = state.name || '';
+            document.getElementById('student-class').value = state.class || '';
+            satisfactionInput.value = state.satisfaction || defaultState.satisfaction;
+            satisfactionValue.textContent = `${satisfactionInput.value}%`;
+            document.getElementById('emotion').value = state.emotion || '';
+            document.getElementById('skill').value = state.skill || '';
+            state.checklist.forEach(val => {
+                const el = document.querySelector(`#checklist input[value="${val}"]`);
+                if (el) el.checked = true;
+            });
+            goToStep(state.currentStep || 0);
+            updateReport();
+        }
+
+        function updateReport() {
+            const totalQuiz = (state.quiz1?.score || 0) + (state.quiz2?.score || 0);
+            document.getElementById('report-quiz').textContent = `${totalQuiz}/4`;
+            document.getElementById('report-checklist').textContent = `${state.checklist.length}/6`;
+            document.getElementById('report-satisfaction').textContent = `${state.satisfaction || 0}%`;
+            document.getElementById('report-emotion').textContent = state.emotion || 'Non indicata';
+            document.getElementById('report-skill').textContent = state.skill || 'Creativit&agrave;';
+            const name = state.name ? `Ottimo lavoro, ${state.name}!` : 'Ottimo lavoro!';
+            const classe = state.class ? `Classe/ gruppo: ${state.class}.` : 'Riepilogo completo del percorso.';
+            document.getElementById('report-title').textContent = name;
+            document.getElementById('report-subtitle').textContent = classe;
+        }
+
+        document.getElementById('quiz1-next').addEventListener('click', () => goToStep(2));
+        document.getElementById('quiz2-next').addEventListener('click', () => goToStep(3));
+
+        document.querySelector('[data-step="3"] [data-next]').addEventListener('click', () => {
+            const checklistValues = Array.from(document.querySelectorAll('#checklist input[type="checkbox"]:checked')).map(el => el.value);
+            state.checklist = checklistValues;
+            saveState(state);
+            goToStep(4);
+        });
+
+        restoreState();
+    </script>
+</body>
+</html>
