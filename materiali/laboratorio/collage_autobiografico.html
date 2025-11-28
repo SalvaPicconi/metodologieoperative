@@ -52,6 +52,45 @@
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
             font-family: 'Material Symbols Outlined';
         }
+        .floating-actions {
+            position: fixed;
+            right: 16px;
+            bottom: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 9999;
+            align-items: flex-end;
+        }
+        .floating-actions .row {
+            display: flex;
+            gap: 8px;
+        }
+        .floating-actions button {
+            border: 0;
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+        }
+        .floating-actions .nav-btn {
+            background: #1f2937;
+            color: #fff;
+        }
+        .floating-actions .nav-btn[disabled] {
+            opacity: 0.4;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        .floating-actions .save-btn {
+            background: #0ea5e9;
+            color: #fff;
+        }
+        .floating-actions .reset-btn {
+            background: #f97316;
+            color: #fff;
+        }
     </style>
 </head>
 <body class="bg-background-light text-text-light">
@@ -439,6 +478,17 @@
         </div>
     </main>
 
+    <div class="floating-actions" aria-label="Azioni rapide">
+        <div class="row">
+            <button type="button" class="nav-btn" id="quickPrev">← Indietro</button>
+            <button type="button" class="nav-btn" id="quickNext">Avanti →</button>
+        </div>
+        <div class="row">
+            <button type="button" class="save-btn" data-save-progress id="saveProgressBtn">💾 Salva progressi</button>
+            <button type="button" class="reset-btn" id="resetStudent">🔄 Cambia studente</button>
+        </div>
+    </div>
+
     <footer>
         <div class="container">
             <p><strong>Prof. Dott. Picconi</strong></p>
@@ -460,6 +510,8 @@
         const progressTotal = document.getElementById('progress-total');
         const satisfactionInput = document.getElementById('satisfaction');
         const satisfactionValue = document.getElementById('satisfaction-value');
+        const quickPrev = document.getElementById('quickPrev');
+        const quickNext = document.getElementById('quickNext');
 
         const defaultState = {
             currentStep: 0,
@@ -496,6 +548,8 @@
             progressBar.style.width = `${Math.min(100, Math.max(0, percent))}%`;
             progressStep.textContent = clamped + 1;
             if (progressTotal) progressTotal.textContent = totalSteps;
+            if (quickPrev) quickPrev.disabled = clamped === 0;
+            if (quickNext) quickNext.disabled = clamped === totalSteps - 1;
             saveState(state);
         }
 
@@ -625,7 +679,43 @@
             goToStep(4);
         });
 
+        if (quickPrev) quickPrev.addEventListener('click', () => goToStep(state.currentStep - 1));
+        if (quickNext) quickNext.addEventListener('click', () => goToStep(state.currentStep + 1));
+
         restoreState();
     </script>
+    <script>
+        window.MO_PROGRESS_CONFIG = {
+            inputSelector: 'input, textarea, select',
+            pagePath: 'collage-autobiografico',
+            autoSave: true,
+            autoSaveDebounceMs: 5000,
+            autoSaveMinIntervalMs: 12000
+        };
+        window.MO_IDENTITY_CONFIG = {
+            message: 'Inserisci la classe (es. 3sa) e il codice cognome+iniziale (es. rossi g → rossig).',
+            classPlaceholder: 'Classe (es. 3sa)',
+            classPattern: '^[1-5][a-z]{1,2}$',
+            classExample: '3sa',
+            classErrorMessage: 'Classe non valida: usa una cifra da 1 a 5 seguita da 1-2 lettere minuscole (es. 3sa).',
+            stripWhitespaceInClass: true,
+            storeClassLowercase: true,
+            storeClassUppercase: false,
+            codePlaceholder: 'Codice (es. rossig)',
+            codePattern: '^[a-zà-ü]{2,}[a-z]$',
+            codeExample: 'rossig',
+            codeErrorMessage: 'Codice non valido: usa cognome tutto minuscolo + iniziale del nome (es. rossi g → rossig).',
+            sanitizeCode: true,
+            stripWhitespaceInCode: true,
+            storeCodeLowercase: true,
+            storeCodeUppercase: false,
+            hideGenerator: true,
+            guestAllowed: true,
+            guestClassCode: 'ospite',
+            guestStudentCode: 'ospite'
+        };
+    </script>
+    <script type="module" src="../../assets/progress.js"></script>
+    <script type="module" src="../../assets/progress-global.js"></script>
 </body>
 </html>
