@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="960" viewBox="0 0 640 960" role="img" aria-labelledby="title desc">
+  <title id="title">Collage ispirato a Hannah Höch - fotomontaggio dadaista</title>
+  <desc id="desc">Un volto costruito con ritagli: occhi grandi su carta marrone, un naso e bocca grigi sovrapposti, corpo in scala di grigi e fondo nero che invade la spalla. Evoca i fotomontaggi di Hannah Höch.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#c49a6c"/>
+      <stop offset="100%" stop-color="#8b6845"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#a8a8a8"/>
+      <stop offset="100%" stop-color="#7b7b7b"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="960" fill="#f6f4f2"/>
+  <rect x="340" y="320" width="220" height="360" fill="#0f0f0f" transform="rotate(-10 450 500)" opacity="0.9"/>
+  <ellipse cx="300" cy="320" rx="210" ry="240" fill="url(#paper)" filter="url(#shadow)"/>
+  <path d="M120 560 Q190 500 300 520 Q410 540 480 610 L500 780 Q340 810 200 760 L170 620 Z" fill="url(#body)"/>
+  <g opacity="0.92">
+    <ellipse cx="240" cy="300" rx="70" ry="42" fill="#1f1f1f"/>
+    <circle cx="240" cy="300" r="38" fill="#2d2d2d"/>
+    <circle cx="240" cy="300" r="16" fill="#f5f5f5"/>
+    <circle cx="240" cy="300" r="8" fill="#101010"/>
+  </g>
+  <g opacity="0.92">
+    <ellipse cx="370" cy="300" rx="70" ry="42" fill="#1f1f1f"/>
+    <circle cx="370" cy="300" r="38" fill="#2d2d2d"/>
+    <circle cx="370" cy="300" r="16" fill="#f5f5f5"/>
+    <circle cx="370" cy="300" r="8" fill="#101010"/>
+  </g>
+  <path d="M255 380 Q320 340 380 380 L395 430 Q320 455 245 430 Z" fill="#6f6f6f" opacity="0.78"/>
+  <path d="M255 430 Q320 470 380 430 Q375 490 320 520 Q265 490 255 430 Z" fill="#606060" opacity="0.9"/>
+  <path d="M210 540 Q320 590 430 540 Q430 580 320 610 Q210 580 210 540 Z" fill="#1b1b1b"/>
+  <path d="M150 820 Q320 850 470 820 Q470 860 320 900 Q170 860 150 820 Z" fill="#0f0f0f" opacity="0.7"/>
+</svg>
