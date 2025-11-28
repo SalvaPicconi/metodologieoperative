@@ -534,7 +534,7 @@
         }
     </style>
 </head>
-<body>
+<body data-mo-guest="true">
     <div class="container">
         <header>
             <h1>🎨 Il Collage Autobiografico</h1>
@@ -1714,9 +1714,8 @@ Perché mi interessa: ..."></textarea>
         window.MO_PROGRESS_CONFIG = {
             inputSelector: 'input, textarea, select',
             pagePath: 'collage-autobiografico',
-            autoSave: true,
-            autoSaveDebounceMs: 5000,
-            autoSaveMinIntervalMs: 12000
+            autoSave: false,
+            disabled: true
         };
         window.MO_IDENTITY_CONFIG = {
             message: 'Inserisci la classe (es. 3sa) e il codice cognome+iniziale (es. rossi g → rossig). Modalità ospite disponibile.',
