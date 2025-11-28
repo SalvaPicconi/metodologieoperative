@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="page-id" content="collage-autobiografico-01">
     <title>Il Collage Autobiografico - Percorso di Apprendimento Interattivo</title>
     <style>
         * {
@@ -1701,5 +1702,38 @@ Perché mi interessa: ..."></textarea>
         // AUTO-SAVE ogni 30 secondi
         setInterval(saveProgress, 30000);
     </script>
+    <script>
+        window.MO_PROGRESS_CONFIG = {
+            inputSelector: 'input, textarea, select',
+            pagePath: 'collage-autobiografico',
+            autoSave: true,
+            autoSaveDebounceMs: 5000,
+            autoSaveMinIntervalMs: 12000
+        };
+        window.MO_IDENTITY_CONFIG = {
+            message: 'Inserisci la classe (es. 3sa) e il codice cognome+iniziale (es. rossi g → rossig). Modalità ospite disponibile.',
+            classPlaceholder: 'Classe (es. 3sa)',
+            classPattern: '^[1-5][a-z]{1,2}$',
+            classExample: '3sa',
+            classErrorMessage: 'Classe non valida: usa una cifra da 1 a 5 seguita da 1-2 lettere minuscole (es. 3sa).',
+            stripWhitespaceInClass: true,
+            storeClassLowercase: true,
+            storeClassUppercase: false,
+            codePlaceholder: 'Codice (es. rossig)',
+            codePattern: '^[a-zà-ü]{2,}[a-z]$',
+            codeExample: 'rossig',
+            codeErrorMessage: 'Codice non valido: usa cognome tutto minuscolo + iniziale del nome (es. rossi g → rossig).',
+            sanitizeCode: true,
+            stripWhitespaceInCode: true,
+            storeCodeLowercase: true,
+            storeCodeUppercase: false,
+            hideGenerator: true,
+            guestAllowed: true,
+            guestClassCode: 'ospite',
+            guestStudentCode: 'ospite'
+        };
+    </script>
+    <script type="module" src="../../assets/progress.js"></script>
+    <script type="module" src="../../assets/progress-global.js"></script>
 </body>
 </html>
