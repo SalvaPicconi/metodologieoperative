@@ -1,0 +1,47 @@
+/* Styles specific to the lab components */
+
+.lab-container {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+}
+
+.lab-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.lab-description {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.lab-step {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #007bff;
+    border-radius: 3px;
+    background-color: #e7f1ff;
+}
+
+.lab-step.active {
+    border-color: #0056b3;
+    background-color: #d1e7ff;
+}
+
+.lab-button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.lab-button:hover {
+    background-color: #0056b3;
+}
