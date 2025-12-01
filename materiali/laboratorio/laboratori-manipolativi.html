@@ -1,0 +1,2008 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="page-id" content="attivita-materiali-laboratorio-manipolativi-01">
+    <title>I Laboratori Manipolativi - Metodologie Operative</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Source+Sans+Pro:wght@400;600;700&family=Fira+Code&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0077B6;
+            --primary-dark: #005f92;
+            --secondary: #00B4D8;
+            --accent: #FF6B35;
+            --accent-warm: #F4A261;
+            --background: #FAFBFC;
+            --surface: #FFFFFF;
+            --text-primary: #1A1A2E;
+            --text-secondary: #4A5568;
+            --border: #E2E8F0;
+            --success: #38A169;
+            --warning: #ED8936;
+            --phase1: #0077B6;
+            --phase2: #00B4D8;
+            --phase3: #FF6B35;
+            --phase4: #38A169;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
+            --radius: 12px;
+            --radius-lg: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', -apple-system, sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 17px;
+        }
+
+        /* Header Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 60px 20px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .breadcrumb {
+            font-size: 14px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .breadcrumb a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .hero h1 {
+            font-family: 'Merriweather', Georgia, serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            max-width: 700px;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 24px;
+            font-size: 14px;
+        }
+
+        .hero-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.15);
+            padding: 6px 14px;
+            border-radius: 20px;
+        }
+
+        /* Navigation Steps */
+        .steps-nav {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 0 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .steps-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .steps-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .step-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 24px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 14px;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .step-link:hover {
+            color: var(--primary);
+            background: rgba(0,119,182,0.05);
+        }
+
+        .step-link.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .step-number {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .step-link:nth-child(1) .step-number { background: var(--phase1); }
+        .step-link:nth-child(2) .step-number { background: var(--phase2); }
+        .step-link:nth-child(3) .step-number { background: var(--phase3); }
+        .step-link:nth-child(4) .step-number { background: var(--phase4); }
+
+        /* Main Content */
+        .main-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px 80px;
+        }
+
+        /* Phase Sections */
+        .phase-section {
+            margin-bottom: 60px;
+            scroll-margin-top: 80px;
+        }
+
+        .phase-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .phase-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+
+        .phase-1 .phase-icon { background: linear-gradient(135deg, var(--phase1), #0096c7); }
+        .phase-2 .phase-icon { background: linear-gradient(135deg, var(--phase2), #48cae4); }
+        .phase-3 .phase-icon { background: linear-gradient(135deg, var(--phase3), #f4a261); }
+        .phase-4 .phase-icon { background: linear-gradient(135deg, var(--phase4), #68d391); }
+
+        .phase-title-group h2 {
+            font-family: 'Merriweather', Georgia, serif;
+            font-size: 1.6rem;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .phase-subtitle {
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+
+        .phase-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .phase-1 .phase-badge { background: rgba(0,119,182,0.1); color: var(--phase1); }
+        .phase-2 .phase-badge { background: rgba(0,180,216,0.1); color: var(--phase2); }
+        .phase-3 .phase-badge { background: rgba(255,107,53,0.1); color: var(--phase3); }
+        .phase-4 .phase-badge { background: rgba(56,161,105,0.1); color: var(--phase4); }
+
+        /* Content Cards */
+        .content-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+        }
+
+        .content-card h3 {
+            font-family: 'Merriweather', Georgia, serif;
+            font-size: 1.25rem;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .content-card h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 24px 0 12px;
+            color: var(--text-primary);
+        }
+
+        .content-card p {
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+        }
+
+        .content-card ul, .content-card ol {
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+
+        .content-card li {
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(0,119,182,0.08) 0%, rgba(0,180,216,0.08) 100%);
+            border-left: 4px solid var(--primary);
+            padding: 20px 24px;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            margin: 24px 0;
+        }
+
+        .highlight-box.dewey {
+            background: linear-gradient(135deg, rgba(0,180,216,0.08) 0%, rgba(72,202,228,0.08) 100%);
+            border-left-color: var(--secondary);
+        }
+
+        .highlight-box.warning {
+            background: linear-gradient(135deg, rgba(255,107,53,0.08) 0%, rgba(244,162,97,0.08) 100%);
+            border-left-color: var(--accent);
+        }
+
+        .highlight-box.success {
+            background: linear-gradient(135deg, rgba(56,161,105,0.08) 0%, rgba(104,211,145,0.08) 100%);
+            border-left-color: var(--success);
+        }
+
+        .highlight-box h4 {
+            margin-top: 0;
+            font-size: 1rem;
+        }
+
+        .highlight-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Question Stimulus */
+        .question-stimulus {
+            background: var(--surface);
+            border: 2px dashed var(--primary);
+            border-radius: var(--radius);
+            padding: 30px;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .question-stimulus .icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+
+        .question-stimulus p {
+            font-family: 'Merriweather', Georgia, serif;
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--primary-dark);
+            margin: 0;
+        }
+
+        /* Video Placeholder */
+        .video-container {
+            background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);
+            border-radius: var(--radius);
+            padding: 60px 30px;
+            text-align: center;
+            margin: 24px 0;
+            color: white;
+        }
+
+        .video-container .play-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 28px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .video-container .play-icon:hover {
+            background: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .video-container p {
+            color: rgba(255,255,255,0.8);
+            margin: 0;
+        }
+
+        /* Activity Cards Grid */
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 24px 0;
+        }
+
+        .activity-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .activity-header {
+            padding: 20px;
+            color: white;
+            position: relative;
+        }
+
+        .activity-card:nth-child(1) .activity-header { background: linear-gradient(135deg, #0077B6, #0096c7); }
+        .activity-card:nth-child(2) .activity-header { background: linear-gradient(135deg, #FF6B35, #f4a261); }
+        .activity-card:nth-child(3) .activity-header { background: linear-gradient(135deg, #38A169, #68d391); }
+        .activity-card:nth-child(4) .activity-header { background: linear-gradient(135deg, #805AD5, #9F7AEA); }
+        .activity-card:nth-child(5) .activity-header { background: linear-gradient(135deg, #00B4D8, #48cae4); }
+        .activity-card:nth-child(6) .activity-header { background: linear-gradient(135deg, #E53E3E, #FC8181); }
+
+        .activity-header h4 {
+            font-family: 'Merriweather', Georgia, serif;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        .activity-header .emoji {
+            font-size: 24px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .activity-body {
+            padding: 20px;
+        }
+
+        .activity-body p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .activity-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tag {
+            background: var(--background);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Procedure Steps */
+        .procedure-steps {
+            counter-reset: step;
+        }
+
+        .procedure-step {
+            display: flex;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .procedure-step:last-child {
+            border-bottom: none;
+        }
+
+        .step-counter {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            margin-top: 0;
+            font-size: 1rem;
+        }
+
+        .step-content p {
+            margin: 8px 0 0;
+        }
+
+        /* Materials List */
+        .materials-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .material-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--background);
+            border-radius: 8px;
+        }
+
+        .material-item .icon {
+            font-size: 20px;
+        }
+
+        .material-item span {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Objectives Table */
+        .objectives-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        .objectives-table th {
+            background: var(--primary);
+            color: white;
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .objectives-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .objectives-table tr:nth-child(even) {
+            background: var(--background);
+        }
+
+        .objectives-table .target-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            background: rgba(0,119,182,0.1);
+            color: var(--primary);
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .checklist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .checklist li:last-child {
+            border-bottom: none;
+        }
+
+        .checkbox {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .checkbox:hover {
+            border-color: var(--primary);
+        }
+
+        .checkbox.checked {
+            background: var(--success);
+            border-color: var(--success);
+        }
+
+        .checkbox.checked::after {
+            content: '✓';
+            color: white;
+            font-size: 14px;
+        }
+
+        /* Expandable Section */
+        .expandable {
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin: 16px 0;
+            overflow: hidden;
+        }
+
+        .expandable-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: var(--background);
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s ease;
+        }
+
+        .expandable-header:hover {
+            background: #f0f1f3;
+        }
+
+        .expandable-header .arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .expandable.open .expandable-header .arrow {
+            transform: rotate(180deg);
+        }
+
+        .expandable-content {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .expandable.open .expandable-content {
+            padding: 20px;
+            max-height: 2000px;
+        }
+
+        /* AI Integration Box */
+        .ai-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: var(--radius);
+            padding: 28px;
+            color: white;
+            margin: 24px 0;
+        }
+
+        .ai-box h4 {
+            color: white;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ai-box p {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .ai-prompt {
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'Fira Code', monospace;
+            font-size: 13px;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        .ai-box .btn-copy {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.2s ease;
+        }
+
+        .ai-box .btn-copy:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Reflection Questions */
+        .reflection-card {
+            background: linear-gradient(135deg, rgba(56,161,105,0.1) 0%, rgba(104,211,145,0.05) 100%);
+            border: 1px solid rgba(56,161,105,0.2);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin: 16px 0;
+        }
+
+        .reflection-card h4 {
+            color: var(--success);
+            margin-top: 0;
+        }
+
+        .reflection-questions {
+            list-style: none;
+            padding: 0;
+        }
+
+        .reflection-questions li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            color: var(--text-secondary);
+            border-bottom: 1px dashed rgba(56,161,105,0.2);
+        }
+
+        .reflection-questions li:last-child {
+            border-bottom: none;
+        }
+
+        .reflection-questions li::before {
+            content: '💭';
+            position: absolute;
+            left: 0;
+        }
+
+        /* Self-Evaluation Grid */
+        .evaluation-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+            background: var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .eval-header, .eval-cell {
+            padding: 14px 12px;
+            background: var(--surface);
+            font-size: 13px;
+        }
+
+        .eval-header {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .eval-cell {
+            color: var(--text-secondary);
+        }
+
+        .eval-cell.criterion {
+            font-weight: 600;
+            color: var(--text-primary);
+            background: var(--background);
+        }
+
+        /* Progress Bar */
+        .progress-section {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin: 30px 0;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--background);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--phase1) 0%, var(--phase2) 33%, var(--phase3) 66%, var(--phase4) 100%);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Navigation Footer */
+        .nav-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+        }
+
+        .nav-footer a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            padding: 12px 20px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-footer a:hover {
+            background: rgba(0,119,182,0.1);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-primary);
+            color: rgba(255,255,255,0.8);
+            padding: 40px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-content p {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+
+        .footer-content a {
+            color: var(--secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 40px 20px 60px;
+            }
+
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .phase-header {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .content-card {
+                padding: 20px;
+            }
+
+            .activities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .evaluation-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .eval-header:not(:first-child) {
+                display: none;
+            }
+
+            .nav-footer {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .steps-nav, .video-container, .ai-box, footer {
+                display: none;
+            }
+
+            .content-card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .phase-section {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Schema guida conduzione */
+        .schema-conduzione {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .schema-item {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 20px;
+            border-left: 4px solid;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .schema-item:nth-child(1) { border-left-color: var(--phase1); }
+        .schema-item:nth-child(2) { border-left-color: var(--phase2); }
+        .schema-item:nth-child(3) { border-left-color: var(--phase3); }
+        .schema-item:nth-child(4) { border-left-color: var(--phase4); }
+
+        .schema-item h5 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .schema-item:nth-child(1) h5 { color: var(--phase1); }
+        .schema-item:nth-child(2) h5 { color: var(--phase2); }
+        .schema-item:nth-child(3) h5 { color: var(--phase3); }
+        .schema-item:nth-child(4) h5 { color: var(--phase4); }
+
+        .schema-item p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        /* Gibran Quote Box */
+        .gibran-quote {
+            background: linear-gradient(135deg, #faf3e8 0%, #f5ebe0 100%);
+            border-radius: var(--radius-lg);
+            padding: 36px 40px;
+            margin: 30px 0;
+            position: relative;
+            border: 1px solid #e6d5c3;
+            box-shadow: 0 4px 20px rgba(139, 109, 76, 0.1);
+        }
+
+        .gibran-quote::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 80px;
+            font-family: Georgia, serif;
+            color: rgba(139, 109, 76, 0.15);
+            line-height: 1;
+        }
+
+        .gibran-icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .gibran-quote blockquote {
+            margin: 0;
+            padding: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .gibran-quote blockquote p {
+            font-family: 'Merriweather', Georgia, serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #5d4e37;
+            line-height: 1.9;
+            margin: 0 0 8px 0;
+            text-align: center;
+        }
+
+        .gibran-quote blockquote p:first-child {
+            font-size: 1.25rem;
+            font-weight: 700;
+            font-style: normal;
+            color: #4a3f2f;
+            margin-bottom: 16px;
+        }
+
+        .gibran-quote cite {
+            display: block;
+            text-align: right;
+            margin-top: 20px;
+            font-size: 0.95rem;
+            color: #8b6d4c;
+            font-style: normal;
+        }
+
+        .gibran-quote cite em {
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <nav class="breadcrumb">
+                <a href="index.html">Home</a> / <a href="terzo-anno.html">Terzo Anno</a> / I Laboratori Manipolativi
+            </nav>
+            <h1>🎨 I Laboratori Manipolativi</h1>
+            <p class="hero-subtitle">Apprendere facendo: tecniche, materiali e metodologie per la progettazione e conduzione di laboratori creativi nei servizi sociosanitari</p>
+            <div class="hero-meta">
+                <span>📚 Capitolo 4 - I Laboratori</span>
+                <span>⏱️ 6-8 ore</span>
+                <span>🎯 Livello 1</span>
+                <span>👥 3° Anno SSS</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Steps Navigation -->
+    <nav class="steps-nav">
+        <div class="steps-container">
+            <a href="#fase1" class="step-link active">
+                <span class="step-number">1</span>
+                <span>Curiosità</span>
+            </a>
+            <a href="#fase2" class="step-link">
+                <span class="step-number">2</span>
+                <span>Comprensione</span>
+            </a>
+            <a href="#fase3" class="step-link">
+                <span class="step-number">3</span>
+                <span>Applicazione</span>
+            </a>
+            <a href="#fase4" class="step-link">
+                <span class="step-number">4</span>
+                <span>Riflessione</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Progress Section -->
+        <div class="progress-section">
+            <div class="progress-header">
+                <span><strong>Il tuo percorso</strong></span>
+                <span id="progress-text">0% completato</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- FASE 1: CURIOSITÀ -->
+        <section id="fase1" class="phase-section phase-1">
+            <div class="phase-header">
+                <div class="phase-icon">💡</div>
+                <div class="phase-title-group">
+                    <span class="phase-badge">Step 1</span>
+                    <h2>Introduzione e Concettualizzazione</h2>
+                    <p class="phase-subtitle">Attivare l'interesse • Costruire curiosità • Definire il "perché"</p>
+                </div>
+            </div>
+
+            <div class="question-stimulus">
+                <div class="icon">🤔</div>
+                <p>"Perché le mani che creano possono guarire la mente e il cuore?"</p>
+            </div>
+
+            <div class="gibran-quote">
+                <div class="gibran-icon">✨</div>
+                <blockquote>
+                    <p>E cos'è lavorare con amore?</p>
+                    <p>È tessere un abito con i fili del cuore, come se dovesse indossarlo il vostro amato.</p>
+                    <p>È costruire una casa con dedizione come se dovesse abitarla il vostro amato.</p>
+                    <p>È spargere teneramente i semi e mietere il raccolto con gioia, come se dovesse goderne il frutto il vostro amato.</p>
+                    <p>È diffondere in tutto ciò che fate il soffio del vostro spirito,</p>
+                    <p>E sapere che tutti i venerati morti stanno vigili intorno a voi.</p>
+                </blockquote>
+                <cite>— Kahlil Gibran, <em>Il Profeta</em></cite>
+            </div>
+
+            <div class="content-card">
+                <h3>🎯 Obiettivo di questa fase</h3>
+                <p>Prima di immergerti nel mondo dei laboratori manipolativi, fermati un momento a riflettere: hai mai notato quanto ti senti bene dopo aver creato qualcosa con le tue mani? Una torta, un disegno, un oggetto qualsiasi?</p>
+                <p>In questa fase scoprirai perché le attività manuali non sono solo "passatempi", ma potenti strumenti educativi e terapeutici utilizzati nei servizi sociosanitari con bambini, anziani e persone con disabilità.</p>
+            </div>
+
+            <div class="video-container">
+                <div class="play-icon">▶</div>
+                <p><strong>Video introduttivo consigliato</strong></p>
+                <p>Cerca su YouTube: "Laboratori creativi anziani" oppure "Arte terapia benefici"</p>
+            </div>
+
+            <div class="content-card">
+                <h3>📖 Il fondamento teorico: John Dewey</h3>
+                
+                <div class="highlight-box dewey">
+                    <h4>💬 "Facendo si impara dalla propria esperienza e dai propri errori"</h4>
+                    <p><strong>John Dewey</strong> (1859-1952), filosofo e pedagogista statunitense, è considerato il grande innovatore della pedagogia del Novecento. La sua idea centrale? Non basta fare per apprendere: il fare deve trasformarsi in <em>apprendimento dall'esperienza</em>, cioè in riflessione su "che cosa si è imparato e come lo si è imparato".</p>
+                </div>
+
+                <h4>Cosa significa "Apprendere facendo esperienza"?</h4>
+                <p>Significa <strong>interagire con il mondo esterno</strong> in modo attivo, non limitandosi a ricevere passivamente nozioni. Significa:</p>
+                <ul>
+                    <li>Sviluppare le proprie <strong>abilità di problem solving</strong></li>
+                    <li>Acquisire <strong>autoconsapevolezza</strong> mediante auto-osservazione ed etero-osservazione</li>
+                    <li>Ridefinire <strong>atteggiamenti inadeguati</strong> e valorizzare comportamenti costruttivi</li>
+                    <li>Migliorare la propria <strong>emotività</strong></li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>🏗️ Il Laboratorio come Setting di Apprendimento</h3>
+                <p>Il termine "laboratorio" richiama alla mente un luogo dove artigiani e artisti <strong>creavano i loro manufatti</strong> con fantasia e creatività, usando materiali, attrezzature e utensili adeguati al progetto.</p>
+                
+                <div class="highlight-box">
+                    <h4>📌 Definizione chiave</h4>
+                    <p>Il <strong>laboratorio didattico</strong> è un setting ideale per l'apprendimento di abilità pratiche in condizioni "protette", dove l'apprendimento stesso diventa il contenuto principale. Le finalità prevedono la creazione di un <strong>prodotto originale e personale</strong>, seguendo un determinato percorso metodologico.</p>
+                </div>
+
+                <h4>Competenze professionali (D.Lgs. n. 61/2017)</h4>
+                <p><strong>Competenza n. 8:</strong> Realizzare, in autonomia o in collaborazione con altre figure professionali, attività educative, di animazione sociale, ludiche e culturali adeguate ai diversi contesti e ai diversi bisogni.</p>
+            </div>
+
+            <div class="content-card">
+                <h3>✏️ Prodotto atteso: Mappa Concettuale</h3>
+                <p>Prima di proseguire, prova a costruire una <strong>mappa concettuale</strong> o scrivi una <strong>frase-chiave</strong> che riassuma la tua comprensione iniziale di questi concetti:</p>
+                <ul>
+                    <li>Cosa significa per te "apprendere facendo"?</li>
+                    <li>Quale connessione vedi tra lavoro manuale e benessere?</li>
+                    <li>Perché un operatore sociosanitario dovrebbe saper condurre un laboratorio?</li>
+                </ul>
+                
+                <div class="ai-box">
+                    <h4>🤖 Usa l'AI come supporto</h4>
+                    <p>Puoi usare Claude.ai per aiutarti a organizzare le idee. Ecco un prompt da copiare:</p>
+                    <div class="ai-prompt">Sono uno studente di 3° anno dell'indirizzo Servizi per la Sanità e l'Assistenza Sociale. Sto studiando i laboratori manipolativi. 
+
+Aiutami a creare una mappa concettuale che colleghi questi concetti: apprendimento esperienziale, John Dewey, laboratorio didattico, competenze manuali, benessere psicofisico.
+
+Organizza i collegamenti in modo visivo usando emoji e frecce.</div>
+                    <button class="btn-copy" onclick="copyPrompt(this)">📋 Copia prompt</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- FASE 2: COMPRENSIONE -->
+        <section id="fase2" class="phase-section phase-2">
+            <div class="phase-header">
+                <div class="phase-icon">📚</div>
+                <div class="phase-title-group">
+                    <span class="phase-badge">Step 2</span>
+                    <h2>Coinvolgimento e Partecipazione</h2>
+                    <p class="phase-subtitle">Mettere in relazione teoria e realtà • Esplorare casi concreti</p>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3>🎯 Obiettivo di questa fase</h3>
+                <p>Ora che hai compreso il "perché" dei laboratori, è il momento di esplorare il "cosa": quali tipologie esistono, quali materiali si usano, quali obiettivi specifici si possono raggiungere con le diverse utenze.</p>
+            </div>
+
+            <div class="content-card">
+                <h3>🔧 Lo Schema Guida per Condurre un Laboratorio</h3>
+                <p>Ogni seduta di laboratorio segue <strong>sempre le stesse fasi</strong>. Memorizzarle ti aiuterà a sentirti sicuro/a nella conduzione:</p>
+                
+                <div class="schema-conduzione">
+                    <div class="schema-item">
+                        <h5>1. Accoglienza</h5>
+                        <p>Il <strong>sorriso</strong> è la prima forma di accoglienza. Accogli l'utente in un clima sereno, illustra il progetto del giorno, scegli i materiali e dai indicazioni chiare.</p>
+                    </div>
+                    <div class="schema-item">
+                        <h5>2. Produzione</h5>
+                        <p>La realizzazione può essere <strong>libera</strong> o <strong>guidata</strong> a seconda dello stadio di sviluppo. Sii disponibile per interventi rassicurativi e di rinforzo.</p>
+                    </div>
+                    <div class="schema-item">
+                        <h5>3. Osservazione</h5>
+                        <p>Osserva con attenzione il lavoro di ognuno e sollecita il <strong>racconto dell'esperienza</strong> e delle emozioni scaturite dall'attività.</p>
+                    </div>
+                    <div class="schema-item">
+                        <h5>4. Riordino</h5>
+                        <p>Fatti aiutare a <strong>pulire e riordinare</strong>: insegna il rispetto del proprio spazio e di quello altrui, condividendo le responsabilità.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3>🎨 Caratteristiche dei Materiali</h3>
+                <p>Ogni materiale ha caratteristiche qualitative specifiche e il suo uso va calibrato sull'esigenza dell'utenza:</p>
+                
+                <table class="objectives-table">
+                    <thead>
+                        <tr>
+                            <th>Materiale</th>
+                            <th>Caratteristiche</th>
+                            <th>Benefici psicopedagogici</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Sostanze fluide</strong><br><small>(liquidi colorati, acqua, gel)</small></td>
+                            <td>Manipolate senza strumenti</td>
+                            <td>Favoriscono la regressione e il rilassamento</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Materiali plastici morbidi</strong><br><small>(didò, pasta salata)</small></td>
+                            <td>Facili da modellare</td>
+                            <td>Aiutano ad abbandonare le difese e dare forma a emozioni</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Materiali plastici resistenti</strong><br><small>(creta, das)</small></td>
+                            <td>Richiedono maggiore energia</td>
+                            <td>Rinforzano la consapevolezza dei confini corporei e dell'Io</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Collage</strong></td>
+                            <td>Frammentazione e ricomposizione</td>
+                            <td>Sviluppa attenzione, organizzazione, flessibilità</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Burattini</strong></td>
+                            <td>Permettono di raccontare</td>
+                            <td>Incoraggiano espressione e capacità di ascolto</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Disegno libero</strong></td>
+                            <td>Rielaborazione del vissuto</td>
+                            <td>Esprime motivazioni, valori, emozioni</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Origami</strong></td>
+                            <td>Tecnica di piegatura</td>
+                            <td>Grandi potenzialità pedagogiche per crescita e educazione</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="content-card">
+                <h3>👥 Obiettivi per Tipologia di Utenza</h3>
+                
+                <div class="expandable open">
+                    <div class="expandable-header">
+                        <span>👶 Infanzia (Asilo nido, Scuola dell'infanzia, Primaria)</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="expandable-content">
+                        <ul>
+                            <li>Acquisire coscienza delle differenti strutture, forme, dimensioni</li>
+                            <li>Sviluppare le capacità espressive, conoscitive, sensoriali e percettive</li>
+                            <li>Imparare la classificazione degli oggetti</li>
+                            <li>Incoraggiare l'uso e il controllo di alcuni movimenti</li>
+                            <li>Stimolare e organizzare se stessi e le proprie idee</li>
+                            <li>Sviluppare le capacità comunicative e la creatività</li>
+                            <li>Favorire la collaborazione e la cooperazione</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="expandable">
+                    <div class="expandable-header">
+                        <span>🧑‍🎓 Adolescenza (Scuola secondaria)</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="expandable-content">
+                        <ul>
+                            <li>Favorire lo studio delle figure geometriche</li>
+                            <li>Favorire lo studio dei postulati e dei teoremi</li>
+                            <li>Favorire lo studio del disegno tecnico</li>
+                            <li>Creare collegamenti interdisciplinari tra le diverse discipline</li>
+                            <li>Impiegare piacevolmente il proprio tempo libero</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="expandable">
+                    <div class="expandable-header">
+                        <span>👴 Terza età</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="expandable-content">
+                        <ul>
+                            <li>Riattivare il senso del tatto e della motricità fine delle dita</li>
+                            <li>Riattivare correttamente la circolazione sanguigna</li>
+                            <li>Stimolare la capacità di concentrazione verso il risultato finale</li>
+                            <li>Favorire il recupero dell'agilità mentale</li>
+                            <li>Recuperare la connessione dei movimenti</li>
+                            <li>Impiegare piacevolmente il proprio tempo libero</li>
+                            <li>Esprimere sentimenti e dare forma alle proprie emozioni</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="expandable">
+                    <div class="expandable-header">
+                        <span>♿ Disabilità</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="expandable-content">
+                        <ul>
+                            <li>Mantenere o sviluppare il senso del tatto e la motricità fine</li>
+                            <li>Stimolare la capacità di concentrazione</li>
+                            <li>Favorire la capacità logica e matematica</li>
+                            <li>Favorire la comprensione della geometria</li>
+                            <li>Favorire la connessione dei movimenti e l'applicazione della tecnica</li>
+                            <li>Favorire il controllo dei movimenti seguendo il progetto</li>
+                            <li>Esprimere sentimenti e dare forma alle proprie emozioni</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3>🎯 Le 6 Attività Manipolative Proposte</h3>
+                
+                <div class="activities-grid">
+                    <div class="activity-card">
+                        <div class="activity-header">
+                            <span class="emoji">📜</span>
+                            <h4>Quilling (Filigrana di carta)</h4>
+                        </div>
+                        <div class="activity-body">
+                            <p>Tecnica decorativa antichissima: strisce di carta arrotolate per creare forme elaborate. Può usare materiale di riciclo.</p>
+                            <div class="activity-tags">
+                                <span class="tag">Tutte le età</span>
+                                <span class="tag">Motricità fine</span>
+                                <span class="tag">Riciclo</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="activity-card">
+                        <div class="activity-header">
+                            <span class="emoji">🦢</span>
+                            <h4>Origami</h4>
+                        </div>
+                        <div class="activity-body">
+                            <p>Arte giapponese della piegatura della carta. Non servono colla, forbici o strumenti. Ideale per sviluppare coordinazione e concentrazione.</p>
+                            <div class="activity-tags">
+                                <span class="tag">Tutte le età</span>
+                                <span class="tag">Geometria</span>
+                                <span class="tag">Pazienza</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="activity-card">
+                        <div class="activity-header">
+                            <span class="emoji">🧶</span>
+                            <h4>Lavoro a maglia e uncinetto</h4>
+                        </div>
+                        <div class="activity-body">
+                            <p>Considerato molto terapeutico, usato anche in reparti oncologici. I movimenti ritmati sono rilassanti come la meditazione.</p>
+                            <div class="activity-tags">
+                                <span class="tag">Dai 4-5 anni</span>
+                                <span class="tag">Terapeutico</span>
+                                <span class="tag">Rilassamento</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="activity-card">
+                        <div class="activity-header">
+                            <span class="emoji">✋</span>
+                            <h4>Finger Knitting</h4>
+                        </div>
+                        <div class="activity-body">
+                            <p>Lavoro a maglia con le dita, tecnica facilissima per creare sciarpe, pupazzi, coperte. Adatto a bambini e adulti.</p>
+                            <div class="activity-tags">
+                                <span class="tag">Principianti</span>
+                                <span class="tag">Facile</span>
+                                <span class="tag">Veloce</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="activity-card">
+                        <div class="activity-header">
+                            <span class="emoji">🪢</span>
+                            <h4>Macramè</h4>
+                        </div>
+                        <div class="activity-body">
+                            <p>Tecnica di intreccio e annodatura per creare braccialetti, orecchini, decorazioni. Richiede pazienza ma i risultati sono bellissimi.</p>
+                            <div class="activity-tags">
+                                <span class="tag">Adolescenti/Adulti</span>
+                                <span class="tag">Creatività</span>
+                                <span class="tag">Pazienza</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="activity-card">
+                        <div class="activity-header">
+                            <span class="emoji">🏗️</span>
+                            <h4>Costruzione libera guidata</h4>
+                        </div>
+                        <div class="activity-body">
+                            <p>Creazione di oggetti usando materiali vari (cartone, tappi, legno) seguendo linee guida metodologiche ma con libertà creativa.</p>
+                            <div class="activity-tags">
+                                <span class="tag">Tutte le età</span>
+                                <span class="tag">Problem solving</span>
+                                <span class="tag">Riciclo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box warning">
+                <h4>⚠️ Ricorda sempre che...</h4>
+                <ul>
+                    <li>Le capacità utilizzate nelle attività creative sono strettamente collegate con lo <strong>sviluppo psicomotorio</strong></li>
+                    <li>Ogni soggetto resta a uno stadio di sviluppo per un <strong>diverso periodo di tempo</strong> e lo lascia solo quando gli apprendimenti si sono consolidati</li>
+                    <li>Il passaggio da un livello inferiore a quello superiore avviene <strong>naturalmente e gradualmente</strong></li>
+                    <li>Le attività proposte devono essere <strong>adeguate alle capacità psicomotorie</strong> per consentire un giusto grado di gratificazione</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>✏️ Prodotto atteso: Sintesi o Infografica</h3>
+                <p>Scegli <strong>una</strong> delle attività manipolative e crea una scheda sintetica che includa:</p>
+                <ul>
+                    <li>Nome e breve descrizione della tecnica</li>
+                    <li>Materiali necessari</li>
+                    <li>Utenza più adatta</li>
+                    <li>3-5 obiettivi specifici raggiungibili</li>
+                    <li>Principali passaggi procedurali</li>
+                </ul>
+
+                <div class="ai-box">
+                    <h4>🤖 Usa l'AI come supporto</h4>
+                    <p>Per creare un'infografica professionale, usa questo prompt:</p>
+                    <div class="ai-prompt">Sono uno studente di Metodologie Operative. Devo creare una scheda informativa sulla tecnica dell'ORIGAMI per un laboratorio con anziani.
+
+Struttura la scheda con:
+1. Titolo accattivante
+2. Breve introduzione (2-3 righe)
+3. Materiali necessari (elenco con emoji)
+4. Obiettivi specifici per anziani (5 punti)
+5. Procedura semplificata per una figura base (es. barchetta)
+6. Consigli per l'operatore
+
+Usa un linguaggio semplice e professionale.</div>
+                    <button class="btn-copy" onclick="copyPrompt(this)">📋 Copia prompt</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- FASE 3: APPLICAZIONE -->
+        <section id="fase3" class="phase-section phase-3">
+            <div class="phase-header">
+                <div class="phase-icon">⚙️</div>
+                <div class="phase-title-group">
+                    <span class="phase-badge">Step 3</span>
+                    <h2>Applicazione Operativa</h2>
+                    <p class="phase-subtitle">Tradurre il sapere in competenza • Simulare • Produrre • Sperimentare</p>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3>🎯 Obiettivo di questa fase</h3>
+                <p>È il momento di <strong>mettere le mani in pasta</strong>! In questa fase ti trasformerai da studente a <strong>progettista di un'attività laboratoriale</strong>, seguendo lo schema metodologico appreso.</p>
+            </div>
+
+            <div class="content-card">
+                <h3>📋 Il Progetto Operativo: Struttura</h3>
+                <p>Come ogni progetto, anche la pianificazione di un laboratorio parte dal <strong>progetto operativo</strong>. Ecco gli elementi essenziali:</p>
+                
+                <div class="procedure-steps">
+                    <div class="procedure-step">
+                        <div class="step-counter">1</div>
+                        <div class="step-content">
+                            <h4>Finalità</h4>
+                            <p>Che cosa voglio fare? Qual è lo scopo generale del laboratorio?</p>
+                        </div>
+                    </div>
+                    <div class="procedure-step">
+                        <div class="step-counter">2</div>
+                        <div class="step-content">
+                            <h4>Obiettivi</h4>
+                            <p>Quali caratteristiche e risultati mi propongo di ottenere? Devono essere specifici e misurabili.</p>
+                        </div>
+                    </div>
+                    <div class="procedure-step">
+                        <div class="step-counter">3</div>
+                        <div class="step-content">
+                            <h4>Risorse</h4>
+                            <p>Quali materiali ho a disposizione? Quali capacità personali o aiuti posso utilizzare?</p>
+                        </div>
+                    </div>
+                    <div class="procedure-step">
+                        <div class="step-counter">4</div>
+                        <div class="step-content">
+                            <h4>Vincoli</h4>
+                            <p>Quali difficoltà potrei incontrare? Tempi a disposizione? Costo dei materiali?</p>
+                        </div>
+                    </div>
+                    <div class="procedure-step">
+                        <div class="step-counter">5</div>
+                        <div class="step-content">
+                            <h4>Svolgimento</h4>
+                            <p>Come si realizza concretamente il lavoro? Quali sono i passaggi sequenziali?</p>
+                        </div>
+                    </div>
+                    <div class="procedure-step">
+                        <div class="step-counter">6</div>
+                        <div class="step-content">
+                            <h4>Verifica in itinere</h4>
+                            <p>Come monitoro il processo? Quali modifiche posso apportare durante l'attività?</p>
+                        </div>
+                    </div>
+                    <div class="procedure-step">
+                        <div class="step-counter">7</div>
+                        <div class="step-content">
+                            <h4>Verifica finale</h4>
+                            <p>Come valuto il prodotto realizzato? Ha raggiunto gli obiettivi prefissati?</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3>🏗️ Attività: Costruzione Libera Guidata</h3>
+                <p>Oltre alle tecniche strutturate (quilling, origami, ecc.), nei servizi sociosanitari è molto efficace proporre attività di <strong>costruzione libera</strong> con linee guida operative. Ecco come strutturarla:</p>
+
+                <div class="highlight-box">
+                    <h4>📌 Cos'è la Costruzione Libera Guidata?</h4>
+                    <p>È un'attività in cui l'utente può creare liberamente un oggetto (un giocattolo, una decorazione, un contenitore) usando materiali vari, ma seguendo alcune <strong>regole metodologiche</strong> che garantiscono sicurezza, obiettivi educativi e gratificazione.</p>
+                </div>
+
+                <h4>Materiali suggeriti (possibilmente di riciclo)</h4>
+                <div class="materials-list">
+                    <div class="material-item">
+                        <span class="icon">📦</span>
+                        <span>Scatole di cartone varie dimensioni</span>
+                    </div>
+                    <div class="material-item">
+                        <span class="icon">🧴</span>
+                        <span>Bottiglie e contenitori di plastica</span>
+                    </div>
+                    <div class="material-item">
+                        <span class="icon">🔘</span>
+                        <span>Tappi di sughero e plastica</span>
+                    </div>
+                    <div class="material-item">
+                        <span class="icon">📰</span>
+                        <span>Giornali e riviste</span>
+                    </div>
+                    <div class="material-item">
+                        <span class="icon">🧵</span>
+                        <span>Stoffe e nastri</span>
+                    </div>
+                    <div class="material-item">
+                        <span class="icon">🪵</span>
+                        <span>Bastoncini e stecchi di legno</span>
+                    </div>
+                    <div class="material-item">
+                        <span class="icon">✂️</span>
+                        <span>Forbici, colla, nastro adesivo</span>
+                    </div>
+                    <div class="material-item">
+                        <span class="icon">🎨</span>
+                        <span>Colori (tempere, pennarelli)</span>
+                    </div>
+                </div>
+
+                <h4>Linee guida per l'operatore</h4>
+                <ol>
+                    <li><strong>Proponi un tema</strong> (es. "Costruisci un animale", "Crea un portaoggetti", "Inventa un mezzo di trasporto")</li>
+                    <li><strong>Mostra i materiali disponibili</strong> e lascia tempo per l'esplorazione</li>
+                    <li><strong>Fai disegnare un bozzetto</strong> prima della costruzione (favorisce la pianificazione)</li>
+                    <li><strong>Accompagna senza dirigere</strong>: suggerisci, non imporre soluzioni</li>
+                    <li><strong>Valorizza il processo</strong>, non solo il prodotto finale</li>
+                    <li><strong>Concludi con la narrazione</strong>: ogni partecipante racconta il proprio lavoro</li>
+                </ol>
+            </div>
+
+            <div class="content-card">
+                <h3>📝 Compito Autentico: Progetta il TUO Laboratorio</h3>
+                <p>Scegli <strong>un'utenza</strong> (bambini, anziani, persone con disabilità) e <strong>una tecnica</strong> tra quelle studiate. Poi compila il seguente schema progettuale:</p>
+
+                <ul class="checklist">
+                    <li>
+                        <span class="checkbox" onclick="toggleCheck(this)"></span>
+                        <span><strong>Titolo del laboratorio</strong> (accattivante e descrittivo)</span>
+                    </li>
+                    <li>
+                        <span class="checkbox" onclick="toggleCheck(this)"></span>
+                        <span><strong>Destinatari</strong> (età, numero partecipanti, eventuali bisogni speciali)</span>
+                    </li>
+                    <li>
+                        <span class="checkbox" onclick="toggleCheck(this)"></span>
+                        <span><strong>Durata</strong> (tempo previsto per la singola seduta)</span>
+                    </li>
+                    <li>
+                        <span class="checkbox" onclick="toggleCheck(this)"></span>
+                        <span><strong>Spazio</strong> (caratteristiche dell'ambiente necessario)</span>
+                    </li>
+                    <li>
+                        <span class="checkbox" onclick="toggleCheck(this)"></span>
+                        <span><strong>Finalità generale</strong> (il "perché" del laboratorio)</span>
+                    </li>
+                    <li>
+                        <span class="checkbox" onclick="toggleCheck(this)"></span>
+                        <span><strong>Obiettivi specifici</strong> (almeno 3, misurabili)</span>
+                    </li>
+                    <li>
+                        <span class="checkbox" onclick="toggleCheck(this)"></span>
+                        <span><strong>Materiali</strong> (elenco completo con quantità)</span>
+                    </li>
+                    <li>
+                        <span class="checkbox" onclick="toggleCheck(this)"></span>
+                        <span><strong>Fasi di svolgimento</strong> (accoglienza → produzione → osservazione → riordino)</span>
+                    </li>
+                    <li>
+                        <span class="checkbox" onclick="toggleCheck(this)"></span>
+                        <span><strong>Criteri di verifica</strong> (come valuterai il raggiungimento degli obiettivi)</span>
+                    </li>
+                </ul>
+
+                <div class="ai-box">
+                    <h4>🤖 Usa l'AI come supporto</h4>
+                    <p>Per sviluppare il tuo progetto in modo completo, prova questo prompt:</p>
+                    <div class="ai-prompt">Sono uno studente di Metodologie Operative e devo progettare un laboratorio manipolativo.
+
+CONTESTO:
+- Utenza: [INSERISCI: es. "8 anziani ospiti di una RSA, età media 78 anni, autonomia parziale nelle attività quotidiane"]
+- Tecnica scelta: [INSERISCI: es. "Origami semplificato"]
+- Tempo disponibile: [INSERISCI: es. "60 minuti"]
+
+Aiutami a:
+1. Definire 3-4 obiettivi specifici e misurabili per questa utenza
+2. Suggerire adattamenti della tecnica per le loro capacità
+3. Descrivere le 4 fasi di svolgimento (accoglienza, produzione, osservazione, riordino) con tempi indicativi
+4. Proporre 2-3 indicatori per verificare il raggiungimento degli obiettivi
+
+Sii concreto e realistico.</div>
+                    <button class="btn-copy" onclick="copyPrompt(this)">📋 Copia prompt</button>
+                </div>
+            </div>
+
+            <div class="highlight-box success">
+                <h4>💡 Suggerimento per la simulazione</h4>
+                <p>Se possibile, <strong>realizza concretamente</strong> almeno una delle attività che hai progettato! Sperimenta prima su te stesso/a la tecnica, cronometra i tempi, annota le difficoltà. L'esperienza diretta è il miglior insegnante.</p>
+            </div>
+        </section>
+
+        <!-- FASE 4: RIFLESSIONE -->
+        <section id="fase4" class="phase-section phase-4">
+            <div class="phase-header">
+                <div class="phase-icon">🔍</div>
+                <div class="phase-title-group">
+                    <span class="phase-badge">Step 4</span>
+                    <h2>Riflessività e Verifica</h2>
+                    <p class="phase-subtitle">Consolidare • Interiorizzare • Autovalutare</p>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3>🎯 Obiettivo di questa fase</h3>
+                <p>Il percorso di apprendimento non è completo senza una <strong>riflessione metacognitiva</strong>: capire non solo cosa hai imparato, ma <strong>come</strong> lo hai imparato e <strong>come</strong> potrai applicarlo nel tuo futuro professionale.</p>
+            </div>
+
+            <div class="reflection-card">
+                <h4>💭 Domande guida per la riflessione</h4>
+                <ul class="reflection-questions">
+                    <li><strong>Cosa ho scoperto che non sapevo?</strong><br>Quali concetti o tecniche erano completamente nuovi per me?</li>
+                    <li><strong>Cosa mi ha sorpreso?</strong><br>C'è stato qualcosa di inaspettato nel collegamento tra lavoro manuale e benessere?</li>
+                    <li><strong>Cosa farei diversamente?</strong><br>Se dovessi riprogettare il laboratorio, cosa cambierei?</li>
+                    <li><strong>Quali difficoltà ho incontrato?</strong><br>Dove mi sono bloccato/a? Come le ho superate?</li>
+                    <li><strong>Come posso applicare questi apprendimenti?</strong><br>In quale contesto professionale futuro mi vedo utilizzare queste competenze?</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>📊 Griglia di Autovalutazione</h3>
+                <p>Valuta il tuo livello di competenza raggiunto per ogni area:</p>
+                
+                <div class="evaluation-grid">
+                    <div class="eval-header">Competenza</div>
+                    <div class="eval-header">Base</div>
+                    <div class="eval-header">Intermedio</div>
+                    <div class="eval-header">Avanzato</div>
+                    
+                    <div class="eval-cell criterion">Conoscenza teorica (Dewey, apprendimento esperienziale)</div>
+                    <div class="eval-cell">Conosco i concetti base</div>
+                    <div class="eval-cell">So spiegare i principi</div>
+                    <div class="eval-cell">So applicarli a casi concreti</div>
+                    
+                    <div class="eval-cell criterion">Conoscenza delle tecniche manipolative</div>
+                    <div class="eval-cell">Conosco almeno 2 tecniche</div>
+                    <div class="eval-cell">So descrivere materiali e procedure</div>
+                    <div class="eval-cell">So scegliere la tecnica adatta all'utenza</div>
+                    
+                    <div class="eval-cell criterion">Progettazione di un laboratorio</div>
+                    <div class="eval-cell">So elencare gli elementi base</div>
+                    <div class="eval-cell">So compilare uno schema progettuale</div>
+                    <div class="eval-cell">So adattare il progetto a diverse utenze</div>
+                    
+                    <div class="eval-cell criterion">Conduzione (schema guida)</div>
+                    <div class="eval-cell">Conosco le 4 fasi</div>
+                    <div class="eval-cell">So descrivere cosa fare in ogni fase</div>
+                    <div class="eval-cell">So gestire imprevisti e adattamenti</div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3>✏️ Prodotto finale: Scheda Riflessiva</h3>
+                <p>Compila una breve scheda riflessiva (massimo 1 pagina) che includa:</p>
+                <ol>
+                    <li><strong>Sintesi</strong>: I 3 concetti chiave che porterai con te</li>
+                    <li><strong>Connessioni</strong>: Come questo argomento si collega ad altre materie o esperienze personali</li>
+                    <li><strong>Applicazione</strong>: Un'idea concreta per un laboratorio che vorresti realizzare durante il tirocinio</li>
+                    <li><strong>Domande aperte</strong>: Cosa vorresti approfondire ulteriormente</li>
+                </ol>
+
+                <div class="ai-box">
+                    <h4>🤖 Usa l'AI per il consolidamento finale</h4>
+                    <p>Verifica la tua comprensione con questo esercizio:</p>
+                    <div class="ai-prompt">Ho appena terminato lo studio di un modulo sui laboratori manipolativi per i servizi sociosanitari. Vorrei verificare la mia comprensione.
+
+Fammi 5 domande a risposta multipla sui seguenti argomenti:
+1. Il pensiero di John Dewey sull'apprendimento esperienziale
+2. Le 4 fasi di conduzione di un laboratorio
+3. Gli obiettivi specifici per diverse utenze
+4. Le caratteristiche dei materiali manipolativi
+5. Gli elementi del progetto operativo
+
+Dopo ogni mia risposta, dimmi se è corretta e spiega brevemente perché.</div>
+                    <button class="btn-copy" onclick="copyPrompt(this)">📋 Copia prompt</button>
+                </div>
+            </div>
+
+            <div class="highlight-box success">
+                <h4>🎉 Complimenti!</h4>
+                <p>Hai completato il percorso di autoapprendimento sui laboratori manipolativi. Ricorda che questo è solo l'inizio: la vera competenza si costruisce con la <strong>pratica sul campo</strong>, durante il tirocinio e nella futura professione. Buon lavoro!</p>
+            </div>
+
+            <div class="content-card">
+                <h3>📚 Per approfondire</h3>
+                <ul>
+                    <li><strong>Libro di testo:</strong> Capitolo 4 "I Laboratori" - sezione sui laboratori manipolativi</li>
+                    <li><strong>Video YouTube:</strong> Cerca "laboratori creativi anziani", "origami terapeutico", "arteterapia benefici"</li>
+                    <li><strong>Esperienze pratiche:</strong> Prova a realizzare almeno un manufatto con ogni tecnica studiata</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Navigation Footer -->
+        <nav class="nav-footer">
+            <a href="terzo-anno.html">
+                ← Torna ai materiali del Terzo Anno
+            </a>
+            <a href="#fase1">
+                Torna all'inizio ↑
+            </a>
+        </nav>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p><strong>Metodologie Operative</strong> - IIS Meucci Mattei, sede di Decimomannu</p>
+            <p>Indirizzo: Servizi per la Sanità e l'Assistenza Sociale</p>
+            <p>Prof. Salvatore Picconi | <a href="https://salvapicconi.github.io/metodologieoperative">salvapicconi.github.io/metodologieoperative</a></p>
+            <p style="margin-top: 16px; font-size: 12px; opacity: 0.7;">Materiali didattici realizzati con il metodo dell'Autoapprendimento Progressivo Guidato</p>
+        </div>
+    </footer>
+
+    <script>
+        const CHECKLIST_STORAGE_KEY = 'lab-manipolativi-checklist';
+
+        function getChecklistState() {
+            return Array.from(document.querySelectorAll('.checklist .checkbox'))
+                .map(box => box.classList.contains('checked'));
+        }
+
+        function saveChecklistLocally(state = getChecklistState()) {
+            try {
+                localStorage.setItem(CHECKLIST_STORAGE_KEY, JSON.stringify(state));
+            } catch (error) {
+                console.warn('Impossibile salvare la checklist in locale:', error);
+            }
+        }
+
+        function restoreChecklistFromLocal() {
+            try {
+                const raw = localStorage.getItem(CHECKLIST_STORAGE_KEY);
+                if (!raw) return;
+                const state = JSON.parse(raw);
+                applyChecklistState(Array.isArray(state) ? state : []);
+            } catch (error) {
+                console.warn('Impossibile ripristinare la checklist:', error);
+            }
+        }
+
+        function applyChecklistState(state) {
+            const boxes = document.querySelectorAll('.checklist .checkbox');
+            boxes.forEach((box, idx) => {
+                if (state[idx]) {
+                    box.classList.add('checked');
+                } else {
+                    box.classList.remove('checked');
+                }
+            });
+            updateProgress(false);
+        }
+
+        function triggerProgressEvent() {
+            document.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+
+        // Toggle checkbox
+        function toggleCheck(el) {
+            el.classList.toggle('checked');
+            updateProgress();
+            triggerProgressEvent();
+        }
+
+        // Copy prompt to clipboard
+        function copyPrompt(btn) {
+            const prompt = btn.previousElementSibling.textContent;
+            navigator.clipboard.writeText(prompt).then(() => {
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Copiato!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        // Expandable sections
+        document.querySelectorAll('.expandable-header').forEach(header => {
+            header.addEventListener('click', () => {
+                header.parentElement.classList.toggle('open');
+            });
+        });
+
+        // Navigation active state
+        const sections = document.querySelectorAll('.phase-section');
+        const navLinks = document.querySelectorAll('.step-link');
+
+        function updateActiveNav() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveNav);
+
+        // Progress tracking
+        function updateProgress(persist = true) {
+            const checkboxes = document.querySelectorAll('.checkbox');
+            const checked = document.querySelectorAll('.checkbox.checked').length;
+            const total = checkboxes.length;
+            const percentage = total > 0 ? Math.round((checked / total) * 100) : 0;
+            
+            document.getElementById('progress-fill').style.width = percentage + '%';
+            document.getElementById('progress-text').textContent = percentage + '% completato';
+            
+            if (persist) {
+                saveChecklistLocally();
+            }
+        }
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            restoreChecklistFromLocal();
+            updateActiveNav();
+            updateProgress(false);
+        });
+    </script>
+    <script>
+        window.MO_PROGRESS_CONFIG = {
+            pagePath: window.location.pathname,
+            inputSelector: 'input, textarea, select',
+            autoSave: true,
+            autoSaveDebounceMs: 6000,
+            autoSaveMinIntervalMs: 15000,
+            autoSaveJitterMs: 2000,
+            onBeforeSave: (data) => {
+                const checklist = getChecklistState();
+                const completed = checklist.filter(Boolean).length;
+                const payload = {
+                    ...data,
+                    checklist,
+                    progress: {
+                        completed,
+                        total: checklist.length,
+                        percent: checklist.length ? Math.round((completed / checklist.length) * 100) : 0
+                    },
+                    savedAt: new Date().toISOString()
+                };
+                saveChecklistLocally(checklist);
+                if (completed === 0) {
+                    return { __skipSave: true };
+                }
+                return payload;
+            },
+            onRestore: (saved) => {
+                if (saved && Array.isArray(saved.checklist)) {
+                    applyChecklistState(saved.checklist);
+                    saveChecklistLocally(saved.checklist);
+                } else {
+                    restoreChecklistFromLocal();
+                }
+                return saved;
+            }
+        };
+        window.MO_IDENTITY_CONFIG = {
+            message: 'Inserisci la classe (es. 3sa) e il codice cognome+iniziale tutto minuscolo (es. rossi g → rossig). Modalità ospite disponibile.',
+            classPlaceholder: 'Classe (es. 3sa)',
+            classPattern: '^[1-5][a-z]{1,2}$',
+            classExample: '3sa',
+            classErrorMessage: 'Classe non valida: usa una cifra da 1 a 5 seguita da 1-2 lettere minuscole (es. 3sa).',
+            stripWhitespaceInClass: true,
+            storeClassLowercase: true,
+            storeClassUppercase: false,
+            codePlaceholder: 'Codice (es. rossig)',
+            codePattern: '^[a-zà-ü]{2,}[a-z]$',
+            codeExample: 'rossig',
+            codeErrorMessage: 'Codice non valido: usa cognome tutto minuscolo + iniziale del nome (es. rossi g → rossig).',
+            sanitizeCode: true,
+            stripWhitespaceInCode: true,
+            storeCodeLowercase: true,
+            storeCodeUppercase: false,
+            hideGenerator: true,
+            guestAllowed: true,
+            guestClassCode: 'ospite',
+            guestStudentCode: 'ospite'
+        };
+    </script>
+
+    <script type="module" src="../../assets/progress.js"></script>
+    <script type="module" src="../../assets/progress-global.js"></script>
+</body>
+</html>
