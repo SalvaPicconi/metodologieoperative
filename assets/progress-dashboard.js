@@ -18,7 +18,11 @@ const STROOP_STATS_URL = `${SITE_ROOT}/stroop_statistiche.html`;
 const SUPER_STORAGE_KEY = 'mo:super-impersonations';
 const SUPER_SESSION_DURATION = 1000 * 60 * 15;
 const PAGE_ALIAS_OVERRIDES = {
-    'attivita-materiali-ai-verifica-ia-modificata-01': '/materiali/ai/verifica_ia_modificata.html'
+    'attivita-materiali-ai-verifica-ia-modificata-01': '/materiali/ai/verifica_ia_modificata.html',
+    '/materiali/peer_tutoring_platform.html': '/materiali/peer_tutoring/peer_tutoring_platform.html',
+    '/metodologieoperative/materiali/peer_tutoring_platform.html': '/materiali/peer_tutoring/peer_tutoring_platform.html',
+    'materiali/peer_tutoring_platform.html': '/materiali/peer_tutoring/peer_tutoring_platform.html',
+    'peer_tutoring_platform.html': '/materiali/peer_tutoring/peer_tutoring_platform.html'
 };
 const DOCENTE_SESSION_KEY = 'mo:docente-session';
 const DOCENTE_SESSION_DURATION = 1000 * 60 * 60 * 6; // 6 ore
@@ -788,10 +792,20 @@ function resolveActivityPath(path) {
     if (!path) return '';
     const trimmed = String(path).trim();
     if (!trimmed) return '';
-    if (PAGE_ALIAS_OVERRIDES[trimmed]) {
-        return PAGE_ALIAS_OVERRIDES[trimmed];
+    const normalized = normalizePath(trimmed);
+    const candidates = [trimmed, normalized];
+
+    if (normalized.startsWith('/metodologieoperative/')) {
+        candidates.push(normalized.replace(/^\/metodologieoperative/, '') || '/');
     }
-    return trimmed;
+
+    for (const key of candidates) {
+        if (PAGE_ALIAS_OVERRIDES[key]) {
+            return PAGE_ALIAS_OVERRIDES[key];
+        }
+    }
+
+    return normalized;
 }
 
 function normalizeAssessmentRecord(record) {
