@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta name="page-id" content="attivita-materiali-biennio-percorso-animativo-interattivo">
     <meta charset="UTF-8">
@@ -28,9 +29,19 @@
         }
 
         @keyframes phaseComplete {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); box-shadow: 0 0 10px 10px rgba(34, 197, 94, 0); }
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 10px 10px rgba(34, 197, 94, 0);
+            }
         }
 
         .phase-completed-animation {
@@ -42,15 +53,18 @@
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
+
             .no-print {
                 display: none !important;
             }
+
             .printable-content {
                 display: block !important;
                 box-shadow: none !important;
                 border: 1px solid #ccc;
                 margin-bottom: 1rem;
             }
+
             .phase {
                 display: block !important;
                 page-break-before: always;
@@ -110,8 +124,12 @@
         <div class="container mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div>
-                    <h1 class="text-2xl font-bold">Le tecniche di animazione ludico-creativa</h1>
-                    <p class="text-sm opacity-90">IIS Meucci Mattei (Decimomannu)</p>
+                    <h1 class="text-2xl font-bold">Laboratorio: Tecniche di Animazione</h1>
+                    <p class="text-sm opacity-90">Esercitazione Pratica Interattiva</p>
+                    <a href="percorso_animativo_teoria.html"
+                        class="inline-block mt-2 text-xs bg-white text-pink-600 font-bold px-3 py-1 rounded-full hover:bg-gray-100 transition">
+                        📖 Ripassa la Teoria
+                    </a>
                 </div>
                 <div class="text-center mt-4 md:mt-0">
                     <span class="text-3xl font-bold" id="score">0</span>
@@ -119,14 +137,46 @@
                 </div>
             </div>
             <div class="flex justify-between items-center mt-4" id="progress-bar">
-                <div class="progress-box w-1/6 text-center" id="progress-1"><div class="mx-auto bg-white/30 rounded-full h-8 w-8 flex items-center justify-center font-bold text-lg">1</div></div>
-                <div class="progress-box w-1/6 text-center" id="progress-2"><div class="mx-auto bg-white/30 rounded-full h-8 w-8 flex items-center justify-center font-bold text-lg">2</div></div>
-                <div class="progress-box w-1/6 text-center" id="progress-2-5"><div class="mx-auto bg-white/30 rounded-full h-8 w-8 flex items-center justify-center font-bold text-lg">2.5</div></div>
-                <div class="progress-box w-1/6 text-center" id="progress-3"><div class="mx-auto bg-white/30 rounded-full h-8 w-8 flex items-center justify-center font-bold text-lg">3</div></div>
-                <div class="progress-box w-1/6 text-center" id="progress-3-5"><div class="mx-auto bg-white/30 rounded-full h-8 w-8 flex items-center justify-center font-bold text-lg">3.5</div></div>
-                <div class="progress-box w-1/6 text-center" id="progress-4"><div class="mx-auto bg-white/30 rounded-full h-8 w-8 flex items-center justify-center font-bold text-lg">4</div></div>
-                <div class="progress-box w-1/6 text-center" id="progress-5"><div class="mx-auto bg-white/30 rounded-full h-8 w-8 flex items-center justify-center font-bold text-lg">5</div></div>
-                <div class="progress-box w-1/6 text-center" id="progress-6"><div class="mx-auto bg-white/30 rounded-full h-8 w-8 flex items-center justify-center font-bold text-lg">6</div></div>
+                <div class="progress-box w-1/6 text-center" id="progress-1">
+                    <div
+                        class="mx-auto bg-white/30 rounded-full h-8 w-8 flex items-center justify-center font-bold text-lg">
+                        1</div>
+                </div>
+                <div class="progress-box w-1/6 text-center" id="progress-2">
+                    <div
+                        class="mx-auto bg-white/30 rounded-full h-8 w-8 flex items-center justify-center font-bold text-lg">
+                        2</div>
+                </div>
+                <div class="progress-box w-1/6 text-center" id="progress-2-5">
+                    <div
+                        class="mx-auto bg-white/30 rounded-full h-8 w-8 flex items-center justify-center font-bold text-lg">
+                        2.5</div>
+                </div>
+                <div class="progress-box w-1/6 text-center" id="progress-3">
+                    <div
+                        class="mx-auto bg-white/30 rounded-full h-8 w-8 flex items-center justify-center font-bold text-lg">
+                        3</div>
+                </div>
+                <div class="progress-box w-1/6 text-center" id="progress-3-5">
+                    <div
+                        class="mx-auto bg-white/30 rounded-full h-8 w-8 flex items-center justify-center font-bold text-lg">
+                        3.5</div>
+                </div>
+                <div class="progress-box w-1/6 text-center" id="progress-4">
+                    <div
+                        class="mx-auto bg-white/30 rounded-full h-8 w-8 flex items-center justify-center font-bold text-lg">
+                        4</div>
+                </div>
+                <div class="progress-box w-1/6 text-center" id="progress-5">
+                    <div
+                        class="mx-auto bg-white/30 rounded-full h-8 w-8 flex items-center justify-center font-bold text-lg">
+                        5</div>
+                </div>
+                <div class="progress-box w-1/6 text-center" id="progress-6">
+                    <div
+                        class="mx-auto bg-white/30 rounded-full h-8 w-8 flex items-center justify-center font-bold text-lg">
+                        6</div>
+                </div>
             </div>
         </div>
     </header>
@@ -140,51 +190,60 @@
             <input type="hidden" id="state-quiz-status" name="state_quiz_status" value="{}">
         </div>
         <section id="fase1" class="phase bg-white p-6 rounded-lg shadow-md">
-            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">🎯 FASE 1: Si apre il sipario! <span class="text-lg font-medium text-gray-500">(15 punti)</span></h2>
+            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">🎯 FASE 1: Si apre il sipario! <span
+                    class="text-lg font-medium text-gray-500">(15 punti)</span></h2>
 
             <div class="mb-6">
-                <label for="brainstorming1" class="block text-lg font-semibold text-gray-700 mb-2">Brainstorming iniziale</label>
-                <p class="text-gray-600 mb-2">Cosa significa per te la parola "Animazione"? Scrivi le prime 5 parole o idee che ti vengono in mente.</p>
-                <textarea id="brainstorming1" rows="5" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500" placeholder="Pensa a giochi, persone, emozioni, luoghi..."></textarea>
+                <label for="brainstorming1" class="block text-lg font-semibold text-gray-700 mb-2">Brainstorming
+                    iniziale</label>
+                <p class="text-gray-600 mb-2">Cosa significa per te la parola "Animazione"? Scrivi le prime 5 parole o
+                    idee che ti vengono in mente.</p>
+                <textarea id="brainstorming1" rows="5"
+                    class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500"
+                    placeholder="Pensa a giochi, persone, emozioni, luoghi..."></textarea>
             </div>
 
             <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 rounded-md mb-6">
                 <p class="font-bold">Scenario d'apertura</p>
-                <p>Immagina di entrare in una stanza dove un gruppo di ragazzi adolescenti non si conosce. C'è silenzio, ognuno guarda il proprio smartphone. Il tuo compito, come operatore, è trasformare quella stanza in un luogo di incontro e divertimento in meno di 15 minuti. Da dove inizieresti?</p>
+                <p>Immagina di entrare in una stanza dove un gruppo di ragazzi adolescenti non si conosce. C'è silenzio,
+                    ognuno guarda il proprio smartphone. Il tuo compito, come operatore, è trasformare quella stanza in
+                    un luogo di incontro e divertimento in meno di 15 minuti. Da dove inizieresti?</p>
             </div>
 
             <div>
-                <label for="domanda_stimolo1" class="block text-lg font-semibold text-gray-700 mb-2">Domanda-stimolo</label>
-                <p class="text-gray-600 mb-2">Secondo te, un buon animatore si nasce o si diventa? Cosa fa davvero la differenza tra una semplice attività e un'esperienza di animazione memorabile?</p>
-                <textarea id="domanda_stimolo1" rows="3" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500" placeholder="Pensa a qualità personali, tecniche, preparazione..."></textarea>
+                <label for="domanda_stimolo1"
+                    class="block text-lg font-semibold text-gray-700 mb-2">Domanda-stimolo</label>
+                <p class="text-gray-600 mb-2">Secondo te, un buon animatore si nasce o si diventa? Cosa fa davvero la
+                    differenza tra una semplice attività e un'esperienza di animazione memorabile?</p>
+                <textarea id="domanda_stimolo1" rows="3"
+                    class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500"
+                    placeholder="Pensa a qualità personali, tecniche, preparazione..."></textarea>
             </div>
         </section>
 
         <section id="fase2" class="phase bg-white p-6 rounded-lg shadow-md hidden">
-            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">📚 FASE 2: La cassetta degli attrezzi <span class="text-lg font-medium text-gray-500">(25 punti)</span></h2>
+            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">📚 FASE 2: La cassetta degli attrezzi <span
+                    class="text-lg font-medium text-gray-500">(25 punti)</span></h2>
 
-            <div class="grid md:grid-cols-3 gap-4 mb-6">
-                <div class="bg-blue-100 border border-blue-300 p-4 rounded-lg">
-                    <h3 class="text-xl font-bold text-blue-800 mb-2">🔵 Definizioni Chiave</h3>
-                    <p class="text-blue-700"><strong>Animazione</strong>: Deriva da "anima", dare vita. È un intervento intenzionale che promuove la partecipazione attiva, la creatività e le relazioni interpersonali. Non è solo intrattenimento.<br><strong>Gioco Cooperativo</strong>: Attività ludica in cui i partecipanti lavorano insieme per un obiettivo comune, eliminando la competizione. L'enfasi è sul processo, non sul risultato.<br><strong>Setting</strong>: L'ambiente fisico e psicologico in cui si svolge l'attività. Deve essere accogliente, sicuro e funzionale agli obiettivi.</p>
-                </div>
-                <div class="bg-green-100 border border-green-300 p-4 rounded-lg">
-                    <h3 class="text-xl font-bold text-green-800 mb-2">🟢 Esempio Positivo</h3>
-                    <p class="text-green-700">In un centro diurno per minori, l'educatrice Sara propone il "Gomito-Naso". I ragazzi, in cerchio, devono presentarsi dicendo il proprio nome e associandovi un gesto buffo. Il gruppo ripete nome e gesto. In pochi minuti, l'imbarazzo iniziale si scioglie in risate, tutti imparano i nomi e si crea un clima di fiducia. Il gioco ha raggiunto il suo obiettivo di "ice-breaking" (rompighiaccio).</p>
-                </div>
-                <div class="bg-yellow-100 border border-yellow-300 p-4 rounded-lg">
-                    <h3 class="text-xl font-bold text-yellow-800 mb-2">🟡 Attenzione/Criticità</h3>
-                    <p class="text-yellow-700">L'errore più comune è l'improvvisazione. Un'attività di animazione, anche la più semplice, va progettata. Bisogna chiedersi: A chi è rivolta? Che obiettivo ha? Di quali spazi e materiali ho bisogno? Proporre un gioco non adatto all'età o al contesto può creare frustrazione e imbarazzo, ottenendo l'effetto contrario a quello desiderato.</p>
-                </div>
+            <div class="mb-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-md">
+                <p class="text-blue-800">
+                    <strong>Hai studiato?</strong> In questa fase verificheremo la tua conoscenza delle definizioni
+                    chiave (Animazione, Setting, Gioco Cooperativo).
+                    Se hai dubbi, <a href="percorso_animativo_teoria.html"
+                        class="underline font-bold hover:text-blue-900" target="_blank">consulta la pagina di Teoria</a>
+                    prima di rispondere al quiz.
+                </p>
             </div>
 
-            <div id="quiz1" class="bg-gray-50 p-4 rounded-lg border" data-quiz-config='{"points":10,"answers":{"q1":"b","q2":"c","q3":"b","q4":"b"}}'>
+            <div id="quiz1" class="bg-gray-50 p-4 rounded-lg border"
+                data-quiz-config='{"points":10,"answers":{"q1":"b","q2":"c","q3":"b","q4":"b"}}'>
                 <h3 class="text-lg font-semibold mb-2">Quiz Intermedio</h3>
                 <div class="mb-4">
                     <p class="font-medium">1. L'animazione socio-culturale ha come scopo principale:</p>
                     <div class="space-y-1 mt-1">
                         <div><input type="radio" name="q1" value="a"> a) Far passare il tempo agli utenti</div>
-                        <div><input type="radio" name="q1" value="b"> b) Promuovere la crescita personale e la socializzazione</div>
+                        <div><input type="radio" name="q1" value="b"> b) Promuovere la crescita personale e la
+                            socializzazione</div>
                         <div><input type="radio" name="q1" value="c"> c) Organizzare feste e spettacoli</div>
                     </div>
                     <div id="feedback-q1" class="mt-1 text-sm font-semibold"></div>
@@ -194,7 +253,8 @@
                     <div class="space-y-1 mt-1">
                         <div><input type="radio" name="q2" value="a"> a) Si gioca in due squadre che si sfidano</div>
                         <div><input type="radio" name="q2" value="b"> b) C'è un solo vincitore finale</div>
-                        <div><input type="radio" name="q2" value="c"> c) Tutti i giocatori collaborano per un fine comune</div>
+                        <div><input type="radio" name="q2" value="c"> c) Tutti i giocatori collaborano per un fine
+                            comune</div>
                     </div>
                     <div id="feedback-q2" class="mt-1 text-sm font-semibold"></div>
                 </div>
@@ -202,7 +262,8 @@
                     <p class="font-medium">3. Il "setting" in animazione si riferisce a:</p>
                     <div class="space-y-1 mt-1">
                         <div><input type="radio" name="q3" value="a"> a) Le regole del gioco</div>
-                        <div><input type="radio" name="q3" value="b"> b) La preparazione dell'ambiente fisico e relazionale</div>
+                        <div><input type="radio" name="q3" value="b"> b) La preparazione dell'ambiente fisico e
+                            relazionale</div>
                         <div><input type="radio" name="q3" value="c"> c) Il materiale necessario per l'attività</div>
                     </div>
                     <div id="feedback-q3" class="mt-1 text-sm font-semibold"></div>
@@ -211,42 +272,72 @@
                     <p class="font-medium">4. L'ice-breaking è una tecnica usata per:</p>
                     <div class="space-y-1 mt-1">
                         <div><input type="radio" name="q4" value="a"> a) Verificare le conoscenze del gruppo</div>
-                        <div><input type="radio" name="q4" value="b"> b) "Rompere il ghiaccio" e favorire la conoscenza iniziale</div>
+                        <div><input type="radio" name="q4" value="b"> b) "Rompere il ghiaccio" e favorire la conoscenza
+                            iniziale</div>
                         <div><input type="radio" name="q4" value="c"> c) Concludere un'attività e salutarsi</div>
                     </div>
                     <div id="feedback-q4" class="mt-1 text-sm font-semibold"></div>
                 </div>
 
-                <button onclick="checkQuiz('quiz1')" class="bg-pink-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-pink-700">Controlla Risposte</button>
+                <button onclick="checkQuiz('quiz1')"
+                    class="bg-pink-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-pink-700">Controlla
+                    Risposte</button>
             </div>
         </section>
 
         <section id="fase2-5" class="phase bg-white p-6 rounded-lg shadow-md hidden">
-            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">⚠️ SOTTOFASE 2.5: Giocare sul serio <span class="text-lg font-medium text-gray-500">(15 punti)</span></h2>
+            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">⚠️ SOTTOFASE 2.5: Giocare sul serio <span
+                    class="text-lg font-medium text-gray-500">(15 punti)</span></h2>
 
             <div class="mb-6 bg-red-50 p-4 rounded-lg border border-red-200">
-                <h3 class="text-xl font-bold text-red-800 mb-2">Focus: L'inclusione attraverso il gioco</h3>
-                <p class="text-red-700">Il gioco può essere un potentissimo strumento di inclusione, ma anche una crudele fonte di esclusione. Un animatore deve essere un "regista" attento, capace di adattare le attività per garantire a tutti la possibilità di partecipare. Questo significa scegliere giochi che non si basino solo sulla prestanza fisica o sulla velocità, ma che valorizzino diverse abilità (creative, logiche, comunicative) e modificare le regole "in corsa" per aiutare chi è in difficoltà, senza farlo pesare.</p>
+                <h3 class="text-xl font-bold text-red-800 mb-2">Focus: Inclusione</h3>
+                <p class="text-red-700">
+                    Come visto nella teoria (capitolo "Ambiti di Applicazione"), l'animatore deve essere un regista
+                    attento.
+                    Analizza il caso seguente ricordando i principi di adattamento per gruppi eterogenei.
+                </p>
             </div>
 
             <div class="mb-6">
                 <h3 class="text-lg font-semibold text-gray-700 mb-2">Caso per la discussione</h3>
-                <p class="text-gray-600 mb-2">Durante un gioco a squadre in cui bisogna correre per afferrare un oggetto, Marco, un ragazzo con una lieve difficoltà motoria, rimane sempre ultimo e la sua squadra inizia a lamentarsi di lui. Marco si siede in un angolo e si rifiuta di continuare a giocare.</p>
-                <label for="riflessione2_5" class="block font-medium text-gray-700 mt-4">Domanda di riflessione aperta:</label>
-                <p class="text-gray-600 mb-2">Come interverresti come animatore? Quali errori sono stati commessi nella scelta o nella gestione del gioco? Proponi almeno due strategie per gestire la situazione e reintegrare Marco nel gruppo.</p>
-                <textarea id="riflessione2_5" rows="5" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500" placeholder="Pensa a come parlare con Marco, con la squadra e a come modificare il gioco..."></textarea>
+                <p class="text-gray-600 mb-2">Durante un gioco a squadre in cui bisogna correre per afferrare un
+                    oggetto, Marco, un ragazzo con una lieve difficoltà motoria, rimane sempre ultimo e la sua squadra
+                    inizia a lamentarsi di lui. Marco si siede in un angolo e si rifiuta di continuare a giocare.</p>
+                <label for="riflessione2_5" class="block font-medium text-gray-700 mt-4">Domanda di riflessione
+                    aperta:</label>
+                <p class="text-gray-600 mb-2">Come interverresti come animatore? Quali errori sono stati commessi nella
+                    scelta o nella gestione del gioco? Proponi almeno due strategie per gestire la situazione e
+                    reintegrare Marco nel gruppo.</p>
+                <textarea id="riflessione2_5" rows="5"
+                    class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500"
+                    placeholder="Pensa a come parlare con Marco, con la squadra e a come modificare il gioco..."></textarea>
             </div>
         </section>
 
         <section id="fase3" class="phase bg-white p-6 rounded-lg shadow-md hidden">
-            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">🎨 FASE 3: Progettiamo un'emozione <span class="text-lg font-medium text-gray-500">(35 punti)</span></h2>
+            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">🎨 FASE 3: Progettiamo un'emozione <span
+                    class="text-lg font-medium text-gray-500">(35 punti)</span></h2>
 
             <div class="mb-6">
                 <h3 class="text-xl font-bold text-gray-700 mb-3">Attività guidata: Creare una Scheda Attività</h3>
                 <ul class="space-y-4">
-                    <li class="flex items-start"><span class="bg-pink-600 text-white font-bold rounded-full h-8 w-8 flex items-center justify-center mr-4">1</span><div><strong class="block">ANALISI E OBIETTIVI</strong>Chi sono i destinatari (età, numero, caratteristiche)? Cosa voglio ottenere con questa attività (es. favorire la conoscenza, stimolare la collaborazione, etc.)?</div></li>
-                    <li class="flex items-start"><span class="bg-pink-600 text-white font-bold rounded-full h-8 w-8 flex items-center justify-center mr-4">2</span><div><strong class="block">SVOLGIMENTO E REGOLE</strong>Descrivi passo dopo passo come si svolge il gioco. Le regole devono essere semplici, chiare e spiegate in modo coinvolgente.</div></li>
-                    <li class="flex items-start"><span class="bg-pink-600 text-white font-bold rounded-full h-8 w-8 flex items-center justify-center mr-4">3</span><div><strong class="block">RISORSE</strong>Elenca tutti i materiali necessari e descrivi come deve essere preparato lo spazio (setting). Non dimenticare la risorsa più importante: il tempo!</div></li>
+                    <li class="flex items-start"><span
+                            class="bg-pink-600 text-white font-bold rounded-full h-8 w-8 flex items-center justify-center mr-4">1</span>
+                        <div><strong class="block">ANALISI E OBIETTIVI</strong>Chi sono i destinatari (età, numero,
+                            caratteristiche)? Cosa voglio ottenere con questa attività (es. favorire la conoscenza,
+                            stimolare la collaborazione, etc.)?</div>
+                    </li>
+                    <li class="flex items-start"><span
+                            class="bg-pink-600 text-white font-bold rounded-full h-8 w-8 flex items-center justify-center mr-4">2</span>
+                        <div><strong class="block">SVOLGIMENTO E REGOLE</strong>Descrivi passo dopo passo come si svolge
+                            il gioco. Le regole devono essere semplici, chiare e spiegate in modo coinvolgente.</div>
+                    </li>
+                    <li class="flex items-start"><span
+                            class="bg-pink-600 text-white font-bold rounded-full h-8 w-8 flex items-center justify-center mr-4">3</span>
+                        <div><strong class="block">RISORSE</strong>Elenca tutti i materiali necessari e descrivi come
+                            deve essere preparato lo spazio (setting). Non dimenticare la risorsa più importante: il
+                            tempo!</div>
+                    </li>
                 </ul>
             </div>
 
@@ -254,120 +345,184 @@
                 <h3 class="text-xl font-bold text-gray-700 mb-3">Template: Scheda Attività</h3>
                 <div class="bg-gray-50 border border-gray-300 p-4 rounded-lg grid grid-cols-1 md:grid-cols-2 gap-4">
                     <p><strong>Titolo Attività:</strong> La Ragnatela dei Nomi</p>
-                    <p><strong>Obiettivi:</strong> Favorire la conoscenza, memorizzare i nomi, creare connessioni visive nel gruppo.</p>
+                    <p><strong>Obiettivi:</strong> Favorire la conoscenza, memorizzare i nomi, creare connessioni visive
+                        nel gruppo.</p>
                     <p><strong>Destinatari:</strong> 10-15 persone (dai 10 anni in su)</p>
                     <p><strong>Durata:</strong> 15 minuti</p>
                     <p class="md:col-span-2"><strong>Materiali:</strong> Un gomitolo di lana colorata.</p>
-                    <p class="md:col-span-2"><strong>Setting:</strong> In cerchio, seduti o in piedi, in uno spazio ampio.</p>
-                    <p class="md:col-span-2"><strong>Svolgimento:</strong> L'animatore tiene il gomitolo, dice il suo nome e una sua passione, poi lancia il gomitolo (tenendo il capo del filo) a una persona. Chi riceve il gomitolo si presenta e a sua volta lo lancia a qualcun altro, creando una ragnatela. Alla fine, si può provare a disfarla ripercorrendo i passaggi al contrario.</p>
+                    <p class="md:col-span-2"><strong>Setting:</strong> In cerchio, seduti o in piedi, in uno spazio
+                        ampio.</p>
+                    <p class="md:col-span-2"><strong>Svolgimento:</strong> L'animatore tiene il gomitolo, dice il suo
+                        nome e una sua passione, poi lancia il gomitolo (tenendo il capo del filo) a una persona. Chi
+                        riceve il gomitolo si presenta e a sua volta lo lancia a qualcun altro, creando una ragnatela.
+                        Alla fine, si può provare a disfarla ripercorrendo i passaggi al contrario.</p>
                 </div>
             </div>
 
             <div>
                 <label for="produzione3" class="block text-lg font-semibold text-gray-700 mb-2">Ora tocca a te!</label>
-                <p class="text-gray-600 mb-2">Usando il template, progetta un breve gioco di collaborazione per un gruppo di 8 bambini di 7-8 anni. L'obiettivo è farli lavorare insieme per risolvere un piccolo problema.</p>
-                <textarea id="produzione3" rows="8" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500" placeholder="Dai un titolo creativo, definisci gli obiettivi, i materiali e descrivi lo svolgimento..."></textarea>
+                <p class="text-gray-600 mb-2">Usando il template, progetta un breve gioco di collaborazione per un
+                    gruppo di 8 bambini di 7-8 anni. L'obiettivo è farli lavorare insieme per risolvere un piccolo
+                    problema.</p>
+                <textarea id="produzione3" rows="8"
+                    class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500"
+                    placeholder="Dai un titolo creativo, definisci gli obiettivi, i materiali e descrivi lo svolgimento..."></textarea>
             </div>
         </section>
 
         <section id="fase3-5" class="phase bg-white p-6 rounded-lg shadow-md hidden">
-            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">💪 SOTTOFASE 3.5: L'arte del Debriefing <span class="text-lg font-medium text-gray-500">(20 punti + 10 extra)</span></h2>
+            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">💪 SOTTOFASE 3.5: L'arte del Debriefing <span
+                    class="text-lg font-medium text-gray-500">(20 punti + 10 extra)</span></h2>
 
             <div class="mb-6 bg-indigo-50 p-4 rounded-lg border border-indigo-200">
-                <h3 class="text-xl font-bold text-indigo-800 mb-2">Tecnica avanzata: Il Debriefing</h3>
-                <p class="text-indigo-700">Il gioco finisce, ma l'animazione no. Il debriefing è il momento di riflessione guidata che segue l'attività. È ciò che trasforma un'esperienza divertente in un'occasione di apprendimento. L'animatore, attraverso domande-stimolo, aiuta il gruppo a rileggere l'esperienza: Come ci siamo sentiti? Cosa ha funzionato? Cosa non ha funzionato? Cosa abbiamo imparato su di noi e sugli altri? Senza debriefing, un gioco rischia di rimanere fine a se stesso.</p>
+                <h3 class="text-xl font-bold text-indigo-800 mb-2">Il Debriefing</h3>
+                <p class="text-indigo-700">
+                    Il gioco non finisce quando si smette di giocare. Ricorda le 3 fasi dell'animazione: Osservazione,
+                    Azione, <strong>Riflessione</strong>.
+                    Ora applicherai la tecnica del debriefing a un caso pratico.
+                </p>
             </div>
 
             <div class="mb-6">
-                <label for="esercizio3_5" class="block text-lg font-semibold text-gray-700 mb-2">Esercizio di applicazione</label>
-                <p class="text-gray-600 mb-2">Immagina di aver appena concluso un gioco di problem solving in cui un gruppo doveva costruire una torre con spaghetti e marshmallow. Formula 3 domande di debriefing: una sull'emozione, una sul processo e una sull'apprendimento.</p>
-                <textarea id="esercizio3_5" rows="5" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500" placeholder="1. Emozione (es. Come vi siete sentiti quando...?)&#10;2. Processo (es. Qual è stato il momento più difficile...?)&#10;3. Apprendimento (es. Cosa avete imparato sul lavorare insieme...?)"></textarea>
+                <label for="esercizio3_5" class="block text-lg font-semibold text-gray-700 mb-2">Esercizio di
+                    applicazione</label>
+                <p class="text-gray-600 mb-2">Immagina di aver appena concluso un gioco di problem solving in cui un
+                    gruppo doveva costruire una torre con spaghetti e marshmallow. Formula 3 domande di debriefing: una
+                    sull'emozione, una sul processo e una sull'apprendimento.</p>
+                <textarea id="esercizio3_5" rows="5"
+                    class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500"
+                    placeholder="1. Emozione (es. Come vi siete sentiti quando...?)&#10;2. Processo (es. Qual è stato il momento più difficile...?)&#10;3. Apprendimento (es. Cosa avete imparato sul lavorare insieme...?)"></textarea>
             </div>
 
-            <div id="quiz2" class="bg-gray-50 p-4 rounded-lg border mb-6" data-quiz-config='{"points":5,"answers":{"q5":"b","q6":"a"}}'>
+            <div id="quiz2" class="bg-gray-50 p-4 rounded-lg border mb-6"
+                data-quiz-config='{"points":5,"answers":{"q5":"b","q6":"a"}}'>
                 <h3 class="text-lg font-semibold mb-2">Mini-Quiz</h3>
                 <div class="mb-4">
                     <p class="font-medium">1. Il debriefing serve a:</p>
                     <div class="space-y-1 mt-1">
                         <div><input type="radio" name="q5" value="a"> a) Stabilire chi ha vinto e chi ha perso</div>
-                        <div><input type="radio" name="q5" value="b"> b) Aiutare il gruppo a riflettere sull'esperienza e a trarne un significato</div>
+                        <div><input type="radio" name="q5" value="b"> b) Aiutare il gruppo a riflettere sull'esperienza
+                            e a trarne un significato</div>
                     </div>
                     <div id="feedback-q5" class="mt-1 text-sm font-semibold"></div>
                 </div>
                 <div class="mb-4">
                     <p class="font-medium">2. Durante il debriefing, il ruolo dell'animatore è quello di:</p>
                     <div class="space-y-1 mt-1">
-                        <div><input type="radio" name="q6" value="a"> a) Facilitatore che stimola la discussione con domande aperte</div>
-                        <div><input type="radio" name="q6" value="b"> b) Giudice che valuta la performance del gruppo</div>
+                        <div><input type="radio" name="q6" value="a"> a) Facilitatore che stimola la discussione con
+                            domande aperte</div>
+                        <div><input type="radio" name="q6" value="b"> b) Giudice che valuta la performance del gruppo
+                        </div>
                     </div>
                     <div id="feedback-q6" class="mt-1 text-sm font-semibold"></div>
                 </div>
-                 <button onclick="checkQuiz('quiz2')" class="bg-pink-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-pink-700">Controlla</button>
+                <button onclick="checkQuiz('quiz2')"
+                    class="bg-pink-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-pink-700">Controlla</button>
             </div>
 
             <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-md">
                 <label for="sfida_extra3_5" class="block font-bold">Sfida extra opzionale (+10 punti)</label>
-                <p class="mb-2">Ricerca e descrivi brevemente la tecnica del "Circle Time". Per quali obiettivi di animazione è particolarmente indicata?</p>
-                <textarea id="sfida_extra3_5" rows="3" class="w-full p-2 border border-yellow-300 rounded-md mt-2" placeholder="Scrivi qui la tua ricerca..."></textarea>
+                <p class="mb-2">Ricerca e descrivi brevemente la tecnica del "Circle Time". Per quali obiettivi di
+                    animazione è particolarmente indicata?</p>
+                <textarea id="sfida_extra3_5" rows="3" class="w-full p-2 border border-yellow-300 rounded-md mt-2"
+                    placeholder="Scrivi qui la tua ricerca..."></textarea>
             </div>
         </section>
 
         <section id="fase4" class="phase bg-white p-6 rounded-lg shadow-md hidden">
-            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">🧠 FASE 4: Guardarsi allo specchio <span class="text-lg font-medium text-gray-500">(30 punti)</span></h2>
+            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">🧠 FASE 4: Guardarsi allo specchio <span
+                    class="text-lg font-medium text-gray-500">(30 punti)</span></h2>
 
             <div class="space-y-6">
                 <div>
-                    <label for="riflessione4_1" class="block text-lg font-semibold text-gray-700 mb-2">1. Cosa ho imparato sull'importanza della progettazione nell'animazione?</label>
-                    <textarea id="riflessione4_1" rows="3" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500" placeholder="Pensa a un aspetto che prima sottovalutavi..."></textarea>
+                    <label for="riflessione4_1" class="block text-lg font-semibold text-gray-700 mb-2">1. Cosa ho
+                        imparato sull'importanza della progettazione nell'animazione?</label>
+                    <textarea id="riflessione4_1" rows="3"
+                        class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500"
+                        placeholder="Pensa a un aspetto che prima sottovalutavi..."></textarea>
                 </div>
                 <div>
-                    <label for="riflessione4_2" class="block text-lg font-semibold text-gray-700 mb-2">2. Come è cambiata la mia idea del 'gioco' in un contesto socio-sanitario?</label>
-                    <textarea id="riflessione4_2" rows="3" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500" placeholder="È solo divertimento o è uno strumento professionale?"></textarea>
+                    <label for="riflessione4_2" class="block text-lg font-semibold text-gray-700 mb-2">2. Come è
+                        cambiata la mia idea del 'gioco' in un contesto socio-sanitario?</label>
+                    <textarea id="riflessione4_2" rows="3"
+                        class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500"
+                        placeholder="È solo divertimento o è uno strumento professionale?"></textarea>
                 </div>
                 <div>
-                    <label for="riflessione4_3" class="block text-lg font-semibold text-gray-700 mb-2">3. Quali sono le qualità personali che ritengo più importanti per un animatore, e quali sento di dover migliorare?</label>
-                    <textarea id="riflessione4_3" rows="3" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500" placeholder="Pensa a creatività, empatia, pazienza, leadership..."></textarea>
+                    <label for="riflessione4_3" class="block text-lg font-semibold text-gray-700 mb-2">3. Quali sono le
+                        qualità personali che ritengo più importanti per un animatore, e quali sento di dover
+                        migliorare?</label>
+                    <textarea id="riflessione4_3" rows="3"
+                        class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500"
+                        placeholder="Pensa a creatività, empatia, pazienza, leadership..."></textarea>
                 </div>
                 <div>
-                    <label for="riflessione4_4" class="block text-lg font-semibold text-gray-700 mb-2">Confronto finale: Rileggi le tue risposte nella Fase 1. Cosa aggiungeresti o cambieresti ora sulla tua definizione di 'animazione'?</label>
-                    <textarea id="riflessione4_4" rows="4" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500" placeholder="Confronta il tuo 'prima' e 'dopo'..."></textarea>
+                    <label for="riflessione4_4" class="block text-lg font-semibold text-gray-700 mb-2">Confronto finale:
+                        Rileggi le tue risposte nella Fase 1. Cosa aggiungeresti o cambieresti ora sulla tua definizione
+                        di 'animazione'?</label>
+                    <textarea id="riflessione4_4" rows="4"
+                        class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500"
+                        placeholder="Confronta il tuo 'prima' e 'dopo'..."></textarea>
                 </div>
             </div>
         </section>
 
         <section id="fase5" class="phase bg-white p-6 rounded-lg shadow-md hidden">
-            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">🎪 FASE 5: Missione Centro Estivo <span class="text-lg font-medium text-gray-500">(50 punti)</span></h2>
+            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">🎪 FASE 5: Missione Centro Estivo <span
+                    class="text-lg font-medium text-gray-500">(50 punti)</span></h2>
 
             <div class="mb-6 bg-gray-50 p-4 rounded-lg border">
                 <h3 class="text-xl font-bold text-gray-700 mb-2">Caso di Studio Complesso</h3>
-                <p class="text-gray-600">Sei l'animatore di un gruppo di 12 bambini (età 8-10 anni) in un centro estivo. Il gruppo è eterogeneo: c'è Sofia, molto timida, che tende a isolarsi; c'è Leo, iperattivo e che fatica a rispettare le regole; e c'è Anna, una bambina con un disturbo dello spettro autistico lieve, che comunica bene ma ha bisogno di prevedibilità e non ama il contatto fisico improvviso. Hai a disposizione un'ora e uno spazio all'aperto. L'obiettivo principale della settimana è 'fare gruppo'.</p>
+                <p class="text-gray-600">Sei l'animatore di un gruppo di 12 bambini (età 8-10 anni) in un centro estivo.
+                    Il gruppo è eterogeneo: c'è Sofia, molto timida, che tende a isolarsi; c'è Leo, iperattivo e che
+                    fatica a rispettare le regole; e c'è Anna, una bambina con un disturbo dello spettro autistico
+                    lieve, che comunica bene ma ha bisogno di prevedibilità e non ama il contatto fisico improvviso. Hai
+                    a disposizione un'ora e uno spazio all'aperto. L'obiettivo principale della settimana è 'fare
+                    gruppo'.</p>
             </div>
 
             <div class="space-y-6">
                 <div>
-                    <label for="task5_1" class="block text-lg font-semibold text-gray-700 mb-2">Sotto-task 1: Analisi e Obiettivi</label>
-                    <p class="text-gray-600 mb-2">Analizza le caratteristiche e i bisogni specifici di Sofia, Leo e Anna. Sulla base di questo, definisci 2-3 obiettivi specifici e realistici per la tua attività di animazione di un'ora.</p>
-                    <textarea id="task5_1" rows="5" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500" placeholder="Gli obiettivi devono essere coerenti con il bisogno di inclusione di tutti..."></textarea>
+                    <label for="task5_1" class="block text-lg font-semibold text-gray-700 mb-2">Sotto-task 1: Analisi e
+                        Obiettivi</label>
+                    <p class="text-gray-600 mb-2">Analizza le caratteristiche e i bisogni specifici di Sofia, Leo e
+                        Anna. Sulla base di questo, definisci 2-3 obiettivi specifici e realistici per la tua attività
+                        di animazione di un'ora.</p>
+                    <textarea id="task5_1" rows="5"
+                        class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500"
+                        placeholder="Gli obiettivi devono essere coerenti con il bisogno di inclusione di tutti..."></textarea>
                 </div>
                 <div>
-                    <label for="task5_2" class="block text-lg font-semibold text-gray-700 mb-2">Sotto-task 2: Progettazione dell'Attività</label>
-                    <p class="text-gray-600 mb-2">Progetta nel dettaglio un'attività (o una sequenza di 2 brevi attività) per raggiungere gli obiettivi che hai definito. Usa il modello della 'Scheda Attività' della Fase 3.</p>
-                    <textarea id="task5_2" rows="5" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500" placeholder="Scegli un'attività che possa essere adattata e che valorizzi diverse abilità..."></textarea>
+                    <label for="task5_2" class="block text-lg font-semibold text-gray-700 mb-2">Sotto-task 2:
+                        Progettazione dell'Attività</label>
+                    <p class="text-gray-600 mb-2">Progetta nel dettaglio un'attività (o una sequenza di 2 brevi
+                        attività) per raggiungere gli obiettivi che hai definito. Usa il modello della 'Scheda Attività'
+                        della Fase 3.</p>
+                    <textarea id="task5_2" rows="5"
+                        class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500"
+                        placeholder="Scegli un'attività che possa essere adattata e che valorizzi diverse abilità..."></textarea>
                 </div>
                 <div>
-                    <label for="task5_3" class="block text-lg font-semibold text-gray-700 mb-2">Sotto-task 3: Strategie di Inclusione</label>
-                    <p class="text-gray-600 mb-2">Descrivi le strategie concrete che adotterai prima, durante e dopo l'attività per facilitare la partecipazione di Sofia, gestire l'energia di Leo e rispettare i bisogni di Anna. Come presenterai l'attività ad Anna per rassicurarla?</p>
-                    <textarea id="task5_3" rows="5" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500" placeholder="Pensa a come dare un ruolo a Sofia, a come canalizzare Leo e a come comunicare con Anna..."></textarea>
+                    <label for="task5_3" class="block text-lg font-semibold text-gray-700 mb-2">Sotto-task 3: Strategie
+                        di Inclusione</label>
+                    <p class="text-gray-600 mb-2">Descrivi le strategie concrete che adotterai prima, durante e dopo
+                        l'attività per facilitare la partecipazione di Sofia, gestire l'energia di Leo e rispettare i
+                        bisogni di Anna. Come presenterai l'attività ad Anna per rassicurarla?</p>
+                    <textarea id="task5_3" rows="5"
+                        class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500"
+                        placeholder="Pensa a come dare un ruolo a Sofia, a come canalizzare Leo e a come comunicare con Anna..."></textarea>
                 </div>
             </div>
         </section>
 
         <section id="fase6" class="phase bg-white p-6 rounded-lg shadow-md hidden">
-            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">📈 FASE 6: Il mio kit da animatore <span class="text-lg font-medium text-gray-500">(50 punti)</span></h2>
+            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">📈 FASE 6: Il mio kit da animatore <span
+                    class="text-lg font-medium text-gray-500">(50 punti)</span></h2>
 
             <div class="mb-8">
                 <h3 class="text-xl font-bold text-gray-700 mb-3">Autovalutazione delle Competenze</h3>
-                <p class="text-gray-600 mb-4">Valuta onestamente il tuo livello di sicurezza su una scala da 1 (molto insicuro) a 5 (molto sicuro).</p>
+                <p class="text-gray-600 mb-4">Valuta onestamente il tuo livello di sicurezza su una scala da 1 (molto
+                    insicuro) a 5 (molto sicuro).</p>
                 <table class="w-full text-left" id="autovalutazione">
                     <thead>
                         <tr class="bg-gray-100">
@@ -381,7 +536,8 @@
                     </thead>
                     <tbody>
                         <tr class="border-b">
-                            <td class="p-2">Progettare una semplice attività di animazione (obiettivi, fasi, materiali)</td>
+                            <td class="p-2">Progettare una semplice attività di animazione (obiettivi, fasi, materiali)
+                            </td>
                             <td class="text-center"><input type="radio" name="comp1" value="1"></td>
                             <td class="text-center"><input type="radio" name="comp1" value="2"></td>
                             <td class="text-center"><input type="radio" name="comp1" value="3"></td>
@@ -427,28 +583,35 @@
             <div id="quizFinale" class="mb-8 bg-gray-50 p-4 rounded-lg border">
                 <h3 class="text-xl font-bold text-gray-700 mb-3">Quiz Finale Riepilogativo</h3>
                 <p class="text-gray-600 mb-4">Completa il quiz per consolidare le tue conoscenze. (10 domande)</p>
-                <button onclick="alert('Quiz finale in preparazione!')" class="bg-pink-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-pink-700">Inizia il Quiz Finale</button>
+                <button onclick="alert('Quiz finale in preparazione!')"
+                    class="bg-pink-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-pink-700">Inizia il Quiz
+                    Finale</button>
             </div>
 
             <div class="mb-6">
                 <h3 class="text-xl font-bold text-gray-700 mb-3">Piano d'azione personalizzato</h3>
                 <div class="grid md:grid-cols-3 gap-4">
                     <div>
-                        <label for="piano_cosa" class="block font-semibold text-gray-700 mb-1">COSA voglio migliorare?</label>
-                        <textarea id="piano_cosa" rows="3" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Es: La mia capacità di gestire imprevisti durante un gioco."></textarea>
+                        <label for="piano_cosa" class="block font-semibold text-gray-700 mb-1">COSA voglio
+                            migliorare?</label>
+                        <textarea id="piano_cosa" rows="3" class="w-full p-2 border border-gray-300 rounded-md"
+                            placeholder="Es: La mia capacità di gestire imprevisti durante un gioco."></textarea>
                     </div>
                     <div>
                         <label for="piano_come" class="block font-semibold text-gray-700 mb-1">COME lo farò?</label>
-                        <textarea id="piano_come" rows="3" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Es: Osservando animatori esperti e creando un mio piccolo 'archivio' di giochi."></textarea>
+                        <textarea id="piano_come" rows="3" class="w-full p-2 border border-gray-300 rounded-md"
+                            placeholder="Es: Osservando animatori esperti e creando un mio piccolo 'archivio' di giochi."></textarea>
                     </div>
                     <div>
                         <label for="piano_quando" class="block font-semibold text-gray-700 mb-1">QUANDO lo farò?</label>
-                        <textarea id="piano_quando" rows="3" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Es: Durante il prossimo tirocinio."></textarea>
+                        <textarea id="piano_quando" rows="3" class="w-full p-2 border border-gray-300 rounded-md"
+                            placeholder="Es: Durante il prossimo tirocinio."></textarea>
                     </div>
                 </div>
             </div>
 
-            <div id="final-badge-container" class="hidden text-center p-6 bg-green-100 border-2 border-dashed border-green-400 rounded-lg">
+            <div id="final-badge-container"
+                class="hidden text-center p-6 bg-green-100 border-2 border-dashed border-green-400 rounded-lg">
                 <p class="text-5xl">🏆</p>
                 <h3 class="text-2xl font-bold text-green-800 mt-2">Complimenti! Hai ottenuto il badge:</h3>
                 <p class="text-xl font-semibold text-green-700" id="final-badge-name">Architetto di Sorrisi</p>
@@ -459,13 +622,18 @@
 
     <footer class="container mx-auto p-4 md:px-8 flex flex-col md:flex-row justify-between items-center no-print">
         <div class="flex space-x-2 mb-4 md:mb-0">
-            <button id="prevBtn" onclick="navigate('prev')" class="bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed">Indietro</button>
-            <button id="nextBtn" onclick="navigate('next')" class="bg-pink-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-pink-700">Avanti</button>
+            <button id="prevBtn" onclick="navigate('prev')"
+                class="bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed">Indietro</button>
+            <button id="nextBtn" onclick="navigate('next')"
+                class="bg-pink-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-pink-700">Avanti</button>
         </div>
         <div class="flex space-x-2">
-            <button onclick="exportTXT()" class="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700">Esporta TXT</button>
-            <button onclick="exportPDF()" class="bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700">Esporta PDF</button>
-            <button onclick="window.print()" class="bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700">Stampa</button>
+            <button onclick="exportTXT()"
+                class="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700">Esporta TXT</button>
+            <button onclick="exportPDF()"
+                class="bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700">Esporta PDF</button>
+            <button onclick="window.print()"
+                class="bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700">Stampa</button>
         </div>
     </footer>
 
@@ -474,7 +642,8 @@
             <p id="modal-emoji" class="text-6xl mb-4"></p>
             <h3 class="text-2xl font-bold mb-2">Badge Sbloccato!</h3>
             <p id="modal-text" class="text-lg text-gray-700"></p>
-            <button onclick="closeModal()" class="mt-6 bg-pink-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-pink-700">OK</button>
+            <button onclick="closeModal()"
+                class="mt-6 bg-pink-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-pink-700">OK</button>
         </div>
     </div>
 
@@ -881,4 +1050,5 @@
     <script type="module" src="../../assets/progress-global.js"></script>
 
 </body>
+
 </html>
