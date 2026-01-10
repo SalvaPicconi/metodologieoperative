@@ -15,7 +15,7 @@ const MATERIALI_JSON_URL = (() => {
     return 'materiali.json';
 })();
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Ottieni la sezione corrente dal nome del file
     let pagina = window.location.pathname.split('/').pop().replace('.html', '');
     if (!pagina) {
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     setupMobileNav();
-    
+
     // Configurazioni delle pagine che richiedono il caricamento dei materiali
     const configurazioniPagine = {
         'biennio': { chiave: 'biennio' },
@@ -35,46 +35,46 @@ document.addEventListener('DOMContentLoaded', function() {
         'compresenza': { chiave: 'compresenza' },
         'index': { chiave: 'ai', containerId: 'materiali-ai' }
     };
-    
+
     const configurazione = configurazioniPagine[pagina];
-    
+
     if (!configurazione) {
         console.log('Pagina non richiede caricamento materiali');
         return;
     }
-    
+
     // Carica i materiali
     caricaMateriali(configurazione.chiave, configurazione.containerId);
 });
 
 async function caricaMateriali(sezione, containerId = 'materiali-lista') {
     const container = document.getElementById(containerId);
-    
+
     if (!container) {
         console.error('Container materiali non trovato');
         return;
     }
-    
+
     // Mostra stato di caricamento
     container.innerHTML = '<div class="loading">Caricamento materiali in corso...</div>';
-    
+
     try {
         // Carica il file JSON
         const cacheBustParam = 'v=20251016';
         const response = await fetch(`${MATERIALI_JSON_URL}?${cacheBustParam}`, {
             cache: 'no-cache'
         });
-        
+
         if (!response.ok) {
             throw new Error('Impossibile caricare i materiali');
         }
-        
+
         const data = await response.json();
         const materiali = data[sezione] || [];
-        
+
         // Ordina i materiali per data (più recenti prima)
         materiali.sort((a, b) => new Date(b.data) - new Date(a.data));
-        
+
         const materialiPerTipo = materiali.reduce((acc, materiale) => {
             const tipo = determinaTipoMateriale(materiale);
             if (!acc[tipo]) {
@@ -115,7 +115,7 @@ async function caricaMateriali(sezione, containerId = 'materiali-lista') {
         `;
 
         inizializzaTab(container);
-        
+
     } catch (error) {
         console.error('Errore nel caricamento dei materiali:', error);
         container.innerHTML = `
@@ -384,7 +384,7 @@ function inizializzaTab(container) {
 // Funzione per formattare la data
 function formattaData(dataString) {
     if (!dataString) return '';
-    
+
     try {
         const data = new Date(dataString);
         const opzioni = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -399,7 +399,7 @@ function escapeHtml(text) {
     if (text === undefined || text === null) {
         return '';
     }
-    
+
     const map = {
         '&': '&amp;',
         '<': '&lt;',
@@ -415,30 +415,30 @@ function determinaTipoMateriale(materiale) {
     const tipoNormalizzato = typeof tipoDichiarato.normalize === 'function'
         ? tipoDichiarato.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
         : tipoDichiarato;
-    
+
     if (tipoNormalizzato.includes('verifica')) {
         return 'verifiche';
     }
 
     const paroleChiaveAutentico = ['autentico', 'autentica', 'prove', 'prova', 'compito', 'compiti', 'realta'];
-    
+
     if (paroleChiaveAutentico.some(keyword => tipoNormalizzato.includes(keyword))) {
         return 'autentico';
     }
-    
+
     if (tipoNormalizzato === 'interattivo' || tipoNormalizzato === 'interactive') {
         return 'interattivo';
     }
-    
+
     if (tipoNormalizzato === 'download') {
         return 'download';
     }
-    
+
     const estensione = (materiale.file || '').trim().toLowerCase();
     if (estensione.endsWith('.html') || estensione.endsWith('.htm')) {
         return 'interattivo';
     }
-    
+
     return 'download';
 }
 
@@ -446,11 +446,11 @@ function renderVerificheList(materiali) {
     // Ordina prima per quadrimestre (1 poi 2), poi per data inversa
     // In realtà vogliamo mostrare: Primo Quadrimestre, poi Secondo
     // I materiali sono già ordinati per data inversa.
-    
+
     // Separa per quadrimestre
     const primoQuad = materiali.filter(m => m.quadrimestre === 1 || m.quadrimestre === '1');
     const secondoQuad = materiali.filter(m => m.quadrimestre === 2 || m.quadrimestre === '2');
-    
+
     // Se non ci sono materiali in assoluto
     if (primoQuad.length === 0 && secondoQuad.length === 0) {
         return creaMessaggioVuoto(
@@ -486,8 +486,17 @@ function renderVerificaCard(materiale) {
     const filePath = escapeHtml(rawFile);
     const titolo = escapeHtml(materiale.titolo || 'Verifica Sommativa');
     const descrizione = materiale.descrizione ? `<p>${escapeHtml(materiale.descrizione)}</p>` : '';
-    const linkAttributes = rawFile ? 'download' : 'aria-disabled="true"';
-    
+
+    // Check if it's an HTML file
+    const isHtml = rawFile.toLowerCase().endsWith('.html') || rawFile.toLowerCase().endsWith('.htm');
+
+    // Determine attributes and label
+    const linkAttributes = isHtml
+        ? 'target="_blank"'
+        : (rawFile ? 'download' : 'aria-disabled="true"');
+
+    const btnLabel = isHtml ? '🔗 Apri risorsa' : '📥 Scarica materiale';
+
     return `
         <div class="materiale-item materiale-verifica">
             <div class="materiale-header">
@@ -496,7 +505,7 @@ function renderVerificaCard(materiale) {
             </div>
             ${descrizione}
             <a href="${filePath}" class="btn-download btn-verifica" ${linkAttributes}>
-                📥 Scarica materiale
+                ${btnLabel}
             </a>
         </div>
     `;
