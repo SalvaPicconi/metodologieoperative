@@ -82,12 +82,13 @@ async function caricaMateriali(sezione, containerId = 'materiali-lista') {
             }
             acc[tipo].push(materiale);
             return acc;
-        }, { download: [], interattivo: [], autentico: [] });
+        }, { download: [], interattivo: [], autentico: [], verifiche: [] });
 
         const tabsConfig = [
             { key: 'download', label: '📁 Materiali da scaricare', renderer: renderDownloadList },
             { key: 'interattivo', label: '🧠 Apprendimento interattivo', renderer: renderInteractiveList },
-            { key: 'autentico', label: '🧪 Prove autentiche / Compiti di realtà', renderer: renderAuthenticList }
+            { key: 'autentico', label: '🧪 Prove autentiche / Compiti di realtà', renderer: renderAuthenticList },
+            { key: 'verifiche', label: '📝 Verifiche Sommative', renderer: renderVerificheList }
         ];
 
         const defaultTab = tabsConfig.find(tab => (materialiPerTipo[tab.key] || []).length)?.key || 'download';
@@ -414,6 +415,11 @@ function determinaTipoMateriale(materiale) {
     const tipoNormalizzato = typeof tipoDichiarato.normalize === 'function'
         ? tipoDichiarato.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
         : tipoDichiarato;
+    
+    if (tipoNormalizzato.includes('verifica')) {
+        return 'verifiche';
+    }
+
     const paroleChiaveAutentico = ['autentico', 'autentica', 'prove', 'prova', 'compito', 'compiti', 'realta'];
     
     if (paroleChiaveAutentico.some(keyword => tipoNormalizzato.includes(keyword))) {
@@ -434,4 +440,64 @@ function determinaTipoMateriale(materiale) {
     }
     
     return 'download';
+}
+
+function renderVerificheList(materiali) {
+    // Ordina prima per quadrimestre (1 poi 2), poi per data inversa
+    // In realtà vogliamo mostrare: Primo Quadrimestre, poi Secondo
+    // I materiali sono già ordinati per data inversa.
+    
+    // Separa per quadrimestre
+    const primoQuad = materiali.filter(m => m.quadrimestre === 1 || m.quadrimestre === '1');
+    const secondoQuad = materiali.filter(m => m.quadrimestre === 2 || m.quadrimestre === '2');
+    
+    // Se non ci sono materiali in assoluto
+    if (primoQuad.length === 0 && secondoQuad.length === 0) {
+        return creaMessaggioVuoto(
+            '📝 Nessuna verifica sommativa disponibile.',
+            'Qui troverai i materiali per le verifiche del primo e secondo quadrimestre.'
+        );
+    }
+
+    let html = '';
+
+    // Primo Quadrimestre
+    html += `<h3 class="semester-title">1️⃣ Primo Quadrimestre</h3>`;
+    if (primoQuad.length > 0) {
+        html += primoQuad.map(renderVerificaCard).join('');
+    } else {
+        html += `<p class="muted" style="margin-bottom: 2rem;">Nessun materiale ancora disponibile per il primo quadrimestre.</p>`;
+    }
+
+    // Secondo Quadrimestre
+    html += `<h3 class="semester-title">2️⃣ Secondo Quadrimestre</h3>`;
+    if (secondoQuad.length > 0) {
+        html += secondoQuad.map(renderVerificaCard).join('');
+    } else {
+        html += `<p class="muted">Nessun materiale ancora disponibile per il secondo quadrimestre.</p>`;
+    }
+
+    return html;
+}
+
+function renderVerificaCard(materiale) {
+    const dataFormattata = formattaData(materiale.data);
+    const rawFile = materiale.file || '';
+    const filePath = escapeHtml(rawFile);
+    const titolo = escapeHtml(materiale.titolo || 'Verifica Sommativa');
+    const descrizione = materiale.descrizione ? `<p>${escapeHtml(materiale.descrizione)}</p>` : '';
+    const linkAttributes = rawFile ? 'download' : 'aria-disabled="true"';
+    
+    return `
+        <div class="materiale-item materiale-verifica">
+            <div class="materiale-header">
+                <h3>${titolo}</h3>
+                <span class="materiale-data">${dataFormattata}</span>
+            </div>
+            ${descrizione}
+            <a href="${filePath}" class="btn-download btn-verifica" ${linkAttributes}>
+                📥 Scarica materiale
+            </a>
+        </div>
+    `;
 }
