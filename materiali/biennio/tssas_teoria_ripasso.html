@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operatore Sociale - Ripasso Teorico</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-turchese: #1DD3D3;
+            --color-lime: #C6E716;
+            --color-fucsia: #FF0090;
+            --color-turchese-dark: #16A8A8;
+            --color-lime-dark: #9CB912;
+            --color-fucsia-dark: #CC0073;
+            --bg-color: #f0f4f8;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, var(--color-turchese) 0%, var(--color-turchese-dark) 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 0 5px 15px rgba(29, 211, 211, 0.3);
+        }
+
+        .header h1 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        /* NAVIGATION BAR for MOBILE */
+        .nav-bar {
+            background: white;
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: #666;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9em;
+        }
+
+        .back-link:hover {
+            color: var(--color-turchese-dark);
+        }
+
+        /* CONTENT SECTIONS */
+        .section {
+            padding: 25px 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section-title {
+            color: var(--color-turchese-dark);
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .emoji-icon {
+            font-size: 1.2em;
+        }
+
+        /* INFO BOXES (Recycled styles) */
+        .info-box {
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-box h3 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-box-blue {
+            background: #E3F2FD;
+            border-left-color: #2196F3;
+        }
+
+        .info-box-blue h3 {
+            color: #1976D2;
+        }
+
+        .info-box-green {
+            background: #E8F5E9;
+            border-left-color: #4CAF50;
+        }
+
+        .info-box-green h3 {
+            color: #388E3C;
+        }
+
+        .info-box-yellow {
+            background: #FFFDE7;
+            border-left-color: #FBC02D;
+        }
+
+        .info-box-yellow h3 {
+            color: #F57F17;
+        }
+
+        .info-box-purple {
+            background: #F3E5F5;
+            border-left-color: #9C27B0;
+        }
+
+        .info-box-purple h3 {
+            color: #7B1FA2;
+        }
+
+        .info-box-red {
+            background: #FFEBEE;
+            border-left-color: #EF5350;
+        }
+
+        .info-box-red h3 {
+            color: #C62828;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding-left: 5px;
+        }
+
+        .info-box ul li {
+            padding: 6px 0 6px 25px;
+            position: relative;
+        }
+
+        .info-box ul li::before {
+            content: "•";
+            position: absolute;
+            left: 5px;
+            font-weight: bold;
+            color: inherit;
+        }
+
+        .highlight {
+            background: rgba(221, 255, 68, 0.4);
+            /* Lime transparent */
+            padding: 0 4px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* CARDS for User Types */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border: 1px solid #eee;
+        }
+
+        .card h4 {
+            color: var(--color-turchese-dark);
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            border-bottom: 2px solid var(--color-turchese);
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+
+        /* FAB for Scroll Top (Optional for Study) */
+        .fab {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--color-fucsia);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(255, 0, 144, 0.4);
+            cursor: pointer;
+            opacity: 0.8;
+            transition: all 0.3s;
+            text-decoration: none;
+            font-size: 1.5em;
+        }
+
+        .fab:hover {
+            opacity: 1;
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .section {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- NAV BAR -->
+        <div class="nav-bar">
+            <a href="tssas_percorso_completo_v2.html" class="back-link">
+                <span>←</span> Torna agli Esercizi
+            </a>
+            <div style="font-weight: bold; color: var(--color-turchese-dark);">Modalità Studio 📖</div>
+        </div>
+
+        <!-- HEADER -->
+        <div class="header">
+            <h1>L'Operatore Sociale</h1>
+            <p>Sintesi Teorica e Concetti Chiave</p>
+        </div>
+
+        <!-- SEZIONE 1: DEFINIZIONE E MODELLO -->
+        <div class="section">
+            <h2 class="section-title"><span class="emoji-icon">📚</span> Concetti Fondamentali</h2>
+
+            <div class="info-box info-box-blue">
+                <h3>Chi è l'Operatore Sociale</h3>
+                <p>È un <strong>professionista della relazione d'aiuto</strong> che opera con persone di diverse età
+                    (individui e gruppi) per sostenere e potenziare la loro capacità di crescita personale e
+                    partecipazione sociale. È parte integrante del sistema dei servizi socio-sanitari.</p>
+            </div>
+
+            <div class="info-box info-box-blue">
+                <h3>Il Modello Bio-Psico-Sociale</h3>
+                <p>Metodo organizzativo fondamentale che vede la salute/malattia come interazione di tre fattori:</p>
+                <ul>
+                    <li><strong>BIOLOGICO</strong>: Aspetti fisici, corporei, genetici.</li>
+                    <li><strong>PSICOLOGICO</strong>: Aspetti mentali, emotivi, cognitivi, comportamentali.</li>
+                    <li><strong>SOCIALE</strong>: Contesto relazionale, ambientale, familiare, culturale.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SEZIONE 2: COMPETENZE E CONTESTI -->
+        <div class="section">
+            <h2 class="section-title"><span class="emoji-icon">🛠️</span> La Professione</h2>
+
+            <div class="info-box info-box-green">
+                <h3>Competenze Chiave</h3>
+                <ul>
+                    <li><strong>Organizzare</strong> interventi socio-sanitari</li>
+                    <li><strong>Promuovere</strong> il benessere bio-psico-sociale</li>
+                    <li><strong>Collaborare</strong> nei progetti di rete</li>
+                    <li><strong>Facilitare</strong> la comunicazione</li>
+                    <li><strong>Realizzare</strong> attività di animazione sociale</li>
+                </ul>
+            </div>
+
+            <div class="info-box info-box-green">
+                <h3>Dove Lavora (Contesti)</h3>
+                <p>RSA, Servizi Sociali Comunali, Centri Diurni, Assistenza Domiciliare, Comunità Educative, Strutture
+                    Riabilitative.</p>
+            </div>
+        </div>
+
+        <!-- SEZIONE 3: LAVORO DI RETE -->
+        <div class="section">
+            <h2 class="section-title"><span class="emoji-icon">🌐</span> Il Lavoro di Rete</h2>
+
+            <div class="info-box info-box-yellow">
+                <h3>Definizione</h3>
+                <p>Creare collegamenti e sinergie tra risorse diverse per supportare l'utente. L'operatore non lavora
+                    mai da solo.</p>
+                <div style="margin-top: 15px; display: grid; gap: 10px;">
+                    <div style="background: rgba(255,255,255,0.6); padding: 10px; border-radius: 8px;">
+                        <strong>🤝 Reti Informali:</strong> Famiglia, amici, vicini, volontariato, associazioni.
+                    </div>
+                    <div style="background: rgba(255,255,255,0.6); padding: 10px; border-radius: 8px;">
+                        <strong>🏥 Reti Formali:</strong> SSN, Servizi Sociali, Scuole, Specialisti, Cooperative.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEZIONE 4: UTENZA -->
+        <div class="section">
+            <h2 class="section-title"><span class="emoji-icon">👥</span> Le Tipologie di Utenza</h2>
+            <p style="margin-bottom: 20px;">L'Operatore sociale interviene con diverse categorie di persone, ognuna con
+                bisogni specifici.</p>
+
+            <div class="card-grid">
+
+                <div class="card">
+                    <h4>👨‍👩‍👧‍👦 La Famiglia</h4>
+                    <p>Istituzione base della società. Oggi presenta nuove forme (single, ricostituite, arcobaleno).
+                        <br><strong>Criticità:</strong> fragilità, bisogno assistenza anziani, lavoro.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h4>👶 L'Infanzia (0-10)</h4>
+                    <p>Fase di sviluppo percettivo-motorio, linguistico e affettivo.<br><strong>Ruolo:</strong> supporto
+                        alla genitorialità, tutela minori.</p>
+                </div>
+
+                <div class="card">
+                    <h4>🧒 L'Adolescenza (10-18)</h4>
+                    <p>Fase critica di passaggio e definizione identità.<br><strong>Rischi:</strong> conflitti,
+                        ribellione, dipendenze, disadattamento.</p>
+                </div>
+
+                <div class="card">
+                    <h4>👴 La Terza Età (65+)</h4>
+                    <p>Non solo "fine", ma risorsa. <br><strong>Sfide:</strong> malattie, solitudine,
+                        autosufficienza.<br><strong>Focus:</strong> invecchiamento attivo.</p>
+                </div>
+
+                <div class="card">
+                    <h4>♿ La Disabilità</h4>
+                    <p>Interazione tra salute e ambiente (ICF).<br><strong>Obiettivo:</strong> Integrazione, autonomia
+                        possibile, Legge 104/92.</p>
+                </div>
+
+                <div class="card">
+                    <h4>🔗 Le Dipendenze</h4>
+                    <p>Bisogno compulsivo (sostanze o comportamenti).<br><strong>Classiche:</strong> Alcol, Droga,
+                        Gioco.<br><strong>Nuove:</strong> Internet, Shopping, Social.</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="section" style="text-align: center; color: #999; font-size: 0.9em;">
+            <p>Materiale didattico per l'Operatore Socio-Sanitario</p>
+        </div>
+
+    </div>
+
+    <!-- Scroll Top Button -->
+    <a href="#" class="fab" title="Torna su">↑</a>
+
+</body>
+
+</html>

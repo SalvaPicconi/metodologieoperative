@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta name="page-id" content="attivita-materiali-biennio-operatore-sociale-percorso-completo-v2">
     <meta charset="UTF-8">
@@ -34,7 +35,7 @@
             margin: 0 auto;
             background: white;
             border-radius: 25px;
-            box-shadow: 0 25px 70px rgba(0,0,0,0.3);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3);
             overflow: hidden;
         }
 
@@ -55,13 +56,22 @@
             right: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
             animation: pulse 4s ease-in-out infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 0.8; }
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
         }
 
         .header h1 {
@@ -69,7 +79,7 @@
             margin-bottom: 15px;
             position: relative;
             z-index: 1;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .header p {
@@ -95,7 +105,7 @@
             padding: 20px 30px;
             border-radius: 15px;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             min-width: 150px;
             transition: transform 0.3s;
         }
@@ -124,7 +134,7 @@
 
         /* PROGRESS BAR */
         .progress-container {
-            background: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.3);
             padding: 25px;
             text-align: center;
         }
@@ -142,7 +152,7 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.4);
+            background: rgba(255, 255, 255, 0.4);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -170,7 +180,7 @@
             position: absolute;
             width: 30px;
             height: 3px;
-            background: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.3);
             right: -32px;
             top: 50%;
             transform: translateY(-50%);
@@ -184,7 +194,7 @@
             color: white;
             font-size: 1.2em;
             font-weight: bold;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
         }
 
         /* BADGES */
@@ -203,7 +213,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
             opacity: 0.4;
             transition: all 0.3s;
         }
@@ -214,9 +224,17 @@
         }
 
         @keyframes badgeUnlock {
-            0% { transform: scale(0) rotate(-180deg); }
-            50% { transform: scale(1.2) rotate(10deg); }
-            100% { transform: scale(1) rotate(0); }
+            0% {
+                transform: scale(0) rotate(-180deg);
+            }
+
+            50% {
+                transform: scale(1.2) rotate(10deg);
+            }
+
+            100% {
+                transform: scale(1) rotate(0);
+            }
         }
 
         .badge .emoji {
@@ -248,6 +266,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -272,7 +291,7 @@
             border-radius: 15px;
             padding: 25px;
             margin: 25px 0;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             border-left: 6px solid;
         }
 
@@ -541,6 +560,19 @@
             box-shadow: 0 8px 25px rgba(76, 175, 80, 0.5);
         }
 
+        .button-white {
+            background: white;
+            color: var(--color-fucsia);
+            margin-top: 20px;
+        }
+
+        .button-white:hover {
+            background: #f0f0f0;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            color: var(--color-fucsia-dark);
+        }
+
         .button-container {
             display: flex;
             gap: 20px;
@@ -561,7 +593,7 @@
             border-radius: 12px;
             padding: 25px;
             margin: 20px 0;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
             border-left: 5px solid var(--color-turchese);
         }
 
@@ -616,7 +648,7 @@
             background: white;
             padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             z-index: 1000;
             text-align: center;
             transition: transform 0.3s ease-out;
@@ -639,7 +671,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 999;
             display: none;
         }
@@ -691,7 +723,7 @@
             font-weight: normal;
         }
 
-        .scala-valutazione input[type="radio"]:checked + label {
+        .scala-valutazione input[type="radio"]:checked+label {
             background: var(--color-lime);
             border-color: var(--color-lime-dark);
             color: #333;
@@ -755,6 +787,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="overlay" id="overlay"></div>
     <div class="points-popup" id="pointsPopup">
@@ -776,6 +809,9 @@
         <div class="header">
             <h1>🎓 L'Operatore sociale per la Sanità e l'Assistenza Sociale</h1>
             <p>Percorso Interattivo Gamificato - Modello a 6 Fasi Progressive</p>
+            <a href="tssas_teoria_ripasso.html" class="button button-white" style="text-decoration: none;">
+                <span style="font-size: 1.2em;">📖</span> Ripassa la Teoria
+            </a>
         </div>
 
         <!-- SCORE SECTION -->
@@ -805,7 +841,7 @@
                 <div class="progress-step" id="step6">5</div>
             </div>
             <div class="progress-text" id="progressText">Fase 1: Attivazione - Scopri l'Operatore sociale</div>
-            
+
             <div class="badges-container">
                 <div class="badge" id="badge1">
                     <span class="emoji">🎯</span>
@@ -852,40 +888,42 @@
 
                 <div class="info-box info-box-green">
                     <h3><span class="emoji">💡</span> Perché lo fai</h3>
-                    <p><strong>Attivare le conoscenze pregresse</strong> rende l'apprendimento più efficace! Partire da ciò che già sai ti permette di costruire connessioni significative con i nuovi contenuti.</p>
+                    <p><strong>Attivare le conoscenze pregresse</strong> rende l'apprendimento più efficace! Partire da
+                        ciò che già sai ti permette di costruire connessioni significative con i nuovi contenuti.</p>
                 </div>
 
                 <div class="input-area">
                     <label>✍️ BRAINSTORMING INIZIALE (15 punti)</label>
-                    <p style="margin-bottom: 10px; color: #666; font-size: 0.95em;">Prima di studiare la teoria, scrivi tutto quello che pensi di sapere sull'Operatore sociale dei Servizi Socio-Sanitari:</p>
-                    <textarea 
-                        id="brainstorming-iniziale" 
-                        data-points="15"
-                        placeholder="• Cosa fa secondo te un Operatore sociale?
+                    <p style="margin-bottom: 10px; color: #666; font-size: 0.95em;">Prima di studiare la teoria, scrivi
+                        tutto quello che pensi di sapere sull'Operatore sociale dei Servizi Socio-Sanitari:</p>
+                    <textarea id="brainstorming-iniziale" data-points="15" placeholder="• Cosa fa secondo te un Operatore sociale?
 • Dove immagini che lavori?
 • Con quali persone interagisce?
 • Quali competenze pensi servano?
 • Hai mai sentito parlare di questa figura? Dove?
 
-Scrivi liberamente, senza preoccuparti di essere preciso - questa è la tua base di partenza!" name="brainstorming-iniziale"></textarea>
+Scrivi liberamente, senza preoccuparti di essere preciso - questa è la tua base di partenza!"
+                        name="brainstorming-iniziale"></textarea>
                 </div>
 
                 <div class="card">
                     <h4>🎥 VIDEO INTRODUTTIVO (Opzionale)</h4>
-                    <p style="color: #666; margin-bottom: 15px;">Prima di proseguire, guarda questo breve video che introduce la figura dell'Operatore sociale nel contesto socio-sanitario italiano:</p>
+                    <p style="color: #666; margin-bottom: 15px;">Prima di proseguire, guarda questo breve video che
+                        introduce la figura dell'Operatore sociale nel contesto socio-sanitario italiano:</p>
                     <div style="background: #f5f5f5; padding: 30px; text-align: center; border-radius: 10px;">
                         <p style="color: #999;">📹 [Qui verrà inserito il link al video introduttivo]</p>
-                        <p style="color: #999; font-size: 0.9em; margin-top: 10px;">Oppure cerca su YouTube: "Operatore Servizi Socio Sanitari testimonianza"</p>
+                        <p style="color: #999; font-size: 0.9em; margin-top: 10px;">Oppure cerca su YouTube: "Operatore
+                            Servizi Socio Sanitari testimonianza"</p>
                     </div>
                 </div>
 
                 <div class="input-area">
                     <label>🤔 DOMANDA-STIMOLO (5 punti)</label>
-                    <p style="margin-bottom: 10px; color: #666; font-size: 0.95em;">Dopo il brainstorming (e l'eventuale video), rifletti:</p>
-                    <textarea 
-                        id="domanda-stimolo-1" 
-                        data-points="5"
-                        placeholder="Quali domande ti poni ora sul ruolo dell'Operatore sociale? Cosa vorresti approfondire? Cosa ti incuriosisce di più di questa professione?" name="domanda-stimolo-1"></textarea>
+                    <p style="margin-bottom: 10px; color: #666; font-size: 0.95em;">Dopo il brainstorming (e l'eventuale
+                        video), rifletti:</p>
+                    <textarea id="domanda-stimolo-1" data-points="5"
+                        placeholder="Quali domande ti poni ora sul ruolo dell'Operatore sociale? Cosa vorresti approfondire? Cosa ti incuriosisce di più di questa professione?"
+                        name="domanda-stimolo-1"></textarea>
                 </div>
 
                 <div class="button-container">
@@ -911,26 +949,38 @@ Scrivi liberamente, senza preoccuparti di essere preciso - questa è la tua base
 
                 <div class="info-box info-box-green">
                     <h3><span class="emoji">💡</span> Perché lo fai</h3>
-                    <p><strong>Costruire solide basi teoriche</strong> è fondamentale per comprendere il tuo futuro ruolo professionale. Ogni concetto che apprendi ora sarà utile nella pratica!</p>
+                    <p><strong>Costruire solide basi teoriche</strong> è fondamentale per comprendere il tuo futuro
+                        ruolo professionale. Ogni concetto che apprendi ora sarà utile nella pratica!</p>
                 </div>
 
                 <!-- CONTENUTI TEORICI -->
                 <div class="info-box info-box-blue">
                     <h3><span class="emoji">📖</span> CHI È L'OPERATORE SOCIALE - Definizione ufficiale</h3>
-                    <p>L'<span class="highlight">Operatore sociale dei Servizi per la Sanità e l'Assistenza Sociale</span> è la figura professionale che lavora come <strong>soggetto portatore di diritti e di doveri</strong>, parte del <span class="highlight">modello sistemico bio-psico-sociale</span>.</p>
-                    <p style="margin-top: 15px;">È un <strong>professionista della relazione d'aiuto</strong> che opera con persone di diverse età (individui e gruppi) per sostenere e potenziare la loro capacità di crescita personale e partecipazione sociale.</p>
+                    <p>L'<span class="highlight">Operatore sociale dei Servizi per la Sanità e l'Assistenza
+                            Sociale</span> è la figura professionale che lavora come <strong>soggetto portatore di
+                            diritti e di doveri</strong>, parte del <span class="highlight">modello sistemico
+                            bio-psico-sociale</span>.</p>
+                    <p style="margin-top: 15px;">È un <strong>professionista della relazione d'aiuto</strong> che opera
+                        con persone di diverse età (individui e gruppi) per sostenere e potenziare la loro capacità di
+                        crescita personale e partecipazione sociale.</p>
                 </div>
 
                 <div class="info-box info-box-blue">
                     <h3><span class="emoji">🔬</span> IL MODELLO BIO-PSICO-SOCIALE</h3>
-                    <p>È un metodo organizzativo di assistenza dove ogni situazione di salute o malattia è vista come la conseguenza dell'interazione di <strong>tre fattori fondamentali</strong>:</p>
+                    <p>È un metodo organizzativo di assistenza dove ogni situazione di salute o malattia è vista come la
+                        conseguenza dell'interazione di <strong>tre fattori fondamentali</strong>:</p>
                     <ul style="margin-top: 15px;">
-                        <li><strong>BIOLOGICO</strong> → Gli aspetti fisici e corporei della persona (salute, malattia, funzionalità fisica)</li>
-                        <li><strong>PSICOLOGICO</strong> → Gli aspetti mentali, emotivi e cognitivi (pensieri, emozioni, comportamenti)</li>
-                        <li><strong>SOCIALE</strong> → Il contesto relazionale e ambientale (famiglia, comunità, cultura, risorse)</li>
+                        <li><strong>BIOLOGICO</strong> → Gli aspetti fisici e corporei della persona (salute, malattia,
+                            funzionalità fisica)</li>
+                        <li><strong>PSICOLOGICO</strong> → Gli aspetti mentali, emotivi e cognitivi (pensieri, emozioni,
+                            comportamenti)</li>
+                        <li><strong>SOCIALE</strong> → Il contesto relazionale e ambientale (famiglia, comunità,
+                            cultura, risorse)</li>
                     </ul>
                     <p style="margin-top: 15px; background: rgba(255,255,255,0.7); padding: 15px; border-radius: 8px;">
-                        <strong>💡 Esempio pratico:</strong> Un anziano con difficoltà motorie (biologico) può sviluppare depressione (psicologico) a causa dell'isolamento sociale (sociale). L'Operatore sociale deve considerare tutti e tre gli aspetti per un intervento efficace!
+                        <strong>💡 Esempio pratico:</strong> Un anziano con difficoltà motorie (biologico) può
+                        sviluppare depressione (psicologico) a causa dell'isolamento sociale (sociale). L'Operatore
+                        sociale deve considerare tutti e tre gli aspetti per un intervento efficace!
                     </p>
                 </div>
 
@@ -938,12 +988,16 @@ Scrivi liberamente, senza preoccuparti di essere preciso - questa è la tua base
                     <h3><span class="emoji">🎯</span> LE COMPETENZE DELL'OPERATORE SOCIALE</h3>
                     <p>L'Operatore sociale deve acquisire competenze specifiche per:</p>
                     <ul style="margin-top: 15px;">
-                        <li><strong>Organizzare e attuare</strong> interventi per rispondere alle esigenze sociali e sanitarie delle persone</li>
-                        <li><strong>Promuovere</strong> il benessere bio-psico-sociale negli ambiti dell'assistenza e della salute</li>
+                        <li><strong>Organizzare e attuare</strong> interventi per rispondere alle esigenze sociali e
+                            sanitarie delle persone</li>
+                        <li><strong>Promuovere</strong> il benessere bio-psico-sociale negli ambiti dell'assistenza e
+                            della salute</li>
                         <li><strong>Collaborare</strong> nella gestione di progetti e attività dei servizi sociali</li>
-                        <li><strong>Facilitare</strong> la comunicazione tra persone e gruppi, anche con difficoltà comunicative</li>
+                        <li><strong>Facilitare</strong> la comunicazione tra persone e gruppi, anche con difficoltà
+                            comunicative</li>
                         <li><strong>Realizzare</strong> attività educative e di animazione sociale</li>
-                        <li><strong>Raccogliere, conservare ed elaborare</strong> dati relativi alle attività professionali</li>
+                        <li><strong>Raccogliere, conservare ed elaborare</strong> dati relativi alle attività
+                            professionali</li>
                     </ul>
                 </div>
 
@@ -953,7 +1007,8 @@ Scrivi liberamente, senza preoccuparti di essere preciso - questa è la tua base
                         <li><strong>Istituzioni pubbliche e private</strong> del settore socio-sanitario</li>
                         <li><strong>RSA (Residenze Sanitarie Assistenziali)</strong> per anziani</li>
                         <li><strong>Servizi sociali territoriali</strong> dei Comuni</li>
-                        <li><strong>Strutture residenziali e semiresidenziali</strong> per diverse tipologie di utenza</li>
+                        <li><strong>Strutture residenziali e semiresidenziali</strong> per diverse tipologie di utenza
+                        </li>
                         <li><strong>Centri diurni</strong> (per anziani, disabili, minori)</li>
                         <li><strong>Servizi di assistenza domiciliare</strong></li>
                         <li><strong>Comunità educative e terapeutiche</strong></li>
@@ -963,11 +1018,16 @@ Scrivi liberamente, senza preoccuparti di essere preciso - questa è la tua base
 
                 <div class="info-box info-box-yellow">
                     <h3><span class="emoji">⚠️</span> IL LAVORO DI RETE - Competenza fondamentale</h3>
-                    <p>L'Operatore sociale non lavora mai da solo! Il <span class="highlight">lavoro di rete</span> significa <strong>creare collegamenti e sinergie</strong> tra diverse risorse, formali e informali:</p>
+                    <p>L'Operatore sociale non lavora mai da solo! Il <span class="highlight">lavoro di rete</span>
+                        significa <strong>creare collegamenti e sinergie</strong> tra diverse risorse, formali e
+                        informali:</p>
                     <ul style="margin-top: 15px;">
-                        <li><strong>Con le persone:</strong> attivando la presa in carico e coinvolgendo l'utente come protagonista</li>
-                        <li><strong>Nel servizio e tra i servizi:</strong> collaborando con altri professionisti (assistenti sociali, educatori, infermieri, psicologi)</li>
-                        <li><strong>Sul territorio:</strong> creando sinergie tra servizi pubblici, privato sociale e terzo settore</li>
+                        <li><strong>Con le persone:</strong> attivando la presa in carico e coinvolgendo l'utente come
+                            protagonista</li>
+                        <li><strong>Nel servizio e tra i servizi:</strong> collaborando con altri professionisti
+                            (assistenti sociali, educatori, infermieri, psicologi)</li>
+                        <li><strong>Sul territorio:</strong> creando sinergie tra servizi pubblici, privato sociale e
+                            terzo settore</li>
                     </ul>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
                         <div style="background: rgba(255,255,255,0.7); padding: 15px; border-radius: 8px;">
@@ -995,8 +1055,10 @@ Scrivi liberamente, senza preoccuparti di essere preciso - questa è la tua base
 
                 <!-- QUIZ FASE 2 -->
                 <div class="quiz-container">
-                    <h3 style="color: var(--color-fucsia); margin-bottom: 25px; font-size: 1.5em;">📝 QUIZ DI COMPRENSIONE (25 punti)</h3>
-                    <p style="margin-bottom: 25px; color: #666;">Verifica di aver compreso i concetti chiave! Ogni risposta corretta vale punti.</p>
+                    <h3 style="color: var(--color-fucsia); margin-bottom: 25px; font-size: 1.5em;">📝 QUIZ DI
+                        COMPRENSIONE (25 punti)</h3>
+                    <p style="margin-bottom: 25px; color: #666;">Verifica di aver compreso i concetti chiave! Ogni
+                        risposta corretta vale punti.</p>
 
                     <!-- Domanda 1 -->
                     <div class="quiz-question">
@@ -1060,7 +1122,8 @@ Scrivi liberamente, senza preoccuparti di essere preciso - questa è la tua base
                             </div>
                             <div class="quiz-option" onclick="checkAnswer(this, true, 'q2_3')">
                                 <input type="radio" name="q2_3" id="q2_3_c">
-                                <label for="q2_3_c">Creare collegamenti tra risorse formali e informali del territorio</label>
+                                <label for="q2_3_c">Creare collegamenti tra risorse formali e informali del
+                                    territorio</label>
                             </div>
                             <div class="quiz-option" onclick="checkAnswer(this, false, 'q2_3')">
                                 <input type="radio" name="q2_3" id="q2_3_d">
@@ -1104,7 +1167,8 @@ Scrivi liberamente, senza preoccuparti di essere preciso - questa è la tua base
                             </div>
                             <div class="quiz-option" onclick="checkAnswer(this, true, 'q2_5')">
                                 <input type="radio" name="q2_5" id="q2_5_b">
-                                <label for="q2_5_b">Sostiene le persone nel loro percorso di crescita e partecipazione sociale</label>
+                                <label for="q2_5_b">Sostiene le persone nel loro percorso di crescita e partecipazione
+                                    sociale</label>
                             </div>
                             <div class="quiz-option" onclick="checkAnswer(this, false, 'q2_5')">
                                 <input type="radio" name="q2_5" id="q2_5_c">
@@ -1145,41 +1209,58 @@ Scrivi liberamente, senza preoccuparti di essere preciso - questa è la tua base
 
                 <div class="info-box info-box-green">
                     <h3><span class="emoji">💡</span> Perché lo fai</h3>
-                    <p><strong>Conoscere l'utenza</strong> è fondamentale per il tuo lavoro! Ogni categoria ha bisogni specifici che richiedono approcci diversi. Sviluppare uno sguardo critico ti prepara alle sfide reali della professione.</p>
+                    <p><strong>Conoscere l'utenza</strong> è fondamentale per il tuo lavoro! Ogni categoria ha bisogni
+                        specifici che richiedono approcci diversi. Sviluppare uno sguardo critico ti prepara alle sfide
+                        reali della professione.</p>
                 </div>
 
-                <h3 style="color: var(--color-turchese); margin: 30px 0 20px;">👥 LE TIPOLOGIE DI UTENZA NEI SERVIZI</h3>
+                <h3 style="color: var(--color-turchese); margin: 30px 0 20px;">👥 LE TIPOLOGIE DI UTENZA NEI SERVIZI
+                </h3>
 
                 <div class="card">
                     <h4>🎯 CHI SONO GLI UTENTI</h4>
-                    <p><strong>Gli utenti</strong> sono persone che usufruiscono di un servizio, portatrici di valori fondamentali come la <span class="highlight">libertà di agire</span>, il rispetto degli altri e la <span class="highlight">responsabilità</span> vista come <span class="highlight">consapevolezza delle proprie azioni</span>.</p>
-                    <p style="margin-top: 15px;">Come Operatore sociale, eserciterai una <strong>professione in stretta relazione con gli utenti</strong>, attivando un percorso educativo che conduca all'assunzione delle loro responsabilità e consapevolezza.</p>
-                    <div style="background: rgba(29, 211, 211, 0.1); padding: 15px; border-radius: 10px; margin-top: 15px; border-left: 4px solid var(--color-turchese);">
-                        <p><strong>💡 Relazione d'aiuto:</strong> percorso basato su intenti comuni, condivisione dell'interesse e presa in carico dei problemi per favorire il cambiamento. Il tuo ruolo sarà <strong>fare emergere i potenziali e le abilità sociali e personali</strong> (life skills) per incentivare l'autogestione e il ruolo attivo.</p>
+                    <p><strong>Gli utenti</strong> sono persone che usufruiscono di un servizio, portatrici di valori
+                        fondamentali come la <span class="highlight">libertà di agire</span>, il rispetto degli altri e
+                        la <span class="highlight">responsabilità</span> vista come <span
+                            class="highlight">consapevolezza delle proprie azioni</span>.</p>
+                    <p style="margin-top: 15px;">Come Operatore sociale, eserciterai una <strong>professione in stretta
+                            relazione con gli utenti</strong>, attivando un percorso educativo che conduca
+                        all'assunzione delle loro responsabilità e consapevolezza.</p>
+                    <div
+                        style="background: rgba(29, 211, 211, 0.1); padding: 15px; border-radius: 10px; margin-top: 15px; border-left: 4px solid var(--color-turchese);">
+                        <p><strong>💡 Relazione d'aiuto:</strong> percorso basato su intenti comuni, condivisione
+                            dell'interesse e presa in carico dei problemi per favorire il cambiamento. Il tuo ruolo sarà
+                            <strong>fare emergere i potenziali e le abilità sociali e personali</strong> (life skills)
+                            per incentivare l'autogestione e il ruolo attivo.</p>
                     </div>
                 </div>
 
                 <div class="grid-2">
                     <div class="card">
                         <h4>👨‍👩‍👧‍👦 LA FAMIGLIA</h4>
-                        <p><strong>Definizione:</strong> Istituzione di base della società, composta da genitori e prole (famiglia nucleare).</p>
-                        <p style="margin-top: 10px;"><strong>Situazione oggi:</strong> Le famiglie italiane hanno un <span class="highlight">basso numero di componenti</span>, con nuove forme:</p>
+                        <p><strong>Definizione:</strong> Istituzione di base della società, composta da genitori e prole
+                            (famiglia nucleare).</p>
+                        <p style="margin-top: 10px;"><strong>Situazione oggi:</strong> Le famiglie italiane hanno un
+                            <span class="highlight">basso numero di componenti</span>, con nuove forme:</p>
                         <ul style="margin-top: 10px;">
                             <li>Famiglie di single</li>
                             <li>Famiglie ricostituite</li>
                             <li>Convivenze senza matrimonio</li>
                             <li>Famiglie arcobaleno</li>
                         </ul>
-                        <p style="margin-top: 10px;"><strong>Obiettivo:</strong> garantire la sopravvivenza, lo sviluppo e il sostegno di ciascuno dei suoi membri.</p>
+                        <p style="margin-top: 10px;"><strong>Obiettivo:</strong> garantire la sopravvivenza, lo sviluppo
+                            e il sostegno di ciascuno dei suoi membri.</p>
                         <div style="background: #FFF3E0; padding: 12px; border-radius: 8px; margin-top: 10px;">
-                            <strong>⚠️ Problemi attuali:</strong> fragilità dell'istituzione, flessione del mercato del lavoro, allungamento della vita, bisogno di assistenza degli anziani.
+                            <strong>⚠️ Problemi attuali:</strong> fragilità dell'istituzione, flessione del mercato del
+                            lavoro, allungamento della vita, bisogno di assistenza degli anziani.
                         </div>
                     </div>
 
                     <div class="card">
                         <h4>👶 L'INFANZIA (0-10 anni)</h4>
                         <p><strong>Prima infanzia (0-3 anni):</strong> Totale dipendenza dai genitori</p>
-                        <p style="margin-top: 10px;"><strong>Seconda infanzia (3-6 anni):</strong> Affermazione della personalità, interesse ai rapporti sociali</p>
+                        <p style="margin-top: 10px;"><strong>Seconda infanzia (3-6 anni):</strong> Affermazione della
+                            personalità, interesse ai rapporti sociali</p>
                         <p style="margin-top: 10px;"><strong>Terza infanzia (6-10 anni):</strong> Scuola primaria</p>
                         <div style="background: #E8F5E9; padding: 12px; border-radius: 8px; margin-top: 10px;">
                             <strong>🧠 Sviluppi importanti:</strong>
@@ -1193,11 +1274,13 @@ Scrivi liberamente, senza preoccuparti di essere preciso - questa è la tua base
 
                     <div class="card">
                         <h4>🧒 L'ADOLESCENZA (10-18 anni)</h4>
-                        <p><strong>Fase di passaggio</strong> dall'infanzia all'età adulta, molto tormentata e critica.</p>
+                        <p><strong>Fase di passaggio</strong> dall'infanzia all'età adulta, molto tormentata e critica.
+                        </p>
                         <ul style="margin-top: 10px;">
                             <li><strong>Pubertà (10-14 anni):</strong> cambiamenti corporei</li>
                             <li><strong>Adolescenza (fino a 18 anni)</strong></li>
-                            <li><strong>Tarda adolescenza (fino a 25 anni):</strong> dipendenza economica prolungata</li>
+                            <li><strong>Tarda adolescenza (fino a 25 anni):</strong> dipendenza economica prolungata
+                            </li>
                         </ul>
                         <div style="background: #FFEBEE; padding: 12px; border-radius: 8px; margin-top: 10px;">
                             <strong>⚠️ Crisi adolescenziale:</strong>
@@ -1208,12 +1291,14 @@ Scrivi liberamente, senza preoccuparti di essere preciso - questa è la tua base
                                 <li>Rischio di disadattamento</li>
                             </ul>
                         </div>
-                        <p style="margin-top: 10px;"><strong>🎯 Ruolo Operatore sociale:</strong> Prevenire conflitti, discutere regole, individualizzare interventi con realismo e umanità.</p>
+                        <p style="margin-top: 10px;"><strong>🎯 Ruolo Operatore sociale:</strong> Prevenire conflitti,
+                            discutere regole, individualizzare interventi con realismo e umanità.</p>
                     </div>
 
                     <div class="card">
                         <h4>👴 LA TERZA ETÀ (65+ anni)</h4>
-                        <p><strong>Nuova definizione:</strong> Non più solo "assenza di malattia" ma <span class="highlight">risorsa per la vita quotidiana e per la società</span>.</p>
+                        <p><strong>Nuova definizione:</strong> Non più solo "assenza di malattia" ma <span
+                                class="highlight">risorsa per la vita quotidiana e per la società</span>.</p>
                         <p style="margin-top: 10px;"><strong>Confine:</strong> oggi si sposta a 70 anni e oltre</p>
                         <div style="background: #E1F5FE; padding: 12px; border-radius: 8px; margin-top: 10px;">
                             <strong>📊 Le tre tappe della vita:</strong>
@@ -1223,12 +1308,15 @@ Scrivi liberamente, senza preoccuparti di essere preciso - questa è la tua base
                                 <li><strong>Senilità:</strong> età pensionabile in poi</li>
                             </ul>
                         </div>
-                        <p style="margin-top: 10px;"><strong>⚠️ Sfide:</strong> involuzione fisica/mentale, malattie, difficoltà economica. <span class="highlight">L'anima non invecchia</span> e va mantenuta attiva!</p>
+                        <p style="margin-top: 10px;"><strong>⚠️ Sfide:</strong> involuzione fisica/mentale, malattie,
+                            difficoltà economica. <span class="highlight">L'anima non invecchia</span> e va mantenuta
+                            attiva!</p>
                     </div>
 
                     <div class="card">
                         <h4>♿ LA DISABILITÀ</h4>
-                        <p><strong>Definizione OMS (ICF):</strong> La disabilità è conseguenza di una relazione complessa tra salute e fattori personali e ambientali.</p>
+                        <p><strong>Definizione OMS (ICF):</strong> La disabilità è conseguenza di una relazione
+                            complessa tra salute e fattori personali e ambientali.</p>
                         <div style="background: #F3E5F5; padding: 12px; border-radius: 8px; margin-top: 10px;">
                             <strong>🔍 Dimensioni ICF:</strong>
                             <ul style="margin-top: 8px;">
@@ -1239,13 +1327,16 @@ Scrivi liberamente, senza preoccuparti di essere preciso - questa è la tua base
                                 <li>Fattori personali</li>
                             </ul>
                         </div>
-                        <p style="margin-top: 10px;"><strong>🎯 Obiettivo:</strong> <span class="highlight">Promozione di integrazione sociale</span>. Bisogno di amore, considerazione, gratificazione.</p>
-                        <p style="margin-top: 10px;"><strong>📜 Legge 104/92:</strong> Certificazione per percorsi personalizzati.</p>
+                        <p style="margin-top: 10px;"><strong>🎯 Obiettivo:</strong> <span class="highlight">Promozione
+                                di integrazione sociale</span>. Bisogno di amore, considerazione, gratificazione.</p>
+                        <p style="margin-top: 10px;"><strong>📜 Legge 104/92:</strong> Certificazione per percorsi
+                            personalizzati.</p>
                     </div>
 
                     <div class="card">
                         <h4>🔗 LE DIPENDENZE</h4>
-                        <p><strong>Definizione:</strong> Comportamento ripetitivo basato sul bisogno psicologico e/o fisico.</p>
+                        <p><strong>Definizione:</strong> Comportamento ripetitivo basato sul bisogno psicologico e/o
+                            fisico.</p>
                         <div style="background: #FFEBEE; padding: 12px; border-radius: 8px; margin-top: 10px;">
                             <strong>📋 Forme "classiche":</strong>
                             <ul style="margin-top: 8px;">
@@ -1266,19 +1357,18 @@ Scrivi liberamente, senza preoccuparti di essere preciso - questa è la tua base
                                 <li>Cyber-relation (relazioni virtuali)</li>
                             </ul>
                         </div>
-                        <p style="margin-top: 10px;"><strong>🚫 Chi sviluppa dipendenza:</strong> non sopporta frustrazione, ricerca indipendenza assoluta, incapace di accettare quotidianità.</p>
+                        <p style="margin-top: 10px;"><strong>🚫 Chi sviluppa dipendenza:</strong> non sopporta
+                            frustrazione, ricerca indipendenza assoluta, incapace di accettare quotidianità.</p>
                     </div>
                 </div>
 
                 <!-- ESERCIZIO CRITICO -->
-                <div class="card" style="background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); margin-top: 30px;">
+                <div class="card"
+                    style="background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); margin-top: 30px;">
                     <h4 style="color: #E65100;">🤔 ESERCIZIO DI ANALISI CRITICA (15 punti)</h4>
                     <div class="input-area">
                         <label>1. Scegli UNA tipologia di utenza tra quelle studiate e analizza:</label>
-                        <textarea 
-                            id="analisi-critica-utenza" 
-                            data-points="15"
-                            placeholder="• Quale tipologia hai scelto?
+                        <textarea id="analisi-critica-utenza" data-points="15" placeholder="• Quale tipologia hai scelto?
 • Quali sono i 3 bisogni principali di questa utenza secondo il modello bio-psico-sociale?
   - Bisogno BIOLOGICO: ...
   - Bisogno PSICOLOGICO: ...
@@ -1314,27 +1404,34 @@ Scrivi liberamente, senza preoccuparti di essere preciso - questa è la tua base
 
                 <div class="info-box info-box-green">
                     <h3><span class="emoji">💡</span> Perché lo fai</h3>
-                    <p><strong>La sperimentazione guidata</strong> ti permette di applicare la teoria a situazioni concrete! Utilizzare strumenti operativi strutturati ti prepara al lavoro reale nei servizi.</p>
+                    <p><strong>La sperimentazione guidata</strong> ti permette di applicare la teoria a situazioni
+                        concrete! Utilizzare strumenti operativi strutturati ti prepara al lavoro reale nei servizi.</p>
                 </div>
 
-                <h3 style="color: var(--color-turchese); margin: 30px 0 20px;">📋 CASO STUDIO: Maria e la sua famiglia</h3>
+                <h3 style="color: var(--color-turchese); margin: 30px 0 20px;">📋 CASO STUDIO: Maria e la sua famiglia
+                </h3>
 
                 <div class="card" style="background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);">
                     <h4 style="color: #1976D2;">👨‍👩‍👧 IL CASO</h4>
-                    <p><strong>Maria, 35 anni</strong>, madre single di due bambini: <strong>Luca (8 anni)</strong> e <strong>Sofia (5 anni)</strong>.</p>
+                    <p><strong>Maria, 35 anni</strong>, madre single di due bambini: <strong>Luca (8 anni)</strong> e
+                        <strong>Sofia (5 anni)</strong>.</p>
                     <p style="margin-top: 15px;"><strong>SITUAZIONE ATTUALE:</strong></p>
                     <ul style="margin-top: 10px;">
                         <li>Maria ha perso il lavoro 6 mesi fa (era cameriera in un ristorante)</li>
                         <li>Vive in un piccolo appartamento in affitto, fatica a pagare le bollette</li>
                         <li>Il padre dei bambini non è presente e non contribuisce economicamente</li>
                         <li>Maria soffre di ansia e ha difficoltà a dormire</li>
-                        <li>Luca ha iniziato ad avere problemi comportamentali a scuola (aggressività, difficoltà di concentrazione)</li>
+                        <li>Luca ha iniziato ad avere problemi comportamentali a scuola (aggressività, difficoltà di
+                            concentrazione)</li>
                         <li>Sofia frequenta la scuola dell'infanzia, sembra più serena ma chiede spesso del papà</li>
-                        <li>Maria ha pochi contatti sociali, i suoi genitori abitano lontano e possono aiutarla raramente</li>
+                        <li>Maria ha pochi contatti sociali, i suoi genitori abitano lontano e possono aiutarla
+                            raramente</li>
                         <li>Si sente sola, stanca e ha paura di "non farcela"</li>
                     </ul>
                     <p style="margin-top: 15px; background: rgba(255,255,255,0.7); padding: 12px; border-radius: 8px;">
-                        <strong>🎯 Il tuo compito:</strong> Come Operatore sociale del servizio sociale territoriale, sei stato incaricato di seguire questa famiglia. Devi analizzare la situazione e proporre un intervento strutturato.
+                        <strong>🎯 Il tuo compito:</strong> Come Operatore sociale del servizio sociale territoriale,
+                        sei stato incaricato di seguire questa famiglia. Devi analizzare la situazione e proporre un
+                        intervento strutturato.
                     </p>
                 </div>
 
@@ -1343,78 +1440,76 @@ Scrivi liberamente, senza preoccuparti di essere preciso - questa è la tua base
                 <!-- STEP 1 -->
                 <div class="card">
                     <h4>📊 STEP 1: ANALISI BIO-PSICO-SOCIALE (12 punti)</h4>
-                    <p style="margin-bottom: 15px;">Utilizza il template qui sotto per analizzare la situazione di Maria applicando il modello bio-psico-sociale:</p>
-                    
+                    <p style="margin-bottom: 15px;">Utilizza il template qui sotto per analizzare la situazione di Maria
+                        applicando il modello bio-psico-sociale:</p>
+
                     <div class="input-area">
                         <label>🔬 DIMENSIONE BIOLOGICA</label>
-                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Aspetti fisici e materiali (salute, condizioni abitative, risorse economiche, alimentazione...)</p>
-                        <textarea 
-                            id="step1-biologico" 
-                            data-points="4"
-                            placeholder="Esempio: Maria e i bambini vivono in un appartamento piccolo, difficoltà economiche per cibo e bollette, Maria ha disturbi del sonno legati allo stress..." name="step1-biologico"></textarea>
+                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Aspetti fisici e materiali
+                            (salute, condizioni abitative, risorse economiche, alimentazione...)</p>
+                        <textarea id="step1-biologico" data-points="4"
+                            placeholder="Esempio: Maria e i bambini vivono in un appartamento piccolo, difficoltà economiche per cibo e bollette, Maria ha disturbi del sonno legati allo stress..."
+                            name="step1-biologico"></textarea>
                     </div>
 
                     <div class="input-area">
                         <label>🧠 DIMENSIONE PSICOLOGICA</label>
-                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Aspetti emotivi, cognitivi e comportamentali (emozioni, pensieri, autostima, comportamenti...)</p>
-                        <textarea 
-                            id="step1-psicologico" 
-                            data-points="4"
-                            placeholder="Esempio: Maria soffre di ansia, bassa autostima ('non ce la faccio'), Luca manifesta aggressività a scuola, Sofia cerca il padre assente..." name="step1-psicologico"></textarea>
+                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Aspetti emotivi, cognitivi e
+                            comportamentali (emozioni, pensieri, autostima, comportamenti...)</p>
+                        <textarea id="step1-psicologico" data-points="4"
+                            placeholder="Esempio: Maria soffre di ansia, bassa autostima ('non ce la faccio'), Luca manifesta aggressività a scuola, Sofia cerca il padre assente..."
+                            name="step1-psicologico"></textarea>
                     </div>
 
                     <div class="input-area">
                         <label>🌍 DIMENSIONE SOCIALE</label>
-                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Relazioni, reti di supporto, contesto sociale (famiglia, amici, servizi, comunità...)</p>
-                        <textarea 
-                            id="step1-sociale" 
-                            data-points="4"
-                            placeholder="Esempio: Maria è isolata socialmente, genitori lontani, padre bambini assente, poche amicizie, scuola segnala problemi di Luca..." name="step1-sociale"></textarea>
+                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Relazioni, reti di supporto,
+                            contesto sociale (famiglia, amici, servizi, comunità...)</p>
+                        <textarea id="step1-sociale" data-points="4"
+                            placeholder="Esempio: Maria è isolata socialmente, genitori lontani, padre bambini assente, poche amicizie, scuola segnala problemi di Luca..."
+                            name="step1-sociale"></textarea>
                     </div>
                 </div>
 
                 <!-- STEP 2 -->
                 <div class="card">
                     <h4>🎯 STEP 2: IDENTIFICAZIONE OBIETTIVI DI INTERVENTO (12 punti)</h4>
-                    <p style="margin-bottom: 15px;">Sulla base dell'analisi, individua 3 obiettivi prioritari (uno per ogni dimensione) che l'intervento dell'Operatore sociale dovrebbe raggiungere:</p>
-                    
+                    <p style="margin-bottom: 15px;">Sulla base dell'analisi, individua 3 obiettivi prioritari (uno per
+                        ogni dimensione) che l'intervento dell'Operatore sociale dovrebbe raggiungere:</p>
+
                     <div class="input-area">
                         <label>Obiettivo 1 - Area BIOLOGICA/MATERIALE</label>
-                        <textarea 
-                            id="step2-obiettivo1" 
-                            data-points="4"
-                            placeholder="Esempio: Garantire la sicurezza abitativa e alimentare della famiglia attraverso l'accesso a contributi economici e servizi di supporto materiale" name="step2-obiettivo1"></textarea>
+                        <textarea id="step2-obiettivo1" data-points="4"
+                            placeholder="Esempio: Garantire la sicurezza abitativa e alimentare della famiglia attraverso l'accesso a contributi economici e servizi di supporto materiale"
+                            name="step2-obiettivo1"></textarea>
                     </div>
 
                     <div class="input-area">
                         <label>Obiettivo 2 - Area PSICOLOGICA</label>
-                        <textarea 
-                            id="step2-obiettivo2" 
-                            data-points="4"
-                            placeholder="Esempio: Sostenere Maria nel recupero della propria autostima e nella gestione dell'ansia, supportare Luca nell'elaborazione delle emozioni legate alla separazione dei genitori" name="step2-obiettivo2"></textarea>
+                        <textarea id="step2-obiettivo2" data-points="4"
+                            placeholder="Esempio: Sostenere Maria nel recupero della propria autostima e nella gestione dell'ansia, supportare Luca nell'elaborazione delle emozioni legate alla separazione dei genitori"
+                            name="step2-obiettivo2"></textarea>
                     </div>
 
                     <div class="input-area">
                         <label>Obiettivo 3 - Area SOCIALE</label>
-                        <textarea 
-                            id="step2-obiettivo3" 
-                            data-points="4"
-                            placeholder="Esempio: Creare una rete di supporto attorno alla famiglia, favorire la socializzazione di Maria e l'integrazione scolastica di Luca" name="step2-obiettivo3"></textarea>
+                        <textarea id="step2-obiettivo3" data-points="4"
+                            placeholder="Esempio: Creare una rete di supporto attorno alla famiglia, favorire la socializzazione di Maria e l'integrazione scolastica di Luca"
+                            name="step2-obiettivo3"></textarea>
                     </div>
                 </div>
 
                 <!-- STEP 3 -->
                 <div class="card">
                     <h4>🗺️ STEP 3: PROGETTAZIONE DEL LAVORO DI RETE (11 punti)</h4>
-                    <p style="margin-bottom: 15px;">L'Operatore sociale non lavora mai da solo! Identifica le risorse formali e informali da attivare:</p>
-                    
+                    <p style="margin-bottom: 15px;">L'Operatore sociale non lavora mai da solo! Identifica le risorse
+                        formali e informali da attivare:</p>
+
                     <div class="input-area">
                         <label>🤝 RETI INFORMALI da attivare</label>
-                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Famiglia, amici, vicini, volontariato, associazioni...</p>
-                        <textarea 
-                            id="step3-reti-informali" 
-                            data-points="5"
-                            placeholder="Esempio:
+                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Famiglia, amici, vicini,
+                            volontariato, associazioni...</p>
+                        <textarea id="step3-reti-informali" data-points="5" placeholder="Esempio:
 • Contattare i nonni di Luca e Sofia per un supporto anche a distanza (videochiamate, visite)
 • Coinvolgere eventuali vicini di casa per creare una rete di vicinato solidale
 • Proporre a Maria di entrare in un gruppo di auto-aiuto per genitori single
@@ -1423,11 +1518,9 @@ Scrivi liberamente, senza preoccuparti di essere preciso - questa è la tua base
 
                     <div class="input-area">
                         <label>🏥 RETI FORMALI da attivare</label>
-                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Servizi sociali, sanitari, educativi, centri per l'impiego...</p>
-                        <textarea 
-                            id="step3-reti-formali" 
-                            data-points="6"
-                            placeholder="Esempio:
+                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Servizi sociali, sanitari,
+                            educativi, centri per l'impiego...</p>
+                        <textarea id="step3-reti-formali" data-points="6" placeholder="Esempio:
 • Servizi Sociali Comunali: per contributo economico emergenza e sostegno al reddito
 • Centro per l'Impiego: per percorso di ricollocazione lavorativa di Maria
 • Consultorio Familiare: per supporto psicologico a Maria
@@ -1440,16 +1533,16 @@ Scrivi liberamente, senza preoccuparti di essere preciso - questa è la tua base
 
                 <!-- SFIDA EXTRA -->
                 <div class="challenge-box">
-                    <h4><span class="emoji">🌟</span> SFIDA EXTRA - LIVELLO AVANZATO <span class="bonus-points">+10 punti</span></h4>
-                    <p style="margin-bottom: 15px;">Vuoi metterti alla prova? Completa questo compito opzionale per ottenere punti bonus!</p>
-                    
+                    <h4><span class="emoji">🌟</span> SFIDA EXTRA - LIVELLO AVANZATO <span class="bonus-points">+10
+                            punti</span></h4>
+                    <p style="margin-bottom: 15px;">Vuoi metterti alla prova? Completa questo compito opzionale per
+                        ottenere punti bonus!</p>
+
                     <div class="input-area">
                         <label>📅 Progetta una TIMELINE dell'intervento (3 mesi)</label>
-                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Organizza le azioni nel tempo: cosa fai nel primo mese? Nel secondo? Nel terzo? In che ordine attivi le risorse?</p>
-                        <textarea 
-                            id="sfida-timeline" 
-                            data-points="10"
-                            placeholder="MESE 1 - URGENZE E PRESA IN CARICO:
+                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Organizza le azioni nel tempo:
+                            cosa fai nel primo mese? Nel secondo? Nel terzo? In che ordine attivi le risorse?</p>
+                        <textarea id="sfida-timeline" data-points="10" placeholder="MESE 1 - URGENZE E PRESA IN CARICO:
 • Settimana 1: ...
 • Settimana 2: ...
 
@@ -1487,20 +1580,21 @@ MESE 3 - AUTONOMIA E VERIFICA:
 
                 <div class="info-box info-box-green">
                     <h3><span class="emoji">💡</span> Perché lo fai</h3>
-                    <p><strong>La riflessione metacognitiva</strong> consolida l'apprendimento e ti rende consapevole di come impari! Pensare sul proprio pensiero migliora la capacità di apprendere in futuro.</p>
+                    <p><strong>La riflessione metacognitiva</strong> consolida l'apprendimento e ti rende consapevole di
+                        come impari! Pensare sul proprio pensiero migliora la capacità di apprendere in futuro.</p>
                 </div>
 
-                <h3 style="color: var(--color-turchese); margin: 30px 0 20px;">🧠 DOMANDE RIFLESSIVE (30 punti totali)</h3>
+                <h3 style="color: var(--color-turchese); margin: 30px 0 20px;">🧠 DOMANDE RIFLESSIVE (30 punti totali)
+                </h3>
 
                 <div class="card">
                     <h4>1️⃣ Evoluzione della comprensione (5 punti)</h4>
                     <div class="input-area">
-                        <label>Confronta il tuo brainstorming iniziale con ciò che sai ora: cosa è cambiato nella tua comprensione dell'Operatore sociale?</label>
-                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Rileggi quello che avevi scritto nella Fase 1 e rifletti sulle differenze</p>
-                        <textarea 
-                            id="riflessione-1" 
-                            data-points="5"
-                            placeholder="All'inizio pensavo che l'Operatore sociale fosse... ora ho capito che...
+                        <label>Confronta il tuo brainstorming iniziale con ciò che sai ora: cosa è cambiato nella tua
+                            comprensione dell'Operatore sociale?</label>
+                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Rileggi quello che avevi scritto
+                            nella Fase 1 e rifletti sulle differenze</p>
+                        <textarea id="riflessione-1" data-points="5" placeholder="All'inizio pensavo che l'Operatore sociale fosse... ora ho capito che...
 I concetti che non conoscevo erano... la cosa che mi ha sorpreso di più è stata..." name="riflessione-1"></textarea>
                     </div>
                 </div>
@@ -1508,11 +1602,9 @@ I concetti che non conoscevo erano... la cosa che mi ha sorpreso di più è stat
                 <div class="card">
                     <h4>2️⃣ I tre concetti chiave (5 punti)</h4>
                     <div class="input-area">
-                        <label>Quali sono i 3 concetti più importanti che hai scoperto in questo percorso? Perché li ritieni fondamentali?</label>
-                        <textarea 
-                            id="riflessione-2" 
-                            data-points="5"
-                            placeholder="1. Il modello bio-psico-sociale perché...
+                        <label>Quali sono i 3 concetti più importanti che hai scoperto in questo percorso? Perché li
+                            ritieni fondamentali?</label>
+                        <textarea id="riflessione-2" data-points="5" placeholder="1. Il modello bio-psico-sociale perché...
 2. Il lavoro di rete perché...
 3. ..." name="riflessione-2"></textarea>
                     </div>
@@ -1521,11 +1613,9 @@ I concetti che non conoscevo erano... la cosa che mi ha sorpreso di più è stat
                 <div class="card">
                     <h4>3️⃣ Difficoltà incontrate (5 punti)</h4>
                     <div class="input-area">
-                        <label>Quali argomenti o attività hai trovato più difficili? Cosa ti è rimasto meno chiaro?</label>
-                        <textarea 
-                            id="riflessione-3" 
-                            data-points="5"
-                            placeholder="L'argomento più complesso è stato... perché...
+                        <label>Quali argomenti o attività hai trovato più difficili? Cosa ti è rimasto meno
+                            chiaro?</label>
+                        <textarea id="riflessione-3" data-points="5" placeholder="L'argomento più complesso è stato... perché...
 L'esercizio più difficile è stato... vorrei approfondire..." name="riflessione-3"></textarea>
                     </div>
                 </div>
@@ -1533,11 +1623,9 @@ L'esercizio più difficile è stato... vorrei approfondire..." name="riflessione
                 <div class="card">
                     <h4>4️⃣ Applicazione pratica (5 punti)</h4>
                     <div class="input-area">
-                        <label>Nell'analisi del caso di Maria (Fase 3), quali difficoltà hai incontrato? Cosa ti è sembrato più facile?</label>
-                        <textarea 
-                            id="riflessione-4" 
-                            data-points="5"
-                            placeholder="Applicare il modello bio-psico-sociale al caso è stato... perché...
+                        <label>Nell'analisi del caso di Maria (Fase 3), quali difficoltà hai incontrato? Cosa ti è
+                            sembrato più facile?</label>
+                        <textarea id="riflessione-4" data-points="5" placeholder="Applicare il modello bio-psico-sociale al caso è stato... perché...
 La parte più facile è stata... la più complessa...
 Mi sono sentito/a preparato/a per..." name="riflessione-4"></textarea>
                     </div>
@@ -1546,11 +1634,9 @@ Mi sono sentito/a preparato/a per..." name="riflessione-4"></textarea>
                 <div class="card">
                     <h4>5️⃣ Autovalutazione competenze deontologiche (5 punti)</h4>
                     <div class="input-area">
-                        <label>Tra le competenze dell'Operatore sociale (ascolto, empatia, creatività, flessibilità), quali ritieni di possedere già? Quali dovresti sviluppare?</label>
-                        <textarea 
-                            id="riflessione-5" 
-                            data-points="5"
-                            placeholder="Competenze che penso di avere già: ... perché...
+                        <label>Tra le competenze dell'Operatore sociale (ascolto, empatia, creatività, flessibilità),
+                            quali ritieni di possedere già? Quali dovresti sviluppare?</label>
+                        <textarea id="riflessione-5" data-points="5" placeholder="Competenze che penso di avere già: ... perché...
 Competenze da sviluppare: ... come posso allenarle?
 Situazioni in cui queste competenze sono fondamentali: ..." name="riflessione-5"></textarea>
                     </div>
@@ -1560,10 +1646,7 @@ Situazioni in cui queste competenze sono fondamentali: ..." name="riflessione-5"
                     <h4>6️⃣ Il mio processo di apprendimento (5 punti)</h4>
                     <div class="input-area">
                         <label>Quale fase (1-2-2.5-3) ti è stata più utile per imparare? Come apprendi meglio?</label>
-                        <textarea 
-                            id="riflessione-6" 
-                            data-points="5"
-                            placeholder="La fase più utile è stata la... perché...
+                        <textarea id="riflessione-6" data-points="5" placeholder="La fase più utile è stata la... perché...
 Imparo meglio quando: leggo teoria / analizzo casi pratici / faccio esercizi / rifletto...
 In futuro potrei migliorare il mio apprendimento..." name="riflessione-6"></textarea>
                     </div>
@@ -1595,52 +1678,75 @@ In futuro potrei migliorare il mio apprendimento..." name="riflessione-6"></text
 
                 <div class="info-box info-box-green">
                     <h3><span class="emoji">💡</span> Perché lo fai</h3>
-                    <p><strong>Questo è il momento della verità!</strong> Applicando tutte le conoscenze acquisite a un caso complesso, dimostri di aver sviluppato una vera competenza professionale. Questo è ciò che farai nella realtà lavorativa!</p>
+                    <p><strong>Questo è il momento della verità!</strong> Applicando tutte le conoscenze acquisite a un
+                        caso complesso, dimostri di aver sviluppato una vera competenza professionale. Questo è ciò che
+                        farai nella realtà lavorativa!</p>
                 </div>
 
                 <h3 style="color: var(--color-fucsia); margin: 30px 0 20px;">📋 CASO PROFESSIONALE COMPLESSO</h3>
 
-                <div class="card" style="background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); border-left-color: #FF9800;">
+                <div class="card"
+                    style="background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); border-left-color: #FF9800;">
                     <h4 style="color: #E65100;">🏢 CONTESTO</h4>
-                    <p>Sei Operatore sociale presso il <strong>Centro Diurno "Casa Serena"</strong> che accoglie 25 anziani (età media 78 anni) per attività di socializzazione, animazione e assistenza leggera. Il centro opera 5 giorni a settimana, dalle 9 alle 17.</p>
-                    <p style="margin-top: 15px;"><strong>L'équipe è composta da:</strong> 1 coordinatrice (assistente sociale), 2 Operatore sociale (tu e una collega), 2 OSS, 1 animatore, 1 fisioterapista part-time.</p>
+                    <p>Sei Operatore sociale presso il <strong>Centro Diurno "Casa Serena"</strong> che accoglie 25
+                        anziani (età media 78 anni) per attività di socializzazione, animazione e assistenza leggera. Il
+                        centro opera 5 giorni a settimana, dalle 9 alle 17.</p>
+                    <p style="margin-top: 15px;"><strong>L'équipe è composta da:</strong> 1 coordinatrice (assistente
+                        sociale), 2 Operatore sociale (tu e una collega), 2 OSS, 1 animatore, 1 fisioterapista
+                        part-time.</p>
                 </div>
 
-                <div class="card" style="background: linear-gradient(135deg, #FFEBEE 0%, #FFCDD2 100%); border-left-color: #F44336;">
+                <div class="card"
+                    style="background: linear-gradient(135deg, #FFEBEE 0%, #FFCDD2 100%); border-left-color: #F44336;">
                     <h4 style="color: #C62828;">⚠️ LA SITUAZIONE PROBLEMATICA</h4>
                     <p><strong>Sono emerse alcune criticità nell'ultimo mese:</strong></p>
                     <ul style="margin-top: 15px;">
-                        <li><strong>Signor Giuseppe (82 anni):</strong> vedovo da 2 anni, viene al centro da 18 mesi. Ultimamente è sempre più isolato, rifiuta le attività di gruppo, passa il tempo seduto da solo. A casa vive con il figlio (55 anni), che lavora tutto il giorno. Il figlio ha riferito preoccupato che il padre "non è più lui" e ha smesso di prendersi cura di sé.</li>
-                        
-                        <li style="margin-top: 15px;"><strong>Signora Anna (75 anni):</strong> vive sola, frequenta il centro da 6 mesi. È molto loquace ma tende a monopolizzare le conversazioni. Alcuni anziani hanno espresso fastidio. Durante un'attività ha litigato con un altro ospite accusandolo di "rubarle la merenda". Il medico ha segnalato un peggioramento della sua pressione arteriosa.</li>
-                        
-                        <li style="margin-top: 15px;"><strong>Tensioni nel gruppo:</strong> Si sono formati "gruppetti" che escludono alcuni ospiti. C'è meno partecipazione alle attività. L'animatore è demotivato e ha chiesto un confronto.</li>
-                        
-                        <li style="margin-top: 15px;"><strong>Richiesta delle famiglie:</strong> Alcuni familiari chiedono più comunicazione sullo stato dei loro cari e vorrebbero essere più coinvolti nelle attività del centro.</li>
-                        
-                        <li style="margin-top: 15px;"><strong>Vincoli organizzativi:</strong> Budget ridotto, non è possibile assumere nuovo personale. Il fisioterapista andrà in ferie per 3 settimane il mese prossimo.</li>
+                        <li><strong>Signor Giuseppe (82 anni):</strong> vedovo da 2 anni, viene al centro da 18 mesi.
+                            Ultimamente è sempre più isolato, rifiuta le attività di gruppo, passa il tempo seduto da
+                            solo. A casa vive con il figlio (55 anni), che lavora tutto il giorno. Il figlio ha riferito
+                            preoccupato che il padre "non è più lui" e ha smesso di prendersi cura di sé.</li>
+
+                        <li style="margin-top: 15px;"><strong>Signora Anna (75 anni):</strong> vive sola, frequenta il
+                            centro da 6 mesi. È molto loquace ma tende a monopolizzare le conversazioni. Alcuni anziani
+                            hanno espresso fastidio. Durante un'attività ha litigato con un altro ospite accusandolo di
+                            "rubarle la merenda". Il medico ha segnalato un peggioramento della sua pressione arteriosa.
+                        </li>
+
+                        <li style="margin-top: 15px;"><strong>Tensioni nel gruppo:</strong> Si sono formati "gruppetti"
+                            che escludono alcuni ospiti. C'è meno partecipazione alle attività. L'animatore è demotivato
+                            e ha chiesto un confronto.</li>
+
+                        <li style="margin-top: 15px;"><strong>Richiesta delle famiglie:</strong> Alcuni familiari
+                            chiedono più comunicazione sullo stato dei loro cari e vorrebbero essere più coinvolti nelle
+                            attività del centro.</li>
+
+                        <li style="margin-top: 15px;"><strong>Vincoli organizzativi:</strong> Budget ridotto, non è
+                            possibile assumere nuovo personale. Il fisioterapista andrà in ferie per 3 settimane il mese
+                            prossimo.</li>
                     </ul>
                 </div>
 
-                <div class="card" style="background: linear-gradient(135deg, #E1F5FE 0%, #B3E5FC 100%); border-left-color: #03A9F4;">
+                <div class="card"
+                    style="background: linear-gradient(135deg, #E1F5FE 0%, #B3E5FC 100%); border-left-color: #03A9F4;">
                     <h4 style="color: #0277BD;">🎯 IL TUO COMPITO</h4>
-                    <p>La coordinatrice ti ha incaricato di <strong>analizzare la situazione e proporre un progetto di intervento</strong> che affronti le criticità emerse, coinvolgendo l'intera équipe e le famiglie.</p>
-                    <p style="margin-top: 10px;">Dovrai presentare il progetto in una riunione d'équipe tra 1 settimana.</p>
+                    <p>La coordinatrice ti ha incaricato di <strong>analizzare la situazione e proporre un progetto di
+                            intervento</strong> che affronti le criticità emerse, coinvolgendo l'intera équipe e le
+                        famiglie.</p>
+                    <p style="margin-top: 10px;">Dovrai presentare il progetto in una riunione d'équipe tra 1 settimana.
+                    </p>
                 </div>
 
-                <h3 style="color: var(--color-fucsia); margin: 40px 0 20px;">📝 PROGETTA IL TUO INTERVENTO (50 punti totali)</h3>
+                <h3 style="color: var(--color-fucsia); margin: 40px 0 20px;">📝 PROGETTA IL TUO INTERVENTO (50 punti
+                    totali)</h3>
 
                 <!-- Task 1 -->
                 <div class="card">
                     <h4>TASK 1: ANALISI DELLA SITUAZIONE (15 punti)</h4>
                     <div class="input-area">
                         <label>A) Applica il modello bio-psico-sociale a Giuseppe e Anna</label>
-                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Analizza i due casi individuali considerando le tre dimensioni</p>
-                        <textarea 
-                            id="task1-analisi-casi" 
-                            data-points="8"
-                            style="min-height: 180px;"
-                            placeholder="GIUSEPPE:
+                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Analizza i due casi individuali
+                            considerando le tre dimensioni</p>
+                        <textarea id="task1-analisi-casi" data-points="8" style="min-height: 180px;" placeholder="GIUSEPPE:
 - Dimensione biologica: ...
 - Dimensione psicologica: ...
 - Dimensione sociale: ...
@@ -1653,10 +1759,7 @@ ANNA:
 
                     <div class="input-area">
                         <label>B) Identifica le cause delle tensioni di gruppo e del calo di partecipazione</label>
-                        <textarea 
-                            id="task1-analisi-gruppo" 
-                            data-points="7"
-                            placeholder="Le tensioni nel gruppo sono causate da...
+                        <textarea id="task1-analisi-gruppo" data-points="7" placeholder="Le tensioni nel gruppo sono causate da...
 Il calo di partecipazione può dipendere da...
 Le dinamiche relazionali mostrano...
 Il ruolo dell'animatore in questa situazione..." name="task1-analisi-gruppo"></textarea>
@@ -1666,24 +1769,19 @@ Il ruolo dell'animatore in questa situazione..." name="task1-analisi-gruppo"></t
                 <!-- Task 2 -->
                 <div class="card">
                     <h4>TASK 2: PROGETTAZIONE INTERVENTO (20 punti)</h4>
-                    
+
                     <div class="input-area">
                         <label>A) Obiettivi del progetto (almeno 3 obiettivi S.M.A.R.T.)</label>
-                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Specifici, Misurabili, Raggiungibili, Rilevanti, Temporizzati</p>
-                        <textarea 
-                            id="task2-obiettivi" 
-                            data-points="6"
-                            placeholder="Obiettivo 1 (per Giuseppe): ...
+                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Specifici, Misurabili,
+                            Raggiungibili, Rilevanti, Temporizzati</p>
+                        <textarea id="task2-obiettivi" data-points="6" placeholder="Obiettivo 1 (per Giuseppe): ...
 Obiettivo 2 (per le dinamiche di gruppo): ...
 Obiettivo 3 (per il coinvolgimento famiglie): ..." name="task2-obiettivi"></textarea>
                     </div>
 
                     <div class="input-area">
                         <label>B) Azioni concrete per Giuseppe (intervento individualizzato)</label>
-                        <textarea 
-                            id="task2-giuseppe" 
-                            data-points="5"
-                            placeholder="• Colloquio individuale per...
+                        <textarea id="task2-giuseppe" data-points="5" placeholder="• Colloquio individuale per...
 • Coinvolgimento del figlio...
 • Attività specifiche per...
 • Monitoraggio...
@@ -1692,10 +1790,7 @@ Obiettivo 3 (per il coinvolgimento famiglie): ..." name="task2-obiettivi"></text
 
                     <div class="input-area">
                         <label>C) Azioni concrete per Anna e per migliorare il clima di gruppo</label>
-                        <textarea 
-                            id="task2-gruppo" 
-                            data-points="5"
-                            placeholder="Per Anna:
+                        <textarea id="task2-gruppo" data-points="5" placeholder="Per Anna:
 • ...
 
 Per il gruppo:
@@ -1706,10 +1801,7 @@ Per il gruppo:
 
                     <div class="input-area">
                         <label>D) Strategie di coinvolgimento delle famiglie</label>
-                        <textarea 
-                            id="task2-famiglie" 
-                            data-points="4"
-                            placeholder="• Modalità di comunicazione periodica...
+                        <textarea id="task2-famiglie" data-points="4" placeholder="• Modalità di comunicazione periodica...
 • Incontri/eventi...
 • Co-progettazione attività..." name="task2-famiglie"></textarea>
                     </div>
@@ -1718,14 +1810,12 @@ Per il gruppo:
                 <!-- Task 3 -->
                 <div class="card">
                     <h4>TASK 3: ASPETTI TRASVERSALI (15 punti)</h4>
-                    
+
                     <div class="input-area">
                         <label>A) Lavoro di équipe e gestione risorse</label>
-                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Come coinvolgi l'équipe? Come gestisci i vincoli (budget, assenza fisioterapista)?</p>
-                        <textarea 
-                            id="task3-equipe" 
-                            data-points="5"
-                            placeholder="Ruolo di ciascun membro dell'équipe nel progetto:
+                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Come coinvolgi l'équipe? Come
+                            gestisci i vincoli (budget, assenza fisioterapista)?</p>
+                        <textarea id="task3-equipe" data-points="5" placeholder="Ruolo di ciascun membro dell'équipe nel progetto:
 • Coordinatrice: ...
 • Io (Operatore sociale): ...
 • Collega Operatore sociale: ...
@@ -1739,11 +1829,9 @@ Gestione vincoli:
 
                     <div class="input-area">
                         <label>B) Dimensione etica e deontologica</label>
-                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Privacy, autodeterminazione, dignità, rispetto... Come garantisci questi principi?</p>
-                        <textarea 
-                            id="task3-etica" 
-                            data-points="5"
-                            placeholder="Nel caso di Giuseppe, rispetto l'autodeterminazione...
+                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Privacy, autodeterminazione,
+                            dignità, rispetto... Come garantisci questi principi?</p>
+                        <textarea id="task3-etica" data-points="5" placeholder="Nel caso di Giuseppe, rispetto l'autodeterminazione...
 Per Anna, garantisco la dignità...
 Nella comunicazione con le famiglie, tutelo la privacy...
 Il coinvolgimento degli ospiti nelle decisioni..." name="task3-etica"></textarea>
@@ -1751,11 +1839,9 @@ Il coinvolgimento degli ospiti nelle decisioni..." name="task3-etica"></textarea
 
                     <div class="input-area">
                         <label>C) Valutazione dell'efficacia del progetto</label>
-                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Come capirai se il progetto funziona? Quali indicatori userai?</p>
-                        <textarea 
-                            id="task3-valutazione" 
-                            data-points="5"
-                            placeholder="Indicatori per Giuseppe: ...
+                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Come capirai se il progetto
+                            funziona? Quali indicatori userai?</p>
+                        <textarea id="task3-valutazione" data-points="5" placeholder="Indicatori per Giuseppe: ...
 Indicatori per il clima di gruppo: ...
 Strumenti di verifica (osservazione, questionari, colloqui...): ...
 Tempi di monitoraggio: ..." name="task3-valutazione"></textarea>
@@ -1766,10 +1852,11 @@ Tempi di monitoraggio: ..." name="task3-valutazione"></textarea>
                     <h3><span class="emoji">💎</span> RIFLESSIONE FINALE</h3>
                     <p style="margin-bottom: 15px;">Dopo aver completato il progetto, rifletti:</p>
                     <div class="input-area">
-                        <label>Come ti sei sentito/a nell'affrontare questa situazione complessa? Quali competenze hai messo in gioco? Cosa ti ha aiutato?</label>
-                        <textarea 
-                            id="riflessione-finale-caso"
-                            placeholder="Mi sono sentito/a... Le competenze che ho utilizzato... Ciò che mi ha aiutato è stato... Se fossi davvero Operatore sociale in questa situazione, la difficoltà maggiore sarebbe..." name="riflessione-finale-caso"></textarea>
+                        <label>Come ti sei sentito/a nell'affrontare questa situazione complessa? Quali competenze hai
+                            messo in gioco? Cosa ti ha aiutato?</label>
+                        <textarea id="riflessione-finale-caso"
+                            placeholder="Mi sono sentito/a... Le competenze che ho utilizzato... Ciò che mi ha aiutato è stato... Se fossi davvero Operatore sociale in questa situazione, la difficoltà maggiore sarebbe..."
+                            name="riflessione-finale-caso"></textarea>
                     </div>
                 </div>
 
@@ -1799,12 +1886,16 @@ Tempi di monitoraggio: ..." name="task3-valutazione"></textarea>
 
                 <div class="info-box info-box-green">
                     <h3><span class="emoji">💡</span> Perché lo fai</h3>
-                    <p><strong>Celebrare i traguardi</strong> e pianificare il futuro consolida l'apprendimento e ti motiva a continuare! Sei arrivato/a alla fine del percorso: è tempo di raccogliere i frutti del tuo impegno.</p>
+                    <p><strong>Celebrare i traguardi</strong> e pianificare il futuro consolida l'apprendimento e ti
+                        motiva a continuare! Sei arrivato/a alla fine del percorso: è tempo di raccogliere i frutti del
+                        tuo impegno.</p>
                 </div>
 
-                <h3 style="color: var(--color-turchese); margin: 30px 0 20px;">📊 AUTOVALUTAZIONE COMPETENZE (20 punti)</h3>
+                <h3 style="color: var(--color-turchese); margin: 30px 0 20px;">📊 AUTOVALUTAZIONE COMPETENZE (20 punti)
+                </h3>
 
-                <p style="margin-bottom: 25px; color: #666;">Valuta onestamente il tuo livello di competenza su scala 1-5 per ciascun aspetto:</p>
+                <p style="margin-bottom: 25px; color: #666;">Valuta onestamente il tuo livello di competenza su scala
+                    1-5 per ciascun aspetto:</p>
 
                 <div class="autovalutazione-grid">
                     <div class="competenza-item">
@@ -1904,10 +1995,12 @@ Tempi di monitoraggio: ..." name="task3-valutazione"></textarea>
                     </div>
                 </div>
 
-                <h3 style="color: var(--color-fucsia); margin: 40px 0 20px;">📝 QUIZ FINALE RICAPITOLATIVO (30 punti)</h3>
+                <h3 style="color: var(--color-fucsia); margin: 40px 0 20px;">📝 QUIZ FINALE RICAPITOLATIVO (30 punti)
+                </h3>
 
                 <div class="quiz-container">
-                    <p style="margin-bottom: 25px; color: #666;">10 domande per verificare il consolidamento delle conoscenze. Ogni risposta corretta vale 3 punti!</p>
+                    <p style="margin-bottom: 25px; color: #666;">10 domande per verificare il consolidamento delle
+                        conoscenze. Ogni risposta corretta vale 3 punti!</p>
 
                     <!-- Domanda 1 -->
                     <div class="quiz-question">
@@ -1919,7 +2012,8 @@ Tempi di monitoraggio: ..." name="task3-valutazione"></textarea>
                             </div>
                             <div class="quiz-option" onclick="checkAnswer(this, true, 'qf1')">
                                 <input type="radio" name="qf1" id="qf1_b">
-                                <label for="qf1_b">Della relazione d'aiuto che promuove benessere bio-psico-sociale</label>
+                                <label for="qf1_b">Della relazione d'aiuto che promuove benessere
+                                    bio-psico-sociale</label>
                             </div>
                             <div class="quiz-option" onclick="checkAnswer(this, false, 'qf1')">
                                 <input type="radio" name="qf1" id="qf1_c">
@@ -1931,7 +2025,8 @@ Tempi di monitoraggio: ..." name="task3-valutazione"></textarea>
 
                     <!-- Domanda 2 -->
                     <div class="quiz-question">
-                        <h4>2. Nel caso di un anziano con diabete (biologico) che vive solo e si sente triste (psicologico) con pochi contatti sociali (sociale), l'Operatore sociale deve:</h4>
+                        <h4>2. Nel caso di un anziano con diabete (biologico) che vive solo e si sente triste
+                            (psicologico) con pochi contatti sociali (sociale), l'Operatore sociale deve:</h4>
                         <div class="quiz-options">
                             <div class="quiz-option" onclick="checkAnswer(this, false, 'qf2')">
                                 <input type="radio" name="qf2" id="qf2_a">
@@ -1979,7 +2074,8 @@ Tempi di monitoraggio: ..." name="task3-valutazione"></textarea>
                             </div>
                             <div class="quiz-option" onclick="checkAnswer(this, true, 'qf4')">
                                 <input type="radio" name="qf4" id="qf4_b">
-                                <label for="qf4_b">Difficoltà nel passaggio dall'identità infantile a quella adulta</label>
+                                <label for="qf4_b">Difficoltà nel passaggio dall'identità infantile a quella
+                                    adulta</label>
                             </div>
                             <div class="quiz-option" onclick="checkAnswer(this, false, 'qf4')">
                                 <input type="radio" name="qf4" id="qf4_c">
@@ -2059,7 +2155,8 @@ Tempi di monitoraggio: ..." name="task3-valutazione"></textarea>
                             </div>
                             <div class="quiz-option" onclick="checkAnswer(this, true, 'qf8')">
                                 <input type="radio" name="qf8" id="qf8_b">
-                                <label for="qf8_b">Far emergere potenziali e life skills per favorire l'autogestione</label>
+                                <label for="qf8_b">Far emergere potenziali e life skills per favorire
+                                    l'autogestione</label>
                             </div>
                             <div class="quiz-option" onclick="checkAnswer(this, false, 'qf8')">
                                 <input type="radio" name="qf8" id="qf8_c">
@@ -2079,7 +2176,8 @@ Tempi di monitoraggio: ..." name="task3-valutazione"></textarea>
                             </div>
                             <div class="quiz-option" onclick="checkAnswer(this, true, 'qf9')">
                                 <input type="radio" name="qf9" id="qf9_b">
-                                <label for="qf9_b">L'anziano è risorsa da valorizzare e la dimensione spirituale va mantenuta attiva</label>
+                                <label for="qf9_b">L'anziano è risorsa da valorizzare e la dimensione spirituale va
+                                    mantenuta attiva</label>
                             </div>
                             <div class="quiz-option" onclick="checkAnswer(this, false, 'qf9')">
                                 <input type="radio" name="qf9" id="qf9_c">
@@ -2099,11 +2197,13 @@ Tempi di monitoraggio: ..." name="task3-valutazione"></textarea>
                             </div>
                             <div class="quiz-option" onclick="checkAnswer(this, true, 'qf10')">
                                 <input type="radio" name="qf10" id="qf10_b">
-                                <label for="qf10_b">Ã individualizzato, integra le tre dimensioni bio-psico-sociali e coinvolge la rete</label>
+                                <label for="qf10_b">Ã individualizzato, integra le tre dimensioni bio-psico-sociali e
+                                    coinvolge la rete</label>
                             </div>
                             <div class="quiz-option" onclick="checkAnswer(this, false, 'qf10')">
                                 <input type="radio" name="qf10" id="qf10_c">
-                                <label for="qf10_c">L'Operatore sociale lavora da solo senza collaborare con altri</label>
+                                <label for="qf10_c">L'Operatore sociale lavora da solo senza collaborare con
+                                    altri</label>
                             </div>
                         </div>
                         <div class="quiz-feedback" id="feedback_qf10"></div>
@@ -2113,47 +2213,55 @@ Tempi di monitoraggio: ..." name="task3-valutazione"></textarea>
                 <h3 style="color: var(--color-turchese); margin: 40px 0 20px;">🎯 IL MIO PIANO D'AZIONE PERSONALE</h3>
 
                 <div class="card">
-                    <p style="margin-bottom: 20px;">Ora che hai completato il percorso, definisci i tuoi prossimi passi per continuare a crescere come futuro Operatore sociale:</p>
-                    
+                    <p style="margin-bottom: 20px;">Ora che hai completato il percorso, definisci i tuoi prossimi passi
+                        per continuare a crescere come futuro Operatore sociale:</p>
+
                     <div class="input-area">
                         <label>📚 COSA voglio approfondire nei prossimi mesi?</label>
-                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Argomenti, competenze, tematiche che vuoi studiare meglio</p>
-                        <textarea 
-                            id="piano-cosa"
-                            placeholder="Esempio: Vorrei approfondire le tecniche di comunicazione con persone con disabilità, studiare meglio la normativa sui servizi sociali, capire di più sulle dipendenze tecnologiche..." name="piano-cosa"></textarea>
+                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Argomenti, competenze, tematiche
+                            che vuoi studiare meglio</p>
+                        <textarea id="piano-cosa"
+                            placeholder="Esempio: Vorrei approfondire le tecniche di comunicazione con persone con disabilità, studiare meglio la normativa sui servizi sociali, capire di più sulle dipendenze tecnologiche..."
+                            name="piano-cosa"></textarea>
                     </div>
 
                     <div class="input-area">
                         <label>🛠️ COME intendo farlo?</label>
-                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Azioni concrete, risorse, strumenti</p>
-                        <textarea 
-                            id="piano-come"
-                            placeholder="Esempio: Leggere libri consigliati, seguire canali YouTube sul tema, partecipare a laboratori a scuola, fare volontariato in una cooperativa sociale, parlare con professionisti del settore..." name="piano-come"></textarea>
+                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Azioni concrete, risorse,
+                            strumenti</p>
+                        <textarea id="piano-come"
+                            placeholder="Esempio: Leggere libri consigliati, seguire canali YouTube sul tema, partecipare a laboratori a scuola, fare volontariato in una cooperativa sociale, parlare con professionisti del settore..."
+                            name="piano-come"></textarea>
                     </div>
 
                     <div class="input-area">
                         <label>📅 QUANDO lo farò? (tempistica realistica)</label>
-                        <textarea 
-                            id="piano-quando"
-                            placeholder="Esempio: Entro la fine di questo mese..., nei prossimi 3 mesi..., quest'anno scolastico..., durante le vacanze estive..." name="piano-quando"></textarea>
+                        <textarea id="piano-quando"
+                            placeholder="Esempio: Entro la fine di questo mese..., nei prossimi 3 mesi..., quest'anno scolastico..., durante le vacanze estive..."
+                            name="piano-quando"></textarea>
                     </div>
 
                     <div class="input-area">
                         <label>💪 Il mio IMPEGNO personale come futuro Operatore sociale</label>
-                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Una frase che rappresenta la tua motivazione e i tuoi valori professionali</p>
-                        <textarea 
-                            id="piano-impegno"
-                            placeholder="Esempio: Mi impegno a essere un Operatore sociale che... Voglio lavorare per... Il mio obiettivo professionale è..." name="piano-impegno"></textarea>
+                        <p style="margin-bottom: 10px; color: #666; font-size: 0.9em;">Una frase che rappresenta la tua
+                            motivazione e i tuoi valori professionali</p>
+                        <textarea id="piano-impegno"
+                            placeholder="Esempio: Mi impegno a essere un Operatore sociale che... Voglio lavorare per... Il mio obiettivo professionale è..."
+                            name="piano-impegno"></textarea>
                     </div>
                 </div>
 
-                <div style="text-align: center; padding: 40px 20px; background: linear-gradient(135deg, var(--color-lime) 0%, var(--color-lime-dark) 100%); border-radius: 20px; margin: 40px 0;">
+                <div
+                    style="text-align: center; padding: 40px 20px; background: linear-gradient(135deg, var(--color-lime) 0%, var(--color-lime-dark) 100%); border-radius: 20px; margin: 40px 0;">
                     <div style="font-size: 4em; margin-bottom: 20px;">🎉</div>
                     <h2 style="color: #333; font-size: 2.5em; margin-bottom: 15px;">COMPLIMENTI!</h2>
-                    <p style="font-size: 1.3em; color: #333; margin-bottom: 25px;">Hai completato il percorso interattivo sull'Operatore sociale!</p>
-                    <div style="background: white; display: inline-block; padding: 20px 40px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                    <p style="font-size: 1.3em; color: #333; margin-bottom: 25px;">Hai completato il percorso
+                        interattivo sull'Operatore sociale!</p>
+                    <div
+                        style="background: white; display: inline-block; padding: 20px 40px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
                         <p style="color: #666; margin-bottom: 10px;">Punteggio finale:</p>
-                        <p style="font-size: 3em; font-weight: bold; color: var(--color-fucsia);"><span id="finalScore">0</span>/290</p>
+                        <p style="font-size: 3em; font-weight: bold; color: var(--color-fucsia);"><span
+                                id="finalScore">0</span>/290</p>
                     </div>
                 </div>
 
@@ -2423,7 +2531,7 @@ Tempi di monitoraggio: ..." name="task3-valutazione"></textarea>
         // =======================
         function attachTextareaListeners() {
             document.querySelectorAll('textarea[data-points], input[data-points]').forEach(element => {
-                element.addEventListener('blur', function() {
+                element.addEventListener('blur', function () {
                     if (this.value.trim().length > 20 && this.id && !completedTextareas.has(this.id)) {
                         completedTextareas.add(this.id);
                         this.classList.add('completed');
@@ -2710,4 +2818,5 @@ Tempi di monitoraggio: ..." name="task3-valutazione"></textarea>
     <script type="module" src="../../assets/progress.js?v=20251021"></script>
     <script type="module" src="../../assets/progress-global.js?v=20251021"></script>
 </body>
+
 </html>
