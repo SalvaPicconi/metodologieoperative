@@ -4,391 +4,1280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Progettazione Individualizzata - Metodologie Operative</title>
+    <title>La Progettazione Individualizzata | Metodologie Operative</title>
+    <meta name="description"
+        content="Guida completa alle 6 fasi della progettazione individualizzata in ambito socio-sanitario ed educativo. Competenze, obiettivi SMART e valutazione.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #00695c;
-            /* Verde Sanitario scuro */
-            --secondary-color: #4db6ac;
-            /* Verde acqua chiaro */
-            --accent-color: #ff7043;
-            /* Arancio per evidenziare */
-            --bg-color: #f4f6f8;
-            --text-color: #333;
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --light: #ecf0f1;
             --white: #ffffff;
+            --gray: #95a5a6;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Open Sans', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            color: var(--secondary);
+            line-height: 1.8;
+            min-height: 100vh;
         }
 
-        header {
-            background-color: var(--primary-color);
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: var(--white);
-            padding: 2rem 1rem;
+            padding: 60px 20px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        header h1 {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            font-size: 2.5rem;
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+            animation: pulse 15s ease-in-out infinite;
         }
 
-        header p {
-            font-size: 1.1rem;
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.3;
+            }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            margin-bottom: 20px;
+            font-size: 14px;
             opacity: 0.9;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+        .breadcrumb a {
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
         }
 
-        /* Stile delle Card/Sezioni */
-        section {
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Navigation Pills */
+        .nav-pills {
             background: var(--white);
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border-left: 5px solid var(--secondary-color);
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            overflow-x: auto;
         }
 
-        h2 {
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--bg-color);
-            padding-bottom: 0.5rem;
-            margin-top: 0;
+        .nav-pills-inner {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        h3 {
-            color: #004d40;
-            margin-top: 1.5rem;
+        .nav-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background: var(--light);
+            color: var(--secondary);
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: var(--transition);
+            white-space: nowrap;
         }
 
-        ul {
-            list-style-type: disc;
-            padding-left: 1.5rem;
+        .nav-pill:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-2px);
         }
 
-        li {
-            margin-bottom: 0.5rem;
+        .nav-pill .num {
+            background: var(--primary);
+            color: var(--white);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
         }
 
-        /* Box Concetti Chiave (Spiegazioni Aggiuntive) */
-        .key-concept {
-            background-color: #e0f2f1;
-            border-left: 4px solid var(--accent-color);
-            padding: 1rem;
-            margin: 1rem 0;
-            font-size: 0.95rem;
-            border-radius: 0 4px 4px 0;
+        .nav-pill:hover .num {
+            background: var(--white);
+            color: var(--primary);
         }
 
-        .key-concept strong {
-            color: #d84315;
-            display: block;
-            margin-bottom: 0.3rem;
-            text-transform: uppercase;
-            font-size: 0.8rem;
+        /* Main Content */
+        .main-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
         }
 
-        /* Stile per gli Esempi */
-        .example-box {
-            background-color: #fff3e0;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-top: 1rem;
+        /* Intro Section */
+        .intro-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
         }
 
-        .example-bad {
-            color: #c62828;
-            font-weight: bold;
+        @media (max-width: 768px) {
+            .intro-section {
+                grid-template-columns: 1fr;
+            }
         }
 
-        .example-good {
-            color: #2e7d32;
-            font-weight: bold;
+        .intro-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary);
+            transition: var(--transition);
         }
 
-        .formula-box {
-            border: 2px dashed var(--primary-color);
-            padding: 1.5rem;
-            background-color: #ffffff;
+        .intro-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .intro-card.competenze {
+            border-left-color: var(--success);
+        }
+
+        .intro-card h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .intro-card h2 i {
+            color: var(--primary);
+        }
+
+        .intro-card.competenze h2 i {
+            color: var(--success);
+        }
+
+        .intro-card ul {
+            list-style: none;
+        }
+
+        .intro-card li {
+            padding: 12px 0;
+            border-bottom: 1px dashed var(--light);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .intro-card li:last-child {
+            border-bottom: none;
+        }
+
+        .intro-card li i {
+            color: var(--primary);
+            margin-top: 4px;
+        }
+
+        .intro-card.competenze li i {
+            color: var(--success);
+        }
+
+        /* Definition Box */
+        .definition-box {
+            background: linear-gradient(135deg, var(--secondary) 0%, #34495e 100%);
+            color: var(--white);
+            padding: 40px;
+            border-radius: var(--radius);
+            margin-bottom: 50px;
             text-align: center;
-            font-family: 'Roboto', sans-serif;
-            font-weight: bold;
-            margin: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .definition-box::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 30px;
+            font-size: 120px;
+            opacity: 0.1;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .definition-box h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .definition-box p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.9;
+        }
+
+        .definition-box .highlight {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2px 10px;
+            border-radius: 4px;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, var(--primary), var(--success), var(--warning), var(--accent));
+            border-radius: 4px;
+        }
+
+        .phase-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .phase-card:hover {
+            transform: translateX(10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .phase-card::before {
+            content: '';
+            position: absolute;
+            left: -42px;
+            top: 35px;
+            width: 20px;
+            height: 20px;
+            background: var(--white);
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .phase-card.fase-2::before {
+            border-color: #9b59b6;
+        }
+
+        .phase-card.fase-3::before {
+            border-color: var(--success);
+        }
+
+        .phase-card.fase-4::before {
+            border-color: var(--warning);
+        }
+
+        .phase-card.fase-5::before {
+            border-color: #e67e22;
+        }
+
+        .phase-card.fase-6::before {
+            border-color: var(--accent);
+        }
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .phase-number {
+            background: var(--primary);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .fase-2 .phase-number {
+            background: #9b59b6;
+        }
+
+        .fase-3 .phase-number {
+            background: var(--success);
+        }
+
+        .fase-4 .phase-number {
+            background: var(--warning);
+        }
+
+        .fase-5 .phase-number {
+            background: #e67e22;
+        }
+
+        .fase-6 .phase-number {
+            background: var(--accent);
+        }
+
+        .phase-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .phase-content {
+            padding-left: 65px;
+        }
+
+        @media (max-width: 768px) {
+            .phase-content {
+                padding-left: 0;
+            }
+        }
+
+        .phase-content p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .phase-content ul {
+            list-style: none;
+            margin: 15px 0;
+        }
+
+        .phase-content li {
+            padding: 10px 15px;
+            background: var(--light);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .phase-content li i {
+            color: var(--primary);
+            margin-top: 3px;
+        }
+
+        /* Concept Box */
+        .concept-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-left: 4px solid var(--primary);
+            padding: 20px 25px;
+            margin: 20px 0;
+            border-radius: 0 var(--radius) var(--radius) 0;
+        }
+
+        .concept-box h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-box p {
+            margin: 0;
+            color: #555;
+        }
+
+        /* Example Card */
+        .example-card {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: var(--radius);
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .example-card.good {
+            background: #d4edda;
+            border-color: var(--success);
+        }
+
+        .example-card h4 {
+            color: #856404;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .example-card.good h4 {
+            color: #155724;
+        }
+
+        .example-item {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .example-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .example-item .wrong {
+            color: var(--accent);
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .example-item .right {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .example-item .arrow {
+            margin: 0 10px;
+            color: var(--gray);
+        }
+
+        /* Formula Box */
+        .formula-box {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            padding: 30px;
+            border-radius: var(--radius);
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .formula-box h4 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .formula {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        .formula span {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin: 2px;
+        }
+
+        /* Two Column */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .col-card {
+            background: var(--light);
+            padding: 20px;
+            border-radius: var(--radius);
+        }
+
+        .col-card h5 {
+            color: var(--secondary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .col-card ul {
+            list-style: none;
+        }
+
+        .col-card li {
+            padding: 8px 0;
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+        }
+
+        .col-card li:last-child {
+            border-bottom: none;
+        }
+
+        /* Alert Box */
+        .alert-box {
+            background: #fce4ec;
+            border: 2px solid var(--accent);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin: 20px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .alert-box i {
+            color: var(--accent);
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .alert-box p {
+            margin: 0;
+            color: #c0392b;
+        }
+
+        /* Info Tags */
+        .info-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .info-tag {
+            background: var(--primary);
+            color: var(--white);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-tag.purple {
+            background: #9b59b6;
+        }
+
+        .info-tag.green {
+            background: var(--success);
+        }
+
+        .info-tag.orange {
+            background: var(--warning);
+        }
+
+        /* Summary Section */
+        .summary-section {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 40px;
+            margin-top: 50px;
+            box-shadow: var(--shadow);
+        }
+
+        .summary-section h2 {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--secondary);
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .summary-item {
+            text-align: center;
+            padding: 20px 15px;
+            background: var(--light);
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .summary-item:hover {
+            transform: scale(1.05);
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .summary-item .num {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .summary-item:hover .num {
+            color: var(--white);
+        }
+
+        .summary-item .label {
+            font-size: 14px;
+            font-weight: 600;
         }
 
         /* Footer */
-        footer {
+        .footer {
+            background: var(--secondary);
+            color: var(--white);
             text-align: center;
-            padding: 2rem;
-            background-color: #333;
-            color: #fff;
-            margin-top: 3rem;
+            padding: 30px 20px;
+            margin-top: 50px;
         }
 
-        footer a {
-            color: var(--secondary-color);
+        .footer p {
+            opacity: 0.8;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: var(--primary);
             text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Print Styles */
+        @media print {
+
+            .nav-pills,
+            .header::before {
+                display: none;
+            }
+
+            .phase-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+        }
+
+        /* Scroll to top */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
         }
     </style>
 </head>
 
 <body>
 
-    <header>
-        <h1>La Progettazione Individualizzata</h1>
-        <p>Materiale di studio per l'indirizzo Servizi per la Sanità e l'Assistenza Sociale</p>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <nav class="breadcrumb">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a> /
+                <a href="index.html#moduli">Moduli</a> /
+                <span>Progettazione Individualizzata</span>
+            </nav>
+            <h1><i class="fas fa-project-diagram"></i> La Progettazione Individualizzata</h1>
+            <p class="header-subtitle">Guida completa alle 6 fasi della progettazione in ambito socio-sanitario ed
+                educativo: dall'analisi dei bisogni alla valutazione finale</p>
+        </div>
     </header>
 
-    <div class="container">
+    <!-- Navigation Pills -->
+    <nav class="nav-pills">
+        <div class="nav-pills-inner">
+            <a href="#obiettivi" class="nav-pill"><i class="fas fa-bullseye"></i> Obiettivi</a>
+            <a href="#fase1" class="nav-pill"><span class="num">1</span> Analisi Problema</a>
+            <a href="#fase2" class="nav-pill"><span class="num">2</span> Contesto</a>
+            <a href="#fase3" class="nav-pill"><span class="num">3</span> Obiettivi</a>
+            <a href="#fase4" class="nav-pill"><span class="num">4</span> Interventi</a>
+            <a href="#fase5" class="nav-pill"><span class="num">5</span> Verifica</a>
+            <a href="#fase6" class="nav-pill"><span class="num">6</span> Valutazione</a>
+        </div>
+    </nav>
 
-        <section id="obiettivi">
-            <h2>Obiettivi del Modulo e Competenze</h2>
-            <div class="key-concept">
-                <strong>Perché è importante?</strong>
-                Queste competenze sono la base del lavoro dell'operatore socio-sanitario. Non si tratta solo di
-                "aiutare", ma di saper pianificare l'aiuto in modo professionale e coordinato con altri esperti.
-            </div>
+    <!-- Main Content -->
+    <main class="main-content">
 
-            <h3>Obiettivi del Modulo</h3>
-            <ul>
-                <li>Sviluppare competenze nella gestione di progetti in ambito socio-sanitario ed educativo.</li>
-                <li>Collaborare con altre figure professionali per attività educative e di animazione sociale.</li>
-            </ul>
-
-            <h3>Competenze Specifiche</h3>
-            <ul>
-                <li><strong>Competenza 1:</strong> Collaborare nella gestione di progetti sociali per bambini,
-                    adolescenti, anziani e persone con disabilità o disagio sociale.</li>
-                <li><strong>Competenza 8:</strong> Realizzare attività educative e di animazione sociale in modo
-                    autonomo.</li>
-            </ul>
-        </section>
-
-        <section id="fasi-overview">
-            <h2>Le Fasi della Progettazione Individualizzata</h2>
-            <p><strong>Definizione:</strong> Progettare significa individuare mezzi e strumenti per raggiungere un
-                obiettivo prefissato.</p>
-
-            <div class="key-concept">
-                <strong>Il concetto di "Individualizzata"</strong>
-                Significa "cucita su misura". Ogni utente è unico, quindi non esiste un progetto valido per tutti. Si
-                parte sempre dalla persona specifica.
-            </div>
-
-            <p>La progettazione si articola in 6 fasi principali:</p>
-            <ol>
-                <li>Analisi del problema o situazione</li>
-                <li>Analisi del contesto</li>
-                <li>Definizione degli obiettivi</li>
-                <li>Scelta degli interventi e dei servizi</li>
-                <li>Verifica</li>
-                <li>Valutazione</li>
-            </ol>
-        </section>
-
-        <section id="fase1">
-            <h2>Fase 1 - Analisi del Problema/Situazione</h2>
-            <h3>Analisi del Problema e dell'Ambiente di Provenienza</h3>
-            <p>Prima fase della progettazione:</p>
-            <ul>
-                <li>Identificare i bisogni non soddisfatti dell'utente.</li>
-                <li>Analizzare le intenzioni e le aspettative.</li>
-                <li>Valutare le caratteristiche del destinatario, inclusa età, abilità e difficoltà nella vita
-                    quotidiana adottando un <strong>approccio Bio-psico-sociale</strong>.</li>
-            </ul>
-
-            <div class="key-concept">
-                <strong>Approccio Bio-psico-sociale: Cosa significa?</strong>
-                È un metodo che guarda alla persona nella sua interezza:
+        <!-- Intro Section -->
+        <section class="intro-section" id="obiettivi">
+            <div class="intro-card">
+                <h2><i class="fas fa-bullseye"></i> Obiettivi del Modulo</h2>
                 <ul>
-                    <li><strong>Bio:</strong> Aspetti biologici e fisici (salute, malattie, corpo).</li>
-                    <li><strong>Psico:</strong> Aspetti psicologici (emozioni, mente, carattere).</li>
-                    <li><strong>Sociale:</strong> L'ambiente in cui vive (famiglia, lavoro, amici).</li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span><strong>Sviluppare competenze</strong> nella gestione di progetti in ambito
+                            socio-sanitario ed educativo</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span><strong>Collaborare</strong> con altre figure professionali per attività educative e di
+                            animazione sociale</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="intro-card competenze">
+                <h2><i class="fas fa-star"></i> Competenze Specifiche</h2>
+                <ul>
+                    <li>
+                        <i class="fas fa-users"></i>
+                        <span><strong>Competenza 1:</strong> Collaborare nella gestione di progetti sociali per bambini,
+                            adolescenti, anziani e persone con disabilità o disagio sociale</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-theater-masks"></i>
+                        <span><strong>Competenza 8:</strong> Realizzare attività educative e di animazione sociale in
+                            modo autonomo</span>
+                    </li>
                 </ul>
             </div>
         </section>
 
-        <section id="fase2">
-            <h2>Fase 2 - Analisi del Contesto</h2>
-            <p>Nel contesto si analizzano:</p>
-            <ul>
-                <li><strong>Risorse:</strong> strutture, persone, finanze, competenze disponibili.</li>
-                <li><strong>Vincoli:</strong> normativi, finanziari, temporali.</li>
-            </ul>
+        <!-- Definition Box -->
+        <div class="definition-box">
+            <h2><i class="fas fa-lightbulb"></i> Che cos'è la Progettazione?</h2>
+            <p><strong>Progettare</strong> significa <span class="highlight">individuare mezzi e strumenti</span> per
+                raggiungere un <span class="highlight">obiettivo prefissato</span>. È un processo sistematico che parte
+                dall'analisi di un problema e arriva alla valutazione dei risultati ottenuti.</p>
+        </div>
 
-            <div class="example-box">
-                <p><strong>Vincoli Esempio:</strong> Non possiamo costruire una casa su un terreno montuoso senza
-                    permessi = non possiamo pianificare un percorso troppo ambizioso se non ci sono le risorse:
-                    personali, familiari, economiche, ecc.</p>
-            </div>
+        <!-- Timeline delle Fasi -->
+        <section class="timeline">
 
-            <h3>Cosa considerare:</h3>
-            <ul>
-                <li>La rete sociale dell'utente (famiglia, amici, infermieri).</li>
-                <li>Le risorse disponibili nel territorio (servizi sanitari, educativi, etc.).</li>
-                <li>I vincoli normativi, finanziari e temporali.</li>
-            </ul>
+            <!-- FASE 1 -->
+            <article class="phase-card fase-1" id="fase1">
+                <div class="phase-header">
+                    <div class="phase-number">1</div>
+                    <h3 class="phase-title">Analisi del Problema/Situazione</h3>
+                </div>
+                <div class="phase-content">
+                    <p>La prima fase della progettazione richiede una <strong>comprensione profonda</strong> della
+                        persona e della sua situazione. Non si tratta solo di raccogliere dati, ma di costruire una
+                        visione completa dell'utente.</p>
 
-            <h3>Vincoli esaminati:</h3>
-            <ul>
-                <li>Regolamenti, normative locali.</li>
-                <li>Tempi e scadenze.</li>
-            </ul>
+                    <ul>
+                        <li>
+                            <i class="fas fa-search"></i>
+                            <span><strong>Identificare i bisogni non soddisfatti</strong> dell'utente: cosa manca per il
+                                suo benessere?</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-heart"></i>
+                            <span><strong>Analizzare intenzioni e aspettative</strong>: cosa desidera la persona? Quali
+                                sono le sue speranze?</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-user-check"></i>
+                            <span><strong>Valutare le caratteristiche del destinatario</strong>: età, abilità,
+                                difficoltà nella vita quotidiana</span>
+                        </li>
+                    </ul>
 
-            <div class="key-concept">
-                <strong>Nota Didattica: La Rete Sociale</strong>
-                Analizzare la rete è fondamentale perché l'operatore non agisce mai da solo. La famiglia e gli amici
-                (rete informale) sono spesso le risorse più preziose per il successo del progetto.
+                    <div class="concept-box">
+                        <h4><i class="fas fa-brain"></i> Approccio Bio-Psico-Sociale</h4>
+                        <p>È fondamentale adottare un <strong>approccio bio-psico-sociale</strong>, un modello che
+                            considera la persona nella sua totalità: aspetti <em>biologici</em> (salute fisica,
+                            patologie), <em>psicologici</em> (emozioni, cognizione, comportamento) e <em>sociali</em>
+                            (relazioni, contesto familiare, ambiente di vita). Questo approccio supera la visione
+                            puramente medica della disabilità o del disagio.</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- FASE 2 -->
+            <article class="phase-card fase-2" id="fase2">
+                <div class="phase-header">
+                    <div class="phase-number">2</div>
+                    <h3 class="phase-title">Analisi del Contesto</h3>
+                </div>
+                <div class="phase-content">
+                    <p>Ogni progetto si realizza in un contesto specifico con le sue <strong>possibilità</strong> e i
+                        suoi <strong>limiti</strong>. Ignorare il contesto significa progettare nel vuoto.</p>
+
+                    <div class="two-col">
+                        <div class="col-card">
+                            <h5><i class="fas fa-plus-circle" style="color: var(--success)"></i> Risorse da Mappare</h5>
+                            <ul>
+                                <li><i class="fas fa-building"></i> <strong>Strutture</strong>: centri diurni, ospedali,
+                                    scuole</li>
+                                <li><i class="fas fa-users"></i> <strong>Persone</strong>: familiari, volontari,
+                                    professionisti</li>
+                                <li><i class="fas fa-euro-sign"></i> <strong>Finanze</strong>: fondi disponibili,
+                                    contributi</li>
+                                <li><i class="fas fa-graduation-cap"></i> <strong>Competenze</strong>: abilità
+                                    dell'équipe e della rete</li>
+                            </ul>
+                        </div>
+                        <div class="col-card">
+                            <h5><i class="fas fa-exclamation-triangle" style="color: var(--warning)"></i> Vincoli da
+                                Considerare</h5>
+                            <ul>
+                                <li><i class="fas fa-gavel"></i> <strong>Normativi</strong>: leggi, regolamenti,
+                                    permessi</li>
+                                <li><i class="fas fa-coins"></i> <strong>Finanziari</strong>: budget limitato</li>
+                                <li><i class="fas fa-clock"></i> <strong>Temporali</strong>: scadenze, tempi di attesa
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <h4><i class="fas fa-mountain"></i> Analogia per Capire Meglio</h4>
+                        <p>Non possiamo costruire una casa su un terreno montuoso senza i permessi necessari. Allo
+                            stesso modo, <strong>non possiamo pianificare un percorso troppo ambizioso</strong> se non
+                            ci sono le risorse: personali, familiari, economiche. Il progetto deve essere realistico
+                            rispetto al contesto.</p>
+                    </div>
+
+                    <div class="concept-box">
+                        <h4><i class="fas fa-network-wired"></i> Rete Sociale dell'Utente</h4>
+                        <p>Un elemento chiave è la <strong>rete sociale</strong>: l'insieme di persone e relazioni che
+                            circondano l'utente (famiglia, amici, vicini, operatori sanitari). Una rete forte può essere
+                            una risorsa preziosa; una rete fragile può rappresentare un vincolo da considerare.</p>
+                    </div>
+
+                    <div class="info-tags">
+                        <span class="info-tag"><i class="fas fa-hospital"></i> Servizi sanitari</span>
+                        <span class="info-tag purple"><i class="fas fa-school"></i> Servizi educativi</span>
+                        <span class="info-tag green"><i class="fas fa-hands-helping"></i> Associazioni</span>
+                        <span class="info-tag orange"><i class="fas fa-home"></i> Servizi domiciliari</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- FASE 3 -->
+            <article class="phase-card fase-3" id="fase3">
+                <div class="phase-header">
+                    <div class="phase-number">3</div>
+                    <h3 class="phase-title">Definizione degli Obiettivi</h3>
+                </div>
+                <div class="phase-content">
+                    <p>Gli obiettivi sono il <strong>cuore della progettazione</strong>: definiscono cosa vogliamo
+                        ottenere per la persona. Devono essere scritti pensando al <strong>cambiamento atteso</strong>,
+                        non semplicemente al servizio da erogare.</p>
+
+                    <ul>
+                        <li>
+                            <i class="fas fa-user-cog"></i>
+                            <span><strong>Basati sulle capacità dell'utente</strong>: partire da ciò che la persona sa
+                                fare</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clipboard-list"></i>
+                            <span><strong>Collegati ai bisogni individuati</strong>: rispondere ai problemi emersi
+                                nell'analisi</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-chart-line"></i>
+                            <span><strong>Controllabili e misurabili</strong>: poter verificare se sono stati
+                                raggiunti</span>
+                        </li>
+                    </ul>
+
+                    <div class="alert-box">
+                        <i class="fas fa-times-circle"></i>
+                        <div>
+                            <p><strong>Attenzione!</strong> L'obiettivo <u>non può essere</u> semplicemente "fornire
+                                supporto psicologico" o "fornire assistenza domiciliare". Questi descrivono il servizio,
+                                non il risultato atteso per la persona.</p>
+                        </div>
+                    </div>
+
+                    <div class="example-card good">
+                        <h4><i class="fas fa-check-circle"></i> Esempi di Obiettivi Ben Scritti</h4>
+                        <div class="example-item">
+                            <span class="wrong">Fornire supporto psicologico</span>
+                            <span class="arrow">→</span>
+                            <span class="right">"Ridurre i livelli di ansia riferiti dalla persona da intensi a lievi
+                                entro 6 mesi, attraverso colloqui psicologici settimanali"</span>
+                        </div>
+                        <div class="example-item">
+                            <span class="wrong">Fornire assistenza domiciliare</span>
+                            <span class="arrow">→</span>
+                            <span class="right">"Mantenere l'autonomia nelle attività di igiene personale, con supporto
+                                dell'operatore solo per le manovre complesse, per i prossimi 12 mesi"</span>
+                        </div>
+                        <div class="example-item">
+                            <span class="wrong">Aiutare la famiglia</span>
+                            <span class="arrow">→</span>
+                            <span class="right">"Migliorare le capacità di gestione dei conflitti familiari, portando la
+                                persona a utilizzare almeno due strategie alternative alla lite in situazioni critiche
+                                entro 3 mesi"</span>
+                        </div>
+                        <div class="example-item">
+                            <span class="wrong">Prevenire le cadute</span>
+                            <span class="arrow">→</span>
+                            <span class="right">"Ridurre gli episodi di caduta in casa da 3 a 0 in 6 mesi, tramite
+                                assistenza domiciliare e adattamento dell'ambiente domestico"</span>
+                        </div>
+                    </div>
+
+                    <div class="formula-box">
+                        <h4><i class="fas fa-magic"></i> Formula Pratica per Scrivere Obiettivi</h4>
+                        <div class="formula">
+                            <span>Migliorare / Mantenere / Ridurre</span> +
+                            <span>Aspetto della vita</span> +
+                            <span>Di quanto / In quanto tempo</span> +
+                            <span>Attraverso quali interventi</span>
+                        </div>
+                    </div>
+
+                    <div class="example-card good">
+                        <h4><i class="fas fa-star"></i> Esempio Completo con la Formula</h4>
+                        <p style="font-size: 1.1rem; line-height: 1.8;">
+                            "<strong>Migliorare</strong> il benessere emotivo <strong>riducendo</strong> gli episodi di
+                            insonnia <strong>da 5 a 2 notti</strong> a settimana <strong>entro 4 mesi</strong>,
+                            <strong>attraverso</strong> colloqui psicologici e tecniche di rilassamento."
+                        </p>
+                        <p style="margin-top: 15px; color: var(--success);">
+                            <i class="fas fa-check"></i> In questo modo l'obiettivo descrive chiaramente il
+                            <strong>cambiamento atteso</strong> grazie al servizio, non semplicemente il servizio
+                            stesso.
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- FASE 4 -->
+            <article class="phase-card fase-4" id="fase4">
+                <div class="phase-header">
+                    <div class="phase-number">4</div>
+                    <h3 class="phase-title">Scelta degli Interventi</h3>
+                </div>
+                <div class="phase-content">
+                    <p>Una volta definiti gli obiettivi, occorre <strong>pianificare concretamente</strong> come
+                        raggiungerli. Questa fase trasforma le intenzioni in azioni operative.</p>
+
+                    <div class="concept-box">
+                        <h4><i class="fas fa-cogs"></i> Organizzazione degli Interventi</h4>
+                        <p>L'organizzazione richiede di <strong>definire chiaramente le attività</strong>, stabilire i
+                            tempi di realizzazione, individuare le risorse necessarie, <strong>assegnare i
+                                compiti</strong> ai diversi operatori e predisporre un sistema di
+                            <strong>monitoraggio</strong> dell'andamento.</p>
+                    </div>
+
+                    <ul>
+                        <li>
+                            <i class="fas fa-route"></i>
+                            <span><strong>Metodi</strong>: quali approcci e tecniche utilizzare (es. colloqui,
+                                laboratori, attività di gruppo)</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span><strong>Spazi e strumenti</strong>: dove si svolgeranno le attività e con quali
+                                materiali</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-calendar-alt"></i>
+                            <span><strong>Tempi</strong>: quando, con quale frequenza, per quanto tempo</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-calculator"></i>
+                            <span><strong>Costi</strong>: budget necessario e disponibilità finanziaria</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-user-tag"></i>
+                            <span><strong>Assegnazione compiti</strong>: chi fa cosa, responsabilità chiare</span>
+                        </li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- FASE 5 -->
+            <article class="phase-card fase-5" id="fase5">
+                <div class="phase-header">
+                    <div class="phase-number">5</div>
+                    <h3 class="phase-title">Verifica</h3>
+                </div>
+                <div class="phase-content">
+                    <p>La verifica è un <strong>controllo in itinere</strong>: mentre il progetto è in corso, occorre
+                        monitorare se gli interventi stanno funzionando come previsto.</p>
+
+                    <div class="concept-box">
+                        <h4><i class="fas fa-sync-alt"></i> Verifica in Itinere</h4>
+                        <p>A differenza della valutazione finale, la verifica avviene <strong>durante</strong> il
+                            percorso progettuale. È un momento di <strong>confronto continuo</strong> tra quanto
+                            pianificato e quanto sta accadendo realmente. Permette di <strong>correggere la
+                                rotta</strong> prima che sia troppo tardi.</p>
+                    </div>
+
+                    <ul>
+                        <li>
+                            <i class="fas fa-clipboard-check"></i>
+                            <span><strong>Controllare</strong> se gli interventi stanno raggiungendo i risultati
+                                sperati</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-edit"></i>
+                            <span><strong>Modificare</strong> gli interventi in base ai miglioramenti o peggioramenti
+                                osservati</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-comments"></i>
+                            <span><strong>Raccogliere feedback</strong> dall'utente, dalla famiglia, dall'équipe</span>
+                        </li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- FASE 6 -->
+            <article class="phase-card fase-6" id="fase6">
+                <div class="phase-header">
+                    <div class="phase-number">6</div>
+                    <h3 class="phase-title">Valutazione</h3>
+                </div>
+                <div class="phase-content">
+                    <p><strong>Valutare significa dare un giudizio finale</strong> su ciò che è stato fatto: il progetto
+                        ha funzionato? Gli obiettivi sono stati raggiunti? Cosa abbiamo imparato?</p>
+
+                    <ul>
+                        <li>
+                            <i class="fas fa-flag-checkered"></i>
+                            <span><strong>Controllo degli obiettivi raggiunti</strong>: confronto tra risultati attesi e
+                                ottenuti</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-history"></i>
+                            <span><strong>Analisi delle modifiche</strong> apportate durante il percorso</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-lightbulb"></i>
+                            <span><strong>Adeguamento alle nuove necessità</strong> o vincoli emersi</span>
+                        </li>
+                    </ul>
+
+                    <div class="two-col">
+                        <div class="col-card" style="border-left: 4px solid var(--success);">
+                            <h5><i class="fas fa-thumbs-up" style="color: var(--success)"></i> Valutazione Positiva</h5>
+                            <p>Gli obiettivi sono stati raggiunti, gli interventi si sono dimostrati efficaci, l'utente
+                                ha beneficiato del progetto.</p>
+                        </div>
+                        <div class="col-card" style="border-left: 4px solid var(--accent);">
+                            <h5><i class="fas fa-thumbs-down" style="color: var(--accent)"></i> Valutazione Negativa
+                            </h5>
+                            <p>Gli obiettivi non sono stati raggiunti (in tutto o in parte). Questo non è un fallimento,
+                                ma un'opportunità di apprendimento.</p>
+                        </div>
+                    </div>
+
+                    <div class="concept-box">
+                        <h4><i class="fas fa-redo"></i> Valutazione Iterativa</h4>
+                        <p>La valutazione può essere <strong>iterativa</strong>: non si limita alla fine del progetto,
+                            ma può portare a <strong>modificare il progetto in corso d'opera</strong>. Se emergono nuove
+                            esigenze o vincoli imprevisti, il progetto può essere riformulato. Progettare è un processo
+                            dinamico, non statico.</p>
+                    </div>
+
+                    <div class="alert-box" style="background: #fff3cd; border-color: var(--warning);">
+                        <i class="fas fa-info-circle" style="color: var(--warning);"></i>
+                        <div>
+                            <p style="color: #856404;"><strong>Attenzione:</strong> Non sempre il progetto porta agli
+                                esiti sperati. Vincoli imprevisti, cambiamenti nella situazione dell'utente o del
+                                contesto possono influire sui risultati. Una valutazione onesta è fondamentale per
+                                migliorare i progetti futuri.</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+        </section>
+
+        <!-- Summary Section -->
+        <section class="summary-section">
+            <h2><i class="fas fa-th-large"></i> Le 6 Fasi in Sintesi</h2>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <div class="num">1</div>
+                    <div class="label">Analisi<br>Problema</div>
+                </div>
+                <div class="summary-item">
+                    <div class="num">2</div>
+                    <div class="label">Analisi<br>Contesto</div>
+                </div>
+                <div class="summary-item">
+                    <div class="num">3</div>
+                    <div class="label">Definizione<br>Obiettivi</div>
+                </div>
+                <div class="summary-item">
+                    <div class="num">4</div>
+                    <div class="label">Scelta<br>Interventi</div>
+                </div>
+                <div class="summary-item">
+                    <div class="num">5</div>
+                    <div class="label">Verifica<br>in Itinere</div>
+                </div>
+                <div class="summary-item">
+                    <div class="num">6</div>
+                    <div class="label">Valutazione<br>Finale</div>
+                </div>
             </div>
         </section>
 
-        <section id="fase3">
-            <h2>Fase 3 - Definizione degli Obiettivi</h2>
-            <p><strong>Obiettivo:</strong> Stabilire ciò che si vuole ottenere con l'intervento, considerando:</p>
-            <ul>
-                <li>Le capacità dell'utente.</li>
-                <li>I bisogni individuati.</li>
-            </ul>
+    </main>
 
-            <h3>Caratteristiche degli obiettivi:</h3>
-            <ul>
-                <li><strong>Reali:</strong> basati sulla situazione specifica dell'utente.</li>
-                <li><strong>Controllabili:</strong> per monitorare l'efficacia delle azioni.</li>
-            </ul>
-
-            <div class="key-concept">
-                <strong>SMART</strong>
-                In ambito professionale, gli obiettivi devono essere SMART: Specifici, Misurabili, Accessibili
-                (realizzabili), Rilevanti e definiti nel Tempo. Se manca uno di questi elementi, l'obiettivo è vago.
-            </div>
-
-            <p>Es. L’obbiettivo non può essere “fornire supporto psicologico” o “fornire assistenza domiciliare”. Un
-                buon obiettivo dovrebbe essere specifico, misurabile e centrato sul cambiamento per la persona, non
-                sull’erogazione del servizio.</p>
-
-            <h3>Esempi Pratici:</h3>
-
-            <div class="example-box">
-                <p><span class="example-bad">NO (Vago):</span> “Fornire supporto psicologico”</p>
-                <p><span class="example-good">SÌ (Specifico):</span> “Ridurre i livelli di ansia riferiti dalla persona
-                    da intensi a lievi entro 6 mesi, attraverso colloqui psicologici settimanali”.</p>
-                <p><span class="example-good">SÌ (Specifico):</span> “Migliorare le capacità di gestione dei conflitti
-                    familiari, portando la persona a utilizzare almeno due strategie alternative alla lite in situazioni
-                    critiche entro 3 mesi”.</p>
-            </div>
-
-            <div class="example-box">
-                <p><span class="example-bad">NO (Vago):</span> “Fornire assistenza domiciliare”</p>
-                <p><span class="example-good">SÌ (Specifico):</span> “Mantenere l’autonomia nelle attività di igiene
-                    personale, con supporto dell’operatore solo per le manovre complesse, per i prossimi 12 mesi”.</p>
-                <p><span class="example-good">SÌ (Specifico):</span> “Ridurre gli episodi di caduta in casa da 3 a 0 in
-                    6 mesi, tramite assistenza domiciliare e adattamento dell’ambiente domestico”.</p>
-            </div>
-
-            <h3>Formula pratica per scrivere obiettivi</h3>
-            <div class="formula-box">
-                “Migliorare/mantenere/ridurre <br>+<br> aspetto della vita della persona (es. autonomia, benessere)<br>
-                + <br>di quanto / in quanto tempo <br>+ <br>attraverso quali interventi”.
-            </div>
-
-            <p><strong>Esempio applicato:</strong> “Migliorare il benessere emotivo riducendo gli episodi di insonnia da
-                5 a 2 notti a settimana entro 4 mesi, attraverso colloqui psicologici e tecniche di rilassamento”.</p>
-            <p>In questo modo l’obiettivo non è più “fare il servizio”, ma descrive chiaramente il cambiamento atteso
-                grazie al servizio.</p>
-        </section>
-
-        <section id="fase4">
-            <h2>Fase 4 - Scelta degli Interventi</h2>
-            <p>Per realizzare gli obiettivi è necessario pianificare:</p>
-            <ul>
-                <li>Metodi</li>
-                <li>Spazi e strumenti</li>
-                <li>Tempi</li>
-                <li>Costi e disponibilità finanziaria</li>
-                <li>Assegnazione dei compiti</li>
-            </ul>
-
-            <h3>Organizzazione degli Interventi</h3>
-            <ul>
-                <li>Definire le attività, i tempi e le risorse necessarie.</li>
-                <li>Assegnare i compiti e monitorare l'andamento.</li>
-            </ul>
-
-            <div class="key-concept">
-                <strong>Chi fa cosa?</strong>
-                Questa fase risponde alla domanda "Come agiamo in pratica?". È qui che si definisce il lavoro di squadra
-                (l'équipe), dove ognuno ha un ruolo preciso (es. OSS, educatore, psicologo) per non sovrapporsi.
-            </div>
-        </section>
-
-        <section id="fase5">
-            <h2>Fase 5 - Verifica</h2>
-            <ul>
-                <li>Controllare se gli interventi stanno raggiungendo i risultati sperati.</li>
-                <li>Modificare gli interventi in base ai miglioramenti o peggioramenti osservati.</li>
-            </ul>
-
-            <div class="key-concept">
-                <strong>Verifica vs Valutazione</strong>
-                La Verifica (o monitoraggio in itinere) avviene <em>durante</em> il percorso per aggiustare il tiro. È
-                come controllare il GPS mentre guidi per vedere se sei ancora sulla strada giusta.
-            </div>
-        </section>
-
-        <section id="fase6">
-            <h2>Fase 6 - Valutazione</h2>
-            <p>La valutazione consente di:</p>
-            <ul>
-                <li>Correggere eventuali errori.</li>
-                <li>Adattare il progetto a nuove esigenze o imprevisti.</li>
-            </ul>
-            <p><strong>Attenzione:</strong> Non sempre il progetto porta agli esiti sperati a causa di vincoli
-                imprevisti.</p>
-
-            <h3>Valutazione Finale</h3>
-            <p>Valutare significa dare un giudizio finale su ciò che è stato fatto:</p>
-            <ul>
-                <li>Controllo degli obiettivi raggiunti.</li>
-                <li>Analisi delle eventuali modifiche necessarie durante il percorso.</li>
-                <li>Adeguamento alle nuove necessità o vincoli emergenti.</li>
-            </ul>
-
-            <h3>La valutazione può essere:</h3>
-            <ul>
-                <li><strong>Positiva o negativa</strong>, in base all'efficacia degli interventi.</li>
-                <li><strong>Iterativa</strong>, con possibilità di modificare il progetto in corso d'opera.</li>
-            </ul>
-
-            <div class="key-concept">
-                <strong>La Circolarità del Progetto</strong>
-                Il termine "Iterativa" indica che la progettazione non finisce mai davvero. La valutazione finale
-                diventa spesso la "Fase 1" (Analisi) di un nuovo progetto futuro per la stessa persona, creando un ciclo
-                continuo di miglioramento.
-            </div>
-        </section>
-
-    </div>
-
-    <footer>
-        <p>&copy; 2024 - Sito Web di Studio per <a
-                href="https://salvapicconi.github.io/metodologieoperative/">salvapicconi.github.io</a></p>
-        <p>Indirizzo Servizi per la Sanità e l'Assistenza Sociale</p>
+    <!-- Footer -->
+    <footer class="footer">
+        <p><strong>Metodologie Operative</strong> | Prof. Salvatore Picconi</p>
+        <p>IIS Meucci Mattei - Decimomannu | <a href="https://salvapicconi.github.io/metodologieoperative/">Torna alla
+                Home</a></p>
     </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Torna su">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script>
+        // Scroll to top button visibility
+        window.addEventListener('scroll', function () {
+            const scrollBtn = document.querySelector('.scroll-top');
+            if (window.scrollY > 300) {
+                scrollBtn.classList.add('visible');
+            } else {
+                scrollBtn.classList.remove('visible');
+            }
+        });
+
+        // Smooth scroll for navigation pills
+        document.querySelectorAll('.nav-pill').forEach(pill => {
+            pill.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const offset = 100;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - offset;
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.phase-card, .intro-card, .definition-box, .summary-section').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
 
 </body>
 
