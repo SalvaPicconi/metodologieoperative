@@ -4,229 +4,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Progettazione Individualizzata - Ripasso Teorico</title>
+    <title>La Progettazione Individualizzata - Metodologie Operative</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         :root {
-            --color-primary: #2ecc71;
-            --color-secondary: #27ae60;
-            --color-accent: #f1c40f;
-            --bg-color: #f0f4f8;
-            --text-color: #2c3e50;
+            --primary-color: #00695c;
+            /* Verde Sanitario scuro */
+            --secondary-color: #4db6ac;
+            /* Verde acqua chiaro */
+            --accent-color: #ff7043;
+            /* Arancio per evidenziare */
+            --bg-color: #f4f6f8;
+            --text-color: #333;
+            --white: #ffffff;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg-color);
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
-            padding-bottom: 60px;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
         }
 
         .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-            min-height: 100vh;
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
         }
 
-        /* HEADER */
-        .header {
-            background: linear-gradient(135deg, var(--color-primary) 0%, #1abc9c 100%);
-            color: white;
-            padding: 30px 20px;
-            text-align: center;
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
-            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+        /* Stile delle Card/Sezioni */
+        section {
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid var(--secondary-color);
         }
 
-        .header h1 {
-            font-size: 1.8em;
-            margin-bottom: 5px;
-        }
-
-        /* NAV BAR */
-        .nav-bar {
-            background: white;
-            padding: 15px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .back-link {
-            text-decoration: none;
-            color: #666;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.9em;
-        }
-
-        /* SECTIONS */
-        .section {
-            padding: 25px 20px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .section-title {
-            color: var(--color-secondary);
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 15px;
-        }
-
-        .emoji-icon {
-            font-size: 1.2em;
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--bg-color);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
         }
 
         h3 {
-            color: var(--color-secondary);
-            margin-top: 25px;
-            margin-bottom: 10px;
-            font-size: 1.2em;
+            color: #004d40;
+            margin-top: 1.5rem;
         }
 
-        h4 {
-            color: #2980b9;
-            margin-top: 15px;
-            margin-bottom: 5px;
-            font-weight: 600;
-        }
-
-        /* INFO BOXES */
-        .info-box {
-            border-radius: 8px;
-            padding: 15px;
-            margin: 15px 0;
-            border-left: 5px solid;
-            background: #fdfdfd;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-        }
-
-        .info-box-green {
-            border-color: #2ecc71;
-            background: #e8f8f5;
-        }
-
-        .info-box-blue {
-            border-color: #3498db;
-            background: #eafaf1;
-        }
-
-        /* Slightly different green actually */
-        .info-box-red {
-            border-color: #e74c3c;
-            background: #fdedec;
-        }
-
-        .info-box-yellow {
-            border-color: #f1c40f;
-            background: #fef9e7;
-        }
-
-        /* LISTS */
-        ul,
-        ol {
-            margin-left: 20px;
-            margin-bottom: 15px;
+        ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
         }
 
         li {
-            margin-bottom: 5px;
+            margin-bottom: 0.5rem;
         }
 
-        .phase-card {
-            background: #fff;
-            border: 1px solid #eee;
+        /* Box Concetti Chiave (Spiegazioni Aggiuntive) */
+        .key-concept {
+            background-color: #e0f2f1;
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .key-concept strong {
+            color: #d84315;
+            display: block;
+            margin-bottom: 0.3rem;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        /* Stile per gli Esempi */
+        .example-box {
+            background-color: #fff3e0;
+            padding: 1rem;
             border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-top: 3px solid var(--color-primary);
+            margin-top: 1rem;
         }
 
-        /* FAB */
-        .fab {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--color-primary);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        .example-bad {
+            color: #c62828;
+            font-weight: bold;
+        }
+
+        .example-good {
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        .formula-box {
+            border: 2px dashed var(--primary-color);
+            padding: 1.5rem;
+            background-color: #ffffff;
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+            font-weight: bold;
+            margin: 1.5rem 0;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: #333;
+            color: #fff;
+            margin-top: 3rem;
+        }
+
+        footer a {
+            color: var(--secondary-color);
             text-decoration: none;
-            font-size: 1.5em;
         }
     </style>
 </head>
 
 <body>
 
+    <header>
+        <h1>La Progettazione Individualizzata</h1>
+        <p>Materiale di studio per l'indirizzo Servizi per la Sanità e l'Assistenza Sociale</p>
+    </header>
+
     <div class="container">
-        <!-- NAV BAR -->
-        <div class="nav-bar">
-            <a href="../../biennio.html" class="back-link">
-                <span>←</span> Torna ai Materiali
-            </a>
-            <div style="font-weight: bold; color: var(--color-secondary);">Modalità Studio 📝</div>
-        </div>
 
-        <!-- HEADER -->
-        <div class="header">
-            <h1>La Progettazione Individualizzata</h1>
-            <p>Metodologie Operative</p>
-        </div>
+        <section id="obiettivi">
+            <h2>Obiettivi del Modulo e Competenze</h2>
+            <div class="key-concept">
+                <strong>Perché è importante?</strong>
+                Queste competenze sono la base del lavoro dell'operatore socio-sanitario. Non si tratta solo di
+                "aiutare", ma di saper pianificare l'aiuto in modo professionale e coordinato con altri esperti.
+            </div>
 
-        <!-- INTRO -->
-        <div class="section">
-            <h2 class="section-title"><span class="emoji-icon">🎯</span> Obiettivi del Modulo</h2>
+            <h3>Obiettivi del Modulo</h3>
             <ul>
                 <li>Sviluppare competenze nella gestione di progetti in ambito socio-sanitario ed educativo.</li>
                 <li>Collaborare con altre figure professionali per attività educative e di animazione sociale.</li>
             </ul>
 
-            <div class="info-box info-box-yellow">
-                <h4 style="margin-top: 0; color: #d35400;">Competenze Specifiche</h4>
-                <ul>
-                    <li><strong>Competenza 1:</strong> Collaborare nella gestione di progetti sociali per bambini,
-                        adolescenti, anziani e persone con disabilità o disagio sociale.</li>
-                    <li><strong>Competenza 8:</strong> Realizzare attività educative e di animazione sociale in modo
-                        autonomo.</li>
-                </ul>
+            <h3>Competenze Specifiche</h3>
+            <ul>
+                <li><strong>Competenza 1:</strong> Collaborare nella gestione di progetti sociali per bambini,
+                    adolescenti, anziani e persone con disabilità o disagio sociale.</li>
+                <li><strong>Competenza 8:</strong> Realizzare attività educative e di animazione sociale in modo
+                    autonomo.</li>
+            </ul>
+        </section>
+
+        <section id="fasi-overview">
+            <h2>Le Fasi della Progettazione Individualizzata</h2>
+            <p><strong>Definizione:</strong> Progettare significa individuare mezzi e strumenti per raggiungere un
+                obiettivo prefissato.</p>
+
+            <div class="key-concept">
+                <strong>Il concetto di "Individualizzata"</strong>
+                Significa "cucita su misura". Ogni utente è unico, quindi non esiste un progetto valido per tutti. Si
+                parte sempre dalla persona specifica.
             </div>
-        </div>
 
-        <!-- DEFINIZIONE E FASI -->
-        <div class="section">
-            <h2 class="section-title"><span class="emoji-icon">📊</span> Le Fasi della Progettazione</h2>
-
-            <div class="info-box info-box-green">
-                <p><strong>Definizione:</strong> Progettare significa individuare mezzi e strumenti per raggiungere un
-                    obiettivo prefissato.</p>
-            </div>
-
-            <p>La progettazione si articola in <strong>6 fasi principali</strong>:</p>
+            <p>La progettazione si articola in 6 fasi principali:</p>
             <ol>
                 <li>Analisi del problema o situazione</li>
                 <li>Analisi del contesto</li>
@@ -235,106 +199,196 @@
                 <li>Verifica</li>
                 <li>Valutazione</li>
             </ol>
-        </div>
+        </section>
 
-        <!-- FASI DETTAGLIO -->
-        <div class="section">
-            <h2 class="section-title"><span class="emoji-icon">🔍</span> Approfondimento Fasi</h2>
+        <section id="fase1">
+            <h2>Fase 1 - Analisi del Problema/Situazione</h2>
+            <h3>Analisi del Problema e dell'Ambiente di Provenienza</h3>
+            <p>Prima fase della progettazione:</p>
+            <ul>
+                <li>Identificare i bisogni non soddisfatti dell'utente.</li>
+                <li>Analizzare le intenzioni e le aspettative.</li>
+                <li>Valutare le caratteristiche del destinatario, inclusa età, abilità e difficoltà nella vita
+                    quotidiana adottando un <strong>approccio Bio-psico-sociale</strong>.</li>
+            </ul>
 
-            <!-- FASE 1 -->
-            <div class="phase-card">
-                <h3>1. Analisi del Problema/Situazione</h3>
-                <p><strong>Analisi del Problema e dell'Ambiente di Provenienza</strong></p>
+            <div class="key-concept">
+                <strong>Approccio Bio-psico-sociale: Cosa significa?</strong>
+                È un metodo che guarda alla persona nella sua interezza:
                 <ul>
-                    <li>Identificare i bisogni non soddisfatti dell'utente.</li>
-                    <li>Analizzare le intenzioni e le aspettative.</li>
-                    <li>Valutare le caratteristiche del destinatario, inclusa età, abilità e difficoltà nella vita
-                        quotidiana (approccio Bio-psico-sociale).</li>
+                    <li><strong>Bio:</strong> Aspetti biologici e fisici (salute, malattie, corpo).</li>
+                    <li><strong>Psico:</strong> Aspetti psicologici (emozioni, mente, carattere).</li>
+                    <li><strong>Sociale:</strong> L'ambiente in cui vive (famiglia, lavoro, amici).</li>
                 </ul>
             </div>
+        </section>
 
-            <!-- FASE 2 -->
-            <div class="phase-card">
-                <h3>2. Analisi del Contesto</h3>
-                <p>Nel contesto si analizzano:</p>
-                <ul>
-                    <li><strong>Risorse:</strong> strutture, persone, finanze, competenze disponibili.</li>
-                    <li><strong>Vincoli:</strong> normativi, finanziari, temporali.</li>
-                </ul>
-                <div class="info-box info-box-yellow">
-                    <p><strong>Esempio Vincoli:</strong> Non possiamo costruire una casa su un terreno montuoso senza
-                        permessi = non possiamo pianificare un percorso troppo ambizioso se non ci sono le risorse.</p>
-                </div>
-                <p><strong>Cosa considerare:</strong></p>
-                <ul>
-                    <li>Rete sociale (famiglia, amici, infermieri)</li>
-                    <li>Risorse del territorio (servizi sanitari, educativi)</li>
-                    <li>Vincoli normativi (regolamenti), finanziari e temporali (scadenze)</li>
-                </ul>
+        <section id="fase2">
+            <h2>Fase 2 - Analisi del Contesto</h2>
+            <p>Nel contesto si analizzano:</p>
+            <ul>
+                <li><strong>Risorse:</strong> strutture, persone, finanze, competenze disponibili.</li>
+                <li><strong>Vincoli:</strong> normativi, finanziari, temporali.</li>
+            </ul>
+
+            <div class="example-box">
+                <p><strong>Vincoli Esempio:</strong> Non possiamo costruire una casa su un terreno montuoso senza
+                    permessi = non possiamo pianificare un percorso troppo ambizioso se non ci sono le risorse:
+                    personali, familiari, economiche, ecc.</p>
             </div>
 
-            <!-- FASE 3 -->
-            <div class="phase-card">
-                <h3>3. Definizione degli Obiettivi</h3>
-                <p><strong>Obiettivo:</strong> Stabilire ciò che si vuole ottenere considerando capacità e bisogni.</p>
-                <p><strong>Caratteristiche:</strong> Reali (basati sulla situazione), Controllabili (per monitorare
-                    l'efficacia).</p>
+            <h3>Cosa considerare:</h3>
+            <ul>
+                <li>La rete sociale dell'utente (famiglia, amici, infermieri).</li>
+                <li>Le risorse disponibili nel territorio (servizi sanitari, educativi, etc.).</li>
+                <li>I vincoli normativi, finanziari e temporali.</li>
+            </ul>
 
-                <div class="info-box info-box-red">
-                    <strong>❌ ES. SBAGLIATO:</strong> "Fornire supporto psicologico" (è l'erogazione del servizio, non
-                    il cambiamento).
-                </div>
-                <div class="info-box info-box-green" style="background: #e9f7ef;">
-                    <strong>✅ ES. CORRETTO:</strong> "Ridurre i livelli di ansia riferiti dalla persona da intensi a
-                    lievi entro 6 mesi..."
-                </div>
+            <h3>Vincoli esaminati:</h3>
+            <ul>
+                <li>Regolamenti, normative locali.</li>
+                <li>Tempi e scadenze.</li>
+            </ul>
 
-                <p style="margin-top: 15px; font-weight: bold; color: #2980b9;">Formula Pratica:</p>
-                <p><em>Migliorare/mantenere/ridurre + aspetto della vita + di quanto/in quanto tempo + attraverso quali
-                        interventi.</em></p>
+            <div class="key-concept">
+                <strong>Nota Didattica: La Rete Sociale</strong>
+                Analizzare la rete è fondamentale perché l'operatore non agisce mai da solo. La famiglia e gli amici
+                (rete informale) sono spesso le risorse più preziose per il successo del progetto.
+            </div>
+        </section>
+
+        <section id="fase3">
+            <h2>Fase 3 - Definizione degli Obiettivi</h2>
+            <p><strong>Obiettivo:</strong> Stabilire ciò che si vuole ottenere con l'intervento, considerando:</p>
+            <ul>
+                <li>Le capacità dell'utente.</li>
+                <li>I bisogni individuati.</li>
+            </ul>
+
+            <h3>Caratteristiche degli obiettivi:</h3>
+            <ul>
+                <li><strong>Reali:</strong> basati sulla situazione specifica dell'utente.</li>
+                <li><strong>Controllabili:</strong> per monitorare l'efficacia delle azioni.</li>
+            </ul>
+
+            <div class="key-concept">
+                <strong>SMART</strong>
+                In ambito professionale, gli obiettivi devono essere SMART: Specifici, Misurabili, Accessibili
+                (realizzabili), Rilevanti e definiti nel Tempo. Se manca uno di questi elementi, l'obiettivo è vago.
             </div>
 
-            <!-- FASE 4 -->
-            <div class="phase-card">
-                <h3>4. Scelta degli Interventi</h3>
-                <p>Per realizzare gli obiettivi è necessario pianificare:</p>
-                <ul>
-                    <li>Metodi</li>
-                    <li>Spazi e strumenti</li>
-                    <li>Tempi</li>
-                    <li>Costi e disponibilità finanziaria</li>
-                    <li>Assegnazione dei compiti</li>
-                </ul>
+            <p>Es. L’obbiettivo non può essere “fornire supporto psicologico” o “fornire assistenza domiciliare”. Un
+                buon obiettivo dovrebbe essere specifico, misurabile e centrato sul cambiamento per la persona, non
+                sull’erogazione del servizio.</p>
+
+            <h3>Esempi Pratici:</h3>
+
+            <div class="example-box">
+                <p><span class="example-bad">NO (Vago):</span> “Fornire supporto psicologico”</p>
+                <p><span class="example-good">SÌ (Specifico):</span> “Ridurre i livelli di ansia riferiti dalla persona
+                    da intensi a lievi entro 6 mesi, attraverso colloqui psicologici settimanali”.</p>
+                <p><span class="example-good">SÌ (Specifico):</span> “Migliorare le capacità di gestione dei conflitti
+                    familiari, portando la persona a utilizzare almeno due strategie alternative alla lite in situazioni
+                    critiche entro 3 mesi”.</p>
             </div>
 
-            <!-- FASE 5 e 6 -->
-            <div class="phase-card">
-                <h3>5. Verifica e 6. Valutazione</h3>
-
-                <h4>Fase 5: Verifica</h4>
-                <p>Controllare se gli interventi stanno raggiungendo i risultati sperati e modificare in corso d'opera.
-                </p>
-
-                <h4>Fase 6: Valutazione Finale</h4>
-                <p>Giudizio finale su ciò che è stato fatto.</p>
-                <ul>
-                    <li>Controllo obiettivi raggiunti</li>
-                    <li>Analisi modifiche necessarie</li>
-                    <li>Adeguamento a nuove necessità</li>
-                </ul>
-                <p>La valutazione può essere <strong>positiva o negativa</strong> ed è <strong>iterativa</strong>.</p>
+            <div class="example-box">
+                <p><span class="example-bad">NO (Vago):</span> “Fornire assistenza domiciliare”</p>
+                <p><span class="example-good">SÌ (Specifico):</span> “Mantenere l’autonomia nelle attività di igiene
+                    personale, con supporto dell’operatore solo per le manovre complesse, per i prossimi 12 mesi”.</p>
+                <p><span class="example-good">SÌ (Specifico):</span> “Ridurre gli episodi di caduta in casa da 3 a 0 in
+                    6 mesi, tramite assistenza domiciliare e adattamento dell’ambiente domestico”.</p>
             </div>
 
-        </div>
+            <h3>Formula pratica per scrivere obiettivi</h3>
+            <div class="formula-box">
+                “Migliorare/mantenere/ridurre <br>+<br> aspetto della vita della persona (es. autonomia, benessere)<br>
+                + <br>di quanto / in quanto tempo <br>+ <br>attraverso quali interventi”.
+            </div>
 
-        <div class="section" style="text-align: center; color: #999; font-size: 0.9em;">
-            <p>Appunti di Metodologie Operative</p>
-        </div>
+            <p><strong>Esempio applicato:</strong> “Migliorare il benessere emotivo riducendo gli episodi di insonnia da
+                5 a 2 notti a settimana entro 4 mesi, attraverso colloqui psicologici e tecniche di rilassamento”.</p>
+            <p>In questo modo l’obiettivo non è più “fare il servizio”, ma descrive chiaramente il cambiamento atteso
+                grazie al servizio.</p>
+        </section>
+
+        <section id="fase4">
+            <h2>Fase 4 - Scelta degli Interventi</h2>
+            <p>Per realizzare gli obiettivi è necessario pianificare:</p>
+            <ul>
+                <li>Metodi</li>
+                <li>Spazi e strumenti</li>
+                <li>Tempi</li>
+                <li>Costi e disponibilità finanziaria</li>
+                <li>Assegnazione dei compiti</li>
+            </ul>
+
+            <h3>Organizzazione degli Interventi</h3>
+            <ul>
+                <li>Definire le attività, i tempi e le risorse necessarie.</li>
+                <li>Assegnare i compiti e monitorare l'andamento.</li>
+            </ul>
+
+            <div class="key-concept">
+                <strong>Chi fa cosa?</strong>
+                Questa fase risponde alla domanda "Come agiamo in pratica?". È qui che si definisce il lavoro di squadra
+                (l'équipe), dove ognuno ha un ruolo preciso (es. OSS, educatore, psicologo) per non sovrapporsi.
+            </div>
+        </section>
+
+        <section id="fase5">
+            <h2>Fase 5 - Verifica</h2>
+            <ul>
+                <li>Controllare se gli interventi stanno raggiungendo i risultati sperati.</li>
+                <li>Modificare gli interventi in base ai miglioramenti o peggioramenti osservati.</li>
+            </ul>
+
+            <div class="key-concept">
+                <strong>Verifica vs Valutazione</strong>
+                La Verifica (o monitoraggio in itinere) avviene <em>durante</em> il percorso per aggiustare il tiro. È
+                come controllare il GPS mentre guidi per vedere se sei ancora sulla strada giusta.
+            </div>
+        </section>
+
+        <section id="fase6">
+            <h2>Fase 6 - Valutazione</h2>
+            <p>La valutazione consente di:</p>
+            <ul>
+                <li>Correggere eventuali errori.</li>
+                <li>Adattare il progetto a nuove esigenze o imprevisti.</li>
+            </ul>
+            <p><strong>Attenzione:</strong> Non sempre il progetto porta agli esiti sperati a causa di vincoli
+                imprevisti.</p>
+
+            <h3>Valutazione Finale</h3>
+            <p>Valutare significa dare un giudizio finale su ciò che è stato fatto:</p>
+            <ul>
+                <li>Controllo degli obiettivi raggiunti.</li>
+                <li>Analisi delle eventuali modifiche necessarie durante il percorso.</li>
+                <li>Adeguamento alle nuove necessità o vincoli emergenti.</li>
+            </ul>
+
+            <h3>La valutazione può essere:</h3>
+            <ul>
+                <li><strong>Positiva o negativa</strong>, in base all'efficacia degli interventi.</li>
+                <li><strong>Iterativa</strong>, con possibilità di modificare il progetto in corso d'opera.</li>
+            </ul>
+
+            <div class="key-concept">
+                <strong>La Circolarità del Progetto</strong>
+                Il termine "Iterativa" indica che la progettazione non finisce mai davvero. La valutazione finale
+                diventa spesso la "Fase 1" (Analisi) di un nuovo progetto futuro per la stessa persona, creando un ciclo
+                continuo di miglioramento.
+            </div>
+        </section>
 
     </div>
 
-    <!-- Scroll Top Button -->
-    <a href="#" class="fab" title="Torna su">↑</a>
+    <footer>
+        <p>&copy; 2024 - Sito Web di Studio per <a
+                href="https://salvapicconi.github.io/metodologieoperative/">salvapicconi.github.io</a></p>
+        <p>Indirizzo Servizi per la Sanità e l'Assistenza Sociale</p>
+    </footer>
 
 </body>
 
