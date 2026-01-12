@@ -97,13 +97,13 @@
 
         .section-title {
             color: var(--color-turchese-dark);
-            font-size: 1.5em;
-            margin-bottom: 20px;
+            font-size: 1.6em;
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
             gap: 10px;
             border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
+            padding-bottom: 15px;
         }
 
         .emoji-icon {
@@ -112,9 +112,11 @@
 
         h3 {
             color: var(--color-fucsia);
-            margin-top: 25px;
+            margin-top: 30px;
             margin-bottom: 15px;
-            font-size: 1.3em;
+            font-size: 1.4em;
+            border-left: 4px solid var(--color-fucsia);
+            padding-left: 10px;
         }
 
         h4 {
@@ -122,30 +124,34 @@
             margin-top: 20px;
             margin-bottom: 10px;
             font-size: 1.1em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        /* INFO BOXES (Recycled styles) */
+        /* INFO BOXES */
         .info-box {
             border-radius: 12px;
             padding: 20px;
-            margin: 15px 0;
-            border-left: 5px solid;
+            margin: 20px 0;
+            border-top: 5px solid;
             background: #fff;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
         .info-box h3 {
             font-size: 1.2em;
-            margin-bottom: 10px;
-            margin-top: 0;
+            margin: 0 0 15px 0;
+            border: none;
+            padding: 0;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
         .info-box-blue {
-            background: #E3F2FD;
-            border-left-color: #2196F3;
+            background: #fdfdfd;
+            border-top-color: #2196F3;
         }
 
         .info-box-blue h3 {
@@ -153,8 +159,8 @@
         }
 
         .info-box-green {
-            background: #E8F5E9;
-            border-left-color: #4CAF50;
+            background: #fdfdfd;
+            border-top-color: #4CAF50;
         }
 
         .info-box-green h3 {
@@ -162,8 +168,8 @@
         }
 
         .info-box-yellow {
-            background: #FFFDE7;
-            border-left-color: #FBC02D;
+            background: #fdfdfd;
+            border-top-color: #FBC02D;
         }
 
         .info-box-yellow h3 {
@@ -171,8 +177,8 @@
         }
 
         .info-box-purple {
-            background: #F3E5F5;
-            border-left-color: #9C27B0;
+            background: #fdfdfd;
+            border-top-color: #9C27B0;
         }
 
         .info-box-purple h3 {
@@ -180,27 +186,33 @@
         }
 
         .info-box-red {
-            background: #FFEBEE;
-            border-left-color: #EF5350;
+            background: #fdfdfd;
+            border-top-color: #EF5350;
         }
 
         .info-box-red h3 {
             color: #C62828;
         }
 
+        /* LISTS */
         ul {
             list-style: none;
-            padding-left: 5px;
+            padding-left: 0;
             margin-bottom: 15px;
         }
 
         ul li {
-            padding: 6px 0 6px 25px;
+            padding: 8px 0 8px 30px;
             position: relative;
+            border-bottom: 1px dashed #eee;
+        }
+
+        ul li:last-child {
+            border-bottom: none;
         }
 
         ul li::before {
-            content: "•";
+            content: "✓";
             position: absolute;
             left: 5px;
             font-weight: bold;
@@ -214,26 +226,35 @@
 
         ol li {
             padding: 5px 0;
+            font-weight: 500;
         }
 
+        /* KEY CONCEPT */
         .key-concept {
-            background: rgba(255, 193, 7, 0.2);
+            background: #FFF3E0;
             padding: 15px;
             border-radius: 8px;
             font-weight: 500;
             margin-top: 15px;
-            border-left: 4px solid var(--color-lime-dark);
+            border-left: 4px solid #FF9800;
+            color: #E65100;
         }
 
         /* TABLES */
+        .table-responsive {
+            overflow-x: auto;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+
         .styled-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
             font-size: 0.95em;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-            border-radius: 8px;
-            overflow: hidden;
+            background: white;
+            min-width: 600px;
+            /* Force scroll on small screens */
         }
 
         .styled-table thead tr {
@@ -244,16 +265,17 @@
 
         .styled-table th,
         .styled-table td {
-            padding: 12px 15px;
+            padding: 15px;
             border-bottom: 1px solid #ddd;
+            vertical-align: top;
         }
 
         .styled-table tbody tr:nth-of-type(even) {
-            background-color: #f3f3f3;
+            background-color: #f8f9fa;
         }
 
-        .styled-table tbody tr:last-of-type {
-            border-bottom: 2px solid var(--color-turchese);
+        .styled-table strong {
+            color: var(--color-fucsia-dark);
         }
 
         /* FAB for Scroll Top */
@@ -283,6 +305,28 @@
             transform: translateY(-3px);
         }
 
+        /* DETAILS TAG FOR MOBILE */
+        details {
+            margin-top: 10px;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        summary {
+            font-weight: bold;
+            cursor: pointer;
+            color: var(--color-turchese-dark);
+        }
+
+        details p,
+        details ul {
+            margin-top: 10px;
+            margin-bottom: 0;
+            font-size: 0.95em;
+        }
+
         @media (max-width: 600px) {
             .header h1 {
                 font-size: 1.5em;
@@ -292,13 +336,8 @@
                 padding: 20px 15px;
             }
 
-            .styled-table {
-                font-size: 0.85em;
-            }
-
-            .styled-table th,
-            .styled-table td {
-                padding: 10px 8px;
+            h3 {
+                font-size: 1.2em;
             }
         }
     </style>
@@ -327,48 +366,52 @@
 
             <div class="info-box info-box-blue">
                 <h3>Definizione</h3>
-                <p>Con il termine <strong>politiche sociali</strong> si intendono tutti quegli interventi da parte dello
-                    Stato rivolti alle persone che presentano una qualunque forma di disagio o svantaggio.</p>
-                <p style="margin-top: 10px;">Mirano a tutelare i cittadini dai rischi sociali, promuovendo il benessere
-                    attraverso:</p>
-                <ul>
-                    <li>Regole per la distribuzione delle risorse</li>
-                    <li>Accesso ai servizi</li>
-                    <li>Modalità di erogazione</li>
-                </ul>
+                <p>Con il termine <strong>politiche sociali</strong> si intendono in linea generale tutti quegli
+                    interventi da parte dello Stato rivolti alle persone che presentano una qualunque forma di disagio o
+                    svantaggio.</p>
+                <div class="key-concept">
+                    Sono quella parte delle politiche pubbliche che mirano a tutelare i cittadini dai rischi sociali,
+                    promuovendo e garantendo il benessere attraverso regole per la distribuzione delle risorse,
+                    l'accesso ai servizi e le modalità di erogazione.
+                </div>
             </div>
 
-            <div class="info-box info-box-yellow">
-                <h3>Il Sistema Integrato (Legge 328/2000)</h3>
-                <p>È il risultato della somma fra politiche sociali e prestazioni sociali, coordinate da una pluralità
-                    di operatori (ASL, Comuni, Province ecc.) e garantite sotto forma di beni e servizi.</p>
-            </div>
+            <h3>Il Sistema Integrato (Legge 328/2000)</h3>
+            <p>Il sistema integrato di interventi e servizi sociali è il risultato della somma fra politiche sociali e
+                prestazioni sociali, coordinate da una pluralità di operatori (ASL, Comuni, Province, Città
+                Metropolitane ecc.) e garantite sotto forma di beni e servizi.</p>
 
-            <h4 style="margin-top: 30px;">I Servizi Sociali Comunali</h4>
+            <h3>I Servizi Sociali Comunali</h3>
+            <p>Il settore Servizi Sociali di ogni Comune ha come finalità:</p>
             <ul>
-                <li>Promozione, mantenimento e recupero del benessere dei cittadini</li>
-                <li>Pieno sviluppo delle persone nei rapporti familiari e sociali</li>
+                <li>La promozione, il mantenimento e il recupero dello stato di benessere dei propri cittadini</li>
+                <li>Il pieno sviluppo delle persone nell'ambito dei rapporti familiari e sociali</li>
             </ul>
 
-            <p style="font-size: 0.9em; color: #666; margin-top: 15px;"><em>Nota: Ogni Regione attua diverse politiche
-                    sociali (L. 3/2001) ma deve garantire i LEA, LEP e LEPS.</em></p>
+            <h3>Le Competenze Regionali</h3>
+            <p>Ogni Regione attua diverse politiche sociali (Legge 3/2001 - Riforma Titolo V Costituzione). In ogni
+                caso, ogni Regione deve attivare alcune tipologie di Servizi e Interventi → <strong>LEA, LEP,
+                    LEPS</strong>.</p>
         </div>
 
         <!-- 2. CLASSIFICAZIONE -->
         <div class="section">
             <h2 class="section-title"><span class="emoji-icon">🗂️</span> 2. Classificazione dei Servizi</h2>
+            <p>I servizi e interventi vengono suddivisi in due categorie principali:</p>
 
             <div class="info-box info-box-green">
                 <h3>A) Servizi e Interventi Integrativi</h3>
-                <p>Garantiscono la permanenza della persona nel proprio ambiente di vita il più a lungo possibile.</p>
-                <h4 style="font-size: 1em; margin-top: 10px;">Principali servizi:</h4>
+                <p>Garantiscono la permanenza della persona nel proprio ambiente di vita il più a lungo possibile,
+                    offrendo supporto assistenziale e la mobilitazione di tutte le risorse possibili.</p>
+
+                <h4 style="margin-top: 15px;">Elenco dei Servizi Integrativi:</h4>
                 <ol>
                     <li>Segretariato Sociale</li>
-                    <li>Servizio Sociale di base</li>
-                    <li>Pronto Intervento Sociale (PIS)</li>
+                    <li>Servizio Sociale di base (o professionale)</li>
+                    <li>Servizio di Pronto Intervento Sociale (PIS)</li>
                     <li>Assistenza domiciliare</li>
                     <li>Assistenza economica</li>
-                    <li>Assistenza abitativa (ERP)</li>
+                    <li>Assistenza abitativa o Edilizia Residenziale Pubblica (ERP)</li>
                     <li>Servizio di Accompagnamento e Trasporto</li>
                     <li>Centro Diurno</li>
                 </ol>
@@ -376,9 +419,11 @@
 
             <div class="info-box info-box-red">
                 <h3>B) Servizi e Interventi Sostitutivi</h3>
-                <p>Intervengono con l'allontanamento temporaneo dal proprio ambiente quando la permanenza non è
-                    possibile.</p>
-                <h4 style="font-size: 1em; margin-top: 10px;">Principali servizi:</h4>
+                <p>Intervengono in situazioni di emergenza e bisogno che possono essere gestite con l'allontanamento
+                    temporaneo della persona dal proprio ambiente di vita. Mirano a ripristinare e potenziare l'ambiente
+                    di vita per poter soddisfare i bisogni della persona.</p>
+
+                <h4 style="margin-top: 15px;">Elenco dei Servizi Sostitutivi:</h4>
                 <ol>
                     <li>Servizi Residenziali (R.S.A.)</li>
                     <li>Casa Famiglia e Comunità Alloggio</li>
@@ -390,209 +435,356 @@
 
         <!-- 3. SERVIZI INTEGRATIVI DETTAGLIO -->
         <div class="section">
-            <h2 class="section-title"><span class="emoji-icon">🤝</span> 3. Dettaglio Servizi Integrativi</h2>
+            <h2 class="section-title"><span class="emoji-icon">🤝</span> 3. Servizi e Interventi Integrativi</h2>
 
-            <div class="info-box info-box-blue" id="segretariato">
-                <h3>3.1 Il Segretariato Sociale</h3>
-                <p>Punto di riferimento informativo primario per l'accesso ai servizi. <strong>Gratuito e
-                        obbligatorio</strong> in ogni Comune.</p>
-                <h4 style="font-size: 1em; margin-top: 15px;">Caratteristiche:</h4>
-                <ul>
-                    <li>Alta prossimità all'utente (confine amministrazione-cittadino)</li>
-                    <li>Funzione informativa e di orientamento</li>
-                    <li>Prima valutazione del bisogno</li>
-                </ul>
+            <!-- 3.1 Segretariato -->
+            <h3>3.1 Il Segretariato Sociale</h3>
+            <div class="info-box info-box-blue">
+                <p>Rappresenta il punto di riferimento informativo primario per l'accesso ai servizi sociali, sanitari,
+                    educativi e culturali, pubblici e privati, presenti sul territorio.</p>
             </div>
 
-            <div class="info-box info-box-purple" id="servizio-base">
-                <h3>3.2 Servizio Sociale di Base</h3>
-                <p>Offre supporto per limitare o rimuovere situazioni problematiche (non autosufficienza, povertà,
+            <h4>Caratteristiche principali</h4>
+            <ul>
+                <li><strong>Alta prossimità all'utente</strong> – anche detto servizio di confine fra amministrazione e
+                    cittadino</li>
+                <li><strong>Funzione informativa essenziale</strong> – fornisce un primo orientamento al cittadino tra i
+                    vari servizi (fa una prima valutazione del bisogno!)</li>
+                <li><strong>Accesso gratuito</strong> – è un servizio pubblico e obbligatorio che si trova presso
+                    ciascun Comune</li>
+            </ul>
+
+            <h4>Compiti del Segretariato Sociale</h4>
+            <ol>
+                <li>Accoglienza e valutazione della domanda</li>
+                <li>Orientamento ai servizi del territorio</li>
+                <li>Accoglienza di accesso a servizi specifici</li>
+                <li>Attività di consulenza e supporto per l'efficienza della risposta all'utente</li>
+            </ol>
+
+            <h4>Iter procedurale</h4>
+            <p>Attraverso il Segretariato Sociale, le domande presentate che necessitano di un approfondimento vengono
+                inoltrate all'ufficio del settore di competenza per la presa in carico, che incontra l'utente e la sua
+                famiglia e concorda il tipo di intervento da attuare, insieme ai beneficiari.</p>
+
+            <details>
+                <summary>Figure Professionali & Destinatari</summary>
+                <p><strong>Figure:</strong> Assistente Sociale (principale), Équipe multiprofessionali, Personale
+                    Amministrativo.</p>
+                <p><strong>Destinatari:</strong> Tutti i cittadini residenti di ogni fascia d'età.</p>
+            </details>
+
+            <hr style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
+
+            <!-- 3.2 Servizio Base -->
+            <h3>3.2 Il Servizio Sociale di Base (o Professionale)</h3>
+            <p>Offre il suo supporto per limitare o rimuovere situazioni problematiche che nascono da bisogni sociali
+                quali: situazioni di non autosufficienza, disabilità, minori, povertà, dipendenze, emarginazione, ecc.
+            </p>
+
+            <h4>Compiti del Servizio Sociale di base</h4>
+            <ol>
+                <li>Presa in carico della persona</li>
+                <li>Predisposizione Progetto Individualizzato</li>
+                <li>Attivazione servizi specifici</li>
+                <li>Monitoraggio e Supporto alla persona</li>
+            </ol>
+
+            <div class="key-concept" style="text-align: center;">
+                Il processo prevede: <strong>Presa in carico → Progetto Individualizzato</strong>
+            </div>
+
+            <details>
+                <summary>Figure Professionali & Destinatari</summary>
+                <p><strong>Figure:</strong> Assistente Sociale, Équipe Multiprofessionale.</p>
+                <p><strong>Destinatari:</strong> Cittadini con disagi di varia natura (disabilità, povertà, dipendenze,
                     ecc.).</p>
-                <h4 style="font-size: 1em; margin-top: 15px;">Iter:</h4>
-                <p
-                    style="text-align: center; font-weight: bold; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 8px;">
-                    Presa in carico → Progetto Individualizzato</p>
-            </div>
+            </details>
 
-            <h3 id="adi">3.4 L'Assistenza Domiciliare</h3>
-            <p>Favorisce la permanenza a casa, evitando ricoveri e promuovendo l'autonomia.</p>
+            <hr style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
 
-            <table class="styled-table">
-                <thead>
-                    <tr>
-                        <th width="30%">Tipologia</th>
-                        <th>Descrizione</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>SAD</strong><br>(Assistenza Domiciliare)</td>
-                        <td>Intervento <strong>socioassistenziale</strong> del Comune (igiene, pulizie, pasti). Basato
-                            su ISEE.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>ADI</strong><br>(Assistenza Integrata)</td>
-                        <td>Intervento <strong>sociosanitario</strong> della ASL. Include prestazioni sanitarie
-                            (infermieri, medici, fisioterapisti).</td>
-                    </tr>
-                    <tr>
-                        <td><strong>ADCP</strong></td>
-                        <td>Specifico per cure palliative.</td>
-                    </tr>
-                </tbody>
-            </table>
+            <!-- 3.3 PIS -->
+            <h3>3.3 Il Servizio di Pronto Intervento Sociale (PIS)</h3>
+            <p>Il servizio offre interventi sociali urgenti sulle 24 ore, consentendo di affrontare in modo tempestivo i
+                bisogni gravi in situazioni di emergenza sociale.</p>
 
-            <div class="info-box info-box-yellow" id="centro-diurno">
-                <h3>3.8 Il Centro Diurno</h3>
-                <p>Servizio semiresidenziale (aperto almeno 5gg/settimana, 8 ore/gg) per il potenziamento o mantenimento
-                    delle capacità residue.</p>
-                <table class="styled-table" style="margin-top: 15px; margin-bottom: 0;">
+            <h4>Modalità operative</h4>
+            <p>Attraverso un protocollo d'intesa fra vari soggetti (Comune, forze dell'ordine, volontariato, ecc.), la
+                persona in condizione di bisogno urgente e grave viene presa in carico e inserita temporaneamente presso
+                una struttura di accoglienza, per un <strong>massimo di 15 giorni</strong>.</p>
+            <p><em>Dopo tale periodo:</em> la persona viene presa in carico dal territorio di residenza con uno
+                specifico piano individualizzato.</p>
+
+            <hr style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
+
+            <!-- 3.4 Assistenza Domiciliare -->
+            <h3>3.4 L'Assistenza Domiciliare</h3>
+            <p>Fornisce sostegno e assistenza temporanea o continuativa a famiglie e/o persone in condizione di
+                fragilità, non autosufficienti, anziane, con disabilità.</p>
+
+            <h4>Obiettivi</h4>
+            <ul>
+                <li>Favorire la permanenza della persona nel proprio ambiente di vita (evitando ricoveri)</li>
+                <li>Promuovere la partecipazione e l'integrazione sociale</li>
+                <li>Promuovere l'autonomia personale e sociale</li>
+            </ul>
+
+            <div class="table-responsive">
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th width="20%">Tipologia</th>
+                            <th>Descrizione</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         <tr>
-                            <td><strong>Centro Diurno</strong></td>
-                            <td>Struttura Sociale (attività occupazionali, socializzazione)</td>
+                            <td><strong>SAD</strong><br>(Servizio Assistenza Domiciliare)</td>
+                            <td>Intervento <strong>socioassistenziale</strong> (Comune).<br>Igiene personale, domestica,
+                                pasti.<br>Tiene conto dell'ISEE.</td>
                         </tr>
                         <tr>
-                            <td><strong>CDI (Integrato)</strong></td>
-                            <td>Struttura Sociosanitaria (include prestazioni riabilitative/sanitarie)</td>
+                            <td><strong>ADI</strong><br>(Assistenza Domiciliare Integrata)</td>
+                            <td>Intervento <strong>sociosanitario</strong> (ASL).<br>Intensità sanitaria elevata:
+                                medicazioni, terapie, visite.<br>Avviato dal medico (MMG).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ADCP</strong></td>
+                            <td>Assistenza domiciliare specifica per le <strong>cure palliative</strong>.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h4 style="margin-top: 30px;">Altri servizi integrativi:</h4>
-            <ul>
-                <li><strong>Pronto Intervento Sociale (PIS):</strong> Emergenze h24, accoglienza max 15 giorni.</li>
-                <li><strong>Assistenza Economica:</strong> Contributi straordinari o continuativi (richiede ISEE e
-                    progetto).</li>
-                <li><strong>Assistenza Abitativa (ERP):</strong> Case popolari tramite bando.</li>
-                <li><strong>Accompagnamento e Trasporto:</strong> Per mobilità ridotta (anziani, disabili).</li>
-            </ul>
+            <details>
+                <summary>Figure Professionali & Destinatari</summary>
+                <p><strong>Figure:</strong> OSS, Medici Specialisti, Fisioterapisti, Infermieri.</p>
+                <p><strong>Destinatari:</strong> Fasce fragili, non autosufficienti, disabili.</p>
+            </details>
+
+            <hr style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
+
+            <!-- 3.5 Assistenza Economica -->
+            <h3>3.5 L'Assistenza Economica</h3>
+            <p>Strumento che favorisce il superamento di situazioni di bisogno e difficoltà, contrastando l'esclusione
+                sociale.</p>
+
+            <h4>Le 4 tipologie principali</h4>
+            <ol>
+                <li>Straordinaria</li>
+                <li>Temporanea o continuativa</li>
+                <li>A sostegno della domiciliarità</li>
+                <li>Altre forme</li>
+            </ol>
+
+            <p><strong>Accesso:</strong> Attivato dall'Assistente Sociale mediante progetto d'intervento (con ISEE).</p>
+
+            <hr style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
+
+            <!-- 3.6 Assistenza Abitativa -->
+            <h3>3.6 L'Assistenza Abitativa (ERP)</h3>
+            <p>Concessione di abitazioni di proprietà pubblica (Edilizia Residenziale Pubblica) a canone ridotto.</p>
+            <p><strong>Destinatari:</strong> Fragilità occupazionale e condizioni economiche precarie (accesso tramite
+                bando).</p>
+
+            <hr style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
+
+            <!-- 3.7 Accompagnamento e Trasporto -->
+            <h3>3.7 Servizio di Accompagnamento e Trasporto</h3>
+            <p>Mira a soddisfare specifiche esigenze di mobilità per favorire relazioni e partecipazione sociale.</p>
+            <p><strong>Destinatari:</strong> Anziani a mobilità ridotta, disabili fisici, non autosufficienti (accesso
+                tramite Servizio Sociale/ISEE).</p>
+
+            <hr style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
+
+            <!-- 3.8 Centro Diurno -->
+            <h3>3.8 Il Centro Diurno</h3>
+            <div class="info-box info-box-yellow">
+                <p>Servizio semiresidenziale aperto almeno 5 giorni alla settimana, 8 ore al giorno. Supporto per il
+                    potenziamento e/o mantenimento delle capacità residue.</p>
+            </div>
+
+            <h4>Le 2 tipologie principali</h4>
+            <div class="table-responsive">
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Tipologia</th>
+                            <th>Natura</th>
+                            <th>Attività</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Centro Diurno</strong></td>
+                            <td>Struttura sociale</td>
+                            <td>Attività occupazionali, stimolazione cognitiva, motricità fine.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Centro Diurno Integrato (CDI)</strong></td>
+                            <td>Struttura Sociosanitaria</td>
+                            <td>Attività riabilitative, diagnostiche, linguistiche.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <details>
+                <summary>Figure Professionali & Destinatari</summary>
+                <p><strong>Destinatari:</strong> Minori, Disabili, Anziani.</p>
+                <p><strong>Figure:</strong> Coordinatore, OSS, Animatori, Educatori, Psicologi, Medici.</p>
+            </details>
         </div>
 
         <!-- 4. SERVIZI SOSTITUTIVI DETTAGLIO -->
         <div class="section">
-            <h2 class="section-title"><span class="emoji-icon">🏠</span> 4. Dettaglio Servizi Sostitutivi</h2>
-            <p>Per chi non può vivere dignitosamente a domicilio.</p>
+            <h2 class="section-title"><span class="emoji-icon">🏠</span> 4. Servizi e Interventi Sostitutivi</h2>
 
-            <div class="info-box info-box-red" id="rsa">
-                <h3>4.1 Servizi Residenziali (RSA)</h3>
-                <p>Prestazioni sanitarie e socioassistenziali h24 per persone non autosufficienti. Diritto di scelta del
-                    luogo di cura tra le strutture accreditate.</p>
-            </div>
+            <!-- 4.1 Residenziali -->
+            <h3>4.1 I Servizi Residenziali</h3>
+            <p>Percorso integrato di interventi h24 per chi non può vivere dignitosamente a domicilio. La persona ha
+                <strong>diritto di scelta</strong> del luogo di cura tra le strutture accreditate.</p>
 
-            <h3 id="casa-famiglia">4.2 Casa Famiglia e Comunità Alloggio</h3>
-            <p>Strutture residenziali che ricalcano il modello familiare. Accoglienza, educazione, assistenza.</p>
-
-            <table class="styled-table">
-                <thead>
-                    <tr>
-                        <th width="40%">Struttura</th>
-                        <th>Caratteristiche</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Casa Famiglia</strong></td>
-                        <td>Max 6 persone. Gestita da Educatori (diurno/notturno).</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Comunità Alloggio</strong></td>
-                        <td>7-12 persone. Può avere anche personale sanitario.</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="info-box info-box-purple" id="autonomia">
-                <h3>4.3 Gruppo per l'Autonomia</h3>
-                <p>Struttura <strong>autogestita</strong> per 2-6 persone maggiorenni (disabilità lievi).</p>
-                <ul>
-                    <li>Personale presente solo alcune ore</li>
-                    <li>Bassa intensità assistenziale</li>
-                    <li>Promuove l'integrazione sociale e lavorativa</li>
-                </ul>
-            </div>
-
-            <div class="info-box info-box-blue" id="notturna">
-                <h3>4.4 Centro Accoglienza Notturna</h3>
-                <p>Servizio gratuito per senza fissa dimora o grave disagio temporaneo.</p>
-                <ul>
-                    <li>Pernottamento, doccia, lavanderia, colazione</li>
-                    <li>Primo contatto con la rete dei servizi</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- RIFERIMENTI NORMATIVI -->
-        <div class="section">
-            <h2 class="section-title"><span class="emoji-icon">⚖️</span> Riferimenti Normativi</h2>
+            <h4>Tipologie</h4>
             <ul>
-                <li><strong>Legge 328/2000</strong> – Sistema integrato di interventi e servizi sociali</li>
-                <li><strong>Legge 3/2001</strong> – Riforma del Titolo V della Costituzione</li>
-                <li><strong>LEA / LEP / LEPS</strong> – Livelli Essenziali di Assistenza / Prestazioni</li>
+                <li>R.S.A. (Residenza Sanitaria Assistenziale)</li>
+                <li>Case Famiglia o Comunità Alloggio</li>
+                <li>Centri di prima e/o seconda accoglienza</li>
+                <li>Strutture per persone con misure restrittive o dipendenze</li>
             </ul>
 
-            <h3 style="margin-top: 40px; border-bottom: 2px solid #eee; padding-bottom: 10px;">Approfondimento:
-                Differenze tra LEA, LEP e LEPS</h3>
-            <p>I tre acronimi rappresentano livelli diversi di garanzie assistenziali previste dal sistema italiano, con
-                ambiti di applicazione e caratteristiche distinte.</p>
+            <hr style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
+
+            <!-- 4.2 Casa Famiglia -->
+            <h3>4.2 Casa Famiglia e Comunità Alloggio</h3>
+            <p>Strutture che ricalcano il modello familiare. Offrono accoglienza, cura, educazione e assistenza.</p>
+
+            <div class="table-responsive">
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th width="30%">Struttura</th>
+                            <th>Persone</th>
+                            <th>Note</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Casa Famiglia</strong></td>
+                            <td>6 persone</td>
+                            <td>Gestita da Educatori (diurno e notturno).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Comunità Alloggio</strong></td>
+                            <td>7 - 12 persone</td>
+                            <td>Può offrire anche servizio sanitario e medico.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <hr style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
+
+            <!-- 4.3 Gruppo Autonomia -->
+            <h3>4.3 Il Gruppo per l'Autonomia</h3>
+            <p>Struttura residenziale <strong>autogestita</strong> in forma associata.</p>
+
+            <h4>Caratteristiche</h4>
+            <ul>
+                <li><strong>Autogestione</strong> con presenza di personale solo in alcune ore</li>
+                <li>Bassa intensità assistenziale</li>
+                <li>Per 2-6 persone maggiorenni con lievi disabilità (intellettive o motorie)</li>
+            </ul>
+
+            <hr style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
+
+            <!-- 4.4 Notturna -->
+            <h3>4.4 Centro di Accoglienza Notturna</h3>
+            <p>Servizio <strong>gratuito</strong> per senza fissa dimora in condizioni di grave disagio.</p>
+
+            <h4>Servizi Offerti (tutto l'anno):</h4>
+            <ul>
+                <li>Accoglienza notturna, doccia, lavanderia</li>
+                <li>Custodia oggetti, prima colazione</li>
+                <li>Supporto informativo e psicosociale</li>
+            </ul>
+        </div>
+
+        <!-- RIFERIMENTI NORMATIVI & APPROFONDIMENTO -->
+        <div class="section">
+            <h2 class="section-title"><span class="emoji-icon">⚖️</span> Riferimenti Normativi e Approfondimenti</h2>
+
+            <div class="info-box info-box-green">
+                <h3>Normative Citate</h3>
+                <ul>
+                    <li><strong>Legge 328/2000</strong> – Sistema integrato di interventi e servizi sociali</li>
+                    <li><strong>Legge 3/2001</strong> – Riforma del Titolo V della Costituzione (competenze regionali)
+                    </li>
+                    <li><strong>LEA</strong> – Livelli Essenziali di Assistenza</li>
+                    <li><strong>LEP</strong> – Livelli Essenziali delle Prestazioni</li>
+                    <li><strong>LEPS</strong> – Livelli Essenziali delle Prestazioni Sociali</li>
+                </ul>
+            </div>
+
+            <h3 style="margin-top: 40px; border-top: 2px dashed #eee; padding-top: 20px;">Differenze tra LEA, LEP e LEPS
+            </h3>
+            <p>I tre acronimi rappresentano livelli diversi di garanzie assistenziali previste dal sistema italiano.</p>
 
             <div class="info-box info-box-blue">
                 <h3>LEA - Livelli Essenziali di Assistenza</h3>
-                <p>Sono le prestazioni e i servizi <strong>sanitari</strong> che il Servizio Sanitario Nazionale deve
-                    garantire a tutti i cittadini su tutto il territorio italiano (gratuitamente o con ticket). Definiti
-                    dallo Stato e soggetti a revisione.</p>
+                <p>Prestazioni e servizi <strong>sanitari</strong> che il SSN deve garantire a tutti (gratuiti o con
+                    ticket). Definiscono un elenco specifico.</p>
 
-                <h4 style="font-size: 1em; margin-top: 15px;">Esempi pratici:</h4>
-                <ul style="margin-top: 10px;">
-                    <li><strong>Prevenzione:</strong> Vaccinazioni (obbligatorie/raccomandate), screening oncologici.
-                    </li>
-                    <li><strong>Territoriale:</strong> Medico di base, pediatra, farmaci, esami (sangue, raggi), visite
-                        specialistiche.</li>
-                    <li><strong>Ospedaliera:</strong> Pronto soccorso, ricovero, day hospital, terapie salvavita.</li>
-                </ul>
+                <h4>Esempi pratici LEA (3 macro-aree):</h4>
+                <ol>
+                    <li><strong>Prevenzione collettiva e sanità pubblica:</strong> Vaccinazioni (anti-pneumococco,
+                        etc.), screening oncologici.</li>
+                    <li><strong>Assistenza distrettuale:</strong> Medico di base, pediatra, farmaci, esami (sangue,
+                        risonanze), specialistica (logopedisti).</li>
+                    <li><strong>Assistenza ospedaliera:</strong> Pronto soccorso, ricovero, day hospital, terapie
+                        salvavita.</li>
+                </ol>
             </div>
 
             <div class="info-box info-box-green">
                 <h3>LEP - Livelli Essenziali delle Prestazioni</h3>
-                <p>Concetto più ampio che riguarda i <strong>diritti civili e sociali</strong> da garantire
-                    uniformemente in tutto il territorio (art. 117 Costituzione).</p>
+                <p>Concetto più ampio (Art. 117 Costituzione): diritti civili e sociali da garantire uniformemente.</p>
 
-                <h4 style="font-size: 1em; margin-top: 15px;">I 4 macro-ambiti:</h4>
-                <ol style="margin-top: 10px;">
-                    <li><strong>Salute:</strong> (Coincide con i LEA).</li>
-                    <li><strong>Istruzione:</strong> Asili nido (obiettivo 33%), trasporto studenti disabili, assistenza
-                        all'autonomia (PEI).</li>
-                    <li><strong>Assistenza Sociale:</strong> Standard minimi di servizio (es. 1 assistente sociale ogni
-                        5.000 abitanti).</li>
-                    <li><strong>Mobilità:</strong> Accessibilità trasporti per disabili.</li>
-                </ol>
+                <h4>Esempi pratici LEP (4 macro-ambiti):</h4>
+                <ul style="list-style: none;">
+                    <li>🎓 <strong>Istruzione:</strong> Asili nido (30 posti ogni 100 bimbi), trasporto e assistenza
+                        autonomia (PEI).</li>
+                    <li>🏥 <strong>Salute:</strong> (Coincide con i LEA).</li>
+                    <li>🤝 <strong>Assistenza Sociale:</strong> Es. 1 assistente sociale ogni 5.000 abitanti.</li>
+                    <li>🚌 <strong>Mobilità:</strong> Accessibilità per disabili e ridotta mobilità.</li>
+                </ul>
             </div>
 
             <div class="info-box info-box-yellow">
                 <h3>LEPS - Livelli Essenziali delle Prestazioni Sociali</h3>
-                <p>Specifici per l'ambito <strong>sociale e assistenziale</strong> (L. 328/2000 art. 22). Gestiti dai
-                    <strong>Comuni</strong>, ma devono essere garantiti a tutti (gratuiti o con contribuzione).</p>
+                <p>Specifici per l'ambito <strong>sociale e assistenziale</strong> (L. 328/2000), gestiti dai Comuni.
+                </p>
 
-                <h4 style="font-size: 1em; margin-top: 15px;">Esempi di servizi territoriali:</h4>
-                <ul style="margin-top: 10px;">
-                    <li><strong>Famiglie:</strong> Sostegno genitorialità, mediazione familiare, inclusione sociale (ex
-                        RdC/AdI).</li>
-                    <li><strong>Domiciliari:</strong> Assistenza domiciliare anziani/disabili (SAD), servizi di
-                        prossimità.</li>
-                    <li><strong>Professionali:</strong> Servizio sociale professionale (Segretariato sociale).</li>
+                <h4>Esempi pratici LEPS:</h4>
+                <ul style="list-style: none;">
+                    <li>👨‍👩‍👧‍👦 <strong>Per Famiglie:</strong> Inclusione sociale/lavorativa, sostegno
+                        spese/genitorialità, mediazione.</li>
+                    <li>🏠 <strong>Domiciliari:</strong> Assistenza anziani/disabili, sostegno educativo.</li>
+                    <li>📂 <strong>Professionali:</strong> Servizio sociale professionale, servizi per beneficiari
+                        "Assegno di inclusione".</li>
                 </ul>
             </div>
-
-            <!-- FOOTER -->
-            <div class="section" style="text-align: center; color: #999; font-size: 0.9em;">
-                <p>Documento estratto dalla presentazione "Servizi e Interventi per la comunità e i cittadini"</p>
-            </div>
-
         </div>
 
-        <!-- Scroll Top Button -->
-        <a href="#" class="fab" title="Torna su">↑</a>
+        <!-- FOOTER -->
+        <div class="section" style="text-align: center; color: #999; font-size: 0.9em;">
+            <p>Servizi e Interventi per la comunità e i cittadini</p>
+        </div>
+
+    </div>
+
+    <!-- Scroll Top Button -->
+    <a href="#" class="fab" title="Torna su">↑</a>
 
 </body>
 
