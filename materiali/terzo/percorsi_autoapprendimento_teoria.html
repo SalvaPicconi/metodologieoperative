@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servizi Socio-Sanitari - Ripasso Teorico</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-turchese: #667eea;
+            --color-lime: #ffc107;
+            --color-fucsia: #764ba2;
+            --color-turchese-dark: #5a6fd6;
+            --color-lime-dark: #d39e00;
+            --color-fucsia-dark: #643f8e;
+            --bg-color: #f0f4f8;
+            --text-color: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, var(--color-turchese) 0%, var(--color-fucsia) 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .header h1 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        /* NAVIGATION BAR for MOBILE */
+        .nav-bar {
+            background: white;
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: #666;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9em;
+        }
+
+        .back-link:hover {
+            color: var(--color-turchese-dark);
+        }
+
+        /* CONTENT SECTIONS */
+        .section {
+            padding: 25px 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section-title {
+            color: var(--color-turchese-dark);
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .emoji-icon {
+            font-size: 1.2em;
+        }
+
+        h3 {
+            color: var(--color-fucsia);
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        h4 {
+            color: var(--color-turchese-dark);
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        /* INFO BOXES (Recycled styles) */
+        .info-box {
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-box h3 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-box-blue {
+            background: #E3F2FD;
+            border-left-color: #2196F3;
+        }
+
+        .info-box-blue h3 {
+            color: #1976D2;
+        }
+
+        .info-box-green {
+            background: #E8F5E9;
+            border-left-color: #4CAF50;
+        }
+
+        .info-box-green h3 {
+            color: #388E3C;
+        }
+
+        .info-box-yellow {
+            background: #FFFDE7;
+            border-left-color: #FBC02D;
+        }
+
+        .info-box-yellow h3 {
+            color: #F57F17;
+        }
+
+        .info-box-purple {
+            background: #F3E5F5;
+            border-left-color: #9C27B0;
+        }
+
+        .info-box-purple h3 {
+            color: #7B1FA2;
+        }
+
+        .info-box-red {
+            background: #FFEBEE;
+            border-left-color: #EF5350;
+        }
+
+        .info-box-red h3 {
+            color: #C62828;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 5px;
+            margin-bottom: 15px;
+        }
+
+        ul li {
+            padding: 6px 0 6px 25px;
+            position: relative;
+        }
+
+        ul li::before {
+            content: "•";
+            position: absolute;
+            left: 5px;
+            font-weight: bold;
+            color: var(--color-turchese);
+        }
+
+        ol {
+            padding-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        ol li {
+            padding: 5px 0;
+        }
+
+        .key-concept {
+            background: rgba(255, 193, 7, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 500;
+            margin-top: 15px;
+            border-left: 4px solid var(--color-lime-dark);
+        }
+
+        /* TABLES */
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .styled-table thead tr {
+            background-color: var(--color-turchese);
+            color: #ffffff;
+            text-align: left;
+        }
+
+        .styled-table th,
+        .styled-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid var(--color-turchese);
+        }
+
+        /* FAB for Scroll Top */
+        .fab {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--color-fucsia);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(118, 75, 162, 0.4);
+            cursor: pointer;
+            opacity: 0.8;
+            transition: all 0.3s;
+            text-decoration: none;
+            font-size: 1.5em;
+            z-index: 200;
+        }
+
+        .fab:hover {
+            opacity: 1;
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .section {
+                padding: 20px 15px;
+            }
+
+            .styled-table {
+                font-size: 0.85em;
+            }
+
+            .styled-table th,
+            .styled-table td {
+                padding: 10px 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- NAV BAR -->
+        <div class="nav-bar">
+            <a href="percorsi_autoapprendimento.html" class="back-link">
+                <span>←</span> Torna al Corso
+            </a>
+            <div style="font-weight: bold; color: var(--color-fucsia);">Modalità Studio 📖</div>
+        </div>
+
+        <!-- HEADER -->
+        <div class="header">
+            <h1>Servizi e Interventi</h1>
+            <p>per la Comunità e i Cittadini</p>
+        </div>
+
+        <!-- 1. POLITICHE SOCIALI -->
+        <div class="section">
+            <h2 class="section-title"><span class="emoji-icon">🏛️</span> 1. Le Politiche Sociali</h2>
+
+            <div class="info-box info-box-blue">
+                <h3>Definizione</h3>
+                <p>Con il termine <strong>politiche sociali</strong> si intendono tutti quegli interventi da parte dello
+                    Stato rivolti alle persone che presentano una qualunque forma di disagio o svantaggio.</p>
+                <p style="margin-top: 10px;">Mirano a tutelare i cittadini dai rischi sociali, promuovendo il benessere
+                    attraverso:</p>
+                <ul>
+                    <li>Regole per la distribuzione delle risorse</li>
+                    <li>Accesso ai servizi</li>
+                    <li>Modalità di erogazione</li>
+                </ul>
+            </div>
+
+            <div class="info-box info-box-yellow">
+                <h3>Il Sistema Integrato (Legge 328/2000)</h3>
+                <p>È il risultato della somma fra politiche sociali e prestazioni sociali, coordinate da una pluralità
+                    di operatori (ASL, Comuni, Province ecc.) e garantite sotto forma di beni e servizi.</p>
+            </div>
+
+            <h4 style="margin-top: 30px;">I Servizi Sociali Comunali</h4>
+            <ul>
+                <li>Promozione, mantenimento e recupero del benessere dei cittadini</li>
+                <li>Pieno sviluppo delle persone nei rapporti familiari e sociali</li>
+            </ul>
+
+            <p style="font-size: 0.9em; color: #666; margin-top: 15px;"><em>Nota: Ogni Regione attua diverse politiche
+                    sociali (L. 3/2001) ma deve garantire i LEA, LEP e LEPS.</em></p>
+        </div>
+
+        <!-- 2. CLASSIFICAZIONE -->
+        <div class="section">
+            <h2 class="section-title"><span class="emoji-icon">🗂️</span> 2. Classificazione dei Servizi</h2>
+
+            <div class="info-box info-box-green">
+                <h3>A) Servizi e Interventi Integrativi</h3>
+                <p>Garantiscono la permanenza della persona nel proprio ambiente di vita il più a lungo possibile.</p>
+                <h4 style="font-size: 1em; margin-top: 10px;">Principali servizi:</h4>
+                <ol>
+                    <li>Segretariato Sociale</li>
+                    <li>Servizio Sociale di base</li>
+                    <li>Pronto Intervento Sociale (PIS)</li>
+                    <li>Assistenza domiciliare</li>
+                    <li>Assistenza economica</li>
+                    <li>Assistenza abitativa (ERP)</li>
+                    <li>Servizio di Accompagnamento e Trasporto</li>
+                    <li>Centro Diurno</li>
+                </ol>
+            </div>
+
+            <div class="info-box info-box-red">
+                <h3>B) Servizi e Interventi Sostitutivi</h3>
+                <p>Intervengono con l'allontanamento temporaneo dal proprio ambiente quando la permanenza non è
+                    possibile.</p>
+                <h4 style="font-size: 1em; margin-top: 10px;">Principali servizi:</h4>
+                <ol>
+                    <li>Servizi Residenziali (R.S.A.)</li>
+                    <li>Casa Famiglia e Comunità Alloggio</li>
+                    <li>Gruppo per l'autonomia</li>
+                    <li>Centro di Accoglienza Notturna</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- 3. SERVIZI INTEGRATIVI DETTAGLIO -->
+        <div class="section">
+            <h2 class="section-title"><span class="emoji-icon">🤝</span> 3. Dettaglio Servizi Integrativi</h2>
+
+            <div class="info-box info-box-blue" id="segretariato">
+                <h3>3.1 Il Segretariato Sociale</h3>
+                <p>Punto di riferimento informativo primario per l'accesso ai servizi. <strong>Gratuito e
+                        obbligatorio</strong> in ogni Comune.</p>
+                <h4 style="font-size: 1em; margin-top: 15px;">Caratteristiche:</h4>
+                <ul>
+                    <li>Alta prossimità all'utente (confine amministrazione-cittadino)</li>
+                    <li>Funzione informativa e di orientamento</li>
+                    <li>Prima valutazione del bisogno</li>
+                </ul>
+            </div>
+
+            <div class="info-box info-box-purple" id="servizio-base">
+                <h3>3.2 Servizio Sociale di Base</h3>
+                <p>Offre supporto per limitare o rimuovere situazioni problematiche (non autosufficienza, povertà,
+                    ecc.).</p>
+                <h4 style="font-size: 1em; margin-top: 15px;">Iter:</h4>
+                <p
+                    style="text-align: center; font-weight: bold; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 8px;">
+                    Presa in carico → Progetto Individualizzato</p>
+            </div>
+
+            <h3 id="adi">3.4 L'Assistenza Domiciliare</h3>
+            <p>Favorisce la permanenza a casa, evitando ricoveri e promuovendo l'autonomia.</p>
+
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th width="30%">Tipologia</th>
+                        <th>Descrizione</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>SAD</strong><br>(Assistenza Domiciliare)</td>
+                        <td>Intervento <strong>socioassistenziale</strong> del Comune (igiene, pulizie, pasti). Basato
+                            su ISEE.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ADI</strong><br>(Assistenza Integrata)</td>
+                        <td>Intervento <strong>sociosanitario</strong> della ASL. Include prestazioni sanitarie
+                            (infermieri, medici, fisioterapisti).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ADCP</strong></td>
+                        <td>Specifico per cure palliative.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box info-box-yellow" id="centro-diurno">
+                <h3>3.8 Il Centro Diurno</h3>
+                <p>Servizio semiresidenziale (aperto almeno 5gg/settimana, 8 ore/gg) per il potenziamento o mantenimento
+                    delle capacità residue.</p>
+                <table class="styled-table" style="margin-top: 15px; margin-bottom: 0;">
+                    <tbody>
+                        <tr>
+                            <td><strong>Centro Diurno</strong></td>
+                            <td>Struttura Sociale (attività occupazionali, socializzazione)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CDI (Integrato)</strong></td>
+                            <td>Struttura Sociosanitaria (include prestazioni riabilitative/sanitarie)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4 style="margin-top: 30px;">Altri servizi integrativi:</h4>
+            <ul>
+                <li><strong>Pronto Intervento Sociale (PIS):</strong> Emergenze h24, accoglienza max 15 giorni.</li>
+                <li><strong>Assistenza Economica:</strong> Contributi straordinari o continuativi (richiede ISEE e
+                    progetto).</li>
+                <li><strong>Assistenza Abitativa (ERP):</strong> Case popolari tramite bando.</li>
+                <li><strong>Accompagnamento e Trasporto:</strong> Per mobilità ridotta (anziani, disabili).</li>
+            </ul>
+        </div>
+
+        <!-- 4. SERVIZI SOSTITUTIVI DETTAGLIO -->
+        <div class="section">
+            <h2 class="section-title"><span class="emoji-icon">🏠</span> 4. Dettaglio Servizi Sostitutivi</h2>
+            <p>Per chi non può vivere dignitosamente a domicilio.</p>
+
+            <div class="info-box info-box-red" id="rsa">
+                <h3>4.1 Servizi Residenziali (RSA)</h3>
+                <p>Prestazioni sanitarie e socioassistenziali h24 per persone non autosufficienti. Diritto di scelta del
+                    luogo di cura tra le strutture accreditate.</p>
+            </div>
+
+            <h3 id="casa-famiglia">4.2 Casa Famiglia e Comunità Alloggio</h3>
+            <p>Strutture residenziali che ricalcano il modello familiare. Accoglienza, educazione, assistenza.</p>
+
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th width="40%">Struttura</th>
+                        <th>Caratteristiche</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Casa Famiglia</strong></td>
+                        <td>Max 6 persone. Gestita da Educatori (diurno/notturno).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Comunità Alloggio</strong></td>
+                        <td>7-12 persone. Può avere anche personale sanitario.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box info-box-purple" id="autonomia">
+                <h3>4.3 Gruppo per l'Autonomia</h3>
+                <p>Struttura <strong>autogestita</strong> per 2-6 persone maggiorenni (disabilità lievi).</p>
+                <ul>
+                    <li>Personale presente solo alcune ore</li>
+                    <li>Bassa intensità assistenziale</li>
+                    <li>Promuove l'integrazione sociale e lavorativa</li>
+                </ul>
+            </div>
+
+            <div class="info-box info-box-blue" id="notturna">
+                <h3>4.4 Centro Accoglienza Notturna</h3>
+                <p>Servizio gratuito per senza fissa dimora o grave disagio temporaneo.</p>
+                <ul>
+                    <li>Pernottamento, doccia, lavanderia, colazione</li>
+                    <li>Primo contatto con la rete dei servizi</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- RIFERIMENTI NORMATIVI -->
+        <div class="section">
+            <h2 class="section-title"><span class="emoji-icon">⚖️</span> Riferimenti Normativi</h2>
+            <ul>
+                <li><strong>Legge 328/2000</strong> – Sistema integrato di interventi e servizi sociali</li>
+                <li><strong>Legge 3/2001</strong> – Riforma del Titolo V della Costituzione</li>
+                <li><strong>LEA / LEP / LEPS</strong> – Livelli Essenziali di Assistenza / Prestazioni</li>
+            </ul>
+
+            <h3 style="margin-top: 40px; border-bottom: 2px solid #eee; padding-bottom: 10px;">Approfondimento:
+                Differenze tra LEA, LEP e LEPS</h3>
+            <p>I tre acronimi rappresentano livelli diversi di garanzie assistenziali previste dal sistema italiano, con
+                ambiti di applicazione e caratteristiche distinte.</p>
+
+            <div class="info-box info-box-blue">
+                <h3>LEA - Livelli Essenziali di Assistenza</h3>
+                <p>Sono le prestazioni e i servizi <strong>sanitari</strong> che il Servizio Sanitario Nazionale deve
+                    garantire a tutti i cittadini su tutto il territorio italiano (gratuitamente o con ticket). Definiti
+                    dallo Stato e soggetti a revisione.</p>
+
+                <h4 style="font-size: 1em; margin-top: 15px;">Esempi pratici:</h4>
+                <ul style="margin-top: 10px;">
+                    <li><strong>Prevenzione:</strong> Vaccinazioni (obbligatorie/raccomandate), screening oncologici.
+                    </li>
+                    <li><strong>Territoriale:</strong> Medico di base, pediatra, farmaci, esami (sangue, raggi), visite
+                        specialistiche.</li>
+                    <li><strong>Ospedaliera:</strong> Pronto soccorso, ricovero, day hospital, terapie salvavita.</li>
+                </ul>
+            </div>
+
+            <div class="info-box info-box-green">
+                <h3>LEP - Livelli Essenziali delle Prestazioni</h3>
+                <p>Concetto più ampio che riguarda i <strong>diritti civili e sociali</strong> da garantire
+                    uniformemente in tutto il territorio (art. 117 Costituzione).</p>
+
+                <h4 style="font-size: 1em; margin-top: 15px;">I 4 macro-ambiti:</h4>
+                <ol style="margin-top: 10px;">
+                    <li><strong>Salute:</strong> (Coincide con i LEA).</li>
+                    <li><strong>Istruzione:</strong> Asili nido (obiettivo 33%), trasporto studenti disabili, assistenza
+                        all'autonomia (PEI).</li>
+                    <li><strong>Assistenza Sociale:</strong> Standard minimi di servizio (es. 1 assistente sociale ogni
+                        5.000 abitanti).</li>
+                    <li><strong>Mobilità:</strong> Accessibilità trasporti per disabili.</li>
+                </ol>
+            </div>
+
+            <div class="info-box info-box-yellow">
+                <h3>LEPS - Livelli Essenziali delle Prestazioni Sociali</h3>
+                <p>Specifici per l'ambito <strong>sociale e assistenziale</strong> (L. 328/2000 art. 22). Gestiti dai
+                    <strong>Comuni</strong>, ma devono essere garantiti a tutti (gratuiti o con contribuzione).</p>
+
+                <h4 style="font-size: 1em; margin-top: 15px;">Esempi di servizi territoriali:</h4>
+                <ul style="margin-top: 10px;">
+                    <li><strong>Famiglie:</strong> Sostegno genitorialità, mediazione familiare, inclusione sociale (ex
+                        RdC/AdI).</li>
+                    <li><strong>Domiciliari:</strong> Assistenza domiciliare anziani/disabili (SAD), servizi di
+                        prossimità.</li>
+                    <li><strong>Professionali:</strong> Servizio sociale professionale (Segretariato sociale).</li>
+                </ul>
+            </div>
+
+            <!-- FOOTER -->
+            <div class="section" style="text-align: center; color: #999; font-size: 0.9em;">
+                <p>Documento estratto dalla presentazione "Servizi e Interventi per la comunità e i cittadini"</p>
+            </div>
+
+        </div>
+
+        <!-- Scroll Top Button -->
+        <a href="#" class="fab" title="Torna su">↑</a>
+
+</body>
+
+</html>

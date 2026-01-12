@@ -139,6 +139,30 @@
             }
         }
 
+        .button-white {
+            background: white;
+            color: #667eea;
+            margin-top: 20px;
+            position: relative;
+            z-index: 100;
+            cursor: pointer;
+            pointer-events: auto;
+            text-decoration: none;
+            display: inline-flex;
+            border-radius: 50px;
+            padding: 10px 25px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .button-white:hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            color: #5a6fd6;
+        }
+
         .module-title {
             font-size: 28px;
             color: #2c3e50;
@@ -511,6 +535,9 @@
         <div class="header">
             <div class="school-name">IIS Meucci Mattei di Cagliari Sede Decimomannu</div>
             <div class="course-name">Servizi per la sanità e l'assistenza sociale - Percorsi di Autoapprendimento</div>
+            <a href="percorsi_autoapprendimento_teoria.html" class="button-white">
+                <span style="font-size: 1.2em; margin-right: 8px;">📖</span> Ripassa la Teoria
+            </a>
         </div>
 
         <div class="progress-bar-container">
