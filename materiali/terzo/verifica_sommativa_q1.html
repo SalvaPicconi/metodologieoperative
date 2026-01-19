@@ -68,9 +68,19 @@
             background-size: 100% 2rem;
             background-position: 0 2rem;
             border: 1px solid #ddd;
-            height: 150px;
+            min-height: 150px;
             width: 100%;
             margin-top: 0.5rem;
+
+            /* Textarea specific */
+            resize: none;
+            overflow-y: hidden;
+            line-height: 2rem;
+            padding: 0.1rem 1rem 0;
+            font-family: inherit;
+            font-size: 1.1rem;
+            box-sizing: border-box;
+            background-color: #fff;
         }
 
         #lock-screen {
@@ -198,6 +208,7 @@
             <p><strong>20 punti | Tempo consigliato: 20 minuti</strong></p>
             <p>Per ogni domanda, indica con una X la risposta corretta. Ogni risposta corretta vale 2 punti.</p>
 
+            <!-- A1 -->
             <div class="question-block">
                 <div class="question-text">A1. Il modello bio-psico-sociale considera la persona:</div>
                 <div style="margin-left: 1rem;">
@@ -216,19 +227,545 @@
                 </div>
             </div>
 
-            <h3 style="margin-top: 2rem;">SEZIONE B - DEFINIZIONI E CONCETTI</h3>
+            <!-- A2 -->
             <div class="question-block">
-                <div class="question-text">B1. Spiega in breve la differenza tra "Cura" e "Prendersi cura" (Care vs
-                    Cure).</div>
-                <div class="answer-lines"></div>
+                <div class="question-text">A2. Cosa si intende per "Benessere" secondo l'OMS?</div>
+                <div style="margin-left: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> a) La semplice assenza di malattia o infermità
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> b) Uno stato di completo benessere fisico, mentale e sociale
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> c) Avere molti soldi e una buona posizione sociale
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> d) Non avere dolori fisici
+                    </label>
+                </div>
+            </div>
+
+            <!-- A3 -->
+            <div class="question-block">
+                <div class="question-text">A3. Nella progettazione di un intervento sociale, l'obiettivo deve:</div>
+                <div style="margin-left: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> a) Descrivere solo il servizio da erogare (es. "fornire assistenza")
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> b) Essere il più generico possibile
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> c) Indicare il cambiamento atteso, misurabile e con tempi definiti
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> d) Riguardare solo gli aspetti economici
+                    </label>
+                </div>
+            </div>
+
+            <!-- A4 -->
+            <div class="question-block">
+                <div class="question-text">A4. L'OSS (Operatore Socio-Sanitario) può:</div>
+                <div style="margin-left: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> a) Prescrivere farmaci autonomamente
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> b) Somministrare alcuni farmaci su indicazione medica, ma non fare
+                        iniezioni
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> c) Effettuare diagnosi mediche
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> d) Redigere il Progetto Individualizzato in completa autonomia
+                    </label>
+                </div>
+            </div>
+
+            <!-- A5 -->
+            <div class="question-block">
+                <div class="question-text">A5. Le competenze chiave dell'Operatore Sociale includono:</div>
+                <div style="margin-left: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> a) Prescrivere terapie e somministrare farmaci
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> b) Organizzare, promuovere, collaborare, facilitare, realizzare
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> c) Solo pulire e riordinare gli ambienti
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> d) Gestire autonomamente le diagnosi dei pazienti
+                    </label>
+                </div>
+            </div>
+
+            <!-- A6 -->
+            <div class="question-block">
+                <div class="question-text">A6. La rete informale di supporto a un utente comprende:</div>
+                <div style="margin-left: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> a) ASL, Servizi Sociali, Scuole
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> b) Famiglia, amici, vicini, volontariato
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> c) Solo gli operatori professionali retribuiti
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> d) Le strutture residenziali pubbliche
+                    </label>
+                </div>
+            </div>
+
+            <!-- A7 -->
+            <div class="question-block">
+                <div class="question-text">A7. Lo psicologo, rispetto allo psicoterapeuta:</div>
+                <div style="margin-left: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> a) Ha lo stesso identico percorso formativo
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> b) Ha una laurea ma non la scuola quadriennale di specializzazione
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> c) Può prescrivere farmaci
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> d) Lavora esclusivamente negli ospedali
+                    </label>
+                </div>
+            </div>
+
+            <!-- A8 -->
+            <div class="question-block">
+                <div class="question-text">A8. L'équipe multiprofessionale è:</div>
+                <div style="margin-left: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> a) Un gruppo di persone con la stessa qualifica
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> b) Un gruppo di diverse figure professionali che collaborano per
+                        interventi integrati
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> c) Solo medici e infermieri
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> d) Un servizio di segreteria amministrativa
+                    </label>
+                </div>
+            </div>
+
+            <!-- A9 -->
+            <div class="question-block">
+                <div class="question-text">A9. La verifica "in itinere" nella progettazione serve a:</div>
+                <div style="margin-left: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> a) Dare un voto finale al progetto
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> b) Controllare durante il percorso se gli interventi stanno funzionando
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> c) Chiudere definitivamente il caso
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> d) Assumere nuovi operatori
+                    </label>
+                </div>
+            </div>
+
+            <!-- A10 -->
+            <div class="question-block">
+                <div class="question-text">A10. L'Assistente Sociale è un professionista che:</div>
+                <div style="margin-left: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> a) Si occupa solo di pulizie e igiene personale
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> b) Opera per prevenzione, sostegno e recupero di persone e famiglie in
+                        difficoltà
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> c) Può prescrivere farmaci psichiatrici
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> d) Lavora solo con i bambini
+                    </label>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem;">SEZIONE B - COMPRENSIONE E COLLEGAMENTO</h3>
+            <p><strong>25 punti | Tempo consigliato: 25 minuti</strong></p>
+            <p>Rispondi alle domande in modo sintetico ma completo. Puoi consultare i materiali.</p>
+
+            <div class="question-block">
+                <div class="question-text">B1. (10 punti) Descrivi le 6 fasi della Progettazione Individualizzata,
+                    indicando per ciascuna fase la sua funzione principale in 1-2 righe.</div>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                    <thead>
+                        <tr style="background: #f8f9fa;">
+                            <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left; width: 30%;">FASE</th>
+                            <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left;">FUNZIONE PRINCIPALE
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">1. Analisi del
+                                Problema</td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">2. Analisi del
+                                Contesto</td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">3. Definizione
+                                Obiettivi</td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">4. Scelta Interventi
+                            </td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">5. Verifica</td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">6. Valutazione</td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <div class="question-block">
-                <div class="question-text">B2. Cosa si intende per "Lavoro di Rete" nei servizi socio-sanitari?</div>
-                <div class="answer-lines"></div>
+                <div class="question-text">B2. (6 punti) [Domanda mancante nel PDF originale]</div>
+                <div class="answer-lines" style="height: 100px; background: #fdf2f2; border-color: #e74c3c;">
+                    <p style="color: #c0392b; padding: 1rem; text-align: center;">Questa domanda non era presente o
+                        leggibile nel documento originale.</p>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-text">B3. (9 punti) Completa la tabella indicando, per ogni figura professionale,
+                    il titolo di studio richiesto e un compito principale.</div>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                    <thead>
+                        <tr style="background: #f8f9fa;">
+                            <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left; width: 25%;">FIGURA
+                            </th>
+                            <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left; width: 35%;">TITOLO DI
+                                STUDIO</th>
+                            <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left;">COMPITO PRINCIPALE
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">Medico di Base</td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                            </td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">Infermiere</td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                            </td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">OSS</td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                            </td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">Psicologo</td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                            </td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">Assistente Sociale
+                            </td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                            </td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">Animatore Sociale
+                            </td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                            </td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
         </div>
+
+        <h3 style="margin-top: 2rem;">SEZIONE C - APPLICAZIONE PRATICA</h3>
+        <p><strong>45 punti | Tempo consigliato: 50 minuti</strong></p>
+        <p>Leggi attentamente il caso e rispondi alle domande. Dimostra di saper applicare le conoscenze a una
+            situazione reale.</p>
+
+        <div
+            style="background: #fff3cd; padding: 1.5rem; border-radius: 8px; border: 1px solid #ffeeba; margin-bottom: 2rem;">
+            <h4 style="margin-top: 0; color: #856404;">📄 CASO DI STUDIO: IL SIGNOR ANTONIO</h4>
+            <p>Antonio ha 72 anni, vedovo da 2 anni, vive solo in una casa di proprietà in un paese dell'entroterra
+                sardo. Ha un figlio, Marco (45 anni), che vive a Cagliari e lavora a tempo pieno. Antonio è in pensione
+                e percepisce circa 1.100€ al mese.</p>
+            <p>Antonio ha problemi di mobilità dovuti a dolori articolari che gli rendono difficile camminare per lunghi
+                tratti. È autonomo nelle attività di base (mangiare, vestirsi, igiene), ma ha difficoltà nella
+                preparazione dei pasti completi e nelle pulizie di casa. Da quando è rimasto vedovo fatica a seguire una
+                dieta equilibrata e spesso salta i pasti.</p>
+            <p>Antonio è lucido e mentalmente attivo: legge il giornale ogni giorno e guarda i telegiornali. Tuttavia,
+                da qualche mese appare più triste e apatico, esce poco di casa e ha ridotto i contatti con gli amici del
+                bar dove andava a giocare a carte. Dice di sentirsi "inutile" e di non avere più voglia di fare niente.
+            </p>
+            <p>Il figlio Marco è preoccupato e si è rivolto ai Servizi Sociali del Comune per capire come aiutare il
+                padre. Nel paese c'è un centro anziani e opera un'associazione di volontariato.</p>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">C1. (10 punti) ANALISI DEI BISOGNI<br><span
+                    style="font-weight: normal; font-size: 0.95rem;">Utilizzando il modello bio-psico-sociale,
+                    identifica e descrivi i principali bisogni di Antonio suddividendoli nelle tre aree.</span></div>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                <thead>
+                    <tr style="background: #f8f9fa;">
+                        <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left; width: 33%;">AREA
+                            BIOLOGICA</th>
+                        <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left; width: 33%;">AREA
+                            PSICOLOGICA</th>
+                        <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left; width: 33%;">AREA SOCIALE
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                style="width: 100%; height: 150px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                        </td>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                style="width: 100%; height: 150px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                        </td>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                style="width: 100%; height: 150px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">C2. (8 punti) ATTIVAZIONE DELLA RETE<br><span
+                    style="font-weight: normal; font-size: 0.95rem;">Identifica le risorse della rete formale e
+                    informale che potrebbero essere attivate per supportare Antonio. Indica per ciascuna risorsa quale
+                    contributo specifico potrebbe dare.</span></div>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                <thead>
+                    <tr style="background: #f8f9fa;">
+                        <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left; width: 50%;">RETE FORMALE
+                        </th>
+                        <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left; width: 50%;">RETE
+                            INFORMALE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                style="width: 100%; height: 150px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                        </td>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                style="width: 100%; height: 150px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">C3. (10 punti) PROPOSTA DI INTERVENTI<br><span
+                    style="font-weight: normal; font-size: 0.95rem;">Proponi DUE interventi concreti per Antonio. Per
+                    ciascuno indica: quale bisogno soddisfa, quali figure professionali sono coinvolte, dove si
+                    svolge.</span></div>
+            <div style="margin-bottom: 1rem;">
+                <label style="font-weight: 600;">INTERVENTO 1:</label>
+                <textarea class="answer-lines" oninput="autoExpand(this)"></textarea>
+            </div>
+            <div>
+                <label style="font-weight: 600;">INTERVENTO 2:</label>
+                <textarea class="answer-lines" oninput="autoExpand(this)"></textarea>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">C4. (7 punti) OBIETTIVO DI PROGETTO<br><span
+                    style="font-weight: normal; font-size: 0.95rem;">Scrivi UN obiettivo ben formulato per il progetto
+                    individualizzato di Antonio, seguendo la formula: <em>Migliorare/Mantenere/Ridurre + Aspetto della
+                        vita + Di quanto/In quanto tempo + Attraverso quali interventi</em></span></div>
+            <textarea class="answer-lines" oninput="autoExpand(this)"></textarea>
+        </div>
+
+        <div
+            style="background: #e2e3e5; padding: 1.5rem; border-radius: 8px; border: 1px solid #d6d8db; margin-bottom: 2rem;">
+            <h4 style="margin-top: 0; color: #383d41;">📋 SCHEDA INFORMATIVA: L'AMMINISTRATORE DI SOSTEGNO</h4>
+            <p style="font-size: 0.9rem;"><strong>COS'È:</strong> Figura di protezione giuridica per persone che, a
+                causa di menomazioni fisiche o psichiche, non riescono a gestire autonomamente i propri interessi.</p>
+            <p style="font-size: 0.9rem;"><strong>NORMATIVA:</strong> Legge 6/2004 - È una forma di protezione "leggera"
+                che non toglie completamente la capacità di agire alla persona.</p>
+            <p style="font-size: 0.9rem;"><strong>COMPITI PRINCIPALI:</strong> Cura della persona (decisioni sanitarie,
+                scelta residenza), gestione del patrimonio.</p>
+            <p style="font-size: 0.9rem;"><strong>CHI LO NOMINA:</strong> Il Giudice Tutelare del Tribunale.</p>
+            <p style="font-size: 0.9rem; margin-bottom: 0;"><strong>CHI PUÒ ESSERE NOMINATO:</strong> Un familiare, un
+                volontario, un professionista, o il Sindaco.</p>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">C5. (10 punti) L'AMMINISTRATORE DI SOSTEGNO<br><span
+                    style="font-weight: normal; font-size: 0.95rem;">Immagina che, dopo alcuni mesi, Antonio mostri
+                    segni di decadimento cognitivo: dimentica di pagare le bollette, non riesce più a gestire la
+                    pensione e ha difficoltà a prendere decisioni sulla propria salute. Spiega se, in questo caso,
+                    sarebbe utile nominare un Amministratore di Sostegno e perché, facendo riferimento alle informazioni
+                    della scheda.</span></div>
+            <textarea class="answer-lines" oninput="autoExpand(this)"></textarea>
+        </div>
+
+        <h3 style="margin-top: 2rem;">SEZIONE D - RIFLESSIONE PROFESSIONALE</h3>
+        <p><strong>20 punti | Tempo consigliato: 20 minuti</strong></p>
+        <p>Rifletti sul tuo apprendimento e sul significato professionale di quanto studiato. Non ci sono risposte
+            giuste o sbagliate: conta la capacità di riflessione.</p>
+
+        <div class="question-block">
+            <div class="question-text">D1. (10 punti) Perché è importante che un futuro operatore socio-sanitario sappia
+                lavorare in équipe con altre figure professionali? Fai riferimento a situazioni concrete in cui questa
+                competenza può fare la differenza per l'utente.</div>
+            <textarea class="answer-lines" oninput="autoExpand(this)"></textarea>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">D2. (10 punti) Nel caso di Antonio, come si può rispettare la sua dignità e
+                autonomia pur aiutandolo nelle sue difficoltà? Quali attenzioni dovrebbe avere l'operatore nel
+                relazionarsi con lui?</div>
+            <textarea class="answer-lines" oninput="autoExpand(this)"></textarea>
+        </div>
+
+        <h3 style="margin-top: 3rem; text-align: center;">RIEPILOGO VALUTAZIONE</h3>
+        <p style="text-align: center; color: #666;">(Riservato al docente)</p>
+
+        <table style="width: 100%; max-width: 600px; margin: 1rem auto; border-collapse: collapse;">
+            <thead>
+                <tr style="background: #f8f9fa;">
+                    <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left;">SEZIONE</th>
+                    <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: center; width: 100px;">MAX PUNTI
+                    </th>
+                    <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: center; width: 100px;">PUNTI</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 0.8rem;">A - Conoscenze base (10 domande × 2 pt)</td>
+                    <td style="border: 1px solid #ddd; padding: 0.8rem; text-align: center;"><b>20</b></td>
+                    <td style="border: 1px solid #ddd; padding: 0.8rem;"></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 0.8rem;">B - Comprensione e collegamento (con domanda
+                        mancante)</td>
+                    <td style="border: 1px solid #ddd; padding: 0.8rem; text-align: center;"><b>25</b></td>
+                    <td style="border: 1px solid #ddd; padding: 0.8rem;"></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 0.8rem;">C - Applicazione pratica (caso)</td>
+                    <td style="border: 1px solid #ddd; padding: 0.8rem; text-align: center;"><b>45</b></td>
+                    <td style="border: 1px solid #ddd; padding: 0.8rem;"></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 0.8rem;">D - Riflessione professionale</td>
+                    <td style="border: 1px solid #ddd; padding: 0.8rem; text-align: center;"><b>20</b></td>
+                    <td style="border: 1px solid #ddd; padding: 0.8rem;"></td>
+                </tr>
+                <tr style="background: #e9ecef; font-weight: bold;">
+                    <td style="border: 1px solid #ddd; padding: 0.8rem; text-align: right;">TOTALE</td>
+                    <td style="border: 1px solid #ddd; padding: 0.8rem; text-align: center;">110</td>
+                    <td style="border: 1px solid #ddd; padding: 0.8rem;"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style="max-width: 600px; margin: 2rem auto; padding: 1.5rem; background: #f8f9fa; border-radius: 8px;">
+            <h4 style="margin-top: 0;">CONVERSIONE PUNTEGGIO → VOTO</h4>
+            <div
+                style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; text-align: center; font-size: 0.9rem;">
+                <div style="background: #ddd; padding: 5px;">PUNTI</div>
+                <div style="background: white; padding: 5px;">0-54</div>
+                <div style="background: white; padding: 5px;">55-65</div>
+                <div style="background: white; padding: 5px;">66-76</div>
+                <div style="background: white; padding: 5px;">77-87</div>
+                <div style="background: white; padding: 5px;">88-98</div>
+                <div style="background: white; padding: 5px;">99-110</div>
+
+                <div style="background: #ddd; padding: 5px;">VOTO</div>
+                <div style="background: white; padding: 5px;"><b>4</b></div>
+                <div style="background: white; padding: 5px;"><b>5</b></div>
+                <div style="background: white; padding: 5px;"><b>6</b></div>
+                <div style="background: white; padding: 5px;"><b>7</b></div>
+                <div style="background: white; padding: 5px;"><b>8</b></div>
+                <div style="background: white; padding: 5px;"><b>9-10</b></div>
+            </div>
+        </div>
+
+        <div style="margin-top: 2rem; border-top: 2px solid #eee; padding-top: 2rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <span style="font-weight: 600; font-size: 1.2rem;">VOTO FINALE: ________ / 10</span>
+                <span style="font-weight: 600;">Firma del docente: ________________________</span>
+            </div>
+            <p><strong>NOTE E OSSERVAZIONI:</strong></p>
+            <textarea class="answer-lines" oninput="autoExpand(this)"></textarea>
+        </div>
+    </div>
     </div>
 
     <div class="print-actions" id="print-actions" style="display: none;">
@@ -264,6 +801,17 @@
 
         document.getElementById('password-input').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') checkPassword();
+        });
+
+        function autoExpand(field) {
+            field.style.height = 'inherit';
+            const height = field.scrollHeight;
+            field.style.height = height + 'px';
+        }
+
+        // Initialize existing textareas in tables
+        document.querySelectorAll('textarea').forEach(ta => {
+            ta.setAttribute('oninput', 'autoExpand(this)');
         });
     </script>
 </body>

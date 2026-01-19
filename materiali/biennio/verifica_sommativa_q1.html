@@ -77,9 +77,21 @@
             background-size: 100% 2rem;
             background-position: 0 2rem;
             border: 1px solid #ddd;
-            height: 150px;
+            min-height: 150px;
             width: 100%;
             margin-top: 0.5rem;
+
+            /* Textarea specific */
+            resize: none;
+            overflow-y: hidden;
+            line-height: 2rem;
+            padding: 0.1rem 1rem 0;
+            /* Adjusted for alignment */
+            font-family: inherit;
+            font-size: 1.1rem;
+            /* Slightly larger for handwriting feel */
+            box-sizing: border-box;
+            background-color: #fff;
         }
 
         /* Lock Screen */
@@ -414,11 +426,20 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td style="border: 1px solid #000; padding: 0.5rem; height: 150px; vertical-align: top;">
+                            <td style="border: 1px solid #000; padding: 0.5rem; vertical-align: top;">
+                                <textarea
+                                    style="width: 100%; height: 150px; border: none; resize: none; overflow: hidden;"
+                                    oninput="autoExpand(this)"></textarea>
                             </td>
-                            <td style="border: 1px solid #000; padding: 0.5rem; height: 150px; vertical-align: top;">
+                            <td style="border: 1px solid #000; padding: 0.5rem; vertical-align: top;">
+                                <textarea
+                                    style="width: 100%; height: 150px; border: none; resize: none; overflow: hidden;"
+                                    oninput="autoExpand(this)"></textarea>
                             </td>
-                            <td style="border: 1px solid #000; padding: 0.5rem; height: 150px; vertical-align: top;">
+                            <td style="border: 1px solid #000; padding: 0.5rem; vertical-align: top;">
+                                <textarea
+                                    style="width: 100%; height: 150px; border: none; resize: none; overflow: hidden;"
+                                    oninput="autoExpand(this)"></textarea>
                             </td>
                         </tr>
                     </tbody>
@@ -431,15 +452,15 @@
 
                 <p style="margin-top: 1rem;">a) A quale servizio si rivolge il cittadino per prima cosa e quale funzione
                     svolge? (3 pt)</p>
-                <div class="answer-lines" style="height: 100px;"></div>
+                <textarea class="answer-lines" oninput="autoExpand(this)"></textarea>
 
                 <p style="margin-top: 1rem;">b) Cos'è l'ISEE e a cosa serve nell'accesso ai servizi? (3 pt)</p>
-                <div class="answer-lines" style="height: 100px;"></div>
+                <textarea class="answer-lines" oninput="autoExpand(this)"></textarea>
 
                 <p style="margin-top: 1rem;">DOMANDA SULL'AUTONOMIA DI RAGIONAMENTO</p>
                 <p>c) Perché potrebbe esistere una "graduatoria dell'urgenza" anche se tutti hanno diritto ai servizi?
                     (3 pt)</p>
-                <div class="answer-lines" style="height: 100px;"></div>
+                <textarea class="answer-lines" oninput="autoExpand(this)"></textarea>
             </div>
 
             <h3 style="margin-top: 2rem;">SEZIONE C - APPLICAZIONE PRATICA</h3>
@@ -470,14 +491,14 @@
                 <p>Giovanni è preoccupato perché pensa di non potersi permettere le cure per la madre. Spiega, facendo
                     riferimento ai principi del SSN, ai LEA e all'articolo 32 della Costituzione, perché la nonna Anna
                     ha comunque diritto all'assistenza sanitaria.</p>
-                <div class="answer-lines" style="height: 150px;"></div>
+                <textarea class="answer-lines" oninput="autoExpand(this)"></textarea>
             </div>
 
             <div class="question-block">
                 <div class="question-text">C4. (7 punti) PRESTAZIONI ESSENZIALI</div>
                 <p>Indica almeno TRE prestazioni/servizi essenziali previsti dalla Legge 328/2000 che potrebbero essere
                     utili per la famiglia Melis, spiegando brevemente perché.</p>
-                <div class="answer-lines" style="height: 150px;"></div>
+                <textarea class="answer-lines" oninput="autoExpand(this)"></textarea>
             </div>
 
             <h3 style="margin-top: 2rem;">SEZIONE D - RIFLESSIONE CRITICA</h3>
@@ -487,7 +508,7 @@
                 <div class="question-text">D1. (8 punti) Perché è importante che esistano i Livelli Essenziali di
                     Assistenza (LEA) garantiti a tutti i cittadini? Cosa succederebbe se la sanità fosse solo privata e
                     a pagamento?</div>
-                <div class="answer-lines" style="height: 150px;"></div>
+                <textarea class="answer-lines" oninput="autoExpand(this)"></textarea>
             </div>
 
             <div class="question-block">
@@ -495,7 +516,7 @@
                     sociali) svolge un ruolo importante nel sistema dei servizi. Secondo te, perché il volontariato è
                     una risorsa preziosa per la comunità? Fai un esempio concreto collegato al caso della famiglia
                     Melis.</div>
-                <div class="answer-lines" style="height: 150px;"></div>
+                <textarea class="answer-lines" oninput="autoExpand(this)"></textarea>
             </div>
 
             <hr style="margin: 3rem 0; border: 0; border-top: 1px dashed #ccc;">
@@ -574,6 +595,21 @@
         document.getElementById('password-input').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') checkPassword();
         });
+
+        function autoExpand(field) {
+            field.style.height = 'inherit';
+
+            // Get the computed style
+            const computed = window.getComputedStyle(field);
+
+            // Calculate height needed
+            // If the content is smaller than min-height, keep min-height (handled by CSS min-height)
+            // But if it grows, we need to correct for borders/padding if box-sizing is content-box
+            // With border-box, scrollHeight usually includes padding
+
+            const height = field.scrollHeight;
+            field.style.height = height + 'px';
+        }
     </script>
 </body>
 

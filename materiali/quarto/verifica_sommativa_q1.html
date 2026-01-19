@@ -68,9 +68,19 @@
             background-size: 100% 2rem;
             background-position: 0 2rem;
             border: 1px solid #ddd;
-            height: 150px;
+            min-height: 150px;
             width: 100%;
             margin-top: 0.5rem;
+
+            /* Textarea specific */
+            resize: none;
+            overflow-y: hidden;
+            line-height: 2rem;
+            padding: 0.1rem 1rem 0;
+            font-family: inherit;
+            font-size: 1.1rem;
+            box-sizing: border-box;
+            background-color: #fff;
         }
 
         #lock-screen {
@@ -198,6 +208,7 @@
             <p><strong>20 punti | Tempo consigliato: 20 minuti</strong></p>
             <p>Per ogni domanda, indica con una X la risposta corretta. Ogni risposta corretta vale 2 punti.</p>
 
+            <!-- A1 -->
             <div class="question-block">
                 <div class="question-text">A1. Il modello bio-psico-sociale considera la persona:</div>
                 <div style="margin-left: 1rem;">
@@ -216,6 +227,7 @@
                 </div>
             </div>
 
+            <!-- A2 -->
             <div class="question-block">
                 <div class="question-text">A2. L'OSS (Operatore Socio-Sanitario) può:</div>
                 <div style="margin-left: 1rem;">
@@ -230,18 +242,571 @@
                         <input type="checkbox"> c) Effettuare diagnosi mediche
                     </label>
                     <label style="display: block; margin-bottom: 0.5rem;">
-                        <input type="checkbox"> d) Operare chirurgicamente in casi di emergenza
+                        <input type="checkbox"> d) Redigere il Progetto Individualizzato in autonomia
                     </label>
                 </div>
             </div>
 
-            <h3 style="margin-top: 2rem;">SEZIONE B - CASI E APPLICAZIONI</h3>
+            <!-- A3 -->
             <div class="question-block">
-                <div class="question-text">B1. Descrivi brevemente il ruolo dell'OSS all'interno di un'equipe
-                    multiprofessionale in una RSA.</div>
-                <div class="answer-lines"></div>
+                <div class="question-text">A3. La Legge 328/2000 ha istituito:</div>
+                <div
+                    style="margin-left: 1rem; color: #e74c3c; border: 1px dashed #e74c3c; padding: 1rem; background: #fdf2f2;">
+                    [Domanda interrotta o mancante nel PDF originale]
+                </div>
             </div>
 
+            <div class="question-block" style="border: 1px dashed #aaa; padding: 1rem;">
+                <div class="question-text" style="color: #666;">[Domanda precedente non identificabile - Opzioni
+                    visibili:]</div>
+                <div style="margin-left: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> a) Stabilire chi ha vinto il gioco
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> b) Aiutare il gruppo a riflettere sull'esperienza vissuta
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> c) Spiegare le regole prima dell'attività
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> d) Preparare i materiali per il gioco successivo
+                    </label>
+                </div>
+            </div>
+
+            <!-- A7 -->
+            <div class="question-block">
+                <div class="question-text">A7. Lo psicoterapeuta, rispetto allo psicologo:</div>
+                <div style="margin-left: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> a) Non può mai prescrivere farmaci
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> b) Ha completato una scuola quadriennale di specializzazione dopo la
+                        laurea
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> c) Lavora solo negli ospedali
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> d) Si occupa solo di bambini
+                    </label>
+                </div>
+            </div>
+
+            <!-- A8 -->
+            <div class="question-block">
+                <div class="question-text">A8. Un obiettivo di progettazione ben scritto deve:</div>
+                <div style="margin-left: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> a) Descrivere solo il servizio da erogare (es. 'fornire assistenza')
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> b) Indicare il cambiamento atteso, misurabile e con tempi definiti
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> c) Essere il più generico possibile per adattarsi a tutti
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> d) Riguardare solo gli aspetti economici dell'intervento
+                    </label>
+                </div>
+            </div>
+
+            <!-- A9 -->
+            <div class="question-block">
+                <div class="question-text">A9. I LEA (Livelli Essenziali di Assistenza) riguardano:</div>
+                <div style="margin-left: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> a) Prestazioni e servizi sanitari garantiti dal SSN a tutti i cittadini
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> b) Solo i servizi sociali dei Comuni
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> c) I requisiti per aprire una RSA
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> d) Le tariffe dei servizi privati
+                    </label>
+                </div>
+            </div>
+
+            <!-- A10 -->
+            <div class="question-block">
+                <div class="question-text">A10. La rete informale di supporto a un utente comprende:</div>
+                <div style="margin-left: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> a) ASL, Servizi Sociali, Scuole
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> b) Famiglia, amici, vicini, volontariato
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> c) Solo gli operatori professionali retribuiti
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> d) Le strutture residenziali pubbliche
+                    </label>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem;">SEZIONE A-BIS - CONOSCENZE SUI SERVIZI PER LA COMUNITÀ</h3>
+            <p><strong>20 punti | Tempo consigliato: 20 minuti</strong></p>
+
+            <!-- A11 -->
+            <div class="question-block">
+                <div class="question-text">A11. I Servizi e Interventi Integrativi hanno come obiettivo principale:
+                </div>
+                <div style="margin-left: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> a) L'allontanamento della persona dal proprio ambiente di vita
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> b) La sostituzione completa della famiglia nell'assistenza
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> c) Garantire la permanenza della persona nel proprio ambiente di vita il
+                        più a lungo possibile
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> d) Il ricovero immediato in struttura residenziale
+                    </label>
+                </div>
+            </div>
+
+            <!-- A12 -->
+            <div class="question-block">
+                <div class="question-text">A12. Il Servizio di Pronto Intervento Sociale (PIS):</div>
+                <div style="margin-left: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> a) Offre assistenza economica mensile continuativa
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> b) Interviene in situazioni di emergenza sociale 24h su 24, con
+                        accoglienza temporanea fino a 15 giorni
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> c) È un servizio privato a pagamento
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> d) Si occupa esclusivamente di emergenze sanitarie
+                    </label>
+                </div>
+            </div>
+
+            <!-- A13 -->
+            <div class="question-block">
+                <div class="question-text">A13. Il Centro Diurno è un servizio:</div>
+                <div style="margin-left: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> a) Residenziale che ospita la persona 24 ore su 24
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> b) Semiresidenziale che fornisce supporto durante il giorno per
+                        mantenere le capacità residue
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> c) Esclusivamente sanitario gestito dalla ASL
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> d) Riservato solo ai minori
+                    </label>
+                </div>
+            </div>
+
+            <!-- A14 -->
+            <div class="question-block">
+                <div class="question-text">A14. La Casa Famiglia e la Comunità Alloggio si distinguono principalmente
+                    per:</div>
+                <div style="margin-left: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> a) Il tipo di utenza accolta (minori vs adulti) [Ipotesi da contesto]
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> b) La concessione di abitazioni pubbliche con canone ridotto tramite
+                        bando comunale
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> c) L'inserimento in una Casa Famiglia
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> d) Un servizio di manutenzione gratuita della propria abitazione
+                    </label>
+                </div>
+            </div>
+
+            <!-- A18 -->
+            <div class="question-block">
+                <div class="question-text">A18. Il Centro di Accoglienza Notturna è rivolto a:</div>
+                <div style="margin-left: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> a) Solo cittadini italiani con residenza nel comune
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> b) Persone senza fissa dimora in condizioni di disagio,
+                        indipendentemente da cittadinanza e residenza
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> c) Solo minori non accompagnati
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> d) Esclusivamente anziani non autosufficienti
+                    </label>
+                </div>
+            </div>
+
+            <!-- A19 -->
+            <div class="question-block">
+                <div class="question-text">A19. I Servizi Residenziali (come le RSA) intervengono quando:</div>
+                <div style="margin-left: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> a) La persona preferisce non vivere con la propria famiglia
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> b) La persona non può vivere dignitosamente a domicilio e/o non può
+                        essere assistita a casa
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> c) La famiglia lo richiede per comodità organizzativa
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> d) Solo in caso di malattie infettive acute
+                    </label>
+                </div>
+            </div>
+
+            <!-- A20 -->
+            <div class="question-block">
+                <div class="question-text">A20. Il Servizio di Accompagnamento e Trasporto ha come obiettivo:</div>
+                <div style="margin-left: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> a) Sostituire completamente i mezzi pubblici
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> b) Favorire la mobilità e la partecipazione sociale di persone con
+                        difficoltà motorie
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> c) Trasportare solo verso strutture sanitarie
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> d) Essere disponibile esclusivamente per emergenze
+                    </label>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem;">SEZIONE B - COMPRENSIONE E COLLEGAMENTO</h3>
+            <p><strong>25 punti | Tempo consigliato: 25 minuti</strong></p>
+            <p>Rispondi alle domande in modo sintetico ma completo.</p>
+
+            <div class="question-block">
+                <div class="question-text">B1. (8 punti) Descrivi le 6 fasi della Progettazione Individualizzata,
+                    indicando per ciascuna fase la sua funzione principale in 1-2 righe.</div>
+                <textarea class="answer-lines" oninput="autoExpand(this)"></textarea>
+            </div>
+
+            <div class="question-block">
+                <div class="question-text">B2. (8 punti) Spiega la differenza tra servizi integrativi e servizi
+                    sostitutivi, facendo almeno due esempi per ciascuna categoria.</div>
+                <textarea class="answer-lines" oninput="autoExpand(this)"></textarea>
+            </div>
+
+            <div class="question-block">
+                <div class="question-text">B3. (9 punti) Completa la tabella indicando, per ogni figura professionale,
+                    il titolo di studio richiesto e un compito principale.</div>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                    <thead>
+                        <tr style="background: #f8f9fa;">
+                            <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left;">FIGURA PROFESSIONALE
+                            </th>
+                            <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left;">TITOLO DI STUDIO</th>
+                            <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left;">COMPITO PRINCIPALE
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">Animatore Sociale
+                            </td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                                    oninput="autoExpand(this)"></textarea></td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                                    oninput="autoExpand(this)"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">Educatore
+                                Professionale</td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                                    oninput="autoExpand(this)"></textarea></td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                                    oninput="autoExpand(this)"></textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 style="margin-top: 2rem;">SEZIONE B-BIS - COMPRENSIONE DEI SERVIZI</h3>
+            <p><strong>25 punti | Tempo consigliato: 25 minuti</strong></p>
+
+            <div class="question-block">
+                <div class="question-text">B4. (8 punti) Descrivi le tre tipologie di Assistenza Domiciliare (SAD, ADI,
+                    ADCP), specificando per ciascuna: l'ente erogatore e il tipo di intervento principale.</div>
+                <textarea class="answer-lines" oninput="autoExpand(this)"></textarea>
+            </div>
+
+            <div class="question-block">
+                <div class="question-text">B5. (8 punti) Spiega il ruolo del Segretariato Sociale: quali sono le sue
+                    caratteristiche principali e i suoi compiti?</div>
+                <textarea class="answer-lines" oninput="autoExpand(this)"></textarea>
+            </div>
+
+            <div class="question-block">
+                <div class="question-text">B6. (9 punti) Completa la tabella indicando, per ogni servizio, i destinatari
+                    principali e l'ente che attiva l'accesso.</div>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                    <thead>
+                        <tr style="background: #f8f9fa;">
+                            <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left;">SERVIZIO</th>
+                            <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left;">DESTINATARI</th>
+                            <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left;">ATTIVAZIONE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">Centro Diurno</td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                                    oninput="autoExpand(this)"></textarea></td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                                    oninput="autoExpand(this)"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">Centro Diurno
+                                Integrato</td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                                    oninput="autoExpand(this)"></textarea></td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                                    oninput="autoExpand(this)"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">Assistenza Abitativa
+                                (ERP)</td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                                    oninput="autoExpand(this)"></textarea></td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                                    oninput="autoExpand(this)"></textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 style="margin-top: 2rem;">SEZIONE C - APPLICAZIONE PRATICA</h3>
+            <p><strong>35 punti | Tempo consigliato: 45 minuti</strong></p>
+            <p>Leggi attentamente il caso e rispondi alle domande.</p>
+
+            <div
+                style="background: #fff3cd; padding: 1.5rem; border-radius: 8px; border: 1px solid #ffeeba; margin-bottom: 2rem;">
+                <h4 style="margin-top: 0; color: #856404;">📄 CASO DI STUDIO: LA SIGNORA MARIA</h4>
+                <p>Maria ha 78 anni, vedova da 5 anni, vive sola in un appartamento al secondo piano senza ascensore in
+                    un piccolo paese della Sardegna. Ha una figlia, Lucia (50 anni), che vive a 40 km di distanza e
+                    lavora a tempo pieno. Maria soffre di artrosi alle ginocchia che le rende difficile camminare e
+                    salire le scale. Recentemente ha avuto una caduta in casa.</p>
+                <p>Maria è lucida e autonoma nelle attività cognitive, ma ha difficoltà crescenti nell'igiene personale
+                    (entrare/uscire dalla vasca), nella preparazione dei pasti e nella spesa. Non esce più di casa da un
+                    mese per paura di cadere sulle scale. Si sente sola e ha perso interesse per le attività che amava
+                    (cucito, messa domenicale). Il medico di base ha segnalato la situazione ai Servizi Sociali.</p>
+                <p>La pensione di Maria è di 850€/mese. La figlia può contribuire economicamente ma non ha tempo per
+                    assistenza diretta quotidiana.</p>
+            </div>
+
+            <div class="question-block">
+                <div class="question-text">C1. (10 punti) ANALISI DEI BISOGNI<br><span
+                        style="font-weight: normal; font-size: 0.95rem;">Utilizzando il modello bio-psico-sociale,
+                        identifica e descrivi i principali bisogni di Maria suddivodendoli nelle tre aree.</span></div>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                    <thead>
+                        <tr style="background: #f8f9fa;">
+                            <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left; width: 33%;">AREA
+                                BIOLOGICA</th>
+                            <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left; width: 33%;">AREA
+                                PSICOLOGICA</th>
+                            <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left; width: 33%;">AREA
+                                SOCIALE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 150px; border: 1px solid #ccc; border-radius: 4px;"
+                                    oninput="autoExpand(this)"></textarea></td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 150px; border: 1px solid #ccc; border-radius: 4px;"
+                                    oninput="autoExpand(this)"></textarea></td>
+                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea
+                                    style="width: 100%; height: 150px; border: 1px solid #ccc; border-radius: 4px;"
+                                    oninput="autoExpand(this)"></textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="question-block">
+                <div class="question-text">C3. [Domanda parzialmente mancante] Proponi DUE interventi concreti.</div>
+                <div style="margin-bottom: 1rem;">
+                    <label style="font-weight: 600;">SERVIZIO 1 (Dedotto):</label>
+                    <textarea class="answer-lines" oninput="autoExpand(this)"></textarea>
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label style="font-weight: 600;">SERVIZIO 2:</label>
+                    <textarea class="answer-lines" oninput="autoExpand(this)"></textarea>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-text">C4. (7 punti) OBIETTIVO DI PROGETTO<br><span
+                        style="font-weight: normal; font-size: 0.95rem;">Scrivi UN obiettivo ben formulato per il
+                        progetto individualizzato di Maria, seguendo la formula: Migliorare/Mantenere/Ridurre + Aspetto
+                        della vita + Di quanto/In quanto tempo + Attraverso quali interventi.</span></div>
+                <textarea class="answer-lines" oninput="autoExpand(this)"></textarea>
+            </div>
+
+            <h3 style="margin-top: 2rem;">SEZIONE C-BIS - APPLICAZIONE DEI SERVIZI AL CASO</h3>
+            <p><strong>35 punti | Tempo consigliato: 35 minuti</strong></p>
+
+            <div class="question-block">
+                <div class="question-text">C5. (12 punti) SCELTA TRA SAD E ADI<br><span
+                        style="font-weight: normal; font-size: 0.95rem;">Per la situazione di Maria, indica quale tra
+                        SAD e ADI sarebbe più appropriato attivare. Motiva la tua scelta spiegando: a) Perché quel
+                        servizio è più adatto ai bisogni specifici di Maria; b) Quali prestazioni concrete potrebbe
+                        ricevere; c) Come si integrerebbe con altri eventuali servizi.</span></div>
+                <textarea class="answer-lines" oninput="autoExpand(this)"></textarea>
+            </div>
+
+            <div class="question-block">
+                <div class="question-text">C6. (10 punti) PERCORSO DI ACCESSO AI SERVIZI<br><span
+                        style="font-weight: normal; font-size: 0.95rem;">Descrivi il percorso che Maria (o la figlia
+                        Lucia) dovrebbe seguire per accedere ai servizi sociali del territorio: a) Il primo servizio a
+                        cui rivolgersi; b) I passaggi per la presa in carico; c) Le figure professionali che
+                        incontrerebbe.</span></div>
+                <textarea class="answer-lines" oninput="autoExpand(this)"></textarea>
+            </div>
+
+            <h3 style="margin-top: 2rem;">SEZIONE D - RIFLESSIONE</h3>
+            <p><strong>20 punti | Tempo consigliato: 20 minuti</strong></p>
+            <p>Rifletti sul tuo apprendimento e sul significato professionale di quanto studiato.</p>
+
+            <div class="question-block">
+                <div class="question-text">D1. (10 punti) Perché è importante che un operatore socio-sanitario conosca
+                    le diverse figure professionali dell'équipe e sappia lavorare in rete? Fai riferimento a situazioni
+                    concrete in cui questa competenza può fare la differenza per l'utente.</div>
+                <textarea class="answer-lines" oninput="autoExpand(this)"></textarea>
+            </div>
+
+            <div class="question-block">
+                <div class="question-text">D2. (10 punti) Nel caso di Maria, quali aspetti etici e relazionali deve
+                    tenere presente l'operatore che la prende in carico? Come si può rispettare la sua dignità e
+                    autonomia pur in una situazione di fragilità?</div>
+                <textarea class="answer-lines" oninput="autoExpand(this)"></textarea>
+            </div>
+
+            <h3 style="margin-top: 3rem; text-align: center;">RIEPILOGO VALUTAZIONE</h3>
+            <p style="text-align: center; color: #666;">(Riservato al docente)</p>
+
+            <table style="width: 100%; max-width: 600px; margin: 1rem auto; border-collapse: collapse;">
+                <thead>
+                    <tr style="background: #f8f9fa;">
+                        <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left;">SEZIONE</th>
+                        <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: center; width: 100px;">MAX PUNTI
+                        </th>
+                        <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: center; width: 100px;">PUNTI
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem;">A - Conoscenze base</td>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem; text-align: center;"><b>20</b></td>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem;"></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem;">A-BIS - Conoscenze servizi</td>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem; text-align: center;"><b>20</b></td>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem;"></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem;">B - Comprensione e collegamento</td>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem; text-align: center;"><b>25</b></td>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem;"></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem;">B-BIS - Comprensione servizi</td>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem; text-align: center;"><b>25</b></td>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem;"></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem;">C - Applicazione pratica</td>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem; text-align: center;"><b>35</b></td>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem;"></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem;">C-BIS - Applicazione servizi</td>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem; text-align: center;"><b>35</b></td>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem;"></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem;">D - Riflessione professionale</td>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem; text-align: center;"><b>20</b></td>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem;"></td>
+                    </tr>
+                    <tr style="background: #e9ecef; font-weight: bold;">
+                        <td style="border: 1px solid #ddd; padding: 0.8rem; text-align: right;">TOTALE</td>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem; text-align: center;">180</td>
+                        <td style="border: 1px solid #ddd; padding: 0.8rem;"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div style="max-width: 600px; margin: 2rem auto; padding: 1.5rem; background: #f8f9fa; border-radius: 8px;">
+                <h4 style="margin-top: 0;">CONVERSIONE PUNTEGGIO → VOTO (su 180 punti)</h4>
+                <div
+                    style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; text-align: center; font-size: 0.9rem;">
+                    <div style="background: #ddd; padding: 5px;">PUNTI</div>
+                    <div style="background: white; padding: 5px;">0-89</div>
+                    <div style="background: white; padding: 5px;">90-107</div>
+                    <div style="background: white; padding: 5px;">108-125</div>
+                    <div style="background: white; padding: 5px;">126-143</div>
+                    <div style="background: white; padding: 5px;">144-161</div>
+                    <div style="background: white; padding: 5px;">162-171</div>
+
+                    <div style="background: #ddd; padding: 5px;">VOTO</div>
+                    <div style="background: white; padding: 5px;"><b>4</b></div>
+                    <div style="background: white; padding: 5px;"><b>5</b></div>
+                    <div style="background: white; padding: 5px;"><b>6</b></div>
+                    <div style="background: white; padding: 5px;"><b>7</b></div>
+                    <div style="background: white; padding: 5px;"><b>8</b></div>
+                    <div style="background: white; padding: 5px;"><b>9</b></div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; border-top: 2px solid #eee; padding-top: 2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <span style="font-weight: 600; font-size: 1.2rem;">VOTO FINALE: ________ / 10</span>
+                    <span style="font-weight: 600;">Firma del docente: ________________________</span>
+                </div>
+                <p><strong>NOTE E OSSERVAZIONI:</strong></p>
+                <textarea class="answer-lines" style="height: 100px;" oninput="autoExpand(this)"></textarea>
+            </div>
         </div>
     </div>
 
@@ -278,6 +843,17 @@
 
         document.getElementById('password-input').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') checkPassword();
+        });
+
+        function autoExpand(field) {
+            field.style.height = 'inherit';
+            const height = field.scrollHeight;
+            field.style.height = height + 'px';
+        }
+
+        // Initialize existing textareas in tables
+        document.querySelectorAll('textarea').forEach(ta => {
+            ta.setAttribute('oninput', 'autoExpand(this)');
         });
     </script>
 </body>
