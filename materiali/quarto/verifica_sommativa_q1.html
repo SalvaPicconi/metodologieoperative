@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifica Sommativa - Quarto Anno</title>
+    <link rel="stylesheet" href="../../style.css">
+    <style>
+        .verification-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .verification-header {
+            text-align: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .student-fields {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .field-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .field-group label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .field-group input {
+            border: 1px solid #ddd;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .question-block {
+            margin-bottom: 2.5rem;
+            page-break-inside: avoid;
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .answer-lines {
+            background-image: linear-gradient(#ccc 1px, transparent 1px);
+            background-size: 100% 2rem;
+            background-position: 0 2rem;
+            border: 1px solid #ddd;
+            height: 150px;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        #lock-screen {
+            position: fixed;
+            inset: 0;
+            background: #2c3e50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .lock-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .lock-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .lock-input {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.2rem;
+            margin: 1.5rem 0;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .lock-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+        }
+
+        .lock-btn:hover {
+            background: #2980b9;
+        }
+
+        .error-msg {
+            color: #e74c3c;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .print-actions {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .action-btn {
+            background: #2c3e50;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            border: none;
+            font-size: 1.5rem;
+            transition: transform 0.2s;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="lock-screen">
+        <div class="lock-card">
+            <div class="lock-icon">🔒</div>
+            <h2>Area Riservata</h2>
+            <p style="color: #666; margin-top: 0.5rem;">Inserisci la password per la verifica del Quarto Anno.</p>
+            <input type="password" id="password-input" class="lock-input" placeholder="Password">
+            <button class="lock-btn" onclick="checkPassword()">Accedi</button>
+            <p id="error-msg" class="error-msg">Password non corretta</p>
+        </div>
+    </div>
+
+    <div id="verification-content" class="verification-container">
+        <header class="verification-header">
+            <h1 id="doc-title">Verifica Sommativa</h1>
+            <p id="doc-subtitle">Metodologie Operative - Quarto Anno</p>
+        </header>
+
+        <div class="student-fields">
+            <div class="field-group">
+                <label>Nome e Cognome</label>
+                <input type="text">
+            </div>
+            <div class="field-group">
+                <label>Classe</label>
+                <input type="text">
+            </div>
+            <div class="field-group">
+                <label>Data</label>
+                <input type="date">
+            </div>
+        </div>
+
+        <div id="questions-container">
+            <h3 style="margin-top: 2rem;">SEZIONE A - CONOSCENZE BASE</h3>
+            <p><strong>20 punti | Tempo consigliato: 20 minuti</strong></p>
+            <p>Per ogni domanda, indica con una X la risposta corretta. Ogni risposta corretta vale 2 punti.</p>
+
+            <div class="question-block">
+                <div class="question-text">A1. Il modello bio-psico-sociale considera la persona:</div>
+                <div style="margin-left: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> a) Solo negli aspetti fisici e biologici
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> b) Nella sua totalità: aspetti biologici, psicologici e sociali
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> c) Principalmente negli aspetti economici e lavorativi
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> d) Solo nelle relazioni familiari
+                    </label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-text">A2. L'OSS (Operatore Socio-Sanitario) può:</div>
+                <div style="margin-left: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> a) Prescrivere farmaci autonomamente
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> b) Somministrare alcuni farmaci su indicazione del medico, ma non fare
+                        iniezioni
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> c) Effettuare diagnosi mediche
+                    </label>
+                    <label style="display: block; margin-bottom: 0.5rem;">
+                        <input type="checkbox"> d) Operare chirurgicamente in casi di emergenza
+                    </label>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem;">SEZIONE B - CASI E APPLICAZIONI</h3>
+            <div class="question-block">
+                <div class="question-text">B1. Descrivi brevemente il ruolo dell'OSS all'interno di un'equipe
+                    multiprofessionale in una RSA.</div>
+                <div class="answer-lines"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="print-actions" id="print-actions" style="display: none;">
+        <button class="action-btn" onclick="window.print()" title="Stampa Verifica">🖨️</button>
+        <button class="action-btn" onclick="window.location.href='../../quarto.html'"
+            title="Torna al Quarto Anno">🏠</button>
+    </div>
+
+    <script>
+        const CORRECT_PASSWORD = 'quarto';
+
+        function checkPassword() {
+            const input = document.getElementById('password-input').value;
+            const errorMsg = document.getElementById('error-msg');
+
+            if (input.toLowerCase() === CORRECT_PASSWORD) {
+                document.getElementById('lock-screen').style.display = 'none';
+                document.getElementById('verification-content').style.display = 'block';
+                document.getElementById('print-actions').style.display = 'flex';
+                sessionStorage.setItem('verifica_quarto_unlocked', 'true');
+            } else {
+                errorMsg.style.display = 'block';
+                document.getElementById('password-input').value = '';
+                document.getElementById('password-input').focus();
+            }
+        }
+
+        if (sessionStorage.getItem('verifica_quarto_unlocked') === 'true') {
+            document.getElementById('lock-screen').style.display = 'none';
+            document.getElementById('verification-content').style.display = 'block';
+            document.getElementById('print-actions').style.display = 'flex';
+        }
+
+        document.getElementById('password-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+    </script>
+</body>
+
+</html>

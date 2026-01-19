@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifica Sommativa</title>
+    <link rel="stylesheet" href="../../style.css">
+    <style>
+        /* Stili specifici per la verifica che potrebbero essere spostati in style.css */
+        .verification-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            display: none;
+            /* Nascosto di default */
+        }
+
+        .verification-header {
+            text-align: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .student-fields {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .field-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .field-group label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .field-group input {
+            border: 1px solid #ddd;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .question-block {
+            margin-bottom: 2.5rem;
+            page-break-inside: avoid;
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .answer-space {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            min-height: 100px;
+            background: #fff;
+            padding: 1rem;
+        }
+
+        .answer-lines {
+            background-image: linear-gradient(#ccc 1px, transparent 1px);
+            background-size: 100% 2rem;
+            background-position: 0 2rem;
+            border: 1px solid #ddd;
+            height: 150px;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        /* Lock Screen */
+        #lock-screen {
+            position: fixed;
+            inset: 0;
+            background: #2c3e50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .lock-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .lock-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .lock-input {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.2rem;
+            margin: 1.5rem 0;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .lock-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+        }
+
+        .lock-btn:hover {
+            background: #2980b9;
+        }
+
+        .error-msg {
+            color: #e74c3c;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .print-actions {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .action-btn {
+            background: #2c3e50;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            border: none;
+            font-size: 1.5rem;
+            transition: transform 0.2s;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Lock Screen -->
+    <div id="lock-screen">
+        <div class="lock-card">
+            <div class="lock-icon">🔒</div>
+            <h2>Area Riservata</h2>
+            <p style="color: #666; margin-top: 0.5rem;">Inserisci la password fornita dal docente per accedere alla
+                verifica.</p>
+            <input type="password" id="password-input" class="lock-input" placeholder="Password">
+            <button class="lock-btn" onclick="checkPassword()">Accedi</button>
+            <p id="error-msg" class="error-msg">Password non corretta</p>
+        </div>
+    </div>
+
+    <!-- Contenuto Verifica -->
+    <div id="verification-content" class="verification-container">
+        <header class="verification-header">
+            <h1 id="doc-title">Verifica Sommativa</h1>
+            <p id="doc-subtitle">Metodologie Operative</p>
+        </header>
+
+        <div class="student-fields">
+            <div class="field-group">
+                <label>Nome e Cognome</label>
+                <input type="text">
+            </div>
+            <div class="field-group">
+                <label>Classe</label>
+                <input type="text">
+            </div>
+            <div class="field-group">
+                <label>Data</label>
+                <input type="date">
+            </div>
+        </div>
+
+        <div id="questions-container">
+            <!-- Esempio Domanda -->
+            <div class="question-block">
+                <div class="question-text">1. Definisci il concetto di...</div>
+                <div class="answer-lines"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pulsanti Azione (Stampa/Home) -->
+    <div class="print-actions" id="print-actions" style="display: none;">
+        <button class="action-btn" onclick="window.print()" title="Stampa Verifica">🖨️</button>
+        <button class="action-btn" onclick="window.location.href='../../index.html'" title="Torna alla Home">🏠</button>
+    </div>
+
+    <script>
+        // Configurazione
+        const CORRECT_PASSWORD = 'metodologie'; // Password temporanea
+
+        function checkPassword() {
+            const input = document.getElementById('password-input').value;
+            const errorMsg = document.getElementById('error-msg');
+
+            if (input.toLowerCase() === CORRECT_PASSWORD) {
+                document.getElementById('lock-screen').style.display = 'none';
+                document.getElementById('verification-content').style.display = 'block';
+                document.getElementById('print-actions').style.display = 'flex';
+                // Salva lo stato in session storage per evitare di richiederla al refresh
+                sessionStorage.setItem('verifica_unlocked', 'true');
+            } else {
+                errorMsg.style.display = 'block';
+                document.getElementById('password-input').value = '';
+                document.getElementById('password-input').focus();
+            }
+        }
+
+        // Check unlock status on load
+        if (sessionStorage.getItem('verifica_unlocked') === 'true') {
+            document.getElementById('lock-screen').style.display = 'none';
+            document.getElementById('verification-content').style.display = 'block';
+            document.getElementById('print-actions').style.display = 'flex';
+        }
+
+        // Supporto tasto Enter
+        document.getElementById('password-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+    </script>
+</body>
+
+</html>
