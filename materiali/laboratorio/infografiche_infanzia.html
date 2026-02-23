@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta name="page-id" content="infografiche-infanzia">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografiche - Laboratorio Infanzia</title>
+    <meta name="description" content="Galleria infografiche per i percorsi laboratoriali dedicati all'infanzia.">
+    <link rel="stylesheet" href="../../style.css">
+    <style>
+        .infografica-container {
+            margin-bottom: 3rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background: #fff;
+            padding: 1rem;
+        }
+
+        .infografica-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .infografica-title {
+            font-size: 1.25rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .alert-ai {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .alert-ai strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        .mobile-rotate-notice {
+            display: none;
+            background-color: #e2e8f0;
+            color: #475569;
+            padding: 0.75rem;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-rotate-notice {
+                display: block;
+            }
+        }
+
+        /* Contenitore scorrevole orizzontalmente per cellulari */
+        .scrollable-image-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .scrollable-image-wrapper img {
+                max-width: none;
+                height: 500px;
+                width: auto;
+            }
+
+            .fullscreen-hint {
+                text-align: center;
+                font-size: 0.8rem;
+                color: #64748b;
+                margin-top: 0.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>Infografiche - Laboratorio Infanzia</h1>
+            <p>Supporto visivo per i progetti operativi dell'infanzia</p>
+            <p style="font-size: 0.9rem; margin-top: 0.5rem;">IIS Meucci Mattei - Cagliari (Sede Decimomannu)</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../../laboratorio.html">Torna al Laboratorio</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="container">
+
+            <div class="alert-ai">
+                <strong>⚠️ Avviso</strong><br>
+                Materiale prodotto con AI, potrebbero esserci degli errori, verificare sempre il contenuto con il
+                materiale fornito dal docente.
+            </div>
+
+            <div class="mobile-rotate-notice">
+                📱 Per una migliore visualizzazione delle infografiche, ti consigliamo di ruotare il telefono in
+                orizzontale, oppure scorri le immagini verso destra con il dito.
+            </div>
+
+            <section class="galleria" style="margin-top: 2rem;">
+
+                <div class="infografica-container">
+                    <h3 class="infografica-title">1. Infografica</h3>
+                    <div class="scrollable-image-wrapper">
+                        <img src="infanzia/1%20infanzia.png" alt="Infografica Infanzia 1">
+                    </div>
+                </div>
+
+                <div class="infografica-container">
+                    <h3 class="infografica-title">2. Infografica</h3>
+                    <div class="scrollable-image-wrapper">
+                        <img src="infanzia/2%20infanzia.png" alt="Infografica Infanzia 2">
+                    </div>
+                </div>
+
+                <div class="infografica-container">
+                    <h3 class="infografica-title">3. Infografica</h3>
+                    <div class="scrollable-image-wrapper">
+                        <img src="infanzia/3%20infanzia.png" alt="Infografica Infanzia 3">
+                    </div>
+                </div>
+
+                <div class="infografica-container">
+                    <h3 class="infografica-title">4. Infografica</h3>
+                    <div class="scrollable-image-wrapper">
+                        <img src="infanzia/4%20infanzia.png" alt="Infografica Infanzia 4">
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p><strong>Prof. Dott. Picconi</strong></p>
+            <p>Metodologie Operative - Servizi Sociosanitari</p>
+            <p>IIS Meucci Mattei - Cagliari</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem;">&copy; 2025 - Tutti i diritti riservati</p>
+            <div class="home-link">
+                <a href="https://salvapicconi.github.io/metodologieoperative/">🏠 Torna alla Home</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
