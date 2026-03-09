@@ -1170,8 +1170,20 @@ function isDocenteSessionValid() {
 function toggleLoading(isLoading) {
     if (elements.refreshBtn) {
         elements.refreshBtn.disabled = isLoading;
-        elements.refreshBtn.textContent = isLoading ? 'Carico...' : '🔄 Aggiorna dati';
+        if (isLoading) {
+            elements.refreshBtn.innerHTML = '<span class="spinner">↻</span> Caricamento in corso...';
+        } else {
+            elements.refreshBtn.innerHTML = '🔄 Aggiorna dati';
+        }
     }
+    
+    // Dim the main container while loading to provide feedback
+    const contentPanels = document.querySelectorAll('.summary-section, .docente-stats');
+    contentPanels.forEach(panel => {
+        panel.style.transition = 'opacity 0.3s ease';
+        panel.style.opacity = isLoading ? '0.5' : '1';
+        panel.style.pointerEvents = isLoading ? 'none' : 'auto';
+    });
 }
 
 function setStatus(message) {
