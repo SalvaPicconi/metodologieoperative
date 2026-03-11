@@ -260,7 +260,7 @@ function renderDownloadList(materiali) {
         );
     }
 
-    return materiali.map(renderDownloadCard).join('');
+    return `<div class="cards">${materiali.map(renderDownloadCard).join('')}</div>`;
 }
 
 function renderInteractiveList(materiali) {
@@ -271,7 +271,7 @@ function renderInteractiveList(materiali) {
         );
     }
 
-    return materiali.map(renderInteractiveCard).join('');
+    return `<div class="cards">${materiali.map(renderInteractiveCard).join('')}</div>`;
 }
 
 function renderAuthenticList(materiali) {
@@ -282,7 +282,7 @@ function renderAuthenticList(materiali) {
         );
     }
 
-    return materiali.map(renderAuthenticCard).join('');
+    return `<div class="cards">${materiali.map(renderAuthenticCard).join('')}</div>`;
 }
 
 function renderDownloadCard(materiale) {
@@ -464,7 +464,7 @@ function renderVerificheList(materiali) {
     // Primo Quadrimestre
     html += `<h3 class="semester-title">1️⃣ Primo Quadrimestre</h3>`;
     if (primoQuad.length > 0) {
-        html += primoQuad.map(renderVerificaCard).join('');
+        html += `<div class="cards">${primoQuad.map(renderVerificaCard).join('')}</div>`;
     } else {
         html += `<p class="muted" style="margin-bottom: 2rem;">Nessun materiale ancora disponibile per il primo quadrimestre.</p>`;
     }
@@ -472,7 +472,7 @@ function renderVerificheList(materiali) {
     // Secondo Quadrimestre
     html += `<h3 class="semester-title">2️⃣ Secondo Quadrimestre</h3>`;
     if (secondoQuad.length > 0) {
-        html += secondoQuad.map(renderVerificaCard).join('');
+        html += `<div class="cards">${secondoQuad.map(renderVerificaCard).join('')}</div>`;
     } else {
         html += `<p class="muted">Nessun materiale ancora disponibile per il secondo quadrimestre.</p>`;
     }
