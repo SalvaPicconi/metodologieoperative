@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta name="page-id" content="attivita-laboratorio-fascicolo-disabilita-4sa-01">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fascicolo Tecnico-Pratico: Le disabilità – Classe 4ª SSA</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #1a6b4a;
+            --primary-dark: #0d4a32;
+            --primary-light: #27a86e;
+            --accent: #f4a623;
+            --accent-dark: #d4891a;
+            --bg: linear-gradient(135deg, #134e5e 0%, #71b280 100%);
+            --text: #222;
+            --muted: #666;
+            --border: #cde8d4;
+            --fill-bg: #f0faf4;
+            --level1: #2980b9;
+            --level2: #8e44ad;
+            --level3: #e67e22;
+            --level4: #c0392b;
+            --level5: #16a085;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+            overflow: hidden;
+        }
+
+        /* ── HEADER ── */
+        header {
+            background: var(--bg);
+            color: white;
+            padding: 40px 30px 30px;
+            text-align: center;
+        }
+        header .school { font-size: 0.9em; opacity: 0.85; margin-bottom: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 6px; text-shadow: 1px 2px 4px rgba(0,0,0,0.3); line-height: 1.2; }
+        header .subtitle { font-size: 1em; opacity: 0.9; margin-bottom: 4px; }
+        header .tags { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+        header .tag {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.8em;
+        }
+
+        /* ── TABS ── */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 20px 16px;
+            background: #f4f9f6;
+            border-bottom: 3px solid #71b280;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .tab-btn {
+            padding: 10px 20px;
+            border: 2px solid #71b280;
+            background: white;
+            color: var(--primary);
+            font-size: 0.9em;
+            font-weight: 700;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.25s;
+            white-space: nowrap;
+        }
+        .tab-btn:hover { background: #e8f5ed; transform: translateY(-1px); }
+        .tab-btn.active { background: var(--bg); color: white; border-color: transparent; box-shadow: 0 4px 14px rgba(19,78,94,0.35); }
+
+        /* ── CONTENT ── */
+        .tab-content { display: none; padding: 30px; }
+        .tab-content.active { display: block; }
+
+        /* ── COVER PAGE ── */
+        .cover-card {
+            background: linear-gradient(135deg, #f0faf4, #e8f5f0);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 24px;
+        }
+        .cover-title { text-align: center; margin-bottom: 24px; }
+        .cover-title h2 { font-size: 1.8em; color: var(--primary-dark); }
+        .cover-title p { color: var(--muted); }
+
+        .student-form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        @media (max-width: 600px) { .student-form { grid-template-columns: 1fr; } }
+        .form-field label { display: block; font-weight: 700; color: var(--primary-dark); margin-bottom: 4px; font-size: 0.85em; }
+        .form-field input {
+            width: 100%;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 1em;
+            font-family: inherit;
+            background: white;
+            color: var(--text);
+            transition: border-color 0.2s;
+        }
+        .form-field input:focus { outline: none; border-color: var(--primary-light); }
+
+        .levels-overview { margin-top: 24px; }
+        .levels-overview h3 { color: var(--primary-dark); margin-bottom: 14px; font-size: 1.1em; }
+        .level-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            background: white;
+            border-left: 5px solid;
+        }
+        .level-row.l1 { border-color: var(--level1); }
+        .level-row.l2 { border-color: var(--level2); }
+        .level-row.l3 { border-color: var(--level3); }
+        .level-row.l4 { border-color: var(--level4); }
+        .level-row.l5 { border-color: var(--level5); }
+        .level-badge {
+            font-weight: 800;
+            font-size: 0.8em;
+            padding: 4px 10px;
+            border-radius: 20px;
+            color: white;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .l1 .level-badge { background: var(--level1); }
+        .l2 .level-badge { background: var(--level2); }
+        .l3 .level-badge { background: var(--level3); }
+        .l4 .level-badge { background: var(--level4); }
+        .l5 .level-badge { background: var(--level5); }
+        .level-desc strong { display: block; margin-bottom: 2px; }
+        .level-desc small { color: var(--muted); font-size: 0.85em; }
+
+        .info-box {
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin: 16px 0;
+        }
+        .info-box.warning { background: #fff8e1; border-left: 5px solid var(--accent); }
+        .info-box.info    { background: #e8f4fd; border-left: 5px solid var(--level1); }
+        .info-box.tip     { background: #f0faf4; border-left: 5px solid var(--level5); }
+        .info-box strong  { color: var(--primary-dark); }
+
+        .sources-box {
+            background: #f9f9f9;
+            border: 1px dashed #aaa;
+            border-radius: 10px;
+            padding: 14px 18px;
+            margin: 10px 0 20px;
+            font-size: 0.88em;
+            color: #555;
+        }
+        .sources-box strong { color: var(--primary-dark); }
+
+        /* ── SECTION HEADINGS ── */
+        .level-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 20px 24px;
+            border-radius: 14px;
+            margin-bottom: 24px;
+            color: white;
+        }
+        .level-header.l1 { background: linear-gradient(135deg, #2980b9, #6dd5fa); }
+        .level-header.l2 { background: linear-gradient(135deg, #8e44ad, #c56cd6); }
+        .level-header.l3 { background: linear-gradient(135deg, #e67e22, #f9ca48); }
+        .level-header.l4 { background: linear-gradient(135deg, #c0392b, #f36265); }
+        .level-header.l5 { background: linear-gradient(135deg, #134e5e, #71b280); }
+        .level-header .num { font-size: 2.5em; font-weight: 900; opacity: 0.85; }
+        .level-header h2 { font-size: 1.5em; margin-bottom: 2px; }
+        .level-header p  { font-size: 0.9em; opacity: 0.9; }
+
+        .section-title {
+            font-size: 1.05em;
+            font-weight: 700;
+            color: var(--primary-dark);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 6px;
+            margin: 24px 0 8px;
+        }
+
+        .where-to-look {
+            font-size: 0.82em;
+            color: var(--muted);
+            background: #f4f9f6;
+            border-radius: 6px;
+            padding: 6px 12px;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        /* ── TABLES ── */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0 20px;
+            font-size: 0.9em;
+        }
+        .data-table th {
+            background: var(--primary-dark);
+            color: white;
+            padding: 10px 12px;
+            text-align: left;
+            font-size: 0.85em;
+        }
+        .data-table th:first-child { border-radius: 8px 0 0 0; }
+        .data-table th:last-child  { border-radius: 0 8px 0 0; }
+        .data-table td {
+            border: 1px solid var(--border);
+            padding: 0;
+            vertical-align: middle;
+        }
+        .data-table td.label {
+            padding: 8px 12px;
+            font-weight: 600;
+            background: #f4f9f6;
+            color: var(--primary-dark);
+            min-width: 140px;
+        }
+        .data-table td.prefilled {
+            padding: 8px 12px;
+            background: #edf7f0;
+            color: #444;
+            font-style: italic;
+        }
+        .data-table td input,
+        .data-table td textarea {
+            width: 100%;
+            border: none;
+            background: var(--fill-bg);
+            padding: 8px 12px;
+            font-family: inherit;
+            font-size: 0.95em;
+            color: var(--text);
+            resize: vertical;
+            min-height: 38px;
+        }
+        .data-table td input:focus,
+        .data-table td textarea:focus {
+            outline: 2px solid var(--primary-light);
+            background: white;
+        }
+        .data-table tr:hover td { background-color: #fafff9; }
+        .data-table tr:hover td.label { background: #e8f5ed; }
+        .data-table tr:hover td.prefilled { background: #e8f5ed; }
+
+        /* ── OPEN ANSWER FIELDS ── */
+        .answer-block { margin: 10px 0 20px; }
+        .answer-block label { display: block; font-weight: 600; color: #444; margin-bottom: 6px; font-size: 0.9em; }
+        .answer-block textarea {
+            width: 100%;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-family: inherit;
+            font-size: 0.95em;
+            color: var(--text);
+            resize: vertical;
+            min-height: 80px;
+            background: var(--fill-bg);
+            transition: border-color 0.2s;
+        }
+        .answer-block textarea:focus { outline: none; border-color: var(--primary-light); background: white; }
+
+        /* glossary terms */
+        .glossary-term {
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin-bottom: 14px;
+            background: #fafff9;
+        }
+        .glossary-term h4 { color: var(--primary-dark); margin-bottom: 8px; font-size: 0.95em; }
+        .glossary-term textarea {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-family: inherit;
+            font-size: 0.9em;
+            resize: vertical;
+            min-height: 70px;
+            background: white;
+        }
+        .glossary-term textarea:focus { outline: 2px solid var(--primary-light); }
+
+        /* ── CASE STUDIES (L3) ── */
+        .case-card {
+            border: 2px solid #ddd;
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 28px;
+        }
+        .case-header {
+            padding: 14px 20px;
+            background: linear-gradient(135deg, #e67e22, #f9ca48);
+            color: white;
+            font-weight: 700;
+        }
+        .case-header span.tag { background: rgba(255,255,255,0.25); border-radius: 20px; padding: 2px 10px; font-size: 0.8em; margin-left: 8px; }
+        .case-body { padding: 20px; }
+        .case-scenario {
+            background: #fff8e1;
+            border-left: 4px solid var(--accent);
+            border-radius: 6px;
+            padding: 14px 16px;
+            margin-bottom: 16px;
+            font-size: 0.92em;
+            color: #444;
+            font-style: italic;
+        }
+
+        /* ── LEVEL 4 CASES ── */
+        .profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+        @media (max-width: 700px) { .profile-grid { grid-template-columns: 1fr; } }
+        .profile-card {
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            padding: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .profile-card:hover { border-color: var(--primary-light); background: #f0faf4; }
+        .profile-card.selected { border-color: var(--primary); background: #e0f5ea; box-shadow: 0 0 0 2px var(--primary); }
+        .profile-card h4 { font-size: 0.9em; color: var(--primary-dark); margin-bottom: 4px; }
+        .profile-card p { font-size: 0.82em; color: #555; }
+        .profile-card .case-label { font-weight: 800; font-size: 1.1em; color: var(--primary); }
+
+        .phase-box {
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 16px 0;
+            background: #fafff9;
+        }
+        .phase-box h3 {
+            color: var(--primary-dark);
+            margin-bottom: 14px;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .phase-num {
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85em;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        /* ── LEVEL 5 ── */
+        .reflection-box {
+            background: linear-gradient(135deg, #f0faf4, #e8f5f0);
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        .reflection-box h3 { color: var(--primary-dark); margin-bottom: 12px; }
+
+        /* ── TEACHER SECTION ── */
+        .teacher-section {
+            background: #f8f8f8;
+            border: 2px dashed #bbb;
+            border-radius: 14px;
+            padding: 24px;
+            margin-top: 30px;
+        }
+        .teacher-section h3 { color: #555; margin-bottom: 16px; font-size: 1em; }
+        .eval-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.88em; }
+        .eval-table th { background: #555; color: white; padding: 8px 12px; text-align: left; }
+        .eval-table td { border: 1px solid #ccc; padding: 0; }
+        .eval-table td.label { padding: 8px 12px; background: #eee; font-weight: 600; }
+        .eval-table td input { width: 100%; border: none; background: white; padding: 8px 12px; font-family: inherit; }
+
+        /* ── SAVE BAR ── */
+        .save-bar {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 200;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+        }
+        .btn-save { background: var(--primary); color: white; }
+        .btn-save:hover { background: var(--primary-dark); transform: translateY(-1px); }
+        .btn-print { background: white; color: var(--primary); border: 2px solid var(--primary); }
+        .btn-print:hover { background: #f0faf4; }
+        .save-msg {
+            position: fixed;
+            bottom: 70px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+        .save-msg.show { opacity: 1; }
+
+        /* ── PRINT ── */
+        @media print {
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; border-radius: 0; }
+            .tabs { display: none; }
+            .tab-content { display: block !important; page-break-before: always; }
+            .tab-content:first-child { page-break-before: avoid; }
+            .save-bar { display: none; }
+            .profile-grid { page-break-inside: avoid; }
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.4em; }
+            .tab-btn { font-size: 0.8em; padding: 8px 14px; }
+            .tab-content { padding: 20px 16px; }
+            .data-table { font-size: 0.82em; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ═══════════════ HEADER ═══════════════ -->
+    <header>
+        <p class="school">IIS Meucci-Mattei · Decimomannu · Indirizzo Servizi per la Sanità e l'Assistenza Sociale</p>
+        <h1>📋 Fascicolo Tecnico-Pratico</h1>
+        <p class="subtitle"><strong>Le disabilità:</strong> dal sistema dei servizi al Progetto di Vita</p>
+        <div class="tags">
+            <span class="tag">Classe 4ª SSA</span>
+            <span class="tag">Tipologie di disabilità</span>
+            <span class="tag">Servizi</span>
+            <span class="tag">Riforma D.Lgs. 62/2024</span>
+        </div>
+    </header>
+
+    <!-- ═══════════════ TABS ═══════════════ -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showTab('cover')">📄 Copertina</button>
+        <button class="tab-btn" onclick="showTab('l1')">1 · Esplorare</button>
+        <button class="tab-btn" onclick="showTab('l2')">2 · Distinguere</button>
+        <button class="tab-btn" onclick="showTab('l3')">3 · Applicare</button>
+        <button class="tab-btn" onclick="showTab('l4')">4 · Progettare</button>
+        <button class="tab-btn" onclick="showTab('l5')">5 · Riflettere</button>
+    </div>
+
+    <!-- ═══════════════ COVER ═══════════════ -->
+    <div id="tab-cover" class="tab-content active">
+        <div class="cover-card">
+            <div class="cover-title">
+                <h2>Dati dello studente</h2>
+                <p>Completa prima di iniziare</p>
+            </div>
+            <div class="student-form">
+                <div class="form-field">
+                    <label>Nome e Cognome</label>
+                    <input type="text" id="st-nome" placeholder="es. Maria Rossi">
+                </div>
+                <div class="form-field">
+                    <label>Classe e Sezione</label>
+                    <input type="text" id="st-classe" placeholder="es. 4SA">
+                </div>
+                <div class="form-field">
+                    <label>Anno scolastico</label>
+                    <input type="text" id="st-anno" value="2024 – 2025">
+                </div>
+                <div class="form-field">
+                    <label>Data di consegna</label>
+                    <input type="date" id="st-data">
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box info">
+            <strong>Come lavorare con questo fascicolo</strong><br>
+            Questo fascicolo è il tuo strumento di lavoro. Non è un libro da leggere: è un quaderno da compilare, passo dopo passo, con crescente autonomia. Compila ogni campo direttamente in questa pagina — i dati vengono salvati automaticamente nel browser.
+        </div>
+
+        <div class="levels-overview">
+            <h3>I cinque livelli di difficoltà crescente</h3>
+            <div class="level-row l1">
+                <span class="level-badge">1 – ESPLORARE</span>
+                <div class="level-desc">
+                    <strong>Ricognizione</strong>
+                    <small>Completi tabelle e schemi usando il manuale. Impari il vocabolario di base.</small>
+                </div>
+            </div>
+            <div class="level-row l2">
+                <span class="level-badge">2 – DISTINGUERE</span>
+                <div class="level-desc">
+                    <strong>Confronto</strong>
+                    <small>Confronti condizioni simili, vecchio e nuovo sistema, modelli teorici.</small>
+                </div>
+            </div>
+            <div class="level-row l3">
+                <span class="level-badge">3 – APPLICARE</span>
+                <div class="level-desc">
+                    <strong>Mini-casi</strong>
+                    <small>Leggi brevi casi e rispondi a domande pratiche su servizi, figure professionali, accesso.</small>
+                </div>
+            </div>
+            <div class="level-row l4">
+                <span class="level-badge">4 – PROGETTARE</span>
+                <div class="level-desc">
+                    <strong>Elaborato originale</strong>
+                    <small>Costruisci un Progetto di Vita completo per una persona con disabilità a tua scelta.</small>
+                </div>
+            </div>
+            <div class="level-row l5">
+                <span class="level-badge">5 – RIFLETTERE</span>
+                <div class="level-desc">
+                    <strong>Bilancio personale</strong>
+                    <small>Scrivi una breve riflessione su cosa è cambiato nel tuo modo di guardare la disabilità.</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box tip" style="margin-top:20px;">
+            <strong>Dove trovare le informazioni</strong><br>
+            ▶ <em>Manuale Hoepli – Corso di Metodologie Operative:</em> Modulo 6, Unità 2 (pp. 221-249) per le tipologie; Modulo 4, Unità 4 (pp. 187-193) e Modulo 6, p. 216 per i servizi.<br>
+            ▶ <em>Dispensa:</em> La Riforma della Disabilità – D.Lgs. 62/2024 (Modulo 2).<br>
+            ▶ Concetti del Modulo 1 (normalità come costrutto sociale, continuum abilitante/disabilitante, epoché) nel tuo quaderno.
+        </div>
+
+        <div class="info-box warning">
+            <strong>⚠️ Nota importante – Livello 4</strong><br>
+            Il Livello 4 è la parte più importante del fascicolo. Non è un riassunto del manuale: è una tua elaborazione originale. Ti viene chiesto di costruire un Progetto di Vita realistico applicando la Riforma D.Lgs. 62/2024. Prenditi il tempo che serve.
+        </div>
+    </div>
+
+    <!-- ═══════════════ LIVELLO 1 ═══════════════ -->
+    <div id="tab-l1" class="tab-content">
+        <div class="level-header l1">
+            <div class="num">1</div>
+            <div>
+                <h2>ESPLORARE</h2>
+                <p>Usa il manuale per completare tabelle e schemi. Costruisci il vocabolario di base.</p>
+            </div>
+        </div>
+
+        <!-- 1.1 -->
+        <p class="section-title">1.1 · La mappa generale delle disabilità</p>
+        <span class="where-to-look">📖 Manuale pp. 221-249 e Mappa dell'Unità p. 249</span>
+        <p style="font-size:0.9em;color:#555;margin-bottom:10px;">Completa la tabella inserendo la categoria di appartenenza, la causa principale e almeno una caratteristica distintiva per ciascuna tipologia. Le celle in <em>corsivo</em> sono già compilate come esempio.</p>
+
+        <table class="data-table">
+            <thead><tr>
+                <th>Tipologia</th>
+                <th>Categoria</th>
+                <th>Causa principale</th>
+                <th>Caratteristica distintiva</th>
+            </tr></thead>
+            <tbody>
+                <tr>
+                    <td class="label">Paralisi Cerebrale Infantile (PCI)</td>
+                    <td class="prefilled">Disabilità motoria</td>
+                    <td class="prefilled">Lesione/alterazione cerebrale (prenatale, perinatale o post-natale entro 3 anni)</td>
+                    <td><textarea data-id="1.1-pci-car" rows="2" placeholder="scrivi qui..."></textarea></td>
+                </tr>
+                <tr>
+                    <td class="label">Distrofia Muscolare</td>
+                    <td class="prefilled">Disabilità motoria</td>
+                    <td><textarea data-id="1.1-dist-causa" rows="2" placeholder="..."></textarea></td>
+                    <td><textarea data-id="1.1-dist-car" rows="2" placeholder="..."></textarea></td>
+                </tr>
+                <tr>
+                    <td class="label">Sclerosi Multipla</td>
+                    <td><textarea data-id="1.1-sm-cat" rows="2" placeholder="..."></textarea></td>
+                    <td><textarea data-id="1.1-sm-causa" rows="2" placeholder="..."></textarea></td>
+                    <td><textarea data-id="1.1-sm-car" rows="2" placeholder="..."></textarea></td>
+                </tr>
+                <tr>
+                    <td class="label">SLA</td>
+                    <td><textarea data-id="1.1-sla-cat" rows="2" placeholder="..."></textarea></td>
+                    <td><textarea data-id="1.1-sla-causa" rows="2" placeholder="..."></textarea></td>
+                    <td><textarea data-id="1.1-sla-car" rows="2" placeholder="..."></textarea></td>
+                </tr>
+                <tr>
+                    <td class="label">Disabilità visiva</td>
+                    <td class="prefilled">Disabilità sensoriale</td>
+                    <td><textarea data-id="1.1-vis-causa" rows="2" placeholder="..."></textarea></td>
+                    <td><textarea data-id="1.1-vis-car" rows="2" placeholder="..."></textarea></td>
+                </tr>
+                <tr>
+                    <td class="label">Disabilità uditiva</td>
+                    <td class="prefilled">Disabilità sensoriale</td>
+                    <td><textarea data-id="1.1-udi-causa" rows="2" placeholder="..."></textarea></td>
+                    <td><textarea data-id="1.1-udi-car" rows="2" placeholder="..."></textarea></td>
+                </tr>
+                <tr>
+                    <td class="label">Disabilità mentale</td>
+                    <td><textarea data-id="1.1-men-cat" rows="2" placeholder="..."></textarea></td>
+                    <td><textarea data-id="1.1-men-causa" rows="2" placeholder="..."></textarea></td>
+                    <td><textarea data-id="1.1-men-car" rows="2" placeholder="..."></textarea></td>
+                </tr>
+                <tr>
+                    <td class="label">Sindrome di Down</td>
+                    <td><textarea data-id="1.1-down-cat" rows="2" placeholder="..."></textarea></td>
+                    <td><textarea data-id="1.1-down-causa" rows="2" placeholder="..."></textarea></td>
+                    <td><textarea data-id="1.1-down-car" rows="2" placeholder="..."></textarea></td>
+                </tr>
+                <tr>
+                    <td class="label">Disturbo Spettro Autistico</td>
+                    <td><textarea data-id="1.1-aut-cat" rows="2" placeholder="..."></textarea></td>
+                    <td><textarea data-id="1.1-aut-causa" rows="2" placeholder="..."></textarea></td>
+                    <td><textarea data-id="1.1-aut-car" rows="2" placeholder="..."></textarea></td>
+                </tr>
+                <tr>
+                    <td class="label">Epilessia</td>
+                    <td><textarea data-id="1.1-epi-cat" rows="2" placeholder="..."></textarea></td>
+                    <td><textarea data-id="1.1-epi-causa" rows="2" placeholder="..."></textarea></td>
+                    <td><textarea data-id="1.1-epi-car" rows="2" placeholder="..."></textarea></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 1.2 -->
+        <p class="section-title">1.2 · La classificazione delle PCI</p>
+        <span class="where-to-look">📖 Manuale p. 222</span>
+
+        <p style="font-size:0.9em;font-weight:600;margin:10px 0 6px;">A) Classificazione topografica</p>
+        <table class="data-table">
+            <thead><tr><th>Termine</th><th>Zona del corpo coinvolta</th></tr></thead>
+            <tbody>
+                <tr><td class="label">Monoplegia / Monoparesi</td><td class="prefilled">Un solo arto</td></tr>
+                <tr><td class="label">Emiplegia / Emiparesi</td><td><input type="text" data-id="1.2-emi" placeholder="..."></td></tr>
+                <tr><td class="label">Paraplegia / Paraparesi</td><td><input type="text" data-id="1.2-para" placeholder="..."></td></tr>
+                <tr><td class="label">Triplegia / Triparesi</td><td><input type="text" data-id="1.2-tri" placeholder="..."></td></tr>
+                <tr><td class="label">Tetraplegia / Tetraparesi</td><td><input type="text" data-id="1.2-tetra" placeholder="..."></td></tr>
+            </tbody>
+        </table>
+
+        <p style="font-size:0.9em;font-weight:600;margin:14px 0 6px;">B) Classificazione per tipo di danno (Hagberg et al., 1975)</p>
+        <table class="data-table">
+            <thead><tr><th>Forma</th><th>Caratteristica principale</th></tr></thead>
+            <tbody>
+                <tr><td class="label">Spastica</td><td><input type="text" data-id="1.2-spas" placeholder="..."></td></tr>
+                <tr><td class="label">Atetosica</td><td><input type="text" data-id="1.2-atet" placeholder="..."></td></tr>
+                <tr><td class="label">Atassica</td><td><input type="text" data-id="1.2-atas" placeholder="..."></td></tr>
+                <tr><td class="label">Rigida</td><td><input type="text" data-id="1.2-rigi" placeholder="..."></td></tr>
+                <tr><td class="label">Con tremore</td><td><input type="text" data-id="1.2-trem" placeholder="..."></td></tr>
+                <tr><td class="label">Atonica</td><td><input type="text" data-id="1.2-aton" placeholder="..."></td></tr>
+                <tr><td class="label">Mista</td><td><input type="text" data-id="1.2-mist" placeholder="..."></td></tr>
+            </tbody>
+        </table>
+
+        <!-- 1.3 -->
+        <p class="section-title">1.3 · Le distrofie muscolari: Duchenne e Becker</p>
+        <span class="where-to-look">📖 Manuale pp. 224-225</span>
+        <table class="data-table">
+            <thead><tr><th>Caratteristica</th><th>Distrofia di Duchenne (DMD)</th><th>Distrofia tipo Becker (DMB)</th></tr></thead>
+            <tbody>
+                <tr><td class="label">Proteina coinvolta</td><td class="prefilled">Distrofina ASSENTE</td><td><input type="text" data-id="1.3-becker-prot" placeholder="..."></td></tr>
+                <tr><td class="label">Età di esordio</td><td><input type="text" data-id="1.3-dmd-eta" placeholder="..."></td><td class="prefilled">Circa 12 anni</td></tr>
+                <tr><td class="label">Velocità di progressione</td><td class="prefilled">Rapida</td><td><input type="text" data-id="1.3-becker-vel" placeholder="..."></td></tr>
+                <tr><td class="label">Deambulazione autonoma persa</td><td><input type="text" data-id="1.3-dmd-deam" placeholder="..."></td><td class="prefilled">Intorno ai 25-30 anni</td></tr>
+                <tr><td class="label">Disabilità mentale associata</td><td><input type="text" data-id="1.3-dmd-men" placeholder="..."></td><td><input type="text" data-id="1.3-becker-men" placeholder="..."></td></tr>
+                <tr><td class="label">Aspettativa di vita attuale</td><td><input type="text" data-id="1.3-dmd-aspett" placeholder="..."></td><td><input type="text" data-id="1.3-becker-aspett" placeholder="..."></td></tr>
+            </tbody>
+        </table>
+
+        <!-- 1.4 -->
+        <p class="section-title">1.4 · Le forme della Sclerosi Multipla</p>
+        <span class="where-to-look">📖 Manuale pp. 226-227</span>
+        <table class="data-table">
+            <thead><tr><th>Forma di SM</th><th>Descrizione</th></tr></thead>
+            <tbody>
+                <tr><td class="label">SM Benigna (CIS)</td><td><textarea data-id="1.4-cis" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">SM Recidivante-Remittente (SM-RR)</td><td><textarea data-id="1.4-rr" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">SM Primariamente Progressiva (SM-PP)</td><td><textarea data-id="1.4-pp" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">SM Secondariamente Progressiva (SM-SP)</td><td><textarea data-id="1.4-sp" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">SM Progressiva con Ricadute</td><td><textarea data-id="1.4-pr" rows="2" placeholder="..."></textarea></td></tr>
+            </tbody>
+        </table>
+
+        <!-- 1.5 -->
+        <p class="section-title">1.5 · La disabilità visiva</p>
+        <span class="where-to-look">📖 Manuale pp. 231-235</span>
+
+        <p style="font-size:0.9em;font-weight:600;margin:10px 0 6px;">A) Classificazione del grado di minorazione visiva</p>
+        <table class="data-table">
+            <thead><tr><th>Tipo</th><th>Acuità visiva</th><th>Descrizione sintetica</th></tr></thead>
+            <tbody>
+                <tr><td class="label">Cecità assoluta</td><td class="prefilled">&lt; 1/20 nell'occhio migliore</td><td><input type="text" data-id="1.5-cecass" placeholder="..."></td></tr>
+                <tr><td class="label">Ipovedente / Cieco parziale</td><td><input type="text" data-id="1.5-ipov-acuita" placeholder="..."></td><td><input type="text" data-id="1.5-ipov-desc" placeholder="..."></td></tr>
+                <tr><td class="label">Cecità monolaterale</td><td><input type="text" data-id="1.5-mono-acuita" placeholder="..."></td><td><input type="text" data-id="1.5-mono-desc" placeholder="..."></td></tr>
+                <tr><td class="label">Cecità bilaterale</td><td><input type="text" data-id="1.5-bili-acuita" placeholder="..."></td><td><input type="text" data-id="1.5-bili-desc" placeholder="..."></td></tr>
+            </tbody>
+        </table>
+
+        <p style="font-size:0.9em;font-weight:600;margin:14px 0 6px;">B) Classificazione per fasi di insorgenza</p>
+        <table class="data-table">
+            <thead><tr><th>Fase</th><th>Quando si manifesta</th><th>Effetto principale sullo sviluppo</th></tr></thead>
+            <tbody>
+                <tr><td class="label">Neonatale</td><td class="prefilled">Alla nascita o entro il 6° mese</td><td><textarea data-id="1.5-neon-eff" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Post-natale prima infanzia</td><td><input type="text" data-id="1.5-pninf-quando" placeholder="..."></td><td><textarea data-id="1.5-pninf-eff" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Post-natale seconda infanzia</td><td><input type="text" data-id="1.5-sninf-quando" placeholder="..."></td><td><textarea data-id="1.5-sninf-eff" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Fanciullezza / adolescenza</td><td><input type="text" data-id="1.5-fanc-quando" placeholder="..."></td><td><textarea data-id="1.5-fanc-eff" rows="2" placeholder="..."></textarea></td></tr>
+            </tbody>
+        </table>
+
+        <!-- 1.6 -->
+        <p class="section-title">1.6 · La disabilità uditiva</p>
+        <span class="where-to-look">📖 Manuale pp. 236-238</span>
+
+        <p style="font-size:0.9em;font-weight:600;margin:10px 0 6px;">A) Tipi di sordità</p>
+        <table class="data-table">
+            <thead><tr><th>Tipo</th><th>Causa</th><th>Entità del danno</th></tr></thead>
+            <tbody>
+                <tr><td class="label">Di trasmissione</td><td><textarea data-id="1.6-trasmiss-causa" rows="2" placeholder="..."></textarea></td><td class="prefilled">Lieve</td></tr>
+                <tr><td class="label">Neurosensoriale</td><td><textarea data-id="1.6-neuro-causa" rows="2" placeholder="..."></textarea></td><td><input type="text" data-id="1.6-neuro-entita" placeholder="..."></td></tr>
+                <tr><td class="label">Mista</td><td><textarea data-id="1.6-mista-causa" rows="2" placeholder="..."></textarea></td><td><input type="text" data-id="1.6-mista-entita" placeholder="..."></td></tr>
+            </tbody>
+        </table>
+
+        <p style="font-size:0.9em;font-weight:600;margin:14px 0 6px;">B) Classificazione BIAP dei gradi di sordità</p>
+        <table class="data-table">
+            <thead><tr><th>Grado</th><th>Soglia percepita</th><th>Effetti principali sulla comunicazione</th></tr></thead>
+            <tbody>
+                <tr><td class="label">Lieve</td><td class="prefilled">20-40 dB</td><td><textarea data-id="1.6-lieve-eff" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Media</td><td><input type="text" data-id="1.6-media-soglia" placeholder="..."></td><td><textarea data-id="1.6-media-eff" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Grave</td><td><input type="text" data-id="1.6-grave-soglia" placeholder="..."></td><td><textarea data-id="1.6-grave-eff" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Profonda</td><td><input type="text" data-id="1.6-profonda-soglia" placeholder="..."></td><td><textarea data-id="1.6-profonda-eff" rows="2" placeholder="..."></textarea></td></tr>
+            </tbody>
+        </table>
+
+        <p style="font-size:0.9em;font-weight:600;margin:14px 0 6px;">C) Classificazione per fasi di insorgenza</p>
+        <table class="data-table">
+            <thead><tr><th>Fase</th><th>Quando</th><th>Effetto sul linguaggio</th></tr></thead>
+            <tbody>
+                <tr><td class="label">Preverbale</td><td class="prefilled">Dalla nascita o entro il 1° anno</td><td><textarea data-id="1.6-preverb-eff" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Periverbale</td><td><input type="text" data-id="1.6-periverb-quando" placeholder="..."></td><td><textarea data-id="1.6-periverb-eff" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Post-verbale</td><td><input type="text" data-id="1.6-postverb-quando" placeholder="..."></td><td><textarea data-id="1.6-postverb-eff" rows="2" placeholder="..."></textarea></td></tr>
+            </tbody>
+        </table>
+
+        <!-- 1.7 -->
+        <p class="section-title">1.7 · La disabilità mentale: classificazione per QI</p>
+        <span class="where-to-look">📖 Manuale pp. 239-241</span>
+        <table class="data-table">
+            <thead><tr><th>Livello</th><th>Fascia di QI</th><th>Età mentale da adulti</th><th>Capacità principali</th></tr></thead>
+            <tbody>
+                <tr><td class="label">Lieve</td><td class="prefilled">50-70</td><td class="prefilled">8-11 anni</td><td><textarea data-id="1.7-lieve" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Medio</td><td><input type="text" data-id="1.7-medio-qi" placeholder="..."></td><td><input type="text" data-id="1.7-medio-eta" placeholder="..."></td><td><textarea data-id="1.7-medio-cap" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Grave</td><td><input type="text" data-id="1.7-grave-qi" placeholder="..."></td><td class="prefilled">2-5 anni</td><td><textarea data-id="1.7-grave-cap" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Gravissimo</td><td><input type="text" data-id="1.7-graviss-qi" placeholder="..."></td><td><input type="text" data-id="1.7-graviss-eta" placeholder="..."></td><td><textarea data-id="1.7-graviss-cap" rows="2" placeholder="..."></textarea></td></tr>
+            </tbody>
+        </table>
+
+        <!-- 1.8 -->
+        <p class="section-title">1.8 · Glossario essenziale</p>
+        <span class="where-to-look">📖 Manuale e Dispensa sulla Riforma</span>
+        <p style="font-size:0.88em;color:#555;margin-bottom:14px;">Scrivi una definizione sintetica (2-3 righe) per ciascuno dei seguenti termini. Usa parole tue.</p>
+
+        <div class="glossary-term"><h4>Deficit</h4><textarea data-id="gloss-deficit" rows="3" placeholder="Definizione con parole tue..."></textarea></div>
+        <div class="glossary-term"><h4>Disabilità (nuova definizione – D.Lgs. 62/2024)</h4><textarea data-id="gloss-disab" rows="3" placeholder="Definizione con parole tue..."></textarea></div>
+        <div class="glossary-term"><h4>Accomodamento ragionevole</h4><textarea data-id="gloss-accmod" rows="3" placeholder="Definizione con parole tue..."></textarea></div>
+        <div class="glossary-term"><h4>ICF (International Classification of Functioning)</h4><textarea data-id="gloss-icf" rows="3" placeholder="Definizione con parole tue..."></textarea></div>
+        <div class="glossary-term"><h4>Progetto di Vita</h4><textarea data-id="gloss-pdv" rows="3" placeholder="Definizione con parole tue..."></textarea></div>
+        <div class="glossary-term"><h4>Budget di progetto</h4><textarea data-id="gloss-budget" rows="3" placeholder="Definizione con parole tue..."></textarea></div>
+        <div class="glossary-term"><h4>Unità di Valutazione Multidimensionale (UVM)</h4><textarea data-id="gloss-uvm" rows="3" placeholder="Definizione con parole tue..."></textarea></div>
+        <div class="glossary-term"><h4>Sostegno intensivo</h4><textarea data-id="gloss-sostegno" rows="3" placeholder="Definizione con parole tue..."></textarea></div>
+        <div class="glossary-term"><h4>Collocamento mirato (L. 68/99)</h4><textarea data-id="gloss-colloc" rows="3" placeholder="Definizione con parole tue..."></textarea></div>
+        <div class="glossary-term"><h4>Epoché (dal Modulo 1)</h4><textarea data-id="gloss-epoche" rows="3" placeholder="Definizione con parole tue..."></textarea></div>
+
+        <!-- 1.9 -->
+        <p class="section-title">1.9 · La mappa dei servizi per le persone con disabilità</p>
+        <span class="where-to-look">📖 Manuale pp. 187-193 e p. 216</span>
+
+        <p style="font-size:0.9em;font-weight:600;margin:10px 0 6px;">A) Schema dei servizi integrativi e sostitutivi</p>
+        <table class="data-table">
+            <thead><tr><th>Servizi e Interventi Integrativi</th><th>Servizi Sostitutivi</th></tr></thead>
+            <tbody>
+                <tr><td class="prefilled">Centro diurno</td><td class="prefilled">Comunità alloggio</td></tr>
+                <tr><td class="prefilled">Centro socioriabilitativo / ambulatoriale di riabilitazione</td><td><input type="text" data-id="1.9-sost2" placeholder="..."></td></tr>
+                <tr><td><input type="text" data-id="1.9-int3" placeholder="..."></td><td class="prefilled">Centro residenziale</td></tr>
+                <tr><td class="prefilled">Integrazione scolastica</td><td><input type="text" data-id="1.9-sost4" placeholder="..."></td></tr>
+                <tr><td><input type="text" data-id="1.9-int5" placeholder="..."></td><td><input type="text" data-id="1.9-sost5" placeholder="..."></td></tr>
+                <tr><td class="prefilled">Integrazione lavorativa (L. 68/99)</td><td><input type="text" data-id="1.9-sost6" placeholder="..."></td></tr>
+            </tbody>
+        </table>
+
+        <p style="font-size:0.9em;font-weight:600;margin:14px 0 6px;">B) Chi gestisce e come si accede ai servizi integrativi</p>
+        <table class="data-table">
+            <thead><tr><th>Servizio</th><th>Chi lo gestisce</th><th>Come si accede</th></tr></thead>
+            <tbody>
+                <tr><td class="label">Centro diurno</td><td><textarea data-id="1.9-cd-chi" rows="2" placeholder="..."></textarea></td><td><textarea data-id="1.9-cd-come" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Centro socioriabilitativo</td><td><textarea data-id="1.9-csr-chi" rows="2" placeholder="..."></textarea></td><td><textarea data-id="1.9-csr-come" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Integrazione scolastica</td><td><textarea data-id="1.9-is-chi" rows="2" placeholder="..."></textarea></td><td><textarea data-id="1.9-is-come" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Assistenza domiciliare (SAD / ADI)</td><td><textarea data-id="1.9-sad-chi" rows="2" placeholder="..."></textarea></td><td><textarea data-id="1.9-sad-come" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Integrazione lavorativa</td><td><textarea data-id="1.9-il-chi" rows="2" placeholder="..."></textarea></td><td><textarea data-id="1.9-il-come" rows="2" placeholder="..."></textarea></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ═══════════════ LIVELLO 2 ═══════════════ -->
+    <div id="tab-l2" class="tab-content">
+        <div class="level-header l2">
+            <div class="num">2</div>
+            <div>
+                <h2>DISTINGUERE</h2>
+                <p>Confronta, analizza le differenze, riconosci i cambiamenti di paradigma.</p>
+            </div>
+        </div>
+
+        <!-- 2.1 -->
+        <p class="section-title">2.1 · Duchenne vs Becker: oltre la tabella</p>
+        <span class="where-to-look">📖 Manuale pp. 224-225</span>
+
+        <div class="answer-block">
+            <label>Se incontri un ragazzo di 13 anni con diagnosi di distrofia muscolare che cammina ancora autonomamente ma ha difficoltà a salire le scale, a quale forma penseresti? Su quali elementi ti basi?</label>
+            <textarea data-id="2.1-a" rows="4" placeholder="Ragiona sugli elementi clinici..."></textarea>
+        </div>
+        <div class="answer-block">
+            <label>Perché è importante per un operatore conoscere la differenza tra le due forme, anche se entrambe sono prive di cura definitiva?</label>
+            <textarea data-id="2.1-b" rows="4" placeholder="Pensa alla pianificazione del progetto assistenziale..."></textarea>
+        </div>
+
+        <!-- 2.2 -->
+        <p class="section-title">2.2 · Prima e dopo la Riforma: UVH vs UVM</p>
+        <span class="where-to-look">📖 Dispensa §4; Manuale p. 216</span>
+
+        <table class="data-table">
+            <thead><tr><th>Aspetto</th><th>UVH – Prima della Riforma</th><th>UVM – Dopo la Riforma (dal 2026)</th></tr></thead>
+            <tbody>
+                <tr>
+                    <td class="label">Soggetto accertatore</td>
+                    <td><textarea data-id="2.2-uvh-sogg" rows="2" placeholder="..."></textarea></td>
+                    <td class="prefilled">INPS (unico)</td>
+                </tr>
+                <tr>
+                    <td class="label">N° di procedimenti</td>
+                    <td class="prefilled">Due separati (invalidità civile + L.104)</td>
+                    <td><textarea data-id="2.2-uvm-proc" rows="2" placeholder="..."></textarea></td>
+                </tr>
+                <tr>
+                    <td class="label">Strumenti di valutazione</td>
+                    <td><textarea data-id="2.2-uvh-strum" rows="2" placeholder="..."></textarea></td>
+                    <td><textarea data-id="2.2-uvm-strum" rows="2" placeholder="..."></textarea></td>
+                </tr>
+                <tr>
+                    <td class="label">Chi partecipa</td>
+                    <td class="prefilled">Tecnici: la persona è 'valutata'</td>
+                    <td><textarea data-id="2.2-uvm-chi" rows="2" placeholder="..."></textarea></td>
+                </tr>
+                <tr>
+                    <td class="label">Output / documento prodotto</td>
+                    <td><textarea data-id="2.2-uvh-out" rows="2" placeholder="..."></textarea></td>
+                    <td><textarea data-id="2.2-uvm-out" rows="2" placeholder="..."></textarea></td>
+                </tr>
+                <tr>
+                    <td class="label">Terminologia gravità</td>
+                    <td class="prefilled">Percentuale di invalidità / disabile grave</td>
+                    <td><textarea data-id="2.2-uvm-term" rows="2" placeholder="..."></textarea></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="answer-block">
+            <label>Qual è la differenza più importante dal punto di vista della dignità della persona? Collegati alla dispensa.</label>
+            <textarea data-id="2.2-dignita" rows="4" placeholder="Rifletti sul cambio di paradigma..."></textarea>
+        </div>
+
+        <!-- 2.3 -->
+        <p class="section-title">2.3 · Modello medico vs modello bio-psico-sociale</p>
+        <span class="where-to-look">📖 Dispensa §3.2; Manuale p. 187</span>
+
+        <p style="font-size:0.9em;font-weight:600;margin:10px 0 6px;">A) Tabella comparativa</p>
+        <table class="data-table">
+            <thead><tr><th>Aspetto</th><th>Modello medico</th><th>Modello bio-psico-sociale</th></tr></thead>
+            <tbody>
+                <tr><td class="label">Dove sta il problema?</td><td class="prefilled">Nella persona (deficit biologico)</td><td><textarea data-id="2.3-bps-prob" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Cosa si misura?</td><td><textarea data-id="2.3-med-misura" rows="2" placeholder="..."></textarea></td><td><textarea data-id="2.3-bps-misura" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Obiettivo dell'intervento</td><td><textarea data-id="2.3-med-obj" rows="2" placeholder="..."></textarea></td><td><textarea data-id="2.3-bps-obj" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Ruolo della persona</td><td><textarea data-id="2.3-med-ruolo" rows="2" placeholder="..."></textarea></td><td class="prefilled">Titolare del Progetto di Vita</td></tr>
+                <tr><td class="label">Ruolo dell'ambiente</td><td class="prefilled">Non considerato</td><td><textarea data-id="2.3-bps-amb" rows="2" placeholder="..."></textarea></td></tr>
+            </tbody>
+        </table>
+
+        <p style="font-size:0.9em;font-weight:600;margin:14px 0 6px;">B) Collega le tre dimensioni del Modulo 1 al modello bio-psico-sociale</p>
+        <table class="data-table">
+            <thead><tr><th>Dimensione – Modulo 1</th><th>Significato</th><th>Corrispondenza nel modello BPS</th></tr></thead>
+            <tbody>
+                <tr><td class="label">Disease</td><td><textarea data-id="2.3-disease-sig" rows="2" placeholder="..."></textarea></td><td><textarea data-id="2.3-disease-corr" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Illness</td><td><textarea data-id="2.3-illness-sig" rows="2" placeholder="..."></textarea></td><td><textarea data-id="2.3-illness-corr" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Sickness</td><td><textarea data-id="2.3-sickness-sig" rows="2" placeholder="..."></textarea></td><td><textarea data-id="2.3-sickness-corr" rows="2" placeholder="..."></textarea></td></tr>
+            </tbody>
+        </table>
+
+        <!-- 2.4 -->
+        <p class="section-title">2.4 · Il linguaggio cambia lo sguardo</p>
+        <span class="where-to-look">📖 Dispensa §2; Modulo 1</span>
+        <p style="font-size:0.88em;color:#555;margin-bottom:12px;">Riscrivi le frasi seguenti con la terminologia corretta del D.Lgs. 62/2024, poi spiega cosa cambia nel significato.</p>
+
+        <div class="answer-block" style="background:#fff8e1;border:1px solid #ffe082;border-radius:10px;padding:14px;">
+            <label><strong>1. «Marco è un portatore di handicap grave.»</strong></label>
+            <div style="margin-top:8px;"><label style="color:#888;font-size:0.85em;">Riscrittura:</label>
+            <textarea data-id="2.4-1-risc" rows="2" placeholder="..."></textarea></div>
+            <div><label style="color:#888;font-size:0.85em;">Cosa cambia nel significato?</label>
+            <textarea data-id="2.4-1-cambia" rows="3" placeholder="..."></textarea></div>
+        </div>
+
+        <div class="answer-block" style="background:#fff8e1;border:1px solid #ffe082;border-radius:10px;padding:14px;">
+            <label><strong>2. «La signora Rossi è un'handicappata in situazione di gravità.»</strong></label>
+            <div style="margin-top:8px;"><label style="color:#888;font-size:0.85em;">Riscrittura:</label>
+            <textarea data-id="2.4-2-risc" rows="2" placeholder="..."></textarea></div>
+            <div><label style="color:#888;font-size:0.85em;">Cosa cambia nel significato?</label>
+            <textarea data-id="2.4-2-cambia" rows="3" placeholder="..."></textarea></div>
+        </div>
+
+        <div class="answer-block" style="background:#fff8e1;border:1px solid #ffe082;border-radius:10px;padding:14px;">
+            <label><strong>3. «Questo ragazzo è un disabile intellettivo: non può lavorare.»</strong></label>
+            <div style="margin-top:8px;"><label style="color:#888;font-size:0.85em;">Riscrittura:</label>
+            <textarea data-id="2.4-3-risc" rows="2" placeholder="..."></textarea></div>
+            <div><label style="color:#888;font-size:0.85em;">Cosa cambia nel significato?</label>
+            <textarea data-id="2.4-3-cambia" rows="3" placeholder="..."></textarea></div>
+        </div>
+
+        <div class="answer-block">
+            <label>La riforma afferma che la disabilità non è «nella persona» ma «nell'interazione tra la persona e le barriere». Fai un esempio concreto riferito a una delle tipologie studiate.</label>
+            <textarea data-id="2.4-esempio" rows="5" placeholder="Esempio concreto..."></textarea>
+        </div>
+
+        <!-- 2.5 -->
+        <p class="section-title">2.5 · Centro diurno, centro socioriabilitativo e assistenza domiciliare</p>
+        <span class="where-to-look">📖 Manuale pp. 188-192</span>
+        <table class="data-table">
+            <thead><tr><th>Caratteristica</th><th>Centro diurno</th><th>Centro socioriabilitativo</th><th>Assistenza domiciliare</th></tr></thead>
+            <tbody>
+                <tr><td class="label">Dove si svolge</td><td><textarea data-id="2.5-cd-dove" rows="2" placeholder="..."></textarea></td><td><textarea data-id="2.5-csr-dove" rows="2" placeholder="..."></textarea></td><td><textarea data-id="2.5-ad-dove" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Obiettivo principale</td><td><textarea data-id="2.5-cd-obj" rows="2" placeholder="..."></textarea></td><td><textarea data-id="2.5-csr-obj" rows="2" placeholder="..."></textarea></td><td><textarea data-id="2.5-ad-obj" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">A chi è rivolto</td><td class="prefilled">Adulti/adolescenti con disabilità medio-alta</td><td><textarea data-id="2.5-csr-chi" rows="2" placeholder="..."></textarea></td><td><textarea data-id="2.5-ad-chi" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Chi lo gestisce</td><td><textarea data-id="2.5-cd-gest" rows="2" placeholder="..."></textarea></td><td><textarea data-id="2.5-csr-gest" rows="2" placeholder="..."></textarea></td><td><textarea data-id="2.5-ad-gest" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Come si accede</td><td><textarea data-id="2.5-cd-acc" rows="2" placeholder="..."></textarea></td><td><textarea data-id="2.5-csr-acc" rows="2" placeholder="..."></textarea></td><td><textarea data-id="2.5-ad-acc" rows="2" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Strumento di lavoro</td><td class="prefilled">PAI</td><td><textarea data-id="2.5-csr-strum" rows="2" placeholder="..."></textarea></td><td><textarea data-id="2.5-ad-strum" rows="2" placeholder="..."></textarea></td></tr>
+            </tbody>
+        </table>
+
+        <!-- 2.6 -->
+        <p class="section-title">2.6 · Il continuum abilitante / disabilitante</p>
+        <span class="where-to-look">📖 Modulo 1 – appunti</span>
+        <p style="font-size:0.88em;color:#555;margin-bottom:12px;">Per ciascuna coppia di frasi pronunciate da un operatore, indica quale comportamento è più abilitante, quale più disabilitante, e spiega perché.</p>
+
+        <div class="answer-block" style="border:2px solid var(--border);border-radius:10px;padding:16px;">
+            <label><strong>Coppia 1</strong><br>A: «Non alzarti, ci penso io a prenderti il giornale.»<br>B: «Vuoi provare ad alzarti da solo? Sono qui se hai bisogno.»</label>
+            <textarea data-id="2.6-cop1" rows="4" placeholder="Quale è più abilitante e perché?"></textarea>
+        </div>
+        <div class="answer-block" style="border:2px solid var(--border);border-radius:10px;padding:16px;">
+            <label><strong>Coppia 2</strong><br>A: «Per una persona con la tua disabilità, lavorare in cucina non è realistico.»<br>B: «Hai detto che vuoi lavorare in cucina. Quali ostacoli vedi? Come potremmo affrontarli insieme?»</label>
+            <textarea data-id="2.6-cop2" rows="4" placeholder="Quale è più abilitante e perché?"></textarea>
+        </div>
+        <div class="answer-block" style="border:2px solid var(--border);border-radius:10px;padding:16px;">
+            <label><strong>Coppia 3</strong><br>A: «Ho già compilato io il modulo per te, è complicato.»<br>B: «Ti spiego il modulo e lo compiliamo insieme: tu decidi, io ti supporto.»</label>
+            <textarea data-id="2.6-cop3" rows="4" placeholder="Quale è più abilitante e perché?"></textarea>
+        </div>
+    </div>
+
+    <!-- ═══════════════ LIVELLO 3 ═══════════════ -->
+    <div id="tab-l3" class="tab-content">
+        <div class="level-header l3">
+            <div class="num">3</div>
+            <div>
+                <h2>APPLICARE</h2>
+                <p>Leggi il caso, ragiona come futuro operatore, rispondi.</p>
+            </div>
+        </div>
+
+        <!-- Caso 3.1 -->
+        <div class="case-card">
+            <div class="case-header">3.1 · Caso: Lorenzo <span class="tag">Disabilità motoria – PCI emiplegica</span></div>
+            <div class="case-body">
+                <div class="case-scenario">
+                    Lorenzo ha 8 anni. A 6 mesi gli è stata diagnosticata una PCI forma emiplegica sinistra spastica. Cammina con lieve claudicazione, ha difficoltà nella motricità fine della mano sinistra. Frequenta la seconda elementare. La maestra segnala difficoltà nella scrittura e momenti di frustrazione quando non riesce a stare al passo dei compagni. I genitori chiedono supporto per capire a quali servizi hanno diritto.
+                </div>
+                <div class="answer-block"><label>1. Quali servizi integrativi potresti attivare per Lorenzo? Elencali e spiega brevemente la funzione di ciascuno.</label><textarea data-id="3.1-1" rows="5" placeholder="..."></textarea></div>
+                <div class="answer-block"><label>2. Quali figure professionali sarebbero coinvolte nella sua presa in carico?</label><textarea data-id="3.1-2" rows="4" placeholder="..."></textarea></div>
+                <div class="answer-block"><label>3. Quale intervento, tra quelli possibili, rischia di essere disabilitante anche se fatto in buona fede? Quale invece è più abilitante?</label><textarea data-id="3.1-3" rows="5" placeholder="..."></textarea></div>
+            </div>
+        </div>
+
+        <!-- Caso 3.2 -->
+        <div class="case-card">
+            <div class="case-header">3.2 · Caso: Fatima <span class="tag">Disabilità sensoriale – sordità grave</span></div>
+            <div class="case-body">
+                <div class="case-scenario">
+                    Fatima ha 16 anni, arrivata in Italia dal Marocco a 10 anni. Ha una sordità grave neurosensoriale bilaterale, diagnosticata a 4 anni. In Marocco non ha mai usato protesi né frequentato logopedia. Usa una lingua dei segni mista (parte LIS, parte segni inventati in famiglia). Frequenta il primo anno delle superiori con grande difficoltà: la scuola non ha ancora assegnato l'assistente alla comunicazione.
+                </div>
+                <div class="answer-block"><label>1. Quali servizi e strumenti potrebbero supportare Fatima a scuola e fuori dalla scuola?</label><textarea data-id="3.2-1" rows="5" placeholder="..."></textarea></div>
+                <div class="answer-block"><label>2. Quali figure professionali dovrebbero essere coinvolte?</label><textarea data-id="3.2-2" rows="4" placeholder="..."></textarea></div>
+                <div class="answer-block"><label>3. Qual è l'intervento prioritario, secondo te? Motiva la risposta.</label><textarea data-id="3.2-3" rows="4" placeholder="..."></textarea></div>
+            </div>
+        </div>
+
+        <!-- Caso 3.3 -->
+        <div class="case-card">
+            <div class="case-header">3.3 · Caso: Salvatore <span class="tag">Sindrome di Down</span></div>
+            <div class="case-body">
+                <div class="case-scenario">
+                    Salvatore ha 35 anni e ha la sindrome di Down con QI nella fascia medio-lieve. Ha sempre vissuto con i genitori anziani. Da tre mesi è ospite di una comunità alloggio perché il padre è stato ricoverato per una grave malattia. Lavora part-time come magazziniere da 7 anni con valutazione ottima. Si sente smarrito nella nuova sistemazione e ripete: "voglio tornare a casa".
+                </div>
+                <div class="answer-block"><label>1. Quali servizi e interventi sono già attivi per Salvatore? Quali altri potrebbero essere attivati?</label><textarea data-id="3.3-1" rows="5" placeholder="..."></textarea></div>
+                <div class="answer-block"><label>2. Come interpreteresti la frase «voglio tornare a casa» nell'ottica del Progetto di Vita e dell'autodeterminazione?</label><textarea data-id="3.3-2" rows="5" placeholder="..."></textarea></div>
+                <div class="answer-block"><label>3. Quale rischio disabilitante c'è in questa situazione, anche da parte di operatori ben intenzionati?</label><textarea data-id="3.3-3" rows="4" placeholder="..."></textarea></div>
+            </div>
+        </div>
+
+        <!-- Caso 3.4 -->
+        <div class="case-card">
+            <div class="case-header">3.4 · Caso: Giulio <span class="tag">Disturbo dello Spettro Autistico – livello 1</span></div>
+            <div class="case-body">
+                <div class="case-scenario">
+                    Giulio ha 10 anni e ha una diagnosi di DSA livello 1 (alto funzionamento). È molto intelligente, ha una memoria straordinaria per i dati astronomici, ma fatica nelle relazioni con i pari. Quando la routine cambia improvvisamente ha crisi di agitazione intensa. I compagni lo evitano. La maestra dice: «è bravo ma strano». I genitori si sentono soli nella gestione.
+                </div>
+                <div class="answer-block"><label>1. Quali servizi potrebbero supportare Giulio e la sua famiglia?</label><textarea data-id="3.4-1" rows="5" placeholder="..."></textarea></div>
+                <div class="answer-block"><label>2. L'affermazione della maestra «è bravo ma strano» che tipo di problema evidenzia? A quale concetto del Modulo 1 si collega?</label><textarea data-id="3.4-2" rows="4" placeholder="..."></textarea></div>
+                <div class="answer-block"><label>3. Quale intervento abilitante proporresti per i momenti di crisi in classe?</label><textarea data-id="3.4-3" rows="4" placeholder="..."></textarea></div>
+            </div>
+        </div>
+
+        <!-- Caso 3.5 -->
+        <div class="case-card">
+            <div class="case-header">3.5 · Caso: Teresa <span class="tag">Disabilità neurologica – epilessia</span></div>
+            <div class="case-body">
+                <div class="case-scenario">
+                    Teresa ha 45 anni, lavora come impiegata. Tre anni fa ha avuto la prima crisi di grande male sul posto di lavoro. La terapia ha ridotto le crisi (2 nell'ultimo anno) ma non le ha eliminate. I colleghi la trattano con eccessiva cautela e non la coinvolgono più nelle trasferte. Il medico aziendale ha suggerito di "limitarle le mansioni per sicurezza", senza consultarla. Teresa si sente umiliata e vuole riprendere le normali attività lavorative.
+                </div>
+                <div class="answer-block"><label>1. Quali diritti lavorativi ha Teresa secondo la normativa studiata?</label><textarea data-id="3.5-1" rows="5" placeholder="..."></textarea></div>
+                <div class="answer-block"><label>2. Il comportamento del medico aziendale è un esempio di intervento abilitante o disabilitante? Perché?</label><textarea data-id="3.5-2" rows="4" placeholder="..."></textarea></div>
+                <div class="answer-block"><label>3. Come si traduce il principio di «accomodamento ragionevole» (Dispensa §7.3) in questa situazione concreta?</label><textarea data-id="3.5-3" rows="5" placeholder="..."></textarea></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════ LIVELLO 4 ═══════════════ -->
+    <div id="tab-l4" class="tab-content">
+        <div class="level-header l4">
+            <div class="num">4</div>
+            <div>
+                <h2>PROGETTARE</h2>
+                <p>Costruisci un Progetto di Vita originale. Questo è il tuo elaborato principale.</p>
+            </div>
+        </div>
+
+        <div class="info-box warning">
+            <strong>Ricorda: la persona è TITOLARE del suo Progetto di Vita</strong><br>
+            Il Progetto di Vita non si costruisce «per» la persona ma «con» la persona. I suoi desideri, le sue aspettative, le sue scelte sono il punto di partenza — non le diagnosi, non le percentuali di invalidità, non quello che «è meglio per lei» secondo i tecnici.
+        </div>
+
+        <!-- Scelta caso -->
+        <p class="section-title">4.1 · Scegli il tuo caso-persona</p>
+        <p style="font-size:0.88em;color:#555;margin-bottom:14px;">Leggi tutti i profili qui sotto. Clicca su quello che scegli, poi compila le sezioni seguenti.</p>
+
+        <div class="profile-grid">
+            <div class="profile-card" onclick="selectProfile(this,'A')" data-case="A">
+                <div class="case-label">CASO A</div>
+                <h4>Sofia, 9 anni · PCI tetraplegia spastica</h4>
+                <p>Si sposta con carrozzina elettrica. Comunica tramite CAA/tablet. Adora le storie illustrate. Desiderio: «voglio un'amica con cui giocare ogni pomeriggio».</p>
+            </div>
+            <div class="profile-card" onclick="selectProfile(this,'B')" data-case="B">
+                <div class="case-label">CASO B</div>
+                <h4>Luca, 15 anni · Distrofia Muscolare di Duchenne</h4>
+                <p>Usa carrozzina, frequenta il terzo superiore con passione per l'informatica. Desiderio: «voglio diventare programmatore e lavorare da remoto».</p>
+            </div>
+            <div class="profile-card" onclick="selectProfile(this,'C')" data-case="C">
+                <div class="case-label">CASO C</div>
+                <h4>Anna, 34 anni · Sclerosi Multipla RR</h4>
+                <p>Ex insegnante in aspettativa. Recidive ~2/anno. Figlio di 4 anni. Desiderio: tornare a insegnare.</p>
+            </div>
+            <div class="profile-card" onclick="selectProfile(this,'D')" data-case="D">
+                <div class="case-label">CASO D</div>
+                <h4>Roberto, 55 anni · SLA</h4>
+                <p>Vive solo. Diagnosi 14 mesi fa. Ancora autonomo. Priorità: «organizzare la mia vita mentre sono ancora in grado».</p>
+            </div>
+            <div class="profile-card" onclick="selectProfile(this,'E')" data-case="E">
+                <div class="case-label">CASO E</div>
+                <h4>Giulia, 27 anni · Cecità post-natale prima infanzia</h4>
+                <p>Vive sola, lavora come centralinista. Vuole iscriversi a psicologia. Rischio: perdere l'appartamento accessibile.</p>
+            </div>
+            <div class="profile-card" onclick="selectProfile(this,'F')" data-case="F">
+                <div class="case-label">CASO F</div>
+                <h4>Davide, 6 anni · Sordità profonda preverbale</h4>
+                <p>Impianto cocleare a 14 mesi. Fatica nelle conversazioni di gruppo. Desiderio: «voglio giocare a calcio con i bambini della scuola».</p>
+            </div>
+            <div class="profile-card" onclick="selectProfile(this,'G')" data-case="G">
+                <div class="case-label">CASO G</div>
+                <h4>Elena, 22 anni · Disabilità mentale media (QI 48)</h4>
+                <p>Vive con genitori anziani. Nessun percorso post-scolastico attivato. Desiderio: «voglio imparare a fare la pizza e lavorare in una cucina».</p>
+            </div>
+            <div class="profile-card" onclick="selectProfile(this,'H')" data-case="H">
+                <div class="case-label">CASO H</div>
+                <h4>Marco, 20 anni · Sindrome di Down (Trisomia 21)</h4>
+                <p>Istituto alberghiero, buone competenze in cucina. Stage positivo. Desiderio: «voglio lavorare, non voglio stare a casa».</p>
+            </div>
+            <div class="profile-card" onclick="selectProfile(this,'I')" data-case="I">
+                <div class="case-label">CASO I</div>
+                <h4>Tommaso, 12 anni · DSA livello 2</h4>
+                <p>Non usa linguaggio verbale, CAA tablet. Adora i treni. Cambiamenti di routine = fonte di stress. Desiderio: «vedere tutti i treni».</p>
+            </div>
+            <div class="profile-card" onclick="selectProfile(this,'L')" data-case="L">
+                <div class="case-label">CASO L</div>
+                <h4>Chiara, 17 anni · Epilessia – crisi parzialmente controllata</h4>
+                <p>Studentessa brillante, ama la matematica, sogna ingegneria. Stanca di essere trattata come fragile. Desiderio: «voglio andare all'università come tutti».</p>
+            </div>
+        </div>
+
+        <div id="l4-choice-display" style="display:none;background:#e0f5ea;border:2px solid var(--primary);border-radius:10px;padding:14px;margin:14px 0;">
+            <strong>Caso scelto: </strong><span id="l4-choice-text"></span>
+        </div>
+
+        <div class="answer-block">
+            <label>Prima di iniziare — L'epoché: quali pregiudizi o aspettative stai mettendo tra parentesi prima di ipotizzare cosa vuole la tua persona-caso?</label>
+            <textarea data-id="4.0-epoche" rows="4" placeholder="Scrivi qui i tuoi pregiudizi da mettere tra parentesi..."></textarea>
+        </div>
+
+        <!-- Fase 1 -->
+        <div class="phase-box">
+            <h3><span class="phase-num">1</span> FASE 1 – Rilevazione degli obiettivi: cosa vuole questa persona per la sua vita?</h3>
+            <p style="font-size:0.85em;color:#555;margin-bottom:14px;">Parti dai desideri e dalle aspettative della persona. Non da quello che «sarebbe realistico» o da quello che «è previsto dal servizio». Questa è la prima regola della Riforma.</p>
+            <div class="answer-block"><label>1. Quali sono i desideri espliciti della persona (quelli dichiarati nel profilo)?</label><textarea data-id="4.2-1" rows="4" placeholder="..."></textarea></div>
+            <div class="answer-block"><label>2. Quali aspettative puoi ipotizzare dal contesto di vita (senza sostituirti a lei)?</label><textarea data-id="4.2-2" rows="4" placeholder="..."></textarea></div>
+            <div class="answer-block"><label>3. In quale area di vita si concentra maggiormente il Progetto di Vita di questa persona? (apprendimento/socialità, formazione/lavoro, casa/habitat, salute)</label><textarea data-id="4.2-3" rows="3" placeholder="..."></textarea></div>
+        </div>
+
+        <!-- Fase 2 -->
+        <div class="phase-box">
+            <h3><span class="phase-num">2</span> FASE 2 – Barriere e facilitatori: cosa ostacola? Cosa aiuta?</h3>
+            <p style="font-size:0.85em;color:#555;margin-bottom:14px;">La disabilità si produce nell'interazione tra la persona e le barriere. Identificale per il caso specifico scelto.</p>
+            <div class="answer-block"><label>1. Elenca almeno 3 barriere (fisiche, sociali, culturali, burocratiche) presenti nella situazione di questa persona.</label><textarea data-id="4.3-1" rows="5" placeholder="Barriera 1: ...\nBarriera 2: ...\nBarriera 3: ..."></textarea></div>
+            <div class="answer-block"><label>2. Elenca almeno 3 facilitatori (persone, risorse, strumenti, contesti) già presenti o attivabili.</label><textarea data-id="4.3-2" rows="5" placeholder="Facilitatore 1: ...\nFacilitatore 2: ...\nFacilitatore 3: ..."></textarea></div>
+            <div class="answer-block"><label>3. Quale barriera ti sembra la più difficile da rimuovere? Perché?</label><textarea data-id="4.3-3" rows="4" placeholder="..."></textarea></div>
+        </div>
+
+        <!-- Fase 3 -->
+        <div class="phase-box">
+            <h3><span class="phase-num">3</span> FASE 3 – Profilo di salute e qualità di vita: qual è la situazione complessiva?</h3>
+            <p style="font-size:0.85em;color:#555;margin-bottom:14px;">Descrivi la situazione nelle tre dimensioni del modello bio-psico-sociale. Non limitarti alla diagnosi.</p>
+            <div class="answer-block"><label>1. Dimensione biologica: quali sono le condizioni di salute e le limitazioni funzionali principali?</label><textarea data-id="4.4-1" rows="4" placeholder="..."></textarea></div>
+            <div class="answer-block"><label>2. Dimensione psicologica: come vive la persona la propria condizione? Quali risorse personali ha?</label><textarea data-id="4.4-2" rows="4" placeholder="..."></textarea></div>
+            <div class="answer-block"><label>3. Dimensione sociale: come è il contesto familiare, relazionale, lavorativo/scolastico?</label><textarea data-id="4.4-3" rows="4" placeholder="..."></textarea></div>
+            <div class="answer-block"><label>4. Qual è, secondo te, il fattore che incide di più sulla qualità della vita di questa persona in questo momento?</label><textarea data-id="4.4-4" rows="3" placeholder="..."></textarea></div>
+        </div>
+
+        <!-- Fase 4 -->
+        <div class="phase-box">
+            <h3><span class="phase-num">4</span> FASE 4 – Obiettivi del Progetto di Vita: cosa deve realizzare?</h3>
+            <div class="answer-block"><label>1. Definisci almeno 3 obiettivi concreti (breve, medio e lungo termine) per questa persona.</label><textarea data-id="4.5-1" rows="6" placeholder="Breve termine (entro 6 mesi): ...\nMedio termine (entro 2 anni): ...\nLungo termine: ..."></textarea></div>
+            <div class="answer-block"><label>2. Per ciascun obiettivo indica quale/i servizio/i attivare e quale figura professionale dovrebbe coordinarsi.</label><textarea data-id="4.5-2" rows="6" placeholder="Obiettivo 1 → Servizio: ... | Figura: ...\nObiettivo 2 → Servizio: ... | Figura: ...\nObiettivo 3 → Servizio: ... | Figura: ..."></textarea></div>
+            <div class="answer-block"><label>3. Come garantiresti la continuità del Progetto di Vita se la persona si trasferisse in un altro Comune (principio di portabilità)?</label><textarea data-id="4.5-3" rows="4" placeholder="..."></textarea></div>
+        </div>
+
+        <!-- Budget -->
+        <p class="section-title">4.6 · Il Budget di Progetto</p>
+        <span class="where-to-look">📖 Dispensa §6.5</span>
+        <table class="data-table">
+            <thead><tr><th>Tipo di risorsa</th><th>Descrizione specifica per il tuo caso</th><th>Chi la garantisce</th></tr></thead>
+            <tbody>
+                <tr><td class="label">Risorse umane e professionali</td><td><textarea data-id="4.6-umane-desc" rows="3" placeholder="..."></textarea></td><td><textarea data-id="4.6-umane-chi" rows="3" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Risorse tecnologiche e strumentali</td><td><textarea data-id="4.6-tech-desc" rows="3" placeholder="..."></textarea></td><td><textarea data-id="4.6-tech-chi" rows="3" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Risorse economiche pubbliche</td><td><textarea data-id="4.6-econ-desc" rows="3" placeholder="..."></textarea></td><td><textarea data-id="4.6-econ-chi" rows="3" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Eventuali risorse private / familiari</td><td><textarea data-id="4.6-priv-desc" rows="3" placeholder="..."></textarea></td><td><textarea data-id="4.6-priv-chi" rows="3" placeholder="..."></textarea></td></tr>
+            </tbody>
+        </table>
+
+        <div class="answer-block">
+            <label>Il principio di non regressione (Dispensa §6.3) garantisce che il livello di sostegno non possa essere ridotto arbitrariamente. Perché questo principio è particolarmente importante per la persona che hai scelto?</label>
+            <textarea data-id="4.6-regressione" rows="4" placeholder="..."></textarea>
+        </div>
+
+        <!-- Referente -->
+        <p class="section-title">4.7 · Il Referente e la persona di supporto</p>
+        <span class="where-to-look">📖 Dispensa §7.1 e §7.2</span>
+        <table class="data-table">
+            <thead><tr><th>Figura</th><th>Chi potrebbe essere nel tuo caso?</th><th>Funzione specifica in questo progetto</th></tr></thead>
+            <tbody>
+                <tr><td class="label">Referente del Progetto di Vita</td><td><textarea data-id="4.7-ref-chi" rows="3" placeholder="..."></textarea></td><td><textarea data-id="4.7-ref-fun" rows="3" placeholder="..."></textarea></td></tr>
+                <tr><td class="label">Persona di supporto</td><td><textarea data-id="4.7-sup-chi" rows="3" placeholder="..."></textarea></td><td><textarea data-id="4.7-sup-fun" rows="3" placeholder="..."></textarea></td></tr>
+            </tbody>
+        </table>
+
+        <div class="answer-block">
+            <label>La legge dice che la persona con disabilità «è titolare del progetto di vita» e «concorre a determinare i contenuti secondo i propri desideri, aspettative e scelte». Come si traduce questa titolarità nel caso specifico che hai scelto? Cosa cambia rispetto al vecchio sistema?</label>
+            <textarea data-id="4.7-titolarita" rows="5" placeholder="..."></textarea>
+        </div>
+    </div>
+
+    <!-- ═══════════════ LIVELLO 5 ═══════════════ -->
+    <div id="tab-l5" class="tab-content">
+        <div class="level-header l5">
+            <div class="num">5</div>
+            <div>
+                <h2>RIFLETTERE</h2>
+                <p>Guarda indietro. Cosa è cambiato nel tuo sguardo sulla disabilità?</p>
+            </div>
+        </div>
+
+        <div class="info-box tip" style="margin-bottom:24px;">
+            <strong>Questo livello non ha risposte giuste o sbagliate.</strong> È uno spazio di riflessione personale. Scrivi liberamente, con parole tue.
+        </div>
+
+        <div class="reflection-box">
+            <h3>5.1 · Prima e dopo: il mio sguardo sulla disabilità</h3>
+            <div class="answer-block">
+                <label>All'inizio di questo modulo, cosa significava per te la parola «disabilità»?</label>
+                <textarea data-id="5.1-prima" rows="4" placeholder="Cosa pensavi prima..."></textarea>
+            </div>
+            <div class="answer-block">
+                <label>Come la descriveresti adesso, dopo aver studiato le tipologie, i servizi e la Riforma? Cosa è cambiato nel tuo modo di guardare?</label>
+                <textarea data-id="5.1-dopo" rows="5" placeholder="Cosa pensi adesso e cosa è cambiato..."></textarea>
+            </div>
+        </div>
+
+        <div class="reflection-box">
+            <h3>5.2 · Il filo del Modulo 1</h3>
+            <div class="answer-block">
+                <label>Tra i concetti del Modulo 1 (normalità come costrutto sociale, disease/illness/sickness, continuum abilitante/disabilitante, epoché, costruire il Comune, dalla categoria alla singolarità), quale ha trovato la sua applicazione più concreta in questo modulo? Portane un esempio preciso, collegato al Progetto di Vita che hai costruito.</label>
+                <textarea data-id="5.2" rows="7" placeholder="Concetto scelto: ...\nEsempio dal Progetto di Vita: ..."></textarea>
+            </div>
+        </div>
+
+        <div class="reflection-box">
+            <h3>5.3 · Una domanda aperta al futuro operatore</h3>
+            <div class="answer-block">
+                <label>Immagina di essere un operatore socio-sanitario tra dieci anni, nel sistema pienamente riformato. Qual è la cosa che hai imparato in questo modulo che porteresti con te ogni giorno nel lavoro?</label>
+                <textarea data-id="5.3-porterei" rows="5" placeholder="Scrivi liberamente..."></textarea>
+            </div>
+            <div class="answer-block">
+                <label>E qual è la cosa che temi di poter dimenticare, una volta entrato nella routine professionale?</label>
+                <textarea data-id="5.3-temo" rows="5" placeholder="Scrivi liberamente..."></textarea>
+            </div>
+        </div>
+
+        <!-- Note docente -->
+        <div class="teacher-section">
+            <h3>📝 Note dell'insegnante (uso riservato)</h3>
+            <div class="answer-block"><label>Osservazioni generali:</label><textarea data-id="doc-osserv" rows="3" placeholder="..."></textarea></div>
+            <div class="answer-block"><label>Punti di forza:</label><textarea data-id="doc-forza" rows="3" placeholder="..."></textarea></div>
+            <div class="answer-block"><label>Aspetti da migliorare:</label><textarea data-id="doc-migl" rows="3" placeholder="..."></textarea></div>
+
+            <table class="eval-table" style="margin-top:14px;">
+                <thead><tr><th>Livello</th><th>Completamento</th><th>Qualità ragionamento</th><th>Uso corretto fonti</th></tr></thead>
+                <tbody>
+                    <tr><td class="label">1 – ESPLORARE</td><td><input type="text" data-id="ev-1-comp" placeholder=""></td><td><input type="text" data-id="ev-1-qual" placeholder=""></td><td><input type="text" data-id="ev-1-fonti" placeholder=""></td></tr>
+                    <tr><td class="label">2 – DISTINGUERE</td><td><input type="text" data-id="ev-2-comp" placeholder=""></td><td><input type="text" data-id="ev-2-qual" placeholder=""></td><td><input type="text" data-id="ev-2-fonti" placeholder=""></td></tr>
+                    <tr><td class="label">3 – APPLICARE</td><td><input type="text" data-id="ev-3-comp" placeholder=""></td><td><input type="text" data-id="ev-3-qual" placeholder=""></td><td><input type="text" data-id="ev-3-fonti" placeholder=""></td></tr>
+                    <tr><td class="label">4 – PROGETTARE</td><td><input type="text" data-id="ev-4-comp" placeholder=""></td><td><input type="text" data-id="ev-4-qual" placeholder=""></td><td><input type="text" data-id="ev-4-fonti" placeholder=""></td></tr>
+                    <tr><td class="label">5 – RIFLETTERE</td><td><input type="text" data-id="ev-5-comp" placeholder=""></td><td><input type="text" data-id="ev-5-qual" placeholder=""></td><td><input type="text" data-id="ev-5-fonti" placeholder=""></td></tr>
+                </tbody>
+            </table>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px;">
+                <div><label style="font-size:0.85em;font-weight:700;color:#555;">Valutazione complessiva</label><input type="text" data-id="ev-voto" style="width:100%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;" placeholder=""></div>
+                <div><label style="font-size:0.85em;font-weight:700;color:#555;">Data di correzione</label><input type="date" data-id="ev-data" style="width:100%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;"></div>
+                <div><label style="font-size:0.85em;font-weight:700;color:#555;">Firma docente</label><input type="text" data-id="ev-firma" style="width:100%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;" placeholder=""></div>
+            </div>
+        </div>
+    </div>
+
+</div><!-- end container -->
+
+<!-- SAVE BAR -->
+<div class="save-bar">
+    <button class="btn btn-print" onclick="window.print()">🖨️ Stampa</button>
+    <button class="btn btn-save" onclick="saveAll()">💾 Salva</button>
+</div>
+<div id="save-msg" class="save-msg">✅ Salvato!</div>
+
+<script>
+    const STORAGE_KEY = 'fascicolo_disabilita_4sa_v1';
+
+    /* ── TABS ── */
+    function showTab(id) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        const content = document.getElementById('tab-' + id);
+        if (content) content.classList.add('active');
+        const btns = document.querySelectorAll('.tab-btn');
+        const map = { cover: 0, l1: 1, l2: 2, l3: 3, l4: 4, l5: 5 };
+        if (map[id] !== undefined && btns[map[id]]) btns[map[id]].classList.add('active');
+    }
+
+    /* ── PROFILE SELECTION ── */
+    function selectProfile(el, caseId) {
+        document.querySelectorAll('.profile-card').forEach(c => c.classList.remove('selected'));
+        el.classList.add('selected');
+        const names = { A:'Sofia (PCI tetraplegia)', B:'Luca (DMD)', C:'Anna (SM-RR)', D:'Roberto (SLA)',
+            E:'Giulia (cecità)', F:'Davide (sordità profonda)', G:'Elena (disabilità mentale media)',
+            H:'Marco (Sindrome di Down)', I:'Tommaso (DSA livello 2)', L:'Chiara (epilessia)' };
+        const disp = document.getElementById('l4-choice-display');
+        const text = document.getElementById('l4-choice-text');
+        disp.style.display = 'block';
+        text.textContent = caseId + ' – ' + (names[caseId] || caseId);
+        localStorage.setItem(STORAGE_KEY + '_case', caseId);
+    }
+
+    /* ── SAVE / LOAD ── */
+    function collectAll() {
+        const data = {};
+        // student fields
+        ['st-nome','st-classe','st-anno','st-data'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) data[id] = el.value;
+        });
+        // all data-id fields
+        document.querySelectorAll('[data-id]').forEach(el => {
+            data[el.dataset.id] = el.value;
+        });
+        return data;
+    }
+
+    function saveAll() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(collectAll()));
+        const msg = document.getElementById('save-msg');
+        msg.classList.add('show');
+        setTimeout(() => msg.classList.remove('show'), 2000);
+    }
+
+    function loadAll() {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        ['st-nome','st-classe','st-anno','st-data'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el && data[id] !== undefined) el.value = data[id];
+        });
+        document.querySelectorAll('[data-id]').forEach(el => {
+            if (data[el.dataset.id] !== undefined) el.value = data[el.dataset.id];
+        });
+        // restore case selection
+        const savedCase = localStorage.getItem(STORAGE_KEY + '_case');
+        if (savedCase) {
+            const card = document.querySelector(`.profile-card[data-case="${savedCase}"]`);
+            if (card) selectProfile(card, savedCase);
+        }
+    }
+
+    // Autosave every 30 seconds
+    setInterval(saveAll, 30000);
+
+    // Load on start
+    document.addEventListener('DOMContentLoaded', loadAll);
+
+    // Save on any change
+    document.addEventListener('change', () => saveAll());
+    document.addEventListener('input', () => {
+        clearTimeout(window._autoSaveTimer);
+        window._autoSaveTimer = setTimeout(saveAll, 2000);
+    });
+</script>
+
+</body>
+</html>
