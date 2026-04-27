@@ -1,0 +1,35 @@
+name: Supabase Heartbeat
+
+on:
+  schedule:
+    # Esegui ogni 5 giorni alle 08:00 UTC (ben prima dei 7 giorni di inattività)
+    - cron: '0 8 */5 * *'
+  workflow_dispatch: # permette avvio manuale dalla dashboard GitHub
+
+jobs:
+  ping:
+    name: Ping Supabase
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Heartbeat query
+        run: |
+          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" \
+            "${SUPABASE_URL}/rest/v1/presenze?select=id&limit=1" \
+            -H "apikey: ${SUPABASE_KEY}" \
+            -H "Authorization: Bearer ${SUPABASE_KEY}")
+
+          echo "HTTP status: $RESPONSE"
+
+          if [ "$RESPONSE" -ge 200 ] && [ "$RESPONSE" -lt 300 ]; then
+            echo "Supabase attivo e raggiungibile."
+          elif [ "$RESPONSE" = "404" ]; then
+            # Tabella non trovata: il progetto è attivo, la tabella potrebbe chiamarsi diversamente
+            echo "Progetto attivo (tabella non trovata, HTTP 404 — controlla il nome tabella)."
+          else
+            echo "Risposta inattesa: $RESPONSE"
+            exit 1
+          fi
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
