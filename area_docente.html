@@ -11,8 +11,7 @@
     <header>
         <div class="container">
             <h1>Area Docente</h1>
-            <p>Monitoraggio attività e progressi degli studenti</p>
-            <p style="font-size: 0.9rem; margin-top: 0.5rem;">Metodologie Operative · IIS Meucci Mattei</p>
+            <p>Monitoraggio attività e progressi degli studenti · IIS Meucci Mattei</p>
         </div>
     </header>
 
@@ -32,18 +31,6 @@
 
     <main>
         <div class="container">
-            <section class="docente-hero">
-                <div>
-                    <h2>Dashboard Progressi Studenti</h2>
-                    <p>Questa sezione raccoglie automaticamente i salvataggi effettuati dagli studenti in tutte le attività interattive del sito. Puoi filtrare per classe o attività, verificare chi ha completato i compiti e aprire direttamente i materiali assegnati.</p>
-                    <ul>
-                        <li>👥 <strong>Vista per classe</strong>: controlla a colpo d'occhio chi sta lavorando.</li>
-                        <li>📄 <strong>Vista per attività</strong>: monitora quanti studenti hanno completato un determinato modulo.</li>
-                        <li>🔗 <strong>Accesso rapido</strong>: apri subito la pagina dell'attività per rivederne i contenuti.</li>
-                    </ul>
-                </div>
-            </section>
-
             <section class="docente-dashboard card">
                 <div id="docente-auth-overlay">
                     <div class="auth-box">
@@ -53,38 +40,35 @@
                             <input type="password" id="docente-password" placeholder="Password" required>
                             <button type="submit" class="btn btn-primary">Accedi</button>
                         </form>
-                        <p class="small-note">Suggerimento: usa la stessa password delle altre sezioni riservate.</p>
                     </div>
                 </div>
 
                 <div id="docente-dashboard-content" class="hidden">
+
+                    <!-- Topbar -->
                     <div class="dashboard-topbar">
                         <div>
-                            <p class="muted">Ultimo aggiornamento</p>
-                            <p id="dashboard-last-refresh">-</p>
+                            <p class="muted">Dati aggiornati alle</p>
+                            <p id="dashboard-last-refresh">—</p>
                         </div>
-                        <button id="refresh-dashboard" class="btn btn-secondary">🔄 Aggiorna dati</button>
+                        <button id="refresh-dashboard" class="btn btn-secondary">🔄 Aggiorna</button>
                     </div>
 
+                    <!-- Filtri -->
                     <div class="dashboard-filters">
                         <div class="filter-control">
-                            <label for="dashboard-class-filter">Classe</label>
+                            <label for="dashboard-class-filter">Filtra per classe</label>
                             <select id="dashboard-class-filter">
                                 <option value="">Tutte le classi</option>
                             </select>
                         </div>
                         <div class="filter-control">
-                            <label for="dashboard-activity-filter">Attività</label>
-                            <select id="dashboard-activity-filter">
-                                <option value="">Tutte le attività</option>
-                            </select>
-                        </div>
-                        <div class="filter-control">
-                            <label for="dashboard-student-search">Studente</label>
+                            <label for="dashboard-student-search">Cerca studente</label>
                             <input type="text" id="dashboard-student-search" placeholder="Cognome o codice">
                         </div>
                     </div>
 
+                    <!-- Statistiche sintetiche -->
                     <div class="stats-overview docente-stats">
                         <div class="stat-card">
                             <h4>👥 Studenti attivi</h4>
@@ -92,91 +76,36 @@
                             <p class="muted" id="doc-class-focus">tutte le classi</p>
                         </div>
                         <div class="stat-card">
-                            <h4>📚 Attività assegnate</h4>
+                            <h4>📚 Attività con salvataggi</h4>
                             <p id="doc-stat-activities" class="stat-value">0</p>
-                            <p class="muted">con almeno un salvataggio</p>
+                            <p class="muted">monitorate in tempo reale</p>
                         </div>
                         <div class="stat-card">
-                            <h4>💾 Salvataggi totali</h4>
-                            <p id="doc-stat-entries" class="stat-value">0</p>
-                            <p class="muted" id="doc-activity-focus">tutte le attività</p>
-                        </div>
-                        <div class="stat-card">
-                            <h4>⏱️ Ultimo aggiornamento</h4>
-                            <p id="doc-stat-last-update" class="stat-value">-</p>
+                            <h4>⏱️ Ultimo salvataggio</h4>
+                            <p id="doc-stat-last-update" class="stat-value">—</p>
                             <p class="muted">ora locale</p>
                         </div>
                     </div>
 
-                    <div id="activity-insights" class="assessment-insights" style="margin: 1.5rem 0;">
-                        <div class="empty-state">
-                            <p>Salvataggi in caricamento...</p>
-                        </div>
-                    </div>
-
+                    <!-- SEZIONE PRINCIPALE: Attività → Studenti → Progressi -->
                     <section class="summary-section">
                         <div class="section-header">
-                            <h3>Panoramica attività</h3>
-                            <p class="muted">Studenti che hanno salvato progressi per ogni attività</p>
-                        </div>
-                        <div class="table-wrapper">
-                            <table class="data-table">
-                                <thead>
-                                    <tr>
-                                        <th>Attività</th>
-                                        <th>Classe</th>
-                                        <th>Studenti attivi</th>
-                                        <th>Ultimo salvataggio</th>
-                                        <th>Apri</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="activity-summary-body">
-                                    <tr><td colspan="5">Nessun dato disponibile.</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
-
-                    <section class="summary-section class-progress-section">
-                        <div class="section-header">
-                            <h3>Progressi per classe e studente</h3>
-                            <p class="muted">Espandi una classe per vedere ogni studente e aprire le attività in modalità docente.</p>
-                        </div>
-                        <div id="class-student-progress" class="class-progress-container">
-                            <div class="empty-state">
-                                <p>Seleziona una classe o aggiorna i dati per vedere i progressi per studente.</p>
+                            <div>
+                                <h3>Monitoraggio per Attività</h3>
+                                <p class="muted">Espandi un'attività per vedere tutti gli studenti che ci stanno lavorando e il loro avanzamento.</p>
                             </div>
                         </div>
-                    </section>
-
-                    <section class="summary-section">
-                        <div class="section-header">
-                            <h3>Dettaglio studenti</h3>
-                            <p class="muted">Ultimo salvataggio per ciascuno studente</p>
-                        </div>
-                        <div class="table-wrapper">
-                            <table class="data-table">
-                                <thead>
-                                    <tr>
-                                        <th>Classe</th>
-                                        <th>Studente</th>
-                                        <th>Ultima attività</th>
-                                        <th>Data</th>
-                                        <th>Apri</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="student-detail-body">
-                                    <tr><td colspan="5">Nessun dato disponibile.</td></tr>
-                                </tbody>
-                            </table>
+                        <div id="activity-groups-container" class="class-progress-container">
+                            <div class="empty-state"><p>Caricamento in corso…</p></div>
                         </div>
                     </section>
 
+                    <!-- Test Stroop e verifiche strutturate -->
                     <section class="summary-section assessment-section">
                         <div class="section-header">
                             <div>
-                                <h3>Risultati Test · Verifiche · Laboratori</h3>
-                                <p class="muted">Stroop test, verifiche digitali e laboratori interattivi con punteggi e risposte salvate</p>
+                                <h3>Test Stroop · Verifiche strutturate</h3>
+                                <p class="muted">Risultati con punteggi e risposte salvate</p>
                             </div>
                             <div class="section-actions">
                                 <a class="btn btn-secondary" href="stroop_statistiche.html" target="_blank" rel="noopener">Dashboard Stroop</a>
@@ -184,9 +113,7 @@
                         </div>
 
                         <div id="assessment-insights" class="assessment-insights">
-                            <div class="empty-state">
-                                <p>Nessun test registrato.</p>
-                            </div>
+                            <div class="empty-state"><p>Nessun test registrato.</p></div>
                         </div>
 
                         <div class="table-wrapper" style="margin-top:1.5rem;">
@@ -225,6 +152,7 @@
                             </table>
                         </div>
                     </section>
+
                 </div>
             </section>
         </div>
@@ -233,9 +161,8 @@
     <footer>
         <div class="container">
             <p><strong>Prof. Dott. Picconi</strong></p>
-            <p>Metodologie Operative - Servizi Sociosanitari</p>
-            <p>IIS Meucci Mattei - Cagliari</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem;">&copy; 2025 - Tutti i diritti riservati</p>
+            <p>Metodologie Operative - Servizi Sociosanitari · IIS Meucci Mattei - Cagliari</p>
+            <p style="margin-top:1rem;font-size:0.9rem;">&copy; 2025 - Tutti i diritti riservati</p>
         </div>
     </footer>
 
