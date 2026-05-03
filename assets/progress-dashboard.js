@@ -68,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.assessmentModalBody = document.getElementById('assessment-modal-body');
     elements.progressModal = document.getElementById('progress-modal');
     elements.progressModalBody = document.getElementById('progress-modal-body');
+    elements.disabilitaSection = document.getElementById('disabilita-section');
 
     if (elements.loginForm) {
         elements.loginForm.addEventListener('submit', handleLogin);
@@ -305,6 +306,7 @@ function applyFilters() {
     renderActivitySummary(dataset);
     renderStudentTable(dataset);
     renderClassGroups(dataset);
+    renderDisabilitaSection(dashboardState.records);
 
     const classLabel = classFilter ? classFilter.toUpperCase() : 'tutte le classi';
     if (elements.classFocus) {
@@ -669,6 +671,119 @@ function renderClassGroups(records) {
     elements.classProgressContainer.innerHTML = classBlocks.join('');
 }
 
+const DISABILITA_PATTERNS = [
+    'fascicolo_disabilita',
+    'disabilita_iter_legislativo',
+    'attivita-laboratorio-fascicolo-disabilita',
+    'attivita-materiali-quarto-disabilita'
+];
+
+function isDisabilitaRecord(record) {
+    const p = (record.page_path || record.original_path || '').toLowerCase();
+    return DISABILITA_PATTERNS.some(pat => p.includes(pat));
+}
+
+function renderDisabilitaSection(allRecords) {
+    if (!elements.disabilitaSection) return;
+
+    const records = (allRecords || []).filter(isDisabilitaRecord);
+
+    if (!records.length) {
+        elements.disabilitaSection.innerHTML = `
+            <div class="section-header">
+                <h3>🦽 Attività sulla Disabilità</h3>
+                <p class="muted">Fascicolo tecnico-pratico e iter legislativo</p>
+            </div>
+            <div class="empty-state"><p>Nessuno studente ha ancora salvato progressi su queste attività.</p></div>`;
+        return;
+    }
+
+    // group by class → student
+    const classMap = new Map();
+    records.forEach(record => {
+        const cls = (record.class_code || 'N/D').toUpperCase();
+        const stu = (record.student_code || 'sconosciuto').trim();
+        const key = `${cls}|${stu.toLowerCase()}`;
+        if (!classMap.has(cls)) classMap.set(cls, new Map());
+        const stuMap = classMap.get(cls);
+        const existing = stuMap.get(key);
+        if (!existing || new Date(record.updated_at) > new Date(existing.updated_at)) {
+            stuMap.set(key, {
+                classCode: record.class_code || cls,
+                displayClass: cls,
+                studentCode: stu,
+                updated_at: record.updated_at,
+                pagePath: record.page_path,
+                originalPath: record.original_path,
+                recordId: record.id,
+                progressMeta: record.progressMeta || null
+            });
+        }
+    });
+
+    const totalStudents = Array.from(classMap.values()).reduce((s, m) => s + m.size, 0);
+    const withMeta = records.filter(r => r.progressMeta && typeof r.progressMeta.percentuale === 'number');
+    const avgPct = withMeta.length
+        ? Math.round(withMeta.reduce((s, r) => s + r.progressMeta.percentuale, 0) / withMeta.length)
+        : null;
+    const avgLabel = avgPct !== null ? ` · avanzamento medio classe: <strong>${avgPct}%</strong>` : '';
+
+    const classBlocks = Array.from(classMap.entries())
+        .sort(([a], [b]) => a.localeCompare(b, 'it', { numeric: true }))
+        .map(([cls, stuMap]) => {
+            const rows = Array.from(stuMap.values())
+                .sort((a, b) => a.studentCode.localeCompare(b.studentCode, 'it'))
+                .map(s => {
+                    const activityLabel = formatActivityName(s.pagePath || s.originalPath);
+                    return `
+                    <tr>
+                        <td><strong>${s.studentCode}</strong></td>
+                        <td style="font-size:0.85em;color:#555">${activityLabel}</td>
+                        <td>${renderProgressBar(s.progressMeta)}</td>
+                        <td style="font-size:0.85em">${formatDateTime(s.updated_at)}</td>
+                        <td>
+                            <a class="btn-link" href="#" role="button"
+                                data-open-as-docente
+                                data-class-code="${s.classCode}"
+                                data-student-code="${s.studentCode}"
+                                data-page-path="${s.originalPath || s.pagePath}">
+                                Apri come docente
+                            </a>
+                            ${s.recordId ? `<span class="divider">·</span><button class="btn-link" type="button" data-progress-detail="${s.recordId}">Dettagli</button>` : ''}
+                        </td>
+                    </tr>`;
+                }).join('');
+
+            return `
+            <div style="margin-bottom:1.5rem">
+                <h4 style="margin-bottom:0.5rem">Classe ${cls} — ${stuMap.size} studenti</h4>
+                <div class="table-wrapper">
+                    <table class="data-table compact">
+                        <thead>
+                            <tr>
+                                <th>Studente</th>
+                                <th>Attività</th>
+                                <th>Avanzamento</th>
+                                <th>Ultimo salvataggio</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rows}</tbody>
+                    </table>
+                </div>
+            </div>`;
+        }).join('');
+
+    elements.disabilitaSection.innerHTML = `
+        <div class="section-header">
+            <div>
+                <h3>🦽 Attività sulla Disabilità</h3>
+                <p class="muted">${totalStudents} studenti hanno lavorato${avgLabel}</p>
+            </div>
+        </div>
+        ${classBlocks}`;
+}
+
 function applyAssessmentFilter(classCode = '') {
     let dataset = dashboardState.assessments;
     if (classCode) {
@@ -813,6 +928,11 @@ function resolveActivityPath(path) {
         if (PAGE_ALIAS_OVERRIDES[key]) {
             return PAGE_ALIAS_OVERRIDES[key];
         }
+    }
+
+    // Strip /metodologieoperative prefix so paths are consistent regardless of deploy base
+    if (normalized.startsWith('/metodologieoperative/')) {
+        return normalized.replace(/^\/metodologieoperative/, '') || '/';
     }
 
     return normalized;
