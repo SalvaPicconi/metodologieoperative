@@ -208,7 +208,7 @@ async function refreshDashboard() {
 
 async function fetchProgressData() {
     const params = new URLSearchParams({
-        select: 'id,class_code,student_code,page_path,updated_at',
+        select: 'id,class_code,student_code,page_path,updated_at,data',
         order: 'updated_at.desc',
         limit: '500'
     });
@@ -568,7 +568,8 @@ function renderClassGroups(records) {
                 pagePath: resolvedPath,
                 originalPath: record.page_path,
                 updated_at: record.updated_at,
-                recordId: record.id
+                recordId: record.id,
+                progressMeta: record.progressMeta || null
             });
         }
     });
@@ -594,6 +595,7 @@ function renderClassGroups(records) {
                             <tr>
                                 <td>${formatActivityName(activity.pagePath || activity.originalPath)}</td>
                                 <td>${formatDateTime(activity.updated_at)}</td>
+                                <td>${renderProgressBar(activity.progressMeta)}</td>
                                 <td>
                                     <a class="btn-link" href="#" role="button"
                                         data-open-as-docente
@@ -609,12 +611,19 @@ function renderClassGroups(records) {
                             </tr>
                         `).join('');
 
+                    const totalPct = (() => {
+                        const withMeta = Array.from(studentEntry.activities.values()).filter(a => a.progressMeta && typeof a.progressMeta.percentuale === 'number');
+                        if (!withMeta.length) return '';
+                        const avg = Math.round(withMeta.reduce((s, a) => s + a.progressMeta.percentuale, 0) / withMeta.length);
+                        return ` · avanzamento medio ${avg}%`;
+                    })();
+
                     return `
                         <details class="student-block">
                             <summary>
                                 <div class="student-meta">
                                     <strong>${studentEntry.label}</strong>
-                                    <span>${studentEntry.activities.size} attività monitorate</span>
+                                    <span>${studentEntry.activities.size} attività monitorate${totalPct}</span>
                                 </div>
                                 <span class="student-chevron" aria-hidden="true">›</span>
                             </summary>
@@ -624,6 +633,7 @@ function renderClassGroups(records) {
                                         <tr>
                                             <th>Attività</th>
                                             <th>Aggiornato</th>
+                                            <th>Avanzamento</th>
                                             <th>Azioni</th>
                                         </tr>
                                     </thead>
@@ -840,6 +850,7 @@ function normalizeProgressRecord(record) {
     try {
         const parsedData = parseProgressData(record.data);
         const pagePath = resolveActivityPath(record.page_path);
+        const meta = (parsedData && typeof parsedData === 'object') ? (parsedData._meta || null) : null;
         return {
             id: record.id,
             class_code: record.class_code || '',
@@ -847,7 +858,8 @@ function normalizeProgressRecord(record) {
             page_path: pagePath,
             original_path: record.page_path || pagePath,
             updated_at: record.updated_at,
-            data: parsedData
+            data: parsedData,
+            progressMeta: meta
         };
     } catch (error) {
         console.warn('Record progress non valido, ignorato:', record, error);
@@ -1256,6 +1268,21 @@ function formatProgressData(data) {
     } catch {
         return `<pre class="progress-json">${escapeHtml(String(data))}</pre>`;
     }
+}
+
+function renderProgressBar(meta) {
+    if (!meta) return '<span class="muted">—</span>';
+    const pct = typeof meta.percentuale === 'number' ? Math.min(100, Math.max(0, meta.percentuale)) : null;
+    const filled = meta.campiCompilati ?? '?';
+    const total = meta.totale ?? '?';
+    if (pct === null) return '<span class="muted">Dati salvati</span>';
+    const color = pct >= 80 ? '#16a34a' : pct >= 40 ? '#f59e0b' : '#3b82f6';
+    return `<div style="min-width:110px">
+        <div style="background:#e2e8f0;border-radius:4px;height:8px;overflow:hidden;margin-bottom:3px">
+            <div style="background:${color};height:100%;width:${pct}%;transition:width .3s"></div>
+        </div>
+        <span style="font-size:0.78em;color:#555">${pct}% &nbsp;(${filled}/${total} campi)</span>
+    </div>`;
 }
 
 function escapeHtml(str) {
