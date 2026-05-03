@@ -743,13 +743,14 @@ function renderDisabilitaSection(allRecords) {
                         <td style="font-size:0.85em">${formatDateTime(s.updated_at)}</td>
                         <td>
                             <a class="btn-link" href="#" role="button"
+                                style="font-weight:600;color:#2563eb"
                                 data-open-as-docente
                                 data-class-code="${s.classCode}"
                                 data-student-code="${s.studentCode}"
                                 data-page-path="${s.originalPath || s.pagePath}">
-                                Apri come docente
+                                👁 Vedi il lavoro
                             </a>
-                            ${s.recordId ? `<span class="divider">·</span><button class="btn-link" type="button" data-progress-detail="${s.recordId}">Dettagli</button>` : ''}
+                            ${s.recordId ? `<span class="divider">·</span><button class="btn-link" type="button" data-progress-detail="${s.recordId}">Dettagli JSON</button>` : ''}
                         </td>
                     </tr>`;
                 }).join('');
@@ -781,6 +782,9 @@ function renderDisabilitaSection(allRecords) {
                 <p class="muted">${totalStudents} studenti hanno lavorato${avgLabel}</p>
             </div>
         </div>
+        <p style="background:#eff6ff;border-left:4px solid #3b82f6;padding:10px 14px;border-radius:4px;font-size:0.9em;margin-bottom:1.5rem">
+            👁 Clicca <strong>"Vedi il lavoro"</strong> per aprire in una nuova scheda il fascicolo compilato dallo studente — vedrai esattamente quello che ha scritto.
+        </p>
         ${classBlocks}`;
 }
 
