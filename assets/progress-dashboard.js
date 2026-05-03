@@ -31,7 +31,6 @@ const dashboardState = {
     records: [],
     filtered: [],
     classFilter: '',
-    activityFilter: '',
     searchTerm: '',
     assessments: [],
     filteredAssessments: [],
@@ -48,27 +47,20 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.passwordInput = document.getElementById('docente-password');
     elements.refreshBtn = document.getElementById('refresh-dashboard');
     elements.classFilter = document.getElementById('dashboard-class-filter');
-    elements.activityFilter = document.getElementById('dashboard-activity-filter');
     elements.studentSearch = document.getElementById('dashboard-student-search');
     elements.lastRefresh = document.getElementById('dashboard-last-refresh');
     elements.statStudents = document.getElementById('doc-stat-students');
     elements.statActivities = document.getElementById('doc-stat-activities');
-    elements.statEntries = document.getElementById('doc-stat-entries');
     elements.statLastUpdate = document.getElementById('doc-stat-last-update');
     elements.classFocus = document.getElementById('doc-class-focus');
-    elements.activityFocus = document.getElementById('doc-activity-focus');
-    elements.activityInsights = document.getElementById('activity-insights');
-    elements.activityBody = document.getElementById('activity-summary-body');
-    elements.studentBody = document.getElementById('student-detail-body');
+    elements.activityGroupsContainer = document.getElementById('activity-groups-container');
     elements.assessmentClassBody = document.getElementById('assessment-class-summary');
     elements.assessmentDetailBody = document.getElementById('assessment-detail-body');
     elements.assessmentInsights = document.getElementById('assessment-insights');
-    elements.classProgressContainer = document.getElementById('class-student-progress');
     elements.assessmentModal = document.getElementById('assessment-modal');
     elements.assessmentModalBody = document.getElementById('assessment-modal-body');
     elements.progressModal = document.getElementById('progress-modal');
     elements.progressModalBody = document.getElementById('progress-modal-body');
-    elements.disabilitaSection = document.getElementById('disabilita-section');
 
     if (elements.loginForm) {
         elements.loginForm.addEventListener('submit', handleLogin);
@@ -79,12 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (elements.classFilter) {
         elements.classFilter.addEventListener('change', () => {
             dashboardState.classFilter = elements.classFilter.value;
-            applyFilters();
-        });
-    }
-    if (elements.activityFilter) {
-        elements.activityFilter.addEventListener('change', () => {
-            dashboardState.activityFilter = elements.activityFilter.value;
             applyFilters();
         });
     }
@@ -175,7 +161,6 @@ async function refreshDashboard() {
             });
             populateFilters(records);
             dashboardState.classFilter = elements.classFilter?.value || '';
-            dashboardState.activityFilter = elements.activityFilter?.value || '';
             try {
                 applyFilters();
             } catch (filterError) {
@@ -249,72 +234,36 @@ async function fetchAssessmentData() {
 
 function populateFilters(records) {
     const classSet = new Set();
-    const activitySet = new Set();
     records.forEach(record => {
-        if (record.class_code) {
-            classSet.add(record.class_code.toLowerCase());
-        }
-        if (record.page_path) {
-            activitySet.add(record.page_path);
-        }
+        if (record.class_code) classSet.add(record.class_code.toLowerCase());
     });
-
     if (elements.classFilter) {
         const options = ['<option value="">Tutte le classi</option>'];
         Array.from(classSet)
             .sort((a, b) => a.localeCompare(b, 'it', { numeric: true }))
-            .forEach(cls => {
-                const label = cls.toUpperCase();
-                options.push(`<option value="${cls}">${label}</option>`);
-            });
+            .forEach(cls => options.push(`<option value="${cls}">${cls.toUpperCase()}</option>`));
         elements.classFilter.innerHTML = options.join('');
-    }
-
-    if (elements.activityFilter) {
-        const options = ['<option value="">Tutte le attività</option>'];
-        Array.from(activitySet)
-            .sort((a, b) => a.localeCompare(b))
-            .forEach(path => {
-                options.push(`<option value="${path}">${formatActivityName(path)}</option>`);
-            });
-        elements.activityFilter.innerHTML = options.join('');
     }
 }
 
 function applyFilters() {
     let dataset = [...dashboardState.records];
     const classFilter = dashboardState.classFilter?.toLowerCase();
-    const activityFilter = dashboardState.activityFilter;
     const search = dashboardState.searchTerm;
 
     if (classFilter) {
-        dataset = dataset.filter(record => (record.class_code || '').toLowerCase() === classFilter);
-    }
-    if (activityFilter) {
-        dataset = dataset.filter(record => record.page_path === activityFilter);
+        dataset = dataset.filter(r => (r.class_code || '').toLowerCase() === classFilter);
     }
     if (search) {
-        dataset = dataset.filter(record => {
-            const student = (record.student_code || '').toLowerCase();
-            return student.includes(search);
-        });
+        dataset = dataset.filter(r => (r.student_code || '').toLowerCase().includes(search));
     }
 
     dashboardState.filtered = dataset;
     updateStats(dataset);
-    renderActivityInsights(dataset);
-    renderActivitySummary(dataset);
-    renderStudentTable(dataset);
-    renderClassGroups(dataset);
-    renderDisabilitaSection(dashboardState.records);
+    renderActivityGroups(dataset);
 
-    const classLabel = classFilter ? classFilter.toUpperCase() : 'tutte le classi';
     if (elements.classFocus) {
-        elements.classFocus.textContent = classLabel;
-    }
-    const activityLabel = activityFilter ? formatActivityName(activityFilter) : 'tutte le attività';
-    if (elements.activityFocus) {
-        elements.activityFocus.textContent = activityLabel;
+        elements.classFocus.textContent = classFilter ? classFilter.toUpperCase() : 'tutte le classi';
     }
 }
 
@@ -338,18 +287,9 @@ function updateStats(records) {
         }
     });
 
-    if (elements.statStudents) {
-        elements.statStudents.textContent = studentSet.size;
-    }
-    if (elements.statActivities) {
-        elements.statActivities.textContent = activitySet.size;
-    }
-    if (elements.statEntries) {
-        elements.statEntries.textContent = records.length;
-    }
-    if (elements.statLastUpdate) {
-        elements.statLastUpdate.textContent = lastUpdate ? formatDateTime(lastUpdate) : '-';
-    }
+    if (elements.statStudents) elements.statStudents.textContent = studentSet.size;
+    if (elements.statActivities) elements.statActivities.textContent = activitySet.size;
+    if (elements.statLastUpdate) elements.statLastUpdate.textContent = lastUpdate ? formatDateTime(lastUpdate) : '—';
 }
 
 function renderActivityInsights(records) {
@@ -786,6 +726,120 @@ function renderDisabilitaSection(allRecords) {
             👁 Clicca <strong>"Vedi il lavoro"</strong> per aprire in una nuova scheda il fascicolo compilato dallo studente — vedrai esattamente quello che ha scritto.
         </p>
         ${classBlocks}`;
+}
+
+// ─── NUOVA FUNZIONE PRINCIPALE: Attività → Studenti → Progressi ──────────────
+function renderActivityGroups(records) {
+    if (!elements.activityGroupsContainer) return;
+
+    if (!records.length) {
+        elements.activityGroupsContainer.innerHTML = `
+            <div class="empty-state"><p>Nessun dato disponibile per i filtri selezionati.</p></div>`;
+        return;
+    }
+
+    // Raggruppa per attività → per studente (record più recente per studente)
+    const activityMap = new Map();
+    records.forEach(record => {
+        const path = record.page_path || '—';
+        const cls  = (record.class_code || 'N/D').toUpperCase();
+        const stu  = (record.student_code || 'sconosciuto').trim();
+        const key  = `${cls}|${stu.toLowerCase()}`;
+
+        if (!activityMap.has(path)) {
+            activityMap.set(path, { students: new Map(), lastUpdate: null });
+        }
+        const act = activityMap.get(path);
+        if (!act.lastUpdate || new Date(record.updated_at) > new Date(act.lastUpdate)) {
+            act.lastUpdate = record.updated_at;
+        }
+        const existing = act.students.get(key);
+        if (!existing || new Date(record.updated_at) > new Date(existing.updated_at)) {
+            act.students.set(key, {
+                classCode:    record.class_code || cls,
+                displayClass: cls,
+                studentCode:  stu,
+                updated_at:   record.updated_at,
+                pagePath:     record.page_path,
+                originalPath: record.original_path,
+                recordId:     record.id,
+                progressMeta: record.progressMeta || null
+            });
+        }
+    });
+
+    // Ordina attività: disabilità prima, poi per nome
+    const sorted = Array.from(activityMap.entries()).sort(([a], [b]) => {
+        const aD = isDisabilitaRecord({ page_path: a });
+        const bD = isDisabilitaRecord({ page_path: b });
+        if (aD && !bD) return -1;
+        if (!aD && bD) return 1;
+        return formatActivityName(a).localeCompare(formatActivityName(b), 'it');
+    });
+
+    const blocks = sorted.map(([path, act], idx) => {
+        const activityName = formatActivityName(path);
+        const badge = isDisabilitaRecord({ page_path: path }) ? '🦽 ' : '📄 ';
+        const stuCount = act.students.size;
+        const withMeta = Array.from(act.students.values()).filter(s => s.progressMeta && typeof s.progressMeta.percentuale === 'number');
+        const avgPct = withMeta.length
+            ? Math.round(withMeta.reduce((sum, s) => sum + s.progressMeta.percentuale, 0) / withMeta.length)
+            : null;
+        const avgLabel = avgPct !== null ? ` · media ${avgPct}%` : '';
+
+        const rows = Array.from(act.students.values())
+            .sort((a, b) => {
+                const c = a.displayClass.localeCompare(b.displayClass, 'it');
+                return c !== 0 ? c : a.studentCode.localeCompare(b.studentCode, 'it');
+            })
+            .map(s => `
+                <tr>
+                    <td><strong>${s.displayClass}</strong></td>
+                    <td>${s.studentCode}</td>
+                    <td>${renderProgressBar(s.progressMeta)}</td>
+                    <td style="font-size:0.85em;white-space:nowrap">${formatDateTime(s.updated_at)}</td>
+                    <td>
+                        <a class="btn-link" href="#" role="button"
+                            style="font-weight:600;color:#2563eb"
+                            data-open-as-docente
+                            data-class-code="${escapeHtml(s.classCode)}"
+                            data-student-code="${escapeHtml(s.studentCode)}"
+                            data-page-path="${escapeHtml(s.originalPath || s.pagePath)}">
+                            👁 Vedi il lavoro
+                        </a>
+                        ${s.recordId ? `<span class="divider">·</span><button class="btn-link" type="button" data-progress-detail="${s.recordId}">Dettagli</button>` : ''}
+                    </td>
+                </tr>`).join('');
+
+        return `
+            <details class="class-block"${idx === 0 ? ' open' : ''}>
+                <summary>
+                    <div class="class-info">
+                        <h4>${badge}${escapeHtml(activityName)}</h4>
+                        <p>${stuCount} studenti${avgLabel} · Ultimo salvataggio: ${formatDateTime(act.lastUpdate)}</p>
+                    </div>
+                    <span class="class-chevron" aria-hidden="true">›</span>
+                </summary>
+                <div class="class-body">
+                    <div class="table-wrapper">
+                        <table class="data-table compact">
+                            <thead>
+                                <tr>
+                                    <th>Classe</th>
+                                    <th>Studente</th>
+                                    <th>Avanzamento</th>
+                                    <th>Ultimo salvataggio</th>
+                                    <th>Azioni</th>
+                                </tr>
+                            </thead>
+                            <tbody>${rows}</tbody>
+                        </table>
+                    </div>
+                </div>
+            </details>`;
+    });
+
+    elements.activityGroupsContainer.innerHTML = blocks.join('');
 }
 
 function applyAssessmentFilter(classCode = '') {
