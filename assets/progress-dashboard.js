@@ -139,12 +139,14 @@ async function refreshDashboard() {
     setStatus('Caricamento dati...');
     toggleLoading(true);
     try {
-        const [rawRecords, assessments] = await Promise.all([
+        const [rawRecords, assessments, metaRecords] = await Promise.all([
             fetchProgressData(),
-            fetchAssessmentData()
+            fetchAssessmentData(),
+            fetchProgressMeta()
         ]);
         try {
-            const records = rawRecords.map(normalizeProgressRecord).filter(Boolean);
+            const metaIndex = new Map(metaRecords.map(r => [r.id, r.meta]));
+            const records = rawRecords.map(r => normalizeProgressRecord(r, metaIndex.get(r.id))).filter(Boolean);
             dashboardState.records = records;
             dashboardState.assessments = assessments.map(normalizeAssessmentRecord).filter(Boolean);
             dashboardState.assessmentIndex = new Map();
@@ -194,7 +196,7 @@ async function refreshDashboard() {
 
 async function fetchProgressData() {
     const params = new URLSearchParams({
-        select: 'id,class_code,student_code,page_path,updated_at,data',
+        select: 'id,class_code,student_code,page_path,updated_at',
         order: 'updated_at.desc',
         limit: '500'
     });
@@ -210,6 +212,29 @@ async function fetchProgressData() {
         throw new Error(`Supabase error ${response.status}: ${text}`);
     }
     return response.json();
+}
+
+async function fetchProgressMeta() {
+    // Scarica solo il sottocampo _meta dal campo data (leggero)
+    try {
+        const params = new URLSearchParams({
+            select: 'id,data->_meta',
+            order: 'updated_at.desc',
+            limit: '500'
+        });
+        const response = await fetch(`${PROGRESS_ENDPOINT}?${params.toString()}`, {
+            headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` }
+        });
+        if (!response.ok) return [];
+        const rows = await response.json();
+        return rows.map(r => {
+            let meta = null;
+            try { meta = typeof r._meta === 'string' ? JSON.parse(r._meta) : (r._meta || null); } catch {}
+            return { id: r.id, meta };
+        });
+    } catch {
+        return [];
+    }
 }
 
 async function fetchAssessmentData() {
@@ -1023,12 +1048,10 @@ function normalizeAssessmentRecord(record) {
     };
 }
 
-function normalizeProgressRecord(record) {
+function normalizeProgressRecord(record, metaFromIndex = null) {
     if (!record) return null;
     try {
-        const parsedData = parseProgressData(record.data);
         const pagePath = resolveActivityPath(record.page_path);
-        const meta = (parsedData && typeof parsedData === 'object') ? (parsedData._meta || null) : null;
         return {
             id: record.id,
             class_code: record.class_code || '',
@@ -1036,8 +1059,8 @@ function normalizeProgressRecord(record) {
             page_path: pagePath,
             original_path: record.page_path || pagePath,
             updated_at: record.updated_at,
-            data: parsedData,
-            progressMeta: meta
+            data: {},
+            progressMeta: metaFromIndex || null
         };
     } catch (error) {
         console.warn('Record progress non valido, ignorato:', record, error);
