@@ -192,7 +192,7 @@ function collectData() {
   const processedCheckbox = new Set();
 
   document.querySelectorAll(INPUT_SELECTOR).forEach(el => {
-    const key = el.name || el.id;
+    const key = el.name || el.id || el.getAttribute('data-id');
     if (!key) return;
 
     if (el instanceof HTMLInputElement && el.type === 'radio') {
@@ -325,6 +325,11 @@ function restoreData(saved) {
         } else {
           byId.value = value ?? '';
         }
+        continue;
+      }
+      const byDataId = document.querySelector(`[data-id="${name}"]`);
+      if (byDataId) {
+        byDataId.value = value ?? '';
       }
     }
   }
