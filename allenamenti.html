@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Allenamenti · Salvatore & Ofelia</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: #020617; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-in { animation: fadeIn 0.3s ease both; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useMemo } = React;
+
+    // ===== CATALOGO WORKOUT =====
+    // Per aggiungere un nuovo allenamento basta aggiungere un oggetto qui sotto.
+    const WORKOUTS = [
+      {
+        id: 'outdoor-forza-parco',
+        title: 'Forza al Parco',
+        subtitle: 'Panchine · Corpo libero · 3 round',
+        description: 'Squat, push-up, affondi, step-up e plank con recuperi guidati. Riscaldamento e stretching inclusi.',
+        icon: '💪',
+        duration: '60 min',
+        level: 'Intermedio',
+        tags: ['Forza', 'Outdoor'],
+        persona: 'entrambi',
+        color: 'emerald',
+        url: 'outdoor-fitness.html#giorno1',
+        available: true,
+      },
+      {
+        id: 'outdoor-bici-core',
+        title: 'Bici + Core + Stretch',
+        subtitle: 'Cardio · Core · Mobilità',
+        description: '30 min di bici a zone di intensità, circuito core in 2 round e stretching completo finale.',
+        icon: '🚴',
+        duration: '60 min',
+        level: 'Intermedio',
+        tags: ['Cardio', 'Core', 'Outdoor'],
+        persona: 'entrambi',
+        color: 'sky',
+        url: 'outdoor-fitness.html#giorno2',
+        available: true,
+      },
+      {
+        id: 'outdoor-scale-mobilita',
+        title: 'Cardio Scale + Mobilità',
+        subtitle: 'HIIT · Mobilità totale',
+        description: '8 salite a intervalli sulle scale, seguiti da mobilità articolare completa e stretching.',
+        icon: '🔥',
+        duration: '60 min',
+        level: 'Intermedio',
+        tags: ['HIIT', 'Outdoor'],
+        persona: 'entrambi',
+        color: 'orange',
+        url: 'outdoor-fitness.html#giorno3',
+        available: true,
+      },
+      {
+        id: 'palestra-sal-1',
+        title: 'Palestra — Upper Body',
+        subtitle: 'Petto · Spalle · Tricipiti',
+        description: 'Panca piana, shoulder press, dips e isolamento. Progresso di carico guidato.',
+        icon: '🏋️',
+        duration: '55 min',
+        level: 'Intermedio',
+        tags: ['Palestra', 'Forza'],
+        persona: 'salvatore',
+        color: 'violet',
+        url: '#',
+        available: false,
+      },
+      {
+        id: 'yoga-ofe-1',
+        title: 'Yoga Flow Mattutino',
+        subtitle: 'Mobilità · Respiro · Energie',
+        description: 'Sequenza di vinyasa per iniziare la giornata con energia. Adatta a tutti i livelli.',
+        icon: '🧘',
+        duration: '40 min',
+        level: 'Base',
+        tags: ['Yoga', 'Mobilità'],
+        persona: 'ofelia',
+        color: 'rose',
+        url: '#',
+        available: false,
+      },
+      {
+        id: 'corsa-entrambi',
+        title: 'Piano Corsa 5K',
+        subtitle: 'Running · Progressivo',
+        description: 'Piano a intervalli run/walk per costruire la base aerobica e arrivare a correre 5K.',
+        icon: '🏃',
+        duration: '45 min',
+        level: 'Base',
+        tags: ['Corsa', 'Cardio'],
+        persona: 'entrambi',
+        color: 'amber',
+        url: '#',
+        available: false,
+      },
+    ];
+
+    // ===== CONFIGURAZIONE PERSONE =====
+    const PERSONE = {
+      tutti: {
+        label: 'Tutti',
+        emoji: '👥',
+        activeBg: 'bg-white',
+        activeText: 'text-slate-900',
+      },
+      salvatore: {
+        label: 'Salvatore',
+        emoji: '💚',
+        activeBg: 'bg-emerald-500',
+        activeText: 'text-white',
+        badge: 'bg-emerald-900/50 text-emerald-300 border-emerald-700/50',
+        dot: 'bg-emerald-400',
+      },
+      ofelia: {
+        label: 'Ofelia',
+        emoji: '🌸',
+        activeBg: 'bg-rose-500',
+        activeText: 'text-white',
+        badge: 'bg-rose-900/50 text-rose-300 border-rose-700/50',
+        dot: 'bg-rose-400',
+      },
+      entrambi: {
+        label: 'Entrambi',
+        badge: 'bg-amber-900/50 text-amber-300 border-amber-700/50',
+        dot: 'bg-amber-400',
+      },
+    };
+
+    const COLOR_RING = {
+      emerald: 'ring-emerald-500/40 hover:ring-emerald-400/60',
+      sky:     'ring-sky-500/40 hover:ring-sky-400/60',
+      orange:  'ring-orange-500/40 hover:ring-orange-400/60',
+      violet:  'ring-violet-500/40 hover:ring-violet-400/60',
+      rose:    'ring-rose-500/40 hover:ring-rose-400/60',
+      amber:   'ring-amber-500/40 hover:ring-amber-400/60',
+    };
+
+    const COLOR_ICON_BG = {
+      emerald: 'bg-emerald-900/40 text-emerald-300',
+      sky:     'bg-sky-900/40 text-sky-300',
+      orange:  'bg-orange-900/40 text-orange-300',
+      violet:  'bg-violet-900/40 text-violet-300',
+      rose:    'bg-rose-900/40 text-rose-300',
+      amber:   'bg-amber-900/40 text-amber-300',
+    };
+
+    // ===== BADGE PERSONA =====
+    function PersonaBadge({ persona }) {
+      if (persona === 'entrambi') {
+        return (
+          <span className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full border bg-amber-900/50 text-amber-300 border-amber-700/50">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 inline-block"/>
+            Entrambi
+          </span>
+        );
+      }
+      const p = PERSONE[persona];
+      return (
+        <span className={`inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full border ${p.badge}`}>
+          <span className={`w-1.5 h-1.5 rounded-full ${p.dot} inline-block`}/>
+          {p.label}
+        </span>
+      );
+    }
+
+    // ===== WORKOUT CARD =====
+    function WorkoutCard({ w, index }) {
+      const ring = COLOR_RING[w.color] || COLOR_RING.emerald;
+      const iconBg = COLOR_ICON_BG[w.color] || COLOR_ICON_BG.emerald;
+
+      const handleClick = () => {
+        if (w.available) window.location.href = w.url;
+      };
+
+      return (
+        <div
+          className={`fade-in bg-slate-900 border border-slate-800 rounded-2xl p-5 ring-2 ring-transparent transition-all duration-200
+            ${w.available ? `cursor-pointer ${ring} hover:border-slate-700 hover:bg-slate-800/80 active:scale-[0.98]` : 'opacity-60'}`}
+          style={{ animationDelay: `${index * 60}ms` }}
+          onClick={handleClick}
+        >
+          <div className="flex items-start gap-4">
+            {/* Icon */}
+            <div className={`w-14 h-14 rounded-xl flex items-center justify-center text-2xl flex-shrink-0 ${iconBg}`}>
+              {w.icon}
+            </div>
+
+            {/* Content */}
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-1 flex-wrap">
+                <PersonaBadge persona={w.persona} />
+                {!w.available && (
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-500 border border-slate-700">
+                    In arrivo
+                  </span>
+                )}
+              </div>
+              <h3 className="text-white font-bold text-lg leading-tight">{w.title}</h3>
+              <p className="text-slate-400 text-sm mt-0.5">{w.subtitle}</p>
+              <p className="text-slate-500 text-xs mt-2 leading-relaxed line-clamp-2">{w.description}</p>
+
+              {/* Meta */}
+              <div className="flex items-center gap-3 mt-3 text-xs text-slate-500">
+                <span>⏱ {w.duration}</span>
+                <span>·</span>
+                <span>{w.level}</span>
+                <span>·</span>
+                <div className="flex gap-1 flex-wrap">
+                  {w.tags.map(t => (
+                    <span key={t} className="bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded">{t}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Arrow */}
+            {w.available && (
+              <div className="text-slate-600 flex-shrink-0 mt-1">
+                <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="m9 18 6-6-6-6"/>
+                </svg>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    // ===== MAIN APP =====
+    function Hub() {
+      const [filtro, setFiltro] = useState('tutti');
+
+      const filtered = useMemo(() => {
+        if (filtro === 'tutti') return WORKOUTS;
+        return WORKOUTS.filter(w => w.persona === filtro || w.persona === 'entrambi');
+      }, [filtro]);
+
+      const disponibili = filtered.filter(w => w.available).length;
+      const totale = filtered.length;
+
+      return (
+        <div className="min-h-screen bg-slate-950 text-white">
+          <div className="max-w-lg mx-auto px-4 pb-16">
+
+            {/* Header */}
+            <header className="pt-10 pb-6 text-center">
+              <div className="text-5xl mb-4">🏃‍♂️🏃‍♀️</div>
+              <h1 className="text-3xl font-bold tracking-tight mb-1">Allenamenti</h1>
+              <p className="text-slate-400 text-base font-medium">Salvatore & Ofelia</p>
+              <p className="text-slate-600 text-sm mt-2">{disponibili} disponibili · {totale} totali</p>
+            </header>
+
+            {/* Filtro persona */}
+            <div className="flex gap-2 mb-8 bg-slate-900 p-1.5 rounded-2xl">
+              {['tutti', 'salvatore', 'ofelia'].map(p => {
+                const active = filtro === p;
+                const cfg = PERSONE[p];
+                return (
+                  <button
+                    key={p}
+                    onClick={() => setFiltro(p)}
+                    className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200
+                      ${active
+                        ? `${cfg.activeBg} ${cfg.activeText} shadow-lg`
+                        : 'text-slate-400 hover:text-slate-200'}`}
+                  >
+                    {cfg.emoji} {cfg.label}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Cards */}
+            <div className="space-y-3">
+              {filtered.map((w, i) => (
+                <WorkoutCard key={w.id} w={w} index={i} />
+              ))}
+            </div>
+
+            {/* Footer */}
+            <div className="mt-10 text-center text-slate-700 text-xs">
+              <p>Tocca una scheda per iniziare l'allenamento</p>
+              <p className="mt-1">Nuovi allenamenti in arrivo 🚀</p>
+            </div>
+
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<Hub />);
+  </script>
+</body>
+</html>
