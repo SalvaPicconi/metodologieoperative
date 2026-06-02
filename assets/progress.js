@@ -672,3 +672,20 @@ if (typeof window !== 'undefined' && !window.MODebug) {
   };
   console.log('[Progress] 🔧 Debug abilitato: usa window.MODebug nel console');
 }
+
+// Ping Supabase ogni 4 giorni per evitare pausa automatica del progetto free
+;(function keepSupabaseAwake() {
+  if (typeof window === 'undefined') return;
+  const PING_KEY = 'mo:supabase-ping';
+  const INTERVAL = 4 * 24 * 60 * 60 * 1000;
+  try {
+    const last = parseInt(localStorage.getItem(PING_KEY) || '0', 10);
+    if (Date.now() - last < INTERVAL) return;
+    fetch(`${SUPABASE_URL}/rest/v1/progress?select=student_code&limit=1`, {
+      headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` }
+    }).then(() => {
+      localStorage.setItem(PING_KEY, String(Date.now()));
+      console.log('[Progress] 🏓 Ping Supabase OK');
+    }).catch(() => {});
+  } catch {}
+})();
