@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
   :root{
     --cream:#FBF6EC; --paper:#FFFDF8; --ink:#20312F; --ink-soft:#4d5d5a;
@@ -124,6 +125,91 @@
 
   footer{margin-top:40px;text-align:center;font-size:.82rem;color:var(--ink-soft)}
 
+  /* ---- story card 1080×1920 (Instagram) ---- */
+  #story-card{
+    position:absolute;left:-9999px;top:0;
+    width:1080px;height:1920px;
+    background:var(--cream);
+    background-image:radial-gradient(var(--line) 1px,transparent 1px);background-size:34px 34px;
+    font-family:var(--body);color:var(--ink);
+    box-sizing:border-box;border:8px solid var(--teal);overflow:hidden;
+  }
+  .sc-inner{
+    position:relative;z-index:1;
+    padding:72px 88px 72px;height:100%;
+    display:flex;flex-direction:column;align-items:center;
+    box-sizing:border-box;
+  }
+  .sc-inner::before{
+    content:"";position:absolute;inset:18px;
+    border:2px solid var(--teal-line);pointer-events:none;z-index:0;
+  }
+  .sc-seal{
+    width:112px;height:112px;border-radius:50%;
+    background:var(--teal);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--display);font-weight:600;font-size:2.5rem;
+    box-shadow:0 0 0 10px var(--teal-soft);
+    margin-bottom:26px;flex-shrink:0;position:relative;z-index:2;
+  }
+  .sc-school{
+    font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+    font-size:26px;color:var(--ink-soft);margin-bottom:10px;
+    text-align:center;position:relative;z-index:2;
+  }
+  .sc-title{
+    font-family:var(--display);font-weight:600;font-size:64px;
+    color:var(--ink);margin-bottom:8px;text-align:center;line-height:1.05;
+    position:relative;z-index:2;
+  }
+  .sc-sub{
+    font-family:var(--display);font-style:italic;font-size:31px;
+    color:var(--teal);margin-bottom:24px;text-align:center;
+    position:relative;z-index:2;
+  }
+  .sc-rule{height:4px;width:80px;background:var(--gold);border-radius:4px;margin-bottom:24px;flex-shrink:0;position:relative;z-index:2;}
+  .sc-intro{font-size:25px;color:var(--ink-soft);text-align:center;margin-bottom:6px;position:relative;z-index:2;}
+  .sc-name{
+    font-family:var(--display);font-weight:600;font-size:82px;
+    color:var(--ink);text-align:center;line-height:1.05;margin-bottom:10px;
+    position:relative;z-index:2;word-break:break-word;width:100%;
+  }
+  .sc-name-line{height:3px;width:55%;background:var(--gold);margin-bottom:18px;flex-shrink:0;position:relative;z-index:2;}
+  .sc-class{
+    font-size:27px;color:var(--ink-soft);text-align:center;margin-bottom:24px;
+    position:relative;z-index:2;line-height:1.4;
+  }
+  .sc-comps-label{
+    font-weight:700;font-size:24px;color:var(--terra);letter-spacing:.08em;
+    text-transform:uppercase;text-align:center;margin-bottom:14px;
+    position:relative;z-index:2;
+  }
+  .sc-comps-list{
+    list-style:none;width:100%;margin-bottom:20px;
+    position:relative;z-index:2;
+  }
+  .sc-comps-list li{
+    font-size:27px;padding:9px 0 9px 44px;position:relative;
+    border-bottom:1px solid var(--line);color:var(--ink);line-height:1.35;
+  }
+  .sc-comps-list li:last-child{border-bottom:none;}
+  .sc-comps-list li::before{content:"○";position:absolute;left:4px;top:9px;color:var(--teal);font-size:20px;}
+  .sc-quote{
+    width:100%;background:var(--teal-soft);border-left:6px solid var(--teal);
+    border-radius:0 12px 12px 0;padding:22px 26px;margin-bottom:20px;
+    position:relative;z-index:2;
+  }
+  .sc-quote-label{font-size:21px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:10px;}
+  .sc-quote-text{font-family:var(--display);font-style:italic;font-size:29px;color:var(--ink);line-height:1.4;word-break:break-word;}
+  .sc-foot{
+    width:100%;display:flex;justify-content:space-between;align-items:flex-end;
+    margin-top:auto;padding-top:16px;
+    position:relative;z-index:2;gap:30px;
+  }
+  .sc-foot .sc-sign{flex:1;text-align:center;}
+  .sc-foot .sc-sign .sc-sign-line{height:1px;background:var(--ink-soft);margin-bottom:8px;}
+  .sc-foot .sc-sign small{font-size:23px;color:var(--ink-soft);}
+
   @media print{
     @page{size:A4;margin:14mm}
     body{background:#fff;background-image:none}
@@ -231,6 +317,7 @@
   <div id="attestato">
     <div class="att-tools no-print">
       <button class="btn primary" id="stampa">⤓ Stampa / salva in PDF</button>
+      <button class="btn ghost" id="storia">⤓ Scarica storia (Instagram)</button>
       <button class="btn ghost" id="modifica">← Torna a modificare</button>
       <span class="hint">Nella stampa comparirà solo l'attestato.</span>
     </div>
@@ -265,6 +352,31 @@
   </div>
 
   <footer class="no-print">Strumento interattivo di fine anno · compila e stampa · costruito sui risultati di apprendimento intermedi del profilo SSAS (4° anno)</footer>
+</div>
+
+<!-- ============ STORY CARD 1080×1920 (off-screen) ============ -->
+<div id="story-card">
+  <div class="sc-inner">
+    <div class="sc-seal">MM</div>
+    <div class="sc-school">IIS Meucci–Mattei · Decimomannu</div>
+    <div class="sc-title">Attestato di percorso</div>
+    <div class="sc-sub">Metodologie Operative · a.s. 2025-2026</div>
+    <div class="sc-rule"></div>
+    <div class="sc-intro">Si attesta che</div>
+    <div class="sc-name" id="sc-nome">—</div>
+    <div class="sc-name-line"></div>
+    <div class="sc-class">della classe <strong>4ª SA</strong> — Servizi per la Sanità e l'Assistenza Sociale</div>
+    <div class="sc-comps-label">Competenze del profilo su cui ho lavorato quest'anno</div>
+    <ul class="sc-comps-list" id="sc-comps"></ul>
+    <div class="sc-quote" id="sc-quote-wrap" style="display:none">
+      <div class="sc-quote-label">La competenza che mi porto al quinto anno</div>
+      <div class="sc-quote-text" id="sc-quote-text"></div>
+    </div>
+    <div class="sc-foot">
+      <div class="sc-sign"><div class="sc-sign-line"></div><small id="sc-data">Data</small></div>
+      <div class="sc-sign"><div class="sc-sign-line"></div><small>Il docente — Prof. Picconi</small></div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -395,6 +507,66 @@
   document.getElementById("stampa").addEventListener("click",()=>window.print());
   document.getElementById("modifica").addEventListener("click",()=>{
     att.classList.remove("ready");window.scrollTo({top:0,behavior:"smooth"});
+  });
+
+  /* ---- scarica storia Instagram ---- */
+  document.getElementById("storia").addEventListener("click", async function() {
+    const nome = (document.getElementById("nome").value || "").trim();
+    if (!nome) {
+      document.getElementById("nome").focus();
+      document.getElementById("nome").style.borderColor = "var(--terra)";
+      return;
+    }
+
+    // popola story card (senza voti né ★)
+    document.getElementById("sc-nome").textContent = nome;
+    document.getElementById("sc-data").textContent = document.getElementById("data").value || "";
+
+    const ul = document.getElementById("sc-comps");
+    ul.innerHTML = "";
+    comps.forEach(c => {
+      const code = c.code !== "—" ? c.code + " · " : "";
+      ul.insertAdjacentHTML("beforeend", `<li>${code}${c.label}</li>`);
+    });
+
+    const porto = (document.getElementById("porto").value || "").trim().slice(0, 200);
+    const qw = document.getElementById("sc-quote-wrap");
+    if (porto) {
+      document.getElementById("sc-quote-text").textContent = "« " + porto + " »";
+      qw.style.display = "block";
+    } else {
+      qw.style.display = "none";
+    }
+
+    const btn = this;
+    btn.textContent = "⏳ Generazione…";
+    btn.disabled = true;
+
+    try {
+      await document.fonts.ready;
+      const canvas = await html2canvas(document.getElementById("story-card"), {
+        width: 1080,
+        height: 1920,
+        scale: 1,
+        useCORS: true,
+        allowTaint: true,
+        logging: false,
+        backgroundColor: "#FBF6EC"
+      });
+      const link = document.createElement("a");
+      const safeName = nome.toLowerCase()
+        .replace(/[àáâ]/g,"a").replace(/[èéê]/g,"e").replace(/[ìíî]/g,"i")
+        .replace(/[òóô]/g,"o").replace(/[ùúû]/g,"u")
+        .replace(/[^a-z0-9]/g,"_").replace(/_+/g,"_").replace(/^_|_$/g,"");
+      link.download = "attestato_4sa_" + safeName + ".png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    } catch(e) {
+      alert("Errore nella generazione: " + e.message);
+    } finally {
+      btn.textContent = "⤓ Scarica storia (Instagram)";
+      btn.disabled = false;
+    }
   });
 </script>
 </body>
