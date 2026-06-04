@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Il mio anno — 2ª SA · Bilancio e attestato</title>
+<title>Il mio anno — Biennio · Bilancio e attestato</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..600&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -274,7 +274,7 @@
       <div class="kicker">IIS Meucci–Mattei · Decimomannu</div>
     </div>
     <h1>Il mio anno in <em>Metodologie Operative</em></h1>
-    <div class="meta">Classe 2ª SA — Servizi per la Sanità e l'Assistenza Sociale · a.s. 2025-2026 · Prof. Picconi</div>
+    <div class="meta">Biennio — Servizi per la Sanità e l'Assistenza Sociale · a.s. 2025-2026 · Prof. Picconi</div>
     <p class="lead">Quest'anno ogni attività ha costruito una <b>competenza del tuo profilo professionale</b>. Ripercorrila, fai il tuo bilancio e crea il tuo attestato di fine anno.</p>
     <div class="rule"></div>
 
@@ -336,7 +336,7 @@
         <div class="intro">Si attesta che</div>
         <div class="cert-name" id="c-nome">—</div>
         <div class="cert-name-line"></div>
-        <div class="cert-context">della classe <strong>2ª SA</strong> — Servizi per la Sanità e l'Assistenza Sociale — ha portato a termine il percorso del biennio di Metodologie Operative, lavorando sulle seguenti competenze di base del profilo professionale:</div>
+        <div class="cert-context">del <strong>Biennio</strong> — Servizi per la Sanità e l'Assistenza Sociale — ha portato a termine il percorso del biennio di Metodologie Operative, lavorando sulle seguenti competenze di base del profilo professionale:</div>
       </div>
       <div class="cert-comps">
         <h4>Competenze del profilo</h4>
@@ -370,7 +370,7 @@
     <div class="sc-intro">Si attesta che</div>
     <div class="sc-name" id="sc-nome">—</div>
     <div class="sc-name-line"></div>
-    <div class="sc-class">della classe <strong>2ª SA</strong></div>
+    <div class="sc-class">del <strong>Biennio</strong></div>
     <div class="sc-comps-label">Competenze del profilo su cui ho lavorato quest'anno</div>
     <ul class="sc-comps-list" id="sc-comps"></ul>
     <div class="sc-quote" id="sc-quote-wrap" style="display:none">
@@ -387,8 +387,8 @@
 <script>
   /* ---- password gate ---- */
   const HASH = "c763696f3fee70c551ed994778a19add9309aab32ba2a24eef9804ab304402f8";
-  const SESSION_KEY = "fine2sa_unlocked";
-  const STORE_KEY = "fine2sa_data";
+  const SESSION_KEY = "finebiennio_unlocked";
+  const STORE_KEY = "finebiennio_data";
 
   async function sha256hex(str){
     const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
@@ -575,7 +575,7 @@
         .replace(/[àáâ]/g,"a").replace(/[èéê]/g,"e").replace(/[ìíî]/g,"i")
         .replace(/[òóô]/g,"o").replace(/[ùúû]/g,"u")
         .replace(/[^a-z0-9]/g,"_").replace(/_+/g,"_").replace(/^_|_$/g,"");
-      link.download="attestato_2sa_"+safeName+".png";
+      link.download="attestato_biennio_"+safeName+".png";
       link.href=canvas.toDataURL("image/png");
       link.click();
     }catch(e){ alert("Errore nella generazione: "+e.message); }
