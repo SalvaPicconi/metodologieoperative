@@ -565,6 +565,21 @@
       if(markImg && markImg.style.display!=="none" && !markImg.complete){
         await new Promise(res=>{ markImg.onload=res; markImg.onerror=res; });
       }
+      /* auto-fit: se il contenuto eccede i 1920px lo riduce in proporzione, così non viene tagliato */
+      const scCard=document.getElementById("story-card");
+      const scInner=scCard.querySelector(".sc-inner");
+      const availW=scCard.clientWidth, availH=scCard.clientHeight;
+      scInner.style.transform="";scInner.style.transformOrigin="top left";
+      scInner.style.width=availW+"px";scInner.style.height="auto";
+      const natural=scInner.scrollHeight;
+      if(natural>availH){
+        const s=availH/natural;
+        scInner.style.width=(availW/s)+"px";
+        scInner.style.height=(availH/s)+"px";
+        scInner.style.transform="scale("+s+")";
+      }else{
+        scInner.style.width="";scInner.style.height="100%";
+      }
       const canvas=await html2canvas(document.getElementById("story-card"),{
         width:1080,height:1920,scale:1,useCORS:true,allowTaint:true,logging:false,backgroundColor:"#FBF6EC"
       });
@@ -577,7 +592,11 @@
       link.href=canvas.toDataURL("image/png");
       link.click();
     }catch(e){ alert("Errore nella generazione: "+e.message); }
-    finally{ btn.textContent="⤓ Scarica storia (Instagram)"; btn.disabled=false; }
+    finally{
+      const scInner=document.querySelector("#story-card .sc-inner");
+      if(scInner){scInner.style.transform="";scInner.style.width="";scInner.style.height="";}
+      btn.textContent="⤓ Scarica storia (Instagram)"; btn.disabled=false;
+    }
   });
 </script>
 
