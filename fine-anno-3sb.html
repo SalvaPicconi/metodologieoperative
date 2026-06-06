@@ -403,6 +403,38 @@
   const SESSION_KEY = "fine3sb_unlocked";
   const STORE_KEY = "fine3sb_data";
 
+  /* ---- salvataggio su Supabase (visibile in Area Docente) ---- */
+  const SB_URL = "https://ruplzgcnheddmqqdephp.supabase.co";
+  const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1cGx6Z2NuaGVkZG1xcWRlcGhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAxMTYyMjksImV4cCI6MjA3NTY5MjIyOX0.tOLIkgi5yTt61_0rMlXUqxnbil4DLD7kBaqZBVAv1CI";
+  const SB_CLASS = "terzo";
+  const SB_CLASS_LABEL = "Terzo anno";
+  const SB_PAGE = "/fine-anno-3sb.html";
+  async function saveToSupabase(){
+    try{
+      const nome=(document.getElementById("nome").value||"").trim();
+      if(!nome) return;
+      const studentCode=nome.toLowerCase()
+        .replace(/[àáâ]/g,"a").replace(/[èéê]/g,"e").replace(/[ìíî]/g,"i")
+        .replace(/[òóô]/g,"o").replace(/[ùúû]/g,"u")
+        .replace(/[^a-z0-9]+/g,"_").replace(/^_+|_+$/g,"");
+      if(!studentCode) return;
+      const scores={}; let rated=0;
+      comps.forEach((c,i)=>{ const sel=document.querySelector(`input[name="c${i}"]:checked`); if(sel){ scores[c.code!=="—"?c.code:c.label]=+sel.value; rated++; } });
+      const scoperta=(document.getElementById("scoperta").value||"").trim();
+      const porto=(document.getElementById("porto").value||"").trim();
+      const totale=comps.length+2;
+      const campiCompilati=rated+(scoperta?1:0)+(porto?1:0);
+      const data={ nome, classe:SB_CLASS_LABEL, data:(document.getElementById("data").value||""),
+        scoperta, porto, scores,
+        _meta:{ campiCompilati, totale, percentuale: Math.round(campiCompilati/totale*100) } };
+      await fetch(`${SB_URL}/rest/v1/progress?on_conflict=student_code,page_path`,{
+        method:"POST",
+        headers:{ apikey:SB_KEY, Authorization:`Bearer ${SB_KEY}`, "Content-Type":"application/json", "Prefer":"resolution=merge-duplicates,return=minimal" },
+        body:JSON.stringify([{ class_code:SB_CLASS, student_code:studentCode, page_path:SB_PAGE, data }])
+      });
+    }catch(e){ console.warn("[fine-anno] Salvataggio Supabase non riuscito:", e); }
+  }
+
   async function sha256hex(str){
     const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
     return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,"0")).join("");
@@ -557,6 +589,7 @@
     if(porto){document.getElementById("c-quote").textContent="« "+porto+" »";qw.style.display="block";}
     else qw.style.display="none";
 
+    saveToSupabase();
     att.classList.add("ready");
     att.scrollIntoView({behavior:"smooth"});
   });
