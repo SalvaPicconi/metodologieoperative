@@ -255,20 +255,7 @@
 </head>
 <body>
 
-<!-- PASSWORD OVERLAY -->
-<div id="pw-overlay">
-  <div id="pw-box">
-    <img class="pw-mark" src="logo/mark.png" alt="IIS Meucci-Mattei"
-         onerror="this.outerHTML='<div style=&quot;width:60px;height:60px;border-radius:50%;margin:0 auto 16px;background:#2E6B5E;color:#fff;display:flex;align-items:center;justify-content:center;font-family:Fraunces,serif;font-weight:600;font-size:1.4rem;box-shadow:0 0 0 4px #E2EEE8&quot;>MM</div>'">
-    <h2>Accesso riservato</h2>
-    <p>Inserisci la password per accedere all'attività di fine anno.</p>
-    <input type="password" id="pw-input" placeholder="Password" autocomplete="off" autofocus>
-    <button id="pw-btn">Entra</button>
-    <div id="pw-error" aria-live="polite"></div>
-  </div>
-</div>
-
-<div class="wrap" id="main-content" style="display:none">
+<div class="wrap" id="main-content">
 
   <!-- ============ WORKSHEET (no print) ============ -->
   <div class="no-print">
@@ -398,67 +385,6 @@
 </div>
 
 <script>
-  /* ---- password gate ---- */
-  const HASH = "c763696f3fee70c551ed994778a19add9309aab32ba2a24eef9804ab304402f8";
-  const SESSION_KEY = "fine4sa_unlocked";
-  const STORE_KEY = "fine4sa_data";
-
-  /* ---- salvataggio su Supabase (visibile in Area Docente) ---- */
-  const SB_URL = "https://ruplzgcnheddmqqdephp.supabase.co";
-  const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1cGx6Z2NuaGVkZG1xcWRlcGhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAxMTYyMjksImV4cCI6MjA3NTY5MjIyOX0.tOLIkgi5yTt61_0rMlXUqxnbil4DLD7kBaqZBVAv1CI";
-  const SB_CLASS = "quarto";
-  const SB_CLASS_LABEL = "Quarto anno";
-  const SB_PAGE = "/fine-anno-4sa.html";
-  async function saveToSupabase(){
-    try{
-      const nome=(document.getElementById("nome").value||"").trim();
-      if(!nome) return;
-      const studentCode=nome.toLowerCase()
-        .replace(/[àáâ]/g,"a").replace(/[èéê]/g,"e").replace(/[ìíî]/g,"i")
-        .replace(/[òóô]/g,"o").replace(/[ùúû]/g,"u")
-        .replace(/[^a-z0-9]+/g,"_").replace(/^_+|_+$/g,"");
-      if(!studentCode) return;
-      const scores={}; let rated=0;
-      comps.forEach((c,i)=>{ const sel=document.querySelector(`input[name="c${i}"]:checked`); if(sel){ scores[c.code!=="—"?c.code:c.label]=+sel.value; rated++; } });
-      const scoperta=(document.getElementById("scoperta").value||"").trim();
-      const porto=(document.getElementById("porto").value||"").trim();
-      const totale=comps.length+2;
-      const campiCompilati=rated+(scoperta?1:0)+(porto?1:0);
-      const data={ nome, classe:SB_CLASS_LABEL, data:(document.getElementById("data").value||""),
-        scoperta, porto, scores,
-        _meta:{ campiCompilati, totale, percentuale: Math.round(campiCompilati/totale*100) } };
-      await fetch(`${SB_URL}/rest/v1/progress?on_conflict=student_code,page_path`,{
-        method:"POST",
-        headers:{ apikey:SB_KEY, Authorization:`Bearer ${SB_KEY}`, "Content-Type":"application/json", "Prefer":"resolution=merge-duplicates,return=minimal" },
-        body:JSON.stringify([{ class_code:SB_CLASS, student_code:studentCode, page_path:SB_PAGE, data }])
-      });
-    }catch(e){ console.warn("[fine-anno] Salvataggio Supabase non riuscito:", e); }
-  }
-
-  async function sha256hex(str){
-    const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
-    return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,"0")).join("");
-  }
-  function unlock(){
-    document.getElementById("pw-overlay").style.display="none";
-    document.getElementById("main-content").style.display="";
-    sessionStorage.setItem(SESSION_KEY,"1");
-  }
-  async function tryPassword(){
-    const val=document.getElementById("pw-input").value;
-    const h=await sha256hex(val);
-    if(h===HASH){ unlock(); }
-    else{
-      document.getElementById("pw-error").textContent="Password non corretta. Riprova.";
-      document.getElementById("pw-input").select();
-    }
-  }
-  if(sessionStorage.getItem(SESSION_KEY)==="1"){ unlock(); }
-  else{
-    document.getElementById("pw-btn").addEventListener("click",tryPassword);
-    document.getElementById("pw-input").addEventListener("keydown",e=>{ if(e.key==="Enter") tryPassword(); });
-  }
-
   /* ---- DATA ---- */
   const stations=[
     {n:1,month:"Settembre – Ottobre",title:"Intelligenza artificiale e competenze digitali",
@@ -542,29 +468,9 @@
     else t.innerHTML=`Hai <b>${n}</b> ${n===1?"competenza":"competenze"} che sai usare in autonomia o spiegare agli altri.`;
   }
 
-  /* ---- autosave / restore (localStorage) ---- */
-  function collect(){
-    const data={nome:val("nome"),data:val("data"),scoperta:val("scoperta"),porto:val("porto"),scores:{}};
-    comps.forEach((c,i)=>{ const sel=document.querySelector(`input[name="c${i}"]:checked`); if(sel) data.scores["c"+i]=sel.value; });
-    return data;
-  }
-  function val(id){ return (document.getElementById(id).value||""); }
-  function save(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(collect())); }catch(e){} }
-  function restore(){
-    let raw; try{ raw=localStorage.getItem(STORE_KEY); }catch(e){ return; }
-    if(!raw) return;
-    let data; try{ data=JSON.parse(raw); }catch(e){ return; }
-    if(data.nome) document.getElementById("nome").value=data.nome;
-    if(data.data) document.getElementById("data").value=data.data;
-    if(data.scoperta) document.getElementById("scoperta").value=data.scoperta;
-    if(data.porto) document.getElementById("porto").value=data.porto;
-    if(data.scores) Object.keys(data.scores).forEach(k=>{
-      const el=document.querySelector(`input[name="${k}"][value="${data.scores[k]}"]`); if(el) el.checked=true;
-    });
-    updateTally();
-  }
-  document.getElementById("main-content").addEventListener("input",()=>{ save(); updateTally(); });
-  restore();
+  /* ---- tally live · la persistenza è gestita da assets/progress-global.js (classe+codice) ---- */
+  document.getElementById("main-content").addEventListener("input", updateTally);
+  window.addEventListener("mo:progress-restored", ()=>{ try{ updateTally(); }catch(e){} });
 
   /* ---- generate certificate ---- */
   const att=document.getElementById("attestato");
@@ -592,7 +498,6 @@
     if(porto){document.getElementById("c-quote").textContent="« "+porto+" »";qw.style.display="block";}
     else qw.style.display="none";
 
-    saveToSupabase();
     att.classList.add("ready");
     att.scrollIntoView({behavior:"smooth"});
   });
@@ -641,5 +546,39 @@
     finally{ btn.textContent="⤓ Scarica storia (Instagram)"; btn.disabled=false; }
   });
 </script>
+
+<script>
+  window.MO_PROGRESS_CONFIG = {
+    pagePath: '/fine-anno-4sa.html',
+    inputSelector: '#nome,#data,#scoperta,#porto,#bilancio input',
+    autoSave: true
+  };
+</script>
+<script>
+  window.MO_IDENTITY_CONFIG = {
+    message: 'Inserisci la classe (es. 4sa) e il codice cognome+iniziale tutto minuscolo (es. rossi g → rossig).',
+    classPlaceholder: 'Classe (es. 4sa)',
+    classPattern: '^[1-5][a-z]{1,2}$',
+    classExample: '4sa',
+    classErrorMessage: 'Classe non valida: usa una cifra da 1 a 5 seguita da 1-2 lettere minuscole (es. 4sa).',
+    stripWhitespaceInClass: true,
+    storeClassLowercase: true,
+    storeClassUppercase: false,
+    codePlaceholder: 'Codice (es. rossig)',
+    codePattern: '^[a-zà-ü]{2,}[a-z]$',
+    codeExample: 'rossig',
+    codeErrorMessage: 'Codice non valido: usa cognome tutto minuscolo + iniziale del nome (es. rossi g → rossig).',
+    sanitizeCode: true,
+    stripWhitespaceInCode: true,
+    storeCodeLowercase: true,
+    storeCodeUppercase: false,
+    hideGenerator: true,
+    guestAllowed: true,
+    guestClassCode: 'ospite',
+    guestStudentCode: 'ospite'
+  };
+</script>
+<script type="module" src="assets/progress.js"></script>
+<script type="module" src="assets/progress-global.js"></script>
 </body>
 </html>
