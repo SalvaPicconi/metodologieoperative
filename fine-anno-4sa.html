@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Il mio anno — 4ª SA · Bilancio e attestato</title>
+<title>Il mio anno — 4ª · Bilancio e attestato</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..600&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -135,6 +135,8 @@
   .cert-crest-fb::after{content:"";position:absolute;inset:8px;border:1px solid rgba(255,255,255,.5);border-radius:50%}
   .cert-school{font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.74rem;color:var(--ink-soft);line-height:1.5}
   .cert-place{font-size:.72rem;letter-spacing:.08em;color:var(--ink-soft);margin-top:2px}
+  .cert-theme{font-family:var(--display);font-weight:600;font-size:1.25rem;color:var(--ink);margin-bottom:2px}
+  .cert-theme em{font-style:italic;color:var(--teal)}
   .cert-title{font-family:var(--display);font-weight:600;font-size:2.1rem;color:var(--ink);margin:14px 0 0}
   .cert-indirizzo{display:inline-block;margin:12px auto 4px;padding:8px 20px;border:1.5px solid var(--teal);
     border-radius:10px;font-weight:700;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);
@@ -189,6 +191,7 @@
     box-shadow:0 0 0 12px var(--teal-soft);margin:0 auto 18px;flex-shrink:0;position:relative;z-index:2}
   .sc-school{font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:23px;color:var(--ink-soft);
     margin-bottom:22px;text-align:center;position:relative;z-index:2;line-height:1.5}
+  .sc-theme{font-family:var(--display);font-style:italic;font-weight:600;font-size:40px;color:var(--teal);text-align:center;margin-bottom:8px;line-height:1.2;position:relative;z-index:2}
   .sc-title{font-family:var(--display);font-weight:600;font-size:60px;color:var(--ink);margin:6px 0 18px;
     text-align:center;line-height:1.2;position:relative;z-index:2}
   .sc-indirizzo{display:inline-block;margin:0 auto 20px;padding:14px 34px;border:2px solid var(--teal);
@@ -274,7 +277,7 @@
       <div class="kicker">IIS Meucci–Mattei · Decimomannu</div>
     </div>
     <h1>Il mio anno in <em>Metodologie Operative</em></h1>
-    <div class="meta">Classe 4ª SA — Servizi per la Sanità e l'Assistenza Sociale · a.s. 2025-2026 · Prof. Picconi</div>
+    <div class="meta">Classe 4ª — Servizi per la Sanità e l'Assistenza Sociale · a.s. 2025-2026 · Prof. Picconi</div>
     <p class="lead">Quest'anno ogni attività ha costruito una <b>competenza del tuo profilo professionale</b>. Ripercorrila, fai il tuo bilancio e crea il tuo attestato di fine anno.</p>
     <div class="rule"></div>
 
@@ -328,19 +331,24 @@
         <div class="cert-crest-fb" id="cert-crest-fb" style="display:none"></div>
         <div class="cert-school">Istituto di Istruzione Superiore · A. Meucci – E. Mattei</div>
         <div class="cert-place">Decimomannu (CA)</div>
+        <div class="cert-theme">Il mio anno in <em>Metodologie Operative</em></div>
         <div class="cert-title">Attestato di percorso</div>
         <div class="cert-indirizzo">Servizi per la Sanità e l'Assistenza Sociale · SSAS</div>
-        <div class="cert-sub">Metodologie Operative · a.s. 2025-2026</div>
+        <div class="cert-sub">a.s. 2025-2026</div>
       </div>
       <div class="cert-body">
         <div class="intro">Si attesta che</div>
         <div class="cert-name" id="c-nome">—</div>
         <div class="cert-name-line"></div>
-        <div class="cert-context">della classe <strong>4ª SA</strong> — Servizi per la Sanità e l'Assistenza Sociale — ha portato a termine il percorso di Metodologie Operative, lavorando sulle seguenti competenze del profilo professionale:</div>
+        <div class="cert-context">della classe <strong>4ª</strong> — Servizi per la Sanità e l'Assistenza Sociale — ha portato a termine il percorso di Metodologie Operative, lavorando sulle seguenti competenze del profilo professionale:</div>
       </div>
       <div class="cert-comps">
         <h4>Competenze del profilo</h4>
         <ul id="c-comps"></ul>
+      </div>
+      <div class="cert-quote" id="c-scoperta-wrap" style="display:none">
+        <small>La scoperta più importante di quest'anno</small>
+        <span id="c-scoperta"></span>
       </div>
       <div class="cert-quote" id="c-quote-wrap" style="display:none">
         <small>La competenza che mi porto al quinto anno</small>
@@ -364,15 +372,20 @@
          onerror="this.style.display='none';document.getElementById('sc-seal-fallback').style.display='flex'">
     <div class="sc-seal" id="sc-seal-fallback" style="display:none">MM</div>
     <div class="sc-school">IIS Meucci–Mattei · Decimomannu</div>
+    <div class="sc-theme">Il mio anno in Metodologie Operative</div>
     <div class="sc-title">Attestato di percorso</div>
     <div class="sc-indirizzo">Servizi per la Sanità e l'Assistenza Sociale (SSAS)</div>
     <div class="sc-rainbow"><i style="background:#80cd29"></i><i style="background:#ec166c"></i><i style="background:#008036"></i><i style="background:#57bda8"></i></div>
     <div class="sc-intro">Si attesta che</div>
     <div class="sc-name" id="sc-nome">—</div>
     <div class="sc-name-line"></div>
-    <div class="sc-class">della classe <strong>4ª SA</strong></div>
+    <div class="sc-class">della classe <strong>4ª</strong></div>
     <div class="sc-comps-label">Competenze del profilo su cui ho lavorato quest'anno</div>
     <ul class="sc-comps-list" id="sc-comps"></ul>
+    <div class="sc-quote" id="sc-scoperta-wrap" style="display:none">
+      <div class="sc-quote-label">La scoperta più importante di quest'anno</div>
+      <div class="sc-quote-text" id="sc-scoperta-text"></div>
+    </div>
     <div class="sc-quote" id="sc-quote-wrap" style="display:none">
       <div class="sc-quote-label">La competenza che mi porto al quinto anno</div>
       <div class="sc-quote-text" id="sc-quote-text"></div>
@@ -537,6 +550,11 @@
       ul.insertAdjacentHTML("beforeend",`<li class="${star.trim()}">${code}${c.label}</li>`);
     });
 
+    const scoperta=(document.getElementById("scoperta").value||"").trim();
+    const sw=document.getElementById("c-scoperta-wrap");
+    if(scoperta){document.getElementById("c-scoperta").textContent="« "+scoperta+" »";sw.style.display="block";}
+    else sw.style.display="none";
+
     const porto=(document.getElementById("porto").value||"").trim();
     const qw=document.getElementById("c-quote-wrap");
     if(porto){document.getElementById("c-quote").textContent="« "+porto+" »";qw.style.display="block";}
@@ -558,6 +576,11 @@
     document.getElementById("sc-data").textContent=document.getElementById("data").value||"";
     const ul=document.getElementById("sc-comps");ul.innerHTML="";
     comps.forEach(c=>{ const code=c.code!=="—"?c.code+" · ":""; ul.insertAdjacentHTML("beforeend",`<li>${code}${c.label}</li>`); });
+    const scoperta=(document.getElementById("scoperta").value||"").trim().slice(0,200);
+    const sw=document.getElementById("sc-scoperta-wrap");
+    if(scoperta){document.getElementById("sc-scoperta-text").textContent="« "+scoperta+" »";sw.style.display="block";}
+    else sw.style.display="none";
+
     const porto=(document.getElementById("porto").value||"").trim().slice(0,200);
     const qw=document.getElementById("sc-quote-wrap");
     if(porto){document.getElementById("sc-quote-text").textContent="« "+porto+" »";qw.style.display="block";}
