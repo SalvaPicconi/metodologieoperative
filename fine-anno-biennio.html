@@ -255,6 +255,40 @@
 </head>
 <body>
 
+<!-- PASSWORD GATE (accesso studenti) -->
+<div id="pw-overlay" style="z-index:100000">
+  <div id="pw-box">
+    <img class="pw-mark" src="logo/mark.png" alt="IIS Meucci-Mattei" onerror="this.style.display='none'">
+    <h2>Accesso riservato</h2>
+    <p>Inserisci la password per accedere all'attività di fine anno.</p>
+    <input type="password" id="pw-input" placeholder="Password" autocomplete="off" autofocus>
+    <button id="pw-btn">Entra</button>
+    <div id="pw-error" aria-live="polite"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var ov=document.getElementById('pw-overlay');
+  if(!ov) return;
+  var params=new URLSearchParams(location.search);
+  function openPage(){ ov.remove(); }
+  // modalità docente o già sbloccato in questa sessione → nessuna password
+  if(params.has('docente') || sessionStorage.getItem('finegate_unlocked')==='1'){ openPage(); return; }
+  var inp=document.getElementById('pw-input'), btn=document.getElementById('pw-btn'), err=document.getElementById('pw-error');
+  function tryPw(){
+    if((inp.value||'').trim().toLowerCase()==='mattei'){
+      try{ sessionStorage.setItem('finegate_unlocked','1'); }catch(e){}
+      openPage();
+    } else {
+      err.textContent='Password non corretta. Riprova.';
+      inp.select();
+    }
+  }
+  btn.addEventListener('click',tryPw);
+  inp.addEventListener('keydown',function(e){ if(e.key==='Enter') tryPw(); });
+})();
+</script>
+
 <div class="wrap" id="main-content">
 
   <!-- ============ WORKSHEET (no print) ============ -->
