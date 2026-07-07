@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Il mio anno — Terzo anno · Bilancio e attestato</title>
+<title>Il mio anno — Biennio · Bilancio e attestato</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..600&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -298,7 +298,7 @@
       <div class="kicker">IIS Meucci–Mattei · Decimomannu</div>
     </div>
     <h1>Il mio anno in <em>Metodologie Operative</em></h1>
-    <div class="meta">Terzo anno — Servizi per la Sanità e l'Assistenza Sociale · a.s. 2025-2026 · Prof. Picconi</div>
+    <div class="meta">Biennio — Servizi per la Sanità e l'Assistenza Sociale · a.s. 2025-2026 · Prof. Picconi</div>
     <p class="lead">Quest'anno ogni attività ha costruito una <b>competenza del tuo profilo professionale</b>. Ripercorrila, fai il tuo bilancio e crea il tuo attestato di fine anno.</p>
     <div class="rule"></div>
 
@@ -327,7 +327,7 @@
 
     <div class="field" style="margin-top:24px"><label class="lbl" for="scoperta">La scoperta più importante di quest'anno…</label>
       <textarea id="scoperta" placeholder="Scrivi qui…"></textarea></div>
-    <div class="field"><label class="lbl" for="porto">La competenza che mi porto al quarto anno, e perché…</label>
+    <div class="field"><label class="lbl" for="porto">La competenza che mi porto al terzo anno, e perché…</label>
       <textarea id="porto" placeholder="Questa frase comparirà sul tuo attestato."></textarea></div>
 
     <div class="actions">
@@ -361,7 +361,7 @@
         <div class="intro">Si attesta che</div>
         <div class="cert-name" id="c-nome">—</div>
         <div class="cert-name-line"></div>
-        <div class="cert-context">del <strong>Terzo anno</strong> — Servizi per la Sanità e l'Assistenza Sociale — ha portato a termine il percorso del terzo anno di Metodologie Operative, lavorando sulle seguenti competenze del profilo professionale:</div>
+        <div class="cert-context">del <strong>Biennio</strong> — Servizi per la Sanità e l'Assistenza Sociale — ha portato a termine il percorso del biennio di Metodologie Operative, lavorando sulle seguenti competenze di base del profilo professionale:</div>
       </div>
       <div class="cert-comps">
         <h4>Competenze del profilo</h4>
@@ -372,7 +372,7 @@
         <span id="c-scoperta"></span>
       </div>
       <div class="cert-quote" id="c-quote-wrap" style="display:none">
-        <small>La competenza che mi porto al quarto anno</small>
+        <small>La competenza che mi porto al terzo anno</small>
         <span id="c-quote"></span>
       </div>
       <div class="cert-foot">
@@ -383,7 +383,7 @@
     </div>
   </div>
 
-  <footer class="no-print">Strumento interattivo di fine anno · compila e stampa · costruito sui risultati di apprendimento intermedi del profilo SSAS</footer>
+  <footer class="no-print">Strumento interattivo di fine anno · compila e stampa · costruito sui risultati di apprendimento intermedi del profilo SSAS (biennio)</footer>
 </div>
 
 <!-- ============ STORY CARD 1080×1920 (off-screen) ============ -->
@@ -400,7 +400,7 @@
     <div class="sc-intro">Si attesta che</div>
     <div class="sc-name" id="sc-nome">—</div>
     <div class="sc-name-line"></div>
-    <div class="sc-class">del <strong>Terzo anno</strong></div>
+    <div class="sc-class">del <strong>Biennio</strong></div>
     <div class="sc-comps-label">Competenze del profilo su cui ho lavorato quest'anno</div>
     <ul class="sc-comps-list" id="sc-comps"></ul>
     <div class="sc-quote" id="sc-scoperta-wrap" style="display:none">
@@ -408,7 +408,7 @@
       <div class="sc-quote-text" id="sc-scoperta-text"></div>
     </div>
     <div class="sc-quote" id="sc-quote-wrap" style="display:none">
-      <div class="sc-quote-label">La competenza che mi porto al quarto anno</div>
+      <div class="sc-quote-label">La competenza che mi porto al terzo anno</div>
       <div class="sc-quote-text" id="sc-quote-text"></div>
     </div>
     <div class="sc-foot">
@@ -421,40 +421,40 @@
 <script>
   /* ---- DATA ---- */
   const stations=[
-    {n:1,month:"Settembre – Ottobre",title:"Intelligenza artificiale",
-     act:"Dalla storia alle reti neurali; esercitazione computer-based (IA debole/forte, data science, machine e deep learning, hardware, IA nell'educazione, etica e rischi); apprendimento guidato e gamification; produzione di mappe, podcast e overview.",
-     badges:[["gen","AG8 · Reti e strumenti informatici"],["ind","C10 · Raccolta ed elaborazione dati"],["gen","AG1 · Etica e uso responsabile"],["gen","AG7 · Comunicazione multimediale"]]},
-    {n:2,month:"Ottobre",title:"Welfare, bisogni e servizi",
-     act:"Autoapprendimento sul Welfare State, la relazione d'aiuto, i bisogni e i servizi; il percorso sul Welfare; il Tecnico dei Servizi Socio-Sanitari (TSSAS).",
-     badges:[["ind","C7 · Servizi e orientamento"],["ind","C9 · Benessere e prevenzione"],["gen","AG2 · Lessico professionale"]]},
-    {n:3,month:"Ottobre – Novembre",title:"Peer tutoring con la 1ª SB",
-     act:"Preparazione dell'esperienza; sessione di laboratorio con le prime; resoconto e riflessione sulla relazione.",
-     badges:[["ind","C3 · Comunicazione e relazione"],["ind","C8 · Animazione per i minori"],["gen","AG2 · Comunicazione"]]},
-    {n:4,month:"Novembre – Dicembre",title:"Laboratorio autobiografico e scrittura di sé",
-     act:"L'autobiografia come tecnica; la mappa mentale della crescita; il caso di Lucia (analisi di problemi e bisogni); scrittura di sé, condivisione, trascrizione digitale e trasfigurazione creativa (arteterapia); verifica.",
-     badges:[["ind","C3 · Comunicazione e relazione d'aiuto"],["gen","AG2 · Scrittura e lingua"],["gen","AG7 · Espressione creativa"],["ind","C9 · Analisi dei bisogni"]]},
-    {n:5,month:"Gennaio – Febbraio",title:"L'équipe multiprofessionale",
-     act:"Che cos'è l'équipe; teoria ed esercitazione pratica; scrivere la storia dell'utente e simulare il lavoro d'équipe tra figure professionali.",
-     badges:[["ind","Lavoro in équipe"],["ind","C4 · Documentazione e protocolli"],["gen","AG2 · Lessico professionale"]]},
-    {n:6,month:"Febbraio – Maggio",title:"Le dipendenze e il Ser.D",
-     act:"Le dipendenze da sostanze e l'intervento nei servizi (Ser.D); kit operativi e storie (Marco e Sara); colloquio motivazionale (pre-contemplazione e contemplazione); job shadowing; lavori di gruppo: protocollo operativo, figure professionali, storia del caso, teoria, simulazione del colloquio.",
-     badges:[["ind","C9 · Prevenzione e sostegno"],["ind","C3 · Colloquio motivazionale"],["ind","C4 · Protocollo operativo"],["ind","Lavoro in équipe"]]},
-    {n:7,month:"Febbraio – Aprile",title:"La seconda infanzia e il gioco (3-6 anni)",
-     act:"Come si impara a 3-6 anni: zona di sviluppo prossimale e scaffolding, il gioco come diritto e come metodo, Dewey e Montessori, Goldschmied e il gioco euristico, Malaguzzi e il Reggio Emilia Approach; progetto operativo per la scuola dell'infanzia, dalla teoria alla pratica.",
-     badges:[["ind","C8 · Animazione socio-educativa per minori"],["ind","C4 · Progettazione dell'attività"],["gen","AG2 · Lessico pedagogico"]]},
-    {n:8,month:"Marzo – Aprile",title:"Esperienze sul campo: tirocinio, PET therapy e sicurezza",
-     act:"Incontri sulla PET therapy; esperienze di tirocinio; attività presso la scuola dell'infanzia; il corso sulla sicurezza sul lavoro (tempi, obblighi e doveri).",
-     badges:[["ind","C8 · Attività in contesto reale"],["gen","AG11 · Sicurezza sul lavoro"],["ind","C3 · Osservazione e relazione"]]},
+    {n:1,month:"Settembre – Ottobre",title:"Il Welfare e i servizi",
+     act:"Il Welfare State e i suoi modelli; bisogni a confronto con i servizi, la relazione d'aiuto, la rete e gli strumenti; esercitazione su file HTML; autoapprendimento computer-based; mappe digitali sul welfare; verifica.",
+     badges:[["ind","C1 · Mappa dei servizi"],["gen","AG8 · Strumenti informatici"],["ind","C10 · Raccolta dati"],["gen","AG2 · Lessico"]]},
+    {n:2,month:"Ottobre – Novembre",title:"Stereotipi, autorità e percezione",
+     act:"Storie e pregiudizi (emozioni, comportamenti, credenze); il test del marshmallow; l'esperimento di Milgram su obbedienza e autorità (messa in scena); lo Still Face; la percezione e il test di Stroop.",
+     badges:[["ind","C3 · Superare stereotipi e pregiudizi"],["gen","AG1 · Valori e senso critico"],["ind","C2 · Dinamiche di gruppo ed emozioni"]]},
+    {n:3,month:"Novembre – Dicembre",title:"Intelligenza artificiale e artefatti",
+     act:"Percorso di apprendimento guidato autonomo sull'IA; la produzione di materiali didattici e la costruzione del prompt; ricerche su costumi, cultura e tecnologia dagli anni '50 all'IA; laboratorio creativo di artefatti; preparazione dell'Open Day in chiave IA.",
+     badges:[["gen","AG8 · Reti e strumenti informatici"],["ind","C10 · Raccogliere e organizzare dati"],["gen","AG7 · Comunicazione multimediale"],["gen","AG1 · Etica dell'IA"]]},
+    {n:4,month:"Gennaio – Maggio",title:"I servizi socio-sanitari e l'accesso",
+     act:"L'équipe multiprofessionale e le figure socio-sanitarie; il Sistema Sanitario, il settore socio-sanitario e il terzo settore; i Livelli Essenziali di Assistenza; iter di accesso e ISEE; politiche sociali attive e passive, la L. 328/2000 e la sussidiarietà; il segretariato sociale e il servizio sociale professionale; il pronto intervento sociale e l'assistenza domiciliare con le sue tre tipologie.",
+     badges:[["ind","C1 · Mappa dei servizi e delle prestazioni"],["ind","C5 · I soggetti della presa in carico"],["ind","C2 · L'équipe"]]},
+    {n:5,month:"Febbraio – Marzo",title:"I gruppi e l'auto mutuo aiuto",
+     act:"I gruppi di auto mutuo aiuto; il Sé come processo e l'interazione simbolica; la definizione sociologica di gruppo, il gruppo sociale e l'équipe; gli stili di leadership; AA, CAT e Helper Therapy; sperimentazione pratica dei gruppi; verifica «dal Sé all'aiuto come empowerment».",
+     badges:[["ind","C2 · Gruppi di lavoro e dinamiche"],["ind","C3 · Comunicazione e relazione"],["ind","C5 · L'aiuto come empowerment"]]},
+    {n:6,month:"Marzo – Maggio",title:"Le emozioni e la relazione",
+     act:"Le emozioni e l'ansia (analisi di Inside Out 2); il laboratorio delle emozioni; il circolo della condivisione; letture sull'amicizia (Gramellini, Peccarisi, Borges) e scritture biografiche.",
+     badges:[["ind","C2 · Emozioni e socializzazione"],["ind","C3 · Comunicazione"],["gen","AG2 · Scrittura e lingua"]]},
+    {n:7,month:"Marzo – Maggio",title:"Lo sviluppo e la scuola dell'infanzia",
+     act:"La scuola dell'infanzia come contesto di sviluppo, osservazione e intervento precoce; lo sviluppo cognitivo (Piaget); lavori di gruppo sullo sviluppo affettivo, linguistico e psicosociale.",
+     badges:[["ind","C8 · Animazione ed educazione"],["ind","C5 · Salute e sviluppo"],["ind","C2 · Lavoro di gruppo"]]},
+    {n:8,month:"Aprile – Maggio",title:"Laboratorio «Si può dire morte»",
+     act:"Scrittura a partire da un testo; fase elaborativa (dall'informazione al testo, dal testo al pensiero, dal pensiero al prodotto); scrittura e miglioramento dei testi; realizzazione dei calligrammi e lettura interpretativa.",
+     badges:[["gen","AG2 · Scrittura e lingua"],["gen","AG7 · Espressione creativa (calligrammi)"],["ind","C5 · Cura e approccio bio-psico-sociale"]]},
   ];
   const comps=[
-    {code:"C3", fam:"ind", label:"Comunicare in modo da favorire la relazione, anche in contesti nuovi"},
-    {code:"C7", fam:"ind", label:"Conoscere i servizi del welfare e orientarsi tra bisogni e prestazioni"},
-    {code:"C8", fam:"ind", label:"Programmare e realizzare semplici attività di animazione per i minori"},
-    {code:"C9", fam:"ind", label:"Collaborare a programmi di prevenzione e di sostegno alla persona"},
-    {code:"C10",fam:"ind", label:"Raccogliere ed elaborare dati su una realtà sociale, anche con strumenti digitali"},
-    {code:"C4", fam:"ind", label:"Compilare la documentazione di protocolli e progetti"},
-    {code:"—",  fam:"ind", label:"Collaborare nei gruppi di lavoro e nelle équipe multiprofessionali"},
-    {code:"AG2",fam:"gen", label:"Usare la lingua italiana per scrivere e raccontare (anche la scrittura di sé)"},
+    {code:"C1", fam:"ind", label:"Costruire una mappa dei servizi del territorio e delle prestazioni"},
+    {code:"C2", fam:"ind", label:"Partecipare e cooperare in un gruppo di lavoro"},
+    {code:"C3", fam:"ind", label:"Comunicare superando stereotipi e pregiudizi"},
+    {code:"C5", fam:"ind", label:"Capire la salute come benessere bio-psico-sociale"},
+    {code:"C8", fam:"ind", label:"Realizzare semplici attività di animazione ludica e sociale"},
+    {code:"C10",fam:"ind", label:"Raccogliere e organizzare dati con strumenti digitali"},
+    {code:"AG1",fam:"gen", label:"Agire secondo valori: rispetto, inclusione, senso critico"},
+    {code:"AG2",fam:"gen", label:"Usare la lingua italiana per scrivere e raccontare"},
     {code:"AG8",fam:"gen", label:"Usare strumenti informatici e l'IA con senso critico"},
   ];
 
@@ -585,7 +585,7 @@
         .replace(/[àáâ]/g,"a").replace(/[èéê]/g,"e").replace(/[ìíî]/g,"i")
         .replace(/[òóô]/g,"o").replace(/[ùúû]/g,"u")
         .replace(/[^a-z0-9]/g,"_").replace(/_+/g,"_").replace(/^_|_$/g,"");
-      link.download="attestato_3sb_"+safeName+".png";
+      link.download="attestato_biennio_"+safeName+".png";
       link.href=canvas.toDataURL("image/png");
       link.click();
     }catch(e){ alert("Errore nella generazione: "+e.message); }
@@ -599,18 +599,18 @@
 
 <script>
   window.MO_PROGRESS_CONFIG = {
-    pagePath: '/fine-anno-3sb.html',
+    pagePath: '/fine-anno-biennio.html',
     inputSelector: '#nome,#data,#scoperta,#porto,#bilancio input',
     autoSave: true
   };
 </script>
 <script>
   window.MO_IDENTITY_CONFIG = {
-    message: 'Inserisci la classe (es. 3sb) e il codice cognome+iniziale tutto minuscolo (es. rossi g → rossig).',
-    classPlaceholder: 'Classe (es. 3sb)',
+    message: 'Inserisci la classe (es. 2sa) e il codice cognome+iniziale tutto minuscolo (es. rossi g → rossig).',
+    classPlaceholder: 'Classe (es. 2sa)',
     classPattern: '^[1-5][a-z]{1,2}$',
-    classExample: '3sb',
-    classErrorMessage: 'Classe non valida: usa una cifra da 1 a 5 seguita da 1-2 lettere minuscole (es. 3sb).',
+    classExample: '2sa',
+    classErrorMessage: 'Classe non valida: usa una cifra da 1 a 5 seguita da 1-2 lettere minuscole (es. 2sa).',
     stripWhitespaceInClass: true,
     storeClassLowercase: true,
     storeClassUppercase: false,
