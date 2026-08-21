@@ -1,0 +1,2742 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0d9488">
+    <meta name="page-id" content="attivita-peer-tutoring-2026-2027-01">
+    <title>Cross-age Peer Tutoring 2026–2027 – Prima SSAS</title>
+    <meta name="description" content="Prototipo didattico illustrato di cross-age peer tutoring in tre incontri per la prima SSAS con tutor di III, IV e V: esempi graduati, attività online e gare inclusive tra coppie.">
+    <link rel="stylesheet" href="../../style.css">
+    <style>
+        :root {
+            --pt-teal: #0f766e;
+            --pt-teal-dark: #134e4a;
+            --pt-teal-soft: #ccfbf1;
+            --pt-orange: #ea580c;
+            --pt-orange-soft: #ffedd5;
+            --pt-blue: #1d4ed8;
+            --pt-blue-soft: #dbeafe;
+            --pt-violet: #6d28d9;
+            --pt-violet-soft: #ede9fe;
+            --pt-green: #15803d;
+            --pt-green-soft: #dcfce7;
+            --pt-red: #b91c1c;
+            --pt-red-soft: #fee2e2;
+            --pt-line: #d8e2e7;
+            --pt-shadow: 0 16px 42px rgba(15, 42, 39, 0.10);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body.pt-page {
+            background:
+                radial-gradient(circle at top right, rgba(20, 184, 166, 0.09), transparent 30rem),
+                #f5f8f8;
+        }
+
+        .skip-link {
+            position: fixed;
+            left: 1rem;
+            top: -5rem;
+            z-index: 3000;
+            padding: 0.8rem 1rem;
+            border-radius: 0 0 10px 10px;
+            background: #fff;
+            color: var(--pt-teal-dark);
+            font-weight: 700;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        .visually-hidden {
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            padding: 0 !important;
+            margin: -1px !important;
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            white-space: nowrap !important;
+            border: 0 !important;
+        }
+
+        .pt-shell {
+            max-width: 1100px;
+            padding-top: 2rem;
+            padding-bottom: 4rem;
+        }
+
+        .pt-hero {
+            position: relative;
+            overflow: hidden;
+            padding: clamp(2rem, 5vw, 4.5rem);
+            border-radius: 28px;
+            color: #fff;
+            background: linear-gradient(135deg, var(--pt-teal-dark), var(--pt-teal) 58%, #0d9488);
+            box-shadow: var(--pt-shadow);
+        }
+
+        header .site-brand {
+            margin: 0 0 0.5rem;
+            color: #fff;
+            font-family: var(--font-heading);
+            font-size: 2.1rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .pt-hero-grid {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+            gap: clamp(1.25rem, 3vw, 2.25rem);
+            align-items: center;
+        }
+
+        .pt-hero-copy {
+            min-width: 0;
+        }
+
+        .pt-hero::after {
+            content: "";
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            right: -90px;
+            bottom: -130px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.10);
+        }
+
+        .pt-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.45rem 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.32);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.12);
+            font-weight: 700;
+            font-size: 0.88rem;
+            letter-spacing: 0.02em;
+        }
+
+        .pt-hero h1 {
+            max-width: 760px;
+            margin: 1rem 0 0.75rem;
+            color: #fff;
+            font-size: clamp(2rem, 6vw, 3.8rem);
+            line-height: 1.08;
+            letter-spacing: -0.035em;
+        }
+
+        .pt-hero-copy > p {
+            max-width: 760px;
+            font-size: clamp(1rem, 2.4vw, 1.2rem);
+            opacity: 0.94;
+        }
+
+        .hero-visual {
+            margin: 0;
+            padding: 0.45rem;
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 18px 38px rgba(4, 47, 46, 0.28);
+            transform: rotate(1deg);
+        }
+
+        .hero-visual img {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            border-radius: 17px;
+        }
+
+        .pt-facts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+            margin-top: 1.5rem;
+        }
+
+        .pt-facts span {
+            padding: 0.55rem 0.75rem;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.14);
+            font-size: 0.92rem;
+            font-weight: 650;
+        }
+
+        .local-note {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.65rem;
+            max-width: 760px;
+            margin-top: 1.4rem;
+            padding: 0.85rem 1rem;
+            border-radius: 12px;
+            background: rgba(6, 78, 59, 0.36);
+            font-size: 0.9rem;
+        }
+
+        .pt-hero-grid .local-note {
+            grid-column: 1 / -1;
+            max-width: none;
+            margin-top: 0;
+        }
+
+        .journey-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+            margin: 1.35rem 0 2rem;
+            padding: 0.8rem;
+            border: 1px solid var(--pt-line);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.94);
+            box-shadow: 0 8px 24px rgba(15, 42, 39, 0.06);
+        }
+
+        .journey-nav a {
+            flex: 1 1 145px;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.7rem 0.9rem;
+            border-radius: 11px;
+            color: var(--pt-teal-dark);
+            background: #f0fdfa;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .journey-nav a:hover,
+        .journey-nav a:focus-visible {
+            color: #fff;
+            background: var(--pt-teal);
+        }
+
+        .progress-panel {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 0.8rem 1.25rem;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.1rem 1.25rem;
+            border: 1px solid var(--pt-line);
+            border-radius: 16px;
+            background: #fff;
+        }
+
+        .progress-panel strong {
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .progress-panel p {
+            color: #52636c;
+            font-size: 0.9rem;
+        }
+
+        .evidence-count {
+            color: var(--pt-teal-dark);
+            font-size: 1.05rem;
+            font-weight: 800;
+        }
+
+        .evidence-track {
+            grid-column: 1 / -1;
+            height: 11px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: #e8efef;
+        }
+
+        .evidence-fill {
+            width: 0;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--pt-orange), #f59e0b, var(--pt-teal));
+            transition: width 0.25s ease;
+        }
+
+        .pt-card,
+        .day-card,
+        .teacher-panel,
+        .materials-panel {
+            margin-bottom: 2rem;
+            border: 1px solid var(--pt-line);
+            border-radius: 22px;
+            background: #fff;
+            box-shadow: 0 10px 30px rgba(15, 42, 39, 0.07);
+        }
+
+        .pt-card,
+        .teacher-panel,
+        .materials-panel {
+            padding: clamp(1.25rem, 3vw, 2rem);
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.9rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .section-number {
+            flex: 0 0 auto;
+            width: 44px;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 13px;
+            color: #fff;
+            background: var(--pt-teal);
+            font-weight: 800;
+        }
+
+        .section-heading h2,
+        .section-heading h3 {
+            margin: 0;
+            color: #17333a;
+            line-height: 1.2;
+        }
+
+        .section-heading p {
+            margin-top: 0.3rem;
+            color: #52636c;
+        }
+
+        .role-grid,
+        .activity-grid,
+        .material-grid,
+        .field-grid,
+        .teacher-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .role-card,
+        .activity-block,
+        .material-card,
+        .teacher-box {
+            padding: 1.15rem;
+            border: 1px solid var(--pt-line);
+            border-radius: 16px;
+            background: #fbfdfd;
+        }
+
+        .role-card h3,
+        .activity-block h3,
+        .material-card h3,
+        .teacher-box h3 {
+            margin-bottom: 0.6rem;
+            color: #17333a;
+            font-size: 1.05rem;
+        }
+
+        .role-card.tutee {
+            border-top: 5px solid var(--pt-orange);
+            background: #fffaf5;
+        }
+
+        .role-card.tutor {
+            border-top: 5px solid var(--pt-blue);
+            background: #f7faff;
+        }
+
+        .role-card.adult {
+            border-top: 5px solid var(--pt-green);
+            background: #f6fff8;
+        }
+
+        .role-card.boundary {
+            border-top: 5px solid var(--pt-red);
+            background: #fff8f8;
+        }
+
+        .plain-list,
+        .steps-list {
+            padding-left: 1.25rem;
+        }
+
+        .plain-list li + li,
+        .steps-list li + li {
+            margin-top: 0.45rem;
+        }
+
+        .identity-strip {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+            margin-top: 1.25rem;
+            padding: 1rem;
+            border-radius: 15px;
+            background: #f0fdfa;
+        }
+
+        .identity-action {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .field-label {
+            display: block;
+            margin-bottom: 0.4rem;
+            color: #263f46;
+            font-weight: 750;
+        }
+
+        .field label,
+        fieldset legend {
+            display: block;
+            margin-bottom: 0.4rem;
+            color: #263f46;
+            font-weight: 750;
+        }
+
+        .field small,
+        .help-text {
+            display: block;
+            margin-top: 0.35rem;
+            color: #64757d;
+            font-size: 0.84rem;
+        }
+
+        .pt-page input[type="text"],
+        .pt-page input[type="number"],
+        .pt-page textarea,
+        .pt-page select {
+            width: 100%;
+            min-height: 46px;
+            padding: 0.75rem 0.85rem;
+            border: 1.5px solid #c9d7da;
+            border-radius: 11px;
+            color: #17333a;
+            background: #fff;
+            font: inherit;
+        }
+
+        .pt-page textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .pt-page input:focus,
+        .pt-page textarea:focus,
+        .pt-page select:focus {
+            outline: 3px solid rgba(13, 148, 136, 0.20);
+            border-color: var(--pt-teal);
+        }
+
+        .pt-page input[readonly] {
+            background: #f5f8f8;
+        }
+
+        .pt-page fieldset {
+            min-width: 0;
+            padding: 0;
+            border: 0;
+        }
+
+        .day-card {
+            overflow: hidden;
+            scroll-margin-top: 1rem;
+        }
+
+        .day-header {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr) auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 1.4rem clamp(1.25rem, 3vw, 2rem);
+            color: #fff;
+        }
+
+        .day-card.day-one .day-header {
+            background: linear-gradient(120deg, #075985, #0369a1);
+        }
+
+        .day-card.day-two .day-header {
+            background: linear-gradient(120deg, #581c87, #6d28d9);
+        }
+
+        .day-card.day-three .day-header {
+            background: linear-gradient(120deg, #9a3412, #c2410c);
+        }
+
+        .day-badge {
+            width: 52px;
+            height: 52px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            color: #17333a;
+            background: #fff;
+            font-size: 1.35rem;
+            font-weight: 850;
+        }
+
+        .day-header h2 {
+            margin: 0;
+            color: #fff;
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+        }
+
+        .day-header p {
+            margin-top: 0.2rem;
+            opacity: 0.92;
+        }
+
+        .day-time {
+            padding: 0.5rem 0.7rem;
+            border: 1px solid rgba(255, 255, 255, 0.38);
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.24);
+            font-weight: 750;
+            white-space: nowrap;
+        }
+
+        .day-content {
+            padding: clamp(1.25rem, 3vw, 2rem);
+        }
+
+        .day-visual,
+        .section-visual {
+            margin: 0;
+            background: #edf4f4;
+        }
+
+        .day-visual img,
+        .section-visual img {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1280 / 683;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .section-visual {
+            overflow: hidden;
+            margin: 1rem 0 1.2rem;
+            border: 1px solid var(--pt-line);
+            border-radius: 18px;
+            box-shadow: 0 10px 24px rgba(15, 42, 39, 0.08);
+        }
+
+        .visual-caption {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+            padding: 0.75rem clamp(1rem, 3vw, 1.5rem);
+            color: #24444a;
+            background: #fff;
+        }
+
+        .visual-caption span {
+            display: inline-flex;
+            gap: 0.3rem;
+            align-items: baseline;
+            padding: 0.42rem 0.62rem;
+            border: 1px solid var(--pt-line);
+            border-radius: 999px;
+            background: #f8fbfb;
+            font-size: 0.86rem;
+        }
+
+        .visual-caption strong {
+            color: var(--pt-teal-dark);
+        }
+
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.65rem;
+            margin: 1rem 0 1.5rem;
+            list-style: none;
+        }
+
+        .timeline li {
+            display: grid;
+            grid-template-columns: 82px minmax(0, 1fr);
+            gap: 0.65rem;
+            align-items: start;
+            padding: 0.8rem;
+            border-radius: 12px;
+            background: #f5f8f8;
+        }
+
+        .timeline time {
+            color: var(--pt-teal-dark);
+            font-weight: 800;
+        }
+
+        .activity-block {
+            margin-top: 1rem;
+            background: #fff;
+        }
+
+        .help-ladder-panel {
+            margin-top: 1.25rem;
+            padding: 1.15rem;
+            border: 1px solid #bae6fd;
+            border-radius: 16px;
+            background: #f0f9ff;
+        }
+
+        .help-ladder-panel h3 {
+            color: #0c4a6e;
+        }
+
+        .help-ladder {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.75rem;
+            margin-top: 0.9rem;
+        }
+
+        .help-step {
+            padding: 0.85rem;
+            border: 1px solid #bae6fd;
+            border-radius: 12px;
+            background: #fff;
+        }
+
+        .help-step strong {
+            display: block;
+            margin-bottom: 0.3rem;
+            color: #075985;
+        }
+
+        .help-drawer {
+            margin-top: 1rem;
+            border: 1px solid #c4b5fd;
+            border-radius: 13px;
+            background: #faf8ff;
+        }
+
+        .help-drawer > summary {
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 0.9rem;
+            color: #4c1d95;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .help-drawer[open] > summary {
+            border-bottom: 1px solid #ddd6fe;
+        }
+
+        .help-drawer-body {
+            padding: 1rem;
+        }
+
+        .help-drawer-body h4 {
+            margin: 0.8rem 0 0.35rem;
+            color: #3b2369;
+        }
+
+        .help-drawer-body h4:first-child {
+            margin-top: 0;
+        }
+
+        .example-list {
+            padding-left: 1.25rem;
+        }
+
+        .example-list li + li {
+            margin-top: 0.35rem;
+        }
+
+        .choice-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.65rem;
+        }
+
+        .example-choice {
+            min-height: 44px;
+            padding: 0.55rem 0.7rem;
+            border: 1px solid #a78bfa;
+            border-radius: 9px;
+            color: #4c1d95;
+            background: #fff;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .example-choice:hover,
+        .example-choice:focus-visible {
+            outline: 3px solid rgba(109, 40, 217, 0.18);
+            background: #ede9fe;
+        }
+
+        summary:focus-visible {
+            outline: 3px solid rgba(29, 78, 216, 0.28);
+            outline-offset: 4px;
+            border-radius: 6px;
+        }
+
+        .option-note {
+            margin-top: 0.8rem;
+            padding: 0.75rem;
+            border-left: 4px solid var(--pt-blue);
+            border-radius: 8px;
+            background: #eff6ff;
+        }
+
+        .online-mission,
+        .challenge-card {
+            margin-top: 1rem;
+            padding: 1rem;
+            border: 1px solid #a7f3d0;
+            border-radius: 14px;
+            background: #f0fdf4;
+        }
+
+        .challenge-card {
+            border-color: #fed7aa;
+            background: #fffaf5;
+        }
+
+        .challenge-card h3,
+        .online-mission h3 {
+            color: #17443f;
+        }
+
+        .challenge-card h3 {
+            color: #7c2d12;
+        }
+
+        .challenge-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 0.7rem 0;
+        }
+
+        .challenge-meta span,
+        .online-tag {
+            display: inline-flex;
+            padding: 0.35rem 0.55rem;
+            border-radius: 999px;
+            color: #134e4a;
+            background: #ccfbf1;
+            font-size: 0.82rem;
+            font-weight: 800;
+        }
+
+        .simple-steps {
+            padding-left: 1.35rem;
+        }
+
+        .simple-steps li + li {
+            margin-top: 0.45rem;
+        }
+
+        .challenge-grid,
+        .online-grid,
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.8rem;
+            margin-top: 0.9rem;
+        }
+
+        .challenge-option,
+        .online-card {
+            padding: 0.9rem;
+            border: 1px solid var(--pt-line);
+            border-radius: 12px;
+            background: #fff;
+        }
+
+        .challenge-option strong,
+        .online-card h3 {
+            display: block;
+            margin-bottom: 0.4rem;
+            color: #17333a;
+        }
+
+        .online-card {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+
+        .online-card .pt-button {
+            align-self: flex-start;
+            margin-top: auto;
+        }
+
+        .score-grid .field {
+            padding: 0.75rem;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.78);
+        }
+
+        .quiz-feedback,
+        .mission-output {
+            min-height: 50px;
+            margin-top: 0.8rem;
+            padding: 0.75rem;
+            border: 1px dashed #d97706;
+            border-radius: 10px;
+            color: #713f12;
+            background: #fffbeb;
+            font-weight: 700;
+        }
+
+        .activity-kicker {
+            display: inline-block;
+            margin-bottom: 0.65rem;
+            padding: 0.3rem 0.55rem;
+            border-radius: 999px;
+            color: var(--pt-teal-dark);
+            background: var(--pt-teal-soft);
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .field-grid {
+            margin-top: 1rem;
+        }
+
+        .field-grid.three {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        .check-list {
+            display: grid;
+            gap: 0.55rem;
+            margin-top: 0.8rem;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.65rem;
+            padding: 0.7rem 0.8rem;
+            border-radius: 10px;
+            background: #f5f8f8;
+            cursor: pointer;
+        }
+
+        .check-item input {
+            flex: 0 0 auto;
+            width: 20px;
+            height: 20px;
+            margin-top: 0.1rem;
+            accent-color: var(--pt-teal);
+        }
+
+        .method-strip {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 0.55rem;
+            margin: 1rem 0;
+        }
+
+        .method-step {
+            min-height: 112px;
+            padding: 0.8rem;
+            border-radius: 12px;
+            text-align: center;
+            background: var(--pt-violet-soft);
+        }
+
+        .method-step strong {
+            display: block;
+            margin-bottom: 0.35rem;
+            color: #4c1d95;
+        }
+
+        .case-text {
+            margin: 0.85rem 0;
+            padding: 1rem;
+            border-left: 5px solid var(--pt-violet);
+            border-radius: 10px;
+            background: #faf8ff;
+            color: #34434a;
+            line-height: 1.75;
+        }
+
+        .scenario-table,
+        .rubric-table {
+            width: 100%;
+            margin-top: 0.9rem;
+            border-collapse: collapse;
+        }
+
+        .scenario-table th,
+        .scenario-table td,
+        .rubric-table th,
+        .rubric-table td {
+            padding: 0.75rem;
+            border: 1px solid var(--pt-line);
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .scenario-table th,
+        .rubric-table th {
+            color: #234148;
+            background: #edf6f5;
+        }
+
+        .safety-box {
+            margin-top: 1rem;
+            padding: 1rem;
+            border: 1px solid #fecaca;
+            border-radius: 13px;
+            color: #7f1d1d;
+            background: var(--pt-red-soft);
+        }
+
+        .safety-box strong {
+            display: block;
+            margin-bottom: 0.35rem;
+        }
+
+        .guide-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .guide-preview {
+            position: sticky;
+            top: 1rem;
+            overflow: hidden;
+            border: 1px solid #fed7aa;
+            border-radius: 18px;
+            background: #fffaf5;
+            box-shadow: 0 12px 30px rgba(194, 65, 12, 0.10);
+        }
+
+        .guide-preview-header {
+            padding: 1.25rem;
+            color: #fff;
+            background: linear-gradient(120deg, #c2410c, #f97316);
+        }
+
+        .guide-preview-header h3 {
+            margin: 0;
+            color: #fff;
+        }
+
+        .guide-preview-body {
+            display: grid;
+            gap: 0.8rem;
+            padding: 1.25rem;
+        }
+
+        .preview-block {
+            padding: 0.75rem;
+            border-radius: 10px;
+            background: #fff;
+        }
+
+        .preview-block strong {
+            display: block;
+            margin-bottom: 0.25rem;
+            color: #9a3412;
+        }
+
+        .placeholder-text {
+            color: #52636c;
+            font-style: italic;
+        }
+
+        .action-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            border: 1px solid var(--pt-line);
+            border-radius: 15px;
+            background: #fff;
+        }
+
+        .pt-button {
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            padding: 0.7rem 1rem;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            color: #fff;
+            background: var(--pt-teal);
+            font: inherit;
+            font-weight: 750;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .pt-button:hover,
+        .pt-button:focus-visible {
+            background: var(--pt-teal-dark);
+        }
+
+        .pt-button.secondary {
+            color: var(--pt-teal-dark);
+            border-color: #a7ceca;
+            background: #fff;
+        }
+
+        .pt-button.secondary:hover,
+        .pt-button.secondary:focus-visible {
+            background: #ecfdf9;
+        }
+
+        .pt-button.danger {
+            color: #991b1b;
+            border-color: #fecaca;
+            background: #fff;
+        }
+
+        .save-status {
+            align-self: center;
+            margin-left: auto;
+            color: #64757d;
+            font-size: 0.88rem;
+        }
+
+        .material-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .material-card {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+
+        .material-card .pt-button {
+            margin-top: auto;
+        }
+
+        .teacher-panel > details > summary {
+            cursor: pointer;
+            color: var(--pt-teal-dark);
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+
+        .teacher-panel > details > summary h2 {
+            margin: 0;
+            color: inherit;
+            font: inherit;
+        }
+
+        .teacher-panel > details[open] > summary {
+            margin-bottom: 1rem;
+        }
+
+        .teacher-box.warning {
+            border-color: #fed7aa;
+            background: #fffaf5;
+        }
+
+        .teacher-box.success {
+            border-color: #bbf7d0;
+            background: #f7fff9;
+        }
+
+        .back-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 0.75rem;
+            margin-top: 2rem;
+        }
+
+        #printStage {
+            display: none;
+        }
+
+        @media (max-width: 820px) {
+            .pt-hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-visual {
+                transform: none;
+            }
+
+            .role-grid,
+            .activity-grid,
+            .material-grid,
+            .field-grid,
+            .field-grid.three,
+            .teacher-grid,
+            .help-ladder,
+            .challenge-grid,
+            .online-grid,
+            .score-grid,
+            .timeline,
+            .guide-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .method-strip {
+                grid-template-columns: 1fr;
+            }
+
+            .method-step {
+                min-height: 0;
+                text-align: left;
+            }
+
+            .guide-preview {
+                position: static;
+            }
+
+            .day-header {
+                grid-template-columns: auto minmax(0, 1fr);
+            }
+
+            .day-time {
+                grid-column: 1 / -1;
+                width: fit-content;
+            }
+        }
+
+        @media (max-width: 620px) {
+            .pt-shell {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .pt-hero {
+                border-radius: 20px;
+            }
+
+            header .site-brand {
+                font-size: 1.5rem;
+            }
+
+            .day-visual img,
+            .section-visual img {
+                height: auto;
+                aspect-ratio: 1280 / 683;
+            }
+
+            .visual-caption {
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+
+            .visual-caption span {
+                border-radius: 10px;
+            }
+
+            .identity-strip,
+            .progress-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .evidence-track {
+                grid-column: 1;
+            }
+
+            .scenario-table,
+            .rubric-table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            .save-status {
+                width: 100%;
+                margin-left: 0;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        @media print {
+            nav,
+            .journey-nav,
+            .progress-panel,
+            .action-bar,
+            .material-grid,
+            .back-row,
+            footer,
+            .local-note,
+            .pt-button,
+            .hero-visual,
+            .day-visual,
+            .section-visual {
+                display: none !important;
+            }
+
+            body,
+            body.pt-page {
+                background: #fff !important;
+            }
+
+            .pt-card,
+            .day-card,
+            .teacher-panel,
+            .materials-panel,
+            .activity-block {
+                break-inside: avoid;
+                box-shadow: none;
+            }
+
+            body.printing-one > *:not(#printStage) {
+                display: none !important;
+            }
+
+            body.printing-one #printStage {
+                display: block !important;
+                padding: 1cm;
+            }
+
+            body.printing-one #printStage .activity-block,
+            body.printing-one #printStage .role-grid,
+            body.printing-one #printStage .rubric-table {
+                display: block;
+                border: 0;
+                box-shadow: none;
+            }
+
+            input,
+            textarea,
+            select {
+                color: #000 !important;
+                background: #fff !important;
+            }
+        }
+    </style>
+</head>
+<body class="pt-page">
+    <a class="skip-link" href="#contenuto">Salta al contenuto</a>
+
+    <header>
+        <div class="container">
+            <p class="site-brand">Metodologie Operative</p>
+            <p>Servizi per la Sanità e l'Assistenza Sociale</p>
+            <p style="font-size: 0.9rem; margin-top: 0.5rem;">IIS Meucci Mattei - Cagliari (Sede Decimomannu)</p>
+        </div>
+    </header>
+
+    <nav aria-label="Navigazione principale">
+        <ul>
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../../biennio.html">Biennio</a></li>
+            <li><a href="../../terzo.html">Terzo Anno</a></li>
+            <li><a href="../../quarto.html">Quarto Anno</a></li>
+            <li><a href="../../quinto.html">Quinto Anno</a></li>
+            <li><a href="../../laboratorio.html">Laboratorio</a></li>
+            <li><a href="../../peer_tutoring.html" class="active" aria-current="page">Peer Tutoring</a></li>
+            <li><a href="../../compresenza.html">Compresenza Scienze Umane</a></li>
+            <li><a href="../../anno-di-prova.html">Anno di Prova</a></li>
+        </ul>
+    </nav>
+
+    <main id="contenuto">
+        <div class="container pt-shell">
+            <section class="pt-hero" aria-labelledby="titolo-percorso">
+                <div class="pt-hero-grid">
+                    <div class="pt-hero-copy">
+                        <span class="pt-eyebrow"><span aria-hidden="true">🤝</span> Cross-age Peer Tutoring · Prototipo 2026–2027</span>
+                        <h1 id="titolo-percorso">Insieme nella prima SSAS</h1>
+                        <p>Gli alunni di prima lavorano con tutor delle classi terze, quarte e quinte per conoscere la scuola, imparare a studiare insieme e chiedere aiuto nel modo giusto.</p>
+                        <div class="pt-facts" aria-label="Caratteristiche del percorso">
+                            <span>3 incontri</span>
+                            <span>120 minuti ciascuno</span>
+                            <span>Alunni di prima + tutor di III, IV e V</span>
+                            <span>Prototipo didattico · laboratorio di avvio</span>
+                            <span>Esempi e sfide tra coppie</span>
+                            <span>Nessun voto</span>
+                        </div>
+                    </div>
+                    <figure class="hero-visual">
+                        <img src="assets/2026-2027/peer-tutoring-hero.webp"
+                             srcset="assets/2026-2027/peer-tutoring-hero-640.webp 640w, assets/2026-2027/peer-tutoring-hero.webp 1280w"
+                             sizes="(max-width: 820px) 100vw, 40vw"
+                             width="1280" height="683" fetchpriority="high" decoding="async"
+                             alt="Due coppie di studenti adolescenti lavorano insieme: gli alunni di prima svolgono le attività mentre i tutor li guidano con domande.">
+                    </figure>
+                    <div class="local-note">
+                        <span aria-hidden="true">🔒</span>
+                        <span>Le risposte vengono salvate soltanto su questo dispositivo e separate mediante classe e codice coppia. Il codice non è una password: non inserire nomi, fotografie, email, dati sanitari o racconti personali.</span>
+                    </div>
+                </div>
+            </section>
+
+            <div class="journey-nav" aria-label="Indice del percorso">
+                <a href="#presentazione">Prima di iniziare</a>
+                <a href="#aiuti">Come usare gli aiuti</a>
+                <a href="#giorno1">Incontro 1</a>
+                <a href="#giorno2">Incontro 2</a>
+                <a href="#giorno3">Incontro 3</a>
+                <a href="#sfide-online">Attività online</a>
+                <a href="#materiali">Schede</a>
+                <a href="#docente">Area docente</a>
+            </div>
+
+            <section class="progress-panel" aria-labelledby="titolo-tracce">
+                <div>
+                    <strong id="titolo-tracce">Tracce del lavoro raccolte</strong>
+                    <p>Indica soltanto quante produzioni sono state documentate: non è un voto e non misura da solo l'apprendimento.</p>
+                </div>
+                <span class="evidence-count" id="evidenceCount" aria-live="polite">0/22</span>
+                <div class="evidence-track" role="progressbar" aria-label="Tracce documentate" aria-valuemin="0" aria-valuemax="22" aria-valuenow="0" id="evidenceTrack">
+                    <div class="evidence-fill" id="evidenceFill"></div>
+                </div>
+            </section>
+
+            <form id="peerForm" autocomplete="off">
+                <section class="pt-card" id="presentazione" aria-labelledby="titolo-presentazione">
+                    <div class="section-heading">
+                        <span class="section-number" aria-hidden="true">0</span>
+                        <div>
+                            <h2 id="titolo-presentazione">Prima di iniziare</h2>
+                            <p>Il percorso è per gli alunni delle classi prime dell'indirizzo SSAS, affiancati da studenti tutor di terza, quarta e quinta. I ruoli restano distinti: il tutor accompagna, ma non svolge il lavoro al posto del compagno.</p>
+                        </div>
+                    </div>
+
+                    <div class="role-grid" id="ruoli">
+                        <article class="role-card tutee">
+                            <h3><span aria-hidden="true">🟠</span> Alunno di prima</h3>
+                            <ul class="plain-list">
+                                <li>Prova prima in autonomia.</li>
+                                <li>Dice che cosa ha già capito.</li>
+                                <li>Chiede un indizio, non la soluzione.</li>
+                                <li>Spiega con parole proprie.</li>
+                            </ul>
+                        </article>
+                        <article class="role-card tutor">
+                            <h3><span aria-hidden="true">🔵</span> Tutor di III, IV o V</h3>
+                            <ul class="plain-list">
+                                <li>Ascolta senza giudicare.</li>
+                                <li>Fa domande e lascia il tempo di pensare.</li>
+                                <li>Offre un solo indizio alla volta.</li>
+                                <li>Dice che cosa è riuscito bene e perché.</li>
+                            </ul>
+                        </article>
+                        <article class="role-card adult">
+                            <h3><span aria-hidden="true">🟢</span> Docente</h3>
+                            <ul class="plain-list">
+                                <li>Prepara le coppie e i materiali.</li>
+                                <li>Osserva e sostiene le attività.</li>
+                                <li>Interviene quando la coppia si blocca.</li>
+                                <li>Rimane il responsabile del percorso.</li>
+                            </ul>
+                        </article>
+                        <article class="role-card boundary">
+                            <h3><span aria-hidden="true">🔴</span> Un confine importante</h3>
+                            <p>Il tutor non è un insegnante, uno psicologo o un consulente. Se emerge un problema serio, ascolta senza interrogare e chiama il docente.</p>
+                        </article>
+                    </div>
+
+                    <div class="identity-strip">
+                        <div class="field">
+                            <label for="classCode">Classe</label>
+                            <input id="classCode" type="text" maxlength="4" placeholder="Esempio: 1SA">
+                            <small>Usa solo la sigla della classe.</small>
+                        </div>
+                        <div class="field">
+                            <label for="pairCode">Codice coppia</label>
+                            <input id="pairCode" type="text" maxlength="12" placeholder="Esempio: COPPIA-04">
+                            <small>Non inserire nomi e cognomi.</small>
+                        </div>
+                        <div class="field identity-action">
+                            <span class="field-label">Lavoro della coppia</span>
+                            <button class="pt-button" type="button" id="activatePair">Apri o inizia</button>
+                            <small>Per recuperare il lavoro, usa gli stessi due codici.</small>
+                        </div>
+                    </div>
+
+                    <div class="help-ladder-panel" id="aiuti">
+                        <h3>Se non sai come rispondere</h3>
+                        <p>Prima prova da solo. Se ti blocchi, apri un solo aiuto alla volta.</p>
+                        <div class="help-ladder">
+                            <div class="help-step">
+                                <strong>1. Prova</strong>
+                                <span>Rileggi la consegna, trova la parola che dice cosa fare e scrivi anche una sola idea.</span>
+                            </div>
+                            <div class="help-step">
+                                <strong>2. Inizia la frase</strong>
+                                <span>Scegli una frase per iniziare e completala con parole tue.</span>
+                            </div>
+                            <div class="help-step">
+                                <strong>3. Guarda gli esempi</strong>
+                                <span>Confronta più possibilità, scegline una e adattala. Non copiarla senza capirla.</span>
+                            </div>
+                        </div>
+                        <p class="option-note"><strong>Puoi scegliere come rispondere:</strong> una frase, un elenco, una piccola mappa oppure una spiegazione orale che il tutor trascrive usando le tue parole.</p>
+                    </div>
+                </section>
+
+                <section class="day-card day-one" id="giorno1" aria-labelledby="titolo-giorno1">
+                    <div class="day-header">
+                        <span class="day-badge" aria-hidden="true">1</span>
+                        <div>
+                            <h2 id="titolo-giorno1">Conosciamoci e orientiamoci</h2>
+                            <p>Sentirsi accolti e sapere a chi rivolgersi nella scuola.</p>
+                        </div>
+                        <span class="day-time">2 ore</span>
+                    </div>
+
+                    <figure class="day-visual">
+                        <img src="assets/2026-2027/incontro-1-orientarsi.webp"
+                             srcset="assets/2026-2027/incontro-1-orientarsi-640.webp 640w, assets/2026-2027/incontro-1-orientarsi.webp 1280w"
+                             sizes="(max-width: 1100px) 100vw, 1060px"
+                             width="1280" height="683" loading="lazy" decoding="async"
+                             alt="Due coppie di adolescenti consultano una mappa digitale e una pianta per orientarsi negli spazi della scuola.">
+                        <figcaption class="visual-caption">
+                            <span><strong>Obiettivo</strong> orientarsi</span>
+                            <span><strong>Prodotto</strong> bussola della scuola</span>
+                            <span><strong>Sfida</strong> la scelta più utile</span>
+                        </figcaption>
+                    </figure>
+
+                    <div class="day-content">
+                        <h3>Programma dei 120 minuti</h3>
+                        <ol class="timeline">
+                            <li><time>0–10</time><span>Presentazione del percorso e delle coppie.</span></li>
+                            <li><time>10–25</time><span>Ruoli: cosa fa il tutor e cosa fa l'alunno di prima.</span></li>
+                            <li><time>25–45</time><span>Tre cose in comune e una risorsa.</span></li>
+                            <li><time>45–75</time><span>Caccia digitale e bussola della scuola.</span></li>
+                            <li><time>75–85</time><span>Pausa.</span></li>
+                            <li><time>85–105</time><span>Gara tra coppie: la scelta più utile.</span></li>
+                            <li><time>105–115</time><span>Patto e carta personale per chiedere aiuto.</span></li>
+                            <li><time>115–120</time><span>Exit ticket individuale.</span></li>
+                        </ol>
+
+                        <div class="activity-block" id="attivita-conoscenza">
+                            <span class="activity-kicker">Attività in coppia</span>
+                            <h3>Tre cose in comune e una risorsa</h3>
+                            <p>Parlate di scuola, interessi e strategie utili. Non sono richiesti racconti personali.</p>
+                            <div class="field-grid three">
+                                <div class="field">
+                                    <label for="commonOne">Una cosa in comune</label>
+                                    <input id="commonOne" type="text" maxlength="80" data-save>
+                                </div>
+                                <div class="field">
+                                    <label for="commonTwo">Un'altra cosa in comune</label>
+                                    <input id="commonTwo" type="text" maxlength="80" data-save>
+                                </div>
+                                <div class="field">
+                                    <label for="pairStrength">Una risorsa della coppia</label>
+                                    <input id="pairStrength" type="text" maxlength="100" placeholder="Esempio: sappiamo ascoltare" data-save data-evidence>
+                                </div>
+                            </div>
+
+                            <details class="help-drawer">
+                                <summary>Mi serve un esempio o un'alternativa</summary>
+                                <div class="help-drawer-body">
+                                    <h4>Frasi per iniziare</h4>
+                                    <ul class="example-list">
+                                        <li>«Abbiamo in comune…»</li>
+                                        <li>«Quando non capiamo, entrambi…»</li>
+                                        <li>«La nostra coppia sa…»</li>
+                                    </ul>
+                                    <h4>Idee possibili</h4>
+                                    <p>Controllare l'orario · preferire esempi concreti · ricordare con colori o schemi · rileggere una consegna · imparare facendo.</p>
+                                    <div class="choice-row" aria-label="Esempi di risorse della coppia">
+                                        <button class="example-choice" type="button" data-fill-target="pairStrength" data-fill-value="Sappiamo ascoltare senza interrompere.">Usa: sappiamo ascoltare</button>
+                                        <button class="example-choice" type="button" data-fill-target="pairStrength" data-fill-value="Sappiamo fare una domanda chiara.">Usa: facciamo domande chiare</button>
+                                        <button class="example-choice" type="button" data-fill-target="pairStrength" data-fill-value="Sappiamo mettere in ordine le informazioni.">Usa: mettiamo in ordine</button>
+                                    </div>
+                                    <p class="option-note">Potete scrivere, scegliere una frase e adattarla oppure spiegare oralmente la risposta.</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <div class="activity-block" id="attivita-mappa">
+                            <span class="activity-kicker">Prodotto 1</span>
+                            <h3>La bussola della scuola</h3>
+                            <p>Individuate persone, luoghi e strumenti che possono aiutare un alunno di prima.</p>
+                            <div class="field-grid three">
+                                <div class="field">
+                                    <label for="schoolPerson">Una persona di riferimento</label>
+                                    <input id="schoolPerson" type="text" maxlength="100" placeholder="Esempio: coordinatore di classe" data-save data-evidence>
+                                </div>
+                                <div class="field">
+                                    <label for="schoolPlace">Un luogo importante</label>
+                                    <input id="schoolPlace" type="text" maxlength="100" placeholder="Esempio: segreteria didattica" data-save data-evidence>
+                                </div>
+                                <div class="field">
+                                    <label for="schoolTool">Uno strumento o canale</label>
+                                    <input id="schoolTool" type="text" maxlength="100" placeholder="Esempio: registro elettronico" data-save data-evidence>
+                                </div>
+                                <div class="field full">
+                                    <label for="schoolWhen">Quando potrebbero essermi utili?</label>
+                                    <textarea id="schoolWhen" maxlength="350" placeholder="Scrivi uno o due esempi concreti." data-save></textarea>
+                                </div>
+                            </div>
+
+                            <div class="online-mission" id="caccia-digitale">
+                                <span class="online-tag">Attività online · 30 minuti</span>
+                                <h3>Caccia digitale sul sito della scuola</h3>
+                                <p>Serve un solo dispositivo per coppia. Non occorre accedere con un account.</p>
+                                <ol class="simple-steps">
+                                    <li>Apri il <a href="https://www.iismeuccimattei.edu.it/" target="_blank" rel="noopener noreferrer">sito ufficiale del Meucci–Mattei</a>.</li>
+                                    <li>L'alunno di prima cerca; il tutor può indicare il menu o fare una domanda, ma non dà subito la risposta.</li>
+                                    <li>Trovate la pagina SSAS, la sede di Decimomannu e una pagina utile per gli studenti.</li>
+                                    <li>Scrivete qui ciò che avete trovato e controllate aprendo la fonte.</li>
+                                </ol>
+                                <div class="field-grid three">
+                                    <div class="field">
+                                        <label for="webSubjects">Tre materie SSAS trovate</label>
+                                        <input id="webSubjects" type="text" maxlength="180" placeholder="Materia 1 · Materia 2 · Materia 3" data-save>
+                                    </div>
+                                    <div class="field">
+                                        <label for="webLocation">Sede e indirizzo</label>
+                                        <input id="webLocation" type="text" maxlength="180" data-save>
+                                    </div>
+                                    <div class="field">
+                                        <label for="webUsefulPage">Una pagina utile e perché</label>
+                                        <input id="webUsefulPage" type="text" maxlength="220" data-save>
+                                    </div>
+                                </div>
+                                <details class="help-drawer">
+                                    <summary>Non troviamo le pagine: apri due scorciatoie</summary>
+                                    <div class="help-drawer-body">
+                                        <p><a href="https://www.iismeuccimattei.edu.it/indirizzo-di-studio/servizi-per-la-sanita-e-lassistenza-sociale/" target="_blank" rel="noopener noreferrer">Pagina ufficiale dell'indirizzo SSAS</a></p>
+                                        <p><a href="https://www.iismeuccimattei.edu.it/orario-lezioni/" target="_blank" rel="noopener noreferrer">Pagina ufficiale dell'orario delle lezioni</a></p>
+                                        <p>Frase per iniziare: «Questa pagina è utile quando devo…»</p>
+                                    </div>
+                                </details>
+                            </div>
+                        </div>
+
+                        <div class="activity-block" id="attivita-scenari">
+                            <span class="activity-kicker">Gara tra coppie · 20 minuti</span>
+                            <h3>Sfida 1 – La scelta più utile</h3>
+                            <p>Due coppie rispondono alle stesse quattro situazioni. Non vince chi è più veloce: le risposte si mostrano insieme.</p>
+                            <div class="challenge-meta">
+                                <span>Massimo 12 punti</span>
+                                <span>Parità possibile</span>
+                                <span>Nessuna eliminazione</span>
+                            </div>
+                            <ol class="simple-steps">
+                                <li>L'alunno di prima sceglie l'azione e spiega il perché.</li>
+                                <li>Il tutor può rileggere, fare una domanda o eliminare un'alternativa.</li>
+                                <li>Dopo quattro risposte, premete «Controlla le scelte».</li>
+                                <li>Per ogni situazione: 1 punto scelta, 1 motivazione, 1 rispetto dei ruoli.</li>
+                            </ol>
+                            <div style="overflow-x: auto;">
+                                <table class="scenario-table">
+                                    <thead>
+                                        <tr><th>Situazione</th><th>Prima azione</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Non trovo il laboratorio indicato nell'orario.</td>
+                                            <td>
+                                                <label class="visually-hidden" for="scenarioOne">Azione per il laboratorio</label>
+                                                <select id="scenarioOne" data-save data-correct="orientamento">
+                                                    <option value="">Scegli…</option>
+                                                    <option value="solo">Giro da solo finché lo trovo</option>
+                                                    <option value="orientamento">Controllo orario o mappa e chiedo orientamento</option>
+                                                    <option value="salto">Salto la lezione</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Non ho capito una consegna già spiegata.</td>
+                                            <td>
+                                                <label class="visually-hidden" for="scenarioTwo">Azione per la consegna</label>
+                                                <select id="scenarioTwo" data-save data-correct="indizio">
+                                                    <option value="">Scegli…</option>
+                                                    <option value="svolge">Il tutor svolge il compito</option>
+                                                    <option value="indizio">Dico cosa ho capito e chiedo un indizio</option>
+                                                    <option value="copio">Copio una risposta</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Non riesco ad accedere al registro elettronico.</td>
+                                            <td>
+                                                <label class="visually-hidden" for="scenarioThree">Azione per il registro elettronico</label>
+                                                <select id="scenarioThree" data-save data-evidence data-correct="adulto">
+                                                    <option value="">Scegli…</option>
+                                                    <option value="password">Comunico la password al tutor</option>
+                                                    <option value="adulto">Non condivido la password e chiedo al docente o alla segreteria</option>
+                                                    <option value="ignoro">Ignoro il problema</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Le due persone della coppia interpretano diversamente una consegna.</td>
+                                            <td>
+                                                <label class="visually-hidden" for="scenarioFour">Azione quando la coppia non è d'accordo</label>
+                                                <select id="scenarioFour" data-save data-correct="domanda">
+                                                    <option value="">Scegli…</option>
+                                                    <option value="tutor">Decide sempre il tutor</option>
+                                                    <option value="domanda">Formuliamo una domanda precisa per il docente</option>
+                                                    <option value="caso">Scegliamo a caso</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button class="pt-button secondary" type="button" id="checkChallengeOne" style="margin-top: 0.9rem;">Controlla le quattro scelte</button>
+                            <div class="quiz-feedback" id="challengeOneFeedback" role="status" aria-live="polite">Il risultato delle scelte apparirà qui.</div>
+                            <div class="score-grid">
+                                <div class="field">
+                                    <label for="challengeOneUs">Punti della nostra coppia (0–12)</label>
+                                    <input id="challengeOneUs" type="number" min="0" max="12" step="1" inputmode="numeric" data-save>
+                                </div>
+                                <div class="field">
+                                    <label for="challengeOneOther">Punti dell'altra coppia (0–12)</label>
+                                    <input id="challengeOneOther" type="number" min="0" max="12" step="1" inputmode="numeric" data-save>
+                                </div>
+                            </div>
+                            <div class="safety-box">
+                                <strong>Le situazioni personali o di pericolo non diventano mai una gara.</strong>
+                                Se qualcosa ti mette a disagio o ti preoccupa, interrompi l'attività e parla direttamente con il docente presente o con un altro adulto della scuola.
+                            </div>
+                        </div>
+
+                        <div class="activity-block" id="patto-carta">
+                            <span class="activity-kicker">Patto e carta personale · 10 minuti</span>
+                            <h3>Come lavoriamo e che cosa faccio quando mi blocco</h3>
+                            <div class="check-list">
+                                <label class="check-item"><input type="checkbox" id="pactTry" data-save><span>L'alunno di prima prova prima di ricevere aiuto.</span></label>
+                                <label class="check-item"><input type="checkbox" id="pactHint" data-save><span>Il tutor offre indizi e non dà subito la risposta.</span></label>
+                                <label class="check-item"><input type="checkbox" id="pactRespect" data-save><span>Usiamo parole rispettose e possiamo chiedere una pausa.</span></label>
+                                <label class="check-item"><input type="checkbox" id="pactAdult" data-save><span>Se siamo in difficoltà, coinvolgiamo il docente.</span></label>
+                            </div>
+                            <div class="field-grid three" style="margin-top: 1rem;">
+                                <div class="field">
+                                    <label for="helpCardFirst">1. Prima provo a…</label>
+                                    <input id="helpCardFirst" type="text" maxlength="160" placeholder="Esempio: rileggere la consegna" data-save>
+                                </div>
+                                <div class="field">
+                                    <label for="helpCardPhrase">2. Poi dico al tutor…</label>
+                                    <input id="helpCardPhrase" type="text" maxlength="180" placeholder="Mi fai una domanda per iniziare?" data-save data-evidence>
+                                </div>
+                                <div class="field">
+                                    <label for="helpCardAdult">3. Se non basta, chiedo a…</label>
+                                    <input id="helpCardAdult" type="text" maxlength="160" placeholder="Esempio: docente della disciplina" data-save>
+                                </div>
+                            </div>
+                            <p class="option-note"><strong>Altre possibilità:</strong> sottolineare la parola importante · dividere la consegna in due passaggi · chiedere «Dove posso cercare?» · mostrare al docente il punto preciso che non è chiaro.</p>
+                            <div class="field" style="margin-top: 1rem;">
+                                <label for="dayOneExit">Ora so a chi rivolgermi per…</label>
+                                <textarea id="dayOneExit" maxlength="280" data-save data-evidence></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="day-card day-two" id="giorno2" aria-labelledby="titolo-giorno2">
+                    <div class="day-header">
+                        <span class="day-badge" aria-hidden="true">2</span>
+                        <div>
+                            <h2 id="titolo-giorno2">Studiamo insieme</h2>
+                            <p>Trovare l'idea centrale, scegliere parole chiave e costruire una piccola mappa.</p>
+                        </div>
+                        <span class="day-time">2 ore</span>
+                    </div>
+
+                    <figure class="day-visual">
+                        <img src="assets/2026-2027/incontro-2-mappa.webp"
+                             srcset="assets/2026-2027/incontro-2-mappa-640.webp 640w, assets/2026-2027/incontro-2-mappa.webp 1280w"
+                             sizes="(max-width: 1100px) 100vw, 1060px"
+                             width="1280" height="683" loading="lazy" decoding="async"
+                             alt="Sul tavolo, gli alunni di prima scelgono parole chiave e costruiscono mappe mentre i tutor li guidano con domande.">
+                        <figcaption class="visual-caption">
+                            <span><strong>Obiettivo</strong> capire un testo</span>
+                            <span><strong>Prodotto</strong> mappa con parole chiave</span>
+                            <span><strong>Sfida</strong> il messaggio nascosto</span>
+                        </figcaption>
+                    </figure>
+
+                    <div class="day-content">
+                        <h3>Programma dei 120 minuti</h3>
+                        <ol class="timeline">
+                            <li><time>0–10</time><span>Ripresa del patto e dell'obiettivo.</span></li>
+                            <li><time>10–25</time><span>Prima prova individuale sul testo.</span></li>
+                            <li><time>25–40</time><span>Dimostrazione: risposta pronta o aiuto?</span></li>
+                            <li><time>40–65</time><span>Lettura, parole chiave e prima mappa.</span></li>
+                            <li><time>65–75</time><span>Pausa.</span></li>
+                            <li><time>75–95</time><span>Gara tra coppie: il messaggio nascosto.</span></li>
+                            <li><time>95–110</time><span>L'alunno di prima spiega la mappa.</span></li>
+                            <li><time>110–120</time><span>Confronto e scelta di una strategia.</span></li>
+                        </ol>
+
+                        <div class="activity-block" id="attivita-testo">
+                            <span class="activity-kicker">Prima prova individuale</span>
+                            <h3>Dal testo alla mappa</h3>
+                            <p class="help-text">Il docente può sostituire questo esempio con un breve testo SSAS già affrontato in classe.</p>
+                            <div class="case-text">
+                                Nelle prime settimane Alessia annota i compiti su fogli diversi e spesso non ricorda quale materiale portare. Quando una consegna non è chiara rimane in silenzio, perché teme di fare una brutta figura. Il tutor non prepara lo zaino al posto suo: le chiede che cosa abbia già provato, aspetta la risposta e le mostra come riunire orario e compiti in una sola tabella settimanale. Alessia sceglie la soluzione che ritiene più utile e prova a usarla.
+                            </div>
+                            <div class="field-grid">
+                                <div class="field">
+                                    <label for="initialIdea">Qual è l'idea centrale?</label>
+                                    <textarea id="initialIdea" maxlength="300" data-save data-evidence></textarea>
+                                </div>
+                                <div class="field">
+                                    <label for="initialKeywords">Scrivi tre parole chiave</label>
+                                    <textarea id="initialKeywords" maxlength="160" placeholder="Separale con una virgola." data-save data-evidence></textarea>
+                                </div>
+                                <div class="field">
+                                    <label for="identifiedNeed">Quale bisogno riconosci?</label>
+                                    <textarea id="identifiedNeed" maxlength="240" data-save></textarea>
+                                </div>
+                                <div class="field">
+                                    <label for="identifiedResource">Quale risorsa può aiutare?</label>
+                                    <textarea id="identifiedResource" maxlength="240" data-save></textarea>
+                                </div>
+                            </div>
+
+                            <details class="help-drawer">
+                                <summary>Aiuti graduati: frasi, esempi e risposte alternative</summary>
+                                <div class="help-drawer-body">
+                                    <h4>Prima apri una sola frase</h4>
+                                    <ul class="example-list">
+                                        <li>«L'idea centrale è…»</li>
+                                        <li>«Il problema principale riguarda…»</li>
+                                        <li>«Questa parola è importante perché…»</li>
+                                        <li>«Prima…, poi…, infine…»</li>
+                                    </ul>
+                                    <h4>Tre idee centrali possibili</h4>
+                                    <div class="choice-row">
+                                        <button class="example-choice" type="button" data-fill-target="initialIdea" data-fill-value="Alessia impara a organizzarsi con l'aiuto del tutor.">Alessia impara a organizzarsi</button>
+                                        <button class="example-choice" type="button" data-fill-target="initialIdea" data-fill-value="Il tutor aiuta Alessia a trovare una strategia senza sostituirsi a lei.">Il tutor non si sostituisce</button>
+                                        <button class="example-choice" type="button" data-fill-target="initialIdea" data-fill-value="Una tabella riunisce orario, compiti e materiali e aiuta Alessia a diventare autonoma.">La tabella sostiene l'autonomia</button>
+                                    </div>
+                                    <h4>Tre gruppi di parole chiave</h4>
+                                    <div class="choice-row">
+                                        <button class="example-choice" type="button" data-fill-target="initialKeywords" data-fill-value="organizzazione, tabella, autonomia">Organizzazione · tabella · autonomia</button>
+                                        <button class="example-choice" type="button" data-fill-target="initialKeywords" data-fill-value="compiti, materiali, strategia">Compiti · materiali · strategia</button>
+                                        <button class="example-choice" type="button" data-fill-target="initialKeywords" data-fill-value="domanda, scelta, tentativo">Domanda · scelta · tentativo</button>
+                                    </div>
+                                    <p class="option-note">Dopo aver scelto un esempio, cambiate almeno una parte e spiegate perché è adatto al testo.</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <div class="activity-block">
+                            <span class="activity-kicker">Carta del tutor</span>
+                            <h3>Le cinque mosse per aiutare bene</h3>
+                            <div class="method-strip">
+                                <div class="method-step"><strong>1. Chiedi</strong><span>«Che cosa hai già capito?»</span></div>
+                                <div class="method-step"><strong>2. Aspetta</strong><span>Lascia alcuni secondi per pensare.</span></div>
+                                <div class="method-step"><strong>3. Dai un indizio</strong><span>Uno solo, senza risolvere.</span></div>
+                                <div class="method-step"><strong>4. Fai riprovare</strong><span>Il lavoro resta del compagno.</span></div>
+                                <div class="method-step"><strong>5. Dai feedback</strong><span>«Hai fatto bene perché…»</span></div>
+                            </div>
+                        </div>
+
+                        <div class="activity-block">
+                            <span class="activity-kicker">Prodotto 2</span>
+                            <h3>La nostra mappa finale</h3>
+                            <div class="field-grid">
+                                <div class="field">
+                                    <label for="mapCenter">Al centro della mappa</label>
+                                    <input id="mapCenter" type="text" maxlength="120" placeholder="Idea centrale" data-save data-evidence>
+                                </div>
+                                <div class="field">
+                                    <label for="mapKeywords">Tre nodi principali</label>
+                                    <input id="mapKeywords" type="text" maxlength="180" placeholder="Nodo 1 · Nodo 2 · Nodo 3" data-save data-evidence>
+                                </div>
+                                <div class="field full">
+                                    <label for="mapLinks">Come sono collegati?</label>
+                                    <textarea id="mapLinks" maxlength="400" placeholder="Usa parole-legame: perché, quindi, attraverso, serve a…" data-save data-evidence></textarea>
+                                </div>
+                                <div class="field full">
+                                    <label for="studyStrategy">La strategia che voglio riutilizzare</label>
+                                    <textarea id="studyStrategy" maxlength="260" placeholder="Esempio: prima leggo, poi scelgo tre parole chiave…" data-save data-evidence></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="challenge-card" id="attivita-sfida2">
+                            <span class="activity-kicker">Gara tra coppie · 20 minuti</span>
+                            <h3>Sfida 2 – Il messaggio nascosto</h3>
+                            <p>Il docente sceglie un testo e assegna la stessa versione alle due coppie avversarie: normale oppure facilitata.</p>
+                            <div class="challenge-grid">
+                                <div class="challenge-option">
+                                    <strong>A. Organizzazione</strong>
+                                    <p>Prima del laboratorio Luca legge la consegna, controlla i materiali, mette in ordine le fasi e alla fine riordina. Così evita dimenticanze e lavora in sicurezza.</p>
+                                </div>
+                                <div class="challenge-option">
+                                    <strong>B. Ascolto</strong>
+                                    <p>Durante una simulazione Elena lascia terminare il compagno, ripete con parole proprie ciò che ha capito e chiede conferma.</p>
+                                </div>
+                                <div class="challenge-option">
+                                    <strong>C. Studio</strong>
+                                    <p>Omar legge un paragrafo, sceglie tre parole importanti, le collega in una mappa e prova a spiegare il testo senza guardarlo.</p>
+                                </div>
+                                <div class="challenge-option">
+                                    <strong>Versione facilitata</strong>
+                                    <p>Il docente divide lo stesso testo in righe brevi. Sono ammesse risposta orale, carte-parola o frase da completare. Il punteggio non cambia.</p>
+                                </div>
+                            </div>
+                            <ol class="simple-steps">
+                                <li>In 5 minuti l'alunno di prima sceglie l'idea centrale.</li>
+                                <li>In 5 minuti individua tre parole chiave.</li>
+                                <li>In 4 minuti collega le informazioni con «perché», «quindi» o «serve a».</li>
+                                <li>Le coppie mostrano insieme le risposte; il docente assegna i punti.</li>
+                            </ol>
+                            <div class="field-grid three">
+                                <div class="field">
+                                    <label for="challengeTwoIdea">La nostra idea centrale</label>
+                                    <textarea id="challengeTwoIdea" maxlength="260" data-save></textarea>
+                                </div>
+                                <div class="field">
+                                    <label for="challengeTwoKeywords">Tre parole chiave</label>
+                                    <textarea id="challengeTwoKeywords" maxlength="180" data-save></textarea>
+                                </div>
+                                <div class="field">
+                                    <label for="challengeTwoLink">Un collegamento</label>
+                                    <textarea id="challengeTwoLink" maxlength="260" placeholder="… perché …" data-save></textarea>
+                                </div>
+                            </div>
+                            <p class="option-note"><strong>Punti, massimo 8:</strong> 2 idea e prova nel testo · 3 parole chiave · 2 collegamento · 1 rispetto dei ruoli.</p>
+                            <div class="score-grid">
+                                <div class="field">
+                                    <label for="challengeTwoUs">Punti della nostra coppia (0–8)</label>
+                                    <input id="challengeTwoUs" type="number" min="0" max="8" step="1" inputmode="numeric" data-save>
+                                </div>
+                                <div class="field">
+                                    <label for="challengeTwoOther">Punti dell'altra coppia (0–8)</label>
+                                    <input id="challengeTwoOther" type="number" min="0" max="8" step="1" inputmode="numeric" data-save>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="activity-block">
+                            <span class="activity-kicker">Obiettivo</span>
+                            <h3>Un piccolo passo verificabile</h3>
+                            <div class="field">
+                                <label for="nextMeetingGoal">Nel prossimo incontro riuscirò a…</label>
+                                <textarea id="nextMeetingGoal" maxlength="280" placeholder="Scrivi un'azione osservabile, non una frase generica." data-save></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="day-card day-three" id="giorno3" aria-labelledby="titolo-giorno3">
+                    <div class="day-header">
+                        <span class="day-badge" aria-hidden="true">3</span>
+                        <div>
+                            <h2 id="titolo-giorno3">Costruiamo la guida della prima SSAS</h2>
+                            <p>Usare ciò che abbiamo imparato per creare un prodotto utile ad altri studenti.</p>
+                        </div>
+                        <span class="day-time">2 ore</span>
+                    </div>
+
+                    <figure class="day-visual">
+                        <img src="assets/2026-2027/incontro-3-guida.webp"
+                             srcset="assets/2026-2027/incontro-3-guida-640.webp 640w, assets/2026-2027/incontro-3-guida.webp 1280w"
+                             sizes="(max-width: 1100px) 100vw, 1060px"
+                             width="1280" height="683" loading="lazy" decoding="async"
+                             alt="Un alunno di prima presenta una mini-guida a un'altra coppia durante una sfida collaborativa.">
+                        <figcaption class="visual-caption">
+                            <span><strong>Obiettivo</strong> usare le strategie</span>
+                            <span><strong>Prodotto</strong> mini-guida della prima SSAS</span>
+                            <span><strong>Sfida</strong> la guida alla prova</span>
+                        </figcaption>
+                    </figure>
+
+                    <div class="day-content">
+                        <h3>Programma dei 120 minuti</h3>
+                        <ol class="timeline">
+                            <li><time>0–10</time><span>Ripresa dell'obiettivo personale.</span></li>
+                            <li><time>10–30</time><span>Nuova prova individuale su un testo parallelo.</span></li>
+                            <li><time>30–50</time><span>Revisione con domande e indizi.</span></li>
+                            <li><time>50–60</time><span>Confronto fra prova iniziale e finale.</span></li>
+                            <li><time>60–70</time><span>Pausa.</span></li>
+                            <li><time>70–95</time><span>Creazione della mini-guida.</span></li>
+                            <li><time>95–108</time><span>Gara tra coppie: la guida alla prova.</span></li>
+                            <li><time>108–120</time><span>Autovalutazione e prossimo passo.</span></li>
+                        </ol>
+
+                        <div class="activity-block" id="attivita-prova-parallela">
+                            <span class="activity-kicker">Prova individuale e revisione · 40 minuti</span>
+                            <h3>Testo parallelo: prima provo, poi miglioro</h3>
+                            <p class="help-text">Il docente può sostituire questo brano con un testo breve, di difficoltà simile, già affrontato in classe.</p>
+                            <div class="case-text">
+                                Per un'attività di laboratorio Karim deve preparare la scheda, i materiali e le diverse fasi del lavoro. All'inizio legge tutto in fretta e dimentica un passaggio. Poi numera le azioni, controlla i materiali e formula una domanda sul punto che non capisce. Il tutor gli chiede quale azione venga prima e aspetta la risposta. Karim mette da solo le fasi nell'ordine corretto e controlla il lavoro.
+                            </div>
+                            <ol class="simple-steps">
+                                <li><strong>10–30:</strong> l'alunno di prima legge da solo e compila i primi due campi. Il tutor non interviene.</li>
+                                <li><strong>30–50:</strong> il tutor usa le cinque mosse: chiede, aspetta, dà un indizio, fa riprovare e commenta un progresso.</li>
+                                <li>L'alunno di prima compila la risposta rivista: può cambiare anche una sola parola.</li>
+                                <li><strong>50–60:</strong> la coppia confronta le due risposte e completa «Che cosa è cambiato?».</li>
+                            </ol>
+                            <div class="field-grid">
+                                <div class="field">
+                                    <label for="parallelIdeaFirst">Primo tentativo: idea centrale</label>
+                                    <textarea id="parallelIdeaFirst" maxlength="300" data-save></textarea>
+                                </div>
+                                <div class="field">
+                                    <label for="parallelKeywordsFirst">Primo tentativo: tre parole chiave</label>
+                                    <textarea id="parallelKeywordsFirst" maxlength="180" placeholder="Parola 1 · Parola 2 · Parola 3" data-save></textarea>
+                                </div>
+                                <div class="field">
+                                    <label for="parallelIdeaRevised">Dopo gli indizi: idea centrale rivista</label>
+                                    <textarea id="parallelIdeaRevised" maxlength="300" data-save data-evidence></textarea>
+                                </div>
+                                <div class="field">
+                                    <label for="parallelKeywordsRevised">Dopo gli indizi: tre parole chiave riviste</label>
+                                    <textarea id="parallelKeywordsRevised" maxlength="180" placeholder="Parola 1 · Parola 2 · Parola 3" data-save></textarea>
+                                </div>
+                            </div>
+                            <details class="help-drawer">
+                                <summary>Apri soltanto dopo il primo tentativo: esempio e alternative</summary>
+                                <div class="help-drawer-body">
+                                    <p><strong>Un'idea centrale possibile:</strong> Karim impara a organizzare le fasi e a chiarire un dubbio senza farsi sostituire dal tutor.</p>
+                                    <p><strong>Parole possibili:</strong> fasi · materiali · domanda · ordine · autonomia.</p>
+                                    <p class="option-note">Non serve ottenere la stessa frase: la risposta è adatta se riassume il testo e può essere spiegata con parole proprie.</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <div class="activity-block">
+                            <span class="activity-kicker">Confronto · 10 minuti</span>
+                            <h3>Che cosa è cambiato?</h3>
+                            <div class="field-grid">
+                                <div class="field">
+                                    <label for="beforeHelp">Nel primo tentativo avevo bisogno di aiuto per…</label>
+                                    <textarea id="beforeHelp" maxlength="300" data-save></textarea>
+                                </div>
+                                <div class="field">
+                                    <label for="nowCan">Dopo le domande e gli indizi riesco a…</label>
+                                    <textarea id="nowCan" maxlength="300" data-save data-evidence></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="activity-block" id="attivita-guida">
+                            <span class="activity-kicker">Prodotto finale</span>
+                            <h3>Mini-guida della prima SSAS</h3>
+                            <div class="guide-layout">
+                                <div class="field-grid">
+                                    <div class="field full">
+                                        <label for="guideMessage">Messaggio di benvenuto</label>
+                                        <textarea id="guideMessage" maxlength="300" placeholder="Scrivete una frase semplice per chi inizia la prima." data-save data-evidence data-preview="previewMessage"></textarea>
+                                    </div>
+                                    <div class="field full">
+                                        <label for="guidePeople">Tre persone alle quali chiedere aiuto</label>
+                                        <textarea id="guidePeople" maxlength="300" data-save data-evidence data-preview="previewPeople"></textarea>
+                                    </div>
+                                    <div class="field full">
+                                        <label for="guidePlaces">Tre spazi importanti della scuola</label>
+                                        <textarea id="guidePlaces" maxlength="300" data-save data-evidence data-preview="previewPlaces"></textarea>
+                                    </div>
+                                    <div class="field full">
+                                        <label for="guideTips">Tre consigli per organizzare lo studio</label>
+                                        <textarea id="guideTips" maxlength="360" data-save data-evidence data-preview="previewTips"></textarea>
+                                    </div>
+                                    <div class="field full">
+                                        <label for="guideAsk">Come chiedere un indizio senza farsi dare la risposta</label>
+                                        <textarea id="guideAsk" maxlength="300" data-save data-evidence data-preview="previewAsk"></textarea>
+                                    </div>
+                                </div>
+
+                                <aside class="guide-preview" aria-labelledby="titolo-anteprima">
+                                    <div class="guide-preview-header">
+                                        <h3 id="titolo-anteprima">La nostra guida</h3>
+                                        <p>Prima SSAS · 2026–2027</p>
+                                    </div>
+                                    <div class="guide-preview-body">
+                                        <div class="preview-block"><strong>Benvenuto</strong><span id="previewMessage" class="placeholder-text">Il messaggio apparirà qui.</span></div>
+                                        <div class="preview-block"><strong>A chi chiedere aiuto</strong><span id="previewPeople" class="placeholder-text">Inserite tre persone.</span></div>
+                                        <div class="preview-block"><strong>Spazi importanti</strong><span id="previewPlaces" class="placeholder-text">Inserite tre spazi.</span></div>
+                                        <div class="preview-block"><strong>Studiare meglio</strong><span id="previewTips" class="placeholder-text">Inserite tre consigli.</span></div>
+                                        <div class="preview-block"><strong>Chiedere un indizio</strong><span id="previewAsk" class="placeholder-text">Scrivete una frase utile.</span></div>
+                                    </div>
+                                </aside>
+                            </div>
+
+                            <details class="help-drawer">
+                                <summary>Apri esempi, frasi per iniziare e cinque forme alternative</summary>
+                                <div class="help-drawer-body">
+                                    <h4>Messaggi di benvenuto</h4>
+                                    <div class="choice-row">
+                                        <button class="example-choice" type="button" data-fill-target="guideMessage" data-fill-value="È normale non conoscere subito tutti gli spazi della scuola.">È normale non sapere tutto</button>
+                                        <button class="example-choice" type="button" data-fill-target="guideMessage" data-fill-value="Chiedere un chiarimento è un modo per imparare.">Chiedere aiuto fa imparare</button>
+                                        <button class="example-choice" type="button" data-fill-target="guideMessage" data-fill-value="Procedi un passaggio alla volta: non devi fare tutto subito.">Un passaggio alla volta</button>
+                                    </div>
+                                    <h4>Consigli tra cui scegliere</h4>
+                                    <p>Controlla orario e registro · prepara una lista dei materiali · dividi una consegna lunga · segna le parole non comprese · controlla il lavoro alla fine.</p>
+                                    <h4>Frasi per chiedere un indizio</h4>
+                                    <div class="choice-row">
+                                        <button class="example-choice" type="button" data-fill-target="guideAsk" data-fill-value="Mi fai una domanda che mi aiuti a iniziare?">Fammi una domanda</button>
+                                        <button class="example-choice" type="button" data-fill-target="guideAsk" data-fill-value="Puoi indicarmi dove cercare senza darmi la risposta?">Indicami dove cercare</button>
+                                        <button class="example-choice" type="button" data-fill-target="guideAsk" data-fill-value="Mi controlli soltanto il primo passaggio?">Controlla il primo passaggio</button>
+                                    </div>
+                                    <p class="option-note"><strong>La guida può essere:</strong> una pagina a riquadri, un fumetto, un mazzo di carte situazione–consiglio, un percorso illustrato oppure una serie di domande e risposte.</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <div class="challenge-card" id="attivita-sfida3">
+                            <span class="activity-kicker">Gara tra coppie · 13 minuti</span>
+                            <h3>Sfida 3 – La guida alla prova</h3>
+                            <p>Ogni coppia sfida un'altra coppia. L'alunno di prima presenta la guida e risponde a una missione; il tutor può usare solo domande o indizi.</p>
+                            <ol class="simple-steps">
+                                <li>Formate tavoli da due coppie.</li>
+                                <li>Premete «Estrai una missione» oppure scegliete una carta.</li>
+                                <li>La coppia A ha 4 minuti; poi risponde la coppia B.</li>
+                                <li>Alla fine è possibile migliorare una risposta dopo un nuovo indizio.</li>
+                            </ol>
+                            <button class="pt-button secondary" type="button" id="drawMission">Estrai una missione</button>
+                            <div class="mission-output" id="missionOutput" role="status" aria-live="polite">La missione apparirà qui.</div>
+                            <details class="help-drawer" id="missionList">
+                                <summary>Preferiamo scegliere: mostra tutte le missioni</summary>
+                                <div class="help-drawer-body">
+                                    <ul class="example-list">
+                                        <li>Domani vai per la prima volta in laboratorio: come ti prepari e come lo trovi?</li>
+                                        <li>Non sai quale sia il primo passo di una consegna: che cosa fai?</li>
+                                        <li>Dimentichi spesso il materiale: quale strategia puoi provare?</li>
+                                        <li>Non trovi una comunicazione ufficiale: quale canale o persona scegli?</li>
+                                        <li>Vuoi un indizio senza la risposta: quale frase usi?</li>
+                                        <li>La coppia non risolve un dubbio: qual è il passo successivo?</li>
+                                    </ul>
+                                </div>
+                            </details>
+                            <div class="field-grid">
+                                <div class="field">
+                                    <label for="challengeThreeAnswer">Risposta dell'alunno di prima</label>
+                                    <textarea id="challengeThreeAnswer" maxlength="420" placeholder="Per prima cosa… / Chiederei a… perché…" data-save></textarea>
+                                </div>
+                                <div class="field">
+                                    <label for="challengeThreeImprove">Un miglioramento dopo il confronto</label>
+                                    <textarea id="challengeThreeImprove" maxlength="320" data-save></textarea>
+                                </div>
+                            </div>
+                            <p class="option-note"><strong>Punti, massimo 5:</strong> trova la sezione utile · propone un'azione · indica persona/luogo/strumento · spiega il motivo · risponde l'alunno di prima.</p>
+                            <div class="score-grid">
+                                <div class="field">
+                                    <label for="challengeThreeUs">Punti della nostra coppia (0–5)</label>
+                                    <input id="challengeThreeUs" type="number" min="0" max="5" step="1" inputmode="numeric" data-save>
+                                </div>
+                                <div class="field">
+                                    <label for="challengeThreeOther">Punti dell'altra coppia (0–5)</label>
+                                    <input id="challengeThreeOther" type="number" min="0" max="5" step="1" inputmode="numeric" data-save>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="activity-block" id="autovalutazione">
+                            <span class="activity-kicker">Riflessione finale</span>
+                            <h3>Il prossimo passo</h3>
+                            <div class="field-grid">
+                                <div class="field">
+                                    <label for="proudOf">Un risultato di cui sono soddisfatto</label>
+                                    <textarea id="proudOf" maxlength="300" data-save data-evidence></textarea>
+                                </div>
+                                <div class="field">
+                                    <label for="nextStep">Il mio prossimo passo concreto</label>
+                                    <textarea id="nextStep" maxlength="300" data-save data-evidence></textarea>
+                                </div>
+                            </div>
+                            <div class="safety-box">
+                                <strong>Se vuoi parlare con un adulto</strong>
+                                Non scrivere qui informazioni personali: rivolgiti direttamente al docente presente.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="pt-card" id="sfide-online" aria-labelledby="titolo-online">
+                    <div class="section-heading">
+                        <span class="section-number" aria-hidden="true">@</span>
+                        <div>
+                            <h2 id="titolo-online">Attività online: scegli la modalità più adatta</h2>
+                            <p>La caccia digitale e le tre sfide della pagina sono già pronte. Queste sono varianti facoltative per rendere l'attività ancora più dinamica.</p>
+                        </div>
+                    </div>
+                    <figure class="section-visual">
+                        <img src="assets/2026-2027/attivita-online.webp"
+                             srcset="assets/2026-2027/attivita-online-640.webp 640w, assets/2026-2027/attivita-online.webp 1280w"
+                             sizes="(max-width: 1100px) 100vw, 1020px"
+                             width="1280" height="683" loading="lazy" decoding="async"
+                             alt="Tre coppie di adolescenti partecipano a giochi digitali collaborativi usando tablet e carte-domanda, senza classifica pubblica.">
+                        <figcaption class="visual-caption">
+                            <span><strong>Un dispositivo</strong> per coppia</span>
+                            <span><strong>Risponde</strong> l'alunno di prima</span>
+                            <span><strong>Guida</strong> il tutor con domande</span>
+                        </figcaption>
+                    </figure>
+                    <div class="online-grid">
+                        <article class="online-card">
+                            <span class="online-tag">Pronta subito · nessun account</span>
+                            <h3>Caccia digitale della scuola</h3>
+                            <ol class="simple-steps">
+                                <li>Una coppia apre il sito ufficiale.</li>
+                                <li>L'alunno di prima cerca tre informazioni.</li>
+                                <li>Il tutor offre soltanto indicazioni o domande.</li>
+                                <li>Le coppie confrontano fonte e risposta.</li>
+                            </ol>
+                            <a class="pt-button secondary" href="#caccia-digitale">Vai alla caccia pronta</a>
+                        </article>
+                        <article class="online-card">
+                            <span class="online-tag">Wordwall · preparazione docente</span>
+                            <h3>Memory o riordino delle strategie</h3>
+                            <ol class="simple-steps">
+                                <li>Il docente crea 8 coppie «situazione–azione» oppure 6 passaggi da riordinare.</li>
+                                <li>Condivide il link dell'attività.</li>
+                                <li>L'alunno di prima muove le carte; il tutor fa domande.</li>
+                                <li>Si registra il risultato con il solo codice coppia.</li>
+                            </ol>
+                            <p class="help-text">Gli studenti possono giocare dal link senza creare un account.</p>
+                            <a class="pt-button secondary" href="https://wordwall.net/" target="_blank" rel="noopener noreferrer">Apri Wordwall</a>
+                        </article>
+                        <article class="online-card">
+                            <span class="online-tag">Kahoot · quiz live</span>
+                            <h3>Duello delle scelte utili</h3>
+                            <ol class="simple-steps">
+                                <li>Il docente inserisce le situazioni della Sfida 1 in un quiz.</li>
+                                <li>Mostra il PIN o il codice QR.</li>
+                                <li>Ogni coppia entra con il proprio codice, senza nomi.</li>
+                                <li>L'alunno di prima sceglie; il tutor lo guida con una domanda.</li>
+                            </ol>
+                            <p class="help-text">Per partecipare basta il PIN: non serve un account studente.</p>
+                            <a class="pt-button secondary" href="https://kahoot.it/" target="_blank" rel="noopener noreferrer">Entra in Kahoot</a>
+                        </article>
+                        <article class="online-card">
+                            <span class="online-tag">Mentimeter · conclusione</span>
+                            <h3>Nuvola delle strategie utili</h3>
+                            <ol class="simple-steps">
+                                <li>Il docente prepara la domanda: «Quale strategia userai ancora?»</li>
+                                <li>Mostra il codice o il QR.</li>
+                                <li>Ogni coppia invia da una a tre parole.</li>
+                                <li>La classe legge la nuvola e sceglie due idee da provare.</li>
+                            </ol>
+                            <p class="help-text">Le risposte possono essere anonime; non inserire nomi o informazioni personali.</p>
+                            <a class="pt-button secondary" href="https://www.menti.com/" target="_blank" rel="noopener noreferrer">Entra in Mentimeter</a>
+                        </article>
+                    </div>
+                    <div class="field" style="margin-top: 1rem;">
+                        <label for="chosenOnlineMode">Quale modalità useremo?</label>
+                        <select id="chosenOnlineMode" data-save>
+                            <option value="">Scegli…</option>
+                            <option value="pagina">Sfide già presenti nella pagina</option>
+                            <option value="caccia">Caccia digitale sul sito della scuola</option>
+                            <option value="wordwall">Wordwall</option>
+                            <option value="kahoot">Kahoot</option>
+                            <option value="mentimeter">Mentimeter</option>
+                        </select>
+                    </div>
+                    <p class="safety-box"><strong>Prima di usare servizi esterni</strong> Il docente verifica le regole digitali della scuola e le impostazioni del servizio. Si usa un dispositivo per coppia, il codice coppia al posto del nome e nessun account personale dello studente.</p>
+                </section>
+
+                <section class="materials-panel" id="materiali" aria-labelledby="titolo-materiali">
+                    <div class="section-heading">
+                        <span class="section-number" aria-hidden="true">S</span>
+                        <div>
+                            <h2 id="titolo-materiali">Schede pronte da stampare</h2>
+                            <p>Ogni pulsante stampa soltanto la scheda scelta. Le risposte già inserite vengono riportate nella stampa.</p>
+                        </div>
+                    </div>
+                    <div class="material-grid">
+                        <article class="material-card">
+                            <h3>1. Carta dei ruoli</h3>
+                            <p>Cosa fanno alunno di prima, tutor e docente.</p>
+                            <button class="pt-button secondary" type="button" data-print-target="ruoli">Stampa la carta</button>
+                        </article>
+                        <article class="material-card">
+                            <h3>2. Bussola della scuola</h3>
+                            <p>Persone, luoghi e strumenti di riferimento.</p>
+                            <button class="pt-button secondary" type="button" data-print-target="attivita-mappa">Stampa la bussola</button>
+                        </article>
+                        <article class="material-card">
+                            <h3>3. Gara “La scelta più utile”</h3>
+                            <p>Quattro situazioni per distinguere il ruolo del tutor da quello dell'adulto.</p>
+                            <button class="pt-button secondary" type="button" data-print-target="attivita-scenari">Stampa i casi</button>
+                        </article>
+                        <article class="material-card">
+                            <h3>4. Dal testo alla mappa</h3>
+                            <p>Prima prova e domande guida per il lavoro in coppia.</p>
+                            <button class="pt-button secondary" type="button" data-print-target="attivita-testo">Stampa la scheda</button>
+                        </article>
+                        <article class="material-card">
+                            <h3>5. Griglia del tutor</h3>
+                            <p>Osservazione dei comportamenti durante il tutoring.</p>
+                            <button class="pt-button secondary" type="button" data-print-target="griglia-tutor">Stampa la griglia</button>
+                        </article>
+                        <article class="material-card">
+                            <h3>6. Autovalutazione</h3>
+                            <p>Risultato raggiunto e prossimo passo personale.</p>
+                            <button class="pt-button secondary" type="button" data-print-target="autovalutazione">Stampa la scheda</button>
+                        </article>
+                        <article class="material-card">
+                            <h3>7. Attività online</h3>
+                            <p>Istruzioni semplici e alternative digitali per le coppie.</p>
+                            <button class="pt-button secondary" type="button" data-print-target="sfide-online">Stampa le istruzioni</button>
+                        </article>
+                        <article class="material-card">
+                            <h3>8. Gara “Messaggio nascosto”</h3>
+                            <p>Tre testi alternativi, consegna e punteggi.</p>
+                            <button class="pt-button secondary" type="button" data-print-target="attivita-sfida2">Stampa la gara</button>
+                        </article>
+                        <article class="material-card">
+                            <h3>9. Gara “Guida alla prova”</h3>
+                            <p>Missioni, risposte e punteggio finale.</p>
+                            <button class="pt-button secondary" type="button" data-print-target="attivita-sfida3">Stampa la gara</button>
+                        </article>
+                        <article class="material-card">
+                            <h3>10. Carta “Quando mi blocco”</h3>
+                            <p>Tre passaggi e frasi pronte per chiedere aiuto.</p>
+                            <button class="pt-button secondary" type="button" data-print-target="patto-carta">Stampa la carta</button>
+                        </article>
+                        <article class="material-card">
+                            <h3>11. Prova parallela</h3>
+                            <p>Testo, primo tentativo, revisione ed esempi.</p>
+                            <button class="pt-button secondary" type="button" data-print-target="attivita-prova-parallela">Stampa la prova</button>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="teacher-panel" id="docente" aria-labelledby="titolo-docente">
+                    <details>
+                        <summary><h2 id="titolo-docente">Area docente: preparazione, osservazione e verifica</h2></summary>
+                        <div class="teacher-grid">
+                            <article class="teacher-box">
+                                <h3>Prima dei tre incontri</h3>
+                                <ul class="plain-list">
+                                    <li>Selezionare tutor di terza, quarta e quinta considerando motivazione, affidabilità, ascolto e conoscenza della scuola, non soltanto i voti.</li>
+                                    <li>Formare coppie 1:1, eventualmente 1:2, mantenendo gli stessi ruoli nei tre incontri.</li>
+                                    <li>Preparare i tutor prima degli incontri con spiegazione del ruolo, dimostrazione, prova pratica e feedback. La sola consegna di istruzioni non basta.</li>
+                                    <li>Scegliere un testo breve già affrontato in classe.</li>
+                                    <li>Individuare l'adulto di riferimento e la procedura per chiedere aiuto.</li>
+                                    <li>Predisporre un cambio coppia senza colpevolizzazioni.</li>
+                                </ul>
+                            </article>
+                            <article class="teacher-box warning">
+                                <h3>Condizioni operative</h3>
+                                <ul class="plain-list">
+                                    <li>Presenza costante di almeno un docente.</li>
+                                    <li>Nella pratica osservata, prevedere orientativamente un adulto ogni 5–6 coppie.</li>
+                                    <li>Niente nomi completi o dati personali nelle schede online.</li>
+                                    <li>Non pubblicare prodotti o fotografie senza autorizzazione.</li>
+                                    <li>Niente classifiche pubbliche: i punti restano sul dispositivo o sulla scheda della coppia.</li>
+                                </ul>
+                            </article>
+                            <article class="teacher-box success">
+                                <h3>Che cosa si può verificare subito</h3>
+                                <ul class="plain-list">
+                                    <li>Conoscenza di persone e spazi di riferimento.</li>
+                                    <li>Uso di parole chiave e collegamenti.</li>
+                                    <li>Capacità di spiegare una mappa.</li>
+                                    <li>Uso, da parte del tutor, di domande e indizi.</li>
+                                </ul>
+                            </article>
+                            <article class="teacher-box">
+                                <h3>Che cosa non dichiarare dopo sei ore</h3>
+                                <p>Le tre giornate sono un laboratorio di avvio. Non dimostrano da sole miglioramenti stabili del rendimento, della motivazione o della dispersione scolastica.</p>
+                            </article>
+                            <article class="teacher-box">
+                                <h3>Dopo le tre giornate</h3>
+                                <p>Se l'obiettivo è consolidare gli apprendimenti, prevedere altre brevi sessioni ricorrenti, osservate e migliorate attraverso il feedback del docente. Le sei ore non sostituiscono un ciclo continuativo.</p>
+                            </article>
+                            <article class="teacher-box success">
+                                <h3>Regole delle gare</h3>
+                                <ul class="plain-list">
+                                    <li>La risposta finale viene sempre dal tutee.</li>
+                                    <li>Gli indizi non fanno perdere punti.</li>
+                                    <li>Nessuna eliminazione; in caso di parità vincono entrambe le coppie.</li>
+                                    <li>Se le coppie sono dispari, creare un triangolare alternando risposta e controllo.</li>
+                                    <li>Non usare in gara situazioni personali, di disagio o di pericolo.</li>
+                                </ul>
+                            </article>
+                        </div>
+
+                        <div class="activity-block" style="margin-top: 1rem;">
+                            <h3>Uso semplice degli strumenti online</h3>
+                            <p>Le attività centrali funzionano direttamente in questa pagina. Le piattaforme esterne sono alternative facoltative e richiedono la preparazione del docente.</p>
+                            <ul class="plain-list">
+                                <li><a href="https://wordwall.zendesk.com/hc/en-us/articles/360015616037-Should-my-students-create-an-account-to-play-my-activities" target="_blank" rel="noopener noreferrer">Wordwall conferma</a> che gli studenti possono aprire un'attività condivisa senza registrarsi.</li>
+                                <li><a href="https://support.kahoot.com/hc/en-us/articles/360039890713-Kahoot-join-How-to-join-a-Kahoot-game" target="_blank" rel="noopener noreferrer">Kahoot permette</a> di partecipare con PIN, link o QR senza account.</li>
+                                <li><a href="https://help.mentimeter.com/en/articles/410537-how-to-participate-in-a-menti" target="_blank" rel="noopener noreferrer">Mentimeter permette</a> di entrare tramite codice, QR o link; usare risposte anonime e nessun nome.</li>
+                            </ul>
+                        </div>
+
+                        <div class="activity-block" style="margin-top: 1rem;">
+                            <h3>Perché si chiama cross-age tutoring</h3>
+                            <p>La definizione viene usata quando uno studente più grande assume stabilmente il ruolo di tutor e sostiene uno o più studenti più giovani. Nel nostro caso i tutor frequentano le classi III, IV e V, mentre i tutee frequentano la classe I.</p>
+                            <ul class="plain-list" style="margin-top: 0.8rem;">
+                                <li>La <a href="https://link.springer.com/article/10.1007/s10648-025-09997-z" target="_blank" rel="noopener noreferrer">meta-analisi di Chang e colleghi del 2025</a> ha esaminato 32 studi e rilevato, in media, effetti accademici positivi piccoli o moderati per tutor e tutee. Gli autori sottolineano però l'eterogeneità degli studi e dichiarano che non è ancora definibile un numero ottimale di ore.</li>
+                                <li>Lo studio include come cross-age tutoring interventi scolastici con tutor più grandi, ruoli non reciproci e attività didattiche in coppia o piccolo gruppo: è la configurazione adottata in questo percorso.</li>
+                                <li>La <a href="https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/peer-tutoring" target="_blank" rel="noopener noreferrer">sintesi EEF sul peer tutoring</a>, aggiornata nel 2025 e basata su 145 studi, raccomanda compiti strutturati su contenuti già introdotti, formazione e feedback ai tutor, abbinamenti accurati e tracce di domande. Gli interventi esaminati durano in genere da quattro a dieci settimane.</li>
+                                <li>Un <a href="https://educationendowmentfoundation.org.uk/projects-and-evaluation/projects/paired-reading" target="_blank" rel="noopener noreferrer">trial nella scuola secondaria con alunni più grandi e più giovani</a> non ha trovato miglioramenti nella lettura: mostra che il semplice abbinamento non basta e che formazione, materiali e qualità dell'attuazione devono essere controllati.</li>
+                                <li>I programmi di transizione alla scuola superiore con studenti più grandi e classi iniziali sono spesso definiti <em>cross-age peer mentoring</em>. Sono un riferimento per l'accoglienza, mentre il termine <em>tutoring</em> è appropriato quando, come nel secondo incontro, è presente anche un compito di apprendimento strutturato.</li>
+                            </ul>
+                            <p class="help-text" style="margin-top: 0.8rem;">La letteratura esaminata non permette di dichiarare che un tutor di terza, quarta o quinta sia sempre preferibile. L'EEF segnala che alcuni studi hanno trovato vantaggioso un divario inferiore a tre anni, ma non lo presenta come regola universale. Gli alunni di III, IV e V possono quindi partecipare: l'abbinamento va deciso sulla preparazione del singolo tutor, sulla compatibilità e sul compito, e poi verificato in situazione.</p>
+                        </div>
+
+                        <div class="activity-block" style="margin-top: 1rem;">
+                            <h3>Guide e libri di riferimento</h3>
+                            <p>Il percorso riprende principi operativi presenti in manuali accademici, toolkit universitari e linee guida inclusive. Le fonti sostengono la struttura delle attività, ma non dimostrano l'efficacia dello specifico formato SSAS di tre giornate.</p>
+                            <ul class="plain-list" style="margin-top: 0.8rem;">
+                                <li><a href="https://www.routledge.com/Effective-Peer-Learning-From-Principles-to-Practical-Implementation/Topping-Buchs-Duran-vanKeer/p/book/9781138906488" target="_blank" rel="noopener noreferrer"><em>Effective Peer Learning</em>, Topping, Buchs, Duran e Van Keer</a>: preparazione dei partecipanti, organizzazione e monitoraggio delle interazioni, con un capitolo specifico sul cross-age tutoring.</li>
+                                <li><a href="https://www.routledge.com/Learning-by-Teaching-Evidence-based-Strategies-to-Enhance-Learning-in-the/Duran-Topping/p/book/9781315649047" target="_blank" rel="noopener noreferrer"><em>Learning by Teaching</em>, Duran e Topping</a>: il tutor impara quando prepara, domanda, spiega e riflette; non quando consegna semplicemente la soluzione.</li>
+                                <li><a href="https://www.routledge.com/Using-Peer-Tutoring-to-Improve-Reading-Skills-A-practical-guide-for-teachers/Topping-Duran-VanKeer/p/book/9781138843295" target="_blank" rel="noopener noreferrer"><em>Using Peer Tutoring to Improve Reading Skills</em>, Topping, Duran e Van Keer</a>: cornici operative e strategie per attività di lettura strutturate.</li>
+                                <li><a href="https://meadowscenter.org/resource/cross-age-tutoring-toolkit/" target="_blank" rel="noopener noreferrer">Cross-Age Tutoring Toolkit del Meadows Center, University of Texas at Austin</a>: formazione dei ruoli, carte-guida, suddivisione dei compiti e registrazione delle sessioni.</li>
+                                <li><a href="https://pureadmin.qub.ac.uk/ws/files/112386605/PairedReadingManual.pdf" target="_blank" rel="noopener noreferrer">Manuale universitario <em>Cross-age Paired Reading</em>, Queen's University Belfast</a>: dimostrazione, pratica guidata, domande graduate, osservazione e feedback.</li>
+                                <li><a href="https://iris.peabody.vanderbilt.edu/module/palshs/cresource/" target="_blank" rel="noopener noreferrer">Modulo IRIS–Vanderbilt PALS per la scuola superiore</a>: materiali passo-passo per abbinamento, preparazione, formazione e monitoraggio. Il modulo è archiviato e va usato come risorsa operativa, non come fonte aggiornata.</li>
+                                <li><a href="https://udlguidelines.cast.org/" target="_blank" rel="noopener noreferrer">CAST, Universal Design for Learning Guidelines 3.0</a>: possibilità di scelta, più modi per comprendere e rispondere, supporti graduati e controllo del proprio progresso.</li>
+                                <li><a href="https://www.erickson.it/it/tutoring" target="_blank" rel="noopener noreferrer"><em>Tutoring. L'insegnamento reciproco tra compagni</em>, Keith Topping, edizione Erickson</a>: progettazione realistica, progetto pilota, organizzazione, monitoraggio e valutazione.</li>
+                            </ul>
+                            <div class="safety-box">
+                                <strong>Come sono state usate</strong>
+                                Obiettivo visibile, primo tentativo dell'alunno di prima, domanda e attesa del tutor, un indizio alla volta, nuovo tentativo, riscontro specifico e prossimo passo. Gli esempi restano chiusi finché servono e le risposte possono essere scritte, orali o organizzate in una mappa.
+                            </div>
+                            <p class="help-text">Le illustrazioni della pagina sono originali e non raffigurano studenti reali. Le informazioni necessarie per svolgere le attività restano disponibili anche come testo.</p>
+                        </div>
+
+                        <div class="activity-block" id="griglia-tutor" style="margin-top: 1rem;">
+                            <h3>Griglia di osservazione del tutor</h3>
+                            <p>Codice coppia: ____________________ &nbsp;&nbsp; Data: ____________________</p>
+                            <div style="overflow-x: auto;">
+                                <table class="rubric-table">
+                                    <thead><tr><th>Comportamento osservabile</th><th>Non ancora</th><th>Con aiuto</th><th>In autonomia</th><th>Nota breve</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>Lascia provare prima il compagno.</td><td>□</td><td>□</td><td>□</td><td></td></tr>
+                                        <tr><td>Chiede che cosa è già stato capito.</td><td>□</td><td>□</td><td>□</td><td></td></tr>
+                                        <tr><td>Attende e offre un indizio alla volta.</td><td>□</td><td>□</td><td>□</td><td></td></tr>
+                                        <tr><td>Fa riprovare e chiede una spiegazione.</td><td>□</td><td>□</td><td>□</td><td></td></tr>
+                                        <tr><td>Dà un feedback specifico e rispettoso.</td><td>□</td><td>□</td><td>□</td><td></td></tr>
+                                        <tr><td>Coinvolge il docente quando necessario.</td><td>□</td><td>□</td><td>□</td><td></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="activity-block" style="margin-top: 1rem;">
+                            <h3>Rubrica del prodotto dell'alunno di prima</h3>
+                            <div style="overflow-x: auto;">
+                                <table class="rubric-table">
+                                    <thead><tr><th>Criterio</th><th>Da migliorare</th><th>Quasi raggiunto</th><th>Raggiunto</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>Riconosce l'idea centrale.</td><td>□</td><td>□</td><td>□</td></tr>
+                                        <tr><td>Individua le parole chiave.</td><td>□</td><td>□</td><td>□</td></tr>
+                                        <tr><td>Collega correttamente le informazioni.</td><td>□</td><td>□</td><td>□</td></tr>
+                                        <tr><td>Spiega il contenuto con parole proprie.</td><td>□</td><td>□</td><td>□</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </details>
+                </section>
+
+                <div class="action-bar" aria-label="Azioni sulla scheda">
+                    <button type="button" class="pt-button" id="downloadSummary"><span aria-hidden="true">⬇️</span> Scarica la sintesi</button>
+                    <button type="button" class="pt-button secondary" id="printAll"><span aria-hidden="true">🖨️</span> Stampa il percorso</button>
+                    <button type="button" class="pt-button danger" id="clearLocal"><span aria-hidden="true">🗑️</span> Cancella da questo dispositivo</button>
+                    <span class="save-status" id="saveStatus" aria-live="polite">Nessuna modifica da salvare.</span>
+                </div>
+            </form>
+
+            <div class="back-row">
+                <a class="pt-button secondary" href="../../peer_tutoring.html">← Torna all'hub Peer Tutoring</a>
+                <a class="pt-button secondary" href="../../index.html">Torna alla Home</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Metodologie Operative - Servizi per la Sanità e l'Assistenza Sociale</p>
+            <p>IIS Meucci Mattei - Cagliari</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem;">Percorso Cross-age Peer Tutoring 2026–2027</p>
+        </div>
+    </footer>
+
+    <div id="printStage" aria-hidden="true"></div>
+
+    <script src="../../materiali.js"></script>
+    <script>
+        (() => {
+            'use strict';
+
+            const STORAGE_PREFIX = 'peerTutoringSSAS_2026_2027_v1';
+            const form = document.getElementById('peerForm');
+            const saveStatus = document.getElementById('saveStatus');
+            const classCode = document.getElementById('classCode');
+            const pairCode = document.getElementById('pairCode');
+            const evidenceFields = Array.from(document.querySelectorAll('[data-evidence]'));
+            const evidenceCount = document.getElementById('evidenceCount');
+            const evidenceTrack = document.getElementById('evidenceTrack');
+            const evidenceFill = document.getElementById('evidenceFill');
+            const saveFields = Array.from(document.querySelectorAll('[data-save]'));
+            const scoreFields = Array.from(document.querySelectorAll('.score-grid input[type="number"]'));
+            let saveTimer;
+            let activeStorageKey = null;
+
+            const normalizeKeyPart = (value) => String(value || '')
+                .trim()
+                .toLocaleUpperCase('it-IT')
+                .replace(/[^A-Z0-9_-]+/g, '-');
+
+            const requestedStorageKey = () => {
+                const classPart = normalizeKeyPart(classCode.value);
+                const pairPart = normalizeKeyPart(pairCode.value);
+                if (!classPart || !pairPart) return null;
+                return `${STORAGE_PREFIX}:${classPart}:${pairPart}`;
+            };
+
+            const hasValue = (field) => {
+                if (field.type === 'checkbox' || field.type === 'radio') return field.checked;
+                return String(field.value || '').trim().length > 1;
+            };
+
+            const normalizeScore = (field) => {
+                if (field.value === '') return;
+                const value = Number(field.value);
+                const minimum = Number(field.min || 0);
+                const maximum = Number(field.max || 0);
+                if (!Number.isFinite(value)) {
+                    field.value = '';
+                    return;
+                }
+                field.value = String(Math.min(maximum, Math.max(minimum, Math.round(value))));
+            };
+
+            const collectState = () => {
+                scoreFields.forEach(normalizeScore);
+                const state = {};
+                saveFields.forEach((field) => {
+                    state[field.id] = field.type === 'checkbox' ? field.checked : field.value;
+                });
+                return state;
+            };
+
+            const updateEvidence = () => {
+                const completed = evidenceFields.filter(hasValue).length;
+                const total = evidenceFields.length;
+                const percentage = total ? Math.round((completed / total) * 100) : 0;
+                evidenceCount.textContent = `${completed}/${total}`;
+                evidenceTrack.setAttribute('aria-valuemax', String(total));
+                evidenceTrack.setAttribute('aria-valuenow', String(completed));
+                evidenceFill.style.width = `${percentage}%`;
+            };
+
+            const updatePreview = () => {
+                document.querySelectorAll('[data-preview]').forEach((field) => {
+                    const target = document.getElementById(field.dataset.preview);
+                    if (!target) return;
+                    const value = field.value.trim();
+                    target.textContent = value || target.dataset.placeholder || '';
+                    target.classList.toggle('placeholder-text', !value);
+                });
+            };
+
+            document.querySelectorAll('[data-preview]').forEach((field) => {
+                const target = document.getElementById(field.dataset.preview);
+                if (target) target.dataset.placeholder = target.textContent;
+            });
+
+            document.querySelectorAll('[data-fill-target]').forEach((button) => {
+                button.addEventListener('click', () => {
+                    const target = document.getElementById(button.dataset.fillTarget);
+                    if (!target) return;
+                    target.value = button.dataset.fillValue || '';
+                    target.dispatchEvent(new Event('input', { bubbles: true }));
+                    target.focus();
+                });
+            });
+
+            const saveLocal = () => {
+                if (!activeStorageKey) {
+                    saveStatus.textContent = 'Inserisci classe e codice coppia, poi scegli “Apri o inizia”.';
+                    return;
+                }
+                try {
+                    localStorage.setItem(activeStorageKey, JSON.stringify(collectState()));
+                    saveStatus.textContent = `Salvato su questo dispositivo alle ${new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })}.`;
+                } catch (error) {
+                    saveStatus.textContent = 'Salvataggio locale non disponibile in questo browser.';
+                }
+            };
+
+            const scheduleSave = () => {
+                window.clearTimeout(saveTimer);
+                saveStatus.textContent = 'Salvataggio in corso…';
+                saveTimer = window.setTimeout(saveLocal, 500);
+            };
+
+            const clearActivityFields = () => {
+                saveFields.forEach((field) => {
+                    if (field.type === 'checkbox' || field.type === 'radio') field.checked = false;
+                    else field.value = '';
+                });
+            };
+
+            const resetInteractiveOutputs = () => {
+                document.getElementById('challengeOneFeedback').textContent = 'Il risultato delle scelte apparirà qui.';
+                document.getElementById('missionOutput').textContent = 'La missione apparirà qui.';
+            };
+
+            const restorePair = () => {
+                const nextStorageKey = requestedStorageKey();
+                if (!nextStorageKey) {
+                    saveStatus.textContent = 'Indica sia la classe sia il codice coppia.';
+                    return;
+                }
+
+                window.clearTimeout(saveTimer);
+                if (activeStorageKey) saveLocal();
+                clearActivityFields();
+                resetInteractiveOutputs();
+                activeStorageKey = nextStorageKey;
+
+                try {
+                    const saved = JSON.parse(localStorage.getItem(activeStorageKey) || '{}');
+                    saveFields.forEach((field) => {
+                        if (!Object.prototype.hasOwnProperty.call(saved, field.id)) return;
+                        if (field.type === 'checkbox') field.checked = Boolean(saved[field.id]);
+                        else field.value = saved[field.id] || '';
+                    });
+                    scoreFields.forEach(normalizeScore);
+                    saveStatus.textContent = Object.keys(saved).length
+                        ? 'Lavoro della coppia ripristinato da questo dispositivo.'
+                        : 'Nuovo lavoro della coppia: il salvataggio locale è attivo.';
+                } catch (error) {
+                    saveStatus.textContent = 'Non è stato possibile ripristinare il salvataggio locale.';
+                }
+
+                updateEvidence();
+                updatePreview();
+            };
+
+            const copyLiveValues = (source, clone) => {
+                const sourceControls = source.querySelectorAll('input, textarea, select');
+                const cloneControls = clone.querySelectorAll('input, textarea, select');
+                sourceControls.forEach((control, index) => {
+                    const cloned = cloneControls[index];
+                    if (!cloned) return;
+                    if (control.type === 'checkbox' || control.type === 'radio') cloned.checked = control.checked;
+                    else cloned.value = control.value;
+                });
+            };
+
+            const printTarget = (targetId) => {
+                const source = document.getElementById(targetId);
+                const stage = document.getElementById('printStage');
+                if (!source || !stage) return;
+                const clone = source.cloneNode(true);
+                copyLiveValues(source, clone);
+                clone.querySelectorAll('details').forEach((details) => { details.open = true; });
+                stage.replaceChildren(clone);
+                document.body.classList.add('printing-one');
+                window.print();
+                window.setTimeout(() => {
+                    document.body.classList.remove('printing-one');
+                    stage.replaceChildren();
+                }, 300);
+            };
+
+            const cleanForFile = (value) => String(value || 'classe').replace(/[^a-z0-9_-]+/gi, '-').replace(/^-+|-+$/g, '').toLowerCase();
+
+            const downloadSummary = () => {
+                scoreFields.forEach(normalizeScore);
+                saveLocal();
+                const lines = [
+                    'PEER TUTORING 2026-2027 - PRIMA SSAS',
+                    '=====================================',
+                    `Classe: ${document.getElementById('classCode').value || 'non indicata'}`,
+                    `Codice coppia: ${document.getElementById('pairCode').value || 'non indicato'}`,
+                    '',
+                    'INCONTRO 1 - ORIENTARSI',
+                    `Risorsa della coppia: ${document.getElementById('pairStrength').value || '-'}`,
+                    `Persona di riferimento: ${document.getElementById('schoolPerson').value || '-'}`,
+                    `Luogo importante: ${document.getElementById('schoolPlace').value || '-'}`,
+                    `Strumento o canale: ${document.getElementById('schoolTool').value || '-'}`,
+                    `Materie trovate online: ${document.getElementById('webSubjects').value || '-'}`,
+                    `Sede trovata online: ${document.getElementById('webLocation').value || '-'}`,
+                    `Pagina utile trovata: ${document.getElementById('webUsefulPage').value || '-'}`,
+                    `Sfida 1: ${document.getElementById('challengeOneUs').value || '-'} punti; altra coppia ${document.getElementById('challengeOneOther').value || '-'} punti`,
+                    `Quando mi blocco, prima: ${document.getElementById('helpCardFirst').value || '-'}`,
+                    `Frase per chiedere un indizio: ${document.getElementById('helpCardPhrase').value || '-'}`,
+                    `Se non basta, chiedo a: ${document.getElementById('helpCardAdult').value || '-'}`,
+                    `Exit ticket: ${document.getElementById('dayOneExit').value || '-'}`,
+                    '',
+                    'INCONTRO 2 - STUDIARE INSIEME',
+                    `Idea centrale iniziale: ${document.getElementById('initialIdea').value || '-'}`,
+                    `Parole chiave iniziali: ${document.getElementById('initialKeywords').value || '-'}`,
+                    `Centro della mappa: ${document.getElementById('mapCenter').value || '-'}`,
+                    `Nodi principali: ${document.getElementById('mapKeywords').value || '-'}`,
+                    `Collegamenti: ${document.getElementById('mapLinks').value || '-'}`,
+                    `Strategia scelta: ${document.getElementById('studyStrategy').value || '-'}`,
+                    `Sfida 2 - idea: ${document.getElementById('challengeTwoIdea').value || '-'}`,
+                    `Sfida 2 - parole: ${document.getElementById('challengeTwoKeywords').value || '-'}`,
+                    `Sfida 2: ${document.getElementById('challengeTwoUs').value || '-'} punti; altra coppia ${document.getElementById('challengeTwoOther').value || '-'} punti`,
+                    '',
+                    'INCONTRO 3 - GUIDA DELLA PRIMA SSAS',
+                    `Testo parallelo - primo tentativo: ${document.getElementById('parallelIdeaFirst').value || '-'}`,
+                    `Testo parallelo - parole del primo tentativo: ${document.getElementById('parallelKeywordsFirst').value || '-'}`,
+                    `Testo parallelo - risposta rivista: ${document.getElementById('parallelIdeaRevised').value || '-'}`,
+                    `Testo parallelo - parole riviste: ${document.getElementById('parallelKeywordsRevised').value || '-'}`,
+                    `Messaggio: ${document.getElementById('guideMessage').value || '-'}`,
+                    `Persone: ${document.getElementById('guidePeople').value || '-'}`,
+                    `Spazi: ${document.getElementById('guidePlaces').value || '-'}`,
+                    `Consigli di studio: ${document.getElementById('guideTips').value || '-'}`,
+                    `Come chiedere un indizio: ${document.getElementById('guideAsk').value || '-'}`,
+                    `Sfida 3 - risposta: ${document.getElementById('challengeThreeAnswer').value || '-'}`,
+                    `Sfida 3: ${document.getElementById('challengeThreeUs').value || '-'} punti; altra coppia ${document.getElementById('challengeThreeOther').value || '-'} punti`,
+                    `Risultato: ${document.getElementById('proudOf').value || '-'}`,
+                    `Prossimo passo: ${document.getElementById('nextStep').value || '-'}`,
+                    `Modalità online scelta: ${document.getElementById('chosenOnlineMode').value || '-'}`,
+                    '',
+                    'Documento generato sul dispositivo. Non contiene dati inviati al sito.'
+                ];
+
+                const blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `peer-tutoring-${cleanForFile(document.getElementById('classCode').value)}-${cleanForFile(document.getElementById('pairCode').value)}.txt`;
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+                URL.revokeObjectURL(url);
+            };
+
+            form.addEventListener('input', (event) => {
+                if (event.target === classCode || event.target === pairCode) {
+                    const nextStorageKey = requestedStorageKey();
+                    if (activeStorageKey && nextStorageKey !== activeStorageKey) {
+                        window.clearTimeout(saveTimer);
+                        saveLocal();
+                        activeStorageKey = null;
+                    }
+                    saveStatus.textContent = 'Dopo aver controllato i codici, scegli “Apri o inizia”.';
+                    return;
+                }
+                updateEvidence();
+                updatePreview();
+                scheduleSave();
+            });
+
+            form.addEventListener('change', (event) => {
+                if (event.target === classCode || event.target === pairCode) return;
+                if (scoreFields.includes(event.target)) normalizeScore(event.target);
+                updateEvidence();
+                updatePreview();
+                scheduleSave();
+            });
+
+            document.querySelectorAll('[data-print-target]').forEach((button) => {
+                button.addEventListener('click', () => printTarget(button.dataset.printTarget));
+            });
+
+            document.getElementById('checkChallengeOne').addEventListener('click', () => {
+                const answers = Array.from(document.querySelectorAll('#attivita-scenari select[data-correct]'));
+                const completed = answers.filter((field) => field.value).length;
+                const correct = answers.filter((field) => field.value === field.dataset.correct).length;
+                const feedback = document.getElementById('challengeOneFeedback');
+                feedback.textContent = completed < answers.length
+                    ? `Avete risposto a ${completed} situazioni su ${answers.length}. Completatele tutte e riprovate.`
+                    : `Scelte adatte: ${correct}/${answers.length}. Ora aggiungete fino a 4 punti per le motivazioni e fino a 4 per il rispetto dei ruoli.`;
+            });
+
+            const missions = [
+                'Domani vai per la prima volta in laboratorio: come ti prepari e come lo trovi?',
+                'Non sai quale sia il primo passo di una consegna: che cosa fai?',
+                'Dimentichi spesso il materiale: quale strategia puoi provare?',
+                'Non trovi una comunicazione ufficiale: quale canale o persona scegli?',
+                'Vuoi un indizio senza la risposta: quale frase usi?',
+                'La coppia non risolve un dubbio: qual è il passo successivo?'
+            ];
+
+            document.getElementById('drawMission').addEventListener('click', () => {
+                const mission = missions[Math.floor(Math.random() * missions.length)];
+                document.getElementById('missionOutput').textContent = mission;
+            });
+
+            document.getElementById('activatePair').addEventListener('click', restorePair);
+            document.getElementById('downloadSummary').addEventListener('click', downloadSummary);
+            document.getElementById('printAll').addEventListener('click', () => window.print());
+            document.getElementById('clearLocal').addEventListener('click', () => {
+                const confirmed = window.confirm('Vuoi cancellare tutte le risposte salvate su questo dispositivo per questa pagina?');
+                if (!confirmed) return;
+                window.clearTimeout(saveTimer);
+                let storageCleared = true;
+                try {
+                    if (activeStorageKey) localStorage.removeItem(activeStorageKey);
+                } catch (error) {
+                    storageCleared = false;
+                }
+                clearActivityFields();
+                updateEvidence();
+                updatePreview();
+                resetInteractiveOutputs();
+                saveStatus.textContent = storageCleared
+                    ? 'Le risposte della coppia sono state cancellate da questo dispositivo.'
+                    : 'Il modulo è stato svuotato, ma il browser ha bloccato la cancellazione del salvataggio.';
+            });
+
+            const teacherDetails = document.querySelector('#docente details');
+            const missionDetails = document.getElementById('missionList');
+            let teacherDetailsWasOpen = false;
+            let missionDetailsWasOpen = false;
+            window.addEventListener('beforeprint', () => {
+                if (teacherDetails) {
+                    teacherDetailsWasOpen = teacherDetails.open;
+                    teacherDetails.open = true;
+                }
+                if (missionDetails) {
+                    missionDetailsWasOpen = missionDetails.open;
+                    missionDetails.open = true;
+                }
+            });
+            window.addEventListener('afterprint', () => {
+                if (teacherDetails && !teacherDetailsWasOpen) teacherDetails.open = false;
+                if (missionDetails && !missionDetailsWasOpen) missionDetails.open = false;
+            });
+
+            updateEvidence();
+            updatePreview();
+        })();
+    </script>
+</body>
+</html>
