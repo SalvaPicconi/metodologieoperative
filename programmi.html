@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta name="page-id" content="programmi-01">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programmi - Metodologie Operative</title>
+    <meta name="description" content="Proposta di programmazione di Metodologie Operative ancorata al curricolo verticale SSAS, ai livelli QNQ e alle prove esperte di laboratorio">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>Materiali Didattici - Metodologie Operative</h1>
+            <p>Servizi per la Sanità e l'Assistenza Sociale</p>
+            <p style="font-size: 0.9rem; margin-top: 0.5rem;">IIS Meucci Mattei - Cagliari (Sede Decimomannu)</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="biennio.html">Biennio</a></li>
+            <li><a href="terzo.html">Terzo Anno</a></li>
+            <li><a href="quarto.html">Quarto Anno</a></li>
+            <li><a href="quinto.html">Quinto Anno</a></li>
+            <li><a href="programmi.html" class="active">Programmi</a></li>
+            <li><a href="laboratorio.html">Laboratorio</a></li>
+            <li><a href="peer_tutoring.html">Peer Tutoring</a></li>
+            <li><a href="compresenza.html">Compresenza Scienze Umane</a></li>
+            <li><a href="anno-di-prova.html">Anno di Prova</a></li>
+            <li class="nav-ai"><a href="index.html#intelligenza-artificiale">Spazio AI</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="container">
+            <div class="page-title">
+                <h2>🗂️ Programmi di Metodologie Operative</h2>
+                <p>Proposta di programmazione ancorata alle competenze di indirizzo del curricolo SSAS
+                   — D.M. 24 maggio 2018 n. 92, Allegato C — e ai livelli del Quadro Nazionale delle Qualificazioni.</p>
+            </div>
+
+            <section class="prog-intro">
+                <p>I contenuti da trattare anno per anno, organizzati in moduli, ciascuno con le sue attività
+                   e la <strong>prova esperta di laboratorio</strong> tarata sul livello di autonomia previsto.</p>
+                <p class="small-note">Se ti serve il dettaglio curricolare, attiva
+                   <em>Mostra competenze</em>: comparirà, su ogni attività, la competenza di indirizzo che intercetta.</p>
+            </section>
+
+            <section class="prog-sezione">
+                <div class="prog-barra">
+                    <div class="prog-toggle" role="group" aria-label="Scegli come ordinare i programmi">
+                        <button type="button" class="tab-btn active" data-vista="contenuti">Contenuti per anno</button>
+                        <button type="button" class="tab-btn" data-vista="competenza">Per competenza</button>
+                    </div>
+                    <div class="prog-filtri">
+                        <label class="prog-filtro-label" for="prog-filtro-anno">Anno</label>
+                        <select id="prog-filtro-anno">
+                            <option value="">Tutti gli anni</option>
+                        </select>
+                        <label class="prog-filtro-label" for="prog-cerca">Cerca</label>
+                        <input type="search" id="prog-cerca" placeholder="argomento, attività, prova…">
+                        <label class="prog-switch">
+                            <input type="checkbox" id="prog-mostra-competenze">
+                            <span>Mostra competenze</span>
+                        </label>
+                    </div>
+                </div>
+                <div id="prog-percorso-terzo" class="prog-alt-switch" hidden></div>
+                <div id="prog-contatori" class="prog-contatori" hidden></div>
+            </section>
+
+            <div id="prog-lista">
+                <div class="loading">Caricamento dei programmi in corso...</div>
+            </div>
+
+            <section id="prog-approfondimenti" class="prog-sezione">
+                <h3 class="prog-sezione-titolo">Approfondimenti</h3>
+                <p class="small-note">Da aprire solo se servono: il quadro dei livelli di autonomia
+                   e l'impianto didattico e valutativo.</p>
+                <div id="prog-livelli-lista"></div>
+                <div id="prog-impianto"></div>
+            </section>
+
+            <section class="prog-sezione prog-fonti">
+                <h3 class="prog-sezione-titolo">Fonti normative</h3>
+                <ul>
+                    <li>D.Lgs. 13 aprile 2017, n. 61 — revisione dei percorsi dell'istruzione professionale.</li>
+                    <li>D.M. 24 maggio 2018, n. 92 — Regolamento e Linee guida; <strong>Allegato C</strong>,
+                        risultati di apprendimento intermedi per l'indirizzo Servizi per la sanità e l'assistenza sociale.</li>
+                    <li>D.I. MLPS/MIUR 8 gennaio 2018 — Quadro Nazionale delle Qualificazioni,
+                        <strong>Allegato 1, Tabella A</strong>. G.U. Serie Generale del 25 gennaio 2018.</li>
+                    <li>D.Lgs. 13 aprile 2017, n. 62 — valutazione e certificazione delle competenze.</li>
+                    <li>Raccomandazione del Consiglio dell'Unione europea del 22 maggio 2018 (2018/C 189/01)
+                        — competenze chiave per l'apprendimento permanente.</li>
+                </ul>
+                <p class="small-note" id="prog-verifica-data"></p>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Metodologie Operative - Servizi Sociosanitari</p>
+            <p>IIS Meucci Mattei - Cagliari</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem;">&copy; 2025 - Tutti i diritti riservati</p>
+            <div class="home-link">
+                <a href="https://salvapicconi.github.io/metodologieoperative/">🏠 Torna alla Home</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="materiali.js"></script>
+    <script src="programmi.js"></script>
+</body>
+
+</html>

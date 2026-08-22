@@ -1,0 +1,43 @@
+name: Controllo programmi
+
+# Rigenera programmi.json dalle sorgenti e fallisce se il file committato
+# non coincide: intercetta il caso di una sorgente modificata senza rilanciare il build.
+
+on:
+  push:
+    paths:
+      - 'programmi-src/**'
+      - 'scripts/programmi.py'
+      - 'programmi.json'
+  pull_request:
+    paths:
+      - 'programmi-src/**'
+      - 'scripts/programmi.py'
+      - 'programmi.json'
+  workflow_dispatch:
+
+jobs:
+  verifica:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Controlla le sorgenti
+        run: python3 scripts/programmi.py check
+
+      - name: Rigenera programmi.json
+        run: python3 scripts/programmi.py build
+
+      - name: Verifica che programmi.json sia allineato
+        run: |
+          if ! git diff --quiet -- programmi.json; then
+            echo "::error::programmi.json non è allineato alle sorgenti in programmi-src/."
+            echo "Rilancia in locale: python3 scripts/programmi.py build"
+            git --no-pager diff -- programmi.json | head -60
+            exit 1
+          fi
+          echo "programmi.json è allineato alle sorgenti."
