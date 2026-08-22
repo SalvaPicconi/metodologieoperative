@@ -1266,48 +1266,6 @@ footer a:hover {
     margin: 0;
 }
 
-/* --- switch percorsi alternativi --- */
-
-.prog-alt-switch {
-    display: grid;
-    gap: 0.6rem;
-    margin-top: 1rem;
-    padding: 1rem 1.2rem;
-    background-color: var(--prog-warm-bg);
-    border: 2px solid #fdba74;
-    border-radius: 16px;
-}
-
-.prog-alt-switch[hidden] {
-    display: none;
-}
-
-.prog-alt-label {
-    font-size: 0.82rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--prog-warm);
-}
-
-.prog-alt-switch .tab-btn {
-    font-weight: 700;
-    font-size: 0.92rem;
-    padding: 0.7rem 1rem;
-    border-radius: 12px;
-    border: 2px solid #fdba74;
-    background-color: #ffffff;
-    color: var(--prog-warm);
-    cursor: pointer;
-    text-align: left;
-}
-
-.prog-alt-switch .tab-btn.active {
-    background-color: var(--prog-warm);
-    border-color: var(--prog-warm);
-    color: #ffffff;
-}
-
 .prog-contatori {
     display: flex;
     flex-wrap: wrap;
@@ -1410,23 +1368,59 @@ a.prog-qnq-link:hover {
     background-color: #ffffff;
     border: 2px solid var(--prog-line);
     border-radius: 18px;
-    padding: 1.4rem 1.6rem;
     margin-top: 1.1rem;
     box-shadow: 0 1px 3px rgba(15, 42, 39, .05);
+    overflow: hidden;
 }
 
 .prog-modulo-testata {
+    position: relative;
+    display: block;
+    list-style: none;
+    cursor: pointer;
+    padding: 1.2rem 3.8rem 1.2rem 1.6rem;
+}
+
+.prog-modulo-testata::-webkit-details-marker {
+    display: none;
+}
+
+.prog-modulo-testata::after {
+    content: '+';
+    position: absolute;
+    top: 1.05rem;
+    right: 1.25rem;
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 999px;
+    background-color: var(--prog-tint);
+    color: var(--prog-accent-deep);
+    font-size: 1.35rem;
+    font-weight: 800;
+}
+
+.prog-modulo[open] > .prog-modulo-testata {
     border-bottom: 3px solid var(--prog-tint);
-    padding-bottom: 0.9rem;
-    margin-bottom: 1rem;
+}
+
+.prog-modulo[open] > .prog-modulo-testata::after {
+    content: '−';
+}
+
+.prog-modulo-corpo {
+    padding: 1rem 1.6rem 1.4rem;
 }
 
 .prog-modulo-titolo {
+    display: block;
     font-family: var(--font-heading);
     font-size: 1.2rem;
     font-weight: 800;
     color: var(--prog-ink);
     line-height: 1.4;
+    margin: 0;
 }
 
 .prog-uda-num {
@@ -1446,6 +1440,28 @@ a.prog-qnq-link:hover {
     flex-wrap: wrap;
     gap: 0.5rem;
     margin-top: 0.7rem;
+}
+
+/* --- percorsi alternativi dentro l'anno pertinente --- */
+
+.prog-percorsi-nota {
+    display: grid;
+    gap: 0.2rem;
+    margin: 1.4rem 0 0.2rem;
+    padding: 0.9rem 1.1rem;
+    background-color: var(--prog-warm-bg);
+    border-left: 5px solid var(--prog-warm);
+    border-radius: 0 12px 12px 0;
+    color: #7c2d12;
+}
+
+.prog-percorsi-nota strong {
+    font-size: 0.92rem;
+}
+
+.prog-percorsi-nota span {
+    font-size: 0.88rem;
+    line-height: 1.55;
 }
 
 .prog-meta-voce {
@@ -1725,28 +1741,62 @@ a.prog-qnq-link:hover {
     background-color: #ffffff;
     border: 2px solid var(--prog-line);
     border-radius: 18px;
-    padding: 1.4rem 1.6rem;
     margin-bottom: 1.2rem;
+    overflow: hidden;
 }
 
 .prog-card-testata {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
     align-items: center;
-    margin-bottom: 0.9rem;
+    list-style: none;
+    cursor: pointer;
+    padding: 1.1rem 3.8rem 1.1rem 1.4rem;
+}
+
+.prog-card-testata::-webkit-details-marker {
+    display: none;
+}
+
+.prog-card-testata::after {
+    content: '+';
+    position: absolute;
+    top: 1rem;
+    right: 1.2rem;
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 999px;
+    background-color: var(--prog-tint);
+    color: var(--prog-accent-deep);
+    font-size: 1.35rem;
+    font-weight: 800;
+}
+
+.prog-card[open] > .prog-card-testata::after {
+    content: '−';
+}
+
+.prog-card-corpo {
+    border-top: 3px solid var(--prog-tint);
+    padding: 1.1rem 1.4rem 1.4rem;
 }
 
 .prog-card-anno {
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: var(--prog-soft);
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--prog-ink);
 }
 
 .prog-intermedia {
+    display: block;
+    flex-basis: 100%;
     font-size: 1.05rem;
     line-height: 1.65;
-    margin-bottom: 1.1rem;
+    margin-top: 0.35rem;
     color: var(--prog-ink);
 }
 
@@ -1928,11 +1978,35 @@ a.prog-qnq-link:hover {
     }
 
     .prog-intro,
-    .prog-barra,
-    .prog-modulo,
-    .prog-card {
+    .prog-barra {
         padding: 1.1rem 1.15rem;
         border-radius: 14px;
+    }
+
+    .prog-modulo-testata {
+        padding: 1rem 3.25rem 1rem 1.1rem;
+    }
+
+    .prog-modulo-testata::after {
+        top: 0.9rem;
+        right: 0.85rem;
+    }
+
+    .prog-modulo-corpo {
+        padding: 0.9rem 1.1rem 1.1rem;
+    }
+
+    .prog-card-testata {
+        padding: 1rem 3.25rem 1rem 1.1rem;
+    }
+
+    .prog-card-testata::after {
+        top: 0.9rem;
+        right: 0.85rem;
+    }
+
+    .prog-card-corpo {
+        padding: 0.9rem 1.1rem 1.1rem;
     }
 
     .prog-toggle {
