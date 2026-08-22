@@ -219,9 +219,9 @@ function preparaSwitchPercorso() {
         return;
     }
 
-    contenitore.hidden = false;
+    contenitore.dataset.anno = alternativo.anno;
     contenitore.innerHTML = `
-      <span class="prog-alt-label">${escapeHtml(alternativo.anno)}, modulo ${principale.n}: due percorsi alternativi</span>
+      <span class="prog-alt-label">${escapeHtml(alternativo.anno)} · UDA ${principale.n}: scegli il percorso</span>
       <button type="button" class="tab-btn active" data-percorso="A">A · ${escapeHtml(principale.titolo)}</button>
       <button type="button" class="tab-btn" data-percorso="B">B · ${escapeHtml(alternativo.titolo)}</button>`;
 
@@ -233,6 +233,17 @@ function preparaSwitchPercorso() {
             disegnaLista();
         });
     });
+}
+
+// Lo switch fra percorso A e B riguarda solo il terzo anno: va nascosto quando
+// il filtro esclude quell'anno, altrimenti resta a schermo mentre si guarda il quarto.
+function aggiornaVisibilitaSwitch() {
+    const contenitore = document.getElementById('prog-percorso-terzo');
+    if (!contenitore || !contenitore.dataset.anno) {
+        return;
+    }
+    const pertinente = anniVisibili().includes(contenitore.dataset.anno);
+    contenitore.hidden = !pertinente;
 }
 
 /* ---------- selezione dei dati ---------- */
@@ -276,6 +287,7 @@ function anniVisibili() {
 /* ---------- lista ---------- */
 
 function disegnaLista() {
+    aggiornaVisibilitaSwitch();
     const contenitore = document.getElementById('prog-lista');
     const moduli = moduliAttivi().filter(corrispondeRicerca);
     aggiornaContatori(moduliAttivi());
@@ -328,7 +340,7 @@ function disegnaPerContenuti(moduli) {
 
         const corpo = suoi.length
             ? suoi.map((m) => schedaModulo(m, anno)).join('')
-            : '<div class="prog-vuoto">Nessun modulo ancora proposto per questo anno.</div>';
+            : '<div class="prog-vuoto">Nessuna UDA ancora proposta per questo anno.</div>';
 
         return `
         <section class="prog-gruppo" id="${slug(anno)}">
@@ -336,7 +348,7 @@ function disegnaPerContenuti(moduli) {
             <h3 class="prog-gruppo-titolo">${escapeHtml(anno)}</h3>
             <a class="prog-qnq-badge prog-qnq-link" href="#qnq-${slug(anno)}"
                title="${escapeHtml(scheda.sintesi)}">QNQ ${escapeHtml(scheda.livello)}</a>
-            <span class="prog-anno-conteggio">${suoi.length} ${suoi.length === 1 ? 'modulo' : 'moduli'}</span>
+            <span class="prog-anno-conteggio">${suoi.length} ${suoi.length === 1 ? 'UDA' : 'UDA'}</span>
           </div>
           <p class="prog-gruppo-sottotitolo">${escapeHtml(scheda.sintesi)}</p>
           <div class="prog-elenco-moduli">${corpo}</div>
@@ -359,7 +371,7 @@ function cartaCompetenza(trg, anno, scheda, moduli, competenza) {
 
     const corpo = moduli.length
         ? moduli.map((m) => schedaModulo(m, anno)).join('')
-        : '<div class="prog-vuoto">Nessun modulo ancora proposto per questa competenza.</div>';
+        : '<div class="prog-vuoto">Nessuna UDA ancora proposta per questa competenza.</div>';
 
     return `
     <article class="prog-card">
@@ -387,7 +399,7 @@ function cartaCompetenza(trg, anno, scheda, moduli, competenza) {
 function schedaModulo(modulo, anno) {
     const numero = modulo.n + (modulo.suffisso ? ' ' + modulo.suffisso : '');
     const alternativo = modulo.alternativoA !== undefined
-        ? `<span class="prog-tag-alt">percorso alternativo al modulo ${modulo.alternativoA}</span>`
+        ? `<span class="prog-tag-alt">alternativa alla UDA ${modulo.alternativoA}</span>`
         : '';
 
     // I riferimenti al curricolo compaiono solo se l'utente li chiede.
@@ -414,18 +426,43 @@ function schedaModulo(modulo, anno) {
            </details>`
         : '';
 
+    const meta = [
+        modulo.periodo ? `<span class="prog-meta-voce"><span class="prog-meta-et">Periodo</span>${escapeHtml(modulo.periodo)}</span>` : '',
+        modulo.monteOre ? `<span class="prog-meta-voce"><span class="prog-meta-et">Ore</span>${escapeHtml(modulo.monteOre)}</span>` : '',
+        modulo.compresenza ? `<span class="prog-meta-voce"><span class="prog-meta-et">Compresenza</span>${escapeHtml(modulo.compresenza)}</span>` : ''
+    ].filter(Boolean).join('');
+
+    const fasi = (modulo.fasi || []).length
+        ? `<div class="prog-fasi">
+             <p class="prog-blocco-et">Fasi di lavoro</p>
+             <ol>${modulo.fasi.map((f) => `<li>${escapeHtml(f)}</li>`).join('')}</ol>
+           </div>`
+        : '';
+
+    const prodotto = modulo.prodottoFinale
+        ? `<p class="prog-prodotto"><span class="prog-prodotto-et">Prodotto finale</span>
+             ${escapeHtml(modulo.prodottoFinale)}</p>`
+        : '';
+
     return `
-    <div class="prog-modulo">
-      <p class="prog-modulo-titolo">Modulo ${escapeHtml(String(numero))} · ${escapeHtml(modulo.titolo)} ${alternativo}</p>
+    <article class="prog-modulo">
+      <div class="prog-modulo-testata">
+        <p class="prog-modulo-titolo"><span class="prog-uda-num">UDA ${escapeHtml(String(numero))}</span>
+          ${escapeHtml(modulo.titolo)} ${alternativo}</p>
+        ${meta ? `<p class="prog-modulo-meta">${meta}</p>` : ''}
+      </div>
       ${modulo.sintesi ? `<p class="prog-modulo-sintesi">${escapeHtml(modulo.sintesi)}</p>` : ''}
-      ${modulo.compresenza
-        ? `<p class="small-note">In compresenza con ${escapeHtml(modulo.compresenza)}.</p>` : ''}
-      <ul class="prog-attivita">${attivita}</ul>
+      ${prodotto}
+      <div class="prog-blocco">
+        <p class="prog-blocco-et">Contenuti e attività</p>
+        <ul class="prog-attivita">${attivita}</ul>
+      </div>
+      ${fasi}
       ${norme}
       ${schedaProva(modulo.provaEsperta)}
       ${schedaMateriali(modulo.materiali)}
       ${stato.mostraCompetenze ? riepilogoCompetenze(modulo, anno) : ''}
-    </div>`;
+    </article>`;
 }
 
 // Elenco delle competenze che il modulo intercetta, con il traguardo dell'anno.

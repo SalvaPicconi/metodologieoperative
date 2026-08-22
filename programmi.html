@@ -36,7 +36,7 @@
     </nav>
 
     <main>
-        <div class="container">
+        <div class="container prog-pagina">
             <div class="page-title">
                 <h2>🗂️ Programmi di Metodologie Operative</h2>
                 <p>Proposta di programmazione ancorata alle competenze di indirizzo del curricolo SSAS
@@ -44,10 +44,12 @@
             </div>
 
             <section class="prog-intro">
-                <p>I contenuti da trattare anno per anno, organizzati in moduli, ciascuno con le sue attività
-                   e la <strong>prova esperta di laboratorio</strong> tarata sul livello di autonomia previsto.</p>
-                <p class="small-note">Se ti serve il dettaglio curricolare, attiva
-                   <em>Mostra competenze</em>: comparirà, su ogni attività, la competenza di indirizzo che intercetta.</p>
+                <p>I contenuti da trattare anno per anno, organizzati in <strong>unità didattiche di
+                   apprendimento</strong>. Ogni UDA dichiara il periodo, il monte ore, le attività, le fasi di
+                   lavoro e il <strong>prodotto finale</strong> che gli studenti consegnano nella prova esperta
+                   di laboratorio.</p>
+                <p>Serve il dettaglio curricolare? Attiva <em>Mostra competenze</em>: su ogni attività comparirà
+                   la competenza di indirizzo che intercetta.</p>
             </section>
 
             <section class="prog-sezione">
@@ -57,12 +59,16 @@
                         <button type="button" class="tab-btn" data-vista="competenza">Per competenza</button>
                     </div>
                     <div class="prog-filtri">
-                        <label class="prog-filtro-label" for="prog-filtro-anno">Anno</label>
-                        <select id="prog-filtro-anno">
-                            <option value="">Tutti gli anni</option>
-                        </select>
-                        <label class="prog-filtro-label" for="prog-cerca">Cerca</label>
-                        <input type="search" id="prog-cerca" placeholder="argomento, attività, prova…">
+                        <span class="prog-campo">
+                            <label class="prog-filtro-label" for="prog-filtro-anno">Anno</label>
+                            <select id="prog-filtro-anno">
+                                <option value="">Tutti gli anni</option>
+                            </select>
+                        </span>
+                        <span class="prog-campo">
+                            <label class="prog-filtro-label" for="prog-cerca">Cerca</label>
+                            <input type="search" id="prog-cerca" placeholder="argomento, attività, prova…">
+                        </span>
                         <label class="prog-switch">
                             <input type="checkbox" id="prog-mostra-competenze">
                             <span>Mostra competenze</span>

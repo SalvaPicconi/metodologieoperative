@@ -26,6 +26,9 @@ ANNI = ["Primo anno", "Secondo anno", "Terzo anno", "Quarto anno", "Quinto anno"
 
 CAMPI_PROVA = ["titolo", "compito", "contesto", "prodotto", "durata", "modalita", "risorse", "evidenze"]
 
+# Campi che rendono un modulo una UDA nel senso del D.M. 92/2018.
+CAMPI_UDA = ["periodo", "monteOre", "prodottoFinale", "fasi"]
+
 
 class ErroriRaccolti:
     """Accumula i problemi invece di fermarsi al primo, cosi' si correggono in blocco."""
@@ -120,6 +123,25 @@ def controlla_qnq_verbatim(livelli, errori):
                     "il descrittore non coincide con la Tabella A del D.I. 8 gennaio 2018",
                     "è testo normativo: riallinealo a programmi-src/qnq-tabella-a.txt",
                 )
+
+
+def controlla_uda(modulo, dove, errori):
+    """Ogni modulo deve essere una UDA completa: periodo, ore, prodotto e fasi."""
+    for campo in CAMPI_UDA:
+        if not modulo.get(campo):
+            errori.aggiungi(dove, f"campo UDA mancante o vuoto: {campo}",
+                            "ogni UDA dichiara periodo, monteOre, prodottoFinale e fasi;\n"
+                            "usa: python3 scripts/programmi.py nuovo-modulo --anno \"<anno>\"")
+    fasi = modulo.get("fasi")
+    if isinstance(fasi, list) and 0 < len(fasi) < 3:
+        errori.aggiungi(dove, f"la UDA ha solo {len(fasi)} fase/i",
+                        "servono almeno tre fasi: avvio, costruzione delle conoscenze, laboratorio")
+    prodotto = (modulo.get("prodottoFinale") or "").strip().lower()
+    prova = (modulo.get("provaEsperta") or {}).get("prodotto", "").strip().lower()
+    if prodotto and prova and not set(prodotto.split()) & set(prova.split()):
+        errori.aggiungi(dove, "prodottoFinale e provaEsperta.prodotto non hanno nulla in comune",
+                        f"UDA: «{modulo.get('prodottoFinale')}»\nprova: «{(modulo.get('provaEsperta') or {}).get('prodotto')}»\n"
+                        "il prodotto della UDA è quello che si consegna nella prova esperta")
 
 
 def controlla_prova(prova, livello, dove, errori):
@@ -257,11 +279,14 @@ def elabora(curricolo, livelli, blocchi, errori):
             for attivita in modulo.get("contenuti", []):
                 dove = f"{etichetta} → «{attivita.get('attivita', '?')[:70]}»"
                 competenze |= controlla_agganci(attivita, periodo, indice, dove, errori)
+            controlla_uda(modulo, etichetta, errori)
             controlla_prova(modulo.get("provaEsperta"), livello, etichetta, errori)
 
             modulo_uscita = dict(modulo)
             modulo_uscita["anno"] = anno
-            modulo_uscita["periodo"] = periodo
+            # "periodo" della UDA e' il periodo didattico (es. "Ottobre - Novembre"):
+            # non va confuso con il periodo del curricolo, che qui prende un nome distinto.
+            modulo_uscita["periodoCurricolo"] = periodo
             modulo_uscita["livelloQNQ"] = livello
             modulo_uscita["competenze"] = sorted(competenze, key=lambda x: int(x[1:]))
             moduli.append(modulo_uscita)
@@ -397,7 +422,11 @@ def scheletro(anno):
     modello = {
         "n": 0,
         "titolo": "",
+        "periodo": "",
+        "monteOre": "",
         "sintesi": "",
+        "prodottoFinale": "",
+        "fasi": ["", "", ""],
         "contenuti": [
             {"attivita": "", "agganci": [{"competenza": "C1", "abilita": [""], "conoscenze": [""]}]},
             {"attivita": "", "aggancio": "trasversale", "nota": ""},
