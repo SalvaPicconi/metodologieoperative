@@ -6,22 +6,24 @@ Questo documento è il punto di ripartenza per lavorare sulla pagina **Programmi
 - Repository: `SalvaPicconi/metodologieoperative`
 - Pubblicazione: GitHub Pages dal ramo `main`, directory radice
 - File generato mostrato dalla pagina: `programmi.json`
-- Stato verificato: 22 agosto 2026
-- Commit di riferimento per lo stato descritto: `baccc9e`
+- Stato verificato: 26 agosto 2026
+- Commit funzionale di riferimento: `a821042`
 
 ## Stato attuale
 
 | Anno | Livello QNQ | UDA pubblicate | Nota |
 | --- | ---: | ---: | --- |
-| Primo | 2 | 9 | Programma riorganizzato e integrato con l'orientamento alle professioni |
-| Secondo | 2 | 13 | Programmi delle due seconde unificati |
-| Terzo | 3 | 8 | UDA 5 con due percorsi alternativi; 9 record nel JSON contando l'alternativa |
-| Quarto | 3–4 | 8 | Base provvisoria, da integrare quando sarà disponibile il programma svolto completo |
-| Quinto | 4 | 1 | Programma svolto ancora in attesa; è presente soltanto il percorso trasversale di orientamento |
+| Primo | 2 | 12 | Programma del docente integrato con tre UDA del collega |
+| Secondo | 2 | 16 | Programmi delle due seconde integrati con tre UDA del collega |
+| Terzo | 3 | 12 | UDA 5 con due percorsi alternativi; 13 record nel JSON contando l'alternativa |
+| Quarto | 3–4 | 11 | Base provvisoria integrata con tre UDA del collega |
+| Quinto | 4 | 5 | Orientamento del docente e quattro UDA del collega; programma del titolare ancora in attesa |
 
 Decisioni attive:
 
 - Il collegamento e la pagina si chiamano **Programmi SSAS**.
+- Ogni UDA dichiara la propria origine: **P** programma del docente titolare, **C** programma del collega, **P+C** UDA del docente con innesti del collega.
+- Il confronto fra i due programmi è conservato in `programmi-src/_integrazione/piano.json`: ogni punto della fonte è classificato come già coperto, scartato perché duplicato, innestato o trasformato in una nuova UDA.
 - Al terzo anno l'UDA 5 presenta due alternative: **dipendenze e Ser.D** oppure **tutela del minore**. Nella programmazione se ne sceglie una.
 - Il welfare state resta nel secondo anno. Al terzo anno l'UDA 2 è dedicata alle esercitazioni su casi concreti, dai bisogni ai servizi.
 - La Pet Therapy non fa parte dei programmi.
@@ -32,7 +34,7 @@ Decisioni attive:
 ## Architettura
 
 ```text
-programmi-src/*.json e qnq-tabella-a.txt
+programmi-src/*.json, _integrazione/piano.json e qnq-tabella-a.txt
                     │
                     ▼
           scripts/programmi.py
@@ -60,6 +62,7 @@ programmi-src/*.json e qnq-tabella-a.txt
 | `programmi-src/impianto-didattico.json` | Metodologie, strumenti, verifiche ed elementi trasversali |
 | `programmi-src/moduli-<anno>.json` | UDA dei cinque anni |
 | `programmi-src/modulo-tutela-minori.json` | Percorso alternativo all'UDA 5 del terzo anno |
+| `programmi-src/_integrazione/piano.json` | Mappa del confronto fra programma del docente e programma del collega |
 | `scripts/programmi.py` | Validazione, costruzione ed elenco dei programmi |
 | `programmi.json` | Output generato e caricato dal browser |
 | `programmi.js` | Filtri e rendering della pagina |
@@ -71,6 +74,7 @@ programmi-src/*.json e qnq-tabella-a.txt
 Ogni UDA deve contenere almeno:
 
 - numero e titolo;
+- origine: `P`, `C` oppure `P+C`;
 - periodo e monte ore;
 - prodotto finale;
 - almeno tre fasi;
@@ -79,6 +83,8 @@ Ogni UDA deve contenere almeno:
 - materiali, anche come elenco vuoto.
 
 Le abilità e le conoscenze negli `agganci` devono coincidere letteralmente con quelle presenti in `curricolo-ssas.json`. Lo script rifiuta formulazioni inventate o riferite a un periodo curricolare diverso.
+
+Prima di integrare un nuovo programma, classificare i suoi contenuti nel piano di integrazione: evitare i doppioni, innestare i frammenti compatibili nelle UDA esistenti e creare una nuova UDA soltanto quando il nucleo è autonomo.
 
 La prova esperta deve rispettare il livello dell'anno:
 
@@ -186,6 +192,7 @@ Verificare il nuovo commit con la stessa procedura locale e pubblica. Evitare `g
 | `d907cfe` | Introduzione del percorso ricorrente sulle professioni |
 | `2725ef7` | Distinzione fra orientamento e tirocinio in struttura |
 | `baccc9e` | Rimozione del Peer Tutoring dai programmi annuali |
+| `a821042` | Integrazione dei contributi del collega e introduzione dei badge P/C/P+C |
 
 ## Prima di riprendere il lavoro in un nuovo contesto
 
