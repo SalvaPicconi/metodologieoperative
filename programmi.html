@@ -8,7 +8,7 @@
     <title>Programmi SSAS - Metodologie Operative</title>
     <meta name="description" content="Proposta di programmazione di Metodologie Operative ancorata al curricolo verticale SSAS, ai livelli QNQ e alle prove esperte di laboratorio">
     <link rel="stylesheet" href="style.css?v=78c7e42c">
-    <link rel="stylesheet" href="assets/programmi-revisione.css?v=20260826a">
+    <link rel="stylesheet" href="assets/programmi-revisione.css?v=20260826b">
 </head>
 
 <body data-programmi-locked="true">
@@ -153,13 +153,15 @@
             <button type="button" class="prog-dialog-chiudi" data-prog-dialog-close aria-label="Chiudi">×</button>
         </div>
         <form id="prog-editor-form" class="prog-editor-form">
-            <div id="prog-editor-avviso" class="prog-editor-avviso" hidden></div>
-            <div id="prog-editor-campi" class="prog-editor-campi"></div>
-            <section class="prog-editor-nota">
-                <label for="prog-editor-nota-generale">Annotazione generale</label>
-                <p>Usala per indicazioni che riguardano l’intera UDA, anche senza riscrivere un campo.</p>
-                <textarea id="prog-editor-nota-generale" rows="4" placeholder="Esempio: accorciare questa UDA e distinguere meglio la parte teorica dal laboratorio."></textarea>
-            </section>
+            <div class="prog-editor-scroller">
+                <div id="prog-editor-avviso" class="prog-editor-avviso" hidden></div>
+                <div id="prog-editor-campi" class="prog-editor-campi"></div>
+                <section class="prog-editor-nota">
+                    <label for="prog-editor-nota-generale">Annotazione generale</label>
+                    <p>Usala per indicazioni che riguardano l’intera UDA, anche senza riscrivere un campo.</p>
+                    <textarea id="prog-editor-nota-generale" rows="4" placeholder="Esempio: accorciare questa UDA e distinguere meglio la parte teorica dal laboratorio."></textarea>
+                </section>
+            </div>
             <div class="prog-editor-piede">
                 <p id="prog-editor-messaggio" class="prog-form-messaggio" role="status" aria-live="polite"></p>
                 <div>
