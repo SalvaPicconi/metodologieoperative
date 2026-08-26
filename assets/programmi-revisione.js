@@ -366,7 +366,7 @@ function preparaEditor(chiave, modulo) {
         const snapshotAttuale = creaSnapshot(modulo);
         if (revisione && snapshotDifferente(revisione.originale || {}, snapshotAttuale)) {
             ui.editorAvviso.hidden = false;
-            ui.editorAvviso.textContent = 'Il file sorgente pubblico è stato aggiornato dopo questa bozza. La bozza non ha modificato la pagina: confronta i campi prima di riprendere il lavoro.';
+            ui.editorAvviso.textContent = 'Le modifiche salvate qui restano in bozza e non cambiano il contenuto pubblico. Il testo verrà modificato nel codice solo dopo una decisione condivisa.';
         }
     }
 
