@@ -437,6 +437,7 @@ function schedaModulo(modulo, anno) {
     <details class="prog-modulo"${aperto}>
       <summary class="prog-modulo-testata">
         <span class="prog-modulo-titolo"><span class="prog-uda-num">UDA ${escapeHtml(String(numero))}</span>
+          ${badgeOrigine(modulo.origine)}
           ${escapeHtml(modulo.titolo)} ${percorso}</span>
         ${meta ? `<span class="prog-modulo-meta">${meta}</span>` : ''}
       </summary>
@@ -478,6 +479,22 @@ function riepilogoCompetenze(modulo, anno) {
       <summary>Competenze di indirizzo intercettate (${modulo.competenze.length})</summary>
       <ul>${voci}</ul>
     </details>`;
+}
+
+// La programmazione e' a due mani: il badge dice da quale programma nasce la UDA.
+const ORIGINI = {
+    'P': { etichetta: 'P', titolo: 'Dal programma del docente' },
+    'C': { etichetta: 'C', titolo: 'Dal programma del collega' },
+    'P+C': { etichetta: 'P+C', titolo: 'UDA del docente con innesti dal programma del collega' }
+};
+
+function badgeOrigine(origine) {
+    const voce = ORIGINI[origine];
+    if (!voce) {
+        return '';
+    }
+    return `<span class="prog-origine prog-origine-${slug(origine)}"
+             title="${escapeHtml(voce.titolo)}">${escapeHtml(voce.etichetta)}</span>`;
 }
 
 function schedaProva(prova) {

@@ -101,6 +101,25 @@ condividono quindi `periodo: "Biennio"` e livello QNQ 2.
 Finché il build non passa, `programmi.json` resta all'ultima versione valida:
 il sito online non si rompe mai per un errore di contenuto.
 
+### Programmazione a due mani: il campo `origine`
+
+Il curricolo è costruito insieme a un collega. Ogni UDA dichiara da quale programma nasce:
+
+| Valore | Significato |
+|---|---|
+| `"P"` | UDA che nasce dal programma del docente titolare |
+| `"C"` | UDA che nasce dal programma del collega |
+| `"P+C"` | UDA del docente in cui sono stati innestati contenuti del collega |
+
+Il campo è **obbligatorio** su ogni UDA: il build si ferma se manca o se il valore non è
+uno dei tre. In pagina diventa un badge accanto al numero della UDA, spiegato dalla legenda
+in testa.
+
+Quando arriva un programma nuovo da integrare, **prima si fa il confronto**: si inventariano
+i punti elenco della fonte, si decide per ciascuno se è un doppione da scartare, un frammento
+da innestare in una UDA esistente, o materia per una UDA nuova. Solo dopo si scrive.
+La mappa di quel confronto resta in `programmi-src/_integrazione/piano.json`.
+
 ### Vincoli editoriali
 
 - La sigla **TSSAS non si usa**: si scrive «l'indirizzo sociosanitario» e «l'operatore sociosanitario».

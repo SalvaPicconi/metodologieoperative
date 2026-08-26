@@ -2053,3 +2053,43 @@ a.prog-qnq-link:hover {
         padding: 0.9rem 1rem;
     }
 }
+
+/* --- provenienza della UDA: programma del docente, del collega, o a due mani --- */
+
+.prog-origine {
+    display: inline-block;
+    border-radius: 8px;
+    padding: 0.1rem 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    vertical-align: 0.1em;
+    margin-right: 0.35rem;
+    cursor: help;
+}
+
+.prog-origine-p {
+    background-color: var(--prog-tint);
+    color: var(--prog-accent-deep);
+    border: 1px solid var(--prog-line);
+}
+
+.prog-origine-c {
+    background-color: #ede9fe;
+    color: #4c1d95;
+    border: 1px solid #c4b5fd;
+}
+
+.prog-origine-p-c {
+    background-color: var(--prog-warm-bg);
+    color: var(--prog-warm);
+    border: 1px solid #fdba74;
+}
+
+.prog-legenda {
+    margin-top: 0.9rem;
+    padding-top: 0.9rem;
+    border-top: 2px dashed var(--prog-line);
+    font-size: 0.92rem;
+    color: var(--prog-soft);
+}

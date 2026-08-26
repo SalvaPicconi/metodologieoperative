@@ -29,6 +29,13 @@ CAMPI_PROVA = ["titolo", "compito", "contesto", "prodotto", "durata", "modalita"
 # Campi che rendono un modulo una UDA nel senso del D.M. 92/2018.
 CAMPI_UDA = ["periodo", "monteOre", "prodottoFinale", "fasi"]
 
+# La programmazione e' costruita a due mani: ogni UDA dichiara da quale programma proviene.
+ORIGINI = {
+    "P": "programma del docente",
+    "C": "programma del collega",
+    "P+C": "UDA del docente con innesti del collega",
+}
+
 
 class ErroriRaccolti:
     """Accumula i problemi invece di fermarsi al primo, cosi' si correggono in blocco."""
@@ -126,7 +133,15 @@ def controlla_qnq_verbatim(livelli, errori):
 
 
 def controlla_uda(modulo, dove, errori):
-    """Ogni modulo deve essere una UDA completa: periodo, ore, prodotto e fasi."""
+    """Ogni modulo deve essere una UDA completa: periodo, ore, prodotto, fasi e provenienza."""
+    origine = modulo.get("origine")
+    if not origine:
+        errori.aggiungi(dove, "manca il campo origine",
+                        "ogni UDA dichiara da quale programma proviene:\n"
+                        + "\n".join(f'  "{k}" = {v}' for k, v in ORIGINI.items()))
+    elif origine not in ORIGINI:
+        errori.aggiungi(dove, f"origine non riconosciuta: «{origine}»",
+                        "valori ammessi: " + ", ".join(f'"{k}"' for k in ORIGINI))
     for campo in CAMPI_UDA:
         if not modulo.get(campo):
             errori.aggiungi(dove, f"campo UDA mancante o vuoto: {campo}",
