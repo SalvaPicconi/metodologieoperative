@@ -8,9 +8,10 @@
     <title>Programmi SSAS - Metodologie Operative</title>
     <meta name="description" content="Proposta di programmazione di Metodologie Operative ancorata al curricolo verticale SSAS, ai livelli QNQ e alle prove esperte di laboratorio">
     <link rel="stylesheet" href="style.css?v=78c7e42c">
+    <link rel="stylesheet" href="assets/programmi-revisione.css?v=20260826a">
 </head>
 
-<body>
+<body data-programmi-locked="true">
     <header>
         <div class="container">
             <h1>Materiali Didattici - Metodologie Operative</h1>
@@ -38,10 +39,29 @@
     <main>
         <div class="container prog-pagina">
             <div class="page-title">
-                <h2>🗂️ Programmi SSAS</h2>
+                <div class="prog-titolo-riga">
+                    <h2>🗂️ Programmi SSAS</h2>
+                    <button type="button" id="prog-accesso-revisione" class="prog-accesso-revisione">
+                        🔐 Accesso revisione
+                    </button>
+                </div>
                 <p>Proposta di programmazione ancorata alle competenze di indirizzo del curricolo SSAS
                    — D.M. 24 maggio 2018 n. 92, Allegato C — e ai livelli del Quadro Nazionale delle Qualificazioni.</p>
             </div>
+
+            <section id="prog-revisione-toolbar" class="prog-revisione-toolbar" hidden aria-label="Strumenti di revisione">
+                <div>
+                    <p class="prog-revisione-eyebrow">Modalità revisione attiva</p>
+                    <p class="prog-revisione-identita" id="prog-revisione-identita"></p>
+                </div>
+                <div class="prog-revisione-toolbar-azioni">
+                    <button type="button" id="prog-annotazione-generale">＋ Nota generale</button>
+                    <button type="button" id="prog-vedi-annotazioni">
+                        Annotazioni <span id="prog-revisione-contatore" class="prog-revisione-contatore">0</span>
+                    </button>
+                    <button type="button" id="prog-esci-revisione" class="prog-revisione-esci">Esci</button>
+                </div>
+            </section>
 
             <section class="prog-intro">
                 <p>I contenuti da trattare anno per anno, organizzati in <strong>unità didattiche di
@@ -107,6 +127,76 @@
         </div>
     </main>
 
+    <dialog id="prog-auth-dialog" class="prog-dialog prog-auth-dialog" aria-labelledby="prog-auth-title">
+        <div class="prog-dialog-testata">
+            <div>
+                <p class="prog-dialog-eyebrow">Area riservata</p>
+                <h2 id="prog-auth-title">Accedi ai Programmi SSAS</h2>
+            </div>
+        </div>
+        <form id="prog-auth-form" class="prog-auth-form">
+            <p>Questa pagina è riservata. Inserisci la password condivisa per consultare i Programmi e gestire annotazioni e proposte di modifica.</p>
+            <label for="prog-auth-password">Password</label>
+            <input type="password" id="prog-auth-password" name="password" autocomplete="current-password" required>
+            <p id="prog-auth-messaggio" class="prog-form-messaggio" role="status" aria-live="polite"></p>
+            <button type="submit" class="prog-btn-primario">Accedi</button>
+        </form>
+    </dialog>
+
+    <dialog id="prog-editor-dialog" class="prog-dialog prog-editor-dialog" aria-labelledby="prog-editor-title">
+        <div class="prog-dialog-testata prog-editor-testata">
+            <div>
+                <p class="prog-dialog-eyebrow" id="prog-editor-eyebrow">Revisione UDA</p>
+                <h2 id="prog-editor-title">Modifica in bozza</h2>
+                <p id="prog-editor-sottotitolo" class="prog-editor-sottotitolo"></p>
+            </div>
+            <button type="button" class="prog-dialog-chiudi" data-prog-dialog-close aria-label="Chiudi">×</button>
+        </div>
+        <form id="prog-editor-form" class="prog-editor-form">
+            <div id="prog-editor-avviso" class="prog-editor-avviso" hidden></div>
+            <div id="prog-editor-campi" class="prog-editor-campi"></div>
+            <section class="prog-editor-nota">
+                <label for="prog-editor-nota-generale">Annotazione generale</label>
+                <p>Usala per indicazioni che riguardano l’intera UDA, anche senza riscrivere un campo.</p>
+                <textarea id="prog-editor-nota-generale" rows="4" placeholder="Esempio: accorciare questa UDA e distinguere meglio la parte teorica dal laboratorio."></textarea>
+            </section>
+            <div class="prog-editor-piede">
+                <p id="prog-editor-messaggio" class="prog-form-messaggio" role="status" aria-live="polite"></p>
+                <div>
+                    <button type="button" class="prog-btn-secondario" data-prog-dialog-close>Annulla</button>
+                    <button type="submit" class="prog-btn-primario">Salva bozza</button>
+                </div>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog id="prog-elenco-dialog" class="prog-dialog prog-elenco-dialog" aria-labelledby="prog-elenco-title">
+        <div class="prog-dialog-testata">
+            <div>
+                <p class="prog-dialog-eyebrow">Area riservata</p>
+                <h2 id="prog-elenco-title">Annotazioni e modifiche</h2>
+            </div>
+            <button type="button" class="prog-dialog-chiudi" data-prog-dialog-close aria-label="Chiudi">×</button>
+        </div>
+        <div class="prog-elenco-filtri">
+            <label>Anno
+                <select id="prog-elenco-anno"><option value="">Tutti</option></select>
+            </label>
+            <label>Stato
+                <select id="prog-elenco-stato">
+                    <option value="">Tutti</option>
+                    <option value="bozza">Da valutare</option>
+                    <option value="approvata">Approvata</option>
+                    <option value="applicata">Applicata</option>
+                    <option value="archiviata">Archiviata</option>
+                </select>
+            </label>
+            <button type="button" id="prog-esporta-annotazioni" class="prog-btn-secondario">Esporta Markdown</button>
+        </div>
+        <p id="prog-elenco-messaggio" class="prog-form-messaggio" role="status" aria-live="polite"></p>
+        <div id="prog-elenco-contenuto" class="prog-elenco-contenuto"></div>
+    </dialog>
+
     <footer>
         <div class="container">
             <p>Metodologie Operative - Servizi Sociosanitari</p>
@@ -119,7 +209,8 @@
     </footer>
 
     <script src="materiali.js"></script>
-    <script src="programmi.js?v=4c5292a3"></script>
+    <script src="programmi.js?v=20260826a"></script>
+    <script type="module" src="assets/programmi-revisione.js?v=20260826a"></script>
 </body>
 
 </html>

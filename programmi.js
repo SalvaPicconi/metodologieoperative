@@ -25,7 +25,13 @@ const stato = {
     mostraCompetenze: false
 };
 
-document.addEventListener('DOMContentLoaded', caricaProgrammi);
+let programmiCaricati = false;
+
+document.addEventListener('mo:programmi-unlocked', () => {
+    if (programmiCaricati) return;
+    programmiCaricati = true;
+    caricaProgrammi();
+});
 
 async function caricaProgrammi() {
     const contenitore = document.getElementById('prog-lista');
@@ -242,6 +248,7 @@ function disegnaLista() {
     contenitore.innerHTML = html
         || '<div class="empty-state"><p>Nessun modulo corrisponde alla ricerca.</p>'
         + '<p>Prova con un altro termine o azzera il filtro.</p></div>';
+    document.dispatchEvent(new CustomEvent('mo:programmi-rendered'));
 }
 
 function disegnaPerCompetenza(moduli) {
@@ -390,6 +397,7 @@ function schedaModulo(modulo, anno) {
             ? '<span class="prog-tag-alt">percorso A</span>'
             : '';
     const aperto = stato.ricerca ? ' open' : '';
+    const chiave = chiaveModulo(modulo);
 
     // I riferimenti al curricolo compaiono solo se l'utente li chiede.
     const attivita = (modulo.contenuti || []).map((c) => {
@@ -434,7 +442,7 @@ function schedaModulo(modulo, anno) {
         : '';
 
     return `
-    <details class="prog-modulo"${aperto}>
+    <details class="prog-modulo" data-programmi-modulo="${escapeHtml(chiave)}"${aperto}>
       <summary class="prog-modulo-testata">
         <span class="prog-modulo-titolo"><span class="prog-uda-num">UDA ${escapeHtml(String(numero))}</span>
           ${badgeOrigine(modulo.origine)}
@@ -442,6 +450,12 @@ function schedaModulo(modulo, anno) {
         ${meta ? `<span class="prog-modulo-meta">${meta}</span>` : ''}
       </summary>
       <div class="prog-modulo-corpo">
+        <div class="prog-revisione-azioni">
+          <button type="button" data-programmi-revisione-azione="${escapeHtml(chiave)}">
+            <span aria-hidden="true">✏️</span> Annota o modifica UDA
+            <span class="prog-revisione-stato" data-programmi-revisione-stato="${escapeHtml(chiave)}" hidden></span>
+          </button>
+        </div>
         ${modulo.sintesi ? `<p class="prog-modulo-sintesi">${escapeHtml(modulo.sintesi)}</p>` : ''}
         ${prodotto}
         <div class="prog-blocco">
@@ -555,6 +569,16 @@ function escapeHtml(valore) {
 function slug(valore) {
     return String(valore).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
         .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function chiaveModulo(modulo) {
+    const anno = slug(modulo.anno || 'senza-anno');
+    if (modulo.alternativoA !== undefined) {
+        return `${anno}-uda-${modulo.alternativoA}b`;
+    }
+    const alternativa = haPercorsoAlternativo(modulo) ? 'a' : '';
+    const suffisso = modulo.suffisso ? `-${slug(modulo.suffisso)}` : '';
+    return `${anno}-uda-${modulo.n}${alternativa}${suffisso}`;
 }
 
 function formattaData(iso) {
