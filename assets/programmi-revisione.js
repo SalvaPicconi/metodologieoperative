@@ -364,9 +364,9 @@ function preparaEditor(chiave, modulo) {
         GRUPPI_CAMPI.forEach((gruppo) => ui.editorCampi.appendChild(creaGruppoCampi(gruppo, modulo, revisione)));
 
         const snapshotAttuale = creaSnapshot(modulo);
-        if (revisione && JSON.stringify(revisione.originale || {}) !== JSON.stringify(snapshotAttuale)) {
+        if (revisione && snapshotDifferente(revisione.originale || {}, snapshotAttuale)) {
             ui.editorAvviso.hidden = false;
-            ui.editorAvviso.textContent = 'Il contenuto pubblico è cambiato dopo il salvataggio di questa bozza. Controlla con attenzione i campi evidenziati prima di salvarla nuovamente.';
+            ui.editorAvviso.textContent = 'Il file sorgente pubblico è stato aggiornato dopo questa bozza. La bozza non ha modificato la pagina: confronta i campi prima di riprendere il lavoro.';
         }
     }
 
@@ -523,6 +523,11 @@ function formattaValore(valore) {
 
 function valoriUguali(a, b) {
     return JSON.stringify(a ?? '') === JSON.stringify(b ?? '');
+}
+
+function snapshotDifferente(originale, attuale) {
+    const chiavi = new Set([...Object.keys(originale || {}), ...Object.keys(attuale || {})]);
+    return [...chiavi].some((chiave) => !valoriUguali(originale?.[chiave], attuale?.[chiave]));
 }
 
 async function apriElenco() {
