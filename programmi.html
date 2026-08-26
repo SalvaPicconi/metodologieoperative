@@ -8,7 +8,7 @@
     <title>Programmi SSAS - Metodologie Operative</title>
     <meta name="description" content="Proposta di programmazione di Metodologie Operative ancorata al curricolo verticale SSAS, ai livelli QNQ e alle prove esperte di laboratorio">
     <link rel="stylesheet" href="style.css?v=78c7e42c">
-    <link rel="stylesheet" href="assets/programmi-revisione.css?v=20260826b">
+    <link rel="stylesheet" href="assets/programmi-revisione.css?v=20260826c">
 </head>
 
 <body data-programmi-locked="true">
@@ -138,6 +138,20 @@
             <p>Questa pagina è riservata. Inserisci la password condivisa per consultare i Programmi e gestire annotazioni e proposte di modifica.</p>
             <label for="prog-auth-password">Password</label>
             <input type="password" id="prog-auth-password" name="password" autocomplete="current-password" required>
+            <fieldset class="prog-identita-fieldset">
+                <legend>Chi sta lavorando?</legend>
+                <div class="prog-identita-opzioni">
+                    <label>
+                        <input type="radio" name="editor-name" value="Salvatore" required>
+                        <span>Salvatore</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="editor-name" value="Pierluigi" required>
+                        <span>Pierluigi</span>
+                    </label>
+                </div>
+                <p>La scelta vale per tutta la sessione e mantiene separate le due linee di revisione.</p>
+            </fieldset>
             <p id="prog-auth-messaggio" class="prog-form-messaggio" role="status" aria-live="polite"></p>
             <button type="submit" class="prog-btn-primario">Accedi</button>
         </form>
@@ -193,6 +207,13 @@
                     <option value="archiviata">Archiviata</option>
                 </select>
             </label>
+            <label>Autore
+                <select id="prog-elenco-autore">
+                    <option value="">Tutti</option>
+                    <option value="Salvatore">Salvatore</option>
+                    <option value="Pierluigi">Pierluigi</option>
+                </select>
+            </label>
             <button type="button" id="prog-esporta-annotazioni" class="prog-btn-secondario">Esporta Markdown</button>
         </div>
         <p id="prog-elenco-messaggio" class="prog-form-messaggio" role="status" aria-live="polite"></p>
@@ -212,7 +233,7 @@
 
     <script src="materiali.js"></script>
     <script src="programmi.js?v=20260826a"></script>
-    <script type="module" src="assets/programmi-revisione.js?v=20260826a"></script>
+    <script type="module" src="assets/programmi-revisione.js?v=20260826c"></script>
 </body>
 
 </html>

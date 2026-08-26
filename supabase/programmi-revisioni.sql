@@ -34,7 +34,9 @@ grant execute on function public.verifica_programmi_password(text) to service_ro
 
 create table if not exists public.programmi_revisioni (
     id uuid primary key default gen_random_uuid(),
-    module_key text not null unique,
+    module_key text not null,
+    author_name text not null
+        check (author_name in ('Salvatore', 'Pierluigi')),
     anno text not null,
     numero text not null default '',
     titolo_modulo text not null,
@@ -49,7 +51,8 @@ create table if not exists public.programmi_revisioni (
     updated_at timestamptz not null default now(),
     check (jsonb_typeof(originale) = 'object'),
     check (jsonb_typeof(modifiche) = 'object'),
-    check (nota_generale <> '' or modifiche <> '{}'::jsonb)
+    check (nota_generale <> '' or modifiche <> '{}'::jsonb),
+    unique (module_key, author_name)
 );
 
 comment on table public.programmi_revisioni is
@@ -58,12 +61,17 @@ comment on table public.programmi_revisioni is
 create index if not exists programmi_revisioni_stato_idx
     on public.programmi_revisioni (stato, updated_at desc);
 
+create index if not exists programmi_revisioni_author_name_idx
+    on public.programmi_revisioni (author_name, updated_at desc);
+
 alter table public.programmi_revisioni enable row level security;
 revoke all on table public.programmi_revisioni from anon, authenticated;
 grant select, insert, update, delete on table public.programmi_revisioni to service_role;
 
 create table if not exists public.programmi_revision_sessions (
     token_hash text primary key check (token_hash ~ '^[0-9a-f]{64}$'),
+    author_name text not null
+        check (author_name in ('Salvatore', 'Pierluigi')),
     expires_at timestamptz not null,
     created_at timestamptz not null default now(),
     last_seen_at timestamptz not null default now()

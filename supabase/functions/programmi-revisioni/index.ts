@@ -8,6 +8,7 @@ const ALLOWED_ORIGINS = new Set([
   "http://127.0.0.1:8420",
 ]);
 const VALID_STATES = new Set(["bozza", "approvata", "applicata", "archiviata"]);
+const VALID_AUTHORS = new Set(["Salvatore", "Pierluigi"]);
 
 const supabaseUrl = Deno.env.get("SUPABASE_URL") ?? "";
 const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
@@ -49,21 +50,21 @@ async function sha256(value: string) {
 
 async function verifySession(request: Request) {
   const token = request.headers.get("x-programmi-session") ?? "";
-  if (token.length < 32 || token.length > 128) return false;
+  if (token.length < 32 || token.length > 128) return null;
   const tokenHash = await sha256(token);
   const { data, error } = await admin
     .from("programmi_revision_sessions")
-    .select("token_hash,expires_at")
+    .select("token_hash,expires_at,author_name")
     .eq("token_hash", tokenHash)
     .gt("expires_at", new Date().toISOString())
     .maybeSingle();
-  if (error || !data) return false;
+  if (error || !data || !VALID_AUTHORS.has(data.author_name)) return null;
 
   void admin
     .from("programmi_revision_sessions")
     .update({ last_seen_at: new Date().toISOString() })
     .eq("token_hash", tokenHash);
-  return true;
+  return data.author_name as string;
 }
 
 function cleanString(value: unknown, maxLength: number, required = false) {
@@ -86,7 +87,9 @@ function cleanObject(value: unknown) {
 
 async function login(request: Request, payload: Record<string, unknown>) {
   const password = typeof payload.password === "string" ? payload.password : "";
+  const authorName = typeof payload.author_name === "string" ? payload.author_name.trim() : "";
   if (!password || password.length > 200) return json(request, { error: "Password non corretta." }, 401);
+  if (!VALID_AUTHORS.has(authorName)) return json(request, { error: "Scegli chi sta lavorando." }, 400);
 
   const { data: valid, error } = await admin.rpc("verifica_programmi_password", {
     p_password: password,
@@ -100,25 +103,28 @@ async function login(request: Request, payload: Record<string, unknown>) {
   const { error: insertError } = await admin.from("programmi_revision_sessions").insert({
     token_hash: tokenHash,
     expires_at: expiresAt,
+    author_name: authorName,
   });
   if (insertError) return json(request, { error: "Accesso temporaneamente non disponibile." }, 503);
-  return json(request, { ok: true, token, expires_at: expiresAt });
+  return json(request, { ok: true, token, author_name: authorName, expires_at: expiresAt });
 }
 
 async function listRevisions(request: Request) {
   const { data, error } = await admin
     .from("programmi_revisioni")
-    .select("id,module_key,anno,numero,titolo_modulo,originale,modifiche,nota_generale,stato,source_version,created_at,updated_at")
+    .select("id,module_key,author_name,anno,numero,titolo_modulo,originale,modifiche,nota_generale,stato,source_version,created_at,updated_at")
     .order("updated_at", { ascending: false });
   if (error) return json(request, { error: "Impossibile caricare le annotazioni." }, 500);
   return json(request, { revisions: data ?? [] });
 }
 
-async function upsertRevision(request: Request, payload: Record<string, unknown>) {
+async function upsertRevision(request: Request, payload: Record<string, unknown>, sessionAuthor: string) {
   try {
     const record = cleanObject(payload.revision);
     const moduleKey = cleanString(record.module_key, 160, true);
     if (!/^[a-z0-9-]+$/.test(moduleKey)) throw new Error("Chiave UDA non valida.");
+    const authorName = cleanString(record.author_name, 40, true);
+    if (!VALID_AUTHORS.has(authorName) || authorName !== sessionAuthor) throw new Error("Autore non valido per questa sessione.");
     const modifiche = cleanObject(record.modifiche);
     const notaGenerale = cleanString(record.nota_generale, 20_000);
     if (!notaGenerale && Object.keys(modifiche).length === 0) {
@@ -127,6 +133,7 @@ async function upsertRevision(request: Request, payload: Record<string, unknown>
 
     const databaseRecord = {
       module_key: moduleKey,
+      author_name: authorName,
       anno: cleanString(record.anno, 80, true),
       numero: cleanString(record.numero, 40),
       titolo_modulo: cleanString(record.titolo_modulo, 500, true),
@@ -135,15 +142,15 @@ async function upsertRevision(request: Request, payload: Record<string, unknown>
       nota_generale: notaGenerale,
       stato: VALID_STATES.has(String(record.stato)) ? String(record.stato) : "bozza",
       author_id: null,
-      updated_by: "accesso-password",
+      updated_by: authorName,
       source_version: cleanString(record.source_version, 160) || null,
       updated_at: new Date().toISOString(),
     };
 
     const { data, error } = await admin
       .from("programmi_revisioni")
-      .upsert(databaseRecord, { onConflict: "module_key" })
-      .select("id,module_key,anno,numero,titolo_modulo,originale,modifiche,nota_generale,stato,source_version,created_at,updated_at")
+      .upsert(databaseRecord, { onConflict: "module_key,author_name" })
+      .select("id,module_key,author_name,anno,numero,titolo_modulo,originale,modifiche,nota_generale,stato,source_version,created_at,updated_at")
       .single();
     if (error) throw error;
     return json(request, { revision: data });
@@ -153,7 +160,7 @@ async function upsertRevision(request: Request, payload: Record<string, unknown>
   }
 }
 
-async function updateStatus(request: Request, payload: Record<string, unknown>) {
+async function updateStatus(request: Request, payload: Record<string, unknown>, sessionAuthor: string) {
   const id = cleanString(payload.id, 50, true);
   const state = cleanString(payload.state, 20, true);
   if (!/^[0-9a-f-]{36}$/i.test(id) || !VALID_STATES.has(state)) {
@@ -161,9 +168,10 @@ async function updateStatus(request: Request, payload: Record<string, unknown>) 
   }
   const { data, error } = await admin
     .from("programmi_revisioni")
-    .update({ stato: state, updated_by: "accesso-password", updated_at: new Date().toISOString() })
+    .update({ stato: state, updated_at: new Date().toISOString() })
     .eq("id", id)
-    .select("id,module_key,anno,numero,titolo_modulo,originale,modifiche,nota_generale,stato,source_version,created_at,updated_at")
+    .eq("author_name", sessionAuthor)
+    .select("id,module_key,author_name,anno,numero,titolo_modulo,originale,modifiche,nota_generale,stato,source_version,created_at,updated_at")
     .single();
   if (error) return json(request, { error: "Impossibile aggiornare lo stato." }, 500);
   return json(request, { revision: data });
@@ -183,11 +191,12 @@ Deno.serve(async (request: Request) => {
   const action = typeof payload.action === "string" ? payload.action : "";
   if (action === "login") return await login(request, payload);
 
-  if (!(await verifySession(request))) return json(request, { error: "Sessione scaduta. Accedi di nuovo." }, 401);
-  if (action === "session") return json(request, { ok: true });
+  const sessionAuthor = await verifySession(request);
+  if (!sessionAuthor) return json(request, { error: "Sessione scaduta. Accedi di nuovo." }, 401);
+  if (action === "session") return json(request, { ok: true, author_name: sessionAuthor });
   if (action === "list") return await listRevisions(request);
-  if (action === "upsert") return await upsertRevision(request, payload);
-  if (action === "status") return await updateStatus(request, payload);
+  if (action === "upsert") return await upsertRevision(request, payload, sessionAuthor);
+  if (action === "status") return await updateStatus(request, payload, sessionAuthor);
   if (action === "logout") {
     const token = request.headers.get("x-programmi-session") ?? "";
     if (token) await admin.from("programmi_revision_sessions").delete().eq("token_hash", await sha256(token));

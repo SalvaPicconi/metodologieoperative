@@ -299,6 +299,72 @@ body[data-programmi-editor="true"] .prog-revisione-azioni {
     margin-bottom: 0.35rem;
 }
 
+.prog-identita-fieldset {
+    min-width: 0;
+    margin: 0.35rem 0 0;
+    padding: 0;
+    border: 0;
+}
+
+.prog-identita-fieldset legend {
+    margin-bottom: 0.5rem;
+    color: #0f2a27;
+    font-size: 0.86rem;
+    font-weight: 800;
+}
+
+.prog-identita-opzioni {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+}
+
+.prog-identita-opzioni label {
+    position: relative;
+    cursor: pointer;
+}
+
+.prog-identita-opzioni input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    min-height: 0;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+}
+
+.prog-identita-opzioni span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0.7rem;
+    border: 2px solid #cbd5e1;
+    border-radius: 12px;
+    background: #ffffff;
+    color: #334155;
+    transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease;
+}
+
+.prog-identita-opzioni input:checked + span {
+    border-color: #0d9488;
+    background: #edfbf7;
+    color: #115e59;
+}
+
+.prog-identita-opzioni input:focus-visible + span {
+    outline: 3px solid rgba(13, 148, 136, 0.2);
+    outline-offset: 2px;
+}
+
+.prog-identita-fieldset > p {
+    margin: 0.45rem 0 0;
+    color: #64748b;
+    font-size: 0.78rem;
+}
+
 .prog-auth-form input:focus,
 .prog-rev-campo textarea:focus,
 .prog-editor-nota textarea:focus,
@@ -597,6 +663,19 @@ body[data-programmi-editor="true"] .prog-revisione-azioni {
     font-size: 1.02rem;
 }
 
+.prog-revisione-card-autore {
+    display: inline-flex;
+    margin-bottom: 0.35rem;
+    padding: 0.22rem 0.58rem;
+    border-radius: 999px;
+    background: #0f766e;
+    color: #ffffff;
+    font-size: 0.7rem;
+    font-weight: 850;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
 .prog-revisione-card-meta {
     margin: 0.15rem 0 0;
     color: #64748b;
@@ -624,6 +703,59 @@ body[data-programmi-editor="true"] .prog-revisione-azioni {
     color: #115e59;
     font-size: 0.72rem;
     font-weight: 800;
+}
+
+.prog-revisione-confronto {
+    border: 1px solid #dbe7e4;
+    border-radius: 11px;
+    background: #f8fbfa;
+}
+
+.prog-revisione-confronto > summary {
+    padding: 0.7rem 0.8rem;
+    color: #115e59;
+    cursor: pointer;
+    font-weight: 800;
+}
+
+.prog-revisione-confronto > section {
+    padding: 0.8rem;
+    border-top: 1px solid #dbe7e4;
+}
+
+.prog-revisione-confronto h4 {
+    margin: 0 0 0.55rem;
+    color: #0f2a27;
+    font-size: 0.86rem;
+}
+
+.prog-revisione-confronto-griglia {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+}
+
+.prog-revisione-confronto-griglia > div {
+    min-width: 0;
+    padding: 0.65rem;
+    border-radius: 9px;
+    background: #ffffff;
+}
+
+.prog-revisione-confronto-griglia > div:last-child {
+    background: #edfbf7;
+}
+
+.prog-revisione-confronto-griglia strong {
+    color: #475569;
+    font-size: 0.72rem;
+}
+
+.prog-revisione-confronto-griglia p {
+    margin: 0.3rem 0 0;
+    color: #1e293b;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
 }
 
 .prog-revisione-card-azioni {
@@ -708,6 +840,10 @@ body[data-programmi-editor="true"] .prog-revisione-azioni {
 
     .prog-elenco-filtri .prog-btn-secondario {
         grid-column: 1 / -1;
+    }
+
+    .prog-revisione-confronto-griglia {
+        grid-template-columns: 1fr;
     }
 }
 

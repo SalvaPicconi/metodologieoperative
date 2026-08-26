@@ -2,7 +2,9 @@ const SUPABASE_URL = 'https://ruplzgcnheddmqqdephp.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1cGx6Z2NuaGVkZG1xcWRlcGhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAxMTYyMjksImV4cCI6MjA3NTY5MjIyOX0.tOLIkgi5yTt61_0rMlXUqxnbil4DLD7kBaqZBVAv1CI';
 const REVISION_API = `${SUPABASE_URL}/functions/v1/programmi-revisioni`;
 const SESSION_KEY = 'mo:programmi-revisione-session';
+const IDENTITY_KEY = 'mo:programmi-revisione-identita';
 const CHIAVE_NOTA_GENERALE = 'pagina-programmi';
+const EDITORI = ['Salvatore', 'Pierluigi'];
 
 const GRUPPI_CAMPI = [
     {
@@ -48,6 +50,7 @@ const ETICHETTE_CAMPI = new Map(
 
 const stato = {
     token: '',
+    editorName: '',
     editorAutorizzato: false,
     datiProgrammi: null,
     moduli: new Map(),
@@ -87,6 +90,7 @@ function raccogliElementi() {
     ui.authDialog = document.getElementById('prog-auth-dialog');
     ui.authForm = document.getElementById('prog-auth-form');
     ui.authPassword = document.getElementById('prog-auth-password');
+    ui.authNames = [...document.querySelectorAll('input[name="editor-name"]')];
     ui.authMessaggio = document.getElementById('prog-auth-messaggio');
 
     ui.editorDialog = document.getElementById('prog-editor-dialog');
@@ -102,6 +106,7 @@ function raccogliElementi() {
     ui.elencoDialog = document.getElementById('prog-elenco-dialog');
     ui.elencoAnno = document.getElementById('prog-elenco-anno');
     ui.elencoStato = document.getElementById('prog-elenco-stato');
+    ui.elencoAutore = document.getElementById('prog-elenco-autore');
     ui.elencoMessaggio = document.getElementById('prog-elenco-messaggio');
     ui.elencoContenuto = document.getElementById('prog-elenco-contenuto');
     ui.esporta = document.getElementById('prog-esporta-annotazioni');
@@ -116,6 +121,7 @@ function collegaEventi() {
     ui.editorForm?.addEventListener('submit', salvaBozza);
     ui.elencoAnno?.addEventListener('change', disegnaElenco);
     ui.elencoStato?.addEventListener('change', disegnaElenco);
+    ui.elencoAutore?.addEventListener('change', disegnaElenco);
     ui.esporta?.addEventListener('click', esportaMarkdown);
 
     document.addEventListener('click', (evento) => {
@@ -171,17 +177,23 @@ async function caricaProgrammi() {
 
 async function ripristinaSessione() {
     const token = sessionStorage.getItem(SESSION_KEY) || '';
-    if (!token) {
+    const editorName = sessionStorage.getItem(IDENTITY_KEY) || '';
+    if (!token || !EDITORI.includes(editorName)) {
+        sessionStorage.removeItem(SESSION_KEY);
+        sessionStorage.removeItem(IDENTITY_KEY);
         impostaModalitaEditor(false);
         return false;
     }
     stato.token = token;
+    stato.editorName = editorName;
     try {
-        await chiamaApi('session');
+        const data = await chiamaApi('session');
+        if (data.author_name !== editorName) throw new Error('Identità della sessione non valida.');
         impostaModalitaEditor(true);
         return true;
     } catch {
         sessionStorage.removeItem(SESSION_KEY);
+        sessionStorage.removeItem(IDENTITY_KEY);
         impostaModalitaEditor(false);
         return false;
     }
@@ -200,16 +212,26 @@ function apriAccesso() {
 
 async function eseguiAccesso(evento) {
     evento.preventDefault();
+    const editorName = ui.authNames.find((input) => input.checked)?.value || '';
+    if (!EDITORI.includes(editorName)) {
+        messaggio(ui.authMessaggio, 'Scegli chi sta lavorando.', 'errore');
+        return;
+    }
     const bottone = ui.authForm.querySelector('button[type="submit"]');
     bottone.disabled = true;
     messaggio(ui.authMessaggio, 'Verifica delle credenziali…');
 
     try {
-        const data = await chiamaApi('login', { password: ui.authPassword.value }, { senzaSessione: true });
+        const data = await chiamaApi('login', {
+            password: ui.authPassword.value,
+            author_name: editorName
+        }, { senzaSessione: true });
         ui.authPassword.value = '';
         if (!data.token) throw new Error('Accesso non riuscito.');
         stato.token = data.token;
+        stato.editorName = data.author_name;
         sessionStorage.setItem(SESSION_KEY, data.token);
+        sessionStorage.setItem(IDENTITY_KEY, data.author_name);
         impostaModalitaEditor(true);
         await attivaAreaRiservata();
 
@@ -225,6 +247,7 @@ function impostaModalitaEditor(attiva) {
     stato.editorAutorizzato = Boolean(attiva);
     if (!attiva) {
         stato.token = '';
+        stato.editorName = '';
         stato.revisioni.clear();
     }
     document.body.toggleAttribute('data-programmi-editor', Boolean(attiva));
@@ -233,7 +256,7 @@ function impostaModalitaEditor(attiva) {
     }
     ui.toolbar.hidden = !attiva;
     ui.accesso.hidden = Boolean(attiva);
-    ui.identita.textContent = attiva ? 'Accesso con password · sessione riservata' : '';
+    ui.identita.textContent = attiva ? `${stato.editorName} · linea di revisione personale` : '';
     aggiornaContatore();
     aggiornaIndicatoriUDA();
 }
@@ -246,6 +269,7 @@ async function eseguiUscita() {
         // La sessione locale viene rimossa anche se il server non è raggiungibile.
     }
     sessionStorage.removeItem(SESSION_KEY);
+    sessionStorage.removeItem(IDENTITY_KEY);
     impostaModalitaEditor(false);
     mostraBloccoPagina();
     ui.esci.disabled = false;
@@ -271,7 +295,7 @@ async function caricaRevisioni() {
     if (!stato.editorAutorizzato) return;
     try {
         const data = await chiamaApi('list');
-        stato.revisioni = new Map((data.revisions || []).map((voce) => [voce.module_key, voce]));
+        stato.revisioni = new Map((data.revisions || []).map((voce) => [chiaveRevisione(voce.module_key, voce.author_name), voce]));
     } catch (errore) {
         console.error('Impossibile caricare le revisioni:', errore.message);
         return;
@@ -288,9 +312,14 @@ function aggiornaContatore() {
 
 function aggiornaIndicatoriUDA() {
     document.querySelectorAll('[data-programmi-revisione-stato]').forEach((badge) => {
-        const revisione = stato.revisioni.get(badge.dataset.programmiRevisioneStato);
-        badge.hidden = !revisione;
-        badge.textContent = revisione ? etichettaStato(revisione.stato) : '';
+        const revisioni = revisioniModulo(badge.dataset.programmiRevisioneStato)
+            .filter((voce) => voce.stato !== 'archiviata');
+        badge.hidden = revisioni.length === 0;
+        badge.textContent = revisioni.length > 1
+            ? `${revisioni.length} proposte`
+            : revisioni.length === 1
+                ? `${revisioni[0].author_name} · ${etichettaStato(revisioni[0].stato)}`
+                : '';
     });
 }
 
@@ -316,7 +345,7 @@ function apriEditorNotaGenerale() {
 }
 
 function preparaEditor(chiave, modulo) {
-    const revisione = stato.revisioni.get(chiave);
+    const revisione = revisionePersonale(chiave);
     ui.editorForm.dataset.moduleKey = chiave;
     ui.editorCampi.replaceChildren();
     ui.editorAvviso.hidden = true;
@@ -437,9 +466,10 @@ async function salvaBozza(evento) {
     bottone.disabled = true;
     messaggio(ui.editorMessaggio, 'Salvataggio della bozza…');
 
-    const esistente = stato.revisioni.get(chiave);
+    const esistente = revisionePersonale(chiave);
     const payload = {
         module_key: chiave,
+        author_name: stato.editorName,
         anno: modulo?.anno || 'Pagina generale',
         numero: modulo ? String(numeroModulo(modulo, stato.datiProgrammi.moduli)) : '',
         titolo_modulo: modulo?.titolo || 'Programmi SSAS',
@@ -452,7 +482,7 @@ async function salvaBozza(evento) {
     };
     try {
         const data = await chiamaApi('upsert', { revision: payload });
-        stato.revisioni.set(data.revision.module_key, data.revision);
+        stato.revisioni.set(chiaveRevisione(data.revision.module_key, data.revision.author_name), data.revision);
         aggiornaContatore();
         aggiornaIndicatoriUDA();
         messaggio(ui.editorMessaggio, 'Bozza salvata nell’area riservata.', 'successo');
@@ -507,9 +537,11 @@ async function apriElenco() {
 function disegnaElenco() {
     const anno = ui.elencoAnno.value;
     const statoFiltro = ui.elencoStato.value;
+    const autore = ui.elencoAutore.value;
     const voci = [...stato.revisioni.values()]
         .filter((voce) => !anno || voce.anno === anno)
         .filter((voce) => !statoFiltro || voce.stato === statoFiltro)
+        .filter((voce) => !autore || voce.author_name === autore)
         .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
 
     ui.elencoContenuto.replaceChildren();
@@ -539,10 +571,15 @@ function creaCardRevisione(voce) {
     const meta = document.createElement('p');
     meta.className = 'prog-revisione-card-meta';
     meta.textContent = `Aggiornata ${formattaDataOra(voce.updated_at)}`;
-    titoloBox.append(titolo, meta);
+    const autore = document.createElement('span');
+    autore.className = 'prog-revisione-card-autore';
+    autore.textContent = voce.author_name;
+    titoloBox.append(autore, titolo, meta);
 
     const select = document.createElement('select');
     select.setAttribute('aria-label', `Stato: ${titolo.textContent}`);
+    select.disabled = voce.author_name !== stato.editorName;
+    if (select.disabled) select.title = `Solo ${voce.author_name} può cambiare lo stato di questa bozza.`;
     [
         ['bozza', 'Da valutare'],
         ['approvata', 'Approvata'],
@@ -576,23 +613,45 @@ function creaCardRevisione(voce) {
             campi.appendChild(badge);
         });
         card.appendChild(campi);
+
+        const confronto = document.createElement('details');
+        confronto.className = 'prog-revisione-confronto';
+        const riepilogo = document.createElement('summary');
+        riepilogo.textContent = 'Confronta i testi proposti';
+        confronto.appendChild(riepilogo);
+        chiavi.forEach((chiave) => {
+            const sezione = document.createElement('section');
+            const etichetta = document.createElement('h4');
+            etichetta.textContent = ETICHETTE_CAMPI.get(chiave) || chiave;
+            const griglia = document.createElement('div');
+            griglia.className = 'prog-revisione-confronto-griglia';
+            griglia.append(
+                creaTestoConfronto('Testo attuale', voce.originale?.[chiave]),
+                creaTestoConfronto(`Proposta di ${voce.author_name}`, voce.modifiche?.[chiave])
+            );
+            sezione.append(etichetta, griglia);
+            confronto.appendChild(sezione);
+        });
+        card.appendChild(confronto);
     }
 
     const azioni = document.createElement('div');
     azioni.className = 'prog-revisione-card-azioni';
-    const modifica = document.createElement('button');
-    modifica.type = 'button';
-    modifica.className = 'prog-btn-secondario';
-    modifica.textContent = 'Apri la bozza';
-    modifica.addEventListener('click', () => {
-        ui.elencoDialog.close();
-        if (voce.module_key === CHIAVE_NOTA_GENERALE) {
-            apriEditorNotaGenerale();
-        } else {
-            apriEditorModulo(voce.module_key);
-        }
-    });
-    azioni.appendChild(modifica);
+    if (voce.author_name === stato.editorName) {
+        const modifica = document.createElement('button');
+        modifica.type = 'button';
+        modifica.className = 'prog-btn-secondario';
+        modifica.textContent = 'Apri la mia bozza';
+        modifica.addEventListener('click', () => {
+            ui.elencoDialog.close();
+            if (voce.module_key === CHIAVE_NOTA_GENERALE) {
+                apriEditorNotaGenerale();
+            } else {
+                apriEditorModulo(voce.module_key);
+            }
+        });
+        azioni.appendChild(modifica);
+    }
 
     if (voce.module_key !== CHIAVE_NOTA_GENERALE) {
         const vai = document.createElement('button');
@@ -612,7 +671,7 @@ async function aggiornaStatoRevisione(voce, select, card) {
     const nuovoStato = select.value;
     try {
         const data = await chiamaApi('status', { id: voce.id, state: nuovoStato });
-        stato.revisioni.set(data.revision.module_key, data.revision);
+        stato.revisioni.set(chiaveRevisione(data.revision.module_key, data.revision.author_name), data.revision);
         card.dataset.stato = data.revision.stato;
         aggiornaContatore();
         aggiornaIndicatoriUDA();
@@ -659,7 +718,7 @@ function esportaMarkdown() {
 
     voci.forEach((voce) => {
         righe.push(`## ${voce.module_key === CHIAVE_NOTA_GENERALE ? 'Pagina generale' : `${voce.anno} · UDA ${voce.numero} — ${voce.titolo_modulo}`}`);
-        righe.push('', `- Stato: ${etichettaStato(voce.stato)}`, `- Chiave: ${voce.module_key}`);
+        righe.push('', `- Autore: ${voce.author_name}`, `- Stato: ${etichettaStato(voce.stato)}`, `- Chiave: ${voce.module_key}`);
         if (voce.nota_generale) {
             righe.push('', '### Annotazione', '', voce.nota_generale);
         }
@@ -692,6 +751,28 @@ function popolaFiltroAnni() {
         ui.elencoAnno.appendChild(option);
     });
     ui.elencoAnno.value = selezionato;
+}
+
+function chiaveRevisione(moduleKey, authorName) {
+    return `${moduleKey}::${authorName}`;
+}
+
+function revisionePersonale(moduleKey) {
+    return stato.revisioni.get(chiaveRevisione(moduleKey, stato.editorName));
+}
+
+function revisioniModulo(moduleKey) {
+    return [...stato.revisioni.values()].filter((voce) => voce.module_key === moduleKey);
+}
+
+function creaTestoConfronto(etichetta, valore) {
+    const box = document.createElement('div');
+    const titolo = document.createElement('strong');
+    titolo.textContent = etichetta;
+    const testo = document.createElement('p');
+    testo.textContent = formattaValore(valore);
+    box.append(titolo, testo);
+    return box;
 }
 
 function chiaveModulo(modulo, moduli) {
@@ -760,6 +841,7 @@ async function chiamaApi(action, payload = {}, opzioni = {}) {
     if (!risposta.ok) {
         if (risposta.status === 401 && action !== 'login') {
             sessionStorage.removeItem(SESSION_KEY);
+            sessionStorage.removeItem(IDENTITY_KEY);
             impostaModalitaEditor(false);
             mostraBloccoPagina();
         }
