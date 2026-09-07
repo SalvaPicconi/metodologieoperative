@@ -8,7 +8,7 @@
     <title>Programmi SSAS - Metodologie Operative</title>
     <meta name="description" content="Proposta di programmazione di Metodologie Operative ancorata al curricolo verticale SSAS, ai livelli QNQ e alle prove esperte di laboratorio">
     <link rel="stylesheet" href="style.css?v=78c7e42c">
-    <link rel="stylesheet" href="assets/programmi-revisione.css?v=20260827a">
+    <link rel="stylesheet" href="assets/programmi-revisione.css?v=20260907a">
 </head>
 
 <body data-programmi-locked="true">
@@ -60,6 +60,14 @@
                         Annotazioni <span id="prog-revisione-contatore" class="prog-revisione-contatore">0</span>
                     </button>
                     <button type="button" id="prog-esci-revisione" class="prog-revisione-esci">Esci</button>
+                </div>
+            </section>
+
+            <section id="prog-lettura-barra" class="prog-lettura-barra" hidden aria-label="Modalità di consultazione">
+                <p><span aria-hidden="true">👁️</span> <strong>Sola lettura.</strong>
+                   Stai consultando i programmi come utente libero: annotazioni e proposte di modifica non sono disponibili.</p>
+                <div class="prog-lettura-barra-azioni">
+                    <button type="button" id="prog-esci-lettura" class="prog-btn-secondario">Esci</button>
                 </div>
             </section>
 
@@ -155,6 +163,14 @@
             <p id="prog-auth-messaggio" class="prog-form-messaggio" role="status" aria-live="polite"></p>
             <button type="submit" class="prog-btn-primario">Accedi</button>
         </form>
+        <div class="prog-auth-libero">
+            <p class="prog-auth-separatore"><span>oppure</span></p>
+            <button type="button" id="prog-accesso-libero" class="prog-btn-secondario prog-auth-libero-btn">
+                👁️ Entra in sola lettura
+            </button>
+            <p class="prog-auth-libero-nota">Consultazione libera, senza password: si leggono tutte le UDA,
+               non si annota e non si modifica nulla.</p>
+        </div>
     </dialog>
 
     <dialog id="prog-editor-dialog" class="prog-dialog prog-editor-dialog" aria-labelledby="prog-editor-title">
@@ -233,7 +249,7 @@
 
     <script src="materiali.js"></script>
     <script src="programmi.js?v=20260826a"></script>
-    <script type="module" src="assets/programmi-revisione.js?v=20260826e"></script>
+    <script type="module" src="assets/programmi-revisione.js?v=20260907a"></script>
 </body>
 
 </html>

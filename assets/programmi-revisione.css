@@ -68,6 +68,84 @@ body[data-programmi-locked="true"] .prog-auth-dialog::backdrop {
     transform: translateY(-1px);
 }
 
+.prog-auth-dialog[open] {
+    display: flex;
+    flex-direction: column;
+}
+
+.prog-auth-dialog > .prog-dialog-testata {
+    flex: 0 0 auto;
+}
+
+.prog-auth-dialog .prog-auth-form {
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+.prog-auth-libero {
+    flex: 0 0 auto;
+    padding: 1.1rem 1.4rem 1.3rem;
+    border-top: 1px solid #e2e8f0;
+    background: #f8fafc;
+}
+
+.prog-auth-separatore {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0 0 0.9rem;
+    color: #64748b;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.prog-auth-separatore::before,
+.prog-auth-separatore::after {
+    content: "";
+    flex: 1 1 auto;
+    height: 1px;
+    background: #e2e8f0;
+}
+
+.prog-auth-libero-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.prog-auth-libero-nota {
+    margin: 0.7rem 0 0;
+    color: #64748b;
+    font-size: 0.84rem;
+    line-height: 1.5;
+}
+
+.prog-lettura-barra {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: -0.7rem 0 2rem;
+    padding: 0.9rem 1.2rem;
+    border: 1px solid #cbd5e1;
+    border-left: 5px solid #0d9488;
+    border-radius: 14px;
+    background: #f8fafc;
+}
+
+.prog-lettura-barra p {
+    margin: 0;
+    color: #334155;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.prog-lettura-barra strong {
+    color: #0f172a;
+}
+
 .prog-revisione-toolbar {
     display: flex;
     align-items: center;
@@ -156,6 +234,11 @@ body[data-programmi-locked="true"] .prog-auth-dialog::backdrop {
 
 body[data-programmi-editor="true"] .prog-revisione-azioni {
     display: flex;
+}
+
+body[data-programmi-ospite="true"] .prog-revisione-azioni,
+body[data-programmi-ospite="true"] .prog-revisione-toolbar {
+    display: none !important;
 }
 
 .prog-revisione-azioni button {
@@ -798,6 +881,7 @@ body[data-programmi-editor="true"] .prog-revisione-azioni {
 @media (max-width: 760px) {
     .prog-titolo-riga,
     .prog-revisione-toolbar,
+    .prog-lettura-barra,
     .prog-revisione-card-testata {
         align-items: stretch;
         flex-direction: column;
@@ -819,7 +903,8 @@ body[data-programmi-editor="true"] .prog-revisione-azioni {
         margin-left: auto;
     }
 
-    .prog-revisione-toolbar button {
+    .prog-revisione-toolbar button,
+    .prog-lettura-barra button {
         width: 100%;
     }
 
@@ -891,6 +976,7 @@ body[data-programmi-editor="true"] .prog-revisione-azioni {
 @media print {
     .prog-accesso-revisione,
     .prog-revisione-toolbar,
+    .prog-lettura-barra,
     .prog-revisione-azioni,
     .prog-dialog {
         display: none !important;

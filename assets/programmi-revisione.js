@@ -3,6 +3,7 @@ const SUPABASE_PUBLISHABLE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiO
 const REVISION_API = `${SUPABASE_URL}/functions/v1/programmi-revisioni`;
 const SESSION_KEY = 'mo:programmi-revisione-session';
 const IDENTITY_KEY = 'mo:programmi-revisione-identita';
+const OSPITE_KEY = 'mo:programmi-sola-lettura';
 const CHIAVE_NOTA_GENERALE = 'pagina-programmi';
 const EDITORI = ['Salvatore', 'Pierluigi'];
 
@@ -52,6 +53,7 @@ const stato = {
     token: '',
     editorName: '',
     editorAutorizzato: false,
+    ospite: false,
     datiProgrammi: null,
     moduli: new Map(),
     revisioni: new Map(),
@@ -69,9 +71,13 @@ async function inizializza() {
     const autorizzata = await ripristinaSessione();
     if (autorizzata) {
         await attivaAreaRiservata();
-    } else {
-        mostraBloccoPagina();
+        return;
     }
+    if (sessionStorage.getItem(OSPITE_KEY) === '1') {
+        await attivaSolaLettura();
+        return;
+    }
+    mostraBloccoPagina();
 }
 
 function campo(chiave, etichetta, tipo, lettore = null) {
@@ -92,6 +98,9 @@ function raccogliElementi() {
     ui.authPassword = document.getElementById('prog-auth-password');
     ui.authNames = [...document.querySelectorAll('input[name="editor-name"]')];
     ui.authMessaggio = document.getElementById('prog-auth-messaggio');
+    ui.accessoLibero = document.getElementById('prog-accesso-libero');
+    ui.letturaBarra = document.getElementById('prog-lettura-barra');
+    ui.esciLettura = document.getElementById('prog-esci-lettura');
 
     ui.editorDialog = document.getElementById('prog-editor-dialog');
     ui.editorForm = document.getElementById('prog-editor-form');
@@ -115,6 +124,8 @@ function raccogliElementi() {
 function collegaEventi() {
     ui.accesso?.addEventListener('click', apriAccesso);
     ui.authForm?.addEventListener('submit', eseguiAccesso);
+    ui.accessoLibero?.addEventListener('click', entraInSolaLettura);
+    ui.esciLettura?.addEventListener('click', esciDaSolaLettura);
     ui.esci?.addEventListener('click', eseguiUscita);
     ui.notaGenerale?.addEventListener('click', () => apriEditorNotaGenerale());
     ui.vediAnnotazioni?.addEventListener('click', apriElenco);
@@ -253,6 +264,7 @@ function impostaModalitaEditor(attiva) {
     document.body.toggleAttribute('data-programmi-editor', Boolean(attiva));
     if (attiva) {
         document.body.setAttribute('data-programmi-editor', 'true');
+        impostaSolaLettura(false);
     }
     ui.toolbar.hidden = !attiva;
     ui.accesso.hidden = Boolean(attiva);
@@ -273,6 +285,33 @@ async function eseguiUscita() {
     impostaModalitaEditor(false);
     mostraBloccoPagina();
     ui.esci.disabled = false;
+}
+
+async function entraInSolaLettura() {
+    sessionStorage.setItem(OSPITE_KEY, '1');
+    await attivaSolaLettura();
+}
+
+async function attivaSolaLettura() {
+    impostaModalitaEditor(false);
+    impostaSolaLettura(true);
+    await attivaAreaRiservata();
+}
+
+function esciDaSolaLettura() {
+    impostaSolaLettura(false);
+    mostraBloccoPagina();
+}
+
+function impostaSolaLettura(attiva) {
+    stato.ospite = Boolean(attiva);
+    if (attiva) {
+        document.body.setAttribute('data-programmi-ospite', 'true');
+    } else {
+        document.body.removeAttribute('data-programmi-ospite');
+        sessionStorage.removeItem(OSPITE_KEY);
+    }
+    if (ui.letturaBarra) ui.letturaBarra.hidden = !attiva;
 }
 
 async function attivaAreaRiservata() {
