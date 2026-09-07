@@ -109,10 +109,12 @@ body[data-programmi-locked="true"] .prog-auth-dialog::backdrop {
     background: #e2e8f0;
 }
 
-.prog-auth-libero-btn {
-    display: block;
+.prog-auth-libero .prog-auth-libero-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     width: 100%;
-    text-align: center;
 }
 
 .prog-auth-libero-nota {

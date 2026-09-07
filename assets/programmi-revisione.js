@@ -7,6 +7,10 @@ const OSPITE_KEY = 'mo:programmi-sola-lettura';
 const CHIAVE_NOTA_GENERALE = 'pagina-programmi';
 const EDITORI = ['Salvatore', 'Pierluigi'];
 
+function sigla(nome) {
+    return (nome || '').trim().charAt(0).toUpperCase();
+}
+
 const GRUPPI_CAMPI = [
     {
         titolo: 'Dati essenziali',
@@ -268,7 +272,7 @@ function impostaModalitaEditor(attiva) {
     }
     ui.toolbar.hidden = !attiva;
     ui.accesso.hidden = Boolean(attiva);
-    ui.identita.textContent = attiva ? `${stato.editorName} · linea di revisione personale` : '';
+    ui.identita.textContent = attiva ? `${sigla(stato.editorName)} · linea di revisione personale` : '';
     aggiornaContatore();
     aggiornaIndicatoriUDA();
 }
@@ -357,7 +361,7 @@ function aggiornaIndicatoriUDA() {
         badge.textContent = revisioni.length > 1
             ? `${revisioni.length} proposte`
             : revisioni.length === 1
-                ? `${revisioni[0].author_name} · ${etichettaStato(revisioni[0].stato)}`
+                ? `${sigla(revisioni[0].author_name)} · ${etichettaStato(revisioni[0].stato)}`
                 : '';
     });
 }
@@ -617,13 +621,13 @@ function creaCardRevisione(voce) {
     meta.textContent = `Aggiornata ${formattaDataOra(voce.updated_at)}`;
     const autore = document.createElement('span');
     autore.className = 'prog-revisione-card-autore';
-    autore.textContent = voce.author_name;
+    autore.textContent = sigla(voce.author_name);
     titoloBox.append(autore, titolo, meta);
 
     const select = document.createElement('select');
     select.setAttribute('aria-label', `Stato: ${titolo.textContent}`);
     select.disabled = voce.author_name !== stato.editorName;
-    if (select.disabled) select.title = `Solo ${voce.author_name} può cambiare lo stato di questa bozza.`;
+    if (select.disabled) select.title = `Solo ${sigla(voce.author_name)} può cambiare lo stato di questa bozza.`;
     [
         ['bozza', 'Da valutare'],
         ['approvata', 'Approvata'],
@@ -671,7 +675,7 @@ function creaCardRevisione(voce) {
             griglia.className = 'prog-revisione-confronto-griglia';
             griglia.append(
                 creaTestoConfronto('Testo attuale', voce.originale?.[chiave]),
-                creaTestoConfronto(`Proposta di ${voce.author_name}`, voce.modifiche?.[chiave])
+                creaTestoConfronto(`Proposta di ${sigla(voce.author_name)}`, voce.modifiche?.[chiave])
             );
             sezione.append(etichetta, griglia);
             confronto.appendChild(sezione);
@@ -762,7 +766,7 @@ function esportaMarkdown() {
 
     voci.forEach((voce) => {
         righe.push(`## ${voce.module_key === CHIAVE_NOTA_GENERALE ? 'Pagina generale' : `${voce.anno} · UDA ${voce.numero} — ${voce.titolo_modulo}`}`);
-        righe.push('', `- Autore: ${voce.author_name}`, `- Stato: ${etichettaStato(voce.stato)}`, `- Chiave: ${voce.module_key}`);
+        righe.push('', `- Autore: ${sigla(voce.author_name)}`, `- Stato: ${etichettaStato(voce.stato)}`, `- Chiave: ${voce.module_key}`);
         if (voce.nota_generale) {
             righe.push('', '### Annotazione', '', voce.nota_generale);
         }
