@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#102321">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Regia docente · Chi ha ucciso il progetto di aiuto?</title>
+    <meta name="description" content="Regia docente per il gioco investigativo sui servizi e sui progetti di aiuto.">
+    <link rel="manifest" href="../../../manifest.json">
+    <link rel="stylesheet" href="regia.css">
+</head>
+<body>
+    <header class="topbar">
+        <div>
+            <p class="eyebrow">Metodologie Operative · regia docente</p>
+            <h1>Chi ha ucciso il progetto di aiuto?</h1>
+            <p class="subtitle">Un’indagine senza vittime: si cerca l’errore che ha bloccato il percorso.</p>
+        </div>
+        <div class="header-actions">
+            <a class="button button-ghost teacher-only" href="../../../laboratorio.html#giochi">Torna a Giochi</a>
+            <button id="projection-toggle" class="button button-ghost" type="button" aria-pressed="false">Modalità proiezione</button>
+        </div>
+    </header>
+
+    <div class="local-warning teacher-only" role="note">
+        <strong>Regia docente.</strong> Questa pagina contiene le soluzioni. Prima di collegare il proiettore o condividere lo schermo, attiva “Modalità proiezione”.
+    </div>
+
+    <main>
+        <section class="control-panel teacher-only" aria-labelledby="prepara-title">
+            <div class="section-heading">
+                <p class="step-label">Prima della lezione</p>
+                <h2 id="prepara-title">Prepara la stanza</h2>
+            </div>
+
+            <div class="setup-grid">
+                <div class="field-group class-picker">
+                    <span class="field-label">Classe</span>
+                    <div id="class-tabs" class="segmented" role="tablist" aria-label="Scegli la classe"></div>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label" for="student-count">Studenti presenti</label>
+                    <div class="number-control">
+                        <button type="button" data-count-change="-1" aria-label="Uno studente in meno">−</button>
+                        <input id="student-count" type="number" min="8" max="36" value="24" inputmode="numeric">
+                        <button type="button" data-count-change="1" aria-label="Uno studente in più">+</button>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <span class="field-label">Durata</span>
+                    <div class="segmented compact" role="group" aria-label="Durata del gioco">
+                        <button class="mode-button is-active" type="button" data-mode="60">60 minuti</button>
+                        <button class="mode-button" type="button" data-mode="90">90 minuti</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="group-suggestion" class="group-suggestion" aria-live="polite"></div>
+
+            <div class="prep-list">
+                <div><span>1</span><p>Stampa il mazzo della classe. Tieni separate le cinque carte Testimone.</p></div>
+                <div><span>2</span><p>Disponi cinque postazioni fisse. Il resto della classe lavora in squadre mobili da 2–4.</p></div>
+                <div><span>3</span><p>Metti le otto carte Prova coperte sul tavolo centrale. Consegna una scheda a ogni squadra.</p></div>
+                <div><span>4</span><p>I testimoni non mentono e non mostrano la carta: comunicano il segreto solo dopo una domanda pertinente.</p></div>
+            </div>
+
+            <a id="pack-link" class="button button-download" href="#" target="_blank" rel="noopener">Apri le carte da stampare</a>
+        </section>
+
+        <section class="case-board" aria-labelledby="case-title">
+            <div class="case-meta">
+                <span id="class-badge" class="class-badge">3SA</span>
+                <span id="case-focus" class="case-focus"></span>
+            </div>
+            <h2 id="case-title"></h2>
+
+            <div class="case-columns">
+                <article class="story-card">
+                    <p class="card-kicker">Da leggere alla classe</p>
+                    <p id="case-story" class="read-aloud"></p>
+                </article>
+                <article class="mission-card">
+                    <p class="card-kicker">Missione</p>
+                    <p id="case-mission"></p>
+                </article>
+            </div>
+
+            <details class="threads teacher-only">
+                <summary>Fili ripresi dall’anno precedente</summary>
+                <div class="threads-grid">
+                    <div>
+                        <h3>Contenuti</h3>
+                        <ul id="prior-threads"></ul>
+                    </div>
+                    <div>
+                        <h3>Obiettivi osservabili</h3>
+                        <ul id="case-objectives"></ul>
+                    </div>
+                </div>
+            </details>
+        </section>
+
+        <section class="live-console" aria-labelledby="live-title">
+            <div class="section-heading">
+                <p class="step-label">Durante il gioco</p>
+                <h2 id="live-title">Console di regia</h2>
+            </div>
+
+            <div class="timer-shell">
+                <div>
+                    <p class="timer-label">Fase <span id="phase-number">1</span> di <span id="phase-total">7</span></p>
+                    <h3 id="phase-name"></h3>
+                </div>
+                <div id="timer" class="timer" role="timer" aria-live="off">05:00</div>
+            </div>
+
+            <p id="phase-instruction" class="phase-instruction"></p>
+            <p id="phase-script" class="phase-script"></p>
+
+            <div class="console-actions">
+                <button id="prev-phase" class="button button-ghost" type="button">Fase precedente</button>
+                <button id="timer-toggle" class="button button-primary" type="button">Avvia timer</button>
+                <button id="reset-timer" class="button button-ghost" type="button">Azzera</button>
+                <button id="next-phase" class="button button-accent" type="button">Fase successiva</button>
+            </div>
+            <p class="shortcut-hint teacher-only">Scorciatoie: spazio avvia/pausa · frecce sinistra/destra cambiano fase.</p>
+        </section>
+
+        <section class="teacher-tools teacher-only" aria-labelledby="strumenti-title">
+            <div class="section-heading">
+                <p class="step-label">Sblocco e chiusura</p>
+                <h2 id="strumenti-title">Imprevisto, soluzione, debriefing</h2>
+            </div>
+
+            <details class="tool-card surprise-card">
+                <summary>Imprevisto per la versione da 90 minuti</summary>
+                <p id="case-surprise"></p>
+            </details>
+
+            <details id="solution-panel" class="tool-card solution-card">
+                <summary>Rivela la soluzione docente</summary>
+                <div class="solution-grid">
+                    <div>
+                        <p class="card-kicker">Che cosa ha “ucciso” il progetto</p>
+                        <h3 id="solution-title"></h3>
+                        <p id="solution-explanation"></p>
+                    </div>
+                    <div>
+                        <h3>Prove decisive</h3>
+                        <ul id="solution-proofs"></ul>
+                        <h3>Riparazione</h3>
+                        <ol id="solution-repair"></ol>
+                    </div>
+                </div>
+            </details>
+
+            <article class="tool-card debrief-card">
+                <p class="card-kicker">Non saltare questa parte</p>
+                <h3>Domande di debriefing</h3>
+                <ol id="debrief-list"></ol>
+                <p class="exit-ticket"><strong>Exit ticket:</strong> “Un indizio che ho sottovalutato… / Una regola di lavoro che porto con me…”</p>
+            </article>
+        </section>
+
+        <section class="method-note teacher-only" aria-labelledby="metodo-title">
+            <div class="section-heading">
+                <p class="step-label">Perché funziona</p>
+                <h2 id="metodo-title">Il meccanismo didattico</h2>
+            </div>
+            <p>Ogni testimone possiede un frammento essenziale, quindi la squadra deve fare domande, ascoltare e ricomporre. I ruoli impediscono che uno studente faccia tutto; il debriefing trasforma l’esperienza in apprendimento esplicito.</p>
+            <p class="sources">Adattamento ispirato al <a href="https://files.eric.ed.gov/fulltext/ED119102.pdf" target="_blank" rel="noopener">murder mystery cooperativo ERIC</a>, alla struttura <a href="https://www.jigsaw.org/" target="_blank" rel="noopener">Jigsaw Classroom</a> e ai principi di progettazione degli educational escape room descritti da <a href="https://www.mdpi.com/2227-7102/12/11/768" target="_blank" rel="noopener">Room2Educ8</a>.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Metodologie Operative · gioco per 3SA, 3SB, 4SB e 5SA</p>
+    </footer>
+
+    <script src="regia.js" defer></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => navigator.serviceWorker.register('../../../service-worker.js'));
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+{
+  "titolo": "Chi ha ucciso il progetto di aiuto?",
+  "sottotitolo": "Gioco investigativo sui servizi, l'équipe e la progettazione centrata sulla persona",
+  "classi": [
+    {
+      "id": "3sa",
+      "classe": "3SA",
+      "caso": "La porta sbagliata",
+      "focus": "Dal bisogno espresso alla valutazione professionale",
+      "fili": [
+        "welfare e sistema integrato dei servizi",
+        "bisogni, domanda e relazione d'aiuto",
+        "segretariato sociale e servizio sociale professionale",
+        "figure sociosanitarie ed équipe"
+      ],
+      "obiettivi": [
+        "distinguere la richiesta iniziale dal bisogno complessivo",
+        "ricostruire un percorso di accesso coerente",
+        "motivare la soluzione con fatti e non con supposizioni"
+      ],
+      "storia": "Il fascicolo SA-17 riguarda una persona anziana che vive sola. Al primo contatto ha detto: «Faccio fatica con le spese». Le è stato consegnato soltanto il modulo per un contributo economico. Il modulo è rientrato senza ISEE ed è stato archiviato. Due settimane dopo si scopre che la persona non usciva quasi più, aveva saltato alcune visite e faticava a procurarsi i pasti. Il progetto di aiuto non è mai cominciato. Quale passaggio lo ha fermato?",
+      "missione": "Individuate l'errore che ha bloccato il progetto, citate almeno due prove e ricostruite i primi quattro passaggi di un accesso più corretto.",
+      "imprevisto": "Arriva una nuova informazione: la persona rifiuta l'etichetta di «anziana fragile» e chiede di poter continuare a decidere per sé. Correggete la proposta senza sostituirvi a lei.",
+      "testimoni": [
+        {
+          "ruolo": "Addetto al primo contatto",
+          "pubblico": "Hai accolto la richiesta iniziale e consegnato un modulo.",
+          "segreto": "Hai annotato soltanto «difficoltà economica». Non hai chiesto che cosa fosse diventato difficile nella vita quotidiana e non hai trasmesso il contatto al servizio sociale.",
+          "domanda": "Rivela il segreto se ti chiedono quali domande hai posto o a chi hai trasmesso la richiesta."
+        },
+        {
+          "ruolo": "Vicino di casa",
+          "pubblico": "Hai accompagnato la persona allo sportello.",
+          "segreto": "Avevi riferito che non faceva la spesa da giorni, evitava le scale e aveva saltato due visite. Allo sportello la conversazione si è concentrata subito sulle spese.",
+          "domanda": "Rivela il segreto se ti chiedono che cosa avevi osservato concretamente."
+        },
+        {
+          "ruolo": "Medico di medicina generale",
+          "pubblico": "Conosci la situazione sanitaria della persona.",
+          "segreto": "Dopo una caduta avevi suggerito di verificare anche le condizioni di autonomia e la rete di sostegno. Nessuno ti ha contattato.",
+          "domanda": "Rivela il segreto se ti chiedono se esistevano altri segnali oltre al denaro."
+        },
+        {
+          "ruolo": "Archivista del servizio",
+          "pubblico": "Hai seguito il fascicolo amministrativo.",
+          "segreto": "Il fascicolo è stato chiuso per ISEE mancante. Non contiene una scheda di primo ascolto, una valutazione del bisogno o un invio ad altro professionista.",
+          "domanda": "Rivela il segreto se ti chiedono quali documenti mancano nel fascicolo."
+        },
+        {
+          "ruolo": "Assistente sociale",
+          "pubblico": "Avresti potuto svolgere la valutazione professionale.",
+          "segreto": "Non hai mai ricevuto la segnalazione. Avresti distinto la domanda economica dai bisogni di autonomia, salute, rete e vita quotidiana prima di ipotizzare le risposte.",
+          "domanda": "Rivela il segreto se ti chiedono che cosa sarebbe avvenuto dopo il primo orientamento."
+        }
+      ],
+      "prove": [
+        {"codice": "A1", "titolo": "Nota di sportello", "testo": "Unica frase registrata: «Chiede aiuto economico». Nessun'altra voce è compilata.", "tipo": "FATTO"},
+        {"codice": "A2", "titolo": "Promemoria del vicino", "testo": "Spesa non fatta, due visite saltate, difficoltà con le scale.", "tipo": "FATTO"},
+        {"codice": "A3", "titolo": "Busta restituita", "testo": "Il modulo economico è rientrato senza attestazione ISEE.", "tipo": "FATTO"},
+        {"codice": "A4", "titolo": "Timbro di archivio", "testo": "Pratica chiusa: documentazione incompleta.", "tipo": "FATTO"},
+        {"codice": "A5", "titolo": "Registro degli invii", "testo": "Nessun invio al servizio sociale professionale.", "tipo": "PROVA-CHIAVE"},
+        {"codice": "A6", "titolo": "Frase sentita in corridoio", "testo": "«Vuole soltanto dei soldi». Non è indicata la fonte della frase.", "tipo": "INFERENZA"},
+        {"codice": "A7", "titolo": "Appunto sanitario", "testo": "Suggerita una verifica dell'autonomia e della rete di sostegno.", "tipo": "PROVA-CHIAVE"},
+        {"codice": "A8", "titolo": "Ricevuta del taxi", "testo": "Una corsa effettuata tre mesi prima. Non chiarisce il problema attuale.", "tipo": "PISTA-DEBOLE"}
+      ],
+      "soluzione": {
+        "colpevole": "La domanda ha sostituito il bisogno",
+        "spiegazione": "Il primo contatto ha trasformato una situazione complessa in una sola pratica economica. L'ISEE mancante spiega l'arresto di quella pratica, ma non giustifica la mancata lettura del bisogno e il mancato invio professionale.",
+        "prove": ["A1 e A2 mostrano che la registrazione non contiene tutti i segnali", "A5 prova che non c'è stato invio", "A7 conferma la presenza di bisogni non economici"],
+        "riparazione": ["accogliere e ascoltare la domanda", "raccogliere i segnali concreti", "orientare e inviare alla valutazione professionale", "concordare con la persona risposte integrate e un controllo successivo"]
+      },
+      "debrief": [
+        "Quale indizio vi ha fatto cambiare ipotesi?",
+        "In quale momento avete confuso una domanda con un bisogno?",
+        "Che cosa doveva fare il primo contatto e che cosa non poteva decidere da solo?",
+        "Come avete distribuito parola, ascolto e annotazione nel gruppo?"
+      ]
+    },
+    {
+      "id": "3sb",
+      "classe": "3SB",
+      "caso": "Le settantadue ore perdute",
+      "focus": "Riconoscere l'urgenza e scegliere il primo servizio adeguato",
+      "fili": [
+        "Legge 328/2000 e sistema integrato",
+        "LEPS e accesso ai servizi",
+        "segretariato sociale, pronto intervento sociale e assistenza domiciliare",
+        "analisi del bisogno e ordine delle risposte"
+      ],
+      "obiettivi": [
+        "distinguere un bisogno immediato da una presa in carico programmabile",
+        "evitare che una pratica già aperta nasconda un nuovo problema",
+        "costruire una sequenza tra protezione, valutazione e progetto"
+      ],
+      "storia": "Alle 20:10 una persona anziana è fuori casa: un incendio di piccola entità ha reso l'alloggio temporaneamente inutilizzabile. Non ha una rete disponibile per la notte. Nell'archivio compare già una richiesta ordinaria di assistenza domiciliare. Chi riceve la telefonata annota: «Pratica SAD già presente, attendere lunedì». La persona trova una soluzione precaria per tre notti e nessuno rivaluta subito la situazione. Che cosa ha fatto perdere settantadue ore al progetto di aiuto?",
+      "missione": "Stabilite quale bisogno richiedeva una risposta immediata, quali elementi erano rinviabili e quale sequenza di servizi avrebbe evitato il vuoto.",
+      "imprevisto": "La sistemazione temporanea accetta la persona solo fino al mattino. In sette minuti definite chi fa che cosa prima delle 9:00 e che cosa passa alla presa in carico ordinaria.",
+      "testimoni": [
+        {
+          "ruolo": "Operatore del primo intervento",
+          "pubblico": "Sei stato presente alle 20:10.",
+          "segreto": "La persona non era ferita, ma non poteva rientrare e non aveva nessuno che potesse ospitarla quella notte.",
+          "domanda": "Rivela il segreto se ti chiedono che cosa serviva nelle ore immediatamente successive."
+        },
+        {
+          "ruolo": "Addetto al contatto serale",
+          "pubblico": "Hai ricevuto la telefonata e consultato l'archivio.",
+          "segreto": "Vedendo una domanda SAD già aperta hai smesso di fare domande. Non hai verificato dove la persona avrebbe dormito e non hai consultato la procedura per l'emergenza sociale.",
+          "domanda": "Rivela il segreto se ti chiedono perché hai classificato il caso come ordinario."
+        },
+        {
+          "ruolo": "Impiegato dell'assistenza domiciliare",
+          "pubblico": "Gestisci la pratica SAD già presente.",
+          "segreto": "La richiesta riguarda aiuto domestico programmato e sarà valutata la settimana successiva. Non può risolvere una notte senza alloggio sicuro.",
+          "domanda": "Rivela il segreto se ti chiedono che cosa può e non può fare la SAD."
+        },
+        {
+          "ruolo": "Operatore del pronto intervento sociale",
+          "pubblico": "Eri reperibile quella sera.",
+          "segreto": "Non hai ricevuto chiamate. Era disponibile una soluzione temporanea e avresti potuto avviare la protezione immediata e il raccordo per il giorno successivo.",
+          "domanda": "Rivela il segreto se ti chiedono se esisteva una risposta attivabile quella sera."
+        },
+        {
+          "ruolo": "Assistente sociale del territorio",
+          "pubblico": "Hai letto il caso il lunedì mattina.",
+          "segreto": "La richiesta domiciliare precedente e l'emergenza abitativa erano due bisogni collegati ma con tempi diversi. Andavano distinti e poi ricomposti in una valutazione unica.",
+          "domanda": "Rivela il segreto se ti chiedono come mettere in ordine urgenza e progetto."
+        }
+      ],
+      "prove": [
+        {"codice": "B1", "titolo": "Orario della chiamata", "testo": "20:10. L'ufficio ordinario riapre il lunedì.", "tipo": "FATTO"},
+        {"codice": "B2", "titolo": "Verbale tecnico", "testo": "Alloggio temporaneamente non utilizzabile; nessuna lesione alla persona.", "tipo": "FATTO"},
+        {"codice": "B3", "titolo": "Scheda rete personale", "testo": "Nessun contatto disponibile per l'ospitalità notturna.", "tipo": "PROVA-CHIAVE"},
+        {"codice": "B4", "titolo": "Domanda SAD", "testo": "Richiesta ordinaria per aiuto domestico, ancora da valutare.", "tipo": "FATTO"},
+        {"codice": "B5", "titolo": "Registro del PIS", "testo": "Nessuna chiamata ricevuta per il caso.", "tipo": "PROVA-CHIAVE"},
+        {"codice": "B6", "titolo": "Disponibilità serale", "testo": "Una sistemazione temporanea risultava libera quella notte.", "tipo": "PROVA-CHIAVE"},
+        {"codice": "B7", "titolo": "Nota interna", "testo": "«C'è già una pratica: non è un nuovo caso».", "tipo": "INFERENZA"},
+        {"codice": "B8", "titolo": "Attestazione ISEE", "testo": "Il documento è scaduto. Può essere rilevante dopo, non risolve il bisogno della notte.", "tipo": "PISTA-DEBOLE"}
+      ],
+      "soluzione": {
+        "colpevole": "L'urgenza è stata trattata come una pratica ordinaria",
+        "spiegazione": "La domanda SAD già esistente ha prodotto un effetto tunnel: chi ha risposto non ha riconosciuto il nuovo bisogno di protezione immediata. La risposta urgente e la successiva presa in carico non sono alternative, ma passaggi con tempi diversi.",
+        "prove": ["B1, B2 e B3 definiscono il bisogno della notte", "B4 mostra i limiti della pratica già aperta", "B5 e B6 provano che il canale immediato non è stato attivato"],
+        "riparazione": ["verificare subito sicurezza, alloggio e rete", "attivare la risposta sociale urgente disponibile", "garantire un passaggio di consegne", "rivalutare il giorno seguente i bisogni abitativi, domiciliari e di rete"]
+      },
+      "debrief": [
+        "Quale fatto rendeva il caso urgente anche senza un'emergenza sanitaria?",
+        "Perché la domanda SAD era vera ma insufficiente?",
+        "Quali informazioni devono passare dal turno serale al servizio territoriale?",
+        "Il gruppo ha cercato il nome di un colpevole o il punto debole del percorso?"
+      ]
+    },
+    {
+      "id": "4sb",
+      "classe": "4SB",
+      "caso": "Il verbale che nessuno ha letto",
+      "focus": "Comunicazione, osservazione e ruoli nell'équipe",
+      "fili": [
+        "figure professionali e lavoro d'équipe",
+        "comunicazione con utenti e gruppi",
+        "osservazione e documentazione",
+        "progettazione di attività socioeducative"
+      ],
+      "obiettivi": [
+        "separare fatti osservati e interpretazioni",
+        "ricomporre informazioni frammentate tra professionisti",
+        "assegnare responsabilità, tempi e verifica a un progetto"
+      ],
+      "storia": "Un progetto socioeducativo per un adolescente prevedeva scuola, laboratorio pomeridiano e accompagnamento educativo. Dopo il cambio di orario del laboratorio, il ragazzo manca due incontri e il progetto viene sospeso con la frase: «Non è motivato». L'educatore, la scuola e la famiglia possiedono informazioni diverse, ma l'ultima riunione d'équipe è stata annullata. Nel fascicolo ci sono molte note e nessun compito assegnato. Che cosa ha davvero fermato il progetto?",
+      "missione": "Costruite una cronologia, separate osservazioni e giudizi, individuate due rotture dell'équipe e proponete un verbale operativo di ripartenza.",
+      "imprevisto": "La famiglia comunica che esisteva anche un altro mezzo di trasporto, ma nessuno aveva chiesto al ragazzo se fosse in grado di usarlo. La vostra ipotesi cambia o si precisa?",
+      "testimoni": [
+        {
+          "ruolo": "Educatore del laboratorio",
+          "pubblico": "Hai registrato le due assenze.",
+          "segreto": "Hai scritto «non motivato» senza parlare con il ragazzo. Sapevi che l'orario era cambiato, ma pensavi che la scuola avesse avvisato tutti.",
+          "domanda": "Rivela il segreto se ti chiedono su quali osservazioni si basa il tuo giudizio."
+        },
+        {
+          "ruolo": "Referente scolastico",
+          "pubblico": "Hai visto il ragazzo regolarmente a scuola.",
+          "segreto": "Il ragazzo ti aveva mostrato il messaggio sul nuovo orario e aveva detto che il vecchio autobus non era più utile. Hai inviato la nota solo al coordinatore.",
+          "domanda": "Rivela il segreto se ti chiedono che cosa aveva comunicato direttamente il ragazzo."
+        },
+        {
+          "ruolo": "Familiare",
+          "pubblico": "Conosci gli spostamenti pomeridiani.",
+          "segreto": "Pensavi che il trasporto fosse organizzato dal progetto. Nessun professionista ti ha contattato dopo la prima assenza.",
+          "domanda": "Rivela il segreto se ti chiedono che cosa credevi fosse compito dei servizi."
+        },
+        {
+          "ruolo": "Coordinatore dell'équipe",
+          "pubblico": "Dovevi tenere insieme le informazioni.",
+          "segreto": "Hai annullato la riunione senza fissarne un'altra. Il verbale precedente elenca gli obiettivi, ma non indica responsabili, scadenze o modalità di verifica.",
+          "domanda": "Rivela il segreto se ti chiedono chi aveva la responsabilità dei passaggi."
+        },
+        {
+          "ruolo": "Osservatore-documentalista",
+          "pubblico": "Hai confrontato le note presenti nel fascicolo.",
+          "segreto": "Le note sono in tre canali separati. L'unico documento condiviso contiene il giudizio «non motivato», ma non il cambio d'orario né il problema del trasporto.",
+          "domanda": "Rivela il segreto se ti chiedono quali informazioni erano davvero condivise."
+        }
+      ],
+      "prove": [
+        {"codice": "C1", "titolo": "Registro presenze", "testo": "Due assenze consecutive dopo il cambio d'orario.", "tipo": "FATTO"},
+        {"codice": "C2", "titolo": "Nota educativa", "testo": "«Il ragazzo è poco motivato». Non sono riportate domande o colloqui.", "tipo": "INFERENZA"},
+        {"codice": "C3", "titolo": "Messaggio dell'utente", "testo": "«Con il nuovo orario perdo l'autobus che usavo prima».", "tipo": "PROVA-CHIAVE"},
+        {"codice": "C4", "titolo": "Calendario équipe", "testo": "Riunione annullata; nessuna nuova data.", "tipo": "PROVA-CHIAVE"},
+        {"codice": "C5", "titolo": "Verbale operativo", "testo": "Obiettivi presenti. Colonne responsabile, scadenza e verifica vuote.", "tipo": "PROVA-CHIAVE"},
+        {"codice": "C6", "titolo": "Traccia dei messaggi", "testo": "Scuola, educatore e famiglia hanno usato tre canali non raccordati.", "tipo": "FATTO"},
+        {"codice": "C7", "titolo": "Compito svolto", "testo": "L'attività richiesta dal laboratorio è stata completata a casa.", "tipo": "CONTROPROVA"},
+        {"codice": "C8", "titolo": "Voce di corridoio", "testo": "«Alla sua età mollano tutti». Non riguarda il caso concreto.", "tipo": "PISTA-DEBOLE"}
+      ],
+      "soluzione": {
+        "colpevole": "Un giudizio è diventato un fatto e l'équipe ha lavorato a compartimenti",
+        "spiegazione": "Le assenze sono state interpretate come mancanza di motivazione senza ascoltare il ragazzo. Il cambio d'orario e il problema di trasporto non sono entrati nel documento condiviso; inoltre nessuno aveva un compito verificabile.",
+        "prove": ["C1 e C2 separano osservazione e interpretazione", "C3 e C7 smentiscono la spiegazione più comoda", "C4, C5 e C6 mostrano la rottura organizzativa"],
+        "riparazione": ["ascoltare il ragazzo e verificare i fatti", "condividere le informazioni essenziali in équipe", "assegnare responsabile, azione e scadenza", "verificare la ripartenza con un indicatore osservabile"]
+      },
+      "debrief": [
+        "Quali frasi sembravano fatti ma erano interpretazioni?",
+        "Chi possedeva l'informazione decisiva e perché non è circolata?",
+        "Che cosa rende operativo un verbale d'équipe?",
+        "Quale ruolo del vostro gruppo è stato più utile e quale è rimasto ai margini?"
+      ]
+    },
+    {
+      "id": "5sa",
+      "classe": "5SA",
+      "caso": "Il progetto senza protagonista",
+      "focus": "Dalla disponibilità dei servizi al progetto di vita della persona",
+      "fili": [
+        "intervista e accompagnamento all'accesso",
+        "PAI, valutazione multidimensionale e rete",
+        "disabilità, autonomia e progetto di vita",
+        "documentazione, monitoraggio e revisione"
+      ],
+      "obiettivi": [
+        "riconoscere la differenza tra collocare e progettare",
+        "tradurre desideri e bisogni in obiettivi osservabili e condivisi",
+        "prevedere coordinamento, monitoraggio e revisione"
+      ],
+      "storia": "Una giovane adulta con disabilità ha partecipato a un colloquio dicendo di voler tornare a frequentare fotografia e imparare a muoversi con maggiore autonomia. La famiglia ha espresso timori per la sicurezza. Poco dopo, il progetto approvato prevede cinque mattine in un centro diurno perché c'è un posto disponibile. L'obiettivo scritto è soltanto «favorire la socializzazione». Dopo tre settimane la persona smette di frequentare. Il progetto è completo sulla carta, ma non cammina. Chi ne ha cancellato la protagonista?",
+      "missione": "Individuate dove la voce della persona è scomparsa, dimostratelo con le prove e riscrivete un obiettivo realmente condiviso, con sostegni e verifica.",
+      "imprevisto": "La persona dice: «Il centro non mi dispiace, ma non voglio andarci cinque mattine». Costruite una soluzione negoziata: non potete né imporre il servizio né cancellarlo automaticamente.",
+      "testimoni": [
+        {
+          "ruolo": "La persona protagonista",
+          "pubblico": "Hai partecipato al primo colloquio.",
+          "segreto": "Avevi chiesto due cose precise: tornare al corso di fotografia e imparare il percorso in autobus. Nessuno ti ha fatto leggere gli obiettivi finali prima dell'avvio.",
+          "domanda": "Rivela il segreto se ti chiedono che cosa desideravi e quali decisioni hai condiviso."
+        },
+        {
+          "ruolo": "Familiare",
+          "pubblico": "Hai espresso preoccupazione per la sicurezza.",
+          "segreto": "Hai chiesto una soluzione molto protetta perché temi gli spostamenti. Non volevi cancellare la fotografia, ma la tua preoccupazione è diventata la voce principale del progetto.",
+          "domanda": "Rivela il segreto se ti chiedono che cosa temevi e se conoscevi i desideri della persona."
+        },
+        {
+          "ruolo": "Educatore del centro",
+          "pubblico": "Hai accolto la persona nel servizio disponibile.",
+          "segreto": "Nel centro la persona partecipa soprattutto quando si usano immagini e smartphone. Non hai ricevuto informazioni sul corso di fotografia né su un obiettivo di mobilità.",
+          "domanda": "Rivela il segreto se ti chiedono quando la partecipazione aumentava."
+        },
+        {
+          "ruolo": "Assistente sociale",
+          "pubblico": "Hai coordinato la stesura del progetto.",
+          "segreto": "Dovevi chiudere il documento in tempi brevi e hai usato il posto disponibile come risposta principale. La sintesi del colloquio è rimasta in allegato, ma non è entrata negli obiettivi.",
+          "domanda": "Rivela il segreto se ti chiedono come sono stati scelti servizio e obiettivi."
+        },
+        {
+          "ruolo": "Responsabile del monitoraggio",
+          "pubblico": "Dovevi controllare l'andamento del progetto.",
+          "segreto": "Il documento non indica una data di verifica, un indicatore di partecipazione o chi debba raccogliere il punto di vista della persona.",
+          "domanda": "Rivela il segreto se ti chiedono come si sarebbe capito se il progetto funzionava."
+        }
+      ],
+      "prove": [
+        {"codice": "D1", "titolo": "Sintesi del colloquio", "testo": "Desideri espressi: fotografia e maggiore autonomia negli spostamenti.", "tipo": "PROVA-CHIAVE"},
+        {"codice": "D2", "titolo": "Scheda disponibilità", "testo": "Un posto libero al centro diurno per cinque mattine.", "tipo": "FATTO"},
+        {"codice": "D3", "titolo": "Obiettivo approvato", "testo": "«Favorire la socializzazione». Nessun comportamento osservabile o termine di verifica.", "tipo": "PROVA-CHIAVE"},
+        {"codice": "D4", "titolo": "Firma del progetto", "testo": "Il documento riporta le firme professionali; manca uno spazio di condivisione con la persona.", "tipo": "PROVA-CHIAVE"},
+        {"codice": "D5", "titolo": "Presenze", "testo": "Partecipazione regolare nella prima settimana, poi progressiva riduzione.", "tipo": "FATTO"},
+        {"codice": "D6", "titolo": "Osservazione educativa", "testo": "Coinvolgimento alto nelle attività con immagini e smartphone.", "tipo": "CONTROPROVA"},
+        {"codice": "D7", "titolo": "Pagina monitoraggio", "testo": "Data di verifica, responsabile e indicatori non compilati.", "tipo": "PROVA-CHIAVE"},
+        {"codice": "D8", "titolo": "Etichetta informale", "testo": "«Non collabora». La frase non descrive quando, dove e rispetto a quale proposta.", "tipo": "INFERENZA"}
+      ],
+      "soluzione": {
+        "colpevole": "Il servizio disponibile ha preso il posto del progetto della persona",
+        "spiegazione": "Il progetto è formalmente compilato ma non parte dai desideri dichiarati, non li traduce in obiettivi condivisi e non prevede verifica. La preoccupazione familiare e il posto disponibile sono dati da integrare, non decisioni che cancellano la persona.",
+        "prove": ["D1 non compare negli obiettivi D3", "D4 mostra una condivisione incompleta", "D6 offre un aggancio coerente con l'interesse espresso", "D7 spiega perché il fallimento non è stato corretto"],
+        "riparazione": ["riaprire il colloquio con la persona", "negoziare un obiettivo concreto collegato a fotografia e mobilità", "definire sostegni, responsabilità e gradualità", "fissare indicatori e una data di revisione con la persona"]
+      },
+      "debrief": [
+        "Qual è la differenza tra un posto disponibile e un progetto appropriato?",
+        "Come può un desiderio diventare un obiettivo verificabile?",
+        "Come si tengono insieme autodeterminazione, sostegni e preoccupazioni familiari?",
+        "Quale indizio avete inizialmente sottovalutato e perché?"
+      ]
+    }
+  ]
+}
