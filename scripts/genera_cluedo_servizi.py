@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Genera i quattro mazzi stampabili del gioco investigativo sui servizi."""
+"""Genera i quattro mazzi stampabili di Servizi in giallo."""
 
 from __future__ import annotations
 
@@ -151,7 +151,7 @@ def cover_page(c: canvas.Canvas, scenario: dict, page_number: int) -> None:
     c.rect(0, PAGE_H - 64 * mm, PAGE_W, 64 * mm, stroke=0, fill=1)
     c.setFillColor(white)
     c.setFont("Deck-Bold", 10)
-    c.drawString(MARGIN, PAGE_H - 20 * mm, "CHI HA UCCISO IL PROGETTO DI AIUTO?")
+    c.drawString(MARGIN, PAGE_H - 20 * mm, "SERVIZI IN GIALLO · CACCIA AL SABOTATORE")
     c.setFont("Deck-Bold", 38)
     c.drawString(MARGIN, PAGE_H - 39 * mm, scenario["classe"])
     c.setFont("Deck-Bold", 22)
@@ -162,9 +162,9 @@ def cover_page(c: canvas.Canvas, scenario: dict, page_number: int) -> None:
     top -= 27 * mm
 
     blocks = [
-        ("Composizione del mazzo", "5 carte Testimone · 8 carte Prova · 4 schede Squadra. La soluzione resta nella regia docente e non compare in queste pagine."),
+        ("Composizione del mazzo", "5 carte Testimone · 8 carte Prova · 4 Missioni segrete · 4 schede Squadra. La soluzione resta nella regia docente."),
         ("Stampa", "Stampa a grandezza effettiva, su un solo lato. Taglia lungo i bordi. Se hai più di quattro squadre, ristampa soltanto l'ultima pagina."),
-        ("Allestimento", "Cinque studenti restano alle postazioni Testimone; gli altri si muovono in squadre da 2–4. Le prove vengono scoperte insieme dopo gli interrogatori."),
+        ("Allestimento", "Cinque studenti restano alle postazioni Testimone; gli altri si muovono in squadre da 2–4. Ogni squadra pesca una Missione segreta."),
         ("Regola essenziale", "I testimoni non mentono, non inventano e non mostrano la carta. Il dettaglio riservato viene comunicato solo quando la squadra formula una domanda pertinente."),
     ]
     for label, text in blocks:
@@ -282,6 +282,37 @@ def evidence_pages(c: canvas.Canvas, scenario: dict, start_page: int) -> int:
     return page_number
 
 
+def mission_card(c: canvas.Canvas, mission: dict, index: int, x: float, y: float, width: float, height: float) -> None:
+    cut_card(c, x, y, width, height, accent=ORANGE, fill=CREAM)
+    inner_x = x + 7 * mm
+    inner_w = width - 14 * mm
+    top = y + height - 13 * mm
+    c.setFillColor(ORANGE)
+    c.setFont("Deck-Bold", 8)
+    c.drawString(inner_x, top, f"MISSIONE SEGRETA {index}")
+    top -= 9 * mm
+    top -= paragraph(c, mission["titolo"], inner_x, top, inner_w, CARD_TITLE) + 8 * mm
+    top -= draw_labeled_block(c, "La sfida", mission["testo"], inner_x, top, inner_w, BODY) + 8 * mm
+    c.setFillColor(ORANGE_LIGHT)
+    c.rect(inner_x - 2 * mm, y + 8 * mm, inner_w + 4 * mm, 24 * mm, stroke=0, fill=1)
+    draw_labeled_block(c, "Bonus detective", mission["bonus"], inner_x + 2 * mm, y + 27 * mm, inner_w - 4 * mm, SMALL)
+
+
+def mission_page(c: canvas.Canvas, scenario: dict, page_number: int) -> None:
+    top = page_title(c, "Una per ogni squadra", "Missioni segrete", scenario, page_number)
+    bottom = 13 * mm
+    usable_top = top - 3 * mm
+    width = (PAGE_W - 2 * MARGIN - GAP) / 2
+    height = (usable_top - bottom - GAP) / 2
+    for offset, mission in enumerate(scenario["missioniSegrete"]):
+        row = offset // 2
+        col = offset % 2
+        x = MARGIN + col * (width + GAP)
+        y = usable_top - (row + 1) * height - row * GAP
+        mission_card(c, mission, offset + 1, x, y, width, height)
+    c.showPage()
+
+
 def writing_line(c: canvas.Canvas, x: float, y: float, width: float, label: str = "") -> None:
     c.setStrokeColor(LINE)
     c.setLineWidth(0.55)
@@ -303,14 +334,15 @@ def team_sheet(c: canvas.Canvas, scenario: dict, team_number: int, x: float, y: 
     top -= 5.5 * mm
     top -= paragraph(c, "Foglio d'accusa", inner_x, top, inner_w, EVIDENCE_TITLE) + 3 * mm
 
-    roles = "Interrogatore __________  Archivista __________\nCartografo __________  Verificatore (se presente) __________"
+    roles = "\n".join(f"{role} __________" for role in scenario["ruoliSquadra"])
     top -= draw_labeled_block(c, "Ruoli", roles, inner_x, top, inner_w, SMALL) + 4 * mm
 
     fields = [
-        ("Che cosa ha fermato il progetto?", 2),
+        (scenario["domandaAccusa"], 2),
         ("Due codici-prova e perché", 2),
         ("Una pista o inferenza da scartare", 1),
-        ("Riparazione: quattro passaggi in ordine", 3),
+        ("Soluzione: quattro mosse in ordine", 2),
+        ("Missione segreta compiuta?  SÌ / NO", 1),
     ]
     for label, lines in fields:
         c.setFillColor(TEAL)
@@ -341,13 +373,14 @@ def build_pdf(scenario: dict) -> Path:
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     output_path = OUTPUT_DIR / f"cluedo-servizi-{scenario['id']}.pdf"
     c = canvas.Canvas(str(output_path), pagesize=A4, pageCompression=1)
-    c.setTitle(f"{scenario['classe']} - {scenario['caso']} - carte gioco")
+    c.setTitle(f"Servizi in giallo - {scenario['classe']} - {scenario['caso']}")
     c.setAuthor("Metodologie Operative - IIS Meucci Mattei")
-    c.setSubject("Carte stampabili per il gioco investigativo sui servizi")
+    c.setSubject("Carte stampabili per il gioco investigativo Servizi in giallo")
     cover_page(c, scenario, 1)
     next_page = witness_pages(c, scenario, 2)
     next_page = evidence_pages(c, scenario, next_page)
-    team_page(c, scenario, next_page)
+    mission_page(c, scenario, next_page)
+    team_page(c, scenario, next_page + 1)
     c.save()
     return output_path
 

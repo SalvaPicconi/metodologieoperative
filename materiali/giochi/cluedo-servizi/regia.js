@@ -13,27 +13,41 @@
     const byId = (id) => document.getElementById(id);
 
     const phasesFor = (mode) => {
+        if (mode === 45) {
+            return [
+                { name: 'Apertura del fascicolo', minutes: 4, instruction: 'Leggi il caso come un giallo. Non spiegare quali dettagli saranno importanti.', script: '«Questa è una scena del crimine professionale: nessuna vittima, molti indizi e un sabotatore invisibile.»' },
+                { name: 'Ruoli e missione segreta', minutes: 5, instruction: 'Nomina cinque testimoni, crea le squadre, assegna i ruoli e fai pescare una Missione segreta.', script: '«I testimoni non mentono. Le squadre, invece, possono innamorarsi di una pista falsa: tenete gli occhi aperti.»' },
+                { name: 'Interrogatori lampo', minutes: 10, instruction: 'Le squadre ruotano tra le cinque postazioni. Una domanda precisa per incontro, poi cambio.', script: '«Non chiedete chi è il colpevole. Chiedete: che cosa hai osservato, deciso e comunicato?»' },
+                { name: 'Caccia alle prove', minutes: 8, instruction: 'Scopri le otto prove. Le squadre scelgono quelle decisive e scartano almeno una pista debole.', script: '«Un indizio fa atmosfera; una prova spiega un passaggio. Non sono la stessa cosa.»' },
+                { name: 'Accusa e soluzione', minutes: 7, instruction: 'Ogni squadra completa l’accusa, i due codici-prova e le quattro mosse della soluzione.', script: '«La squadra vincente non è quella che indovina: è quella che dimostra e sa correggersi.»' },
+                { name: 'Rivelazione', minutes: 4, instruction: 'Raccogli due ipotesi diverse, poi apri la soluzione docente.', script: '«Il sabotatore non porta un nome e cognome: è un errore di metodo che può tornare.»' },
+                { name: 'Debriefing', minutes: 7, instruction: 'Usa due domande finali e chiudi con l’exit ticket individuale.', script: '«Che cosa vi ha ingannato? Che cosa farete diversamente nel prossimo caso?»' }
+            ];
+        }
+
         if (mode === 90) {
             return [
-                { name: 'Apertura del caso', minutes: 7, instruction: 'Leggi il dossier senza spiegare quali indizi siano importanti.', script: '«Non cerchiamo una persona colpevole. Cerchiamo il passaggio che ha fatto fallire il progetto.»' },
-                { name: 'Ruoli e regole', minutes: 8, instruction: 'Nomina cinque testimoni. Dividi gli altri in squadre e fai assegnare interrogatore, archivista e cartografo.', script: '«Le carte non si mostrano. I testimoni dicono il vero, ma consegnano il dettaglio riservato solo a una domanda pertinente.»' },
+                { name: 'Apertura del fascicolo', minutes: 7, instruction: 'Leggi il caso come un giallo senza spiegare quali indizi siano importanti.', script: '«Questa è una scena del crimine professionale: nessuna vittima, molti indizi e un sabotatore invisibile.»' },
+                { name: 'Ruoli e regole', minutes: 8, instruction: 'Nomina cinque testimoni. Dividi gli altri in squadre, assegna i ruoli e fai pescare una Missione segreta.', script: '«Le carte non si mostrano. I testimoni dicono il vero, ma il dettaglio riservato si conquista con una domanda pertinente.»' },
                 { name: 'Interrogatori', minutes: 18, instruction: 'Le squadre ruotano tra le cinque postazioni. Due o tre minuti per incontro, poi cambio.', script: '«Non chiedete: chi è il colpevole? Chiedete: che cosa hai visto, che cosa hai fatto, a chi l’hai comunicato?»' },
                 { name: 'Tavolo delle prove', minutes: 15, instruction: 'Scopri le otto prove. Ogni squadra costruisce la cronologia e distingue fatti, inferenze e piste deboli.', script: '«Una prova non vale perché sembra convincente: vale se spiega un passaggio del percorso.»' },
+                { name: 'Missione segreta', minutes: 8, instruction: 'Ogni squadra esegue la propria carta senza rivelarla alle altre. Assegna il bonus solo se rispetta la consegna.', script: '«Avete otto minuti per guadagnare il punto più difficile: quello che premia il modo in cui collaborate.»' },
                 { name: 'Imprevisto', minutes: 10, instruction: 'Leggi l’imprevisto del caso. Le squadre devono modificare almeno una parte dell’ipotesi o motivare perché la confermano.', script: '' },
-                { name: 'Accusa motivata', minutes: 10, instruction: 'Ogni squadra compila: errore, due codici-prova, sequenza di riparazione e un’ipotesi da scartare.', script: '«Non basta nominare il servizio giusto: dovete spiegare perché viene prima e che cosa accade dopo.»' },
+                { name: 'Accusa motivata', minutes: 10, instruction: 'Ogni squadra compila: sabotatore, due codici-prova, pista scartata e soluzione in quattro mosse.', script: '«Non basta trovare una risposta: dovete dimostrare perché regge e come ripara il percorso.»' },
                 { name: 'Rivelazione', minutes: 5, instruction: 'Raccogli due accuse diverse, poi apri la soluzione docente e confronta il ragionamento.', script: '«La soluzione non premia chi indovina il nome: premia chi dimostra il meccanismo.»' },
-                { name: 'Debriefing', minutes: 17, instruction: 'Usa le domande finali. Chiudi con l’exit ticket individuale.', script: '«Prima parliamo di come avete pensato e collaborato; poi fissiamo che cosa abbiamo ripreso sui servizi.»' }
+                { name: 'Debriefing', minutes: 9, instruction: 'Usa le domande finali. Chiudi con l’exit ticket individuale.', script: '«Prima scopriamo che cosa ci ha ingannato; poi fissiamo la regola professionale che portiamo via.»' }
             ];
         }
 
         return [
-            { name: 'Apertura del caso', minutes: 5, instruction: 'Leggi il dossier senza spiegare quali indizi siano importanti.', script: '«Non cerchiamo una persona colpevole. Cerchiamo il passaggio che ha fatto fallire il progetto.»' },
-            { name: 'Ruoli e regole', minutes: 5, instruction: 'Nomina cinque testimoni. Dividi gli altri in squadre e fai assegnare interrogatore, archivista e cartografo.', script: '«Le carte non si mostrano. I testimoni dicono il vero, ma consegnano il dettaglio riservato solo a una domanda pertinente.»' },
-            { name: 'Interrogatori', minutes: 12, instruction: 'Le squadre ruotano tra le cinque postazioni. Circa due minuti per incontro, poi cambio.', script: '«Domandate che cosa è stato osservato, deciso e comunicato. Scrivete parole precise, non impressioni.»' },
+            { name: 'Apertura del fascicolo', minutes: 5, instruction: 'Leggi il caso come un giallo senza spiegare quali indizi siano importanti.', script: '«Questa è una scena del crimine professionale: nessuna vittima, molti indizi e un sabotatore invisibile.»' },
+            { name: 'Ruoli e regole', minutes: 6, instruction: 'Nomina cinque testimoni. Dividi gli altri in squadre, assegna i ruoli e fai pescare una Missione segreta.', script: '«I testimoni non mentono. Il segreto si conquista soltanto con una domanda pertinente.»' },
+            { name: 'Interrogatori', minutes: 14, instruction: 'Le squadre ruotano tra le cinque postazioni. Circa due minuti per incontro, poi cambio.', script: '«Domandate che cosa è stato osservato, deciso e comunicato. Scrivete fatti, non impressioni.»' },
             { name: 'Tavolo delle prove', minutes: 10, instruction: 'Scopri le otto prove. Ogni squadra costruisce la cronologia e distingue fatti, inferenze e piste deboli.', script: '«Scegliete le prove che spiegano il blocco, non quelle che fanno soltanto atmosfera.»' },
-            { name: 'Accusa motivata', minutes: 8, instruction: 'Ogni squadra compila: errore, due codici-prova, sequenza di riparazione e un’ipotesi da scartare.', script: '«Non basta nominare il servizio giusto: dovete spiegare perché viene prima e che cosa accade dopo.»' },
-            { name: 'Rivelazione', minutes: 5, instruction: 'Raccogli due accuse diverse, poi apri la soluzione docente e confronta il ragionamento.', script: '«La soluzione non premia chi indovina il nome: premia chi dimostra il meccanismo.»' },
-            { name: 'Debriefing', minutes: 15, instruction: 'Usa le domande finali. Chiudi con l’exit ticket individuale.', script: '«Prima parliamo di come avete pensato e collaborato; poi fissiamo che cosa abbiamo ripreso sui servizi.»' }
+            { name: 'Missione segreta', minutes: 5, instruction: 'Ogni squadra esegue la propria carta senza rivelarla alle altre. Assegna il bonus solo se rispetta la consegna.', script: '«Questo punto non si vince indovinando: si vince collaborando meglio.»' },
+            { name: 'Accusa motivata', minutes: 8, instruction: 'Ogni squadra compila: sabotatore, due codici-prova, pista scartata e soluzione in quattro mosse.', script: '«La risposta vale solo se sapete provarla e trasformarla in una soluzione praticabile.»' },
+            { name: 'Rivelazione', minutes: 4, instruction: 'Raccogli due accuse diverse, poi apri la soluzione docente e confronta il ragionamento.', script: '«Il sabotatore non è una persona: è il passaggio che tutti potevano vedere e nessuno ha collegato.»' },
+            { name: 'Debriefing', minutes: 8, instruction: 'Usa due o tre domande finali. Chiudi con l’exit ticket individuale.', script: '«Che cosa vi ha ingannato? Quale regola professionale portate via?»' }
         ];
     };
 
@@ -50,6 +64,19 @@
             li.textContent = item;
             return li;
         }));
+    };
+
+    const renderMissions = (missions) => {
+        const items = missions.map((mission) => {
+            const li = document.createElement('li');
+            const title = document.createElement('strong');
+            title.textContent = mission.titolo;
+            const text = document.createElement('span');
+            text.textContent = ` — ${mission.testo} ${mission.bonus}`;
+            li.append(title, text);
+            return li;
+        });
+        byId('secret-missions').replaceChildren(...items);
     };
 
     const renderTabs = () => {
@@ -74,6 +101,7 @@
         byId('case-title').textContent = scenario.caso;
         byId('case-story').textContent = scenario.storia;
         byId('case-mission').textContent = scenario.missione;
+        byId('forbidden-phrase').textContent = `«${scenario.parolaVietata}»`;
         byId('case-surprise').textContent = scenario.imprevisto;
         byId('solution-title').textContent = scenario.soluzione.colpevole;
         byId('solution-explanation').textContent = scenario.soluzione.spiegazione;
@@ -82,6 +110,7 @@
         listInto(byId('solution-proofs'), scenario.soluzione.prove);
         listInto(byId('solution-repair'), scenario.soluzione.riparazione);
         listInto(byId('debrief-list'), scenario.debrief);
+        renderMissions(scenario.missioniSegrete);
         byId('pack-link').href = packPaths[scenario.id];
         byId('pack-link').textContent = `Apri le carte ${scenario.classe} da stampare`;
         byId('solution-panel').open = false;
@@ -104,7 +133,8 @@
             const frequency = sizes.filter((value) => value === size).length;
             return `${frequency} ${frequency === 1 ? 'squadra' : 'squadre'} da ${size}`;
         });
-        byId('group-suggestion').innerHTML = `<strong>Assetto consigliato:</strong> 5 testimoni fissi + ${teams} ${pluralTeams(teams)} (${frequencies.join(' e ')}). Nelle squadre: interrogatore, archivista e cartografo; se sono in quattro aggiungi il verificatore.`;
+        const roles = state.currentCase.ruoliSquadra.join(', ');
+        byId('group-suggestion').innerHTML = `<strong>Assetto consigliato:</strong> 5 testimoni fissi + ${teams} ${pluralTeams(teams)} (${frequencies.join(' e ')}). Ruoli da distribuire o accorpare: ${roles}.`;
     };
 
     const stopTimer = () => {
@@ -125,6 +155,7 @@
         const timer = byId('timer');
         timer.textContent = formatTime(state.remaining);
         timer.classList.toggle('is-ending', state.remaining <= 60);
+        timer.classList.toggle('is-done', state.remaining <= 0);
     };
 
     const setPhase = (index) => {
@@ -157,6 +188,8 @@
             renderTimer();
             if (state.remaining <= 0) {
                 stopTimer();
+                document.body.classList.add('time-up');
+                window.setTimeout(() => document.body.classList.remove('time-up'), 1200);
             }
         }, 1000);
     };
@@ -174,7 +207,11 @@
             const button = event.target.closest('[data-case-id]');
             if (!button) return;
             state.currentCase = state.data.classi.find((scenario) => scenario.id === button.dataset.caseId);
+            const url = new URL(window.location.href);
+            url.searchParams.set('classe', state.currentCase.id);
+            window.history.replaceState({}, '', url);
             renderCase();
+            renderGroupSuggestion();
         });
 
         document.querySelectorAll('.mode-button').forEach((button) => {
@@ -225,7 +262,8 @@
         })
         .then((data) => {
             state.data = data;
-            state.currentCase = data.classi[0];
+            const requestedCase = new URLSearchParams(window.location.search).get('classe');
+            state.currentCase = data.classi.find((scenario) => scenario.id === requestedCase) || data.classi[0];
             bindEvents();
             renderCase();
             renderGroupSuggestion();

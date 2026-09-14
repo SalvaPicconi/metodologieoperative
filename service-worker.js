@@ -1,7 +1,7 @@
 // Service Worker per Metodologie Operative Lab PWA
-// Versione: 1.1.0
+// Versione: 1.2.0
 
-const CACHE_NAME = 'metop-lab-v2';
+const CACHE_NAME = 'metop-lab-v3';
 const OFFLINE_URL = '/metodologieoperative/offline.html';
 
 // File da cachare immediatamente all'installazione

@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#102321">
     <meta name="robots" content="noindex, nofollow">
-    <title>Regia docente · Chi ha ucciso il progetto di aiuto?</title>
-    <meta name="description" content="Regia docente per il gioco investigativo sui servizi e sui progetti di aiuto.">
+    <title>Regia docente · Servizi in giallo</title>
+    <meta name="description" content="Regia docente per quattro giochi investigativi sulla rete dei servizi, l'équipe e il progetto di vita.">
     <link rel="manifest" href="../../../manifest.json">
     <link rel="stylesheet" href="regia.css">
 </head>
@@ -14,8 +14,8 @@
     <header class="topbar">
         <div>
             <p class="eyebrow">Metodologie Operative · regia docente</p>
-            <h1>Chi ha ucciso il progetto di aiuto?</h1>
-            <p class="subtitle">Un’indagine senza vittime: si cerca l’errore che ha bloccato il percorso.</p>
+            <h1>Servizi in giallo</h1>
+            <p class="subtitle">Quattro misteri senza vittime: si cercano il passaggio, la parola o l’omissione che hanno sabotato il percorso.</p>
         </div>
         <div class="header-actions">
             <a class="button button-ghost teacher-only" href="../../../laboratorio.html#giochi">Torna a Giochi</a>
@@ -52,6 +52,7 @@
                 <div class="field-group">
                     <span class="field-label">Durata</span>
                     <div class="segmented compact" role="group" aria-label="Durata del gioco">
+                        <button class="mode-button" type="button" data-mode="45">45 minuti</button>
                         <button class="mode-button is-active" type="button" data-mode="60">60 minuti</button>
                         <button class="mode-button" type="button" data-mode="90">90 minuti</button>
                     </div>
@@ -61,10 +62,10 @@
             <div id="group-suggestion" class="group-suggestion" aria-live="polite"></div>
 
             <div class="prep-list">
-                <div><span>1</span><p>Stampa il mazzo della classe. Tieni separate le cinque carte Testimone.</p></div>
+                <div><span>1</span><p>Stampa il mazzo della classe. Separa Testimoni, Prove, Missioni segrete e schede Squadra.</p></div>
                 <div><span>2</span><p>Disponi cinque postazioni fisse. Il resto della classe lavora in squadre mobili da 2–4.</p></div>
-                <div><span>3</span><p>Metti le otto carte Prova coperte sul tavolo centrale. Consegna una scheda a ogni squadra.</p></div>
-                <div><span>4</span><p>I testimoni non mentono e non mostrano la carta: comunicano il segreto solo dopo una domanda pertinente.</p></div>
+                <div><span>3</span><p>Metti le otto Prove coperte sul tavolo centrale. Ogni squadra pesca una Missione segreta.</p></div>
+                <div><span>4</span><p>I testimoni non mentono e non mostrano la carta. La frase proibita, invece, può far perdere il bonus.</p></div>
             </div>
 
             <a id="pack-link" class="button button-download" href="#" target="_blank" rel="noopener">Apri le carte da stampare</a>
@@ -76,6 +77,12 @@
                 <span id="case-focus" class="case-focus"></span>
             </div>
             <h2 id="case-title"></h2>
+
+            <div class="forbidden-strip" role="note">
+                <span>Frase sotto sorveglianza</span>
+                <strong id="forbidden-phrase"></strong>
+                <small>Se compare senza essere corretta, il sabotatore guadagna terreno.</small>
+            </div>
 
             <div class="case-columns">
                 <article class="story-card">
@@ -132,8 +139,16 @@
         <section class="teacher-tools teacher-only" aria-labelledby="strumenti-title">
             <div class="section-heading">
                 <p class="step-label">Sblocco e chiusura</p>
-                <h2 id="strumenti-title">Imprevisto, soluzione, debriefing</h2>
+                <h2 id="strumenti-title">Missioni, imprevisto, soluzione</h2>
             </div>
+
+            <details class="tool-card bonus-card">
+                <summary>Missioni segrete e punteggio detective</summary>
+                <ol id="secret-missions"></ol>
+                <div class="score-rule">
+                    <strong>10 punti possibili:</strong> sabotatore individuato 2 · prove usate bene 2 · pista falsa smontata 1 · soluzione in quattro mosse 2 · collaborazione 2 · missione segreta 1.
+                </div>
+            </details>
 
             <details class="tool-card surprise-card">
                 <summary>Imprevisto per la versione da 90 minuti</summary>
@@ -144,7 +159,7 @@
                 <summary>Rivela la soluzione docente</summary>
                 <div class="solution-grid">
                     <div>
-                        <p class="card-kicker">Che cosa ha “ucciso” il progetto</p>
+                        <p class="card-kicker">Sabotatore invisibile</p>
                         <h3 id="solution-title"></h3>
                         <p id="solution-explanation"></p>
                     </div>
@@ -176,7 +191,7 @@
     </main>
 
     <footer>
-        <p>Metodologie Operative · gioco per 3SA, 3SB, 4SB e 5SA</p>
+        <p>Metodologie Operative · Servizi in giallo · 3SA, 3SB, 4SB e 5SA</p>
     </footer>
 
     <script src="regia.js" defer></script>
