@@ -12,41 +12,43 @@
 
     const byId = (id) => document.getElementById(id);
 
+    const phaseCopy = (standard, impostor) => state.currentCase?.haImpostore ? impostor : standard;
+
     const phasesFor = (mode) => {
         if (mode === 45) {
             return [
-                { name: 'Apertura del fascicolo', minutes: 4, instruction: 'Leggi il caso come un giallo. Non spiegare quali dettagli saranno importanti.', script: '«Questa è una scena del crimine professionale: nessuna vittima, molti indizi e un sabotatore invisibile.»' },
-                { name: 'Ruoli e missione segreta', minutes: 5, instruction: 'Assegna testimoni e ruoli, fai pescare le Missioni e spiega i richiami «Indizio sbloccato!» e «Sabotaggio!».', script: '«I testimoni non mentono. Le squadre, invece, possono innamorarsi di una pista falsa: tenete gli occhi aperti.»' },
+                { name: 'Apertura del fascicolo', minutes: 4, instruction: 'Leggi il caso come un giallo. Non spiegare quali dettagli saranno importanti.', script: phaseCopy('«Questa è una scena del crimine professionale: nessuna vittima, molti indizi e un sabotatore invisibile.»', '«Tra i cinque testimoni c’è un unico impostore. Ha inserito l’errore nel percorso: dovete scoprire chi è e dimostrarlo.»') },
+                { name: 'Ruoli e missione segreta', minutes: 5, instruction: 'Assegna testimoni e ruoli, fai pescare le Missioni e spiega i richiami «Indizio sbloccato!» e «Sabotaggio!».', script: phaseCopy('«I testimoni non mentono. Le squadre, invece, possono innamorarsi di una pista falsa: tenete gli occhi aperti.»', '«Quattro testimoni dicono il vero. L’impostore può depistarvi una volta, ma non può inventare fatti né contraddire le prove.»') },
                 { name: 'Interrogatori lampo', minutes: 10, instruction: 'Le squadre partono da postazioni diverse e ruotano ogni due minuti. Chi attende lavora alla Base investigativa.', script: '«Non chiedete chi è il colpevole. Chiedete: che cosa hai osservato, deciso e comunicato?»' },
                 { name: 'Caccia alle prove', minutes: 8, instruction: 'Scopri le otto prove. Le squadre scelgono quelle decisive e scartano almeno una pista debole.', script: '«Un indizio fa atmosfera; una prova spiega un passaggio. Non sono la stessa cosa.»' },
                 { name: 'Accusa e soluzione', minutes: 7, instruction: 'Ogni squadra completa il foglio e prepara l’accusa corale: tutti devono pronunciare almeno una parte.', script: '«La squadra vincente non è quella che indovina: è quella che dimostra e sa correggersi.»' },
-                { name: 'Rivelazione', minutes: 4, instruction: 'Raccogli due ipotesi diverse, poi apri la soluzione docente.', script: '«Il sabotatore non porta un nome e cognome: è un errore di metodo che può tornare.»' },
+                { name: 'Rivelazione', minutes: 4, instruction: 'Raccogli due ipotesi diverse, poi apri la soluzione docente.', script: phaseCopy('«Il sabotatore non porta un nome e cognome: è un errore di metodo che può tornare.»', '«Ora separiamo due domande: chi ha inserito l’errore e perché quella scelta ha spezzato la rete.»') },
                 { name: 'Debriefing', minutes: 7, instruction: 'Usa due domande finali e chiudi con l’exit ticket individuale.', script: '«Che cosa vi ha ingannato? Che cosa farete diversamente nel prossimo caso?»' }
             ];
         }
 
         if (mode === 90) {
             return [
-                { name: 'Apertura del fascicolo', minutes: 7, instruction: 'Leggi il caso come un giallo senza spiegare quali indizi siano importanti.', script: '«Questa è una scena del crimine professionale: nessuna vittima, molti indizi e un sabotatore invisibile.»' },
-                { name: 'Ruoli e regole', minutes: 8, instruction: 'Assegna testimoni e ruoli, fai pescare le Missioni e spiega i richiami «Indizio sbloccato!» e «Sabotaggio!».', script: '«Le carte non si mostrano. I testimoni dicono il vero, ma il dettaglio riservato si conquista con una domanda pertinente.»' },
+                { name: 'Apertura del fascicolo', minutes: 7, instruction: 'Leggi il caso come un giallo senza spiegare quali indizi siano importanti.', script: phaseCopy('«Questa è una scena del crimine professionale: nessuna vittima, molti indizi e un sabotatore invisibile.»', '«Tra i cinque testimoni c’è un unico impostore. Ha inserito l’errore nel percorso: dovete scoprire chi è e dimostrarlo.»') },
+                { name: 'Ruoli e regole', minutes: 8, instruction: 'Assegna testimoni e ruoli, fai pescare le Missioni e spiega i richiami «Indizio sbloccato!» e «Sabotaggio!».', script: phaseCopy('«Le carte non si mostrano. I testimoni dicono il vero, ma il dettaglio riservato si conquista con una domanda pertinente.»', '«Quattro testimoni dicono il vero. L’impostore può depistarvi una volta, ma non può inventare fatti né contraddire le prove.»') },
                 { name: 'Interrogatori', minutes: 18, instruction: 'Le squadre partono da postazioni diverse e ruotano ogni due o tre minuti. Chi attende lavora alla Base investigativa.', script: '«Non chiedete: chi è il colpevole? Chiedete: che cosa hai visto, che cosa hai fatto, a chi l’hai comunicato?»' },
                 { name: 'Tavolo delle prove', minutes: 15, instruction: 'Scopri le otto prove. Ogni squadra costruisce la cronologia e distingue fatti, inferenze e piste deboli.', script: '«Una prova non vale perché sembra convincente: vale se spiega un passaggio del percorso.»' },
                 { name: 'Missione segreta', minutes: 8, instruction: 'Ogni squadra esegue la propria carta senza rivelarla alle altre. Assegna il bonus solo se rispetta la consegna.', script: '«Avete otto minuti per guadagnare il punto più difficile: quello che premia il modo in cui collaborate.»' },
                 { name: 'Imprevisto', minutes: 10, instruction: 'Leggi l’imprevisto del caso. Le squadre devono modificare almeno una parte dell’ipotesi o motivare perché la confermano.', script: '' },
                 { name: 'Accusa motivata', minutes: 10, instruction: 'Ogni squadra completa il foglio e prepara l’accusa corale: tutti devono pronunciare almeno una parte.', script: '«Non basta trovare una risposta: dovete dimostrare perché regge e come ripara il percorso.»' },
-                { name: 'Rivelazione', minutes: 5, instruction: 'Raccogli due accuse diverse, poi apri la soluzione docente e confronta il ragionamento.', script: '«La soluzione non premia chi indovina il nome: premia chi dimostra il meccanismo.»' },
+                { name: 'Rivelazione', minutes: 5, instruction: 'Raccogli due accuse diverse, poi apri la soluzione docente e confronta il ragionamento.', script: phaseCopy('«La soluzione non premia chi indovina il nome: premia chi dimostra il meccanismo.»', '«Il nome vale due punti. Gli altri otto dipendono da errore, prove, pista falsa, riparazione e missione.»') },
                 { name: 'Debriefing', minutes: 9, instruction: 'Usa le domande finali. Chiudi con l’exit ticket individuale.', script: '«Prima scopriamo che cosa ci ha ingannato; poi fissiamo la regola professionale che portiamo via.»' }
             ];
         }
 
         return [
-            { name: 'Apertura del fascicolo', minutes: 5, instruction: 'Leggi il caso come un giallo senza spiegare quali indizi siano importanti.', script: '«Questa è una scena del crimine professionale: nessuna vittima, molti indizi e un sabotatore invisibile.»' },
-            { name: 'Ruoli e regole', minutes: 6, instruction: 'Assegna testimoni e ruoli, fai pescare le Missioni e spiega i richiami «Indizio sbloccato!» e «Sabotaggio!».', script: '«I testimoni non mentono. Il segreto si conquista soltanto con una domanda pertinente.»' },
+            { name: 'Apertura del fascicolo', minutes: 5, instruction: 'Leggi il caso come un giallo senza spiegare quali indizi siano importanti.', script: phaseCopy('«Questa è una scena del crimine professionale: nessuna vittima, molti indizi e un sabotatore invisibile.»', '«Tra i cinque testimoni c’è un unico impostore. Ha inserito l’errore nel percorso: dovete scoprire chi è e dimostrarlo.»') },
+            { name: 'Ruoli e regole', minutes: 6, instruction: 'Assegna testimoni e ruoli, fai pescare le Missioni e spiega i richiami «Indizio sbloccato!» e «Sabotaggio!».', script: phaseCopy('«I testimoni non mentono. Il segreto si conquista soltanto con una domanda pertinente.»', '«Quattro testimoni dicono il vero. L’impostore può depistarvi una volta, ma non può inventare fatti né contraddire le prove.»') },
             { name: 'Interrogatori', minutes: 14, instruction: 'Le squadre partono da postazioni diverse e ruotano ogni due minuti. Chi attende lavora alla Base investigativa.', script: '«Domandate che cosa è stato osservato, deciso e comunicato. Scrivete fatti, non impressioni.»' },
             { name: 'Tavolo delle prove', minutes: 10, instruction: 'Scopri le otto prove. Ogni squadra costruisce la cronologia e distingue fatti, inferenze e piste deboli.', script: '«Scegliete le prove che spiegano il blocco, non quelle che fanno soltanto atmosfera.»' },
             { name: 'Missione segreta', minutes: 5, instruction: 'Ogni squadra esegue la propria carta senza rivelarla alle altre. Assegna il bonus solo se rispetta la consegna.', script: '«Questo punto non si vince indovinando: si vince collaborando meglio.»' },
             { name: 'Accusa motivata', minutes: 8, instruction: 'Ogni squadra completa il foglio e prepara l’accusa corale: tutti devono pronunciare almeno una parte.', script: '«La risposta vale solo se sapete provarla e trasformarla in una soluzione praticabile.»' },
-            { name: 'Rivelazione', minutes: 4, instruction: 'Raccogli due accuse diverse, poi apri la soluzione docente e confronta il ragionamento.', script: '«Il sabotatore non è una persona: è il passaggio che tutti potevano vedere e nessuno ha collegato.»' },
+            { name: 'Rivelazione', minutes: 4, instruction: 'Raccogli due accuse diverse, poi apri la soluzione docente e confronta il ragionamento.', script: phaseCopy('«Il sabotatore non è una persona: è il passaggio che tutti potevano vedere e nessuno ha collegato.»', '«Ora separiamo due domande: chi ha inserito l’errore e perché quella scelta ha spezzato la rete.»') },
             { name: 'Debriefing', minutes: 8, instruction: 'Usa due o tre domande finali. Chiudi con l’exit ticket individuale.', script: '«Che cosa vi ha ingannato? Quale regola professionale portate via?»' }
         ];
     };
@@ -77,6 +79,24 @@
             return li;
         });
         byId('secret-missions').replaceChildren(...items);
+    };
+
+    const renderScore = (scenario) => {
+        const items = scenario.punteggio || [
+            { punti: 2, criterio: 'individuare con precisione il sabotatore invisibile' },
+            { punti: 2, criterio: 'usare due prove e spiegare che cosa dimostrano: 1 punto per ciascuna' },
+            { punti: 1, criterio: 'scartare una pista falsa motivando la scelta' },
+            { punti: 2, criterio: 'proporre quattro mosse di riparazione coerenti: mezzo punto per ciascuna' },
+            { punti: 2, criterio: 'far partecipare tutti rispettando i ruoli; 1 punto se la partecipazione è solo parziale, 0 se una persona fa tutto' },
+            { punti: 1, criterio: 'completare la missione segreta' }
+        ];
+        byId('score-list').replaceChildren(...items.map((item) => {
+            const li = document.createElement('li');
+            const points = document.createElement('strong');
+            points.textContent = `${item.punti} ${item.punti === 1 ? 'punto' : 'punti'}`;
+            li.append(points, ` — ${item.criterio};`);
+            return li;
+        }));
     };
 
     const renderRoleGuide = (scenario) => {
@@ -126,19 +146,39 @@
         byId('guide-scope').textContent = scenario.id === '3sa'
             ? 'Questa è la guida completa della 3SA: spiegazione, vittoria, ruoli sostituibili e distribuzione dei materiali. La console più sotto serve quando la partita è iniziata.'
             : `Per ${scenario.classe} resta disponibile la struttura precedente; la revisione completa sarà svolta in una sessione dedicata.`;
+        byId('class-script').textContent = scenario.spiegazioneClasse || '«Un sabotatore invisibile si è infilato nel percorso dei servizi. Non è una persona: è un errore di lavoro, un passaggio saltato o una decisione rimasta isolata. Ogni testimone conosce soltanto un pezzo della storia e tra le prove si nascondono anche piste deboli. La vostra squadra dovrà interrogare, collegare gli indizi e completare una missione segreta. Alla fine avrete sessanta secondi per accusare il sabotatore e riparare il percorso. Vince la squadra che dimostra meglio la propria ricostruzione.»';
         byId('case-story').textContent = scenario.storia;
         byId('case-mission').textContent = scenario.missione;
         byId('accusation-question').textContent = scenario.domandaAccusa;
         byId('forbidden-phrase').textContent = `«${scenario.parolaVietata}»`;
         byId('case-surprise').textContent = scenario.imprevisto;
         byId('solution-title').textContent = scenario.soluzione.colpevole;
+        byId('solution-label').textContent = scenario.soluzione.etichetta || 'Sabotatore invisibile';
+        const solutionError = byId('solution-error');
+        solutionError.textContent = scenario.soluzione.errore ? `Errore commesso: ${scenario.soluzione.errore}` : '';
+        solutionError.hidden = !scenario.soluzione.errore;
         byId('solution-explanation').textContent = scenario.soluzione.spiegazione;
+        byId('win-target').textContent = scenario.haImpostore ? '1 impostore + il suo errore' : 'sabotatore preciso';
+        const impostorRule = byId('impostor-rule');
+        impostorRule.innerHTML = scenario.haImpostore
+            ? '<strong>Eccezione: l’impostore.</strong> La carta 2 autorizza un solo depistaggio già scritto. Dopo una seconda domanda precisa deve rivelare l’azione. Non può inventare fatti, accusare altri o nascondere una prova.'
+            : '';
+        impostorRule.hidden = !scenario.haImpostore;
+        byId('impostor-absence-rule').hidden = !scenario.haImpostore;
+        byId('witness-material-use').textContent = scenario.haImpostore
+            ? 'Subito, prima di leggere il caso. Consegna in privato la carta 2 e il biglietto all’impostore: sarà lui a inserirlo nella busta. Nessuna carta si mostra alle squadre.'
+            : 'Subito, prima di leggere il caso. La carta non si mostra alle squadre.';
+        byId('impostor-prop-row').hidden = !scenario.haImpostore;
+        byId('scoreboard-material-use').textContent = scenario.haImpostore
+            ? 'Prepara una riga per squadra e sei colonne: impostore 2, errore 2, prove 2, pista falsa 1, riparazione 2, missione 1. Somma il totale dopo ogni accusa.'
+            : 'Prepara una riga per squadra e sei colonne: sabotatore 2, prove 2, pista falsa 1, riparazione 2, collaborazione 2, missione 1. Somma il totale dopo ogni accusa.';
         listInto(byId('prior-threads'), scenario.fili);
         listInto(byId('case-objectives'), scenario.obiettivi);
         listInto(byId('solution-proofs'), scenario.soluzione.prove);
         listInto(byId('solution-repair'), scenario.soluzione.riparazione);
         listInto(byId('debrief-list'), scenario.debrief);
         renderMissions(scenario.missioniSegrete);
+        renderScore(scenario);
         renderRoleGuide(scenario);
         byId('guide-pack-link').href = packPaths[scenario.id];
         byId('guide-pack-link').textContent = `Apri il mazzo ${scenario.classe}`;
@@ -163,14 +203,16 @@
             return `${frequency} ${frequency === 1 ? 'squadra' : 'squadre'} da ${size}`;
         });
         const roles = state.currentCase.ruoliSquadra.join(', ');
+        const impostorSuffix = state.currentCase.haImpostore ? '; la carta 2 resta sempre all’unico impostore' : '';
         const witnessText = witnesses === 5
-            ? '5 testimoni, una carta ciascuno'
+            ? `5 testimoni, una carta ciascuno${impostorSuffix}`
             : witnesses === 4
-                ? '4 testimoni; l’ultimo interpreta anche il quinto'
+                ? `4 testimoni; l’ultimo interpreta anche il quinto${impostorSuffix}`
                 : witnesses === 3
-                    ? '3 testimoni che si dividono le cinque carte'
-                    : 'nessun testimone fisso; il docente interpreta le cinque carte';
-        const winText = teams === 1 ? ' La squadra gioca contro il sabotatore e vince con almeno 7 punti su 10.' : '';
+                    ? `3 testimoni che si dividono le cinque carte${impostorSuffix}`
+                    : `nessun testimone fisso; il docente interpreta le cinque carte${impostorSuffix}`;
+        const opponent = state.currentCase.haImpostore ? 'l’impostore' : 'il sabotatore';
+        const winText = teams === 1 ? ` La squadra gioca contro ${opponent} e vince con almeno 7 punti su 10.` : '';
         byId('group-suggestion').innerHTML = `<strong>Assetto consigliato con ${count} presenti:</strong> ${witnessText} + ${teams} ${pluralTeams(teams)} (${frequencies.join(' e ')}). Ruoli da distribuire o accorpare: ${roles}.${winText}`;
     };
 

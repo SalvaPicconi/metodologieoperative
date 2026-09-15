@@ -15,7 +15,7 @@
         <div>
             <p class="eyebrow">Metodologie Operative · regia docente</p>
             <h1>Servizi in giallo</h1>
-            <p class="subtitle">Quattro misteri senza vittime: si cercano il passaggio, la parola o l’omissione che hanno sabotato il percorso.</p>
+            <p class="subtitle">Quattro misteri senza vittime: si cercano il responsabile oppure il passaggio, la parola o l’omissione che hanno sabotato il percorso.</p>
         </div>
         <div class="header-actions">
             <a class="button button-ghost teacher-only" href="../../../laboratorio.html#giochi">Torna a Giochi</a>
@@ -44,7 +44,7 @@
                 <div class="guide-content">
                     <h3 id="spiegazione-title">Spiegazione del gioco alla classe</h3>
                     <p class="guide-lead">Leggi questo testo prima di distribuire le carte:</p>
-                    <blockquote class="class-script">
+                    <blockquote id="class-script" class="class-script">
                         «Un sabotatore invisibile si è infilato nel percorso dei servizi. Non è una persona: è un errore di lavoro, un passaggio saltato o una decisione rimasta isolata. Ogni testimone conosce soltanto un pezzo della storia e tra le prove si nascondono anche piste deboli. La vostra squadra dovrà interrogare, collegare gli indizi e completare una missione segreta. Alla fine avrete sessanta secondi per accusare il sabotatore e riparare il percorso. Vince la squadra che dimostra meglio la propria ricostruzione.»
                     </blockquote>
 
@@ -64,7 +64,7 @@
                         <aside id="come-si-vince" class="victory-card" aria-labelledby="vittoria-title">
                             <p class="card-kicker">Regola di vittoria</p>
                             <h4 id="vittoria-title">Come si vince</h4>
-                            <ul class="score-list">
+                            <ul id="score-list" class="score-list">
                                 <li><strong>2 punti</strong> — individuare con precisione il sabotatore invisibile;</li>
                                 <li><strong>2 punti</strong> — usare due prove e spiegare che cosa dimostrano: 1 punto per ciascuna;</li>
                                 <li><strong>1 punto</strong> — scartare una pista falsa motivando la scelta;</li>
@@ -118,6 +118,7 @@
                                 <li>La squadra può fare una domanda. Se è pertinente alla consegna della carta, il testimone rivela anche la parte riservata.</li>
                                 <li>Se la domanda non è pertinente, risponde «indizio non sbloccato». Non inventa e non mostra mai la carta.</li>
                             </ol>
+                            <p id="impostor-rule" class="role-rule" hidden></p>
                             <p class="role-rule"><strong>Rotazione:</strong> una postazione per testimone e due minuti per incontro. Se le squadre sono più delle postazioni disponibili, quelle in attesa lavorano alla “Base investigativa”: ordinano gli appunti e preparano la domanda successiva. Entrano alla prima postazione che si libera, quindi nessuno resta fuori dal gioco.</p>
                         </div>
 
@@ -138,6 +139,7 @@
                             <p><strong>Solo 4 testimoni:</strong> il quarto interpreta anche il quinto e tiene due carte separate.</p>
                             <p><strong>Solo 3 testimoni:</strong> il primo tiene le carte 1–2, il secondo le carte 3–4, il terzo la carta 5.</p>
                             <p><strong>Meno di 3 testimoni:</strong> il docente legge le parti pubbliche e consegna le informazioni riservate quando la domanda è pertinente.</p>
+                            <p id="impostor-absence-rule" hidden><strong>L’impostore non salta mai:</strong> chi riceve o accorpa la carta 2 svolge anche il ruolo segreto. Se non ci sono testimoni fissi, lo interpreta il docente.</p>
                             <p><strong>Una sola squadra:</strong> non compete contro altre squadre; deve raggiungere 7 punti su 10.</p>
                         </div>
                     </div>
@@ -155,11 +157,12 @@
                                 <tr><th>Materiale</th><th>A chi va</th><th>Quando si usa</th></tr>
                             </thead>
                             <tbody>
-                                <tr><td><strong>5 carte Testimone</strong><br>Pagine 2–3</td><td>Una a ciascun testimone</td><td>Subito, prima di leggere il caso. La carta non si mostra alle squadre.</td></tr>
+                                <tr><td><strong>5 carte Testimone</strong><br>Pagine 2–3</td><td>Una a ciascun testimone</td><td id="witness-material-use">Subito, prima di leggere il caso. La carta non si mostra alle squadre.</td></tr>
+                                <tr id="impostor-prop-row" hidden><td><strong>Biglietto sabotato</strong><br>Pagina 3</td><td>Al docente, poi in segreto all’impostore</td><td>Prima della lettura del caso, l’impostore lo inserisce nella busta. Dopo l’apertura rimane visibile sul tavolo.</td></tr>
                                 <tr><td><strong>8 carte Prova</strong><br>Pagine 4–5</td><td>Al docente, coperte sul tavolo centrale</td><td>Si scoprono tutte insieme dopo gli interrogatori.</td></tr>
                                 <tr><td><strong>4 Missioni segrete</strong><br>Pagina 6</td><td>Una coperta a ciascuna squadra</td><td>Si legge senza mostrarla agli avversari. Se le squadre sono più di quattro, una missione può essere duplicata.</td></tr>
                                 <tr><td><strong>4 Fogli d’accusa</strong><br>Pagina 7</td><td>Uno a ciascuna squadra, con una penna</td><td>Si compila durante tutta l’indagine e si consegna prima della presentazione finale.</td></tr>
-                                <tr><td><strong>Lavagna o foglio segnapunti</strong></td><td>Al docente</td><td>Prepara una riga per squadra e sei colonne: sabotatore 2, prove 2, pista falsa 1, riparazione 2, collaborazione 2, missione 1. Somma il totale dopo ogni accusa.</td></tr>
+                                <tr><td><strong>Lavagna o foglio segnapunti</strong></td><td>Al docente</td><td id="scoreboard-material-use">Prepara una riga per squadra e sei colonne: sabotatore 2, prove 2, pista falsa 1, riparazione 2, collaborazione 2, missione 1. Somma il totale dopo ogni accusa.</td></tr>
                                 <tr><td><strong>Regia, timer e soluzione</strong></td><td>Restano al docente</td><td>Servono per guidare le fasi, assegnare i punti e rivelare la soluzione.</td></tr>
                             </tbody>
                         </table>
@@ -196,7 +199,7 @@
 
             <div class="student-win-strip" role="note">
                 <strong>Per vincere:</strong>
-                <span>sabotatore preciso</span>
+                <span id="win-target">sabotatore preciso</span>
                 <span>2 prove spiegate</span>
                 <span>1 pista falsa scartata</span>
                 <span>4 mosse di riparazione</span>
@@ -274,8 +277,9 @@
                 <summary>Rivela la soluzione docente</summary>
                 <div class="solution-grid">
                     <div>
-                        <p class="card-kicker">Sabotatore invisibile</p>
+                        <p id="solution-label" class="card-kicker">Sabotatore invisibile</p>
                         <h3 id="solution-title"></h3>
+                        <p id="solution-error" class="solution-error" hidden></p>
                         <p id="solution-explanation"></p>
                     </div>
                     <div>

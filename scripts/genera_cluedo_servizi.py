@@ -152,7 +152,8 @@ def cover_page(c: canvas.Canvas, scenario: dict, page_number: int) -> None:
     c.rect(0, PAGE_H - 64 * mm, PAGE_W, 64 * mm, stroke=0, fill=1)
     c.setFillColor(white)
     c.setFont("Deck-Bold", 10)
-    c.drawString(MARGIN, PAGE_H - 20 * mm, "SERVIZI IN GIALLO · CACCIA AL SABOTATORE")
+    cover_label = "SERVIZI IN GIALLO · CACCIA ALL'IMPOSTORE" if scenario.get("haImpostore") else "SERVIZI IN GIALLO · CACCIA AL SABOTATORE"
+    c.drawString(MARGIN, PAGE_H - 20 * mm, cover_label)
     c.setFont("Deck-Bold", 38)
     c.drawString(MARGIN, PAGE_H - 39 * mm, scenario["classe"])
     c.setFont("Deck-Bold", 22)
@@ -162,11 +163,13 @@ def cover_page(c: canvas.Canvas, scenario: dict, page_number: int) -> None:
     paragraph(c, scenario["focus"], MARGIN, top, PAGE_W - 2 * MARGIN, ParagraphStyle("Focus", parent=CARD_TITLE, fontSize=20, leading=23, textColor=INK))
     top -= 27 * mm
 
+    composition = "5 carte Testimone · 1 biglietto dell'impostore · 8 carte Prova · 4 Missioni segrete · 4 schede Squadra. La soluzione resta nella regia docente." if scenario.get("haImpostore") else "5 carte Testimone · 8 carte Prova · 4 Missioni segrete · 4 schede Squadra. La soluzione resta nella regia docente."
+    essential_rule = "Quattro testimoni dicono il vero. L'impostore può usare una sola risposta evasiva già scritta e poi deve ammettere l'azione; non può inventare fatti o accusare altri." if scenario.get("haImpostore") else "I testimoni non mentono, non inventano e non mostrano la carta. Il dettaglio riservato viene comunicato solo quando la squadra formula una domanda pertinente."
     blocks = [
-        ("Composizione del mazzo", "5 carte Testimone · 8 carte Prova · 4 Missioni segrete · 4 schede Squadra. La soluzione resta nella regia docente."),
+        ("Composizione del mazzo", composition),
         ("Stampa", "Stampa a grandezza effettiva, su un solo lato. Taglia lungo i bordi. Se hai più di quattro squadre, ristampa soltanto l'ultima pagina."),
         ("Allestimento", "Di norma cinque studenti restano alle postazioni Testimone; gli altri lavorano in squadre da 2-6. Se ci sono assenti, i ruoli si accorpano seguendo la guida online. Ogni squadra pesca una Missione segreta."),
-        ("Regola essenziale", "I testimoni non mentono, non inventano e non mostrano la carta. Il dettaglio riservato viene comunicato solo quando la squadra formula una domanda pertinente."),
+        ("Regola essenziale", essential_rule),
     ]
     for label, text in blocks:
         c.setFillColor(white)
@@ -180,21 +183,53 @@ def cover_page(c: canvas.Canvas, scenario: dict, page_number: int) -> None:
 
 
 def witness_card(c: canvas.Canvas, witness: dict, index: int, x: float, y: float, width: float, height: float) -> None:
-    cut_card(c, x, y, width, height, accent=TEAL, fill=white)
+    impostor = witness.get("impostore")
+    accent = RED if impostor else TEAL
+    cut_card(c, x, y, width, height, accent=accent, fill=CREAM if impostor else white)
     inner_x = x + 6 * mm
     inner_w = width - 12 * mm
     top = y + height - 10 * mm
-    c.setFillColor(TEAL)
+    c.setFillColor(accent)
     c.setFont("Deck-Bold", 7.5)
-    c.drawString(inner_x, top, f"TESTIMONE {index}")
+    header = f"TESTIMONE {index} · RUOLO SEGRETO" if impostor else f"TESTIMONE {index}"
+    c.drawString(inner_x, top, header)
     top -= 6 * mm
     top -= paragraph(c, witness["ruolo"], inner_x, top, inner_w, CARD_TITLE) + 4 * mm
+
+    if impostor:
+        impostor_small = ParagraphStyle("ImpostorSmall", parent=SMALL, fontSize=7.4, leading=9.3, textColor=INK)
+        top -= draw_labeled_block(c, "Ciò che puoi dire subito", witness["pubblico"], inner_x, top, inner_w, impostor_small) + 3 * mm
+        c.setFillColor(RED)
+        top -= paragraph(c, impostor["titolo"], inner_x, top, inner_w, ParagraphStyle("ImpostorTitle", parent=LABEL, fontSize=8.2, leading=9.5, textColor=RED)) + 1.2 * mm
+        top -= draw_labeled_block(c, "Che cosa hai fatto", impostor["azione"], inner_x, top, inner_w, impostor_small) + 3 * mm
+        draw_labeled_block(c, "Come devi giocare", impostor["regola"], inner_x, top, inner_w, impostor_small)
+        return
+
     top -= draw_labeled_block(c, "Ciò che puoi dire subito", witness["pubblico"], inner_x, top, inner_w) + 4 * mm
     top -= draw_labeled_block(c, "Informazione riservata", witness["segreto"], inner_x, top, inner_w) + 4 * mm
     draw_labeled_block(c, "Quando rivelarla", witness["domanda"], inner_x, top, inner_w, SMALL)
     c.setFillColor(ORANGE_LIGHT)
     c.rect(x + 5 * mm, y + 5 * mm, width - 10 * mm, 8 * mm, stroke=0, fill=1)
     paragraph(c, "Non mostrare la carta. Non aggiungere dettagli.", x + 8 * mm, y + 11 * mm, width - 16 * mm, ParagraphStyle("Rule", parent=SMALL, fontName="Deck-Bold", textColor=ORANGE))
+
+
+def impostor_prop_card(c: canvas.Canvas, prop: dict, x: float, y: float, width: float, height: float) -> None:
+    cut_card(c, x, y, width, height, accent=RED, fill=CREAM)
+    inner_x = x + 7 * mm
+    inner_w = width - 14 * mm
+    top = y + height - 11 * mm
+    c.setFillColor(RED)
+    c.setFont("Deck-Bold", 7.5)
+    c.drawString(inner_x, top, "OGGETTO DI SCENA · SOLO PER L'IMPOSTORE")
+    top -= 7 * mm
+    top -= paragraph(c, prop["titolo"], inner_x, top, inner_w, CARD_TITLE) + 7 * mm
+    c.setFillColor(white)
+    c.setStrokeColor(RED)
+    c.setLineWidth(1.1)
+    c.rect(inner_x, top - 24 * mm, inner_w, 24 * mm, stroke=1, fill=1)
+    paragraph(c, prop["testo"], inner_x + 5 * mm, top - 6 * mm, inner_w - 10 * mm, ParagraphStyle("PropText", parent=CARD_TITLE, fontSize=13, leading=15, textColor=RED, alignment=TA_CENTER))
+    top -= 31 * mm
+    draw_labeled_block(c, "Consegna riservata", prop["istruzione"], inner_x, top, inner_w, SMALL)
 
 
 def observer_card(c: canvas.Canvas, x: float, y: float, width: float, height: float) -> None:
@@ -218,7 +253,8 @@ def observer_card(c: canvas.Canvas, x: float, y: float, width: float, height: fl
 
 
 def witness_pages(c: canvas.Canvas, scenario: dict, start_page: int) -> int:
-    cards = list(scenario["testimoni"]) + [None]
+    extra = {"_impostor_prop": scenario["oggettoImpostore"]} if scenario.get("oggettoImpostore") else None
+    cards = list(scenario["testimoni"]) + [extra]
     page_number = start_page
     for page_index in range(2):
         top = page_title(c, "Carte da ritagliare", "Postazioni Testimone", scenario, page_number)
@@ -231,6 +267,8 @@ def witness_pages(c: canvas.Canvas, scenario: dict, start_page: int) -> int:
             item = cards[card_index]
             if item is None:
                 observer_card(c, MARGIN, y, PAGE_W - 2 * MARGIN, height)
+            elif "_impostor_prop" in item:
+                impostor_prop_card(c, item["_impostor_prop"], MARGIN, y, PAGE_W - 2 * MARGIN, height)
             else:
                 witness_card(c, item, card_index + 1, MARGIN, y, PAGE_W - 2 * MARGIN, height)
         c.showPage()
@@ -340,21 +378,36 @@ def team_sheet(c: canvas.Canvas, scenario: dict, team_number: int, x: float, y: 
     roles = "\n".join(f"{role} __________" for role in scenario["ruoliSquadra"])
     top -= draw_labeled_block(c, "Ruoli", roles, inner_x, top, inner_w, SMALL) + 4 * mm
 
-    fields = [
-        (scenario["domandaAccusa"], 2),
-        ("Due codici-prova e perché", 2),
-        ("Una pista o inferenza da scartare", 1),
-        ("Soluzione: quattro mosse in ordine", 2),
-        ("Missione segreta compiuta?  SÌ / NO", 1),
-    ]
+    if scenario.get("haImpostore"):
+        fields = [
+            (f"{scenario['domandaAccusa']} · 2 + 2 punti", 2),
+            ("Due codici-prova e perché · 2 punti", 2),
+            ("Una pista falsa da scartare · 1 punto", 1),
+            ("Riparazione: quattro mosse · 2 punti", 2),
+            ("Missione segreta compiuta? · 1 punto  SÌ / NO", 1),
+        ]
+    else:
+        fields = [
+            (scenario["domandaAccusa"], 2),
+            ("Due codici-prova e perché", 2),
+            ("Una pista o inferenza da scartare", 1),
+            ("Soluzione: quattro mosse in ordine", 2),
+            ("Missione segreta compiuta?  SÌ / NO", 1),
+        ]
     for label, lines in fields:
-        c.setFillColor(TEAL)
-        c.setFont("Deck-Bold", 7.2)
-        c.drawString(inner_x, top, label.upper())
-        top -= 5.5 * mm
+        if scenario.get("haImpostore"):
+            label_style = ParagraphStyle("TeamFieldLabel", parent=LABEL, fontSize=6.1, leading=7.1, textColor=TEAL)
+            top -= paragraph(c, label.upper(), inner_x, top, inner_w, label_style) + 3.2 * mm
+            line_gap = 5.4 * mm
+        else:
+            c.setFillColor(TEAL)
+            c.setFont("Deck-Bold", 7.2)
+            c.drawString(inner_x, top, label.upper())
+            top -= 5.5 * mm
+            line_gap = 7 * mm
         for _ in range(lines):
             writing_line(c, inner_x, top, inner_w)
-            top -= 7 * mm
+            top -= line_gap
 
 
 def team_page(c: canvas.Canvas, scenario: dict, page_number: int) -> None:

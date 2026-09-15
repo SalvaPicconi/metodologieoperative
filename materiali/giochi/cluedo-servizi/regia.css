@@ -921,6 +921,13 @@ body.time-up .live-console {
     margin: 16px 0 8px;
 }
 
+.solution-error {
+    padding: 12px 14px;
+    border-left: 4px solid var(--orange);
+    background: rgba(251, 146, 60, 0.12);
+    font-weight: 750;
+}
+
 .debrief-card {
     border-left: 4px solid var(--teal);
 }
