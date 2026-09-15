@@ -28,47 +28,145 @@
     </div>
 
     <main>
-        <section class="control-panel teacher-only" aria-labelledby="prepara-title">
-            <div class="section-heading">
-                <p class="step-label">Prima della lezione</p>
-                <h2 id="prepara-title">Prepara la stanza</h2>
-            </div>
-
-            <div class="setup-grid">
-                <div class="field-group class-picker">
-                    <span class="field-label">Classe</span>
+        <section id="regolamento" class="game-guide teacher-only" aria-labelledby="regolamento-title">
+            <div class="section-heading guide-heading">
+                <p class="step-label">La guida completa</p>
+                <h2 id="regolamento-title">Come si gioca</h2>
+                <p id="guide-scope">Queste tre sezioni bastano per preparare e spiegare la partita. La console più sotto serve soltanto quando il gioco è già iniziato.</p>
+                <div class="guide-class-switch">
+                    <span class="field-label">Scegli il caso della classe</span>
                     <div id="class-tabs" class="segmented" role="tablist" aria-label="Scegli la classe"></div>
                 </div>
-
-                <div class="field-group">
-                    <label class="field-label" for="student-count">Studenti presenti</label>
-                    <div class="number-control">
-                        <button type="button" data-count-change="-1" aria-label="Uno studente in meno">−</button>
-                        <input id="student-count" type="number" min="8" max="36" value="24" inputmode="numeric">
-                        <button type="button" data-count-change="1" aria-label="Uno studente in più">+</button>
-                    </div>
-                </div>
-
-                <div class="field-group">
-                    <span class="field-label">Durata</span>
-                    <div class="segmented compact" role="group" aria-label="Durata del gioco">
-                        <button class="mode-button" type="button" data-mode="45">45 minuti</button>
-                        <button class="mode-button is-active" type="button" data-mode="60">60 minuti</button>
-                        <button class="mode-button" type="button" data-mode="90">90 minuti</button>
-                    </div>
-                </div>
             </div>
 
-            <div id="group-suggestion" class="group-suggestion" aria-live="polite"></div>
+            <article class="guide-block" aria-labelledby="spiegazione-title">
+                <div class="guide-number" aria-hidden="true">1</div>
+                <div class="guide-content">
+                    <h3 id="spiegazione-title">Spiegazione del gioco alla classe</h3>
+                    <p class="guide-lead">Leggi questo testo prima di distribuire le carte:</p>
+                    <blockquote class="class-script">
+                        «Un sabotatore invisibile si è infilato nel percorso dei servizi. Non è una persona: è un errore di lavoro, un passaggio saltato o una decisione rimasta isolata. Ogni testimone conosce soltanto un pezzo della storia e tra le prove si nascondono anche piste deboli. La vostra squadra dovrà interrogare, collegare gli indizi e completare una missione segreta. Alla fine avrete sessanta secondi per accusare il sabotatore e riparare il percorso. Vince la squadra che dimostra meglio la propria ricostruzione.»
+                    </blockquote>
 
-            <div class="prep-list">
-                <div><span>1</span><p>Stampa il mazzo della classe. Separa Testimoni, Prove, Missioni segrete e schede Squadra.</p></div>
-                <div><span>2</span><p>Disponi cinque postazioni fisse. Il resto della classe lavora in squadre mobili da 2–4.</p></div>
-                <div><span>3</span><p>Metti le otto Prove coperte sul tavolo centrale. Ogni squadra pesca una Missione segreta.</p></div>
-                <div><span>4</span><p>I testimoni non mentono e non mostrano la carta. La frase proibita, invece, può far perdere il bonus.</p></div>
-            </div>
+                    <div class="rules-grid">
+                        <div class="rule-card">
+                            <h4>Il giro di gioco, in sei mosse</h4>
+                            <ol class="play-steps">
+                                <li><strong>Ascoltate il caso</strong> e ricevete un ruolo dentro la squadra.</li>
+                                <li><strong>Interrogate i testimoni:</strong> partite da postazioni diverse e ruotate ogni due minuti. Fate una domanda precisa; la parte riservata si ottiene solo con una domanda pertinente.</li>
+                                <li><strong>Aprite le otto prove</strong> quando il docente dà il segnale. Annotate i codici utili, non copiate tutto.</li>
+                                <li><strong>Completate la missione segreta</strong> senza mostrarla alle altre squadre.</li>
+                                <li><strong>Compilate il foglio d’accusa</strong> rispondendo alla domanda: <em id="accusation-question"></em></li>
+                                <li><strong>Presentate l’accusa in 60 secondi.</strong> Poi il docente assegna i punti e rivela la soluzione.</li>
+                            </ol>
+                        </div>
 
-            <a id="pack-link" class="button button-download" href="#" target="_blank" rel="noopener">Apri le carte da stampare</a>
+                        <aside id="come-si-vince" class="victory-card" aria-labelledby="vittoria-title">
+                            <p class="card-kicker">Regola di vittoria</p>
+                            <h4 id="vittoria-title">Come si vince</h4>
+                            <ul class="score-list">
+                                <li><strong>2 punti</strong> — individuare con precisione il sabotatore invisibile;</li>
+                                <li><strong>2 punti</strong> — usare due prove e spiegare che cosa dimostrano: 1 punto per ciascuna;</li>
+                                <li><strong>1 punto</strong> — scartare una pista falsa motivando la scelta;</li>
+                                <li><strong>2 punti</strong> — proporre quattro mosse di riparazione coerenti: mezzo punto per ciascuna;</li>
+                                <li><strong>2 punti</strong> — far partecipare tutti rispettando i ruoli; 1 punto se la partecipazione è solo parziale, 0 se una persona fa tutto;</li>
+                                <li><strong>1 punto</strong> — completare la missione segreta.</li>
+                            </ul>
+                            <p><strong>Vince chi ottiene più punti su 10.</strong> In caso di parità, le squadre hanno 30 secondi per dire quale regola professionale impedirebbe al sabotaggio di ripetersi.</p>
+                            <p class="solo-rule"><strong>Se gioca una sola squadra:</strong> la classe batte il sabotatore con almeno 7 punti su 10.</p>
+                        </aside>
+                    </div>
+
+                    <div class="playful-rules" aria-labelledby="ritmo-title">
+                        <h4 id="ritmo-title">Tre regole che danno ritmo e divertimento</h4>
+                        <div class="playful-grid">
+                            <p><strong>“Indizio sbloccato!”</strong> Quando una domanda è davvero pertinente, il testimone pronuncia la formula e rivela la parte riservata. Se la domanda è generica, l’indizio resta chiuso.</p>
+                            <p><strong>“Sabotaggio!”</strong> Se qualcuno usa la frase sotto sorveglianza in modo superficiale, un’altra squadra può interrompere e riformularla correttamente. Se ci riesce, guadagna una domanda extra a un testimone.</p>
+                            <p><strong>Accusa corale.</strong> Nei sessanta secondi finali devono parlare tutti: uno nomina il sabotatore, uno porta le prove, uno smonta la pista falsa e uno presenta la riparazione. In una squadra più piccola, qualcuno svolge due parti.</p>
+                        </div>
+                        <p class="learning-note"><strong>Che cosa allenano senza fare una lezione frontale:</strong> la domanda precisa richiama il colloquio; le prove allenano la distinzione tra fatto e ipotesi; la pista falsa esercita il pensiero critico; le quattro mosse trasformano l’analisi in progettazione; l’accusa corale riproduce il lavoro d’équipe.</p>
+                        <p class="respect-note">Il tono investigativo riguarda gli errori professionali: non si scherza mai sulle persone o sulle fragilità raccontate nel caso.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="guide-block" aria-labelledby="ruoli-title">
+                <div class="guide-number" aria-hidden="true">2</div>
+                <div class="guide-content">
+                    <h3 id="ruoli-title">Ruoli da assegnare e alternative se manca qualcuno</h3>
+                    <p class="guide-lead">I testimoni custodiscono le informazioni; le squadre le ricompongono. Nessun ruolo è indispensabile: si possono sempre accorpare.</p>
+
+                    <div class="presence-builder">
+                        <div class="field-group">
+                            <label class="field-label" for="student-count">Quanti studenti sono presenti?</label>
+                            <div class="number-control">
+                                <button type="button" data-count-change="-1" aria-label="Uno studente in meno">−</button>
+                                <input id="student-count" type="number" min="3" max="36" value="24" inputmode="numeric">
+                                <button type="button" data-count-change="1" aria-label="Uno studente in più">+</button>
+                            </div>
+                        </div>
+                        <div id="group-suggestion" class="group-suggestion" aria-live="polite"></div>
+                    </div>
+
+                    <div class="roles-grid">
+                        <div class="role-panel">
+                            <h4>I cinque testimoni</h4>
+                            <p>Consegna a ciascuno la carta con il suo ruolo. Per questa classe sono:</p>
+                            <ul id="witness-role-list" class="named-role-list"></ul>
+                            <ol class="witness-steps">
+                                <li>Quando arriva una squadra, il testimone legge la parte pubblica.</li>
+                                <li>La squadra può fare una domanda. Se è pertinente alla consegna della carta, il testimone rivela anche la parte riservata.</li>
+                                <li>Se la domanda non è pertinente, risponde «indizio non sbloccato». Non inventa e non mostra mai la carta.</li>
+                            </ol>
+                            <p class="role-rule"><strong>Rotazione:</strong> una postazione per testimone e due minuti per incontro. Se le squadre sono più delle postazioni disponibili, quelle in attesa lavorano alla “Base investigativa”: ordinano gli appunti e preparano la domanda successiva. Entrano alla prima postazione che si libera, quindi nessuno resta fuori dal gioco.</p>
+                        </div>
+
+                        <div class="role-panel">
+                            <h4>Dentro ogni squadra</h4>
+                            <dl id="team-role-list" class="team-role-list"></dl>
+                        </div>
+                    </div>
+
+                    <div class="absence-plan">
+                        <h4>Se ci sono assenti, si gioca comunque</h4>
+                        <div class="alternatives-grid">
+                            <p><strong>Squadra da 5 o 6:</strong> assegna i quattro ruoli base; gli altri diventano secondo interrogatore e controllore del tempo e devono parlare nell’accusa finale.</p>
+                            <p><strong>Squadra da 4:</strong> un ruolo per persona.</p>
+                            <p id="role-plan-3"><strong>Squadra da 3:</strong></p>
+                            <p id="role-plan-2"><strong>Squadra da 2:</strong></p>
+                            <p><strong>Un solo investigatore:</strong> assume tutti i ruoli e gioca con il docente come interlocutore.</p>
+                            <p><strong>Solo 4 testimoni:</strong> il quarto interpreta anche il quinto e tiene due carte separate.</p>
+                            <p><strong>Solo 3 testimoni:</strong> il primo tiene le carte 1–2, il secondo le carte 3–4, il terzo la carta 5.</p>
+                            <p><strong>Meno di 3 testimoni:</strong> il docente legge le parti pubbliche e consegna le informazioni riservate quando la domanda è pertinente.</p>
+                            <p><strong>Una sola squadra:</strong> non compete contro altre squadre; deve raggiungere 7 punti su 10.</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="guide-block" aria-labelledby="materiali-title">
+                <div class="guide-number" aria-hidden="true">3</div>
+                <div class="guide-content">
+                    <h3 id="materiali-title">Materiali necessari e a chi consegnarli</h3>
+                    <p class="guide-lead">Serve un solo mazzo della classe. Non devi stampare un mazzo per ogni squadra.</p>
+                    <div class="materials-table-wrap">
+                        <table class="materials-table">
+                            <thead>
+                                <tr><th>Materiale</th><th>A chi va</th><th>Quando si usa</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><strong>5 carte Testimone</strong><br>Pagine 2–3</td><td>Una a ciascun testimone</td><td>Subito, prima di leggere il caso. La carta non si mostra alle squadre.</td></tr>
+                                <tr><td><strong>8 carte Prova</strong><br>Pagine 4–5</td><td>Al docente, coperte sul tavolo centrale</td><td>Si scoprono tutte insieme dopo gli interrogatori.</td></tr>
+                                <tr><td><strong>4 Missioni segrete</strong><br>Pagina 6</td><td>Una coperta a ciascuna squadra</td><td>Si legge senza mostrarla agli avversari. Se le squadre sono più di quattro, una missione può essere duplicata.</td></tr>
+                                <tr><td><strong>4 Fogli d’accusa</strong><br>Pagina 7</td><td>Uno a ciascuna squadra, con una penna</td><td>Si compila durante tutta l’indagine e si consegna prima della presentazione finale.</td></tr>
+                                <tr><td><strong>Regia, timer e soluzione</strong></td><td>Restano al docente</td><td>Servono per guidare le fasi, assegnare i punti e rivelare la soluzione.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="print-note"><strong>Se hai più di quattro squadre:</strong> ristampa solo la pagina 7. Le missioni possono essere ripetute; non cambia la correttezza del gioco.</p>
+                    <a id="guide-pack-link" class="button button-download" href="#" target="_blank" rel="noopener">Apri il mazzo della classe</a>
+                </div>
+            </article>
         </section>
 
         <section class="case-board" aria-labelledby="case-title">
@@ -95,6 +193,15 @@
                 </article>
             </div>
 
+            <div class="student-win-strip" role="note">
+                <strong>Per vincere:</strong>
+                <span>sabotatore preciso</span>
+                <span>2 prove spiegate</span>
+                <span>1 pista falsa scartata</span>
+                <span>4 mosse di riparazione</span>
+                <span>missione segreta</span>
+            </div>
+
             <details class="threads teacher-only">
                 <summary>Fili ripresi dall’anno precedente</summary>
                 <div class="threads-grid">
@@ -114,6 +221,15 @@
             <div class="section-heading">
                 <p class="step-label">Durante il gioco</p>
                 <h2 id="live-title">Console di regia</h2>
+            </div>
+
+            <div class="duration-switch teacher-only">
+                <span class="field-label">Scegli la durata della partita</span>
+                <div class="segmented compact" role="group" aria-label="Durata del gioco">
+                    <button class="mode-button" type="button" data-mode="45">45 minuti</button>
+                    <button class="mode-button is-active" type="button" data-mode="60">60 minuti</button>
+                    <button class="mode-button" type="button" data-mode="90">90 minuti</button>
+                </div>
             </div>
 
             <div class="timer-shell">
@@ -143,11 +259,9 @@
             </div>
 
             <details class="tool-card bonus-card">
-                <summary>Missioni segrete e punteggio detective</summary>
+                <summary>Controlla le missioni segrete</summary>
                 <ol id="secret-missions"></ol>
-                <div class="score-rule">
-                    <strong>10 punti possibili:</strong> sabotatore individuato 2 · prove usate bene 2 · pista falsa smontata 1 · soluzione in quattro mosse 2 · collaborazione 2 · missione segreta 1.
-                </div>
+                <p class="score-rule">Il punteggio completo è nella sezione <a href="#come-si-vince">Come si vince</a>.</p>
             </details>
 
             <details class="tool-card surprise-card">

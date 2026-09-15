@@ -7,6 +7,7 @@
       "classe": "3SA",
       "caso": "Codice 328: la mappa scomparsa",
       "focus": "Ricostruire la rete dei servizi e trovare la porta d'accesso",
+      "mostraTipoProva": false,
       "fili": [
         "welfare, bisogni e relazione d'aiuto",
         "Legge 328/2000 e sistema integrato",
@@ -18,7 +19,7 @@
         "riconoscere la funzione della porta d'accesso",
         "collegare Comune, servizi sanitari, Terzo settore e rete informale"
       ],
-      "storia": "Ore 9:05. All'apertura dello sportello una donna consegna una busta con la scritta «328». Dentro ci sono quattro frammenti di una mappa dei servizi, ma qualcuno li ha mescolati con appunti inutili. La donna sta aiutando il padre, appena rientrato a casa: lui vuole restare nel proprio ambiente, ma fatica con i pasti, gli spostamenti e alcuni appuntamenti. Un vicino dà una mano, il medico possiede informazioni sanitarie e un'associazione opera nel quartiere. Ognuno indica una porta diversa. Se cercate un unico ufficio-magico, la mappa resterà spezzata.",
+      "storia": "Ore 9:05. All'apertura dello sportello una donna consegna una busta con la scritta «328». Dentro ci sono quattro frammenti di una mappa: BISOGNO, PORTA, ATTORI e RETE. La donna sta aiutando il padre, appena rientrato a casa: lui vuole restare nel proprio ambiente, ma fatica con i pasti, gli spostamenti e alcuni appuntamenti. Alle 9:20 i quattro frammenti vengono ritrovati in vaschette diverse — contributi, sanità, famiglia, volontariato — insieme a un biglietto: «Scegliere una sola vaschetta e archiviare le altre». La donna riceve indicazioni contraddittorie e va via senza un percorso chiaro. Tutti sostengono di aver fatto correttamente la propria parte. Che cosa ha fatto scomparire la mappa?",
       "missione": "Recuperate le quattro chiavi — BISOGNO, PORTA, ATTORI, RETE — e costruite un percorso coerente. La risposta deve contenere almeno tre soggetti della rete e due prove.",
       "imprevisto": "La persona telefona: «Non voglio che decidiate al posto mio e non voglio lasciare casa». Correggete la vostra rete rispettando questa scelta.",
       "parolaVietata": "Mandiamolo da qualcuno",
@@ -28,6 +29,12 @@
         "Cartografo della rete",
         "Custode degli indizi",
         "Cacciatore di piste false"
+      ],
+      "compitiRuoli": [
+        { "ruolo": "Interrogatore", "compito": "Fa le domande ai testimoni e cerca di ottenere le informazioni riservate senza suggerire la risposta." },
+        { "ruolo": "Cartografo della rete", "compito": "Disegna persone, servizi e collegamenti; controlla che la soluzione non si fermi a un solo sportello." },
+        { "ruolo": "Custode degli indizi", "compito": "Annota i codici delle prove e distingue ciò che è documentato da ciò che la squadra sta ipotizzando." },
+        { "ruolo": "Cacciatore di piste false", "compito": "Mette in dubbio la prima risposta, individua una pista debole e spiega perché va scartata." }
       ],
       "missioniSegrete": [
         {
@@ -89,13 +96,13 @@
         {"codice": "A3", "titolo": "Frammento ATTORI", "testo": "Comune, servizi sanitari, Terzo settore, famiglia e rete informale possiedono risorse differenti.", "tipo": "PROVA-CHIAVE"},
         {"codice": "A4", "titolo": "Frammento RETE", "testo": "Sistema integrato: i soggetti si coordinano attorno ai bisogni della persona.", "tipo": "PROVA-CHIAVE"},
         {"codice": "A5", "titolo": "Voce della persona", "testo": "«Voglio restare a casa e continuare a decidere».", "tipo": "FATTO"},
-        {"codice": "A6", "titolo": "Biglietto unico", "testo": "«Mandare tutto al medico». Una sola porta non può leggere ogni dimensione del bisogno.", "tipo": "PISTA-DEBOLE"},
-        {"codice": "A7", "titolo": "Frase di corridoio", "testo": "«La famiglia vuole soltanto soldi». La fonte non è indicata e i fatti raccontano altro.", "tipo": "INFERENZA"},
+        {"codice": "A6", "titolo": "Casella non spuntata", "testo": "Nella busta non c'è l'ISEE. Il foglio non dice se serva per il primo ascolto, per una prestazione successiva o per nessuna delle risposte possibili.", "tipo": "PISTA-DEBOLE"},
+        {"codice": "A7", "titolo": "Frase di corridoio", "testo": "«La famiglia vuole soltanto soldi». Non sono indicati né l'autore della frase né la domanda con cui sarebbe stata verificata.", "tipo": "INFERENZA"},
         {"codice": "A8", "titolo": "Rubrica del quartiere", "testo": "Sono presenti un servizio comunale, riferimenti sanitari e un'associazione: le risorse esistono ma non sono ancora collegate.", "tipo": "FATTO"}
       ],
       "soluzione": {
-        "colpevole": "La ricerca di un unico sportello ha spezzato la rete",
-        "spiegazione": "Il bisogno è stato trattato come se appartenesse interamente a un solo soggetto. La Legge 328/2000 chiede invece una logica integrata: primo ascolto, valutazione e collegamento delle risorse, mantenendo al centro la persona.",
+        "colpevole": "La falsa regola della porta unica ha spezzato la rete",
+        "spiegazione": "Il biglietto imponeva di scegliere una sola risposta e scartare le altre, come se il bisogno appartenesse interamente a un unico soggetto. La Legge 328/2000 richiede invece una logica integrata: primo ascolto, valutazione e collegamento delle risorse, mantenendo al centro la persona.",
         "prove": [
           "A1 impedisce di ridurre il caso a una sola richiesta",
           "A2 individua la porta iniziale senza trasformarla nell'unica risposta",
@@ -111,6 +118,7 @@
       },
       "debrief": [
         "Quale frammento vi ha permesso di vedere la rete e non un solo servizio?",
+        "Perché l'ISEE mancante sembrava una spiegazione convincente? Che cosa dimostrava davvero?",
         "Qual è la differenza tra orientare e decidere al posto della persona?",
         "Dove avete riconosciuto la sussidiarietà?",
         "Quale ruolo della squadra vi ha fatto cambiare ipotesi?"

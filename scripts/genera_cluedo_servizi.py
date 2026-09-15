@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Genera i quattro mazzi stampabili di Servizi in giallo."""
+"""Genera uno o tutti i mazzi stampabili di Servizi in giallo."""
 
 from __future__ import annotations
 
+import argparse
 import json
 from pathlib import Path
 
@@ -164,7 +165,7 @@ def cover_page(c: canvas.Canvas, scenario: dict, page_number: int) -> None:
     blocks = [
         ("Composizione del mazzo", "5 carte Testimone · 8 carte Prova · 4 Missioni segrete · 4 schede Squadra. La soluzione resta nella regia docente."),
         ("Stampa", "Stampa a grandezza effettiva, su un solo lato. Taglia lungo i bordi. Se hai più di quattro squadre, ristampa soltanto l'ultima pagina."),
-        ("Allestimento", "Cinque studenti restano alle postazioni Testimone; gli altri si muovono in squadre da 2–4. Ogni squadra pesca una Missione segreta."),
+        ("Allestimento", "Di norma cinque studenti restano alle postazioni Testimone; gli altri lavorano in squadre da 2-6. Se ci sono assenti, i ruoli si accorpano seguendo la guida online. Ogni squadra pesca una Missione segreta."),
         ("Regola essenziale", "I testimoni non mentono, non inventano e non mostrano la carta. Il dettaglio riservato viene comunicato solo quando la squadra formula una domanda pertinente."),
     ]
     for label, text in blocks:
@@ -247,8 +248,9 @@ def type_color(kind: str):
     return MUTED
 
 
-def evidence_card(c: canvas.Canvas, evidence: dict, x: float, y: float, width: float, height: float) -> None:
-    accent = type_color(evidence["tipo"])
+def evidence_card(c: canvas.Canvas, scenario: dict, evidence: dict, x: float, y: float, width: float, height: float) -> None:
+    show_kind = scenario.get("mostraTipoProva", True)
+    accent = type_color(evidence["tipo"]) if show_kind else TEAL
     cut_card(c, x, y, width, height, accent=accent, fill=white)
     inner_x = x + 6 * mm
     inner_w = width - 12 * mm
@@ -256,8 +258,9 @@ def evidence_card(c: canvas.Canvas, evidence: dict, x: float, y: float, width: f
     c.setFillColor(accent)
     c.setFont("Deck-Bold", 20)
     c.drawString(inner_x, top, evidence["codice"])
-    c.setFont("Deck-Bold", 7.2)
-    c.drawRightString(x + width - 6 * mm, top, evidence["tipo"])
+    if show_kind:
+        c.setFont("Deck-Bold", 7.2)
+        c.drawRightString(x + width - 6 * mm, top, evidence["tipo"])
     top -= 10 * mm
     top -= paragraph(c, evidence["titolo"], inner_x, top, inner_w, EVIDENCE_TITLE) + 7 * mm
     paragraph(c, evidence["testo"], inner_x, top, inner_w, ParagraphStyle("EvidenceBody", parent=BODY, fontSize=10.5, leading=14))
@@ -276,7 +279,7 @@ def evidence_pages(c: canvas.Canvas, scenario: dict, start_page: int) -> int:
             col = offset % 2
             x = MARGIN + col * (width + GAP)
             y = usable_top - (row + 1) * height - row * GAP
-            evidence_card(c, scenario["prove"][page_index * 4 + offset], x, y, width, height)
+            evidence_card(c, scenario, scenario["prove"][page_index * 4 + offset], x, y, width, height)
         c.showPage()
         page_number += 1
     return page_number
@@ -386,8 +389,14 @@ def build_pdf(scenario: dict) -> Path:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--classe", choices=["3sa", "3sb", "4sb", "5sa"], help="Genera soltanto il mazzo indicato")
+    args = parser.parse_args()
     data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
-    outputs = [build_pdf(scenario) for scenario in data["classi"]]
+    scenarios = data["classi"]
+    if args.classe:
+        scenarios = [scenario for scenario in scenarios if scenario["id"] == args.classe]
+    outputs = [build_pdf(scenario) for scenario in scenarios]
     for output in outputs:
         print(output)
 

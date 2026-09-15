@@ -16,10 +16,10 @@
         if (mode === 45) {
             return [
                 { name: 'Apertura del fascicolo', minutes: 4, instruction: 'Leggi il caso come un giallo. Non spiegare quali dettagli saranno importanti.', script: '«Questa è una scena del crimine professionale: nessuna vittima, molti indizi e un sabotatore invisibile.»' },
-                { name: 'Ruoli e missione segreta', minutes: 5, instruction: 'Nomina cinque testimoni, crea le squadre, assegna i ruoli e fai pescare una Missione segreta.', script: '«I testimoni non mentono. Le squadre, invece, possono innamorarsi di una pista falsa: tenete gli occhi aperti.»' },
-                { name: 'Interrogatori lampo', minutes: 10, instruction: 'Le squadre ruotano tra le cinque postazioni. Una domanda precisa per incontro, poi cambio.', script: '«Non chiedete chi è il colpevole. Chiedete: che cosa hai osservato, deciso e comunicato?»' },
+                { name: 'Ruoli e missione segreta', minutes: 5, instruction: 'Assegna testimoni e ruoli, fai pescare le Missioni e spiega i richiami «Indizio sbloccato!» e «Sabotaggio!».', script: '«I testimoni non mentono. Le squadre, invece, possono innamorarsi di una pista falsa: tenete gli occhi aperti.»' },
+                { name: 'Interrogatori lampo', minutes: 10, instruction: 'Le squadre partono da postazioni diverse e ruotano ogni due minuti. Chi attende lavora alla Base investigativa.', script: '«Non chiedete chi è il colpevole. Chiedete: che cosa hai osservato, deciso e comunicato?»' },
                 { name: 'Caccia alle prove', minutes: 8, instruction: 'Scopri le otto prove. Le squadre scelgono quelle decisive e scartano almeno una pista debole.', script: '«Un indizio fa atmosfera; una prova spiega un passaggio. Non sono la stessa cosa.»' },
-                { name: 'Accusa e soluzione', minutes: 7, instruction: 'Ogni squadra completa l’accusa, i due codici-prova e le quattro mosse della soluzione.', script: '«La squadra vincente non è quella che indovina: è quella che dimostra e sa correggersi.»' },
+                { name: 'Accusa e soluzione', minutes: 7, instruction: 'Ogni squadra completa il foglio e prepara l’accusa corale: tutti devono pronunciare almeno una parte.', script: '«La squadra vincente non è quella che indovina: è quella che dimostra e sa correggersi.»' },
                 { name: 'Rivelazione', minutes: 4, instruction: 'Raccogli due ipotesi diverse, poi apri la soluzione docente.', script: '«Il sabotatore non porta un nome e cognome: è un errore di metodo che può tornare.»' },
                 { name: 'Debriefing', minutes: 7, instruction: 'Usa due domande finali e chiudi con l’exit ticket individuale.', script: '«Che cosa vi ha ingannato? Che cosa farete diversamente nel prossimo caso?»' }
             ];
@@ -28,12 +28,12 @@
         if (mode === 90) {
             return [
                 { name: 'Apertura del fascicolo', minutes: 7, instruction: 'Leggi il caso come un giallo senza spiegare quali indizi siano importanti.', script: '«Questa è una scena del crimine professionale: nessuna vittima, molti indizi e un sabotatore invisibile.»' },
-                { name: 'Ruoli e regole', minutes: 8, instruction: 'Nomina cinque testimoni. Dividi gli altri in squadre, assegna i ruoli e fai pescare una Missione segreta.', script: '«Le carte non si mostrano. I testimoni dicono il vero, ma il dettaglio riservato si conquista con una domanda pertinente.»' },
-                { name: 'Interrogatori', minutes: 18, instruction: 'Le squadre ruotano tra le cinque postazioni. Due o tre minuti per incontro, poi cambio.', script: '«Non chiedete: chi è il colpevole? Chiedete: che cosa hai visto, che cosa hai fatto, a chi l’hai comunicato?»' },
+                { name: 'Ruoli e regole', minutes: 8, instruction: 'Assegna testimoni e ruoli, fai pescare le Missioni e spiega i richiami «Indizio sbloccato!» e «Sabotaggio!».', script: '«Le carte non si mostrano. I testimoni dicono il vero, ma il dettaglio riservato si conquista con una domanda pertinente.»' },
+                { name: 'Interrogatori', minutes: 18, instruction: 'Le squadre partono da postazioni diverse e ruotano ogni due o tre minuti. Chi attende lavora alla Base investigativa.', script: '«Non chiedete: chi è il colpevole? Chiedete: che cosa hai visto, che cosa hai fatto, a chi l’hai comunicato?»' },
                 { name: 'Tavolo delle prove', minutes: 15, instruction: 'Scopri le otto prove. Ogni squadra costruisce la cronologia e distingue fatti, inferenze e piste deboli.', script: '«Una prova non vale perché sembra convincente: vale se spiega un passaggio del percorso.»' },
                 { name: 'Missione segreta', minutes: 8, instruction: 'Ogni squadra esegue la propria carta senza rivelarla alle altre. Assegna il bonus solo se rispetta la consegna.', script: '«Avete otto minuti per guadagnare il punto più difficile: quello che premia il modo in cui collaborate.»' },
                 { name: 'Imprevisto', minutes: 10, instruction: 'Leggi l’imprevisto del caso. Le squadre devono modificare almeno una parte dell’ipotesi o motivare perché la confermano.', script: '' },
-                { name: 'Accusa motivata', minutes: 10, instruction: 'Ogni squadra compila: sabotatore, due codici-prova, pista scartata e soluzione in quattro mosse.', script: '«Non basta trovare una risposta: dovete dimostrare perché regge e come ripara il percorso.»' },
+                { name: 'Accusa motivata', minutes: 10, instruction: 'Ogni squadra completa il foglio e prepara l’accusa corale: tutti devono pronunciare almeno una parte.', script: '«Non basta trovare una risposta: dovete dimostrare perché regge e come ripara il percorso.»' },
                 { name: 'Rivelazione', minutes: 5, instruction: 'Raccogli due accuse diverse, poi apri la soluzione docente e confronta il ragionamento.', script: '«La soluzione non premia chi indovina il nome: premia chi dimostra il meccanismo.»' },
                 { name: 'Debriefing', minutes: 9, instruction: 'Usa le domande finali. Chiudi con l’exit ticket individuale.', script: '«Prima scopriamo che cosa ci ha ingannato; poi fissiamo la regola professionale che portiamo via.»' }
             ];
@@ -41,11 +41,11 @@
 
         return [
             { name: 'Apertura del fascicolo', minutes: 5, instruction: 'Leggi il caso come un giallo senza spiegare quali indizi siano importanti.', script: '«Questa è una scena del crimine professionale: nessuna vittima, molti indizi e un sabotatore invisibile.»' },
-            { name: 'Ruoli e regole', minutes: 6, instruction: 'Nomina cinque testimoni. Dividi gli altri in squadre, assegna i ruoli e fai pescare una Missione segreta.', script: '«I testimoni non mentono. Il segreto si conquista soltanto con una domanda pertinente.»' },
-            { name: 'Interrogatori', minutes: 14, instruction: 'Le squadre ruotano tra le cinque postazioni. Circa due minuti per incontro, poi cambio.', script: '«Domandate che cosa è stato osservato, deciso e comunicato. Scrivete fatti, non impressioni.»' },
+            { name: 'Ruoli e regole', minutes: 6, instruction: 'Assegna testimoni e ruoli, fai pescare le Missioni e spiega i richiami «Indizio sbloccato!» e «Sabotaggio!».', script: '«I testimoni non mentono. Il segreto si conquista soltanto con una domanda pertinente.»' },
+            { name: 'Interrogatori', minutes: 14, instruction: 'Le squadre partono da postazioni diverse e ruotano ogni due minuti. Chi attende lavora alla Base investigativa.', script: '«Domandate che cosa è stato osservato, deciso e comunicato. Scrivete fatti, non impressioni.»' },
             { name: 'Tavolo delle prove', minutes: 10, instruction: 'Scopri le otto prove. Ogni squadra costruisce la cronologia e distingue fatti, inferenze e piste deboli.', script: '«Scegliete le prove che spiegano il blocco, non quelle che fanno soltanto atmosfera.»' },
             { name: 'Missione segreta', minutes: 5, instruction: 'Ogni squadra esegue la propria carta senza rivelarla alle altre. Assegna il bonus solo se rispetta la consegna.', script: '«Questo punto non si vince indovinando: si vince collaborando meglio.»' },
-            { name: 'Accusa motivata', minutes: 8, instruction: 'Ogni squadra compila: sabotatore, due codici-prova, pista scartata e soluzione in quattro mosse.', script: '«La risposta vale solo se sapete provarla e trasformarla in una soluzione praticabile.»' },
+            { name: 'Accusa motivata', minutes: 8, instruction: 'Ogni squadra completa il foglio e prepara l’accusa corale: tutti devono pronunciare almeno una parte.', script: '«La risposta vale solo se sapete provarla e trasformarla in una soluzione praticabile.»' },
             { name: 'Rivelazione', minutes: 4, instruction: 'Raccogli due accuse diverse, poi apri la soluzione docente e confronta il ragionamento.', script: '«Il sabotatore non è una persona: è il passaggio che tutti potevano vedere e nessuno ha collegato.»' },
             { name: 'Debriefing', minutes: 8, instruction: 'Usa due o tre domande finali. Chiudi con l’exit ticket individuale.', script: '«Che cosa vi ha ingannato? Quale regola professionale portate via?»' }
         ];
@@ -79,6 +79,30 @@
         byId('secret-missions').replaceChildren(...items);
     };
 
+    const renderRoleGuide = (scenario) => {
+        const witnesses = scenario.testimoni.map((witness, index) => {
+            const li = document.createElement('li');
+            li.textContent = `${index + 1}. ${witness.ruolo}`;
+            return li;
+        });
+        byId('witness-role-list').replaceChildren(...witnesses);
+
+        const roleDefinitions = scenario.compitiRuoli || scenario.ruoliSquadra.map((role) => ({ ruolo: role, compito: '' }));
+        const roleEntries = roleDefinitions.flatMap((role) => {
+            const term = document.createElement('dt');
+            term.textContent = role.ruolo;
+            if (!role.compito) return [term];
+            const description = document.createElement('dd');
+            description.textContent = role.compito;
+            return [term, description];
+        });
+        byId('team-role-list').replaceChildren(...roleEntries);
+
+        const roles = scenario.ruoliSquadra;
+        byId('role-plan-3').innerHTML = `<strong>Squadra da 3:</strong> ${roles[0]}; ${roles[1]}; una persona unisce ${roles[2]} e ${roles[3]}.`;
+        byId('role-plan-2').innerHTML = `<strong>Squadra da 2:</strong> una persona unisce ${roles[0]} e ${roles[3]}; l’altra unisce ${roles[1]} e ${roles[2]}.`;
+    };
+
     const renderTabs = () => {
         const container = byId('class-tabs');
         container.replaceChildren(...state.data.classi.map((scenario) => {
@@ -99,8 +123,12 @@
         byId('class-badge').textContent = scenario.classe;
         byId('case-focus').textContent = scenario.focus;
         byId('case-title').textContent = scenario.caso;
+        byId('guide-scope').textContent = scenario.id === '3sa'
+            ? 'Questa è la guida completa della 3SA: spiegazione, vittoria, ruoli sostituibili e distribuzione dei materiali. La console più sotto serve quando la partita è iniziata.'
+            : `Per ${scenario.classe} resta disponibile la struttura precedente; la revisione completa sarà svolta in una sessione dedicata.`;
         byId('case-story').textContent = scenario.storia;
         byId('case-mission').textContent = scenario.missione;
+        byId('accusation-question').textContent = scenario.domandaAccusa;
         byId('forbidden-phrase').textContent = `«${scenario.parolaVietata}»`;
         byId('case-surprise').textContent = scenario.imprevisto;
         byId('solution-title').textContent = scenario.soluzione.colpevole;
@@ -111,8 +139,9 @@
         listInto(byId('solution-repair'), scenario.soluzione.riparazione);
         listInto(byId('debrief-list'), scenario.debrief);
         renderMissions(scenario.missioniSegrete);
-        byId('pack-link').href = packPaths[scenario.id];
-        byId('pack-link').textContent = `Apri le carte ${scenario.classe} da stampare`;
+        renderRoleGuide(scenario);
+        byId('guide-pack-link').href = packPaths[scenario.id];
+        byId('guide-pack-link').textContent = `Apri il mazzo ${scenario.classe}`;
         byId('solution-panel').open = false;
         setPhase(0);
     };
@@ -121,11 +150,11 @@
 
     const renderGroupSuggestion = () => {
         const input = byId('student-count');
-        const count = Math.max(8, Math.min(36, Number.parseInt(input.value, 10) || 24));
+        const count = Math.max(3, Math.min(36, Number.parseInt(input.value, 10) || 24));
         input.value = count;
-        const witnesses = 5;
+        const witnesses = count >= 11 ? 5 : count >= 10 ? 4 : count >= 6 ? 3 : 0;
         const investigators = count - witnesses;
-        const teams = Math.max(1, Math.round(investigators / 3));
+        const teams = Math.min(6, Math.max(1, Math.round(investigators / 3)));
         const baseSize = Math.floor(investigators / teams);
         const remainder = investigators % teams;
         const sizes = Array.from({ length: teams }, (_, index) => baseSize + (index < remainder ? 1 : 0));
@@ -134,7 +163,15 @@
             return `${frequency} ${frequency === 1 ? 'squadra' : 'squadre'} da ${size}`;
         });
         const roles = state.currentCase.ruoliSquadra.join(', ');
-        byId('group-suggestion').innerHTML = `<strong>Assetto consigliato:</strong> 5 testimoni fissi + ${teams} ${pluralTeams(teams)} (${frequencies.join(' e ')}). Ruoli da distribuire o accorpare: ${roles}.`;
+        const witnessText = witnesses === 5
+            ? '5 testimoni, una carta ciascuno'
+            : witnesses === 4
+                ? '4 testimoni; l’ultimo interpreta anche il quinto'
+                : witnesses === 3
+                    ? '3 testimoni che si dividono le cinque carte'
+                    : 'nessun testimone fisso; il docente interpreta le cinque carte';
+        const winText = teams === 1 ? ' La squadra gioca contro il sabotatore e vince con almeno 7 punti su 10.' : '';
+        byId('group-suggestion').innerHTML = `<strong>Assetto consigliato con ${count} presenti:</strong> ${witnessText} + ${teams} ${pluralTeams(teams)} (${frequencies.join(' e ')}). Ruoli da distribuire o accorpare: ${roles}.${winText}`;
     };
 
     const stopTimer = () => {
