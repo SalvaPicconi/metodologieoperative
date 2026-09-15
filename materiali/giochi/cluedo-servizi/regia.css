@@ -932,6 +932,145 @@ body.time-up .live-console {
     border-left: 4px solid var(--teal);
 }
 
+/* Guida sicura per lo studente-conduttore della 3SA */
+.student-guide-page .topbar {
+    align-items: center;
+}
+
+.student-guide-page h1 {
+    max-width: 760px;
+    font-size: clamp(2.35rem, 6vw, 4.5rem);
+}
+
+.student-safe-note {
+    border-left-color: var(--teal);
+    background: rgba(45, 212, 191, 0.1);
+    color: #d8fffa;
+}
+
+.student-guide-main {
+    max-width: 980px;
+}
+
+.student-guide-main .game-guide {
+    padding: clamp(22px, 5vw, 46px);
+}
+
+.student-guide-main .section-heading {
+    max-width: 760px;
+}
+
+.student-section-lead {
+    margin: 12px 0 0;
+    color: #53635f;
+    font-size: 1.05rem;
+}
+
+.student-opening .class-script strong {
+    color: #8e3025;
+}
+
+.conductor-purpose {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px;
+    padding: 15px 17px;
+    border: 1px solid rgba(15, 118, 110, 0.3);
+    background: rgba(15, 118, 110, 0.08);
+}
+
+.conductor-purpose strong {
+    color: var(--teal-dark);
+}
+
+.conductor-rounds {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.conductor-rounds li {
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 15px;
+    align-items: start;
+    padding: 18px;
+    border: 1px solid rgba(23, 35, 33, 0.16);
+    background: rgba(255, 255, 255, 0.52);
+}
+
+.round-number {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--paper-ink);
+    color: var(--paper);
+    font: 700 1.35rem/1 Georgia, serif;
+}
+
+.conductor-rounds h3,
+.student-rules-grid h3,
+.conductor-options h3,
+.start-checklist h3 {
+    margin: 0 0 7px;
+    font-size: 1.08rem;
+}
+
+.conductor-rounds p,
+.student-rules-grid p,
+.conductor-options p {
+    margin-bottom: 0;
+}
+
+.student-rules-grid,
+.conductor-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.student-rules-grid .rule-card:nth-child(2) {
+    border-left: 4px solid #b64034;
+}
+
+.student-score-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.75fr) minmax(320px, 1.25fr);
+    gap: 22px;
+    align-items: start;
+}
+
+.student-score-layout .victory-card {
+    margin: 0;
+}
+
+.start-checklist {
+    margin-top: 18px;
+    padding: 20px;
+    border: 2px dashed #b35a20;
+    background: #fffaf0;
+}
+
+.start-checklist ul {
+    display: grid;
+    gap: 7px;
+    margin: 0;
+    padding-left: 1.3rem;
+}
+
+.start-call {
+    margin: 18px 0 0;
+    padding: 14px 16px;
+    background: var(--paper-ink);
+    color: var(--paper);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.1rem;
+}
+
 .exit-ticket {
     margin: 20px 0 0;
     padding: 15px;
@@ -985,7 +1124,10 @@ body.projection .live-console {
     .playful-grid,
     .case-columns,
     .threads-grid,
-    .solution-grid {
+    .solution-grid,
+    .student-rules-grid,
+    .conductor-options,
+    .student-score-layout {
         grid-template-columns: 1fr;
     }
 
@@ -1058,6 +1200,17 @@ body.projection .live-console {
         width: 42px;
         height: 42px;
         font-size: 1.35rem;
+    }
+
+    .conductor-purpose,
+    .conductor-rounds li {
+        grid-template-columns: 1fr;
+    }
+
+    .round-number {
+        width: 38px;
+        height: 38px;
+        font-size: 1.15rem;
     }
 
     .class-script,

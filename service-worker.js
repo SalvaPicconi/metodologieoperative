@@ -1,7 +1,7 @@
 // Service Worker per Metodologie Operative Lab PWA
-// Versione: 1.3.2
+// Versione: 1.3.3
 
-const CACHE_NAME = 'metop-lab-v6';
+const CACHE_NAME = 'metop-lab-v7';
 const OFFLINE_URL = '/metodologieoperative/offline.html';
 
 // File da cachare immediatamente all'installazione
@@ -13,6 +13,7 @@ const STATIC_CACHE_URLS = [
   '/metodologieoperative/laboratorio.html',
   '/metodologieoperative/style.css',
   '/metodologieoperative/materiali/giochi/cluedo-servizi/regia-docente.html',
+  '/metodologieoperative/materiali/giochi/cluedo-servizi/guida-studente-3sa.html',
   '/metodologieoperative/materiali/giochi/cluedo-servizi/regia.css',
   '/metodologieoperative/materiali/giochi/cluedo-servizi/regia.js',
   '/metodologieoperative/materiali/giochi/cluedo-servizi/scenari.json',
