@@ -1290,6 +1290,12 @@ footer a:hover {
         page-break-inside: avoid;
     }
 
+    /* Il cappello della UDA si legge tutto insieme o non si legge. */
+    .prog-focus {
+        page-break-inside: avoid;
+        background-color: transparent;
+    }
+
     .answer-lines {
         border: 1px solid #000;
         background-image: linear-gradient(#999 1px, transparent 1px);
@@ -1892,6 +1898,131 @@ a.prog-qnq-link:hover {
     padding: 0.3rem 0.8rem;
     font-size: 0.85rem;
     color: var(--prog-soft);
+}
+
+/* --- etichette del cappello nella vista per competenza --- */
+
+.prog-tag-focus,
+.prog-tag-sfiora {
+    display: inline-block;
+    border-radius: 8px;
+    padding: 0.05rem 0.45rem;
+    margin-left: 0.3rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.prog-tag-focus {
+    background-color: var(--prog-accent-deep);
+    color: #ffffff;
+}
+
+.prog-tag-sfiora {
+    background-color: #ffffff;
+    border: 1px solid var(--prog-line);
+    color: var(--prog-soft);
+}
+
+/* --- cappello monografico --- */
+
+.prog-focus {
+    background-color: var(--prog-tint);
+    border: 1px solid var(--prog-accent);
+    border-left: 5px solid var(--prog-accent);
+    border-radius: 0 14px 14px 0;
+    padding: 0.95rem 1.2rem;
+    margin-bottom: 1.1rem;
+}
+
+.prog-focus-et {
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--prog-accent-deep);
+    margin: 0 0 0.6rem;
+}
+
+.prog-focus-voci {
+    display: grid;
+    grid-template-columns: minmax(8.5rem, max-content) 1fr;
+    gap: 0.35rem 1rem;
+    margin: 0;
+}
+
+.prog-focus-voci dt {
+    font-size: 0.74rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--prog-soft);
+    padding-top: 0.22rem;
+}
+
+.prog-focus-voci dd {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--prog-ink);
+}
+
+.prog-focus-sep {
+    color: var(--prog-accent);
+    font-weight: 800;
+    padding: 0 0.15rem;
+}
+
+.prog-focus-assente {
+    color: var(--prog-soft);
+    font-style: italic;
+}
+
+.prog-focus-asse {
+    display: inline-block;
+    background-color: #ffffff;
+    border: 1px solid var(--prog-line);
+    border-radius: 8px;
+    padding: 0.05rem 0.45rem;
+    margin-left: 0.35rem;
+    font-size: 0.78rem;
+    color: var(--prog-soft);
+    white-space: nowrap;
+}
+
+.prog-focus-ripiego {
+    margin-top: 0.8rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed var(--prog-accent);
+}
+
+.prog-focus-ripiego-et {
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--prog-warm);
+    margin: 0 0 0.5rem;
+}
+
+.prog-focus-nota {
+    margin: 0.8rem 0 0;
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: var(--prog-soft);
+}
+
+@media (max-width: 640px) {
+    .prog-focus-voci {
+        grid-template-columns: 1fr;
+        gap: 0.1rem;
+    }
+
+    .prog-focus-voci dd {
+        margin-bottom: 0.5rem;
+    }
 }
 
 /* --- competenze intercettate --- */

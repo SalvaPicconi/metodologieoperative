@@ -75,6 +75,7 @@ def carica_sorgenti():
     curricolo = leggi_json(SORGENTI / "curricolo-ssas.json")["traguardi"]
     livelli = leggi_json(SORGENTI / "livelli-qnq.json")
     impianto = leggi_json(SORGENTI / "impianto-didattico.json")
+    trasversali = leggi_json(SORGENTI / "competenze-trasversali.json")
 
     blocchi = []
     for anno in ANNI:
@@ -87,7 +88,7 @@ def carica_sorgenti():
     if alternativi.exists():
         blocchi.append(leggi_json(alternativi))
 
-    return curricolo, livelli, impianto, blocchi
+    return curricolo, livelli, impianto, trasversali, blocchi
 
 
 def indicizza_curricolo(curricolo):
@@ -270,8 +271,223 @@ def controlla_agganci(attivita, periodo, indice, dove, errori):
     return competenze
 
 
-def elabora(curricolo, livelli, blocchi, errori):
+MAX_FOCUS_ABILITA = 2
+MAX_FOCUS_CONOSCENZE = 2
+
+
+def indicizza_trasversali(trasversali):
+    """Prepara le tre fonti di ripiego per la verifica letterale del cappello."""
+    generale = {}
+    for competenza in trasversali["generale"]["competenze"]:
+        assi = {a["asse"]: a for a in competenza["assi_culturali"]}
+        generale[competenza["numero"]] = {"titolo": competenza["titolo"], "assi": assi}
+    return {
+        "europee": list(trasversali["europee"]),
+        "generale": generale,
+        "civica": trasversali["civica"],
+    }
+
+
+def controlla_ripiego(ripiego, fonti, dove, errori):
+    """Il ripiego dice a quale competenza trasversale si aggancia la UDA quando
+    il curricolo di indirizzo non assegna conoscenze a Metodologie Operative."""
+    if not isinstance(ripiego, dict):
+        errori.aggiungi(dove, "ripiego non è un oggetto",
+                        'formato: {"europea": "...", "generale": {...}, "civica": {...}}')
+        return
+
+    europea = ripiego.get("europea")
+    if not europea:
+        errori.aggiungi(dove, "manca la competenza chiave europea",
+                        "il ripiego parte sempre da lì:\n"
+                        + "\n".join(f"  · {c}" for c in fonti["europee"]))
+    elif europea not in fonti["europee"]:
+        errori.aggiungi(dove, f"competenza chiave europea non riconosciuta: «{europea}»",
+                        "denominazioni della Raccomandazione UE 22 maggio 2018:\n"
+                        + "\n".join(f"  · {c}" for c in fonti["europee"]))
+
+    generale = ripiego.get("generale")
+    if generale:
+        numero = generale.get("competenza")
+        scheda = fonti["generale"].get(numero)
+        if not scheda:
+            errori.aggiungi(f"{dove} → generale",
+                            f"competenza dell'area generale inesistente: {numero}",
+                            "sono numerate da 1 a 12")
+        else:
+            asse = generale.get("asse")
+            voce = scheda["assi"].get(asse)
+            if not voce:
+                errori.aggiungi(f"{dove} → generale {numero}",
+                                f"asse culturale non previsto per questa competenza: «{asse}»",
+                                "assi disponibili: " + ", ".join(sorted(scheda["assi"])))
+            else:
+                for abilita in generale.get("abilita", []):
+                    if abilita not in voce["abilita"]:
+                        errori.aggiungi(f"{dove} → generale {numero} · {asse}",
+                                        f"abilità non presente nell'area generale: «{abilita}»",
+                                        "abilità disponibili:\n"
+                                        + "\n".join(f"  · {a}" for a in voce["abilita"]))
+                for conoscenza in generale.get("conoscenze", []):
+                    if conoscenza not in voce["conoscenze"]:
+                        errori.aggiungi(f"{dove} → generale {numero} · {asse}",
+                                        f"conoscenza non presente nell'area generale: «{conoscenza}»",
+                                        "conoscenze disponibili:\n"
+                                        + "\n".join(f"  · {c}" for c in voce["conoscenze"]))
+                if not generale.get("conoscenze"):
+                    errori.aggiungi(f"{dove} → generale {numero}",
+                                    "il ripiego sull'area generale non porta nessuna conoscenza",
+                                    "è proprio la conoscenza che manca al curricolo di indirizzo: indicane almeno una")
+
+    civica = ripiego.get("civica")
+    if civica:
+        nucleo = civica.get("nucleo")
+        if nucleo not in fonti["civica"]["nuclei"]:
+            errori.aggiungi(f"{dove} → civica", f"nucleo non riconosciuto: «{nucleo}»",
+                            "nuclei del D.M. 183/2024: " + ", ".join(fonti["civica"]["nuclei"]))
+        chiave = str(civica.get("competenza"))
+        if chiave not in fonti["civica"]["competenze"]:
+            errori.aggiungi(f"{dove} → civica",
+                            f"competenza di educazione civica non presente nel catalogo: {chiave}",
+                            "disponibili: " + ", ".join(sorted(fonti["civica"]["competenze"]))
+                            + "\nper aggiungerne una, copiala verbatim dalle Linee guida in "
+                              "programmi-src/competenze-trasversali.json")
+
+
+def controlla_focus(modulo, periodo, indice, fonti, competenze_modulo, dove, errori):
+    """Il cappello monografico: una competenza, fino a due abilità e due conoscenze.
+
+    Dice su che cosa la UDA lavora davvero, non tutto ciò che sfiora. Le voci sono
+    verbatim dal curricolo, come gli agganci delle attività: stessa regola, stesso controllo.
+    """
+    focus = modulo.get("focus")
+    if not focus:
+        errori.aggiungi(dove, "manca il cappello monografico (focus)",
+                        'formato: {"competenza": "C4", "abilita": ["..."], "conoscenze": ["..."], "nota": "..."}\n'
+                        'se la UDA sta tutta fuori dal curricolo di indirizzo: {"trasversale": true, "nota": "...", "ripiego": {...}}')
+        return
+
+    if not focus.get("nota"):
+        errori.aggiungi(dove, "il cappello non dice perché è questa la competenza dominante",
+                        "una riga: di norma decide la prova esperta, perché è lì che si valuta")
+
+    if focus.get("trasversale"):
+        if focus.get("competenza"):
+            errori.aggiungi(dove, "il cappello è insieme trasversale e agganciato a una competenza",
+                            'scegli: o "trasversale": true, o "competenza": "Cn"')
+        if not focus.get("ripiego"):
+            errori.aggiungi(dove, "cappello trasversale senza ripiego",
+                            "se la UDA sta fuori dal curricolo di indirizzo, dichiara almeno "
+                            "la competenza chiave europea su cui lavora")
+        else:
+            controlla_ripiego(focus["ripiego"], fonti, f"{dove} → ripiego", errori)
+        return
+
+    competenza = focus.get("competenza")
+    traguardo = indice.get((periodo, competenza))
+    if not traguardo:
+        disponibili = sorted({c for (p, c) in indice if p == periodo}, key=lambda x: int(x[1:]))
+        errori.aggiungi(dove, f"il cappello punta a {competenza}, che non esiste nel periodo «{periodo}»",
+                        "competenze disponibili: " + ", ".join(disponibili))
+        return
+
+    if competenze_modulo and competenza not in competenze_modulo:
+        errori.aggiungi(dove,
+                        f"il cappello dichiara {competenza}, ma nessuna attività della UDA la aggancia",
+                        "competenze agganciate dalle attività: " + ", ".join(sorted(competenze_modulo, key=lambda x: int(x[1:])))
+                        + "\nil cappello riassume la UDA, non ne aggiunge una nuova")
+
+    abilita_focus = focus.get("abilita") or []
+    conoscenze_focus = focus.get("conoscenze") or []
+
+    if not abilita_focus:
+        errori.aggiungi(dove, "il cappello non indica nessuna abilità",
+                        "abilità disponibili per " + competenza + ":\n"
+                        + "\n".join(f"  · {a}" for a in traguardo["abilita"]))
+    if len(abilita_focus) > MAX_FOCUS_ABILITA:
+        errori.aggiungi(dove, f"il cappello indica {len(abilita_focus)} abilità",
+                        f"il massimo è {MAX_FOCUS_ABILITA}: oltre, non è più monografico")
+    if len(conoscenze_focus) > MAX_FOCUS_CONOSCENZE:
+        errori.aggiungi(dove, f"il cappello indica {len(conoscenze_focus)} conoscenze",
+                        f"il massimo è {MAX_FOCUS_CONOSCENZE}: oltre, non è più monografico")
+
+    abilita_valide = set(traguardo["abilita"])
+    for abilita in abilita_focus:
+        if abilita not in abilita_valide:
+            errori.aggiungi(f"{dove} → {competenza}",
+                            f"abilità del cappello non presente nel curricolo: «{abilita}»",
+                            "abilità disponibili:\n" + "\n".join(f"  · {a}" for a in sorted(abilita_valide)))
+
+    conoscenze_valide = {c["nome"] for c in traguardo["conoscenze"]}
+    for conoscenza in conoscenze_focus:
+        if conoscenza not in conoscenze_valide:
+            errori.aggiungi(f"{dove} → {competenza}",
+                            f"conoscenza del cappello non presente nel curricolo: «{conoscenza}»",
+                            ("conoscenze di Metodologie Operative disponibili:\n"
+                             + "\n".join(f"  · {c}" for c in sorted(conoscenze_valide)))
+                            if conoscenze_valide else
+                            f"{competenza} nel periodo «{periodo}» non ha conoscenze di Metodologie Operative")
+
+    # Le cinque coppie scoperte del curricolo: C2, C3 e C6 nel biennio, C5 e C9 in quinta.
+    # Lì la conoscenza non esiste per Metodologie Operative e il cappello si chiude altrove.
+    if conoscenze_valide:
+        if not conoscenze_focus:
+            errori.aggiungi(f"{dove} → {competenza}",
+                            "il cappello non indica nessuna conoscenza, ma il curricolo ne assegna a Metodologie Operative",
+                            "conoscenze disponibili:\n" + "\n".join(f"  · {c}" for c in sorted(conoscenze_valide)))
+        if focus.get("ripiego"):
+            errori.aggiungi(f"{dove} → {competenza}",
+                            "il cappello ha un ripiego, ma il curricolo assegna conoscenze a Metodologie Operative per questa competenza",
+                            "il ripiego serve solo dove la conoscenza manca davvero: togli il ripiego "
+                            "oppure sposta il cappello su un'altra competenza")
+    else:
+        if conoscenze_focus:
+            errori.aggiungi(f"{dove} → {competenza}",
+                            f"{competenza} nel periodo «{periodo}» non ha conoscenze di Metodologie Operative",
+                            'lascia "conoscenze": [] e dichiara il ripiego trasversale')
+        if not focus.get("ripiego"):
+            errori.aggiungi(f"{dove} → {competenza}",
+                            f"il curricolo non assegna conoscenze di Metodologie Operative a {competenza} nel periodo «{periodo}»",
+                            "chiudi il cappello con il ripiego: competenza chiave europea e, dove serve, "
+                            "area generale o educazione civica")
+
+    if focus.get("ripiego"):
+        controlla_ripiego(focus["ripiego"], fonti, f"{dove} → ripiego", errori)
+
+
+def espandi_focus(focus, periodo, indice, fonti):
+    """Porta nel JSON generato i testi per esteso, così la pagina non ricalcola nulla."""
+    uscita = dict(focus)
+    traguardo = indice.get((periodo, focus.get("competenza")))
+    if traguardo:
+        uscita["competenzaTitolo"] = traguardo["competenzaTitolo"]
+        uscita["competenzaNum"] = traguardo["competenzaNum"]
+        uscita["competenzaIntermedia"] = traguardo["competenzaIntermedia"]
+        uscita["compresenzaScienzeUmane"] = any(
+            c["compresenzaScienzeUmane"]
+            for c in traguardo["conoscenze"]
+            if c["nome"] in (focus.get("conoscenze") or [])
+        )
+    ripiego = focus.get("ripiego")
+    if ripiego:
+        espanso = dict(ripiego)
+        generale = ripiego.get("generale")
+        if generale and generale.get("competenza") in fonti["generale"]:
+            espanso["generale"] = dict(generale,
+                                       titolo=fonti["generale"][generale["competenza"]]["titolo"])
+        civica = ripiego.get("civica")
+        if civica:
+            chiave = str(civica.get("competenza"))
+            testo = fonti["civica"]["competenze"].get(chiave)
+            if testo:
+                espanso["civica"] = dict(civica, titolo=testo)
+        uscita["ripiego"] = espanso
+    return uscita
+
+
+def elabora(curricolo, livelli, trasversali, blocchi, errori):
     indice = indicizza_curricolo(curricolo)
+    fonti = indicizza_trasversali(trasversali)
     moduli = []
 
     for blocco in blocchi:
@@ -296,8 +512,11 @@ def elabora(curricolo, livelli, blocchi, errori):
                 competenze |= controlla_agganci(attivita, periodo, indice, dove, errori)
             controlla_uda(modulo, etichetta, errori)
             controlla_prova(modulo.get("provaEsperta"), livello, etichetta, errori)
+            controlla_focus(modulo, periodo, indice, fonti, competenze, etichetta, errori)
 
             modulo_uscita = dict(modulo)
+            if modulo.get("focus"):
+                modulo_uscita["focus"] = espandi_focus(modulo["focus"], periodo, indice, fonti)
             modulo_uscita["anno"] = anno
             # "periodo" della UDA e' il periodo didattico (es. "Ottobre - Novembre"):
             # non va confuso con il periodo del curricolo, che qui prende un nome distinto.
@@ -318,9 +537,9 @@ def elabora(curricolo, livelli, blocchi, errori):
 
 def costruisci(scrivi):
     errori = ErroriRaccolti()
-    curricolo, livelli, impianto, blocchi = carica_sorgenti()
+    curricolo, livelli, impianto, trasversali, blocchi = carica_sorgenti()
     controlla_qnq_verbatim(livelli, errori)
-    moduli = elabora(curricolo, livelli, blocchi, errori)
+    moduli = elabora(curricolo, livelli, trasversali, blocchi, errori)
 
     if errori:
         errori.stampa()
@@ -356,6 +575,7 @@ def costruisci(scrivi):
         },
         "impiantoDidattico": impianto,
         "curricolo": curricolo,
+        "competenzeTrasversali": trasversali,
         "moduli": moduli,
     }
 
@@ -398,9 +618,9 @@ def costruisci(scrivi):
 
 
 def elenca():
-    curricolo, livelli, _, blocchi = carica_sorgenti()
+    curricolo, livelli, _, trasversali, blocchi = carica_sorgenti()
     errori = ErroriRaccolti()
-    moduli = elabora(curricolo, livelli, blocchi, errori)
+    moduli = elabora(curricolo, livelli, trasversali, blocchi, errori)
     for anno in ANNI:
         scheda = livelli["anni"][anno]
         periodo, livello = scheda["periodo"], scheda["livello"]
@@ -413,6 +633,17 @@ def elenca():
             marchio = f" [alternativo al {modulo['alternativoA']}]" if "alternativoA" in modulo else ""
             print(f"   {modulo['n']}. {modulo['titolo']}{marchio}")
             print(f"      competenze: {', '.join(modulo['competenze']) or '—'}")
+            focus = modulo.get("focus") or {}
+            if focus.get("trasversale"):
+                print("      cappello:   trasversale — "
+                      f"{(focus.get('ripiego') or {}).get('europea', '—')}")
+            elif focus.get("competenza"):
+                ripiego = (focus.get("ripiego") or {}).get("europea")
+                coda = f" · ripiego: {ripiego}" if ripiego else ""
+                quante = len(focus.get("conoscenze") or [])
+                print(f"      cappello:   {focus['competenza']} — "
+                      f"{len(focus.get('abilita') or [])} abilità, "
+                      f"{quante} {'conoscenza' if quante == 1 else 'conoscenze'}{coda}")
         if scoperte:
             print(f"   senza moduli: {', '.join(scoperte)}")
     if errori:
@@ -452,11 +683,20 @@ def scheletro(anno):
             "imprevisto": "" if livello == "2" else "descrivi qui l'imprevisto",
             "evidenze": [""],
         },
+        "focus": {
+            "competenza": "C1",
+            "abilita": [""],
+            "conoscenze": [""],
+            "nota": "perché è questa la competenza dominante: di norma lo dice la prova esperta",
+        },
         "materiali": [],
     }
     print(json.dumps(modello, ensure_ascii=False, indent=2))
     print("\n  Abilità e conoscenze vanno copiate alla lettera da programmi-src/curricolo-ssas.json:")
-    print("  il build rifiuta gli agganci che non corrispondono.\n")
+    print("  il build rifiuta gli agganci che non corrispondono.")
+    print("  Il cappello (focus) ne ripete una sola competenza, al massimo due abilità e due")
+    print("  conoscenze. Dove il curricolo non assegna conoscenze a Metodologie Operative,")
+    print("  si chiude con \"ripiego\" su programmi-src/competenze-trasversali.json.\n")
 
 
 def main():

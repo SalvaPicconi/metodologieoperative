@@ -60,6 +60,7 @@ programmi-src/*.json, _integrazione/piano.json e qnq-tabella-a.txt
 | `programmi-src/livelli-qnq.json` | Livelli QNQ per anno e criteri operativi delle prove esperte |
 | `programmi-src/qnq-tabella-a.txt` | Testo normativo usato per verificare i descrittori QNQ |
 | `programmi-src/impianto-didattico.json` | Metodologie, strumenti, verifiche ed elementi trasversali |
+| `programmi-src/competenze-trasversali.json` | Competenze chiave europee, area generale ed educazione civica: fonti del ripiego del cappello |
 | `programmi-src/moduli-<anno>.json` | UDA dei cinque anni |
 | `programmi-src/modulo-tutela-minori.json` | Percorso alternativo all'UDA 5 del terzo anno |
 | `programmi-src/_integrazione/piano.json` | Mappa del confronto fra programma del docente e programma del collega |
@@ -80,6 +81,7 @@ Ogni UDA deve contenere almeno:
 - almeno tre fasi;
 - attività collegate al curricolo;
 - prova esperta completa;
+- cappello monografico (`focus`) con la sua nota;
 - materiali, anche come elenco vuoto.
 
 Le abilità e le conoscenze negli `agganci` devono coincidere letteralmente con quelle presenti in `curricolo-ssas.json`. Lo script rifiuta formulazioni inventate o riferite a un periodo curricolare diverso.
@@ -94,6 +96,16 @@ La prova esperta deve rispettare il livello dell'anno:
 - **QNQ 4 — quinto:** coordinamento, integrazione del lavoro altrui, imprevisti e gestione del tempo.
 
 Per un percorso alternativo usare `alternativoA` e, quando necessario, `suffisso`. L'alternativa non deve diventare una card isolata fuori dall'anno cui appartiene.
+
+### Il cappello monografico
+
+Ogni UDA dichiara nel campo `focus` su che cosa lavora davvero: una competenza, fino a due abilità e fino a due conoscenze, verbatim dal curricolo, più la nota che motiva la scelta. In pagina compare in testa alla UDA quando è acceso l'interruttore *Mostra competenze*.
+
+A scegliere la competenza dominante è la prova esperta, perché è lì che la competenza diventa osservabile: si guardano il prodotto e le evidenze valutate, non il numero di agganci. Dove le due cose divergono vince la prova e la nota lo dichiara.
+
+Cinque coppie competenza/periodo non hanno conoscenze assegnate a Metodologie Operative — C2, C3 e C6 nel biennio, C5 e C9 in quinta. Quando il cappello cade lì, `conoscenze` resta vuoto e si compila `ripiego`: competenza chiave europea, poi area generale con il suo asse culturale, poi educazione civica dove la UDA è davvero di cittadinanza. Il build pretende il ripiego dove la conoscenza manca e lo rifiuta dove esiste.
+
+`competenzaTitolo`, `competenzaNum` e `competenzaIntermedia` non si scrivono: li deriva il build dal curricolo.
 
 ## Procedura ordinaria
 
