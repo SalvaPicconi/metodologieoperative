@@ -357,7 +357,7 @@ function cartaCompetenza(trg, anno, scheda, moduli, competenza) {
         : '<p class="muted">Nel curricolo questa competenza non è presidiata da Metodologie Operative in questo periodo.</p>';
 
     const corpo = moduli.length
-        ? moduli.map((m) => schedaModulo(m, anno)).join('')
+        ? moduli.map((m) => schedaModulo(m, anno, competenza)).join('')
         : '<div class="prog-vuoto">Nessuna UDA ancora proposta per questa competenza.</div>';
 
     return `
@@ -384,7 +384,11 @@ function cartaCompetenza(trg, anno, scheda, moduli, competenza) {
     </details>`;
 }
 
-function schedaModulo(modulo, anno) {
+// `competenzaCarta` c'e' solo nella vista per competenza: li' la UDA compare sotto ogni
+// competenza che intercetta, quindi il cappello per esteso si ripeterebbe e contraddirebbe
+// la carta che lo contiene. Al suo posto un'etichetta che dice se la UDA e' monografica su
+// quella competenza o se la sfiora soltanto.
+function schedaModulo(modulo, anno, competenzaCarta) {
     const haAlternativa = haPercorsoAlternativo(modulo);
     const numero = modulo.alternativoA !== undefined
         ? `${modulo.alternativoA}B`
@@ -446,7 +450,7 @@ function schedaModulo(modulo, anno) {
       <summary class="prog-modulo-testata">
         <span class="prog-modulo-titolo"><span class="prog-uda-num">UDA ${escapeHtml(String(numero))}</span>
           ${badgeOrigine(modulo.origine)}
-          ${escapeHtml(modulo.titolo)} ${percorso}</span>
+          ${escapeHtml(modulo.titolo)} ${percorso} ${etichettaFocus(modulo, competenzaCarta)}</span>
         ${meta ? `<span class="prog-modulo-meta">${meta}</span>` : ''}
       </summary>
       <div class="prog-modulo-corpo">
@@ -457,6 +461,7 @@ function schedaModulo(modulo, anno) {
           </button>
         </div>
         ${modulo.sintesi ? `<p class="prog-modulo-sintesi">${escapeHtml(modulo.sintesi)}</p>` : ''}
+        ${stato.mostraCompetenze && !competenzaCarta ? cappelloFocus(modulo) : ''}
         ${prodotto}
         <div class="prog-blocco">
           <p class="prog-blocco-et">Contenuti e attività</p>
@@ -469,6 +474,98 @@ function schedaModulo(modulo, anno) {
         ${stato.mostraCompetenze ? riepilogoCompetenze(modulo, anno) : ''}
       </div>
     </details>`;
+}
+
+// Il cappello monografico: su che cosa la UDA lavora davvero.
+// Una competenza, non tutte quelle che sfiora: le altre restano nel riepilogo qui sotto.
+function cappelloFocus(modulo) {
+    const focus = modulo.focus;
+    if (!focus) {
+        return '';
+    }
+
+    const voci = [];
+    if (focus.trasversale) {
+        voci.push(rigaFocus('Competenza', 'Nessuna competenza di indirizzo: la UDA è dichiarata trasversale.'));
+    } else {
+        voci.push(rigaFocus('Competenza generale',
+            `<span class="prog-tag-competenza">${escapeHtml(focus.competenza)}</span> ${escapeHtml(focus.competenzaTitolo || '')}`));
+        voci.push(rigaFocus('Competenza intermedia', escapeHtml(focus.competenzaIntermedia || '')));
+        voci.push(rigaFocus(etichettaPlurale('Abilità', 'Abilità', focus.abilita), elencoFocus(focus.abilita)));
+
+        const compresenza = focus.compresenzaScienzeUmane
+            ? ' <span class="prog-tag-compresenza">in compresenza</span>' : '';
+        voci.push(rigaFocus(etichettaPlurale('Conoscenza', 'Conoscenze', focus.conoscenze),
+            (focus.conoscenze || []).length
+                ? elencoFocus(focus.conoscenze) + compresenza
+                : `<span class="prog-focus-assente">Il curricolo non assegna conoscenze di Metodologie Operative
+                   a ${escapeHtml(focus.competenza)} in questo periodo.</span>`));
+    }
+
+    return `
+    <div class="prog-focus">
+      <p class="prog-focus-et">Su che cosa lavora questa UDA</p>
+      <dl class="prog-focus-voci">${voci.join('')}</dl>
+      ${ripiegoFocus(focus.ripiego)}
+      ${focus.nota ? `<p class="prog-focus-nota">${escapeHtml(focus.nota)}</p>` : ''}
+    </div>`;
+}
+
+// Nella vista per competenza dice, senza aprire la UDA, se e' il suo cappello o un aggancio.
+function etichettaFocus(modulo, competenzaCarta) {
+    if (!competenzaCarta || !modulo.focus) {
+        return '';
+    }
+    return modulo.focus.competenza === competenzaCarta
+        ? '<span class="prog-tag-focus">cappello della UDA</span>'
+        : `<span class="prog-tag-sfiora">cappello su ${escapeHtml(modulo.focus.competenza || '—')}</span>`;
+}
+
+function rigaFocus(etichetta, contenuto) {
+    return `<dt>${escapeHtml(etichetta)}</dt><dd>${contenuto}</dd>`;
+}
+
+function etichettaPlurale(singolare, plurale, voci) {
+    return (voci || []).length > 1 ? plurale : singolare;
+}
+
+function elencoFocus(voci) {
+    return (voci || []).map(escapeHtml).join(' <span class="prog-focus-sep">·</span> ');
+}
+
+// Dove il curricolo di indirizzo non arriva, il cappello si chiude sulle competenze
+// trasversali: prima quella chiave europea, poi l'area generale e l'educazione civica.
+function ripiegoFocus(ripiego) {
+    if (!ripiego) {
+        return '';
+    }
+    const voci = [];
+    if (ripiego.europea) {
+        voci.push(rigaFocus('Competenza chiave europea', escapeHtml(ripiego.europea)));
+    }
+    const generale = ripiego.generale;
+    if (generale) {
+        voci.push(rigaFocus(`Area generale · competenza ${generale.competenza}`,
+            `${escapeHtml(generale.titolo || '')}
+             <span class="prog-focus-asse">${escapeHtml(generale.asse)}</span>`));
+        if ((generale.abilita || []).length) {
+            voci.push(rigaFocus(etichettaPlurale('Abilità', 'Abilità', generale.abilita), elencoFocus(generale.abilita)));
+        }
+        if ((generale.conoscenze || []).length) {
+            voci.push(rigaFocus(etichettaPlurale('Conoscenza', 'Conoscenze', generale.conoscenze),
+                elencoFocus(generale.conoscenze)));
+        }
+    }
+    const civica = ripiego.civica;
+    if (civica) {
+        voci.push(rigaFocus(`Educazione civica · ${civica.nucleo}`, escapeHtml(civica.titolo || '')));
+    }
+
+    return `
+    <div class="prog-focus-ripiego">
+      <p class="prog-focus-ripiego-et">Aggancio trasversale</p>
+      <dl class="prog-focus-voci">${voci.join('')}</dl>
+    </div>`;
 }
 
 // Elenco delle competenze che il modulo intercetta, con il traguardo dell'anno.

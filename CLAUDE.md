@@ -21,11 +21,13 @@ L'impianto curricolare resta disponibile ma **non è in primo piano**, perché a
 la lettura di chi cerca semplicemente che cosa fare:
 
 - il livello QNQ dell'anno è un badge accanto al titolo dell'anno, che linka alla scheda;
-- l'interruttore **Mostra competenze** (spento di default) aggiunge i codici di competenza
-  su ogni attività, il riepilogo «Competenze di indirizzo intercettate» in fondo a ogni
-  modulo e i contatori di copertura;
+- l'interruttore **Mostra competenze** (spento di default) aggiunge il **cappello monografico**
+  in testa a ogni UDA, i codici di competenza su ogni attività, il riepilogo «Competenze di
+  indirizzo intercettate» in fondo a ogni modulo e i contatori di copertura;
 - la vista **Per competenza** (C1 → C10, con gli anni in progressione QNQ) è il secondo
-  bottone del toggle;
+  bottone del toggle; lì la UDA compare sotto ogni competenza che intercetta, quindi il cappello
+  per esteso non si ripete: al suo posto un'etichetta dice se quella competenza è il cappello
+  della UDA o se la UDA la sfiora soltanto;
 - schede dei livelli QNQ e impianto didattico stanno in fondo, sotto *Approfondimenti*, collassati.
 
 Quando modifichi la pagina, tieni questa gerarchia: **prima i contenuti, il curricolo a richiesta.**
@@ -40,6 +42,7 @@ Quando modifichi la pagina, tieni questa gerarchia: **prima i contenuti, il curr
 | `programmi-src/livelli-qnq.json` | **no**, salvo verifica normativa: i blocchi `descrittori` sono testo verbatim del D.I. 8 gennaio 2018 |
 | `programmi-src/qnq-tabella-a.txt` | **no** — è il riscontro di fedeltà contro cui il build confronta i descrittori |
 | `programmi-src/curricolo-ssas.json` | **no** — curricolo normativo, D.M. 92/2018 Allegato C |
+| `programmi-src/competenze-trasversali.json` | **no** — competenze chiave europee, area generale ed educazione civica, verbatim |
 | `programmi.json` | **no** — è generato, ogni modifica a mano viene sovrascritta |
 
 ### Comandi
@@ -70,18 +73,20 @@ Ogni modulo vive in `programmi-src/moduli-<anno>.json` sotto la chiave `moduli`:
   ],
   "provaEsperta": { "titolo": "", "compito": "", "contesto": "", "prodotto": "",
                     "durata": "", "modalita": "", "risorse": [], "imprevisto": "", "evidenze": [] },
+  "focus": { "competenza": "C1", "abilita": ["..."], "conoscenze": ["..."], "nota": "..." },
   "materiali": [ { "titolo": "", "file": "materiali/..." } ]
 }
 ```
 
 Il campo `competenze` del modulo **non si scrive**: lo calcola il build come unione
-delle competenze delle sue attività.
+delle competenze delle sue attività. Il `focus` invece si scrive, ma solo nelle sue voci
+essenziali: vedi *Il cappello monografico* più sotto.
 
 `anno` è quello che si vede in pagina (Primo … Quinto); `periodo` è la chiave di
 aggancio al curricolo, che tratta il biennio come periodo unico. Primo e secondo anno
 condividono quindi `periodo: "Biennio"` e livello QNQ 2.
 
-### Le tre regole che il build fa rispettare
+### Le quattro regole che il build fa rispettare
 
 1. **Aggancio letterale.** Ogni abilità e ogni conoscenza citata da un'attività deve
    esistere alla lettera nel curricolo per quella competenza *e* quel periodo. Il messaggio
@@ -98,8 +103,74 @@ condividono quindi `periodo: "Biennio"` e livello QNQ 2.
 3. **Fedeltà normativa.** I descrittori QNQ devono coincidere carattere per carattere
    con `qnq-tabella-a.txt`.
 
+4. **Cappello monografico.** Ogni UDA ha un `focus`: una competenza fra quelle che le sue attività
+   agganciano davvero, al massimo due abilità e due conoscenze, verbatim, più la nota che motiva
+   la scelta. Dove il curricolo non assegna conoscenze a Metodologie Operative il ripiego è
+   obbligatorio; dove le assegna, è vietato. Vedi *Il cappello monografico* più sotto.
+
 Finché il build non passa, `programmi.json` resta all'ultima versione valida:
 il sito online non si rompe mai per un errore di contenuto.
+
+### Il cappello monografico: il campo `focus`
+
+Ogni UDA dichiara **su che cosa lavora davvero**, non tutto ciò che sfiora. È il campo `focus`,
+obbligatorio su ogni modulo: **una** competenza, **fino a due** abilità e **fino a due** conoscenze,
+tutte verbatim dal curricolo come gli agganci delle attività. In pagina compare in testa alla UDA,
+sotto l'interruttore *Mostra competenze*; le altre competenze restano nel riepilogo in fondo.
+
+```json
+"focus": {
+  "competenza": "C8",
+  "abilita": ["...", "..."],
+  "conoscenze": ["..."],
+  "nota": "perché è questa la competenza dominante"
+}
+```
+
+**Chi decide qual è la competenza dominante: la prova esperta.** È lì che la competenza diventa
+osservabile, quindi si guardano il prodotto e le evidenze valutate, non il conteggio degli agganci.
+Quando il conteggio e la prova divergono — succede, per esempio, in *Pregiudizio, autorità e
+percezione*, cinque agganci su C3 e una prova che è una rilevazione dati — vince la prova e la `nota`
+lo dice in chiaro. La `nota` è obbligatoria proprio per questo: fra un anno deve restare leggibile
+perché quella competenza e non un'altra.
+
+`competenzaTitolo`, `competenzaIntermedia` e `competenzaNum` **non si scrivono**: il build li pesca
+dal curricolo con la coppia competenza + periodo, così non possono divergere.
+
+### Quando il curricolo non arriva: il campo `ripiego`
+
+Cinque coppie competenza/periodo **non hanno conoscenze assegnate a Metodologie Operative**:
+C2, C3 e C6 nel biennio, C5 e C9 in quinta. Verificato incrociando `curricolo-ssas.json` con il
+curricolo verticale d'istituto: le 73 conoscenze corrispondono una a una, i buchi sono reali.
+
+Dove il cappello cade su una di quelle coppie, `conoscenze` resta vuoto e si compila `ripiego`,
+nell'ordine: **competenza chiave europea** (sempre), poi **area generale** con l'asse culturale e
+le sue abilità e conoscenze, poi **educazione civica** solo dove la UDA è davvero di cittadinanza.
+Le fonti stanno in `programmi-src/competenze-trasversali.json` e anche lì vale la regola letterale.
+
+```json
+"focus": {
+  "competenza": "C2",
+  "abilita": ["..."],
+  "conoscenze": [],
+  "nota": "...",
+  "ripiego": {
+    "europea": "Competenza personale, sociale e capacità di imparare a imparare",
+    "generale": { "competenza": 2, "asse": "Asse dei linguaggi",
+                  "abilita": ["..."], "conoscenze": ["..."] },
+    "civica": { "nucleo": "Costituzione", "competenza": "3" }
+  }
+}
+```
+
+Il build fa rispettare la simmetria: **ripiego dove e solo dove la conoscenza manca davvero.**
+Se la competenza scelta ha conoscenze di Metodologie Operative, il cappello ne deve citare almeno
+una e il ripiego è rifiutato; se non ne ha, le conoscenze devono restare vuote e il ripiego è
+obbligatorio. Così il ripiego non diventa una scorciatoia per evitare il curricolo.
+
+Una UDA che sta **tutta** fuori dal curricolo di indirizzo — nel catalogo attuale solo *Avvio
+dell'anno e metodo di lavoro* in seconda — lo dichiara con `"trasversale": true`, senza competenza,
+con nota e ripiego. Meglio dichiararlo che attribuire una competenza che la UDA non esercita.
 
 ### Programmazione a due mani: il campo `origine`
 
@@ -154,11 +225,17 @@ dentro il modulo a cui si riferiscono.
 - «quali competenze del quinto anno sono ancora senza moduli?» → `list`
 - «la prova del modulo 4 del primo anno è troppo difficile per il livello 2, riportala in riga»
 - «collega al modulo 3 il materiale sul sociogramma» → campo `materiali`
+- «il modulo 5 di seconda non lavora sulla rilevazione dati, lavora sul pregiudizio» → campo `focus`
+- «su che cosa lavora ogni UDA di quarta?» → `list`, che stampa il cappello accanto alle competenze
 
 ### Riferimenti normativi della pagina
 
 - D.Lgs. 61/2017; D.M. 24 maggio 2018 n. 92 (Regolamento, Linee guida, Allegato C).
 - D.I. MLPS/MIUR 8 gennaio 2018 — QNQ, Allegato 1, Tabella A (G.U. 25 gennaio 2018).
+- Raccomandazione del Consiglio UE 22 maggio 2018 (2018/C 189/01) — competenze chiave europee,
+  usate nel ripiego del cappello.
+- D.M. 92/2018 Allegato A e Linee guida D.M. 766/2019 Allegato B — area generale, idem.
+- L. 92/2019 e D.M. 183/2024 — educazione civica, idem.
 - D.Lgs. 62/2017 — valutazione.
 - Il modulo sulla tutela del minore porta i propri riferimenti in
   `riferimentiNormativi`, con la data dell'ultima verifica in `verificaNormativa`.
