@@ -1660,9 +1660,33 @@
     });
 
     /* ---------- MODALITÀ LIM (docente) ---------- */
-    function toggleLim() {
+    /* La modalità LIM è riservata al docente: stessa password e stessa sessione
+       (6 ore) dell'Area docente. Qui c'è solo l'impronta SHA-256, non la password. */
+    const DOCENTE_SESSION_KEY = 'mo:docente-session';
+    const DOCENTE_SESSION_DURATION = 1000 * 60 * 60 * 6;
+    const DOCENTE_HASH = 'ed5672a676cf4556ed88868d438204e25c5ce272664a4083b92b5c783294e9e4';
+    function docenteSessionValid() {
+        try { const d = JSON.parse(localStorage.getItem(DOCENTE_SESSION_KEY) || 'null'); return !!(d && d.expiresAt && Date.now() < d.expiresAt); } catch { return false; }
+    }
+    async function sha256(text) {
+        const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+        return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+    async function verificaDocente() {
+        if (docenteSessionValid()) return true;
+        const pw = prompt('Modalità LIM riservata al docente.\n\nInserisci la password dell\'Area docente:');
+        if (pw === null) return false;
+        if (!window.crypto?.subtle) { alert('Questo browser non permette la verifica della password.'); return false; }
+        const ok = (await sha256(pw.trim().toLowerCase())) === DOCENTE_HASH;
+        if (!ok) { alert('Password non corretta'); return false; }
+        try { localStorage.setItem(DOCENTE_SESSION_KEY, JSON.stringify({ issuedAt: Date.now(), expiresAt: Date.now() + DOCENTE_SESSION_DURATION })); } catch { }
+        return true;
+    }
+
+    async function toggleLim() {
         const on = !document.body.classList.contains('lim');
         if (on) {
+            if (!(await verificaDocente())) return;
             const cur = localStorage.getItem('mo:lim-class') || '';
             const cls = prompt('Modalità LIM per il docente.\n\nScrivi la classe di cui vuoi vedere le risposte (es. 1sa). Lascia vuoto per la sola proiezione.\n\nConsiglio: alla richiesta di identità entra come «ospite», così le tue prove non vengono salvate.', cur);
             if (cls === null) return;
@@ -1676,7 +1700,10 @@
         $$('.classe-panel').forEach(p => p.remove());
         aggiornaTutto();
     }
-    if (localStorage.getItem('mo:lim') === '1') { document.body.classList.add('lim'); $('#btnLim').textContent = '🖥️ Esci dalla modalità LIM'; }
+    if (localStorage.getItem('mo:lim') === '1') {
+        if (docenteSessionValid()) { document.body.classList.add('lim'); $('#btnLim').textContent = '🖥️ Esci dalla modalità LIM'; }
+        else localStorage.removeItem('mo:lim');
+    }
 
     function rivelaTappa() {
         const sec = $(`#tappa${tappaCorrente}`);
@@ -1710,6 +1737,7 @@
     }
 
     async function mostraRisposteClasse() {
+        if (!(await verificaDocente())) return;
         let cls = localStorage.getItem('mo:lim-class') || '';
         if (!cls) { cls = (prompt('Classe (es. 1sa):') || '').trim().toLowerCase(); if (!cls) return; localStorage.setItem('mo:lim-class', cls); }
         const sec = $(`#tappa${tappaCorrente}`);
