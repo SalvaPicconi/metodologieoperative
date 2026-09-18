@@ -118,13 +118,26 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
-function handleLogin(event) {
+// Impronta SHA-256 della password docente (normalizzata: trim + minuscolo).
+// La stessa impronta è usata dalla modalità LIM delle pagine interattive.
+const DOCENTE_HASH = 'ed5672a676cf4556ed88868d438204e25c5ce272664a4083b92b5c783294e9e4';
+
+async function sha256Hex(text) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function handleLogin(event) {
     event.preventDefault();
     const value = elements.passwordInput?.value ?? '';
     const normalized = value.trim().toLowerCase();
-    const allowed = ['palimet!237038'];
+    if (!window.crypto?.subtle) {
+        alert('Questo browser non permette la verifica della password.');
+        return;
+    }
+    const ok = (await sha256Hex(normalized)) === DOCENTE_HASH;
 
-    if (allowed.includes(normalized)) {
+    if (ok) {
         persistDocenteSession();
         elements.overlay?.classList.add('hidden');
         elements.dashboard?.classList.remove('hidden');
