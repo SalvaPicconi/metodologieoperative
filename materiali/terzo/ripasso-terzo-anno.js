@@ -1,412 +1,240 @@
 (() => {
     'use strict';
 
-    const STORAGE_KEY = 'mo:ripasso-terzo-anno:v2';
+    const STORAGE_KEY = 'mo:ripasso-terzo-anno:v3';
     const SUPABASE_URL = 'https://ruplzgcnheddmqqdephp.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1cGx6Z2NuaGVkZG1xcWRlcGhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAxMTYyMjksImV4cCI6MjA3NTY5MjIyOX0.tOLIkgi5yTt61_0rMlXUqxnbil4DLD7kBaqZBVAv1CI';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJydXBsemduY2hlZGRtcXFkZXBocCIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNzYwMTE2MjI5LCJleHAiOjIwNzU2OTIyMjl9.tOLIkgi5yTt61_0rMlXUqxnbil4DLD7kBaqZBVAv1CI';
     const DOCENTE_SESSION_KEY = 'mo:docente-session';
     const DOCENTE_SESSION_DURATION = 1000 * 60 * 60 * 6;
     const DOCENTE_HASH = 'ed5672a676cf4556ed88868d438204e25c5ce272664a4083b92b5c783294e9e4';
-    const ROUTES = {
-        complete: { label: 'Percorso completo', missions: [0,1,2,3,4,5,6,7,8,9,10] },
-        quick: { label: 'Ripasso selettivo · 90 minuti', missions: [0,1,2,3,4,8,10] },
-        case: { label: 'Esercitazione su caso', missions: [10] }
-    };
 
     const missions = [
         {
             id: 0,
-            section: 'Avvio',
-            title: 'Ripasso di partenza',
-            subtitle: 'Prima ricostruiamo le idee fondamentali, poi controlliamo quali collegamenti sono già attivi.',
-            minutes: 15,
-            chips: ['teoria essenziale', 'diagnosi formativa', 'nessun voto'],
-            intro: `
-                <p>Leggi questi richiami come se gli argomenti fossero nuovi. Non devi imparare tutto a memoria: cerca le idee che ritornano in tutto il percorso.</p>`,
+            section: 'Persona e intervento',
+            title: 'Persona, bisogni e relazione d’aiuto',
+            subtitle: 'Il modello bio-psico-sociale e il ruolo professionale nella relazione con la persona.',
+            minutes: 30,
+            chips: ['modello bio-psico-sociale', 'relazione d’aiuto', 'servizi'],
+            intro: '<p>Nei servizi non si incontra “un problema”, ma una <strong>persona inserita in un contesto</strong>. Per comprendere una situazione occorre considerare insieme condizioni di salute, vissuti, relazioni, ambiente e risorse disponibili.</p>',
             theory: [
-                ['La persona viene prima del problema', '<p>Una situazione si comprende mettendo insieme corpo e salute, vissuti ed emozioni, relazioni e contesto. La persona ha bisogni, ma anche diritti, capacità, desideri e risorse.</p>'],
-                ['Dal bisogno al progetto', '<p>Prima si raccolgono fatti e informazioni; poi si leggono bisogni, risorse e vincoli. Solo dopo si definiscono obiettivi osservabili, azioni, responsabilità, tempi e modalità di verifica.</p>'],
-                ['Rete ed équipe', '<p>La rete comprende legami informali e servizi formali. Nell’équipe professionisti diversi condividono informazioni pertinenti, mantengono ruoli distinti e costruiscono un piano comune.</p>'],
-                ['Aiutare senza sostituirsi', '<p>Lo scaffolding è un sostegno temporaneo che diminuisce con l’autonomia. Anche nella relazione d’aiuto e nel colloquio motivazionale si accompagna la persona senza decidere al suo posto.</p>'],
-                ['Metodi e servizi hanno uno scopo', '<p>L’autobiografia aiuta a rileggere esperienze e risorse; il SerD integra interventi sanitari, psicologici, educativi e sociali; ogni metodo va scelto in base alla persona e all’obiettivo.</p>']
+                ['Il bisogno non è un’etichetta', '<p>Un bisogno segnala una distanza tra la situazione presente e una condizione di benessere possibile. Può essere <strong>espresso direttamente</strong>, osservato da altri oppure non ancora riconosciuto. Non definisce tutta la persona e deve essere letto insieme a capacità, desideri e risorse.</p>'],
+                ['Le tre dimensioni', '<p>La dimensione <strong>biologica</strong> riguarda corpo, salute e autonomia; quella <strong>psicologica</strong> emozioni, pensieri e motivazione; quella <strong>sociale</strong> relazioni, casa, scuola, lavoro, reddito e territorio. Le dimensioni <span class="hl">si influenzano continuamente</span>.</p>'],
+                ['La relazione d’aiuto', '<p>Aiutare professionalmente significa ascoltare, comprendere la domanda, concordare obiettivi realistici e sostenere l’autonomia. <strong>Non significa decidere al posto della persona</strong>. L’operatore distingue ciò che osserva dalle proprie interpretazioni e rispetta ruolo, riservatezza e limiti professionali.</p>'],
+                ['Dal bisogno ai servizi', '<p>Un bisogno non conduce automaticamente a una prestazione. Prima di orientare occorre verificare domanda della persona, urgenza, requisiti di accesso, risorse già presenti, ostacoli concreti e disponibilità effettiva del servizio.</p><p class="example-line"><strong>Esempio:</strong> per una persona anziana che non esce più di casa non basta indicare un centro diurno; bisogna capire perché non esce, se lo desidera, come potrebbe raggiungerlo e quali sostegni sono già presenti.</p>']
             ],
             questions: [
-                { q: 'Nel modello bio-psico-sociale, un bisogno va letto:', options: ['solo come problema della persona', 'nelle relazioni tra corpo, vissuto e contesto', 'solo attraverso la diagnosi sanitaria'], answer: 1, why: 'Le tre dimensioni si influenzano: isolarne una rende l’analisi incompleta.' },
-                { q: 'Qual è la prima fase di un progetto individualizzato?', options: ['scegliere subito un’attività', 'analizzare problema e situazione', 'valutare il risultato finale'], answer: 1, why: 'Prima di decidere cosa fare bisogna capire situazione, bisogni, risorse e vincoli.' },
-                { q: 'Una rete informale comprende soprattutto:', options: ['servizi pubblici e professionisti', 'familiari, amici e vicinato', 'solo associazioni convenzionate'], answer: 1, why: 'La rete informale nasce dai legami; la rete formale da ruoli e mandati organizzati.' },
-                { q: 'In équipe, ogni professionista dovrebbe:', options: ['fare tutto in autonomia', 'portare il proprio punto di vista e integrarlo con gli altri', 'limitarsi a ricevere ordini'], answer: 1, why: 'L’integrazione dei punti di vista costruisce una lettura e un intervento più completi.' },
-                { q: 'Nel laboratorio autobiografico la condivisione personale:', options: ['deve essere sempre obbligatoria', 'va scelta e protetta da regole di ascolto', 'non ha alcun valore formativo'], answer: 1, why: 'Scrittura e condivisione richiedono libertà, rispetto e assenza di giudizio.' },
-                { q: 'Lo scaffolding è:', options: ['un aiuto temporaneo che si riduce con l’autonomia', 'un gioco di costruzione libero', 'una forma di verifica finale'], answer: 0, why: 'Il sostegno è calibrato e gradualmente ritirato quando il bambino sa procedere da sé.' },
-                { q: 'Il SerD lavora sulle dipendenze attraverso:', options: ['una sola figura professionale', 'un percorso multiprofessionale personalizzato', 'solo il ricovero residenziale'], answer: 1, why: 'Valutazioni e interventi clinici, psicologici, educativi e sociali vengono integrati.' },
-                { q: 'Davanti a una persona ambivalente sul cambiamento è più utile:', options: ['convincerla con una lezione', 'far emergere ragioni e dubbi con domande e ascolto', 'minacciare conseguenze'], answer: 1, why: 'Il colloquio motivazionale lavora sull’ambivalenza senza sostituirsi alla persona.' }
+                { q: 'Una persona anziana ha dolore al ginocchio, ha paura di cadere e ha smesso di vedere gli amici. Quale lettura applica correttamente il modello bio-psico-sociale?', options: ['Il dolore è la causa unica; basta un intervento sanitario', 'Dolore, paura e isolamento sono dimensioni distinte ma collegate e vanno considerate insieme', 'Il problema principale è sociale perché riguarda gli amici', 'Finché non c’è una diagnosi non è possibile formulare domande'], answer: 1, why: 'Il caso contiene aspetti biologici, psicologici e sociali che possono rafforzarsi a vicenda.' },
+                { q: 'Quale frase descrive un bisogno senza trasformarlo in un’etichetta?', options: ['È una persona non collaborante', 'Rifiuta sempre qualsiasi aiuto', 'Nelle ultime due settimane ha rifiutato tre proposte e riferisce di temere di perdere autonomia', 'Non capisce ciò che è meglio per lei'], answer: 2, why: 'La frase distingue fatti osservabili e parole della persona da giudizi generali.' },
+                { q: 'Durante un colloquio la persona chiede all’operatore di scegliere al suo posto. Qual è la risposta professionale più corretta?', options: ['Scegliere rapidamente per ridurre l’ansia', 'Presentare possibilità e conseguenze, verificare la comprensione e sostenere una scelta consapevole', 'Rifiutare di fornire qualsiasi informazione', 'Chiedere alla famiglia di decidere'], answer: 1, why: 'L’operatore informa e sostiene, ma mantiene la persona protagonista delle decisioni.' },
+                { q: 'Quando un bisogno può essere definito “espresso”?', options: ['Quando è previsto da una norma', 'Quando la persona lo comunica o formula una richiesta', 'Quando l’operatore lo ritiene urgente', 'Quando esiste già un servizio disponibile'], answer: 1, why: 'Il bisogno espresso emerge dalla comunicazione o dalla domanda della persona.' },
+                { q: 'Prima di indirizzare una persona a un servizio, quale controllo è indispensabile?', options: ['Verificare soltanto la distanza dall’abitazione', 'Verificare pertinenza, requisiti, modalità di accesso e disponibilità attuale', 'Scegliere il servizio più conosciuto', 'Assicurare alla persona che sarà accolta'], answer: 1, why: 'L’orientamento deve basarsi su informazioni operative verificate, senza promettere l’accesso.' },
+                { q: 'Quale comportamento sostiene l’autonomia?', options: ['Svolgere il compito al posto della persona', 'Offrire il sostegno necessario e ridurlo quando aumentano le capacità', 'Mantenere sempre lo stesso livello di aiuto', 'Valutare solo il risultato finale'], answer: 1, why: 'Il sostegno è proporzionato e viene ridotto quando la persona può agire con maggiore autonomia.' }
             ],
-            prompt: 'Quale argomento senti più lontano? Scrivilo in una riga: a fine percorso torna qui e verifica se è cambiato.',
-            teacher: 'Usa il checkpoint come sondaggio. Prima raccogli le risposte, poi chiedi a chi ha scelto un’opzione di motivarla senza rivelare subito la soluzione.'
+            openQuestions: ['Definisci con parole tue il modello bio-psico-sociale.', 'Costruisci un esempio in cui un cambiamento in una dimensione produca conseguenze nelle altre due.', 'Spiega la differenza tra sostenere una persona e sostituirsi a lei.'],
+            teacher: 'Confronta le definizioni e verifica che compaiano sia le tre dimensioni sia la loro reciproca influenza.'
         },
         {
             id: 1,
-            section: 'Strumenti',
-            title: 'Intelligenza artificiale: capire, usare, verificare',
-            subtitle: 'Dal lessico di base all’uso responsabile nei compiti e nei servizi.',
-            minutes: 18,
-            chips: ['IA', 'fonti', 'etica digitale'],
-            intro: '<p>Il percorso svolto non si è fermato a “che cosa sa fare l’IA”. Ha collegato funzionamento, dati, rischi, prodotti e controllo umano.</p>',
-            concepts: [
-                ['Dati', 'Un sistema apprende regolarità da esempi: qualità e rappresentatività dei dati contano.'],
-                ['Modelli', 'Machine learning, deep learning e reti neurali non “pensano” come una persona: producono risultati da strutture apprese.'],
-                ['Controllo', 'Un output utile va confrontato con fonti attendibili, corretto e adattato al destinatario.']
-            ],
-            coverage: [
-                ['Fondamenti', 'Che cos’è l’IA; IA debole e IA forte; storia ed evoluzione.'],
-                ['Come funziona', 'Data science e tipologie di dati; machine learning; deep learning e reti neurali; hardware.'],
-                ['Uso didattico', 'IA nell’educazione, apprendimento guidato, mappe, podcast e sintesi.'],
-                ['Responsabilità', 'Etica, rischi, benefici, glossario, domande frequenti e verifica delle fonti.']
-            ],
+            section: 'Progettazione',
+            title: 'Il progetto individualizzato',
+            subtitle: 'Dall’analisi della situazione alla verifica degli interventi.',
+            minutes: 30,
+            chips: ['analisi', 'obiettivi', 'verifica'],
+            intro: '<p>Il progetto individualizzato collega ciò che sappiamo della situazione con un cambiamento possibile. Non è un elenco di attività e non procede in modo rigido: <strong>osservazione, interpretazione e verifica si richiamano continuamente</strong>.</p>',
             theory: [
-                ['IA debole e IA forte', '<p>L’IA debole è progettata per compiti specifici. L’IA forte resta un’ipotesi teorica: non va confusa con i sistemi generativi attuali.</p>'],
-                ['Dal dato al risultato', '<p>I dati vengono organizzati e usati per addestrare modelli. Il machine learning individua regolarità; il deep learning usa reti neurali con molti livelli. Hardware e capacità di calcolo rendono possibile l’elaborazione.</p>'],
-                ['IA nell’educazione', '<p>Può sostenere spiegazioni, mappe, esercizi e revisioni. Non sostituisce la comprensione: lo studente deve dichiarare l’uso, controllare le informazioni e rielaborare il prodotto.</p>'],
-                ['Rischi e benefici', '<p>Benefici: accessibilità, personalizzazione, velocità. Rischi: errori plausibili, bias, dipendenza, privacy, appiattimento del pensiero. Il criterio decisivo è il controllo umano documentato.</p>']
+                ['Analizzare la situazione', '<p>Si raccolgono fatti, parole della persona, informazioni sul contesto, risorse, difficoltà e vincoli. Raccolta e lettura non sono compartimenti separati: <span class="hl">una prima interpretazione fa nascere nuove domande</span>, e le nuove informazioni possono modificare l’interpretazione iniziale.</p>'],
+                ['Formulare l’obiettivo', '<p>Un obiettivo indica il <strong>cambiamento atteso</strong>, non l’attività da svolgere. Deve essere realistico, comprensibile, coerente con la volontà della persona e verificabile.</p><p class="example-line"><strong>Esempio:</strong> “entro otto settimane partecipare a due attività di gruppo alla settimana” è un obiettivo; “iscrizione al centro” è un’azione.</p>'],
+                ['Definire gli interventi', '<p>Per ogni azione vanno chiariti responsabilità, tempi, risorse, modalità operative e raccordi con la rete. Due persone con lo stesso bisogno possono richiedere interventi diversi perché cambiano contesto, capacità e preferenze.</p>'],
+                ['Verificare e valutare', '<p>La <strong>verifica in itinere</strong> controlla durante il percorso se le azioni producono segnali utili. La <strong>valutazione</strong> considera risultati, processo, ostacoli e modifiche necessarie. Se i dati non confermano l’ipotesi iniziale, il progetto si corregge.</p>']
             ],
             questions: [
-                { q: 'Un testo generato dall’IA sembra convincente. Qual è il passaggio successivo?', options: ['consegnarlo', 'verificarne ogni informazione su fonti attendibili', 'chiedere all’IA se è sicura'], answer: 1, why: 'La plausibilità non garantisce correttezza. Serve un controllo esterno al sistema.' },
-                { q: 'Quale pratica dimostra un uso responsabile?', options: ['nascondere l’uso dell’IA', 'dichiarare come è stata usata e come si è controllato il risultato', 'copiare la prima risposta'], answer: 1, why: 'Trasparenza e verifica rendono visibile il lavoro cognitivo dello studente.' },
-                { q: 'Machine learning e deep learning sono:', options: ['metodi con cui i sistemi apprendono regolarità dai dati', 'motori di ricerca', 'tipi di memoria umana'], answer: 0, why: 'Il deep learning è una famiglia del machine learning basata su reti neurali a più livelli.' }
+                { q: 'Durante l’analisi emergono nuove informazioni che contraddicono l’ipotesi iniziale. Che cosa deve fare l’équipe?', options: ['Ignorarle per non rallentare', 'Conservarle soltanto per la valutazione finale', 'Rivedere l’interpretazione e, se necessario, obiettivi e interventi', 'Cambiare immediatamente servizio'], answer: 2, why: 'La progettazione è circolare: nuove informazioni possono richiedere una revisione.' },
+                { q: 'Quale formulazione descrive un obiettivo e non un’attività?', options: ['Iscrivere Marco al laboratorio', 'Telefonare al centro diurno', 'Entro sei settimane Marco partecipa con continuità a un’attività scelta da lui', 'Compilare la scheda di accesso'], answer: 2, why: 'L’obiettivo indica il cambiamento atteso; le altre formulazioni descrivono azioni.' },
+                { q: 'Quale elemento rende verificabile un obiettivo?', options: ['Una formulazione generale', 'Un indicatore osservabile e un tempo di riferimento', 'Il nome del servizio', 'Il numero dei professionisti'], answer: 1, why: 'Indicatore e tempo permettono di confrontare il risultato con ciò che era atteso.' },
+                { q: 'Un intervento non viene svolto perché manca il trasporto. Come va considerata questa informazione?', options: ['Come una colpa della persona', 'Come un vincolo concreto da affrontare nella revisione', 'Come prova che l’obiettivo era sbagliato', 'Come dato non pertinente'], answer: 1, why: 'Gli ostacoli di contesto incidono sull’attuazione e devono entrare nella verifica.' },
+                { q: 'Qual è la differenza principale tra verifica in itinere e valutazione?', options: ['La verifica riguarda i documenti; la valutazione la persona', 'La verifica accompagna l’attuazione; la valutazione interpreta risultati e processo', 'Non esiste una differenza', 'La valutazione precede sempre l’intervento'], answer: 1, why: 'La verifica consente correzioni durante il percorso; la valutazione legge ciò che è avvenuto.' },
+                { q: 'Due persone hanno difficoltà simili ma desideri e reti diverse. Il progetto dovrebbe:', options: ['Prevedere le stesse attività', 'Essere personalizzato rispetto a obiettivi, risorse e contesto', 'Dipendere solo dal servizio disponibile', 'Essere deciso dal professionista più esperto'], answer: 1, why: 'Individualizzare significa costruire un percorso coerente con quella persona e quella situazione.' }
             ],
-            prompt: 'Scrivi una regola personale per usare l’IA senza delegarle il tuo pensiero.',
-            teacher: 'Chiedi agli studenti di portare un esempio di output plausibile ma non verificato. Il punto non è “smascherare” l’IA, ma rendere visibile il metodo di controllo.'
+            openQuestions: ['Spiega la differenza tra obiettivo e intervento e scrivi un esempio di entrambi.', 'Formula un obiettivo verificabile per una persona che vuole riprendere a uscire dopo un periodo di isolamento.', 'Descrivi un caso in cui la verifica in itinere potrebbe portare a modificare il progetto.'],
+            teacher: 'Nel confronto, separa sempre il cambiamento atteso dalle azioni scelte per raggiungerlo.'
         },
         {
             id: 2,
-            section: 'Strumenti',
-            title: 'Persona, bisogni, relazione d’aiuto e servizi',
-            subtitle: 'Leggere la situazione senza ridurre la persona al problema.',
-            minutes: 20,
-            chips: ['modello bio-psico-sociale', 'welfare', 'servizi'],
-            intro: '<p>La relazione d’aiuto parte da una persona con diritti, capacità e legami. L’analisi distingue i bisogni, ma poi ricompone il quadro.</p>',
-            concepts: [
-                ['Biologico', 'Salute, corpo, autonomia, sonno, alimentazione, dolore, condizioni materiali che incidono sul benessere.'],
-                ['Psicologico', 'Emozioni, pensieri, motivazione, paure, autostima, strategie con cui si affrontano le difficoltà.'],
-                ['Sociale', 'Famiglia, relazioni, scuola, lavoro, casa, risorse economiche, territorio e accesso ai servizi.']
-            ],
+            section: 'Lavoro professionale',
+            title: 'Reti, équipe e documentazione',
+            subtitle: 'Risorse formali e informali, ruoli professionali e scrittura dei fatti osservati.',
+            minutes: 35,
+            chips: ['lavoro di rete', 'équipe', 'documentazione'],
+            intro: '<p>Le situazioni complesse richiedono più risorse coordinate. Lavorare in rete significa <strong>collegare persone, servizi e responsabilità</strong>; lavorare in équipe significa integrare punti di vista professionali diversi senza confondere i ruoli.</p>',
             theory: [
-                ['Relazione d’aiuto', '<p>Non significa fare al posto della persona. Significa ascoltare, osservare, sostenere capacità e autodeterminazione, definire insieme obiettivi realistici e accompagnare verso maggiore autonomia.</p>'],
-                ['Dal bisogno al servizio', '<p>Un bisogno non indica automaticamente un servizio. Prima si verificano urgenza, desideri della persona, risorse già presenti, criteri di accesso, rete e possibili ostacoli.</p>'],
-                ['Il welfare come sistema', '<p>Servizi pubblici, privato sociale, comunità e reti informali concorrono alla risposta. L’operatore orienta e collega, senza promettere prestazioni non verificate.</p>']
+                ['Rete informale e rete formale', '<p>La <strong>rete informale</strong> nasce dai legami: familiari, amici, vicini e persone significative. La <strong>rete formale</strong> comprende servizi e professionisti con mandato e responsabilità definite. Le due reti possono collaborare, ma una non sostituisce automaticamente l’altra.</p>'],
+                ['Che cosa significa coordinare', '<p>Per ogni componente della rete occorre chiarire contributo possibile, limiti, modalità di comunicazione e responsabilità. Una buona mappa mostra anche i collegamenti assenti o fragili.</p>'],
+                ['Il lavoro d’équipe', '<p>Ogni professionista porta dati e valutazioni pertinenti al proprio ruolo. L’équipe confronta ipotesi, definisce priorità, distribuisce compiti e stabilisce tempi di verifica. Il dissenso motivato è utile quando resta centrato sui dati e sugli obiettivi.</p>'],
+                ['Documentare senza giudicare', '<p>Un resoconto professionale descrive <span class="hl">comportamenti osservabili, contesto, data e interventi effettuati</span>. “Durante l’attività ha lasciato il tavolo dopo dieci minuti” è un dato; “è svogliato” è un giudizio.</p>']
             ],
             questions: [
-                { q: 'Una persona anziana salta i pasti dopo la morte del coniuge. Quale lettura è più completa?', options: ['è solo un problema alimentare', 'si intrecciano alimentazione, lutto e isolamento', 'basta consegnare pasti'], answer: 1, why: 'Il bisogno biologico è connesso alla dimensione psicologica e sociale.' },
-                { q: '“Aiutare” in modo professionale significa soprattutto:', options: ['decidere rapidamente al posto dell’utente', 'costruire con la persona un percorso sostenibile', 'offrire sempre lo stesso servizio'], answer: 1, why: 'La risposta è personalizzata e mantiene la persona protagonista.' },
-                { q: 'Prima di indicare un servizio occorre:', options: ['verificare bisogno, accesso, risorse e volontà della persona', 'scegliere il più vicino', 'usare quello già noto all’operatore'], answer: 0, why: 'Orientare richiede dati reali e compatibilità con la situazione.' }
+                { q: 'Una vicina porta la spesa e avvisa il figlio quando nota difficoltà. In quale rete si colloca?', options: ['Rete formale, perché l’aiuto è regolare', 'Rete informale, perché agisce sulla base di un legame di prossimità', 'Équipe professionale', 'Servizio domiciliare'], answer: 1, why: 'La regolarità dell’aiuto non trasforma un legame personale in un mandato professionale.' },
+                { q: 'Quale elemento deve comparire in una mappa di rete utile?', options: ['Solo l’elenco dei nomi', 'Ruolo, contributo possibile, limiti e collegamenti tra le risorse', 'Soltanto i servizi pubblici', 'La valutazione morale di ogni componente'], answer: 1, why: 'La mappa serve a capire chi può fare che cosa e come le risorse comunicano.' },
+                { q: 'Quale informazione è pertinente in una riunione d’équipe?', options: ['Un dettaglio privato non collegato al progetto', 'Un comportamento osservato che incide sull’obiettivo concordato', 'Un’opinione personale sulla famiglia', 'Tutto ciò che l’operatore conosce'], answer: 1, why: 'Si condividono le informazioni necessarie al progetto, nel rispetto della riservatezza.' },
+                { q: 'Due professionisti interpretano diversamente un comportamento. Qual è il passaggio corretto?', options: ['Scegliere l’interpretazione del più anziano', 'Confrontare fatti, contesto, mandato e ipotesi prima di decidere', 'Evitare di verbalizzare il dissenso', 'Sospendere ogni intervento'], answer: 1, why: 'Il confronto deve partire dai dati e rendere esplicite le diverse ipotesi.' },
+                { q: 'Quale frase è adatta a un resoconto professionale?', options: ['La ragazza è aggressiva', 'La ragazza non rispetta mai nessuno', 'Alle 10:15 ha alzato la voce, spinto la sedia e lasciato l’aula dopo il richiamo', 'La ragazza ha un brutto carattere'], answer: 2, why: 'La frase indica tempo e comportamenti osservabili senza attribuire un tratto stabile.' },
+                { q: 'Se la famiglia non riesce più a garantire da sola l’assistenza, il lavoro di rete dovrebbe:', options: ['Attribuirle maggiori responsabilità', 'Integrare sostegni formali e informali chiarendo compiti e limiti', 'Escluderla dal progetto', 'Attivare il primo servizio disponibile'], answer: 1, why: 'La rete integra le risorse senza scaricare il compito su una sola parte.' }
             ],
-            prompt: 'Pensa a un bisogno semplice. Scrivi una domanda biologica, una psicologica e una sociale che useresti per comprenderlo.',
-            teacher: 'Fai notare le sovrapposizioni: la stessa informazione può aprire più dimensioni. Valuta la qualità delle domande, non la quantità delle etichette.'
+            openQuestions: ['Definisci rete formale e rete informale e fornisci un esempio per ciascuna.', 'Trasforma la frase “non collabora ed è pigro” in una descrizione professionale basata su fatti osservabili.', 'Spiega che cosa dovrebbe decidere un’équipe al termine di una riunione su un caso.'],
+            teacher: 'Proietta alcune risposte e chiedi alla classe di individuare dati, interpretazioni e giudizi.'
         },
         {
             id: 3,
-            section: 'Strumenti',
-            title: 'Dall’analisi al progetto individualizzato',
-            subtitle: 'Sei fasi per trasformare un bisogno in un intervento verificabile.',
-            minutes: 20,
-            chips: ['progettazione', 'obiettivi', 'verifica'],
-            intro: '<p>Un progetto non è un elenco di attività. Collega analisi, obiettivi, azioni, responsabilità, tempi e criteri con cui capire se il percorso sta funzionando.</p>',
-            coverage: [
-                ['1 · Analisi del problema', 'Che cosa accade? Quali bisogni, rischi e capacità emergono?'],
-                ['2 · Analisi del contesto', 'Quali risorse, vincoli, persone, servizi e condizioni incidono?'],
-                ['3 · Obiettivi', 'Quale cambiamento concreto e osservabile vogliamo ottenere?'],
-                ['4 · Interventi', 'Chi fa che cosa, con quali strumenti, tempi e responsabilità?'],
-                ['5 · Verifica in itinere', 'Durante il percorso, gli interventi stanno producendo segnali utili?'],
-                ['6 · Valutazione', 'Che cosa è cambiato? Che cosa va mantenuto, corretto o riprogettato?']
-            ],
+            section: 'Laboratorio',
+            title: 'Autobiografia, memoria e narrazione',
+            subtitle: 'Usare il racconto di sé rispettando libertà, riservatezza e significati personali.',
+            minutes: 25,
+            chips: ['autobiografia', 'memoria', 'ascolto'],
+            intro: '<p>Il lavoro autobiografico collega eventi, persone significative, passaggi di crescita e risorse. Non cerca una cronologia perfetta: aiuta a riconoscere il significato che la persona attribuisce alla propria esperienza.</p>',
             theory: [
-                ['La formula dell’obiettivo', '<p><strong>Migliorare, mantenere o ridurre</strong> + aspetto osservabile + misura o indicatore + tempo + interventi essenziali. “Stare meglio” non basta; “partecipare a due attività di gruppo alla settimana per otto settimane” è verificabile.</p>'],
-                ['Verifica e valutazione', '<p>La verifica accompagna l’attuazione e permette correzioni. La valutazione legge il risultato e il processo: non coincide con il voto e non si limita a “fatto/non fatto”.</p>']
+                ['Memoria e selezione', '<p>Ricordare non significa riprodurre il passato in modo identico. La memoria seleziona e riorganizza gli eventi a partire dal presente. Per questo due persone possono attribuire significati diversi allo stesso episodio.</p>'],
+                ['Libertà e protezione', '<p>Nessuno deve essere obbligato a raccontare esperienze intime. L’attività deve offrire possibilità di scelta, regole di ascolto, assenza di giudizio e alternative su episodi scolastici o inventati.</p>'],
+                ['Dalla storia alle risorse', '<p>Una mappa autobiografica può far emergere capacità sviluppate, persone di sostegno, momenti di cambiamento e strategie utilizzate. Questi elementi possono diventare risorse per un progetto futuro.</p>'],
+                ['Trasfigurare l’esperienza', '<p>Scrittura, immagini, oggetti o personaggi simbolici permettono di raccontare un’esperienza senza esporla in modo diretto. La trasformazione creativa costruisce una distanza che può renderla comunicabile.</p>']
             ],
             questions: [
-                { q: 'Quale sequenza è corretta?', options: ['obiettivi → analisi → interventi → valutazione', 'analisi problema → contesto → obiettivi → interventi → verifica → valutazione', 'interventi → obiettivi → contesto → verifica'], answer: 1, why: 'Si parte dalla comprensione e si arriva alla lettura dei risultati.' },
-                { q: 'Quale obiettivo è formulato meglio?', options: ['migliorare la socializzazione', 'entro otto settimane partecipare a due attività di gruppo alla settimana con il supporto iniziale dell’educatore', 'iscrivere la persona a un centro'], answer: 1, why: 'Descrive cambiamento, tempo, frequenza e sostegno.' },
-                { q: 'Se un intervento non produce i segnali attesi durante il percorso:', options: ['si aspetta la fine', 'si verifica il perché e si adatta il piano', 'si considera colpa dell’utente'], answer: 1, why: 'La progettazione è dinamica: la verifica serve proprio a correggere.' }
+                { q: 'Qual è l’obiettivo principale di una mappa autobiografica?', options: ['Ricostruire tutte le date senza errori', 'Individuare collegamenti, significati, risorse e passaggi di cambiamento', 'Valutare se i ricordi sono veri', 'Confrontare la storia con quella dei compagni'], answer: 1, why: 'Il valore formativo sta nei significati e nei collegamenti.' },
+                { q: 'Uno studente non vuole condividere un episodio personale. Quale scelta è corretta?', options: ['Insistere perché l’attività richiede sincerità', 'Consentire un’alternativa e rispettare la scelta', 'Chiedere ai compagni di convincerlo', 'Escluderlo dall’attività'], answer: 1, why: 'La condivisione autobiografica deve essere volontaria e protetta.' },
+                { q: 'Due persone ricordano diversamente lo stesso evento. Che cosa indica?', options: ['Una delle due mente', 'La memoria seleziona e attribuisce significati a partire dal presente', 'L’autobiografia non è utile', 'Ogni ricordo deve essere verificato'], answer: 1, why: 'Il ricordo è una ricostruzione personale, non una registrazione meccanica.' },
+                { q: 'Quale prodotto permette una maggiore distanza protettiva?', options: ['Il racconto orale obbligatorio', 'Un racconto simbolico con un personaggio inventato', 'La lettura pubblica del diario', 'La valutazione dei ricordi'], answer: 1, why: 'La mediazione simbolica consente di lavorare sui significati senza esposizione diretta.' },
+                { q: 'In che modo un episodio passato può essere utile alla progettazione?', options: ['Se permette di individuare capacità, sostegni e strategie già utilizzate', 'Solo se è positivo', 'Solo se è documentato da un adulto', 'Se viene raccontato in ordine cronologico'], answer: 0, why: 'Le risorse emerse dalla storia possono orientare obiettivi e sostegni futuri.' }
             ],
-            prompt: 'Scrivi un obiettivo verificabile per una persona che vuole tornare a uscire di casa dopo un periodo di isolamento.',
-            teacher: 'Proietta tre obiettivi scritti dagli studenti e togli i nomi. Chiedi: “Che cosa osserveremmo per dire che è successo davvero?”'
+            openQuestions: ['Spiega perché la memoria autobiografica non coincide con una registrazione esatta del passato.', 'Indica tre regole necessarie per svolgere un’attività autobiografica in classe.', 'Fai un esempio di trasformazione simbolica di un’esperienza che protegga la riservatezza.'],
+            teacher: 'Nel riepilogo mostra soltanto risposte prive di riferimenti personali riconoscibili.'
         },
         {
             id: 4,
-            section: 'Persone e servizi',
-            title: 'Reti, servizi e accesso',
-            subtitle: 'Collegare risorse formali e informali senza confonderne i ruoli.',
-            minutes: 16,
-            chips: ['rete formale', 'rete informale', 'orientamento'],
-            intro: '<p>Nessun intervento significativo dipende da una sola persona. Il lavoro di rete rende visibili risorse, vuoti, passaggi e responsabilità.</p>',
-            concepts: [
-                ['Rete formale', 'Comune, servizi sanitari, scuola, enti e organizzazioni che operano con mandato e ruoli definiti.'],
-                ['Rete informale', 'Familiari, amici, vicinato e legami di prossimità: risorse reali, ma non sostituti automatici dei servizi.'],
-                ['Accesso', 'Informazioni corrette, requisiti, procedure, tempi, consenso e ostacoli concreti alla fruizione.']
-            ],
+            section: 'Infanzia e apprendimento',
+            title: 'Seconda infanzia, gioco e peer tutoring',
+            subtitle: 'Sviluppo, apprendimento attraverso il gioco e aiuto tra pari.',
+            minutes: 30,
+            chips: ['3-6 anni', 'gioco', 'peer tutoring'],
+            intro: '<p>Nella seconda infanzia il bambino amplia linguaggio, movimento, autonomia e capacità di stare con gli altri. Il gioco permette di provare ruoli, regole, soluzioni e relazioni.</p>',
             theory: [
-                ['Mappare la rete', '<p>Per ogni risorsa si annotano ruolo, contributo possibile, limiti, modalità di contatto e relazione con la persona. Una mappa utile mostra anche ciò che manca.</p>'],
-                ['Orientare senza promettere', '<p>Dire “esiste questo servizio” non basta. Occorre verificare che sia attivo, pertinente, accessibile e comprensibile per quella persona.</p>']
+                ['Sviluppo integrato', '<p>Le aree motoria, cognitiva, linguistica, emotiva e sociale procedono in relazione. Costruire una torre richiede coordinazione, pianificazione, linguaggio e collaborazione.</p>'],
+                ['Il ruolo del gioco', '<p>Nel gioco simbolico il bambino rappresenta situazioni e ruoli; nel gioco di regole impara ad attendere e negoziare; nel gioco costruttivo pianifica, prova e corregge.</p>'],
+                ['Scaffolding', '<p>Il termine inglese <strong>scaffolding</strong> significa “impalcatura”: è un aiuto temporaneo e calibrato. L’adulto offre un indizio o mostra un passaggio, poi <span class="hl">riduce il sostegno quando aumenta l’autonomia</span>.</p>'],
+                ['Peer tutoring', '<p>Nel <strong>peer tutoring</strong>, cioè l’aiuto strutturato tra pari, il tutor non consegna la soluzione. Formula domande, offre indizi, osserva il procedimento e chiede al compagno di spiegare.</p>']
             ],
             questions: [
-                { q: 'Un vicino porta la spesa due volte a settimana. È:', options: ['rete formale', 'rete informale', 'servizio semiresidenziale'], answer: 1, why: 'È una risorsa di prossimità basata su un legame, non su un mandato professionale.' },
-                { q: 'Qual è il compito più corretto dell’operatore?', options: ['sostituire la rete debole', 'collegare risorse e chiarire responsabilità e limiti', 'trasferire tutto alla famiglia'], answer: 1, why: 'Il lavoro di rete integra, non scarica né confonde i ruoli.' },
-                { q: 'Un’informazione su un servizio è utile quando:', options: ['è generica ma rassicurante', 'è verificata e comprende modalità di accesso', 'proviene da un post molto condiviso'], answer: 1, why: 'L’orientamento professionale richiede informazioni attuali e operative.' }
+                { q: 'Un bambino non sa rendere stabile la base di una costruzione. Quale intervento è scaffolding?', options: ['Costruire al posto suo', 'Suggerire di osservare la larghezza dei pezzi e lasciarlo riprovare', 'Togliere il materiale difficile', 'Mostrare il prodotto finito da copiare'], answer: 1, why: 'L’indizio sostiene il ragionamento senza sostituirsi all’azione.' },
+                { q: 'Quando il sostegno dell’adulto dovrebbe diminuire?', options: ['Quando finisce il tempo', 'Quando il bambino procede con maggiore autonomia', 'Dopo il primo errore', 'Solo al termine dell’anno'], answer: 1, why: 'Lo scaffolding è temporaneo e si adatta alle competenze che emergono.' },
+                { q: 'Quale attività coinvolge più aree di sviluppo?', options: ['Ripetere una parola senza contesto', 'Organizzare un negozio simbolico con ruoli e oggetti', 'Guardare l’adulto svolgere un compito', 'Copiare un disegno'], answer: 1, why: 'Il gioco simbolico integra linguaggio, regole sociali, rappresentazione e coordinazione.' },
+                { q: 'Nel peer tutoring il tutor fornisce subito tutte le risposte. Qual è il problema?', options: ['Il compito finisce troppo presto', 'Il compagno ottiene il prodotto ma non costruisce il procedimento', 'Il tutor usa troppe parole', 'L’attività non può essere valutata'], answer: 1, why: 'L’obiettivo è rendere l’altro capace di procedere.' },
+                { q: 'Quale domanda del tutor favorisce maggiormente l’apprendimento?', options: ['Vuoi che lo faccia io?', 'Qual è la risposta?', 'Da quale informazione potresti partire e perché?', 'Hai capito sì o no?'], answer: 2, why: 'La domanda fa esplicitare il procedimento senza fornire la soluzione.' },
+                { q: 'A che cosa serve il confronto finale?', options: ['A stabilire chi è stato più veloce', 'A ricostruire strategie, difficoltà e apprendimenti di entrambi', 'A correggere solo il compagno', 'A sostituire la valutazione'], answer: 1, why: 'La rielaborazione rende consapevoli i processi utilizzati.' }
             ],
-            prompt: 'Disegna a parole una piccola rete: una persona al centro, due risorse formali, due informali e un collegamento ancora mancante.',
-            teacher: 'Chiedi alla classe di distinguere “presenza nella rete” da “responsabilità dell’intervento”. Una persona vicina può essere preziosa senza diventare un operatore.'
+            openQuestions: ['Definisci lo scaffolding e descrivi un esempio concreto.', 'Progetta un’attività di gioco per bambini di 3-6 anni indicando obiettivo, materiali e ruolo dell’adulto.', 'Spiega che cosa deve fare un tutor per aiutare senza sostituirsi al compagno.'],
+            teacher: 'Nelle risposte cerca la riduzione graduale dell’aiuto e la distinzione tra prodotto concluso e apprendimento.'
         },
         {
             id: 5,
-            section: 'Persone e servizi',
-            title: 'Équipe multiprofessionale e documentazione',
-            subtitle: 'Punti di vista diversi, un piano condiviso e consegne leggibili.',
-            minutes: 20,
-            chips: ['ruoli', 'riunione d’équipe', 'resoconto'],
-            intro: '<p>L’équipe non è una somma di professionisti. È un metodo di lavoro: ciascuno osserva dal proprio ruolo, condivide informazioni pertinenti e costruisce decisioni integrate.</p>',
-            coverage: [
-                ['Area sanitaria', 'Medico e infermiere: valutazione e assistenza sanitaria secondo competenze e responsabilità proprie.'],
-                ['Area psicologica', 'Psicologo e psicoterapeuta: valutazione e intervento psicologico con percorsi formativi distinti.'],
-                ['Area sociale', 'Assistente sociale: lettura sociale, accesso ai diritti, rete e progetto di aiuto.'],
-                ['Area educativa e assistenziale', 'Educatore, animatore sociale e OSS: obiettivi educativi, partecipazione, autonomia e assistenza secondo il proprio profilo.']
-            ],
+            section: 'Dipendenze e servizi',
+            title: 'Dipendenze, SerD e colloquio motivazionale',
+            subtitle: 'Comprendere l’ambivalenza e costruire un percorso multiprofessionale.',
+            minutes: 35,
+            chips: ['dipendenze', 'SerD', 'colloquio motivazionale'],
+            intro: '<p>La dipendenza non coincide con una semplice abitudine. Comporta perdita di controllo, priorità crescente attribuita alla sostanza o al comportamento e prosecuzione nonostante conseguenze negative.</p>',
             theory: [
-                ['Portare un caso in équipe', '<p>Si selezionano fatti osservati, bisogni, risorse, rischi, dubbi e informazioni mancanti. Si separano dati, interpretazioni e proposte.</p>'],
-                ['Documentare', '<p>Resoconti, schede e consegne devono essere chiari, pertinenti, datati e rispettosi della riservatezza. Non si scrivono giudizi sulla persona: si descrivono comportamenti e situazioni osservabili.</p>'],
-                ['Decidere insieme', '<p>L’équipe definisce priorità e obiettivi, distribuisce responsabilità e stabilisce quando verificare. Il dissenso motivato è una risorsa, se resta sul problema.</p>']
+                ['Il Servizio per le Dipendenze', '<p>Il <strong>SerD</strong> è il Servizio per le Dipendenze. Accoglie, valuta e costruisce percorsi personalizzati attraverso competenze sanitarie, psicologiche, educative e sociali.</p>'],
+                ['Le fasi del cambiamento', '<p>La persona può non riconoscere il problema, iniziare a valutarlo, prepararsi, agire o cercare di mantenere il cambiamento. Una ricaduta non cancella il percorso: va analizzata per comprendere rischi e sostegni necessari.</p>'],
+                ['Ambivalenza', '<p>L’ambivalenza è la presenza contemporanea di ragioni per cambiare e ragioni per non cambiare. Pressioni e giudizi possono aumentare la resistenza; domande e ascolto aiutano a esprimere entrambe le parti.</p>'],
+                ['Le abilità OARS', '<p><strong>OARS</strong> è un acronimo inglese: <strong>Open questions</strong> (domande aperte), <strong>Affirmations</strong> (riconoscimenti), <strong>Reflective listening</strong> (ascolto riflessivo) e <strong>Summaries</strong> (sintesi). Sono strumenti per comprendere e far emergere il punto di vista della persona.</p>']
             ],
             questions: [
-                { q: 'Quale frase è adatta a un resoconto professionale?', options: ['è pigro e non collabora', 'durante l’attività è rimasto seduto e ha rifiutato due proposte', 'non gli interessa nulla'], answer: 1, why: 'Descrive fatti osservabili senza trasformarli in un’etichetta.' },
-                { q: 'In una riunione d’équipe, l’operatore dovrebbe:', options: ['riferire tutto ciò che sa', 'condividere le informazioni pertinenti al progetto e al proprio ruolo', 'evitare dubbi e informazioni mancanti'], answer: 1, why: 'Pertinenza, riservatezza e chiarezza guidano la condivisione.' },
-                { q: 'Se due professionisti leggono diversamente una situazione:', options: ['uno deve imporsi', 'si confrontano dati, mandato e obiettivi', 'si annulla il progetto'], answer: 1, why: 'Il confronto professionale serve a integrare prospettive e rendere espliciti i criteri.' }
+                { q: 'Quale elemento distingue più chiaramente una dipendenza da un’abitudine?', options: ['La frequenza quotidiana', 'La perdita di controllo e la prosecuzione nonostante conseguenze negative', 'La disapprovazione degli altri', 'La presenza di una sostanza illegale'], answer: 1, why: 'La dipendenza riguarda controllo, priorità e conseguenze.' },
+                { q: 'Una persona riconosce alcuni danni ma teme di perdere l’unico modo con cui si calma. Questa posizione esprime:', options: ['Assenza di consapevolezza', 'Ambivalenza rispetto al cambiamento', 'Decisione consolidata', 'Mancanza permanente di motivazione'], answer: 1, why: 'Sono presenti ragioni per cambiare e ragioni per mantenere il comportamento.' },
+                { q: 'Quale domanda è realmente aperta?', options: ['Hai smesso?', 'Non pensi che dovresti cambiare?', 'Che cosa ti preoccupa e che cosa temi di perdere cambiando?', 'Sei d’accordo con il medico?'], answer: 2, why: 'La domanda invita a esplorare entrambe le parti dell’ambivalenza.' },
+                { q: 'Quale frase è ascolto riflessivo?', options: ['Devi capire che così non può continuare', 'Se ho capito, una parte di te vuole cambiare e un’altra teme di non farcela', 'Perché non segui le indicazioni?', 'Ti spiego io il problema'], answer: 1, why: 'La frase restituisce il significato ascoltato e permette di correggerlo.' },
+                { q: 'Qual è una caratteristica del SerD?', options: ['Un trattamento uguale per tutti', 'Un percorso multiprofessionale costruito sulla situazione della persona', 'Il ricovero obbligatorio', 'L’esclusione della rete sociale'], answer: 1, why: 'Il servizio integra valutazioni e interventi in un progetto personalizzato.' },
+                { q: 'Dopo una ricaduta, quale risposta è più coerente?', options: ['Considerare fallito tutto', 'Analizzare l’accaduto e rivedere rischi, risorse e sostegni', 'Interrompere il servizio', 'Aumentare automaticamente il controllo'], answer: 1, why: 'La ricaduta può fornire informazioni utili per modificare il percorso.' }
             ],
-            prompt: 'Scrivi tre righe di resoconto su una persona che abbandona un’attività dopo dieci minuti, evitando giudizi ed etichette.',
-            teacher: 'Trasforma insieme alla classe frasi giudicanti in descrizioni osservabili. Poi chiedi quale informazione manca per interpretare il comportamento.'
+            openQuestions: ['Definisci l’ambivalenza e costruisci un esempio collegato a un cambiamento.', 'Scrivi una domanda aperta e una frase di ascolto riflessivo per una persona incerta sul cambiamento.', 'Spiega perché il SerD richiede un lavoro multiprofessionale.'],
+            teacher: 'Evidenzia la differenza tra convincere la persona e aiutarla a formulare motivazioni proprie.'
         },
         {
             id: 6,
-            section: 'Laboratori',
-            title: 'Autobiografia, memoria e trasfigurazione creativa',
-            subtitle: 'Raccontarsi per dare forma all’esperienza, senza forzare l’intimità.',
-            minutes: 18,
-            chips: ['scrittura di sé', 'mappa della crescita', 'arteterapia'],
-            intro: '<p>Il laboratorio ha attraversato teoria, mappa mentale della crescita, scrittura di sé, condivisione, trascrizione digitale e trasformazione creativa.</p>',
-            coverage: [
-                ['Ricostruire', 'Eventi, persone, svolte, ostacoli e risorse vengono collegati in una mappa della crescita.'],
-                ['Scrivere', 'La narrazione in prima persona seleziona ricordi e attribuisce significati.'],
-                ['Condividere', 'La lettura al gruppo è proposta, mai imposizione; ascolto e riservatezza proteggono chi narra.'],
-                ['Trasfigurare', 'Un testo può diventare immagine, collage, audio o altra forma espressiva senza perdere il nucleo della storia.']
-            ],
+            section: 'Strumenti digitali',
+            title: 'Intelligenza artificiale: funzionamento e verifica',
+            subtitle: 'Comprendere che cosa produce un sistema generativo e come controllarne i risultati.',
+            minutes: 30,
+            chips: ['intelligenza artificiale', 'fonti', 'responsabilità'],
+            intro: '<p>Un sistema di intelligenza artificiale generativa produce testi o immagini calcolando quali elementi sono probabili in base ai dati e al modello utilizzato. Un risultato può essere ben scritto e tuttavia contenere errori, omissioni o informazioni inventate.</p>',
             theory: [
-                ['Perché funziona', '<p>Narrare aiuta a collegare passato, presente e futuro, riconoscere risorse e rileggere i cambiamenti. Nel lavoro sociale allena ascolto e attenzione alla storia completa della persona.</p>'],
-                ['Il confine etico', '<p>Non si chiede di raccontare ciò che una persona non vuole condividere. Il conduttore offre alternative, chiarisce l’uso dei materiali e interrompe dinamiche di giudizio.</p>'],
-                ['Dalla storia al progetto', '<p>La mappa autobiografica non è solo memoria: può far emergere capacità, figure significative e desideri utili all’orientamento e alla progettazione.</p>']
+                ['Dati e modello', '<p>Il sistema apprende regolarità da grandi quantità di dati e usa un modello per generare un risultato. Non possiede esperienza personale né comprende il mondo come una persona.</p>'],
+                ['Errore plausibile e distorsione', '<p>Un’informazione inventata ma credibile viene spesso chiamata <strong>allucinazione</strong>. Un <strong>bias</strong> è una distorsione sistematica che può derivare dai dati o dalle scelte di progettazione.</p>'],
+                ['Verificare una risposta', '<p>Ogni affermazione importante va confrontata con fonti esterne attendibili. Si controllano autore, data, documento originale e coerenza tra più fonti. Chiedere allo stesso sistema “sei sicuro?” non è una verifica indipendente.</p>'],
+                ['Uso scolastico responsabile', '<p>L’intelligenza artificiale può aiutare a formulare esempi o revisionare un testo. Lo studente deve comprendere il contenuto, dichiarare l’uso quando richiesto, proteggere dati personali e rielaborare il risultato.</p>']
             ],
             questions: [
-                { q: 'Quale regola tutela meglio il laboratorio autobiografico?', options: ['tutti devono leggere il testo', 'ciascuno sceglie che cosa condividere', 'il docente interpreta pubblicamente ogni storia'], answer: 1, why: 'La libertà di scelta rende possibile un clima sicuro e autentico.' },
-                { q: 'La mappa della crescita serve soprattutto a:', options: ['fare una cronologia perfetta', 'collegare tappe, persone, risorse e cambiamenti', 'eliminare i ricordi negativi'], answer: 1, why: 'Il valore sta nei collegamenti e nei significati, non nella completezza documentaria.' },
-                { q: 'Trasfigurare creativamente un testo significa:', options: ['falsificare la storia', 'darle una nuova forma espressiva rispettandone il senso', 'renderla pubblica'], answer: 1, why: 'La forma cambia, ma il nucleo scelto dall’autore resta riconoscibile e protetto.' }
+                { q: 'Perché un testo generato può sembrare autorevole ma contenere errori?', options: ['Produce sequenze probabili e non verifica automaticamente ogni affermazione', 'Usa sempre fonti vecchie', 'Non può produrre frasi complete', 'Gli errori compaiono solo nei testi lunghi'], answer: 0, why: 'La fluidità linguistica non garantisce che le informazioni corrispondano a fonti reali.' },
+                { q: 'Quale controllo è indipendente dal sistema?', options: ['Chiedergli di confermare', 'Confrontare l’affermazione con un documento originale e una fonte attendibile', 'Rigenerare la risposta', 'Valutare lo stile'], answer: 1, why: 'La verifica deve utilizzare una fonte esterna e identificabile.' },
+                { q: 'Che cosa indica il termine bias?', options: ['Un errore di battitura', 'Una distorsione sistematica collegata a dati o scelte del sistema', 'Una citazione corretta', 'La velocità di generazione'], answer: 1, why: 'Il bias può produrre risultati sbilanciati in modo ricorrente.' },
+                { q: 'Quale informazione non dovrebbe essere inserita in un sistema pubblico?', options: ['Una definizione del manuale', 'Un caso con dati personali riconoscibili', 'Una domanda generale', 'Un testo inventato'], answer: 1, why: 'I dati personali o sensibili non vanno trasmessi senza protezione adeguata.' },
+                { q: 'Quale uso mostra una reale rielaborazione?', options: ['Copiare il primo testo', 'Confrontarlo con fonti, correggerlo e motivare le modifiche', 'Cambiare alcune parole', 'Nascondere l’uso del sistema'], answer: 1, why: 'Rielaborare significa comprendere, verificare e assumersi la responsabilità del prodotto.' }
             ],
-            prompt: 'Scegli un passaggio di crescita e descrivilo con tre elementi: “prima”, “svolta”, “che cosa porto con me”. Puoi restare sul piano scolastico.',
-            teacher: 'Offri sempre un’alternativa non personale: la storia di un oggetto, di un apprendimento o di un personaggio immaginario.'
+            openQuestions: ['Spiega la differenza tra una risposta plausibile e una risposta verificata.', 'Descrivi i passaggi con cui controlleresti un’affermazione prodotta dall’intelligenza artificiale.', 'L’affermazione “se il testo è scritto bene, l’informazione è affidabile” è scorretta: spiega perché e riscrivila.'],
+            teacher: 'Chiedi di indicare fonti e modifiche effettuate, non dichiarazioni generiche sul corretto uso.'
         },
         {
             id: 7,
-            section: 'Laboratori',
-            title: 'Seconda infanzia, gioco e peer tutoring',
-            subtitle: 'Accompagnare lo sviluppo e imparare insegnando a un altro gruppo.',
-            minutes: 22,
-            chips: ['3-6 anni', 'scaffolding', 'peer tutoring'],
-            intro: '<p>Il lavoro sulla seconda infanzia ha unito teoria dello sviluppo, progettazione di attività, osservazione e sperimentazione sul campo. Il peer tutoring ha aggiunto preparazione, conduzione e resoconto.</p>',
+            section: 'Casi',
+            title: 'Analisi di un caso',
+            subtitle: 'Distinguere dati e ipotesi, individuare bisogni e risorse, formulare un progetto.',
+            minutes: 35,
+            chips: ['analisi', 'progettazione', 'motivazione delle scelte'],
+            intro: '<p>Per analizzare un caso occorre distinguere i dati disponibili dalle ipotesi, riconoscere bisogni e risorse, indicare ciò che manca e motivare ogni proposta.</p>',
             theory: [
-                ['Zona di sviluppo prossimale e scaffolding', '<p>Il bambino può svolgere alcuni compiti con un aiuto calibrato. L’adulto osserva, offre un sostegno temporaneo e lo riduce quando cresce l’autonomia.</p>'],
-                ['Il gioco come diritto e metodo', '<p>Nel gioco il bambino esplora, prova regole, comunica e costruisce significati. L’attività educativa prepara ambiente e materiali senza occupare tutto lo spazio dell’iniziativa.</p>'],
-                ['Dewey e Montessori', '<p>Si apprende facendo: esperienza, ambiente organizzato, materiali e autonomia sostengono un apprendimento attivo.</p>'],
-                ['Goldschmied e gioco euristico', '<p>Materiali semplici e non strutturati favoriscono esplorazione, combinazione, concentrazione e scoperta.</p>'],
-                ['Malaguzzi e Reggio Emilia Approach', '<p>Il bambino è competente e dispone di molti linguaggi. L’adulto ascolta, documenta e costruisce contesti in cui idee e relazioni possano svilupparsi.</p>'],
-                ['Peer tutoring', '<p>Prima si prepara il compito; durante si osserva e si sostiene senza sostituire; dopo si documenta che cosa ha funzionato e che cosa va cambiato.</p>']
+                ['Dati e ipotesi', '<p>I dati sono ciò che viene osservato o riferito nel caso. Le ipotesi sono spiegazioni possibili e devono essere presentate come tali. Una stessa informazione può sostenere più ipotesi.</p>'],
+                ['Bisogni, risorse e informazioni mancanti', '<p>L’analisi considera le dimensioni bio-psico-sociali, ma cerca anche capacità, desideri e sostegni presenti. Prima di proporre un intervento si indicano i dati ancora da raccogliere.</p>'],
+                ['Rete e progetto', '<p>Ogni risorsa proposta deve avere una funzione precisa. L’obiettivo descrive il cambiamento atteso; le azioni indicano chi fa che cosa; gli indicatori permettono di verificare il percorso.</p>']
             ],
-            questions: [
-                { q: 'Un bambino non riesce ad avviare un incastro. Qual è uno scaffolding adeguato?', options: ['completarlo al suo posto', 'mostrare un indizio e poi ritirare l’aiuto', 'dirgli di riprovare senza osservare'], answer: 1, why: 'L’aiuto apre la possibilità d’azione ma lascia al bambino il controllo del compito.' },
-                { q: 'Nel gioco euristico l’adulto dovrebbe soprattutto:', options: ['spiegare l’unico uso corretto', 'predisporre materiali sicuri e osservare l’esplorazione', 'assegnare un punteggio'], answer: 1, why: 'Materiali aperti e osservazione sostengono inventiva e scoperta.' },
-                { q: 'Un tutor efficace con un compagno più giovane:', options: ['dà subito la risposta', 'pone domande, offre indizi e controlla la comprensione', 'fa il compito per guadagnare tempo'], answer: 1, why: 'Il tutor sostiene l’autonomia e verifica che l’altro stia realmente apprendendo.' }
-            ],
-            prompt: 'Progetta in quattro righe un’attività 3-6 anni: obiettivo, materiali, azione del bambino, ruolo dell’adulto.',
-            teacher: 'Fai distinguere “attività bella” da “attività leggibile”: che cosa osserveremmo per capire se l’obiettivo è stato raggiunto?'
-        },
-        {
-            id: 8,
-            section: 'Servizi in azione',
-            title: 'Dipendenze, SerD e colloquio motivazionale',
-            subtitle: 'Dalla comprensione del fenomeno al percorso nel servizio.',
-            minutes: 25,
-            chips: ['tolleranza', 'SerD', 'fasi del cambiamento'],
-            intro: '<p>Il modulo ha collegato teoria delle dipendenze, casi, figure professionali, protocollo del SerD e simulazione di colloqui. Il punto centrale: leggere la persona oltre lo stigma e adattare l’intervento alla fase del cambiamento.</p>',
-            concepts: [
-                ['Tolleranza', 'Per ottenere lo stesso effetto può diventare necessaria una quantità maggiore.'],
-                ['Astinenza', 'Quando l’uso si interrompe possono comparire sintomi fisici o psicologici.'],
-                ['Craving', 'Desiderio intenso che può essere riattivato da stati emotivi, persone, luoghi o situazioni.']
-            ],
-            theory: [
-                ['Sostanze e comportamenti', '<p>Le dipendenze possono riguardare sostanze o comportamenti. Non si riducono a un “vizio”: coinvolgono salute, motivazione, relazioni, condizioni di vita e richiedono risposte integrate.</p>'],
-                ['Il percorso nel SerD', '<p>Accoglienza e intake; valutazioni clinica, motivazionale, educativa e sociale; riunione d’équipe; programma personalizzato; attuazione e monitoraggio; reinserimento; follow-up. Il percorso concreto varia in base alla persona.</p>'],
-                ['Ambulatoriale, semiresidenziale, residenziale', '<p>Non esiste una soluzione unica. Intensità, ambiente e sostegni cambiano secondo bisogni, rischi, motivazione e risorse.</p>'],
-                ['Fasi del cambiamento', '<p>Precontemplazione, contemplazione, preparazione/determinazione, azione, mantenimento. Una ricaduta non cancella il percorso: viene analizzata per riprogettare.</p>'],
-                ['OARS', '<p>Domande aperte, affermazioni che riconoscono risorse, ascolto riflessivo e sintesi aiutano la persona a esplorare ambivalenza e motivazioni.</p>']
-            ],
-            questions: [
-                { q: 'Una persona dice: “Non ho un problema, sono qui solo perché insiste la famiglia”. In quale fase è più probabile?', options: ['precontemplazione', 'azione', 'mantenimento'], answer: 0, why: 'Il problema non è ancora riconosciuto; forzare può aumentare la resistenza.' },
-                { q: 'Quale risposta è coerente con il colloquio motivazionale?', options: ['devi smettere subito', 'che cosa ti piace e che cosa ti preoccupa del tuo uso?', 'se non cambi, non possiamo aiutarti'], answer: 1, why: 'La domanda aperta esplora l’ambivalenza senza imporre una conclusione.' },
-                { q: 'Nel SerD, la riunione d’équipe serve a:', options: ['sommare diagnosi separate', 'integrare valutazioni e concordare obiettivi e responsabilità', 'scegliere sempre la comunità'], answer: 1, why: 'Il progetto nasce dall’integrazione e resta personalizzato.' },
-                { q: 'Una ricaduta durante il percorso:', options: ['dimostra che il progetto è inutile', 'va nascosta', 'richiede analisi, rimotivazione e possibile revisione del piano'], answer: 2, why: 'È un’informazione sul percorso, non un giudizio definitivo sulla persona.' }
-            ],
-            prompt: 'Scrivi una domanda aperta e una frase riflessiva da usare con una persona ambivalente sul cambiamento.',
-            teacher: 'Fai leggere la stessa frase con tono giudicante e con tono esplorativo. Il contenuto non basta: postura e ascolto cambiano la relazione.'
-        },
-        {
-            id: 9,
-            section: 'Servizi in azione',
-            title: 'FSL, tirocinio, job shadowing e incontri esperti',
-            subtitle: 'Trasformare l’esperienza sul campo in apprendimento documentato.',
-            minutes: 16,
-            chips: ['sicurezza', 'diario di bordo', 'osservazione'],
-            intro: '<p>Il lavoro sul campo ha riguardato preparazione, obblighi, sicurezza, documenti, esperienza nella scuola dell’infanzia, osservazione di un servizio e incontro sulla pet therapy.</p>',
-            coverage: [
-                ['Prima', 'Conoscere luogo, compiti, tempi, regole, rischi, referente e obiettivi formativi.'],
-                ['Durante', 'Osservare, chiedere quando necessario, rispettare ruoli e riservatezza, annotare fatti pertinenti.'],
-                ['Dopo', 'Riordinare appunti, collegare esperienza e teoria, verificare documenti, produrre un resoconto.'],
-                ['Job shadowing', 'Seguire un professionista o un servizio per comprendere flussi, decisioni e collaborazione.'],
-                ['Incontro specialistico', 'La pet therapy è stata affrontata in un incontro: il richiamo serve a riconoscere obiettivi, figure, setting e criteri di osservazione, senza sostituire una formazione specifica.']
-            ],
-            theory: [
-                ['Educare lo sguardo', '<p>Osservare non significa “guardare tutto”. Si parte da una domanda, si distinguono fatti e interpretazioni e si annotano elementi utili all’obiettivo.</p>'],
-                ['Il diario di bordo', '<p>Data, attività, osservazioni, dubbi, collegamenti teorici e prossimo passo. Evita dati personali non necessari e giudizi sulle persone incontrate.</p>'],
-                ['Dall’esperienza alla competenza', '<p>Un’attività diventa apprendimento quando viene descritta, interpretata, confrontata con criteri e trasformata in una scelta futura più consapevole.</p>']
-            ],
-            questions: [
-                { q: 'Quale annotazione è più utile nel diario di bordo?', options: ['giornata tranquilla', 'durante il gioco libero tre bambini hanno usato i materiali in modi diversi; l’educatrice ha atteso prima di intervenire', 'i bambini erano bravi'], answer: 1, why: 'È descrittiva e permette di collegare osservazione, materiali e ruolo adulto.' },
-                { q: 'Prima di iniziare un’attività in FSL è essenziale:', options: ['improvvisare per essere spontanei', 'chiarire compito, sicurezza, referente e limiti del ruolo', 'evitare domande'], answer: 1, why: 'Il setting protegge studenti, utenti e qualità dell’esperienza.' },
-                { q: 'Dopo un incontro con un esperto, una buona rielaborazione:', options: ['riassume solo la biografia dell’esperto', 'collega obiettivi, metodo, ruoli e domande rimaste aperte', 'riporta ogni frase ascoltata'], answer: 1, why: 'La rielaborazione seleziona ciò che costruisce competenza.' }
-            ],
-            prompt: 'Scrivi una voce di diario di bordo in quattro parti: fatto osservato, interpretazione possibile, collegamento teorico, domanda ancora aperta.',
-            teacher: 'Proponi un’osservazione ambigua e fai costruire due interpretazioni alternative. Serve a mostrare perché il dato non coincide con la spiegazione.'
-        },
-        {
-            id: 10,
-            section: 'Sfida finale',
-            title: 'Laboratorio dei casi',
-            subtitle: 'Una situazione nuova per collegare bisogni, rete, équipe, obiettivo e metodo.',
-            minutes: 25,
-            chips: ['compito autentico', 'caso variabile', 'lavoro di gruppo'],
-            intro: '<p>Prima di affrontare la situazione, riprendi il metodo. Cambiando caso cambiano i dati, ma la struttura professionale dell’analisi resta la stessa.</p>',
-            theory: [
-                ['1. Parti dai fatti', '<p>Separa ciò che il caso dice davvero dalle interpretazioni. Evidenzia comportamenti osservabili, parole della persona, condizioni del contesto e informazioni ancora mancanti.</p>'],
-                ['2. Leggi bisogni e risorse', '<p>Considera insieme dimensione biologica, psicologica e sociale. Non cercare soltanto problemi: individua capacità, desideri, legami e sostegni già presenti.</p>'],
-                ['3. Costruisci una rete pertinente', '<p>Scegli figure e servizi in base al bisogno e chiarisci il contributo di ciascuno. La rete informale sostiene, ma non sostituisce automaticamente le responsabilità professionali.</p>'],
-                ['4. Progetta e verifica', '<p>Formula un cambiamento concreto, indica il primo passo, chi se ne occupa, il tempo e un segnale osservabile. Se manca un dato importante, scrivi come recuperarlo prima di decidere.</p>']
-            ],
-            teacher: 'Distribuisci casi diversi ai gruppi. Dopo 15 minuti, scambiali: il secondo gruppo non riscrive tutto, ma individua un punto forte, un dato mancante e una scelta da rivedere.'
+            teacher: 'Confronta dati selezionati, ipotesi e informazioni mancanti prima di discutere gli interventi.'
         }
     ];
 
     const cases = [
-        {
-            tag: 'Seconda infanzia',
-            title: 'La torre che non parte',
-            text: 'In una sezione 3-6 anni, una bambina osserva gli altri costruire ma non tocca i materiali. Quando l’adulto le propone di iniziare insieme, dice “non sono capace”. La famiglia riferisce che a casa costruisce spesso con scatole e cuscini.',
-            hint: 'Distingui capacità già presenti, emozione, contesto e tipo di sostegno. Evita di fare al posto della bambina.'
-        },
-        {
-            tag: 'SerD',
-            title: 'Sono qui, ma non prometto niente',
-            text: 'Una persona arriva al servizio dopo pressioni familiari. Riconosce che l’uso ha creato problemi sul lavoro, ma dice di non voler “essere etichettata”. Accetta un primo colloquio purché nessuno decida al suo posto.',
-            hint: 'Lavora su accoglienza, fase del cambiamento, domande aperte, riservatezza e integrazione delle valutazioni.'
-        },
-        {
-            tag: 'Domiciliarità',
-            title: 'Dopo la caduta',
-            text: 'Una persona anziana è tornata a casa dopo una caduta. Cammina con prudenza, ha smesso di frequentare il circolo e il figlio passa solo nel fine settimana. Vuole restare nella propria abitazione e rifiuta l’idea di “essere un peso”.',
-            hint: 'Collega autonomia, sicurezza, umore, rete e desiderio espresso dalla persona.'
-        },
-        {
-            tag: 'Peer tutoring',
-            title: 'Il tutor troppo veloce',
-            text: 'Durante un’attività con una classe più giovane, il tutor dà subito tutte le risposte. Il gruppo completa il compito in fretta, ma quando deve spiegare il procedimento non sa farlo.',
-            hint: 'Distingui prodotto finito e apprendimento. Progetta domande, indizi, osservazione e debriefing.'
-        },
-        {
-            tag: 'Incontro specialistico',
-            title: 'Un’attività con l’animale',
-            text: 'Un servizio propone un intervento assistito con animali. L’équipe deve chiarire destinatari, obiettivi, ruoli, condizioni di sicurezza e che cosa osservare per capire se l’attività è adatta e utile.',
-            hint: 'Non progettare una “pet therapy” generica: parti da obiettivi, figure competenti, setting e indicatori.'
-        }
+        { tag: 'Seconda infanzia', title: 'La torre che non parte', text: 'In una sezione 3-6 anni, una bambina osserva gli altri costruire ma non tocca i materiali. Quando l’adulto le propone di iniziare insieme, dice “non sono capace”. La famiglia riferisce che a casa costruisce spesso con scatole e cuscini.' },
+        { tag: 'SerD', title: 'Sono qui, ma non prometto niente', text: 'Una persona arriva al Servizio per le Dipendenze dopo pressioni familiari. Riconosce che l’uso ha creato problemi sul lavoro, ma dice di non voler essere etichettata. Accetta un primo colloquio purché nessuno decida al suo posto.' },
+        { tag: 'Domiciliarità', title: 'Dopo la caduta', text: 'Una persona anziana è tornata a casa dopo una caduta. Cammina con prudenza, ha smesso di frequentare il circolo e il figlio passa solo nel fine settimana. Vuole restare nella propria abitazione e rifiuta l’idea di essere un peso.' },
+        { tag: 'Peer tutoring', title: 'Il tutor troppo veloce', text: 'Durante un’attività con una classe più giovane, il tutor dà subito tutte le risposte. Il gruppo completa il compito in fretta, ma quando deve spiegare il procedimento non sa farlo.' }
     ];
 
     const $ = (selector, root = document) => root.querySelector(selector);
     const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
-
+    const route = missions.map(mission => mission.id);
     let state = loadState();
     let teacherMode = false;
     let teacherClass = '';
-    let timerSeconds = 600;
+    let timerSeconds = 0;
     let timerHandle = null;
     let toastHandle = null;
 
-    function defaultState() {
-        return { route: 'complete', current: 0, answers: {}, notes: {}, completed: {}, caseIndex: 0, case: {} };
-    }
-
+    function defaultState() { return { current: 0, answers: {}, openAnswers: {}, completed: {}, caseIndex: 0, case: {} }; }
     function loadState() {
         try {
             const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
             return stored && typeof stored === 'object' ? { ...defaultState(), ...stored } : defaultState();
-        } catch {
-            return defaultState();
-        }
+        } catch { return defaultState(); }
     }
-
     function saveState({ remote = true } = {}) {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-        updateResume();
         if (remote) document.dispatchEvent(new Event('input', { bubbles: true }));
     }
-
-    function routeMissions() {
-        return ROUTES[state.route]?.missions || ROUTES.complete.missions;
+    function openQuestionLabels() {
+        const labels = {};
+        missions.forEach(mission => { if (mission.openQuestions) labels[mission.id] = [...mission.openQuestions]; });
+        return labels;
     }
-
-    function showToast(message) {
-        const toast = $('#toast');
-        toast.textContent = message;
-        toast.classList.add('show');
-        clearTimeout(toastHandle);
-        toastHandle = setTimeout(() => toast.classList.remove('show'), 2200);
-    }
-
-    function updateResume() {
-        const hasWork = Object.keys(state.answers).length || Object.keys(state.notes).length || Object.keys(state.completed).length;
-        $('#resumeButton').hidden = !hasWork;
-    }
-
-    function applyRouteUI(route) {
-        state.route = route;
-        $$('.route-card').forEach(card => {
-            const active = card.dataset.route === route;
-            card.classList.toggle('selected', active);
-            card.setAttribute('aria-pressed', String(active));
-        });
-        $('#startButton').innerHTML = route === 'case' ? 'Apri teoria e caso <span aria-hidden="true">→</span>' : 'Inizia dal ripasso essenziale <span aria-hidden="true">→</span>';
-    }
-
-    function selectRoute(route) {
-        applyRouteUI(route);
-        saveState();
-    }
-
     function buildProgressMeta(source = state) {
-        const route = ROUTES[source.route]?.missions || ROUTES.complete.missions;
         const completed = route.filter(id => source.completed?.[id]).length;
-        let answered = 0;
-        let correct = 0;
+        let answered = 0, correct = 0;
         Object.entries(source.answers || {}).forEach(([key, value]) => {
             const [missionId, questionIndex] = key.split('-').map(Number);
             const question = missions[missionId]?.questions?.[questionIndex];
@@ -414,644 +242,223 @@
             answered += 1;
             if (Number(value) === question.answer) correct += 1;
         });
-        return {
-            campiCompilati: completed,
-            totale: route.length,
-            percentuale: route.length ? Math.round(completed / route.length * 100) : 0,
-            missioniComplete: completed,
-            missioniTotali: route.length,
-            risposte: answered,
-            risposteCorrette: correct,
-            accuratezza: answered ? Math.round(correct / answered * 100) : 0,
-            percorso: ROUTES[source.route]?.label || ROUTES.complete.label,
-            missioneCorrente: Number(source.current) + 1
-        };
+        return { campiCompilati: completed, totale: route.length, percentuale: Math.round(completed / route.length * 100), missioniComplete: completed, missioniTotali: route.length, risposte: answered, risposteCorrette: correct, accuratezza: answered ? Math.round(correct / answered * 100) : 0, percorso: 'Ripasso del terzo anno', missioneCorrente: Number(source.current) + 1 };
     }
-
     function snapshotProgress() {
-        return {
-            _activity: 'ripasso-terzo-anno',
-            _version: 1,
-            route: state.route,
-            current: state.current,
-            answers: { ...state.answers },
-            notes: { ...state.notes },
-            completed: { ...state.completed },
-            caseIndex: state.caseIndex,
-            case: { ...state.case },
-            _meta: buildProgressMeta(state)
-        };
+        return { _activity: 'ripasso-terzo-anno', _version: 2, current: state.current, answers: { ...state.answers }, openAnswers: JSON.parse(JSON.stringify(state.openAnswers || {})), openQuestionLabels: openQuestionLabels(), completed: { ...state.completed }, caseIndex: state.caseIndex, case: { ...state.case }, _meta: buildProgressMeta(state) };
     }
-
     function restoreProgress(saved) {
         if (!saved || typeof saved !== 'object') return;
-        const next = {
-            ...defaultState(),
-            route: ROUTES[saved.route] ? saved.route : 'complete',
-            current: Number.isInteger(Number(saved.current)) && missions[Number(saved.current)] ? Number(saved.current) : 0,
-            answers: saved.answers && typeof saved.answers === 'object' ? saved.answers : {},
-            notes: saved.notes && typeof saved.notes === 'object' ? saved.notes : {},
-            completed: saved.completed && typeof saved.completed === 'object' ? saved.completed : {},
-            caseIndex: Number.isInteger(Number(saved.caseIndex)) ? Number(saved.caseIndex) : 0,
-            case: saved.case && typeof saved.case === 'object' ? saved.case : {}
-        };
-        state = next;
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-        applyRouteUI(state.route);
-        updateResume();
-        if (!$('#course').hidden) {
-            $('#routeChip').textContent = ROUTES[state.route].label;
+        if (saved._activity === 'ripasso-terzo-anno' && Number(saved._version) !== 2) {
+            state = defaultState();
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
             renderMission();
+            return;
         }
-    }
-
-    window.MORipassoProgress = {
-        snapshot: snapshotProgress,
-        restore: restoreProgress
-    };
-
-    function openCourse(resume = false) {
-        const route = routeMissions();
-        if (!resume || !route.includes(state.current)) state.current = route[0];
-        $('#launch').hidden = true;
-        $('#course').hidden = false;
-        $('#routeChip').textContent = ROUTES[state.route].label;
-        renderNavigation();
+        state = { ...defaultState(), current: missions[Number(saved.current)] ? Number(saved.current) : 0, answers: saved.answers && typeof saved.answers === 'object' ? saved.answers : {}, openAnswers: saved.openAnswers && typeof saved.openAnswers === 'object' ? saved.openAnswers : {}, completed: saved.completed && typeof saved.completed === 'object' ? saved.completed : {}, caseIndex: Number.isInteger(Number(saved.caseIndex)) ? Number(saved.caseIndex) : 0, case: saved.case && typeof saved.case === 'object' ? saved.case : {} };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
         renderMission();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+    window.MORipassoProgress = { snapshot: snapshotProgress, restore: restoreProgress };
 
+    function escapeHtml(value) { return String(value ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;'); }
+    function showToast(message) {
+        const toast = $('#toast');
+        toast.textContent = message;
+        toast.classList.add('show');
+        clearTimeout(toastHandle);
+        toastHandle = setTimeout(() => toast.classList.remove('show'), 2200);
+    }
     function renderNavigation() {
-        const currentSection = { value: '' };
+        let currentSection = '';
         $('#missionNav').innerHTML = missions.map(mission => {
-            const visible = routeMissions().includes(mission.id);
-            const section = mission.section !== currentSection.value
-                ? `<div class="nav-section">${mission.section}</div>`
-                : '';
-            currentSection.value = mission.section;
-            const done = !!state.completed[mission.id];
-            return `${section}<button type="button" class="mission-link${mission.id === state.current ? ' active' : ''}${done ? ' done' : ''}${visible ? '' : ' skipped'}" data-mission="${mission.id}">
-                <span class="nav-number">${done ? '✓' : String(mission.id + 1).padStart(2, '0')}</span>
-                <span class="nav-title">${mission.title}</span>
-                <span class="nav-status">${visible ? '' : '—'}</span>
-            </button>`;
+            const section = mission.section !== currentSection ? `<div class="nav-section">${mission.section}</div>` : '';
+            currentSection = mission.section;
+            const done = Boolean(state.completed[mission.id]);
+            return `${section}<button type="button" class="mission-link${mission.id === state.current ? ' active' : ''}${done ? ' done' : ''}" data-mission="${mission.id}"><span class="nav-number">${done ? '✓' : String(mission.id + 1).padStart(2, '0')}</span><span class="nav-title">${mission.title}</span></button>`;
         }).join('');
         $$('.mission-link').forEach(button => button.addEventListener('click', () => goToMission(Number(button.dataset.mission))));
         updateProgress();
     }
-
     function updateProgress() {
-        const route = routeMissions();
         const done = route.filter(id => state.completed[id]).length;
-        const percentage = route.length ? Math.round(done / route.length * 100) : 0;
+        const percentage = Math.round(done / route.length * 100);
         $('#progressPercent').textContent = `${percentage}%`;
-        $('#progressLabel').textContent = `${done} di ${route.length} missioni`;
+        $('#progressLabel').textContent = `${done} di ${route.length} argomenti`;
         $('#progressBar').style.width = `${percentage}%`;
     }
-
-    function renderMission() {
-        const mission = missions[state.current];
-        resetTimer(mission.minutes);
-        $('#missionMount').innerHTML = mission.id === 10 ? renderCaseMission(mission) : renderStandardMission(mission);
-        bindMissionEvents(mission);
-        updateFooterButtons();
-        renderNavigation();
-        if (mission.id === 0) updateDiagnostic();
-    }
-
-    function renderStandardMission(mission) {
-        const answerCount = mission.questions.filter((_, i) => state.answers[`${mission.id}-${i}`] !== undefined).length;
-        const questionHtml = mission.questions.map((question, index) => renderQuestion(mission, question, index)).join('');
-        const savedNote = state.notes[mission.id] || '';
-        const diagnostic = mission.id === 0 ? `<div class="diagnostic-summary" id="diagnosticSummary">
-            <div class="diagnostic-meter"><strong id="diagnosticScore">0/8</strong><span>risposte corrette</span></div>
-            <p id="diagnosticMessage">Completa le domande dopo il ripasso: otterrai una prima mappa dei collegamenti già attivi.</p>
-        </div>` : '';
-
-        return `<article class="mission" data-mission-id="${mission.id}">
-            ${missionHeader(mission)}
-            <div class="mission-grid">
-                ${renderEssentialTheory(mission)}
-                <aside class="panel full-span remember-panel">
-                    <p class="step-label">2 · Fissa l'idea centrale</p>
-                    <h2>Da ricordare</h2>
-                    <p>${mission.subtitle}</p>
-                    <div class="teacher-note"><strong>Regia docente</strong><br>${mission.teacher}</div>
-                </aside>
-                <section class="panel full-span activity-block">
-                    <div class="activity-head">
-                        <div><p class="step-label">3 · Controlla se hai capito</p><h2>Domande guidate</h2><p>Ricevi subito la spiegazione della risposta. Puoi cambiare scelta.</p></div>
-                        <span class="activity-score" id="activityScore">${answerCount}/${mission.questions.length} risposte</span>
-                    </div>
-                    ${diagnostic}
-                    <div class="question-list">${questionHtml}</div>
-                    <div class="task-box">
-                        <p class="task-step">4 · Applica</p>
-                        <label for="missionNote">Usa il concetto in una situazione</label>
-                        <p>${mission.prompt}</p>
-                        <textarea id="missionNote" placeholder="Scrivi qui: il testo viene salvato con il tuo codice personale.">${savedNote}</textarea>
-                    </div>
-                </section>
-            </div>
-        </article>`;
-    }
-
-    function renderEssentialTheory(mission) {
-        const theory = mission.theory?.length
-            ? `<div class="theory-cards">${mission.theory.map(item => `<article class="theory-card"><h3>${item[0]}</h3>${item[1]}</article>`).join('')}</div>`
-            : '';
-        const concepts = mission.concepts?.length
-            ? `<h3 class="theory-subtitle">Parole e collegamenti fondamentali</h3><div class="concept-strip">${mission.concepts.map(item => `<div class="concept"><strong>${item[0]}</strong><span>${item[1]}</span></div>`).join('')}</div>`
-            : '';
-        const coverage = mission.coverage?.length
-            ? `<h3 class="theory-subtitle">Mappa del contenuto</h3><div class="coverage-list">${mission.coverage.map(item => `<div class="coverage-item"><strong>${item[0]}</strong><span>${item[1]}</span></div>`).join('')}</div>`
-            : '';
-        return `<section class="panel full-span essential-theory">
-            <p class="step-label">1 · Prima ripassiamo</p>
-            <h2>Teoria essenziale</h2>
-            <p class="theory-instruction">Leggi con calma: la spiegazione riparte dalle basi e contiene ciò che serve per affrontare le attività.</p>
-            ${mission.intro || ''}${theory}${concepts}${coverage}
-        </section>`;
-    }
-
     function missionHeader(mission) {
-        return `<header class="mission-head">
-            <div class="mission-index">${String(mission.id + 1).padStart(2, '0')}</div>
-            <div>
-                <p class="kicker">${mission.section}</p>
-                <h1>${mission.title}</h1>
-                <p>${mission.subtitle}</p>
-                <div class="mission-meta"><span class="meta-chip time">${mission.minutes} minuti</span>${mission.chips.map(chip => `<span class="meta-chip">${chip}</span>`).join('')}</div>
-            </div>
-        </header>`;
+        return `<header class="mission-head"><div class="mission-index">${String(mission.id + 1).padStart(2, '0')}</div><div><p class="kicker">${mission.section}</p><h1>${mission.title}</h1><p>${mission.subtitle}</p><div class="mission-meta"><span class="meta-chip time">${mission.minutes} minuti</span>${mission.chips.map(chip => `<span class="meta-chip">${chip}</span>`).join('')}</div></div></header>`;
     }
-
+    function renderContent(mission) {
+        return `<section class="lesson-content"><div class="lesson-intro">${mission.intro}</div><div class="theory-cards">${mission.theory.map(item => `<article class="theory-card"><h2>${item[0]}</h2>${item[1]}</article>`).join('')}</div></section>`;
+    }
     function renderQuestion(mission, question, index) {
         const key = `${mission.id}-${index}`;
         const selected = state.answers[key];
         const answered = selected !== undefined;
         const correct = selected === question.answer;
-        const cardClass = answered ? (correct ? ' correct' : ' incorrect') : '';
         const options = question.options.map((option, optionIndex) => {
-            const selectedClass = selected === optionIndex ? ' selected' : '';
-            const answerClass = teacherMode && optionIndex === question.answer ? ' answer' : '';
-            return `<button type="button" class="option-button${selectedClass}${answerClass}" data-question="${index}" data-option="${optionIndex}">${option}</button>`;
+            const classes = ['option-button'];
+            if (selected === optionIndex) classes.push('selected');
+            if (teacherMode && optionIndex === question.answer) classes.push('answer');
+            return `<button type="button" class="${classes.join(' ')}" data-question="${index}" data-option="${optionIndex}"><span>${String.fromCharCode(65 + optionIndex)}</span>${option}</button>`;
         }).join('');
-        const feedback = answered ? `<p class="feedback ${correct ? 'ok' : 'no'}"><strong>${correct ? 'Corretto.' : 'Da rivedere.'}</strong> ${question.why}</p>` : '';
-        return `<div class="question-card${cardClass}" data-question-card="${index}"><p class="question-text">${index + 1}. ${question.q}</p><div class="options">${options}</div>${feedback}</div>`;
+        const feedback = answered ? `<p class="feedback ${correct ? 'ok' : 'no'}"><strong>${correct ? 'Risposta corretta.' : 'Risposta da rivedere.'}</strong> ${question.why}</p>` : '';
+        return `<article class="question-card${answered ? (correct ? ' correct' : ' incorrect') : ''}"><p class="question-text">${index + 1}. ${question.q}</p><div class="options">${options}</div>${feedback}</article>`;
     }
-
+    function renderOpenQuestions(mission) {
+        const saved = Array.isArray(state.openAnswers[mission.id]) ? state.openAnswers[mission.id] : [];
+        return `<section class="open-questions"><div class="section-heading"><h2>Domande aperte</h2><p>Rispondi con definizioni complete, esempi pertinenti e motivazioni.</p></div><div class="open-question-list">${mission.openQuestions.map((question, index) => `<div class="open-question"><label for="open-${mission.id}-${index}"><strong>${index + 1}. ${question}</strong></label><textarea id="open-${mission.id}-${index}" class="open-answer" data-open-index="${index}" placeholder="Scrivi una risposta completa…">${escapeHtml(saved[index] || '')}</textarea></div>`).join('')}</div></section>`;
+    }
+    function renderStandardMission(mission) {
+        const answerCount = mission.questions.filter((_, index) => state.answers[`${mission.id}-${index}`] !== undefined).length;
+        return `<article class="mission" data-mission-id="${mission.id}">${missionHeader(mission)}${renderContent(mission)}<section class="quiz-section"><div class="section-heading"><div><h2>Domande a scelta multipla</h2><p>Leggi tutte le alternative prima di rispondere.</p></div><span class="activity-score">${answerCount}/${mission.questions.length}</span></div><div class="question-list">${mission.questions.map((question, index) => renderQuestion(mission, question, index)).join('')}</div></section>${renderOpenQuestions(mission)}<div class="teacher-note"><strong>Indicazione per il docente</strong><br>${mission.teacher}</div></article>`;
+    }
+    function renderMission() {
+        const mission = missions[state.current] || missions[0];
+        state.current = mission.id;
+        resetTimer(mission.minutes);
+        $('#missionMount').innerHTML = mission.id === missions.length - 1 ? renderCaseMission(mission) : renderStandardMission(mission);
+        bindMissionEvents(mission);
+        updateFooterButtons();
+        renderNavigation();
+    }
     function bindMissionEvents(mission) {
         $$('.option-button').forEach(button => button.addEventListener('click', () => {
-            const key = `${mission.id}-${button.dataset.question}`;
-            state.answers[key] = Number(button.dataset.option);
+            state.answers[`${mission.id}-${button.dataset.question}`] = Number(button.dataset.option);
             updateMissionCompletion(mission);
             saveState();
             renderMission();
         }));
-        const note = $('#missionNote');
-        if (note) note.addEventListener('input', () => {
-            state.notes[mission.id] = note.value;
+        $$('.open-answer').forEach(textarea => textarea.addEventListener('input', () => {
+            if (!Array.isArray(state.openAnswers[mission.id])) state.openAnswers[mission.id] = [];
+            state.openAnswers[mission.id][Number(textarea.dataset.openIndex)] = textarea.value;
+            updateMissionCompletion(mission);
             saveState();
-        });
-        const newCase = $('#newCaseButton');
-        if (newCase) newCase.addEventListener('click', generateNewCase);
-        const caseCheck = $('#checkCaseButton');
-        if (caseCheck) caseCheck.addEventListener('click', checkCaseWork);
+            updateProgress();
+        }));
+        $('#newCaseButton')?.addEventListener('click', generateNewCase);
+        $('#checkCaseButton')?.addEventListener('click', checkCaseWork);
         $$('.case-input').forEach(input => input.addEventListener('input', saveCaseForm));
     }
-
     function updateMissionCompletion(mission) {
-        const complete = mission.questions.every((_, index) => state.answers[`${mission.id}-${index}`] !== undefined);
-        if (complete && !state.completed[mission.id]) showToast('Missione completata. Il progresso è stato salvato.');
+        if (!mission.questions) return;
+        const quizComplete = mission.questions.every((_, index) => state.answers[`${mission.id}-${index}`] !== undefined);
+        const open = Array.isArray(state.openAnswers[mission.id]) ? state.openAnswers[mission.id] : [];
+        const openComplete = mission.openQuestions.every((_, index) => String(open[index] || '').trim().length >= 20);
+        const complete = quizComplete && openComplete;
+        if (complete && !state.completed[mission.id]) showToast('Argomento completato. Le risposte sono state salvate.');
         state.completed[mission.id] = complete;
-    }
-
-    function updateDiagnostic() {
-        const mission = missions[0];
-        const answered = mission.questions.filter((_, index) => state.answers[`0-${index}`] !== undefined).length;
-        const correct = mission.questions.filter((question, index) => state.answers[`0-${index}`] === question.answer).length;
-        $('#diagnosticScore').textContent = `${correct}/8`;
-        const message = $('#diagnosticMessage');
-        if (answered < 8) message.textContent = `Hai risposto a ${answered} domande su 8. Completa il controllo per leggere la tua mappa.`;
-        else if (correct >= 7) message.textContent = 'Base molto solida: usa il percorso per consolidare collegamenti e linguaggio professionale.';
-        else if (correct >= 5) message.textContent = 'Buona base: alcuni passaggi sono attivi, altri hanno bisogno di essere rimessi in sequenza.';
-        else message.textContent = 'È il momento giusto per il ripasso: procedi per nuclei e prova a spiegare ogni scelta con parole tue.';
     }
 
     function renderCaseMission(mission) {
         const currentCase = cases[state.caseIndex % cases.length];
-        const caseState = state.case || {};
-        const checkedNeeds = caseState.needs || [];
-        const checkedRoles = caseState.roles || [];
-        const result = caseState.result || '';
-        const needOptions = ['biologico', 'psicologico', 'sociale', 'informazioni mancanti'];
-        const roleOptions = ['area sanitaria', 'area psicologica', 'area sociale', 'area educativa/assistenziale', 'rete informale'];
-        return `<article class="mission" data-mission-id="10">
-            ${missionHeader(mission)}
-            <div class="mission-grid case-theory">
-                ${renderEssentialTheory(mission)}
-            </div>
-            <div class="case-activity-heading">
-                <p class="step-label">2 · Applica il metodo</p>
-                <h2>Analizza il caso</h2>
-                <p>Leggi la situazione, completa la griglia e poi confronta le scelte con il gruppo.</p>
-            </div>
-            <div class="case-lab">
-                <section class="case-card">
-                    <span class="case-tag">${currentCase.tag}</span>
-                    <h2>${currentCase.title}</h2>
-                    <p>${currentCase.text}</p>
-                    <p><strong>Pista:</strong> ${currentCase.hint}</p>
-                    <button class="primary-button" id="newCaseButton" type="button">Genera un altro caso ↻</button>
-                </section>
-                <section class="panel case-form">
-                    <div>
-                        <h2>1. Leggi i bisogni</h2>
-                        <div class="check-grid">${needOptions.map(option => `<label><input class="case-input" type="checkbox" name="needs" value="${option}" ${checkedNeeds.includes(option) ? 'checked' : ''}> ${option}</label>`).join('')}</div>
-                    </div>
-                    <div>
-                        <h2>2. Costruisci la rete</h2>
-                        <div class="check-grid">${roleOptions.map(option => `<label><input class="case-input" type="checkbox" name="roles" value="${option}" ${checkedRoles.includes(option) ? 'checked' : ''}> ${option}</label>`).join('')}</div>
-                    </div>
-                    <div>
-                        <label for="caseObjective"><strong>3. Scrivi un obiettivo verificabile</strong></label>
-                        <textarea class="case-input" id="caseObjective" placeholder="Cambiamento atteso + indicatore + tempo + sostegno">${caseState.objective || ''}</textarea>
-                    </div>
-                    <div>
-                        <label for="caseAction"><strong>4. Indica il primo passo operativo e un dato ancora mancante</strong></label>
-                        <textarea class="case-input" id="caseAction" placeholder="Primo passo… Dato da verificare…">${caseState.action || ''}</textarea>
-                    </div>
-                    <button class="primary-button" id="checkCaseButton" type="button">Controlla la struttura</button>
-                    ${result ? `<div class="case-result">${result}</div>` : ''}
-                    <div class="teacher-note"><strong>Regia docente</strong><br>${mission.teacher}</div>
-                </section>
-            </div>
-        </article>`;
+        const c = state.case || {};
+        const needs = ['biologico', 'psicologico', 'sociale', 'informazioni mancanti'];
+        const roles = ['area sanitaria', 'area psicologica', 'area sociale', 'area educativa/assistenziale', 'rete informale'];
+        return `<article class="mission" data-mission-id="${mission.id}">${missionHeader(mission)}${renderContent(mission)}<section class="case-work"><article class="case-card"><span class="case-tag">${currentCase.tag}</span><h2>${currentCase.title}</h2><p>${currentCase.text}</p><button class="primary-button" id="newCaseButton" type="button">Cambia caso ↻</button></article><div class="case-form">
+            <div class="case-field"><label for="caseFacts"><strong>1. Quali sono i dati presenti nel testo?</strong></label><textarea class="case-input" id="caseFacts" placeholder="Riporta fatti e parole del caso, senza interpretazioni.">${escapeHtml(c.facts || '')}</textarea></div>
+            <div class="case-field"><strong>2. Quali dimensioni devono essere considerate?</strong><div class="check-grid">${needs.map(option => `<label><input class="case-input" type="checkbox" name="needs" value="${option}" ${(c.needs || []).includes(option) ? 'checked' : ''}> ${option}</label>`).join('')}</div></div>
+            <div class="case-field"><label for="caseNeeds"><strong>3. Indica bisogni, risorse e almeno un’ipotesi.</strong></label><textarea class="case-input" id="caseNeeds" placeholder="Distingui ciò che sai da ciò che stai ipotizzando.">${escapeHtml(c.needsResources || '')}</textarea></div>
+            <div class="case-field"><label for="caseMissing"><strong>4. Quali informazioni mancano prima di decidere?</strong></label><textarea class="case-input" id="caseMissing" placeholder="Scrivi domande precise da rivolgere alla persona o alla rete.">${escapeHtml(c.missing || '')}</textarea></div>
+            <div class="case-field"><strong>5. Quali componenti della rete potrebbero essere coinvolte?</strong><div class="check-grid">${roles.map(option => `<label><input class="case-input" type="checkbox" name="roles" value="${option}" ${(c.roles || []).includes(option) ? 'checked' : ''}> ${option}</label>`).join('')}</div></div>
+            <div class="case-field"><label for="caseNetwork"><strong>6. Motiva la funzione delle risorse scelte.</strong></label><textarea class="case-input" id="caseNetwork" placeholder="Per ogni risorsa indica il contributo possibile e i limiti.">${escapeHtml(c.network || '')}</textarea></div>
+            <div class="case-field"><label for="caseObjective"><strong>7. Formula un obiettivo verificabile e il primo intervento.</strong></label><textarea class="case-input" id="caseObjective" placeholder="Cambiamento atteso, indicatore, tempo, azione e responsabilità.">${escapeHtml(c.objective || '')}</textarea></div>
+            <div class="case-field"><label for="caseEvaluation"><strong>8. Come verificheresti il percorso?</strong></label><textarea class="case-input" id="caseEvaluation" placeholder="Indica che cosa osservare, quando e con chi.">${escapeHtml(c.evaluation || '')}</textarea></div>
+            <button class="primary-button" id="checkCaseButton" type="button">Controlla se l’analisi è completa</button>${c.result ? `<div class="case-result">${c.result}</div>` : ''}</div></section><div class="teacher-note"><strong>Indicazione per il docente</strong><br>${mission.teacher}</div></article>`;
     }
-
     function saveCaseForm() {
-        state.case = {
-            ...state.case,
-            needs: $$('input[name="needs"]:checked').map(input => input.value),
-            roles: $$('input[name="roles"]:checked').map(input => input.value),
-            objective: $('#caseObjective')?.value || '',
-            action: $('#caseAction')?.value || '',
-            result: ''
-        };
+        state.case = { ...state.case, needs: $$('input[name="needs"]:checked').map(input => input.value), roles: $$('input[name="roles"]:checked').map(input => input.value), facts: $('#caseFacts')?.value || '', needsResources: $('#caseNeeds')?.value || '', missing: $('#caseMissing')?.value || '', network: $('#caseNetwork')?.value || '', objective: $('#caseObjective')?.value || '', evaluation: $('#caseEvaluation')?.value || '', result: '' };
         saveState();
     }
-
     function checkCaseWork() {
         saveCaseForm();
-        const needsOk = state.case.needs.length >= 2;
-        const rolesOk = state.case.roles.length >= 2;
-        const objectiveOk = state.case.objective.trim().length >= 35;
-        const actionOk = state.case.action.trim().length >= 25;
-        const missing = [
-            !needsOk && 'almeno due dimensioni o informazioni mancanti',
-            !rolesOk && 'almeno due componenti della rete',
-            !objectiveOk && 'un obiettivo più completo e verificabile',
-            !actionOk && 'primo passo e dato da verificare'
-        ].filter(Boolean);
-        state.case.result = missing.length
-            ? `La struttura è avviata. Completa: ${missing.join('; ')}.`
-            : 'La struttura regge: hai letto più dimensioni, attivato una rete, formulato un obiettivo e indicato ciò che va ancora verificato. Ora motiva le scelte al gruppo.';
-        state.completed[10] = missing.length === 0;
-        saveState();
-        renderMission();
-        if (!missing.length) showToast('Sfida completata. Ora confronta le scelte con il gruppo.');
-    }
-
-    function generateNewCase() {
-        state.caseIndex = (state.caseIndex + 1) % cases.length;
-        state.case = {};
-        state.completed[10] = false;
+        const checks = [[state.case.facts.trim().length >= 35, 'dati del caso'], [state.case.needs.length >= 2, 'almeno due dimensioni'], [state.case.needsResources.trim().length >= 45, 'bisogni, risorse e ipotesi'], [state.case.missing.trim().length >= 30, 'informazioni mancanti'], [state.case.roles.length >= 2, 'almeno due componenti della rete'], [state.case.network.trim().length >= 35, 'motivazione della rete'], [state.case.objective.trim().length >= 50, 'obiettivo e primo intervento'], [state.case.evaluation.trim().length >= 30, 'modalità di verifica']];
+        const missing = checks.filter(([ok]) => !ok).map(([, label]) => label);
+        state.case.result = missing.length ? `Completa ancora: ${missing.join('; ')}.` : 'L’analisi contiene dati, ipotesi, informazioni mancanti, rete, obiettivo e verifica. Controlla che ogni proposta sia motivata.';
+        state.completed[missions.length - 1] = missing.length === 0;
         saveState();
         renderMission();
     }
-
-    function goToMission(id) {
-        if (!missions[id]) return;
-        state.current = id;
-        saveState();
-        $('#classResultsPanel').hidden = true;
-        renderMission();
-        $('.course-sidebar').classList.remove('open');
-        $('#mobileIndex').setAttribute('aria-expanded', 'false');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
+    function generateNewCase() { state.caseIndex = (state.caseIndex + 1) % cases.length; state.case = {}; state.completed[missions.length - 1] = false; saveState(); renderMission(); }
+    function goToMission(id) { if (!missions[id]) return; state.current = id; saveState(); $('#classResultsPanel').hidden = true; renderMission(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
     function updateFooterButtons() {
-        const route = routeMissions();
-        let position = route.indexOf(state.current);
-        if (position === -1) position = 0;
+        const position = route.indexOf(state.current);
         $('#prevMission').disabled = position <= 0;
         $('#nextMission').disabled = position >= route.length - 1;
-        $('#nextMission').textContent = position >= route.length - 2 ? 'Vai alla sfida finale →' : 'Missione successiva →';
-        if (state.current === 10) $('#nextMission').textContent = 'Percorso completato';
+        $('#nextMission').textContent = position === route.length - 1 ? 'Fine del ripasso' : (position === route.length - 2 ? 'Vai al caso →' : 'Argomento successivo →');
         $('#prevMission').onclick = () => position > 0 && goToMission(route[position - 1]);
         $('#nextMission').onclick = () => position < route.length - 1 && goToMission(route[position + 1]);
     }
-
-    function resetTimer(minutes) {
-        clearInterval(timerHandle);
-        timerHandle = null;
-        timerSeconds = minutes * 60;
-        drawTimer();
-        $('#timerToggle').textContent = 'Avvia';
-    }
-
-    function drawTimer() {
-        const minutes = Math.floor(Math.max(0, timerSeconds) / 60);
-        const seconds = Math.max(0, timerSeconds) % 60;
-        $('#timerDisplay').textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    }
-
+    function resetTimer(minutes) { clearInterval(timerHandle); timerHandle = null; timerSeconds = minutes * 60; drawTimer(); $('#timerToggle').textContent = 'Avvia'; }
+    function drawTimer() { const minutes = Math.floor(Math.max(0, timerSeconds) / 60); const seconds = Math.max(0, timerSeconds) % 60; $('#timerDisplay').textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`; }
     function toggleTimer() {
-        if (timerHandle) {
-            clearInterval(timerHandle);
-            timerHandle = null;
-            $('#timerToggle').textContent = 'Riprendi';
-            return;
-        }
+        if (timerHandle) { clearInterval(timerHandle); timerHandle = null; $('#timerToggle').textContent = 'Riprendi'; return; }
         $('#timerToggle').textContent = 'Pausa';
-        timerHandle = setInterval(() => {
-            timerSeconds -= 1;
-            drawTimer();
-            if (timerSeconds <= 0) {
-                clearInterval(timerHandle);
-                timerHandle = null;
-                $('#timerToggle').textContent = 'Finito';
-                showToast('Tempo concluso: chiudi il passaggio e confronta le scelte.');
-            }
-        }, 1000);
+        timerHandle = setInterval(() => { timerSeconds -= 1; drawTimer(); if (timerSeconds <= 0) { clearInterval(timerHandle); timerHandle = null; $('#timerToggle').textContent = 'Finito'; showToast('Tempo concluso. Completa la risposta in corso.'); } }, 1000);
     }
 
-    function escapeHtml(value) {
-        return String(value ?? '')
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#39;');
-    }
-
-    function docenteSessionValid() {
-        try {
-            const data = JSON.parse(localStorage.getItem(DOCENTE_SESSION_KEY) || 'null');
-            return Boolean(data?.expiresAt && Date.now() < data.expiresAt);
-        } catch {
-            return false;
-        }
-    }
-
-    async function sha256(text) {
-        const buffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
-        return Array.from(new Uint8Array(buffer)).map(byte => byte.toString(16).padStart(2, '0')).join('');
-    }
-
+    function docenteSessionValid() { try { const data = JSON.parse(localStorage.getItem(DOCENTE_SESSION_KEY) || 'null'); return Boolean(data?.expiresAt && Date.now() < data.expiresAt); } catch { return false; } }
+    async function sha256(text) { const buffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)); return Array.from(new Uint8Array(buffer)).map(byte => byte.toString(16).padStart(2, '0')).join(''); }
     async function verificaDocente() {
         if (docenteSessionValid()) return true;
         const password = prompt('Modalità docente / LIM.\n\nInserisci la password dell\'Area Docente:');
-        if (password === null) return false;
-        if (!window.crypto?.subtle) {
-            alert('Questo browser non permette la verifica della password.');
-            return false;
-        }
-        const valid = (await sha256(password.trim().toLowerCase())) === DOCENTE_HASH;
-        if (!valid) {
-            alert('Password non corretta');
-            return false;
-        }
-        try {
-            localStorage.setItem(DOCENTE_SESSION_KEY, JSON.stringify({
-                issuedAt: Date.now(),
-                expiresAt: Date.now() + DOCENTE_SESSION_DURATION
-            }));
-        } catch { }
+        if (password === null || !window.crypto?.subtle) return false;
+        if ((await sha256(password.trim().toLowerCase())) !== DOCENTE_HASH) { alert('Password non corretta'); return false; }
+        localStorage.setItem(DOCENTE_SESSION_KEY, JSON.stringify({ issuedAt: Date.now(), expiresAt: Date.now() + DOCENTE_SESSION_DURATION }));
         return true;
     }
-
-    function pagePathNormalized() {
-        let pagePath = location.pathname.split('?')[0].split('#')[0];
-        const prefix = '/metodologieoperative';
-        if (pagePath.startsWith(`${prefix}/`)) pagePath = pagePath.slice(prefix.length);
-        return pagePath;
-    }
-
+    function pagePathNormalized() { let path = location.pathname.split('?')[0].split('#')[0]; if (path.startsWith('/metodologieoperative/')) path = path.slice('/metodologieoperative'.length); return path; }
     async function fetchClassRows(classCode) {
-        const query = new URLSearchParams({
-            select: 'student_code,data,updated_at',
-            class_code: `eq.${classCode}`,
-            page_path: `eq.${pagePathNormalized()}`,
-            order: 'updated_at.desc',
-            limit: '200'
-        });
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/progress?${query}`, {
-            headers: {
-                apikey: SUPABASE_ANON_KEY,
-                Authorization: `Bearer ${SUPABASE_ANON_KEY}`
-            }
-        });
+        const query = new URLSearchParams({ select: 'student_code,data,updated_at', class_code: `eq.${classCode}`, page_path: `eq.${pagePathNormalized()}`, order: 'updated_at.desc', limit: '200' });
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/progress?${query}`, { headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` } });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const records = await response.json();
-        return records.map(record => {
-            let data = record.data;
-            if (typeof data === 'string') {
-                try { data = JSON.parse(data); } catch { data = {}; }
-            }
-            return { ...record, data: data && typeof data === 'object' ? data : {} };
-        });
+        return records.map(record => { let data = record.data; if (typeof data === 'string') { try { data = JSON.parse(data); } catch { data = {}; } } return { ...record, data: data && typeof data === 'object' ? data : {} }; });
     }
-
     function classOverview(rows) {
-        let completed = 0;
-        let total = 0;
-        let answered = 0;
-        let correct = 0;
-        rows.forEach(({ data }) => {
-            const meta = data._meta || buildProgressMeta(data);
-            completed += Number(meta.missioniComplete || 0);
-            total += Number(meta.missioniTotali || 0);
-            Object.entries(data.answers || {}).forEach(([key, value]) => {
-                const [missionId, questionIndex] = key.split('-').map(Number);
-                const question = missions[missionId]?.questions?.[questionIndex];
-                if (!question) return;
-                answered += 1;
-                if (Number(value) === question.answer) correct += 1;
-            });
-        });
-        return {
-            progress: total ? Math.round(completed / total * 100) : 0,
-            accuracy: answered ? Math.round(correct / answered * 100) : 0,
-            completedAverage: rows.length ? (completed / rows.length).toFixed(1) : '0',
-            answered
-        };
+        let completed = 0, total = 0, answered = 0, correct = 0;
+        rows.forEach(({ data }) => { const meta = data._meta || {}; completed += Number(meta.missioniComplete || 0); total += Number(meta.missioniTotali || 0); Object.entries(data.answers || {}).forEach(([key, value]) => { const [missionId, questionIndex] = key.split('-').map(Number); const question = missions[missionId]?.questions?.[questionIndex]; if (!question) return; answered += 1; if (Number(value) === question.answer) correct += 1; }); });
+        return { progress: total ? Math.round(completed / total * 100) : 0, accuracy: answered ? Math.round(correct / answered * 100) : 0 };
     }
-
-    function renderQuestionResults(rows, mission) {
-        if (!mission.questions?.length) return '';
-        return mission.questions.map((question, questionIndex) => {
-            const distribution = new Array(question.options.length).fill(0);
-            let answered = 0;
-            let correct = 0;
-            rows.forEach(({ data }) => {
-                const value = data.answers?.[`${mission.id}-${questionIndex}`];
-                if (value === undefined || value === null) return;
-                const optionIndex = Number(value);
-                answered += 1;
-                if (distribution[optionIndex] !== undefined) distribution[optionIndex] += 1;
-                if (optionIndex === question.answer) correct += 1;
-            });
-            const percentage = answered ? Math.round(correct / answered * 100) : 0;
-            return `<article class="class-question-result">
-                <p><strong>${questionIndex + 1}. ${escapeHtml(question.q)}</strong><br><span class="class-results-meta">${answered}/${rows.length} risposte · ${percentage}% corrette</span></p>
-                <div class="class-result-bar" aria-label="${percentage}% risposte corrette"><span style="width:${percentage}%"></span></div>
-                <div class="class-result-options">${question.options.map((option, optionIndex) => `<span class="${optionIndex === question.answer ? 'correct' : ''}">${escapeHtml(option)}: <strong>${distribution[optionIndex]}</strong></span>`).join('')}</div>
-            </article>`;
-        }).join('');
+    function renderTextResponses(title, values) { if (!values.length) return `<h3>${escapeHtml(title)}</h3><p class="class-results-meta">Nessuna risposta salvata.</p>`; return `<h3>${escapeHtml(title)} <span class="class-results-meta">${values.length} risposte</span></h3><ul class="class-note-list">${values.slice(0, 16).map(value => `<li>${escapeHtml(value)}</li>`).join('')}</ul>`; }
+    function renderClassQuestions(rows, mission) {
+        if (!mission.questions) return '';
+        return mission.questions.map((question, index) => { let answered = 0, correct = 0; rows.forEach(({ data }) => { const value = data.answers?.[`${mission.id}-${index}`]; if (value === undefined) return; answered += 1; if (Number(value) === question.answer) correct += 1; }); const percentage = answered ? Math.round(correct / answered * 100) : 0; return `<article class="class-question-result"><p><strong>${index + 1}. ${escapeHtml(question.q)}</strong><br><span class="class-results-meta">${answered}/${rows.length} risposte · ${percentage}% corrette</span></p><div class="class-result-bar"><span style="width:${percentage}%"></span></div></article>`; }).join('');
     }
-
-    function renderMissionNotes(rows, mission) {
-        if (mission.id === 10) {
-            const objectives = rows.map(({ data }) => String(data.case?.objective || '').trim()).filter(Boolean);
-            const actions = rows.map(({ data }) => String(data.case?.action || '').trim()).filter(Boolean);
-            const choiceCounts = { needs: {}, roles: {} };
-            rows.forEach(({ data }) => {
-                ['needs', 'roles'].forEach(group => {
-                    const values = Array.isArray(data.case?.[group]) ? data.case[group] : [];
-                    values.forEach(value => choiceCounts[group][value] = (choiceCounts[group][value] || 0) + 1);
-                });
-            });
-            const chips = Object.entries({ ...choiceCounts.needs, ...choiceCounts.roles })
-                .sort((a, b) => b[1] - a[1])
-                .map(([label, count]) => `<span>${escapeHtml(label)}: <strong>${count}</strong></span>`).join('');
-            return `<h3>Scelte nel caso professionale</h3>
-                <div class="class-result-options">${chips || '<span>Nessuna scelta salvata</span>'}</div>
-                ${renderTextResponses('Obiettivi proposti', objectives)}
-                ${renderTextResponses('Primi passi e dati mancanti', actions)}`;
+    function renderClassOpenAnswers(rows, mission) {
+        if (mission.id === missions.length - 1) {
+            return [['Dati individuati', 'facts'], ['Bisogni, risorse e ipotesi', 'needsResources'], ['Informazioni mancanti', 'missing'], ['Motivazione della rete', 'network'], ['Obiettivo e intervento', 'objective'], ['Verifica', 'evaluation']].map(([label, key]) => renderTextResponses(label, rows.map(({ data }) => String(data.case?.[key] || '').trim()).filter(Boolean))).join('');
         }
-        const notes = rows.map(({ data }) => String(data.notes?.[mission.id] || '').trim()).filter(Boolean);
-        return renderTextResponses('Risposte aperte', notes);
+        return mission.openQuestions.map((question, index) => renderTextResponses(question, rows.map(({ data }) => String(data.openAnswers?.[mission.id]?.[index] || '').trim()).filter(Boolean))).join('');
     }
-
-    function renderTextResponses(title, values) {
-        if (!values.length) return `<h3>${escapeHtml(title)}</h3><p class="class-results-meta">Nessuna risposta salvata.</p>`;
-        const shown = values.slice(0, 12);
-        return `<h3>${escapeHtml(title)} <span class="class-results-meta">${values.length} contributi</span></h3>
-            <ul class="class-note-list">${shown.map(value => `<li>${escapeHtml(value.length > 360 ? `${value.slice(0, 360)}…` : value)}</li>`).join('')}</ul>
-            ${values.length > shown.length ? `<p class="class-results-meta">Altri ${values.length - shown.length} contributi sono disponibili nell’Area Docente.</p>` : ''}`;
-    }
-
     async function showClassResults() {
         if (!(await verificaDocente())) return;
-        if (!teacherClass) {
-            const input = prompt('Quale classe vuoi riepilogare? (es. 4sb)', localStorage.getItem('mo:lim-class') || '');
-            if (input === null) return;
-            teacherClass = input.trim().toLowerCase();
-            if (!teacherClass) return;
-            localStorage.setItem('mo:lim-class', teacherClass);
-        }
-        const panel = $('#classResultsPanel');
-        panel.hidden = false;
-        panel.innerHTML = `<div class="class-results-head"><div><p class="kicker">Riepilogo classe</p><h2>${escapeHtml(teacherClass.toUpperCase())}</h2></div><button class="class-results-close" type="button" data-close-class-results>Chiudi</button></div><p>Caricamento dei risultati…</p>`;
-        let rows;
+        if (!teacherClass) { const input = prompt('Quale classe vuoi riepilogare? (es. 4sb)', localStorage.getItem('mo:lim-class') || ''); if (input === null) return; teacherClass = input.trim().toLowerCase(); if (!teacherClass) return; localStorage.setItem('mo:lim-class', teacherClass); }
+        const panel = $('#classResultsPanel'); panel.hidden = false; panel.innerHTML = '<p>Caricamento dei risultati…</p>';
         try {
-            rows = await fetchClassRows(teacherClass);
-        } catch (error) {
-            panel.innerHTML = `<div class="class-results-head"><div><p class="kicker">Riepilogo classe</p><h2>Connessione non disponibile</h2></div><button class="class-results-close" type="button" data-close-class-results>Chiudi</button></div><p>Non riesco a leggere i dati da Supabase: ${escapeHtml(error.message)}.</p>`;
-            return;
-        }
-        const mission = missions[state.current];
-        const overview = classOverview(rows);
-        panel.innerHTML = `<div class="class-results-head">
-                <div><p class="kicker">Riepilogo classe ${escapeHtml(teacherClass.toUpperCase())}</p><h2>Missione ${mission.id + 1} · ${escapeHtml(mission.title)}</h2><p class="class-results-meta">Dati anonimi da proiettare · aggiornati adesso</p></div>
-                <button class="class-results-close" type="button" data-close-class-results>Chiudi</button>
-            </div>
-            <div class="class-summary-grid">
-                <div class="class-summary-card"><strong>${rows.length}</strong><span>studenti con dati</span></div>
-                <div class="class-summary-card"><strong>${overview.progress}%</strong><span>avanzamento medio</span></div>
-                <div class="class-summary-card"><strong>${overview.accuracy}%</strong><span>accuratezza complessiva</span></div>
-                <div class="class-summary-card"><strong>${overview.completedAverage}</strong><span>missioni complete in media</span></div>
-            </div>
-            ${rows.length ? renderQuestionResults(rows, mission) + renderMissionNotes(rows, mission) : '<p>Nessuno studente di questa classe ha ancora salvato il lavoro su questa pagina.</p>'}
-            <p class="class-results-meta">Le risposte sono mostrate senza codici personali. Il dettaglio del singolo studente resta disponibile nell’Area Docente.</p>`;
-        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const rows = await fetchClassRows(teacherClass); const mission = missions[state.current]; const overview = classOverview(rows);
+            panel.innerHTML = `<div class="class-results-head"><div><p class="kicker">${escapeHtml(teacherClass.toUpperCase())}</p><h2>${escapeHtml(mission.title)}</h2></div><button class="class-results-close" type="button" data-close-class-results>Chiudi</button></div><div class="class-summary-grid"><div class="class-summary-card"><strong>${rows.length}</strong><span>studenti</span></div><div class="class-summary-card"><strong>${overview.progress}%</strong><span>avanzamento</span></div><div class="class-summary-card"><strong>${overview.accuracy}%</strong><span>risposte corrette</span></div></div>${rows.length ? renderClassQuestions(rows, mission) + renderClassOpenAnswers(rows, mission) : '<p>Nessun dato salvato per questa classe.</p>'}`;
+            panel.querySelector('[data-close-class-results]')?.addEventListener('click', () => panel.hidden = true);
+        } catch (error) { panel.innerHTML = `<p>Non è stato possibile leggere i dati: ${escapeHtml(error.message)}.</p>`; }
     }
-
     async function toggleTeacherMode() {
         const next = !teacherMode;
         if (next && !(await verificaDocente())) return;
-        teacherMode = next;
-        document.body.classList.toggle('teacher-mode', teacherMode);
-        $('#teacherToggle').setAttribute('aria-pressed', String(teacherMode));
-        $('#classResultsButton').hidden = !teacherMode;
-        if (teacherMode) {
-            localStorage.setItem('mo:ripasso-teacher', '1');
-            teacherClass = (localStorage.getItem('mo:lim-class') || '').trim().toLowerCase();
-            if (!teacherClass) {
-                const input = prompt('Classe da mostrare alla LIM (es. 4sb). Puoi lasciarla vuota e sceglierla dopo.', '');
-                if (input !== null) teacherClass = input.trim().toLowerCase();
-                if (teacherClass) localStorage.setItem('mo:lim-class', teacherClass);
-            }
-        } else {
-            localStorage.removeItem('mo:ripasso-teacher');
-            $('#classResultsPanel').hidden = true;
-        }
+        teacherMode = next; document.body.classList.toggle('teacher-mode', teacherMode); $('#teacherToggle').setAttribute('aria-pressed', String(teacherMode)); $('#classResultsButton').hidden = !teacherMode;
+        if (teacherMode) { localStorage.setItem('mo:ripasso-teacher', '1'); teacherClass = (localStorage.getItem('mo:lim-class') || '').trim().toLowerCase(); } else { localStorage.removeItem('mo:ripasso-teacher'); $('#classResultsPanel').hidden = true; }
         renderMission();
-        if (teacherMode && teacherClass) showClassResults();
     }
 
-    $$('.route-card').forEach(card => card.addEventListener('click', () => selectRoute(card.dataset.route)));
-    $('#startButton').addEventListener('click', () => openCourse(false));
-    $('#resumeButton').addEventListener('click', () => openCourse(true));
     $('#teacherToggle').addEventListener('click', toggleTeacherMode);
     $('#classResultsButton').addEventListener('click', showClassResults);
-    $('#classResultsPanel').addEventListener('click', event => {
-        if (event.target.closest('[data-close-class-results]')) $('#classResultsPanel').hidden = true;
-    });
-    $('#contrastToggle').addEventListener('click', () => {
-        const active = document.body.classList.toggle('high-contrast');
-        $('#contrastToggle').setAttribute('aria-pressed', String(active));
-    });
+    $('#contrastToggle').addEventListener('click', () => { const active = document.body.classList.toggle('high-contrast'); $('#contrastToggle').setAttribute('aria-pressed', String(active)); });
     $('#printButton').addEventListener('click', () => window.print());
-    $('#mobileIndex').addEventListener('click', () => {
-        const open = $('.course-sidebar').classList.toggle('open');
-        $('#mobileIndex').setAttribute('aria-expanded', String(open));
-    });
-    $('#sidebarClose').addEventListener('click', () => {
-        $('.course-sidebar').classList.remove('open');
-        $('#mobileIndex').setAttribute('aria-expanded', 'false');
-    });
     $('#timerToggle').addEventListener('click', toggleTimer);
     $('#timerReset').addEventListener('click', () => resetTimer(missions[state.current].minutes));
-    $('#resetButton').addEventListener('click', () => {
-        if (!confirm('Vuoi cancellare le risposte e ricominciare il percorso?')) return;
-        localStorage.removeItem(STORAGE_KEY);
-        state = defaultState();
-        teacherMode = false;
-        document.body.classList.remove('teacher-mode');
-        localStorage.removeItem('mo:ripasso-teacher');
-        $('#teacherToggle').setAttribute('aria-pressed', 'false');
-        $('#classResultsButton').hidden = true;
-        $('#classResultsPanel').hidden = true;
-        $('#course').hidden = true;
-        $('#launch').hidden = false;
-        selectRoute('complete');
-        updateResume();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    selectRoute(state.route);
-    updateResume();
-    if (localStorage.getItem('mo:ripasso-teacher') === '1' && docenteSessionValid()) {
-        teacherMode = true;
-        teacherClass = (localStorage.getItem('mo:lim-class') || '').trim().toLowerCase();
-        document.body.classList.add('teacher-mode');
-        $('#teacherToggle').setAttribute('aria-pressed', 'true');
-        $('#classResultsButton').hidden = false;
-    } else {
-        localStorage.removeItem('mo:ripasso-teacher');
-    }
+    $('#resetButton').addEventListener('click', () => { if (!confirm('Vuoi cancellare tutte le risposte di questo ripasso?')) return; localStorage.removeItem(STORAGE_KEY); state = defaultState(); saveState(); renderMission(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    if (localStorage.getItem('mo:ripasso-teacher') === '1' && docenteSessionValid()) { teacherMode = true; teacherClass = (localStorage.getItem('mo:lim-class') || '').trim().toLowerCase(); document.body.classList.add('teacher-mode'); $('#teacherToggle').setAttribute('aria-pressed', 'true'); $('#classResultsButton').hidden = false; }
+    renderNavigation();
+    renderMission();
 })();
