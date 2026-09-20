@@ -1,0 +1,83 @@
+{
+  "id": "elena",
+  "titolo": "Il fascicolo di Elena",
+  "protagonista": "Elena",
+  "classe": "3SA",
+  "versione": 2,
+  "storia": "Elena ha 67 anni e vive sola dopo la morte del marito. Si rivolge allo sportello sociale del quartiere per capire quali aiuti può trovare. Un familiare, un operatore dello sportello e una facilitatrice di un gruppo di auto mutuo aiuto raccolgono le sue parole in un fascicolo. Prima della consegna, uno di loro sostituisce la pagina conclusiva. Ora Elena legge indicazioni che non riconosce: «Questa non è la mia storia». Una sola persona ha alterato il foglio. Scoprite chi è e correggete le tre righe sbagliate. Personaggi, luoghi e documenti sono inventati per il gioco.",
+  "alterazioni": [
+    {"id": "E1", "titolo": "La scelta della persona", "testo": "Elena vuole lasciare la propria casa; non ha più interessi né capacità da mettere a disposizione degli altri."},
+    {"id": "E2", "titolo": "L'accesso e la rete", "testo": "Lo sportello deve scegliere da solo un'unica risposta: basta il gruppo AMA. Non occorre coinvolgere Elena, la rete informale o il servizio sociale professionale."},
+    {"id": "E3", "titolo": "Il gruppo di aiuto", "testo": "Il gruppo AMA è una terapia diretta da un esperto: tutti devono raccontare il proprio lutto e ricevono la stessa soluzione."}
+  ],
+  "consegne": [
+    {"id": "E1", "titolo": "Persona e bisogni", "testo": "Correggete la riga: indicate due bisogni, una capacità e un desiderio di Elena. Citate le informazioni che li dimostrano."},
+    {"id": "E2", "titolo": "Accesso e rete", "testo": "Distinguete il compito del segretariato da quello del servizio sociale professionale, coinvolgendo Elena nelle scelte. Sulla mappa collegate una risorsa informale, un servizio pubblico e una risorsa associativa: scrivete il contributo e che cosa va verificato."},
+    {"id": "E3", "titolo": "Gruppo AMA", "testo": "Correggete la riga spiegando reciprocità, partecipazione volontaria, possibilità di ascoltare e differenza dalla terapia. Citate un riscontro."}
+  ],
+  "personaggi": [
+    {"id": "familiare", "nome": "Il familiare", "segni": ["CERCHIO", "TRIANGOLO"], "presentazione": "Ho accompagnato Elena allo sportello. Ho letto il fascicolo prima della chiusura.", "risposte": [
+      {"tema": "Elena, casa, autonomia", "testo": "Elena prepara i pasti e fa la spesa vicino a casa. Vuole continuare a vivere lì. Chiede aiuto per raggiungere alcuni appuntamenti fuori quartiere."},
+      {"tema": "Interessi e risorse", "testo": "Cantava in un coro e vorrebbe tornare. Sa cucire e desidera insegnarlo ad altre persone. Da alcuni mesi esce meno e sente la mancanza di compagnia."},
+      {"tema": "Famiglia, amicizia e disponibilità", "testo": "Io posso accompagnarla il sabato. La sua amica Nora passa il martedì. Nessuno dei due può garantire tutti gli spostamenti: occorre verificare altre risorse con Elena."}
+    ]},
+    {"id": "sportello", "nome": "L'operatore dello sportello", "segni": ["TRIANGOLO", "QUADRATO"], "presentazione": "Ho accolto la richiesta di Elena nel segretariato sociale. Ho letto il fascicolo prima della chiusura.", "risposte": [
+      {"tema": "Richiesta e bisogni", "testo": "Elena ha chiesto informazioni sugli accompagnamenti. Nel colloquio ha parlato anche di relazioni, partecipazione e desiderio di restare a casa. La richiesta iniziale non esaurisce tutti i bisogni."},
+      {"tema": "Funzione del segretariato", "testo": "Lo sportello ascolta, informa e orienta. La disponibilità di un'attività non autorizza a scegliere al posto della persona. Per approfondire la situazione e concordare il percorso si può coinvolgere il servizio sociale professionale."},
+      {"tema": "Servizi e rete", "testo": "Vanno verificate con Elena le disponibilità della rete informale e dei servizi. Gli accompagnamenti dell'associazione sono da concordare; non risultano già garantiti. Il gruppo AMA non svolge la valutazione professionale dei bisogni."}
+    ]},
+    {"id": "facilitatrice", "nome": "La facilitatrice del gruppo AMA", "segni": ["QUADRATO", "CERCHIO"], "presentazione": "Conosco il gruppo di auto mutuo aiuto per persone che vivono un lutto. Ho letto il fascicolo prima della chiusura.", "risposte": [
+      {"tema": "Come funziona il gruppo", "testo": "Persone con esperienze simili condividono e si sostengono reciprocamente. Si può offrire aiuto oltre a riceverlo. Io facilito il confronto; non prescrivo a tutti la stessa soluzione."},
+      {"tema": "Partecipazione e fiducia", "testo": "Elena può informarsi e scegliere se partecipare. Può ascoltare senza raccontare subito. Riservatezza, ascolto e rispetto dei tempi rendono possibile la fiducia."},
+      {"tema": "Gruppo AMA, terapia e altre risorse", "testo": "Questo gruppo AMA non è un gruppo terapeutico e non sostituisce eventuali interventi professionali. Non organizza accompagnamenti. Elena ha detto che desidera anche tornare a cantare: il coro è una risorsa diversa dal gruppo AMA."}
+    ]}
+  ],
+  "depistaggi": [
+    {"tema": "Casa e desideri", "frase": "Elena ha detto di voler lasciare casa e di non avere più interessi."},
+    {"tema": "Servizi e rete", "frase": "Il gruppo AMA può sostituire tutti gli altri aiuti: non occorre coinvolgere altre risorse."},
+    {"tema": "Funzionamento del gruppo AMA", "frase": "Nel gruppo tutti sono obbligati a raccontare il proprio lutto fin dal primo incontro."}
+  ],
+  "indizi": [
+    {"id": "I1", "titolo": "Parole annotate al colloquio", "testo": "Elena: «Vorrei restare a casa. Per fare la spesa qui vicino me la cavo; per gli appuntamenti lontani ho difficoltà a spostarmi. Vorrei rivedere altre persone». Annotazione riletta e confermata da Elena."},
+    {"id": "I2", "titolo": "Disponibilità raccolte", "testo": "Il familiare è disponibile il sabato; Nora passa il martedì. Un'associazione può verificare altri accompagnamenti, ancora da concordare. Per gli aiuti da attivare occorre ascoltare Elena e approfondire la situazione, non scegliere un'unica risposta in anticipo."},
+    {"id": "I3", "titolo": "Accordo del gruppo AMA", "testo": "Partecipazione volontaria; rispetto dei tempi di parola e della riservatezza; possibilità di ascoltare; sostegno reciproco tra pari. La facilitatrice cura il confronto. Il gruppo non è una terapia e non sostituisce i servizi professionali."},
+    {"id": "I4", "titolo": "Un dettaglio della mattina", "testo": "All'ingresso c'era un ombrello giallo. Nel registro non sono indicati il proprietario o collegamenti con il fascicolo. Il fatto è vero, ma da solo non dimostra chi abbia modificato il foglio."}
+  ],
+  "frammenti": [
+    {"id": "B1", "titolo": "IERI · Il coro", "testo": "«Cantavo con altre persone. Non ero soltanto una moglie: avevo amicizie e interessi miei»."},
+    {"id": "B2", "titolo": "OGGI · La casa", "testo": "«La casa è piena di ricordi. Mi mancano le conversazioni, ma cucino e faccio la spesa nel quartiere»."},
+    {"id": "B3", "titolo": "OGGI · Una fatica", "testo": "«Quando un appuntamento è lontano non sempre riesco a raggiungerlo. Mi piacerebbe sapere a chi chiedere un accompagnamento»."},
+    {"id": "B4", "titolo": "DOMANI · Il filo", "testo": "«Vorrei tornare a cantare. So cucire: potrei insegnarlo a qualcuno. Vorrei ascoltare chi ha vissuto un lutto, senza essere obbligata a raccontare subito il mio»."}
+  ],
+  "rete": [
+    {"id": "R1", "titolo": "Elena", "testo": "Persona protagonista: capacità, bisogni e preferenze. La sua voce guida le scelte."},
+    {"id": "R2", "titolo": "Familiare", "testo": "Rete informale. Può accompagnare Elena il sabato."},
+    {"id": "R3", "titolo": "Nora, amica", "testo": "Rete informale. Visita del martedì e relazione di amicizia."},
+    {"id": "R4", "titolo": "Segretariato sociale", "testo": "Ascolto della domanda, informazione e orientamento nell'accesso ai servizi."},
+    {"id": "R5", "titolo": "Servizio sociale professionale", "testo": "Approfondisce e valuta la situazione; costruisce con la persona un percorso coerente con bisogni e risorse."},
+    {"id": "R6", "titolo": "Associazione di volontariato", "testo": "Possibili accompagnamenti da verificare e concordare. Risorsa organizzata del territorio."},
+    {"id": "R7", "titolo": "Gruppo AMA", "testo": "Sostegno reciproco tra persone con esperienze simili. Partecipazione volontaria; non è una terapia."},
+    {"id": "R8", "titolo": "Coro del quartiere", "testo": "Interesse espresso da Elena, partecipazione e relazioni. Disponibilità e modalità di rientro da verificare."}
+  ],
+  "tracce": [
+    {"id": "T1", "titolo": "Primo riscontro d'archivio", "testo": "Nel gioco, chi ha sostituito la pagina ha usato i due contrassegni della propria cartellina personale. Nessuno poteva usare quelli degli altri. Il primo segno rilevato sul foglio alterato è: {segno}. Un solo segno appartiene a due personaggi e non basta per accusare."},
+    {"id": "T2", "titolo": "Secondo riscontro d'archivio", "testo": "Il secondo segno sullo stesso foglio alterato è: {segno}. Confrontate la coppia completa con i contrassegni dichiarati dai personaggi. I due riscontri sono autentici e provengono dalla stessa pagina."}
+  ],
+  "soluzione": {
+    "identita": "L'impostore è lo studente che ha pescato la carta segreta corrispondente. Il personaggio si dimostra incrociando T1 e T2: ogni segno da solo lascia due possibilità, la coppia identifica un solo personaggio. Le bugie orali possono rafforzare il sospetto, ma non sono indispensabili.",
+    "correzioni": [
+      {"id": "E1", "criterio": "Riconosce che Elena vuole restare a casa, conserva capacità e desidera riprendere relazioni e interessi. Individua almeno due bisogni distinti (ad esempio mobilità e relazione/partecipazione), con informazioni a sostegno.", "prove": ["I1", "B2", "B3", "B4"], "esempio": "Elena chiede informazioni sugli accompagnamenti, ma esprime anche bisogni relazionali e di partecipazione. Sa gestire alcune attività quotidiane, cucire e vuole tornare al coro: queste sono risorse."},
+      {"id": "E2", "criterio": "Distingue informazione/orientamento del segretariato e valutazione professionale; coinvolge Elena. Nella rete collega a Elena almeno una risorsa informale, un servizio pubblico e una risorsa associativa, indicando contributi plausibili e disponibilità da verificare.", "prove": ["I2", "R2", "R3", "R4", "R5", "R6", "R7", "R8"], "esempio": "Lo sportello informa e orienta; il servizio sociale professionale può approfondire la situazione con Elena. Si collegano l'aiuto familiare, l'amicizia e le risorse territoriali senza attribuire al gruppo AMA tutti i compiti. Gli accompagnamenti ulteriori e il coro sono da concordare."},
+      {"id": "E3", "criterio": "Distingue AMA e terapia, riconosce reciprocità e partecipazione volontaria; rispetta la possibilità di ascoltare senza raccontarsi subito.", "prove": ["I3", "B4", "R7"], "esempio": "Elena può scegliere il gruppo per incontrare persone con esperienze simili. Ciascuno può ricevere e offrire sostegno; la facilitatrice aiuta il confronto. Non è un trattamento terapeutico e non impone un racconto personale."}
+    ],
+    "pistaIrrilevante": "I4 non prova nulla sull'identità o sull'aiuto necessario. Riconoscerla allena la distinzione tra informazione e prova; non è una condizione aggiuntiva di vittoria.",
+    "domandeFinali": ["Quale frase avete cambiato dopo aver trovato una prova?", "Quale differenza c'è tra la prima richiesta di Elena e i suoi bisogni?", "Che cosa avete recuperato dai laboratori sulla biografia, sulla rete e sull'auto mutuo aiuto?", "In quale momento avete ascoltato la persona anziché decidere al suo posto?"]
+  },
+  "contenuti": ["Persona e utenza; bisogni, domanda, risorse e autonomia", "Ascolto, relazione d'aiuto e partecipazione", "Rete informale, servizi pubblici e risorse associative", "Sistema integrato della Legge 328/2000; segretariato e servizio sociale professionale", "Gruppi di auto mutuo aiuto, reciprocità e differenza dal gruppo terapeutico"],
+  "laboratori": ["Interviste a coppie: domande e annotazione fedele", "Collage autobiografico e scritture di sé: quattro frammenti da ordinare e commentare", "Mappa della rete sociale: carte da collegare indicando contributi", "Sperimentazioni AMA: correggere le regole del gruppo", "Emozioni e «Si può dire morte»: leggere parole e tempi di un personaggio inventato, senza richiedere racconti personali agli studenti"],
+  "fonti": [
+    {"titolo": "Legge 328/2000, artt. 1 e 22 — Ministero del Lavoro", "url": "https://www.lavoro.gov.it/sites/default/files/archivio-doc-pregressi/Documents/Resources/Lavoro/CIES/L_328_2000.pdf"},
+    {"titolo": "Auto mutuo aiuto: attivazione, condivisione e reciprocità — ISS", "url": "https://www.iss.it/documents/20126/45616/ONLINEmalattie_rare.pdf/15bca6e9-86d1-1433-7170-904ffe52bed2?t=1581101059191"}
+  ],
+  "verificaFonti": "2026-09-19"
+}

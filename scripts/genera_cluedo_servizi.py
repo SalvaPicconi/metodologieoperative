@@ -426,6 +426,12 @@ def team_page(c: canvas.Canvas, scenario: dict, page_number: int) -> None:
 
 
 def build_pdf(scenario: dict) -> Path:
+    if scenario['id'] == '3sa':
+        from build_gioco_3sa import load, make_pdf, make_web, active_story, BASE
+        rules, story = load(BASE / 'storie' / (active_story()+'.json'))
+        output, _ = make_pdf(rules, story)
+        make_web(rules, story)
+        return output
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     output_path = OUTPUT_DIR / f"cluedo-servizi-{scenario['id']}.pdf"
     c = canvas.Canvas(str(output_path), pagesize=A4, pageCompression=1)

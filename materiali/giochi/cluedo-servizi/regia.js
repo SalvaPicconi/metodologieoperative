@@ -139,6 +139,10 @@
 
     const renderCase = () => {
         const scenario = state.currentCase;
+        if (scenario.id === '3sa') {
+            window.location.replace('docente-3sa.html');
+            return;
+        }
         renderTabs();
         byId('class-badge').textContent = scenario.classe;
         byId('case-focus').textContent = scenario.focus;
