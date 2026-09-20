@@ -1429,6 +1429,9 @@ function formatDateTime(value) {
 
 function formatActivityName(path) {
     if (!path) return '—';
+    if (String(path).includes('ripasso-terzo-anno')) {
+        return 'Terzo anno · Dalla terza alla quarta: ripasso operativo';
+    }
     let clean = path.replace(/^https?:\/\/[^/]+/i, '');
     clean = clean.replace(/^\//, '');
     const segments = clean.split('/');
@@ -1476,12 +1479,68 @@ function formatProgressData(data) {
     if (!data || (typeof data === 'object' && Object.keys(data).length === 0)) {
         return '<p class="muted">Nessun contenuto salvato.</p>';
     }
+    if (data._activity === 'ripasso-terzo-anno') {
+        return formatRipassoTerzoData(data);
+    }
     try {
         const json = JSON.stringify(data, null, 2);
         return `<pre class="progress-json">${escapeHtml(json)}</pre>`;
     } catch {
         return `<pre class="progress-json">${escapeHtml(String(data))}</pre>`;
     }
+}
+
+function formatRipassoTerzoData(data) {
+    const missionLabels = [
+        'Checkpoint iniziale',
+        'Intelligenza artificiale',
+        'Persona, bisogni e servizi',
+        'Progetto individualizzato',
+        'Reti, servizi e accesso',
+        'Équipe e documentazione',
+        'Autobiografia e memoria',
+        'Seconda infanzia',
+        'Dipendenze e colloquio motivazionale',
+        'FSL, tirocinio e diario di bordo',
+        'Caso professionale'
+    ];
+    const meta = data._meta || {};
+    const progress = Number(meta.percentuale || 0);
+    const completed = Number(meta.missioniComplete ?? meta.campiCompilati ?? 0);
+    const total = Number(meta.missioniTotali ?? meta.totale ?? 0);
+    const correct = Number(meta.risposteCorrette || 0);
+    const answered = Number(meta.risposte || 0);
+    const accuracy = Number(meta.accuratezza || 0);
+    const notes = Object.entries(data.notes || {})
+        .filter(([, value]) => String(value || '').trim())
+        .sort(([a], [b]) => Number(a) - Number(b))
+        .map(([missionId, value]) => `
+            <article style="padding:0.75rem 0;border-top:1px solid #e2e8f0;">
+                <strong>${escapeHtml(missionLabels[Number(missionId)] || `Missione ${Number(missionId) + 1}`)}</strong>
+                <p style="margin:0.35rem 0 0;white-space:pre-wrap;">${escapeHtml(value)}</p>
+            </article>`).join('');
+    const caseData = data.case && typeof data.case === 'object' ? data.case : {};
+    const needs = Array.isArray(caseData.needs) ? caseData.needs : [];
+    const roles = Array.isArray(caseData.roles) ? caseData.roles : [];
+    const caseHtml = caseData.objective || caseData.action || needs.length || roles.length
+        ? `<section style="margin-top:1rem;">
+            <h4>Caso professionale</h4>
+            <p><strong>Bisogni:</strong> ${needs.length ? needs.map(escapeHtml).join(', ') : '—'}</p>
+            <p><strong>Rete:</strong> ${roles.length ? roles.map(escapeHtml).join(', ') : '—'}</p>
+            <p><strong>Obiettivo:</strong> ${escapeHtml(caseData.objective || '—')}</p>
+            <p><strong>Primo passo e dato mancante:</strong> ${escapeHtml(caseData.action || '—')}</p>
+        </section>`
+        : '';
+
+    return `<div class="assessment-detail-grid" style="margin-bottom:1rem;">
+            <div class="assessment-detail-item"><span>Avanzamento</span><strong>${progress}%</strong><p>${completed}/${total} missioni</p></div>
+            <div class="assessment-detail-item"><span>Accuratezza</span><strong>${accuracy}%</strong><p>${correct}/${answered} risposte corrette</p></div>
+            <div class="assessment-detail-item"><span>Percorso</span><strong>${escapeHtml(meta.percorso || data.route || '—')}</strong></div>
+            <div class="assessment-detail-item"><span>Ultima missione</span><strong>${escapeHtml(String(meta.missioneCorrente || (Number(data.current) + 1) || '—'))}</strong></div>
+        </div>
+        <h4>Risposte aperte</h4>
+        ${notes || '<p class="muted">Nessuna risposta aperta salvata.</p>'}
+        ${caseHtml}`;
 }
 
 function renderProgressBar(meta) {

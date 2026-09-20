@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="page-id" content="attivita-materiali-terzo-ripasso-operativo-terzo-anno-01">
+    <meta name="description" content="Ripasso interattivo dei contenuti di Metodologie Operative del terzo anno: teoria, attività autocorrettive e casi professionali.">
+    <title>Dalla terza alla quarta · Ripasso operativo</title>
+    <link rel="stylesheet" href="ripasso-terzo-anno.css?v=20260920e">
+</head>
+<body>
+    <a class="skip-link" href="#workspace">Vai al percorso</a>
+
+    <header class="topbar">
+        <a class="brand" href="../../quarto.html" aria-label="Torna ai materiali del quarto anno">
+            <span class="brand-mark" aria-hidden="true">MO</span>
+            <span><strong>Metodologie Operative</strong><small>Ripasso del terzo anno</small></span>
+        </a>
+        <div class="top-actions">
+            <button class="icon-button" id="contrastToggle" type="button" aria-pressed="false">◐ <span>Contrasto</span></button>
+            <button class="icon-button" id="printButton" type="button">⎙ <span>Stampa</span></button>
+        </div>
+    </header>
+
+    <main id="workspace">
+        <section class="launch" id="launch">
+            <div class="launch-copy">
+                <p class="eyebrow">Dalla terza alla quarta</p>
+                <h1>Non ricordare tutto.<br><span>Rimetti in moto i collegamenti.</span></h1>
+                <p class="lead">Un percorso operativo costruito sulle attività effettivamente svolte: ogni argomento riparte dalla teoria essenziale e prosegue con domande, esercizi e casi in cui scegliere, motivare e collegare.</p>
+                <div class="source-note">
+                    <span aria-hidden="true">◎</span>
+                    <p><strong>Copertura del percorso:</strong> intelligenza artificiale; relazione d’aiuto, bisogni e servizi; progettazione; reti ed équipe; laboratorio autobiografico; seconda infanzia; peer tutoring; dipendenze e SerD; colloquio motivazionale; FSL, tirocinio e incontro sulla pet therapy.</p>
+                </div>
+            </div>
+
+            <div class="route-panel" aria-labelledby="routeTitle">
+                <div class="route-heading">
+                    <p class="kicker">Scegli come usarlo</p>
+                    <h2 id="routeTitle">Tre ingressi, stessi contenuti</h2>
+                </div>
+                <div class="route-grid">
+                    <button class="route-card selected" type="button" data-route="complete" aria-pressed="true">
+                        <span class="route-icon" aria-hidden="true">01</span>
+                        <span><strong>Percorso completo</strong><small>11 missioni · teoria e attività · 2-3 lezioni</small></span>
+                    </button>
+                    <button class="route-card" type="button" data-route="quick" aria-pressed="false">
+                        <span class="route-icon" aria-hidden="true">90′</span>
+                        <span><strong>Ripasso selettivo</strong><small>7 missioni in sequenza · le altre restano consultabili</small></span>
+                    </button>
+                    <button class="route-card" type="button" data-route="case" aria-pressed="false">
+                        <span class="route-icon" aria-hidden="true">?</span>
+                        <span><strong>Solo esercitazione</strong><small>Un caso variabile da analizzare in gruppo</small></span>
+                    </button>
+                </div>
+                <div class="launch-actions">
+                    <button class="primary-button" id="startButton" type="button">Inizia dal ripasso essenziale <span aria-hidden="true">→</span></button>
+                    <button class="text-button" id="resumeButton" type="button" hidden>Riprendi da dove eri arrivato</button>
+                </div>
+                <p class="privacy-line">Il lavoro viene salvato con classe e codice personale, come nelle altre attività del sito. Non inserire nomi completi.</p>
+            </div>
+        </section>
+
+        <section class="course-shell" id="course" hidden>
+            <aside class="course-sidebar" aria-label="Indice del percorso">
+                <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Chiudi l’indice">× <span>Chiudi</span></button>
+                <div class="sidebar-head">
+                    <p class="kicker">Il tuo percorso</p>
+                    <div class="progress-copy"><strong id="progressPercent">0%</strong><span id="progressLabel">0 di 11 missioni</span></div>
+                    <div class="progress-track" aria-hidden="true"><span id="progressBar"></span></div>
+                </div>
+                <nav id="missionNav" class="mission-nav"></nav>
+                <div class="sidebar-actions">
+                    <button class="teacher-toggle" id="teacherToggle" type="button" aria-pressed="false">▣ Modalità docente / LIM</button>
+                    <button class="reset-button" id="resetButton" type="button">Ricomincia il percorso</button>
+                </div>
+            </aside>
+
+            <div class="course-main">
+                <div class="course-toolbar">
+                    <button class="mobile-index" id="mobileIndex" type="button" aria-expanded="false">☰ Indice</button>
+                    <div class="route-chip" id="routeChip">Percorso completo</div>
+                    <button class="class-results-button" id="classResultsButton" type="button" hidden>📊 Riepilogo classe</button>
+                    <div class="timer" aria-live="polite">
+                        <span id="timerDisplay">15:00</span>
+                        <button type="button" id="timerToggle">Avvia</button>
+                        <button type="button" id="timerReset" aria-label="Reimposta il timer">↺</button>
+                    </div>
+                </div>
+
+                <section class="class-results-panel" id="classResultsPanel" hidden aria-live="polite"></section>
+                <div id="missionMount" aria-live="polite"></div>
+
+                <div class="mission-footer">
+                    <button class="secondary-button" id="prevMission" type="button">← Precedente</button>
+                    <button class="primary-button" id="nextMission" type="button">Missione successiva →</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <footer>
+        <p>Metodologie Operative · Indirizzo Servizi per la sanità e l’assistenza sociale</p>
+        <a href="../../index.html">Torna alla home</a>
+    </footer>
+
+    <script src="ripasso-terzo-anno.js?v=20260920e"></script>
+    <script>
+        window.MO_PROGRESS_CONFIG = {
+            pagePath: window.location.pathname,
+            inputSelector: 'textarea, input, select',
+            autoSave: true,
+            autoSaveDebounceMs: 1200,
+            autoSaveMinIntervalMs: 4000,
+            autoSaveJitterMs: 500,
+            onBeforeSave: function () {
+                return window.MORipassoProgress?.snapshot() || { __skipSave: true };
+            },
+            onRestore: function (saved) {
+                if (saved && window.MORipassoProgress?.restore) {
+                    window.MORipassoProgress.restore(saved);
+                }
+                return false;
+            }
+        };
+    </script>
+    <script>
+        window.MO_IDENTITY_CONFIG = {
+            message: 'Inserisci la classe (es. 4sb) e il codice cognome+iniziale tutto minuscolo (es. rossi g → rossig).',
+            classPlaceholder: 'Classe (es. 4sb)',
+            classPattern: '^[1-5][a-z]{1,2}$',
+            classExample: '4sb',
+            classErrorMessage: 'Classe non valida: usa una cifra da 1 a 5 seguita da 1-2 lettere minuscole (es. 4sb).',
+            stripWhitespaceInClass: true,
+            storeClassLowercase: true,
+            storeClassUppercase: false,
+            codePlaceholder: 'Codice (es. rossig)',
+            codePattern: '^[a-zà-ü]{2,}[a-z]$',
+            codeExample: 'rossig',
+            codeErrorMessage: 'Codice non valido: usa cognome tutto minuscolo + iniziale del nome (es. rossi g → rossig).',
+            sanitizeCode: true,
+            stripWhitespaceInCode: true,
+            storeCodeLowercase: true,
+            storeCodeUppercase: false,
+            hideGenerator: true,
+            guestAllowed: true,
+            guestClassCode: 'ospite',
+            guestStudentCode: 'ospite'
+        };
+    </script>
+    <script type="module" src="../../assets/progress.js?v=20251021"></script>
+    <script type="module" src="../../assets/progress-global.js?v=20251021"></script>
+</body>
+</html>
