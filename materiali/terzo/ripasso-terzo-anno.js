@@ -3,7 +3,7 @@
 
     const STORAGE_KEY = 'mo:ripasso-terzo-anno:v3';
     const SUPABASE_URL = 'https://ruplzgcnheddmqqdephp.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJydXBsemduY2hlZGRtcXFkZXBocCIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNzYwMTE2MjI5LCJleHAiOjIwNzU2OTIyMjl9.tOLIkgi5yTt61_0rMlXUqxnbil4DLD7kBaqZBVAv1CI';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1cGx6Z2NuaGVkZG1xcWRlcGhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAxMTYyMjksImV4cCI6MjA3NTY5MjIyOX0.tOLIkgi5yTt61_0rMlXUqxnbil4DLD7kBaqZBVAv1CI';
     const DOCENTE_SESSION_KEY = 'mo:docente-session';
     const DOCENTE_SESSION_DURATION = 1000 * 60 * 60 * 6;
     const DOCENTE_HASH = 'ed5672a676cf4556ed88868d438204e25c5ce272664a4083b92b5c783294e9e4';
