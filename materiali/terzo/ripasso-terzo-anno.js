@@ -435,7 +435,7 @@
     }
     async function showClassResults() {
         if (!(await verificaDocente())) return;
-        if (!teacherClass) { const input = prompt('Quale classe vuoi riepilogare? (es. 4sb)', localStorage.getItem('mo:lim-class') || ''); if (input === null) return; teacherClass = input.trim().toLowerCase(); if (!teacherClass) return; localStorage.setItem('mo:lim-class', teacherClass); }
+        const input = prompt('Quale classe vuoi riepilogare? (es. 4sb)', teacherClass || localStorage.getItem('mo:lim-class') || '4sb'); if (input === null) return; teacherClass = input.trim().toLowerCase(); if (!teacherClass) return; localStorage.setItem('mo:lim-class', teacherClass);
         const panel = $('#classResultsPanel'); panel.hidden = false; panel.innerHTML = '<p>Caricamento dei risultati…</p>';
         try {
             const rows = await fetchClassRows(teacherClass); const mission = missions[state.current]; const overview = classOverview(rows);
