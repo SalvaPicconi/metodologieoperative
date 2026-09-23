@@ -1802,7 +1802,7 @@
                 html += `<div class="chipslist">${Object.entries(count).sort((a, b) => b[1] - a[1]).map(([w, c]) => `<span>${esc(w)} <strong>${c}</strong></span>`).join('')}</div>`;
             } else {
                 const shown = vals.slice(0, 12);
-                html += `<ul class="risposte-testo">${shown.map(v => `<li>${esc(v.length > 260 ? v.slice(0, 260) + '…' : v)}</li>`).join('')}</ul>`;
+                html += `<ul class="risposte-testo">${shown.map(v => `<li>${esc(v)}</li>`).join('')}</ul>`;
                 if (vals.length > shown.length) html += `<p class="meta">… e altre ${vals.length - shown.length} risposte (visibili nell'Area docente).</p>`;
             }
         });
