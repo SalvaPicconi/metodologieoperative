@@ -295,6 +295,15 @@
             .header h1 { font-size: 1.45em; }
             .tappa-head h2 { font-size: 1.25em; }
             .conduttore { top: 54px; }
+            .tabella.rete-proprieta, .tabella.rete-proprieta tbody, .tabella.rete-proprieta tr, .tabella.rete-proprieta td { display: block; width: 100%; }
+            .tabella.rete-proprieta thead { display: none; }
+            .tabella.rete-proprieta tr { border: 1px solid var(--line); border-radius: 10px; margin: 10px 0; overflow: hidden; background: rgba(255,255,255,.85); }
+            .tabella.rete-proprieta td { border-bottom: 1px solid var(--line); padding: 9px 12px; }
+            .tabella.rete-proprieta td:last-child { border-bottom: 0; }
+            .tabella.rete-proprieta td:first-child { background: rgba(29,211,211,.18); color: var(--turchese-deep); }
+            .tabella.rete-proprieta td:nth-child(2)::before, .tabella.rete-proprieta td:nth-child(3)::before { display: block; font-size: .76em; font-weight: 800; color: var(--ink-soft); text-transform: uppercase; letter-spacing: .03em; margin-bottom: 2px; }
+            .tabella.rete-proprieta td:nth-child(2)::before { content: 'Che cosa osserviamo'; }
+            .tabella.rete-proprieta td:nth-child(3)::before { content: "Perché conta per l'operatore"; }
         }
 
         @media print {
@@ -592,19 +601,19 @@
             </section>
 
             <!-- ===================== TAPPA 4 ===================== -->
-            <section class="tappa" id="tappa4" data-t="4" data-min="20">
+            <section class="tappa" id="tappa4" data-t="4" data-min="35">
                 <div class="tappa-head">
                     <div class="tappa-num">4</div>
                     <div>
                         <h2>Il lavoro di rete</h2>
                         <div class="sub">Parte A · Nessuno si salva da solo: risorse formali e informali</div>
-                        <div class="chips"><span class="chip tempo">⏱️ 20 minuti</span><span class="chip comp">C1 · le agenzie di socializzazione nelle reti territoriali</span><span class="chip">📝 chiude la parte A con il quiz</span></div>
+                        <div class="chips"><span class="chip tempo">⏱️ 35 minuti</span><span class="chip comp">C1 · le agenzie di socializzazione nelle reti territoriali</span><span class="chip">📝 chiude la parte A con il quiz</span></div>
                     </div>
                 </div>
-                <div class="obiettivo"><strong>Alla fine della tappa sai:</strong> distinguere le risorse formali da quelle informali e spiegare perché l'operatore deve collegarle.</div>
+                <div class="obiettivo"><strong>Alla fine della tappa sai:</strong> distinguere le risorse formali da quelle informali, rappresentare una rete con nodi e legami e spiegare perché la forma della rete può aumentare o ridurre sostegno, informazioni e opportunità.</div>
 
                 <div class="step step-spiego">
-                    <div class="step-title"><span class="tag">CONTENUTI</span> Le due reti attorno a una persona <span class="min">7 min</span></div>
+                    <div class="step-title"><span class="tag">CONTENUTI</span> Le reti attorno a una persona: risorse, nodi e legami <span class="min">16 min</span></div>
 
                     <h3>Che cos'è il lavoro di rete</h3>
                     <p>L'operatore sociale <strong>non lavora mai da solo</strong>. Nessun bisogno importante si risolve con una sola persona o con un solo servizio. Il <span class="hl">lavoro di rete</span> consiste nel <strong>creare collegamenti e sinergie</strong> tra tutte le risorse che possono aiutare una persona: chi le sta vicino ogni giorno e i servizi organizzati del territorio.</p>
@@ -646,18 +655,85 @@
                         <div class="card"><h4>🏥 Rete formale (secondaria)</h4><p>Servizi e professionisti che aiutano <strong>per compito istituzionale</strong>, con regole, orari e personale qualificato.</p><ul><li><strong>Servizio Sanitario Nazionale</strong> (ASL, ospedali, medico di famiglia, consultori)</li><li><strong>Servizi sociali del Comune</strong>, che per la legge 328/2000 organizzano i servizi sociali del territorio</li><li>Scuole e servizi educativi</li><li>Centri specialistici, centri per l'impiego</li><li><strong>Terzo settore</strong>: cooperative sociali, associazioni, fondazioni</li></ul><p><strong>Forza:</strong> competenze, continuità, risorse. <strong>Limite:</strong> tempi di attesa, burocrazia, non conosce la persona come la famiglia.</p></div>
                     </div>
                     <div class="nota esempio"><strong>Esempio.</strong> Una signora di 85 anni vive sola. La <em>rete informale</em> (la figlia il weekend, la vicina che le fa la spesa) non basta più. L'operatore attiva la <em>rete formale</em>: assistenza domiciliare del Comune tre mattine a settimana, pasti a domicilio, controllo del medico. Ma non spegne la rete informale: chiede alla vicina di continuare la spesa e alla figlia di tenere i contatti con il servizio. Le due reti, insieme, reggono.</div>
+
+                    <h3>Dalla lista delle persone alla forma della rete</h3>
+                    <p>Distinguere rete formale e informale è necessario, ma non basta. Questa distinzione risponde alla domanda <strong>«che tipo di risorsa è?»</strong>. Per capire davvero la situazione di una persona bisogna aggiungere altre domande: <strong>chi è collegato con chi?</strong> Quali rapporti sono forti e affidabili? Quali mettono in contatto ambienti diversi? Chi è isolato? Che cosa può circolare attraverso ciascun rapporto?</p>
+                    <p>La <span class="hl">Social Network Analysis (SNA), cioè analisi delle reti sociali</span>, rappresenta la rete come un insieme di <strong>nodi</strong> e <strong>legami</strong>. I nodi possono essere persone, gruppi, servizi o organizzazioni. I legami sono le relazioni attraverso cui possono passare affetto, cura, informazioni, fiducia, regole, presentazioni e occasioni concrete. Quando la mappa parte da una persona e osserva chi le sta intorno, si parla di <strong>rete personale o egocentrata</strong>: «ego» indica soltanto il punto da cui comincia l'osservazione.</p>
+
+                    <div class="schema schema-wide">
+                        <svg viewBox="0 0 760 420" role="img" aria-label="Esempio di rete personale: Sara è collegata a nodi familiari, scolastici e sportivi; alcuni nodi fanno da ponte verso altri ambienti">
+                            <defs>
+                                <style>.rn{font-family:Segoe UI,Tahoma,sans-serif;font-weight:700;font-size:13px;fill:#1f2933}.rl{font-family:Segoe UI,Tahoma,sans-serif;font-size:12px;fill:#52606d}.rs{stroke:#52606d;stroke-width:5;stroke-linecap:round}.rw{stroke:#52606d;stroke-width:2;stroke-dasharray:7 6}.rb{stroke:#cc0073;stroke-width:3;stroke-dasharray:9 5}</style>
+                            </defs>
+                            <path d="M380 210 L190 105 M380 210 L180 285 M380 210 L375 70 M380 210 L570 95 M380 210 L590 280" class="rs" opacity=".75"/>
+                            <path d="M190 105 L80 55 M180 285 L70 345 M375 70 L500 40 M570 95 L690 55 M590 280 L700 345" class="rw"/>
+                            <path d="M180 285 Q360 395 590 280 M375 70 Q520 155 570 95" class="rb" fill="none"/>
+
+                            <circle cx="380" cy="210" r="54" fill="#1DD3D3" stroke="#0E7C7C" stroke-width="3"/>
+                            <text x="380" y="206" class="rn" text-anchor="middle">SARA</text><text x="380" y="224" class="rl" text-anchor="middle">persona osservata</text>
+
+                            <circle cx="190" cy="105" r="42" fill="#C6E716" fill-opacity=".75" stroke="#7f9500" stroke-width="2"/><text x="190" y="110" class="rn" text-anchor="middle">famiglia</text>
+                            <circle cx="180" cy="285" r="42" fill="#C6E716" fill-opacity=".75" stroke="#7f9500" stroke-width="2"/><text x="180" y="290" class="rn" text-anchor="middle">amica</text>
+                            <circle cx="375" cy="70" r="42" fill="#E8F1FF" stroke="#4f78b8" stroke-width="2"/><text x="375" y="75" class="rn" text-anchor="middle">scuola</text>
+                            <circle cx="570" cy="95" r="42" fill="#C6E716" fill-opacity=".75" stroke="#7f9500" stroke-width="2"/><text x="570" y="100" class="rn" text-anchor="middle">allenatrice</text>
+                            <circle cx="590" cy="280" r="42" fill="#C6E716" fill-opacity=".75" stroke="#7f9500" stroke-width="2"/><text x="590" y="276" class="rn" text-anchor="middle">compagna</text><text x="590" y="293" class="rn" text-anchor="middle">di squadra</text>
+
+                            <circle cx="80" cy="55" r="35" fill="#fff" stroke="#7f9500" stroke-width="2"/><text x="80" y="60" class="rl" text-anchor="middle">zia</text>
+                            <circle cx="70" cy="345" r="35" fill="#fff" stroke="#7f9500" stroke-width="2"/><text x="70" y="350" class="rl" text-anchor="middle">gruppo amici</text>
+                            <circle cx="500" cy="40" r="35" fill="#fff" stroke="#4f78b8" stroke-width="2"/><text x="500" y="45" class="rl" text-anchor="middle">docente</text>
+                            <circle cx="690" cy="55" r="35" fill="#fff" stroke="#7f9500" stroke-width="2"/><text x="690" y="52" class="rl" text-anchor="middle">società</text><text x="690" y="67" class="rl" text-anchor="middle">sportiva</text>
+                            <circle cx="700" cy="345" r="35" fill="#fff" stroke="#cc0073" stroke-width="2"/><text x="700" y="342" class="rl" text-anchor="middle">corso</text><text x="700" y="357" class="rl" text-anchor="middle">esterno</text>
+
+                            <line x1="250" y1="392" x2="295" y2="392" class="rs"/><text x="305" y="397" class="rl">legame forte</text>
+                            <line x1="430" y1="392" x2="475" y2="392" class="rw"/><text x="485" y="397" class="rl">legame più debole</text>
+                            <line x1="620" y1="392" x2="665" y2="392" class="rb"/><text x="675" y="397" class="rl">ponte</text>
+                        </svg>
+                        <div class="didascalia">Una rete non è fatta di cerchi ordinati: i nodi sono collegati anche tra loro. I ponti raggiungono ambienti in cui possono circolare informazioni diverse.</div>
+                    </div>
+
+                    <h3>Le proprietà che cambiano ciò che una rete può offrire</h3>
+                    <table class="tabella rete-proprieta">
+                        <thead><tr><th>Proprietà</th><th>Che cosa osserviamo</th><th>Perché conta per l'operatore</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>Ampiezza</strong></td><td>Quanti nodi sono presenti.</td><td>Una rete molto piccola può diventare fragile se viene meno l'unica persona disponibile. Una rete grande, però, non è automaticamente una rete che aiuta.</td></tr>
+                            <tr><td><strong>Forza e reciprocità</strong></td><td>Quanto un legame è stabile, fidato e capace di dare e ricevere aiuto.</td><td>I legami forti sostengono nei momenti difficili; se l'aiuto va sempre in una sola direzione, qualcuno può sovraccaricarsi.</td></tr>
+                            <tr><td><strong>Densità</strong></td><td>Quanto i nodi della rete si conoscono e sono collegati tra loro.</td><td>Una rete densa coordina rapidamente l'aiuto, ma può far circolare sempre le stesse informazioni o esercitare troppo controllo.</td></tr>
+                            <tr><td><strong>Diversità</strong></td><td>Se i nodi appartengono a famiglie, gruppi, ambienti e istituzioni differenti.</td><td>Ambienti diversi possono offrire risorse e punti di vista diversi. Dieci contatti tutti nello stesso gruppo non equivalgono a dieci contatti distribuiti in più ambienti.</td></tr>
+                            <tr><td><strong>Ponti e isolamento</strong></td><td>Chi collega gruppi che altrimenti resterebbero separati e quali nodi sono ai margini.</td><td>Un ponte può portare verso un servizio, un corso o un'opportunità. Un nodo isolato può non ricevere informazioni o aiuto in tempo.</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3>La rete può «predire» il futuro?</h3>
+                    <p>La Social Network Analysis non è un unico modello che indovina il futuro. È una prospettiva e un insieme di metodi che rendono osservabile e misurabile la struttura delle relazioni. Le misure della rete possono poi essere usate, insieme ad altri dati, in modelli statistici che studiano quali esiti diventano più o meno probabili.</p>
+                    <p>Le proprietà della rete aiutano a formulare <strong>previsioni probabilistiche</strong>: indicano quali informazioni e risorse una persona ha maggiori possibilità di incontrare e quanto sostegno potrebbe ricevere in una difficoltà. I legami forti offrono spesso fiducia e aiuto continuativo; i legami più deboli, come conoscenze e contatti tra ambienti diversi, possono portare informazioni nuove. Per questo le reti contribuiscono al <strong>capitale sociale</strong>: le risorse a cui una persona può accedere attraverso le proprie relazioni.</p>
+                    <p>La ricerca ha collegato alcune configurazioni di rete alla circolazione delle opportunità lavorative, alla creatività professionale e alla mobilità economica. Ma una rete <strong>non determina</strong> il lavoro, il reddito o la vita di una persona. Contano anche istruzione, capacità, salute, scelte, condizioni economiche, regole delle istituzioni, discriminazioni e avvenimenti imprevisti. La rete modifica il campo delle possibilità: non scrive in anticipo il risultato.</p>
+                    <div class="nota attenzione"><strong>Una rete non è sempre un vantaggio.</strong> Può sostenere, ma anche escludere, controllare, trasmettere informazioni sbagliate o rinforzare comportamenti dannosi. L'operatore non conta soltanto i contatti: osserva la qualità dei legami, le risorse realmente accessibili e i costi che ricadono sulle persone.</div>
+
+                    <h3>Che cosa cambia nel lavoro dell'operatore sociale</h3>
+                    <p>L'operatore non si limita a compilare due elenchi, uno formale e uno informale. Costruisce una <strong>mappa ragionata</strong>, individua legami forti, ponti, sovraccarichi e vuoti. Poi, con il consenso della persona, prova a rendere accessibili nuove connessioni: un servizio, un gruppo, un'attività sportiva o culturale, un percorso formativo, un luogo di incontro. Non «regala amicizie» e non colpevolizza chi ha una rete povera: crea condizioni in cui possano nascere legami e circolare risorse.</p>
+                    <div class="nota esempio"><strong>Esempio.</strong> Due ragazze hanno entrambe otto persone nella propria rete. Nella prima rete tutti appartengono alla stessa famiglia e conoscono le stesse cose. Nella seconda ci sono anche una compagna di squadra, una docente e una conoscente che frequenta un corso professionale. Il numero dei nodi è uguale, ma la seconda rete contiene più ponti verso ambienti diversi: è quindi più probabile che faccia arrivare informazioni nuove. Non garantisce un lavoro, ma amplia le possibilità di venirne a conoscenza e di prepararsi.</div>
+
                     <div class="nota fonte">Riferimenti: legge 328/2000 (legge quadro sul sistema integrato di interventi e servizi sociali); legge 833/1978 (Servizio Sanitario Nazionale); legge 381/1991 (cooperative sociali); D.Lgs. 117/2017 (Codice del Terzo settore).</div>
+                    <div class="nota fonte">Riferimenti sociologici: <a href="https://people.unipi.it/andrea_salvini/" target="_blank" rel="noopener">A. Salvini, prospettiva relazionale e Social Network Analysis</a>; <a href="https://www.jstor.org/stable/2776392" target="_blank" rel="noopener">M. Granovetter, <em>The Strength of Weak Ties</em> (1973)</a>; <a href="https://doi.org/10.1086/421787" target="_blank" rel="noopener">R. Burt, <em>Structural Holes and Good Ideas</em> (2004)</a>; <a href="https://doi.org/10.1146/annurev.soc.24.1.1" target="_blank" rel="noopener">A. Portes, <em>Social Capital</em> (1998)</a>; <a href="https://doi.org/10.1038/s41586-022-04996-4" target="_blank" rel="noopener">R. Chetty e altri, capitale sociale e mobilità economica (2022)</a>; <a href="https://doi.org/10.1126/science.abl4476" target="_blank" rel="noopener">K. Rajkumar e altri, legami deboli e mobilità lavorativa (2022)</a>.</div>
                     <div class="nota semplice"><strong>In parole semplici.</strong> Attorno a ogni persona ci sono due cerchi: chi le vuole bene e chi la aiuta per lavoro. L'operatore li fa parlare tra loro.</div>
+                    <div class="nota semplice"><strong>In sintesi.</strong> Formale e informale dicono <em>chi</em> fa parte della rete e con quale ruolo. Nodi, legami, densità, diversità e ponti mostrano <em>come</em> la rete funziona e quali risorse può rendere accessibili. L'operatore deve saper leggere entrambe le dimensioni.</div>
                 </div>
 
                 <div class="step step-provate">
-                    <div class="step-title"><span class="tag">ESERCIZIO</span> Formale o informale? Poi il quiz della parte A <span class="min">8 min</span></div>
+                    <div class="step-title"><span class="tag">ESERCIZIO</span> Distingui le risorse, poi leggi la struttura della rete <span class="min">13 min</span></div>
                     <div data-act="rete1"></div>
+                    <div class="act">
+                        <div class="act-title">🕸️ Dalla lista alla mappa <span class="pts">+9</span></div>
+                        <p class="act-istr">Lavora su una persona inventata. Non scrivere nomi reali: usa ruoli come «zia», «compagno», «docente», «servizio». Prima individua i nodi, poi osserva i legami e infine pensa a un intervento possibile.</p>
+                        <div class="campo"><label for="rete-nodi">1. Quali nodi compongono la rete? <span class="pts">+3</span></label><textarea id="rete-nodi" name="rete-nodi" data-points="3" placeholder="Indica almeno sei nodi e specifica per ciascuno se è formale o informale."></textarea></div>
+                        <div class="campo"><label for="rete-legami">2. Come sono collegati? <span class="pts">+3</span></label><textarea id="rete-legami" name="rete-legami" data-points="3" placeholder="Individua almeno un legame forte, un legame più debole, un ponte e un possibile isolamento o sovraccarico."></textarea></div>
+                        <div class="campo"><label for="rete-intervento">3. Quale possibilità manca e quale collegamento potrebbe favorire l'operatore? <span class="pts">+3</span></label><textarea id="rete-intervento" name="rete-intervento" data-points="3" placeholder="Spiega quale risorsa dovrebbe diventare accessibile e attraverso quale nuovo collegamento, rispettando la scelta della persona."></textarea></div>
+                    </div>
                     <div data-act="quiz2"></div>
                 </div>
 
                 <div class="step step-confronto">
-                    <div class="step-title"><span class="tag">RISPOSTE E DISCUSSIONE</span> <span class="min">4 min</span></div>
+                    <div class="step-title"><span class="tag">RISPOSTE E DISCUSSIONE</span> <span class="min">6 min</span></div>
                     <button class="btn btn-soft btn-confronta" data-confronta="4">Apri il confronto</button>
                     <div class="confronto-body">
                         <div class="domanda-classe">
@@ -666,7 +742,15 @@
                         </div>
                         <div class="domanda-classe">
                             <div class="q">Il quiz: quali domande hanno diviso la classe?</div>
-                            <div class="attese"><strong>Punti critici tipici:</strong> la domanda sulla rete informale (la cooperativa sembra «vicina» ma è formale) e la domanda 5 (l'operatore non dà soldi: li dà il Comune con una decisione dell'assistente sociale).</div>
+                            <div class="attese"><strong>Punti critici tipici:</strong> la domanda sulla rete informale (la cooperativa sembra «vicina» ma è formale), quella sui ponti e la domanda 6 (l'operatore non dà soldi: li dà il Comune con una decisione dell'assistente sociale).</div>
+                        </div>
+                        <div class="domanda-classe">
+                            <div class="q">Due persone hanno lo stesso numero di contatti. Perché una delle due può avere accesso a più opportunità?</div>
+                            <div class="attese"><strong>Risposte attese:</strong> non conta soltanto quanti nodi ci sono. Contano la diversità degli ambienti, i ponti tra gruppi, la qualità dei legami e le risorse che possono davvero circolare.</div>
+                        </div>
+                        <div class="domanda-classe">
+                            <div class="q">Se una persona ha una rete piccola o chiusa, è colpa sua? Che cosa può fare davvero l'operatore?</div>
+                            <div class="attese"><strong>Risposte attese:</strong> le reti dipendono anche da famiglia, territorio, reddito, salute, discriminazioni e occasioni disponibili. L'operatore non crea amicizie a comando: facilita accessi, incontri e ponti rispettando consenso e autonomia.</div>
                         </div>
                     </div>
                 </div>
@@ -1247,7 +1331,7 @@
                         <div class="autoval-item"><label>1. Comprendo il modello bio-psico-sociale e so applicarlo</label><div class="scala"><label><input type="radio" name="comp1" value="1">1<br>per niente</label><label><input type="radio" name="comp1" value="2">2<br>poco</label><label><input type="radio" name="comp1" value="3">3<br>abbastanza</label><label><input type="radio" name="comp1" value="4">4<br>molto</label><label><input type="radio" name="comp1" value="5">5<br>pienamente</label></div></div>
                         <div class="autoval-item"><label>2. Conosco le competenze e i luoghi di lavoro dell'operatore sociale</label><div class="scala"><label><input type="radio" name="comp2" value="1">1</label><label><input type="radio" name="comp2" value="2">2</label><label><input type="radio" name="comp2" value="3">3</label><label><input type="radio" name="comp2" value="4">4</label><label><input type="radio" name="comp2" value="5">5</label></div></div>
                         <div class="autoval-item"><label>3. So riconoscere le tipologie di utenza e i loro bisogni</label><div class="scala"><label><input type="radio" name="comp3" value="1">1</label><label><input type="radio" name="comp3" value="2">2</label><label><input type="radio" name="comp3" value="3">3</label><label><input type="radio" name="comp3" value="4">4</label><label><input type="radio" name="comp3" value="5">5</label></div></div>
-                        <div class="autoval-item"><label>4. Capisco l'importanza del lavoro di rete formale e informale</label><div class="scala"><label><input type="radio" name="comp4" value="1">1</label><label><input type="radio" name="comp4" value="2">2</label><label><input type="radio" name="comp4" value="3">3</label><label><input type="radio" name="comp4" value="4">4</label><label><input type="radio" name="comp4" value="5">5</label></div></div>
+                        <div class="autoval-item"><label>4. So distinguere la rete formale da quella informale e leggere nodi, legami, ponti e isolamenti</label><div class="scala"><label><input type="radio" name="comp4" value="1">1</label><label><input type="radio" name="comp4" value="2">2</label><label><input type="radio" name="comp4" value="3">3</label><label><input type="radio" name="comp4" value="4">4</label><label><input type="radio" name="comp4" value="5">5</label></div></div>
                         <div class="autoval-item"><label>5. So progettare un intervento partendo dall'analisi</label><div class="scala"><label><input type="radio" name="comp5" value="1">1</label><label><input type="radio" name="comp5" value="2">2</label><label><input type="radio" name="comp5" value="3">3</label><label><input type="radio" name="comp5" value="4">4</label><label><input type="radio" name="comp5" value="5">5</label></div></div>
                         <div class="autoval-item"><label>6. Ho consapevolezza della dimensione etica del lavoro dell'operatore</label><div class="scala"><label><input type="radio" name="comp6" value="1">1</label><label><input type="radio" name="comp6" value="2">2</label><label><input type="radio" name="comp6" value="3">3</label><label><input type="radio" name="comp6" value="4">4</label><label><input type="radio" name="comp6" value="5">5</label></div></div>
                     </div>
@@ -1376,12 +1460,13 @@
         },
         quiz2: {
             tappa: 4, titolo: '📝 Quiz di fine parte A', pts: 5, quiz: true,
-            istr: 'Cinque domande sui concetti delle tappe 1-4. In classe: prima si risponde tutti, poi il docente mostra le risposte della classe.',
+            istr: 'Sei domande sui concetti delle tappe 1-4. In classe: prima si risponde tutti, poi il docente mostra le risposte della classe.',
             items: [
                 { t: "Il modello bio-psico-sociale considera:", o: ["Solo gli aspetti biologici e fisici della persona", "L'interazione tra aspetti biologici, psicologici e sociali", "Principalmente il contesto sociale della persona", "Solo gli aspetti psicologici ed emotivi"], a: 1, why: "Le tre dimensioni si influenzano a vicenda: guardarne una sola non basta." },
                 { t: "Quale tra queste NON è una competenza dell'operatore sociale?", o: ["Organizzare interventi socio-sanitari", "Prescrivere farmaci e terapie mediche", "Facilitare la comunicazione tra persone e gruppi", "Realizzare attività di animazione sociale"], a: 1, why: "Prescrivere è compito del medico." },
                 { t: "Il «lavoro di rete» significa:", o: ["Usare soprattutto internet e i social", "Lavorare solo con i servizi pubblici", "Creare collegamenti tra risorse formali e informali del territorio", "Lavorare solo con la famiglia dell'utente"], a: 2, why: "Collegare le due reti, e le reti tra loro, è il compito dell'operatore." },
                 { t: "Un esempio di rete informale è:", o: ["Il Servizio Sanitario Nazionale", "I vicini di casa e i volontari del quartiere", "I servizi sociali del Comune", "Una cooperativa sociale accreditata"], a: 1, why: "Vicini e volontari aiutano per legame o per scelta, non per compito istituzionale." },
+                { t: "Due persone hanno reti con lo stesso numero di nodi. Quale rete ha più possibilità di far arrivare informazioni nuove?", o: ["Quella in cui tutti appartengono allo stesso gruppo e si conoscono tra loro", "Quella che contiene ponti verso ambienti diversi", "Quella composta soltanto da legami familiari molto forti", "Sono necessariamente identiche, perché il numero dei nodi è uguale"], a: 1, why: "I ponti collegano gruppi diversi e possono far circolare informazioni non già presenti. Aumentano le possibilità, ma non garantiscono un risultato." },
                 { t: "L'operatore sociale è «professionista della relazione d'aiuto» perché:", o: ["Dà aiuti economici alle persone in difficoltà", "Sostiene le persone nel loro percorso di crescita e partecipazione sociale", "Si occupa solo di assistenza fisica e infermieristica", "Lavora solo in ospedale"], a: 1, why: "Gli aiuti economici li decide il Comune; l'operatore lavora sulla relazione e sulle capacità della persona." }
             ]
         },
