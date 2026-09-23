@@ -365,6 +365,7 @@
             <span class="spacer"></span>
             <button class="btn btn-sm btn-ghost" onclick="rivelaTappa()">👁 Rivela il confronto</button>
             <button class="btn btn-sm btn-white" onclick="mostraRisposteClasse()">📊 Risposte della classe</button>
+            <button class="btn btn-sm btn-lime" id="btnCambiaClasseLim" onclick="cambiaClasseLim()">🔁 Cambia classe</button>
             <button class="btn btn-sm btn-ghost" onclick="vaiTappa(tappaCorrente - 1)">◀</button>
             <button class="btn btn-sm btn-ghost" onclick="vaiTappa(tappaCorrente + 1)">▶</button>
         </div>
@@ -1691,13 +1692,43 @@
         }
         document.body.classList.toggle('lim', on);
         $('#btnLim').textContent = on ? '🖥️ Esci dalla modalità LIM' : '🖥️ Modalità LIM (docente)';
+        aggiornaClasseLimUI();
         $$('.classe-panel').forEach(p => p.remove());
         aggiornaTutto();
     }
+
+    function aggiornaClasseLimUI() {
+        const btn = $('#btnCambiaClasseLim');
+        if (!btn) return;
+        const cls = (localStorage.getItem('mo:lim-class') || '').trim();
+        btn.textContent = cls ? `🔁 Classe ${cls.toUpperCase()} · Cambia` : '🔁 Scegli classe';
+    }
+
+    async function cambiaClasseLim() {
+        if (!(await verificaDocente())) return;
+        const corrente = (localStorage.getItem('mo:lim-class') || '').trim().toLowerCase();
+        const valore = prompt(
+            'Cambia la classe visualizzata dal docente.\n\n' +
+            'Inserisci la nuova classe (es. 2sa). I dati degli alunni non verranno modificati o cancellati.',
+            corrente
+        );
+        if (valore === null) return;
+        const cls = valore.trim().toLowerCase().replace(/\s+/g, '');
+        if (!/^[1-5][a-z]{1,2}$/.test(cls)) {
+            alert('Classe non valida: usa una cifra da 1 a 5 seguita da 1-2 lettere (es. 2sa).');
+            return;
+        }
+        localStorage.setItem('mo:lim-class', cls);
+        aggiornaClasseLimUI();
+        $$('.classe-panel').forEach(p => p.remove());
+        if (document.body.classList.contains('lim')) await mostraRisposteClasse();
+    }
+
     if (localStorage.getItem('mo:lim') === '1') {
         if (docenteSessionValid()) { document.body.classList.add('lim'); $('#btnLim').textContent = '🖥️ Esci dalla modalità LIM'; }
         else localStorage.removeItem('mo:lim');
     }
+    aggiornaClasseLimUI();
 
     function rivelaTappa() {
         const sec = $(`#tappa${tappaCorrente}`);
@@ -1742,7 +1773,7 @@
         let rows;
         try { rows = await fetchClasse(cls); } catch (e) { panel.innerHTML = `<h4>📊 Risposte della classe</h4><p>Non riesco a leggere i dati: ${esc(e.message)}. Controlla la connessione.</p>`; return; }
         const n = rows.length;
-        let html = `<h4>📊 Risposte della classe ${esc(cls.toUpperCase())} <span class="meta">${n} student${n === 1 ? 'e' : 'i'} con dati salvati · tappa ${tappaCorrente}</span><button class="btn btn-sm btn-soft" style="margin-left:8px" onclick="mostraRisposteClasse()">↻ Aggiorna</button><button class="btn btn-sm btn-soft" style="margin-left:6px" onclick="this.closest('.classe-panel').classList.remove('show')">✕</button></h4>`;
+        let html = `<h4>📊 Risposte della classe ${esc(cls.toUpperCase())} <span class="meta">${n} student${n === 1 ? 'e' : 'i'} con dati salvati · tappa ${tappaCorrente}</span><button class="btn btn-sm btn-soft" style="margin-left:8px" onclick="mostraRisposteClasse()">↻ Aggiorna</button><button class="btn btn-sm btn-soft" style="margin-left:6px" onclick="cambiaClasseLim()">🔁 Cambia classe</button><button class="btn btn-sm btn-soft" style="margin-left:6px" onclick="this.closest('.classe-panel').classList.remove('show')">✕</button></h4>`;
         if (!n) { panel.innerHTML = html + '<p>Nessuno studente di questa classe ha ancora salvato qualcosa su questa pagina.</p>'; return; }
 
         // attività della tappa
