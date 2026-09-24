@@ -352,6 +352,10 @@
         .lim-box .barra i { display: block; height: 12px; border-radius: 6px; background: var(--turchese); }
         .lim-box .barra i.ok { background: #4ade80; }
         .lim-box .barra span:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+        .prop-griglia .prop-row { display: grid; grid-template-columns: minmax(170px, 1.2fr) minmax(120px, .8fr) minmax(160px, 1.6fr); gap: 8px; align-items: center; padding: 8px 0; border-top: 1px solid var(--line); }
+        .prop-griglia .prop-nome span { display: block; font-size: .82em; color: var(--ink-soft); }
+        .prop-griglia select, .prop-griglia input[type="text"] { width: 100%; }
+        @media (max-width: 640px) { .prop-griglia .prop-row { grid-template-columns: 1fr; } }
         @media print { .riattiva, .fine-parte { display: none !important; } }
     </style>
 </head>
@@ -851,17 +855,17 @@
                     <div data-act="rete1"></div>
                     <div class="act">
                         <div class="act-title">🕸️ Due reti a confronto <span class="pts">+9</span></div>
-                        <p class="act-istr">Giulia e Marco hanno sedici anni e vivono la stessa situazione: la madre, che li cresce, deve essere ricoverata in ospedale per un mese. Cambia soltanto la rete che hanno attorno. Per ciascun caso ricava i <strong>nodi</strong> (chi c'è, formale o informale) e i <strong>legami</strong> (forti, deboli, ponti, chi è isolato). Poi confronta le due reti pensando al lavoro dell'operatore sociale.</p>
+                        <p class="act-istr">Giulia e Marco hanno sedici anni e vivono la stessa situazione: la madre, che li cresce, deve essere ricoverata in ospedale per un mese. Cambia soltanto la rete che hanno attorno. Per ciascun caso ricava i <strong>nodi</strong> (chi c'è, formale o informale) e i <strong>legami</strong> (forti, deboli, ponti, chi è isolato). Poi confrontale una proprietà alla volta, usando tutte e cinque le proprietà spiegate sopra, e pensa al lavoro dell'operatore sociale.</p>
                         <div class="grid-2">
                             <div class="card">
                                 <h4>🟢 Caso A · Giulia</h4>
-                                <p>La nonna abita nella stessa via e le prepara la cena; la zia la accompagna a scuola in macchina. Giulia gioca a pallavolo: l'allenatrice conosce la famiglia e si è offerta di riaccompagnarla dopo gli allenamenti. In classe ha due amiche con cui studia, e una di loro fa volontariato con il gruppo della parrocchia. La coordinatrice di classe, avvisata dalla zia, ha segnalato la situazione allo sportello d'ascolto della scuola. La madre è seguita dal medico di famiglia, che ha già preso contatto con il servizio sociale del Comune per l'assistenza a domicilio quando tornerà a casa.</p>
-                                <div class="campo"><label for="rete2-giulia">La rete di Giulia: nodi e legami <span class="pts">+2</span></label><textarea id="rete2-giulia" name="rete2-giulia" data-points="2" placeholder="Nodi informali: ...&#10;Nodi formali: ...&#10;Legami forti: ...&#10;Ponti (chi collega ambienti diversi): ..."></textarea></div>
+                                <p>La nonna abita nella stessa via e fa quasi tutto: le prepara la cena, le lava i vestiti, la aspetta sveglia la sera. Nessuno si è offerto di darle il cambio, e comincia a essere stanca. La zia accompagna Giulia a scuola in macchina. Giulia gioca a pallavolo: l'allenatrice conosce la famiglia e si è offerta di riaccompagnarla dopo gli allenamenti. In classe ha due amiche con cui studia, e una di loro fa volontariato con il gruppo della parrocchia. La coordinatrice di classe, avvisata dalla zia, ha segnalato la situazione allo sportello d'ascolto della scuola. La madre è seguita dal medico di famiglia, che ha già preso contatto con il servizio sociale del Comune per l'assistenza a domicilio quando tornerà a casa. Nel paese si conoscono tutti: in due giorni la notizia del ricovero ha fatto il giro, e la madre, che voleva tenerla riservata, ci è rimasta male.</p>
+                                <div class="campo"><label for="rete2-giulia">La rete di Giulia: nodi e legami <span class="pts">+1</span></label><textarea id="rete2-giulia" name="rete2-giulia" data-points="1" placeholder="Nodi informali: ...&#10;Nodi formali: ...&#10;Legami forti: ...&#10;Ponti (chi collega ambienti diversi): ..."></textarea></div>
                             </div>
                             <div class="card">
                                 <h4>🟠 Caso B · Marco</h4>
-                                <p>Il padre lavora su turni in un'altra città e torna solo nel fine settimana. Marco e la madre si sono trasferiti da pochi mesi: nel quartiere non conosce nessuno e ha lasciato la squadra di calcio della città di prima. Passa molte ore online con gli amici di prima. In classe parla con un solo compagno, che non sa niente del ricovero. A scuola nessuno è stato avvisato. Anche la madre di Marco è seguita dal medico di famiglia.</p>
-                                <div class="campo"><label for="rete2-marco">La rete di Marco: nodi e legami <span class="pts">+2</span></label><textarea id="rete2-marco" name="rete2-marco" data-points="2" placeholder="Nodi informali: ...&#10;Nodi formali: ...&#10;Legami forti o deboli: ...&#10;Chi manca, chi è lontano, dove c'è isolamento: ..."></textarea></div>
+                                <p>Il padre lavora su turni in un'altra città e torna solo nel fine settimana; telefona ogni sera, ma nessuno gli ha chiesto di organizzarsi per il mese del ricovero. Marco e la madre si sono trasferiti da pochi mesi: nel quartiere non conosce nessuno e ha lasciato la squadra di calcio della città di prima. Gli amici di prima gli scrivono ogni sera e lui si fida di loro, ma abitano a duecento chilometri. In classe parla con un solo compagno, che abita nel suo stesso palazzo e fa parte di un gruppo scout: non sa niente del ricovero. A scuola nessuno è stato avvisato. Anche la madre di Marco è seguita dal medico di famiglia, che però non sa che Marco resterà solo.</p>
+                                <div class="campo"><label for="rete2-marco">La rete di Marco: nodi e legami <span class="pts">+1</span></label><textarea id="rete2-marco" name="rete2-marco" data-points="1" placeholder="Nodi informali: ...&#10;Nodi formali: ...&#10;Legami forti o deboli: ...&#10;Chi manca, chi è lontano, dove c'è isolamento: ..."></textarea></div>
                             </div>
                         </div>
                         <div class="mappa-rete" id="a4-box">
@@ -872,8 +876,37 @@
                             <svg id="a4-svg" viewBox="0 0 600 360" role="img" aria-label="La tua mappa della rete"></svg>
                             <div class="mr-conta" id="a4-conta"></div>
                         </div>
-                        <div class="campo"><label for="rete2-confronto">Quale delle due reti sostiene meglio la persona, e perché? <span class="pts">+3</span></label><p class="hint">Usa almeno due proprietà della rete: ampiezza, forza e reciprocità dei legami, densità, diversità, ponti, isolamento. Non basta contare le persone.</p><textarea id="rete2-confronto" name="rete2-confronto" data-points="3" placeholder="La rete più solida è quella di ... perché ..."></textarea></div>
-                        <div class="campo"><label for="rete2-intervento">Nella rete più scoperta, quale collegamento proverebbe a creare l'operatore sociale? <span class="pts">+2</span></label><p class="hint">Pensa a un nodo da attivare e a un ponte da costruire, sempre con il consenso della persona.</p><textarea id="rete2-intervento" name="rete2-intervento" data-points="2" placeholder="Con il consenso di ..., l'operatore potrebbe ..."></textarea></div>
+                        <div class="campo prop-griglia">
+                            <label>Proprietà per proprietà <span class="pts">+5</span></label>
+                            <p class="hint">Per ognuna delle cinque proprietà scegli in quale rete è più forte e scrivi l'indizio che hai trovato nel testo. Attenzione: più forte non vuol dire sempre migliore.</p>
+                            <div class="prop-row">
+                                <div class="prop-nome"><strong>Ampiezza</strong><span>quanti nodi ci sono</span></div>
+                                <select id="rete2-p-ampiezza" name="rete2-p-ampiezza" aria-label="Ampiezza: in quale rete è più forte"><option value="">più forte in…</option><option value="A">A · Giulia</option><option value="B">B · Marco</option><option value="pari">pari o dipende</option></select>
+                                <input type="text" id="rete2-i-ampiezza" name="rete2-i-ampiezza" data-points="1" aria-label="Ampiezza: l'indizio nel testo" placeholder="l'indizio nel testo">
+                            </div>
+                            <div class="prop-row">
+                                <div class="prop-nome"><strong>Forza e reciprocità</strong><span>legami stabili e fidati; l'aiuto va nei due sensi o qualcuno si sovraccarica?</span></div>
+                                <select id="rete2-p-forza" name="rete2-p-forza" aria-label="Forza e reciprocità: in quale rete è più forte"><option value="">più forte in…</option><option value="A">A · Giulia</option><option value="B">B · Marco</option><option value="pari">pari o dipende</option></select>
+                                <input type="text" id="rete2-i-forza" name="rete2-i-forza" data-points="1" aria-label="Forza e reciprocità: l'indizio nel testo" placeholder="l'indizio nel testo">
+                            </div>
+                            <div class="prop-row">
+                                <div class="prop-nome"><strong>Densità</strong><span>quanto i nodi si conoscono fra loro: coordina l'aiuto, ma può anche controllare</span></div>
+                                <select id="rete2-p-densita" name="rete2-p-densita" aria-label="Densità: in quale rete è più forte"><option value="">più forte in…</option><option value="A">A · Giulia</option><option value="B">B · Marco</option><option value="pari">pari o dipende</option></select>
+                                <input type="text" id="rete2-i-densita" name="rete2-i-densita" data-points="1" aria-label="Densità: l'indizio nel testo" placeholder="l'indizio nel testo">
+                            </div>
+                            <div class="prop-row">
+                                <div class="prop-nome"><strong>Diversità</strong><span>quanti ambienti diversi: famiglia, scuola, sport, servizi...</span></div>
+                                <select id="rete2-p-diversita" name="rete2-p-diversita" aria-label="Diversità: in quale rete è più forte"><option value="">più forte in…</option><option value="A">A · Giulia</option><option value="B">B · Marco</option><option value="pari">pari o dipende</option></select>
+                                <input type="text" id="rete2-i-diversita" name="rete2-i-diversita" data-points="1" aria-label="Diversità: l'indizio nel testo" placeholder="l'indizio nel testo">
+                            </div>
+                            <div class="prop-row">
+                                <div class="prop-nome"><strong>Ponti e isolamento</strong><span>chi collega ambienti separati, chi resta ai margini</span></div>
+                                <select id="rete2-p-ponti" name="rete2-p-ponti" aria-label="Ponti e isolamento: in quale rete è più forte"><option value="">più forte in…</option><option value="A">A · Giulia</option><option value="B">B · Marco</option><option value="pari">pari o dipende</option></select>
+                                <input type="text" id="rete2-i-ponti" name="rete2-i-ponti" data-points="1" aria-label="Ponti e isolamento: l'indizio nel testo" placeholder="l'indizio nel testo">
+                            </div>
+                        </div>
+                        <div class="campo"><label for="rete2-confronto">Tenendo conto di tutte e cinque le proprietà, quale rete sostiene meglio la persona? Indica anche un punto debole della rete più forte <span class="pts">+1</span></label><p class="hint">Non basta contare le persone: spiega perché, e che cosa potrebbe andare storto anche nella rete migliore.</p><textarea id="rete2-confronto" name="rete2-confronto" data-points="1" placeholder="La rete più solida è quella di ... perché ..."></textarea></div>
+                        <div class="campo"><label for="rete2-intervento">Nella rete più scoperta, quale collegamento proverebbe a creare l'operatore sociale? <span class="pts">+1</span></label><p class="hint">Pensa a un nodo da attivare e a un ponte da costruire, sempre con il consenso della persona.</p><textarea id="rete2-intervento" name="rete2-intervento" data-points="1" placeholder="Con il consenso di ..., l'operatore potrebbe ..."></textarea></div>
                     </div>
                     <div data-act="quiz2"></div>
                 </div>
@@ -897,7 +930,7 @@
                         </div>
                         <div class="domanda-classe">
                             <div class="q">Giulia e Marco: perché la stessa emergenza pesa in modo così diverso sui due ragazzi? Che cosa farebbe per primo l'operatore con Marco?</div>
-                            <div class="attese"><strong>Risposte attese:</strong> la rete di Giulia è ampia, diversa (famiglia, scuola, sport, parrocchia, servizi) e ha ponti: la zia collega la famiglia alla scuola, il medico collega la madre al servizio sociale. Quella di Marco è piccola, con legami lontani o deboli e nessun ponte verso la scuola: è a rischio di isolamento. Con il consenso di Marco e della madre, l'operatore può far sapere alla scuola che cosa sta succedendo (sportello d'ascolto, coordinatore), attivare il servizio sociale tramite il medico, coinvolgere il padre e proporre un gruppo sportivo nel nuovo quartiere. Non si «regalano» amicizie: si creano le condizioni perché i legami nascano.</div>
+                            <div class="attese"><strong>Risposte attese, proprietà per proprietà.</strong> <em>Ampiezza</em>: più nodi per Giulia. <em>Forza e reciprocità</em>: Giulia ha legami forti e vicini, ma la nonna dà senza ricevere e si sta sovraccaricando; i legami forti di Marco (gli amici di prima) sono lontani e non possono aiutarlo in pratica. <em>Densità</em>: nel paese di Giulia tutti si conoscono, l'aiuto si coordina in fretta ma la notizia è circolata contro la volontà della madre; la rete di Marco è poco densa. È la proprietà in cui «più» non vuol dire «meglio». <em>Diversità</em>: Giulia tocca famiglia, scuola, sport, parrocchia e servizi; Marco quasi solo la famiglia e il mondo online. <em>Ponti e isolamento</em>: la zia collega famiglia e scuola, il medico collega la madre al servizio sociale; Marco è a rischio di isolamento, ma ha ponti possibili: il compagno di palazzo (e il suo gruppo scout), il medico, il padre. In sintesi: la rete di Giulia sostiene meglio, ma va alleggerita la nonna e va rispettata la riservatezza. Con il consenso di Marco e della madre, l'operatore può far sapere alla scuola che cosa sta succedendo (sportello d'ascolto, coordinatore), attivare il servizio sociale tramite il medico, coinvolgere il padre e proporre un gruppo sportivo nel nuovo quartiere. Non si «regalano» amicizie: si creano le condizioni perché i legami nascano.</div>
                         </div>
                         <div class="domanda-classe">
                             <div class="q">Due persone hanno lo stesso numero di contatti. Perché una delle due può avere accesso a più opportunità?</div>
