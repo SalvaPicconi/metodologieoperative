@@ -314,6 +314,45 @@
             .confronto-body { display: block !important; }
             .step { break-inside: avoid; }
         }
+
+        /* ---------- ATTIVITÀ AGGIUNTE (settembre 2026): tutte bonus, nessuna obbligatoria ---------- */
+        .bonus-tag { font-size: .68em; padding: 2px 9px; border-radius: 999px; background: var(--lime); color: #3f4a00; font-weight: 800; letter-spacing: .04em; }
+        .step-bonus { border: 2px dashed var(--lime-dark); }
+        .fine-parte { margin: 20px 0 8px; padding: 10px 14px; border-top: 3px dashed var(--turchese); color: var(--turchese-deep); background: var(--paper-soft); font-size: .95em; }
+        .schema-nuovo { max-width: 680px; }
+        .nuova-att { background: rgba(255,255,255,.9); border: 2px solid var(--turchese); border-radius: 12px; padding: 12px 16px; margin: 12px 0; }
+        .nuova-att .nt { font-weight: 800; margin-bottom: 4px; }
+        .nuova-att .qn { font-weight: 700; margin: 8px 0 6px; }
+        .opts.col { flex-direction: column; }
+        .opts.col .opt { border-radius: 10px; }
+        .fbn { font-size: .92em; margin-top: 6px; padding: 7px 11px; border-radius: 8px; background: var(--warn-bg); }
+        .fbn.ok { background: var(--ok-bg); }
+        .pensa-prima { background: white; border: 1px solid var(--line); border-radius: 12px; padding: 8px 12px; }
+        .pensa-prima textarea { min-height: 60px !important; }
+        .bolla { background: white; border: 1px solid var(--line); border-radius: 14px 14px 14px 4px; padding: 8px 12px; margin: 6px 0; max-width: 90%; }
+        .bolla.io { border-radius: 14px 14px 4px 14px; background: var(--spiego); margin-left: auto; }
+        .chi { font-size: .75em; font-weight: 800; color: var(--ink-soft); letter-spacing: .04em; text-transform: uppercase; }
+        .carta-evento { background: white; border: 2px dashed var(--fucsia-dark); border-radius: 12px; padding: 10px 14px; margin: 8px 0; }
+        .dato { background: var(--paper-soft); border-left: 4px solid var(--turchese); padding: 6px 10px; margin: 4px 0 8px; font-size: .95em; }
+        .timer-mem { font-weight: 800; color: var(--fucsia-dark); font-variant-numeric: tabular-nums; }
+        .concetti { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 6px; }
+        .concetti label { font-weight: 600; }
+        .mappa-rete { background: white; border: 2px solid var(--lime-dark); border-radius: 12px; padding: 10px 12px; margin: 10px 0 14px; }
+        .mappa-rete .mr-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; align-items: center; }
+        .mappa-rete input[type="text"], .mappa-rete select { border: 2px solid var(--line); border-radius: 10px; padding: 6px 8px; font: inherit; font-size: .92em; background: white; }
+        .mappa-rete svg { width: 100%; height: auto; display: block; background: var(--paper-soft); border-radius: 10px; margin-top: 6px; }
+        .mr-conta { font-size: .9em; margin-top: 6px; color: var(--ink-soft); }
+        .mr-conta strong { color: var(--ink); }
+        .riattiva { display: none; margin: 0 24px 14px; background: var(--provate); border: 2px solid var(--lime-dark); border-radius: 16px; padding: 14px 18px; }
+        .riattiva.show { display: block; }
+        .riattiva h3 { margin-bottom: 6px; }
+        .riattiva .ra-item { background: white; border-radius: 12px; padding: 10px 14px; margin: 8px 0; border: 1px solid var(--line); }
+        .lim-box { background: #1f2933; color: #e6f7f7; border-radius: 10px; padding: 10px 12px; margin-top: 10px; font-size: .92em; }
+        .lim-box .barra { display: grid; grid-template-columns: 2em 1fr 3.2em; gap: 6px; align-items: center; margin: 3px 0; }
+        .lim-box .barra i { display: block; height: 12px; border-radius: 6px; background: var(--turchese); }
+        .lim-box .barra i.ok { background: #4ade80; }
+        .lim-box .barra span:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+        @media print { .riattiva, .fine-parte { display: none !important; } }
     </style>
 </head>
 
@@ -328,6 +367,11 @@
     <div class="state-storage" style="display:none" aria-hidden="true">
         <input type="hidden" id="stato_tappa" name="stato_tappa" value="1">
         <input type="hidden" id="stato_tappe_viste" name="stato_tappe_viste" value="[1]">
+        <input type="hidden" id="riattiva-ultimo" name="riattiva-ultimo" value="">
+        <input type="hidden" id="a2-voto1" name="a2-voto1" value="">
+        <input type="hidden" id="a2-voto2" name="a2-voto2" value="">
+        <input type="hidden" id="a4-mappa" name="a4-mappa" value="">
+        <input type="hidden" id="a5-dialogo" name="a5-dialogo" value="">
     </div>
 
     <div class="container">
@@ -338,6 +382,7 @@
                 <a href="tssas_teoria_ripasso.html" class="btn btn-white">📖 Ripassa la teoria</a>
                 <button class="btn btn-ghost" id="btnLim" onclick="toggleLim()">🖥️ Modalità LIM (docente)</button>
                 <button class="btn btn-ghost" onclick="window.print()">🖨️ Stampa il percorso</button>
+                <button class="btn btn-ghost" onclick="riattivaApri()">🔁 Riattiva · 3 domande</button>
             </div>
         </div>
 
@@ -364,6 +409,20 @@
         <div class="riprendi" id="riprendi">
             <span>🔖 Bentornato/a: eri arrivato/a alla <strong id="riprendiTappa">tappa 1</strong>.</span>
             <button class="btn btn-sm" id="riprendiBtn">Riprendi da lì</button>
+        </div>
+
+        <div class="riattiva" id="riattiva">
+            <h3>🔁 Riattiva: tre domande dalle tappe già fatte</h3>
+            <p class="act-istr">Si fa all'inizio della lezione, da soli e senza appunti. Non è un voto: serve a ricordare. Il docente vi dice a che tappa è arrivata la classe, così tutti ricevono le stesse domande.</p>
+            <div class="mr-row" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+                <label for="riattiva-tappa"><strong>Siamo arrivati alla tappa</strong></label>
+                <select id="riattiva-tappa" data-progress-ignore style="border:2px solid var(--line);border-radius:10px;padding:5px 8px;font:inherit"></select>
+                <button class="btn btn-sm" type="button" onclick="riattivaGenera()">Dammi le domande</button>
+                <button class="btn btn-sm btn-soft" type="button" onclick="riattivaChiudi()">Chiudi</button>
+            </div>
+            <div id="riattiva-domande"></div>
+            <div class="ra-item" id="riattiva-aperta-box" style="display:none"><div class="qn" id="riattiva-aperta-q"></div><div class="campo" style="margin:4px 0"><textarea id="riattiva-aperta" name="riattiva-aperta" placeholder="Rispondi in una o due frasi, senza guardare."></textarea></div><button type="button" class="btn btn-sm btn-soft" onclick="document.getElementById('riattiva-modello').style.display='block'">Mostra una risposta modello</button><div class="fbn ok" id="riattiva-modello" style="display:none"></div></div>
+            <div class="solo-lim"><button class="btn btn-sm btn-soft" type="button" onclick="riattivaClasse()">📊 Risposte della classe a queste domande</button><div id="riattiva-lim"></div></div>
         </div>
 
         <div class="conduttore" id="conduttore">
@@ -424,6 +483,27 @@
                         <li><strong>Accettazione incondizionata</strong>: accogliere la persona senza giudicarla, anche quando non condividi le sue scelte.</li>
                         <li><strong>Autenticità</strong>: essere sinceri e coerenti; le persone si accorgono quando fingiamo.</li>
                     </ul>
+                    <div class="schema schema-nuovo">
+                        <svg viewBox="0 0 640 230" role="img" aria-label="Scala dell'aiuto: da faccio al posto tuo a fai da solo, sostenuta da ascolto, accettazione e autenticità" font-family="Segoe UI,Tahoma,sans-serif">
+<defs><marker id="mos1-ar1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9z" fill="#0E7C7C"/></marker></defs>
+<line x1="30" y1="88" x2="612" y2="88" stroke="#0E7C7C" stroke-width="3" marker-end="url(#mos1-ar1)"/>
+<g font-size="13" font-weight="700" text-anchor="middle">
+<rect x="20" y="30" width="130" height="44" rx="10" fill="#fee2e2" stroke="#dc2626"/><text x="85" y="50" fill="#7f1d1d">Faccio</text><text x="85" y="66" fill="#7f1d1d">al posto tuo</text>
+<rect x="170" y="30" width="130" height="44" rx="10" fill="#fff7d6" stroke="#eab308"/><text x="235" y="50" fill="#713f12">Facciamo</text><text x="235" y="66" fill="#713f12">insieme</text>
+<rect x="320" y="30" width="130" height="44" rx="10" fill="#e6f7f7" stroke="#1DD3D3"/><text x="385" y="50" fill="#0E7C7C">Ti accompagno,</text><text x="385" y="66" fill="#0E7C7C">decidi tu</text>
+<rect x="470" y="30" width="130" height="44" rx="10" fill="#dcfce7" stroke="#16a34a"/><text x="535" y="50" fill="#14532d">Fai da solo</text><text x="535" y="66" fill="#14532d">🎯 obiettivo</text>
+</g>
+<g font-size="11.5" fill="#52606d" text-anchor="middle"><text x="85" y="108">dipendenza</text><text x="535" y="108">autonomia</text><text x="310" y="108">l'operatore sposta la persona verso destra</text></g>
+<rect x="20" y="130" width="580" height="1" fill="#d9e2e6"/>
+<text x="310" y="152" font-size="12" font-weight="700" fill="#52606d" text-anchor="middle" letter-spacing=".05em">SU CHE COSA POGGIA · I TRE ATTEGGIAMENTI DI ROGERS</text>
+<g font-size="13" text-anchor="middle">
+<rect x="20" y="164" width="185" height="52" rx="10" fill="#fff" stroke="#d9e2e6"/><text x="112" y="186" font-weight="700" fill="#1f2933">👂 Ascolto ed empatia</text><text x="112" y="204" fill="#52606d" font-size="11.5">capire «come se» fossi lui</text>
+<rect x="218" y="164" width="185" height="52" rx="10" fill="#fff" stroke="#d9e2e6"/><text x="310" y="186" font-weight="700" fill="#1f2933">🤲 Accettazione</text><text x="310" y="204" fill="#52606d" font-size="11.5">accolgo senza giudicare</text>
+<rect x="416" y="164" width="185" height="52" rx="10" fill="#fff" stroke="#d9e2e6"/><text x="508" y="186" font-weight="700" fill="#1f2933">💬 Autenticità</text><text x="508" y="204" fill="#52606d" font-size="11.5">sono sincero e coerente</text>
+</g></svg>
+                        <div class="didascalia">L'aiuto professionale sposta la persona verso destra, e poggia su tre atteggiamenti.</div>
+                    </div>
+
 
                     <h3>Che cosa fa e che cosa non fa</h3>
                     <div class="grid-2">
@@ -440,6 +520,11 @@
 
                 <div class="step step-confronto">
                     <div class="step-title"><span class="tag">RISPOSTE E DISCUSSIONE</span> Le parole della classe <span class="min">3 min</span></div>
+                    <div class="campo pensa-prima">
+                        <label for="pensiero-t1">✍️ Prima di parlarne, scrivi da solo: Quali parole sono uscite più spesso nella classe? Manca qualcosa di importante?</label>
+                        <p class="hint">Un minuto, due righe. Poi leggi la risposta del vicino. <span class="bonus-tag">facoltativo</span></p>
+                        <textarea id="pensiero-t1" name="pensiero-t1" placeholder="Secondo me..."></textarea>
+                    </div>
                     <button class="btn btn-soft btn-confronta" data-confronta="1">Apri il confronto</button>
                     <div class="confronto-body">
                         <div class="domanda-classe">
@@ -520,8 +605,15 @@
                     <div data-act="bps1"></div>
                 </div>
 
-                <div class="step step-confronto">
+                
+                <div class="fine-parte">✂️ <strong>Fine della prima parte.</strong> Se la lezione finisce qui, la prossima volta si riparte da questo punto.</div>
+<div class="step step-confronto">
                     <div class="step-title"><span class="tag">RISPOSTE E DISCUSSIONE</span> <span class="min">5 min</span></div>
+                    <div class="campo pensa-prima">
+                        <label for="pensiero-t2">✍️ Prima di parlarne, scrivi da solo: Quale frase su Karim ha creato più dubbi? Perché una stessa cosa può stare in due dimensioni?</label>
+                        <p class="hint">Un minuto, due righe. Poi leggi la risposta del vicino. <span class="bonus-tag">facoltativo</span></p>
+                        <textarea id="pensiero-t2" name="pensiero-t2" placeholder="Secondo me..."></textarea>
+                    </div>
                     <button class="btn btn-soft btn-confronta" data-confronta="2">Apri il confronto</button>
                     <div class="confronto-body">
                         <div class="domanda-classe">
@@ -531,6 +623,14 @@
                         <div class="domanda-classe">
                             <div class="q">Se foste l'operatore di Karim, da quale dimensione partireste? Perché?</div>
                             <div class="attese"><strong>Non c'è una risposta unica.</strong> Far emergere il criterio: si parte dal bisogno più urgente o da quello che «sblocca» gli altri. Spesso rimettere in moto la dimensione sociale (un gruppo, uno sport) trascina le altre.</div>
+                        </div>
+                                            <div class="nuova-att" id="a2-box">
+                            <div class="nt">🗳️ Vota, discuti, rivota <span class="bonus-tag">bonus</span></div>
+                            <p class="act-istr">1) Vota da solo, in silenzio. 2) Quando il docente lo dice, due minuti: convinci il tuo vicino, meglio se ha votato diversamente. 3) Vota di nuovo.</p>
+                            <div class="qn">Da due settimane Karim a mensa lascia il piatto quasi pieno. L'insegnante lo segnala all'operatore. Qual è la prima cosa giusta da fare?</div>
+                            <div class="opts col" id="a2-opts"></div>
+                            <div id="a2-stato"></div>
+                            <div class="solo-lim"><button class="btn btn-sm btn-soft" type="button" onclick="a2Classe()">📊 Voti della classe</button><div id="a2-lim"></div></div>
                         </div>
                     </div>
                 </div>
@@ -568,6 +668,17 @@
 
                     <h3>Dove lavora</h3>
                     <p>L'operatore sociale lavora in <strong>istituzioni pubbliche e private</strong> del settore socio-sanitario, socio-assistenziale e socio-educativo. I luoghi più comuni:</p>
+                    <div class="schema schema-nuovo">
+                        <svg viewBox="0 0 640 236" role="img" aria-label="Quanto tempo la persona passa nel servizio in un giorno: residenziale tutto il giorno, semiresidenziale dalle 9 alle 17, domiciliare poche ore a casa" font-family="Segoe UI,Tahoma,sans-serif">
+<text x="20" y="22" font-size="12" font-weight="700" fill="#52606d" letter-spacing=".05em">UNA GIORNATA · QUANDO LA PERSONA È SEGUITA DAL SERVIZIO</text>
+<text x="190" y="222" font-size="11" fill="#52606d" text-anchor="middle">0:00</text><line x1="190" y1="40" x2="190" y2="206" stroke="#d9e2e6" stroke-dasharray="2 3"/><text x="295" y="222" font-size="11" fill="#52606d" text-anchor="middle">6:00</text><line x1="295" y1="40" x2="295" y2="206" stroke="#d9e2e6" stroke-dasharray="2 3"/><text x="400" y="222" font-size="11" fill="#52606d" text-anchor="middle">12:00</text><line x1="400" y1="40" x2="400" y2="206" stroke="#d9e2e6" stroke-dasharray="2 3"/><text x="505" y="222" font-size="11" fill="#52606d" text-anchor="middle">18:00</text><line x1="505" y1="40" x2="505" y2="206" stroke="#d9e2e6" stroke-dasharray="2 3"/><text x="610" y="222" font-size="11" fill="#52606d" text-anchor="middle">24:00</text><line x1="610" y1="40" x2="610" y2="206" stroke="#d9e2e6" stroke-dasharray="2 3"/>
+<text x="20" y="62" font-size="13" font-weight="700" fill="#1f2933">🏠 Residenziale</text><text x="20" y="78" font-size="11.5" fill="#52606d">RSA, comunità: ci vive</text><rect x="190" y="48" width="420" height="30" rx="6" fill="#f4f9f9" stroke="#d9e2e6"/><rect x="190.0" y="48" width="420.0" height="30" rx="6" fill="#1DD3D3" stroke="#0E7C7C"/>
+<text x="20" y="116" font-size="13" font-weight="700" fill="#1f2933">☀️ Semiresidenziale</text><text x="20" y="132" font-size="11.5" fill="#52606d">centro diurno: la sera a casa</text><rect x="190" y="102" width="420" height="30" rx="6" fill="#f4f9f9" stroke="#d9e2e6"/><rect x="347.5" y="102" width="140.0" height="30" rx="6" fill="#C6E716" stroke="#9CB912"/>
+<text x="20" y="170" font-size="13" font-weight="700" fill="#1f2933">🚪 Domiciliare</text><text x="20" y="186" font-size="11.5" fill="#52606d">l'operatore va da lei</text><rect x="190" y="156" width="420" height="30" rx="6" fill="#f4f9f9" stroke="#d9e2e6"/><rect x="347.5" y="156" width="35.0" height="30" rx="6" fill="#ffe6f3" stroke="#CC0073"/><rect x="452.5" y="156" width="17.5" height="30" rx="6" fill="#ffe6f3" stroke="#CC0073"/>
+</svg>
+                        <div class="didascalia">La differenza fra i tre tipi di servizio è il tempo: tutto il giorno, di giorno, poche ore a casa.</div>
+                    </div>
+
                     <div class="grid-2">
                         <div class="card"><h4>🏠 Servizi residenziali</h4><p>Le persone <strong>vivono</strong> nella struttura, giorno e notte.</p><ul><li><strong>RSA</strong> (Residenza Sanitaria Assistenziale) per anziani non autosufficienti.</li><li><strong>Comunità educative</strong> per minori allontanati temporaneamente dalla famiglia.</li><li><strong>Comunità terapeutiche</strong> per persone con dipendenze.</li><li>Case famiglia, gruppi appartamento per persone con disabilità.</li></ul></div>
                         <div class="card"><h4>☀️ Servizi semiresidenziali</h4><p>Le persone passano la <strong>giornata</strong> in struttura e tornano a casa la sera.</p><ul><li><strong>Centri diurni</strong> per anziani, per persone con disabilità, per minori.</li><li>Centri socio-educativi.</li></ul></div>
@@ -582,8 +693,22 @@
                     <div data-act="ctx1"></div>
                 </div>
 
+                                <div class="step step-provate step-bonus">
+                    <div class="step-title"><span class="tag">ESERCIZIO</span> Il diario di Nadia: trova l'errore e spiegalo <span class="bonus-tag">bonus</span> <span class="min">5 min</span></div>
+                    <div data-act="diario"></div>
+                    <div class="campo">
+                        <label for="a3-riscrittura">✏️ Scegli una frase sbagliata e riscrivila come avrebbe dovuto scriverla Nadia</label>
+                        <textarea id="a3-riscrittura" name="a3-riscrittura" placeholder="Nadia avrebbe dovuto scrivere: «...»"></textarea>
+                    </div>
+                </div>
+
                 <div class="step step-confronto">
                     <div class="step-title"><span class="tag">RISPOSTE E DISCUSSIONE</span> <span class="min">3 min</span></div>
+                    <div class="campo pensa-prima">
+                        <label for="pensiero-t3">✍️ Prima di parlarne, scrivi da solo: Che differenza c'è tra una RSA e un centro diurno? E perché un anziano potrebbe preferire l'assistenza a casa?</label>
+                        <p class="hint">Un minuto, due righe. Poi leggi la risposta del vicino. <span class="bonus-tag">facoltativo</span></p>
+                        <textarea id="pensiero-t3" name="pensiero-t3" placeholder="Secondo me..."></textarea>
+                    </div>
                     <button class="btn btn-soft btn-confronta" data-confronta="3">Apri il confronto</button>
                     <div class="confronto-body">
                         <div class="domanda-classe">
@@ -656,6 +781,8 @@
                     </div>
                     <div class="nota esempio"><strong>Esempio.</strong> Una signora di 85 anni vive sola. La <em>rete informale</em> (la figlia il weekend, la vicina che le fa la spesa) non basta più. L'operatore attiva la <em>rete formale</em>: assistenza domiciliare del Comune tre mattine a settimana, pasti a domicilio, controllo del medico. Ma non spegne la rete informale: chiede alla vicina di continuare la spesa e alla figlia di tenere i contatti con il servizio. Le due reti, insieme, reggono.</div>
 
+                    <div class="fine-parte">✂️ <strong>Fine della prima parte.</strong> Se la lezione finisce qui, fate subito l'esercizio «Formale o informale?» più sotto; la prossima volta si riparte da questo titolo.</div>
+
                     <h3>Dalla lista delle persone alla forma della rete</h3>
                     <p>Distinguere rete formale e informale è necessario, ma non basta. Questa distinzione risponde alla domanda <strong>«che tipo di risorsa è?»</strong>. Per capire davvero la situazione di una persona bisogna aggiungere altre domande: <strong>chi è collegato con chi?</strong> Quali rapporti sono forti e affidabili? Quali mettono in contatto ambienti diversi? Chi è isolato? Che cosa può circolare attraverso ciascun rapporto?</p>
                     <p>La <span class="hl">Social Network Analysis (SNA), cioè analisi delle reti sociali</span>, rappresenta la rete come un insieme di <strong>nodi</strong> e <strong>legami</strong>. I nodi possono essere persone, gruppi, servizi o organizzazioni. I legami sono le relazioni attraverso cui possono passare affetto, cura, informazioni, fiducia, regole, presentazioni e occasioni concrete. Quando la mappa parte da una persona e osserva chi le sta intorno, si parla di <strong>rete personale o egocentrata</strong>: «ego» indica soltanto il punto da cui comincia l'osservazione.</p>
@@ -725,6 +852,14 @@
                     <div class="act">
                         <div class="act-title">🕸️ Dalla lista alla mappa <span class="pts">+9</span></div>
                         <p class="act-istr">Lavora su una persona inventata. Non scrivere nomi reali: usa ruoli come «zia», «compagno», «docente», «servizio». Prima individua i nodi, poi osserva i legami e infine pensa a un intervento possibile.</p>
+                        <div class="mappa-rete" id="a4-box">
+                            <div class="nt">🖊️ Prima disegna la rete <span class="bonus-tag">bonus</span></div>
+                            <p class="hint">Aggiungi i nodi (ruoli, mai nomi veri), poi collegali. La pagina conta nodi, legami, ponti e nodi isolati. Poi usa la mappa per rispondere alle tre domande qui sotto.</p>
+                            <div class="mr-row"><input type="text" id="a4-nodo" data-progress-ignore maxlength="22" placeholder="es. zia, allenatrice, consultorio" aria-label="Nome del nodo"><select id="a4-tipo" data-progress-ignore aria-label="Tipo di nodo"><option value="inf">informale</option><option value="for">formale</option></select><button class="btn btn-sm" type="button" onclick="a4AggiungiNodo()">+ Nodo</button></div>
+                            <div class="mr-row"><select id="a4-da" data-progress-ignore aria-label="Da"></select><span>↔</span><select id="a4-a" data-progress-ignore aria-label="A"></select><select id="a4-leg" data-progress-ignore aria-label="Tipo di legame"><option value="forte">legame forte</option><option value="debole">legame debole</option><option value="ponte">ponte</option></select><button class="btn btn-sm" type="button" onclick="a4Collega()">+ Legame</button><button class="btn btn-sm btn-soft" type="button" onclick="a4Annulla()">↶ Annulla l'ultima mossa</button></div>
+                            <svg id="a4-svg" viewBox="0 0 600 360" role="img" aria-label="La tua mappa della rete"></svg>
+                            <div class="mr-conta" id="a4-conta"></div>
+                        </div>
                         <div class="campo"><label for="rete-nodi">1. Quali nodi compongono la rete? <span class="pts">+3</span></label><textarea id="rete-nodi" name="rete-nodi" data-points="3" placeholder="Indica almeno sei nodi e specifica per ciascuno se è formale o informale."></textarea></div>
                         <div class="campo"><label for="rete-legami">2. Come sono collegati? <span class="pts">+3</span></label><textarea id="rete-legami" name="rete-legami" data-points="3" placeholder="Individua almeno un legame forte, un legame più debole, un ponte e un possibile isolamento o sovraccarico."></textarea></div>
                         <div class="campo"><label for="rete-intervento">3. Quale possibilità manca e quale collegamento potrebbe favorire l'operatore? <span class="pts">+3</span></label><textarea id="rete-intervento" name="rete-intervento" data-points="3" placeholder="Spiega quale risorsa dovrebbe diventare accessibile e attraverso quale nuovo collegamento, rispettando la scelta della persona."></textarea></div>
@@ -734,6 +869,11 @@
 
                 <div class="step step-confronto">
                     <div class="step-title"><span class="tag">RISPOSTE E DISCUSSIONE</span> <span class="min">6 min</span></div>
+                    <div class="campo pensa-prima">
+                        <label for="pensiero-t4">✍️ Prima di parlarne, scrivi da solo: Pensate a una persona che conoscete e che ha avuto bisogno di aiuto: chi c'era nella sua rete informale? E in quella formale?</label>
+                        <p class="hint">Un minuto, due righe. Poi leggi la risposta del vicino. <span class="bonus-tag">facoltativo</span></p>
+                        <textarea id="pensiero-t4" name="pensiero-t4" placeholder="Secondo me..."></textarea>
+                    </div>
                     <button class="btn btn-soft btn-confronta" data-confronta="4">Apri il confronto</button>
                     <div class="confronto-body">
                         <div class="domanda-classe">
@@ -835,8 +975,23 @@
                     <div data-act="ute1"></div>
                 </div>
 
+                                <div class="step step-provate step-bonus">
+                    <div class="step-title"><span class="tag">ESERCIZIO</span> Parlare con Matteo, 15 anni <span class="bonus-tag">bonus</span> <span class="min">4 min</span></div>
+                    <div class="nuova-att">
+                        <p class="act-istr">Matteo frequenta il centro di aggregazione giovanile. Oggi arriva, butta lo zaino per terra e ti parla. A ogni battuta scegli come risponde l'operatore: vedrai come reagisce Matteo.</p>
+                        <div id="a5-box"></div>
+                    </div>
+                </div>
+
+                <div class="fine-parte">✂️ <strong>Fine della prima parte.</strong> Se la lezione finisce qui, la prossima volta si riparte da questo punto.</div>
+
                 <div class="step step-confronto">
                     <div class="step-title"><span class="tag">RISPOSTE E DISCUSSIONE</span> <span class="min">5 min</span></div>
+                    <div class="campo pensa-prima">
+                        <label for="pensiero-t5">✍️ Prima di parlarne, scrivi da solo: Voi siete adolescenti: quali regole avete «discusso» a casa o a scuola? Che cosa aiuta un adulto a farsi ascoltare?</label>
+                        <p class="hint">Un minuto, due righe. Poi leggi la risposta del vicino. <span class="bonus-tag">facoltativo</span></p>
+                        <textarea id="pensiero-t5" name="pensiero-t5" placeholder="Secondo me..."></textarea>
+                    </div>
                     <button class="btn btn-soft btn-confronta" data-confronta="5">Apri il confronto</button>
                     <div class="confronto-body">
                         <div class="domanda-classe">
@@ -846,6 +1001,14 @@
                         <div class="domanda-classe">
                             <div class="q">Perché la stessa situazione (un genitore solo con due figli) può essere «normale» per una famiglia e un problema per un'altra?</div>
                             <div class="attese"><strong>Risposte attese:</strong> dipende dalle risorse: soldi, lavoro, rete di parenti e amici, salute. Anticipa il caso di Maria (tappa 7).</div>
+                        </div>
+                                            <div class="nuova-att">
+                            <div class="nt">🎭 Prova a tre <span class="bonus-tag">bonus</span></div>
+                            <p class="act-istr">Gruppi di tre, ruoli a rotazione. <strong>Operatore</strong>: risponde a Matteo. <strong>Matteo</strong>: risponde a monosillabi finché non si sente ascoltato. <strong>Osservatore</strong>: compila la griglia. Novanta secondi di dialogo, poi: che cosa è successo? che cosa ha funzionato e perché? che cosa porto via?</p>
+                            <div class="campo"><label for="a5-oss1">L'operatore ha rimandato a Matteo la sua emozione con parole sue?</label><select id="a5-oss1" name="a5-oss1"><option value="">— osservatore —</option><option>sì</option><option>in parte</option><option>no</option></select></div>
+                            <div class="campo"><label for="a5-oss2">Ha evitato giudizi e consigli non richiesti?</label><select id="a5-oss2" name="a5-oss2"><option value="">— osservatore —</option><option>sì</option><option>in parte</option><option>no</option></select></div>
+                            <div class="campo"><label for="a5-oss3">Ha lasciato decidere Matteo?</label><select id="a5-oss3" name="a5-oss3"><option value="">— osservatore —</option><option>sì</option><option>in parte</option><option>no</option></select></div>
+                            <div class="campo"><label for="a5-portovia">Che cosa porto via da questa prova?</label><textarea id="a5-portovia" name="a5-portovia" placeholder="Ho capito che..."></textarea></div>
                         </div>
                     </div>
                 </div>
@@ -902,6 +1065,23 @@
 
                     <h3>🔗 Le dipendenze</h3>
                     <p>Una <strong>dipendenza</strong> è un comportamento ripetitivo che la persona <strong>non riesce più a controllare</strong>, basato su un bisogno psicologico e/o fisico, e che continua anche quando fa male alla salute, alle relazioni, allo studio o al lavoro. La differenza con un'abitudine sta proprio qui: l'abitudine si può interrompere, la dipendenza no, o non da soli.</p>
+                    <div class="schema schema-nuovo">
+                        <svg viewBox="0 0 640 210" role="img" aria-label="Abitudine o dipendenza: quattro segnali di perdita di controllo" font-family="Segoe UI,Tahoma,sans-serif">
+<defs><linearGradient id="mos6-gctl" x1="0" x2="1"><stop offset="0" stop-color="#dcfce7"/><stop offset="1" stop-color="#fee2e2"/></linearGradient></defs>
+<rect x="20" y="30" width="600" height="34" rx="17" fill="url(#mos6-gctl)" stroke="#d9e2e6"/>
+<text x="36" y="52" font-size="13" font-weight="700" fill="#14532d">ABITUDINE · la comando io</text>
+<text x="604" y="52" font-size="13" font-weight="700" fill="#7f1d1d" text-anchor="end">DIPENDENZA · mi comanda lei</text>
+<g font-size="12.5" text-anchor="middle">
+<circle cx="110" cy="100" r="15" fill="#fff" stroke="#CC0073" stroke-width="2"/><text x="110" y="105" font-weight="800" fill="#CC0073">1</text><text x="110" y="136" fill="#1f2933">non riesce a smettere</text><text x="110" y="152" fill="#1f2933">anche se vuole</text>
+<circle cx="250" cy="100" r="15" fill="#fff" stroke="#CC0073" stroke-width="2"/><text x="250" y="105" font-weight="800" fill="#CC0073">2</text><text x="250" y="136" fill="#1f2933">sta male</text><text x="250" y="152" fill="#1f2933">quando non può</text>
+<circle cx="390" cy="100" r="15" fill="#fff" stroke="#CC0073" stroke-width="2"/><text x="390" y="105" font-weight="800" fill="#CC0073">3</text><text x="390" y="136" fill="#1f2933">rinuncia a scuola,</text><text x="390" y="152" fill="#1f2933">sport, amici</text>
+<circle cx="530" cy="100" r="15" fill="#fff" stroke="#CC0073" stroke-width="2"/><text x="530" y="105" font-weight="800" fill="#CC0073">4</text><text x="530" y="136" fill="#1f2933">continua anche</text><text x="530" y="152" fill="#1f2933">se gli fa male</text>
+</g>
+<text x="320" y="190" font-size="13" font-weight="700" fill="#0E7C7C" text-anchor="middle">Non conta quante ore: conta chi comanda.</text>
+</svg>
+                        <div class="didascalia">Quattro segnali di perdita di controllo: è la differenza fra un'abitudine e una dipendenza.</div>
+                    </div>
+
                     <div class="grid-2">
                         <div class="card"><h4>📋 Dipendenze da sostanze</h4><ul><li><strong>Alcol</strong>: in Italia circa una persona su sei ha abitudini di consumo a rischio (ISTAT).</li><li><strong>Droghe</strong>: il primo contatto avviene spesso già nella prima adolescenza.</li><li><strong>Tabacco</strong>: fuma circa un adulto su quattro (Istituto Superiore di Sanità).</li><li><strong>Farmaci</strong>: uso senza controllo medico di ansiolitici, sonniferi, antidolorifici.</li></ul></div>
                         <div class="card"><h4>🌐 Dipendenze comportamentali («nuove dipendenze»)</h4><ul><li><strong>Gioco d'azzardo</strong> (disturbo da gioco d'azzardo, riconosciuto come dipendenza).</li><li><strong>Videogiochi e internet</strong>: il <em>gaming disorder</em> è riconosciuto dall'OMS dal 2019.</li><li><strong>Nomofobia</strong>: paura di restare senza telefono o senza rete.</li><li><strong>Shopping compulsivo</strong>.</li><li><strong>Relazioni solo virtuali</strong> che sostituiscono quelle reali.</li></ul><p style="font-size:.9em;margin-top:6px"><strong>Hikikomori</strong>: ritiro sociale volontario, per mesi o anni, in camera. Non è una dipendenza in senso stretto, ma spesso si accompagna all'uso continuo dello schermo.</p></div>
@@ -909,6 +1089,30 @@
                     <p><strong>Chi rischia di più?</strong> Chi non sopporta la frustrazione, chi cerca un'indipendenza assoluta dagli altri, chi non riesce ad accettare la quotidianità e cerca una via di fuga. La dipendenza «riempie» un vuoto: per questo l'operatore lavora sul vuoto, non solo sul comportamento.</p>
                     <div class="nota attenzione"><strong>Attenzione ai numeri.</strong> Le percentuali cambiano ogni anno e dipendono da come si misura: usale come ordine di grandezza, non come dato preciso. Le fonti ufficiali in Italia sono ISTAT, Istituto Superiore di Sanità e la Relazione annuale al Parlamento sulle dipendenze.</div>
                     <div class="nota semplice"><strong>In parole semplici.</strong> L'anziano è una risorsa da tenere attiva. La disabilità dipende anche dall'ambiente: togli le barriere e cambia tutto. La dipendenza è un comportamento che comanda la persona invece di essere comandato da lei.</div>
+                </div>
+
+                                <div class="fine-parte">✂️ <strong>Fine della prima parte.</strong> Se la lezione finisce qui, la prossima volta si riparte da questo punto.</div>
+                <div class="step step-provate step-bonus">
+                    <div class="step-title"><span class="tag">ESERCIZIO</span> Rina, poi Davide: dall'esempio all'analisi da soli <span class="bonus-tag">bonus</span> <span class="min">5 min</span></div>
+                    <div class="nota esempio">
+                        <strong>Esempio svolto · la signora Rina, 82 anni.</strong> Vive sola da quando è morto il marito, un anno fa. Ha l'artrosi alle ginocchia e da qualche mese esce solo per la spesa. La figlia abita in un'altra città e la chiama la domenica. Prima frequentava il circolo del quartiere; ora dice «non ho più voglia di vedere nessuno».
+                        <ul>
+                            <li><strong>Biologico</strong>: artrosi alle ginocchia, cammina meno, rischia di perdere autonomia. <em>Perché qui: riguarda il corpo e il movimento.</em></li>
+                            <li><strong>Psicologico</strong>: il lutto per il marito, la tristezza, «non ho più voglia». <em>Perché qui: sono emozioni e pensieri.</em></li>
+                            <li><strong>Sociale</strong>: vive sola, la figlia è lontana, ha lasciato il circolo. <em>Perché qui: riguarda le relazioni e i luoghi.</em></li>
+                            <li><strong>Come si toccano</strong>: esce meno (biologico) → vede meno persone (sociale) → si rattrista di più (psicologico) → ha ancora meno voglia di uscire.</li>
+                        </ul>
+                    </div>
+                    <div data-act="perche6"></div>
+                    <div class="nuova-att">
+                        <div class="nt">🧩 Ora tocca a te, un pezzo alla volta: Davide, 19 anni</div>
+                        <p>Da un anno Davide scommette online sulle partite. Ha perso i soldi messi da parte per la patente, dorme poco e ha smesso di andare a calcetto con la squadra. Alla madre dice che va tutto bene.</p>
+                        <p><strong>🔬 Biologico</strong> (già fatto)</p>
+                        <div class="dato">Dorme quattro-cinque ore per notte, salta i pasti quando gioca, è sempre stanco.</div>
+                        <div class="campo"><label for="a6-davide-psi">🧠 Psicologico · completa la frase</label><div class="dato">Sente il bisogno di rifarsi delle perdite e si vergogna, per questo…</div><textarea id="a6-davide-psi" name="a6-davide-psi" placeholder="…completa: che cosa prova, che cosa pensa di sé?"></textarea></div>
+                        <div class="campo"><label for="a6-davide-soc">🌍 Sociale · da solo</label><textarea id="a6-davide-soc" name="a6-davide-soc" placeholder="Relazioni, squadra, famiglia, soldi, servizi..."></textarea></div>
+                    </div>
+                    <p class="hint">Dopo Rina e Davide, l'analisi di un'utenza a scelta, qui sotto, la fai tutta da solo.</p>
                 </div>
 
                 <div class="step step-provate">
@@ -936,6 +1140,11 @@
 
                 <div class="step step-confronto">
                     <div class="step-title"><span class="tag">RISPOSTE E DISCUSSIONE</span> <span class="min">4 min</span></div>
+                    <div class="campo pensa-prima">
+                        <label for="pensiero-t6">✍️ Prima di parlarne, scrivi da solo: Un gradino davanti a un negozio: per chi è una barriera? Che cosa cambia se mettiamo una rampa?</label>
+                        <p class="hint">Un minuto, due righe. Poi leggi la risposta del vicino. <span class="bonus-tag">facoltativo</span></p>
+                        <textarea id="pensiero-t6" name="pensiero-t6" placeholder="Secondo me..."></textarea>
+                    </div>
                     <button class="btn btn-soft btn-confronta" data-confronta="6">Apri il confronto</button>
                     <div class="confronto-body">
                         <div class="domanda-classe">
@@ -999,6 +1208,13 @@
                     <p>Un <strong>obiettivo</strong> è un cambiamento che vogliamo vedere nella persona, non un'azione nostra. «Fare un colloquio» è un'azione; «Maria dorme meglio e si sente meno sola» è un obiettivo. Scrivi obiettivi <strong>concreti</strong> (si capisce che cosa cambia) e <strong>realistici</strong> (si può raggiungere in qualche mese).</p>
                 </div>
 
+                                <div class="step step-provate step-bonus">
+                    <div class="step-title"><span class="tag">ESERCIZIO</span> Obiettivo, azione o troppo vago? <span class="bonus-tag">bonus</span> <span class="min">3 min</span></div>
+                    <p class="act-istr">Prima di scrivere gli obiettivi per Maria: guarda come sono fatti quelli buoni e quelli che non funzionano.</p>
+                    <div data-act="obiettivi"></div>
+                    <div class="campo"><label for="a7-riscrivi">✏️ Riscrivi «Maria sta meglio» come un obiettivo vero</label><input type="text" id="a7-riscrivi" name="a7-riscrivi" placeholder="Entro ... Maria ..."></div>
+                </div>
+
                 <div class="step step-provate">
                     <div class="step-title"><span class="tag">ESERCIZIO</span> Analisi e obiettivi <span class="min">10 min</span></div>
                     <span class="coppia">👥 Lavorate in coppia, ma ognuno scrive sul proprio computer</span>
@@ -1024,6 +1240,11 @@
 
                 <div class="step step-confronto">
                     <div class="step-title"><span class="tag">RISPOSTE E DISCUSSIONE</span> <span class="min">5 min</span></div>
+                    <div class="campo pensa-prima">
+                        <label for="pensiero-t7">✍️ Prima di parlarne, scrivi da solo: Da quale dimensione partireste con Maria? Perché?</label>
+                        <p class="hint">Un minuto, due righe. Poi leggi la risposta del vicino. <span class="bonus-tag">facoltativo</span></p>
+                        <textarea id="pensiero-t7" name="pensiero-t7" placeholder="Secondo me..."></textarea>
+                    </div>
                     <button class="btn btn-soft btn-confronta" data-confronta="7">Apri il confronto</button>
                     <div class="confronto-body">
                         <div class="domanda-classe">
@@ -1090,8 +1311,25 @@
                     </div>
                 </div>
 
+                                <div class="step step-provate step-bonus">
+                    <div class="step-title"><span class="tag">ESERCIZIO</span> L'imprevisto: il caso di Maria cambia <span class="bonus-tag">bonus</span> <span class="min">4 min</span></div>
+                    <p class="act-istr">Hai costruito la rete di Maria. Tre settimane dopo succede qualcosa. In coppia pescate una carta (o usate quella che vi assegna il docente): coppie vicine con carte diverse.</p>
+                    <div class="campo"><label for="a8-carta">La carta della nostra coppia</label>
+                        <div class="mr-row" style="display:flex;gap:8px;flex-wrap:wrap"><select id="a8-carta" name="a8-carta" onchange="a8Mostra()"><option value="">— pesca o scegli —</option><option value="1">Carta 1</option><option value="2">Carta 2</option><option value="3">Carta 3</option></select><button class="btn btn-sm" type="button" onclick="a8Pesca()">🎲 Pesca a caso</button></div>
+                    </div>
+                    <div id="a8-testo"></div>
+                    <div class="campo"><label for="a8-risorsa">1. Quale risorsa viene meno, o quale bisogno nuovo nasce?</label><textarea id="a8-risorsa" name="a8-risorsa"></textarea></div>
+                    <div class="campo"><label for="a8-chi">2. Chi può coprire il vuoto? Pensa sia alla rete formale sia a quella informale.</label><textarea id="a8-chi" name="a8-chi"></textarea></div>
+                    <div class="campo"><label for="a8-ordine">3. Che cosa cambia nell'ordine degli interventi?</label><textarea id="a8-ordine" name="a8-ordine"></textarea></div>
+                </div>
+
                 <div class="step step-confronto">
                     <div class="step-title"><span class="tag">RISPOSTE E DISCUSSIONE</span> <span class="min">3 min</span></div>
+                    <div class="campo pensa-prima">
+                        <label for="pensiero-t8">✍️ Prima di parlarne, scrivi da solo: Quali servizi ha scelto quasi tutta la classe? Quale è stato scelto da pochi, e perché?</label>
+                        <p class="hint">Un minuto, due righe. Poi leggi la risposta del vicino. <span class="bonus-tag">facoltativo</span></p>
+                        <textarea id="pensiero-t8" name="pensiero-t8" placeholder="Secondo me..."></textarea>
+                    </div>
                     <button class="btn btn-soft btn-confronta" data-confronta="8">Apri il confronto</button>
                     <div class="confronto-body">
                         <div class="domanda-classe">
@@ -1103,6 +1341,14 @@
                             <div class="attese"><strong>Risposte attese:</strong> si sente sommersa, deve andare a sette appuntamenti, si perde. Serve un ordine: prima le urgenze (soldi, casa), poi il resto. È la sfida extra.</div>
                         </div>
                         <div class="esempio-risposta"><h5>Esempio</h5><strong>Formale:</strong> Servizio sociale → contributo economico d'emergenza; Centro per l'impiego → ricollocazione di Maria; Consultorio → sostegno psicologico; Scuola → sportello e incontri con gli insegnanti; Neuropsichiatria → valutazione di Luca; Educativa domiciliare → sostegno alla genitorialità. <strong>Informale:</strong> nonni con videochiamate e visite; vicini per una rete di vicinato; gruppo di auto-aiuto per genitori soli.</div>
+                    <div class="schema schema-nuovo" style="margin-top:14px">
+                        <svg viewBox="0 0 640 280" role="img" aria-label="Bisogni di Maria collegati ai servizi e alle persone che rispondono" font-family="Segoe UI,Tahoma,sans-serif">
+<text x="130" y="24" font-size="12" font-weight="700" fill="#52606d" text-anchor="middle" letter-spacing=".05em">IL BISOGNO</text>
+<text x="500" y="24" font-size="12" font-weight="700" fill="#52606d" text-anchor="middle" letter-spacing=".05em">CHI RISPONDE</text><rect x="20" y="40" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="58" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Soldi, affitto, bollette</text><rect x="20" y="76" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="94" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Un lavoro per Maria</text><rect x="20" y="112" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="130" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Ansia e solitudine di Maria</text><rect x="20" y="148" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="166" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Il comportamento di Luca</text><rect x="20" y="184" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="202" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Tempo libero per cercare lavoro</text><rect x="20" y="220" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="238" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Sostegno come mamma</text><rect x="380" y="40" width="240" height="28" rx="8" fill="#e6f7f7" stroke="#0E7C7C"/><text x="500" y="58" font-size="12.5" font-weight="700" fill="#0E7C7C" text-anchor="middle">Servizio sociale del Comune</text><rect x="380" y="76" width="240" height="28" rx="8" fill="#e6f7f7" stroke="#0E7C7C"/><text x="500" y="94" font-size="12.5" font-weight="700" fill="#0E7C7C" text-anchor="middle">Centro per l'impiego</text><rect x="380" y="112" width="240" height="28" rx="8" fill="#e6f7f7" stroke="#0E7C7C"/><text x="500" y="130" font-size="12.5" font-weight="700" fill="#0E7C7C" text-anchor="middle">Consultorio · nonni · gruppo AMA</text><rect x="380" y="148" width="240" height="28" rx="8" fill="#e6f7f7" stroke="#0E7C7C"/><text x="500" y="166" font-size="12.5" font-weight="700" fill="#0E7C7C" text-anchor="middle">Scuola · neuropsichiatria infantile</text><rect x="380" y="184" width="240" height="28" rx="8" fill="#e6f7f7" stroke="#0E7C7C"/><text x="500" y="202" font-size="12.5" font-weight="700" fill="#0E7C7C" text-anchor="middle">Doposcuola · centro estivo</text><rect x="380" y="220" width="240" height="28" rx="8" fill="#e6f7f7" stroke="#0E7C7C"/><text x="500" y="238" font-size="12.5" font-weight="700" fill="#0E7C7C" text-anchor="middle">Educativa domiciliare</text><path d="M240 54 C310 54 310 54 380 54" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 90 C310 90 310 90 380 90" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 126 C310 126 310 126 380 126" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 162 C310 162 310 162 380 162" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 198 C310 198 310 198 380 198" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 234 C310 234 310 234 380 234" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 90 C310 90 310 198 380 198" fill="none" stroke="#CC0073" stroke-width="2"/><path d="M240 162 C310 162 310 234 380 234" fill="none" stroke="#CC0073" stroke-width="2"/>
+<text x="320" y="272" font-size="11.5" fill="#CC0073" text-anchor="middle">in rosa: un servizio che risponde a un secondo bisogno (il doposcuola libera tempo a Maria)</text></svg>
+                        <div class="didascalia">Ogni servizio risponde a un bisogno preciso; alcuni rispondono a due.</div>
+                    </div>
+
                     </div>
                 </div>
 
@@ -1133,6 +1379,22 @@
                     <div class="step-title"><span class="tag">CONTENUTI</span> Perché fermarsi <span class="min">3 min</span></div>
                     <p>Ragionare su come si è imparato si chiama <strong>metacognizione</strong>. Serve a due cose: fissare meglio ciò che si è capito e scoprire il proprio modo di imparare, così da usarlo anche nelle altre materie. Un operatore sociale fa lo stesso ogni giorno con il proprio lavoro: si ferma, rilegge, si chiede che cosa ha funzionato.</p>
                     <div class="nota esempio">Rileggi ora quello che avevi scritto alla tappa 1: <strong id="richiamo-brainstorming" style="font-style:italic">…</strong></div>
+                    <div class="schema schema-nuovo">
+                        <svg viewBox="0 0 640 220" role="img" aria-label="Ciclo della metacognizione: pianifico, controllo, valuto" font-family="Segoe UI,Tahoma,sans-serif">
+<defs><marker id="mos9-ar9" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9z" fill="#0E7C7C"/></marker></defs>
+<g font-size="13" text-anchor="middle">
+<rect x="20" y="40" width="180" height="96" rx="14" fill="#fff" stroke="#1DD3D3" stroke-width="2"/><text x="110" y="66" font-weight="800" fill="#0E7C7C">1 · PIANIFICO</text><text x="110" y="90" fill="#1f2933">Che cosa devo fare?</text><text x="110" y="108" fill="#1f2933">Come lo faccio?</text>
+<rect x="230" y="40" width="180" height="96" rx="14" fill="#fff" stroke="#C6E716" stroke-width="2"/><text x="320" y="66" font-weight="800" fill="#6b7a00">2 · CONTROLLO</text><text x="320" y="90" fill="#1f2933">Sto capendo?</text><text x="320" y="108" fill="#1f2933">Che cosa cambio?</text>
+<rect x="440" y="40" width="180" height="96" rx="14" fill="#fff" stroke="#FF0090" stroke-width="2"/><text x="530" y="66" font-weight="800" fill="#CC0073">3 · VALUTO</text><text x="530" y="90" fill="#1f2933">Che cosa ha funzionato?</text><text x="530" y="108" fill="#1f2933">Che cosa farò diverso?</text>
+</g>
+<line x1="202" y1="88" x2="226" y2="88" stroke="#0E7C7C" stroke-width="2.5" marker-end="url(#mos9-ar9)"/>
+<line x1="412" y1="88" x2="436" y2="88" stroke="#0E7C7C" stroke-width="2.5" marker-end="url(#mos9-ar9)"/>
+<path d="M530 138 C530 190 110 190 110 142" fill="none" stroke="#0E7C7C" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#mos9-ar9)"/>
+<text x="320" y="206" font-size="12.5" fill="#52606d" text-anchor="middle">si ricomincia · è quello che fa anche l'operatore con il suo lavoro</text>
+</svg>
+                        <div class="didascalia">Il ciclo con cui si impara a imparare, lo stesso con cui l'operatore rivede il proprio lavoro.</div>
+                    </div>
+
                 </div>
 
                 <div class="step step-provate">
@@ -1141,8 +1403,32 @@
                     <div class="campo"><label for="riflessione-2">2. I tre concetti più importanti che hai incontrato, e perché <span class="pts">+5</span></label><textarea id="riflessione-2" name="riflessione-2" data-points="5" placeholder="1. ... perché...&#10;2. ... perché...&#10;3. ... perché..."></textarea></div>
                 </div>
 
+                                <div class="step step-provate step-bonus">
+                    <div class="step-title"><span class="tag">ESERCIZIO</span> Pensavo, ora penso · Scarica la memoria <span class="bonus-tag">bonus</span> <span class="min">5 min</span></div>
+                    <div class="nuova-att">
+                        <div class="nt">💭 Pensavo… ora penso…</div>
+                        <p class="hint">Alla tappa 1 avevi scritto: <em class="richiamo-bs">…</em></p>
+                        <div class="campo"><label for="a9-pensavo">Prima pensavo che l'operatore sociale…</label><textarea id="a9-pensavo" name="a9-pensavo"></textarea></div>
+                        <div class="campo"><label for="a9-orapenso">Ora penso che…</label><textarea id="a9-orapenso" name="a9-orapenso"></textarea></div>
+                        <div class="campo"><label for="a9-cambio">Che cosa mi ha fatto cambiare idea</label><input type="text" id="a9-cambio" name="a9-cambio"></div>
+                    </div>
+                    <div class="nuova-att">
+                        <div class="nt">🧠 Scarica la memoria <span class="timer-mem" id="a9-timer">2:00</span></div>
+                        <p class="act-istr">Due minuti, senza guardare gli appunti né la pagina: scrivi tutto quello che ricordi del percorso. Parole, concetti, esempi.</p>
+                        <button class="btn btn-sm" type="button" onclick="a9Timer()">▶ Avvia i due minuti</button>
+                        <div class="campo"><label for="a9-memoria">Quello che ricordo</label><textarea id="a9-memoria" name="a9-memoria" placeholder="rete, ICF, Rogers..."></textarea></div>
+                        <p><strong>Poi controlla:</strong> spunta i concetti chiave che avevi scritto. Quelli senza spunta sono da ripassare.</p>
+                        <div class="concetti" data-cb-title="Concetti chiave ricordati"><label><input type="checkbox" name="a9-concetti" value="operatore sociale"> operatore sociale</label><label><input type="checkbox" name="a9-concetti" value="relazione d'aiuto"> relazione d'aiuto</label><label><input type="checkbox" name="a9-concetti" value="i tre atteggiamenti di Rogers"> i tre atteggiamenti di Rogers</label><label><input type="checkbox" name="a9-concetti" value="modello bio-psico-sociale"> modello bio-psico-sociale</label><label><input type="checkbox" name="a9-concetti" value="rete formale"> rete formale</label><label><input type="checkbox" name="a9-concetti" value="rete informale"> rete informale</label><label><input type="checkbox" name="a9-concetti" value="nodi, legami e ponti"> nodi, legami e ponti</label><label><input type="checkbox" name="a9-concetti" value="ICF"> ICF</label><label><input type="checkbox" name="a9-concetti" value="invecchiamento attivo"> invecchiamento attivo</label><label><input type="checkbox" name="a9-concetti" value="dipendenza"> dipendenza</label><label><input type="checkbox" name="a9-concetti" value="obiettivo e azione"> obiettivo e azione</label><label><input type="checkbox" name="a9-concetti" value="progetto e verifica"> progetto e verifica</label></div>
+                    </div>
+                </div>
+
                 <div class="step step-confronto">
                     <div class="step-title"><span class="tag">RISPOSTE E DISCUSSIONE</span> <span class="min">4 min</span></div>
+                    <div class="campo pensa-prima">
+                        <label for="pensiero-t9">✍️ Prima di parlarne, scrivi da solo: Giro veloce: ognuno dice una cosa che ha scoperto e che prima non sapeva.</label>
+                        <p class="hint">Un minuto, due righe. Poi leggi la risposta del vicino. <span class="bonus-tag">facoltativo</span></p>
+                        <textarea id="pensiero-t9" name="pensiero-t9" placeholder="Secondo me..."></textarea>
+                    </div>
                     <button class="btn btn-soft btn-confronta" data-confronta="9">Apri il confronto</button>
                     <div class="confronto-body">
                         <div class="domanda-classe">
@@ -1185,6 +1471,23 @@
                         <div class="card" style="background:#FFF3E0;border-left:5px solid #FF9800"><h4 style="color:#E65100">🏢 Il contesto</h4><p>Sei operatore sociale al <strong>Centro Diurno «Casa Serena»</strong>, che accoglie 25 anziani (età media 78 anni) per socializzazione, animazione e assistenza leggera. È aperto cinque giorni a settimana, dalle 9 alle 17.</p><p><strong>L'équipe:</strong> una coordinatrice (assistente sociale), due operatori sociali (tu e una collega), due OSS, un animatore, un fisioterapista part-time.</p></div>
                         <div class="card" style="background:#E1F5FE;border-left:5px solid #03A9F4"><h4 style="color:#0277BD">🎯 Il compito</h4><p>La coordinatrice ti ha chiesto di <strong>analizzare la situazione e proporre un progetto</strong> che affronti le criticità, coinvolgendo l'équipe e le famiglie. Lo presenterai in riunione d'équipe tra una settimana.</p><p><strong>Vincoli:</strong> budget ridotto, non si può assumere; il fisioterapista sarà in ferie tre settimane il mese prossimo.</p></div>
                     </div>
+                    <div class="schema schema-nuovo">
+                        <svg viewBox="0 0 640 250" role="img" aria-label="L'équipe di Casa Serena attorno agli ospiti e alle famiglie" font-family="Segoe UI,Tahoma,sans-serif">
+<g font-size="12.5" text-anchor="middle" font-weight="700">
+<rect x="220" y="14" width="200" height="40" rx="10" fill="#1DD3D3"/><text x="320" y="32" fill="#083d3d">Coordinatrice</text><text x="320" y="47" fill="#083d3d" font-weight="400" font-size="11.5">assistente sociale</text>
+<line x1="320" y1="54" x2="320" y2="74" stroke="#0E7C7C" stroke-width="2"/><line x1="70" y1="74" x2="570" y2="74" stroke="#0E7C7C" stroke-width="2"/>
+<line x1="70" y1="74" x2="70" y2="90" stroke="#0E7C7C" stroke-width="2"/><line x1="195" y1="74" x2="195" y2="90" stroke="#0E7C7C" stroke-width="2"/><line x1="320" y1="74" x2="320" y2="90" stroke="#0E7C7C" stroke-width="2"/><line x1="445" y1="74" x2="445" y2="90" stroke="#0E7C7C" stroke-width="2"/><line x1="570" y1="74" x2="570" y2="90" stroke="#0E7C7C" stroke-width="2"/>
+<rect x="15" y="90" width="110" height="44" rx="10" fill="#fff" stroke="#FF0090" stroke-width="2"/><text x="70" y="109" fill="#CC0073">2 operatori</text><text x="70" y="124" fill="#CC0073">sociali · tu</text>
+<rect x="140" y="90" width="110" height="44" rx="10" fill="#fff" stroke="#0E7C7C"/><text x="195" y="116" fill="#1f2933">2 OSS</text>
+<rect x="265" y="90" width="110" height="44" rx="10" fill="#fff" stroke="#0E7C7C"/><text x="320" y="109" fill="#1f2933">Animatore</text><text x="320" y="124" fill="#b45309" font-weight="400" font-size="11">demotivato</text>
+<rect x="390" y="90" width="110" height="44" rx="10" fill="#fff" stroke="#94a3b8" stroke-dasharray="5 4"/><text x="445" y="109" fill="#1f2933">Fisioterapista</text><text x="445" y="124" fill="#b45309" font-weight="400" font-size="11">ferie: 3 settimane</text>
+<rect x="515" y="90" width="110" height="44" rx="10" fill="#f4f9f9" stroke="#d9e2e6"/><text x="570" y="109" fill="#52606d">Medico</text><text x="570" y="124" fill="#52606d" font-weight="400" font-size="11">esterno</text>
+<rect x="120" y="170" width="400" height="60" rx="30" fill="#f3fbd9" stroke="#9CB912"/><text x="320" y="194" fill="#3f4a00">25 ospiti · Giuseppe · Anna · i gruppetti</text><text x="320" y="214" fill="#3f4a00" font-weight="400">e le famiglie, che chiedono più comunicazione</text>
+</g>
+<g stroke="#9CB912" stroke-width="1.5"><line x1="70" y1="134" x2="170" y2="176"/><line x1="195" y1="134" x2="230" y2="170"/><line x1="320" y1="134" x2="320" y2="170"/><line x1="445" y1="134" x2="410" y2="170"/><line x1="570" y1="134" x2="470" y2="176"/></g>
+</svg>
+                        <div class="didascalia">Chi c'è attorno a Giuseppe e Anna: ruoli, vuoti (il fisioterapista in ferie) e segnali (l'animatore demotivato).</div>
+                    </div>
                     <div class="card" style="background:#FFEBEE;border-left:5px solid #F44336;margin-top:10px"><h4 style="color:#C62828">⚠️ Le criticità dell'ultimo mese</h4>
                         <ul>
                             <li><strong>Il signor Giuseppe (82 anni)</strong>: vedovo da due anni, frequenta il centro da 18 mesi. Ultimamente è sempre più isolato, rifiuta le attività di gruppo, passa il tempo seduto da solo. Vive con il figlio (55 anni), che lavora tutto il giorno. Il figlio è preoccupato: «non è più lui», ha smesso di prendersi cura di sé.</li>
@@ -1204,6 +1507,14 @@
                     <div class="nota semplice"><strong>Consiglio.</strong> Prima di scrivere, cinque minuti a voce: ognuno dice che cosa vede. Poi ciascuno scrive la propria parte guardando anche il computer degli altri.</div>
                 </div>
 
+                                <div class="step step-provate step-bonus">
+                    <div class="step-title"><span class="tag">ESERCIZIO</span> Il cerchio dei punti di vista <span class="bonus-tag">bonus</span> <span class="min">5 min</span></div>
+                    <p class="act-istr">Da fare nei «cinque minuti a voce». Ognuno del gruppo sceglie un punto di vista diverso e completa le tre frasi; poi le dice agli altri. L'analista annota le cause che emergono.</p>
+                    <div class="campo"><label for="a10-punto">Parlo dal punto di vista di…</label><select id="a10-punto" name="a10-punto"><option value="">— scegli —</option><option>Giuseppe, 82 anni</option><option>Il figlio di Giuseppe</option><option>Anna, 75 anni</option><option>L'animatore</option><option>Un ospite escluso dai gruppetti</option></select></div>
+                    <div class="campo"><label for="a10-penso">Io penso che…</label><input type="text" id="a10-penso" name="a10-penso" placeholder="che cosa vede e che cosa prova questa persona"></div>
+                    <div class="campo"><label for="a10-domanda">Una domanda che mi faccio da qui è…</label><input type="text" id="a10-domanda" name="a10-domanda" placeholder="che cosa vorrebbe chiedere all'équipe?"></div>
+                </div>
+
                 <div class="step step-provate">
                     <div class="step-title"><span class="tag">ESERCIZIO</span> Analisi della situazione <span class="min">10 min</span></div>
                     <span class="coppia">🔎 Scrive l'analista, ma il gruppo decide insieme</span>
@@ -1220,6 +1531,11 @@
 
                 <div class="step step-confronto">
                     <div class="step-title"><span class="tag">RISPOSTE E DISCUSSIONE</span> <span class="min">4 min</span></div>
+                    <div class="campo pensa-prima">
+                        <label for="pensiero-t10">✍️ Prima di parlarne, scrivi da solo: Giuseppe «ha smesso di prendersi cura di sé»: è un problema biologico, psicologico o sociale?</label>
+                        <p class="hint">Un minuto, due righe. Poi leggi la risposta del vicino. <span class="bonus-tag">facoltativo</span></p>
+                        <textarea id="pensiero-t10" name="pensiero-t10" placeholder="Secondo me..."></textarea>
+                    </div>
                     <button class="btn btn-soft btn-confronta" data-confronta="10">Apri il confronto</button>
                     <div class="confronto-body">
                         <div class="domanda-classe">
@@ -1268,6 +1584,14 @@
                     </ul>
                     <h3>Come si verifica un progetto</h3>
                     <p>Si decidono <strong>prima</strong> degli <strong>indicatori</strong>, cioè segnali osservabili: quante volte Giuseppe partecipa, quanti litigi in un mese, quante famiglie vengono agli incontri. Si sceglie <strong>come</strong> osservarli (griglia di osservazione, questionario, colloquio) e <strong>quando</strong> (ogni settimana, ogni mese).</p>
+                    <div class="schema schema-nuovo">
+                        <svg viewBox="0 0 640 170" role="img" aria-label="Dall'obiettivo alla verifica, con l'esempio di Giuseppe" font-family="Segoe UI,Tahoma,sans-serif">
+<defs><marker id="mos11-ar11" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1L9 5L1 9z" fill="#0E7C7C"/></marker></defs>
+<text x="20" y="22" font-size="12" font-weight="700" fill="#52606d" letter-spacing=".05em">DALL'OBIETTIVO ALLA VERIFICA · L'ESEMPIO DI GIUSEPPE</text><rect x="10" y="36" width="112" height="92" rx="12" fill="#1DD3D3" stroke="rgba(0,0,0,.12)"/><text x="66" y="60" font-size="11.5" font-weight="800" fill="#083d3d" text-anchor="middle" letter-spacing=".05em">OBIETTIVO</text><text x="66" y="86" font-size="12" fill="#1f2933" text-anchor="middle">Giuseppe va</text><text x="66" y="103" font-size="12" fill="#1f2933" text-anchor="middle">a un gruppo 2 v./sett.</text><path d="M124 82 l10 0" stroke="#0E7C7C" stroke-width="2.5" marker-end="url(#mos11-ar11)"/><rect x="136" y="36" width="112" height="92" rx="12" fill="#C6E716" stroke="rgba(0,0,0,.12)"/><text x="192" y="60" font-size="11.5" font-weight="800" fill="#3f4a00" text-anchor="middle" letter-spacing=".05em">AZIONE</text><text x="192" y="86" font-size="12" fill="#1f2933" text-anchor="middle">sceglie lui;</text><text x="192" y="103" font-size="12" fill="#1f2933" text-anchor="middle">la 1ª volta lo affianco</text><path d="M250 82 l10 0" stroke="#0E7C7C" stroke-width="2.5" marker-end="url(#mos11-ar11)"/><rect x="262" y="36" width="112" height="92" rx="12" fill="#ffe6f3" stroke="rgba(0,0,0,.12)"/><text x="318" y="60" font-size="11.5" font-weight="800" fill="#CC0073" text-anchor="middle" letter-spacing=".05em">INDICATORE</text><text x="318" y="86" font-size="12" fill="#1f2933" text-anchor="middle">presenze</text><text x="318" y="103" font-size="12" fill="#1f2933" text-anchor="middle">a settimana (≥ 2)</text><path d="M376 82 l10 0" stroke="#0E7C7C" stroke-width="2.5" marker-end="url(#mos11-ar11)"/><rect x="388" y="36" width="112" height="92" rx="12" fill="#e6f7f7" stroke="rgba(0,0,0,.12)"/><text x="444" y="60" font-size="11.5" font-weight="800" fill="#0E7C7C" text-anchor="middle" letter-spacing=".05em">STRUMENTO</text><text x="444" y="86" font-size="12" fill="#1f2933" text-anchor="middle">griglia di</text><text x="444" y="103" font-size="12" fill="#1f2933" text-anchor="middle">osservazione</text><path d="M502 82 l10 0" stroke="#0E7C7C" stroke-width="2.5" marker-end="url(#mos11-ar11)"/><rect x="514" y="36" width="112" height="92" rx="12" fill="#fff7d6" stroke="rgba(0,0,0,.12)"/><text x="570" y="60" font-size="11.5" font-weight="800" fill="#713f12" text-anchor="middle" letter-spacing=".05em">QUANDO</text><text x="570" y="86" font-size="12" fill="#1f2933" text-anchor="middle">ogni venerdì;</text><text x="570" y="103" font-size="12" fill="#1f2933" text-anchor="middle">verifica a 2 mesi</text>
+<text x="320" y="156" font-size="12.5" fill="#52606d" text-anchor="middle">Se manca un anello, il progetto non si può verificare.</text></svg>
+                        <div class="didascalia">Cinque anelli con l'esempio di Giuseppe: se ne manca uno, il progetto non si può verificare.</div>
+                    </div>
+
                 </div>
 
                 <div class="step step-provate">
@@ -1289,8 +1613,26 @@
                     </div>
                 </div>
 
+                                <div class="fine-parte">✂️ <strong>Fine della prima parte.</strong> Se la lezione finisce qui, la prossima volta si riparte da questo punto.</div>
+                <div class="step step-provate step-bonus">
+                    <div class="step-title"><span class="tag">ESERCIZIO</span> Revisione tra gruppi <span class="bonus-tag">bonus</span> <span class="min">12 min</span></div>
+                    <p class="act-istr">Il vostro gruppo si sposta al computer del gruppo accanto e legge il suo progetto qui sopra. Compilate la griglia <strong>sul loro computer</strong>. Poi tornate al vostro, leggete la revisione ricevuta e correggete.</p>
+                    <div class="campo"><label for="a11-c1">Gli obiettivi sono S.M.A.R.T.?</label><select id="a11-c1" name="a11-c1"><option value="">— scegli —</option><option>sì</option><option>in parte</option><option>no</option></select></div>
+                    <div class="campo"><label for="a11-c2">Gli obiettivi parlano della persona, non dell'operatore?</label><select id="a11-c2" name="a11-c2"><option value="">— scegli —</option><option>sì</option><option>in parte</option><option>no</option></select></div>
+                    <div class="campo"><label for="a11-c3">Le azioni rispettano i vincoli (niente assunzioni)?</label><select id="a11-c3" name="a11-c3"><option value="">— scegli —</option><option>sì</option><option>in parte</option><option>no</option></select></div>
+                    <div class="campo"><label for="a11-c4">C'è almeno un indicatore concreto per la verifica?</label><select id="a11-c4" name="a11-c4"><option value="">— scegli —</option><option>sì</option><option>in parte</option><option>no</option></select></div>
+                    <div class="campo"><label for="a11-forza">⭐ Un punto di forza</label><input type="text" id="a11-forza" name="a11-forza" placeholder="che cosa funziona davvero"></div>
+                    <div class="campo"><label for="a11-suggerimento">🔧 Un suggerimento concreto</label><input type="text" id="a11-suggerimento" name="a11-suggerimento" placeholder="un'azione che possono fare subito"></div>
+                    <div class="campo"><label for="a11-cambiato">🔁 Dopo la revisione ricevuta: che cosa abbiamo cambiato nel progetto, e perché</label><textarea id="a11-cambiato" name="a11-cambiato"></textarea></div>
+                </div>
+
                 <div class="step step-confronto">
                     <div class="step-title"><span class="tag">RISPOSTE E DISCUSSIONE</span> Ogni gruppo presenta in due minuti <span class="min">3 min + presentazioni</span></div>
+                    <div class="campo pensa-prima">
+                        <label for="pensiero-t11">✍️ Prima di parlarne, scrivi da solo: Ogni gruppo presenta il suo progetto in due minuti: un obiettivo, un'azione, un indicatore. La classe vota il progetto più convincente e dice perché.</label>
+                        <p class="hint">Un minuto, due righe. Poi leggi la risposta del vicino. <span class="bonus-tag">facoltativo</span></p>
+                        <textarea id="pensiero-t11" name="pensiero-t11" placeholder="Secondo me..."></textarea>
+                    </div>
                     <button class="btn btn-soft btn-confronta" data-confronta="11">Apri il confronto</button>
                     <div class="confronto-body">
                         <div class="domanda-classe">
@@ -1302,6 +1644,15 @@
                             <div class="attese"><strong>Risposte attese:</strong> ci si organizza prima; l'operatore può proporre attività motorie leggere (camminate, ginnastica dolce) che non richiedono il fisioterapista; si informano le famiglie. È il lavoro di équipe che copre i vuoti.</div>
                         </div>
                     </div>
+                </div>
+
+                                <div class="step step-provate step-bonus">
+                    <div class="step-title"><span class="tag">ESERCIZIO</span> Facoltativa · Il dilemma di Giuseppe <span class="bonus-tag">bonus</span> <span class="min">20 min</span></div>
+                    <p><strong>Giuseppe rifiuta tutte le attività. Il figlio chiede al centro di «obbligarlo», perché a casa sta peggio. L'équipe deve insistere?</strong></p>
+                    <p class="act-istr">Gruppi di quattro, due coppie. <strong>1.</strong> La coppia A prepara il «sì, insistere» (benessere, rischio, richiesta della famiglia); la coppia B il «no» (autodeterminazione, dignità): 4 minuti. <strong>2.</strong> Due minuti a testa, l'altra coppia ascolta e riassume. <strong>3.</strong> Si scambiano le posizioni: ognuno difende l'altra tesi con un argomento nuovo. <strong>4.</strong> Si lasciano le posizioni e si decide insieme.</p>
+                    <div class="campo"><label for="a12-posizione">La mia coppia all'inizio sosteneva</label><select id="a12-posizione" name="a12-posizione"><option value="">— scegli —</option><option>A · sì, insistere</option><option>B · no, rispettare il rifiuto</option></select></div>
+                    <div class="campo"><label for="a12-decisione">Che cosa fa l'équipe? Scrivete una decisione che tenga conto di entrambe le ragioni</label><textarea id="a12-decisione" name="a12-decisione" placeholder="Non lo obbliga, ma..."></textarea></div>
+                    <div class="campo"><label for="a12-argomento">L'argomento dell'altra coppia che ci ha fatto cambiare idea</label><input type="text" id="a12-argomento" name="a12-argomento"></div>
                 </div>
 
                 <div class="step step-casa">
@@ -1344,6 +1695,11 @@
 
                 <div class="step step-confronto">
                     <div class="step-title"><span class="tag">RISPOSTE E DISCUSSIONE</span> <span class="min">4 min</span></div>
+                    <div class="campo pensa-prima">
+                        <label for="pensiero-t12">✍️ Prima di parlarne, scrivi da solo: Guardate il grafico della classe: su quale domanda abbiamo sbagliato di più? Rispieghiamola insieme.</label>
+                        <p class="hint">Un minuto, due righe. Poi leggi la risposta del vicino. <span class="bonus-tag">facoltativo</span></p>
+                        <textarea id="pensiero-t12" name="pensiero-t12" placeholder="Secondo me..."></textarea>
+                    </div>
                     <button class="btn btn-soft btn-confronta" data-confronta="12">Apri il confronto</button>
                     <div class="confronto-body">
                         <div class="domanda-classe">
@@ -1386,6 +1742,47 @@
        a = indice della risposta corretta; why = spiegazione mostrata dopo.
        ===================================================================== */
     const ACTS = {
+        /* --- aggiunti a settembre 2026: bonus, fuori dal totale; gli esercizi qui sotto restano identici --- */
+        diario: {
+            tappa: 3, bonus: true, titolo: '📓 Il diario di Nadia, tirocinante', pts: 1,
+            istr: 'Otto frasi dal diario del primo giorno di tirocinio di Nadia al centro diurno. Per ogni frase: è corretta, oppure quale principio non rispetta?',
+            o: ['Corretta', 'Autodeterminazione', 'Riservatezza', 'Non è compito suo', "Lavoro d'équipe"],
+            items: [
+                { t: "«Alle 9 ho accolto gli ospiti chiamandoli per nome e chiedendo come avevano dormito.»", a: 0, why: "Accoglienza personale e attenzione al benessere: è quello che fa un operatore." },
+                { t: "«Il signor Ivo non voleva fare ginnastica: gli ho detto che doveva farla per forza, perché gli fa bene.»", a: 1, why: "Si propone, non si obbliga: Ivo ha il diritto di dire di no. Si può cercare di capire il perché del rifiuto." },
+                { t: "«Ho annotato sulla scheda giornaliera chi ha partecipato al laboratorio.»", a: 0, why: "Raccogliere e registrare dati sulle attività è una delle sei competenze." },
+                { t: "«All'uscita ho raccontato alla vicina della signora Teresa che la figlia non viene mai a trovarla.»", a: 2, why: "Le informazioni sugli ospiti non escono dal servizio: riservatezza." },
+                { t: "«La signora Teresa aveva mal di testa: le ho dato una delle mie pastiglie.»", a: 3, why: "Dare farmaci non spetta all'operatore sociale: si avvisa chi ha la competenza sanitaria." },
+                { t: "«Ho notato che il signor Ivo mangiava poco e l'ho segnalato alla coordinatrice.»", a: 0, why: "Osservare e passare l'informazione all'équipe: corretto." },
+                { t: "«Due ospiti litigavano spesso, ma non ne ho parlato con nessuno per non creare problemi.»", a: 4, why: "L'operatore non tiene per sé ciò che l'équipe deve sapere." },
+                { t: "«Ho proposto un gioco di carte e ho lasciato che fossero gli ospiti a scegliere quale.»", a: 0, why: "Proporre senza imporre, lasciando la scelta alle persone: corretto." }
+            ]
+        },
+        perche6: {
+            tappa: 6, bonus: true, titolo: '🤔 Perché proprio lì?', pts: 1,
+            istr: 'Due domande sull\'esempio di Rina e sul caso di Davide.',
+            o: ['Biologica', 'Psicologica', 'Sociale'],
+            items: [
+                { t: "Rina dice «non ho più voglia di vedere nessuno». In quale dimensione lo metti?", a: 1, why: "È ciò che prova e pensa: dimensione psicologica. Ha effetti sociali, perché smette di vedere persone." },
+                { t: "Davide ha smesso di andare a calcetto con la squadra. Perché è soprattutto un fatto sociale?", o: ["Perché lo sport fa bene al corpo", "Perché perde un gruppo di relazioni", "Perché è una sua scelta"], a: 1, why: "La squadra è un gruppo di relazioni: perderla è un fatto sociale. Avrà effetti anche sul corpo e sull'umore: per questo si guardano le tre dimensioni insieme." }
+            ]
+        },
+        obiettivi: {
+            tappa: 7, bonus: true, titolo: '🎯 Obiettivo, azione o troppo vago?', pts: 1,
+            istr: 'Un obiettivo dice che cosa cambia per la persona. Un\'azione dice che cosa fa l\'operatore. Un obiettivo troppo vago non si può verificare.',
+            o: ['Obiettivo ben scritto', "Azione dell'operatore", 'Troppo vago'],
+            items: [
+                { t: "Fare un colloquio con Maria.", a: 1, why: "Dice che cosa fa l'operatore, non che cosa cambia per Maria." },
+                { t: "Aiutare Maria.", a: 2, why: "Non dice in che cosa, né come ci si accorge che è successo." },
+                { t: "Entro tre mesi Maria partecipa ad almeno due colloqui di lavoro.", a: 0, why: "Dice che cosa cambia, si può osservare, ha una scadenza." },
+                { t: "Attivare il consultorio familiare.", a: 1, why: "È un mezzo per raggiungere un obiettivo, non l'obiettivo." },
+                { t: "Maria sta meglio.", a: 2, why: "Meglio in che cosa? Così non si potrà mai verificare." },
+                { t: "Entro un mese Maria conosce almeno un'altra mamma del quartiere con cui scambiarsi aiuto.", a: 0, why: "Un cambiamento nella rete di Maria, osservabile e con una scadenza." },
+                { t: "Mandare Luca dalla neuropsichiatria infantile.", a: 1, why: "È un'azione: l'obiettivo è ciò che deve cambiare per Luca." },
+                { t: "Entro la fine del quadrimestre Luca passa almeno quattro giorni su cinque senza litigi in classe.", a: 0, why: "Riguarda Luca, si può contare, ha una scadenza." }
+            ]
+        },
+
         vf1: {
             tappa: 1, titolo: '✅ Vero o falso?', pts: 1,
             istr: 'Per ogni frase scegli Vero o Falso. Dopo la risposta leggi il perché.',
@@ -1538,7 +1935,7 @@
             if (!act) return;
             const total = act.items.length * act.pts;
             let html = `<div class="act${act.quiz ? ' quiz-act' : ''}" data-act-id="${id}">
-                <div class="act-title">${act.titolo} <span class="pts">+${total}</span><span class="esito" data-esito="${id}"></span></div>
+                <div class="act-title">${act.titolo} <span class="pts">+${total}${act.bonus ? ' bonus' : ''}</span><span class="esito" data-esito="${id}"></span></div>
                 <p class="act-istr">${act.istr}</p>`;
             act.items.forEach((it, i) => {
                 const opts = it.o || act.o;
@@ -1633,7 +2030,7 @@
     function calcMax() {
         let m = 0;
         scoredFields().forEach(el => m += +el.dataset.points);
-        Object.keys(ACTS).forEach(id => m += ACTS[id].items.length * ACTS[id].pts);
+        Object.keys(ACTS).filter(id => !ACTS[id].bonus).forEach(id => m += ACTS[id].items.length * ACTS[id].pts);
         m += 20; // autovalutazione
         return m;
     }
@@ -1648,7 +2045,7 @@
     /* ---------- completamento tappe e badge ---------- */
     function tappaDone(n) {
         const sec = $(`#tappa${n}`);
-        const acts = Object.keys(ACTS).filter(id => ACTS[id].tappa === n);
+        const acts = Object.keys(ACTS).filter(id => ACTS[id].tappa === n && !ACTS[id].bonus);
         if (!acts.every(id => { const r = actPoints(id); return r.done === r.n; })) return false;
         const req = $$('textarea[data-points], input[type="text"][data-points], select[data-points]', sec).filter(fieldRequired);
         if (!req.every(fieldFilled)) return false;
@@ -1656,7 +2053,7 @@
         return true;
     }
     function tappaEsercizioCompleto(n) {
-        const acts = Object.keys(ACTS).filter(id => ACTS[id].tappa === n);
+        const acts = Object.keys(ACTS).filter(id => ACTS[id].tappa === n && !ACTS[id].bonus);
         const okActs = acts.every(id => { const r = actPoints(id); return r.done === r.n; });
         const sec = $(`#tappa${n}`);
         const req = $$('.step-provate textarea[data-points], .step-provate input[type="text"][data-points], .step-provate select[data-points]', sec).filter(fieldRequired);
@@ -1683,6 +2080,7 @@
         // richiamo brainstorming
         const bs = $('#brainstorming-iniziale')?.value.trim();
         const rc = $('#richiamo-brainstorming'); if (rc) rc.textContent = bs ? `«${bs}»` : '(non avevi ancora scritto nulla alla tappa 1)';
+        $$('.richiamo-bs').forEach(x => x.textContent = bs ? `«${bs}»` : '(non avevi ancora scritto nulla alla tappa 1)');
     }
 
     function showPoints(p) {
@@ -1725,7 +2123,8 @@
     document.addEventListener('input', e => { if (e.target.matches('textarea, input, select')) aggiornaTutto(); });
 
     /* ---------- ripristino dallo stato salvato (Supabase / locale) ---------- */
-    window.addEventListener('mo:progress-restored', () => {
+    window.addEventListener('mo:progress-restored', (e) => {
+        try { const d = e?.detail?.data; window.__moDatiCaricati = (d && typeof d === 'object') ? d : (typeof d === 'string' ? JSON.parse(d) : {}); } catch { window.__moDatiCaricati = {}; }
         Object.keys(ACTS).forEach(applyActState);
         scoredFields().forEach(el => { if (fieldFilled(el)) doneFields.add(el.id); });
         if (autovalDone()) doneFields.add('autoval');
@@ -1875,7 +2274,7 @@
         });
 
         // campi di testo, select, checkbox, radio della tappa
-        const fields = $$('textarea, input[type="text"], select', sec).filter(el => el.id && !el.closest('.state-storage'));
+        const fields = $$('textarea, input[type="text"], select', sec).filter(el => el.id && !el.closest('.state-storage') && !el.matches('[data-progress-ignore]'));
         fields.forEach(el => {
             const label = $(`label[for="${el.id}"]`)?.textContent.replace(/\+\d+/g, '').replace(/🏠 a casa/g, '').trim() || el.id;
             const vals = rows.map(d => String(d[el.id] ?? '').trim()).filter(v => v);
@@ -1896,7 +2295,8 @@
             const count = {}; let answered = 0;
             rows.forEach(d => { const v = d[name]; const arr = Array.isArray(v) ? v : (v ? [v] : []); if (arr.length) answered++; arr.forEach(x => count[x] = (count[x] || 0) + 1); });
             const labels = {}; $$(`input[name="${name}"]`, sec).forEach(c => labels[c.value] = c.parentElement.textContent.trim());
-            html += `<h4 style="margin-top:12px">☑️ Servizi scelti <span class="meta">${answered}/${n} hanno scelto</span></h4><div class="chipslist">${Object.entries(count).sort((a, b) => b[1] - a[1]).map(([v, c]) => `<span>${esc(labels[v] || v)} <strong>${c}</strong></span>`).join('') || '<span>nessuna scelta</span>'}</div>`;
+            const cbTitolo = $(`input[name="${name}"]`, sec)?.closest('[data-cb-title]')?.dataset.cbTitle || 'Servizi scelti';
+            html += `<h4 style="margin-top:12px">☑️ ${esc(cbTitolo)} <span class="meta">${answered}/${n} hanno scelto</span></h4><div class="chipslist">${Object.entries(count).sort((a, b) => b[1] - a[1]).map(([v, c]) => `<span>${esc(labels[v] || v)} <strong>${c}</strong></span>`).join('') || '<span>nessuna scelta</span>'}</div>`;
         });
         const radioNames = [...new Set($$('input[type="radio"]', sec).map(r => r.name).filter(Boolean))];
         radioNames.forEach(name => {
@@ -1909,12 +2309,232 @@
         panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
+
+    /* ===================================================================== */
+    /* ATTIVITÀ AGGIUNTE (settembre 2026). Tutte bonus: non servono per completare
+       la tappa e non cambiano il totale. Usano solo campi con nomi nuovi, così il
+       lavoro già salvato dagli studenti resta dov'è. */
+    function hv(id) { const el = document.getElementById(id); return el ? el.value : ''; }
+    function hset(id, v) { const el = document.getElementById(id); if (!el) return; if (el.value !== v) { el.value = v; fireInput(el); } }
+    function jget(id, def) { try { const v = JSON.parse(hv(id)); return v ?? def; } catch { return def; } }
+    async function righeClasseLim() {
+        if (!(await verificaDocente())) return null;
+        let cls = localStorage.getItem('mo:lim-class') || '';
+        if (!cls) { await cambiaClasseLim(); cls = localStorage.getItem('mo:lim-class') || ''; }
+        if (!cls) return null;
+        return fetchClasse(cls);
+    }
+    function barre(labels, counts, giusta) {
+        const tot = counts.reduce((a, b) => a + b, 0) || 1;
+        return labels.map((l, k) => { const p = Math.round(counts[k] / tot * 100); return `<div class="barra"><span>${esc(l)}</span><i class="${k === giusta ? 'ok' : ''}" style="width:${p}%"></i><span>${counts[k]} · ${p}%</span></div>`; }).join('');
+    }
+
+    /* ---------- A2 · Vota, discuti, rivota ---------- */
+    const A2_OPTS = ["Suggerire alla famiglia un controllo dal medico: è un problema di alimentazione.", "Parlargli per capire se è triste o preoccupato: è un problema emotivo.", "Raccogliere informazioni su corpo, emozioni e relazioni prima di decidere dove intervenire.", "Avvisare subito i servizi sociali: forse a casa mancano i soldi."];
+    const A2_OK = 2;
+    function a2Render() {
+        const box = document.getElementById('a2-opts'); if (!box) return;
+        const v1 = hv('a2-voto1'), v2 = hv('a2-voto2');
+        box.innerHTML = A2_OPTS.map((o, k) => `<button type="button" class="opt" data-k="${k}">${'ABCD'[k]}. ${esc(o)}</button>`).join('');
+        const st = document.getElementById('a2-stato');
+        $$('.opt', box).forEach(b => {
+            const k = +b.dataset.k;
+            if (v2 !== '') { b.disabled = true; if (k === A2_OK) b.classList.add('ok'); else if (String(k) === v2) b.classList.add('no'); else b.classList.add('dim'); }
+            else if (v1 !== '' && String(k) === v1) b.classList.add('dim');
+            b.onclick = () => {
+                if (hv('a2-voto1') === '') { hset('a2-voto1', String(k)); }
+                else if (hv('a2-voto2') === '') { hset('a2-voto2', String(k)); }
+                a2Render();
+            };
+        });
+        if (v1 === '') st.innerHTML = '<div class="fbn">Primo voto: da solo, in silenzio.</div>';
+        else if (v2 === '') st.innerHTML = `<div class="fbn">Hai votato <strong>${'ABCD'[+v1]}</strong>. Ora due minuti: convinci il tuo vicino, poi <strong>vota di nuovo</strong> (puoi anche confermare lo stesso voto).</div>`;
+        else st.innerHTML = `<div class="fbn ok"><strong>La risposta è C.</strong> A, B e D possono essere vere, ma scelgono una dimensione prima di sapere. Il modello bio-psico-sociale chiede di farsi tutte e tre le domande; se emergono segnali di rischio, l'operatore ne parla con l'équipe, non decide da solo. Tu hai votato ${'ABCD'[+v1]}, poi ${'ABCD'[+v2]}.</div>`;
+    }
+    async function a2Classe() {
+        const out = document.getElementById('a2-lim');
+        out.innerHTML = '<div class="lim-box">Caricamento…</div>';
+        let rows; try { rows = await righeClasseLim(); } catch (e) { out.innerHTML = `<div class="lim-box">Non riesco a leggere i dati: ${esc(e.message)}</div>`; return; }
+        if (!rows) { out.innerHTML = ''; return; }
+        const c1 = [0, 0, 0, 0], c2 = [0, 0, 0, 0];
+        rows.forEach(d => { const a = parseInt(d['a2-voto1'], 10), b = parseInt(d['a2-voto2'], 10); if (!isNaN(a)) c1[a]++; if (!isNaN(b)) c2[b]++; });
+        const n1 = c1.reduce((a, b) => a + b, 0), p1 = n1 ? Math.round(c1[A2_OK] / n1 * 100) : 0;
+        const regola = !n1 ? '' : p1 < 35 ? 'Sotto il 35%: meglio rispiegare prima di far discutere.' : p1 <= 70 ? 'Fra il 35 e il 70%: è il momento giusto per la discussione in coppia.' : 'Sopra il 70%: basta una spiegazione breve, poi avanti.';
+        out.innerHTML = `<div class="lim-box"><strong>Primo voto</strong> (${n1}) · giusta al ${p1}% · ${regola}${barre(['A', 'B', 'C', 'D'], c1, A2_OK)}<div style="height:8px"></div><strong>Secondo voto</strong> (${c2.reduce((a, b) => a + b, 0)})${barre(['A', 'B', 'C', 'D'], c2, A2_OK)}</div>`;
+    }
+
+    /* ---------- A4 · Disegna la rete ---------- */
+    let a4Storia = [];
+    function a4Stato() { const st = jget('a4-mappa', null); return (st && Array.isArray(st.n) && Array.isArray(st.e)) ? st : { n: [], e: [] }; }
+    function a4Salva(st) { hset('a4-mappa', JSON.stringify(st)); a4Render(); }
+    function a4AggiungiNodo() {
+        const inp = document.getElementById('a4-nodo'); const l = inp.value.trim().slice(0, 22); if (!l) { inp.focus(); return; }
+        const st = a4Stato(); if (st.n.length >= 14) { alert('Bastano 14 nodi per questa mappa.'); return; }
+        a4Storia.push(JSON.stringify(st)); st.n.push({ l, t: document.getElementById('a4-tipo').value }); inp.value = ''; a4Salva(st);
+    }
+    function a4Collega() {
+        const st = a4Stato(); const a = +document.getElementById('a4-da').value, b = +document.getElementById('a4-a').value, t = document.getElementById('a4-leg').value;
+        if (a === b || isNaN(a) || isNaN(b)) return;
+        if (st.e.some(([x, y]) => (x === a && y === b) || (x === b && y === a))) return;
+        a4Storia.push(JSON.stringify(st)); st.e.push([a, b, t]); a4Salva(st);
+    }
+    function a4Annulla() { if (!a4Storia.length) return; a4Salva(JSON.parse(a4Storia.pop())); }
+    function a4Render() {
+        const svg = document.getElementById('a4-svg'); if (!svg) return;
+        const st = a4Stato(); const N = st.n.length; const cx = 300, cy = 180, R = 135;
+        const pos = i => i < 0 ? [cx, cy] : [cx + R * Math.cos(-Math.PI / 2 + 2 * Math.PI * i / Math.max(N, 1)), cy + R * 0.95 * Math.sin(-Math.PI / 2 + 2 * Math.PI * i / Math.max(N, 1))];
+        let g = '';
+        st.e.forEach(([a, b, t]) => { const [x1, y1] = pos(a), [x2, y2] = pos(b); g += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${t === 'ponte' ? '#CC0073' : t === 'forte' ? '#0E7C7C' : '#94a3b8'}" stroke-width="${t === 'forte' ? 4 : t === 'ponte' ? 3 : 2}" ${t === 'debole' ? 'stroke-dasharray="6 5"' : ''}/>`; });
+        g += `<circle cx="${cx}" cy="${cy}" r="30" fill="#1DD3D3"/><text x="${cx}" y="${cy + 4}" text-anchor="middle" font-size="13" font-weight="700" fill="#083d3d" font-family="Segoe UI,Tahoma,sans-serif">Persona</text>`;
+        st.n.forEach((nd, i) => { const [x, y] = pos(i); const w = Math.max(56, nd.l.length * 7.2 + 16); g += `<rect x="${x - w / 2}" y="${y - 15}" width="${w}" height="30" rx="15" fill="${nd.t === 'for' ? '#e6f7f7' : '#f3fbd9'}" stroke="${nd.t === 'for' ? '#0E7C7C' : '#9CB912'}" stroke-width="1.5"/><text x="${x}" y="${y + 4}" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1f2933" font-family="Segoe UI,Tahoma,sans-serif">${esc(nd.l)}</text>`; });
+        if (!N) g += `<text x="${cx}" y="${cy + 70}" text-anchor="middle" font-size="13" fill="#52606d" font-family="Segoe UI,Tahoma,sans-serif">Aggiungi il primo nodo qui sopra</text>`;
+        g += `<g font-size="11.5" font-family="Segoe UI,Tahoma,sans-serif" fill="#52606d"><text x="10" y="350">━ forte</text><text x="70" y="350">┅ debole</text><text x="140" y="350" fill="#CC0073">━ ponte</text><text x="400" y="350">🟩 informale · 🟦 formale</text></g>`;
+        svg.innerHTML = g;
+        const opt = `<option value="-1">Persona</option>` + st.n.map((nd, i) => `<option value="${i}">${esc(nd.l)}</option>`).join('');
+        ['a4-da', 'a4-a'].forEach((id, k) => { const sel = document.getElementById(id); const v = sel.value; sel.innerHTML = opt; if (v !== '' && sel.querySelector(`option[value="${v}"]`)) sel.value = v; else sel.value = k === 0 ? '-1' : (N ? '0' : '-1'); });
+        const legati = new Set(); st.e.forEach(([a, b]) => { legati.add(a); legati.add(b); });
+        const isolati = st.n.filter((_, i) => !legati.has(i)).length;
+        const forti = st.e.filter(e => e[2] === 'forte').length, deboli = st.e.filter(e => e[2] === 'debole').length, ponti = st.e.filter(e => e[2] === 'ponte').length;
+        const inf = st.n.filter(x => x.t === 'inf').length;
+        const pl = (n, s1, sn) => `${n} ${n === 1 ? s1 : sn}`;
+        document.getElementById('a4-conta').innerHTML = `<strong>${pl(N, 'nodo', 'nodi')}</strong> (${pl(inf, 'informale', 'informali')}, ${pl(N - inf, 'formale', 'formali')}) · <strong>${pl(st.e.length, 'legame', 'legami')}</strong> (${pl(forti, 'forte', 'forti')}, ${pl(deboli, 'debole', 'deboli')}) · <strong>${pl(ponti, 'ponte', 'ponti')}</strong> · <strong>${pl(isolati, 'nodo isolato', 'nodi isolati')}</strong>`;
+    }
+
+    /* ---------- A5 · Parlare con Matteo ---------- */
+    const A5 = [
+        { m: "Tanto a voi non interessa niente.", o: [
+            { t: "«Non si parla così, qui ci sono delle regole.»", r: "Appunto. Lasciamo stare.", f: "Hai risposto al tono, non al messaggio: Matteo si sente giudicato. Manca l'accettazione incondizionata." },
+            { t: "«Mi sembri arrabbiato, oggi. Ti va di raccontarmi che cosa è successo?»", ok: 1, f: "Ascolto attivo: dai un nome all'emozione e lasci a lui la scelta di parlare." },
+            { t: "«Dai, non fare così, vedrai che domani va meglio!»", r: "Sì, certo.", f: "Rassicurare in fretta toglie spazio all'emozione: Matteo capisce che non vuoi sentirla." }] },
+        { m: "…Mi hanno sospeso. E mio padre neanche mi ha guardato.", o: [
+            { t: "«Beh, se ti hanno sospeso qualcosa avrai fatto.»", r: "Ecco, lo sapevo.", f: "È un giudizio: la relazione si chiude proprio quando si era aperta." },
+            { t: "«Ti spiego io che cosa fare: domani chiedi scusa al professore.»", r: "Non ho chiesto consigli.", f: "Un consiglio non richiesto mette la tua decisione al posto della sua." },
+            { t: "«Quindi ti sei sentito messo da parte, anche da tuo padre.»", ok: 1, f: "Rispecchiamento empatico: rimandi l'emozione con parole tue, senza giudicare." }] },
+        { m: "Sì… Non so neanche se ho voglia di tornare a scuola.", o: [
+            { t: "«Se vuoi lo dico io a tuo padre, così ci pensa lui.»", r: "No! Non dirgli niente.", f: "Ti sostituisci a lui e usi informazioni senza il suo consenso." },
+            { t: "«Capisco. Che cosa ti aiuterebbe a tornare? Possiamo pensarci insieme, e se vuoi ne parliamo anche con l'educatrice.»", ok: 1, f: "Lasci decidere a lui (autodeterminazione) e apri alla rete, con il suo consenso." },
+            { t: "«Devi tornare, la scuola è obbligatoria.»", r: "Grazie tante.", f: "È vero, ma detto così è un ordine: non cambia niente in Matteo." }] }
+    ];
+    function a5Render(ultimo) {
+        const box = document.getElementById('a5-box'); if (!box) return;
+        const st = jget('a5-dialogo', null) || { k: 0, f: [] };
+        let html = '';
+        for (let i = 0; i < Math.min(st.k, A5.length); i++) { const ok = A5[i].o.find(o => o.ok); html += `<div class="chi">Matteo</div><div class="bolla">${esc(A5[i].m)}</div><div class="chi" style="text-align:right">Tu</div><div class="bolla io">${esc(ok.t)}</div>`; }
+        if (st.k >= A5.length) { box.innerHTML = html + `<div class="fbn ok">✅ ${esc(A5[A5.length - 1].o.find(o => o.ok).f)}<br><strong>Fine del dialogo.</strong> Nel confronto lo proverete a voce, a tre.</div>`; return; }
+        const s = A5[st.k];
+        html += `<div class="chi">Matteo</div><div class="bolla">${esc(s.m)}</div><div class="chi" style="margin-top:6px">Tu rispondi…</div><div class="opts col">${s.o.map((o, i) => `<button type="button" class="opt" data-i="${i}">${esc(o.t)}</button>`).join('')}</div><div id="a5-fb">${ultimo || ''}</div>`;
+        box.innerHTML = html;
+        $$('.opt', box).forEach(b => b.onclick = () => {
+            const i = +b.dataset.i, o = s.o[i], cur = jget('a5-dialogo', null) || { k: 0, f: [] };
+            if (cur.f[cur.k] === undefined) cur.f[cur.k] = i;
+            if (o.ok) { cur.k++; hset('a5-dialogo', JSON.stringify(cur)); a5Render(`<div class="fbn ok">✅ ${esc(o.f)}</div>`); }
+            else { hset('a5-dialogo', JSON.stringify(cur)); b.classList.add('no'); b.disabled = true; document.getElementById('a5-fb').innerHTML = `<div class="fbn"><strong>Matteo:</strong> «${esc(o.r)}»<br>${esc(o.f)} Prova un'altra risposta.</div>`; }
+        });
+    }
+
+    /* ---------- A8 · L'imprevisto ---------- */
+    const A8_CARTE = {
+        1: "Il servizio sociale ha concesso il contributo. Ma i nonni avvisano: per tre mesi non potranno aiutare, il nonno deve operarsi.",
+        2: "Maria ha trovato lavoro come cameriera. Solo di sera, dalle 18 a mezzanotte.",
+        3: "La scuola chiama: Luca è uscito da solo e ha passato il pomeriggio al parco. Nessuno era andato a prenderlo."
+    };
+    function a8Mostra() { const v = hv('a8-carta'); const out = document.getElementById('a8-testo'); if (!out) return; out.innerHTML = A8_CARTE[v] ? `<div class="carta-evento"><strong>⚡ Carta ${v}</strong><br>${esc(A8_CARTE[v])}</div>` : ''; }
+    function a8Pesca() { if (hv('a8-carta')) return a8Mostra(); hset('a8-carta', String(1 + Math.floor(Math.random() * 3))); a8Mostra(); }
+
+    /* ---------- A9 · Scarica la memoria ---------- */
+    let a9T = null;
+    function a9Timer() { clearInterval(a9T); let sec = 120; const el = document.getElementById('a9-timer'); const draw = () => el.textContent = sec > 0 ? `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, '0')}` : 'tempo!'; draw(); a9T = setInterval(() => { sec--; draw(); if (sec <= 0) clearInterval(a9T); }, 1000); document.getElementById('a9-memoria')?.focus(); }
+
+    /* ---------- R · Riattiva ---------- */
+    const RIATTIVA_APERTE = {
+        1: ["In una frase: che cosa vuol dire «relazione d'aiuto»?", "Un percorso costruito insieme, in cui la persona resta protagonista delle sue scelte e l'operatore fa emergere le sue capacità."],
+        2: ["Perché un problema in una dimensione si sposta nelle altre? Fai un esempio.", "Perché corpo, mente e relazioni si influenzano: l'anziano che si rompe il femore esce meno, si isola, si rattrista e guarisce più lentamente."],
+        3: ["Che differenza c'è fra un servizio residenziale e uno semiresidenziale?", "Nel residenziale la persona ci vive giorno e notte; nel semiresidenziale ci passa la giornata e la sera torna a casa."],
+        4: ["Che cos'è un «ponte» in una rete, e perché conta?", "Un legame che collega ambienti diversi: può portare informazioni e opportunità nuove."],
+        5: ["Perché la crisi adolescenziale non è una malattia?", "È la fatica normale di passare dall'identità infantile a quella adulta; diventa un problema solo se porta a disadattamento."],
+        6: ["Secondo l'ICF, perché una rampa «cambia la disabilità»?", "Perché la disabilità dipende anche dall'ambiente: togliendo la barriera la persona partecipa."],
+        7: ["Che differenza c'è fra un obiettivo e un'azione?", "L'obiettivo è il cambiamento che vogliamo vedere nella persona; l'azione è ciò che fa l'operatore per arrivarci."],
+        8: ["Perché non si attivano tutti i servizi insieme?", "La persona si sentirebbe sommersa: serve un ordine, prima le urgenze e poi il resto."],
+        9: ["Che cos'è la metacognizione?", "Ragionare su come si impara: pianificare, controllare, valutare il proprio modo di lavorare."],
+        10: ["Perché dietro un comportamento come quello di Anna si cerca un bisogno?", "Perché il comportamento è un segnale: non si giudica, si cerca il bisogno che lo muove."],
+        11: ["Che cosa vuol dire S.M.A.R.T.? Spiega almeno due lettere.", "Specifico, Misurabile, Accessibile, Rilevante, Temporizzato."]
+    };
+    function rng(seed) { let h = 1779033703 ^ seed.length; for (let i = 0; i < seed.length; i++) { h = Math.imul(h ^ seed.charCodeAt(i), 3432918353); h = h << 13 | h >>> 19; } return () => { h = Math.imul(h ^ h >>> 16, 2246822507); h = Math.imul(h ^ h >>> 13, 3266489909); return ((h ^= h >>> 16) >>> 0) / 4294967296; }; }
+    function oggi() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; }
+    function riattivaDomande(N) {
+        const r = rng(`${oggi()}|${N}`);
+        const pool = t0 => { const out = []; Object.keys(ACTS).filter(id => !ACTS[id].bonus).forEach(id => ACTS[id].items.forEach((it, i) => { const t = ACTS[id].tappa; if (t0(t)) out.push({ id, i }); })); return out; };
+        const pick = arr => arr.length ? arr[Math.floor(r() * arr.length)] : null;
+        const recenti = pool(t => t === N - 1 || (N - 1 === 12 && t === 12));
+        const lontane = pool(t => t <= N - 2);
+        let a = pick(recenti.length ? recenti : pool(t => t < N)), b = pick(lontane.length ? lontane : pool(t => t < N).filter(x => x !== a));
+        const aperte = Object.keys(RIATTIVA_APERTE).map(Number).filter(t => t < N);
+        return { key: `${oggi()}|${N}`, q: [a, b].filter(Boolean), open: pick(aperte) };
+    }
+    function riattivaApri() {
+        const p = document.getElementById('riattiva'); p.classList.add('show');
+        const sel = document.getElementById('riattiva-tappa');
+        if (!sel.options.length) sel.innerHTML = Array.from({ length: 12 }, (_, k) => `<option value="${k + 2}">${k + 2 <= 12 ? k + 2 : 'fine percorso'}</option>`).join('');
+        const viste = jget('stato_tappe_viste', [1]); if (!sel.dataset.touched) sel.value = String(Math.min(13, Math.max(2, ...viste)));
+        sel.onchange = () => sel.dataset.touched = '1';
+        const ult = jget('riattiva-ultimo', null);
+        if (ult && ult.key && ult.key.startsWith(oggi())) { sel.value = ult.key.split('|')[1]; riattivaGenera(); }
+        p.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    function riattivaChiudi() { document.getElementById('riattiva').classList.remove('show'); }
+    function riattivaGenera() {
+        const N = +document.getElementById('riattiva-tappa').value;
+        const D = riattivaDomande(N); const box = document.getElementById('riattiva-domande');
+        let ult = jget('riattiva-ultimo', null); if (!ult || ult.key !== D.key) ult = { key: D.key, f: [], d: [] };
+        let html = '';
+        D.q.forEach((q, n) => {
+            const act = ACTS[q.id], it = act.items[q.i], opts = it.o || act.o;
+            html += `<div class="ra-item" data-n="${n}"><div class="qn">Dalla tappa ${act.tappa} · ${esc(it.t)}</div><div class="opts">${opts.map((o, k) => `<button type="button" class="opt" data-k="${k}">${esc(o)}</button>`).join('')}</div><div class="rfb"></div></div>`;
+        });
+        const ab = document.getElementById('riattiva-aperta-box');
+        if (D.open) { ab.style.display = 'block'; document.getElementById('riattiva-aperta-q').textContent = `Dalla tappa ${D.open} · ${RIATTIVA_APERTE[D.open][0]}`; const m = document.getElementById('riattiva-modello'); m.textContent = RIATTIVA_APERTE[D.open][1]; m.style.display = 'none'; } else ab.style.display = 'none';
+        box.innerHTML = html || '<p>Dalla tappa 2 in poi ci sono domande da riattivare.</p>';
+        const segna = (n, k, primo) => {
+            const q = D.q[n], act = ACTS[q.id], it = act.items[q.i]; const el = box.querySelector(`.ra-item[data-n="${n}"]`);
+            const btns = $$('.opt', el); const ok = k === it.a;
+            btns[k].classList.add(ok ? 'ok' : 'no'); if (ok) btns.forEach(b => b.disabled = true);
+            el.querySelector('.rfb').innerHTML = ok ? `<div class="fbn ok">✅ ${esc(it.why)}</div>` : (primo ? '<div class="fbn">Non è questa: riprova.</div>' : '');
+        };
+        D.q.forEach((q, n) => {
+            const el = box.querySelector(`.ra-item[data-n="${n}"]`);
+            if (ult.f[n] !== undefined) { segna(n, ult.f[n], false); if (ult.d[n] !== undefined && ult.d[n] !== ult.f[n]) segna(n, ult.d[n], false); }
+            $$('.opt', el).forEach(b => b.onclick = () => {
+                const k = +b.dataset.k; const cur = jget('riattiva-ultimo', null); const u = (cur && cur.key === D.key) ? cur : { key: D.key, f: [], d: [] };
+                if (u.f[n] === undefined) u.f[n] = k; u.d[n] = k;
+                hset('riattiva-ultimo', JSON.stringify(u)); segna(n, k, true);
+            });
+        });
+        box.dataset.key = D.key;
+    }
+    async function riattivaClasse() {
+        const out = document.getElementById('riattiva-lim'); const key = document.getElementById('riattiva-domande').dataset.key;
+        if (!key) { out.innerHTML = '<div class="lim-box">Prima premi «Dammi le domande».</div>'; return; }
+        out.innerHTML = '<div class="lim-box">Caricamento…</div>';
+        let rows; try { rows = await righeClasseLim(); } catch (e) { out.innerHTML = `<div class="lim-box">Non riesco a leggere i dati: ${esc(e.message)}</div>`; return; }
+        if (!rows) { out.innerHTML = ''; return; }
+        const D = riattivaDomande(+key.split('|')[1]);
+        const rs = rows.map(d => { try { return JSON.parse(d['riattiva-ultimo'] || 'null'); } catch { return null; } }).filter(u => u && u.key === key);
+        let html = `<div class="lim-box"><strong>${rs.length}</strong> studenti hanno risposto a queste domande oggi.`;
+        D.q.forEach((q, n) => { const it = ACTS[q.id].items[q.i]; const ans = rs.filter(u => u.f[n] !== undefined); const ok = ans.filter(u => u.f[n] === it.a).length; const p = ans.length ? Math.round(ok / ans.length * 100) : 0; html += `<div class="barra"><span>${n + 1}</span><i class="ok" style="width:${p}%"></i><span>${p}%</span></div>`; });
+        html += '<div style="margin-top:4px">Percentuale di risposte giuste al primo colpo: rispiega la domanda più bassa.</div></div>';
+        out.innerHTML = html;
+    }
+
+    function nuoveAttivitaRender() { a2Render(); a4Render(); a5Render(); a8Mostra(); }
+    window.addEventListener('mo:progress-restored', nuoveAttivitaRender);
     /* ---------- avvio ---------- */
     renderActs();
     aggiornaTutto();
     vaiTappa(1, { noScroll: true });
     // se dopo 4 secondi non è arrivato nessun ripristino, prova comunque a leggere i campi (es. modalità ospite con dati locali)
     setTimeout(() => { if (!restored) { Object.keys(ACTS).forEach(applyActState); aggiornaTutto(); } }, 4000);
+    nuoveAttivitaRender();
+    setTimeout(() => { if (!restored) nuoveAttivitaRender(); }, 4100);
     </script>
 
     <script>
@@ -1923,11 +2543,17 @@
             inputSelector: 'textarea, input, select',
             autoSave: true,
             onBeforeSave: function (data) {
+                // Non perdere mai il lavoro già salvato: i campi che questa versione della pagina
+                // non ha più (per esempio quelli di versioni precedenti) vengono conservati così come sono.
+                try {
+                    const prima = window.__moDatiCaricati || {};
+                    Object.keys(prima).forEach(k => { if (k !== '_meta' && !(k in data)) data[k] = prima[k]; });
+                } catch (e) { }
                 try {
                     const req = Array.from(document.querySelectorAll('textarea[data-points], input[type="text"][data-points], select[data-points]')).filter(el => +el.dataset.points > 0);
                     const filled = req.filter(el => String(el.value || '').trim().length > 0).length;
                     let actsTot = 0, actsDone = 0;
-                    Object.keys(ACTS).forEach(id => { const r = actPoints(id); actsTot += r.n; actsDone += r.done; });
+                    Object.keys(ACTS).filter(id => !ACTS[id].bonus).forEach(id => { const r = actPoints(id); actsTot += r.n; actsDone += r.done; });
                     const totale = req.length + actsTot;
                     const campiCompilati = filled + actsDone;
                     data._meta = { campiCompilati, totale, percentuale: totale ? Math.round(campiCompilati / totale * 100) : 0, punti: calcScore(), puntiMax: calcMax(), tappa: tappaCorrente };
