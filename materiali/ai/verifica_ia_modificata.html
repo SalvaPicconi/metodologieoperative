@@ -924,21 +924,19 @@
                             che accoglie 7 utenti adulti con diverse diagnosi sociosanitarie.
                         </p>
                         <p>
-                            <strong>CONTESTO:</strong> Il centro ha digitalizzato tutte le cartelle sociosanitarie 
-                            e il coordinatore ti chiede di utilizzare l'IA per:
+                            <strong>CONTESTO:</strong> Il centro ha digitalizzato tutte le cartelle sociosanitarie, che restano nel sistema informatico del servizio. Il coordinatore ti chiede di utilizzare l'IA, senza caricarvi le cartelle, per:
                         </p>
                         <ul style="margin: 15px 0; padding-left: 40px; line-height: 2;">
-                            <li>📁 Analizzare le diagnosi degli utenti (anonimizzati con codici: 01_cd, 02_cd, ... 07_cd)</li>
+                            <li>📁 Raccogliere informazioni generali sulle condizioni presenti nel centro (per esempio demenza in fase iniziale, esiti di ictus, disabilità intellettiva)</li>
                             <li>📊 Identificare pattern e bisogni comuni tra gli utenti</li>
                             <li>📋 Creare materiali informativi per l'équipe multidisciplinare</li>
-                            <li>🎯 Proporre interventi personalizzati basati sulle diagnosi specifiche</li>
+                            <li>🎯 Proporre interventi adatti a quelle condizioni, che l'équipe poi personalizza</li>
                         </ul>
                         <p>
                             <strong>ÉQUIPE:</strong> OSS, Assistente sociale, Psicologo, Educatore
                         </p>
                         <p>
-                            <strong>TUO COMPITO:</strong> Usare NotebookLM per analizzare i dati e supportare 
-                            la pianificazione degli interventi sociosanitari.
+                            <strong>TUO COMPITO:</strong> Usare NotebookLM, caricando solo documenti generali (linee guida, schede sulle patologie), per supportare la pianificazione degli interventi sociosanitari.
                         </p>
                     </div>
 
@@ -972,14 +970,10 @@
                     <div class="question-box">
                         <h3>📝 DOMANDA 1A.2 - Costruisci un PROMPT professionale (17 punti)</h3>
                         <p>
-                            Devi usare <strong>NotebookLM</strong> per analizzare le cartelle sociosanitarie digitalizzate 
-                            degli utenti del centro diurno, e devi esaminare le diagnosi. Una volta anonimizzati 
-                            (ma riconoscibili a te attraverso codici es. 01_cd, 02_cd) devi creare dei materiali 
-                            informativi per l'équipe (tra cui OSS, Assistente sociale, Psicologo, Educatore). 
+                            Devi usare <strong>NotebookLM</strong> per creare materiali informativi per l'équipe (tra cui OSS, Assistente sociale, Psicologo, Educatore) sulle condizioni presenti nel centro diurno. Nel prompt e nei documenti caricati non devono comparire dati degli utenti: nemmeno le diagnosi collegate a un codice, perché un codice che permette di risalire alla persona non rende i dati anonimi. 
                         </p>
                         <p>
-                            <strong>IL TUO OBIETTIVO:</strong> Capire quale intervento predisporre data la diagnosi 
-                            specifica dei 7 pazienti frequentanti il centro diurno.
+                            <strong>IL TUO OBIETTIVO:</strong> Capire quali interventi predisporre per le condizioni presenti nel centro diurno, senza usare dati personali o sanitari degli utenti.
                         </p>
                         <p style="background: #FFF9C4; padding: 15px; border-radius: 10px; margin: 15px 0;">
                             <strong>⚠️ IMPORTANTE:</strong> Usa il metodo <strong>R.C.C.R.R.S.</strong> 
@@ -1046,9 +1040,7 @@
                             <li>⚖️ Moralità e rispetto delle regole</li>
                         </ul>
                         <p>
-                            <strong>TUO COMPITO:</strong> Usare <strong>ChatGPT</strong> per analizzare i resoconti delle maestre 
-                            e progettare <strong>attività educative personalizzate</strong> per ogni bambino, 
-                            considerando i suoi specifici bisogni di sviluppo.
+                            <strong>TUO COMPITO:</strong> Usare <strong>ChatGPT</strong> per progettare <strong>attività educative</strong> adatte ai bisogni di sviluppo emersi dalle osservazioni. Le osservazioni sui singoli bambini restano nella scuola: nel prompt si descrivono solo bisogni generali, senza nomi né codici.
                         </p>
                     </div>
 
@@ -1083,12 +1075,10 @@
                     <div class="question-box">
                         <h3>📝 DOMANDA 1B.2 - Costruisci un PROMPT per ChatGPT (17 punti)</h3>
                         <p>
-                            Devi usare <strong>ChatGPT</strong> per analizzare i resoconti delle maestre su 5 bambini 
-                            (identificati con codici: A1, A2, A3, A4, A5) e creare <strong>attività educative personalizzate</strong> 
-                            per ognuno di loro.
+                            Devi usare <strong>ChatGPT</strong> per creare <strong>attività educative</strong> per il gruppo di bambini, partendo dai bisogni emersi in generale dalle osservazioni (per esempio: alcuni bambini hanno poche parole, altri faticano a giocare insieme, altri a tenere la matita). Le osservazioni sui singoli bambini non si inseriscono nel prompt.
                         </p>
                         <p>
-                            <strong>OBIETTIVO:</strong> Per ogni bambino, proporre 3 attività concrete che lavorino su:
+                            <strong>OBIETTIVO:</strong> Proporre 3 attività concrete per ciascuna di queste aree:
                             <strong>linguaggio, psicomotricità, socialità</strong> - in base ai bisogni emersi dalle osservazioni.
                         </p>
                         <p style="background: #FFF9C4; padding: 15px; border-radius: 10px; margin: 15px 0;">

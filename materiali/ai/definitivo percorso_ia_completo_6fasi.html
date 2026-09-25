@@ -1806,7 +1806,7 @@
                                 NON un sostituto della relazione umana!
                             </p>
                             <p style="margin-top: 10px;">
-                                Usa l'IA per: analizzare dati, organizzare informazioni, aiutare nelle diagnosi.
+                                Usa l'IA per: organizzare informazioni generali, preparare materiali, trovare idee da verificare. Non inserire mai dati personali o sanitari di persone reali.
                             </p>
                             <p style="margin-top: 5px;">
                                 NON usare l'IA per: sostituire il contatto umano, decidere da sola cure o interventi, 
@@ -2252,8 +2252,7 @@
                         <strong>Cosa dici:</strong> Spiega COSA deve fare l'IA. L'azione principale e l'obiettivo.
                     </div>
                     <div class="example-prompt">
-                        <strong>Esempio:</strong> "Analizza le osservazioni sui 5 bambini e crea attività educative 
-                        personalizzate per ognuno, che lavorino su linguaggio, psicomotricità e socialità."
+                        <strong>Esempio:</strong> "Proponi attività educative per un gruppo di bambini di 3-5 anni che lavorino su linguaggio, psicomotricità e socialità."
                     </div>
                 </div>
 
@@ -2264,7 +2263,7 @@
                         Destinatari, situazione, vincoli, risorse disponibili.
                     </div>
                     <div class="example-prompt">
-                        <strong>Esempio:</strong> "Le osservazioni riguardano bambini di 3-5 anni in una scuola dell'infanzia. 
+                        <strong>Esempio:</strong> "Il gruppo è formato da bambini di 3-5 anni di una scuola dell'infanzia; alcuni hanno poche parole, altri faticano a giocare insieme. 
                         Le attività devono essere realizzabili in classe con materiali semplici. 
                         L'équipe è composta da 3 maestre e un educatore."
                     </div>
@@ -2277,9 +2276,7 @@
                         Come deve essere strutturata la risposta?
                     </div>
                     <div class="example-prompt">
-                        <strong>Esempio:</strong> "Crea una tabella con 5 righe (una per bambino) e 3 colonne 
-                        (linguaggio, psicomotricità, socialità). Per ogni cella, descrivi 1 attività concreta 
-                        con materiali, durata e modalità."
+                        <strong>Esempio:</strong> "Crea una tabella con 3 righe (linguaggio, psicomotricità, socialità) e 3 colonne (attività, materiali, durata). Proponi 3 attività per ogni riga."
                     </div>
                 </div>
 
@@ -2290,8 +2287,7 @@
                         metodo di analisi, stile di risposta.
                     </div>
                     <div class="example-prompt">
-                        <strong>Esempio:</strong> "Basa le attività sulle specifiche difficoltà o punti di forza 
-                        emersi dalle osservazioni. Usa un linguaggio chiaro e operativo. Priorità ad attività 
+                        <strong>Esempio:</strong> "Basa le attività sui bisogni tipici di questa età e sulle difficoltà descritte. Usa un linguaggio chiaro e operativo. Priorità ad attività 
                         inclusive che possono essere adattate."
                     </div>
                 </div>
@@ -2304,7 +2300,7 @@
                     </div>
                     <div class="example-prompt">
                         <strong>Esempio:</strong> "Prima di fornire la risposta finale, controlla che: 
-                        1) ci siano esattamente 15 attività (3 per bambino), 
+                        1) ci siano esattamente 9 attività (3 per area), 
                         2) ogni attività sia realizzabile in 15-30 minuti, 
                         3) i materiali siano facilmente reperibili."
                     </div>
@@ -2320,32 +2316,33 @@
 
                     <div style="background: white; padding: 25px; border-radius: 15px; border: 3px solid #4CAF50;">
                         <p style="line-height: 2; font-size: 1.05em;">
-                            <strong style="color: #F44336;">[R - RUOLO]</strong> Sei un assistente sociale esperto in gerontologia 
-                            con 15 anni di esperienza nei centri diurni per anziani. Conosci bene le problematiche 
-                            di Alzheimer, Parkinson e altre demenze.
+                            <strong style="color: #F44336;">[R - RUOLO]</strong> Sei un educatore professionale con esperienza
+                            nei centri diurni per anziani, anche con persone che hanno difficoltà di memoria.
                             <br><br>
-                            <strong style="color: #FF9800;">[C - COMPITO]</strong> Analizza le diagnosi sociosanitarie di 7 utenti 
-                            del centro diurno (identificati con codici 01_cd fino a 07_cd) e identifica bisogni comuni 
-                            tra gli utenti per proporre interventi personalizzati.
+                            <strong style="color: #FF9800;">[C - COMPITO]</strong> Proponi un programma di quattro settimane di attività
+                            di socializzazione per il centro diurno, con un'attività diversa per ogni settimana.
                             <br><br>
-                            <strong style="color: #FBC02D;">[C - CONTESTO]</strong> Il centro diurno accoglie adulti con diverse 
-                            diagnosi. L'équipe è composta da OSS, assistente sociale, psicologo ed educatore. 
-                            Le cartelle sono digitalizzate e anonimizzate.
+                            <strong style="color: #FBC02D;">[C - CONTESTO]</strong> Il centro accoglie 25 anziani, alcuni con difficoltà
+                            di memoria o di movimento. L'équipe è composta da OSS, assistente sociale, psicologo ed educatore.
+                            Non ti fornisco dati personali o sanitari degli ospiti: lavora solo su queste informazioni generali.
                             <br><br>
-                            <strong style="color: #4CAF50;">[R - RISULTATO]</strong> Crea un documento con: 1) Tabella riassuntiva 
-                            delle diagnosi per utente, 2) Lista di 5 bisogni comuni emersi, 3) Per ogni bisogno, 
-                            proponi 2 interventi specifici con indicazioni operative per l'équipe.
+                            <strong style="color: #4CAF50;">[R - RISULTATO]</strong> Crea una tabella con quattro righe (una per settimana)
+                            e quattro colonne: attività, obiettivo, materiali, adattamenti per chi ha difficoltà di memoria o di movimento.
                             <br><br>
-                            <strong style="color: #2196F3;">[R - REASONING]</strong> Raggruppa gli utenti per bisogni simili. 
-                            Gli interventi devono essere evidence-based e rispettare la dignità delle persone. 
+                            <strong style="color: #2196F3;">[R - REASONING]</strong> Le attività devono favorire l'incontro fra gli ospiti,
+                            poter essere scelte liberamente e rispettare la dignità delle persone. 
                             Usa terminologia professionale ma chiara.
                             <br><br>
-                            <strong style="color: #9C27B0;">[S - STOP]</strong> Prima di dare la risposta, verifica che: 
-                            ci siano tutti i 7 utenti nella tabella, i 5 bisogni comuni siano supportati da almeno 
-                            2 diagnosi ciascuno, gli interventi siano concreti e realizzabili.
+                            <strong style="color: #9C27B0;">[S - STOP]</strong> Prima di dare la risposta, verifica che ci siano quattro
+                            attività diverse, che ognuna abbia un adattamento per le difficoltà di memoria e di movimento
+                            e che nessuna richieda personale in più.
                         </p>
                     </div>
                 </div>
+
+                <div style="margin: 20px 0;"><p style="background: #FFEBEE; border-left: 5px solid #E53935; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                            <strong>🔒 Regola da non dimenticare:</strong> diagnosi, cartelle e osservazioni su persone reali non si inseriscono in uno strumento di IA pubblico, nemmeno sostituendo il nome con un codice. Un codice che permette di risalire alla persona non rende i dati anonimi (si parla di pseudonimizzazione), e i dati sulla salute sono protetti in modo speciale dal GDPR. Nel prompt si scrivono solo informazioni generali.
+                        </p></div>
 
                 <!-- PAUSA -->
                 <div class="break">
@@ -2434,8 +2431,12 @@
                             <li><strong>Clara (5 anni):</strong> Ha difficoltà nella motricità fine (tenere la matita, ritagliare)</li>
                         </ul>
                         <p style="font-size: 1.1em; line-height: 1.8; margin-top: 15px;">
-                            <strong>OBIETTIVO:</strong> Vuoi che ChatGPT ti suggerisca 2 attività per ogni bambino 
+                            <strong>OBIETTIVO:</strong> Vuoi che ChatGPT ti suggerisca 2 attività per ogni bambino
                             che lavorino sulle loro specifiche difficoltà.
+                        </p>
+                        <p style="font-size: 1.05em; line-height: 1.7; margin-top: 12px; background: #FFEBEE; padding: 10px 14px; border-radius: 8px;">
+                            <strong>🔒 Attenzione:</strong> nel prompt non scrivere i nomi dei bambini né dettagli che permettano di riconoscerli.
+                            Descrivi solo l'età e la difficoltà («un bambino di 4 anni che dice poche parole»). Con bambini veri, le osservazioni restano nella scuola.
                         </p>
                     </div>
 
