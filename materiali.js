@@ -15,36 +15,46 @@ const MATERIALI_JSON_URL = (() => {
     return 'materiali.json';
 })();
 
+// Pagine che caricano i materiali: nome file → chiave in materiali.json
+const CONFIGURAZIONI_PAGINE = {
+    'biennio': 'biennio',
+    'terzo': 'terzo',
+    'quarto': 'quarto',
+    'quinto': 'quinto',
+    'laboratorio': 'laboratorio',
+    'peer_tutoring': 'peer_tutoring',
+    'compresenza': 'compresenza',
+    'intelligenza-artificiale': 'ai'
+};
+
+// Categorie di materiale, nell'ordine in cui compaiono dentro un argomento
+const TIPI = {
+    laboratorio: { etichetta: '🧪 Laboratorio', bottone: 'Entra →' },
+    teoria: { etichetta: '📖 Teoria', bottone: '📖 Studia' },
+    download: { etichetta: '📄 Dispensa', bottone: '📥 Scarica' },
+    interattivo: { etichetta: '🧠 Attività interattiva', bottone: '🚀 Apri attività' },
+    autentico: { etichetta: '🧪 Compito di realtà', bottone: '🧪 Apri prova' }
+};
+const ORDINE_TIPI = ['laboratorio', 'teoria', 'download', 'interattivo', 'autentico'];
+
+// Versioni differenziate: la semplificata è pensata per il sostegno
+const LIVELLI = {
+    intermedio: '🟡 Livello intermedio',
+    semplificato: '🟢 Versione semplificata · sostegno'
+};
+const ORDINE_LIVELLI = ['', 'intermedio', 'semplificato'];
+
 document.addEventListener('DOMContentLoaded', function () {
-    // Ottieni la sezione corrente dal nome del file
-    let pagina = window.location.pathname.split('/').pop().replace('.html', '');
-    if (!pagina) {
-        pagina = 'index';
-    }
+    const pagina = window.location.pathname.split('/').pop().replace('.html', '') || 'index';
 
     setupMobileNav();
 
-    // Configurazioni delle pagine che richiedono il caricamento dei materiali
-    const configurazioniPagine = {
-        'biennio': { chiave: 'biennio' },
-        'terzo': { chiave: 'terzo' },
-        'quarto': { chiave: 'quarto' },
-        'quinto': { chiave: 'quinto' },
-        'laboratorio': { chiave: 'laboratorio' },
-        'peer_tutoring': { chiave: 'peer_tutoring' },
-        'compresenza': { chiave: 'compresenza' },
-        'index': { chiave: 'ai', containerId: 'materiali-ai' }
-    };
-
-    const configurazione = configurazioniPagine[pagina];
-
-    if (!configurazione) {
-        console.log('Pagina non richiede caricamento materiali');
-        return;
+    const chiave = CONFIGURAZIONI_PAGINE[pagina];
+    if (chiave) {
+        caricaMateriali(chiave);
+    } else {
+        costruisciIndicePagina();
     }
-
-    // Carica i materiali
-    caricaMateriali(configurazione.chiave, configurazione.containerId);
 });
 
 async function caricaMateriali(sezione, containerId = 'materiali-lista') {
@@ -55,12 +65,10 @@ async function caricaMateriali(sezione, containerId = 'materiali-lista') {
         return;
     }
 
-    // Mostra stato di caricamento
     container.innerHTML = '<div class="loading">Caricamento materiali in corso...</div>';
 
     try {
-        // Carica il file JSON
-        const cacheBustParam = 'v=20260113';
+        const cacheBustParam = 'v=20260925';
         const response = await fetch(`${MATERIALI_JSON_URL}?${cacheBustParam}`, {
             cache: 'no-cache'
         });
@@ -70,52 +78,10 @@ async function caricaMateriali(sezione, containerId = 'materiali-lista') {
         }
 
         const data = await response.json();
-        const materiali = data[sezione] || [];
+        const materiali = (data[sezione] || []).filter(m => m && m.file);
+        const argomenti = (data.argomenti && data.argomenti[sezione]) || [];
 
-        // Ordina i materiali per data (più recenti prima)
-        materiali.sort((a, b) => new Date(b.data) - new Date(a.data));
-
-        const materialiPerTipo = materiali.reduce((acc, materiale) => {
-            const tipo = determinaTipoMateriale(materiale);
-            if (!acc[tipo]) {
-                acc[tipo] = [];
-            }
-            acc[tipo].push(materiale);
-            return acc;
-        }, { download: [], interattivo: [], autentico: [], verifiche: [] });
-
-        const tabsConfig = [
-            { key: 'download', label: '📁 Materiali da scaricare', renderer: renderDownloadList },
-            { key: 'interattivo', label: '🧠 Apprendimento interattivo', renderer: renderInteractiveList },
-            { key: 'autentico', label: '🧪 Prove autentiche / Compiti di realtà', renderer: renderAuthenticList },
-            { key: 'verifiche', label: '📝 Verifiche Sommative', renderer: renderVerificheList }
-        ];
-
-        const defaultTab = tabsConfig.find(tab => (materialiPerTipo[tab.key] || []).length)?.key || 'download';
-
-        const tabButtonsHtml = tabsConfig.map(tab => `
-            <button class="tab-btn ${defaultTab === tab.key ? 'active' : ''}" data-tab="${tab.key}">
-                ${tab.label}
-            </button>
-        `).join('');
-
-        const tabPanelsHtml = tabsConfig.map(tab => `
-            <div class="tab-panel ${defaultTab === tab.key ? 'active' : ''}" data-panel="${tab.key}">
-                ${tab.renderer(materialiPerTipo[tab.key] || [])}
-            </div>
-        `).join('');
-
-        container.innerHTML = `
-            <div class="materiali-tabs">
-                ${tabButtonsHtml}
-            </div>
-            <div class="tab-panels">
-                ${tabPanelsHtml}
-            </div>
-        `;
-
-        inizializzaTab(container);
-
+        container.innerHTML = renderSezione(materiali, argomenti, container.dataset);
     } catch (error) {
         console.error('Errore nel caricamento dei materiali:', error);
         container.innerHTML = `
@@ -125,6 +91,180 @@ async function caricaMateriali(sezione, containerId = 'materiali-lista') {
             </div>
         `;
     }
+
+    costruisciIndicePagina();
+}
+
+// Gerarchia: argomento → materiali (teoria, dispense, attività, prove), poi le verifiche.
+// Si mostra solo ciò che ha contenuto: niente categorie o argomenti vuoti.
+function renderSezione(materiali, argomenti, opzioni = {}) {
+    if (!materiali.length) {
+        return `
+            <div class="empty-state">
+                <p>I materiali di questa sezione vengono pubblicati durante l'anno.</p>
+            </div>
+        `;
+    }
+
+    const verifiche = materiali.filter(m => determinaTipoMateriale(m) === 'verifiche');
+    const studio = materiali.filter(m => determinaTipoMateriale(m) !== 'verifiche');
+
+    let gruppi;
+    if (argomenti.length) {
+        const noti = new Set(argomenti.map(a => a.id));
+        gruppi = argomenti.map(a => ({
+            id: a.id,
+            titolo: a.titolo,
+            descrizione: a.descrizione,
+            materiali: studio.filter(m => m.argomento === a.id)
+        }));
+        gruppi.push({
+            id: 'altri',
+            titolo: 'Altri materiali',
+            materiali: studio.filter(m => !noti.has(m.argomento))
+        });
+    } else {
+        // Sezioni senza argomenti (laboratorio, peer tutoring…): si raggruppa per tipo
+        gruppi = ORDINE_TIPI.map(tipo => ({
+            id: tipo,
+            titolo: TIPI[tipo].etichetta.replace(/^\S+\s/, ''),
+            materiali: studio.filter(m => determinaTipoMateriale(m) === tipo)
+        }));
+    }
+    gruppi = gruppi.filter(g => g.materiali.length);
+
+    // Se c'è un solo gruppo senza argomenti, il titolo del gruppo è superfluo
+    const mostraTitoliGruppo = argomenti.length || gruppi.length > 1;
+
+    let html = '';
+    if (gruppi.length) {
+        html += `
+            <section class="mat-blocco" id="materiali" data-indice="${escapeHtml(opzioni.etichetta || 'Materiali')}">
+                ${argomenti.length ? `<h2 class="mat-blocco-titolo">${escapeHtml(opzioni.titolo || '📚 Materiali per argomento')}</h2>` : ''}
+                ${gruppi.map(g => renderGruppo(g, mostraTitoliGruppo)).join('')}
+            </section>
+        `;
+    }
+    if (verifiche.length) {
+        html += `
+            <section class="mat-blocco" id="verifiche" data-indice="Verifiche">
+                <h2 class="mat-blocco-titolo">📝 Verifiche</h2>
+                ${renderVerifiche(verifiche)}
+            </section>
+        `;
+    }
+    return html;
+}
+
+function renderGruppo(gruppo, mostraTitolo) {
+    const ordinati = [...gruppo.materiali].sort((a, b) => {
+        const ta = ORDINE_TIPI.indexOf(determinaTipoMateriale(a));
+        const tb = ORDINE_TIPI.indexOf(determinaTipoMateriale(b));
+        if (ta !== tb) return ta - tb;
+        // Dentro lo stesso tipo: prima la versione completa, poi quelle facilitate
+        const la = ORDINE_LIVELLI.indexOf(a.livello || '');
+        const lb = ORDINE_LIVELLI.indexOf(b.livello || '');
+        if (la !== lb) return la - lb;
+        return confrontaDate(a, b);
+    });
+    const intestazione = mostraTitolo ? `
+        <div class="mat-gruppo-head">
+            <h3>${escapeHtml(gruppo.titolo)}</h3>
+            ${gruppo.descrizione ? `<p>${escapeHtml(gruppo.descrizione)}</p>` : ''}
+        </div>
+    ` : '';
+    return `
+        <div class="mat-gruppo" id="arg-${escapeHtml(gruppo.id)}">
+            ${intestazione}
+            <div class="mat-grid">${ordinati.map(renderCard).join('')}</div>
+        </div>
+    `;
+}
+
+function renderCard(materiale) {
+    const tipo = determinaTipoMateriale(materiale);
+    const info = TIPI[tipo] || TIPI.download;
+    const rawFile = materiale.file || '';
+    const filePath = escapeHtml(rawFile);
+    const isHtml = /\.html?(\?|#|$)/i.test(rawFile) || /^https?:\/\//.test(rawFile);
+    // Le pagine del sito (es. lab_dipendenze.html) si aprono nella stessa scheda
+    const linkAttributes = tipo === 'laboratorio' ? ''
+        : isHtml ? 'target="_blank" rel="noopener noreferrer"' : 'download';
+    const bottone = !isHtml && tipo !== 'download' ? '📥 Scarica' : info.bottone;
+    const titolo = escapeHtml(materiale.titolo || 'Materiale');
+    const descrizione = materiale.descrizione ? `<p>${escapeHtml(materiale.descrizione)}</p>` : '';
+
+    return `
+        <article class="materiale-item mat-${tipo}">
+            <span class="mat-tipo">${info.etichetta}</span>
+            ${LIVELLI[materiale.livello] ? `<span class="mat-livello mat-livello-${materiale.livello}">${LIVELLI[materiale.livello]}</span>` : ''}
+            <h4><a href="${filePath}" ${linkAttributes}>${titolo}</a></h4>
+            ${descrizione}
+            <a href="${filePath}" class="btn-download" ${linkAttributes}>${bottone}</a>
+        </article>
+    `;
+}
+
+function renderVerifiche(verifiche) {
+    const ordinate = [...verifiche].sort(confrontaDate);
+    const perQuad = { 1: [], 2: [], altre: [] };
+    ordinate.forEach(m => {
+        const q = String(m.quadrimestre || '');
+        (perQuad[q] || perQuad.altre).push(m);
+    });
+    const blocchi = [
+        { titolo: '1° quadrimestre', voci: perQuad[1] },
+        { titolo: '2° quadrimestre', voci: perQuad[2] },
+        { titolo: '', voci: perQuad.altre }
+    ].filter(b => b.voci.length);
+    const conTitoli = blocchi.length > 1 || blocchi[0].titolo;
+
+    return blocchi.map(b => `
+        <div class="mat-gruppo">
+            ${conTitoli && b.titolo ? `<div class="mat-gruppo-head"><h3>${b.titolo}</h3></div>` : ''}
+            <div class="mat-grid">${b.voci.map(renderVerificaCard).join('')}</div>
+        </div>
+    `).join('');
+}
+
+function renderVerificaCard(materiale) {
+    const rawFile = materiale.file || '';
+    const filePath = escapeHtml(rawFile);
+    const titolo = escapeHtml(materiale.titolo || 'Verifica');
+    const descrizione = materiale.descrizione ? `<p>${escapeHtml(materiale.descrizione)}</p>` : '';
+    const isHtml = /\.html?(\?|#|$)/i.test(rawFile);
+    const linkAttributes = isHtml ? 'target="_blank" rel="noopener noreferrer"' : 'download';
+    const btnLabel = isHtml ? '🔗 Apri' : '📥 Scarica';
+
+    return `
+        <article class="materiale-item mat-verifica">
+            <span class="mat-tipo">📝 Verifica</span>
+            <h4><a href="${filePath}" ${linkAttributes}>${titolo}</a></h4>
+            ${descrizione}
+            <a href="${filePath}" class="btn-download" ${linkAttributes}>${btnLabel}</a>
+        </article>
+    `;
+}
+
+// Indice "In questa pagina": raccoglie le sezioni marcate con data-indice
+function costruisciIndicePagina() {
+    const indice = document.getElementById('indice-pagina');
+    if (!indice) return;
+    const sezioni = [...document.querySelectorAll('main [data-indice][id]')];
+    if (sezioni.length < 2) {
+        indice.hidden = true;
+        return;
+    }
+    indice.innerHTML = sezioni
+        .map(s => `<a href="#${s.id}">${escapeHtml(s.dataset.indice)}</a>`)
+        .join('');
+    indice.hidden = false;
+}
+
+function confrontaDate(a, b) {
+    const da = Date.parse(a.data) || 0;
+    const db = Date.parse(b.data) || 0;
+    return db - da;
 }
 
 function setupMobileNav() {
@@ -151,6 +291,12 @@ function setupMobileNav() {
     toggle.innerHTML = '<span class="nav-toggle-label">Menu</span><span class="nav-toggle-icon" aria-hidden="true">☰</span>';
     nav.insertBefore(toggle, nav.firstChild);
 
+    // Con i sottomenu scrollHeight sottostima l'altezza: si sommano le voci
+    const altezzaMenu = () => Math.max(
+        navList.scrollHeight,
+        [...navList.children].reduce((tot, li) => tot + li.offsetHeight, 0)
+    );
+
     const mobileQuery = window.matchMedia('(max-width: 768px)');
     let lastScrollY = window.scrollY || 0;
 
@@ -173,7 +319,7 @@ function setupMobileNav() {
 
     const expandNav = () => {
         nav.classList.add('nav-open');
-        navList.style.maxHeight = `${navList.scrollHeight}px`;
+        navList.style.maxHeight = `${altezzaMenu()}px`;
         navList.style.opacity = '1';
         navList.style.visibility = 'visible';
         navList.style.pointerEvents = 'auto';
@@ -244,154 +390,12 @@ function setupMobileNav() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', () => {
         if (nav.classList.contains('nav-open') && mobileQuery.matches) {
-            navList.style.maxHeight = `${navList.scrollHeight}px`;
+            navList.style.maxHeight = `${altezzaMenu()}px`;
         }
     });
 
     updateMode();
     handleScroll();
-}
-
-function renderDownloadList(materiali) {
-    if (!materiali.length) {
-        return creaMessaggioVuoto(
-            '📁 Nessun materiale da scaricare disponibile al momento.',
-            'A breve caricheremo nuovi materiali. Torna a controllare!'
-        );
-    }
-
-    return `<div class="cards">${materiali.map(renderDownloadCard).join('')}</div>`;
-}
-
-function renderInteractiveList(materiali) {
-    if (!materiali.length) {
-        return creaMessaggioVuoto(
-            '🧠 Nessuna attività interattiva disponibile.',
-            'Le attività verranno pubblicate nel corso dell\'anno scolastico.'
-        );
-    }
-
-    return `<div class="cards">${materiali.map(renderInteractiveCard).join('')}</div>`;
-}
-
-function renderAuthenticList(materiali) {
-    if (!materiali.length) {
-        return creaMessaggioVuoto(
-            '🧪 Nessuna prova autentica o compito di realtà disponibile al momento.',
-            'Caricheremo presto nuove prove autentiche. Torna a dare un\'occhiata!'
-        );
-    }
-
-    return `<div class="cards">${materiali.map(renderAuthenticCard).join('')}</div>`;
-}
-
-function renderDownloadCard(materiale) {
-    const dataFormattata = formattaData(materiale.data);
-    const rawFile = materiale.file || '';
-    const filePath = escapeHtml(rawFile);
-    const titolo = escapeHtml(materiale.titolo || 'Materiale');
-    const descrizione = materiale.descrizione ? `<p>${escapeHtml(materiale.descrizione)}</p>` : '';
-    const linkAttributes = rawFile ? 'download' : 'aria-disabled="true"';
-    const label = '📥 Scarica';
-
-    return `
-        <div class="materiale-item">
-            <div class="materiale-header">
-                <h3>${titolo}</h3>
-                <span class="materiale-data">${dataFormattata}</span>
-            </div>
-            ${descrizione}
-            <a href="${filePath}" class="btn-download" ${linkAttributes}>
-                ${label}
-            </a>
-        </div>
-    `;
-}
-
-function renderInteractiveCard(materiale) {
-    const dataFormattata = formattaData(materiale.data);
-    const rawFile = materiale.file || '';
-    const filePath = escapeHtml(rawFile);
-    const titolo = escapeHtml(materiale.titolo || 'Attività interattiva');
-    const descrizione = materiale.descrizione ? `<p>${escapeHtml(materiale.descrizione)}</p>` : '';
-
-    return `
-        <div class="materiale-item materiale-interattivo">
-            <div class="materiale-header">
-                <h3><a href="${filePath}" target="_blank" rel="noopener noreferrer">${titolo}</a></h3>
-                <span class="materiale-data">${dataFormattata}</span>
-            </div>
-            ${descrizione}
-            <a href="${filePath}" class="btn-download btn-interattivo" target="_blank" rel="noopener noreferrer">
-                🚀 Apri attività
-            </a>
-        </div>
-    `;
-}
-
-function renderAuthenticCard(materiale) {
-    const dataFormattata = formattaData(materiale.data);
-    const rawFile = materiale.file || '';
-    const filePath = escapeHtml(rawFile);
-    const href = filePath || '#';
-    const titolo = escapeHtml(materiale.titolo || 'Prova autentica');
-    const descrizione = materiale.descrizione ? `<p>${escapeHtml(materiale.descrizione)}</p>` : '';
-    const isExternal = /^https?:\/\//.test(rawFile);
-    const isHtml = rawFile.toLowerCase().endsWith('.html') || rawFile.toLowerCase().endsWith('.htm');
-    const linkAttributes = rawFile
-        ? (isExternal || isHtml ? 'target="_blank" rel="noopener noreferrer"' : 'download')
-        : 'aria-disabled="true"';
-
-    return `
-        <div class="materiale-item materiale-prova">
-            <div class="materiale-header">
-                <h3>${titolo}</h3>
-                <span class="materiale-data">${dataFormattata}</span>
-            </div>
-            ${descrizione}
-            <a href="${href}" class="btn-download btn-prova" ${linkAttributes}>
-                🧪 Apri prova
-            </a>
-        </div>
-    `;
-}
-
-function creaMessaggioVuoto(titolo, sottotitolo) {
-    return `
-        <div class="empty-state">
-            <p>${escapeHtml(titolo)}</p>
-            <p style="margin-top: 1rem;">${escapeHtml(sottotitolo)}</p>
-        </div>
-    `;
-}
-
-function inizializzaTab(container) {
-    const bottoni = container.querySelectorAll('.tab-btn');
-    const pannelli = container.querySelectorAll('.tab-panel');
-
-    bottoni.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const tab = btn.dataset.tab;
-
-            bottoni.forEach(b => b.classList.toggle('active', b === btn));
-            pannelli.forEach(panel => {
-                panel.classList.toggle('active', panel.dataset.panel === tab);
-            });
-        });
-    });
-}
-
-// Funzione per formattare la data
-function formattaData(dataString) {
-    if (!dataString) return '';
-
-    try {
-        const data = new Date(dataString);
-        const opzioni = { year: 'numeric', month: 'long', day: 'numeric' };
-        return data.toLocaleDateString('it-IT', opzioni);
-    } catch (error) {
-        return dataString;
-    }
 }
 
 // Funzione per escape HTML (sicurezza)
@@ -413,11 +417,19 @@ function escapeHtml(text) {
 function determinaTipoMateriale(materiale) {
     const tipoDichiarato = (materiale.tipo || '').toLowerCase().trim();
     const tipoNormalizzato = typeof tipoDichiarato.normalize === 'function'
-        ? tipoDichiarato.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        ? tipoDichiarato.normalize('NFD').replace(/[̀-ͯ]/g, '')
         : tipoDichiarato;
 
     if (tipoNormalizzato.includes('verifica')) {
         return 'verifiche';
+    }
+
+    if (tipoNormalizzato === 'laboratorio') {
+        return 'laboratorio';
+    }
+
+    if (tipoNormalizzato === 'teoria') {
+        return 'teoria';
     }
 
     const paroleChiaveAutentico = ['autentico', 'autentica', 'prove', 'prova', 'compito', 'compiti', 'realta'];
@@ -440,73 +452,4 @@ function determinaTipoMateriale(materiale) {
     }
 
     return 'download';
-}
-
-function renderVerificheList(materiali) {
-    // Ordina prima per quadrimestre (1 poi 2), poi per data inversa
-    // In realtà vogliamo mostrare: Primo Quadrimestre, poi Secondo
-    // I materiali sono già ordinati per data inversa.
-
-    // Separa per quadrimestre
-    const primoQuad = materiali.filter(m => m.quadrimestre === 1 || m.quadrimestre === '1');
-    const secondoQuad = materiali.filter(m => m.quadrimestre === 2 || m.quadrimestre === '2');
-
-    // Se non ci sono materiali in assoluto
-    if (primoQuad.length === 0 && secondoQuad.length === 0) {
-        return creaMessaggioVuoto(
-            '📝 Nessuna verifica sommativa disponibile.',
-            'Qui troverai i materiali per le verifiche del primo e secondo quadrimestre.'
-        );
-    }
-
-    let html = '';
-
-    // Primo Quadrimestre
-    html += `<h3 class="semester-title">1️⃣ Primo Quadrimestre</h3>`;
-    if (primoQuad.length > 0) {
-        html += `<div class="cards">${primoQuad.map(renderVerificaCard).join('')}</div>`;
-    } else {
-        html += `<p class="muted" style="margin-bottom: 2rem;">Nessun materiale ancora disponibile per il primo quadrimestre.</p>`;
-    }
-
-    // Secondo Quadrimestre
-    html += `<h3 class="semester-title">2️⃣ Secondo Quadrimestre</h3>`;
-    if (secondoQuad.length > 0) {
-        html += `<div class="cards">${secondoQuad.map(renderVerificaCard).join('')}</div>`;
-    } else {
-        html += `<p class="muted">Nessun materiale ancora disponibile per il secondo quadrimestre.</p>`;
-    }
-
-    return html;
-}
-
-function renderVerificaCard(materiale) {
-    const dataFormattata = formattaData(materiale.data);
-    const rawFile = materiale.file || '';
-    const filePath = escapeHtml(rawFile);
-    const titolo = escapeHtml(materiale.titolo || 'Verifica Sommativa');
-    const descrizione = materiale.descrizione ? `<p>${escapeHtml(materiale.descrizione)}</p>` : '';
-
-    // Check if it's an HTML file
-    const isHtml = rawFile.toLowerCase().endsWith('.html') || rawFile.toLowerCase().endsWith('.htm');
-
-    // Determine attributes and label
-    const linkAttributes = isHtml
-        ? 'target="_blank"'
-        : (rawFile ? 'download' : 'aria-disabled="true"');
-
-    const btnLabel = isHtml ? '🔗 Apri risorsa' : '📥 Scarica materiale';
-
-    return `
-        <div class="materiale-item materiale-verifica">
-            <div class="materiale-header">
-                <h3>${titolo}</h3>
-                <span class="materiale-data">${dataFormattata}</span>
-            </div>
-            ${descrizione}
-            <a href="${filePath}" class="btn-download btn-verifica" ${linkAttributes}>
-                ${btnLabel}
-            </a>
-        </div>
-    `;
 }

@@ -24,53 +24,45 @@
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="biennio.html">Biennio</a></li>
-            <li><a href="terzo.html">Terzo Anno</a></li>
-            <li><a href="quarto.html">Quarto Anno</a></li>
-            <li><a href="quinto.html">Quinto Anno</a></li>
-            <li><a href="programmi.html">Programmi SSAS</a></li>
-            <li><a href="lezioni-partecipate.html">Lezioni partecipate</a></li>
-            <li><a href="laboratorio.html" class="active">Laboratorio</a></li>
-            <li><a href="peer_tutoring.html">Peer Tutoring</a></li>
-            <li><a href="compresenza.html">Compresenza Scienze Umane</a></li>
-            <li><a href="anno-di-prova.html">Anno di Prova</a></li>
-            <li class="nav-ai"><a href="index.html#intelligenza-artificiale">Spazio AI</a></li>
+            <li><a href="terzo.html">Terzo anno</a></li>
+            <li><a href="quarto.html">Quarto anno</a></li>
+            <li><a href="quinto.html">Quinto anno</a></li>
+            <li class="nav-group"><a href="index.html#metodi" class="active">Metodi e laboratori</a>
+                <ul class="nav-sub">
+                    <li><a href="lezioni-partecipate.html">Lezioni partecipate</a></li>
+                    <li><a href="laboratorio.html" class="active" aria-current="page">Laboratorio</a></li>
+                    <li><a href="peer_tutoring.html">Peer tutoring</a></li>
+                    <li><a href="compresenza.html">Compresenza Scienze umane</a></li>
+                </ul>
+            </li>
+            <li class="nav-ai"><a href="intelligenza-artificiale.html">Intelligenza artificiale</a></li>
+            <li class="nav-group"><a href="index.html#docente">Docente</a>
+                <ul class="nav-sub">
+                    <li><a href="programmi.html">Programmi SSAS</a></li>
+                    <li><a href="area_docente.html">Area docente</a></li>
+                    <li><a href="anno-di-prova.html">Anno di prova</a></li>
+                </ul>
+            </li>
         </ul>
     </nav>
 
     <main>
         <div class="container">
             <div class="page-title">
-                <h2>🧪 Hub Laboratorio</h2>
-                <p>Materiali esperienziali e laboratori pronti all'uso</p>
-                <div class="page-title-actions">
-                    <a href="#giochi" class="btn-download btn-game-primary">🎲 Vai ai giochi</a>
-                </div>
+                <h2>🧪 Laboratorio</h2>
+                <p>Percorsi esperienziali, simulazioni e giochi di ruolo pronti per la classe</p>
             </div>
 
-            <section class="progress-box">
-                <h3>🔏 Diario di bordo</h3>
-                <textarea name="progress_note"
-                    placeholder="Annota qui i gruppi coinvolti, le fasi concluse e gli impegni per il prossimo incontro."
-                    rows="6"></textarea>
-            </section>
+            <div class="indice-pagina" id="indice-pagina" role="navigation" aria-label="In questa pagina" hidden></div>
 
-            <section class="intro" style="margin-bottom: 2rem;">
-                <h3>📌 Come usare la sezione Laboratorio</h3>
-                <p>Qui convergono i percorsi laboratoriali digitali dedicati a Metodologie Operative. Ogni attività
-                    include materiali di conduzione, schede operative e strumenti per documentare il lavoro svolto con
-                    la classe.</p>
-                <ul>
-                    <li><strong>Preparati</strong>: leggi la descrizione dell'attività per conoscere obiettivi, durata e
-                        materiali.</li>
-                    <li><strong>Conduci</strong>: apri la pagina interattiva e segui le fasi guidate con la classe.</li>
-                    <li><strong>Documenta</strong>: usa il diario di bordo per segnare progressi, idee e follow-up.</li>
-                </ul>
-            </section>
+            <div id="materiali-lista" data-titolo="🧪 Percorsi di laboratorio" data-etichetta="Percorsi">
+                <div class="loading">Caricamento materiali in corso...</div>
+            </div>
 
-            <section id="giochi" class="lab-games-section" aria-labelledby="giochi-title">
+
+            <section id="giochi" class="lab-games-section" data-indice="Giochi di ruolo" aria-labelledby="giochi-title">
                 <div class="lab-games-heading">
                     <div>
-                        <p class="lab-games-kicker">Nuova sezione</p>
                         <h2 id="giochi-title">🎲 Giochi di ruolo e investigazione</h2>
                         <p>Attività guidate per riprendere i contenuti attraverso ruoli, indizi, confronto e decisioni di gruppo.</p>
                     </div>
@@ -114,44 +106,20 @@
                         <a href="output/pdf/cluedo-servizi-5sa.pdf" target="_blank" rel="noopener"><strong>5SA</strong><span>Fascicolo 62: la pagina strappata</span></a>
                     </aside>
                 </article>
+
+                <a class="lab-game-altro" href="lab_dipendenze.html#gioco-di-ruolo">
+                    <span>🎭 Anche nei laboratori</span>
+                    <strong>Gioco di ruolo: i colloqui al SerD</strong>
+                    <em>Schede personaggio e simulazione dei colloqui motivazionali →</em>
+                </a>
             </section>
 
-            <section class="card" style="margin-bottom: 2rem;">
-                <h3>🧭 Idee per integrare i laboratori</h3>
-                <p>Ogni attività può essere adattata per compiti autentici, uscite di PCTO o valutazioni formative.
-                    Imposta obiettivi chiari, assegna ruoli agli studenti e definisci un momento di restituzione finale.
-                </p>
-            </section>
-
-            <div class="cards">
-                <section class="card" style="border-top: 5px solid #e74c3c;">
-                    <h3 style="color: #e74c3c;">💊 Simulazione intervento dipendenze</h3>
-                    <p>Materiali per l'attività di simulazione sul tema delle dipendenze patologiche.</p>
-                    <a href="lab_dipendenze.html" class="btn-download btn-interattivo" style="display:inline-block; margin-top:1rem;">🚀 Apri attività</a>
-                </section>
-
-                <section class="card" style="border-top: 5px solid #2ecc71;">
-                    <h3 style="color: #2ecc71;">🧸 Laboratorio dalla teoria alla pratica per l'infanzia</h3>
-                    <p>Materiali e risorse per i percorsi laboratoriali dedicati all'infanzia.</p>
-                    <a href="lab_infanzia.html" class="btn-download btn-interattivo" style="display:inline-block; margin-top:1rem;">🚀 Apri attività</a>
-                </section>
-
-                <section class="card" style="border-top: 5px solid #f39c12;">
-                    <h3 style="color: #f39c12;">🎭 Animazione Ludico - Ricreativa: Progettazione Operativa</h3>
-                    <p>Materiali e risorse per la progettazione operativa nell'ambito dell'animazione ludico-ricreativa.</p>
-                    <a href="lab_animazione.html" class="btn-download btn-interattivo" style="display:inline-block; margin-top:1rem;">🚀 Apri attività</a>
-                </section>
-
-                <section class="card" style="border-top: 5px solid #9b59b6;">
-                    <h3 style="color: #9b59b6;">🧠 Laboratorio delle Emozioni</h3>
-                    <p>Sezione in allestimento con materiali e risorse dedicati allo sviluppo delle competenze socio-emotive.</p>
-                    <span class="btn-download" style="display:inline-block; margin-top:1rem; background-color: #95a5a6; cursor: not-allowed; opacity: 0.8;">⏳ Prossimamente</span>
-                </section>
-            </div>
-
-            <div id="materiali-lista">
-                <div class="loading">Caricamento materiali in corso...</div>
-            </div>
+            <details class="progress-box">
+                <summary>🔏 Diario di bordo</summary>
+                <textarea name="progress_note"
+                    placeholder="Annota qui i gruppi coinvolti, le fasi concluse e gli impegni per il prossimo incontro."
+                    rows="6"></textarea>
+            </details>
         </div>
     </main>
 

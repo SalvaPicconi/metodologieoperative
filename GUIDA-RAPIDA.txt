@@ -91,9 +91,14 @@ Se vuoi vedere il sito sul tuo computer prima di caricarlo online:
   "titolo": "Titolo del materiale",
   "file": "materiali/ANNO/nomefile.pdf",
   "descrizione": "Breve descrizione",
-  "data": "2025-10-06"
+  "data": "2025-10-06",
+  "argomento": "welfare"
 }
 ```
+
+   `argomento` è l'id di uno dei nuclei elencati in fondo al file, sotto "argomenti"
+   (es. "welfare", "equipe"): decide sotto quale titolo compare il materiale.
+   Per le verifiche scrivi invece "tipo": "verifica" e "quadrimestre": 1 o 2.
 
 4. Inseriscilo nell'array giusto (biennio, terzo, quarto, o quinto)
 5. **ATTENZIONE ALLE VIRGOLE:** ogni materiale tranne l'ultimo deve avere la virgola dopo la }

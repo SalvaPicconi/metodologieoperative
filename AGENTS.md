@@ -12,6 +12,53 @@ Due dataset indipendenti:
 
 ---
 
+## Gerarchia del sito
+
+Tre livelli, in quest'ordine, sia in home sia nel menu:
+
+1. **Le classi** — `biennio.html`, `terzo.html`, `quarto.html`, `quinto.html`;
+2. **Metodi e laboratori** — lezioni partecipate, laboratorio, peer tutoring, compresenza,
+   più `intelligenza-artificiale.html` (pagina propria, non più sezione della home);
+3. **Docente** — programmi SSAS, area docente, anno di prova.
+
+Il menu è unico e **non si modifica a mano**: si cambia `MENU` in `scripts/nav.py` e si lancia
+`python3 scripts/nav.py`, che riscrive il `<nav>` di tutte le pagine.
+
+Ogni pagina anno segue lo stesso ordine: **materiali per argomento → verifiche → programma
+dell'anno → fine anno → annotazioni** (queste ultime chiuse di default).
+
+### Materiali: il campo `argomento`
+
+In `materiali.json` ogni materiale di una sezione anno porta `argomento`, l'id di un nucleo
+elencato sotto la chiave `argomenti` della stessa sezione, che ne fissa ordine, titolo e descrizione:
+
+```json
+"argomenti": { "terzo": [ { "id": "equipe", "titolo": "Équipe e figure professionali", "descrizione": "..." } ] }
+```
+
+Dentro un argomento le schede vanno teoria → dispensa → attività → compito di realtà.
+Le verifiche (`"tipo": "verifica"`) non hanno argomento: stanno nel loro blocco, per quadrimestre.
+**Ciò che è vuoto non compare**: né argomenti senza materiali, né categorie o quadrimestri vuoti.
+Un materiale senza argomento finisce in «Altri materiali»: è il segnale che manca l'aggancio.
+Niente segnaposto: un file di esempio non va in `materiali.json`.
+
+Lo stesso schema vale per le sezioni **Laboratorio** e **Peer tutoring** (argomenti propri in
+`materiali.json`). Una sottopagina del sito, come `lab_dipendenze.html`, si elenca con
+`"tipo": "laboratorio"`: si apre nella stessa scheda, con il bottone «Entra». Le sottopagine dei
+laboratori hanno il link «← Laboratorio» in testa. Diari e annotazioni stanno sempre in fondo, chiusi.
+
+### Versioni differenziate e archivio
+
+- `"livello": "semplificato"` marca la versione per il sostegno (etichetta verde), `"intermedio"`
+  quella a difficoltà media. Si tengono sempre: compaiono subito dopo la versione completa.
+- Un doppione **non si cancella**: la voce si sposta sotto la chiave `archivio` di `materiali.json`
+  con `motivo` e `sostituitoDa`, e il file resta dov'è (conserva i salvataggi degli studenti).
+  I file non HTML superati vanno nella cartella `archivio/`, spiegati in `archivio/LEGGIMI.md`.
+- Criterio per scegliere fra due versioni piene sullo stesso argomento: resta la più strutturata
+  (fasi, attività, verifiche intermedie); la teoria di riferimento resta se non è già dentro il percorso.
+
+---
+
 ## Programmi
 
 La pagina `programmi.html` presenta i **contenuti da trattare anno per anno**: moduli in

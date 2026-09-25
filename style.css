@@ -2595,3 +2595,416 @@ a.prog-qnq-link:hover {
     font-size: 0.92rem;
     color: var(--prog-soft);
 }
+
+/* ==========================================================
+   Gerarchia del sito · 2026-09-25
+   Menu a gruppi, home a livelli, pagine anno per argomento
+   ========================================================== */
+
+/* Menu: gruppi con sottomenu */
+nav li.nav-group {
+    position: relative;
+}
+
+nav li.nav-group > a::after {
+    content: ' ▾';
+    font-size: 0.8em;
+    opacity: 0.8;
+}
+
+nav .nav-sub {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 240px;
+    flex-direction: column;
+    background: var(--color-ink);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+    border-radius: 0 0 10px 10px;
+    overflow: hidden;
+    z-index: 1001;
+}
+
+nav li.nav-group:hover > .nav-sub,
+nav li.nav-group:focus-within > .nav-sub {
+    display: flex;
+}
+
+nav .nav-sub a {
+    padding: 0.8rem 1.3rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+nav.nav-collapsible .nav-sub {
+    display: flex;
+    max-height: none;
+    opacity: 1;
+    visibility: inherit;
+    pointer-events: inherit;
+    overflow: visible;
+    position: static;
+    box-shadow: none;
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+nav.nav-collapsible .nav-sub a {
+    padding-left: 2.6rem;
+    font-size: 0.92rem;
+}
+
+nav.nav-collapsible li.nav-group > a::after {
+    content: '';
+}
+
+/* Home: blocchi a livelli */
+.home-intro {
+    max-width: 760px;
+    margin: 0 auto 2.5rem;
+    text-align: center;
+}
+
+.home-intro p {
+    color: var(--color-ink-soft);
+    font-size: 1.08rem;
+}
+
+.home-livello {
+    margin-bottom: 3rem;
+}
+
+.home-livello-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.4rem 1.5rem;
+    border-bottom: 2px solid var(--color-border);
+    padding-bottom: 0.6rem;
+}
+
+.home-livello-head h2 {
+    font-size: 1.5rem;
+    color: var(--color-ink);
+    margin: 0;
+}
+
+.home-livello-head p {
+    color: var(--color-ink-soft);
+    margin: 0;
+}
+
+.home-livello .cards {
+    margin-top: 1.25rem;
+}
+
+.cards-anni {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.card-anno {
+    border-top-width: 6px;
+}
+
+.card-anno h3 {
+    font-size: 1.6rem;
+}
+
+.card-cta {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.cards-compatte {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.cards-compatte .card {
+    padding: 1.25rem 1.4rem;
+}
+
+.cards-compatte .card h3 {
+    font-size: 1.15rem;
+}
+
+.cards-compatte .card p {
+    font-size: 0.95rem;
+}
+
+.cards-docente .card {
+    border-top-color: var(--color-ink-soft);
+}
+
+.home-ia {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    margin-top: 1.25rem;
+    padding: clamp(1.4rem, 4vw, 2rem);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+    border-left: 6px solid var(--color-accent);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.home-ia:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(249, 115, 22, 0.18);
+}
+
+.home-ia h3 {
+    color: var(--color-accent-dark);
+    font-size: 1.35rem;
+    margin-bottom: 0.3rem;
+}
+
+.home-ia p {
+    color: var(--color-ink-soft);
+    margin: 0;
+    max-width: 640px;
+}
+
+.home-ia .card-cta {
+    margin-top: 0;
+    color: var(--color-accent-dark);
+    white-space: nowrap;
+}
+
+/* Pagine anno: indice, blocchi, argomenti */
+.indice-pagina {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: -0.5rem 0 2rem;
+}
+
+.indice-pagina a {
+    background: var(--color-primary-tint);
+    color: var(--color-primary-dark);
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.92rem;
+    text-decoration: none;
+}
+
+.indice-pagina a:hover {
+    background: var(--color-primary);
+    color: #fff;
+}
+
+#materiali-lista {
+    display: block;
+}
+
+.mat-blocco {
+    margin-bottom: 2.5rem;
+    scroll-margin-top: 70px;
+}
+
+.mat-blocco-titolo {
+    font-size: 1.45rem;
+    color: var(--color-ink);
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-border);
+}
+
+.mat-gruppo {
+    margin-bottom: 2rem;
+    scroll-margin-top: 70px;
+}
+
+.mat-gruppo-head {
+    border-left: 4px solid var(--color-primary);
+    padding-left: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.mat-gruppo-head h3 {
+    font-size: 1.2rem;
+    color: var(--color-primary-dark);
+    margin: 0;
+}
+
+.mat-gruppo-head p {
+    color: var(--color-ink-soft);
+    margin: 0.2rem 0 0;
+    font-size: 0.95rem;
+}
+
+.mat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+}
+
+.mat-grid .materiale-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.25rem;
+}
+
+.mat-grid .materiale-item h4 {
+    font-size: 1.08rem;
+    margin: 0.5rem 0 0.25rem;
+}
+
+.mat-grid .materiale-item h4 a {
+    color: var(--color-ink);
+    text-decoration: none;
+}
+
+.mat-grid .materiale-item h4 a:hover {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+}
+
+.mat-grid .materiale-item p {
+    font-size: 0.93rem;
+    margin: 0.25rem 0 1rem;
+}
+
+.mat-grid .materiale-item .btn-download {
+    margin-top: auto;
+}
+
+.mat-tipo {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+}
+
+.mat-teoria { border-left-color: #6366f1; }
+.mat-download { border-left-color: var(--color-ink-soft); }
+.mat-interattivo { border-left-color: var(--color-primary); }
+.mat-autentico { border-left-color: var(--color-accent); }
+.mat-verifica { border-left-color: #dc2626; }
+
+.anno-sezione {
+    margin-top: 1rem;
+    margin-bottom: 2.5rem;
+    scroll-margin-top: 70px;
+}
+
+.anno-sezione .mat-blocco-titolo {
+    margin-bottom: 1rem;
+}
+
+.anno-programma {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-primary);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.4rem;
+}
+
+.anno-programma p {
+    color: var(--color-ink-soft);
+    margin: 0;
+    max-width: 620px;
+}
+
+.anno-programma .azioni {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.anno-fine {
+    border-left-color: #2E6B5E;
+}
+
+.anno-fine .btn-download {
+    background-color: #2E6B5E;
+}
+
+details.progress-box > summary {
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--color-ink);
+}
+
+details.progress-box[open] > summary {
+    margin-bottom: 1rem;
+}
+
+.breadcrumb {
+    margin: 0 0 0.6rem;
+    font-size: 0.92rem;
+}
+
+.breadcrumb a {
+    color: var(--color-primary-dark);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.lab-game-altro {
+    display: grid;
+    gap: 0.2rem;
+    margin-top: 1.25rem;
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    text-decoration: none;
+}
+
+.lab-game-altro:hover {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.lab-game-altro span {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-accent-light);
+}
+
+.lab-game-altro em {
+    font-style: normal;
+    opacity: 0.85;
+}
+
+.mat-livello {
+    display: inline-block;
+    margin-top: 0.35rem;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.mat-livello-semplificato {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.mat-livello-intermedio {
+    background: #fef9c3;
+    color: #854d0e;
+}
