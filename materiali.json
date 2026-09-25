@@ -268,28 +268,53 @@
       "file": "materiali/laboratorio/fascicolo_disabilita_4sa.html",
       "descrizione": "Fascicolo interattivo compilabile: tipologie di disabilità, servizi, Riforma D.Lgs. 62/2024 e Progetto di Vita. Cinque livelli di difficoltà crescente con salvataggio automatico.",
       "data": "2026-04-20",
-      "tipo": "interattivo"
+      "tipo": "interattivo",
+      "argomento": "ambiti"
     },
     {
       "titolo": "Laboratori manipolativi - percorso interattivo",
       "file": "materiali/laboratorio/laboratori-manipolativi.html",
       "descrizione": "Percorso operativo sui laboratori manipolativi: fasi guidate, checklist di progettazione e compito autentico con supporto AI.",
       "data": "2025-12-01",
-      "tipo": "interattivo"
+      "tipo": "interattivo",
+      "argomento": "espressivi"
     },
     {
       "titolo": "Collage autobiografico interattivo",
       "file": "materiali/laboratorio/collage_autobiografico.html",
       "descrizione": "Percorso guidato sul collage: storia, sicurezza, checklist operativa, autovalutazione e report finale.",
       "data": "2025-11-19",
-      "tipo": "interattivo"
+      "tipo": "interattivo",
+      "argomento": "espressivi"
     },
     {
       "titolo": "Laboratorio di Scrittura Autobiografica",
       "file": "materiali/laboratorio/laboratorio_autobiografico.html",
       "descrizione": "Percorso laboratoriale completo in sette fasi: fondamenti teorici, mappe mentali, scrittura guidata, condivisione, trasfigurazione creativa, dal testo al racconto e progetto operativo.",
       "data": "2025-11-17",
-      "tipo": "interattivo"
+      "tipo": "interattivo",
+      "argomento": "espressivi"
+    },
+    {
+      "titolo": "Simulazione intervento dipendenze",
+      "descrizione": "Guida, protocollo operativo, kit SerD, schede personaggio e simulazione dei colloqui motivazionali.",
+      "file": "lab_dipendenze.html",
+      "tipo": "laboratorio",
+      "argomento": "ambiti"
+    },
+    {
+      "titolo": "Dalla teoria alla pratica per l'infanzia",
+      "descrizione": "Dispense, infografiche e materiali per i percorsi laboratoriali dedicati all'infanzia.",
+      "file": "lab_infanzia.html",
+      "tipo": "laboratorio",
+      "argomento": "ambiti"
+    },
+    {
+      "titolo": "Animazione ludico-ricreativa",
+      "descrizione": "Guida tecnico-pratica, dispense, revisione del progetto e verifica.",
+      "file": "lab_animazione.html",
+      "tipo": "laboratorio",
+      "argomento": "ambiti"
     }
   ],
   "peer_tutoring": [
@@ -298,14 +323,51 @@
       "file": "materiali/peer_tutoring/peer_tutoring_2026_2027.html",
       "descrizione": "Prototipo didattico illustrato in tre incontri da due ore per la prima SSAS con tutor di III, IV e V: esempi graduati, caccia digitale, gare inclusive e mini-guida finale.",
       "data": "2026-08-21",
-      "tipo": "interattivo"
+      "tipo": "interattivo",
+      "argomento": "progetto"
     },
     {
       "titolo": "Peer Tutoring - Hub operativo",
       "file": "materiali/peer_tutoring/peer_tutoring_platform.html",
       "descrizione": "Dashboard interattiva per organizzare materiali, incontri guidati e compiti autentici del percorso di peer tutoring.",
       "data": "2025-10-20",
-      "tipo": "interattivo"
+      "tipo": "interattivo",
+      "argomento": "strumenti"
+    },
+    {
+      "titolo": "L'operatore sociale tra pari",
+      "descrizione": "Percorso gamificato per l'incontro: i tutor spiegano, i tutee provano, si confrontano insieme.",
+      "file": "materiali/peer_tutoring/incontro3_percorso_interattivo.html",
+      "tipo": "interattivo",
+      "argomento": "incontri"
+    },
+    {
+      "titolo": "Giochi di peer tutoring",
+      "descrizione": "Giochi da usare negli incontri tra tutor e tutee.",
+      "file": "materiali/peer_tutoring/peer_tutoring_games.html",
+      "tipo": "interattivo",
+      "argomento": "incontri"
+    },
+    {
+      "titolo": "Come funziona il peer tutoring",
+      "descrizione": "Linee guida del percorso «Di madre/padre in figlio»: ruoli, tempi e regole.",
+      "file": "materiali/peer_tutoring/linee_guida_peer_tutoring.docx",
+      "tipo": "download",
+      "argomento": "strumenti"
+    },
+    {
+      "titolo": "Patto formativo",
+      "descrizione": "L'accordo di collaborazione da firmare tra tutor e tutee.",
+      "file": "materiali/peer_tutoring/patto_formativo_peer_tutoring.docx",
+      "tipo": "download",
+      "argomento": "strumenti"
+    },
+    {
+      "titolo": "Registro degli incontri",
+      "descrizione": "Il diario del percorso: data, attività, cosa abbiamo imparato, feedback.",
+      "file": "materiali/peer_tutoring/registro_incontri_peer_tutoring.docx",
+      "tipo": "download",
+      "argomento": "strumenti"
     }
   ],
   "compresenza": [
@@ -389,6 +451,35 @@
         "id": "percorso",
         "titolo": "Percorso completo",
         "descrizione": "Sei fasi per usare l'IA in modo critico nei servizi sociosanitari."
+      }
+    ],
+    "laboratorio": [
+      {
+        "id": "ambiti",
+        "titolo": "Laboratori per ambito d'intervento",
+        "descrizione": "Dipendenze, infanzia, animazione, disabilità: simulazioni e materiali operativi."
+      },
+      {
+        "id": "espressivi",
+        "titolo": "Laboratori espressivi e autobiografici",
+        "descrizione": "Scrittura autobiografica, collage e tecniche manipolative."
+      }
+    ],
+    "peer_tutoring": [
+      {
+        "id": "progetto",
+        "titolo": "Il progetto 2026-2027",
+        "descrizione": "Cross-age peer tutoring con la prima SSAS e i tutor di terza, quarta e quinta."
+      },
+      {
+        "id": "incontri",
+        "titolo": "Attività per gli incontri",
+        "descrizione": "Percorsi e giochi da svolgere in coppia o in piccolo gruppo."
+      },
+      {
+        "id": "strumenti",
+        "titolo": "Strumenti di coordinamento",
+        "descrizione": "Hub operativo, linee guida, patto formativo e registro."
       }
     ]
   }

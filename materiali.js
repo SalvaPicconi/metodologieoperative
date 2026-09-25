@@ -29,12 +29,13 @@ const CONFIGURAZIONI_PAGINE = {
 
 // Categorie di materiale, nell'ordine in cui compaiono dentro un argomento
 const TIPI = {
+    laboratorio: { etichetta: '🧪 Laboratorio', bottone: 'Entra →' },
     teoria: { etichetta: '📖 Teoria', bottone: '📖 Studia' },
     download: { etichetta: '📄 Dispensa', bottone: '📥 Scarica' },
     interattivo: { etichetta: '🧠 Attività interattiva', bottone: '🚀 Apri attività' },
     autentico: { etichetta: '🧪 Compito di realtà', bottone: '🧪 Apri prova' }
 };
-const ORDINE_TIPI = ['teoria', 'download', 'interattivo', 'autentico'];
+const ORDINE_TIPI = ['laboratorio', 'teoria', 'download', 'interattivo', 'autentico'];
 
 document.addEventListener('DOMContentLoaded', function () {
     const pagina = window.location.pathname.split('/').pop().replace('.html', '') || 'index';
@@ -73,7 +74,7 @@ async function caricaMateriali(sezione, containerId = 'materiali-lista') {
         const materiali = (data[sezione] || []).filter(m => m && m.file);
         const argomenti = (data.argomenti && data.argomenti[sezione]) || [];
 
-        container.innerHTML = renderSezione(materiali, argomenti);
+        container.innerHTML = renderSezione(materiali, argomenti, container.dataset);
     } catch (error) {
         console.error('Errore nel caricamento dei materiali:', error);
         container.innerHTML = `
@@ -89,7 +90,7 @@ async function caricaMateriali(sezione, containerId = 'materiali-lista') {
 
 // Gerarchia: argomento → materiali (teoria, dispense, attività, prove), poi le verifiche.
 // Si mostra solo ciò che ha contenuto: niente categorie o argomenti vuoti.
-function renderSezione(materiali, argomenti) {
+function renderSezione(materiali, argomenti, opzioni = {}) {
     if (!materiali.length) {
         return `
             <div class="empty-state">
@@ -131,8 +132,8 @@ function renderSezione(materiali, argomenti) {
     let html = '';
     if (gruppi.length) {
         html += `
-            <section class="mat-blocco" id="materiali" data-indice="Materiali di studio">
-                ${argomenti.length ? '<h2 class="mat-blocco-titolo">📚 Materiali per argomento</h2>' : ''}
+            <section class="mat-blocco" id="materiali" data-indice="${escapeHtml(opzioni.etichetta || 'Materiali')}">
+                ${argomenti.length ? `<h2 class="mat-blocco-titolo">${escapeHtml(opzioni.titolo || '📚 Materiali per argomento')}</h2>` : ''}
                 ${gruppi.map(g => renderGruppo(g, mostraTitoliGruppo)).join('')}
             </section>
         `;
@@ -175,7 +176,9 @@ function renderCard(materiale) {
     const rawFile = materiale.file || '';
     const filePath = escapeHtml(rawFile);
     const isHtml = /\.html?(\?|#|$)/i.test(rawFile) || /^https?:\/\//.test(rawFile);
-    const linkAttributes = isHtml ? 'target="_blank" rel="noopener noreferrer"' : 'download';
+    // Le pagine del sito (es. lab_dipendenze.html) si aprono nella stessa scheda
+    const linkAttributes = tipo === 'laboratorio' ? ''
+        : isHtml ? 'target="_blank" rel="noopener noreferrer"' : 'download';
     const bottone = !isHtml && tipo !== 'download' ? '📥 Scarica' : info.bottone;
     const titolo = escapeHtml(materiale.titolo || 'Materiale');
     const descrizione = materiale.descrizione ? `<p>${escapeHtml(materiale.descrizione)}</p>` : '';
@@ -407,6 +410,10 @@ function determinaTipoMateriale(materiale) {
 
     if (tipoNormalizzato.includes('verifica')) {
         return 'verifiche';
+    }
+
+    if (tipoNormalizzato === 'laboratorio') {
+        return 'laboratorio';
     }
 
     if (tipoNormalizzato === 'teoria') {

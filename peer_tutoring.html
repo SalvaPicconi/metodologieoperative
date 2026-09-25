@@ -46,29 +46,20 @@
     <main>
         <div class="container">
             <div class="page-title">
-                <h2>🤝 Hub Peer Tutoring</h2>
-                <p>Pianificazione, incontri guidati e compiti di realtà</p>
+                <h2>🤝 Peer tutoring</h2>
+                <p>Il progetto, le attività per gli incontri e gli strumenti per coordinare le coppie tutor/tutee</p>
             </div>
 
-            <section class="progress-box">
-                <h3>📝 Diario del coordinatore</h3>
-                <textarea name="progress_note" placeholder="Appunta decisioni, materiali condivisi, feedback raccolti e azioni da completare con le coppie tutor/tutee." rows="6"></textarea>
-            </section>
+            <div class="indice-pagina" id="indice-pagina" role="navigation" aria-label="In questa pagina" hidden></div>
 
-            <section class="intro" style="margin-bottom: 2rem;">
-                <h3>📌 Come usare questa sezione</h3>
-                <p>Troverai le attività digitali dedicate al peer tutoring, organizzate in tre categorie:</p>
-                <ul>
-                    <li><strong>Materiali da scaricare</strong>: documenti operativi e modelli editabili.</li>
-                    <li><strong>Apprendimento interattivo</strong>: pagine HTML con salvataggio automatico dei progressi.</li>
-                    <li><strong>Prove autentiche</strong>: compiti di realtà da documentare tramite link o report.</li>
-                </ul>
-                <p style="margin-top: 1rem;">Aggiungi qui i nuovi file HTML che realizzi per le coppie: verranno caricati automaticamente.</p>
-            </section>
-
-            <div id="materiali-lista">
+            <div id="materiali-lista" data-titolo="🤝 Materiali del percorso" data-etichetta="Materiali">
                 <div class="loading">Caricamento materiali in corso...</div>
             </div>
+
+            <details class="progress-box">
+                <summary>📝 Diario del coordinatore</summary>
+                <textarea name="progress_note" placeholder="Appunta decisioni, materiali condivisi, feedback raccolti e azioni da completare con le coppie tutor/tutee." rows="6"></textarea>
+            </details>
         </div>
     </main>
 

@@ -2945,3 +2945,18 @@ details.progress-box > summary {
 details.progress-box[open] > summary {
     margin-bottom: 1rem;
 }
+
+.breadcrumb {
+    margin: 0 0 0.6rem;
+    font-size: 0.92rem;
+}
+
+.breadcrumb a {
+    color: var(--color-primary-dark);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}

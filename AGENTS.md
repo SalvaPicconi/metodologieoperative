@@ -42,6 +42,11 @@ Le verifiche (`"tipo": "verifica"`) non hanno argomento: stanno nel loro blocco,
 Un materiale senza argomento finisce in «Altri materiali»: è il segnale che manca l'aggancio.
 Niente segnaposto: un file di esempio non va in `materiali.json`.
 
+Lo stesso schema vale per le sezioni **Laboratorio** e **Peer tutoring** (argomenti propri in
+`materiali.json`). Una sottopagina del sito, come `lab_dipendenze.html`, si elenca con
+`"tipo": "laboratorio"`: si apre nella stessa scheda, con il bottone «Entra». Le sottopagine dei
+laboratori hanno il link «← Laboratorio» in testa. Diari e annotazioni stanno sempre in fondo, chiusi.
+
 ---
 
 ## Programmi
