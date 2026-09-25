@@ -41,9 +41,9 @@
       "argomento": "progettazione"
     },
     {
-      "titolo": "Il welfare",
+      "titolo": "Il welfare: storia e origini",
       "file": "materiali/biennio/uda_welfare.pdf",
-      "descrizione": "Materiale esteso",
+      "descrizione": "Dispensa in PDF da stampare: dalle origini del welfare allo Stato sociale.",
       "data": "2024-10-21",
       "tipo": "download",
       "argomento": "welfare"
@@ -57,7 +57,7 @@
       "argomento": "gruppi"
     },
     {
-      "titolo": "Percorso sul Welfare",
+      "titolo": "Il welfare: dalle basi all'azione (percorso in 4 fasi)",
       "file": "materiali/biennio/welfare-4-fasi-COMPLETO.html",
       "descrizione": "Attività guidata completa: bisogni, risposte e azioni sul welfare.",
       "data": "2024-10-07",
@@ -78,15 +78,8 @@
       "descrizione": "Percorso interattivo facilitato sul welfare con attività guidate e supporti visivi.",
       "data": "2025-10-16",
       "tipo": "interattivo",
-      "argomento": "welfare"
-    },
-    {
-      "titolo": "Il Welfare: dai Bisogni alle Risposte",
-      "file": "welfare-activity.html",
-      "descrizione": "Percorso interattivo sul sistema di welfare: bisogni, servizi e risposte sociosanitarie.",
-      "data": "2025-10-13",
-      "tipo": "interattivo",
-      "argomento": "welfare"
+      "argomento": "welfare",
+      "livello": "semplificato"
     }
   ],
   "terzo": [
@@ -115,7 +108,7 @@
       "quadrimestre": 1
     },
     {
-      "titolo": "Servizi Socio-Sanitari - Ripasso Teorico",
+      "titolo": "Servizi sociosanitari - Teoria",
       "file": "materiali/terzo/percorsi_autoapprendimento_teoria.html",
       "descrizione": "Sintesi teorica su politiche sociali, servizi integrativi e sostitutivi.",
       "data": "2026-01-12",
@@ -129,14 +122,6 @@
       "data": "2025-02-28",
       "tipo": "interattivo",
       "argomento": "progetto"
-    },
-    {
-      "titolo": "Il Welfare: dai bisogni alle risposte",
-      "file": "welfare-activity.html",
-      "descrizione": "Percorso interattivo con schemi, esercizi guidati e salvataggio del lavoro sul welfare.",
-      "data": "2025-02-28",
-      "tipo": "interattivo",
-      "argomento": "bisogni"
     },
     {
       "titolo": "Interventi nei servizi - esercitazioni guidate",
@@ -168,7 +153,8 @@
       "descrizione": "Esercitazione per collegare bisogni e risposte operative con livello medio.",
       "data": "2024-10-04",
       "tipo": "interattivo",
-      "argomento": "bisogni"
+      "argomento": "bisogni",
+      "livello": "intermedio"
     },
     {
       "titolo": "Bisogni e risposte - versione semplificata",
@@ -176,7 +162,8 @@
       "descrizione": "Versione semplificata dell'esercitazione sugli incroci bisogni-risposte.",
       "data": "2024-10-03",
       "tipo": "interattivo",
-      "argomento": "bisogni"
+      "argomento": "bisogni",
+      "livello": "semplificato"
     },
     {
       "titolo": "Ripasso di Metodologie Operative",
@@ -204,14 +191,6 @@
       "quadrimestre": 1
     },
     {
-      "titolo": "La fase preliminare del progetto d'intervento",
-      "file": "materiali/quarto/progetto_intervento_completo.html",
-      "descrizione": "Percorso interattivo guidato sulle fasi preliminari e sugli strumenti del progetto d'intervento sociosanitario.",
-      "data": "2024-10-08",
-      "tipo": "interattivo",
-      "argomento": "progetto"
-    },
-    {
       "titolo": "Disabilita: iter legislativo e classificazioni",
       "file": "materiali/quarto/disabilita_iter_legislativo_completo.html",
       "descrizione": "Mappa interattiva della normativa e dei sistemi di classificazione sulla disabilita.",
@@ -226,6 +205,14 @@
       "data": "2026-04-20",
       "tipo": "interattivo",
       "argomento": "disabilita"
+    },
+    {
+      "titolo": "Modulo: fase preliminare del progetto d'intervento",
+      "file": "materiali/terzo/modulo-progetto-intervento.html",
+      "descrizione": "Percorso interattivo guidato sulla progettazione socio-assistenziale con checklist, mappe e attività.",
+      "data": "2025-02-28",
+      "tipo": "interattivo",
+      "argomento": "progetto"
     }
   ],
   "quinto": [],
@@ -246,20 +233,13 @@
       "tipo": "verifica"
     },
     {
-      "titolo": "Intelligenza artificiale - Teoria",
-      "file": "materiali/ai/intelligenza_artificiale_didattica.html",
-      "descrizione": "Percorso guidato su opportunità, rischi e casi d'uso dell'AI nella didattica e nei servizi alla persona.",
-      "data": "2025-10-08",
-      "tipo": "interattivo",
-      "argomento": "capire"
-    },
-    {
       "titolo": "Intelligenza artificiale - versione semplificata",
       "file": "materiali/ai/intelligenza_artificiale_semplificata.html",
       "descrizione": "Percorso interattivo semplificato per avvicinarsi ai concetti base dell'AI con attività guidate alla portata di tutti.",
       "data": "2025-10-09",
       "tipo": "interattivo",
-      "argomento": "capire"
+      "argomento": "percorso",
+      "livello": "semplificato"
     }
   ],
   "laboratorio": [
@@ -443,14 +423,9 @@
     ],
     "ai": [
       {
-        "id": "capire",
-        "titolo": "Capire l'intelligenza artificiale",
-        "descrizione": "Che cos'è, come funziona, rischi e usi consapevoli. Anche in versione semplificata."
-      },
-      {
         "id": "percorso",
-        "titolo": "Percorso completo",
-        "descrizione": "Sei fasi per usare l'IA in modo critico nei servizi sociosanitari."
+        "titolo": "Il percorso sull'intelligenza artificiale",
+        "descrizione": "Sei fasi per capire come funziona e usarla in modo critico nei servizi sociosanitari. Per il sostegno c'è la versione semplificata."
       }
     ],
     "laboratorio": [
@@ -482,5 +457,51 @@
         "descrizione": "Hub operativo, linee guida, patto formativo e registro."
       }
     ]
-  }
+  },
+  "archivio": [
+    {
+      "titolo": "Il Welfare: dai Bisogni alle Risposte",
+      "file": "welfare-activity.html",
+      "descrizione": "Percorso interattivo sul sistema di welfare: bisogni, servizi e risposte sociosanitarie.",
+      "data": "2025-10-13",
+      "tipo": "interattivo",
+      "sezione": "biennio",
+      "archiviato": "2026-09-25",
+      "motivo": "Doppione: teoria (tre pilastri, Maslow, relazione d'aiuto) e attività (carte servizio, mappa, lavoro di gruppo) sono tutte nel percorso in 4 fasi, più completo.",
+      "sostituitoDa": "materiali/biennio/welfare-4-fasi-COMPLETO.html"
+    },
+    {
+      "titolo": "Il Welfare: dai bisogni alle risposte",
+      "file": "welfare-activity.html",
+      "descrizione": "Percorso interattivo con schemi, esercizi guidati e salvataggio del lavoro sul welfare.",
+      "data": "2025-02-28",
+      "tipo": "interattivo",
+      "sezione": "terzo",
+      "archiviato": "2026-09-25",
+      "motivo": "Argomento del biennio, doppione del percorso in 4 fasi; al terzo anno bisogni e risposte si lavorano con le esercitazioni sui servizi.",
+      "sostituitoDa": "materiali/biennio/welfare-4-fasi-COMPLETO.html"
+    },
+    {
+      "titolo": "Intelligenza artificiale - Teoria",
+      "file": "materiali/ai/intelligenza_artificiale_didattica.html",
+      "descrizione": "Percorso guidato su opportunità, rischi e casi d'uso dell'AI nella didattica e nei servizi alla persona.",
+      "data": "2025-10-08",
+      "tipo": "interattivo",
+      "sezione": "ai",
+      "archiviato": "2026-09-25",
+      "motivo": "Ripete i contenuti del percorso in 6 fasi (cos'è, machine learning, IA debole/forte, prompt, NotebookLM, etica), che li tratta con attività, pause e verifiche intermedie. La verifica copre solo argomenti del percorso.",
+      "sostituitoDa": "materiali/ai/definitivo percorso_ia_completo_6fasi.html"
+    },
+    {
+      "titolo": "La fase preliminare del progetto d'intervento",
+      "file": "materiali/quarto/progetto_intervento_completo.html",
+      "descrizione": "Percorso interattivo guidato sulle fasi preliminari e sugli strumenti del progetto d'intervento sociosanitario.",
+      "data": "2024-10-08",
+      "tipo": "interattivo",
+      "sezione": "quarto",
+      "archiviato": "2026-09-25",
+      "motivo": "Versione più vecchia e breve (2024) della stessa unità: il modulo del terzo anno tratta la fase preliminare con obiettivi, caso di Marco e attività a tempi.",
+      "sostituitoDa": "materiali/terzo/modulo-progetto-intervento.html"
+    }
+  ]
 }

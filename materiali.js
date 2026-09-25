@@ -37,6 +37,13 @@ const TIPI = {
 };
 const ORDINE_TIPI = ['laboratorio', 'teoria', 'download', 'interattivo', 'autentico'];
 
+// Versioni differenziate: la semplificata è pensata per il sostegno
+const LIVELLI = {
+    intermedio: '🟡 Livello intermedio',
+    semplificato: '🟢 Versione semplificata · sostegno'
+};
+const ORDINE_LIVELLI = ['', 'intermedio', 'semplificato'];
+
 document.addEventListener('DOMContentLoaded', function () {
     const pagina = window.location.pathname.split('/').pop().replace('.html', '') || 'index';
 
@@ -154,6 +161,10 @@ function renderGruppo(gruppo, mostraTitolo) {
         const ta = ORDINE_TIPI.indexOf(determinaTipoMateriale(a));
         const tb = ORDINE_TIPI.indexOf(determinaTipoMateriale(b));
         if (ta !== tb) return ta - tb;
+        // Dentro lo stesso tipo: prima la versione completa, poi quelle facilitate
+        const la = ORDINE_LIVELLI.indexOf(a.livello || '');
+        const lb = ORDINE_LIVELLI.indexOf(b.livello || '');
+        if (la !== lb) return la - lb;
         return confrontaDate(a, b);
     });
     const intestazione = mostraTitolo ? `
@@ -186,6 +197,7 @@ function renderCard(materiale) {
     return `
         <article class="materiale-item mat-${tipo}">
             <span class="mat-tipo">${info.etichetta}</span>
+            ${LIVELLI[materiale.livello] ? `<span class="mat-livello mat-livello-${materiale.livello}">${LIVELLI[materiale.livello]}</span>` : ''}
             <h4><a href="${filePath}" ${linkAttributes}>${titolo}</a></h4>
             ${descrizione}
             <a href="${filePath}" class="btn-download" ${linkAttributes}>${bottone}</a>

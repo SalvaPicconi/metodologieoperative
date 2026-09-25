@@ -47,6 +47,16 @@ Lo stesso schema vale per le sezioni **Laboratorio** e **Peer tutoring** (argome
 `"tipo": "laboratorio"`: si apre nella stessa scheda, con il bottone «Entra». Le sottopagine dei
 laboratori hanno il link «← Laboratorio» in testa. Diari e annotazioni stanno sempre in fondo, chiusi.
 
+### Versioni differenziate e archivio
+
+- `"livello": "semplificato"` marca la versione per il sostegno (etichetta verde), `"intermedio"`
+  quella a difficoltà media. Si tengono sempre: compaiono subito dopo la versione completa.
+- Un doppione **non si cancella**: la voce si sposta sotto la chiave `archivio` di `materiali.json`
+  con `motivo` e `sostituitoDa`, e il file resta dov'è (conserva i salvataggi degli studenti).
+  I file non HTML superati vanno nella cartella `archivio/`, spiegati in `archivio/LEGGIMI.md`.
+- Criterio per scegliere fra due versioni piene sullo stesso argomento: resta la più strutturata
+  (fasi, attività, verifiche intermedie); la teoria di riferimento resta se non è già dentro il percorso.
+
 ---
 
 ## Programmi
