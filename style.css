@@ -2960,3 +2960,32 @@ details.progress-box[open] > summary {
 .breadcrumb a:hover {
     text-decoration: underline;
 }
+
+.lab-game-altro {
+    display: grid;
+    gap: 0.2rem;
+    margin-top: 1.25rem;
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    text-decoration: none;
+}
+
+.lab-game-altro:hover {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.lab-game-altro span {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-accent-light);
+}
+
+.lab-game-altro em {
+    font-style: normal;
+    opacity: 0.85;
+}
