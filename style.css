@@ -1146,6 +1146,69 @@ main {
     margin: 0.5rem 0 1rem 0;
 }
 
+/* Collegamento della scheda al curricolo: chiuso, si apre a richiesta */
+.mat-curricolo {
+    margin: 0 0 1rem 0;
+    padding: 0.55rem 0.75rem;
+    background: var(--color-primary-tint);
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+.mat-curricolo summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--color-primary-dark);
+}
+
+.mat-curricolo summary:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.mat-curricolo .mat-cur-uda {
+    margin-top: 0.7rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.materiale-item .mat-curricolo p {
+    margin: 0.25rem 0;
+}
+
+.mat-curricolo ul {
+    margin: 0.2rem 0 0.4rem 1.1rem;
+    color: var(--color-ink-soft);
+}
+
+.mat-cur-codice {
+    display: inline-block;
+    font-weight: 700;
+    font-size: 0.78rem;
+    color: #fff;
+    background: var(--color-primary-dark);
+    border-radius: 4px;
+    padding: 0 0.35rem;
+    margin-right: 0.25rem;
+}
+
+.mat-cur-lbl {
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+    font-weight: 600;
+}
+
+.materiale-item .mat-cur-nota {
+    font-size: 0.82rem;
+    color: var(--color-ink-soft);
+}
+
+@media print {
+    .mat-curricolo { display: none; }
+}
+
 .btn-download {
     display: inline-block;
     background-color: var(--color-primary);

@@ -68,7 +68,7 @@ async function caricaMateriali(sezione, containerId = 'materiali-lista') {
     container.innerHTML = '<div class="loading">Caricamento materiali in corso...</div>';
 
     try {
-        const cacheBustParam = 'v=20260925';
+        const cacheBustParam = 'v=20260926';
         const response = await fetch(`${MATERIALI_JSON_URL}?${cacheBustParam}`, {
             cache: 'no-cache'
         });
@@ -78,6 +78,7 @@ async function caricaMateriali(sezione, containerId = 'materiali-lista') {
         }
 
         const data = await response.json();
+        await caricaCurricolo(cacheBustParam);
         const materiali = (data[sezione] || []).filter(m => m && m.file);
         const argomenti = (data.argomenti && data.argomenti[sezione]) || [];
 
@@ -93,6 +94,52 @@ async function caricaMateriali(sezione, containerId = 'materiali-lista') {
     }
 
     costruisciIndicePagina();
+}
+
+// Collegamento al curricolo: l'indice file → UDA è generato da scripts/programmi.py
+// a partire dai campi «materiali» delle UDA. Se manca, le schede restano come prima.
+let CURRICOLO_MATERIALI = {};
+const ANNO_BREVE = {
+    'Primo anno': '1ª', 'Secondo anno': '2ª', 'Terzo anno': '3ª', 'Quarto anno': '4ª', 'Quinto anno': '5ª'
+};
+
+async function caricaCurricolo(cacheBustParam) {
+    try {
+        const url = MATERIALI_JSON_URL.replace(/materiali\.json$/, 'materiali-curricolo.json');
+        const risposta = await fetch(`${url}?${cacheBustParam}`, { cache: 'no-cache' });
+        if (!risposta.ok) return;
+        const dati = await risposta.json();
+        CURRICOLO_MATERIALI = dati.materiali || {};
+    } catch (errore) {
+        console.warn('Collegamento al curricolo non disponibile:', errore);
+    }
+}
+
+function renderCurricolo(file) {
+    const voci = CURRICOLO_MATERIALI[file];
+    if (!voci || !voci.length) return '';
+    const sigle = voci.map(v => `${ANNO_BREVE[v.anno] || v.anno} · UDA ${v.n}`);
+    const sintesi = sigle.length > 3 ? `${sigle.slice(0, 3).join(', ')} e altre ${sigle.length - 3}` : sigle.join(', ');
+    const dettagli = voci.map(v => {
+        const abilita = (v.abilita || []).map(a => `<li>${escapeHtml(a)}</li>`).join('');
+        const conoscenze = (v.conoscenze || []).length
+            ? `<ul>${v.conoscenze.map(c => `<li>${escapeHtml(c)}</li>`).join('')}</ul>`
+            : `<p class="mat-cur-nota">Per questa competenza il curricolo non assegna conoscenze di Metodologie Operative in questo periodo${v.ripiegoEuropea ? `: la UDA si appoggia alla competenza chiave europea «${escapeHtml(v.ripiegoEuropea)}»` : ''}.</p>`;
+        const competenza = v.competenza
+            ? `<p class="mat-cur-comp"><span class="mat-cur-codice">${escapeHtml(v.competenza)}</span> ${escapeHtml(v.competenzaIntermedia || '')}</p>
+               ${abilita ? `<p class="mat-cur-lbl">Abilità</p><ul>${abilita}</ul>` : ''}
+               <p class="mat-cur-lbl">Conoscenze</p>${conoscenze}`
+            : '<p class="mat-cur-nota">UDA trasversale: non esercita una competenza di indirizzo.</p>';
+        return `<div class="mat-cur-uda">
+                <p class="mat-cur-titolo"><strong>${escapeHtml(v.anno)} · UDA ${v.n}</strong> ${escapeHtml(v.titolo)}</p>
+                ${competenza}
+            </div>`;
+    }).join('');
+    return `<details class="mat-curricolo">
+            <summary>Nel programma: ${escapeHtml(sintesi)}</summary>
+            ${dettagli}
+            <p class="mat-cur-nota">Competenze, abilità e conoscenze sono riportate alla lettera dal curricolo (D.M. 92/2018). <a href="programmi.html">Vai ai programmi</a></p>
+        </details>`;
 }
 
 // Gerarchia: argomento → materiali (teoria, dispense, attività, prove), poi le verifiche.
@@ -200,6 +247,7 @@ function renderCard(materiale) {
             ${LIVELLI[materiale.livello] ? `<span class="mat-livello mat-livello-${materiale.livello}">${LIVELLI[materiale.livello]}</span>` : ''}
             <h4><a href="${filePath}" ${linkAttributes}>${titolo}</a></h4>
             ${descrizione}
+            ${renderCurricolo(rawFile)}
             <a href="${filePath}" class="btn-download" ${linkAttributes}>${bottone}</a>
         </article>
     `;
@@ -241,6 +289,7 @@ function renderVerificaCard(materiale) {
             <span class="mat-tipo">📝 Verifica</span>
             <h4><a href="${filePath}" ${linkAttributes}>${titolo}</a></h4>
             ${descrizione}
+            ${renderCurricolo(rawFile)}
             <a href="${filePath}" class="btn-download" ${linkAttributes}>${btnLabel}</a>
         </article>
     `;

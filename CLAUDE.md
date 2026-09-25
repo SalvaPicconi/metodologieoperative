@@ -91,6 +91,7 @@ Quando modifichi la pagina, tieni questa gerarchia: **prima i contenuti, il curr
 | `programmi-src/curricolo-ssas.json` | **no** — curricolo normativo, D.M. 92/2018 Allegato C |
 | `programmi-src/competenze-trasversali.json` | **no** — competenze chiave europee, area generale ed educazione civica, verbatim |
 | `programmi.json` | **no** — è generato, ogni modifica a mano viene sovrascritta |
+| `materiali-curricolo.json` | **no** — generato dal build: per ogni file, le UDA che lo usano con il loro cappello |
 
 ### Comandi
 
@@ -124,6 +125,12 @@ Ogni modulo vive in `programmi-src/moduli-<anno>.json` sotto la chiave `moduli`:
   "materiali": [ { "titolo": "", "file": "materiali/..." } ]
 }
 ```
+
+Il campo `materiali` collega la UDA ai materiali del sito (percorso dalla radice, come in
+`materiali.json`); il build controlla che ogni file esista e ne ricava `materiali-curricolo.json`,
+che `materiali.js` usa per mostrare sotto ogni scheda delle pagine anno la riga chiusa «Nel programma»
+con competenza intermedia, abilità e conoscenze della UDA. Un materiale nuovo si collega qui,
+non si scrive il curricolo in `materiali.json`.
 
 Il campo `competenze` del modulo **non si scrive**: lo calcola il build come unione
 delle competenze delle sue attività. Il `focus` invece si scrive, ma solo nelle sue voci
@@ -240,7 +247,10 @@ La mappa di quel confronto resta in `programmi-src/_integrazione/piano.json`.
 
 ### Vincoli editoriali
 
-- La sigla **TSSAS non si usa**: si scrive «l'indirizzo sociosanitario» e «l'operatore sociosanitario».
+- La sigla **TSSAS non si usa**: si scrive «l'indirizzo sociosanitario». Il profilo in uscita è
+  «l'operatore sociale», forma breve di «operatore dei servizi per la sanità e l'assistenza sociale».
+  «Operatore socio-sanitario» (OSS) indica solo la qualifica regionale, che è un'altra figura:
+  scriverlo per il profilo dei nostri studenti crea confusione (decisione del 25 settembre 2026).
 - In pagina compare **solo Metodologie Operative**. Le conoscenze condivise con
   Scienze umane portano il flag `compresenzaScienzeUmane` e l'etichetta «in compresenza».
   Nessun altro insegnamento va nominato.

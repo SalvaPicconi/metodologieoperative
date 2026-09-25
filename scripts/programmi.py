@@ -21,6 +21,8 @@ from pathlib import Path
 RADICE = Path(__file__).resolve().parent.parent
 SORGENTI = RADICE / "programmi-src"
 USCITA = RADICE / "programmi.json"
+# Indice ridotto file -> UDA, letto dalle pagine delle classi (materiali.js)
+USCITA_MATERIALI = RADICE / "materiali-curricolo.json"
 
 ANNI = ["Primo anno", "Secondo anno", "Terzo anno", "Quarto anno", "Quinto anno"]
 
@@ -485,6 +487,48 @@ def espandi_focus(focus, periodo, indice, fonti):
     return uscita
 
 
+def controlla_materiali(modulo, dove, errori):
+    """Ogni materiale collegato a una UDA deve avere un titolo e un file che esiste nel sito."""
+    visti = set()
+    for voce in modulo.get("materiali", []):
+        titolo, file = voce.get("titolo"), voce.get("file")
+        if not titolo or not file:
+            errori.aggiungi(dove, f"materiale incompleto: {voce}", "servono sia «titolo» sia «file»")
+            continue
+        if file in visti:
+            errori.aggiungi(dove, f"materiale ripetuto: {file}", "ogni file si collega una volta sola per UDA")
+        visti.add(file)
+        if not (RADICE / file).exists():
+            errori.aggiungi(dove, f"il file «{file}» non esiste", "il percorso va scritto dalla radice del sito, come in materiali.json")
+
+
+def indice_materiali(moduli):
+    """Per ogni file, le UDA che lo usano con il loro cappello curricolare: lo legge materiali.js."""
+    indice = {}
+    for m in moduli:
+        focus = m.get("focus") or {}
+        ripiego = focus.get("ripiego") or {}
+        for voce in m.get("materiali", []):
+            indice.setdefault(voce["file"], []).append({
+                "anno": m["anno"],
+                "n": m["n"],
+                "titolo": m["titolo"],
+                "origine": m.get("origine"),
+                "competenza": focus.get("competenza"),
+                "competenzaTitolo": focus.get("competenzaTitolo"),
+                "competenzaIntermedia": focus.get("competenzaIntermedia"),
+                "abilita": focus.get("abilita", []),
+                "conoscenze": focus.get("conoscenze", []),
+                "ripiegoEuropea": ripiego.get("europea"),
+                "trasversale": bool(m.get("trasversale")),
+            })
+    ordine = {anno: i for i, anno in enumerate(ANNI)}
+    for voci in indice.values():
+        voci.sort(key=lambda v: (ordine.get(v["anno"], 99), v["n"]))
+    return {"avvertenza": "File generato da scripts/programmi.py dai campi «materiali» delle UDA: non modificarlo a mano.",
+            "materiali": dict(sorted(indice.items()))}
+
+
 def elabora(curricolo, livelli, trasversali, blocchi, errori):
     indice = indicizza_curricolo(curricolo)
     fonti = indicizza_trasversali(trasversali)
@@ -513,6 +557,7 @@ def elabora(curricolo, livelli, trasversali, blocchi, errori):
             controlla_uda(modulo, etichetta, errori)
             controlla_prova(modulo.get("provaEsperta"), livello, etichetta, errori)
             controlla_focus(modulo, periodo, indice, fonti, competenze, etichetta, errori)
+            controlla_materiali(modulo, etichetta, errori)
 
             modulo_uscita = dict(modulo)
             if modulo.get("focus"):
@@ -612,6 +657,12 @@ def costruisci(scrivi):
         else:
             USCITA.write_text(nuovo, encoding="utf-8")
             print(f"\n  Scritto {USCITA.relative_to(RADICE)}")
+        indice = json.dumps(indice_materiali(moduli), ensure_ascii=False, indent=2) + "\n"
+        if USCITA_MATERIALI.exists() and USCITA_MATERIALI.read_text(encoding="utf-8") == indice:
+            print(f"  {USCITA_MATERIALI.relative_to(RADICE)} è già allineato: nessuna modifica.")
+        else:
+            USCITA_MATERIALI.write_text(indice, encoding="utf-8")
+            print(f"  Scritto {USCITA_MATERIALI.relative_to(RADICE)}")
     else:
         print("\n  Controlli superati (nessun file scritto).")
     return documento

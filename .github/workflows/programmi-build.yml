@@ -9,11 +9,13 @@ on:
       - 'programmi-src/**'
       - 'scripts/programmi.py'
       - 'programmi.json'
+      - 'materiali-curricolo.json'
   pull_request:
     paths:
       - 'programmi-src/**'
       - 'scripts/programmi.py'
       - 'programmi.json'
+      - 'materiali-curricolo.json'
   workflow_dispatch:
 
 jobs:
@@ -34,7 +36,7 @@ jobs:
 
       - name: Verifica che programmi.json sia allineato
         run: |
-          if ! git diff --quiet -- programmi.json; then
+          if ! git diff --quiet -- programmi.json materiali-curricolo.json; then
             echo "::error::programmi.json non è allineato alle sorgenti in programmi-src/."
             echo "Rilancia in locale: python3 scripts/programmi.py build"
             git --no-pager diff -- programmi.json | head -60
