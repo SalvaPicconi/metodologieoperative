@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
-    <meta name="page-id" content="attivita-terzo-01">
+    <meta name="page-id" content="attivita-ia-01">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terzo Anno - Materiali Didattici</title>
-    <meta name="description" content="Materiali didattici per il Terzo Anno - Metodologie Operative">
+    <title>Intelligenza artificiale - Metodologie Operative</title>
+    <meta name="description" content="Intelligenza artificiale per Metodologie Operative: teoria, percorso completo e verifica delle competenze digitali">
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <header>
         <div class="container">
@@ -23,7 +21,7 @@
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="biennio.html">Biennio</a></li>
-            <li><a href="terzo.html" class="active" aria-current="page">Terzo anno</a></li>
+            <li><a href="terzo.html">Terzo anno</a></li>
             <li><a href="quarto.html">Quarto anno</a></li>
             <li><a href="quinto.html">Quinto anno</a></li>
             <li class="nav-group"><a href="index.html#metodi">Metodi e laboratori</a>
@@ -34,7 +32,7 @@
                     <li><a href="compresenza.html">Compresenza Scienze umane</a></li>
                 </ul>
             </li>
-            <li class="nav-ai"><a href="intelligenza-artificiale.html">Intelligenza artificiale</a></li>
+            <li class="nav-ai"><a href="intelligenza-artificiale.html" class="active" aria-current="page">Intelligenza artificiale</a></li>
             <li class="nav-group"><a href="index.html#docente">Docente</a>
                 <ul class="nav-sub">
                     <li><a href="programmi.html">Programmi SSAS</a></li>
@@ -48,8 +46,8 @@
     <main>
         <div class="container">
             <div class="page-title">
-                <h2>📖 Terzo anno</h2>
-                <p>Classe terza</p>
+                <h2>🤖 Intelligenza artificiale</h2>
+                <p>Capire come funziona e usarla in modo critico e consapevole nei servizi sociosanitari</p>
             </div>
 
             <div class="indice-pagina" id="indice-pagina" role="navigation" aria-label="In questa pagina" hidden></div>
@@ -57,31 +55,6 @@
             <div id="materiali-lista">
                 <div class="loading">Caricamento materiali in corso...</div>
             </div>
-
-            <section class="anno-sezione" id="programma" data-indice="Programma">
-                <h2 class="mat-blocco-titolo">🗂️ Programma dell'anno</h2>
-                <div class="anno-programma">
-                    <p>Le unità di apprendimento in sequenza, con le attività e la prova esperta di laboratorio.</p>
-                    <div class="azioni">
-                        <a href="programmi.html?anno=Terzo%20anno" class="btn-download">Programma del terzo anno</a>
-                    </div>
-                </div>
-            </section>
-
-            <section class="anno-sezione" id="fine-anno" data-indice="Fine anno">
-                <h2 class="mat-blocco-titolo">📋 Fine anno · 3ª SB 2025-2026</h2>
-                <div class="anno-programma anno-fine">
-                    <p>Ripercorri il tuo anno e crea il tuo attestato delle competenze (accesso riservato agli studenti della classe).</p>
-                    <div class="azioni">
-                        <a href="fine-anno-3sb.html" class="btn-download">✦ Vai all'attività di fine anno</a>
-                    </div>
-                </div>
-            </section>
-
-            <details class="progress-box">
-                <summary>📝 Le mie annotazioni</summary>
-                <textarea name="progress_note" placeholder="Annota qui il lavoro svolto, le attività completate o i dubbi da rivedere." rows="6"></textarea>
-            </details>
         </div>
     </main>
 
@@ -96,7 +69,7 @@
         </div>
     </footer>
 
-    <script src="materiali.js?v=2"></script>
+    <script src="materiali.js"></script>
     <script>
         window.MO_PROGRESS_CONFIG = {
             inputSelector: '.progress-box textarea',
@@ -131,5 +104,4 @@
     <script type="module" src="assets/progress.js"></script>
     <script type="module" src="assets/progress-global.js"></script>
 </body>
-
 </html>

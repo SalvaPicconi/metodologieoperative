@@ -12,6 +12,38 @@ Due dataset indipendenti:
 
 ---
 
+## Gerarchia del sito
+
+Tre livelli, in quest'ordine, sia in home sia nel menu:
+
+1. **Le classi** — `biennio.html`, `terzo.html`, `quarto.html`, `quinto.html`;
+2. **Metodi e laboratori** — lezioni partecipate, laboratorio, peer tutoring, compresenza,
+   più `intelligenza-artificiale.html` (pagina propria, non più sezione della home);
+3. **Docente** — programmi SSAS, area docente, anno di prova.
+
+Il menu è unico e **non si modifica a mano**: si cambia `MENU` in `scripts/nav.py` e si lancia
+`python3 scripts/nav.py`, che riscrive il `<nav>` di tutte le pagine.
+
+Ogni pagina anno segue lo stesso ordine: **materiali per argomento → verifiche → programma
+dell'anno → fine anno → annotazioni** (queste ultime chiuse di default).
+
+### Materiali: il campo `argomento`
+
+In `materiali.json` ogni materiale di una sezione anno porta `argomento`, l'id di un nucleo
+elencato sotto la chiave `argomenti` della stessa sezione, che ne fissa ordine, titolo e descrizione:
+
+```json
+"argomenti": { "terzo": [ { "id": "equipe", "titolo": "Équipe e figure professionali", "descrizione": "..." } ] }
+```
+
+Dentro un argomento le schede vanno teoria → dispensa → attività → compito di realtà.
+Le verifiche (`"tipo": "verifica"`) non hanno argomento: stanno nel loro blocco, per quadrimestre.
+**Ciò che è vuoto non compare**: né argomenti senza materiali, né categorie o quadrimestri vuoti.
+Un materiale senza argomento finisce in «Altri materiali»: è il segnale che manca l'aggancio.
+Niente segnaposto: un file di esempio non va in `materiali.json`.
+
+---
+
 ## Programmi
 
 La pagina `programmi.html` presenta i **contenuti da trattare anno per anno**: moduli in
