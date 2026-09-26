@@ -4,7 +4,7 @@
     <meta name="page-id" content="attivita-materiali-terzo-inc-esercitazione-semplificata-01">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chi mi aiuta? - Esercitazione Semplice</title>
+    <title>Chi mi aiuta? · Versione semplificata</title>
     <style>
         * {
             margin: 0;
@@ -441,7 +441,7 @@
     <div class="container">
         <div class="header">
             <h1>CHI MI AIUTA?</h1>
-            <p>Impariamo insieme!</p>
+            <p>Le persone e i servizi che aiutano</p>
         </div>
 
         <div class="progress-bar">
@@ -454,28 +454,28 @@
 
             <div class="card">
                 <div class="card-icon">🏥</div>
-                <div class="card-title">DOTTORE</div>
+                <div class="card-title">MEDICO</div>
                 <div class="card-text">
-                    Il dottore mi cura<br>
-                    quando sto male
+                    Il medico cura<br>
+                    chi sta male
                 </div>
             </div>
 
             <div class="card">
-                <div class="card-icon">👩‍⚕️</div>
-                <div class="card-title">INFERMIERA</div>
+                <div class="card-icon">🧑‍⚕️</div>
+                <div class="card-title">INFERMIERE</div>
                 <div class="card-text">
-                    L'infermiera mi aiuta<br>
-                    con le medicine
+                    Dà le medicine<br>
+                    e fa le medicazioni
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-icon">🤝</div>
-                <div class="card-title">ASSISTENTE</div>
+                <div class="card-title">ASSISTENTE DOMICILIARE</div>
                 <div class="card-text">
-                    L'assistente mi aiuta<br>
-                    quando ho bisogno
+                    Aiuta a casa<br>
+                    nelle cose di ogni giorno
                 </div>
             </div>
 
@@ -483,8 +483,8 @@
                 <div class="card-icon">🚗</div>
                 <div class="card-title">AUTISTA</div>
                 <div class="card-text">
-                    L'autista mi porta<br>
-                    dove devo andare
+                    Accompagna chi<br>
+                    non può muoversi da solo
                 </div>
             </div>
         </div>
@@ -503,15 +503,15 @@
                 <div id="question-1" class="choices">
                     <button class="choice-btn" onclick="checkAnswer(1, 'correct', this)">
                         <span class="icon">🏥</span>
-                        <span>DOTTORE</span>
+                        <span>MEDICO</span>
                     </button>
                     <button class="choice-btn" onclick="checkAnswer(1, 'wrong', this)">
                         <span class="icon">🚗</span>
                         <span>AUTISTA</span>
                     </button>
                     <button class="choice-btn" onclick="checkAnswer(1, 'wrong', this)">
-                        <span class="icon">👨‍🍳</span>
-                        <span>CUOCO</span>
+                        <span class="icon">🤝</span>
+                        <span>ASSISTENTE DOMICILIARE</span>
                     </button>
                 </div>
             </div>
@@ -525,16 +525,16 @@
                 </div>
                 <div id="question-2" class="choices">
                     <button class="choice-btn" onclick="checkAnswer(2, 'wrong', this)">
-                        <span class="icon">👨‍🏫</span>
-                        <span>MAESTRO</span>
+                        <span class="icon">🧑‍🏫</span>
+                        <span>INSEGNANTE</span>
                     </button>
                     <button class="choice-btn" onclick="checkAnswer(2, 'correct', this)">
                         <span class="icon">🤝</span>
-                        <span>ASSISTENTE</span>
+                        <span>ASSISTENTE DOMICILIARE</span>
                     </button>
                     <button class="choice-btn" onclick="checkAnswer(2, 'wrong', this)">
-                        <span class="icon">👮</span>
-                        <span>POLIZIOTTO</span>
+                        <span class="icon">🏥</span>
+                        <span>MEDICO</span>
                     </button>
                 </div>
             </div>
@@ -548,12 +548,12 @@
                 </div>
                 <div id="question-3" class="choices">
                     <button class="choice-btn" onclick="checkAnswer(3, 'wrong', this)">
-                        <span class="icon">👩‍⚕️</span>
-                        <span>INFERMIERA</span>
+                        <span class="icon">🧑‍⚕️</span>
+                        <span>INFERMIERE</span>
                     </button>
                     <button class="choice-btn" onclick="checkAnswer(3, 'wrong', this)">
-                        <span class="icon">🍕</span>
-                        <span>PIZZAIOLO</span>
+                        <span class="icon">🧑‍🏫</span>
+                        <span>INSEGNANTE</span>
                     </button>
                     <button class="choice-btn" onclick="checkAnswer(3, 'correct', this)">
                         <span class="icon">🚗</span>
@@ -650,6 +650,14 @@
         let matchingCards = [];
         let matchedPairs = 0;
 
+                const PERCHE_SEMPLICE = {
+            1: "Maria sta male: la cura il medico.",
+            2: "Luca ha bisogno di aiuto a casa per lavarsi: lo aiuta l'assistente domiciliare.",
+            3: "Anna non sa prendere l'autobus: l'autista del servizio di trasporto la accompagna.",
+            4: "Se stai molto male, all'ospedale ti curano.",
+            5: "Al centro diurno si fanno attività e si sta con altre persone."
+        };
+
         function checkAnswer(questionNum, result, button) {
             if (answeredQuestions.has(questionNum)) return;
 
@@ -663,7 +671,7 @@
                 score++;
                 answeredQuestions.add(questionNum);
                 
-                showFeedback('success', '✅ BRAVO! RISPOSTA GIUSTA! 👏');
+                showFeedback('success', '✅ Giusto! ' + (PERCHE_SEMPLICE[questionNum] || ''));
                 
             } else {
                 button.style.background = '#f8d7da';
@@ -671,7 +679,7 @@
                 button.style.borderWidth = '6px';
                 button.style.animation = 'shake 0.5s';
                 
-                showFeedback('error', '❌ RIPROVA! 🤔');
+                showFeedback('error', '❌ Non è questa. Guarda di nuovo le schede e riprova.');
                 
                 setTimeout(() => {
                     button.style.background = '';

@@ -694,15 +694,15 @@
                     <div class="options">
                         <div class="option" onclick="selectOption(this, 0, 1)">
                             <input type="radio" name="q1">
-                            <span>Assistenza Domiciliare - operatori vanno a casa sua ad aiutarla</span>
+                            <span>Assistenza domiciliare: gli operatori vanno a casa della persona</span>
                         </div>
                         <div class="option" onclick="selectOption(this, 0, 0)">
                             <input type="radio" name="q1">
-                            <span>Centro Diurno - va lì solo durante il giorno</span>
+                            <span>Centro diurno: la persona ci va di giorno e la sera torna a casa</span>
                         </div>
                         <div class="option" onclick="selectOption(this, 0, 0)">
                             <input type="radio" name="q1">
-                            <span>Casa Famiglia - deve lasciare la sua casa</span>
+                            <span>Casa famiglia: la persona va a vivere in una piccola struttura</span>
                         </div>
                     </div>
                     <button class="check-btn" onclick="checkAnswer(0, 1)">Verifica Risposta</button>
@@ -720,15 +720,15 @@
                     <div class="options">
                         <div class="option" onclick="selectOption(this, 1, 0)">
                             <input type="radio" name="q2">
-                            <span>Assistenza Domiciliare - non è per socializzare</span>
+                            <span>Assistenza domiciliare: gli operatori aiutano a casa nelle attività di ogni giorno</span>
                         </div>
                         <div class="option" onclick="selectOption(this, 1, 1)">
                             <input type="radio" name="q2">
-                            <span>Centro Diurno - può fare attività e stare con altri ragazzi</span>
+                            <span>Centro diurno: attività e laboratori insieme ad altri ragazzi</span>
                         </div>
                         <div class="option" onclick="selectOption(this, 1, 0)">
                             <input type="radio" name="q2">
-                            <span>Servizio Trasporto - serve solo per spostarsi</span>
+                            <span>Servizio di trasporto: accompagna la persona nei suoi spostamenti</span>
                         </div>
                     </div>
                     <button class="check-btn" onclick="checkAnswer(1, 1)">Verifica Risposta</button>
@@ -746,15 +746,15 @@
                     <div class="options">
                         <div class="option" onclick="selectOption(this, 2, 0)">
                             <input type="radio" name="q3">
-                            <span>Il dottore - si occupa di malattie, non di problemi sociali</span>
+                            <span>Il medico di famiglia: cura la salute</span>
                         </div>
                         <div class="option" onclick="selectOption(this, 2, 1)">
                             <input type="radio" name="q3">
-                            <span>L'Assistente Sociale - ascolta i problemi e aiuta a trovare soluzioni</span>
+                            <span>L'assistente sociale: ascolta i problemi sociali e attiva gli aiuti</span>
                         </div>
                         <div class="option" onclick="selectOption(this, 2, 0)">
                             <input type="radio" name="q3">
-                            <span>Il servizio trasporto - serve solo per gli spostamenti</span>
+                            <span>Il servizio di trasporto: accompagna negli spostamenti</span>
                         </div>
                     </div>
                     <button class="check-btn" onclick="checkAnswer(2, 1)">Verifica Risposta</button>
@@ -909,6 +909,12 @@
             selectedAnswers[questionNum] = isCorrect;
         }
 
+                const PERCHE_CASI = [
+            "Anna vuole restare a casa sua e l'aiuto le serve proprio lì: l'assistenza domiciliare glielo porta a casa. Il centro diurno la porterebbe fuori di giorno, la casa famiglia le farebbe lasciare la casa.",
+            "Marco ha bisogno di stare con altri ragazzi e di fare attività: il centro diurno offre proprio questo. L'assistenza domiciliare e il trasporto non servono a socializzare.",
+            "L'assistente sociale ascolta la situazione e attiva gli aiuti per la casa, il lavoro e il reddito. Il medico si occupa della salute, il trasporto degli spostamenti."
+        ];
+
         function checkAnswer(questionNum, correctOption) {
             const isCorrect = selectedAnswers[questionNum] === 1;
             const feedback = document.getElementById(`feedback-${questionNum}`);
@@ -926,14 +932,14 @@
 
             if (isCorrect) {
                 feedback.className = 'feedback success show';
-                feedback.textContent = '✓ Risposta corretta! Ottimo lavoro!';
+                feedback.textContent = '✓ Giusto. ' + (PERCHE_CASI[questionNum] || '');
                 if (!completedActivities.has(questionNum)) {
                     completedActivities.add(questionNum);
                     score++;
                 }
             } else {
                 feedback.className = 'feedback error show';
-                feedback.textContent = '✗ Risposta non corretta. Rileggi il caso con attenzione.';
+                feedback.textContent = '✗ Non è questa. ' + (PERCHE_CASI[questionNum] || '');
             }
             updateProgress();
         }
