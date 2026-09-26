@@ -228,8 +228,7 @@
             <div class="mb-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-md">
                 <p class="text-blue-800">
                     <strong>Hai studiato?</strong> In questa fase verificheremo la tua conoscenza delle definizioni
-                    chiave (Animazione, Setting, Gioco Cooperativo).
-                    Se hai dubbi, <a href="percorso_animativo_teoria.html"
+                    chiave (animazione, <em>setting</em>, gioco cooperativo, <em>ice-breaking</em>). Se hai dubbi, <a href="percorso_animativo_teoria.html#parole"
                         class="underline font-bold hover:text-blue-900" target="_blank">consulta la pagina di Teoria</a>
                     prima di rispondere al quiz.
                 </p>
@@ -342,7 +341,7 @@
             </div>
 
             <div class="mb-6">
-                <h3 class="text-xl font-bold text-gray-700 mb-3">Template: Scheda Attività</h3>
+                <h3 class="text-xl font-bold text-gray-700 mb-3">Modello di scheda attività</h3>
                 <div class="bg-gray-50 border border-gray-300 p-4 rounded-lg grid grid-cols-1 md:grid-cols-2 gap-4">
                     <p><strong>Titolo Attività:</strong> La Ragnatela dei Nomi</p>
                     <p><strong>Obiettivi:</strong> Favorire la conoscenza, memorizzare i nomi, creare connessioni visive
@@ -361,7 +360,7 @@
 
             <div>
                 <label for="produzione3" class="block text-lg font-semibold text-gray-700 mb-2">Ora tocca a te!</label>
-                <p class="text-gray-600 mb-2">Usando il template, progetta un breve gioco di collaborazione per un
+                <p class="text-gray-600 mb-2">Usando il modello, progetta un breve gioco di collaborazione per un
                     gruppo di 8 bambini di 7-8 anni. L'obiettivo è farli lavorare insieme per risolvere un piccolo
                     problema.</p>
                 <textarea id="produzione3" rows="8"
@@ -483,7 +482,7 @@
 
             <div class="space-y-6">
                 <div>
-                    <label for="task5_1" class="block text-lg font-semibold text-gray-700 mb-2">Sotto-task 1: Analisi e
+                    <label for="task5_1" class="block text-lg font-semibold text-gray-700 mb-2">Compito 1: Analisi e
                         Obiettivi</label>
                     <p class="text-gray-600 mb-2">Analizza le caratteristiche e i bisogni specifici di Sofia, Leo e
                         Anna. Sulla base di questo, definisci 2-3 obiettivi specifici e realistici per la tua attività
@@ -493,7 +492,7 @@
                         placeholder="Gli obiettivi devono essere coerenti con il bisogno di inclusione di tutti..."></textarea>
                 </div>
                 <div>
-                    <label for="task5_2" class="block text-lg font-semibold text-gray-700 mb-2">Sotto-task 2:
+                    <label for="task5_2" class="block text-lg font-semibold text-gray-700 mb-2">Compito 2:
                         Progettazione dell'Attività</label>
                     <p class="text-gray-600 mb-2">Progetta nel dettaglio un'attività (o una sequenza di 2 brevi
                         attività) per raggiungere gli obiettivi che hai definito. Usa il modello della 'Scheda Attività'
@@ -503,7 +502,7 @@
                         placeholder="Scegli un'attività che possa essere adattata e che valorizzi diverse abilità..."></textarea>
                 </div>
                 <div>
-                    <label for="task5_3" class="block text-lg font-semibold text-gray-700 mb-2">Sotto-task 3: Strategie
+                    <label for="task5_3" class="block text-lg font-semibold text-gray-700 mb-2">Compito 3: Strategie
                         di Inclusione</label>
                     <p class="text-gray-600 mb-2">Descrivi le strategie concrete che adotterai prima, durante e dopo
                         l'attività per facilitare la partecipazione di Sofia, gestire l'energia di Leo e rispettare i
@@ -820,6 +819,16 @@
             }
         }
 
+        // Il perché di ogni risposta, mostrato dopo il controllo
+        const PERCHE_QUIZ = {
+            q1: "L'animazione socioculturale serve a far partecipare le persone alla vita del gruppo e della comunità e a creare legami: non è solo passatempo né spettacolo.",
+            q2: "In un gioco cooperativo tutti lavorano per lo stesso obiettivo: nessuno perde e nessuno resta escluso.",
+            q3: "Il setting è lo spazio dell'attività, sia fisico (la stanza, le sedie, i materiali) sia relazionale (il clima, le regole di rispetto).",
+            q4: "Il rompighiaccio si fa all'inizio, per sciogliere l'imbarazzo e far conoscere le persone.",
+            q5: "Il debriefing è il momento in cui si ripensa a ciò che è successo nel gioco e si capisce che cosa ha insegnato.",
+            q6: "Nel debriefing l'animatore non giudica e non dà le risposte: fa domande aperte e aiuta il gruppo a riflettere."
+        };
+
         function checkQuiz(quizId, options = {}) {
             const { applyScore = true, force = false, persist = true } = options;
             const config = parseQuizConfig(quizId);
@@ -844,10 +853,10 @@
                 if (selected) {
                     if (selected.value === answer) {
                         correctCount++;
-                        feedbackEl.textContent = 'Corretto! Ottima risposta.';
+                        feedbackEl.textContent = 'Corretto. ' + (PERCHE_QUIZ[question] || '');
                         feedbackEl.className = 'mt-1 text-sm font-semibold text-green-600';
                     } else {
-                        feedbackEl.textContent = `Sbagliato. La risposta corretta era la ${answer.toUpperCase()}.`;
+                        feedbackEl.textContent = `Non è questa: la risposta corretta è la ${answer.toUpperCase()}. ` + (PERCHE_QUIZ[question] || '');
                         feedbackEl.className = 'mt-1 text-sm font-semibold text-red-600';
                     }
                 } else {
