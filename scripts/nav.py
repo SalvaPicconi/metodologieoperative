@@ -21,6 +21,7 @@ MENU = [
         ("Laboratorio", "laboratorio.html"),
         ("Peer tutoring", "peer_tutoring.html"),
         ("Compresenza Scienze umane", "compresenza.html"),
+        ("Glossario", "glossario.html"),
     ]),
     ("Intelligenza artificiale", "intelligenza-artificiale.html"),
     ("Docente", "index.html#docente", [

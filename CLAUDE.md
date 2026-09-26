@@ -18,11 +18,15 @@ Tre livelli, in quest'ordine, sia in home sia nel menu:
 
 1. **Le classi** — `biennio.html`, `terzo.html`, `quarto.html`, `quinto.html`;
 2. **Metodi e laboratori** — lezioni partecipate, laboratorio, peer tutoring, compresenza,
-   più `intelligenza-artificiale.html` (pagina propria, non più sezione della home);
+   glossario, più `intelligenza-artificiale.html` (pagina propria, non più sezione della home);
 3. **Docente** — programmi SSAS, area docente, anno di prova.
 
 Il menu è unico e **non si modifica a mano**: si cambia `MENU` in `scripts/nav.py` e si lancia
 `python3 scripts/nav.py`, che riscrive il `<nav>` di tutte le pagine.
+
+Le parole della materia si definiscono in un posto solo, `glossario.html` (array `VOCI`): quando
+una pagina usa un termine nuovo o ne cambia la spiegazione, si aggiorna anche il glossario, con
+l'anno in cui il termine si incontra per la prima volta.
 
 Ogni pagina anno segue lo stesso ordine: **materiali per argomento → verifiche → programma
 dell'anno → fine anno → annotazioni** (queste ultime chiuse di default).

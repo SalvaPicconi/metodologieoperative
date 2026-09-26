@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta name="page-id" content="attivita-glossario-01">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le parole di Metodologie Operative - Glossario</title>
+    <meta name="description" content="Glossario di Metodologie Operative: le parole della materia spiegate in modo semplice, con l'anno in cui si incontrano e un esempio.">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .gl-intro { max-width: 70ch; }
+        .gl-strumenti { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin: 1.2rem 0; }
+        .gl-strumenti input[type="search"] { flex: 1 1 16rem; font: inherit; padding: .55rem .8rem; border: 1px solid #cbd5e1; border-radius: 8px; }
+        .gl-filtri { display: flex; flex-wrap: wrap; gap: .4rem; }
+        .gl-filtri button { font: inherit; font-size: .9rem; padding: .35rem .8rem; border-radius: 999px; border: 1px solid #cbd5e1; background: #fff; cursor: pointer; }
+        .gl-filtri button[aria-pressed="true"] { background: #115e59; border-color: #115e59; color: #fff; }
+        .gl-area { margin: 1.6rem 0 .4rem; font-size: 1.2rem; color: #115e59; }
+        .gl-voce { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: .9rem 1rem; margin: .6rem 0; }
+        .gl-voce h4 { margin: 0 0 .2rem; font-size: 1.05rem; }
+        .gl-voce .gl-meta { font-size: .82rem; color: #475569; margin-bottom: .35rem; }
+        .gl-voce p { margin: .25rem 0; line-height: 1.55; }
+        .gl-voce .gl-es { color: #334155; font-size: .95rem; }
+        .gl-vuoto { color: #475569; font-style: italic; }
+        .gl-box { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1rem 1.1rem; margin: 1.4rem 0; }
+        .gl-box select, .gl-box textarea { font: inherit; border: 1px solid #cbd5e1; border-radius: 8px; padding: .4rem .6rem; max-width: 100%; }
+        .gl-box textarea { width: 100%; min-height: 6rem; }
+        .gl-domanda { padding: .6rem 0; border-top: 1px dashed #e2e8f0; }
+        .gl-domanda:first-of-type { border-top: 0; }
+        .gl-riscontro { display: none; margin-top: .4rem; padding: .45rem .7rem; border-radius: 8px; font-size: .95rem; }
+        .gl-riscontro.ok { display: block; background: #dcfce7; color: #166534; }
+        .gl-riscontro.ko { display: block; background: #ffedd5; color: #9a3412; }
+        @media print { .gl-strumenti, .gl-box { display: none; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Materiali Didattici - Metodologie Operative</h1>
+            <p>Servizi per la Sanità e l'Assistenza Sociale</p>
+            <p style="font-size: 0.9rem; margin-top: 0.5rem;">IIS Meucci Mattei - Cagliari (Sede Decimomannu)</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="biennio.html">Biennio</a></li>
+            <li><a href="terzo.html">Terzo anno</a></li>
+            <li><a href="quarto.html">Quarto anno</a></li>
+            <li><a href="quinto.html">Quinto anno</a></li>
+            <li class="nav-group"><a href="index.html#metodi" class="active">Metodi e laboratori</a>
+                <ul class="nav-sub">
+                    <li><a href="lezioni-partecipate.html">Lezioni partecipate</a></li>
+                    <li><a href="laboratorio.html">Laboratorio</a></li>
+                    <li><a href="peer_tutoring.html">Peer tutoring</a></li>
+                    <li><a href="compresenza.html">Compresenza Scienze umane</a></li>
+                    <li><a href="glossario.html" class="active" aria-current="page">Glossario</a></li>
+                </ul>
+            </li>
+            <li class="nav-ai"><a href="intelligenza-artificiale.html">Intelligenza artificiale</a></li>
+            <li class="nav-group"><a href="index.html#docente">Docente</a>
+                <ul class="nav-sub">
+                    <li><a href="programmi.html">Programmi</a></li>
+                    <li><a href="area_docente.html">Area docente</a></li>
+                    <li><a href="anno-di-prova.html">Anno di prova</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="container">
+            <div class="page-title">
+                <h2>📖 Le parole di Metodologie Operative</h2>
+                <p>Il glossario della materia: ogni parola con il suo significato, l'anno in cui la incontri e un esempio</p>
+            </div>
+
+            <p class="gl-intro">Le stesse parole tornano in tutte le pagine del sito e in tutti gli anni. Qui le trovi spiegate una volta sola, sempre nello stesso modo. Se in una pagina una parola non ti è chiara, cercala qui. Accanto a ogni voce c'è l'anno in cui la si studia per la prima volta: dopo, si continua a usarla.</p>
+
+            <div class="gl-strumenti" role="search">
+                <label for="gl-cerca" class="visually-hidden" style="position:absolute;left:-9999px">Cerca una parola</label>
+                <input type="search" id="gl-cerca" placeholder="Cerca una parola (per esempio: ICF, équipe, setting)" autocomplete="off" data-no-save>
+                <div class="gl-filtri" id="gl-filtri" aria-label="Filtra per area"></div>
+            </div>
+
+            <div id="gl-lista" aria-live="polite"></div>
+
+            <section class="gl-box" id="gl-prova">
+                <h3>Metti alla prova le parole</h3>
+                <p>Scegli la parola giusta per ogni frase. Il riscontro spiega il perché.</p>
+                <div id="gl-domande"></div>
+            </section>
+
+            <section class="gl-box">
+                <h3>Le mie parole nuove</h3>
+                <label for="gl_parole_mie">Scrivi le parole che hai imparato e spiegale con parole tue, con un esempio.</label>
+                <textarea id="gl_parole_mie" name="gl_parole_mie" placeholder="Esempio: setting → lo spazio dell'attività, fisico e relazionale. In classe lo prepariamo spostando i banchi in cerchio."></textarea>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Metodologie Operative - Servizi Sociosanitari</p>
+            <p>IIS Meucci Mattei - Cagliari</p>
+            <div class="home-link">
+                <a href="https://salvapicconi.github.io/metodologieoperative/">🏠 Torna alla Home</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    const AREE = {
+        profilo: "La professione",
+        persona: "Persona e bisogni",
+        progetto: "Progettazione",
+        servizi: "Servizi e welfare",
+        metodi: "Metodi e tecniche",
+        etica: "Etica e privacy"
+    };
+    const VOCI = [
+        // La professione
+        { t: "Operatore sociale", a: "profilo", y: "1ª", d: "Il professionista che esce dall'indirizzo Servizi per la sanità e l'assistenza sociale. Progetta e realizza, con altre figure, interventi per il benessere di persone, gruppi e comunità.", e: "Organizza un laboratorio di memoria in un centro diurno per anziani." },
+        { t: "Operatore socio-sanitario (OSS)", a: "profilo", y: "1ª", d: "Un'altra figura, con una qualifica regionale: si occupa soprattutto dell'assistenza diretta alla persona (igiene, alimentazione, spostamenti). Non va confuso con l'operatore sociale.", e: "In RSA l'OSS aiuta un ospite a lavarsi e a vestirsi." },
+        { t: "Relazione d'aiuto", a: "profilo", y: "1ª", d: "Il rapporto professionale in cui una persona sostiene un'altra ad affrontare una difficoltà, rispettandone l'autonomia: aiuta a fare, non fa al posto suo.", e: "L'operatore aiuta un ragazzo a prepararsi al colloquio di lavoro, senza andarci al posto suo." },
+        { t: "Équipe multiprofessionale", a: "profilo", y: "3ª", d: "Il gruppo di professionisti diversi (medico, infermiere, assistente sociale, educatore, psicologo, operatori) che lavorano insieme sullo stesso progetto e prendono le decisioni in modo condiviso.", e: "La riunione d'équipe decide come organizzare il rientro a casa di una persona dopo l'ospedale." },
+        { t: "Lavoro di rete", a: "profilo", y: "1ª", d: "Collegare le diverse risorse che possono aiutare una persona, perché nessun servizio, da solo, basta.", e: "Assistenza domiciliare del Comune, medico di famiglia e vicina di casa si coordinano per un'anziana sola." },
+        { t: "Rete informale e rete formale", a: "profilo", y: "1ª", d: "La rete informale (primaria) è fatta di persone vicine per legame: famiglia, amici, vicini, volontari. La rete formale (secondaria) è fatta di servizi che aiutano per compito istituzionale: ASL, Comune, scuola, cooperative.", e: "La figlia che fa la spesa è rete informale; il servizio di assistenza domiciliare è rete formale." },
+        { t: "Presa in carico", a: "profilo", y: "3ª", d: "Il momento in cui un servizio si assume la responsabilità di seguire una persona nel tempo, con un progetto.", e: "Dopo il colloquio, il servizio sociale prende in carico la famiglia e avvia il progetto individualizzato." },
+        { t: "Caregiver", a: "profilo", y: "3ª", d: "La persona, spesso un familiare, che assiste in modo continuativo chi non è autosufficiente. Anche il caregiver ha bisogno di sostegno.", e: "Elena assiste da anni il marito colpito da ictus." },
+        { t: "Burnout", a: "profilo", y: "3ª", d: "L'esaurimento fisico ed emotivo di chi si prende cura degli altri per molto tempo senza sostegno: stanchezza, irritabilità, distacco.", e: "Un caregiver in burnout dorme male ed è sempre stanco; il centro diurno gli dà ore di sollievo." },
+        // Persona e bisogni
+        { t: "Bisogno", a: "persona", y: "1ª", d: "Una mancanza che la persona sente e che chiede una risposta: fisica, di sicurezza, di relazioni, di stima, di realizzazione.", e: "Un anziano solo ha bisogno di compagnia oltre che di aiuto in casa." },
+        { t: "Piramide dei bisogni (Maslow)", a: "persona", y: "1ª", d: "Il modello dello psicologo Abraham Maslow che ordina i bisogni dai più elementari (fisiologici) ai più alti (realizzazione di sé). Oggi si sa che i bisogni non si soddisfano per forza uno alla volta, in ordine.", e: "Una persona senza casa ha bisogno di sicurezza, ma anche di essere rispettata." },
+        { t: "Modello bio-psico-sociale", a: "persona", y: "1ª", d: "Il modo di guardare la salute e la malattia proposto da George Engel nel 1977: dipendono dall'intreccio di fattori biologici, psicologici e sociali.", e: "Dopo un ictus contano la paralisi (bio), la paura (psico) e il fatto di vivere da soli (sociale)." },
+        { t: "ICF", a: "persona", y: "4ª", d: "La Classificazione internazionale del funzionamento, della disabilità e della salute (OMS, 2001). Descrive che cosa la persona fa e come partecipa alla vita sociale, tenendo conto dell'ambiente, che può essere una barriera o un facilitatore.", e: "Con una rampa (facilitatore) una persona in carrozzina entra da sola a scuola." },
+        { t: "Persona con disabilità", a: "persona", y: "4ª", d: "L'espressione corretta secondo il D.Lgs. 62/2024, che ha sostituito «handicappato», «disabile», «diversamente abile». Prima viene la persona.", e: "«Tre persone con disabilità frequentano il centro», non «tre disabili»." },
+        { t: "Autonomia", a: "persona", y: "1ª", d: "La capacità di fare da sé e di decidere per sé. L'operatore la protegge e la sviluppa: non fa al posto della persona ciò che può fare da sola.", e: "L'operatore aspetta che l'ospite si abbottoni la giacca da solo, anche se ci mette più tempo." },
+        { t: "Empowerment", a: "persona", y: "2ª", d: "Parola inglese che indica il rafforzamento delle capacità e della fiducia di una persona o di un gruppo, perché possa prendere in mano la propria vita.", e: "Nel gruppo di auto-mutuo aiuto le persone scoprono di poter aiutare, oltre che essere aiutate." },
+        { t: "Stigma", a: "persona", y: "4ª", d: "Secondo il sociologo Erving Goffman, un segno che agli occhi degli altri scredita la persona e la riduce a quell'unico tratto.", e: "Chiamare qualcuno «il malato di mente» invece che con il suo nome." },
+        // Progettazione
+        { t: "Progetto individualizzato", a: "progetto", y: "2ª", d: "Il piano di interventi costruito su misura per una persona, con lei e con la sua famiglia, a partire dai suoi bisogni e dalle sue risorse.", e: "Il progetto di Marco prevede il centro diurno tre pomeriggi a settimana e un corso di cucina." },
+        { t: "Obiettivo SMART", a: "progetto", y: "2ª", d: "Un obiettivo scritto bene: specifico, misurabile, accessibile (raggiungibile con le risorse disponibili), rilevante per il bisogno, temporizzato. Descrive il cambiamento atteso, non l'attività.", e: "«Entro tre mesi la signora Anna esce di casa da sola almeno due volte a settimana»." },
+        { t: "Verifica in itinere", a: "progetto", y: "2ª", d: "Il controllo fatto «durante il cammino» (è un'espressione latina): mentre il progetto è in corso, si guarda se gli interventi funzionano e, se serve, si corregge la rotta.", e: "Dopo un mese l'équipe si accorge che l'orario del laboratorio non va bene e lo cambia." },
+        { t: "Valutazione", a: "progetto", y: "2ª", d: "Il giudizio finale sul progetto: gli obiettivi sono stati raggiunti? In che misura, e perché?", e: "A fine anno si confrontano i risultati con gli obiettivi scritti all'inizio." },
+        { t: "PEI", a: "progetto", y: "4ª", d: "Il Piano educativo individualizzato dello studente con disabilità. Si scrive su base ICF nel GLO, il gruppo di lavoro con docenti, famiglia, servizi e, quando possibile, lo studente.", e: "Il PEI di Roberto prevede materiali in Braille e prove orali." },
+        { t: "Progetto di vita", a: "progetto", y: "4ª", d: "Il progetto individuale, personalizzato e partecipato introdotto dal D.Lgs. 62/2024: la persona con disabilità lo costruisce con i servizi, secondo i propri desideri, con un budget di progetto.", e: "Giulia sceglie di vivere in un gruppo appartamento e di lavorare in una cooperativa." },
+        { t: "Valutazione multidimensionale (UVM)", a: "progetto", y: "4ª", d: "La valutazione fatta da ASL e Comune insieme alla persona, che guarda salute, autonomia, relazioni e ambiente per costruire il progetto.", e: "L'UVM valuta il signor Giuseppe prima di proporgli il centro diurno." },
+        // Servizi e welfare
+        { t: "Welfare", a: "servizi", y: "1ª", d: "Lo Stato sociale: l'insieme delle politiche con cui lo Stato protegge i cittadini dai rischi della vita (malattia, povertà, vecchiaia, disoccupazione). Si regge su tre pilastri: sanità, previdenza, assistenza sociale.", e: "Il Servizio sanitario nazionale, le pensioni e l'Assegno di inclusione sono parti del welfare." },
+        { t: "Sanità, previdenza, assistenza sociale", a: "servizi", y: "1ª", d: "Sanità: la cura della salute (SSN). Previdenza: le prestazioni pagate con i contributi del lavoro (pensioni, NASpI). Assistenza sociale: gli aiuti per chi è in difficoltà, finanziati con le tasse (Assegno di inclusione, invalidità civile).", e: "La pensione di vecchiaia è previdenza; l'Assegno di inclusione è assistenza." },
+        { t: "LEA, LEP, LEPS", a: "servizi", y: "3ª", d: "I livelli essenziali che vanno garantiti in tutta Italia: LEA per la sanità, LEP per i diritti civili e sociali, LEPS per le prestazioni sociali.", e: "Un assistente sociale ogni 5.000 abitanti è un livello essenziale." },
+        { t: "Servizi integrativi e sostitutivi", a: "servizi", y: "3ª", d: "Gli integrativi aiutano la persona a restare nel proprio ambiente di vita (assistenza domiciliare, centro diurno); i sostitutivi le offrono un altro luogo dove vivere quando a casa non può restare (RSA, comunità).", e: "Il SAD è integrativo; la casa famiglia è sostitutiva." },
+        { t: "Residenziale, semiresidenziale, domiciliare", a: "servizi", y: "1ª", d: "Residenziale: la persona vive nella struttura. Semiresidenziale: ci passa la giornata e la sera torna a casa. Domiciliare: l'operatore va a casa della persona.", e: "RSA, centro diurno, assistenza domiciliare." },
+        { t: "SAD e ADI", a: "servizi", y: "3ª", d: "SAD: Servizio di assistenza domiciliare del Comune (aiuto in casa, igiene, pasti). ADI: Assistenza domiciliare integrata, della ASL con il Comune, che unisce cure sanitarie e aiuto quotidiano. Non va confusa con l'Assegno di inclusione.", e: "Dopo l'ospedale, il signor Luigi riceve a casa l'infermiere e il fisioterapista (ADI)." },
+        { t: "RSA", a: "servizi", y: "1ª", d: "Residenza sanitaria assistenziale: struttura per persone non autosufficienti che hanno bisogno di assistenza e cure per tutto il giorno.", e: "La signora Teresa, che non può più vivere da sola, entra in RSA." },
+        { t: "Segretariato sociale", a: "servizi", y: "3ª", d: "La porta d'accesso ai servizi del Comune: gratuito, aperto a tutti. Ascolta la richiesta, fa una prima valutazione e orienta.", e: "Una famiglia che ha perso la casa si rivolge prima di tutto al segretariato sociale." },
+        { t: "ISEE", a: "servizi", y: "3ª", d: "L'Indicatore della situazione economica equivalente: misura la condizione economica della famiglia e decide l'accesso a molti aiuti e quanto si paga per i servizi.", e: "Il contributo per l'assistenza domiciliare dipende dall'ISEE." },
+        { t: "Terzo settore", a: "servizi", y: "3ª", d: "Gli enti privati senza scopo di lucro che lavorano per il bene comune: associazioni di volontariato, cooperative sociali, fondazioni.", e: "Una cooperativa sociale gestisce il centro diurno per conto del Comune." },
+        { t: "PLUS", a: "servizi", y: "3ª", d: "In Sardegna, i Piani locali unitari dei servizi: i Comuni di un territorio, insieme alla ASL, programmano i servizi sociali e sociosanitari.", e: "Il PLUS del territorio organizza i servizi per gli anziani di più Comuni vicini." },
+        // Metodi e tecniche
+        { t: "Animazione socioculturale", a: "metodi", y: "1ª", d: "L'animazione che coinvolge le persone nella vita del gruppo e della comunità, per creare legami, partecipazione e senso di appartenenza.", e: "Una festa di quartiere preparata insieme dagli anziani del centro e dai bambini della scuola." },
+        { t: "Setting", a: "metodi", y: "1ª", d: "Lo spazio dell'attività: quello fisico (stanza, sedie, materiali) e quello relazionale (clima, regole di rispetto).", e: "Prima del gioco si spostano i banchi e ci si siede in cerchio." },
+        { t: "Ice-breaking (rompighiaccio)", a: "metodi", y: "1ª", d: "Un gioco breve da fare all'inizio per sciogliere l'imbarazzo e far conoscere le persone.", e: "Ognuno si presenta dicendo il nome e un cibo che gli piace." },
+        { t: "Debriefing", a: "metodi", y: "1ª", d: "Il momento dopo l'attività in cui il gruppo ripensa a che cosa è successo, che cosa ha provato e che cosa ha imparato. L'animatore fa domande aperte e non giudica.", e: "«Che cosa vi ha aiutato a costruire la torre? Che cosa rifareste in modo diverso?»" },
+        { t: "Brainstorming", a: "metodi", y: "1ª", d: "Il gruppo dice liberamente tutte le idee, senza giudicarle; solo dopo si scelgono le migliori.", e: "In cinque minuti la classe elenca tutte le attività possibili per la festa del centro." },
+        { t: "Circle time", a: "metodi", y: "1ª", d: "Il «tempo del cerchio»: seduti in cerchio, con regole chiare (parla uno alla volta, gli altri ascoltano), ognuno può esprimere pensieri ed emozioni.", e: "Ogni mattina i bambini raccontano come si sentono." },
+        { t: "Zona di sviluppo prossimale e scaffolding", a: "metodi", y: "3ª", d: "La zona di sviluppo prossimale (Vygotskij) è ciò che il bambino sa fare con un aiuto ma non ancora da solo. Lo scaffolding («impalcatura», Bruner) è l'aiuto che l'adulto dà e poi toglie gradualmente.", e: "L'educatrice tiene il foglio mentre il bambino ritaglia, poi lo lascia fare da solo." },
+        { t: "Auto-mutuo aiuto (AMA)", a: "metodi", y: "2ª", d: "Gruppi di persone che vivono lo stesso problema e si sostengono a vicenda. Vale il principio «aiutarsi aiutando».", e: "Gli Alcolisti Anonimi e i Club Alcologici Territoriali." },
+        { t: "Colloquio motivazionale", a: "metodi", y: "4ª", d: "Un modo di condurre il colloquio (Miller e Rollnick) che aiuta la persona a trovare in sé le ragioni per cambiare. Usa domande aperte, valorizzazioni, ascolto riflessivo e riassunti (OARS).", e: "«Che cosa ti preoccupa di più, se pensi a come vivi adesso?»" },
+        { t: "Peer tutoring", a: "metodi", y: "1ª", d: "Il tutoraggio fra pari: uno studente più grande (tutor) aiuta uno più giovane, senza fare al posto suo.", e: "Una studentessa di quarta aiuta un ragazzo di prima a organizzare lo studio." },
+        // Etica e privacy
+        { t: "Riservatezza", a: "etica", y: "1ª", d: "Le informazioni sulle persone seguite non escono dal servizio: si condividono solo con chi deve saperle per lavorare. C'è un limite: se qualcuno è in pericolo, si deve intervenire.", e: "L'operatore non racconta alla vicina i problemi della signora che assiste." },
+        { t: "Dati sanitari e dati personali", a: "etica", y: "3ª", d: "I dati sulla salute sono tra le «categorie particolari» protette in modo speciale dal GDPR (art. 9): non si inseriscono in strumenti pubblici, come quelli di intelligenza artificiale.", e: "Una diagnosi non si scrive nel prompt di un chatbot, nemmeno senza il nome." },
+        { t: "Anonimizzazione e pseudonimizzazione", a: "etica", y: "4ª", d: "Un dato è anonimo quando non si può più risalire alla persona. Se si sostituisce il nome con un codice ma si può ancora risalire a lei, il dato è solo pseudonimizzato, e resta un dato personale.", e: "«Utente A7» in una cartella con età, paese e diagnosi rimane riconoscibile." },
+        { t: "Consenso informato", a: "etica", y: "3ª", d: "L'accordo che la persona dà dopo aver capito che cosa si farà, perché e con quali conseguenze. Può essere ritirato.", e: "Prima di fotografare gli ospiti per il collage si chiede il loro permesso scritto." }
+    ];
+    const DOMANDE = [
+        { f: "Lo spazio fisico e relazionale in cui si svolge un'attività si chiama…", o: ["setting", "debriefing", "brainstorming"], a: 0, why: "Il setting comprende la stanza, i materiali e il clima del gruppo." },
+        { f: "Il servizio in cui la persona passa la giornata e la sera torna a casa è…", o: ["residenziale", "semiresidenziale", "domiciliare"], a: 1, why: "Semiresidenziale: di giorno nella struttura, la sera a casa, come nel centro diurno." },
+        { f: "La figura con qualifica regionale che si occupa soprattutto dell'assistenza diretta alla persona è…", o: ["l'operatore sociale", "l'operatore socio-sanitario (OSS)", "l'assistente sociale"], a: 1, why: "L'OSS ha una qualifica regionale e fa assistenza diretta; l'operatore sociale è il profilo del nostro indirizzo." },
+        { f: "La classificazione dell'OMS che descrive il funzionamento della persona nel suo ambiente è…", o: ["l'ICD", "l'ICF", "il DSM-5"], a: 1, why: "L'ICD classifica le malattie, l'ICF il funzionamento; il DSM-5 è un manuale dei disturbi mentali." },
+        { f: "Sostituire il nome con un codice da cui si può risalire alla persona è…", o: ["anonimizzazione", "pseudonimizzazione", "consenso informato"], a: 1, why: "Se si può risalire alla persona il dato non è anonimo: è pseudonimizzato e resta protetto." },
+        { f: "«Entro tre mesi Marco prende l'autobus da solo per andare al centro» è…", o: ["un intervento", "un obiettivo SMART", "una verifica in itinere"], a: 1, why: "Descrive un cambiamento misurabile con una scadenza: è un obiettivo. L'intervento è ciò che si fa per raggiungerlo." }
+    ];
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const norm = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    let areaAttiva = 'tutte';
+    function disegnaFiltri() {
+        const f = document.getElementById('gl-filtri');
+        const voci = [['tutte', 'Tutte']].concat(Object.entries(AREE));
+        f.innerHTML = voci.map(([k, v]) => `<button type="button" data-area="${k}" aria-pressed="${k === areaAttiva}">${esc(v)}</button>`).join('');
+        f.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { areaAttiva = b.dataset.area; disegnaFiltri(); disegnaLista(); }));
+    }
+    function disegnaLista() {
+        const q = norm(document.getElementById('gl-cerca').value.trim());
+        const lista = document.getElementById('gl-lista');
+        let html = '';
+        for (const [k, nome] of Object.entries(AREE)) {
+            if (areaAttiva !== 'tutte' && areaAttiva !== k) continue;
+            const voci = VOCI.filter(v => v.a === k && (!q || norm(v.t + ' ' + v.d + ' ' + v.e).includes(q)))
+                .sort((x, y) => x.t.localeCompare(y.t, 'it'));
+            if (!voci.length) continue;
+            html += `<h3 class="gl-area">${esc(nome)}</h3>` + voci.map(v => `<article class="gl-voce"><h4>${esc(v.t)}</h4><div class="gl-meta">Si incontra dalla ${esc(v.y)} classe</div><p>${esc(v.d)}</p><p class="gl-es"><strong>Esempio.</strong> ${esc(v.e)}</p></article>`).join('');
+        }
+        lista.innerHTML = html || '<p class="gl-vuoto">Nessuna parola trovata. Prova con un\'altra parola o scegli «Tutte».</p>';
+    }
+    function disegnaDomande() {
+        document.getElementById('gl-domande').innerHTML = DOMANDE.map((d, i) => `<div class="gl-domanda"><p>${i + 1}. ${esc(d.f)}</p><select id="gl_prova_${i + 1}" name="gl_prova_${i + 1}" data-i="${i}" aria-label="Domanda ${i + 1}"><option value="">— scegli —</option>${d.o.map((o, j) => `<option value="${j}">${esc(o)}</option>`).join('')}</select><div class="gl-riscontro" id="gl_r_${i}" role="status"></div></div>`).join('');
+    }
+    function valuta(sel) {
+        const i = +sel.dataset.i, d = DOMANDE[i], r = document.getElementById('gl_r_' + i);
+        if (sel.value === '') { r.className = 'gl-riscontro'; r.textContent = ''; return; }
+        const ok = +sel.value === d.a;
+        r.className = 'gl-riscontro ' + (ok ? 'ok' : 'ko');
+        r.textContent = (ok ? '✅ Giusto. ' : '❌ Non è questa. ') + d.why;
+    }
+    disegnaFiltri(); disegnaLista(); disegnaDomande();
+    document.getElementById('gl-cerca').addEventListener('input', disegnaLista);
+    document.addEventListener('change', e => { if (e.target.matches('#gl-domande select')) valuta(e.target); });
+    window.addEventListener('mo:progress-restored', e => {
+        try { const d = e?.detail?.data; window.__moDatiCaricati = (d && typeof d === 'object') ? d : (typeof d === 'string' ? JSON.parse(d) : {}); } catch { window.__moDatiCaricati = {}; }
+        document.querySelectorAll('#gl-domande select').forEach(valuta);
+    });
+    </script>
+    <script>
+        window.MO_PROGRESS_CONFIG = {
+            pagePath: window.location.pathname,
+            inputSelector: '#gl-domande select, #gl_parole_mie',
+            autoSave: true,
+            onBeforeSave: function (data) {
+                try { const prima = window.__moDatiCaricati || {}; Object.keys(prima).forEach(k => { if (k !== '_meta' && !(k in data)) data[k] = prima[k]; }); } catch (e) {}
+                return data;
+            }
+        };
+        window.MO_IDENTITY_CONFIG = {
+            message: 'Inserisci la classe (es. 3sa) e il codice cognome+iniziale tutto minuscolo (es. rossi g → rossig).',
+            classPlaceholder: 'Classe (es. 3sa)',
+            classPattern: '^[1-5][a-z]{1,2}$',
+            classExample: '3sa',
+            classErrorMessage: 'Classe non valida: usa una cifra da 1 a 5 seguita da 1-2 lettere minuscole (es. 3sa).',
+            stripWhitespaceInClass: true,
+            storeClassLowercase: true,
+            storeClassUppercase: false,
+            codePlaceholder: 'Codice (es. rossig)',
+            codePattern: '^[a-zà-ü]{2,}[a-z]$',
+            codeExample: 'rossig',
+            codeErrorMessage: 'Codice non valido: usa cognome tutto minuscolo + iniziale del nome (es. rossi g → rossig).',
+            sanitizeCode: true,
+            stripWhitespaceInCode: true,
+            storeCodeLowercase: true,
+            storeCodeUppercase: false,
+            hideGenerator: true,
+            guestAllowed: true,
+            guestClassCode: 'ospite',
+            guestStudentCode: 'ospite'
+        };
+    </script>
+    <script type="module" src="assets/progress.js"></script>
+    <script type="module" src="assets/progress-global.js"></script>
+</body>
+</html>
