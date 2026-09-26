@@ -652,6 +652,7 @@ function renderClassGroups(records) {
 const DISABILITA_PATTERNS = [
     'fascicolo_disabilita',
     'disabilita_iter_legislativo',
+    'disabilita_dalle_leggi_al_progetto',
     'attivita-laboratorio-fascicolo-disabilita',
     'attivita-materiali-quarto-disabilita'
 ];
@@ -670,7 +671,7 @@ function renderDisabilitaSection(allRecords) {
         elements.disabilitaSection.innerHTML = `
             <div class="section-header">
                 <h3>🦽 Attività sulla Disabilità</h3>
-                <p class="muted">Fascicolo tecnico-pratico e iter legislativo</p>
+                <p class="muted">Fascicolo tecnico-pratico e pagina «Le disabilità: parole, modelli e leggi»</p>
             </div>
             <div class="empty-state"><p>Nessuno studente ha ancora salvato progressi su queste attività.</p></div>`;
         return;
