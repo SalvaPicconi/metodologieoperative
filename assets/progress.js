@@ -10,7 +10,7 @@ class ProgressStore {
 
   async _req(path, opts = {}) {
     const url = `${this.url}/rest/v1/${path}`;
-    console.log('[SUPABASE REQUEST]', opts.method || 'GET', url, opts.body || null);
+    console.log('[SUPABASE REQUEST]', opts.method || 'GET', url);
     const res = await fetch(url, {
       ...opts,
       headers: {
@@ -30,26 +30,27 @@ class ProgressStore {
     try { return JSON.parse(text); } catch { return text; }
   }
 
+  // Salvataggio e caricamento passano da funzioni del database: ogni studente
+  // raggiunge solo la propria riga (codice + pagina); la tabella non è leggibile per intero.
   async save({ classCode, studentCode, pagePath, data }) {
-    const body = [{ class_code: classCode, student_code: studentCode, page_path: pagePath, data }];
-    return this._req(`${this.table}?on_conflict=student_code,page_path`, {
+    return this._req('rpc/progress_salva', {
       method: 'POST',
-      headers: {
-        'Prefer': 'return=representation,resolution=merge-duplicates'
-      },
-      body: JSON.stringify(body)
+      headers: { 'Prefer': 'return=minimal' },
+      body: JSON.stringify({
+        p_class_code: classCode,
+        p_student_code: studentCode,
+        p_page_path: pagePath,
+        p_data: data
+      })
     });
   }
 
   async load({ studentCode, pagePath }) {
-    const q = new URLSearchParams({
-      select: '*',
-      student_code: `eq.${studentCode}`,
-      page_path: `eq.${pagePath}`,
-      limit: '1'
-    }).toString();
-    const rows = await this._req(`${this.table}?${q}`);
-    return rows?.[0]?.data || null;
+    const data = await this._req('rpc/progress_carica', {
+      method: 'POST',
+      body: JSON.stringify({ p_student_code: studentCode, p_page_path: pagePath })
+    });
+    return data && typeof data === 'object' ? data : null;
   }
 }
 
@@ -681,8 +682,10 @@ if (typeof window !== 'undefined' && !window.MODebug) {
   try {
     const last = parseInt(localStorage.getItem(PING_KEY) || '0', 10);
     if (Date.now() - last < INTERVAL) return;
-    fetch(`${SUPABASE_URL}/rest/v1/progress?select=student_code&limit=1`, {
-      headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` }
+    fetch(`${SUPABASE_URL}/rest/v1/rpc/progress_carica`, {
+      method: 'POST',
+      headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ p_student_code: 'ping', p_page_path: '/ping' })
     }).then(() => {
       localStorage.setItem(PING_KEY, String(Date.now()));
       console.log('[Progress] 🏓 Ping Supabase OK');

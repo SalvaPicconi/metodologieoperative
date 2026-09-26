@@ -1,4 +1,4 @@
-import { Progress } from './progress.js';
+import { Progress } from './progress.js?v=20260926';
 
 console.log('✅ progress-global attivo');
 

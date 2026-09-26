@@ -65,8 +65,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (elements.loginForm) {
         elements.loginForm.addEventListener('submit', handleLogin);
     }
-    if (elements.refreshBtn) {
+        if (elements.refreshBtn) {
         elements.refreshBtn.addEventListener('click', refreshDashboard);
+    }
+    document.getElementById('docente-cambia-password')?.addEventListener('click', cambiaPasswordDocente);
+    document.getElementById('docente-esci')?.addEventListener('click', () => {
+        window.MODocente.esci();
+        mostraAccesso();
+    });
+    if (window.MODocente?.attivo()) {
+        mostraDashboard();
     }
     if (elements.classFilter) {
         elements.classFilter.addEventListener('change', () => {
@@ -118,33 +126,47 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
-// Impronta SHA-256 della password docente (normalizzata: trim + minuscolo).
-// La stessa impronta è usata dalla modalità LIM delle pagine interattive.
-const DOCENTE_HASH = 'ed5672a676cf4556ed88868d438204e25c5ce272664a4083b92b5c783294e9e4';
+// La password la verifica il database (assets/docente-accesso.js): nel browser non c'è
+// nessuna impronta da confrontare, e senza sessione valida le risposte non si leggono.
+function mostraDashboard() {
+    elements.overlay?.classList.add('hidden');
+    elements.dashboard?.classList.remove('hidden');
+    refreshDashboard();
+}
 
-async function sha256Hex(text) {
-    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
-    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+function mostraAccesso(messaggio) {
+    elements.dashboard?.classList.add('hidden');
+    elements.overlay?.classList.remove('hidden');
+    if (messaggio) alert(messaggio);
+    elements.passwordInput?.focus();
 }
 
 async function handleLogin(event) {
     event.preventDefault();
     const value = elements.passwordInput?.value ?? '';
-    const normalized = value.trim().toLowerCase();
-    if (!window.crypto?.subtle) {
-        alert('Questo browser non permette la verifica della password.');
-        return;
-    }
-    const ok = (await sha256Hex(normalized)) === DOCENTE_HASH;
-
-    if (ok) {
-        persistDocenteSession();
-        elements.overlay?.classList.add('hidden');
-        elements.dashboard?.classList.remove('hidden');
-        refreshDashboard();
-    } else {
-        alert('Password non corretta');
+    try {
+        await window.MODocente.accedi(value);
+        if (elements.passwordInput) elements.passwordInput.value = '';
+        mostraDashboard();
+    } catch (error) {
+        alert(window.MODocente.messaggioErrore(error));
         elements.passwordInput?.focus();
+    }
+}
+
+async function cambiaPasswordDocente() {
+    const attuale = prompt('Password attuale:');
+    if (attuale === null) return;
+    const nuova = prompt('Nuova password (almeno 10 caratteri; conta la differenza fra maiuscole e minuscole):');
+    if (nuova === null) return;
+    const conferma = prompt('Ripeti la nuova password:');
+    if (conferma === null) return;
+    if (nuova !== conferma) { alert('Le due password nuove non coincidono.'); return; }
+    try {
+        await window.MODocente.cambiaPassword(attuale, nuova);
+        alert('Password cambiata. Da ora vale la nuova, anche per la modalità LIM e per le statistiche Stroop.');
+    } catch (error) {
+        alert(window.MODocente.messaggioErrore(error));
     }
 }
 
@@ -196,7 +218,11 @@ async function refreshDashboard() {
             console.error('Errore durante l\'elaborazione dei dati dashboard:', processingError);
             throw processingError;
         }
-    } catch (error) {
+        } catch (error) {
+        if (error?.code === '42501') {
+            mostraAccesso('Sessione docente scaduta: inserisci di nuovo la password.');
+            return;
+        }
         console.error('Impossibile caricare i dati dalla dashboard docente:', error);
         if (elements.lastRefresh) {
             elements.lastRefresh.textContent = `Errore: ${error.message || error}`;
@@ -207,42 +233,29 @@ async function refreshDashboard() {
     }
 }
 
-async function fetchProgressData() {
-    const params = new URLSearchParams({
-        select: 'id,class_code,student_code,page_path,updated_at',
-        order: 'updated_at.desc',
-        limit: '500'
-    });
-    const response = await fetch(`${PROGRESS_ENDPOINT}?${params.toString()}`, {
-        headers: {
-            apikey: SUPABASE_ANON_KEY,
-            Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-            Prefer: 'return=minimal'
-        }
-    });
-    if (!response.ok) {
-        const text = await response.text().catch(() => '');
-        throw new Error(`Supabase error ${response.status}: ${text}`);
+// Elenco dei salvataggi (senza il contenuto) con il sottocampo _meta: una sola chiamata
+// protetta, condivisa da fetchProgressData e fetchProgressMeta.
+let elencoInCorso = null;
+function caricaElenco() {
+    if (!elencoInCorso) {
+        elencoInCorso = window.MODocente.chiama('progress_docente_elenco', { p_limite: 1000 })
+            .finally(() => { elencoInCorso = null; });
     }
-    return response.json();
+    return elencoInCorso;
+}
+
+async function fetchProgressData() {
+    const righe = await caricaElenco();
+    return (righe || []).map(({ meta, ...riga }) => riga);
 }
 
 async function fetchProgressMeta() {
     // Scarica solo il sottocampo _meta dal campo data (leggero)
     try {
-        const params = new URLSearchParams({
-            select: 'id,data->_meta',
-            order: 'updated_at.desc',
-            limit: '500'
-        });
-        const response = await fetch(`${PROGRESS_ENDPOINT}?${params.toString()}`, {
-            headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` }
-        });
-        if (!response.ok) return [];
-        const rows = await response.json();
-        return rows.map(r => {
+                const rows = await caricaElenco();
+        return (rows || []).map(r => {
             let meta = null;
-            try { meta = typeof r._meta === 'string' ? JSON.parse(r._meta) : (r._meta || null); } catch {}
+            try { meta = typeof r.meta === 'string' ? JSON.parse(r.meta) : (r.meta || null); } catch {}
             return { id: r.id, meta };
         });
     } catch {
@@ -251,23 +264,13 @@ async function fetchProgressMeta() {
 }
 
 async function fetchAssessmentData() {
-    const params = new URLSearchParams({
-        select: 'id,class_code,student_code,participant,results,created_at',
-        order: 'created_at.desc',
-        limit: '200'
-    });
-    const response = await fetch(`${SUPABASE_URL}/rest/v1/stroop_tests?${params.toString()}`, {
-        headers: {
-            apikey: SUPABASE_ANON_KEY,
-            Authorization: `Bearer ${SUPABASE_ANON_KEY}`
-        }
-    });
-    if (!response.ok) {
-        const text = await response.text().catch(() => '');
-        console.warn('Impossibile caricare i test strutturati:', response.status, text);
+    try {
+        return (await window.MODocente.chiama('stroop_docente_test', { p_limite: 200 })) || [];
+    } catch (error) {
+        if (error?.code === '42501') throw error;
+        console.warn('Impossibile caricare i test strutturati:', error);
         return [];
     }
-    return response.json();
 }
 
 function populateFilters(records) {
@@ -1315,23 +1318,7 @@ function buildProgressDetail(entry) {
 }
 
 async function fetchAssessmentDetail(id) {
-    const params = new URLSearchParams({
-        select: 'id,class_code,student_code,participant,results,responses,created_at',
-        id: `eq.${id}`,
-        limit: '1'
-    });
-    const response = await fetch(`${SUPABASE_URL}/rest/v1/stroop_tests?${params.toString()}`, {
-        headers: {
-            apikey: SUPABASE_ANON_KEY,
-            Authorization: `Bearer ${SUPABASE_ANON_KEY}`
-        }
-    });
-    if (!response.ok) {
-        const text = await response.text().catch(() => '');
-        throw new Error(`Supabase detail error ${response.status}: ${text}`);
-    }
-    const rows = await response.json();
-    const row = rows?.[0];
+    const row = await window.MODocente.chiama('stroop_docente_dettaglio', { p_id: id });
     if (!row) {
         throw new Error('Dettaglio test non trovato');
     }
@@ -1340,28 +1327,12 @@ async function fetchAssessmentDetail(id) {
 }
 
 async function fetchProgressDetail(id) {
-    const params = new URLSearchParams({
-        select: 'id,data',
-        id: `eq.${id}`,
-        limit: '1'
-    });
-    const response = await fetch(`${PROGRESS_ENDPOINT}?${params.toString()}`, {
-        headers: {
-            apikey: SUPABASE_ANON_KEY,
-            Authorization: `Bearer ${SUPABASE_ANON_KEY}`
-        }
-    });
-    if (!response.ok) {
-        const text = await response.text().catch(() => '');
-        throw new Error(`Supabase detail error ${response.status}: ${text}`);
-    }
-    const rows = await response.json();
-    const row = rows?.[0];
-    if (!row) {
+    const data = await window.MODocente.chiama('progress_docente_dettaglio', { p_id: id });
+    if (data === null || data === undefined) {
         throw new Error('Dettaglio salvataggio non trovato');
     }
     return {
-        data: parseProgressData(row.data || {})
+        data: parseProgressData(data || {})
     };
 }
 

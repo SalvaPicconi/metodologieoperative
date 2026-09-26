@@ -1,4 +1,4 @@
-import { setupProgress } from './progress-page.js?v=20251023';
+import { setupProgress } from './progress-page.js?v=20260926';
 
 document.addEventListener('DOMContentLoaded', () => {
   setupProgress().catch((error) => {

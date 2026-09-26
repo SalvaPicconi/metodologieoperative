@@ -164,8 +164,10 @@ function sendDataToSupabase(testData) {
         ended_at: testData.testData?.endTime ? new Date(testData.testData.endTime).toISOString() : null
     };
 
+    // return=minimal: gli studenti inseriscono i risultati ma non possono rileggere la tabella
     return supabaseRequest(`${SUPABASE_CONFIG.TESTS_TABLE}`, {
         method: 'POST',
+        headers: { Prefer: 'return=minimal' },
         body: JSON.stringify(payload)
     })
     .then(() => {
@@ -232,6 +234,7 @@ function sendReflectionToServer(reflections, participant = null) {
         tasks.push(
             supabaseRequest(`${SUPABASE_CONFIG.REFLECTIONS_TABLE}`, {
                 method: 'POST',
+                headers: { Prefer: 'return=minimal' },
                 body: JSON.stringify(payload)
             }).then(() => {
                 console.log('✓ Riflessioni inviate a Supabase');

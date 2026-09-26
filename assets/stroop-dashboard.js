@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchInput = $('stroop-student-search');
   const exportBtn = $('stroop-export');
 
-  const sessionValid = isDocenteSessionValid();
+    const sessionValid = Boolean(window.MODocente?.attivo());
 
   if (sessionValid) {
     overlay?.classList.add('hidden');
@@ -34,17 +34,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (form) {
-    form.addEventListener('submit', (event) => {
+    form.addEventListener('submit', async (event) => {
       event.preventDefault();
-      const value = $('stroop-password')?.value?.trim().toLowerCase();
-      if (value === 'metodologie!237038') {
-        persistDocenteSession();
+      const campo = $('stroop-password');
+      try {
+        // Stessa password dell'Area docente, verificata dal database
+        await window.MODocente.accedi(campo?.value || '');
+        if (campo) campo.value = '';
         overlay?.classList.add('hidden');
         dashboard?.classList.remove('hidden');
         refresh();
-      } else {
-        alert('Password non corretta');
-        $('stroop-password')?.focus();
+      } catch (error) {
+        alert(window.MODocente.messaggioErrore(error));
+        campo?.focus();
       }
     });
   }
@@ -69,7 +71,13 @@ async function refresh() {
     populateClassFilter(state.records);
     applyFilters();
     $('stroop-last-refresh').textContent = new Date().toLocaleString('it-IT');
-  } catch (error) {
+    } catch (error) {
+    if (error?.code === '42501') {
+      $('stroop-dashboard-content')?.classList.add('hidden');
+      $('stroop-auth-overlay')?.classList.remove('hidden');
+      alert('Sessione docente scaduta: inserisci di nuovo la password.');
+      return;
+    }
     console.error('Errore caricamento dati Stroop:', error);
     alert('Impossibile caricare i dati. Riprova più tardi.');
   } finally {
@@ -78,21 +86,7 @@ async function refresh() {
 }
 
 async function fetchStroopData() {
-  const params = new URLSearchParams({
-    select: 'id,class_code,student_code,participant,results,created_at',
-    order: 'created_at.desc',
-    limit: '1000'
-  });
-  const response = await fetch(`${STROOP_ENDPOINT}?${params.toString()}`, {
-    headers: {
-      apikey: SUPABASE_ANON_KEY,
-      Authorization: `Bearer ${SUPABASE_ANON_KEY}`
-    }
-  });
-  if (!response.ok) {
-    throw new Error(`Supabase error ${response.status}`);
-  }
-  return response.json();
+  return (await window.MODocente.chiama('stroop_docente_test', { p_limite: 1000 })) || [];
 }
 
 function populateClassFilter(records) {

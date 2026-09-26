@@ -61,6 +61,17 @@ laboratori hanno il link «← Laboratorio» in testa. Diari e annotazioni stann
 - Criterio per scegliere fra due versioni piene sullo stesso argomento: resta la più strutturata
   (fasi, attività, verifiche intermedie); la teoria di riferimento resta se non è già dentro il percorso.
 
+### Salvataggio delle risposte degli studenti
+
+Le risposte stanno nella tabella `progress` di Supabase, che **non si legge né si scrive direttamente**
+dal sito: gli studenti passano da `progress_carica` e `progress_salva` (in `assets/progress.js`),
+che toccano solo la riga di quel codice su quella pagina; il docente legge tutto solo con una
+sessione ottenuta dalla password (`assets/docente-accesso.js`, funzioni `progress_docente_*` e
+`stroop_docente_*`). Una pagina nuova con campi da salvare include `assets/progress.js` e
+`assets/progress-global.js` con lo stesso `?v=`; una pagina che mostra le risposte della classe
+include `assets/docente-accesso.js` e chiama `MODocente.chiama(...)`. Nel codice delle pagine non va
+mai una password né la sua impronta. Schema e ragioni in `supabase/progress-protezione.sql`.
+
 ---
 
 ## Programmi

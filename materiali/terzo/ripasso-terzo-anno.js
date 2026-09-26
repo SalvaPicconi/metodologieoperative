@@ -2,11 +2,6 @@
     'use strict';
 
     const STORAGE_KEY = 'mo:ripasso-terzo-anno:v3';
-    const SUPABASE_URL = 'https://ruplzgcnheddmqqdephp.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1cGx6Z2NuaGVkZG1xcWRlcGhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAxMTYyMjksImV4cCI6MjA3NTY5MjIyOX0.tOLIkgi5yTt61_0rMlXUqxnbil4DLD7kBaqZBVAv1CI';
-    const DOCENTE_SESSION_KEY = 'mo:docente-session';
-    const DOCENTE_SESSION_DURATION = 1000 * 60 * 60 * 6;
-    const DOCENTE_HASH = 'ed5672a676cf4556ed88868d438204e25c5ce272664a4083b92b5c783294e9e4';
 
     const missions = [
         {
@@ -399,22 +394,16 @@
         timerHandle = setInterval(() => { timerSeconds -= 1; drawTimer(); if (timerSeconds <= 0) { clearInterval(timerHandle); timerHandle = null; $('#timerToggle').textContent = 'Finito'; showToast('Tempo concluso. Completa la risposta in corso.'); } }, 1000);
     }
 
-    function docenteSessionValid() { try { const data = JSON.parse(localStorage.getItem(DOCENTE_SESSION_KEY) || 'null'); return Boolean(data?.expiresAt && Date.now() < data.expiresAt); } catch { return false; } }
-    async function sha256(text) { const buffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)); return Array.from(new Uint8Array(buffer)).map(byte => byte.toString(16).padStart(2, '0')).join(''); }
+    // Stessa password e sessione dell'Area docente, verificate dal database (assets/docente-accesso.js)
+    function docenteSessionValid() { return Boolean(window.MODocente && window.MODocente.attivo()); }
     async function verificaDocente() {
-        if (docenteSessionValid()) return true;
-        const password = prompt('Modalità docente / LIM.\n\nInserisci la password dell\'Area Docente:');
-        if (password === null || !window.crypto?.subtle) return false;
-        if ((await sha256(password.trim().toLowerCase())) !== DOCENTE_HASH) { alert('Password non corretta'); return false; }
-        localStorage.setItem(DOCENTE_SESSION_KEY, JSON.stringify({ issuedAt: Date.now(), expiresAt: Date.now() + DOCENTE_SESSION_DURATION }));
-        return true;
+        if (!window.MODocente) { alert('Accesso docente non disponibile: ricarica la pagina.'); return false; }
+        return window.MODocente.assicura('Modalità docente / LIM.\n\nInserisci la password dell\'Area docente:');
     }
     function pagePathNormalized() { let path = location.pathname.split('?')[0].split('#')[0]; if (path.startsWith('/metodologieoperative/')) path = path.slice('/metodologieoperative'.length); return path; }
     async function fetchClassRows(classCode) {
-        const query = new URLSearchParams({ select: 'student_code,data,updated_at', class_code: `eq.${classCode}`, page_path: `eq.${pagePathNormalized()}`, order: 'updated_at.desc', limit: '200' });
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/progress?${query}`, { headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` } });
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const records = await response.json();
+        const records = ((await window.MODocente.chiama('progress_docente_classe', { p_class_code: classCode, p_page_path: pagePathNormalized() })) || [])
+            .sort((x, y) => String(y.updated_at || '').localeCompare(String(x.updated_at || '')));
         return records.map(record => { let data = record.data; if (typeof data === 'string') { try { data = JSON.parse(data); } catch { data = {}; } } return { ...record, data: data && typeof data === 'object' ? data : {} }; });
     }
     function classOverview(rows) {

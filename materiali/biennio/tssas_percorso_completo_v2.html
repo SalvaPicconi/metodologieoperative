@@ -2200,27 +2200,14 @@
     });
 
     /* ---------- MODALITÀ LIM (docente) ---------- */
-    /* La modalità LIM è riservata al docente: stessa password e stessa sessione
-       (6 ore) dell'Area docente. Qui c'è solo l'impronta SHA-256, non la password. */
-    const DOCENTE_SESSION_KEY = 'mo:docente-session';
-    const DOCENTE_SESSION_DURATION = 1000 * 60 * 60 * 6;
-    const DOCENTE_HASH = 'ed5672a676cf4556ed88868d438204e25c5ce272664a4083b92b5c783294e9e4';
+    /* La modalità LIM è riservata al docente: stessa password e stessa sessione (6 ore)
+       dell'Area docente, verificate dal database (assets/docente-accesso.js). */
     function docenteSessionValid() {
-        try { const d = JSON.parse(localStorage.getItem(DOCENTE_SESSION_KEY) || 'null'); return !!(d && d.expiresAt && Date.now() < d.expiresAt); } catch { return false; }
-    }
-    async function sha256(text) {
-        const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
-        return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+        return Boolean(window.MODocente && window.MODocente.attivo());
     }
     async function verificaDocente() {
-        if (docenteSessionValid()) return true;
-        const pw = prompt('Modalità LIM riservata al docente.\n\nInserisci la password dell\'Area docente:');
-        if (pw === null) return false;
-        if (!window.crypto?.subtle) { alert('Questo browser non permette la verifica della password.'); return false; }
-        const ok = (await sha256(pw.trim().toLowerCase())) === DOCENTE_HASH;
-        if (!ok) { alert('Password non corretta'); return false; }
-        try { localStorage.setItem(DOCENTE_SESSION_KEY, JSON.stringify({ issuedAt: Date.now(), expiresAt: Date.now() + DOCENTE_SESSION_DURATION })); } catch { }
-        return true;
+        if (!window.MODocente) { alert('Accesso docente non disponibile: ricarica la pagina.'); return false; }
+        return window.MODocente.assicura('Modalità LIM riservata al docente.\n\nInserisci la password dell\'Area docente:');
     }
 
     async function toggleLim() {
@@ -2290,19 +2277,15 @@
     function timerReset() { timerSet(+($(`#tappa${tappaCorrente}`).dataset.min || 15)); }
 
     /* ---------- RISPOSTE DELLA CLASSE (lettura da Supabase) ---------- */
-    const SB_URL = 'https://ruplzgcnheddmqqdephp.supabase.co';
-    const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1cGx6Z2NuaGVkZG1xcWRlcGhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAxMTYyMjksImV4cCI6MjA3NTY5MjIyOX0.tOLIkgi5yTt61_0rMlXUqxnbil4DLD7kBaqZBVAv1CI';
+        // Le risposte della classe si leggono solo con la sessione docente.
     function pagePathNormalized() {
         let p = location.pathname.split('?')[0].split('#')[0];
         const pref = '/metodologieoperative';
         if (p.startsWith(pref + '/')) p = p.slice(pref.length);
         return p;
     }
-    async function fetchClasse(cls) {
-        const q = new URLSearchParams({ select: 'student_code,data,updated_at', class_code: `eq.${cls}`, page_path: `eq.${pagePathNormalized()}`, limit: '200' });
-        const r = await fetch(`${SB_URL}/rest/v1/progress?${q}`, { headers: { apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}` } });
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        const rows = await r.json();
+        async function fetchClasse(cls) {
+        const rows = (await window.MODocente.chiama('progress_docente_classe', { p_class_code: cls, p_page_path: pagePathNormalized() })) || [];
         return rows.map(row => { let d = row.data; if (typeof d === 'string') { try { d = JSON.parse(d); } catch { d = {}; } } return d || {}; });
     }
 
@@ -2316,7 +2299,7 @@
         panel.classList.add('show');
         panel.innerHTML = `<h4>📊 Risposte della classe ${esc(cls.toUpperCase())} <span class="meta">caricamento…</span></h4>`;
         let rows;
-        try { rows = await fetchClasse(cls); } catch (e) { panel.innerHTML = `<h4>📊 Risposte della classe</h4><p>Non riesco a leggere i dati: ${esc(e.message)}. Controlla la connessione.</p>`; return; }
+                try { rows = await fetchClasse(cls); } catch (e) { panel.innerHTML = e.code === '42501' ? `<h4>📊 Risposte della classe</h4><p>Sessione docente scaduta: riattiva la modalità LIM e inserisci di nuovo la password.</p>` : `<h4>📊 Risposte della classe</h4><p>Non riesco a leggere i dati: ${esc(e.message)}. Controlla la connessione.</p>`; return; }
         const n = rows.length;
         let html = `<h4>📊 Risposte della classe ${esc(cls.toUpperCase())} <span class="meta">${n} student${n === 1 ? 'e' : 'i'} con dati salvati · tappa ${tappaCorrente}</span><button class="btn btn-sm btn-soft" style="margin-left:8px" onclick="mostraRisposteClasse()">↻ Aggiorna</button><button class="btn btn-sm btn-soft" style="margin-left:6px" onclick="cambiaClasseLim()">🔁 Cambia classe</button><button class="btn btn-sm btn-soft" style="margin-left:6px" onclick="this.closest('.classe-panel').classList.remove('show')">✕</button></h4>`;
         if (!n) { panel.innerHTML = html + '<p>Nessuno studente di questa classe ha ancora salvato qualcosa su questa pagina.</p>'; return; }
@@ -2647,8 +2630,9 @@
             guestStudentCode: 'ospite'
         };
     </script>
-    <script type="module" src="../../assets/progress.js?v=20251021"></script>
-    <script type="module" src="../../assets/progress-global.js?v=20251021"></script>
+        <script src="../../assets/docente-accesso.js?v=20260926"></script>
+    <script type="module" src="../../assets/progress.js?v=20260926"></script>
+    <script type="module" src="../../assets/progress-global.js?v=20260926"></script>
 </body>
 
 </html>
