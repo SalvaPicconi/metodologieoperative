@@ -1305,7 +1305,7 @@
                     </figure>
                     <div class="local-note">
                         <span aria-hidden="true">🔒</span>
-                        <span>Le risposte vengono salvate soltanto su questo dispositivo e separate mediante classe e codice coppia. Il codice non è una password: non inserire nomi, fotografie, email, dati sanitari o racconti personali.</span>
+                        <span>Le risposte vengono salvate su questo dispositivo e, in copia, online, dove le vede solo il docente; sono separate mediante classe e codice coppia, così con gli stessi codici si riprende il lavoro anche da un altro dispositivo. Il codice non è una password: non inserire nomi, fotografie, email, dati sanitari o racconti personali.</span>
                     </div>
                 </div>
             </section>
@@ -2258,7 +2258,7 @@
                                     <li>Nella pratica osservata, prevedere orientativamente un adulto ogni 5–6 coppie.</li>
                                     <li>Niente nomi completi o dati personali nelle schede online.</li>
                                     <li>Non pubblicare prodotti o fotografie senza autorizzazione.</li>
-                                    <li>Niente classifiche pubbliche: i punti restano sul dispositivo o sulla scheda della coppia.</li>
+                                    <li>Niente classifiche pubbliche: i punti restano alla coppia e al docente.</li>
                                 </ul>
                             </article>
                             <article class="teacher-box success">
@@ -2398,7 +2398,12 @@
         (() => {
             'use strict';
 
-            const STORAGE_PREFIX = 'peerTutoringSSAS_2026_2027_v1';
+                        const STORAGE_PREFIX = 'peerTutoringSSAS_2026_2027_v1';
+            // Copia online: le funzioni del database salvano e rileggono solo la riga della coppia
+            // (classe + codice coppia); le risposte della classe le legge solo il docente.
+            const ONLINE_RPC = 'https://ruplzgcnheddmqqdephp.supabase.co/rest/v1/rpc/';
+            const ONLINE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1cGx6Z2NuaGVkZG1xcWRlcGhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAxMTYyMjksImV4cCI6MjA3NTY5MjIyOX0.tOLIkgi5yTt61_0rMlXUqxnbil4DLD7kBaqZBVAv1CI';
+            const ONLINE_PAGE = '/materiali/peer_tutoring/peer_tutoring_2026_2027.html';
             const form = document.getElementById('peerForm');
             const saveStatus = document.getElementById('saveStatus');
             const classCode = document.getElementById('classCode');
@@ -2485,17 +2490,55 @@
                 });
             });
 
+                                    // Classe e coppia si ricavano dalla chiave attiva, non dai campi: se i codici vengono
+            // cambiati a metà lavoro, la copia online va comunque alla coppia giusta.
+            const onlineIds = (chiave = activeStorageKey) => {
+                const parti = String(chiave || '').split(':');
+                const classe = (parti[1] || '').toLowerCase();
+                const coppia = (parti[2] || '').toLowerCase();
+                return classe && coppia ? { classe, codice: `${classe}-${coppia}` } : null;
+            };
+
+            const rpcOnline = async (nome, corpo) => {
+                const res = await fetch(ONLINE_RPC + nome, {
+                    method: 'POST',
+                    headers: { apikey: ONLINE_KEY, Authorization: `Bearer ${ONLINE_KEY}`, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+                    body: JSON.stringify(corpo)
+                });
+                const testo = await res.text();
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                try { return testo ? JSON.parse(testo) : null; } catch { return null; }
+            };
+
+            let onlineTimer;
+            const ora = () => new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+                        const saveOnline = (chiave, dati) => {
+                const id = onlineIds(chiave);
+                if (!id) return;
+                rpcOnline('progress_salva', { p_class_code: id.classe, p_student_code: id.codice, p_page_path: ONLINE_PAGE, p_data: dati })
+                    .then(() => { if (chiave === activeStorageKey) saveStatus.textContent = `Salvato su questo dispositivo e online alle ${ora()}.`; })
+                    .catch(() => { if (chiave === activeStorageKey) saveStatus.textContent = `Salvato su questo dispositivo alle ${ora()}. La copia online non è riuscita: riprova quando c'è connessione.`; });
+            };
+                        const scheduleOnline = () => {
+                if (!activeStorageKey) return;
+                const chiave = activeStorageKey;
+                const dati = collectState();
+                window.clearTimeout(onlineTimer);
+                onlineTimer = window.setTimeout(() => saveOnline(chiave, dati), 2500);
+            };
+
             const saveLocal = () => {
                 if (!activeStorageKey) {
                     saveStatus.textContent = 'Inserisci classe e codice coppia, poi scegli “Apri o inizia”.';
                     return;
                 }
                 try {
-                    localStorage.setItem(activeStorageKey, JSON.stringify(collectState()));
-                    saveStatus.textContent = `Salvato su questo dispositivo alle ${new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })}.`;
+                                        localStorage.setItem(activeStorageKey, JSON.stringify(collectState()));
+                    saveStatus.textContent = `Salvato su questo dispositivo alle ${ora()}.`;
                 } catch (error) {
-                    saveStatus.textContent = 'Salvataggio locale non disponibile in questo browser.';
+                    saveStatus.textContent = 'Salvataggio locale non disponibile in questo browser: resta la copia online.';
                 }
+                scheduleOnline();
             };
 
             const scheduleSave = () => {
@@ -2529,23 +2572,51 @@
                 resetInteractiveOutputs();
                 activeStorageKey = nextStorageKey;
 
-                try {
-                    const saved = JSON.parse(localStorage.getItem(activeStorageKey) || '{}');
+                                const applica = (saved) => {
                     saveFields.forEach((field) => {
                         if (!Object.prototype.hasOwnProperty.call(saved, field.id)) return;
                         if (field.type === 'checkbox') field.checked = Boolean(saved[field.id]);
                         else field.value = saved[field.id] || '';
                     });
                     scoreFields.forEach(normalizeScore);
-                    saveStatus.textContent = Object.keys(saved).length
+                    updateEvidence();
+                    updatePreview();
+                };
+
+                let locale = {};
+                try {
+                    locale = JSON.parse(localStorage.getItem(activeStorageKey) || '{}') || {};
+                    applica(locale);
+                    saveStatus.textContent = Object.keys(locale).length
                         ? 'Lavoro della coppia ripristinato da questo dispositivo.'
-                        : 'Nuovo lavoro della coppia: il salvataggio locale è attivo.';
+                        : 'Nuovo lavoro della coppia: il salvataggio è attivo.';
                 } catch (error) {
                     saveStatus.textContent = 'Non è stato possibile ripristinare il salvataggio locale.';
                 }
 
                 updateEvidence();
                 updatePreview();
+
+                // Se su questo dispositivo non c'è niente, si recupera la copia online della coppia
+                const id = onlineIds();
+                if (Object.keys(locale).length || !id) return;
+                const chiave = activeStorageKey;
+                saveStatus.textContent = 'Cerco il lavoro della coppia online…';
+                rpcOnline('progress_carica', { p_student_code: id.codice, p_page_path: ONLINE_PAGE })
+                    .then((online) => {
+                        if (chiave !== activeStorageKey) return;
+                        const campiToccati = saveFields.some((field) => field.type === 'checkbox' ? field.checked : String(field.value || '').trim());
+                        if (online && typeof online === 'object' && Object.keys(online).length && !campiToccati) {
+                            applica(online);
+                            try { localStorage.setItem(activeStorageKey, JSON.stringify(online)); } catch { }
+                            saveStatus.textContent = 'Lavoro della coppia ripristinato dalla copia online.';
+                        } else if (!campiToccati) {
+                            saveStatus.textContent = 'Nuovo lavoro della coppia: il salvataggio è attivo.';
+                        }
+                    })
+                    .catch(() => {
+                        if (chiave === activeStorageKey) saveStatus.textContent = 'Nuovo lavoro su questo dispositivo. La copia online non è raggiungibile ora.';
+                    });
             };
 
             const copyLiveValues = (source, clone) => {
@@ -2697,9 +2768,10 @@
             document.getElementById('downloadSummary').addEventListener('click', downloadSummary);
             document.getElementById('printAll').addEventListener('click', () => window.print());
             document.getElementById('clearLocal').addEventListener('click', () => {
-                const confirmed = window.confirm('Vuoi cancellare tutte le risposte salvate su questo dispositivo per questa pagina?');
+                const confirmed = window.confirm('Vuoi cancellare le risposte della coppia da questo dispositivo? La copia online resta al docente, e con gli stessi codici si può riprendere il lavoro.');
                 if (!confirmed) return;
-                window.clearTimeout(saveTimer);
+                                window.clearTimeout(saveTimer);
+                window.clearTimeout(onlineTimer);
                 let storageCleared = true;
                 try {
                     if (activeStorageKey) localStorage.removeItem(activeStorageKey);
