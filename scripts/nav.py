@@ -24,7 +24,7 @@ MENU = [
     ]),
     ("Intelligenza artificiale", "intelligenza-artificiale.html"),
     ("Docente", "index.html#docente", [
-        ("Programmi SSAS", "programmi.html"),
+        ("Programmi", "programmi.html"),
         ("Area docente", "area_docente.html"),
         ("Anno di prova", "anno-di-prova.html"),
     ]),
