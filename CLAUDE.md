@@ -12,6 +12,15 @@ Due dataset indipendenti:
 
 ---
 
+## Registro dei lavori
+
+Ogni sessione che cambia qualcosa nel sito lascia **una riga** in `REGISTRO.md`, in cima al mese
+corrente: data, chi ha lavorato, che cosa è cambiato per chi usa il sito, commit. Brevissima: una o
+due frasi, senza dettagli tecnici, che stanno già in git. La riga si scrive nello stesso commit del
+lavoro, o subito dopo se serve l'hash; se in un giorno si fanno più cose distinte, una riga ciascuna.
+
+---
+
 ## Gerarchia del sito
 
 Tre livelli, in quest'ordine, sia in home sia nel menu:
