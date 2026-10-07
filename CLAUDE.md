@@ -295,6 +295,11 @@ ridisegna a mano**. Se la scuola cambia modello si sostituisce quel file, manten
 otto tabelle su cui si appoggia `compilaXml` in `assets/programmazione.js`. Le bozze si salvano solo
 nel browser del docente (`localStorage`), una per classe e anno scolastico.
 
+Le UDA si scelgono in due posti equivalenti: nel catalogo di `programmazione.html` oppure sfogliando
+`programmi.html`, dove ogni UDA ha il bottone «＋ Programmazione» **anche nell'accesso senza password**.
+Le due pagine condividono la selezione (`localStorage`, chiave `mo-programmazione-selezione`, un elenco
+di chiavi UDA per anno) e usano la stessa `chiaveModulo`: se cambia in una, va cambiata nell'altra.
+
 ### Vincoli editoriali
 
 - La sigla **TSSAS non si usa**: si scrive «l'indirizzo sociosanitario». Il profilo in uscita è

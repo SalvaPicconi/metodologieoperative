@@ -26,6 +26,27 @@ const stato = {
     mostraCompetenze: false
 };
 
+// Le UDA scelte per la programmazione individuale: { "Primo anno": [chiavi…] }.
+// Stanno nel browser e le legge programmazione.html, che ne fa il piano di lavoro in Word.
+const SELEZIONE_KEY = 'mo-programmazione-selezione';
+
+function leggiSelezione() {
+    try {
+        const letta = JSON.parse(window.localStorage.getItem(SELEZIONE_KEY) || '{}');
+        return letta && typeof letta === 'object' ? letta : {};
+    } catch (errore) {
+        return {};
+    }
+}
+
+function scriviSelezione(selezione) {
+    try {
+        window.localStorage.setItem(SELEZIONE_KEY, JSON.stringify(selezione));
+    } catch (errore) {
+        console.warn('Selezione non salvata:', errore);
+    }
+}
+
 let programmiCaricati = false;
 let udaDaAprire = '';
 
@@ -223,6 +244,32 @@ function preparaControlli() {
     });
     udaDaAprire = parametri.get('uda') || '';
 
+    // Il bottone «In programmazione» sta nella testata della UDA: il clic non deve aprirla o chiuderla.
+    document.getElementById('prog-lista').addEventListener('click', (evento) => {
+        const bottone = evento.target.closest('[data-prog-scegli]');
+        if (!bottone) {
+            return;
+        }
+        evento.preventDefault();
+        evento.stopPropagation();
+        const selezione = leggiSelezione();
+        const anno = bottone.dataset.anno;
+        const chiave = bottone.dataset.progScegli;
+        const scelte = new Set(selezione[anno] || []);
+        if (scelte.has(chiave)) {
+            scelte.delete(chiave);
+        } else {
+            scelte.add(chiave);
+        }
+        selezione[anno] = [...scelte];
+        scriviSelezione(selezione);
+        aggiornaSelezione();
+    });
+    document.getElementById('prog-selezione-svuota').addEventListener('click', () => {
+        scriviSelezione({});
+        aggiornaSelezione();
+    });
+
     document.getElementById('prog-cerca').addEventListener('input', (evento) => {
         stato.ricerca = evento.target.value.trim().toLowerCase();
         disegnaLista();
@@ -274,7 +321,30 @@ function disegnaLista() {
         || '<div class="empty-state"><p>Nessun modulo corrisponde alla ricerca.</p>'
         + '<p>Prova con un altro termine o azzera il filtro.</p></div>';
     document.dispatchEvent(new CustomEvent('mo:programmi-rendered'));
+    aggiornaSelezione();
     apriUdaRichiesta();
+}
+
+// Allinea i bottoni delle UDA e la barra in basso alle scelte salvate.
+function aggiornaSelezione() {
+    const selezione = leggiSelezione();
+    document.querySelectorAll('[data-prog-scegli]').forEach((bottone) => {
+        const scelta = (selezione[bottone.dataset.anno] || []).includes(bottone.dataset.progScegli);
+        bottone.setAttribute('aria-pressed', scelta ? 'true' : 'false');
+        bottone.textContent = scelta ? '✓ In programmazione' : '＋ Programmazione';
+    });
+
+    const valide = new Set(stato.dati.moduli.map(chiaveModulo));
+    const anni = stato.dati.meta.anni
+        .map((anno) => [anno, (selezione[anno] || []).filter((c) => valide.has(c)).length])
+        .filter(([, quante]) => quante > 0);
+    const barra = document.getElementById('prog-selezione');
+    barra.hidden = anni.length === 0;
+    document.body.classList.toggle('prog-con-selezione', anni.length > 0);
+    document.getElementById('prog-selezione-anni').innerHTML = anni.map(([anno, quante]) => `
+        <a class="prog-selezione-vai" href="programmazione.html?anno=${encodeURIComponent(anno)}">
+          ${escapeHtml(anno)} · ${quante} UDA <span aria-hidden="true">→</span>
+          <span class="sr-only">: componi il piano di lavoro</span></a>`).join('');
 }
 
 // Arrivando da una sezione con ?uda=secondo-anno-uda-5 la UDA si apre e va in vista, una volta sola.
@@ -492,6 +562,9 @@ function schedaModulo(modulo, anno, competenzaCarta) {
           ${badgeOrigine(modulo.origine)}
           ${escapeHtml(modulo.titolo)} ${percorso} ${badgeSezione(modulo.sezione)} ${etichettaFocus(modulo, competenzaCarta)}</span>
         ${meta ? `<span class="prog-modulo-meta">${meta}</span>` : ''}
+        <button type="button" class="prog-scegli" data-prog-scegli="${escapeHtml(chiave)}"
+                data-anno="${escapeHtml(anno)}" aria-pressed="false"
+                title="Aggiungi o togli questa UDA dalla programmazione individuale di ${escapeHtml(anno)}">＋ Programmazione</button>
       </summary>
       <div class="prog-modulo-corpo">
         <div class="prog-revisione-azioni">

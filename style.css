@@ -3176,3 +3176,106 @@ details.progress-box[open] > summary {
 .uda-sezione-link {
     font-weight: 700;
 }
+
+/* --- Programmi: scelta delle UDA per la programmazione individuale --- */
+
+.prog-scegli {
+    display: block;
+    margin-top: 0.7rem;
+    font: inherit;
+    font-size: 0.8rem;
+    font-weight: 700;
+    white-space: nowrap;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--prog-accent-deep);
+    background: #ffffff;
+    color: var(--prog-accent-deep);
+    cursor: pointer;
+}
+
+.prog-scegli:hover,
+.prog-scegli:focus-visible {
+    background: var(--prog-tint);
+}
+
+.prog-scegli[aria-pressed="true"] {
+    background: var(--prog-accent-deep);
+    color: #ffffff;
+}
+
+.prog-con-selezione main {
+    padding-bottom: 5rem;
+}
+
+.prog-selezione {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    background: #ffffff;
+    border-top: 1px solid var(--color-border);
+    box-shadow: 0 -4px 16px rgba(15, 23, 42, 0.1);
+}
+
+.prog-selezione[hidden] {
+    display: none;
+}
+
+.prog-selezione-dentro {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.8rem;
+    padding-top: 0.65rem;
+    padding-bottom: 0.65rem;
+}
+
+.prog-selezione-et {
+    font-weight: 700;
+}
+
+.prog-selezione-anni {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    flex: 1;
+}
+
+.prog-selezione-vai {
+    display: inline-block;
+    padding: 0.45rem 0.9rem;
+    border-radius: 10px;
+    background: var(--color-primary-dark);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.prog-selezione-vai:hover,
+.prog-selezione-vai:focus-visible {
+    background: var(--color-primary-darker);
+}
+
+.prog-selezione-svuota {
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: none;
+    border: 0;
+    color: var(--color-ink-soft);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}

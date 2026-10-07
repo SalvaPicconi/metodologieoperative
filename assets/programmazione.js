@@ -31,9 +31,57 @@
     const righe = (testo) => String(testo || '').split('\n').map((r) => r.trim()).filter(Boolean);
     const unici = (voci) => [...new Set(voci.filter(Boolean))];
 
+    // Stessa chiave che usa la pagina Programmi, dove le UDA si possono scegliere sfogliandole.
     function chiaveModulo(modulo) {
-        const base = `${slug(modulo.anno)}-uda-${modulo.alternativoA ?? modulo.n}`;
-        return modulo.alternativoA !== undefined ? `${base}b` : base;
+        const anno = slug(modulo.anno);
+        if (modulo.alternativoA !== undefined) {
+            return `${anno}-uda-${modulo.alternativoA}b`;
+        }
+        const haAlternativa = dati.moduli.some((m) => m.anno === modulo.anno && m.alternativoA === modulo.n);
+        const suffisso = modulo.suffisso ? `-${slug(modulo.suffisso)}` : '';
+        return `${anno}-uda-${modulo.n}${haAlternativa ? 'a' : ''}${suffisso}`;
+    }
+
+    /* ---------- le UDA scelte, condivise con la pagina Programmi ---------- */
+
+    const SELEZIONE = 'mo-programmazione-selezione';
+
+    function leggiSelezione() {
+        try {
+            const letta = JSON.parse(window.localStorage.getItem(SELEZIONE) || '{}');
+            return letta && typeof letta === 'object' ? letta : {};
+        } catch (errore) {
+            return {};
+        }
+    }
+
+    function scriviSelezione() {
+        try {
+            const selezione = leggiSelezione();
+            selezione[$('pi-anno').value] = scelte.map((s) => s.chiave);
+            window.localStorage.setItem(SELEZIONE, JSON.stringify(selezione));
+        } catch (errore) {
+            console.warn('Selezione non salvata:', errore);
+        }
+    }
+
+    // Porta nella scaletta le UDA scelte nei Programmi per quell'anno, senza perdere
+    // periodo e ore già corretti a mano né l'ordine già dato.
+    function prendiSelezione(anno) {
+        const chiavi = leggiSelezione()[anno];
+        if (!Array.isArray(chiavi)) {
+            return false;
+        }
+        const valide = chiavi.filter((c) => {
+            const modulo = trovaModulo(c);
+            return modulo && modulo.anno === anno;
+        });
+        const tenute = scelte.filter((s) => valide.includes(s.chiave));
+        const nuove = moduliAnno(anno).map(chiaveModulo)
+            .filter((c) => valide.includes(c) && !tenute.some((s) => s.chiave === c));
+        scelte = tenute;
+        nuove.forEach(aggiungi);
+        return true;
     }
 
     function moduliAnno(anno) {
@@ -88,13 +136,23 @@
         if (bozza.corrente && bozza.voci[bozza.corrente]) {
             applica(bozza.voci[bozza.corrente]);
         }
+        // Dai Programmi si arriva con ?anno=…: se la bozza aperta è di un altro anno si riparte puliti.
+        const richiesto = new URLSearchParams(window.location.search).get('anno');
+        if (richiesto && dati.meta.anni.includes(richiesto) && selettore.value !== richiesto) {
+            selettore.value = richiesto;
+            $('pi-classe').value = '';
+            scelte = [];
+        }
+        // Le UDA scelte sfogliando i Programmi valgono più di quelle rimaste nella bozza.
+        prendiSelezione(selettore.value);
 
         Object.values(CAMPI).concat(Object.values(METODO)).forEach((id) => {
             $(id).addEventListener('input', aggiorna);
         });
         selettore.addEventListener('change', () => {
-            // Le UDA di un altro anno non hanno senso nella scaletta: si riparte dal catalogo nuovo.
+            // Le UDA di un altro anno non hanno senso nella scaletta: si riparte da quelle già scelte per il nuovo.
             scelte = [];
+            prendiSelezione(selettore.value);
             disegnaCatalogo();
             aggiorna();
         });
@@ -333,6 +391,7 @@
         ].filter(Boolean).join(' · ');
         $('pi-avviso').textContent = '';
 
+        scriviSelezione();
         salva();
         disegnaSalvate();
         disegnaAnteprima();

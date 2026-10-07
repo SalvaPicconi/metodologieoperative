@@ -9,6 +9,7 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-07** · Claude · Nei Programmi ogni UDA ha il bottone «＋ Programmazione», con o senza password: le UDA scelte compaiono in una barra in basso e passano alla Programmazione individuale per il Word.
 - **2026-10-07** · Claude · Creato questo registro, con la regola di aggiornarlo a ogni sessione.
 - **2026-10-07** · Claude · Nuova pagina «Programmazione individuale»: si scelgono classe e UDA e si scarica il piano di lavoro in Word sul modello di istituto. (`4a5ca5f`)
 - **2026-10-07** · Claude · Applicate le annotazioni di revisione dei Programmi del 20 settembre: UDA di compresenza, laboratorio e orientamento visibili anche nelle loro pagine (nuova «Attività di orientamento»), gioco spostato in terza, tolto dalla prima il doppione sui gruppi, UDA 4 di quarta rinominata «Portare un caso in équipe». (`4a5ca5f`)

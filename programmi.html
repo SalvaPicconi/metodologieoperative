@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Programmi SSAS - Metodologie Operative</title>
     <meta name="description" content="Proposta di programmazione di Metodologie Operative ancorata al curricolo verticale SSAS, ai livelli QNQ e alle prove esperte di laboratorio">
-    <link rel="stylesheet" href="style.css?v=20261007a">
+    <link rel="stylesheet" href="style.css?v=20261007b">
     <link rel="stylesheet" href="assets/programmi-revisione.css?v=20260907b">
 </head>
 
@@ -92,6 +92,9 @@
                 <p>Qui ci sono <strong>tutte</strong> le UDA. Quelle che si svolgono in compresenza con Scienze umane,
                    in laboratorio o come attività di orientamento portano un'etichetta colorata e compaiono anche
                    nella pagina della loro sezione; il filtro <em>Sezione</em> le isola.</p>
+                <p><strong>Per preparare la programmazione di una classe</strong> premi <em>＋ Programmazione</em>
+                   sulle UDA che farai: in basso compare il riepilogo per anno, e da lì si passa al piano di lavoro
+                   da scaricare in Word. Funziona anche senza password.</p>
                 <p>Serve il dettaglio curricolare? Attiva <em>Mostra competenze</em>: su ogni attività comparirà
                    la competenza di indirizzo che intercetta.</p>
             </section>
@@ -269,8 +272,16 @@
         </div>
     </footer>
 
+    <div id="prog-selezione" class="prog-selezione" role="region" aria-label="UDA scelte per la programmazione" hidden>
+        <div class="container prog-selezione-dentro">
+            <span class="prog-selezione-et">📝 Programmazione</span>
+            <span id="prog-selezione-anni" class="prog-selezione-anni"></span>
+            <button type="button" id="prog-selezione-svuota" class="prog-selezione-svuota">Svuota</button>
+        </div>
+    </div>
+
     <script src="materiali.js"></script>
-    <script src="programmi.js?v=20261007a"></script>
+    <script src="programmi.js?v=20261007b"></script>
     <script type="module" src="assets/programmi-revisione.js?v=20260907b"></script>
 </body>
 
