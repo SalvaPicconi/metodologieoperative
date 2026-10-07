@@ -5,15 +5,25 @@ on:
     - cron: '0 8 */5 * *'  # ogni 5 giorni alle 08:00 UTC
   workflow_dispatch:
 
+# La chiave anon è pubblica per costruzione: è la stessa scritta in assets/progress.js.
+# Non serve un secret, e senza secret il ping non può più partire con la chiave vuota.
+env:
+  SUPABASE_URL: https://ruplzgcnheddmqqdephp.supabase.co
+  SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1cGx6Z2NuaGVkZG1xcWRlcGhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAxMTYyMjksImV4cCI6MjA3NTY5MjIyOX0.tOLIkgi5yTt61_0rMlXUqxnbil4DLD7kBaqZBVAv1CI
+
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
       - name: Ping Supabase
+        # progress_carica esegue una query vera sul database (non solo sull'API) e,
+        # con un codice inesistente, legge zero righe e non scrive nulla.
         run: |
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
-            "https://ruplzgcnheddmqqdephp.supabase.co/rest/v1/progress?select=student_code&limit=1" \
-            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}")
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST \
+            "$SUPABASE_URL/rest/v1/rpc/progress_carica" \
+            -H "apikey: $SUPABASE_ANON_KEY" \
+            -H "Authorization: Bearer $SUPABASE_ANON_KEY" \
+            -H "Content-Type: application/json" \
+            -d '{"p_student_code":"__keepalive__","p_page_path":"/keepalive"}')
           echo "HTTP status: $STATUS"
           if [ "$STATUS" != "200" ]; then exit 1; fi
