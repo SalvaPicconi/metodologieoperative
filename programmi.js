@@ -22,10 +22,12 @@ const stato = {
     vista: 'contenuti',
     anno: '',
     ricerca: '',
+    sezione: '',
     mostraCompetenze: false
 };
 
 let programmiCaricati = false;
+let udaDaAprire = '';
 
 document.addEventListener('mo:programmi-unlocked', () => {
     if (programmiCaricati) return;
@@ -201,6 +203,26 @@ function preparaControlli() {
         disegnaLista();
     });
 
+    // Le pagine Compresenza, Laboratorio e Orientamento linkano qui con ?sezione=… o ?uda=…
+    const selettoreSezione = document.getElementById('prog-filtro-sezione');
+    const sezioni = stato.dati.meta.sezioni || {};
+    Object.entries(sezioni).forEach(([chiave, nome]) => {
+        const opzione = document.createElement('option');
+        opzione.value = chiave;
+        opzione.textContent = nome;
+        selettoreSezione.appendChild(opzione);
+    });
+    const parametri = new URLSearchParams(window.location.search);
+    if (sezioni[parametri.get('sezione')]) {
+        stato.sezione = parametri.get('sezione');
+        selettoreSezione.value = stato.sezione;
+    }
+    selettoreSezione.addEventListener('change', (evento) => {
+        stato.sezione = evento.target.value;
+        disegnaLista();
+    });
+    udaDaAprire = parametri.get('uda') || '';
+
     document.getElementById('prog-cerca').addEventListener('input', (evento) => {
         stato.ricerca = evento.target.value.trim().toLowerCase();
         disegnaLista();
@@ -211,6 +233,9 @@ function preparaControlli() {
 /* ---------- selezione dei dati ---------- */
 
 function corrispondeRicerca(modulo) {
+    if (stato.sezione && modulo.sezione !== stato.sezione) {
+        return false;
+    }
     if (!stato.ricerca) {
         return true;
     }
@@ -249,6 +274,21 @@ function disegnaLista() {
         || '<div class="empty-state"><p>Nessun modulo corrisponde alla ricerca.</p>'
         + '<p>Prova con un altro termine o azzera il filtro.</p></div>';
     document.dispatchEvent(new CustomEvent('mo:programmi-rendered'));
+    apriUdaRichiesta();
+}
+
+// Arrivando da una sezione con ?uda=secondo-anno-uda-5 la UDA si apre e va in vista, una volta sola.
+function apriUdaRichiesta() {
+    if (!udaDaAprire) {
+        return;
+    }
+    const scheda = [...document.querySelectorAll('[data-programmi-modulo]')]
+        .find((nodo) => nodo.dataset.programmiModulo === udaDaAprire);
+    udaDaAprire = '';
+    if (scheda) {
+        scheda.open = true;
+        scheda.scrollIntoView({ block: 'start' });
+    }
 }
 
 function disegnaPerCompetenza(moduli) {
@@ -450,7 +490,7 @@ function schedaModulo(modulo, anno, competenzaCarta) {
       <summary class="prog-modulo-testata">
         <span class="prog-modulo-titolo"><span class="prog-uda-num">UDA ${escapeHtml(String(numero))}</span>
           ${badgeOrigine(modulo.origine)}
-          ${escapeHtml(modulo.titolo)} ${percorso} ${etichettaFocus(modulo, competenzaCarta)}</span>
+          ${escapeHtml(modulo.titolo)} ${percorso} ${badgeSezione(modulo.sezione)} ${etichettaFocus(modulo, competenzaCarta)}</span>
         ${meta ? `<span class="prog-modulo-meta">${meta}</span>` : ''}
       </summary>
       <div class="prog-modulo-corpo">
@@ -606,6 +646,22 @@ function badgeOrigine(origine) {
     }
     return `<span class="prog-origine prog-origine-${slug(origine)}"
              title="${escapeHtml(voce.titolo)}">${escapeHtml(voce.etichetta)}</span>`;
+}
+
+// Le UDA che vivono anche in una sezione del sito portano l'etichetta che ci rimanda.
+const PAGINE_SEZIONE = {
+    compresenza: 'compresenza.html',
+    laboratorio: 'laboratorio.html',
+    orientamento: 'orientamento.html'
+};
+
+function badgeSezione(sezione) {
+    const nome = ((stato.dati.meta.sezioni || {})[sezione]);
+    if (!nome) {
+        return '';
+    }
+    return `<a class="prog-tag-sezione prog-tag-sezione-${slug(sezione)}" href="${PAGINE_SEZIONE[sezione]}#uda-sezione"
+               title="Questa UDA sta anche nella sezione «${escapeHtml(nome)}»">${escapeHtml(nome)}</a>`;
 }
 
 function schedaProva(prova) {

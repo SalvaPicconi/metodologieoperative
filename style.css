@@ -3071,3 +3071,108 @@ details.progress-box[open] > summary {
     background: #fef9c3;
     color: #854d0e;
 }
+
+/* --- UDA dei Programmi elencate nelle pagine di sezione (compresenza, laboratorio, orientamento) --- */
+
+.prog-tag-sezione {
+    display: inline-block;
+    border-radius: 999px;
+    padding: 0.12rem 0.6rem;
+    margin-left: 0.3rem;
+    font-size: 0.75rem;
+    font-weight: 800;
+    white-space: nowrap;
+    text-decoration: none;
+    border: 1px solid transparent;
+}
+
+.prog-tag-sezione:hover,
+.prog-tag-sezione:focus-visible {
+    text-decoration: underline;
+}
+
+.prog-tag-sezione-compresenza {
+    background-color: #fef3c7;
+    color: #78350f;
+    border-color: #fcd34d;
+}
+
+.prog-tag-sezione-laboratorio {
+    background-color: #dcfce7;
+    color: #14532d;
+    border-color: #86efac;
+}
+
+.prog-tag-sezione-orientamento {
+    background-color: #e0f2fe;
+    color: #0c4a6e;
+    border-color: #7dd3fc;
+}
+
+.uda-sezione {
+    margin: 2rem 0;
+}
+
+.uda-sezione-testata {
+    margin-bottom: 0.3rem;
+}
+
+.uda-sezione-intro {
+    color: #475569;
+    margin-bottom: 1rem;
+}
+
+.uda-sezione-anno {
+    margin: 1.2rem 0 0.5rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #475569;
+}
+
+.uda-sezione-scheda {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    margin-bottom: 0.6rem;
+}
+
+.uda-sezione-scheda > summary {
+    cursor: pointer;
+    padding: 0.8rem 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem 1rem;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.uda-sezione-titolo {
+    font-weight: 700;
+}
+
+.uda-sezione-meta {
+    font-size: 0.85rem;
+    color: #475569;
+}
+
+.uda-sezione-corpo {
+    padding: 0 1rem 1rem;
+}
+
+.uda-sezione-corpo ul {
+    margin: 0 0 0.6rem 1.2rem;
+}
+
+.uda-sezione-et {
+    margin: 0.8rem 0 0.2rem;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #475569;
+}
+
+.uda-sezione-link {
+    font-weight: 700;
+}

@@ -18,8 +18,8 @@ Tre livelli, in quest'ordine, sia in home sia nel menu:
 
 1. **Le classi** — `biennio.html`, `terzo.html`, `quarto.html`, `quinto.html`;
 2. **Metodi e laboratori** — lezioni partecipate, laboratorio, peer tutoring, compresenza,
-   glossario, più `intelligenza-artificiale.html` (pagina propria, non più sezione della home);
-3. **Docente** — programmi SSAS, area docente, anno di prova.
+   attività di orientamento, glossario, più `intelligenza-artificiale.html` (pagina propria, non più sezione della home);
+3. **Docente** — programmi SSAS, programmazione individuale, area docente, anno di prova.
 
 Il menu è unico e **non si modifica a mano**: si cambia `MENU` in `scripts/nav.py` e si lancia
 `python3 scripts/nav.py`, che riscrive il `<nav>` di tutte le pagine.
@@ -259,6 +259,32 @@ Quando arriva un programma nuovo da integrare, **prima si fa il confronto**: si 
 i punti elenco della fonte, si decide per ciascuno se è un doppione da scartare, un frammento
 da innestare in una UDA esistente, o materia per una UDA nuova. Solo dopo si scrive.
 La mappa di quel confronto resta in `programmi-src/_integrazione/piano.json`.
+
+### UDA che vivono anche in una sezione: il campo `sezione`
+
+Alcune UDA non stanno solo nei Programmi. Il campo facoltativo `sezione` dichiara dove compaiono anche:
+
+| Valore | Pagina che le elenca |
+|---|---|
+| `"compresenza"` | `compresenza.html` — UDA svolte con Scienze umane |
+| `"laboratorio"` | `laboratorio.html` — laboratori in senso stretto |
+| `"orientamento"` | `orientamento.html` — le UDA di orientamento alle professioni, una per anno |
+
+La UDA resta scritta in un posto solo, `programmi-src/`: le tre pagine la leggono da `programmi.json`
+con `assets/uda-sezione.js` e rimandano ai Programmi con `programmi.html?uda=<chiave>`. Nei Programmi
+la sezione è un'etichetta colorata accanto al titolo e un filtro (`?sezione=…`), così lì restano
+visibili **tutte** le UDA. Il build rifiuta un valore diverso dai tre; per aggiungerne uno si tocca
+`SEZIONI` in `scripts/programmi.py` e `PAGINE_SEZIONE` in `programmi.js`.
+
+### Programmazione individuale
+
+`programmazione.html` (menu Docente) costruisce il piano di lavoro di una classe: informazioni
+generali, scelta e ordine delle UDA dell'anno, metodologia (precompilata da `impianto-didattico.json`),
+anteprima e scaricamento in **Word**. Il file si ottiene compilando nel browser il modello di istituto
+`assets/modello-programmazione-individuale.docx` (JSZip): il formato è quello del modello e **non si
+ridisegna a mano**. Se la scuola cambia modello si sostituisce quel file, mantenendo l'ordine delle
+otto tabelle su cui si appoggia `compilaXml` in `assets/programmazione.js`. Le bozze si salvano solo
+nel browser del docente (`localStorage`), una per classe e anno scolastico.
 
 ### Vincoli editoriali
 

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta name="page-id" content="programmazione-individuale">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programmazione individuale - Metodologie Operative</title>
+    <meta name="description" content="Costruisci il piano di lavoro di una classe scegliendo le UDA dei Programmi e scaricalo in Word nel modello di istituto">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/programmazione.css?v=20261007a">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Materiali Didattici - Metodologie Operative</h1>
+            <p>Servizi per la Sanità e l'Assistenza Sociale</p>
+            <p style="font-size: 0.9rem; margin-top: 0.5rem;">IIS Meucci Mattei - Cagliari (Sede Decimomannu)</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="biennio.html">Biennio</a></li>
+            <li><a href="terzo.html">Terzo anno</a></li>
+            <li><a href="quarto.html">Quarto anno</a></li>
+            <li><a href="quinto.html">Quinto anno</a></li>
+            <li class="nav-group"><a href="index.html#metodi">Metodi e laboratori</a>
+                <ul class="nav-sub">
+                    <li><a href="lezioni-partecipate.html">Lezioni partecipate</a></li>
+                    <li><a href="laboratorio.html">Laboratorio</a></li>
+                    <li><a href="peer_tutoring.html">Peer tutoring</a></li>
+                    <li><a href="compresenza.html">Compresenza Scienze umane</a></li>
+                    <li><a href="orientamento.html">Attività di orientamento</a></li>
+                    <li><a href="glossario.html">Glossario</a></li>
+                </ul>
+            </li>
+            <li class="nav-ai"><a href="intelligenza-artificiale.html">Intelligenza artificiale</a></li>
+            <li class="nav-group"><a href="index.html#docente" class="active">Docente</a>
+                <ul class="nav-sub">
+                    <li><a href="programmi.html">Programmi</a></li>
+                    <li><a href="programmazione.html" class="active" aria-current="page">Programmazione individuale</a></li>
+                    <li><a href="area_docente.html">Area docente</a></li>
+                    <li><a href="anno-di-prova.html">Anno di prova</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="container pi">
+            <div class="page-title">
+                <h2>📝 Programmazione individuale</h2>
+                <p>Scegli la classe e le UDA: il sito compila il piano di lavoro nel modello di istituto e lo scarica in Word</p>
+            </div>
+
+            <div class="pi-riprendi" id="pi-riprendi" hidden>
+                <label for="pi-salvate">Programmazioni già iniziate su questo computer</label>
+                <select id="pi-salvate"></select>
+                <button type="button" class="pi-btn pi-btn-chiaro" id="pi-apri">Apri</button>
+                <button type="button" class="pi-btn pi-btn-chiaro" id="pi-elimina">Elimina</button>
+                <button type="button" class="pi-btn pi-btn-chiaro" id="pi-nuova">Nuova</button>
+            </div>
+
+            <ol class="pi-passi" aria-label="Passi della programmazione">
+                <li><a href="#pi-passo-1"><span>1</span> Classe</a></li>
+                <li><a href="#pi-passo-2"><span>2</span> UDA</a></li>
+                <li><a href="#pi-passo-3"><span>3</span> Metodologia</a></li>
+                <li><a href="#pi-passo-4"><span>4</span> Documento</a></li>
+            </ol>
+
+            <section class="pi-passo" id="pi-passo-1" aria-labelledby="pi-t1">
+                <h3 id="pi-t1"><span class="pi-num">1</span> Informazioni generali</h3>
+                <div class="pi-griglia">
+                    <label class="pi-campo">Docente
+                        <input type="text" id="pi-docente" autocomplete="name" placeholder="Nome e cognome">
+                    </label>
+                    <label class="pi-campo">Disciplina
+                        <input type="text" id="pi-disciplina" value="Metodologie Operative">
+                    </label>
+                    <label class="pi-campo">Anno di corso
+                        <select id="pi-anno"></select>
+                    </label>
+                    <label class="pi-campo">Classe e sezione
+                        <input type="text" id="pi-classe" placeholder="es. 1SA">
+                    </label>
+                    <label class="pi-campo">Anno scolastico
+                        <input type="text" id="pi-as" placeholder="es. 2026/2027">
+                    </label>
+                    <label class="pi-campo">Ore settimanali
+                        <input type="number" id="pi-ore" min="1" max="12" step="1" placeholder="es. 4">
+                    </label>
+                    <label class="pi-campo">Di cui in compresenza <span class="pi-opz">facoltativo</span>
+                        <input type="text" id="pi-ore-compresenza" placeholder="es. 2 con Scienze umane">
+                    </label>
+                    <label class="pi-campo">Luogo
+                        <input type="text" id="pi-luogo" value="Cagliari">
+                    </label>
+                    <label class="pi-campo">Data
+                        <input type="date" id="pi-data">
+                    </label>
+                </div>
+            </section>
+
+            <section class="pi-passo" id="pi-passo-2" aria-labelledby="pi-t2">
+                <h3 id="pi-t2"><span class="pi-num">2</span> Le UDA dell'anno</h3>
+                <p class="pi-aiuto">A sinistra il catalogo dei Programmi per l'anno scelto: spunta le UDA che farai.
+                   A destra la tua scaletta: riordinala con le frecce e, se serve, correggi periodo e ore di ogni UDA.</p>
+                <div class="pi-due">
+                    <div class="pi-catalogo">
+                        <div class="pi-catalogo-testa">
+                            <strong id="pi-catalogo-titolo">Catalogo</strong>
+                            <span>
+                                <button type="button" class="pi-link" id="pi-tutte">Tutte</button> ·
+                                <button type="button" class="pi-link" id="pi-nessuna">Nessuna</button>
+                            </span>
+                        </div>
+                        <div id="pi-catalogo"><div class="loading">Caricamento delle UDA…</div></div>
+                    </div>
+                    <div class="pi-scaletta">
+                        <div class="pi-catalogo-testa">
+                            <strong>La tua scaletta</strong>
+                            <span id="pi-totale" class="pi-totale"></span>
+                        </div>
+                        <ol id="pi-scelte" class="pi-scelte"></ol>
+                        <p id="pi-vuota" class="pi-vuota">Nessuna UDA scelta: spuntale nel catalogo.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="pi-passo" id="pi-passo-3" aria-labelledby="pi-t3">
+                <h3 id="pi-t3"><span class="pi-num">3</span> Metodologia</h3>
+                <p class="pi-aiuto">I testi arrivano dall'impianto didattico dei Programmi e sono già pronti: modificali solo se
+                   per questa classe cambia qualcosa. Una riga per voce.
+                   <button type="button" class="pi-link" id="pi-ripristina">Ripristina i testi dei Programmi</button></p>
+                <details class="pi-metodo" open>
+                    <summary>Attività</summary>
+                    <textarea id="pi-m-attivita" rows="6"></textarea>
+                </details>
+                <details class="pi-metodo">
+                    <summary>Strumenti</summary>
+                    <textarea id="pi-m-strumenti" rows="8"></textarea>
+                </details>
+                <details class="pi-metodo">
+                    <summary>Verifiche</summary>
+                    <textarea id="pi-m-verifiche" rows="8"></textarea>
+                </details>
+                <details class="pi-metodo">
+                    <summary>Criteri e modalità di valutazione</summary>
+                    <textarea id="pi-m-criteri" rows="10"></textarea>
+                </details>
+                <details class="pi-metodo">
+                    <summary>Attività di recupero in itinere</summary>
+                    <textarea id="pi-m-recupero" rows="3"></textarea>
+                </details>
+            </section>
+
+            <section class="pi-passo" id="pi-passo-4" aria-labelledby="pi-t4">
+                <h3 id="pi-t4"><span class="pi-num">4</span> Il documento</h3>
+                <p class="pi-aiuto">Qui sotto vedi il piano di lavoro come uscirà. Il file Word è costruito sul modello di istituto:
+                   stesse tabelle, stessi colori, stessa intestazione. Dopo averlo scaricato puoi ritoccarlo in Word.</p>
+                <div id="pi-anteprima" class="pi-anteprima" aria-live="polite"></div>
+            </section>
+        </div>
+
+        <div class="pi-barra" role="region" aria-label="Riepilogo e scaricamento">
+            <div class="container pi-barra-dentro">
+                <span id="pi-riepilogo" class="pi-riepilogo"></span>
+                <span id="pi-avviso" class="pi-avviso" role="status"></span>
+                <button type="button" class="pi-btn" id="pi-scarica">⬇️ Scarica in Word</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Metodologie Operative - Servizi Sociosanitari</p>
+            <p>IIS Meucci Mattei - Cagliari</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem;">&copy; 2025 - Tutti i diritti riservati</p>
+            <div class="home-link">
+                <a href="https://salvapicconi.github.io/metodologieoperative/">🏠 Torna alla Home</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="assets/programmazione.js?v=20261007a"></script>
+</body>
+</html>

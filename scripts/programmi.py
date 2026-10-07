@@ -38,6 +38,14 @@ ORIGINI = {
     "P+C": "UDA del docente con innesti del collega",
 }
 
+# Alcune UDA vivono anche in una sezione del sito, oltre che nei Programmi:
+# la pagina della sezione le elenca e rimanda qui, dove restano tutte insieme.
+SEZIONI = {
+    "compresenza": "Compresenza con Scienze umane",
+    "laboratorio": "Laboratorio",
+    "orientamento": "Attività di orientamento",
+}
+
 
 class ErroriRaccolti:
     """Accumula i problemi invece di fermarsi al primo, cosi' si correggono in blocco."""
@@ -145,6 +153,11 @@ def controlla_uda(modulo, dove, errori):
     elif origine not in ORIGINI:
         errori.aggiungi(dove, f"origine non riconosciuta: «{origine}»",
                         "valori ammessi: " + ", ".join(f'"{k}"' for k in ORIGINI))
+    sezione = modulo.get("sezione")
+    if sezione is not None and sezione not in SEZIONI:
+        errori.aggiungi(dove, f"sezione non riconosciuta: «{sezione}»",
+                        "valori ammessi: " + ", ".join(f'"{k}"' for k in SEZIONI)
+                        + "\nil campo si omette se la UDA sta solo nei Programmi")
     for campo in CAMPI_UDA:
         if not modulo.get(campo):
             errori.aggiungi(dove, f"campo UDA mancante o vuoto: {campo}",
@@ -598,6 +611,7 @@ def costruisci(scrivi):
             "verificaNormativa": "2026-08-21",
             "aggiornato": date.today().isoformat(),
             "anni": ANNI,
+            "sezioni": SEZIONI,
             "avvertenza": "File generato da scripts/programmi.py: non modificarlo a mano.",
         },
         "livelliQNQ": {
@@ -682,7 +696,8 @@ def elenca():
         print(f"\n{anno} — QNQ {livello} — {len(coperte)}/{len(attive)} competenze coperte")
         for modulo in sorted(del_anno, key=lambda m: (m["n"], "alternativoA" in m)):
             marchio = f" [alternativo al {modulo['alternativoA']}]" if "alternativoA" in modulo else ""
-            print(f"   {modulo['n']}. {modulo['titolo']}{marchio}")
+            sezione = f" [{modulo['sezione']}]" if modulo.get("sezione") else ""
+            print(f"   {modulo['n']}. {modulo['titolo']}{marchio}{sezione}")
             print(f"      competenze: {', '.join(modulo['competenze']) or '—'}")
             focus = modulo.get("focus") or {}
             if focus.get("trasversale"):
