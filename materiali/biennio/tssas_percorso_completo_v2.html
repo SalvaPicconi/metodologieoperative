@@ -467,7 +467,8 @@
             </div>
             <div class="reg-classi" id="regClassi"></div>
             <div class="reg-tabs" id="regTabs">
-                <button data-vista="griglia" onclick="registroVista('griglia')">🟩 Mappa della classe</button>
+                <button data-vista="mappe" onclick="registroVista('mappe')">🕸️ Mappe di rete</button>
+                <button data-vista="griglia" onclick="registroVista('griglia')">📊 Riepilogo</button>
                 <button data-vista="tappa" onclick="registroVista('tappa')">🧱 Bacheca della tappa</button>
                 <button data-vista="studente" onclick="registroVista('studente')">📓 Quaderno dello studente</button>
             </div>
@@ -2410,6 +2411,12 @@
         let html = `<h4>📊 Risposte della classe ${esc(cls.toUpperCase())} <span class="meta">${n} student${n === 1 ? 'e' : 'i'} con dati salvati · tappa ${tappaCorrente}</span><button class="btn btn-sm btn-soft" style="margin-left:8px" onclick="mostraRisposteClasse()">↻ Aggiorna</button><button class="btn btn-sm btn-soft" style="margin-left:6px" onclick="cambiaClasseLim()">🔁 Cambia classe</button><button class="btn btn-sm btn-soft" style="margin-left:6px" onclick="this.closest('.classe-panel').classList.remove('show')">✕</button></h4>`;
         if (!n) { panel.innerHTML = html + '<p>Nessuno studente di questa classe ha ancora salvato qualcosa su questa pagina.</p>'; return; }
 
+        // mappe della rete disegnate (tappa con la mappa), anonime perché il pannello va alla LIM
+        if ($('#a4-box', sec)) {
+            const g = regGalleria(rows.map(d => ({ data: d })), k => `Mappa ${k + 1}`);
+            html += `<h4 style="margin-top:12px">🕸️ Le mappe della rete <span class="meta">${g.con.length}/${n} disegnate</span></h4>${g.con.length ? g.html : '<p>Nessuna mappa ancora.</p>'}<p class="meta"><a href="#" onclick="registroApri(); return false">📋 Apri «Lavori della classe»</a> per vederle con i nomi.</p>`;
+        }
+
         // attività della tappa
         Object.keys(ACTS).filter(id => ACTS[id].tappa === tappaCorrente).forEach(id => {
             const act = ACTS[id];
@@ -2464,7 +2471,7 @@
     /* Vista grafica dei lavori degli studenti: mappa studenti × tappe, bacheca di una tappa con le
        risposte di tutti, quaderno del singolo studente. Legge soltanto (progress_docente_classe) e non
        crea campi input/select/textarea: il salvataggio automatico della pagina non lo vede. */
-    const REG = { cls: '', rows: [], classi: null, vista: 'griglia', tappa: 1, stud: 0, ordine: 'nome', auto: null, struttura: null, anon: null };
+    const REG = { cls: '', rows: [], classi: null, vista: 'mappe', tappa: 1, stud: 0, ordine: 'nome', auto: null, struttura: null, anon: null };
 
     function regStruttura() {
         if (REG.struttura) return REG.struttura;
@@ -2654,10 +2661,23 @@
         const corpo = $('#regCorpo');
         if (!REG.cls) return;
         if (!REG.rows.length) { corpo.innerHTML = `<div class="reg-vuoto">Nessuno studente della classe ${esc(REG.cls.toUpperCase())} ha ancora salvato qualcosa su questa pagina.<br>Controlla che gli studenti abbiano scritto la classe nello stesso modo (es. ${esc(REG.cls)}).</div>`; return; }
-        corpo.innerHTML = REG.vista === 'tappa' ? regVistaTappa() : REG.vista === 'studente' ? regVistaStudente() : regVistaGriglia();
+        corpo.innerHTML = REG.vista === 'mappe' ? regVistaMappe() : REG.vista === 'tappa' ? regVistaTappa() : REG.vista === 'studente' ? regVistaStudente() : regVistaGriglia();
     }
 
-    /* --- vista 1: mappa della classe --- */
+    /* --- vista 0: le mappe di rete di tutti --- */
+    function regGalleria(rows, nome) {
+        const con = [], senza = [];
+        rows.forEach((r, k) => { const m = regMappa(r.data); if (m) con.push([k, m]); else senza.push(k); });
+        return { con, senza, html: `<div class="reg-mappe">${con.map(([k, m]) => `<figure><figcaption>${esc(nome(k))}</figcaption><svg viewBox="0 0 600 360" role="img" aria-label="Mappa di ${esc(nome(k))}">${a4Disegno(m)}</svg><div class="mr-conta">${a4Conta(m)}</div></figure>`).join('')}</div>` };
+    }
+    function regVistaMappe() {
+        const g = regGalleria(REG.rows, regNome);
+        return `<div class="reg-nav"><h3>🕸️ Le mappe della rete disegnate dagli studenti</h3><span class="meta">${g.con.length}/${REG.rows.length} disegnate · tappa 4</span></div>` +
+            (g.con.length ? g.html : '<div class="reg-vuoto">Nessuno studente di questa classe ha ancora disegnato la mappa della rete (tappa 4).</div>') +
+            (g.senza.length ? `<div class="reg-mancano">Non l'hanno ancora disegnata: ${g.senza.map(i => esc(regNome(i))).join(', ')}</div>` : '');
+    }
+
+    /* --- vista 1: riepilogo della classe --- */
     function regVistaGriglia() {
         const rows = REG.rows, n = rows.length;
         const attivi = rows.filter(r => regAttivo(r.s.quando)).length;
@@ -2703,9 +2723,8 @@
             h += `<div class="reg-sez"><h4>🗳️ Vota, discuti, rivota <span class="meta">giusta: C</span></h4><div class="lim-box"><strong>Primo voto</strong> (${c1.reduce((a, b) => a + b, 0)})${barre(['A', 'B', 'C', 'D'], c1, A2_OK)}<div style="height:8px"></div><strong>Secondo voto</strong> (${c2.reduce((a, b) => a + b, 0)})${barre(['A', 'B', 'C', 'D'], c2, A2_OK)}</div></div>`;
         }
         if (s.a4) {
-            const con = [], senza = [];
-            rows.forEach((r, k) => { const m = regMappa(r.data); if (m) con.push([k, m]); else senza.push(k); });
-            h += `<div class="reg-sez"><h4>🕸️ Le mappe della rete <span class="meta">${con.length}/${N} disegnate</span></h4><div class="reg-mappe">${con.map(([k, m]) => `<figure><figcaption>${esc(regNome(k))}</figcaption><svg viewBox="0 0 600 360" role="img" aria-label="Mappa di ${esc(regNome(k))}">${a4Disegno(m)}</svg><div class="mr-conta">${a4Conta(m)}</div></figure>`).join('')}</div>${mancano(senza)}</div>`;
+            const g = regGalleria(rows, regNome);
+            h += `<div class="reg-sez"><h4>🕸️ Le mappe della rete <span class="meta">${g.con.length}/${N} disegnate</span></h4>${g.html}${mancano(g.senza)}</div>`;
         }
         if (s.a5) {
             const st = rows.map(r => Math.min((regJson(r.data, 'a5-dialogo') || {}).k || 0, A5.length));
