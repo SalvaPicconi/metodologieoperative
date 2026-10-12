@@ -341,6 +341,13 @@
         .mappa-rete .mr-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; align-items: center; }
         .mappa-rete input[type="text"], .mappa-rete select { border: 2px solid var(--line); border-radius: 10px; padding: 6px 8px; font: inherit; font-size: .92em; background: white; }
         .mappa-rete svg { width: 100%; height: auto; display: block; background: var(--paper-soft); border-radius: 10px; margin-top: 6px; }
+        .a4-tabs { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 8px 0; }
+        .a4-tab { border: 2px solid var(--lime-dark); background: white; color: var(--ink); border-radius: 12px; padding: 7px 14px; font: inherit; font-weight: 700; cursor: pointer; }
+        .a4-tab small { font-weight: 400; color: var(--ink-soft); margin-left: 4px; }
+        .a4-tab.on { background: var(--lime); border-color: var(--lime-dark); }
+        .a4-chiedi { background: var(--warn-bg); border: 2px solid #eab308; border-radius: 12px; padding: 8px 12px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+        .reg-mappe-h { margin: 12px 0 6px; font-size: 1.02em; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+        .reg-mappe-h .meta { font-weight: 400; font-size: .85em; color: var(--ink-soft); }
         .a4-sel { background: #fff; border: 1px dashed var(--line); border-radius: 10px; padding: 6px 8px; font-size: .92em; }
         .mappa-rete svg .a4n:active { cursor: grabbing; }
         .mappa-rete svg .a4e { cursor: pointer; }
@@ -483,6 +490,8 @@
         <input type="hidden" id="a2-voto1" name="a2-voto1" value="">
         <input type="hidden" id="a2-voto2" name="a2-voto2" value="">
         <input type="hidden" id="a4-mappa" name="a4-mappa" value="">
+        <input type="hidden" id="a4-mappa2" name="a4-mappa2" value="">
+        <input type="hidden" id="a4-chi" name="a4-chi" value="">
         <input type="hidden" id="a5-dialogo" name="a5-dialogo" value="">
     </div>
 
@@ -979,8 +988,9 @@
                             </div>
                         </div>
                         <div class="mappa-rete" id="a4-box">
-                            <div class="nt">🖊️ Disegna una delle due reti <span class="bonus-tag">bonus</span></div>
-                            <p class="hint">Aggiungi i nodi (ruoli, mai nomi veri), poi collegali. Puoi trascinare i nodi e, toccandoli, rinominarli o eliminarli anche dopo. La pagina conta nodi, legami, ponti e nodi isolati. Scegli Giulia o Marco: vedere la rete disegnata aiuta a confrontarle.</p>
+                            <div class="nt">🖊️ Disegna le due reti, Giulia e Marco <span class="bonus-tag">bonus</span></div>
+                            <p class="hint">Aggiungi i nodi (ruoli, mai nomi veri), poi collegali. Puoi trascinare i nodi e, toccandoli, rinominarli o eliminarli anche dopo. La pagina conta nodi, legami, ponti e nodi isolati. Disegna tutte e due le reti, Giulia e Marco: passi dall'una all'altra con i pulsanti qui sotto e restano salvate entrambe.</p>
+                            <div class="a4-tabs" id="a4-tabs"></div>
                             <div class="mr-row"><input type="text" id="a4-nodo" data-progress-ignore maxlength="22" placeholder="es. zia, allenatrice, consultorio" aria-label="Nome del nodo"><select id="a4-tipo" data-progress-ignore aria-label="Tipo di nodo"><option value="inf">informale</option><option value="for">formale</option></select><button class="btn btn-sm" type="button" onclick="a4AggiungiNodo()">+ Nodo</button></div>
                             <div class="mr-row"><select id="a4-da" data-progress-ignore aria-label="Da"></select><span>↔</span><select id="a4-a" data-progress-ignore aria-label="A"></select><select id="a4-leg" data-progress-ignore aria-label="Tipo di legame"><option value="forte">legame forte</option><option value="debole">legame debole</option><option value="ponte">ponte</option></select><button class="btn btn-sm" type="button" onclick="a4Collega()">+ Legame</button><button class="btn btn-sm btn-soft" type="button" onclick="a4Annulla()">↶ Annulla l'ultima mossa</button></div>
                             <svg id="a4-svg" viewBox="0 0 600 360" role="img" aria-label="La tua mappa della rete"></svg>
@@ -2413,8 +2423,8 @@
 
         // mappe della rete disegnate (tappa con la mappa), anonime perché il pannello va alla LIM
         if ($('#a4-box', sec)) {
-            const g = regGalleria(rows.map(d => ({ data: d })), k => `Mappa ${k + 1}`);
-            html += `<h4 style="margin-top:12px">🕸️ Le mappe della rete <span class="meta">${g.con.length}/${n} disegnate</span></h4>${g.con.length ? g.html : '<p>Nessuna mappa ancora.</p>'}<p class="meta"><a href="#" onclick="registroApri(); return false">📋 Apri «Lavori della classe»</a> per vederle con i nomi.</p>`;
+            const g = regGalleria(rows.map(d => ({ data: d })), k => `Studente ${k + 1}`);
+            html += `<h4 style="margin-top:12px">🕸️ Le mappe della rete <span class="meta">${g.tot} mappe di ${g.studenti}/${n} studenti</span></h4>${g.tot ? g.html : '<p>Nessuna mappa ancora.</p>'}<p class="meta"><a href="#" onclick="registroApri(); return false">📋 Apri «Lavori della classe»</a> per vederle con i nomi.</p>`;
         }
 
         // attività della tappa
@@ -2504,8 +2514,8 @@
     const regPieno = v => Array.isArray(v) ? v.length > 0 : (v !== null && v !== undefined && v !== false && String(v).trim() !== '');
     function regAct(d, id) { try { const v = JSON.parse(d[`act_${id}`] || '{}'); return v && typeof v === 'object' ? v : {}; } catch { return {}; } }
     function regJson(d, k) { try { const v = JSON.parse(d[k] || 'null'); return v && typeof v === 'object' ? v : null; } catch { return null; } }
-    function regMappa(d) {
-        const st = regJson(d, 'a4-mappa');
+    function regMappa(d, k = 'a4-mappa') {
+        const st = regJson(d, k);
         if (!st || !Array.isArray(st.n) || !Array.isArray(st.e)) return null;
         if (st.n.some(x => !x || typeof x.l !== 'string')) return null; // gli indici dei legami dipendono dall'ordine dei nodi
         const n = st.n.map(x => { const nd = { l: x.l.slice(0, 22), t: x.t === 'for' ? 'for' : 'inf' }; if (Number.isFinite(x.x) && Number.isFinite(x.y)) { nd.x = x.x; nd.y = x.y; } return nd; });
@@ -2665,16 +2675,33 @@
     }
 
     /* --- vista 0: le mappe di rete di tutti --- */
+    // Le mappe di uno studente: [{ p: 'giulia'|'marco', m, certo }]. Una mappa salvata prima delle due
+    // schede non dice di chi è: si deduce dai nodi (Marco ha padre, compagno, scout, amici lontani) e si segna «?».
+    function regIndovina(m) { return /padre|pap|scout|compagn|calcio|di prima|lontan|online|chat/.test(m.n.map(x => x.l.toLowerCase()).join(' ')) ? 'marco' : 'giulia'; }
+    function regMappe(d) {
+        const chi = d['a4-chi'] === 'giulia' || d['a4-chi'] === 'marco' ? d['a4-chi'] : '';
+        const out = [], m1 = regMappa(d, 'a4-mappa'), m2 = regMappa(d, 'a4-mappa2');
+        if (m1) out.push({ p: chi || regIndovina(m1), m: m1, certo: Boolean(chi) });
+        if (m2 && chi) out.push({ p: a4Altra(chi), m: m2, certo: true });
+        return out;
+    }
+    const regFig = (cap, p, m) => `<figure><figcaption>${cap}</figcaption><svg viewBox="0 0 600 360" role="img" aria-label="${esc(cap.replace(/<[^>]+>/g, ''))}">${a4Disegno(m, null, `Rete di ${p === 'giulia' ? 'Giulia' : 'Marco'}`)}</svg><div class="mr-conta">${a4Conta(m)}</div></figure>`;
     function regGalleria(rows, nome) {
-        const con = [], senza = [];
-        rows.forEach((r, k) => { const m = regMappa(r.data); if (m) con.push([k, m]); else senza.push(k); });
-        return { con, senza, html: `<div class="reg-mappe">${con.map(([k, m]) => `<figure><figcaption>${esc(nome(k))}</figcaption><svg viewBox="0 0 600 360" role="img" aria-label="Mappa di ${esc(nome(k))}">${a4Disegno(m)}</svg><div class="mr-conta">${a4Conta(m)}</div></figure>`).join('')}</div>` };
+        const per = { giulia: [], marco: [] }; let tot = 0; const conAlmeno = new Set();
+        rows.forEach((r, k) => regMappe(r.data).forEach(x => { per[x.p].push([k, x]); tot++; conAlmeno.add(k); }));
+        let html = '';
+        ['giulia', 'marco'].forEach(p => {
+            const chi = new Set(per[p].map(([k]) => k)), manca = rows.map((_, k) => k).filter(k => !chi.has(k));
+            html += `<div class="reg-mappe-h"><strong>${A4_PERS[p]} · rete di ${p === 'giulia' ? 'Giulia' : 'Marco'}</strong><span class="meta">${per[p].length}/${rows.length} disegnate</span></div>`;
+            html += per[p].length ? `<div class="reg-mappe">${per[p].map(([k, x]) => regFig(`${esc(nome(k))}${x.certo ? '' : ` <span class="meta" title="Mappa salvata prima delle due schede: lo studente non ha ancora detto di chi è">· ${p === 'giulia' ? 'Giulia' : 'Marco'}?</span>`}`, p, x.m)).join('')}</div>` : '<p class="meta">Nessuna ancora.</p>';
+            if (manca.length && per[p].length) html += `<div class="reg-mancano">Non l'hanno ancora disegnata: ${manca.map(k => esc(nome(k))).join(', ')}</div>`;
+        });
+        return { tot, studenti: conAlmeno.size, html };
     }
     function regVistaMappe() {
         const g = regGalleria(REG.rows, regNome);
-        return `<div class="reg-nav"><h3>🕸️ Le mappe della rete disegnate dagli studenti</h3><span class="meta">${g.con.length}/${REG.rows.length} disegnate · tappa 4</span></div>` +
-            (g.con.length ? g.html : '<div class="reg-vuoto">Nessuno studente di questa classe ha ancora disegnato la mappa della rete (tappa 4).</div>') +
-            (g.senza.length ? `<div class="reg-mancano">Non l'hanno ancora disegnata: ${g.senza.map(i => esc(regNome(i))).join(', ')}</div>` : '');
+        return `<div class="reg-nav"><h3>🕸️ Le mappe della rete disegnate dagli studenti</h3><span class="meta">${g.tot} mappe di ${g.studenti}/${REG.rows.length} studenti · tappa 4</span></div>` +
+            (g.tot ? g.html : '<div class="reg-vuoto">Nessuno studente di questa classe ha ancora disegnato la mappa della rete (tappa 4).</div>');
     }
 
     /* --- vista 1: riepilogo della classe --- */
@@ -2724,7 +2751,7 @@
         }
         if (s.a4) {
             const g = regGalleria(rows, regNome);
-            h += `<div class="reg-sez"><h4>🕸️ Le mappe della rete <span class="meta">${g.con.length}/${N} disegnate</span></h4>${g.html}${mancano(g.senza)}</div>`;
+            h += `<div class="reg-sez"><h4>🕸️ Le mappe della rete <span class="meta">${g.tot} mappe di ${g.studenti}/${N} studenti</span></h4>${g.html}</div>`;
         }
         if (s.a5) {
             const st = rows.map(r => Math.min((regJson(r.data, 'a5-dialogo') || {}).k || 0, A5.length));
@@ -2772,7 +2799,10 @@
             const aperta = n === REG.tappa || (REG.tappa === tappaCorrente && t.ok > 0 && n === s.arrivato);
             h += `<details id="regQ${n}" ${aperta ? 'open' : ''}><summary><span class="reg-cella ${regClasseCella(t.pct)}">${t.pct >= 100 ? '✓' : t.pct + '%'}</span> Tappa ${n} · ${esc(st.titolo)}</summary><div class="dentro">`;
             if (st.a2) { const v1 = parseInt(d['a2-voto1'], 10), v2 = parseInt(d['a2-voto2'], 10); h += `<div class="reg-risp"><div class="dom">🗳️ Vota, discuti, rivota (giusta: C)</div><div class="txt${isNaN(v1) ? ' vuoto' : ''}">${isNaN(v1) ? '— non ancora votato —' : `Primo voto ${'ABCD'[v1] || '?'}${isNaN(v2) ? '' : `, secondo voto ${'ABCD'[v2] || '?'}`}`}</div></div>`; }
-            if (st.a4) { const m = regMappa(d); h += `<div class="reg-risp"><div class="dom">🕸️ La mappa della rete</div>${m ? `<div class="reg-mappe" style="grid-template-columns:minmax(0,560px)"><figure><svg viewBox="0 0 600 360" role="img" aria-label="Mappa della rete">${a4Disegno(m)}</svg><div class="mr-conta">${a4Conta(m)}</div></figure></div>` : vuoto}</div>`; }
+            if (st.a4) {
+                const mm = regMappe(d);
+                h += `<div class="reg-risp"><div class="dom">🕸️ Le mappe della rete (${mm.length}/2)</div>${mm.length ? `<div class="reg-mappe" style="grid-template-columns:repeat(auto-fill,minmax(320px,560px))">${['giulia', 'marco'].map(p => mm.find(x => x.p === p)).filter(Boolean).map(x => regFig(`${A4_PERS[x.p]}${x.certo ? '' : ' <span class="meta">(da confermare)</span>'}`, x.p, x.m)).join('')}</div>` : vuoto}</div>`;
+            }
             if (st.a5) { const k = Math.min((regJson(d, 'a5-dialogo') || {}).k || 0, A5.length); h += `<div class="reg-risp"><div class="dom">💬 Parlare con Matteo</div><div class="txt">${k}/${A5.length} battute riuscite${k >= A5.length ? ' ✅' : ''}</div></div>`; }
             st.campi.forEach(c => {
                 const v = d[c.key]; let txt;
@@ -2853,11 +2883,28 @@
     /* Stato in a4-mappa: { n: [{ l, t, x?, y? }], e: [[da, a, tipo]] }, con -1 = Persona.
        x e y sono facoltativi (posizione scelta trascinando il nodo): le mappe salvate prima restano valide.
        Dopo il salvataggio si può ancora rinominare, cambiare tipo, spostare o eliminare nodi e legami. */
-    let a4Storia = [], a4Sel = null;
+    /* Due mappe: Giulia e Marco. La prima disegnata sta in a4-mappa (com'era prima), l'altra in a4-mappa2;
+       a4-chi dice di chi è la prima. Una mappa salvata prima di questa versione ha a4-chi vuoto: la pagina
+       chiede allo studente di chi è, senza toccarla. */
+    let a4Sel = null, a4TabScelto = null;
+    const a4Storie = {};
     const A4_C = [300, 185];
-    function a4Stato() { const st = jget('a4-mappa', null); return (st && Array.isArray(st.n) && Array.isArray(st.e)) ? st : { n: [], e: [] }; }
-    function a4Salva(st) { hset('a4-mappa', JSON.stringify(st)); a4Render(); }
-    function a4Memo(st) { a4Storia.push(JSON.stringify(st)); if (a4Storia.length > 60) a4Storia.shift(); }
+    const A4_PERS = { giulia: '👧 Giulia', marco: '👦 Marco' };
+    const a4Altra = p => p === 'giulia' ? 'marco' : 'giulia';
+    function a4Chi() { const v = hv('a4-chi'); return v === 'giulia' || v === 'marco' ? v : ''; }
+    function a4Vuota(k) { const st = jget(k, null); return !(st && Array.isArray(st.n) && st.n.length); }
+    function a4Legacy() { return !a4Chi() && !a4Vuota('a4-mappa'); }
+    function a4Tab() { return a4TabScelto || a4Chi() || 'giulia'; }
+    function a4Key(p = a4Tab()) { const chi = a4Chi(); return !chi || p === chi ? 'a4-mappa' : 'a4-mappa2'; }
+    function a4Pila() { const k = a4Key(); return a4Storie[k] || (a4Storie[k] = []); }
+    function a4Stato() { const st = jget(a4Key(), null); return (st && Array.isArray(st.n) && Array.isArray(st.e)) ? st : { n: [], e: [] }; }
+    function a4Salva(st) {
+        if (!a4Chi() && a4Vuota('a4-mappa')) hset('a4-chi', a4Tab()); // la prima mappa disegnata dice di chi è
+        hset(a4Key(), JSON.stringify(st)); a4Render();
+    }
+    function a4Memo(st) { const p = a4Pila(); p.push(JSON.stringify(st)); if (p.length > 60) p.shift(); }
+    function a4Scegli(p) { a4TabScelto = p; a4Sel = null; a4Render(); }
+    function a4DiChi(p) { hset('a4-chi', p); a4TabScelto = p; a4Sel = null; a4Render(); }
     function a4AggiungiNodo() {
         const inp = document.getElementById('a4-nodo'); const l = inp.value.trim().slice(0, 22); if (!l) { inp.focus(); return; }
         const st = a4Stato(); if (st.n.length >= 14) { alert('Bastano 14 nodi per questa mappa.'); return; }
@@ -2870,7 +2917,7 @@
         if (gia >= 0) { a4Sel = { e: gia }; a4Render(); return; }
         a4Memo(st); st.e.push([a, b, t]); a4Sel = { e: st.e.length - 1 }; a4Salva(st);
     }
-    function a4Annulla() { if (!a4Storia.length) return; a4Sel = null; a4Salva(JSON.parse(a4Storia.pop())); }
+    function a4Annulla() { const p = a4Pila(); if (!p.length) return; a4Sel = null; a4Salva(JSON.parse(p.pop())); }
 
     // modifiche dopo il salvataggio
     function a4Nome(st, i) { return i < 0 ? 'Persona' : (st.n[i]?.l || '?'); }
@@ -2928,11 +2975,11 @@
     }
     const A4_STILE = { forte: ['#0E7C7C', 4.5, ''], debole: ['#94a3b8', 2.2, '7 6'], ponte: ['#CC0073', 3.2, ''] };
     // Disegno della mappa (usato anche dal registro della classe per le mappe degli studenti)
-    function a4Disegno(st, sel) {
+    function a4Disegno(st, sel, titolo) {
         const N = st.n.length, [cx, cy] = A4_C, P = a4Posizioni(st), at = i => i < 0 ? A4_C : P[i];
         const F = 'font-family="Segoe UI,Tahoma,sans-serif"';
         let g = `<rect x="0" y="0" width="300" height="360" fill="#f6fbe7"/><rect x="300" y="0" width="300" height="360" fill="#ecf8f8"/><line x1="300" y1="8" x2="300" y2="330" stroke="#d9e2e6" stroke-dasharray="3 5"/>
-            <g ${F} font-size="11" font-weight="700" letter-spacing=".08em"><text x="12" y="20" fill="#6b8a0e">RETE INFORMALE</text><text x="588" y="20" text-anchor="end" fill="#0E7C7C">RETE FORMALE</text></g>`;
+            <g ${F} font-size="11" font-weight="700" letter-spacing=".08em"><text x="12" y="20" fill="#6b8a0e">RETE INFORMALE</text><text x="588" y="20" text-anchor="end" fill="#0E7C7C">RETE FORMALE</text></g>${titolo ? `<text x="300" y="21" text-anchor="middle" ${F} font-size="13" font-weight="700" fill="#1f2933">${esc(titolo)}</text>` : ''}`;
         st.e.forEach(([a, b, t], k) => {
             if ((a >= 0 && !P[a]) || (b >= 0 && !P[b])) return;
             const d = a4Tracciato(at(a), at(b), a < 0 || b < 0), [col, w, dash] = A4_STILE[t] || A4_STILE.debole, on = sel && sel.e === k;
@@ -2998,24 +3045,37 @@
             const st = drag.st || JSON.parse(drag.prima);
             st.n[drag.i].x = Math.round(p[0] + drag.dx); st.n[drag.i].y = Math.round(p[1] + drag.dy);
             drag.st = st;
-            svg.innerHTML = a4Disegno(st, { n: drag.i }); // si salva solo quando si lascia il nodo
+            svg.innerHTML = a4Disegno(st, { n: drag.i }, a4Legacy() ? '' : `Rete di ${a4Tab() === 'giulia' ? 'Giulia' : 'Marco'}`); // si salva solo quando si lascia il nodo
         });
         const fine = () => {
             if (!drag) return; const d = drag; drag = null;
             a4Sel = { n: d.i };
             if (d.st) {
                 const [x, y] = a4Posizioni(d.st)[d.i]; d.st.n[d.i].x = Math.round(x); d.st.n[d.i].y = Math.round(y);
-                a4Storia.push(d.prima); a4Salva(d.st);
+                a4Pila().push(d.prima); a4Salva(d.st);
             } else a4Render();
         };
         svg.addEventListener('pointerup', fine);
         svg.addEventListener('pointercancel', fine);
     }
+    function a4Schede() {
+        const box = document.getElementById('a4-tabs'); if (!box) return;
+        if (a4Legacy()) {
+            box.innerHTML = `<div class="a4-chiedi">📌 <strong>Hai già disegnato una mappa: di chi è la rete?</strong><button class="btn btn-sm" type="button" onclick="a4DiChi('giulia')">👧 Giulia</button><button class="btn btn-sm" type="button" onclick="a4DiChi('marco')">👦 Marco</button><span class="hint" style="margin:0">La tua mappa resta com'è; poi potrai disegnare anche l'altra.</span></div>`;
+            return;
+        }
+        const chi = a4Chi();
+        box.innerHTML = ['giulia', 'marco'].map(p => {
+            const st = chi ? jget(a4Key(p), null) : null; const n = st && Array.isArray(st.n) ? st.n.length : 0;
+            return `<button class="a4-tab${p === a4Tab() ? ' on' : ''}" type="button" onclick="a4Scegli('${p}')">${A4_PERS[p]}<small>${n ? `${n} nod${n === 1 ? 'o' : 'i'} ✓` : 'da fare'}</small></button>`;
+        }).join('');
+    }
     function a4Render() {
         const svg = document.getElementById('a4-svg'); if (!svg) return;
         const st = a4Stato(); const N = st.n.length;
         if (a4Sel && !(st.n[a4Sel.n] || st.e[a4Sel.e])) a4Sel = null;
-        svg.innerHTML = a4Disegno(st, a4Sel);
+        svg.innerHTML = a4Disegno(st, a4Sel, a4Legacy() ? '' : `Rete di ${a4Tab() === 'giulia' ? 'Giulia' : 'Marco'}`);
+        a4Schede();
         if (!svg.dataset.mr) { svg.dataset.mr = '1'; a4Interazioni(svg); }
         const opt = `<option value="-1">Persona</option>` + st.n.map((nd, i) => `<option value="${i}">${esc(nd.l)}</option>`).join('');
         ['a4-da', 'a4-a'].forEach((id, k) => { const sel = document.getElementById(id); const v = sel.value; sel.innerHTML = opt; if (v !== '' && sel.querySelector(`option[value="${v}"]`)) sel.value = v; else sel.value = k === 0 ? '-1' : (N ? '0' : '-1'); });
