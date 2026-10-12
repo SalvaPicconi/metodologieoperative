@@ -9,6 +9,7 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-13** · Codex · Collage autobiografico di seconda: nuclei ed emozioni, foto facoltative, materiali spiegati, dodici opere autentiche e riquadro UDA; conservati i campi precedenti e corretto il ripristino delle risposte locali. (versione approvata)
 - **2026-10-12** · Claude · «Lavori della classe» → «Mappe di rete»: vista per alunno con la mappa di Giulia e quella di Marco affiancate (resta la vista per caso).
 - **2026-10-12** · Claude · Mappa della rete: il pulsante «🔄 Ho sbagliato: scambia Giulia e Marco» corregge chi ha attribuito la mappa al caso sbagliato, senza toccare i disegni.
 - **2026-10-12** · Claude · Percorso «Operatore sociale», tappa 4: gli studenti disegnano tutte e due le reti, Giulia e Marco, salvate separatamente (chi aveva già una mappa indica di chi è, senza perderla); il docente le vede divise per caso in «Lavori della classe».
