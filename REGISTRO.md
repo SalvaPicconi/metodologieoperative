@@ -9,6 +9,7 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-12** · Claude · Percorso «Operatore sociale» (biennio): nuovo pannello docente «📋 Lavori della classe» con la mappa colorata studenti × tappe, la bacheca delle risposte di tutti per tappa (mappe di rete comprese) e il quaderno di ogni studente; si possono nascondere i nomi per la LIM. La mappa della rete è più leggibile (legami curvi che non passano sulla Persona, nodi trascinabili) e gli studenti possono rinominare, cambiare o eliminare nodi e legami anche dopo il salvataggio.
 - **2026-10-12** · Claude · In Compresenza le storie e le griglie sui pregiudizi (pagina per la LIM e due schede Word), collegate anche all'UDA «Pregiudizio, autorità e percezione» di seconda.
 - **2026-10-07** · Claude · Nei Programmi ogni UDA ha il bottone «＋ Programmazione», con o senza password: le UDA scelte compaiono in una barra in basso e passano alla Programmazione individuale per il Word.
 - **2026-10-07** · Claude · Creato questo registro, con la regola di aggiornarlo a ogni sessione.

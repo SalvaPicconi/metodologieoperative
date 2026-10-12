@@ -341,6 +341,9 @@
         .mappa-rete .mr-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; align-items: center; }
         .mappa-rete input[type="text"], .mappa-rete select { border: 2px solid var(--line); border-radius: 10px; padding: 6px 8px; font: inherit; font-size: .92em; background: white; }
         .mappa-rete svg { width: 100%; height: auto; display: block; background: var(--paper-soft); border-radius: 10px; margin-top: 6px; }
+        .a4-sel { background: #fff; border: 1px dashed var(--line); border-radius: 10px; padding: 6px 8px; font-size: .92em; }
+        .mappa-rete svg .a4n:active { cursor: grabbing; }
+        .mappa-rete svg .a4e { cursor: pointer; }
         .mr-conta { font-size: .9em; margin-top: 6px; color: var(--ink-soft); }
         .mr-conta strong { color: var(--ink); }
         .riattiva { display: none; margin: 0 24px 14px; background: var(--provate); border: 2px solid var(--lime-dark); border-radius: 16px; padding: 14px 18px; }
@@ -361,6 +364,86 @@
         .pensiero-per-te p { margin: 8px 0; }
         .pensiero-per-te .perche { font-size: .93em; color: var(--ink-soft); }
         @media print { .riattiva, .fine-parte { display: none !important; } }
+        /* ---------- REGISTRO DELLA CLASSE (docente, sola lettura) ---------- */
+        body.reg-aperto { overflow: hidden; }
+        .registro { position: fixed; inset: 0; z-index: 10000; background: rgba(15, 23, 32, .55); display: none; padding: 12px; }
+        .registro.show { display: block; }
+        .reg-box { background: var(--paper); border-radius: 18px; height: 100%; max-width: 1500px; margin: 0 auto; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 25px 70px rgba(0,0,0,.35); font-size: 1rem; }
+        .reg-head { background: linear-gradient(135deg, var(--turchese-deep), var(--turchese-dark)); color: white; padding: 12px 16px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+        .reg-head h2 { font-size: 1.2em; margin-right: auto; }
+        .reg-head .btn { padding: 6px 11px; font-size: .85em; }
+        .reg-head .btn.on { background: var(--lime); color: var(--ink); border-color: var(--lime); }
+        .reg-classi { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 8px 16px; background: var(--paper-soft); border-bottom: 1px solid var(--line); font-size: .9em; }
+        .reg-classi .lbl { color: var(--ink-soft); font-weight: 700; margin-right: 4px; }
+        .reg-chip { border: 2px solid var(--turchese); background: white; color: var(--turchese-deep); border-radius: 999px; padding: 3px 11px; font: inherit; font-weight: 700; cursor: pointer; }
+        .reg-chip small { font-weight: 400; color: var(--ink-soft); }
+        .reg-chip.on { background: var(--turchese-deep); border-color: var(--turchese-deep); color: white; }
+        .reg-chip.on small { color: #d5f5f5; }
+        .reg-tabs { display: flex; gap: 6px; padding: 8px 16px 0; border-bottom: 2px solid var(--line); flex-wrap: wrap; }
+        .reg-tabs button { border: 0; background: none; font: inherit; font-weight: 700; color: var(--ink-soft); padding: 8px 12px; border-bottom: 3px solid transparent; margin-bottom: -2px; cursor: pointer; }
+        .reg-tabs button.on { color: var(--turchese-deep); border-bottom-color: var(--turchese-deep); }
+        .reg-corpo { flex: 1; overflow: auto; padding: 14px 16px 30px; }
+        .reg-vuoto { color: var(--ink-soft); padding: 30px 10px; text-align: center; }
+        .reg-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 14px; }
+        .reg-tile { background: var(--paper-soft); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }
+        .reg-tile b { display: block; font-size: 1.6em; color: var(--turchese-deep); line-height: 1.1; font-variant-numeric: tabular-nums; }
+        .reg-tile span { font-size: .85em; color: var(--ink-soft); }
+        .reg-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+        .reg-griglia { border-collapse: separate; border-spacing: 0; width: 100%; font-size: .9em; }
+        .reg-griglia th, .reg-griglia td { padding: 4px; text-align: center; border-bottom: 1px solid var(--line); white-space: nowrap; }
+        .reg-griglia thead th { background: var(--paper-soft); position: sticky; top: 0; z-index: 2; }
+        .reg-griglia th.nome { text-align: left; position: sticky; left: 0; background: white; z-index: 1; min-width: 150px; }
+        .reg-griglia thead th.nome { background: var(--paper-soft); z-index: 3; }
+        .reg-griglia th.nome small { display: block; font-weight: 400; color: var(--ink-soft); font-size: .8em; }
+        .reg-griglia th.qui { background: #fff7d6; }
+        .reg-link { border: 0; background: none; font: inherit; font-weight: 700; color: var(--turchese-deep); cursor: pointer; padding: 2px 4px; text-align: left; }
+        .reg-link:hover { text-decoration: underline; }
+        .reg-cella { width: 52px; height: 34px; border-radius: 8px; border: 0; font: inherit; font-weight: 700; font-size: .85em; cursor: pointer; font-variant-numeric: tabular-nums; }
+        .reg-cella:hover { outline: 3px solid var(--ink); }
+        .rc0 { background: #eef2f4; color: #94a3b8; }
+        .rc1 { background: #fde68a; color: #713f12; }
+        .rc2 { background: #a5e8e8; color: #083d3d; }
+        .rc3 { background: var(--ok); color: white; }
+        .reg-legenda { display: flex; flex-wrap: wrap; gap: 12px; font-size: .82em; color: var(--ink-soft); margin: 10px 2px; align-items: center; }
+        .reg-legenda i { display: inline-block; width: 16px; height: 12px; border-radius: 4px; vertical-align: middle; margin-right: 4px; }
+        .reg-pallino { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #22c55e; margin-left: 4px; box-shadow: 0 0 0 3px #bbf7d0; vertical-align: middle; }
+        .reg-tot { min-width: 90px; }
+        .reg-tot .bar { margin: 2px 0 0; height: 8px; }
+        .reg-nav { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+        .reg-nav h3 { margin: 0 6px; font-size: 1.15em; }
+        .reg-nav .meta { color: var(--ink-soft); font-size: .88em; }
+        .reg-sez { border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; margin: 10px 0; background: white; }
+        .reg-sez > h4 { margin-bottom: 6px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+        .reg-sez > h4 .meta { font-weight: 400; font-size: .82em; color: var(--ink-soft); }
+        .reg-muro { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px; }
+        .reg-post { background: #fffbea; border: 1px solid #f5e3a3; border-radius: 10px; padding: 8px 10px; font-size: .92em; white-space: pre-wrap; word-wrap: break-word; }
+        .reg-post b { display: block; font-size: .82em; color: var(--turchese-deep); margin-bottom: 2px; white-space: normal; }
+        .reg-mancano { font-size: .82em; color: var(--ink-soft); margin-top: 6px; }
+        .reg-mappe { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 10px; }
+        .reg-mappe figure { border: 1px solid var(--line); border-radius: 10px; padding: 6px; background: var(--paper-soft); }
+        .reg-mappe figcaption { font-size: .82em; font-weight: 700; color: var(--turchese-deep); }
+        .reg-mappe svg { width: 100%; height: auto; display: block; background: white; border-radius: 8px; }
+        .reg-item { margin: 6px 0 10px; }
+        .reg-item .bar { margin: 2px 0 4px; }
+        .reg-sbagli { font-size: .82em; color: #9a3412; }
+        .reg-quaderno details { border: 1px solid var(--line); border-radius: 12px; margin: 8px 0; background: white; }
+        .reg-quaderno summary { padding: 9px 12px; cursor: pointer; font-weight: 700; display: flex; gap: 10px; align-items: center; }
+        .reg-quaderno summary .reg-cella { cursor: default; width: auto; padding: 0 8px; height: 26px; }
+        .reg-quaderno .dentro { padding: 2px 14px 12px; }
+        .reg-risp { margin: 8px 0; }
+        .reg-risp .dom { font-size: .85em; color: var(--ink-soft); font-weight: 700; }
+        .reg-risp .txt { background: var(--paper-soft); border-left: 4px solid var(--turchese); border-radius: 6px; padding: 6px 10px; white-space: pre-wrap; word-wrap: break-word; }
+        .reg-risp .txt.vuoto { border-left-color: var(--line); color: #94a3b8; font-style: italic; }
+        .reg-acts { list-style: none; font-size: .88em; margin-top: 4px; }
+        .reg-segni { display: flex; flex-wrap: wrap; gap: 3px; font-size: 1.05em; }
+        .reg-segni span { cursor: help; }
+        .reg-q { display: grid; grid-template-columns: 1fr 120px 3.2em 2.6em; gap: 10px; align-items: center; padding: 4px 0; border-bottom: 1px dashed var(--line); font-size: .92em; }
+        .reg-q .bar { margin: 0; height: 10px; }
+        .reg-q small { color: var(--ink-soft); }
+        @media (max-width: 640px) { .reg-q { grid-template-columns: 1fr 60px 3em; } .reg-q small { display: none; } }
+        .reg-acts li { padding: 3px 0; border-bottom: 1px dashed var(--line); }
+        @media (max-width: 640px) { .registro { padding: 0; } .reg-box { border-radius: 0; } }
+        @media print { .registro { display: none !important; } }
     </style>
 </head>
 
@@ -370,6 +453,26 @@
         <div style="font-size: 2.4em;">🎉</div>
         <div class="pv" id="pointsValue">+5</div>
         <p style="color:#666;">punti guadagnati</p>
+    </div>
+
+    <!-- Registro della classe: solo lettura, nessun campo input/select/textarea (il salvataggio automatico raccoglie tutti i campi della pagina) -->
+    <div class="registro" id="registro" role="dialog" aria-modal="true" aria-label="Lavori della classe">
+        <div class="reg-box">
+            <div class="reg-head">
+                <h2>📋 Lavori della classe <span id="regTitoloClasse"></span></h2>
+                <button class="btn btn-ghost" id="regBtnNomi" onclick="registroNomi()">🙈 Nascondi i nomi</button>
+                <button class="btn btn-ghost" id="regBtnAuto" onclick="registroAuto()">⏱ Aggiorna da solo</button>
+                <button class="btn btn-ghost" onclick="registroCarica()">↻ Aggiorna</button>
+                <button class="btn btn-white" onclick="registroChiudi()">✕ Chiudi</button>
+            </div>
+            <div class="reg-classi" id="regClassi"></div>
+            <div class="reg-tabs" id="regTabs">
+                <button data-vista="griglia" onclick="registroVista('griglia')">🟩 Mappa della classe</button>
+                <button data-vista="tappa" onclick="registroVista('tappa')">🧱 Bacheca della tappa</button>
+                <button data-vista="studente" onclick="registroVista('studente')">📓 Quaderno dello studente</button>
+            </div>
+            <div class="reg-corpo" id="regCorpo"></div>
+        </div>
     </div>
 
     <div class="state-storage" style="display:none" aria-hidden="true">
@@ -389,6 +492,7 @@
             <div class="header-actions">
                 <a href="tssas_teoria_ripasso.html" class="btn btn-white">📖 Ripassa la teoria</a>
                 <button class="btn btn-ghost" id="btnLim" onclick="toggleLim()">🖥️ Modalità LIM (docente)</button>
+                <button class="btn btn-white" onclick="registroApri()">📋 Lavori della classe (docente)</button>
                 <button class="btn btn-ghost" onclick="window.print()">🖨️ Stampa il percorso</button>
                 <button class="btn btn-ghost" onclick="riattivaApri()">🔁 Riattiva · 3 domande</button>
             </div>
@@ -440,6 +544,7 @@
             <button class="btn btn-sm btn-ghost" onclick="timerReset()">↺</button>
             <span class="spacer"></span>
             <button class="btn btn-sm btn-ghost" onclick="rivelaTappa()">👁 Rivela il confronto</button>
+            <button class="btn btn-sm btn-white" onclick="registroApri()">📋 Lavori della classe</button>
             <button class="btn btn-sm btn-white" onclick="mostraRisposteClasse()">📊 Risposte della classe</button>
             <button class="btn btn-sm btn-lime" id="btnCambiaClasseLim" onclick="cambiaClasseLim()">🔁 Cambia classe</button>
             <button class="btn btn-sm btn-ghost" onclick="vaiTappa(tappaCorrente - 1)">◀</button>
@@ -874,10 +979,11 @@
                         </div>
                         <div class="mappa-rete" id="a4-box">
                             <div class="nt">🖊️ Disegna una delle due reti <span class="bonus-tag">bonus</span></div>
-                            <p class="hint">Aggiungi i nodi (ruoli, mai nomi veri), poi collegali. La pagina conta nodi, legami, ponti e nodi isolati. Scegli Giulia o Marco: vedere la rete disegnata aiuta a confrontarle.</p>
+                            <p class="hint">Aggiungi i nodi (ruoli, mai nomi veri), poi collegali. Puoi trascinare i nodi e, toccandoli, rinominarli o eliminarli anche dopo. La pagina conta nodi, legami, ponti e nodi isolati. Scegli Giulia o Marco: vedere la rete disegnata aiuta a confrontarle.</p>
                             <div class="mr-row"><input type="text" id="a4-nodo" data-progress-ignore maxlength="22" placeholder="es. zia, allenatrice, consultorio" aria-label="Nome del nodo"><select id="a4-tipo" data-progress-ignore aria-label="Tipo di nodo"><option value="inf">informale</option><option value="for">formale</option></select><button class="btn btn-sm" type="button" onclick="a4AggiungiNodo()">+ Nodo</button></div>
                             <div class="mr-row"><select id="a4-da" data-progress-ignore aria-label="Da"></select><span>↔</span><select id="a4-a" data-progress-ignore aria-label="A"></select><select id="a4-leg" data-progress-ignore aria-label="Tipo di legame"><option value="forte">legame forte</option><option value="debole">legame debole</option><option value="ponte">ponte</option></select><button class="btn btn-sm" type="button" onclick="a4Collega()">+ Legame</button><button class="btn btn-sm btn-soft" type="button" onclick="a4Annulla()">↶ Annulla l'ultima mossa</button></div>
                             <svg id="a4-svg" viewBox="0 0 600 360" role="img" aria-label="La tua mappa della rete"></svg>
+                            <div class="mr-row a4-sel" id="a4-sel"></div>
                             <div class="mr-conta" id="a4-conta"></div>
                         </div>
                         <div class="campo prop-griglia">
@@ -2331,7 +2437,7 @@
             } else {
                 const shown = vals.slice(0, 12);
                 html += `<ul class="risposte-testo">${shown.map(v => `<li>${esc(v)}</li>`).join('')}</ul>`;
-                if (vals.length > shown.length) html += `<p class="meta">… e altre ${vals.length - shown.length} risposte (visibili nell'Area docente).</p>`;
+                if (vals.length > shown.length) html += `<p class="meta">… e altre ${vals.length - shown.length} risposte (tutte in <a href="#" onclick="registroApri(); return false">📋 Lavori della classe</a>).</p>`;
             }
         });
         const cbNames = [...new Set($$('input[type="checkbox"]', sec).map(c => c.name).filter(Boolean))];
@@ -2353,6 +2459,323 @@
         panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
+
+    /* ---------- REGISTRO DELLA CLASSE (docente, sola lettura) ---------- */
+    /* Vista grafica dei lavori degli studenti: mappa studenti × tappe, bacheca di una tappa con le
+       risposte di tutti, quaderno del singolo studente. Legge soltanto (progress_docente_classe) e non
+       crea campi input/select/textarea: il salvataggio automatico della pagina non lo vede. */
+    const REG = { cls: '', rows: [], classi: null, vista: 'griglia', tappa: 1, stud: 0, ordine: 'nome', auto: null, struttura: null, anon: null };
+
+    function regStruttura() {
+        if (REG.struttura) return REG.struttura;
+        const pulisci = el => { if (!el) return ''; const c = el.cloneNode(true); c.querySelectorAll('.pts, .bonus-tag, input').forEach(x => x.remove()); return c.textContent.replace(/🏠 a casa/g, '').replace(/\s+/g, ' ').trim(); };
+        const tappaDi = sel => +(document.querySelector(sel)?.closest('.tappa')?.dataset.t || 0);
+        const speciali = { a2: tappaDi('#a2-box'), a4: tappaDi('#a4-box'), a5: tappaDi('#a5-box') };
+        const out = {};
+        for (let n = 1; n <= N_TAPPE; n++) {
+            const sec = $(`#tappa${n}`);
+            const campi = [];
+            $$('textarea, input[type="text"], select', sec).forEach(el => {
+                if (!el.id || el.matches('[data-progress-ignore]') || el.closest('.state-storage')) return;
+                const sel = el.tagName === 'SELECT';
+                campi.push({ key: el.name || el.id, tipo: sel ? 'select' : 'testo', req: fieldRequired(el), casa: Boolean(el.closest('.step-casa')),
+                    label: pulisci($(`label[for="${el.id}"]`, sec)) || el.getAttribute('aria-label') || el.placeholder || el.id,
+                    opts: sel ? Object.fromEntries([...el.options].map(o => [o.value, o.textContent.trim()])) : null });
+            });
+            [...new Set($$('input[type="checkbox"]', sec).map(c => c.name).filter(Boolean))].forEach(name => {
+                const labels = {}; $$(`input[name="${name}"]`, sec).forEach(c => labels[c.value] = c.parentElement.textContent.trim());
+                campi.push({ key: name, tipo: 'check', req: false, label: $(`input[name="${name}"]`, sec)?.closest('[data-cb-title]')?.dataset.cbTitle || 'Servizi scelti', opts: labels });
+            });
+            [...new Set($$('input[type="radio"]', sec).map(r => r.name).filter(Boolean))].forEach(name => {
+                campi.push({ key: name, tipo: 'radio', req: n === 12 && /^comp\d$/.test(name), label: $(`input[name="${name}"]`, sec)?.closest('.autoval-item')?.querySelector('label')?.textContent.trim() || name });
+            });
+            out[n] = { n, titolo: $('.tappa-head h2', sec)?.textContent.trim() || `Tappa ${n}`, campi, acts: Object.keys(ACTS).filter(id => ACTS[id].tappa === n), a2: speciali.a2 === n, a4: speciali.a4 === n, a5: speciali.a5 === n };
+        }
+        return (REG.struttura = out);
+    }
+
+    const regPieno = v => Array.isArray(v) ? v.length > 0 : (v !== null && v !== undefined && v !== false && String(v).trim() !== '');
+    function regAct(d, id) { try { const v = JSON.parse(d[`act_${id}`] || '{}'); return v && typeof v === 'object' ? v : {}; } catch { return {}; } }
+    function regJson(d, k) { try { const v = JSON.parse(d[k] || 'null'); return v && typeof v === 'object' ? v : null; } catch { return null; } }
+    function regMappa(d) {
+        const st = regJson(d, 'a4-mappa');
+        if (!st || !Array.isArray(st.n) || !Array.isArray(st.e)) return null;
+        if (st.n.some(x => !x || typeof x.l !== 'string')) return null; // gli indici dei legami dipendono dall'ordine dei nodi
+        const n = st.n.map(x => { const nd = { l: x.l.slice(0, 22), t: x.t === 'for' ? 'for' : 'inf' }; if (Number.isFinite(x.x) && Number.isFinite(x.y)) { nd.x = x.x; nd.y = x.y; } return nd; });
+        const e = st.e.filter(x => Array.isArray(x) && Number.isInteger(x[0]) && Number.isInteger(x[1]) && x[0] >= -1 && x[1] >= -1 && x[0] < n.length && x[1] < n.length);
+        return n.length ? { n, e } : null;
+    }
+
+    // Completamento di una tappa per uno studente: campi obbligatori + esercizi a punti (come i pallini della pagina).
+    // Se la tappa non ha nulla di obbligatorio, conta tutto quello che c'è.
+    function regTappa(d, n) {
+        const s = regStruttura()[n];
+        const conta = (campi, acts) => {
+            let tot = 0, ok = 0;
+            campi.forEach(c => { tot++; if (regPieno(d[c.key])) ok++; });
+            acts.forEach(id => { const st = regAct(d, id); ACTS[id].items.forEach((_, i) => { tot++; if (st[i]?.d) ok++; }); });
+            return { tot, ok };
+        };
+        let r = conta(s.campi.filter(c => c.req), s.acts.filter(id => !ACTS[id].bonus));
+        if (!r.tot) r = conta(s.campi.filter(c => !c.casa), s.acts);
+        const pct = r.tot ? Math.round(r.ok / r.tot * 100) : 0;
+        return { ...r, pct };
+    }
+    function regStudente(row) {
+        const d = row.data;
+        const tappe = []; let tot = 0, ok = 0;
+        for (let n = 1; n <= N_TAPPE; n++) { const t = regTappa(d, n); tappe.push(t); tot += t.tot; ok += t.ok; }
+        const meta = d._meta && typeof d._meta === 'object' ? d._meta : {};
+        return { tappe, pct: tot ? Math.round(ok / tot * 100) : 0, punti: meta.punti, puntiMax: meta.puntiMax, arrivato: parseInt(d.stato_tappa, 10) || 1, quando: row.updated_at ? new Date(row.updated_at) : null };
+    }
+
+    function regAnon() {
+        if (REG.anon === null) { try { const v = localStorage.getItem('mo:reg-anonimo'); REG.anon = v === null ? document.body.classList.contains('lim') : v === '1'; } catch { REG.anon = false; } }
+        return REG.anon;
+    }
+    function regNome(i) {
+        if (regAnon()) return `Studente ${i + 1}`;
+        const c = String(REG.rows[i]?.student_code || '');
+        return c.length < 3 ? c : c.charAt(0).toUpperCase() + c.slice(1, -1) + ' ' + c.slice(-1).toUpperCase() + '.';
+    }
+    function regQuando(dt) {
+        if (!dt) return '—';
+        const min = Math.round((Date.now() - dt) / 60000);
+        if (min < 1) return 'adesso';
+        if (min < 60) return `${min} min fa`;
+        const oggi = new Date(); const ieri = new Date(Date.now() - 864e5);
+        const hh = dt.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+        if (dt.toDateString() === oggi.toDateString()) return `oggi ${hh}`;
+        if (dt.toDateString() === ieri.toDateString()) return `ieri ${hh}`;
+        return dt.toLocaleDateString('it-IT', { day: 'numeric', month: 'short' }) + ` ${hh}`;
+    }
+    const regAttivo = dt => dt && (Date.now() - dt) < 10 * 60000;
+    const regClasseCella = p => p >= 100 ? 'rc3' : p >= 50 ? 'rc2' : p > 0 ? 'rc1' : 'rc0';
+
+    async function registroApri() {
+        if (!(await verificaDocente())) return;
+        $('#registro').classList.add('show');
+        document.body.classList.add('reg-aperto');
+        REG.cls = (localStorage.getItem('mo:lim-class') || '').trim().toLowerCase();
+        REG.tappa = tappaCorrente;
+        regBottoni();
+        regClassi();
+        if (REG.cls) registroCarica(); else $('#regCorpo').innerHTML = '<div class="reg-vuoto">Scegli la classe qui sopra.</div>';
+    }
+    function registroChiudi() {
+        $('#registro').classList.remove('show');
+        document.body.classList.remove('reg-aperto');
+        if (REG.auto) { clearInterval(REG.auto); REG.auto = null; }
+        regBottoni();
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('#registro').classList.contains('show')) registroChiudi(); });
+
+    function regBottoni() {
+        $('#regBtnNomi').textContent = regAnon() ? '👀 Mostra i nomi' : '🙈 Nascondi i nomi';
+        $('#regBtnNomi').classList.toggle('on', regAnon());
+        $('#regBtnAuto').textContent = REG.auto ? '⏱ Aggiornamento ogni 30 s: attivo' : '⏱ Aggiorna da solo';
+        $('#regBtnAuto').classList.toggle('on', Boolean(REG.auto));
+        $$('#regTabs button').forEach(b => b.classList.toggle('on', b.dataset.vista === REG.vista));
+        $('#regTitoloClasse').textContent = REG.cls ? `· ${REG.cls.toUpperCase()}` : '';
+    }
+    function registroNomi() {
+        REG.anon = !regAnon();
+        try { localStorage.setItem('mo:reg-anonimo', REG.anon ? '1' : '0'); } catch { }
+        regBottoni(); regDisegna();
+    }
+    function registroAuto() {
+        if (REG.auto) { clearInterval(REG.auto); REG.auto = null; }
+        else REG.auto = setInterval(() => registroCarica({ silenzioso: true }), 30000);
+        regBottoni();
+    }
+    function registroVista(v, opts = {}) {
+        REG.vista = v;
+        if (opts.tappa) REG.tappa = opts.tappa;
+        if (opts.stud !== undefined) REG.stud = opts.stud;
+        regBottoni(); regDisegna();
+        $('#regCorpo').scrollTop = 0;
+    }
+
+    // Classi che hanno lavorato su questa pagina (solo codici classe e date, nessuna risposta)
+    async function regClassi() {
+        const box = $('#regClassi');
+        if (!REG.classi) {
+            box.innerHTML = '<span class="lbl">Classe:</span> <span class="meta">cerco le classi…</span>';
+            try {
+                const righe = (await window.MODocente.chiama('progress_docente_elenco', { p_limite: 5000 })) || [];
+                const path = pagePathNormalized(), mappa = {};
+                righe.filter(r => r.page_path === path && r.class_code).forEach(r => {
+                    const c = r.class_code.trim().toLowerCase(); if (c === 'ospite') return;
+                    const m = mappa[c] || (mappa[c] = { c, n: 0, ultimo: 0 });
+                    m.n++; m.ultimo = Math.max(m.ultimo, Date.parse(r.updated_at) || 0);
+                });
+                REG.classi = Object.values(mappa).sort((a, b) => b.ultimo - a.ultimo);
+            } catch (e) { REG.classi = []; }
+        }
+        box.innerHTML = '<span class="lbl">Classe:</span>' + REG.classi.map(k => `<button class="reg-chip${k.c === REG.cls ? ' on' : ''}" onclick="registroClasse('${esc(k.c)}')">${esc(k.c.toUpperCase())} <small>${k.n} · ${esc(regQuando(new Date(k.ultimo)))}</small></button>`).join('') +
+            `<button class="reg-chip" onclick="registroClasse()">✏️ Altra classe…</button>`;
+    }
+    function registroClasse(c) {
+        if (c === undefined) {
+            const v = prompt('Classe da vedere (es. 2sa):', REG.cls);
+            if (v === null) return;
+            c = v.trim().toLowerCase().replace(/\s+/g, '');
+            if (!/^[1-5][a-z]{1,2}$/.test(c)) { alert('Classe non valida: una cifra da 1 a 5 seguita da 1-2 lettere (es. 2sa).'); return; }
+        }
+        REG.cls = c; REG.stud = 0;
+        try { localStorage.setItem('mo:lim-class', c); } catch { }
+        aggiornaClasseLimUI();
+        regBottoni(); regClassi(); registroCarica();
+    }
+
+    async function registroCarica(opts = {}) {
+        if (!REG.cls) return;
+        const corpo = $('#regCorpo');
+        if (!opts.silenzioso) corpo.innerHTML = '<div class="reg-vuoto">Carico i lavori della classe…</div>';
+        try {
+            const rows = (await window.MODocente.chiama('progress_docente_classe', { p_class_code: REG.cls, p_page_path: pagePathNormalized() })) || [];
+            const codice = REG.rows[REG.stud]?.student_code;
+            REG.rows = rows.map(r => { let d = r.data; if (typeof d === 'string') { try { d = JSON.parse(d); } catch { d = {}; } } return { student_code: r.student_code, updated_at: r.updated_at, data: d && typeof d === 'object' ? d : {} }; })
+                .sort((a, b) => String(a.student_code).localeCompare(String(b.student_code)));
+            REG.rows.forEach(r => r.s = regStudente(r));
+            const i = REG.rows.findIndex(r => r.student_code === codice); REG.stud = i >= 0 ? i : 0;
+        } catch (e) {
+            if (REG.auto && opts.silenzioso && e.code !== '42501') return; // un errore di rete durante l'aggiornamento automatico non cancella la vista
+            if (e.code === '42501') { if (REG.auto) { clearInterval(REG.auto); REG.auto = null; regBottoni(); } corpo.innerHTML = '<div class="reg-vuoto">Sessione docente scaduta. <button class="btn btn-sm" onclick="registroChiudi(); registroApri()">Accedi di nuovo</button></div>'; }
+            else corpo.innerHTML = `<div class="reg-vuoto">Non riesco a leggere i dati: ${esc(e.message)}. Controlla la connessione e premi ↻ Aggiorna.</div>`;
+            return;
+        }
+        const sc = corpo.scrollTop;
+        regDisegna();
+        if (opts.silenzioso) corpo.scrollTop = sc;
+    }
+
+    function regDisegna() {
+        const corpo = $('#regCorpo');
+        if (!REG.cls) return;
+        if (!REG.rows.length) { corpo.innerHTML = `<div class="reg-vuoto">Nessuno studente della classe ${esc(REG.cls.toUpperCase())} ha ancora salvato qualcosa su questa pagina.<br>Controlla che gli studenti abbiano scritto la classe nello stesso modo (es. ${esc(REG.cls)}).</div>`; return; }
+        corpo.innerHTML = REG.vista === 'tappa' ? regVistaTappa() : REG.vista === 'studente' ? regVistaStudente() : regVistaGriglia();
+    }
+
+    /* --- vista 1: mappa della classe --- */
+    function regVistaGriglia() {
+        const rows = REG.rows, n = rows.length;
+        const attivi = rows.filter(r => regAttivo(r.s.quando)).length;
+        const media = Math.round(rows.reduce((a, r) => a + r.s.pct, 0) / n);
+        const arr = {}; rows.forEach(r => arr[r.s.arrivato] = (arr[r.s.arrivato] || 0) + 1);
+        const moda = Object.entries(arr).sort((a, b) => b[1] - a[1])[0];
+        const tutte = [...Array(N_TAPPE).keys()].map(k => k + 1).filter(t => rows.every(r => r.s.tappe[t - 1].pct >= 100)).length;
+        let h = `<div class="reg-tiles">
+            <div class="reg-tile"><b>${n}</b><span>studenti con lavori salvati</span></div>
+            <div class="reg-tile"><b>${attivi}</b><span>al lavoro negli ultimi 10 minuti</span></div>
+            <div class="reg-tile"><b>${media}%</b><span>completamento medio del percorso</span></div>
+            <div class="reg-tile"><b>Tappa ${moda[0]}</b><span>dove si trova la maggior parte (${moda[1]})</span></div>
+            <div class="reg-tile"><b>${tutte}/${N_TAPPE}</b><span>tappe completate da tutti</span></div></div>`;
+        const idx = rows.map((_, i) => i);
+        if (REG.ordine === 'pct') idx.sort((a, b) => rows[b].s.pct - rows[a].s.pct);
+        if (REG.ordine === 'ultimo') idx.sort((a, b) => (rows[b].s.quando || 0) - (rows[a].s.quando || 0));
+        const ord = (k, t) => `<button class="reg-link" onclick="REG.ordine='${k}'; regDisegna()">${t}${REG.ordine === k ? ' ▾' : ''}</button>`;
+        h += `<div class="reg-scroll"><table class="reg-griglia"><thead><tr><th class="nome">${ord('nome', 'Studente')}</th>`;
+        for (let t = 1; t <= N_TAPPE; t++) h += `<th class="${t === tappaCorrente ? 'qui' : ''}"><button class="reg-link" title="${esc(regStruttura()[t].titolo)} · apri la bacheca" onclick="registroVista('tappa', { tappa: ${t} })">${t}</button></th>`;
+        h += `<th>${ord('pct', 'Totale')}</th><th>Punti</th><th>${ord('ultimo', 'Ultimo salvataggio')}</th></tr></thead><tbody>`;
+        idx.forEach(i => {
+            const s = rows[i].s;
+            h += `<tr><th class="nome"><button class="reg-link" onclick="registroVista('studente', { stud: ${i} })">${esc(regNome(i))}</button>${regAttivo(s.quando) ? '<span class="reg-pallino" title="al lavoro adesso"></span>' : ''}<small>è alla tappa ${s.arrivato}</small></th>`;
+            s.tappe.forEach((t, k) => h += `<td><button class="reg-cella ${regClasseCella(t.pct)}" title="${esc(regNome(i))} · tappa ${k + 1}: ${t.ok}/${t.tot}" onclick="registroVista('studente', { stud: ${i}, tappa: ${k + 1} })">${t.pct >= 100 ? '✓' : t.pct ? t.pct + '%' : '·'}</button></td>`);
+            h += `<td class="reg-tot"><strong>${s.pct}%</strong><div class="bar"><span style="width:${s.pct}%"></span></div></td><td>${s.punti ?? '—'}${s.puntiMax ? `<small style="color:var(--ink-soft)">/${s.puntiMax}</small>` : ''}</td><td>${esc(regQuando(s.quando))}</td></tr>`;
+        });
+        h += `</tbody><tfoot><tr><th class="nome">Completata da</th>`;
+        for (let t = 1; t <= N_TAPPE; t++) { const c = rows.filter(r => r.s.tappe[t - 1].pct >= 100).length; h += `<td><strong>${c}</strong><small style="color:var(--ink-soft)">/${n}</small></td>`; }
+        h += `<td></td><td></td><td></td></tr></tfoot></table></div>
+            <div class="reg-legenda"><span><i class="rc0"></i>non iniziata</span><span><i class="rc1"></i>iniziata</span><span><i class="rc2"></i>oltre metà</span><span><i class="rc3"></i>completata ✓</span><span><span class="reg-pallino"></span> al lavoro adesso</span><span>Clic su un numero di tappa: le risposte di tutti. Clic su un nome o su una casella: il quaderno dello studente.</span></div>`;
+        return h;
+    }
+
+    /* --- vista 2: bacheca della tappa --- */
+    function regVistaTappa() {
+        const n = REG.tappa, s = regStruttura()[n], rows = REG.rows, N = rows.length;
+        const fatti = rows.filter(r => r.s.tappe[n - 1].pct >= 100).length;
+        let h = `<div class="reg-nav"><button class="btn btn-sm btn-soft" ${n <= 1 ? 'disabled' : ''} onclick="registroVista('tappa', { tappa: ${n - 1} })">◀</button><h3>Tappa ${n} · ${esc(s.titolo)}</h3><button class="btn btn-sm btn-soft" ${n >= N_TAPPE ? 'disabled' : ''} onclick="registroVista('tappa', { tappa: ${n + 1} })">▶</button><span class="meta">completata da ${fatti}/${N}</span></div>`;
+        const mancano = ids => ids.length ? `<div class="reg-mancano">Mancano: ${ids.map(i => esc(regNome(i))).join(', ')}</div>` : '';
+        if (s.a2) {
+            const c1 = [0, 0, 0, 0], c2 = [0, 0, 0, 0];
+            rows.forEach(r => { const a = parseInt(r.data['a2-voto1'], 10), b = parseInt(r.data['a2-voto2'], 10); if (c1[a] !== undefined) c1[a]++; if (c2[b] !== undefined) c2[b]++; });
+            h += `<div class="reg-sez"><h4>🗳️ Vota, discuti, rivota <span class="meta">giusta: C</span></h4><div class="lim-box"><strong>Primo voto</strong> (${c1.reduce((a, b) => a + b, 0)})${barre(['A', 'B', 'C', 'D'], c1, A2_OK)}<div style="height:8px"></div><strong>Secondo voto</strong> (${c2.reduce((a, b) => a + b, 0)})${barre(['A', 'B', 'C', 'D'], c2, A2_OK)}</div></div>`;
+        }
+        if (s.a4) {
+            const con = [], senza = [];
+            rows.forEach((r, k) => { const m = regMappa(r.data); if (m) con.push([k, m]); else senza.push(k); });
+            h += `<div class="reg-sez"><h4>🕸️ Le mappe della rete <span class="meta">${con.length}/${N} disegnate</span></h4><div class="reg-mappe">${con.map(([k, m]) => `<figure><figcaption>${esc(regNome(k))}</figcaption><svg viewBox="0 0 600 360" role="img" aria-label="Mappa di ${esc(regNome(k))}">${a4Disegno(m)}</svg><div class="mr-conta">${a4Conta(m)}</div></figure>`).join('')}</div>${mancano(senza)}</div>`;
+        }
+        if (s.a5) {
+            const st = rows.map(r => Math.min((regJson(r.data, 'a5-dialogo') || {}).k || 0, A5.length));
+            h += `<div class="reg-sez"><h4>💬 Parlare con Matteo <span class="meta">battute riuscite su ${A5.length}</span></h4><div class="chipslist">${rows.map((_, k) => `<span style="${st[k] >= A5.length ? 'border-color:#16a34a;background:#dcfce7' : ''}">${esc(regNome(k))}: <strong>${st[k]}/${A5.length}</strong></span>`).join('')}</div></div>`;
+        }
+        s.campi.forEach(c => {
+            const con = [], senza = [];
+            rows.forEach((r, k) => { if (regPieno(r.data[c.key])) con.push(k); else senza.push(k); });
+            h += `<div class="reg-sez"><h4>${c.tipo === 'testo' ? '✍️' : c.tipo === 'check' ? '☑️' : c.tipo === 'radio' ? '📶' : '🔽'} ${esc(c.label)} <span class="meta">${con.length}/${N}${c.casa ? ' · a casa' : ''}</span></h4>`;
+            if (c.tipo === 'testo') h += `<div class="reg-muro">${con.map(k => `<div class="reg-post"><b>${esc(regNome(k))}</b>${esc(String(rows[k].data[c.key]).trim())}</div>`).join('')}</div>`;
+            else if (c.tipo === 'radio') {
+                const vals = con.map(k => parseInt(rows[k].data[c.key], 10)).filter(v => !isNaN(v));
+                const avg = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 0;
+                h += `<div><span class="meta">media ${vals.length ? avg.toFixed(1) : '—'}/5</span><div class="bar"><span style="width:${avg / 5 * 100}%;background:#1DD3D3"></span></div></div>`;
+            } else {
+                const conta = {}, chi = {};
+                con.forEach(k => { const v = rows[k].data[c.key]; (Array.isArray(v) ? v : [v]).forEach(x => { x = String(x); conta[x] = (conta[x] || 0) + 1; (chi[x] = chi[x] || []).push(regNome(k)); }); });
+                h += `<div class="chipslist">${Object.entries(conta).sort((a, b) => b[1] - a[1]).map(([v, q]) => `<span title="${esc(chi[v].join(', '))}">${esc(c.opts?.[v] || v)} <strong>${q}</strong></span>`).join('')}</div>`;
+            }
+            h += mancano(senza) + '</div>';
+        });
+        s.acts.forEach(id => {
+            const act = ACTS[id];
+            h += `<div class="reg-sez"><h4>${act.titolo}${act.bonus ? ' <span class="meta">bonus</span>' : ''} <span class="meta">% giusto al primo colpo</span></h4>`;
+            act.items.forEach((it, i) => {
+                const opts = it.o || act.o; let risp = 0, giusti = 0; const dist = new Array(opts.length).fill(0); const sbagli = [];
+                rows.forEach((r, k) => { const c = regAct(r.data, id)[i]; if (c && c.f !== undefined) { risp++; if (dist[c.f] !== undefined) dist[c.f]++; if (c.f === it.a) giusti++; else sbagli.push(k); } });
+                const pct = risp ? Math.round(giusti / risp * 100) : 0;
+                h += `<div class="reg-q" title="${esc(opts.map((o, k) => `${o}: ${dist[k]}`).join(' · '))}"><span><strong>${i + 1}.</strong> ${esc(it.t)}${sbagli.length ? `<span class="reg-sbagli"> · al primo colpo hanno sbagliato: ${sbagli.map(k => esc(regNome(k))).join(', ')}</span>` : ''}</span><div class="bar"><span style="width:${pct}%;background:${pct >= 70 ? 'var(--ok)' : pct >= 35 ? '#eab308' : '#dc2626'}"></span></div><b>${risp ? pct + '%' : '—'}</b><small>${risp}/${N}</small></div>`;
+            });
+            h += '</div>';
+        });
+        return h;
+    }
+
+    /* --- vista 3: quaderno dello studente --- */
+    function regVistaStudente() {
+        const rows = REG.rows, i = Math.min(REG.stud, rows.length - 1), r = rows[i], d = r.data, s = r.s;
+        let h = `<div class="reg-nav"><button class="btn btn-sm btn-soft" ${i <= 0 ? 'disabled' : ''} onclick="registroVista('studente', { stud: ${i - 1} })">◀</button><h3>${esc(regNome(i))}</h3><button class="btn btn-sm btn-soft" ${i >= rows.length - 1 ? 'disabled' : ''} onclick="registroVista('studente', { stud: ${i + 1} })">▶</button>
+            <span class="meta">${i + 1} di ${rows.length} · percorso al ${s.pct}% · ${s.punti ?? '—'}${s.puntiMax ? '/' + s.puntiMax : ''} punti · è alla tappa ${s.arrivato} · ultimo salvataggio ${esc(regQuando(s.quando))}</span></div>`;
+        h += `<div class="chipslist" style="margin-bottom:6px">${rows.map((_, k) => `<button class="reg-chip${k === i ? ' on' : ''}" onclick="registroVista('studente', { stud: ${k} })">${esc(regNome(k))}</button>`).join('')}</div><div class="reg-quaderno">`;
+        const vuoto = '<div class="txt vuoto">— non ancora fatto —</div>';
+        for (let n = 1; n <= N_TAPPE; n++) {
+            const st = regStruttura()[n], t = s.tappe[n - 1];
+            const aperta = n === REG.tappa || (REG.tappa === tappaCorrente && t.ok > 0 && n === s.arrivato);
+            h += `<details id="regQ${n}" ${aperta ? 'open' : ''}><summary><span class="reg-cella ${regClasseCella(t.pct)}">${t.pct >= 100 ? '✓' : t.pct + '%'}</span> Tappa ${n} · ${esc(st.titolo)}</summary><div class="dentro">`;
+            if (st.a2) { const v1 = parseInt(d['a2-voto1'], 10), v2 = parseInt(d['a2-voto2'], 10); h += `<div class="reg-risp"><div class="dom">🗳️ Vota, discuti, rivota (giusta: C)</div><div class="txt${isNaN(v1) ? ' vuoto' : ''}">${isNaN(v1) ? '— non ancora votato —' : `Primo voto ${'ABCD'[v1] || '?'}${isNaN(v2) ? '' : `, secondo voto ${'ABCD'[v2] || '?'}`}`}</div></div>`; }
+            if (st.a4) { const m = regMappa(d); h += `<div class="reg-risp"><div class="dom">🕸️ La mappa della rete</div>${m ? `<div class="reg-mappe" style="grid-template-columns:minmax(0,560px)"><figure><svg viewBox="0 0 600 360" role="img" aria-label="Mappa della rete">${a4Disegno(m)}</svg><div class="mr-conta">${a4Conta(m)}</div></figure></div>` : vuoto}</div>`; }
+            if (st.a5) { const k = Math.min((regJson(d, 'a5-dialogo') || {}).k || 0, A5.length); h += `<div class="reg-risp"><div class="dom">💬 Parlare con Matteo</div><div class="txt">${k}/${A5.length} battute riuscite${k >= A5.length ? ' ✅' : ''}</div></div>`; }
+            st.campi.forEach(c => {
+                const v = d[c.key]; let txt;
+                if (!regPieno(v)) txt = vuoto;
+                else if (c.tipo === 'check') txt = `<div class="txt">${(Array.isArray(v) ? v : [v]).map(x => esc(c.opts?.[x] || x)).join(' · ')}</div>`;
+                else if (c.tipo === 'select') txt = `<div class="txt">${esc(c.opts?.[v] || v)}</div>`;
+                else if (c.tipo === 'radio') txt = `<div class="txt">${esc(v)}/5</div>`;
+                else txt = `<div class="txt">${esc(String(v).trim())}</div>`;
+                h += `<div class="reg-risp"><div class="dom">${esc(c.label)}${c.casa ? ' · a casa' : ''}</div>${txt}</div>`;
+            });
+            st.acts.forEach(id => {
+                const act = ACTS[id], a = regAct(d, id), opts = k => ACTS[id].items[k].o || act.o;
+                const segni = act.items.map((it, k) => { const c = a[k]; return !c || c.f === undefined ? ['▫️', 'non risposto'] : c.f === it.a ? ['✅', 'giusto al primo colpo'] : c.d ? ['🔁', `corretto dopo un errore (prima: «${opts(k)[c.f] ?? '?'}»)`] : ['⏳', `sbagliato, non ancora corretto («${opts(k)[c.f] ?? '?'}»)`]; });
+                const primo = segni.filter(x => x[0] === '✅').length;
+                const errori = act.items.map((it, k) => [it, segni[k]]).filter(([, x]) => x[0] === '🔁' || x[0] === '⏳');
+                h += `<div class="reg-risp"><div class="dom">${act.titolo} · ${primo}/${act.items.length} giuste al primo colpo</div><div class="reg-segni">${segni.map((x, k) => `<span title="${k + 1}. ${esc(act.items[k].t)} — ${esc(x[1])}">${x[0]}</span>`).join('')}</div>${errori.length ? `<ul class="reg-acts">${errori.map(([it, x]) => `<li>${x[0]} ${esc(it.t)} <small>${esc(x[1])}</small></li>`).join('')}</ul>` : ''}</div>`;
+            });
+            h += `<div style="text-align:right"><button class="btn btn-sm btn-soft" onclick="registroVista('tappa', { tappa: ${n} })">🧱 Confronta con la classe</button></div></div></details>`;
+        }
+        setTimeout(() => { const el = document.getElementById(`regQ${REG.tappa}`); if (el && el.open) el.scrollIntoView({ block: 'start' }); }, 0);
+        return h + '</div>';
+    }
 
     /* ===================================================================== */
     /* ATTIVITÀ AGGIUNTE (settembre 2026). Tutte bonus: non servono per completare
@@ -2408,40 +2831,177 @@
     }
 
     /* ---------- A4 · Disegna la rete ---------- */
-    let a4Storia = [];
+    /* Stato in a4-mappa: { n: [{ l, t, x?, y? }], e: [[da, a, tipo]] }, con -1 = Persona.
+       x e y sono facoltativi (posizione scelta trascinando il nodo): le mappe salvate prima restano valide.
+       Dopo il salvataggio si può ancora rinominare, cambiare tipo, spostare o eliminare nodi e legami. */
+    let a4Storia = [], a4Sel = null;
+    const A4_C = [300, 185];
     function a4Stato() { const st = jget('a4-mappa', null); return (st && Array.isArray(st.n) && Array.isArray(st.e)) ? st : { n: [], e: [] }; }
     function a4Salva(st) { hset('a4-mappa', JSON.stringify(st)); a4Render(); }
+    function a4Memo(st) { a4Storia.push(JSON.stringify(st)); if (a4Storia.length > 60) a4Storia.shift(); }
     function a4AggiungiNodo() {
         const inp = document.getElementById('a4-nodo'); const l = inp.value.trim().slice(0, 22); if (!l) { inp.focus(); return; }
         const st = a4Stato(); if (st.n.length >= 14) { alert('Bastano 14 nodi per questa mappa.'); return; }
-        a4Storia.push(JSON.stringify(st)); st.n.push({ l, t: document.getElementById('a4-tipo').value }); inp.value = ''; a4Salva(st);
+        a4Memo(st); st.n.push({ l, t: document.getElementById('a4-tipo').value }); inp.value = ''; a4Sel = { n: st.n.length - 1 }; a4Salva(st);
     }
     function a4Collega() {
         const st = a4Stato(); const a = +document.getElementById('a4-da').value, b = +document.getElementById('a4-a').value, t = document.getElementById('a4-leg').value;
         if (a === b || isNaN(a) || isNaN(b)) return;
-        if (st.e.some(([x, y]) => (x === a && y === b) || (x === b && y === a))) return;
-        a4Storia.push(JSON.stringify(st)); st.e.push([a, b, t]); a4Salva(st);
+        const gia = st.e.findIndex(([x, y]) => (x === a && y === b) || (x === b && y === a));
+        if (gia >= 0) { a4Sel = { e: gia }; a4Render(); return; }
+        a4Memo(st); st.e.push([a, b, t]); a4Sel = { e: st.e.length - 1 }; a4Salva(st);
     }
-    function a4Annulla() { if (!a4Storia.length) return; a4Salva(JSON.parse(a4Storia.pop())); }
-    function a4Render() {
-        const svg = document.getElementById('a4-svg'); if (!svg) return;
-        const st = a4Stato(); const N = st.n.length; const cx = 300, cy = 180, R = 135;
-        const pos = i => i < 0 ? [cx, cy] : [cx + R * Math.cos(-Math.PI / 2 + 2 * Math.PI * i / Math.max(N, 1)), cy + R * 0.95 * Math.sin(-Math.PI / 2 + 2 * Math.PI * i / Math.max(N, 1))];
-        let g = '';
-        st.e.forEach(([a, b, t]) => { const [x1, y1] = pos(a), [x2, y2] = pos(b); g += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${t === 'ponte' ? '#CC0073' : t === 'forte' ? '#0E7C7C' : '#94a3b8'}" stroke-width="${t === 'forte' ? 4 : t === 'ponte' ? 3 : 2}" ${t === 'debole' ? 'stroke-dasharray="6 5"' : ''}/>`; });
-        g += `<circle cx="${cx}" cy="${cy}" r="30" fill="#1DD3D3"/><text x="${cx}" y="${cy + 4}" text-anchor="middle" font-size="13" font-weight="700" fill="#083d3d" font-family="Segoe UI,Tahoma,sans-serif">Persona</text>`;
-        st.n.forEach((nd, i) => { const [x, y] = pos(i); const w = Math.max(56, nd.l.length * 7.2 + 16); g += `<rect x="${x - w / 2}" y="${y - 15}" width="${w}" height="30" rx="15" fill="${nd.t === 'for' ? '#e6f7f7' : '#f3fbd9'}" stroke="${nd.t === 'for' ? '#0E7C7C' : '#9CB912'}" stroke-width="1.5"/><text x="${x}" y="${y + 4}" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1f2933" font-family="Segoe UI,Tahoma,sans-serif">${esc(nd.l)}</text>`; });
-        if (!N) g += `<text x="${cx}" y="${cy + 70}" text-anchor="middle" font-size="13" fill="#52606d" font-family="Segoe UI,Tahoma,sans-serif">Aggiungi il primo nodo qui sopra</text>`;
-        g += `<g font-size="11.5" font-family="Segoe UI,Tahoma,sans-serif" fill="#52606d"><text x="10" y="350">━ forte</text><text x="70" y="350">┅ debole</text><text x="140" y="350" fill="#CC0073">━ ponte</text><text x="400" y="350">🟩 informale · 🟦 formale</text></g>`;
-        svg.innerHTML = g;
-        const opt = `<option value="-1">Persona</option>` + st.n.map((nd, i) => `<option value="${i}">${esc(nd.l)}</option>`).join('');
-        ['a4-da', 'a4-a'].forEach((id, k) => { const sel = document.getElementById(id); const v = sel.value; sel.innerHTML = opt; if (v !== '' && sel.querySelector(`option[value="${v}"]`)) sel.value = v; else sel.value = k === 0 ? '-1' : (N ? '0' : '-1'); });
+    function a4Annulla() { if (!a4Storia.length) return; a4Sel = null; a4Salva(JSON.parse(a4Storia.pop())); }
+
+    // modifiche dopo il salvataggio
+    function a4Nome(st, i) { return i < 0 ? 'Persona' : (st.n[i]?.l || '?'); }
+    function a4Rinomina() {
+        const st = a4Stato(); const nd = st.n[a4Sel?.n]; if (!nd) return;
+        const v = prompt('Nuovo nome del nodo (un ruolo, mai un nome vero):', nd.l); if (v === null) return;
+        const l = v.trim().slice(0, 22); if (!l || l === nd.l) return;
+        a4Memo(st); nd.l = l; a4Salva(st);
+    }
+    function a4CambiaTipo() {
+        const st = a4Stato(); const nd = st.n[a4Sel?.n]; if (!nd) return;
+        a4Memo(st); nd.t = nd.t === 'for' ? 'inf' : 'for'; delete nd.x; delete nd.y; a4Salva(st);
+    }
+    function a4EliminaNodo() {
+        const st = a4Stato(); const i = a4Sel?.n; if (!st.n[i]) return;
+        const nl = st.e.filter(([a, b]) => a === i || b === i).length;
+        if (!confirm(`Eliminare il nodo «${st.n[i].l}»${nl ? ` e ${nl === 1 ? 'il suo legame' : `i suoi ${nl} legami`}` : ''}? (Puoi sempre annullare.)`)) return;
+        a4Memo(st); st.n.splice(i, 1);
+        st.e = st.e.filter(([a, b]) => a !== i && b !== i).map(([a, b, t]) => [a > i ? a - 1 : a, b > i ? b - 1 : b, t]);
+        a4Sel = null; a4Salva(st);
+    }
+    function a4TipoLegame(t) { const st = a4Stato(); const e = st.e[a4Sel?.e]; if (!e || e[2] === t) return; a4Memo(st); e[2] = t; a4Salva(st); }
+    function a4EliminaLegame() { const st = a4Stato(); if (!st.e[a4Sel?.e]) return; a4Memo(st); st.e.splice(a4Sel.e, 1); a4Sel = null; a4Salva(st); }
+    function a4Riordina() { const st = a4Stato(); if (!st.n.some(nd => nd.x !== undefined)) return; a4Memo(st); st.n.forEach(nd => { delete nd.x; delete nd.y; }); a4Salva(st); }
+
+    // Posizioni: informali a sinistra, formali a destra (come in un'ecomappa); su due anelli se sono tanti.
+    // Un nodo trascinato tiene la sua posizione.
+    function a4Larg(nd) { return Math.max(64, nd.l.length * 7.4 + 36); }
+    function a4Posizioni(st) {
+        const [cx, cy] = A4_C, pos = [], inf = [], frm = [];
+        st.n.forEach((nd, i) => (nd.t === 'for' ? frm : inf).push(i));
+        const arco = (lista, da, a) => lista.forEach((i, k) => {
+            const ang = (lista.length === 1 ? (da + a) / 2 : da + (a - da) * k / (lista.length - 1)) * Math.PI / 180;
+            const r = lista.length > 6 && k % 2 ? 0.62 : 1;
+            pos[i] = [cx + 205 * r * Math.cos(ang), cy + 128 * r * Math.sin(ang)];
+        });
+        arco(inf, 245, 115); arco(frm, -65, 65);
+        st.n.forEach((nd, i) => {
+            if (Number.isFinite(nd.x) && Number.isFinite(nd.y)) pos[i] = [nd.x, nd.y];
+            const w = a4Larg(nd) / 2;
+            pos[i] = [Math.min(596 - w, Math.max(4 + w, pos[i][0])), Math.min(312, Math.max(42, pos[i][1]))];
+        });
+        return pos;
+    }
+    // Legami fra due nodi: curvi e spinti verso l'esterno, così non passano sopra la Persona
+    function a4Tracciato(p1, p2, daPersona) {
+        const [x1, y1] = p1, [x2, y2] = p2;
+        if (daPersona) return `M${x1.toFixed(1)} ${y1.toFixed(1)} L${x2.toFixed(1)} ${y2.toFixed(1)}`;
+        const mx = (x1 + x2) / 2, my = (y1 + y2) / 2, len = Math.hypot(x2 - x1, y2 - y1) || 1;
+        let ux = mx - A4_C[0], uy = my - A4_C[1], l = Math.hypot(ux, uy);
+        if (l < 30) { ux = -(y2 - y1); uy = x2 - x1; l = len; if (uy > 0) { ux = -ux; uy = -uy; } }
+        ux /= l; uy /= l;
+        const k = Math.max(l < 70 ? 150 - l : 40, len * 0.28);
+        return `M${x1.toFixed(1)} ${y1.toFixed(1)} Q${(mx + ux * k).toFixed(1)} ${(my + uy * k).toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`;
+    }
+    const A4_STILE = { forte: ['#0E7C7C', 4.5, ''], debole: ['#94a3b8', 2.2, '7 6'], ponte: ['#CC0073', 3.2, ''] };
+    // Disegno della mappa (usato anche dal registro della classe per le mappe degli studenti)
+    function a4Disegno(st, sel) {
+        const N = st.n.length, [cx, cy] = A4_C, P = a4Posizioni(st), at = i => i < 0 ? A4_C : P[i];
+        const F = 'font-family="Segoe UI,Tahoma,sans-serif"';
+        let g = `<rect x="0" y="0" width="300" height="360" fill="#f6fbe7"/><rect x="300" y="0" width="300" height="360" fill="#ecf8f8"/><line x1="300" y1="8" x2="300" y2="330" stroke="#d9e2e6" stroke-dasharray="3 5"/>
+            <g ${F} font-size="11" font-weight="700" letter-spacing=".08em"><text x="12" y="20" fill="#6b8a0e">RETE INFORMALE</text><text x="588" y="20" text-anchor="end" fill="#0E7C7C">RETE FORMALE</text></g>`;
+        st.e.forEach(([a, b, t], k) => {
+            if ((a >= 0 && !P[a]) || (b >= 0 && !P[b])) return;
+            const d = a4Tracciato(at(a), at(b), a < 0 || b < 0), [col, w, dash] = A4_STILE[t] || A4_STILE.debole, on = sel && sel.e === k;
+            g += `<g class="a4e" data-e="${k}">${on ? `<path d="${d}" fill="none" stroke="#FF0090" stroke-opacity=".35" stroke-width="${w + 8}" stroke-linecap="round"/>` : ''}<path d="${d}" fill="none" stroke="transparent" stroke-width="16"/><path d="${d}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" ${dash ? `stroke-dasharray="${dash}"` : ''}/></g>`;
+        });
+        g += `<circle cx="${cx}" cy="${cy}" r="36" fill="#0E7C7C" opacity=".15"/><circle cx="${cx}" cy="${cy}" r="30" fill="#1DD3D3" stroke="#0E7C7C" stroke-width="2"/><text x="${cx}" y="${cy + 5}" text-anchor="middle" font-size="13.5" font-weight="700" fill="#083d3d" ${F}>Persona</text>`;
+        st.n.forEach((nd, i) => {
+            const [x, y] = P[i], w = a4Larg(nd), frm = nd.t === 'for', on = sel && sel.n === i;
+            g += `<g class="a4n" data-i="${i}" style="cursor:grab"><rect x="${x - w / 2 + 1.5}" y="${y - 13}" width="${w}" height="30" rx="15" fill="#000" opacity=".08"/><rect x="${x - w / 2}" y="${y - 15}" width="${w}" height="30" rx="15" fill="${frm ? '#e0f6f6' : '#f1f9d4'}" stroke="${on ? '#FF0090' : frm ? '#0E7C7C' : '#9CB912'}" stroke-width="${on ? 3 : 1.6}"/><circle cx="${x - w / 2 + 13}" cy="${y}" r="5" fill="${frm ? '#0E7C7C' : '#9CB912'}"/><text x="${x - w / 2 + 24}" y="${y + 4.5}" font-size="12.5" font-weight="700" fill="#1f2933" ${F}>${esc(nd.l)}</text></g>`;
+        });
+        if (!N) g += `<text x="${cx}" y="${cy + 75}" text-anchor="middle" font-size="13" fill="#52606d" ${F}>Aggiungi il primo nodo qui sopra</text>`;
+        g += `<g ${F} font-size="11.5" fill="#52606d"><rect x="6" y="334" width="588" height="22" rx="8" fill="#fff" opacity=".85"/>
+            <line x1="16" y1="345" x2="44" y2="345" stroke="#0E7C7C" stroke-width="4.5" stroke-linecap="round"/><text x="50" y="349">forte</text>
+            <line x1="92" y1="345" x2="120" y2="345" stroke="#94a3b8" stroke-width="2.2" stroke-dasharray="7 6"/><text x="126" y="349">debole</text>
+            <line x1="176" y1="345" x2="204" y2="345" stroke="#CC0073" stroke-width="3.2" stroke-linecap="round"/><text x="210" y="349">ponte</text>
+            <circle cx="290" cy="345" r="5" fill="#9CB912"/><text x="299" y="349">informale</text><circle cx="372" cy="345" r="5" fill="#0E7C7C"/><text x="381" y="349">formale</text></g>`;
+        return g;
+    }
+    function a4Conta(st) {
+        const N = st.n.length;
         const legati = new Set(); st.e.forEach(([a, b]) => { legati.add(a); legati.add(b); });
         const isolati = st.n.filter((_, i) => !legati.has(i)).length;
         const forti = st.e.filter(e => e[2] === 'forte').length, deboli = st.e.filter(e => e[2] === 'debole').length, ponti = st.e.filter(e => e[2] === 'ponte').length;
         const inf = st.n.filter(x => x.t === 'inf').length;
         const pl = (n, s1, sn) => `${n} ${n === 1 ? s1 : sn}`;
-        document.getElementById('a4-conta').innerHTML = `<strong>${pl(N, 'nodo', 'nodi')}</strong> (${pl(inf, 'informale', 'informali')}, ${pl(N - inf, 'formale', 'formali')}) · <strong>${pl(st.e.length, 'legame', 'legami')}</strong> (${pl(forti, 'forte', 'forti')}, ${pl(deboli, 'debole', 'deboli')}) · <strong>${pl(ponti, 'ponte', 'ponti')}</strong> · <strong>${pl(isolati, 'nodo isolato', 'nodi isolati')}</strong>`;
+        return `<strong>${pl(N, 'nodo', 'nodi')}</strong> (${pl(inf, 'informale', 'informali')}, ${pl(N - inf, 'formale', 'formali')}) · <strong>${pl(st.e.length, 'legame', 'legami')}</strong> (${pl(forti, 'forte', 'forti')}, ${pl(deboli, 'debole', 'deboli')}) · <strong>${pl(ponti, 'ponte', 'ponti')}</strong> · <strong>${pl(isolati, 'nodo isolato', 'nodi isolati')}</strong>`;
+    }
+    function a4Barra(st) {
+        const box = document.getElementById('a4-sel'); if (!box) return;
+        const b = (f, t, extra = '') => `<button class="btn btn-sm ${extra}" type="button" onclick="${f}">${t}</button>`;
+        const chiudi = `<button class="btn btn-sm btn-soft" type="button" onclick="a4Sel = null; a4Render()">✕</button>`;
+        if (a4Sel && st.n[a4Sel.n]) {
+            const nd = st.n[a4Sel.n];
+            box.innerHTML = `<span>Nodo <strong>«${esc(nd.l)}»</strong> (${nd.t === 'for' ? 'formale' : 'informale'})</span>${b('a4Rinomina()', '✏️ Rinomina')}${b('a4CambiaTipo()', nd.t === 'for' ? '🔄 Rendi informale' : '🔄 Rendi formale')}${b('a4EliminaNodo()', '🗑 Elimina nodo', 'btn-soft')}${chiudi}`;
+        } else if (a4Sel && st.e[a4Sel.e]) {
+            const [x, y, t] = st.e[a4Sel.e];
+            box.innerHTML = `<span>Legame <strong>${esc(a4Nome(st, x))} ↔ ${esc(a4Nome(st, y))}</strong>:</span>${['forte', 'debole', 'ponte'].map(k => b(`a4TipoLegame('${k}')`, k === t ? `● ${k}` : k, k === t ? '' : 'btn-soft')).join('')}${b('a4EliminaLegame()', '🗑 Elimina legame', 'btn-soft')}${chiudi}`;
+        } else {
+            a4Sel = null;
+            box.innerHTML = `<span class="hint" style="margin:0">💡 Trascina i nodi per sistemarli. Tocca un nodo o un legame per rinominarlo, cambiarlo o eliminarlo.</span>${st.n.some(nd => nd.x !== undefined) ? b('a4Riordina()', '↺ Rimetti in ordine', 'btn-soft') : ''}`;
+        }
+    }
+    function a4Interazioni(svg) {
+        let drag = null;
+        const punto = ev => { const m = svg.getScreenCTM(); if (!m) return null; const p = new DOMPoint(ev.clientX, ev.clientY).matrixTransform(m.inverse()); return [p.x, p.y]; };
+        // sul telefono, trascinare un nodo non deve far scorrere la pagina
+        svg.addEventListener('touchstart', ev => { if (ev.target.closest('.a4n')) ev.preventDefault(); }, { passive: false });
+        svg.addEventListener('pointerdown', ev => {
+            const gn = ev.target.closest('.a4n'), ge = ev.target.closest('.a4e');
+            if (gn) {
+                const i = +gn.dataset.i, p = punto(ev), st = a4Stato(); if (!p || !st.n[i]) return;
+                const [x, y] = a4Posizioni(st)[i];
+                drag = { i, dx: x - p[0], dy: y - p[1], x0: ev.clientX, y0: ev.clientY, prima: JSON.stringify(st), st: null };
+                try { svg.setPointerCapture(ev.pointerId); } catch { }
+                ev.preventDefault(); return;
+            }
+            a4Sel = ge ? { e: +ge.dataset.e } : null;
+            a4Render();
+        });
+        svg.addEventListener('pointermove', ev => {
+            if (!drag || (!drag.st && Math.hypot(ev.clientX - drag.x0, ev.clientY - drag.y0) < 5)) return;
+            const p = punto(ev); if (!p) return;
+            const st = drag.st || JSON.parse(drag.prima);
+            st.n[drag.i].x = Math.round(p[0] + drag.dx); st.n[drag.i].y = Math.round(p[1] + drag.dy);
+            drag.st = st;
+            svg.innerHTML = a4Disegno(st, { n: drag.i }); // si salva solo quando si lascia il nodo
+        });
+        const fine = () => {
+            if (!drag) return; const d = drag; drag = null;
+            a4Sel = { n: d.i };
+            if (d.st) {
+                const [x, y] = a4Posizioni(d.st)[d.i]; d.st.n[d.i].x = Math.round(x); d.st.n[d.i].y = Math.round(y);
+                a4Storia.push(d.prima); a4Salva(d.st);
+            } else a4Render();
+        };
+        svg.addEventListener('pointerup', fine);
+        svg.addEventListener('pointercancel', fine);
+    }
+    function a4Render() {
+        const svg = document.getElementById('a4-svg'); if (!svg) return;
+        const st = a4Stato(); const N = st.n.length;
+        if (a4Sel && !(st.n[a4Sel.n] || st.e[a4Sel.e])) a4Sel = null;
+        svg.innerHTML = a4Disegno(st, a4Sel);
+        if (!svg.dataset.mr) { svg.dataset.mr = '1'; a4Interazioni(svg); }
+        const opt = `<option value="-1">Persona</option>` + st.n.map((nd, i) => `<option value="${i}">${esc(nd.l)}</option>`).join('');
+        ['a4-da', 'a4-a'].forEach((id, k) => { const sel = document.getElementById(id); const v = sel.value; sel.innerHTML = opt; if (v !== '' && sel.querySelector(`option[value="${v}"]`)) sel.value = v; else sel.value = k === 0 ? '-1' : (N ? '0' : '-1'); });
+        document.getElementById('a4-conta').innerHTML = a4Conta(st);
+        a4Barra(st);
     }
 
     /* ---------- A5 · Parlare con Matteo ---------- */
