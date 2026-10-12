@@ -9,6 +9,7 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-12** · Claude · Percorso «Operatore sociale», tappa 4: gli studenti disegnano tutte e due le reti, Giulia e Marco, salvate separatamente (chi aveva già una mappa indica di chi è, senza perderla); il docente le vede divise per caso in «Lavori della classe».
 - **2026-10-12** · Claude · «Lavori della classe» si apre direttamente sulle mappe di rete disegnate dagli studenti (nuova scheda «🕸️ Mappe di rete»); le mappe compaiono anche, senza nomi, in «📊 Risposte della classe» della modalità LIM alla tappa 4.
 - **2026-10-12** · Claude · Percorso «Operatore sociale» (biennio): nuovo pannello docente «📋 Lavori della classe» con la mappa colorata studenti × tappe, la bacheca delle risposte di tutti per tappa (mappe di rete comprese) e il quaderno di ogni studente; si possono nascondere i nomi per la LIM. La mappa della rete è più leggibile (legami curvi che non passano sulla Persona, nodi trascinabili) e gli studenti possono rinominare, cambiare o eliminare nodi e legami anche dopo il salvataggio.
 - **2026-10-12** · Claude · In Compresenza le storie e le griglie sui pregiudizi (pagina per la LIM e due schede Word), collegate anche all'UDA «Pregiudizio, autorità e percezione» di seconda.
