@@ -2905,6 +2905,13 @@
     function a4Memo(st) { const p = a4Pila(); p.push(JSON.stringify(st)); if (p.length > 60) p.shift(); }
     function a4Scegli(p) { a4TabScelto = p; a4Sel = null; a4Render(); }
     function a4DiChi(p) { hset('a4-chi', p); a4TabScelto = p; a4Sel = null; a4Render(); }
+    // Correzione di uno sbaglio: le due mappe si scambiano di nome (cambia solo a4-chi, i disegni restano dove sono)
+    function a4Scambia() {
+        const chi = a4Chi(); if (!chi) return;
+        if (!confirm('Scambiare Giulia e Marco?\n\nLa mappa che ora è di Giulia diventa di Marco, e viceversa. I disegni non cambiano.')) return;
+        const vista = a4Altra(a4Tab()); // resti sullo stesso disegno, che ora ha l'altro nome
+        hset('a4-chi', a4Altra(chi)); a4TabScelto = vista; a4Sel = null; a4Render();
+    }
     function a4AggiungiNodo() {
         const inp = document.getElementById('a4-nodo'); const l = inp.value.trim().slice(0, 22); if (!l) { inp.focus(); return; }
         const st = a4Stato(); if (st.n.length >= 14) { alert('Bastano 14 nodi per questa mappa.'); return; }
@@ -3068,7 +3075,7 @@
         box.innerHTML = ['giulia', 'marco'].map(p => {
             const st = chi ? jget(a4Key(p), null) : null; const n = st && Array.isArray(st.n) ? st.n.length : 0;
             return `<button class="a4-tab${p === a4Tab() ? ' on' : ''}" type="button" onclick="a4Scegli('${p}')">${A4_PERS[p]}<small>${n ? `${n} nod${n === 1 ? 'o' : 'i'} ✓` : 'da fare'}</small></button>`;
-        }).join('');
+        }).join('') + (chi ? `<button class="btn btn-sm btn-soft" type="button" onclick="a4Scambia()" title="Se hai disegnato la rete di Marco sotto Giulia (o il contrario)">🔄 Ho sbagliato: scambia Giulia e Marco</button>` : '');
     }
     function a4Render() {
         const svg = document.getElementById('a4-svg'); if (!svg) return;
