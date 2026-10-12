@@ -9,6 +9,7 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-12** · Claude · In Compresenza le storie e le griglie sui pregiudizi (pagina per la LIM e due schede Word), collegate anche all'UDA «Pregiudizio, autorità e percezione» di seconda.
 - **2026-10-07** · Claude · Nei Programmi ogni UDA ha il bottone «＋ Programmazione», con o senza password: le UDA scelte compaiono in una barra in basso e passano alla Programmazione individuale per il Word.
 - **2026-10-07** · Claude · Creato questo registro, con la regola di aggiornarlo a ogni sessione.
 - **2026-10-07** · Claude · Nuova pagina «Programmazione individuale»: si scelgono classe e UDA e si scarica il piano di lavoro in Word sul modello di istituto. (`4a5ca5f`)
