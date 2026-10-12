@@ -346,6 +346,16 @@
         .a4-tab small { font-weight: 400; color: var(--ink-soft); margin-left: 4px; }
         .a4-tab.on { background: var(--lime); border-color: var(--lime-dark); }
         .a4-chiedi { background: var(--warn-bg); border: 2px solid #eab308; border-radius: 12px; padding: 8px 12px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+        .reg-alunno { border: 1px solid var(--line); border-radius: 12px; padding: 8px 12px 12px; margin: 10px 0; background: white; }
+        .reg-alunno > h4 { display: flex; gap: 8px; align-items: baseline; margin-bottom: 6px; }
+        .reg-alunno > h4 .meta { font-weight: 400; font-size: .85em; color: var(--ink-soft); }
+        .reg-coppia { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .reg-coppia figure { border: 1px solid var(--line); border-radius: 10px; padding: 6px; background: var(--paper-soft); }
+        .reg-coppia figcaption { font-size: .85em; font-weight: 700; color: var(--turchese-deep); }
+        .reg-coppia svg { width: 100%; height: auto; display: block; background: white; border-radius: 8px; }
+        .reg-coppia .reg-manca { border-style: dashed; display: flex; flex-direction: column; }
+        .reg-coppia .reg-manca div { flex: 1; min-height: 120px; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-style: italic; }
+        @media (max-width: 700px) { .reg-coppia { grid-template-columns: 1fr; } }
         .reg-mappe-h { margin: 12px 0 6px; font-size: 1.02em; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
         .reg-mappe-h .meta { font-weight: 400; font-size: .85em; color: var(--ink-soft); }
         .a4-sel { background: #fff; border: 1px dashed var(--line); border-radius: 10px; padding: 6px 8px; font-size: .92em; }
@@ -2481,7 +2491,7 @@
     /* Vista grafica dei lavori degli studenti: mappa studenti × tappe, bacheca di una tappa con le
        risposte di tutti, quaderno del singolo studente. Legge soltanto (progress_docente_classe) e non
        crea campi input/select/textarea: il salvataggio automatico della pagina non lo vede. */
-    const REG = { cls: '', rows: [], classi: null, vista: 'mappe', tappa: 1, stud: 0, ordine: 'nome', auto: null, struttura: null, anon: null };
+    const REG = { cls: '', rows: [], classi: null, vista: 'mappe', mappeVista: 'alunno', tappa: 1, stud: 0, ordine: 'nome', auto: null, struttura: null, anon: null };
 
     function regStruttura() {
         if (REG.struttura) return REG.struttura;
@@ -2698,10 +2708,21 @@
         });
         return { tot, studenti: conAlmeno.size, html };
     }
+    // Per alunno: una riga per studente con le due mappe affiancate, Giulia a sinistra e Marco a destra
+    function regMappePerAlunno(rows, nome) {
+        return rows.map((r, k) => {
+            const mm = regMappe(r.data), fatte = mm.length;
+            const cella = p => { const x = mm.find(y => y.p === p); return x ? regFig(`${A4_PERS[p]}${x.certo ? '' : ' <span class="meta" title="Mappa salvata prima delle due schede: lo studente non ha ancora detto di chi è">(da confermare)</span>'}`, p, x.m) : `<figure class="reg-manca"><figcaption>${A4_PERS[p]}</figcaption><div>non ancora disegnata</div></figure>`; };
+            return `<div class="reg-alunno"><h4><button class="reg-link" onclick="registroVista('studente', { stud: ${k}, tappa: 4 })">${esc(nome(k))}</button> <span class="meta">${fatte}/2 mappe</span></h4><div class="reg-coppia">${cella('giulia')}${cella('marco')}</div></div>`;
+        }).join('');
+    }
     function regVistaMappe() {
         const g = regGalleria(REG.rows, regNome);
-        return `<div class="reg-nav"><h3>🕸️ Le mappe della rete disegnate dagli studenti</h3><span class="meta">${g.tot} mappe di ${g.studenti}/${REG.rows.length} studenti · tappa 4</span></div>` +
-            (g.tot ? g.html : '<div class="reg-vuoto">Nessuno studente di questa classe ha ancora disegnato la mappa della rete (tappa 4).</div>');
+        const due = REG.rows.filter(r => regMappe(r.data).length >= 2).length;
+        const sw = (v, t) => `<button class="reg-chip${REG.mappeVista === v ? ' on' : ''}" onclick="REG.mappeVista='${v}'; regDisegna()">${t}</button>`;
+        return `<div class="reg-nav"><h3>🕸️ Le mappe della rete</h3><span class="meta">${g.tot} mappe · ${due}/${REG.rows.length} studenti le hanno fatte tutte e due · tappa 4</span><span style="margin-left:auto;display:flex;gap:6px">${sw('alunno', '👤 Per alunno')}${sw('caso', '🧩 Per caso')}</span></div>` +
+            (!g.tot ? '<div class="reg-vuoto">Nessuno studente di questa classe ha ancora disegnato la mappa della rete (tappa 4).</div>'
+                : REG.mappeVista === 'caso' ? g.html : regMappePerAlunno(REG.rows, regNome));
     }
 
     /* --- vista 1: riepilogo della classe --- */
