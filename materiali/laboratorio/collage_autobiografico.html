@@ -1,1822 +1,436 @@
 <!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="page-id" content="collage-autobiografico-01">
-    <title>Il Collage Autobiografico - Percorso di Apprendimento Interattivo</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: #333;
-            line-height: 1.6;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            color: white;
-            padding: 40px;
-            text-align: center;
-        }
-
-        header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        header p {
-            font-size: 1.2em;
-            opacity: 0.9;
-        }
-
-        .progress-container {
-            background: white;
-            padding: 20px;
-            border-bottom: 3px solid #667eea;
-        }
-
-        .progress-bar {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-        }
-
-        .progress-step {
-            flex: 1;
-            text-align: center;
-            padding: 10px;
-            background: #e0e0e0;
-            margin: 0 5px;
-            border-radius: 8px;
-            font-size: 0.9em;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-
-        .progress-step.completed {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-        }
-
-        .progress-step.active {
-            background: linear-gradient(135deg, #f093fb, #f5576c);
-            color: white;
-            transform: scale(1.05);
-        }
-
-        .score-display {
-            text-align: center;
-            font-size: 1.5em;
-            color: #667eea;
-            font-weight: bold;
-        }
-
-        .content {
-            padding: 40px;
-        }
-
-        .fase {
-            display: none;
-        }
-
-        .fase.active {
-            display: block;
-            animation: fadeIn 0.5s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .fase-header {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-        }
-
-        .fase-header h2 {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-
-        .info-box {
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            border-left: 5px solid;
-        }
-
-        .info-box.blue {
-            background: #e3f2fd;
-            border-color: #2196F3;
-        }
-
-        .info-box.green {
-            background: #e8f5e9;
-            border-color: #4CAF50;
-        }
-
-        .info-box.yellow {
-            background: #fff3e0;
-            border-color: #FF9800;
-        }
-
-        .info-box.purple {
-            background: #f3e5f5;
-            border-color: #9C27B0;
-        }
-
-        .info-box h3 {
-            margin-bottom: 10px;
-            font-size: 1.3em;
-        }
-
-        textarea {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 1em;
-            font-family: inherit;
-            margin: 10px 0;
-            min-height: 100px;
-            transition: border-color 0.3s;
-        }
-
-        textarea:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .quiz-container {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-
-        .quiz-question {
-            margin: 20px 0;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .quiz-question h4 {
-            margin-bottom: 15px;
-            color: #667eea;
-        }
-
-        .quiz-option {
-            padding: 12px;
-            margin: 8px 0;
-            background: #f8f9fa;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid transparent;
-        }
-
-        .quiz-option:hover {
-            background: #e9ecef;
-            border-color: #667eea;
-        }
-
-        .quiz-option.selected {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
-        }
-
-        .quiz-option.correct {
-            background: #4CAF50;
-            color: white;
-            border-color: #4CAF50;
-        }
-
-        .quiz-option.incorrect {
-            background: #f44336;
-            color: white;
-            border-color: #f44336;
-        }
-
-        .feedback {
-            margin-top: 15px;
-            padding: 15px;
-            border-radius: 8px;
-            display: none;
-        }
-
-        .feedback.show {
-            display: block;
-        }
-
-        .feedback.correct {
-            background: #c8e6c9;
-            color: #2e7d32;
-        }
-
-        .feedback.incorrect {
-            background: #ffcdd2;
-            color: #c62828;
-        }
-
-        .buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
-            gap: 15px;
-        }
-
-        button {
-            padding: 15px 30px;
-            font-size: 1.1em;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: bold;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            flex: 1;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-secondary {
-            background: #6c757d;
-            color: white;
-            flex: 1;
-        }
-
-        .btn-secondary:hover {
-            background: #5a6268;
-        }
-
-        .btn-success {
-            background: #28a745;
-            color: white;
-        }
-
-        .btn-success:hover {
-            background: #218838;
-        }
-
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .badge-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .badge {
-            text-align: center;
-            padding: 20px;
-            border-radius: 10px;
-            background: white;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            opacity: 0.3;
-            transition: all 0.3s;
-            min-width: 150px;
-        }
-
-        .badge.earned {
-            opacity: 1;
-            transform: scale(1.05);
-            background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
-        }
-
-        .badge-icon {
-            font-size: 3em;
-            margin-bottom: 10px;
-        }
-
-        .badge-name {
-            font-weight: bold;
-            color: #333;
-        }
-
-        .step-indicator {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            border-left: 4px solid #667eea;
-        }
-
-        .step-indicator strong {
-            color: #667eea;
-            font-size: 1.1em;
-        }
-
-        .case-study {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            padding: 25px;
-            border-radius: 10px;
-            margin: 20px 0;
-            border: 3px solid #ff6b6b;
-        }
-
-        .case-study h3 {
-            color: #c92a2a;
-            margin-bottom: 15px;
-        }
-
-        .evaluation-grid {
-            display: grid;
-            grid-template-columns: 1fr 4fr;
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .evaluation-item {
-            display: contents;
-        }
-
-        .evaluation-label {
-            font-weight: bold;
-            padding: 10px;
-            background: #f8f9fa;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-        }
-
-        .evaluation-scale {
-            display: flex;
-            gap: 10px;
-        }
-
-        .scale-option {
-            flex: 1;
-            padding: 10px;
-            text-align: center;
-            background: #f8f9fa;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid transparent;
-        }
-
-        .scale-option:hover {
-            background: #e9ecef;
-        }
-
-        .scale-option.selected {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
-        }
-
-        .final-summary {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .final-summary h2 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            color: #667eea;
-        }
-
-        .points-animation {
-            display: inline-block;
-            animation: pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        .export-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .checklist {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 15px 0;
-        }
-
-        .checklist-item {
-            padding: 10px;
-            margin: 8px 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .checklist-item input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
-
-        @media print {
-            body {
-                background: white;
-            }
-            .buttons, .progress-container, header {
-                display: none;
-            }
-            .container {
-                box-shadow: none;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                margin: 10px;
-            }
-            header h1 {
-                font-size: 1.8em;
-            }
-            .content {
-                padding: 20px;
-            }
-            .progress-step {
-                font-size: 0.7em;
-                padding: 8px 4px;
-            }
-            .buttons {
-                flex-direction: column;
-            }
-            .evaluation-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .celebration {
-            text-align: center;
-            font-size: 4em;
-            animation: bounce 1s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .template-box {
-            background: #fff9e6;
-            border: 2px dashed #ffa500;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-
-        .template-box h4 {
-            color: #ff8c00;
-            margin-bottom: 15px;
-        }
-
-        .example-list {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .example-list li {
-            padding: 8px;
-            margin: 5px 0;
-            background: white;
-            border-radius: 5px;
-            padding-left: 30px;
-            position: relative;
-        }
-
-        .example-list li:before {
-            content: "✂️";
-            position: absolute;
-            left: 8px;
-        }
-
-.collage-uda{background:#f4effb;border:1px solid #d8cbea;border-radius:12px;margin:22px 30px;padding:18px 22px;color:#24324a;line-height:1.55}.collage-uda h2{font-size:1.2rem;color:#40326a;margin:7px 0 12px}.collage-uda p{margin:7px 0}.collage-uda a{color:#43308a;text-decoration:underline;text-underline-offset:3px}
-.collage-extension{background:#fff;border:1px solid #cbd5e1;border-radius:16px;padding:clamp(18px,3vw,30px);margin:26px 0;color:#24324a;line-height:1.65}
-.collage-extension h3{font-size:1.55rem;color:#40326a;margin-bottom:14px;line-height:1.3}.collage-extension p{margin:10px 0}.collage-eyebrow{font-size:.78rem;letter-spacing:.1em;font-weight:800;color:#65508c}.collage-subhead{font-size:1.2rem;margin:28px 0 12px;color:#40326a}
-.collage-callout{background:#f4effb;border-left:4px solid #7453a6;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0}.collage-respect{background:#edf6f1;border-color:#347357}.collage-callout p{margin:4px 0}
-.collage-nuclei-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0}.collage-nucleo{border:1px solid #cbd5e1;border-radius:10px;background:#fafbfc;padding:12px 15px}.collage-extension summary{cursor:pointer;font-weight:700;color:#40326a;line-height:1.5}.collage-nucleo[open]{background:#f4effb}.collage-details{margin:20px 0;padding:16px;border:1px solid #cbd5e1;border-radius:10px}
-.collage-example{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.collage-example>div{padding:17px;background:#f6f3ee;border-radius:10px}.collage-example span{font-weight:800;color:#5b4631}
-.collage-table-wrap{overflow-x:auto;margin:16px 0}.collage-materials-table{width:100%;border-collapse:collapse;font-size:.94rem}.collage-materials-table caption{text-align:left;font-weight:700;color:#40326a;padding-bottom:10px}.collage-materials-table th,.collage-materials-table td{padding:12px;text-align:left;vertical-align:top;border:1px solid #cbd5e1}.collage-materials-table thead th{background:#f4effb}.collage-materials-table tbody th{width:30%;background:#fafbfc}
-.collage-extension label{display:block;margin-top:18px}.collage-extension textarea.collage-compact{min-height:88px;font-family:inherit;font-size:1rem;line-height:1.5;margin:7px 0 12px;padding:14px}.collage-steps{padding-left:24px}.collage-steps li{margin:10px 0}
-.collage-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:20px}.collage-art{overflow:hidden;border:1px solid #d7dce4;border-radius:12px;background:#fff}.collage-art>a{display:block;background:#f2f0ec;padding:12px}.collage-art img{width:100%;height:270px;object-fit:contain;display:block}.collage-art-body{padding:16px}.collage-art h4{font-size:1.1rem;line-height:1.3;margin:9px 0 4px}.collage-art-title{line-height:1.45}.collage-art p{font-size:.94rem}.collage-tag{display:inline-block;background:#f4effb;color:#4b3474;font-size:.75rem;padding:3px 8px;border-radius:5px;font-weight:700}.collage-art p.collage-credit,.collage-small{font-size:.8rem;line-height:1.5;color:#536177}.collage-extension a{color:#43308a;text-decoration:underline;text-underline-offset:3px}.collage-art .collage-credit{border-top:1px solid #e2e8f0;margin-top:14px;padding-top:12px}
-.collage-extension :focus-visible{outline:3px solid #2467ae;outline-offset:4px}
-@media(max-width:850px){.collage-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.collage-example{grid-template-columns:1fr}}
-@media(max-width:560px){.collage-uda{margin:18px 15px;padding:16px}.collage-gallery,.collage-nuclei-grid{grid-template-columns:1fr}.collage-art img{height:280px}.collage-extension h3{font-size:1.35rem}}
-@media print{.collage-art{break-inside:avoid}.collage-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.collage-extension{break-inside:auto}.collage-art img{height:180px}}
-
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>🎨 Il Collage Autobiografico</h1>
-            <p>Percorso di Apprendimento Interattivo</p>
-            <p style="font-size: 0.9em; margin-top: 10px;">Metodologie Operative - Servizi Socio-Sanitari<br>IIS Meucci - Mattei | Decimomannu</p>
-        </header>
-<section class="collage-uda" id="collage-uda" aria-labelledby="collage-uda-titolo">
-<p class="collage-eyebrow">UNITÀ DI APPRENDIMENTO (UDA) · CLASSE SECONDA</p>
-<h2 id="collage-uda-titolo">Tecniche espressive: il collage autobiografico</h2>
+<html lang="it"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="collage-autobiografico-01" name="page-id"/><title>Il collage autobiografico · Metodologie Operative</title><meta content="Laboratorio di seconda: scegli un nucleo personale o un’emozione, crea un collage e spiega le tue scelte. Opere autentiche, materiali e ripasso." name="description"/><link href="../../assets/collage-laboratorio.css?v=flusso-20261013" rel="stylesheet"/><link as="font" crossorigin="" href="../../assets/collage-fonts/dm-serif-display.ttf" rel="preload" type="font/ttf"/></head><body>
+<a class="skip-link" href="#percorso">Vai al laboratorio</a><div class="shell"><div class="topline"><a class="back" href="../../laboratorio.html">← Laboratorio</a><span class="brand">Metodologie Operative</span><span class="school">IIS Meucci - Mattei | Decimomannu</span></div>
+<header class="hero">
+<div class="hero-copy"><p class="eyebrow">Laboratorio espressivo · Classe seconda</p><h1>Il collage<br/><span>autobiografico</span></h1><p class="hero-intro">Dai forma a un’emozione.<br/>Esplora una possibilità di te.</p><p class="hero-task">Un nucleo personale, un collage, una breve spiegazione delle tue scelte.</p><a class="primary" href="#percorso">Inizia il laboratorio <span aria-hidden="true">↗</span></a></div>
+<div class="hero-images">
+<figure class="hero-image main-image"><img alt="Mask X di John Stezaker: un paesaggio copre il volto fotografato." fetchpriority="high" height="640" src="../../assets/collage-opere/stezaker-mask-x.jpeg" width="480"/><figcaption><strong>Un’immagine dentro l’altra</strong><cite>John Stezaker · Mask X, 1982</cite><span class="hero-credit">© John Stezaker · Whitechapel Gallery</span></figcaption></figure>
+<figure class="hero-image side-image"><img alt="Let them be children di Deborah Roberts: figure di bambini composte da frammenti con proporzioni diverse." height="452" src="../../assets/collage-opere/roberts-let-them-be-children.jpg" width="640"/><figcaption><strong>Frammenti, gesti, proporzioni</strong><cite>Deborah Roberts · Let them be children, 2018</cite><span class="hero-credit">© Deborah Roberts · Foto Sydney Collins / VMFA Frist Art Museum</span></figcaption></figure>
+</div></header>
+
+<main id="contenuto">
+<section aria-labelledby="titolo-avvio" class="flow-section" id="percorso">
+<div class="section-heading"><span class="eyebrow">01 · Al PC, insieme al docente</span><h2 id="titolo-avvio">Capisci la tecnica. Guarda le opere.</h2></div>
+<div class="intro-grid"><div><h3>Che cos’è</h3><p>Il <strong>collage</strong> unisce frammenti di immagini e materiali su un supporto. Il significato nasce anche dal modo in cui li accosti, sovrapponi o trasformi.</p></div><div><h3>Perché autobiografico</h3><p>Racconta qualcosa della tua esperienza. Puoi <strong>esprimere come ti senti</strong> in una situazione oppure <strong>immaginare un altro modo di esserci</strong>, conservando ciò che conta per te.</p></div></div><div class="theory-history"><h3>Una breve storia del collage</h3><ol class="timeline"><li><strong>1912 · Cubismo</strong><p>Picasso e Braque introducono carte e materiali nei loro lavori: i frammenti reali entrano nell’immagine.</p></li><li><strong>Dadaismo · Höch e Schwitters</strong><p>Fotomontaggi per cambiare contesto e fare critica sociale; materiali di recupero nelle composizioni <em>Merz</em>.</p></li><li><strong>Surrealismo · Max Ernst</strong><p>Immagini trovate e accostamenti inattesi costruiscono scene che ricordano sogni.</p></li><li><strong>Dal dopoguerra a oggi</strong><p>Pubblicità, vita quotidiana e identità entrano nel collage. La ricerca prosegue con carte, tessuti, fotografie e strumenti digitali.</p></li></ol></div><div class="theory-techniques"><h3>Le tecniche che incontrerai</h3><div class="techniques"><p><strong>Cartaceo:</strong> carte e immagini ritagliate.</p><p><strong>Materico:</strong> superfici e materiali diversi.</p><p><strong>Fotomontaggio:</strong> frammenti fotografici.</p><p><strong>Décollage:</strong> strappo di strati sovrapposti.</p><p><strong>Digitale:</strong> composizione con software.</p></div></div><div class="gallery-intro"><h3>Dodici collage autentici</h3><p>Osserva le immagini con il docente: che cosa è stato ritagliato? Quali parti sono accostate o sovrapposte? Come cambiano il volto, il corpo o il luogo?</p><p class="note">Non devi svolgere un esercizio per ogni opera: gli esempi servono a capire quante forme può avere un collage.</p></div><div class="art-gallery opening-gallery"><article class="art-card"><img alt="Un ritratto fotografico con una cartolina di un ponte e un fiume sovrapposta al volto." loading="lazy" src="../../assets/collage-opere/stezaker-mask-x.jpeg"/><div class="art-copy"><h4>John Stezaker</h4><p class="collage-art-title"><cite>Mask X</cite> · 1982</p><p class="collage-small">Fotomontaggio</p><p><strong>Guarda:</strong> Un paesaggio occupa il posto del volto; i bordi della cartolina restano visibili.</p></div></article><article class="art-card"><img alt="Due ritratti fotografici in bianco e nero sovrapposti formano un volto composto da parti differenti." loading="lazy" src="../../assets/collage-opere/stezaker-marriage-lvi.jpeg"/><div class="art-copy"><h4>John Stezaker</h4><p class="collage-art-title"><cite>Marriage (Film Portrait Collage) LVI</cite> · 2007</p><p class="collage-small">Collage fotografico</p><p><strong>Guarda:</strong> Due fotografie si incontrano in un volto che non coincide con nessuna delle due.</p></div></article><article class="art-card"><img alt="Una figura femminile con capelli lunghi e un abito costruito da molti ritagli colorati su uno sfondo viola." loading="lazy" src="../../assets/collage-opere/richmond-edwards-archetype.jpg"/><div class="art-copy"><h4>Jamea Richmond-Edwards</h4><p class="collage-art-title"><cite>Archetype of a 5 Star</cite> · 2018</p><p class="collage-small">Pittura, glitter e carta ritagliata</p><p><strong>Guarda:</strong> L’abito è fatto di frammenti diversi: il ritratto prende forma anche attraverso ciò che lo circonda.</p></div></article><article class="art-card"><img alt="Un volto maschile composto da frammenti con venature del legno, accompagnato da forme vegetali." loading="lazy" src="../../assets/collage-opere/klos-uncle-scott.jpg"/><div class="art-copy"><h4>Yashua Klos</h4><p class="collage-art-title"><cite>Uncle Scott</cite> · 2022</p><p class="collage-small">Stampe, carte e materiali misti</p><p><strong>Guarda:</strong> Il volto è riconoscibile pur essendo costruito con molti frammenti e superfici.</p></div></article><article class="art-card"><img alt="Un gruppo di bambini con volti, mani, abiti e corpi composti da frammenti diversi, su sfondo bianco." loading="lazy" src="../../assets/collage-opere/roberts-let-them-be-children.jpg"/><div class="art-copy"><h4>Deborah Roberts</h4><p class="collage-art-title"><cite>Let them be children</cite> · 2018</p><p class="collage-small">Composizione figurativa a frammenti e pittura</p><p><strong>Guarda:</strong> I frammenti cambiano scala: mani, volti e corpi non hanno proporzioni uniformi.</p></div></article><article class="art-card"><img alt="Una donna seduta a un tavolo, circondata da fotografie e immagini stratificate nella stanza." loading="lazy" src="../../assets/collage-opere/crosby-before-now-after.jpg"/><div class="art-copy"><h4>Njideka Akunyili Crosby</h4><p class="collage-art-title"><cite>Before Now After (Mama, Mummy and Mamma)</cite> · 2015</p><p class="collage-small">Pittura e immagini fotografiche trasferite</p><p><strong>Guarda:</strong> Le fotografie entrano nella stanza e negli oggetti; lo sfondo partecipa al ritratto.</p></div></article><article class="art-card"><img alt="Due figure abbracciate, una con una maglia da basket, costruite con tessuti e materiali diversi." loading="lazy" src="../../assets/collage-opere/self-sprewell.jpg"/><div class="art-copy"><h4>Tschabalala Self</h4><p class="collage-art-title"><cite>Sprewell</cite> · 2020</p><p class="collage-small">Tessuti, carte, cuciture e pittura</p><p><strong>Guarda:</strong> Il corpo combina tessuti, disegni e immagini: anche la materia costruisce la figura.</p></div></article><article class="art-card"><img alt="Due figure in uniforme da banda sospese in un salto sopra una superficie ricca di frammenti e colori." loading="lazy" src="../../assets/collage-opere/fordjour-airborne-double.jpg"/><div class="art-copy"><h4>Derek Fordjour</h4><p class="collage-art-title"><cite>Airborne Double</cite> · 2022</p><p class="collage-small">Pittura, cartone e materiali su giornale</p><p><strong>Guarda:</strong> Le figure ripetono un gesto e sembrano sospese: il movimento è parte della composizione.</p></div></article><article class="art-card"><img alt="Un insieme astratto di piccoli frammenti circolari e colorati raccolti in una forma irregolare." loading="lazy" src="../../assets/collage-opere/pindell-untitled-3c.jpg"/><div class="art-copy"><h4>Howardena Pindell</h4><p class="collage-art-title"><cite>Untitled #3C</cite> · 2009</p><p class="collage-small">Collage di carte e materiali misti</p><p><strong>Guarda:</strong> La composizione nasce da frammenti, ritmo e densità; non contiene un ritratto riconoscibile.</p></div></article><article class="art-card"><img alt="Un fondo giallo con frammenti colorati, forme irregolari e piccole figure disposte ai margini." loading="lazy" src="../../assets/collage-opere/bullock-no-it-aint.jpg"/><div class="art-copy"><h4>Brittney Boyd Bullock</h4><p class="collage-art-title"><cite>No It Ain’t, Yes It Is</cite> · 2023</p><p class="collage-small">Carte, tessuti, filo e pittura</p><p><strong>Guarda:</strong> Piccole figure e frammenti colorati lasciano un’ampia zona libera.</p></div></article><article class="art-card"><img alt="Una strada di quartiere con edifici, persone, finestre e dettagli composti da ritagli fotografici." loading="lazy" src="../../assets/collage-opere/bearden-the-dove.jpeg"/><div class="art-copy"><h4>Romare Bearden</h4><p class="collage-art-title"><cite>The Dove</cite> · 1964</p><p class="collage-small">Carte stampate ritagliate, gouache e matite</p><p><strong>Guarda:</strong> Persone, gesti e luoghi si intrecciano: il racconto non è affidato a un solo simbolo.</p></div></article><article class="art-card"><img alt="Due uomini in costume da bagno su un fondo illustrato con fiori e segni ornamentali." loading="lazy" src="../../assets/collage-opere/hoech-staatshaeupter.jpg"/><div class="art-copy"><h4>Hannah Höch</h4><p class="collage-art-title"><cite>Staatshäupter</cite> · 1918–1920</p><p class="collage-small">Collage</p><p><strong>Guarda:</strong> Figure fotografiche e sfondo illustrato appartengono a contesti diversi.</p></div></article></div><details class="fold gallery-sources"><summary>Autori, crediti e fonti delle dodici opere</summary><div class="fold-body art-sources"><p class="note">Le opere della mostra Multiplicity documentano esperienze e identità di artisti afroamericani contemporanei.</p><div class="source-entry"><h4>John Stezaker</h4><p class="collage-art-title"><cite>Mask X</cite> · 1982</p><p class="collage-credit">© John Stezaker<br><a href="https://www.whitechapelgallery.org/wp-content/uploads/2014/10/CA_Stezaker.pdf" rel="noopener" target="_blank">Fonte: Whitechapel Gallery</a></br></p></div><div class="source-entry"><h4>John Stezaker</h4><p class="collage-art-title"><cite>Marriage (Film Portrait Collage) LVI</cite> · 2007</p><p class="collage-credit">© John Stezaker<br><a href="https://www.whitechapelgallery.org/wp-content/uploads/2014/10/CA_Stezaker.pdf" rel="noopener" target="_blank">Fonte: Whitechapel Gallery</a></br></p></div><div class="source-entry"><h4>Jamea Richmond-Edwards</h4><p class="collage-art-title"><cite>Archetype of a 5 Star</cite> · 2018</p><p class="collage-credit">© Jamea Richmond-Edwards · Rubell Museum<br><a href="https://fristartmuseum.org/exhibition/multiplicity/" rel="noopener" target="_blank">Fonte: Frist Art Museum</a></br></p></div><div class="source-entry"><h4>Yashua Klos</h4><p class="collage-art-title"><cite>Uncle Scott</cite> · 2022</p><p class="collage-credit">© Yashua Klos · Cortesia artista e Sikkema Jenkins &amp; Co.<br><a href="https://fristartmuseum.org/exhibition/multiplicity/" rel="noopener" target="_blank">Fonte: Frist Art Museum</a></br></p></div><div class="source-entry"><h4>Deborah Roberts</h4><p class="collage-art-title"><cite>Let them be children</cite> · 2018</p><p class="collage-credit">© Deborah Roberts · Foto Sydney Collins / Virginia Museum of Fine Arts<br><a href="https://fristartmuseum.org/exhibition/multiplicity/" rel="noopener" target="_blank">Fonte: Frist Art Museum</a></br></p></div><div class="source-entry"><h4>Njideka Akunyili Crosby</h4><p class="collage-art-title"><cite>Before Now After (Mama, Mummy and Mamma)</cite> · 2015</p><p class="collage-credit">© Njideka Akunyili Crosby · Cortesia artista e Victoria Miro<br><a href="https://whitney.org/exhibitions/njideka-akunyili-crosby" rel="noopener" target="_blank">Fonte: Whitney Museum</a></br></p></div><div class="source-entry"><h4>Tschabalala Self</h4><p class="collage-art-title"><cite>Sprewell</cite> · 2020</p><p class="collage-credit">Cortesia artista e Pilar Corrias · Solomon R. Guggenheim Museum<br><a href="https://fristartmuseum.org/exhibition/multiplicity/" rel="noopener" target="_blank">Fonte: Frist Art Museum</a></br></p></div><div class="source-entry"><h4>Derek Fordjour</h4><p class="collage-art-title"><cite>Airborne Double</cite> · 2022</p><p class="collage-credit">© Derek Fordjour · Foto Daniel Greer<br><a href="https://fristartmuseum.org/exhibition/multiplicity/" rel="noopener" target="_blank">Fonte: Frist Art Museum</a></br></p></div><div class="source-entry"><h4>Howardena Pindell</h4><p class="collage-art-title"><cite>Untitled #3C</cite> · 2009</p><p class="collage-credit">© Howardena Pindell · Cortesia artista e Garth Greenan Gallery<br><a href="https://fristartmuseum.org/exhibition/multiplicity/" rel="noopener" target="_blank">Fonte: Frist Art Museum</a></br></p></div><div class="source-entry"><h4>Brittney Boyd Bullock</h4><p class="collage-art-title"><cite>No It Ain’t, Yes It Is</cite> · 2023</p><p class="collage-credit">© Brittney Boyd Bullock · Cortesia artista<br/><a href="https://www.phillipscollection.org/event/2024-07-06-multiplicity" rel="noopener" target="_blank">Fonte: The Phillips Collection</a></p></div><div class="source-entry"><h4>Romare Bearden</h4><p class="collage-art-title"><cite>The Dove</cite> · 1964</p><p class="collage-credit">© Romare Bearden Foundation / VAGA at ARS · MoMA<br/><a href="https://www.moma.org/collection/works/36572" rel="noopener" target="_blank">Fonte: MoMA</a></p></div><div class="source-entry"><h4>Hannah Höch</h4><p class="collage-art-title"><cite>Staatshäupter</cite> · 1918–1920</p><p class="collage-credit">Hannah Höch · Riproduzione da ifa / Agora<br/><a href="https://agora.ifa.de/de/werk/staatshaeupter-1882" rel="noopener" target="_blank">Fonte: ifa / Agora</a></p></div></div></details>
+
+
+
+
+
+
+</section><section aria-labelledby="titolo-scelta" class="flow-section choose-section" id="scelta"><div class="section-heading"><span class="eyebrow">02 · Scegli una sola situazione su cui lavorare</span><h2 id="titolo-scelta">Che cosa vuoi raccontare di te?</h2><p>Un <strong>nucleo</strong> è un aspetto della tua esperienza: un’emozione, una difficoltà quotidiana o un modo di essere che vorresti esplorare. Leggi gli esempi e clicca su quello da cui vuoi partire. Puoi anche scriverne uno tuo.</p></div><div class="nuclei-grid"><button aria-pressed="false" class="nucleus-choice" data-aim="Voglio raccontare la voglia di mostrare il mio lavoro e l’agitazione che sento insieme." data-nucleus="Come mi sento" data-situation="Quando devo parlare davanti alla classe." data-visual="Posso mettere vicino alla stessa figura ritagli molto fitti e altri che si aprono verso l’esterno." type="button"><span class="mini-number">01</span><span><strong>Come mi sento</strong><small>Quando devo parlare davanti alla classe.</small><span class="choose-label">Scelgo questo nucleo</span></span></button><button aria-pressed="false" class="nucleus-choice" data-aim="Vorrei far arrivare la mia idea, continuando anche ad ascoltare gli altri." data-nucleus="La mia voce" data-situation="Quando il gruppo decide un’attività, ho un’idea ma non la dico." data-visual="Posso ritagliare due copie della mia figura: una sul bordo e una più vicina agli altri, con un dettaglio comune." type="button"><span class="mini-number">02</span><span><strong>La mia voce</strong><small>Quando il gruppo decide un’attività, ho un’idea ma non la dico.</small><span class="choose-label">Scelgo questo nucleo</span></span></button><button aria-pressed="false" class="nucleus-choice" data-aim="Voglio mostrare che sono curioso, ma all’inizio resto un po’ in disparte." data-nucleus="Il mio posto nel gruppo" data-situation="Quando entro in un gruppo che conosco poco." data-visual="Posso mettere la mia figura vicino a immagini di ciò che mi interessa, lasciando uno spazio fra me e le altre figure." type="button"><span class="mini-number">03</span><span><strong>Il mio posto nel gruppo</strong><small>Quando entro in un gruppo che conosco poco.</small><span class="choose-label">Scelgo questo nucleo</span></span></button><button aria-pressed="false" class="nucleus-choice" data-aim="Vorrei mostrare quell’interesse, scegliendo quanto far conoscere di me." data-nucleus="Una parte poco visibile" data-situation="Quando penso a una passione di cui parlo poco con i compagni." data-visual="Posso mettere un’immagine della mia passione sotto alcuni ritagli e lasciarne visibile una parte." type="button"><span class="mini-number">04</span><span><strong>Una parte poco visibile</strong><small>Quando penso a una passione di cui parlo poco con i compagni.</small><span class="choose-label">Scelgo questo nucleo</span></span></button><button aria-pressed="false" class="nucleus-choice" data-aim="Vorrei mostrare anche un’occasione in cui mi sono comportato in un altro modo." data-nucleus="Le etichette" data-situation="Quando mi descrivono con una sola parola, per esempio «timido»." data-visual="Posso ritagliare quella parola e aprire uno spazio per una foto o un’immagine dell’altra esperienza." type="button"><span class="mini-number">05</span><span><strong>Le etichette</strong><small>Quando mi descrivono con una sola parola, per esempio «timido».</small><span class="choose-label">Scelgo questo nucleo</span></span></button><button aria-pressed="false" class="nucleus-choice" data-aim="Voglio raccontare sia la fretta sia il bisogno di avere tempo per una cosa che mi piace." data-nucleus="Il mio ritmo" data-situation="Quando passo in fretta da un compito all’altro e vorrei una pausa." data-visual="Posso raccogliere molti piccoli ritagli in una zona e lasciare più spazio attorno all’immagine di ciò che mi piace." type="button"><span class="mini-number">06</span><span><strong>Il mio ritmo</strong><small>Quando passo in fretta da un compito all’altro e vorrei una pausa.</small><span class="choose-label">Scelgo questo nucleo</span></span></button><button aria-pressed="false" class="nucleus-choice" data-aim="Vorrei riuscire a proporre anche una mia scelta." data-nucleus="Il mio modo di scegliere" data-situation="Quando gli amici scelgono qualcosa che a me interessa poco." data-visual="Posso comporre sul foglio due possibilità e mettere la mia figura vicino a quella che vorrei scegliere." type="button"><span class="mini-number">07</span><span><strong>Il mio modo di scegliere</strong><small>Quando gli amici scelgono qualcosa che a me interessa poco.</small><span class="choose-label">Scelgo questo nucleo</span></span></button><button aria-pressed="false" class="nucleus-choice" data-aim="Voglio mostrare la delusione e la possibilità di fare un nuovo tentativo." data-nucleus="Quando qualcosa non riesce" data-situation="Quando un esercizio o un lavoro non viene come volevo." data-visual="Posso strappare una copia di un’immagine e ricomporla in un modo diverso, lasciando visibili gli strappi." type="button"><span class="mini-number">08</span><span><strong>Quando qualcosa non riesce</strong><small>Quando un esercizio o un lavoro non viene come volevo.</small><span class="choose-label">Scelgo questo nucleo</span></span></button><button aria-pressed="false" class="nucleus-choice" data-aim="Voglio mostrare la curiosità e l’incertezza che possono esserci insieme." data-nucleus="La novità e la curiosità" data-situation="Quando provo per la prima volta uno sport o un’attività." data-visual="Posso mettere una figura in un ambiente nuovo e conservare un ritaglio che racconta qualcosa che già conosco." type="button"><span class="mini-number">09</span><span><strong>La novità e la curiosità</strong><small>Quando provo per la prima volta uno sport o un’attività.</small><span class="choose-label">Scelgo questo nucleo</span></span></button></div><p aria-live="polite" class="selection-feedback" id="nucleus-feedback"></p><details class="fold example"><summary>Un esempio: entusiasmo e tensione prima di presentare un lavoro</summary><div class="fold-body"><div class="example-grid"><div><span>Situazione</span><p>«Sto per mostrare un lavoro che mi piace: ho voglia di presentarlo e sono in tensione.»</p></div><div><span>Scelta visiva</span><p>Vicino a una figura, alcuni frammenti si addensano e altri si aprono verso l’esterno.</p></div><div><span>Significato scelto</span><p>«Per me, le parti fitte esprimono tensione; quelle aperte, entusiasmo. Possono convivere.»</p></div></div><p class="note">Esempio inventato. Forme e colori possono assumere significati diversi per altre persone.</p><details class="small-fold"><summary>Se voglio immaginarmi diverso: la mia voce nel gruppo</summary><p>«Vorrei continuare ad ascoltare e riuscire anche a proporre un’idea.» Provo una seconda figura più grande e vicina al gruppo, mantenendo un frammento comune: posso cambiare senza perdere ciò che riconosco in me.</p></details></div></details><div class="project-card"><p class="eyebrow">Il nucleo scelto compare nel primo campo</p><h3>Scrivi tre brevi appunti per il tuo collage</h3><div class="selected-guide" hidden="" id="selected-guide"><strong>Un esempio per il nucleo scelto</strong><p id="selected-visual"></p><small>È un suggerimento: adatta l’idea alla tua esperienza.</small></div><div class="field"><label for="collage_nucleo">1. Il nucleo che ho scelto</label><textarea id="collage_nucleo" name="collage_nucleo" placeholder="Clicca su un nucleo qui sopra oppure scrivi una tua idea."></textarea></div><div class="field"><label for="collage_situazione">2. Quando ti succede? Racconta un momento preciso</label><p class="field-hint" id="collage_situazione-hint">Pensa a un momento vero e quotidiano: in classe, con gli amici, a casa o durante un’attività. Bastano una o due frasi.</p><textarea aria-describedby="collage_situazione-hint" id="collage_situazione" name="collage_situazione" placeholder="Per esempio: quando devo parlare davanti alla classe…"></textarea></div><div class="field"><label for="collage_possibilita">3. Che cosa vuoi far vedere nel collage?</label><p class="field-hint" id="collage_possibilita-hint">Un’emozione che senti oppure qualcosa che vorresti provare a fare diversamente. Scrivi una o due frasi.</p><textarea aria-describedby="collage_possibilita-hint" id="collage_possibilita" name="collage_possibilita" placeholder="Per esempio: voglio mostrare che sono contento del lavoro e allo stesso tempo mi sento agitato…"></textarea></div><p class="respect"><strong>Decidi tu quanto raccontare.</strong> Scrivi qui solo ciò che accetti di salvare e condividere con il docente; gli appunti personali possono restare su carta. Puoi usare una figura simbolica, cambiare nucleo o spiegare soltanto la tecnica.</p><div class="notes-save"><button class="secondary" data-save-progress="" id="saveProgressBtn" type="button">Salva gli appunti</button><p>Scrivi nei campi ciò che accetti di condividere con il docente.</p></div></div></section>
+<section aria-labelledby="titolo-crea" class="flow-section" id="crea">
+<div class="section-heading"><span class="eyebrow">03 · Prepara il tavolo e realizza il collage</span><h2 id="titolo-crea">Ora dai forma alla tua idea.</h2><p>Usa gli appunti che hai appena scritto per scegliere immagini e materiali. Il risultato è un solo collage.</p></div>
+<div class="essentials"><strong>Prepara</strong><p>Cartoncino A4 o A3 · forbici · colla stick · immagini e carte da ritagliare.<br/><span>Facoltative: una o due foto tue stampate o fotocopiate, anche in bianco e nero. Conserva gli originali.</span></p></div>
+
+<div class="block-heading"><h3>Materiali e possibilità</h3><p>Usa quelli che servono alla tua idea: bastano pochi materiali recuperati.</p></div><div class="materials-grid"><article class="material-card"><svg aria-hidden="true" fill="none" viewbox="0 0 112 88"><rect fill="#fff" height="64" width="54" x="30" y="12"></rect><circle cx="57" cy="34" fill="#17385a" r="10"></circle><path d="M39 65V55q18-20 36 0v10" fill="#557a9f"></path></svg><div><h4>Foto e immagini</h4><p>Ritaglia, ripeti un dettaglio, cambia sfondo. Puoi usare una tua foto in copia, una figura di rivista o una sagoma.</p></div></article><article class="material-card"><svg aria-hidden="true" fill="none" viewbox="0 0 112 88"><path d="M24 58V14h43v44Z" fill="#b5c8d8"></path><path d="M42 70V29h44v41Z" fill="#c46c50"></path><path d="M57 77V42h36v35Z" fill="#e2bc66"></path></svg><div><h4>Carte e ritagli</h4><p>Riviste, giornali, carta colorata o da regalo: taglia, strappa, accosta.</p></div></article><article class="material-card"><svg aria-hidden="true" fill="none" viewbox="0 0 112 88"><rect fill="#17385a" height="50" width="45" x="28" y="16"></rect><rect fill="#9fc1d0" height="46" opacity=".7" width="42" x="49" y="30"></rect></svg><div><h4>Trasparenze</h4><p>Velina o carta da lucido: copri e lascia intravedere.</p></div></article><article class="material-card"><svg aria-hidden="true" fill="none" viewbox="0 0 112 88"><path d="m23 25 13-8 14 8 13-8 13 8 14-8v48l-14 8-13-8-13 8-14-8-13 8Z" fill="#d4b489"></path><path d="M36 20v48m27-47v48m13-45v39" stroke="#8e704e" stroke-width="2"></path></svg><div><h4>Superfici</h4><p>Carta crespa, da pacco o cartone: piega, increspa, crea un piccolo rilievo.</p></div></article><article class="material-card"><svg aria-hidden="true" fill="none" viewbox="0 0 112 88"><path d="M23 57c1-45 28-31 31-10s29 20 33-13M25 66c23-26 35 20 57-5" fill="none" stroke="#c46c50" stroke-width="3"></path></svg><div><h4>Stoffa e fili</h4><p>Pezzi leggeri per figure, collegamenti o confini. Fissali con poca colla vinilica.</p></div></article><article class="material-card"><svg aria-hidden="true" fill="none" viewbox="0 0 112 88"><path d="m23 27 63-5 3 25-63 5Z" fill="#e2bc66"></path><text fill="#17385a" font-size="16" text-anchor="middle" x="56" y="43">io</text><path d="m38 65 36-8" stroke="#17385a" stroke-width="3"></path></svg><div><h4>Parole e segni</h4><p>Parole ritagliate, matita e pennarello: collega gli elementi o frammenta una frase.</p></div></article></div>
+<details class="fold photo-fold"><summary>Partire da una mia fotografia: tre possibilità</summary><div class="fold-body"><p>Un ritratto, una figura intera, una mano, un luogo o un oggetto fotografato da te. Scegli ciò che ti va di usare e mostrare.</p><div class="photo-grid"><article class="photo-card"><svg aria-hidden="true" fill="none" viewbox="0 0 112 88"><rect fill="#c2d4df" height="68" width="70" x="21" y="11"></rect><path d="m21 57 26-21 18 16 26-12v39H21" fill="#638c9d"></path><circle cx="57" cy="37" fill="#17385a" r="7"></circle><path d="m45 68 4-20h16l5 20Z" fill="#17385a"></path></svg><h4>Cambia contesto</h4><p>Metti la tua figura in un ambiente diverso: quale emozione o possibilità vuoi mostrare?</p></article><article class="photo-card"><svg aria-hidden="true" fill="none" viewbox="0 0 112 88"><circle cx="39" cy="32" fill="#17385a" r="7"></circle><path d="m29 65 3-23h14l4 23Z" fill="#17385a"></path><circle cx="76" cy="25" fill="#638c9d" r="10"></circle><path d="m61 68 4-29h22l5 29Z" fill="#638c9d"></path><path d="M32 54h15m18-4h24" stroke="#e2bc66" stroke-width="4"></path></svg><h4>Fai convivere due modi</h4><p>Ripeti la figura cambiando scala o posizione. Un dettaglio comune tiene insieme le due versioni.</p></article><article class="photo-card"><svg aria-hidden="true" fill="none" viewbox="0 0 112 88"><circle cx="56" cy="26" fill="#17385a" r="9"></circle><path d="m40 69 5-29h23l6 29Z" fill="#17385a"></path><path d="m25 40 32 9-4 27-30-9Z" fill="#b5c8d8"></path><path d="m72 35 19-4 6 35-19 4Z" fill="#e2bc66"></path></svg><h4>Lascia emergere una parte</h4><p>Copri e scopri con carte e parole. Scegli quanto rendere visibile.</p></article></div><p class="note">Se compaiono altre persone, chiedi il loro permesso; puoi scegliere un dettaglio senza volti riconoscibili.</p></div></details><div class="making-steps"><article><span>1</span><h3>Scegli</h3><p>Raccogli pochi frammenti legati al tuo nucleo.</p></article><article><span>2</span><h3>Disponi</h3><p>Componili sul supporto senza incollare.</p></article><article><span>3</span><h3>Cambia e confronta</h3><p>Sposta, ingrandisci, sovrapponi o cambia il contesto. Che cosa esprime la nuova disposizione?</p></article><article><span>4</span><h3>Incolla</h3><p>Scegli la composizione che racconta la tua idea. Se vuoi, fotografa le prove.</p></article></div>
+<details class="fold"><summary>Se ti serve, annota una scelta fatta durante la composizione</summary><div class="fold-body"><div class="field"><label for="collage_sceltavisiva">Una scelta visiva per la mia idea</label><textarea id="collage_sceltavisiva" name="collage_sceltavisiva" placeholder="Userò questi frammenti… Cambierò scala, posizione, contesto o relazione fra le immagini… Questa scelta significa per me…"></textarea></div></div></details>
+<div class="work-stop flow-stop"><span class="eyebrow">Ora si lavora con i materiali</span><h3>Fermati con la lettura: realizza il tuo collage.</h3><p>Le indicazioni successive servono quando il lavoro è finito.</p></div>
+</section>
+<details class="fold after-work" id="racconta"><summary>Quando hai finito il collage: spiega il lavoro</summary><div class="fold-body"><section aria-labelledby="titolo-racconta" class="flow-section">
+<div class="section-heading"><span class="eyebrow">04 · Dopo il lavoro</span><h2 id="titolo-racconta">Spiega le tue scelte.</h2><p>Una breve presentazione del lavoro, con il livello di condivisione che scegli tu.</p></div>
+<div class="explain-grid"><article><span>Il nucleo</span><h3>Che cosa racconto?</h3><p>Indica il nucleo e la situazione, senza dettagli personali che vuoi tenere per te.</p></article><article><span>La forma</span><h3>Come lo faccio vedere?</h3><p>Mostra una scelta precisa: materiale, scala, posizione, strato o contesto.</p></article><article><span>Il significato</span><h3>Perché questa scelta?</h3><p>Spiega che cosa esprime per te e che cosa è cambiato durante le prove.</p></article></div>
+<div class="project-card"><div class="field"><label for="title">Titolo del collage</label><textarea id="title" placeholder="Es: 'Frammenti di me', 'Il mio mosaico interiore', 'Chi sono oggi'..."></textarea></div><div class="field"><label for="collage_variante">La breve spiegazione delle mie scelte</label><p class="field-hint">Nucleo, intervento visivo e significato. Puoi richiamare una modifica fatta durante le prove.</p><textarea id="collage_variante" name="collage_variante" placeholder="Ho spostato / ingrandito / sovrapposto… Questo esprime per me… oppure mi ha fatto immaginare… Questa prova mi rappresenta / non mi rappresenta perché…"></textarea></div><p class="respect">Il significato lo spiega chi ha creato il collage. Chi ascolta può osservare un dettaglio e fare una domanda; evita di attribuire emozioni o caratteristiche alla persona.</p></div><div class="closing-grid"><div><h3>Che cosa conta nel lavoro</h3><p>Un nucleo riconoscibile, scelte visive motivate, uso consapevole dei materiali e rispetto nella condivisione.</p></div><div><h3>Il collegamento professionale</h3><p>Hai provato una tecnica espressiva che potrai adattare a persone e contesti diversi, rispettando preferenze, possibilità e autonomia.</p></div></div><div class="export-actions"><button class="secondary" id="export-notes" type="button">Scarica gli appunti</button></div>
+</section><div class="oral-card"><p class="eyebrow">Per l’interrogazione</p><h3>Saper spiegare e fare un esempio.</h3><ol><li>Definisci il collage e richiama una tappa della sua storia.</li><li>Descrivi materiali, procedura e una variante tecnica.</li><li>Collega nucleo, scelta visiva e significato nel tuo collage.</li><li>Spiega come adatteresti l’attività a una persona e quali regole rispetteresti.</li></ol></div><details class="fold" open=""><summary>Perché proporlo in un’attività di animazione</summary><div class="fold-body"><p>Può offrire un’occasione per esprimersi, raccontare e condividere, anche senza saper disegnare. Con persone anziane puoi proporre immagini legate alla loro storia; con bambini forme e ritagli semplici; quando ci sono difficoltà motorie, pezzi più grandi o già ritagliati.</p><p>Adatta materiali, tempi e aiuti alla persona. Le immagini possono sostenere il dialogo fra lingue diverse, ma il loro significato va chiarito insieme.</p><p><strong>Ruolo dell’operatore:</strong> preparare, facilitare e ascoltare; rispettare la scelta di partecipare e quanto condividere. Un laboratorio espressivo di animazione non è un trattamento di arteterapia e non serve a diagnosticare la personalità.</p></div></details><details class="fold"><summary>Condivisione e fotografie: le regole da ricordare</summary><div class="fold-body"><ul><li>Lavora sulle copie e conserva le fotografie originali.</li><li>Concorda l’uso delle immagini di altre persone; evita dettagli riconoscibili se non vuoi mostrarli.</li><li>La condivisione personale è facoltativa: puoi presentare le scelte tecniche.</li><li>Rispetta i racconti dei compagni. Se il lavoro ti mette a disagio, cambia pista o parlane con il docente.</li></ul></div></details><details class="fold uda" id="collage-uda"><summary>Unità di apprendimento <span class="summary-note">Competenze · saperi · abilità</span></summary><div class="fold-body">
+<h3 id="collage-uda-titolo">Tecniche espressive: il collage autobiografico</h3>
 <p><strong>Competenza principale — C8:</strong> Realizzare semplici attività di animazione ludica e sociale in contesti noti.</p>
-<p><strong>Saperi:</strong> Obiettivi e tecniche dell&#x27;animazione ludica e sociale anche con strumenti multimediali.</p>
-<p><strong>Abilità:</strong> Identificare le principali tecniche di animazione ludica e sociale; Riconoscere i materiali e gli strumenti utili all&#x27;animazione ludica e sociale.</p>
+<p><strong>Saperi:</strong> Obiettivi e tecniche dell'animazione ludica e sociale anche con strumenti multimediali.</p>
+<p><strong>Abilità:</strong> Identificare le principali tecniche di animazione ludica e sociale; Riconoscere i materiali e gli strumenti utili all'animazione ludica e sociale.</p>
 <p>Provi la tecnica su di te per imparare a proporre un’attività espressiva ad altre persone.</p>
 <p class="collage-small"><a href="../../programmi.html?uda=secondo-anno-uda-6">La UDA completa nel programma di seconda</a></p>
-</section>
+</div></details><details class="fold"><summary>Fonti per la tecnica e per la storia</summary><div class="fold-body"><ul><li><a href="https://www.moma.org/collection/terms/cubism/analytic-and-synthetic-cubism" rel="noopener" target="_blank">MoMA · Cubismo analitico e sintetico</a> · <a href="https://www.moma.org/collection/terms/merz" rel="noopener" target="_blank">Merz</a> · <a href="https://www.moma.org/collection/artists/1752" rel="noopener" target="_blank">Max Ernst</a></li><li><a href="https://www.sfmoma.org/read/art-project-creating-a-collage/" rel="noopener" target="_blank">SFMOMA · Creating a Collage</a></li><li><a href="https://noma.org/art-making-activity-photo-transfer-collage/" rel="noopener" target="_blank">New Orleans Museum of Art · Photo-Transfer Collage</a> (fotocopie personali; qui usate con taglio e incollaggio)</li></ul><p class="note">Autori, titoli, crediti e fonti delle immagini accompagnano ogni opera nella galleria.</p></div></details></div></details>
 
-        <div class="progress-container">
-            <div class="progress-bar">
-                <div class="progress-step" data-fase="1">1️⃣ Attivazione</div>
-                <div class="progress-step" data-fase="2">2️⃣ Esplorazione</div>
-                <div class="progress-step" data-fase="3">3️⃣ Sperimentazione</div>
-                <div class="progress-step" data-fase="4">4️⃣ Riflessione</div>
-                <div class="progress-step" data-fase="5">5️⃣ Applicazione</div>
-                <div class="progress-step" data-fase="6">6️⃣ Valutazione</div>
-            </div>
-            <div class="score-display">
-                Punti Totali: <span id="totalScore">0</span> / 240
-            </div>
-            <div class="badge-container" style="margin-top: 15px;">
-                <div class="badge" id="badge1">
-                    <div class="badge-icon">📜</div>
-                    <div class="badge-name">Esploratore Cubista</div>
-                </div>
-                <div class="badge" id="badge2">
-                    <div class="badge-icon">✂️</div>
-                    <div class="badge-name">Artista Narrativo</div>
-                </div>
-                <div class="badge" id="badge3">
-                    <div class="badge-icon">💡</div>
-                    <div class="badge-name">Facilitatore Creativo</div>
-                </div>
-                <div class="badge" id="badge4">
-                    <div class="badge-icon">🏆</div>
-                    <div class="badge-name">Maestro del Collage</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="content">
-            <!-- FASE 1: ATTIVAZIONE -->
-            <div class="fase active" id="fase1">
-                <div class="fase-header">
-                    <h2>🎯 FASE 1: Attivazione delle Conoscenze</h2>
-                    <p>Scopriamo insieme cosa già sai sul collage e l'autobiografia visiva</p>
-                </div>
-
-                <div class="info-box blue">
-                    <h3>📝 Cosa sai già sul collage?</h3>
-                    <p>Il collage è molto più di un semplice "incollare immagini". È una tecnica artistica nata nel 1912 con Picasso e Braque, ed è diventata uno strumento potente per raccontare storie, esprimere emozioni e perfino aiutare le persone a conoscere se stesse.</p>
-                    <p><strong>Prima di iniziare, vogliamo sapere cosa TU già conosci!</strong></p>
-                </div>
-
-                <h3 style="margin-top: 30px;">✍️ Scrivi liberamente...</h3>
-                <textarea id="priorKnowledge" placeholder="Cosa sai già sul collage? Hai mai fatto collage a scuola o a casa? Cosa ti viene in mente quando pensi a 'raccontare te stesso con le immagini'? Non ci sono risposte giuste o sbagliate, scrivi tutto quello che ti viene in mente..."></textarea>
-
-                <div class="info-box green" style="margin-top: 30px;">
-                    <h3>🖼️ Guarda questa immagine storica</h3>
-                    <p><strong>Hannah Höch - Fotomontaggio Dadaista (1920)</strong></p>
-                    <p>Hannah Höch è stata una pioniera del collage. Negli anni '20 del Novecento, ritagliava fotografie da riviste e giornali per creare immagini provocatorie che criticavano i ruoli femminili imposti dalla società e la politica del suo tempo.</p>
-                    <p>🎨 <em>Immaginala: ritagli di volti, corpi assemblati in modo surreale, parole mescolate a figure... Un modo di "fare arte" che rompeva tutte le regole!</em></p>
-                    <div style="margin-top: 16px; text-align: center;">
-                        <figure style="display:inline-block; background: #fff; padding: 12px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
-                            <img src="../../assets/hhoch-collage.svg" alt="Fotomontaggio in stile Hannah Höch: volto e busto costruiti con ritagli sovrapposti, sguardo intenso e bocca aperta." style="max-width: 420px; width: 100%; height: auto; border-radius: 8px;">
-                            <figcaption style="margin-top: 8px; font-size: 0.9em; color: #555;">
-                                Immagine creata per questo laboratorio, ispirata ai fotomontaggi di Hannah Höch: non è un'opera dell'artista.
-                            </figcaption>
-                        </figure>
-                    </div>
-                </div>
-
-                <div class="info-box yellow" style="margin-top: 20px;">
-                    <h3>💭 Domanda guida per te</h3>
-                    <p><strong>Se dovessi raccontare chi sei SENZA usare parole, ma solo con immagini ritagliate da riviste, fotografie e oggetti... quali sceglieresti?</strong></p>
-                    <textarea id="guidingQuestion" placeholder="Pensa a immagini che ti rappresentano: un paesaggio che ami, un colore che ti descrive, una foto di quando eri piccolo/a, un oggetto simbolico... Scrivi cosa useresti e perché..."></textarea>
-                </div>
-
-                <div class="buttons">
-                    <button class="btn-primary" onclick="completeFase1()">Avanti alla Fase 2 ➡️</button>
-                </div>
-            </div>
-
-            <!-- FASE 2: ESPLORAZIONE -->
-            <div class="fase" id="fase2">
-                <div class="fase-header">
-                    <h2>📚 FASE 2: Esplorazione Teorica e Tecnica</h2>
-                    <p>Impariamo la storia, le tecniche e le potenzialità del collage</p>
-                </div>
-
-<section class="collage-extension" id="collage-galleria" aria-labelledby="collage-galleria-titolo">
-<p class="collage-eyebrow">GUARDA COME CAMBIA UN’IMMAGINE</p><h3 id="collage-galleria-titolo">Dodici collage reali: che cosa puoi imparare dalla loro forma?</h3>
-<p>Il collage continua a essere praticato su carta, con fotografie e con tessuti, anche oggi. Qui trovi opere del Novecento e contemporanee, con autore, titolo e fonte.</p>
-<p><strong>Guardiamo prima queste tre opere.</strong> In coppia, sceglietene una: indicate un intervento preciso sulle immagini e spiegate che cosa vi fa vedere. Poi immaginate come usare quell’intervento in un vostro lavoro.</p>
-<div class="collage-gallery"><article class="collage-art"><a href="../../assets/collage-opere/stezaker-mask-x.jpeg" target="_blank" rel="noopener" aria-label="Apri l’immagine intera: Mask X"><img src="../../assets/collage-opere/stezaker-mask-x.jpeg" alt="Un ritratto fotografico con una cartolina di un ponte e un fiume sovrapposta al volto." loading="lazy"></a>
-    <div class="collage-art-body"><span class="collage-tag">Dentro e fuori</span><h4>John Stezaker</h4><p class="collage-art-title"><cite>Mask X</cite> · 1982</p><p class="collage-small">Fotomontaggio</p><p><strong>Guarda:</strong> Un paesaggio occupa il posto del volto; i bordi della cartolina restano visibili.</p><p><strong>Prova tu:</strong> Scegli un paesaggio che esprima come ti senti o una possibilità di te. Sovrapponilo a una figura: quale relazione nasce fra le due immagini?</p><p class="collage-credit">© John Stezaker<br><a href="https://www.whitechapelgallery.org/wp-content/uploads/2014/10/CA_Stezaker.pdf" target="_blank" rel="noopener">Fonte: Whitechapel Gallery</a></p></div></article><article class="collage-art"><a href="../../assets/collage-opere/stezaker-marriage-lvi.jpeg" target="_blank" rel="noopener" aria-label="Apri l’immagine intera: Marriage (Film Portrait Collage) LVI"><img src="../../assets/collage-opere/stezaker-marriage-lvi.jpeg" alt="Due ritratti fotografici in bianco e nero sovrapposti formano un volto composto da parti differenti." loading="lazy"></a>
-    <div class="collage-art-body"><span class="collage-tag">Le mie parti</span><h4>John Stezaker</h4><p class="collage-art-title"><cite>Marriage (Film Portrait Collage) LVI</cite> · 2007</p><p class="collage-small">Collage fotografico</p><p><strong>Guarda:</strong> Due fotografie si incontrano in un volto che non coincide con nessuna delle due.</p><p><strong>Prova tu:</strong> Accosta due modi di essere che riconosci in te. Puoi farli convivere senza dividere il foglio in un prima e un dopo?</p><p class="collage-credit">© John Stezaker<br><a href="https://www.whitechapelgallery.org/wp-content/uploads/2014/10/CA_Stezaker.pdf" target="_blank" rel="noopener">Fonte: Whitechapel Gallery</a></p></div></article><article class="collage-art"><a href="../../assets/collage-opere/richmond-edwards-archetype.jpg" target="_blank" rel="noopener" aria-label="Apri l’immagine intera: Archetype of a 5 Star"><img src="../../assets/collage-opere/richmond-edwards-archetype.jpg" alt="Una figura femminile con capelli lunghi e un abito costruito da molti ritagli colorati su uno sfondo viola." loading="lazy"></a>
-    <div class="collage-art-body"><span class="collage-tag">Ciò che porto con me</span><h4>Jamea Richmond-Edwards</h4><p class="collage-art-title"><cite>Archetype of a 5 Star</cite> · 2018</p><p class="collage-small">Pittura, glitter e carta ritagliata</p><p><strong>Guarda:</strong> L’abito è fatto di frammenti diversi: il ritratto prende forma anche attraverso ciò che lo circonda.</p><p><strong>Prova tu:</strong> Costruisci un abito o una sagoma con frammenti di interessi, luoghi e possibilità che vorresti portare con te.</p><p class="collage-credit">© Jamea Richmond-Edwards · Rubell Museum<br><a href="https://fristartmuseum.org/exhibition/multiplicity/" target="_blank" rel="noopener">Fonte: Frist Art Museum</a></p></div></article></div>
-<details class="collage-details"><summary>Apri le altre 9 opere: altri modi di costruire un’immagine</summary><p>Le opere della mostra <cite>Multiplicity</cite> esplorano l’identità nera nell’arte americana contemporanea. Ogni artista lavora dentro una propria storia culturale: le nostre prove prendono spunto dalle operazioni visive e non attribuiscono all’artista i significati personali scelti da noi.</p><div class="collage-gallery"><article class="collage-art"><a href="../../assets/collage-opere/klos-uncle-scott.jpg" target="_blank" rel="noopener" aria-label="Apri l’immagine intera: Uncle Scott"><img src="../../assets/collage-opere/klos-uncle-scott.jpg" alt="Un volto maschile composto da frammenti con venature del legno, accompagnato da forme vegetali." loading="lazy"></a>
-    <div class="collage-art-body"><span class="collage-tag">Le mie parti</span><h4>Yashua Klos</h4><p class="collage-art-title"><cite>Uncle Scott</cite> · 2022</p><p class="collage-small">Stampe, carte e materiali misti</p><p><strong>Guarda:</strong> Il volto è riconoscibile pur essendo costruito con molti frammenti e superfici.</p><p><strong>Prova tu:</strong> Quali tre parti diverse del tuo nucleo puoi tenere insieme nella stessa figura?</p><p class="collage-credit">© Yashua Klos · Cortesia artista e Sikkema Jenkins &amp; Co.<br><a href="https://fristartmuseum.org/exhibition/multiplicity/" target="_blank" rel="noopener">Fonte: Frist Art Museum</a></p></div></article><article class="collage-art"><a href="../../assets/collage-opere/roberts-let-them-be-children.jpg" target="_blank" rel="noopener" aria-label="Apri l’immagine intera: Let them be children"><img src="../../assets/collage-opere/roberts-let-them-be-children.jpg" alt="Un gruppo di bambini con volti, mani, abiti e corpi composti da frammenti diversi, su sfondo bianco." loading="lazy"></a>
-    <div class="collage-art-body"><span class="collage-tag">Il mio posto nel gruppo</span><h4>Deborah Roberts</h4><p class="collage-art-title"><cite>Let them be children</cite> · 2018</p><p class="collage-small">Composizione figurativa a frammenti e pittura</p><p><strong>Guarda:</strong> I frammenti cambiano scala: mani, volti e corpi non hanno proporzioni uniformi.</p><p><strong>Prova tu:</strong> Ingrandisci un gesto che conta per il tuo nucleo: una mano che sceglie, una figura che si avvicina, un piede che prova.</p><p class="collage-credit">© Deborah Roberts · Foto Sydney Collins / Virginia Museum of Fine Arts<br><a href="https://fristartmuseum.org/exhibition/multiplicity/" target="_blank" rel="noopener">Fonte: Frist Art Museum</a></p></div></article><article class="collage-art"><a href="../../assets/collage-opere/crosby-before-now-after.jpg" target="_blank" rel="noopener" aria-label="Apri l’immagine intera: Before Now After (Mama, Mummy and Mamma)"><img src="../../assets/collage-opere/crosby-before-now-after.jpg" alt="Una donna seduta a un tavolo, circondata da fotografie e immagini stratificate nella stanza." loading="lazy"></a>
-    <div class="collage-art-body"><span class="collage-tag">I miei luoghi</span><h4>Njideka Akunyili Crosby</h4><p class="collage-art-title"><cite>Before Now After (Mama, Mummy and Mamma)</cite> · 2015</p><p class="collage-small">Pittura e immagini fotografiche trasferite</p><p><strong>Guarda:</strong> Le fotografie entrano nella stanza e negli oggetti; lo sfondo partecipa al ritratto.</p><p><strong>Prova tu:</strong> Costruisci un luogo che racconti il tuo nucleo. Che cosa manterresti e quale elemento inatteso vi inseriresti?</p><p class="collage-credit">© Njideka Akunyili Crosby · Cortesia artista e Victoria Miro<br><a href="https://whitney.org/exhibitions/njideka-akunyili-crosby" target="_blank" rel="noopener">Fonte: Whitney Museum</a></p></div></article><article class="collage-art"><a href="../../assets/collage-opere/self-sprewell.jpg" target="_blank" rel="noopener" aria-label="Apri l’immagine intera: Sprewell"><img src="../../assets/collage-opere/self-sprewell.jpg" alt="Due figure abbracciate, una con una maglia da basket, costruite con tessuti e materiali diversi." loading="lazy"></a>
-    <div class="collage-art-body"><span class="collage-tag">Vicino e lontano</span><h4>Tschabalala Self</h4><p class="collage-art-title"><cite>Sprewell</cite> · 2020</p><p class="collage-small">Tessuti, carte, cuciture e pittura</p><p><strong>Guarda:</strong> Il corpo combina tessuti, disegni e immagini: anche la materia costruisce la figura.</p><p><strong>Prova tu:</strong> Usa superfici differenti per mostrare due modi di stare in relazione. Che cosa cambia rispetto a usare soltanto fotografie?</p><p class="collage-credit">Cortesia artista e Pilar Corrias · Solomon R. Guggenheim Museum<br><a href="https://fristartmuseum.org/exhibition/multiplicity/" target="_blank" rel="noopener">Fonte: Frist Art Museum</a></p></div></article><article class="collage-art"><a href="../../assets/collage-opere/fordjour-airborne-double.jpg" target="_blank" rel="noopener" aria-label="Apri l’immagine intera: Airborne Double"><img src="../../assets/collage-opere/fordjour-airborne-double.jpg" alt="Due figure in uniforme da banda sospese in un salto sopra una superficie ricca di frammenti e colori." loading="lazy"></a>
-    <div class="collage-art-body"><span class="collage-tag">Provare qualcosa di nuovo</span><h4>Derek Fordjour</h4><p class="collage-art-title"><cite>Airborne Double</cite> · 2022</p><p class="collage-small">Pittura, cartone e materiali su giornale</p><p><strong>Guarda:</strong> Le figure ripetono un gesto e sembrano sospese: il movimento è parte della composizione.</p><p><strong>Prova tu:</strong> Ripeti una figura cambiandone posizione e dimensione. Quale piccolo movimento potrebbe rappresentare una tua possibilità?</p><p class="collage-credit">© Derek Fordjour · Foto Daniel Greer<br><a href="https://fristartmuseum.org/exhibition/multiplicity/" target="_blank" rel="noopener">Fonte: Frist Art Museum</a></p></div></article><article class="collage-art"><a href="../../assets/collage-opere/pindell-untitled-3c.jpg" target="_blank" rel="noopener" aria-label="Apri l’immagine intera: Untitled #3C"><img src="../../assets/collage-opere/pindell-untitled-3c.jpg" alt="Un insieme astratto di piccoli frammenti circolari e colorati raccolti in una forma irregolare." loading="lazy"></a>
-    <div class="collage-art-body"><span class="collage-tag">Il mio ritmo</span><h4>Howardena Pindell</h4><p class="collage-art-title"><cite>Untitled #3C</cite> · 2009</p><p class="collage-small">Collage di carte e materiali misti</p><p><strong>Guarda:</strong> La composizione nasce da frammenti, ritmo e densità; non contiene un ritratto riconoscibile.</p><p><strong>Prova tu:</strong> Esprimi il tuo ritmo con frammenti fitti e spazi vuoti. Puoi raccontare qualcosa di te anche senza un volto.</p><p class="collage-credit">© Howardena Pindell · Cortesia artista e Garth Greenan Gallery<br><a href="https://fristartmuseum.org/exhibition/multiplicity/" target="_blank" rel="noopener">Fonte: Frist Art Museum</a></p></div></article><article class="collage-art"><a href="../../assets/collage-opere/bullock-no-it-aint.jpg" target="_blank" rel="noopener" aria-label="Apri l’immagine intera: No It Ain’t, Yes It Is"><img src="../../assets/collage-opere/bullock-no-it-aint.jpg" alt="Un fondo giallo con frammenti colorati, forme irregolari e piccole figure disposte ai margini." loading="lazy"></a>
-    <div class="collage-art-body"><span class="collage-tag">Prendere spazio</span><h4>Brittney Boyd Bullock</h4><p class="collage-art-title"><cite>No It Ain’t, Yes It Is</cite> · 2023</p><p class="collage-small">Carte, tessuti, filo e pittura</p><p><strong>Guarda:</strong> Piccole figure e frammenti colorati lasciano un’ampia zona libera.</p><p><strong>Prova tu:</strong> Sposta una figura dal margine verso un nuovo spazio. Lo spazio libero nel tuo collage è distanza, riposo o possibilità?</p><p class="collage-credit">© Brittney Boyd Bullock · Cortesia artista<br><a href="https://www.phillipscollection.org/event/2024-07-06-multiplicity" target="_blank" rel="noopener">Fonte: The Phillips Collection</a></p></div></article><article class="collage-art"><a href="../../assets/collage-opere/bearden-the-dove.jpeg" target="_blank" rel="noopener" aria-label="Apri l’immagine intera: The Dove"><img src="../../assets/collage-opere/bearden-the-dove.jpeg" alt="Una strada di quartiere con edifici, persone, finestre e dettagli composti da ritagli fotografici." loading="lazy"></a>
-    <div class="collage-art-body"><span class="collage-tag">Io in una situazione</span><h4>Romare Bearden</h4><p class="collage-art-title"><cite>The Dove</cite> · 1964</p><p class="collage-small">Carte stampate ritagliate, gouache e matite</p><p><strong>Guarda:</strong> Persone, gesti e luoghi si intrecciano: il racconto non è affidato a un solo simbolo.</p><p><strong>Prova tu:</strong> Rappresenta una situazione quotidiana legata al tuo nucleo. Poi modifica un rapporto fra figura e ambiente.</p><p class="collage-credit">© Romare Bearden Foundation / VAGA at ARS · MoMA<br><a href="https://www.moma.org/collection/works/36572" target="_blank" rel="noopener">Fonte: MoMA</a></p></div></article><article class="collage-art"><a href="../../assets/collage-opere/hoech-staatshaeupter.jpg" target="_blank" rel="noopener" aria-label="Apri l’immagine intera: Staatshäupter"><img src="../../assets/collage-opere/hoech-staatshaeupter.jpg" alt="Due uomini in costume da bagno su un fondo illustrato con fiori e segni ornamentali." loading="lazy"></a>
-    <div class="collage-art-body"><span class="collage-tag">Cambiare contesto</span><h4>Hannah Höch</h4><p class="collage-art-title"><cite>Staatshäupter</cite> · 1918–1920</p><p class="collage-small">Collage</p><p><strong>Guarda:</strong> Figure fotografiche e sfondo illustrato appartengono a contesti diversi.</p><p><strong>Prova tu:</strong> Cambia il contesto di una figura. Quale lato di te emerge quando la metti in una situazione nuova?</p><p class="collage-credit">Hannah Höch · Riproduzione da ifa / Agora<br><a href="https://agora.ifa.de/de/werk/staatshaeupter-1882" target="_blank" rel="noopener">Fonte: ifa / Agora</a></p></div></article></div></details>
-<p class="collage-small">Le domande «Prova tu» sono proposte per questo laboratorio. Un’immagine può suggerire cose diverse a persone diverse: spiega la tua lettura indicando un dettaglio che osservi.</p>
-</section>
-                <div class="info-box blue">
-                    <h3>🔵 Storia del Collage: Un Viaggio nel Tempo</h3>
-                    <p><strong>1912 - Cubismo:</strong> Pablo Picasso e Georges Braque incollano per la prima volta pezzi di giornale sulle loro tele. Nasce il "papier collé". Rivoluzione: l'arte non deve più solo imitare la realtà, può INCLUDERE pezzi di realtà!</p>
-                    <p><strong>1915-1922 - Dadaismo:</strong> Hannah Höch, Kurt Schwitters e altri artisti dada usano il collage per protestare, ironizzare, criticare la società. Schwitters crea i "Merzbild" con biglietti del tram, etichette, materiali trovati per strada.</p>
-                    <p><strong>Anni '20-'30 - Surrealismo:</strong> Max Ernst combina illustrazioni antiche in collage onirici che sembrano sogni o incubi.</p>
-                    <p><strong>Anni '50-'60 - Pop Art:</strong> Richard Hamilton e Robert Rauschenberg usano ritagli pubblicitari per commentare la società dei consumi.</p>
-                    <p><strong>Oggi:</strong> Il collage è diventato digitale! Ma la sua essenza resta: mescolare frammenti per creare nuovi significati.</p>
-                </div>
-
-                <div class="info-box green">
-                    <h3>🟢 Materiali e Strumenti: Cosa Serve?</h3>
-                    <p><strong>Strumenti base:</strong></p>
-                    <ul class="example-list">
-                        <li>Forbici e taglierino (con lama protetta!)</li>
-                        <li>Colla stick (per carta leggera) o vinilica (per materiali pesanti)</li>
-                        <li>Supporto rigido: cartoncino A3, cartone, compensato</li>
-                        <li>Matita e righello per tracciare</li>
-                    </ul>
-                    <p><strong>Materiali creativi:</strong> Riviste, giornali, fotografie personali (SEMPRE fotocopie, mai originali!), carta colorata, tessuti, nastri, foglie secche, sabbia... La creatività non ha limiti!</p>
-                    <p><strong>Varianti tecniche:</strong> Collage cartaceo, collage materico (con materiali spessi), fotomontaggio, décollage (strappare strati), collage digitale.</p>
-                </div>
-
-                <div class="info-box purple">
-                    <h3>🟣 Il Collage in Arteterapia: Aiutare con le Immagini</h3>
-                    <p>In arteterapia il collage è considerato un «mediatore artistico» molto efficace, cioè un mezzo che aiuta a esprimere ciò che è difficile dire a parole, perché:</p>
-                    <p><strong>Con gli anziani:</strong> Stimola la memoria autobiografica. Ritagliare foto d'epoca li aiuta a ricordare e raccontare la loro vita.</p>
-                    <p><strong>Con persone con disabilità:</strong> È accessibile anche a chi ha difficoltà motorie. Non serve saper disegnare!</p>
-                    <p><strong>Con adolescenti in difficoltà:</strong> Permette di esprimere conflitti interiori difficili da dire a parole.</p>
-                    <p><strong>In contesti interculturali:</strong> Quando mancano le parole per comunicare (lingue diverse), le immagini diventano un linguaggio universale.</p>
-                </div>
-
-                <h3 style="margin-top: 30px;">✅ QUIZ: Verifica la tua comprensione</h3>
-                <div class="quiz-container">
-                    <div class="quiz-question">
-                        <h4>1. In che anno è nato il collage e chi lo ha inventato?</h4>
-                        <div class="quiz-option" data-quiz="q1" data-answer="a">A) 1912, Pablo Picasso e Georges Braque</div>
-                        <div class="quiz-option" data-quiz="q1" data-answer="b">B) 1920, Hannah Höch</div>
-                        <div class="quiz-option" data-quiz="q1" data-answer="c">C) 1950, Andy Warhol</div>
-                        <div class="quiz-option" data-quiz="q1" data-answer="d">D) 1990, con i computer</div>
-                        <div class="feedback" id="feedback-q1"></div>
-                    </div>
-
-                    <div class="quiz-question">
-                        <h4>2. Cosa faceva Kurt Schwitters nei suoi "Merzbild"?</h4>
-                        <div class="quiz-option" data-quiz="q2" data-answer="a">A) Dipingeva solo con colori puri</div>
-                        <div class="quiz-option" data-quiz="q2" data-answer="b">B) Assemblava biglietti, etichette e materiali di recupero trovati per strada</div>
-                        <div class="quiz-option" data-quiz="q2" data-answer="c">C) Faceva solo fotografie</div>
-                        <div class="quiz-option" data-quiz="q2" data-answer="d">D) Scolpiva statue di marmo</div>
-                        <div class="feedback" id="feedback-q2"></div>
-                    </div>
-
-                    <div class="quiz-question">
-                        <h4>3. Quale tipo di colla è meglio per carta leggera?</h4>
-                        <div class="quiz-option" data-quiz="q3" data-answer="a">A) Colla a caldo</div>
-                        <div class="quiz-option" data-quiz="q3" data-answer="b">B) Colla stick</div>
-                        <div class="quiz-option" data-quiz="q3" data-answer="c">C) Colla per legno</div>
-                        <div class="quiz-option" data-quiz="q3" data-answer="d">D) Scotch</div>
-                        <div class="feedback" id="feedback-q3"></div>
-                    </div>
-
-                    <div class="quiz-question">
-                        <h4>4. Secondo l'arteterapia, perché il collage è utile con persone anziane?</h4>
-                        <div class="quiz-option" data-quiz="q4" data-answer="a">A) Perché è un'attività che richiede molta forza fisica</div>
-                        <div class="quiz-option" data-quiz="q4" data-answer="b">B) Perché stimola la memoria autobiografica e la manualità</div>
-                        <div class="quiz-option" data-quiz="q4" data-answer="c">C) Perché si fa sempre da soli, senza parlare con nessuno</div>
-                        <div class="quiz-option" data-quiz="q4" data-answer="d">D) Perché serve saper dipingere bene</div>
-                        <div class="feedback" id="feedback-q4"></div>
-                    </div>
-                </div>
-
-                <!-- SOTTOFASE 2.5 -->
-                <div class="info-box yellow" style="margin-top: 30px;">
-                    <h3>⚠️ SOTTOFASE 2.5: Privacy e Consenso</h3>
-                    <p><strong>Quando usi fotografie personali nel collage autobiografico, devi rispettare alcune regole importanti:</strong></p>
-                    <p>✅ Usa sempre FOTOCOPIE delle foto, mai gli originali (potrebbero rovinarsi!)</p>
-                    <p>✅ Se ci sono altre persone nelle foto, chiedi il loro permesso prima di usarle</p>
-                    <p>✅ Puoi coprire i volti con simboli o altri ritagli se vuoi mantenere la privacy</p>
-                    <p>✅ La condivisione del tuo collage con la classe è SEMPRE facoltativa. Nessuno ti obbliga a mostrare cose personali!</p>
-                    <p>✅ Se durante il lavoro emergono ricordi o emozioni forti, puoi chiedere aiuto al docente o allo sportello di ascolto della scuola, se c'è</p>
-                    <p>✅ Ciò che ascolti in classe non si racconta fuori: è una questione di rispetto. C'è un solo limite: se qualcuno è in pericolo, il docente ha il dovere di aiutarlo.</p>
-                    <textarea placeholder="Scrivi qui: Cosa ti fa sentire a tuo agio quando condividi qualcosa di personale? Ci sono aspetti della tua vita che preferiresti non condividere? È importante saperlo..."></textarea>
-                </div>
-
-                <div class="buttons">
-                    <button class="btn-secondary" onclick="goToFase(1)">⬅️ Indietro</button>
-                    <button class="btn-primary" onclick="completeFase2()">Avanti alla Fase 3 ➡️</button>
-                </div>
-            </div>
-
-            <!-- FASE 3: SPERIMENTAZIONE -->
-            <div class="fase" id="fase3">
-                <div class="fase-header">
-                    <h2>🎨 FASE 3: Sperimentazione Pratica</h2>
-                    <p>Ora creiamo il tuo primo collage autobiografico!</p>
-                </div>
-
-<section class="collage-extension" id="collage-nuclei" aria-labelledby="collage-nuclei-titolo">
-<p class="collage-eyebrow">PRIMA DI CERCARE I RITAGLI</p><h3 id="collage-nuclei-titolo">Dare forma a un nucleo di me</h3>
-<p>Il tuo collage può partire da una domanda su di te. <strong>Un nucleo è un aspetto della tua esperienza che vuoi guardare più da vicino:</strong> come ti senti in una situazione, il tuo posto in un gruppo, una parte che mostri poco, il tuo modo di scegliere.</p>
-<div class="collage-callout"><strong>In parole semplici</strong><p>Parti da un momento preciso. Puoi chiederti: «Come mi sento quando succede? Come posso farlo vedere?». Oppure: «In quella situazione, come potrei esserci anche in un altro modo? Che cosa di me vorrei tenere?». Puoi collegare le due domande. Dare forma a un’emozione è già un lavoro su di te: non devi per forza cambiarla.</p></div>
-<p><strong>Leggi le piste e scegli un solo nucleo.</strong> Puoi formularne uno tuo. Non devi raccontare tutta la tua vita e puoi scegliere una situazione quotidiana leggera.</p><div class="collage-nuclei-grid"><details class="collage-nucleo"><summary>1. Come mi sento in una situazione</summary><p>Che cosa provo in un momento preciso: quando entro in un gruppo, aspetto qualcosa o faccio ciò che mi piace?</p><p><strong>Parti da un momento:</strong> Quali sensazioni convivono? Quale vorrei riuscire a far vedere?</p><p><strong>Una prova possibile:</strong> Esplora distanze, dimensioni, ritmo e strati; spiega il significato che scegli tu.</p></details><details class="collage-nucleo"><summary>2. La mia voce</summary><p>Quando ho un’idea, che cosa faccio per farla arrivare agli altri?</p><p><strong>Parti da un momento:</strong> Quando mi è riuscito? Quando sono rimasto/a sul margine?</p><p><strong>Una prova possibile:</strong> Fai cambiare dimensione o posizione alla tua figura.</p></details><details class="collage-nucleo"><summary>3. Il mio posto nel gruppo</summary><p>In quali gruppi mi sento parte? In quali mi tengo più distante?</p><p><strong>Parti da un momento:</strong> Quale parte di me vorrei portare anche in un altro gruppo?</p><p><strong>Una prova possibile:</strong> Cambia le distanze fra figure, conservando un elemento che ti rappresenta.</p></details><details class="collage-nucleo"><summary>4. Le etichette che mi stanno strette</summary><p>Quale frase su di me racconta solo una parte di quello che sono?</p><p><strong>Parti da un momento:</strong> Quando ho fatto qualcosa che quella frase non avrebbe previsto?</p><p><strong>Una prova possibile:</strong> Taglia una parola e ricomponila; fai uscire un’immagine dalla sua cornice.</p></details><details class="collage-nucleo"><summary>5. La parte di me poco visibile</summary><p>Quale interesse o modo di essere conoscono in pochi?</p><p><strong>Parti da un momento:</strong> Che cosa vorrei far vedere un po’ di più, scegliendo io a chi?</p><p><strong>Una prova possibile:</strong> Fai affiorare un ritaglio da sotto uno strato, senza scoprirlo tutto.</p></details><details class="collage-nucleo"><summary>6. Il mio ritmo</summary><p>Quando mi sento trascinato/a dalla fretta? Quando trovo il mio passo?</p><p><strong>Parti da un momento:</strong> Quale spazio vorrei lasciare a una cosa che conta per me?</p><p><strong>Una prova possibile:</strong> Prova zone fitte, pause e spazi vuoti; cambia il percorso fra i frammenti.</p></details><details class="collage-nucleo"><summary>7. Il mio modo di scegliere</summary><p>Quando scelgo per me? Quando seguo una scelta già fatta da altri?</p><p><strong>Parti da un momento:</strong> Quale piccolo sì o no vorrei riuscire a esprimere?</p><p><strong>Una prova possibile:</strong> Crea un confine, un’apertura o due direzioni possibili.</p></details><details class="collage-nucleo"><summary>8. Quando qualcosa non riesce</summary><p>Che cosa faccio quando un tentativo va diversamente da come volevo?</p><p><strong>Parti da un momento:</strong> Quale altro modo di riprovare potrei immaginare?</p><p><strong>Una prova possibile:</strong> Ricomponi uno strappo lasciandolo visibile; dagli un nuovo ruolo.</p></details><details class="collage-nucleo"><summary>9. La novità e la curiosità</summary><p>Che cosa mi attira di nuovo, anche se non so ancora come si fa?</p><p><strong>Parti da un momento:</strong> Che cosa di me porterei nel primo tentativo?</p><p><strong>Una prova possibile:</strong> Metti una figura in un ambiente inatteso; conserva un frammento riconoscibile.</p></details></div>
-<div class="collage-callout collage-respect"><strong>Decidi tu quanto raccontare</strong><p>Scrivi nei campi solo ciò che accetti di salvare nella pagina e condividere con il docente. Gli appunti più personali possono restare su carta. Puoi usare una figura simbolica senza foto personali, cambiare nucleo e scegliere di mostrare soltanto la tecnica. Il significato del collage lo spieghi tu: i compagni non devono indovinare «come sei».</p></div>
-
-<h4 class="collage-subhead" id="collage-materiali">Che cosa portare e quali materiali usare</h4>
-<div class="collage-callout"><strong>Il materiale di base</strong><p>Prepara un cartoncino A4 o A3 come base, forbici, colla stick e alcuni fogli o immagini da ritagliare. Vanno bene riviste, giornali, vecchi cataloghi, carte colorate e carta da regalo recuperata. Una matita e un pennarello possono servire per aggiungere segni, parole o collegamenti.</p><p><strong>Facoltativo:</strong> porta una o due foto tue stampate o fotocopiate. Se vuoi ripetere la tua figura, prepara due copie della stessa foto; puoi anche stamparle in dimensioni diverse. Il bianco e nero va bene. Lavorando sulle copie, conservi la fotografia originale.</p></div>
-<p>Scegli le immagini e i materiali in relazione al tuo nucleo. Una superficie, una parola o un ritaglio possono contribuire al significato del lavoro: nella tabella trovi alcune possibilità da provare.</p>
-<div class="collage-table-wrap"><table class="collage-materials-table"><caption>Materiali e possibilità di composizione</caption><thead><tr><th scope="col">Materiale</th><th scope="col">Come puoi usarlo</th></tr></thead><tbody>
-<tr><th scope="row">Foto personali e immagini stampate</th><td>Ritaglia una figura, un gesto, un oggetto o un luogo. Puoi accostarli ad altri elementi, cambiare lo sfondo o ripetere un dettaglio. Le foto personali sono una possibilità: puoi anche disegnare una sagoma o usare una figura trovata in una rivista.</td></tr>
-<tr><th scope="row">Riviste, giornali, carte colorate e carta da regalo</th><td>Cerca immagini, parole, forme e motivi. Ritaglia per ottenere un bordo preciso; strappa per ottenere un bordo irregolare. Accosta o sovrapponi i frammenti e osserva che cosa cambia.</td></tr>
-<tr><th scope="row">Carta velina o carta da lucido</th><td>Sovrapponila a un’immagine per lasciarla intravedere. Prova quanto coprire e quanto fare emergere, se questo aiuta a esprimere il tuo nucleo.</td></tr>
-<tr><th scope="row">Carta crespa, carta da pacco e piccoli pezzi di cartone</th><td>Crea superfici piegate, increspate, lisce o in leggero rilievo. Guarda che cosa aggiungono rispetto a un’immagine stampata.</td></tr>
-<tr><th scope="row">Piccoli ritagli di stoffa, lana, filo o spago</th><td>Costruisci una parte della figura oppure un percorso, un collegamento o un confine fra gli elementi. Usa pezzi leggeri. Per fissare stoffa e cartone puoi usare poca colla vinilica, lasciando asciugare il lavoro in piano.</td></tr>
-<tr><th scope="row">Parole ritagliate, matita e pennarelli</th><td>Inserisci una frase breve, frammenta una parola o disegna un segno che metta in relazione i ritagli. Scegli le parole che vuoi rendere visibili.</td></tr>
-</tbody></table></div>
-<p><strong>Bastano pochi materiali.</strong> Scegli quelli che servono alla tua idea: non occorre usare tutte le categorie della tabella. Disponili prima sul foglio e incolla soltanto dopo aver confrontato le due prove.</p>
-<details class="collage-details"><summary>Partire da una mia fotografia: tre possibilità da provare</summary>
-<p>Puoi usare un tuo ritratto, una figura intera, il dettaglio di una mano oppure una foto scattata da te a un luogo o a un oggetto che conta per il nucleo scelto. Scegli una foto che ti va di usare e mostrare; puoi ritagliarne solo una parte.</p>
-<ol class="collage-steps"><li><strong>Cambiare il contesto:</strong> ritaglia la tua figura e collocala in un ambiente costruito con altre immagini. Può raccontare una situazione in cui ti senti in un certo modo oppure una situazione che vorresti esplorare. Che cosa cambia fra la figura e ciò che la circonda?</li><li><strong>Far convivere due modi di esserci:</strong> usa due copie della stessa figura, cambia posizione o dimensione e conserva un dettaglio comune. Puoi mostrare due emozioni o due possibilità che riconosci in te, anche nello stesso momento.</li><li><strong>Lasciare emergere una parte:</strong> sovrapponi alla foto carte, parole o frammenti. Spostane alcuni e osserva quanto della figura compare. Può essere un modo di lavorare sulla parte di te poco visibile, se per te questa scelta ha quel significato.</li></ol>
-<p><strong>Esempio:</strong> «Quando entro in un gruppo nuovo sono curioso/a e mi sento anche poco visibile». Posso ritagliare la mia figura da una foto e circondarla con immagini di ciò che mi attira. Nella seconda prova cambio la posizione e l’apertura fra gli elementi. Quale disposizione esprime meglio le due sensazioni? I materiali e le forme assumono il significato che scegli e spieghi tu.</p>
-</details>
-<p class="collage-small">Per il lavoro con carte, ritagli e prove di disposizione: <a href="https://www.sfmoma.org/read/art-project-creating-a-collage/" target="_blank" rel="noopener">SFMOMA, <cite>Creating a Collage</cite></a>. Per un esempio museale che usa fotocopie di fotografie personali: <a href="https://noma.org/art-making-activity-photo-transfer-collage/" target="_blank" rel="noopener">New Orleans Museum of Art, <cite>Photo-Transfer Collage</cite></a>. Qui puoi incollare direttamente le copie; le piste autobiografiche proposte sono esercizi per questo laboratorio.</p>
-
-<h4 class="collage-subhead">Un esempio svolto: «Come mi sento prima di presentare un lavoro»</h4>
-<p class="collage-small">Esempio inventato: non descrive quello che tutti devono provare in questa situazione.</p>
-<div class="collage-example"><div><span>1 · La situazione</span><p>«Sto per presentare un lavoro che mi piace. Ho voglia di farlo vedere e, insieme, mi sento in tensione.»</p></div><div><span>2 · Quello che voglio esprimere</span><p>«Vorrei far vedere che entusiasmo e tensione possono esserci nello stesso momento.»</p></div><div><span>3 · Il collage</span><p>Vicino a una figura si addensano frammenti stretti; altri si aprono verso l’esterno. Le due direzioni partono dalla stessa figura e si intrecciano.</p></div></div>
-<p><strong>Perché questa composizione?</strong> Per l’autore di questo esempio, i frammenti fitti esprimono tensione e quelli che si aprono entusiasmo. Un’altra persona potrebbe scegliere forme e colori diversi. Il significato si chiarisce ascoltando chi ha creato il collage.</p>
-<details class="collage-details"><summary>Un’altra pista svolta: «La mia voce nel gruppo»</summary>
-<p class="collage-small">È un esempio inventato per capire il procedimento: le tue immagini e la tua direzione possono essere diverse.</p>
-<div class="collage-example"><div><span>1 · La situazione</span><p>«Quando decidiamo un’attività, ho un’idea ma aspetto che parlino gli altri. A volte poi non la dico.»</p></div><div><span>2 · La possibilità</span><p>«Vorrei continuare ad ascoltare e riuscire anche a proporre qualcosa, senza dover diventare la persona più rumorosa.»</p></div><div><span>3 · Il collage</span><p>Una figura piccola al bordo incontra una sua seconda versione più grande. Le orecchie restano uguali; dalla bocca parte una strada che entra nel gruppo. Le due figure condividono un pezzo di abito.</p></div></div>
-<p><strong>Perché questa composizione?</strong> La scala e la posizione rendono visibile la possibilità di prendere spazio; il frammento comune tiene insieme le due versioni. La strada è il significato scelto per questo esempio, non un simbolo valido per tutti.</p>
-</details>
-<details class="collage-details"><summary>Completa un esempio, poi passa al tuo</summary><p>Nucleo: «La parte di me poco visibile». Una figura ha un interesse nascosto sotto molti ritagli. Immagina una composizione in cui quell’interesse possa comparire, mentre una parte resta protetta. Quale ritaglio sposteresti? Quanto lasceresti vedere? Spiegalo in coppia; ciascuno può scegliere una soluzione diversa.</p></details>
-
-<h4 class="collage-subhead">Il tuo progetto in quattro passaggi</h4>
-<p>Sul tavolo, prima di incollare, prova come queste risposte possono diventare immagini.</p>
-<label for="collage_nucleo"><strong>1. Il nucleo su cui lavoro</strong></label><textarea class="collage-compact" id="collage_nucleo" name="collage_nucleo" placeholder="Scelgo la mia voce nel gruppo, il mio ritmo… oppure formulo una mia domanda."></textarea>
-<label for="collage_situazione"><strong>2. Una situazione in cui lo riconosco</strong></label><textarea class="collage-compact" id="collage_situazione" name="collage_situazione" placeholder="Quando… tendo a… Puoi descrivere solo la situazione, senza nomi o dettagli riservati."></textarea>
-<label for="collage_possibilita"><strong>3. Che cosa voglio esprimere o quale possibilità voglio esplorare</strong></label><textarea class="collage-compact" id="collage_possibilita" name="collage_possibilita" placeholder="In questa situazione mi sento… Vorrei far vedere… Oppure: vorrei provare a… e di me vorrei tenere…"></textarea>
-<label for="collage_sceltavisiva"><strong>4. Come lo farò vedere con il collage</strong></label><textarea class="collage-compact" id="collage_sceltavisiva" name="collage_sceltavisiva" placeholder="Userò questi frammenti… Cambierò scala, posizione, contesto o relazione fra le immagini… Questa scelta significa per me…"></textarea>
-
-<h4 class="collage-subhead">Fai due prove con gli stessi ritagli</h4>
-<ol class="collage-steps"><li><strong>Prima disposizione:</strong> fai vedere il nucleo e ciò che provi nella situazione scelta.</li><li><strong>Seconda disposizione:</strong> cambia una relazione importante fra i ritagli. Puoi mostrare un’altra sfumatura dell’emozione oppure esplorare la possibilità scelta. Prova a ingrandire, spostare, sovrapporre, sostituire una parte o cambiare contesto.</li><li><strong>Guarda la differenza:</strong> che cosa cambia nel significato? Se sembra cambiata solo la decorazione, modifica ancora posizione, scala o rapporto fra gli elementi.</li><li><strong>Componi il lavoro finale:</strong> scegli la disposizione che esprime ciò che vuoi raccontare. Puoi far convivere emozioni o possibilità diverse nello stesso spazio. Fotografa le prove se vuoi ricordarle; incolla quando hai scelto.</li></ol>
-<p><strong>Un controllo prima della colla:</strong> riesco a indicare il mio nucleo, ciò che voglio esprimere o esplorare e una scelta visiva che lo renda leggibile? Non serve che tutti lo capiscano senza una spiegazione.</p>
-<p class="collage-small">Puoi usare le tre caratteristiche e i campi «Autoritratto» qui sotto come materiali di partenza. Questo nuovo lavoro sul nucleo può svilupparli. Il percorso «Chi sono / Chi sarò» resta un’ulteriore possibilità.</p>
-</section>
-                <div class="template-box">
-                    <h4>📐 PROCEDURA GUIDATA: I 6 Step del Collage</h4>
-                    <p>Segui questi passaggi per creare il tuo autoritratto in collage:</p>
-                    <div class="checklist">
-                        <div class="checklist-item">
-                            <input type="checkbox" id="step1">
-                            <label for="step1"><strong>STEP 1 - Ideazione:</strong> Pensa a 3 caratteristiche che ti rappresentano (es: "curioso", "creativo", "timido", "sportivo"...)</label>
-                        </div>
-                        <div class="checklist-item">
-                            <input type="checkbox" id="step2">
-                            <label for="step2"><strong>STEP 2 - Raccolta materiali:</strong> Cerca in riviste/giornali immagini che rappresentano queste caratteristiche</label>
-                        </div>
-                        <div class="checklist-item">
-                            <input type="checkbox" id="step3">
-                            <label for="step3"><strong>STEP 3 - Ritaglio:</strong> Ritaglia con cura le immagini scelte (forme precise O bordi strappati per effetto artistico)</label>
-                        </div>
-                        <div class="checklist-item">
-                            <input type="checkbox" id="step4">
-                            <label for="step4"><strong>STEP 4 - Composizione:</strong> Disponi i ritagli sul supporto SENZA incollare. Prova diverse combinazioni!</label>
-                        </div>
-                        <div class="checklist-item">
-                            <input type="checkbox" id="step5">
-                            <label for="step5"><strong>STEP 5 - Incollaggio:</strong> Quando sei soddisfatto/a, incolla partendo dallo sfondo verso il primo piano</label>
-                        </div>
-                        <div class="checklist-item">
-                            <input type="checkbox" id="step6">
-                            <label for="step6"><strong>STEP 6 - Titolo:</strong> Dai un titolo al tuo collage che esprima il suo significato</label>
-                        </div>
-                    </div>
-                </div>
-
-                <h3 style="margin-top: 30px;">✍️ Progetta il tuo collage "Autoritratto"</h3>
-                <div class="info-box blue">
-                    <h3>Caratteristiche che mi rappresentano</h3>
-                    <p>Scrivi 3 caratteristiche della tua personalità:</p>
-                    <textarea id="characteristics" placeholder="Es: 1) Sono una persona curiosa - 2) Amo la musica - 3) Mi piace aiutare gli altri..."></textarea>
-                </div>
-
-                <div class="info-box green">
-                    <h3>Materiali e immagini che userò</h3>
-                    <p>Descrivi quali immagini cercherai per rappresentare queste caratteristiche:</p>
-                    <textarea id="materials" placeholder="Es: Per 'curioso' cercherò immagini di telescopi, libri, mappe... Per 'musica' userò note musicali, strumenti... Per 'aiutare' immagini di mani che si stringono..."></textarea>
-                </div>
-
-                <div class="info-box purple">
-                    <h3>Composizione: come organizzerò il mio collage?</h3>
-                    <p>Immagina come disporrai gli elementi sul foglio:</p>
-                    <textarea id="composition" placeholder="Es: Metterò al centro una grande immagine che mi rappresenta, intorno più piccole per i dettagli. Userò colori caldi a sinistra e freddi a destra..."></textarea>
-                </div>
-
-                <div class="info-box yellow">
-                    <h3>Titolo del mio collage</h3>
-                    <p>Scegli un titolo che racconti l'essenza del tuo autoritratto:</p>
-                    <textarea id="title" placeholder="Es: 'Frammenti di me', 'Il mio mosaico interiore', 'Chi sono oggi'..."></textarea>
-                </div>
-
-                <!-- SOTTOFASE 3.5 -->
-                <div style="margin-top: 40px; border-top: 3px dashed #764ba2; padding-top: 30px;">
-                    <h3>💪 SOTTOFASE 3.5: Collage Autobiografico "Chi sono / Chi sarò"</h3>
-                    <div class="info-box purple">
-                        <h3>🔮 Versione Avanzata: Passato-Presente-Futuro</h3>
-                        <p>Ora che hai compreso la tecnica base, proviamo un collage più complesso che racconta la tua <strong>evoluzione nel tempo</strong>.</p>
-                        <p><strong>Istruzioni:</strong> Immagina di dividere il tuo foglio in due metà (o tre sezioni):</p>
-                        <p>📍 <strong>CHI SONO OGGI:</strong> Foto, immagini, parole che descrivono la tua vita attuale</p>
-                        <p>🚀 <strong>CHI SARÒ TRA 10 ANNI:</strong> Aspirazioni, sogni professionali, ruoli che desideri (per esempio operatore sociale, educatore, infermiere, OSS...)</p>
-                    </div>
-
-                    <h4>Riflessione guidata:</h4>
-                    <p><strong>Chi sono oggi?</strong></p>
-                    <textarea placeholder="Descrivi te stesso/a adesso: interessi, relazioni, sfide, passioni..."></textarea>
-
-                    <p><strong>Chi vorrei essere tra 10 anni?</strong></p>
-                    <textarea placeholder="Immagina il tuo futuro: che lavoro fai? Dove vivi? Che competenze hai sviluppato? Quali valori guidano le tue scelte?"></textarea>
-
-                    <p><strong>Quali immagini collegano presente e futuro?</strong></p>
-                    <textarea placeholder="Pensa a simboli di transizione: ponti, strade, scale, mani che si passano oggetti, metamorfosi (bruco-farfalla)..."></textarea>
-                </div>
-
-                <div class="buttons">
-                    <button class="btn-secondary" onclick="goToFase(2)">⬅️ Indietro</button>
-                    <button class="btn-primary" onclick="completeFase3()">Avanti alla Fase 4 ➡️</button>
-                </div>
-            </div>
-
-            <!-- FASE 4: RIFLESSIONE -->
-            <div class="fase" id="fase4">
-                <div class="fase-header">
-                    <h2>🧠 FASE 4: Riflessione sull'Apprendimento</h2>
-                    <p>Fermiamoci a pensare a quello che abbiamo imparato e sperimentato</p>
-                </div>
-
-<section class="collage-extension" id="collage-riflessione"><p class="collage-eyebrow">DOPO IL LAVORO</p><h3>Che cosa ho visto cambiando la forma?</h3>
-<label for="collage_variante">Confronta le due prove: quale intervento hai fatto e che cosa ti ha aiutato a esprimere o immaginare?</label><textarea class="collage-compact" id="collage_variante" name="collage_variante" placeholder="Ho spostato / ingrandito / sovrapposto… Questo esprime per me… oppure mi ha fatto immaginare… Questa prova mi rappresenta / non mi rappresenta perché…"></textarea>
-<p><strong>Confronto a coppie, facoltativo sul significato personale:</strong> chi osserva dice «Noto questo dettaglio…» e fa una domanda. Chi ha creato il collage sceglie che cosa spiegare e può correggere la lettura. Evitiamo frasi come «questo dimostra che tu sei…».</p>
-<p><strong>Per il futuro operatore sociale:</strong> una persona può usare immagini per raccontarsi scegliendo tempi e contenuti. Noi impariamo a predisporre materiali accessibili, ascoltare il significato che attribuisce al lavoro e rispettare ciò che vuole tenere per sé. Questo laboratorio scolastico è un’esperienza espressiva: non interpreta la personalità e non è una seduta di arteterapia.</p>
-</section>
-                <div class="info-box blue">
-                    <h3>💭 Metacognizione: Rifletti sul tuo percorso</h3>
-                    <p>La riflessione è fondamentale per fissare gli apprendimenti. Rispondi con sincerità a queste domande:</p>
-                </div>
-
-                <h3 style="margin-top: 25px;">1️⃣ Cosa ho imparato sul collage?</h3>
-                <textarea id="learned" placeholder="Scrivi cosa hai scoperto sulla storia del collage, sulle tecniche, sulle sue applicazioni in ambito socio-sanitario..."></textarea>
-
-                <h3 style="margin-top: 25px;">2️⃣ Come è cambiata la mia comprensione?</h3>
-                <div class="info-box green">
-                    <p><strong>Confronta con la Fase 1!</strong> Rileggi cosa avevi scritto all'inizio nel campo "Cosa sai già sul collage?"</p>
-                    <p id="phase1Recap" style="background: white; padding: 15px; border-radius: 5px; margin-top: 10px; font-style: italic;"></p>
-                </div>
-                <textarea id="understanding" placeholder="Prima pensavo che il collage fosse solo... Ora invece ho capito che... La mia idea è cambiata perché..."></textarea>
-
-                <h3 style="margin-top: 25px;">3️⃣ Quali difficoltà ho incontrato?</h3>
-                <textarea id="difficulties" placeholder="Cosa è stato più difficile? Scegliere le immagini? Organizzare la composizione? Riflettere su me stesso/a? Come ho superato queste difficoltà?"></textarea>
-
-                <h3 style="margin-top: 25px;">4️⃣ Cosa ho scoperto su me stesso/a?</h3>
-                <div class="info-box purple">
-                    <p>Il collage autobiografico è uno specchio. Cosa hai visto riflesso?</p>
-                </div>
-                <textarea id="selfDiscovery" placeholder="Lavorando al mio collage ho capito che io... Mi sono sorpreso/a scoprendo... Le immagini che ho scelto rivelano che..."></textarea>
-
-                <h3 style="margin-top: 25px;">5️⃣ Dove posso applicare quello che ho imparato?</h3>
-                <textarea id="application" placeholder="Pensa a situazioni concrete nel tuo futuro professionale: con quali utenti useresti il collage? In quale contesto (RSA, centro infanzia, laboratorio territoriale)? Per quale scopo?"></textarea>
-
-                <div class="info-box yellow" style="margin-top: 30px;">
-                    <h3>🎯 Sintesi riflessiva</h3>
-                    <p>Riassumi in 3-5 righe l'esperienza complessiva di questo percorso sul collage:</p>
-                    <textarea id="synthesis" placeholder="Questo percorso mi ha insegnato che... La cosa più importante che porto con me è... Userò il collage nel mio futuro per..."></textarea>
-                </div>
-
-                <div class="buttons">
-                    <button class="btn-secondary" onclick="goToFase(3)">⬅️ Indietro</button>
-                    <button class="btn-primary" onclick="completeFase4()">Avanti alla Fase 5 ➡️</button>
-                </div>
-            </div>
-
-            <!-- FASE 5: APPLICAZIONE PROFESSIONALE -->
-            <div class="fase" id="fase5">
-                <div class="fase-header">
-                    <h2>🏥 FASE 5: Applicazione al Contesto Professionale</h2>
-                    <p>Metti in pratica le competenze acquisite in un caso reale</p>
-                </div>
-
-                <div class="case-study">
-                    <h3>📋 CASO STUDIO: Signora Angela</h3>
-                    <p><strong>Contesto:</strong> RSA "Villa Serena"</p>
-                    <p><strong>Utente:</strong> Angela, 78 anni, vedova da 2 anni</p>
-                    <p><strong>Situazione:</strong> Angela è ospite della RSA da 6 mesi. Da quando è arrivata si è progressivamente isolata: non partecipa alle attività ricreative, mangia in camera, evita le conversazioni con gli altri ospiti. Il personale ha notato che passa molto tempo a guardare vecchie fotografie che tiene sul comodino.</p>
-                    <p><strong>Risorsa disponibile:</strong> La figlia di Angela ha portato un album di famiglia con foto degli anni '50-'70: il matrimonio, le vacanze al mare, le feste di paese, i nipoti da piccoli.</p>
-                    <p><strong>Obiettivo educativo:</strong> Favorire l'espressione emotiva, stimolare la memoria autobiografica, creare occasioni di socializzazione con altri ospiti.</p>
-                </div>
-
-                <h3 style="margin-top: 30px;">🎯 IL TUO COMPITO (articolato in 3 parti):</h3>
-
-                <div class="info-box blue">
-                    <h3>PARTE 1: Progettazione del laboratorio</h3>
-                    <p><strong>Progetta un laboratorio di collage autobiografico per Angela.</strong> Descrivi:</p>
-                    <ul style="margin-left: 20px; margin-top: 10px;">
-                        <li>Titolo e durata del laboratorio</li>
-                        <li>Obiettivi specifici (cosa vuoi ottenere?)</li>
-                        <li>Materiali che userai (ricorda: Angela ha 78 anni!)</li>
-                        <li>Fasi dell'attività passo per passo</li>
-                    </ul>
-                    <textarea id="labDesign" placeholder="PROGETTAZIONE LABORATORIO:
+</main>
+<aside class="previous-work"><details class="fold"><summary>Appunti ed esercitazioni del percorso precedente <span class="summary-note">Facoltativi · risposte conservate</span></summary><div class="fold-body"><p class="note">Questi appunti restano disponibili. Non sono richiesti per iniziare o completare il collage di questo laboratorio.</p><details class="fold archive-group" id="fase1"><summary>Appunti di partenza</summary><div class="fold-body">
+<div class="info-box blue">
+<h3>Cosa sai già sul collage?</h3>
+<p>Il collage è molto più di un semplice "incollare immagini". È una tecnica artistica nata nel 1912 con Picasso e Braque, ed è diventata uno strumento potente per raccontare storie, esprimere emozioni e perfino aiutare le persone a conoscere se stesse.</p>
+<p><strong>Prima di iniziare, vogliamo sapere cosa TU già conosci!</strong></p>
+</div>
+<h3>Scrivi liberamente...</h3>
+<textarea aria-label="Scrivi liberamente..." id="priorKnowledge" placeholder="Cosa sai già sul collage? Hai mai fatto collage a scuola o a casa? Cosa ti viene in mente quando pensi a 'raccontare te stesso con le immagini'? Non ci sono risposte giuste o sbagliate, scrivi tutto quello che ti viene in mente..."></textarea>
+<div class="info-box yellow">
+<h3>Domanda guida per te</h3>
+<p><strong>Se dovessi raccontare chi sei SENZA usare parole, ma solo con immagini ritagliate da riviste, fotografie e oggetti... quali sceglieresti?</strong></p>
+<textarea aria-label="Domanda guida per te" id="guidingQuestion" placeholder="Pensa a immagini che ti rappresentano: un paesaggio che ami, un colore che ti descrive, una foto di quando eri piccolo/a, un oggetto simbolico... Scrivi cosa useresti e perché..."></textarea>
+</div>
+</div></details><details class="fold archive-group" id="fase2"><summary>Quiz e condivisione</summary><div class="fold-body">
+<h3>QUIZ: Verifica la tua comprensione</h3>
+<div class="quiz-container">
+<div class="quiz-question">
+<h4>1. Quali artisti introducono il collage nell’arte cubista nel 1912?</h4>
+<div class="quiz-option" data-answer="a" data-quiz="q1">A) 1912, Pablo Picasso e Georges Braque</div>
+<div class="quiz-option" data-answer="b" data-quiz="q1">B) 1920, Hannah Höch</div>
+<div class="quiz-option" data-answer="c" data-quiz="q1">C) 1950, Andy Warhol</div>
+<div class="quiz-option" data-answer="d" data-quiz="q1">D) 1990, con i computer</div>
+<div class="feedback" id="feedback-q1"></div>
+</div>
+<div class="quiz-question">
+<h4>2. Cosa faceva Kurt Schwitters nei suoi "Merzbild"?</h4>
+<div class="quiz-option" data-answer="a" data-quiz="q2">A) Dipingeva solo con colori puri</div>
+<div class="quiz-option" data-answer="b" data-quiz="q2">B) Assemblava biglietti, etichette e materiali di recupero trovati per strada</div>
+<div class="quiz-option" data-answer="c" data-quiz="q2">C) Faceva solo fotografie</div>
+<div class="quiz-option" data-answer="d" data-quiz="q2">D) Scolpiva statue di marmo</div>
+<div class="feedback" id="feedback-q2"></div>
+</div>
+<div class="quiz-question">
+<h4>3. Quale tipo di colla è meglio per carta leggera?</h4>
+<div class="quiz-option" data-answer="a" data-quiz="q3">A) Colla a caldo</div>
+<div class="quiz-option" data-answer="b" data-quiz="q3">B) Colla stick</div>
+<div class="quiz-option" data-answer="c" data-quiz="q3">C) Colla per legno</div>
+<div class="quiz-option" data-answer="d" data-quiz="q3">D) Scotch</div>
+<div class="feedback" id="feedback-q3"></div>
+</div>
+<div class="quiz-question">
+<h4>4. Quale occasione può offrire un collage con fotografie in un laboratorio con persone anziane?</h4>
+<div class="quiz-option" data-answer="a" data-quiz="q4">A) Perché è un'attività che richiede molta forza fisica</div>
+<div class="quiz-option" data-answer="b" data-quiz="q4">B) Raccontare ricordi e sperimentare la composizione di immagini</div>
+<div class="quiz-option" data-answer="c" data-quiz="q4">C) Perché si fa sempre da soli, senza parlare con nessuno</div>
+<div class="quiz-option" data-answer="d" data-quiz="q4">D) Perché serve saper dipingere bene</div>
+<div class="feedback" id="feedback-q4"></div>
+</div>
+</div>
+<!-- SOTTOFASE 2.5 -->
+<div class="info-box yellow">
+<h3>SOTTOFASE 2.5: Privacy e Consenso</h3>
+<p><strong>Quando usi fotografie personali nel collage autobiografico, devi rispettare alcune regole importanti:</strong></p>
+<p>✅ Usa sempre <article class="photo-card"><svg aria-hidden="true" fill="none" viewbox="0 0 112 88"><rect fill="#c2d4df" height="68" width="70" x="21" y="11"></rect><path d="m21 57 26-21 18 16 26-12v39H21" fill="#638c9d"></path><circle cx="57" cy="37" fill="#17385a" r="7"></circle><path d="m45 68 4-20h16l5 20Z" fill="#17385a"></path></svg><h4>Cambia contesto</h4><p>Metti la tua figura in un ambiente diverso: quale emozione o possibilità vuoi mostrare?</p></article><article class="photo-card"><svg aria-hidden="true" fill="none" viewbox="0 0 112 88"><circle cx="39" cy="32" fill="#17385a" r="7"></circle><path d="m29 65 3-23h14l4 23Z" fill="#17385a"></path><circle cx="76" cy="25" fill="#638c9d" r="10"></circle><path d="m61 68 4-29h22l5 29Z" fill="#638c9d"></path><path d="M32 54h15m18-4h24" stroke="#e2bc66" stroke-width="4"></path></svg><h4>Fai convivere due modi</h4><p>Ripeti la figura cambiando scala o posizione. Un dettaglio comune tiene insieme le due versioni.</p></article><article class="photo-card"><svg aria-hidden="true" fill="none" viewbox="0 0 112 88"><circle cx="56" cy="26" fill="#17385a" r="9"></circle><path d="m40 69 5-29h23l6 29Z" fill="#17385a"></path><path d="m25 40 32 9-4 27-30-9Z" fill="#b5c8d8"></path><path d="m72 35 19-4 6 35-19 4Z" fill="#e2bc66"></path></svg><h4>Lascia emergere una parte</h4><p>Copri e scopri con carte e parole. Scegli quanto rendere visibile.</p></article>COPIE delle foto, mai gli originali (potrebbero rovinarsi!)</p>
+<p>✅ Se ci sono altre persone nelle foto, chiedi il loro permesso prima di usarle</p>
+<p>✅ Puoi coprire i volti con simboli o altri ritagli se vuoi mantenere la privacy</p>
+<p>✅ La condivisione del tuo collage con la classe è SEMPRE facoltativa. Nessuno ti obbliga a mostrare cose personali!</p>
+<p>✅ Se durante il lavoro emergono ricordi o emozioni forti, puoi chiedere aiuto al docente o allo sportello di ascolto della scuola, se c'è</p>
+<p>✅ Ciò che ascolti in classe non si racconta fuori: è una questione di rispetto. C'è un solo limite: se qualcuno è in pericolo, il docente ha il dovere di aiutarlo.</p>
+<textarea aria-label="Scrivi qui: Cosa ti fa sentire a tuo agio quando condividi qualcosa di personale? Ci sono aspetti della tua vita che preferiresti non condividere? È importante saperlo..." placeholder="Scrivi qui: Cosa ti fa sentire a tuo agio quando condividi qualcosa di personale? Ci sono aspetti della tua vita che preferiresti non condividere? È importante saperlo..."></textarea>
+</div>
+</div></details><details class="fold archive-group" id="fase3"><summary>Altre piste autobiografiche</summary><div class="fold-body">
+<div class="template-box">
+<h4>PROCEDURA GUIDATA: I 6 Step del Collage</h4>
+<p>Segui questi passaggi per creare il tuo autoritratto in collage:</p>
+<div class="checklist">
+<div class="checklist-item">
+<input id="step1" type="checkbox"/>
+<label for="step1"><strong>STEP 1 - Ideazione:</strong> Pensa a 3 caratteristiche che ti rappresentano (es: "curioso", "creativo", "timido", "sportivo"...)</label>
+</div>
+<div class="checklist-item">
+<input id="step2" type="checkbox"/>
+<label for="step2"><strong>STEP 2 - Raccolta materiali:</strong> Cerca in riviste/giornali immagini che rappresentano queste caratteristiche</label>
+</div>
+<div class="checklist-item">
+<input id="step3" type="checkbox"/>
+<label for="step3"><strong>STEP 3 - Ritaglio:</strong> Ritaglia con cura le immagini scelte (forme precise O bordi strappati per effetto artistico)</label>
+</div>
+<div class="checklist-item">
+<input id="step4" type="checkbox"/>
+<label for="step4"><strong>STEP 4 - Composizione:</strong> Disponi i ritagli sul supporto SENZA incollare. Prova diverse combinazioni!</label>
+</div>
+<div class="checklist-item">
+<input id="step5" type="checkbox"/>
+<label for="step5"><strong>STEP 5 - Incollaggio:</strong> Quando sei soddisfatto/a, incolla partendo dallo sfondo verso il primo piano</label>
+</div>
+<div class="checklist-item">
+<input id="step6" type="checkbox"/>
+<label for="step6"><strong>STEP 6 - Titolo:</strong> Dai un titolo al tuo collage che esprima il suo significato</label>
+</div>
+</div>
+</div>
+<h3>Progetta il tuo collage "Autoritratto"</h3>
+<div class="info-box blue">
+<h3>Caratteristiche che mi rappresentano</h3>
+<p>Scrivi 3 caratteristiche della tua personalità:</p>
+<textarea aria-label="Caratteristiche che mi rappresentano" id="characteristics" placeholder="Es: 1) Sono una persona curiosa - 2) Amo la musica - 3) Mi piace aiutare gli altri..."></textarea>
+</div>
+<div class="info-box green">
+<h3>Materiali e immagini che userò</h3>
+<p>Descrivi quali immagini cercherai per rappresentare queste caratteristiche:</p>
+<textarea aria-label="Materiali e immagini che userò" id="materials" placeholder="Es: Per 'curioso' cercherò immagini di telescopi, libri, mappe... Per 'musica' userò note musicali, strumenti... Per 'aiutare' immagini di mani che si stringono..."></textarea>
+</div>
+<div class="info-box purple">
+<h3>Composizione: come organizzerò il mio collage?</h3>
+<p>Immagina come disporrai gli elementi sul foglio:</p>
+<textarea aria-label="Composizione: come organizzerò il mio collage?" id="composition" placeholder="Es: Metterò al centro una grande immagine che mi rappresenta, intorno più piccole per i dettagli. Userò colori caldi a sinistra e freddi a destra..."></textarea>
+</div>
+<!-- SOTTOFASE 3.5 -->
+<div>
+<h3>SOTTOFASE 3.5: Collage Autobiografico "Chi sono / Chi sarò"</h3>
+<div class="info-box purple">
+<h3>Versione Avanzata: Passato-Presente-Futuro</h3>
+<p>Ora che hai compreso la tecnica base, proviamo un collage più complesso che racconta la tua <strong>evoluzione nel tempo</strong>.</p>
+<p><strong>Istruzioni:</strong> Immagina di dividere il tuo foglio in due metà (o tre sezioni):</p>
+<p>📍 <strong>CHI SONO OGGI:</strong> Foto, immagini, parole che descrivono la tua vita attuale</p>
+<p>🚀 <strong>CHI SARÒ TRA 10 ANNI:</strong> Aspirazioni, sogni professionali, ruoli che desideri (per esempio operatore sociale, educatore, infermiere, OSS...)</p>
+</div>
+<h4>Riflessione guidata:</h4>
+<p><strong>Chi sono oggi?</strong></p>
+<textarea aria-label="Descrivi te stesso/a adesso: interessi, relazioni, sfide, passioni..." placeholder="Descrivi te stesso/a adesso: interessi, relazioni, sfide, passioni..."></textarea>
+<p><strong>Chi vorrei essere tra 10 anni?</strong></p>
+<textarea aria-label="Immagina il tuo futuro: che lavoro fai? Dove vivi? Che competenze hai sviluppato? Quali valori guidano le tue scelte?" placeholder="Immagina il tuo futuro: che lavoro fai? Dove vivi? Che competenze hai sviluppato? Quali valori guidano le tue scelte?"></textarea>
+<p><strong>Quali immagini collegano presente e futuro?</strong></p>
+<textarea aria-label="Pensa a simboli di transizione: ponti, strade, scale, mani che si passano oggetti, metamorfosi (bruco-farfalla)..." placeholder="Pensa a simboli di transizione: ponti, strade, scale, mani che si passano oggetti, metamorfosi (bruco-farfalla)..."></textarea>
+</div>
+</div></details><details class="fold archive-group" id="fase4"><summary>Riflessioni estese</summary><div class="fold-body">
+<div class="info-box blue">
+<h3>Metacognizione: Rifletti sul tuo percorso</h3>
+<p>La riflessione è fondamentale per fissare gli apprendimenti. Rispondi con sincerità a queste domande:</p>
+</div>
+<h3>1️⃣ Cosa ho imparato sul collage?</h3>
+<textarea aria-label="1️⃣ Cosa ho imparato sul collage?" id="learned" placeholder="Scrivi cosa hai scoperto sulla storia del collage, sulle tecniche, sulle sue applicazioni in ambito socio-sanitario..."></textarea>
+<h3>2️⃣ Come è cambiata la mia comprensione?</h3>
+<div class="info-box green">
+<p><strong>Confronta con la Fase 1!</strong> Rileggi cosa avevi scritto all'inizio nel campo "Cosa sai già sul collage?"</p>
+<p id="phase1Recap"></p>
+</div>
+<textarea aria-label="2️⃣ Come è cambiata la mia comprensione?" id="understanding" placeholder="Prima pensavo che il collage fosse solo... Ora invece ho capito che... La mia idea è cambiata perché..."></textarea>
+<h3>3️⃣ Quali difficoltà ho incontrato?</h3>
+<textarea aria-label="3️⃣ Quali difficoltà ho incontrato?" id="difficulties" placeholder="Cosa è stato più difficile? Scegliere le immagini? Organizzare la composizione? Riflettere su me stesso/a? Come ho superato queste difficoltà?"></textarea>
+<h3>4️⃣ Cosa ho scoperto su me stesso/a?</h3>
+<div class="info-box purple">
+<p>Il collage autobiografico è uno specchio. Cosa hai visto riflesso?</p>
+</div>
+<textarea aria-label="4️⃣ Cosa ho scoperto su me stesso/a?" id="selfDiscovery" placeholder="Lavorando al mio collage ho capito che io... Mi sono sorpreso/a scoprendo... Le immagini che ho scelto rivelano che..."></textarea>
+<h3>5️⃣ Dove posso applicare quello che ho imparato?</h3>
+<textarea aria-label="5️⃣ Dove posso applicare quello che ho imparato?" id="application" placeholder="Pensa a situazioni concrete nel tuo futuro professionale: con quali utenti useresti il collage? In quale contesto (RSA, centro infanzia, laboratorio territoriale)? Per quale scopo?"></textarea>
+<div class="info-box yellow">
+<h3>Sintesi riflessiva</h3>
+<p>Riassumi in 3-5 righe l'esperienza complessiva di questo percorso sul collage:</p>
+<textarea aria-label="Sintesi riflessiva" id="synthesis" placeholder="Questo percorso mi ha insegnato che... La cosa più importante che porto con me è... Userò il collage nel mio futuro per..."></textarea>
+</div>
+</div></details><details class="fold archive-group" id="fase5"><summary>Progettare per altre persone</summary><div class="fold-body">
+<div class="case-study">
+<h3>CASO STUDIO: Signora Angela</h3>
+<p><strong>Contesto:</strong> RSA "Villa Serena"</p>
+<p><strong>Utente:</strong> Angela, 78 anni, vedova da 2 anni</p>
+<p><strong>Situazione:</strong> Angela è ospite della RSA da 6 mesi. Da quando è arrivata si è progressivamente isolata: non partecipa alle attività ricreative, mangia in camera, evita le conversazioni con gli altri ospiti. Il personale ha notato che passa molto tempo a guardare vecchie fotografie che tiene sul comodino.</p>
+<p><strong>Risorsa disponibile:</strong> La figlia di Angela ha portato un album di famiglia con foto degli anni '50-'70: il matrimonio, le vacanze al mare, le feste di paese, i nipoti da piccoli.</p>
+<p><strong>Obiettivo educativo:</strong> Favorire l'espressione emotiva, stimolare la memoria autobiografica, creare occasioni di socializzazione con altri ospiti.</p>
+</div>
+<h3>IL TUO COMPITO (articolato in 3 parti):</h3>
+<div class="info-box blue">
+<h3>PARTE 1: Progettazione del laboratorio</h3>
+<p><strong>Progetta un laboratorio di collage autobiografico per Angela.</strong> Descrivi:</p>
+<ul>
+<li>Titolo e durata del laboratorio</li>
+<li>Obiettivi specifici (cosa vuoi ottenere?)</li>
+<li>Materiali che userai (ricorda: Angela ha 78 anni!)</li>
+<li>Fasi dell'attività passo per passo</li>
+</ul>
+<textarea aria-label="PARTE 1: Progettazione del laboratorio" id="labDesign" placeholder="PROGETTAZIONE LABORATORIO:
 Titolo: ...
 Durata: ...
 Obiettivi: 1) ... 2) ... 3) ...
 Materiali adatti ad Angela: ...
 Fasi: 1) Accoglienza e presentazione ... 2) ... 3) ..."></textarea>
-                </div>
-
-                <div class="info-box green">
-                    <h3>PARTE 2: Gestione aspetti emotivi e relazionali</h3>
-                    <p><strong>Le fotografie possono risvegliare ricordi dolorosi</strong> (morte del marito, lontananza dai figli). Come gestiresti la situazione se:</p>
-                    <p>• Angela comincia a piangere guardando le foto del marito?</p>
-                    <p>• Angela si chiude e dice "non voglio fare niente, lasciatemi in pace"?</p>
-                    <p>• Angela si entusiasma e vuole raccontare tutta la sua vita?</p>
-                    <textarea id="emotionalManagement" placeholder="Gestione emotiva:
+</div>
+<div class="info-box green">
+<h3>PARTE 2: Gestione aspetti emotivi e relazionali</h3>
+<p><strong>Le fotografie possono risvegliare ricordi dolorosi</strong> (morte del marito, lontananza dai figli). Come gestiresti la situazione se:</p>
+<p>• Angela comincia a piangere guardando le foto del marito?</p>
+<p>• Angela si chiude e dice "non voglio fare niente, lasciatemi in pace"?</p>
+<p>• Angela si entusiasma e vuole raccontare tutta la sua vita?</p>
+<textarea aria-label="PARTE 2: Gestione aspetti emotivi e relazionali" id="emotionalManagement" placeholder="Gestione emotiva:
 Se Angela piange: ...
 Se si rifiuta di partecipare: ...
 Se si entusiasma molto: ...
 Tecniche di ascolto attivo che userò: ..."></textarea>
-                </div>
-
-                <div class="info-box purple">
-                    <h3>PARTE 3: Coinvolgimento altri ospiti e socializzazione</h3>
-                    <p><strong>Il collage può diventare un'occasione di socializzazione.</strong> Come faresti per:</p>
-                    <p>• Invitare altri ospiti a partecipare?</p>
-                    <p>• Creare momenti di condivisione tra Angela e gli altri?</p>
-                    <p>• Valorizzare le storie di ciascuno rispettando chi non vuole condividere?</p>
-                    <textarea id="socialization" placeholder="Strategie di socializzazione:
+</div>
+<div class="info-box purple">
+<h3>PARTE 3: Coinvolgimento altri ospiti e socializzazione</h3>
+<p><strong>Il collage può diventare un'occasione di socializzazione.</strong> Come faresti per:</p>
+<p>• Invitare altri ospiti a partecipare?</p>
+<p>• Creare momenti di condivisione tra Angela e gli altri?</p>
+<p>• Valorizzare le storie di ciascuno rispettando chi non vuole condividere?</p>
+<textarea aria-label="PARTE 3: Coinvolgimento altri ospiti e socializzazione" id="socialization" placeholder="Strategie di socializzazione:
 Invito altri ospiti: ...
 Momenti di condivisione: ...
 Esposizione finale dei collage: ...
 Rispetto della privacy: ..."></textarea>
-                </div>
-
-                <div class="info-box yellow">
-                    <h3>⚖️ Elementi da considerare (integra nella tua risposta):</h3>
-                    <div class="checklist">
-                        <div class="checklist-item">
-                            <input type="checkbox" id="consider1">
-                            <label for="consider1"><strong>Aspetti normativi:</strong> Privacy delle foto, consenso all'uso delle immagini</label>
-                        </div>
-                        <div class="checklist-item">
-                            <input type="checkbox" id="consider2">
-                            <label for="consider2"><strong>Dimensione etica:</strong> Dignità della persona, autodeterminazione, non forzare la partecipazione</label>
-                        </div>
-                        <div class="checklist-item">
-                            <input type="checkbox" id="consider3">
-                            <label for="consider3"><strong>Relazione con l'utente:</strong> Empatia, ascolto attivo, validazione emotiva</label>
-                        </div>
-                        <div class="checklist-item">
-                            <input type="checkbox" id="consider4">
-                            <label for="consider4"><strong>Lavoro in équipe:</strong> Coordinamento con OSS, infermieri, psicologo, coinvolgimento famiglia</label>
-                        </div>
-                    </div>
-                </div>
-
-                <h3 style="margin-top: 30px;">📝 Riflessione finale sul caso</h3>
-                <textarea id="caseReflection" placeholder="Cosa rende il collage uno strumento adatto per Angela? Quali sono i rischi da prevenire? Quali i benefici attesi? Come valuteresti il successo di questo laboratorio?"></textarea>
-
-                <div class="buttons">
-                    <button class="btn-secondary" onclick="goToFase(4)">⬅️ Indietro</button>
-                    <button class="btn-primary" onclick="completeFase5()">Avanti alla Fase 6 ➡️</button>
-                </div>
-            </div>
-
-            <!-- FASE 6: VALUTAZIONE -->
-            <div class="fase" id="fase6">
-                <div class="fase-header">
-                    <h2>📊 FASE 6: Valutazione e Piano d'Azione</h2>
-                    <p>Valutiamo insieme le competenze acquisite e pianifichiamo i prossimi passi</p>
-                </div>
-
-                <h3>🎯 AUTOVALUTAZIONE COMPETENZE</h3>
-                <p>Valuta il tuo livello di competenza attuale su scala da 1 (principiante) a 5 (esperto):</p>
-
-                <div class="evaluation-grid">
-                    <div class="evaluation-item">
-                        <div class="evaluation-label">1. Competenza Espressiva<br><small>Usare immagini per comunicare</small></div>
-                        <div class="evaluation-scale">
-                            <div class="scale-option" data-skill="skill1" data-value="1">1</div>
-                            <div class="scale-option" data-skill="skill1" data-value="2">2</div>
-                            <div class="scale-option" data-skill="skill1" data-value="3">3</div>
-                            <div class="scale-option" data-skill="skill1" data-value="4">4</div>
-                            <div class="scale-option" data-skill="skill1" data-value="5">5</div>
-                        </div>
-                    </div>
-
-                    <div class="evaluation-item">
-                        <div class="evaluation-label">2. Competenza Tecnica<br><small>Conoscere materiali e procedure</small></div>
-                        <div class="evaluation-scale">
-                            <div class="scale-option" data-skill="skill2" data-value="1">1</div>
-                            <div class="scale-option" data-skill="skill2" data-value="2">2</div>
-                            <div class="scale-option" data-skill="skill2" data-value="3">3</div>
-                            <div class="scale-option" data-skill="skill2" data-value="4">4</div>
-                            <div class="scale-option" data-skill="skill2" data-value="5">5</div>
-                        </div>
-                    </div>
-
-                    <div class="evaluation-item">
-                        <div class="evaluation-label">3. Competenza Relazionale<br><small>Gestire emozioni e condivisione</small></div>
-                        <div class="evaluation-scale">
-                            <div class="scale-option" data-skill="skill3" data-value="1">1</div>
-                            <div class="scale-option" data-skill="skill3" data-value="2">2</div>
-                            <div class="scale-option" data-skill="skill3" data-value="3">3</div>
-                            <div class="scale-option" data-skill="skill3" data-value="4">4</div>
-                            <div class="scale-option" data-skill="skill3" data-value="5">5</div>
-                        </div>
-                    </div>
-
-                    <div class="evaluation-item">
-                        <div class="evaluation-label">4. Competenza Progettuale<br><small>Progettare laboratori per utenti</small></div>
-                        <div class="evaluation-scale">
-                            <div class="scale-option" data-skill="skill4" data-value="1">1</div>
-                            <div class="scale-option" data-skill="skill4" data-value="2">2</div>
-                            <div class="scale-option" data-skill="skill4" data-value="3">3</div>
-                            <div class="scale-option" data-skill="skill4" data-value="4">4</div>
-                            <div class="scale-option" data-skill="skill4" data-value="5">5</div>
-                        </div>
-                    </div>
-
-                    <div class="evaluation-item">
-                        <div class="evaluation-label">5. Competenza Riflessiva<br><small>Consapevolezza metacognitiva</small></div>
-                        <div class="evaluation-scale">
-                            <div class="scale-option" data-skill="skill5" data-value="1">1</div>
-                            <div class="scale-option" data-skill="skill5" data-value="2">2</div>
-                            <div class="scale-option" data-skill="skill5" data-value="3">3</div>
-                            <div class="scale-option" data-skill="skill5" data-value="4">4</div>
-                            <div class="scale-option" data-skill="skill5" data-value="5">5</div>
-                        </div>
-                    </div>
-                </div>
-
-                <h3 style="margin-top: 40px;">✅ QUIZ FINALE RICAPITOLATIVO</h3>
-                <div class="quiz-container">
-                    <div class="quiz-question">
-                        <h4>1. Qual è la differenza principale tra collage e pittura tradizionale?</h4>
-                        <div class="quiz-option" data-quiz="final1" data-answer="b">A) Il collage usa solo colori</div>
-                        <div class="quiz-option" data-quiz="final1" data-answer="b">B) Il collage incorpora frammenti di realtà (ritagli, foto, oggetti) invece di imitarla</div>
-                        <div class="quiz-option" data-quiz="final1" data-answer="c">C) Il collage è più difficile</div>
-                        <div class="quiz-option" data-quiz="final1" data-answer="d">D) Non c'è differenza</div>
-                        <div class="feedback" id="feedback-final1"></div>
-                    </div>
-
-                    <div class="quiz-question">
-                        <h4>2. Hannah Höch usava il collage per:</h4>
-                        <div class="quiz-option" data-quiz="final2" data-answer="a">A) Criticare i ruoli femminili imposti e fare satira politica</div>
-                        <div class="quiz-option" data-quiz="final2" data-answer="b">B) Decorare case</div>
-                        <div class="quiz-option" data-quiz="final2" data-answer="c">C) Vendere pubblicità</div>
-                        <div class="quiz-option" data-quiz="final2" data-answer="d">D) Fare ritratti realistici</div>
-                        <div class="feedback" id="feedback-final2"></div>
-                    </div>
-
-                    <div class="quiz-question">
-                        <h4>3. Quale materiale NON è adatto per un collage con anziani in RSA?</h4>
-                        <div class="quiz-option" data-quiz="final3" data-answer="d">A) Fotografie vintage grandi e nitide</div>
-                        <div class="quiz-option" data-quiz="final3" data-answer="b">B) Ritagli colorati di grandi dimensioni</div>
-                        <div class="quiz-option" data-quiz="final3" data-answer="c">C) Colla stick atossica</div>
-                        <div class="quiz-option" data-quiz="final3" data-answer="d">D) Taglierini professionali con lame scoperte</div>
-                        <div class="feedback" id="feedback-final3"></div>
-                    </div>
-
-                    <div class="quiz-question">
-                        <h4>4. Il "décollage" è:</h4>
-                        <div class="quiz-option" data-quiz="final4" data-answer="a">A) Una tecnica di pittura</div>
-                        <div class="quiz-option" data-quiz="final4" data-answer="b">B) La tecnica di strappare strati di manifesti sovrapposti</div>
-                        <div class="quiz-option" data-quiz="final4" data-answer="c">C) Un tipo di colla</div>
-                        <div class="quiz-option" data-quiz="final4" data-answer="d">D) Un artista francese</div>
-                        <div class="feedback" id="feedback-final4"></div>
-                    </div>
-
-                    <div class="quiz-question">
-                        <h4>5. Perché il collage è uno strumento utile in contesti interculturali?</h4>
-                        <div class="quiz-option" data-quiz="final5" data-answer="c">A) Perché è economico</div>
-                        <div class="quiz-option" data-quiz="final5" data-answer="b">B) Perché è facile</div>
-                        <div class="quiz-option" data-quiz="final5" data-answer="c">C) Perché le immagini sono un linguaggio universale quando mancano parole comuni</div>
-                        <div class="quiz-option" data-quiz="final5" data-answer="d">D) Perché usa molti colori</div>
-                        <div class="feedback" id="feedback-final5"></div>
-                    </div>
-
-                    <div class="quiz-question">
-                        <h4>6. Quale regola di privacy devi rispettare nel collage autobiografico?</h4>
-                        <div class="quiz-option" data-quiz="final6" data-answer="b">A) Puoi usare qualsiasi foto trovata online</div>
-                        <div class="quiz-option" data-quiz="final6" data-answer="b">B) Usa fotocopie di foto personali e chiedi consenso alle persone ritratte</div>
-                        <div class="quiz-option" data-quiz="final6" data-answer="c">C) Devi sempre mostrare il tuo collage a tutti</div>
-                        <div class="quiz-option" data-quiz="final6" data-answer="d">D) Non importa, è solo arte</div>
-                        <div class="feedback" id="feedback-final6"></div>
-                    </div>
-
-                    <div class="quiz-question">
-                        <h4>7. I "Merzbild" di Kurt Schwitters erano fatti con:</h4>
-                        <div class="quiz-option" data-quiz="final7" data-answer="a">A) Materiali di recupero: biglietti, etichette, oggetti trovati</div>
-                        <div class="quiz-option" data-quiz="final7" data-answer="b">B) Solo pittura a olio</div>
-                        <div class="quiz-option" data-quiz="final7" data-answer="c">C) Marmo e bronzo</div>
-                        <div class="quiz-option" data-quiz="final7" data-answer="d">D) Fotografie digitali</div>
-                        <div class="feedback" id="feedback-final7"></div>
-                    </div>
-
-                    <div class="quiz-question">
-                        <h4>8. In arteterapia, il collage con adolescenti in difficoltà serve per:</h4>
-                        <div class="quiz-option" data-quiz="final8" data-answer="b">A) Passare il tempo</div>
-                        <div class="quiz-option" data-quiz="final8" data-answer="b">B) Esternare conflitti interiori difficili da esprimere a parole</div>
-                        <div class="quiz-option" data-quiz="final8" data-answer="c">C) Imparare a disegnare</div>
-                        <div class="quiz-option" data-quiz="final8" data-answer="d">D) Creare opere da vendere</div>
-                        <div class="feedback" id="feedback-final8"></div>
-                    </div>
-
-                    <div class="quiz-question">
-                        <h4>9. Quale fase della procedura di collage viene PRIMA dell'incollaggio?</h4>
-                        <div class="quiz-option" data-quiz="final9" data-answer="c">A) Dare il titolo</div>
-                        <div class="quiz-option" data-quiz="final9" data-answer="b">B) Presentazione al gruppo</div>
-                        <div class="quiz-option" data-quiz="final9" data-answer="c">C) Composizione: disporre i ritagli senza incollare per provare diverse soluzioni</div>
-                        <div class="quiz-option" data-quiz="final9" data-answer="d">D) Rifinitura con pennarelli</div>
-                        <div class="feedback" id="feedback-final9"></div>
-                    </div>
-
-                    <div class="quiz-question">
-                        <h4>10. Il collage autobiografico "Chi sono/Chi sarò" serve per:</h4>
-                        <div class="quiz-option" data-quiz="final10" data-answer="d">A) Copiare foto di riviste</div>
-                        <div class="quiz-option" data-quiz="final10" data-answer="b">B) Fare un compito scolastico</div>
-                        <div class="quiz-option" data-quiz="final10" data-answer="c">C) Decorare la classe</div>
-                        <div class="quiz-option" data-quiz="final10" data-answer="d">D) Riflettere sulla propria identità presente e sulle aspirazioni future</div>
-                        <div class="feedback" id="feedback-final10"></div>
-                    </div>
-                </div>
-
-                <h3 style="margin-top: 40px;">📝 IL MIO PIANO D'AZIONE PERSONALIZZATO</h3>
-                <div class="info-box blue">
-                    <h3>Cosa voglio approfondire sul collage?</h3>
-                    <textarea id="actionWhat" placeholder="Es: Voglio sperimentare il collage digitale, studiare più artisti dadaisti, praticare la tecnica con materiali naturali..."></textarea>
-                </div>
-
-                <div class="info-box green">
-                    <h3>Come intendo farlo?</h3>
-                    <textarea id="actionHow" placeholder="Es: Cercherò tutorial su Canva, visiterò una mostra d'arte, farò un laboratorio con i miei nonni, proporrò un progetto in stage..."></textarea>
-                </div>
-
-                <div class="info-box purple">
-                    <h3>Quando lo farò? (timeline realistica)</h3>
-                    <textarea id="actionWhen" placeholder="Es: Entro dicembre proverò 3 collage personali, a gennaio proporrò un laboratorio durante lo stage, in primavera organizzerò una mostra di classe..."></textarea>
-                </div>
-
-                <div class="info-box yellow">
-                    <h3>Quale laboratorio vorrei progettare in futuro?</h3>
-                    <p>Descrivi brevemente un'idea di laboratorio che ti piacerebbe realizzare:</p>
-                    <textarea id="futureProject" placeholder="Target (anziani/bambini/disabili/altro): ...
+</div>
+<div class="info-box yellow">
+<h3>Elementi da considerare (integra nella tua risposta):</h3>
+<div class="checklist">
+<div class="checklist-item">
+<input id="consider1" type="checkbox"/>
+<label for="consider1"><strong>Aspetti normativi:</strong> Privacy delle foto, consenso all'uso delle immagini</label>
+</div>
+<div class="checklist-item">
+<input id="consider2" type="checkbox"/>
+<label for="consider2"><strong>Dimensione etica:</strong> Dignità della persona, autodeterminazione, non forzare la partecipazione</label>
+</div>
+<div class="checklist-item">
+<input id="consider3" type="checkbox"/>
+<label for="consider3"><strong>Relazione con l'utente:</strong> Empatia, ascolto attivo, validazione emotiva</label>
+</div>
+<div class="checklist-item">
+<input id="consider4" type="checkbox"/>
+<label for="consider4"><strong>Lavoro in équipe:</strong> Coordinamento con OSS, infermieri, psicologo, coinvolgimento famiglia</label>
+</div>
+</div>
+</div>
+<h3>Riflessione finale sul caso</h3>
+<textarea aria-label="Riflessione finale sul caso" id="caseReflection" placeholder="Cosa rende il collage uno strumento adatto per Angela? Quali sono i rischi da prevenire? Quali i benefici attesi? Come valuteresti il successo di questo laboratorio?"></textarea>
+</div></details><details class="fold archive-group" id="fase6"><summary>Autovalutazione e altri quiz</summary><div class="fold-body">
+<h3>AUTOVALUTAZIONE COMPETENZE</h3>
+<p>Valuta il tuo livello di competenza attuale su scala da 1 (principiante) a 5 (esperto):</p>
+<div class="evaluation-grid">
+<div class="evaluation-item">
+<div class="evaluation-label">1. Competenza Espressiva<br/><small>Usare immagini per comunicare</small></div>
+<div class="evaluation-scale">
+<div class="scale-option" data-skill="skill1" data-value="1">1</div>
+<div class="scale-option" data-skill="skill1" data-value="2">2</div>
+<div class="scale-option" data-skill="skill1" data-value="3">3</div>
+<div class="scale-option" data-skill="skill1" data-value="4">4</div>
+<div class="scale-option" data-skill="skill1" data-value="5">5</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-label">2. Competenza Tecnica<br/><small>Conoscere materiali e procedure</small></div>
+<div class="evaluation-scale">
+<div class="scale-option" data-skill="skill2" data-value="1">1</div>
+<div class="scale-option" data-skill="skill2" data-value="2">2</div>
+<div class="scale-option" data-skill="skill2" data-value="3">3</div>
+<div class="scale-option" data-skill="skill2" data-value="4">4</div>
+<div class="scale-option" data-skill="skill2" data-value="5">5</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-label">3. Competenza Relazionale<br/><small>Gestire emozioni e condivisione</small></div>
+<div class="evaluation-scale">
+<div class="scale-option" data-skill="skill3" data-value="1">1</div>
+<div class="scale-option" data-skill="skill3" data-value="2">2</div>
+<div class="scale-option" data-skill="skill3" data-value="3">3</div>
+<div class="scale-option" data-skill="skill3" data-value="4">4</div>
+<div class="scale-option" data-skill="skill3" data-value="5">5</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-label">4. Competenza Progettuale<br/><small>Progettare laboratori per utenti</small></div>
+<div class="evaluation-scale">
+<div class="scale-option" data-skill="skill4" data-value="1">1</div>
+<div class="scale-option" data-skill="skill4" data-value="2">2</div>
+<div class="scale-option" data-skill="skill4" data-value="3">3</div>
+<div class="scale-option" data-skill="skill4" data-value="4">4</div>
+<div class="scale-option" data-skill="skill4" data-value="5">5</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-label">5. Competenza Riflessiva<br/><small>Consapevolezza metacognitiva</small></div>
+<div class="evaluation-scale">
+<div class="scale-option" data-skill="skill5" data-value="1">1</div>
+<div class="scale-option" data-skill="skill5" data-value="2">2</div>
+<div class="scale-option" data-skill="skill5" data-value="3">3</div>
+<div class="scale-option" data-skill="skill5" data-value="4">4</div>
+<div class="scale-option" data-skill="skill5" data-value="5">5</div>
+</div>
+</div>
+</div>
+<h3>QUIZ FINALE RICAPITOLATIVO</h3>
+<div class="quiz-container">
+<div class="quiz-question">
+<h4>1. Qual è la differenza principale tra collage e pittura tradizionale?</h4>
+<div class="quiz-option" data-answer="b" data-quiz="final1">A) Il collage usa solo colori</div>
+<div class="quiz-option" data-answer="b" data-quiz="final1">B) Il collage incorpora frammenti di realtà (ritagli, foto, oggetti) invece di imitarla</div>
+<div class="quiz-option" data-answer="c" data-quiz="final1">C) Il collage è più difficile</div>
+<div class="quiz-option" data-answer="d" data-quiz="final1">D) Non c'è differenza</div>
+<div class="feedback" id="feedback-final1"></div>
+</div>
+<div class="quiz-question">
+<h4>2. Hannah Höch usava il collage per:</h4>
+<div class="quiz-option" data-answer="a" data-quiz="final2">A) Criticare i ruoli femminili imposti e fare satira politica</div>
+<div class="quiz-option" data-answer="b" data-quiz="final2">B) Decorare case</div>
+<div class="quiz-option" data-answer="c" data-quiz="final2">C) Vendere pubblicità</div>
+<div class="quiz-option" data-answer="d" data-quiz="final2">D) Fare ritratti realistici</div>
+<div class="feedback" id="feedback-final2"></div>
+</div>
+<div class="quiz-question">
+<h4>3. Quale materiale NON è adatto per un collage con anziani in RSA?</h4>
+<div class="quiz-option" data-answer="d" data-quiz="final3">A) Fotografie vintage grandi e nitide</div>
+<div class="quiz-option" data-answer="b" data-quiz="final3">B) Ritagli colorati di grandi dimensioni</div>
+<div class="quiz-option" data-answer="c" data-quiz="final3">C) Colla stick atossica</div>
+<div class="quiz-option" data-answer="d" data-quiz="final3">D) Taglierini professionali con lame scoperte</div>
+<div class="feedback" id="feedback-final3"></div>
+</div>
+<div class="quiz-question">
+<h4>4. Il "décollage" è:</h4>
+<div class="quiz-option" data-answer="a" data-quiz="final4">A) Una tecnica di pittura</div>
+<div class="quiz-option" data-answer="b" data-quiz="final4">B) La tecnica di strappare strati di manifesti sovrapposti</div>
+<div class="quiz-option" data-answer="c" data-quiz="final4">C) Un tipo di colla</div>
+<div class="quiz-option" data-answer="d" data-quiz="final4">D) Un artista francese</div>
+<div class="feedback" id="feedback-final4"></div>
+</div>
+<div class="quiz-question">
+<h4>5. Perché il collage è uno strumento utile in contesti interculturali?</h4>
+<div class="quiz-option" data-answer="c" data-quiz="final5">C) Le immagini possono sostenere il dialogo, chiarendone insieme il significato</div>
+<div class="quiz-option" data-answer="b" data-quiz="final5">B) Perché è facile</div>
+<div class="quiz-option" data-answer="c" data-quiz="final5">C) Perché le immagini sono un linguaggio universale quando mancano parole comuni</div>
+<div class="quiz-option" data-answer="d" data-quiz="final5">D) Perché usa molti colori</div>
+<div class="feedback" id="feedback-final5"></div>
+</div>
+<div class="quiz-question">
+<h4>6. Quale regola di privacy devi rispettare nel collage autobiografico?</h4>
+<div class="quiz-option" data-answer="b" data-quiz="final6">A) Puoi usare qualsiasi foto trovata online</div>
+<div class="quiz-option" data-answer="b" data-quiz="final6">B) Usa fotocopie di foto personali e chiedi consenso alle persone ritratte</div>
+<div class="quiz-option" data-answer="c" data-quiz="final6">C) Devi sempre mostrare il tuo collage a tutti</div>
+<div class="quiz-option" data-answer="d" data-quiz="final6">D) Non importa, è solo arte</div>
+<div class="feedback" id="feedback-final6"></div>
+</div>
+<div class="quiz-question">
+<h4>7. I "Merzbild" di Kurt Schwitters erano fatti con:</h4>
+<div class="quiz-option" data-answer="a" data-quiz="final7">A) Materiali di recupero: biglietti, etichette, oggetti trovati</div>
+<div class="quiz-option" data-answer="b" data-quiz="final7">B) Solo pittura a olio</div>
+<div class="quiz-option" data-answer="c" data-quiz="final7">C) Marmo e bronzo</div>
+<div class="quiz-option" data-answer="d" data-quiz="final7">D) Fotografie digitali</div>
+<div class="feedback" id="feedback-final7"></div>
+</div>
+<div class="quiz-question">
+<h4>8. In un laboratorio espressivo, il collage può offrire un’occasione per:</h4>
+<div class="quiz-option" data-answer="b" data-quiz="final8">B) Esprimere un’esperienza attraverso immagini e scelte personali</div>
+<div class="quiz-option" data-answer="b" data-quiz="final8">B) Esternare conflitti interiori difficili da esprimere a parole</div>
+<div class="quiz-option" data-answer="c" data-quiz="final8">C) Imparare a disegnare</div>
+<div class="quiz-option" data-answer="d" data-quiz="final8">D) Creare opere da vendere</div>
+<div class="feedback" id="feedback-final8"></div>
+</div>
+<div class="quiz-question">
+<h4>9. Quale fase della procedura di collage viene PRIMA dell'incollaggio?</h4>
+<div class="quiz-option" data-answer="c" data-quiz="final9">A) Dare il titolo</div>
+<div class="quiz-option" data-answer="b" data-quiz="final9">B) Presentazione al gruppo</div>
+<div class="quiz-option" data-answer="c" data-quiz="final9">C) Composizione: disporre i ritagli senza incollare per provare diverse soluzioni</div>
+<div class="quiz-option" data-answer="d" data-quiz="final9">D) Rifinitura con pennarelli</div>
+<div class="feedback" id="feedback-final9"></div>
+</div>
+<div class="quiz-question">
+<h4>10. Il collage autobiografico "Chi sono/Chi sarò" serve per:</h4>
+<div class="quiz-option" data-answer="d" data-quiz="final10">A) Copiare foto di riviste</div>
+<div class="quiz-option" data-answer="b" data-quiz="final10">B) Fare un compito scolastico</div>
+<div class="quiz-option" data-answer="c" data-quiz="final10">C) Decorare la classe</div>
+<div class="quiz-option" data-answer="d" data-quiz="final10">D) Riflettere sulla propria identità presente e sulle aspirazioni future</div>
+<div class="feedback" id="feedback-final10"></div>
+</div>
+</div>
+<h3>IL MIO PIANO D'AZIONE PERSONALIZZATO</h3>
+<div class="info-box blue">
+<h3>Cosa voglio approfondire sul collage?</h3>
+<textarea aria-label="Cosa voglio approfondire sul collage?" id="actionWhat" placeholder="Es: Voglio sperimentare il collage digitale, studiare più artisti dadaisti, praticare la tecnica con materiali naturali..."></textarea>
+</div>
+<div class="info-box green">
+<h3>Come intendo farlo?</h3>
+<textarea aria-label="Come intendo farlo?" id="actionHow" placeholder="Es: Cercherò tutorial su Canva, visiterò una mostra d'arte, farò un laboratorio con i miei nonni, proporrò un progetto in stage..."></textarea>
+</div>
+<div class="info-box purple">
+<h3>Quando lo farò? (timeline realistica)</h3>
+<textarea aria-label="Quando lo farò? (timeline realistica)" id="actionWhen" placeholder="Es: Entro dicembre proverò 3 collage personali, a gennaio proporrò un laboratorio durante lo stage, in primavera organizzerò una mostra di classe..."></textarea>
+</div>
+<div class="info-box yellow">
+<h3>Quale laboratorio vorrei progettare in futuro?</h3>
+<p>Descrivi brevemente un'idea di laboratorio che ti piacerebbe realizzare:</p>
+<textarea aria-label="Quale laboratorio vorrei progettare in futuro?" id="futureProject" placeholder="Target (anziani/bambini/disabili/altro): ...
 Titolo del laboratorio: ...
 Obiettivo principale: ...
 Materiali specifici: ...
 Perché mi interessa: ..."></textarea>
-                </div>
-
-                <div class="buttons">
-                    <button class="btn-secondary" onclick="goToFase(5)">⬅️ Indietro</button>
-                    <button class="btn-primary" onclick="completeFase6()">Completa il Percorso 🎉</button>
-                </div>
-            </div>
-
-            <!-- SCHERMATA FINALE -->
-            <div class="fase" id="faseComplete">
-                <div class="final-summary">
-                    <div class="celebration">🎉🎨🏆</div>
-                    <h2>PERCORSO COMPLETATO!</h2>
-                    <p style="font-size: 1.5em; margin: 20px 0;">
-                        Hai ottenuto <span class="points-animation" id="finalScore">0</span> punti su 240!
-                    </p>
-                    <div id="finalBadges" style="margin-top: 30px;"></div>
-                </div>
-
-                <div class="info-box blue" style="margin-top: 30px;">
-                    <h3>🎓 Competenze Acquisite</h3>
-                    <p>Hai completato con successo il percorso sul collage autobiografico. Ora sei in grado di:</p>
-                    <ul style="margin-left: 25px; margin-top: 15px;">
-                        <li>✅ Conoscere la storia del collage e le sue principali correnti artistiche</li>
-                        <li>✅ Applicare la tecnica del collage in modo autonomo</li>
-                        <li>✅ Utilizzare il collage come strumento di auto-narrazione</li>
-                        <li>✅ Progettare laboratori di collage per utenti in contesti socio-sanitari</li>
-                        <li>✅ Gestire aspetti emotivi e privacy nella relazione d'aiuto</li>
-                        <li>✅ Riflettere criticamente sul tuo apprendimento</li>
-                    </ul>
-                </div>
-
-                <div class="info-box green">
-                    <h3>💼 Prossimi Passi</h3>
-                    <p>Continua il tuo percorso formativo:</p>
-                    <ul style="margin-left: 25px; margin-top: 15px;">
-                        <li>📚 Approfondisci gli autori che ti hanno colpito di più</li>
-                        <li>🎨 Realizza concretamente il tuo collage autobiografico</li>
-                        <li>🏥 Proponi un laboratorio durante il tirocinio/stage</li>
-                        <li>👥 Condividi l'esperienza con compagni e docenti</li>
-                        <li>📖 Consulta i riferimenti bibliografici della dispensa</li>
-                    </ul>
-                </div>
-
-                <h3 style="text-align: center; margin-top: 40px;">📥 Esporta il tuo lavoro</h3>
-                <div class="export-buttons">
-                    <button class="btn-success" onclick="exportToText()">💾 Scarica TXT</button>
-                    <button class="btn-success" onclick="exportToPDF()">📄 Scarica PDF</button>
-                    <button class="btn-success" onclick="window.print()">🖨️ Stampa</button>
-                </div>
-
-                <div class="buttons" style="margin-top: 40px;">
-                    <button class="btn-secondary" onclick="goToFase(6)">⬅️ Torna alla Fase 6</button>
-                    <button class="btn-primary" onclick="resetPercorso()">🔄 Ricomincia il Percorso</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // STATO GLOBALE
-        let currentFase = 1;
-        let totalPoints = 0;
-        let fasePoints = {
-            fase1: 15,
-            fase2: 40,
-            fase3: 55,
-            fase4: 30,
-            fase5: 50,
-            fase6: 50
-        };
-        let completedFases = new Set();
-        let quizAnswers = {};
-        let skillRatings = {};
-
-        // INIZIALIZZAZIONE
-        document.addEventListener('DOMContentLoaded', function() {
-            loadProgress();
-            updateProgressBar();
-            setupQuizListeners();
-            setupSkillListeners();
-        });
-
-        // NAVIGAZIONE
-        function goToFase(faseNum) {
-            document.querySelectorAll('.fase').forEach(f => f.classList.remove('active'));
-            document.getElementById('fase' + faseNum).classList.add('active');
-            currentFase = faseNum;
-            updateProgressBar();
-            window.scrollTo(0, 0);
-            saveProgress();
-        }
-
-        function updateProgressBar() {
-            document.querySelectorAll('.progress-step').forEach((step, index) => {
-                step.classList.remove('active', 'completed');
-                const faseNum = index + 1;
-                if (faseNum < currentFase) {
-                    step.classList.add('completed');
-                } else if (faseNum === currentFase) {
-                    step.classList.add('active');
-                }
-            });
-        }
-
-        // COMPLETAMENTO FASI
-        function completeFase1() {
-            const priorKnowledge = document.getElementById('priorKnowledge').value;
-            const guidingQuestion = document.getElementById('guidingQuestion').value;
-            
-            if (priorKnowledge.length < 50 || guidingQuestion.length < 50) {
-                alert('⚠️ Per favore, completa entrambi i campi di riflessione (almeno 50 caratteri ciascuno)!');
-                return;
-            }
-            
-            if (!completedFases.has('fase1')) {
-                totalPoints += fasePoints.fase1;
-                completedFases.add('fase1');
-                updateScore();
-                showNotification('✅ Fase 1 completata! +' + fasePoints.fase1 + ' punti');
-            }
-            
-            goToFase(2);
-        }
-
-        function completeFase2() {
-            const requiredQuizzes = ['q1', 'q2', 'q3', 'q4'];
-            let allAnswered = true;
-            
-            requiredQuizzes.forEach(q => {
-                if (!quizAnswers[q]) {
-                    allAnswered = false;
-                }
-            });
-            
-            if (!allAnswered) {
-                alert('⚠️ Completa tutti i quiz prima di procedere!');
-                return;
-            }
-            
-            if (!completedFases.has('fase2')) {
-                totalPoints += fasePoints.fase2;
-                completedFases.add('fase2');
-                updateScore();
-                checkBadge('badge1'); // Esploratore Cubista
-                showNotification('✅ Fase 2 completata! +' + fasePoints.fase2 + ' punti - Badge Sbloccato! 📜');
-            }
-            
-            goToFase(3);
-        }
-
-        function completeFase3() {
-            const characteristics = document.getElementById('characteristics').value;
-            const materials = document.getElementById('materials').value;
-            const composition = document.getElementById('composition').value;
-            const title = document.getElementById('title').value;
-            
-            if (characteristics.length < 50 || materials.length < 50 || composition.length < 50 || title.length < 5) {
-                alert('⚠️ Completa tutti i campi della progettazione del collage!');
-                return;
-            }
-            
-            if (!completedFases.has('fase3')) {
-                totalPoints += fasePoints.fase3;
-                completedFases.add('fase3');
-                updateScore();
-                checkBadge('badge2'); // Artista Narrativo
-                showNotification('✅ Fase 3 completata! +' + fasePoints.fase3 + ' punti - Badge Sbloccato! ✂️');
-            }
-            
-            goToFase(4);
-        }
-
-        function completeFase4() {
-            const learned = document.getElementById('learned').value;
-            const understanding = document.getElementById('understanding').value;
-            const difficulties = document.getElementById('difficulties').value;
-            const selfDiscovery = document.getElementById('selfDiscovery').value;
-            const application = document.getElementById('application').value;
-            
-            if (learned.length < 50 || understanding.length < 50 || difficulties.length < 30 || 
-                selfDiscovery.length < 50 || application.length < 50) {
-                alert('⚠️ Completa tutte le riflessioni metacognitive!');
-                return;
-            }
-            
-            if (!completedFases.has('fase4')) {
-                totalPoints += fasePoints.fase4;
-                completedFases.add('fase4');
-                updateScore();
-                showNotification('✅ Fase 4 completata! +' + fasePoints.fase4 + ' punti');
-            }
-            
-            // Mostra il recap della fase 1
-            const phase1Recap = document.getElementById('phase1Recap');
-            const priorKnowledge = localStorage.getItem('priorKnowledge') || 'Nessuna nota precedente';
-            phase1Recap.textContent = priorKnowledge;
-            
-            goToFase(5);
-        }
-
-        function completeFase5() {
-            const labDesign = document.getElementById('labDesign').value;
-            const emotionalManagement = document.getElementById('emotionalManagement').value;
-            const socialization = document.getElementById('socialization').value;
-            const caseReflection = document.getElementById('caseReflection').value;
-            
-            if (labDesign.length < 100 || emotionalManagement.length < 100 || 
-                socialization.length < 100 || caseReflection.length < 50) {
-                alert('⚠️ Completa tutte le parti del caso professionale in modo dettagliato!');
-                return;
-            }
-            
-            if (!completedFases.has('fase5')) {
-                totalPoints += fasePoints.fase5;
-                completedFases.add('fase5');
-                updateScore();
-                checkBadge('badge3'); // Facilitatore Creativo
-                showNotification('✅ Fase 5 completata! +' + fasePoints.fase5 + ' punti - Badge Sbloccato! 💡');
-            }
-            
-            goToFase(6);
-        }
-
-        function completeFase6() {
-            // Verifica autovalutazione
-            const skills = ['skill1', 'skill2', 'skill3', 'skill4', 'skill5'];
-            let allRated = true;
-            skills.forEach(skill => {
-                if (!skillRatings[skill]) {
-                    allRated = false;
-                }
-            });
-            
-            if (!allRated) {
-                alert('⚠️ Completa l\'autovalutazione di tutte le 5 competenze!');
-                return;
-            }
-            
-            // Verifica quiz finale
-            const finalQuizzes = ['final1', 'final2', 'final3', 'final4', 'final5', 
-                                  'final6', 'final7', 'final8', 'final9', 'final10'];
-            let allQuizAnswered = true;
-            finalQuizzes.forEach(q => {
-                if (!quizAnswers[q]) {
-                    allQuizAnswered = false;
-                }
-            });
-            
-            if (!allQuizAnswered) {
-                alert('⚠️ Completa tutti i 10 quiz finali!');
-                return;
-            }
-            
-            // Verifica piano d'azione
-            const actionWhat = document.getElementById('actionWhat').value;
-            const actionHow = document.getElementById('actionHow').value;
-            const actionWhen = document.getElementById('actionWhen').value;
-            const futureProject = document.getElementById('futureProject').value;
-            
-            if (actionWhat.length < 30 || actionHow.length < 30 || 
-                actionWhen.length < 30 || futureProject.length < 50) {
-                alert('⚠️ Completa il Piano d\'Azione Personalizzato!');
-                return;
-            }
-            
-            if (!completedFases.has('fase6')) {
-                totalPoints += fasePoints.fase6;
-                completedFases.add('fase6');
-                updateScore();
-                checkBadge('badge4'); // Maestro del Collage
-            }
-            
-            showFinalSummary();
-        }
-
-        // QUIZ MANAGEMENT
-        function setupQuizListeners() {
-            document.querySelectorAll('.quiz-option').forEach(option => {
-                option.addEventListener('click', function() {
-                    const quizId = this.getAttribute('data-quiz');
-                    const answer = this.getAttribute('data-answer');
-                    const correctAnswer = getCorrectAnswer(quizId);
-                    
-                    // Rimuovi selezioni precedenti
-                    document.querySelectorAll(`[data-quiz="${quizId}"]`).forEach(opt => {
-                        opt.classList.remove('selected', 'correct', 'incorrect');
-                    });
-                    
-                    // Marca la risposta
-                    this.classList.add('selected');
-                    const isCorrect = (answer === correctAnswer);
-                    
-                    if (isCorrect) {
-                        this.classList.add('correct');
-                        quizAnswers[quizId] = true;
-                    } else {
-                        this.classList.add('incorrect');
-                        // Mostra la risposta corretta
-                        document.querySelector(`[data-quiz="${quizId}"][data-answer="${correctAnswer}"]`).classList.add('correct');
-                    }
-                    
-                    // Mostra feedback
-                    showFeedback(quizId, isCorrect);
-                    saveProgress();
-                });
-            });
-        }
-
-        function getCorrectAnswer(quizId) {
-            const answers = {
-                'q1': 'a',
-                'q2': 'b',
-                'q3': 'b',
-                'q4': 'b',
-                'final1': 'b',
-                'final2': 'a',
-                'final3': 'd',
-                'final4': 'b',
-                'final5': 'c',
-                'final6': 'b',
-                'final7': 'a',
-                'final8': 'b',
-                'final9': 'c',
-                'final10': 'd'
-            };
-            return answers[quizId];
-        }
-
-        function showFeedback(quizId, isCorrect) {
-            const feedbackEl = document.getElementById('feedback-' + quizId);
-            const feedbacks = {
-                'q1': {
-                    correct: '✅ Esatto! Il collage è nato nel 1912 con Picasso e Braque, artisti cubisti.',
-                    incorrect: '❌ La risposta corretta è: 1912, Pablo Picasso e Georges Braque. Hanno iniziato a incollare pezzi di giornale sulle tele!'
-                },
-                'q2': {
-                    correct: '✅ Corretto! Schwitters trasformava oggetti di scarto in arte, creando composizioni astratte.',
-                    incorrect: '❌ Schwitters assemblava biglietti, etichette e materiali trovati per strada nei suoi "Merzbild".'
-                },
-                'q3': {
-                    correct: '✅ Giusto! La colla stick è perfetta per carta leggera come ritagli di riviste.',
-                    incorrect: '❌ La colla stick è la migliore per carta leggera. La vinilica si usa per materiali più pesanti.'
-                },
-                'q4': {
-                    correct: '✅ Perfetto! Il collage con anziani riattiva ricordi e mantiene attive le capacità manuali.',
-                    incorrect: '❌ In arteterapia, il collage stimola la memoria autobiografica e la manualità degli anziani.'
-                },
-                'final1': {
-                    correct: '✅ Esatto! Il collage rompe con la tradizione perché include pezzi di realtà invece di imitarla.',
-                    incorrect: '❌ Il collage incorpora frammenti di realtà (ritagli, foto, oggetti) invece di imitarla con la pittura.'
-                },
-                'final2': {
-                    correct: '✅ Corretto! Hannah Höch era un\'artista critica e impegnata politicamente.',
-                    incorrect: '❌ Hannah Höch usava il collage per criticare i ruoli femminili e fare satira politica.'
-                },
-                'final3': {
-                    correct: '✅ Perfetto! Con anziani serve sicurezza: niente lame scoperte! Forbici con punta arrotondata.',
-                    incorrect: '❌ I taglierini professionali con lame scoperte sono pericolosi. Meglio forbici sicure!'
-                },
-                'final4': {
-                    correct: '✅ Esatto! Décollage = strappare. Mimmo Rotella era maestro di questa tecnica.',
-                    incorrect: '❌ Il décollage è la tecnica di strappare strati di manifesti sovrapposti per rivelare ciò che sta sotto.'
-                },
-                'final5': {
-                    correct: '✅ Perfetto! Le immagini superano le barriere linguistiche.',
-                    incorrect: '❌ In contesti interculturali le immagini sono un linguaggio universale quando mancano parole comuni.'
-                },
-                'final6': {
-                    correct: '✅ Corretto! Privacy e consenso sono fondamentali. Sempre fotocopie e permessi!',
-                    incorrect: '❌ Devi sempre usare fotocopie e chiedere il consenso delle persone ritratte nelle foto.'
-                },
-                'final7': {
-                    correct: '✅ Giusto! Schwitters vedeva bellezza nei materiali di scarto quotidiani.',
-                    incorrect: '❌ I Merzbild erano fatti con materiali di recupero: biglietti del tram, etichette, oggetti trovati.'
-                },
-                'final8': {
-                    correct: '✅ Esatto! Il collage permette di esprimere ciò che è difficile dire a parole.',
-                    incorrect: '❌ Con adolescenti in difficoltà, il collage aiuta a esternare conflitti interiori.'
-                },
-                'final9': {
-                    correct: '✅ Perfetto! Prima di incollare, bisogna provare diverse composizioni!',
-                    incorrect: '❌ Prima dell\'incollaggio c\'è la fase di COMPOSIZIONE: disporre i ritagli per provare l\'effetto.'
-                },
-                'final10': {
-                    correct: '✅ Corretto! Il collage autobiografico è uno strumento di autoriflessione profonda.',
-                    incorrect: '❌ Il collage "Chi sono/Chi sarò" serve per riflettere sulla propria identità e aspirazioni future.'
-                }
-            };
-            
-            feedbackEl.textContent = isCorrect ? feedbacks[quizId].correct : feedbacks[quizId].incorrect;
-            feedbackEl.className = 'feedback show ' + (isCorrect ? 'correct' : 'incorrect');
-        }
-
-        // SKILL RATING
-        function setupSkillListeners() {
-            document.querySelectorAll('.scale-option').forEach(option => {
-                option.addEventListener('click', function() {
-                    const skill = this.getAttribute('data-skill');
-                    const value = this.getAttribute('data-value');
-                    
-                    // Rimuovi selezione precedente
-                    document.querySelectorAll(`[data-skill="${skill}"]`).forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    
-                    // Seleziona nuovo valore
-                    this.classList.add('selected');
-                    skillRatings[skill] = parseInt(value);
-                    saveProgress();
-                });
-            });
-        }
-
-        // BADGES
-        function checkBadge(badgeId) {
-            const badge = document.getElementById(badgeId);
-            if (badge && !badge.classList.contains('earned')) {
-                badge.classList.add('earned');
-                badge.style.animation = 'pulse 1s';
-            }
-        }
-
-        // SCORE
-        function updateScore() {
-            document.getElementById('totalScore').textContent = totalPoints;
-            saveProgress();
-        }
-
-        function showNotification(message) {
-            alert(message);
-        }
-
-        // FINAL SUMMARY
-        function showFinalSummary() {
-            document.querySelectorAll('.fase').forEach(f => f.classList.remove('active'));
-            document.getElementById('faseComplete').classList.add('active');
-            document.getElementById('finalScore').textContent = totalPoints;
-            
-            // Mostra badge guadagnati
-            let badgesHTML = '<h3>Badge Ottenuti:</h3><div class="badge-container">';
-            const badges = [
-                {id: 'badge1', icon: '📜', name: 'Esploratore Cubista'},
-                {id: 'badge2', icon: '✂️', name: 'Artista Narrativo'},
-                {id: 'badge3', icon: '💡', name: 'Facilitatore Creativo'},
-                {id: 'badge4', icon: '🏆', name: 'Maestro del Collage'}
-            ];
-            
-            badges.forEach(badge => {
-                const el = document.getElementById(badge.id);
-                if (el && el.classList.contains('earned')) {
-                    badgesHTML += `<div class="badge earned"><div class="badge-icon">${badge.icon}</div><div class="badge-name">${badge.name}</div></div>`;
-                }
-            });
-            badgesHTML += '</div>';
-            document.getElementById('finalBadges').innerHTML = badgesHTML;
-            
-            window.scrollTo(0, 0);
-        }
-
-        // EXPORT FUNCTIONS
-        function exportToText() {
-            let content = `PERCORSO DI APPRENDIMENTO: IL COLLAGE AUTOBIOGRAFICO\n`;
-            content += `Studente: [Nome Cognome]\n`;
-            content += `Data completamento: ${new Date().toLocaleDateString('it-IT')}\n`;
-            content += `Punteggio totale: ${totalPoints}/240\n\n`;
-            content += `=" ${'='.repeat(60)}\n\n`;
-            
-            // Raccolta risposte
-            const fields = [
-                {id: 'priorKnowledge', title: 'FASE 1 - Conoscenze Pregresse'},
-                {id: 'guidingQuestion', title: 'FASE 1 - Domanda Guida'},
-                {id: 'characteristics', title: 'FASE 3 - Caratteristiche Personali'},
-                {id: 'materials', title: 'FASE 3 - Materiali Progettati'},
-                {id: 'composition', title: 'FASE 3 - Composizione'},
-                {id: 'title', title: 'FASE 3 - Titolo Collage'},
-                {id: 'learned', title: 'FASE 4 - Cosa ho imparato'},
-                {id: 'understanding', title: 'FASE 4 - Come è cambiata la comprensione'},
-                {id: 'difficulties', title: 'FASE 4 - Difficoltà incontrate'},
-                {id: 'selfDiscovery', title: 'FASE 4 - Scoperta di sé'},
-                {id: 'application', title: 'FASE 4 - Applicazioni future'},
-                {id: 'labDesign', title: 'FASE 5 - Progettazione Laboratorio'},
-                {id: 'emotionalManagement', title: 'FASE 5 - Gestione Emotiva'},
-                {id: 'socialization', title: 'FASE 5 - Socializzazione'},
-                {id: 'caseReflection', title: 'FASE 5 - Riflessione sul Caso'},
-                {id: 'actionWhat', title: 'FASE 6 - Piano: Cosa approfondire'},
-                {id: 'actionHow', title: 'FASE 6 - Piano: Come'},
-                {id: 'actionWhen', title: 'FASE 6 - Piano: Quando'},
-                {id: 'futureProject', title: 'FASE 6 - Progetto Futuro'}
-            ];
-            
-            fields.push(
-                { id: 'collage_nucleo', title: 'Il nucleo su cui lavoro' },
-                { id: 'collage_situazione', title: 'Una situazione in cui lo riconosco' },
-                { id: 'collage_possibilita', title: 'Ciò che esprimo o esploro' },
-                { id: 'collage_sceltavisiva', title: 'La trasformazione visiva' },
-                { id: 'collage_variante', title: 'Il confronto fra le due prove' }
-            );
-            fields.forEach(field => {
-                const el = document.getElementById(field.id);
-                if (el && el.value) {
-                    content += `\n${field.title}\n${'-'.repeat(field.title.length)}\n${el.value}\n`;
-                }
-            });
-            
-            // Autovalutazione competenze
-            content += `\n\nAUTOVALUTAZIONE COMPETENZE (1-5)\n${'='.repeat(40)}\n`;
-            const skillNames = {
-                skill1: 'Competenza Espressiva',
-                skill2: 'Competenza Tecnica',
-                skill3: 'Competenza Relazionale',
-                skill4: 'Competenza Progettuale',
-                skill5: 'Competenza Riflessiva'
-            };
-            Object.keys(skillRatings).forEach(skill => {
-                content += `${skillNames[skill]}: ${skillRatings[skill]}/5\n`;
-            });
-            
-            // Download
-            const blob = new Blob([content], {type: 'text/plain'});
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `Percorso_Collage_${new Date().toISOString().split('T')[0]}.txt`;
-            a.click();
-        }
-
-        function exportToPDF() {
-            alert('💡 Usa la funzione Stampa e seleziona "Salva come PDF" per creare il documento PDF del tuo percorso!');
-            window.print();
-        }
-
-        // SAVE/LOAD PROGRESS
-        function saveProgress() {
-            const progress = {
-                currentFase,
-                totalPoints,
-                completedFases: Array.from(completedFases),
-                quizAnswers,
-                skillRatings,
-                timestamp: new Date().toISOString()
-            };
-            
-            // Salva anche i contenuti dei campi
-            document.querySelectorAll('textarea').forEach(textarea => {
-                localStorage.setItem(textarea.id, textarea.value);
-            });
-            
-            localStorage.setItem('collageProgress', JSON.stringify(progress));
-        }
-
-        function loadProgress() {
-            const saved = localStorage.getItem('collageProgress');
-            if (saved) {
-                const progress = JSON.parse(saved);
-                currentFase = progress.currentFase || 1;
-                totalPoints = progress.totalPoints || 0;
-                completedFases = new Set(progress.completedFases || []);
-                quizAnswers = progress.quizAnswers || {};
-                skillRatings = progress.skillRatings || {};
-                
-
-                
-                // Ripristina badge
-                completedFases.forEach(fase => {
-                    if (fase === 'fase2') checkBadge('badge1');
-                    if (fase === 'fase3') checkBadge('badge2');
-                    if (fase === 'fase5') checkBadge('badge3');
-                    if (fase === 'fase6') checkBadge('badge4');
-                });
-            }
-            
-            // Ripristina contenuti textarea
-            document.querySelectorAll('textarea').forEach(textarea => {
-                const saved = localStorage.getItem(textarea.id);
-                if (saved) {
-                    textarea.value = saved;
-                }
-            });
-            updateScore();
-        }
-
-        function resetPercorso() {
-            if (confirm('⚠️ Sei sicuro di voler ricominciare? Tutti i progressi saranno cancellati.')) {
-                localStorage.clear();
-                location.reload();
-            }
-        }
-
-        // AUTO-SAVE ogni 30 secondi
-        setInterval(saveProgress, 30000);
-    </script>
-    <script>
+</div>
+</div></details></div></details></aside>
+<div class="identity-tools"><button class="text-button" id="resetStudent" type="button">Cambia studente</button></div><footer><span>Metodologie Operative · Classe seconda</span><a href="../../laboratorio.html">Torna ai laboratori ↗</a></footer></div><script src="../../assets/collage-laboratorio.js?v=flusso-20261013"></script>
+<script>
         let collageDatiConservati = {};
         window.addEventListener('mo:progress-restored', event => {
             collageDatiConservati = { ...(event.detail?.data || {}) };
@@ -1831,8 +445,11 @@ Perché mi interessa: ..."></textarea>
             autoSaveJitterMs: 3000,
             onBeforeSave: (data) => {
                 data = { ...collageDatiConservati, ...data };
+                const extras = window.collageLabExtras?.();
+                if (extras) data.__collageLab = extras;
                 let filled = 0;
-                Object.values(data || {}).forEach(val => {
+                Object.entries(data || {}).forEach(([key, val]) => {
+                    if (key === "__collageLab") return;
                     if (val === null || val === undefined) return;
                     if (typeof val === 'string' && val.trim().length > 0) { filled += 1; return; }
                     if (Array.isArray(val) && val.length > 0) { filled += 1; return; }
@@ -1845,8 +462,8 @@ Perché mi interessa: ..."></textarea>
             }
         };
         window.MO_IDENTITY_CONFIG = {
-            message: 'Inserisci la classe (es. 3sa) e il codice cognome+iniziale (es. rossi g → rossig). Modalità ospite disponibile.',
-            classPlaceholder: 'Classe (es. 3sa)',
+            message: 'Inserisci la classe (es. 2sa) e il codice cognome+iniziale (es. rossi g → rossig). Modalità ospite disponibile.',
+            classPlaceholder: 'Classe (es. 2sa)',
             classPattern: '^[1-5][a-z]{1,2}$',
             classExample: '3sa',
             classErrorMessage: 'Classe non valida: usa una cifra da 1 a 5 seguita da 1-2 lettere minuscole (es. 3sa).',
@@ -1867,7 +484,5 @@ Perché mi interessa: ..."></textarea>
             guestStudentCode: 'ospite'
         };
     </script>
-    <script type="module" src="../../assets/progress.js?v=20260926"></script>
-    <script type="module" src="../../assets/progress-global.js?v=20260926"></script>
-</body>
-</html>
+<script src="../../assets/progress.js?v=20260926" type="module"></script><script src="../../assets/progress-global.js?v=20260926" type="module"></script>
+</body></html>
