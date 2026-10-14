@@ -382,6 +382,16 @@
         .prop-griglia .prop-nome span { display: block; font-size: .82em; color: var(--ink-soft); }
         .prop-griglia select, .prop-griglia input[type="text"] { width: 100%; }
         @media (max-width: 640px) { .prop-griglia .prop-row { grid-template-columns: 1fr; } }
+        .prop-esempio { background: var(--warn-bg); border-left: 4px solid #eab308; border-radius: 8px; padding: 8px 12px; margin: 8px 0 12px; font-size: .93em; }
+        .prop-card { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; margin: 10px 0; background: white; }
+        .prop-dom { display: flex; gap: 10px; align-items: flex-start; font-size: 1.02em; }
+        .prop-n { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--turchese-deep); color: white; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+        .prop-nome2 { display: block; font-size: .75em; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--turchese-deep); }
+        .prop-aiuto { display: block; font-size: .85em; color: var(--ink-soft); margin-top: 2px; }
+        .prop-ctrl { display: grid; grid-template-columns: minmax(150px, .35fr) 1fr; gap: 10px; margin-top: 8px; padding-left: 38px; }
+        .prop-l { display: flex; flex-direction: column; gap: 4px; font-size: .82em; font-weight: 700; color: var(--ink-soft); }
+        .prop-l select, .prop-l input { font: inherit; font-size: 1.15em; font-weight: 400; color: var(--ink); border: 2px solid var(--line); border-radius: 10px; padding: 7px 9px; background: white; width: 100%; }
+        @media (max-width: 640px) { .prop-ctrl { grid-template-columns: 1fr; padding-left: 0; } }
         .pensiero-per-te { margin: 22px 0 8px; padding: 16px 20px; border-radius: 16px; background: linear-gradient(135deg, #fff 0%, var(--spiego) 100%); border: 2px solid var(--turchese); }
         .pensiero-per-te h3 { color: var(--turchese-deep); margin-bottom: 8px; }
         .pensiero-per-te p { margin: 8px 0; }
@@ -1014,32 +1024,43 @@
                             <div class="mr-conta" id="a4-conta"></div>
                         </div>
                         <div class="campo prop-griglia">
-                            <label>Proprietà per proprietà <span class="pts">+5</span></label>
-                            <p class="hint">Per ognuna delle cinque proprietà scegli in quale rete è più forte e scrivi l'indizio che hai trovato nel testo. Attenzione: più forte non vuol dire sempre migliore.</p>
-                            <div class="prop-row">
-                                <div class="prop-nome"><strong>Ampiezza</strong><span>quanti nodi ci sono</span></div>
-                                <select id="rete2-p-ampiezza" name="rete2-p-ampiezza" aria-label="Ampiezza: in quale rete è più forte"><option value="">più forte in…</option><option value="A">A · Giulia</option><option value="B">B · Marco</option><option value="pari">pari o dipende</option></select>
-                                <input type="text" id="rete2-i-ampiezza" name="rete2-i-ampiezza" data-points="1" aria-label="Ampiezza: l'indizio nel testo" placeholder="l'indizio nel testo">
+                            <label>Confronta le due reti: cinque domande <span class="pts">+5</span></label>
+                            <p class="hint">Per ogni domanda fai due cose: <strong>1)</strong> scegli <strong>Giulia</strong>, <strong>Marco</strong> o «uguale»; <strong>2)</strong> scrivi la frase del racconto che te lo fa capire (puoi copiarla o dirla con parole tue). Attenzione: «di più» non vuol dire sempre «meglio».</p>
+                            <div class="prop-esempio"><strong>Esempio, su un'altra storia.</strong> Luca esce con tre amici, Sara con uno solo. <em>Chi ha più persone intorno?</em> → <strong>Luca</strong> · <em>Perché?</em> → «Luca esce con tre amici».</div>
+                            <div class="prop-card">
+                                <div class="prop-dom"><span class="prop-n">1</span><div><span class="prop-nome2">Ampiezza</span>Chi ha <strong>più persone</strong> intorno?<span class="prop-aiuto">Conta i nodi: chi c'è vicino al ragazzo o alla ragazza.</span></div></div>
+                                <div class="prop-ctrl">
+                                    <label class="prop-l">La risposta<select id="rete2-p-ampiezza" name="rete2-p-ampiezza" aria-label="1 · Ampiezza: Chi ha più persone intorno?"><option value="">scegli…</option><option value="A">👧 Giulia</option><option value="B">👦 Marco</option><option value="pari">uguale o dipende</option></select></label>
+                                    <label class="prop-l prop-l-wide">Perché? La frase del racconto che te lo fa capire<input type="text" id="rete2-i-ampiezza" name="rete2-i-ampiezza" data-points="1" aria-label="1 · Ampiezza: la frase del racconto" placeholder="scrivi qui la frase del racconto…"></label>
+                                </div>
                             </div>
-                            <div class="prop-row">
-                                <div class="prop-nome"><strong>Forza e reciprocità</strong><span>legami stabili e fidati; l'aiuto va nei due sensi o qualcuno si sovraccarica?</span></div>
-                                <select id="rete2-p-forza" name="rete2-p-forza" aria-label="Forza e reciprocità: in quale rete è più forte"><option value="">più forte in…</option><option value="A">A · Giulia</option><option value="B">B · Marco</option><option value="pari">pari o dipende</option></select>
-                                <input type="text" id="rete2-i-forza" name="rete2-i-forza" data-points="1" aria-label="Forza e reciprocità: l'indizio nel testo" placeholder="l'indizio nel testo">
+                            <div class="prop-card">
+                                <div class="prop-dom"><span class="prop-n">2</span><div><span class="prop-nome2">Forza e reciprocità</span>Chi ha persone <strong>vicine e fidate</strong> che lo aiutano davvero, adesso?<span class="prop-aiuto">Guarda anche se qualcuno dà tanto senza ricevere aiuto: rischia di stancarsi.</span></div></div>
+                                <div class="prop-ctrl">
+                                    <label class="prop-l">La risposta<select id="rete2-p-forza" name="rete2-p-forza" aria-label="2 · Forza e reciprocità: Chi ha persone vicine e fidate che lo aiutano davvero, adesso?"><option value="">scegli…</option><option value="A">👧 Giulia</option><option value="B">👦 Marco</option><option value="pari">uguale o dipende</option></select></label>
+                                    <label class="prop-l prop-l-wide">Perché? La frase del racconto che te lo fa capire<input type="text" id="rete2-i-forza" name="rete2-i-forza" data-points="1" aria-label="2 · Forza e reciprocità: la frase del racconto" placeholder="scrivi qui la frase del racconto…"></label>
+                                </div>
                             </div>
-                            <div class="prop-row">
-                                <div class="prop-nome"><strong>Densità</strong><span>quanto i nodi si conoscono fra loro: coordina l'aiuto, ma può anche controllare</span></div>
-                                <select id="rete2-p-densita" name="rete2-p-densita" aria-label="Densità: in quale rete è più forte"><option value="">più forte in…</option><option value="A">A · Giulia</option><option value="B">B · Marco</option><option value="pari">pari o dipende</option></select>
-                                <input type="text" id="rete2-i-densita" name="rete2-i-densita" data-points="1" aria-label="Densità: l'indizio nel testo" placeholder="l'indizio nel testo">
+                            <div class="prop-card">
+                                <div class="prop-dom"><span class="prop-n">3</span><div><span class="prop-nome2">Densità</span>In quale rete le persone <strong>si conoscono di più tra loro</strong>?<span class="prop-aiuto">Utile per organizzarsi in fretta, ma attenzione: le notizie girano anche quando non dovrebbero.</span></div></div>
+                                <div class="prop-ctrl">
+                                    <label class="prop-l">La risposta<select id="rete2-p-densita" name="rete2-p-densita" aria-label="3 · Densità: In quale rete le persone si conoscono di più tra loro?"><option value="">scegli…</option><option value="A">👧 Giulia</option><option value="B">👦 Marco</option><option value="pari">uguale o dipende</option></select></label>
+                                    <label class="prop-l prop-l-wide">Perché? La frase del racconto che te lo fa capire<input type="text" id="rete2-i-densita" name="rete2-i-densita" data-points="1" aria-label="3 · Densità: la frase del racconto" placeholder="scrivi qui la frase del racconto…"></label>
+                                </div>
                             </div>
-                            <div class="prop-row">
-                                <div class="prop-nome"><strong>Diversità</strong><span>quanti ambienti diversi: famiglia, scuola, sport, servizi...</span></div>
-                                <select id="rete2-p-diversita" name="rete2-p-diversita" aria-label="Diversità: in quale rete è più forte"><option value="">più forte in…</option><option value="A">A · Giulia</option><option value="B">B · Marco</option><option value="pari">pari o dipende</option></select>
-                                <input type="text" id="rete2-i-diversita" name="rete2-i-diversita" data-points="1" aria-label="Diversità: l'indizio nel testo" placeholder="l'indizio nel testo">
+                            <div class="prop-card">
+                                <div class="prop-dom"><span class="prop-n">4</span><div><span class="prop-nome2">Diversità</span>Chi ha persone di <strong>ambienti più diversi</strong>?<span class="prop-aiuto">Famiglia, scuola, sport, parrocchia, servizi: quanti di questi mondi ci sono?</span></div></div>
+                                <div class="prop-ctrl">
+                                    <label class="prop-l">La risposta<select id="rete2-p-diversita" name="rete2-p-diversita" aria-label="4 · Diversità: Chi ha persone di ambienti più diversi?"><option value="">scegli…</option><option value="A">👧 Giulia</option><option value="B">👦 Marco</option><option value="pari">uguale o dipende</option></select></label>
+                                    <label class="prop-l prop-l-wide">Perché? La frase del racconto che te lo fa capire<input type="text" id="rete2-i-diversita" name="rete2-i-diversita" data-points="1" aria-label="4 · Diversità: la frase del racconto" placeholder="scrivi qui la frase del racconto…"></label>
+                                </div>
                             </div>
-                            <div class="prop-row">
-                                <div class="prop-nome"><strong>Ponti e isolamento</strong><span>chi collega ambienti separati, chi resta ai margini</span></div>
-                                <select id="rete2-p-ponti" name="rete2-p-ponti" aria-label="Ponti e isolamento: in quale rete è più forte"><option value="">più forte in…</option><option value="A">A · Giulia</option><option value="B">B · Marco</option><option value="pari">pari o dipende</option></select>
-                                <input type="text" id="rete2-i-ponti" name="rete2-i-ponti" data-points="1" aria-label="Ponti e isolamento: l'indizio nel testo" placeholder="l'indizio nel testo">
+                            <div class="prop-card">
+                                <div class="prop-dom"><span class="prop-n">5</span><div><span class="prop-nome2">Ponti e isolamento</span>Chi ha più <strong>persone-ponte</strong> verso altri ambienti? E chi rischia di <strong>restare solo</strong>?<span class="prop-aiuto">Un ponte è chi mette in contatto due mondi, per esempio la famiglia con la scuola.</span></div></div>
+                                <div class="prop-ctrl">
+                                    <label class="prop-l">La risposta<select id="rete2-p-ponti" name="rete2-p-ponti" aria-label="5 · Ponti e isolamento: Chi ha più persone-ponte verso altri ambienti? E chi rischia di restare solo?"><option value="">scegli…</option><option value="A">👧 Giulia</option><option value="B">👦 Marco</option><option value="pari">uguale o dipende</option></select></label>
+                                    <label class="prop-l prop-l-wide">Perché? La frase del racconto che te lo fa capire<input type="text" id="rete2-i-ponti" name="rete2-i-ponti" data-points="1" aria-label="5 · Ponti e isolamento: la frase del racconto" placeholder="scrivi qui la frase del racconto…"></label>
+                                </div>
                             </div>
                         </div>
                         <div class="campo"><label for="rete2-confronto">Tenendo conto di tutte e cinque le proprietà, quale rete sostiene meglio la persona? Indica anche un punto debole della rete più forte <span class="pts">+1</span></label><p class="hint">Non basta contare le persone: spiega perché, e che cosa potrebbe andare storto anche nella rete migliore.</p><textarea id="rete2-confronto" name="rete2-confronto" data-points="1" placeholder="La rete più solida è quella di ... perché ..."></textarea></div>
