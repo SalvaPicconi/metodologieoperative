@@ -597,6 +597,10 @@ def costruisci(scrivi):
     errori = ErroriRaccolti()
     curricolo, livelli, impianto, trasversali, blocchi = carica_sorgenti()
     controlla_qnq_verbatim(livelli, errori)
+    for blocco in blocchi:
+        for modulo in blocco.get("moduli", []):
+            if modulo.get("origine") == "C":
+                errori.aggiungi("catalogo pubblico", "Una UDA Carola è presente nei sorgenti pubblici", "Le UDA C appartengono al catalogo riservato, non a programmi-src/.")
     moduli = elabora(curricolo, livelli, trasversali, blocchi, errori)
 
     if errori:

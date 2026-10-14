@@ -3,7 +3,8 @@
 // Le UDA si leggono da programmi.json: qui non si scrive nessun contenuto didattico.
 (function () {
     const MODELLO_URL = 'assets/modello-programmazione-individuale.docx';
-    const ARCHIVIO = 'mo-programmazione-individuale';
+    const CAROLA = Boolean(window.MOProgrammiCarola?.privato);
+    const ARCHIVIO = CAROLA ? 'mo-programmazione-carola-individuale' : 'mo-programmazione-individuale';
     const W = 'http://schemas.openxmlformats.org/wordprocessingml/2006/main';
     const ORDINALI = { 'Primo anno': '1', 'Secondo anno': '2', 'Terzo anno': '3', 'Quarto anno': '4', 'Quinto anno': '5' };
     const RECUPERO = 'Ogni qualvolta si rendesse necessario, si provvederà al recupero delle conoscenze e delle abilità pregresse.';
@@ -22,6 +23,7 @@
     let dati = null;
     // scelte: [{ chiave, periodo, ore }] nell'ordine della scaletta
     let scelte = [];
+    let scelteNonDisponibili = [];
 
     const esc = (testo) => String(testo ?? '').replace(/[&<>"']/g, (c) => (
         { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
@@ -44,7 +46,7 @@
 
     /* ---------- le UDA scelte, condivise con la pagina Programmi ---------- */
 
-    const SELEZIONE = 'mo-programmazione-selezione';
+    const SELEZIONE = CAROLA ? 'mo-programmazione-carola-selezione' : 'mo-programmazione-selezione';
 
     function leggiSelezione() {
         try {
@@ -58,7 +60,8 @@
     function scriviSelezione() {
         try {
             const selezione = leggiSelezione();
-            selezione[$('pi-anno').value] = scelte.map((s) => s.chiave);
+            const conservate = (selezione[$('pi-anno').value] || []).filter(c => !trovaModulo(c));
+            selezione[$('pi-anno').value] = [...scelte.map((s) => s.chiave), ...conservate];
             window.localStorage.setItem(SELEZIONE, JSON.stringify(selezione));
         } catch (errore) {
             console.warn('Selezione non salvata:', errore);
@@ -100,24 +103,28 @@
 
     /* ---------- avvio ---------- */
 
-    fetch('programmi.json', { cache: 'no-cache' })
-        .then((risposta) => {
-            if (!risposta.ok) {
-                throw new Error(`HTTP ${risposta.status}`);
-            }
-            return risposta.json();
-        })
+    (CAROLA ? window.MOProgrammiCarola.carica() : fetch('programmi.json', { cache: 'no-cache' }).then(r => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+    }))
         .then((json) => {
             dati = json;
             prepara();
         })
         .catch((errore) => {
             console.error('Impossibile caricare programmi.json:', errore);
+            if (CAROLA) {
+                $('pi-catalogo').innerHTML = '<p>Accedi alla <a href="programmi-carola.html">programmazione Carola</a> con la password dei Programmi.</p>';
+                return;
+            }
             $('pi-catalogo').innerHTML = '<div class="empty-state"><p>Non è stato possibile caricare le UDA.</p>'
                 + '<p>Ricarica la pagina.</p></div>';
         });
 
     function prepara() {
+        if (CAROLA) {
+            document.querySelector('.page-title h2').textContent = 'Programmazione individuale · Carola';
+        }
         const selettore = $('pi-anno');
         dati.meta.anni.forEach((anno) => {
             const opzione = document.createElement('option');
@@ -219,6 +226,17 @@
     function leggiArchivio() {
         try {
             const letto = JSON.parse(window.localStorage.getItem(ARCHIVIO) || '{}');
+            if (CAROLA && dati) {
+                const storico = JSON.parse(window.localStorage.getItem('mo-programmazione-individuale') || '{}');
+                letto.voci = letto.voci || {};
+                Object.entries(storico.voci || {}).forEach(([nome, voce]) => {
+                    if (letto.voci[nome]) return;
+                    const riservate = (voce.scelte || []).filter(s => trovaModulo(s.chiave));
+                    if (riservate.length) letto.voci[nome] = { ...voce, scelte: riservate };
+                });
+                if (!letto.corrente && letto.voci[storico.corrente]) letto.corrente = storico.corrente;
+                window.localStorage.setItem(ARCHIVIO, JSON.stringify(letto));
+            }
             return { corrente: letto.corrente || '', voci: letto.voci || {} };
         } catch (errore) {
             return { corrente: '', voci: {} };
@@ -234,7 +252,7 @@
     }
 
     function fotografa() {
-        const voce = { scelte, campi: {}, metodo: {} };
+        const voce = { scelte: [...scelte, ...scelteNonDisponibili], campi: {}, metodo: {} };
         Object.entries(CAMPI).forEach(([nome, id]) => { voce.campi[nome] = $(id).value; });
         Object.entries(METODO).forEach(([nome, id]) => { voce.metodo[nome] = $(id).value; });
         return voce;
@@ -252,6 +270,7 @@
             }
         });
         // Una UDA tolta o rinumerata nei Programmi non deve restare appesa alla scaletta.
+        scelteNonDisponibili = (voce.scelte || []).filter(s => !trovaModulo(s.chiave));
         scelte = (voce.scelte || []).filter((s) => trovaModulo(s.chiave));
     }
 

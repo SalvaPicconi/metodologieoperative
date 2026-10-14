@@ -27,6 +27,7 @@ MENU = [
     ("Intelligenza artificiale", "intelligenza-artificiale.html"),
     ("Docente", "index.html#docente", [
         ("Programmi", "programmi.html"),
+        ("Programmazione Carola", "programmi-carola.html"),
         ("Programmazione individuale", "programmazione.html"),
         ("Area docente", "area_docente.html"),
         ("Anno di prova", "anno-di-prova.html"),

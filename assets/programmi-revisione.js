@@ -1,10 +1,11 @@
+const CATALOGO_CAROLA = document.body.dataset.programmiCatalogo === 'carola';
 const SUPABASE_URL = 'https://ruplzgcnheddmqqdephp.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1cGx6Z2NuaGVkZG1xcWRlcGhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAxMTYyMjksImV4cCI6MjA3NTY5MjIyOX0.tOLIkgi5yTt61_0rMlXUqxnbil4DLD7kBaqZBVAv1CI';
 const REVISION_API = `${SUPABASE_URL}/functions/v1/programmi-revisioni`;
-const SESSION_KEY = 'mo:programmi-revisione-session';
-const IDENTITY_KEY = 'mo:programmi-revisione-identita';
+const SESSION_KEY = CATALOGO_CAROLA ? 'mo:programmi-carola-session' : 'mo:programmi-revisione-session';
+const IDENTITY_KEY = CATALOGO_CAROLA ? 'mo:programmi-carola-identita' : 'mo:programmi-revisione-identita';
 const OSPITE_KEY = 'mo:programmi-sola-lettura';
-const CHIAVE_NOTA_GENERALE = 'pagina-programmi';
+const CHIAVE_NOTA_GENERALE = CATALOGO_CAROLA ? 'pagina-programmi-carola' : 'pagina-programmi';
 const EDITORI = ['Salvatore', 'Pierluigi'];
 
 function sigla(nome) {
@@ -77,7 +78,8 @@ async function inizializza() {
         await attivaAreaRiservata();
         return;
     }
-    await attivaSolaLettura();
+    if (CATALOGO_CAROLA) mostraBloccoPrivato();
+    else await attivaSolaLettura();
 }
 
 function campo(chiave, etichetta, tipo, lettore = null) {
@@ -162,6 +164,10 @@ function collegaEventi() {
 
 async function caricaProgrammi() {
     try {
+        if (CATALOGO_CAROLA) {
+            stato.datiProgrammi = await window.MOProgrammiCarola.carica();
+            window.MO_CAROLA_DOCUMENTO = stato.datiProgrammi;
+        } else {
         const url = new URL('../programmi.json', import.meta.url);
         url.search = '';
         const risposta = await fetch(url, { cache: 'no-cache' });
@@ -169,22 +175,25 @@ async function caricaProgrammi() {
             throw new Error(`HTTP ${risposta.status}`);
         }
         stato.datiProgrammi = await risposta.json();
+        }
         stato.moduli.clear();
         (stato.datiProgrammi.moduli || []).forEach((modulo) => {
             stato.moduli.set(chiaveModulo(modulo, stato.datiProgrammi.moduli), modulo);
         });
         popolaFiltroAnni();
+        return true;
     } catch (errore) {
         console.error('Impossibile preparare l’area di revisione:', errore);
         ui.accesso?.setAttribute('disabled', '');
         ui.accesso && (ui.accesso.textContent = 'Revisione non disponibile');
+        return false;
     }
 }
 
 async function ripristinaSessione() {
     const token = sessionStorage.getItem(SESSION_KEY) || '';
     const editorName = sessionStorage.getItem(IDENTITY_KEY) || '';
-    if (!token || !EDITORI.includes(editorName)) {
+    if (!token || !EDITORI.includes(editorName) || (CATALOGO_CAROLA && editorName !== 'Pierluigi')) {
         sessionStorage.removeItem(SESSION_KEY);
         sessionStorage.removeItem(IDENTITY_KEY);
         impostaModalitaEditor(false);
@@ -218,7 +227,7 @@ function apriAccesso() {
 
 async function eseguiAccesso(evento) {
     evento.preventDefault();
-    const editorName = ui.authNames.find((input) => input.checked)?.value || '';
+    const editorName = CATALOGO_CAROLA ? 'Pierluigi' : ui.authNames.find((input) => input.checked)?.value || '';
     if (!EDITORI.includes(editorName)) {
         messaggio(ui.authMessaggio, 'Scegli chi sta lavorando.', 'errore');
         return;
@@ -239,7 +248,7 @@ async function eseguiAccesso(evento) {
         sessionStorage.setItem(SESSION_KEY, data.token);
         sessionStorage.setItem(IDENTITY_KEY, data.author_name);
         impostaModalitaEditor(true);
-        await attivaAreaRiservata();
+        if (await attivaAreaRiservata() === false) return;
 
         messaggio(ui.authMessaggio, 'Accesso completato.', 'successo');
     } catch (errore) {
@@ -278,6 +287,12 @@ async function eseguiUscita() {
     sessionStorage.removeItem(SESSION_KEY);
     sessionStorage.removeItem(IDENTITY_KEY);
     impostaModalitaEditor(false);
+    if (CATALOGO_CAROLA) {
+        window.MOProgrammiCarola.pulisci();
+        document.body.dataset.programmiLocked = 'true';
+        location.replace(location.href);
+        return;
+    }
     await attivaSolaLettura();
     ui.esci.disabled = false;
 }
@@ -298,11 +313,25 @@ function impostaSolaLettura(attiva) {
     }
 }
 
+function mostraBloccoPrivato() {
+    document.body.dataset.programmiLocked = 'true';
+    window.MOProgrammiCarola?.pulisci();
+    if (!ui.authDialog.open) ui.authDialog.showModal();
+    ui.authPassword.focus();
+}
+
 async function attivaAreaRiservata() {
+    if (CATALOGO_CAROLA && !await caricaProgrammi()) {
+        impostaModalitaEditor(false);
+        mostraBloccoPrivato();
+        messaggio(ui.authMessaggio, 'Accesso al catalogo non disponibile. Riprova.', 'errore');
+        return false;
+    }
     document.body.dataset.programmiLocked = 'false';
     if (ui.authDialog?.open) ui.authDialog.close();
     document.dispatchEvent(new CustomEvent('mo:programmi-unlocked'));
-    await Promise.all([caricaProgrammi(), caricaRevisioni()]);
+    await Promise.all([CATALOGO_CAROLA ? Promise.resolve() : caricaProgrammi(), caricaRevisioni()]);
+    return true;
 }
 
 async function caricaRevisioni() {
@@ -862,7 +891,11 @@ async function chiamaApi(action, payload = {}, opzioni = {}) {
             sessionStorage.removeItem(SESSION_KEY);
             sessionStorage.removeItem(IDENTITY_KEY);
             impostaModalitaEditor(false);
-            impostaSolaLettura(true);
+            if (CATALOGO_CAROLA) {
+                window.MOProgrammiCarola.pulisci();
+                document.body.dataset.programmiLocked = 'true';
+                location.reload();
+            } else impostaSolaLettura(true);
         }
         throw new Error(data.error || 'Servizio temporaneamente non disponibile.');
     }

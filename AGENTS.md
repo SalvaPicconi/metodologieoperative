@@ -221,3 +221,7 @@ dentro il modulo a cui si riferiscono.
   `riferimentiNormativi`, con la data dell'ultima verifica in `verificaNormativa`.
   La data di avvio del Tribunale per le persone, per i minorenni e per le famiglie
   è soggetta a proroghe: **va ricontrollata su fonte ufficiale** prima di ripubblicare.
+
+### Separazione Carola — 14 ottobre 2026
+
+Le UDA C non vanno nei sorgenti o negli artefatti pubblici. Il generatore le rifiuta. La fonte corrente dei 16 moduli e del piano storico è `private.programmi_cataloghi` in Supabase; `programmi-carola.html` li carica dal servizio autenticato. Le UDA P+C restano pubbliche. Per manutenzione e limiti consultare `PROGRAMMI_SSAS.md`.

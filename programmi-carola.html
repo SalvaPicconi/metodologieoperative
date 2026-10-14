@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta name="page-id" content="programmi-01">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programmazione Carola - Metodologie Operative</title>
+    <meta name="description" content="Proposta di programmazione di Metodologie Operative ancorata al curricolo verticale SSAS, ai livelli QNQ e alle prove esperte di laboratorio">
+    <link rel="stylesheet" href="style.css?v=20261007b">
+    <link rel="stylesheet" href="assets/programmi-revisione.css?v=20261014a">
+    <link rel="stylesheet" href="assets/programmi-pagina.css?v=20261014c">
+</head>
+
+<body class="prog-site" data-programmi-locked="true" data-programmi-catalogo="carola">
+    <a class="prog-skip" href="#prog-contenuto">Vai alla programmazione</a>
+    <header>
+        <div class="container">
+            <h1>Materiali Didattici - Metodologie Operative</h1>
+            <p>Servizi per la Sanità e l'Assistenza Sociale</p>
+            <p style="font-size: 0.9rem; margin-top: 0.5rem;">IIS Meucci - Mattei | Decimomannu</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="biennio.html">Biennio</a></li>
+            <li><a href="terzo.html">Terzo anno</a></li>
+            <li><a href="quarto.html">Quarto anno</a></li>
+            <li><a href="quinto.html">Quinto anno</a></li>
+            <li class="nav-group"><a href="index.html#metodi">Metodi e laboratori</a>
+                <ul class="nav-sub">
+                    <li><a href="lezioni-partecipate.html">Lezioni partecipate</a></li>
+                    <li><a href="laboratorio.html">Laboratorio</a></li>
+                    <li><a href="peer_tutoring.html">Peer tutoring</a></li>
+                    <li><a href="compresenza.html">Compresenza Scienze umane</a></li>
+                    <li><a href="orientamento.html">Attività di orientamento</a></li>
+                    <li><a href="glossario.html">Glossario</a></li>
+                </ul>
+            </li>
+            <li class="nav-ai"><a href="intelligenza-artificiale.html">Intelligenza artificiale</a></li>
+            <li class="nav-group"><a href="index.html#docente" class="active">Docente</a>
+                <ul class="nav-sub">
+                    <li><a href="programmi.html">Programmi</a></li>
+                    <li><a href="programmi-carola.html" class="active" aria-current="page">Programmazione Carola</a></li>
+                    <li><a href="programmazione.html">Programmazione individuale</a></li>
+                    <li><a href="area_docente.html">Area docente</a></li>
+                    <li><a href="anno-di-prova.html">Anno di prova</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <main id="prog-contenuto">
+        <div class="container prog-pagina">
+            <div class="page-title">
+                <div class="prog-titolo-riga">
+                    <div><p class="prog-eyebrow">Pierluigi Carola · Percorso quinquennale</p><h2>Programmazione Carola</h2></div>
+                    <button type="button" id="prog-accesso-revisione" class="prog-accesso-revisione">
+                        🔐 Accesso revisione
+                    </button>
+                </div>
+                <p class="prog-presentazione">Proposta di programmazione ancorata alle competenze di indirizzo del curricolo SSAS (Servizi per la sanità e l'assistenza sociale)
+                   — D.M. 24 maggio 2018 n. 92, Allegato C — e ai livelli del Quadro Nazionale delle Qualificazioni.</p>
+            </div>
+
+            <section id="prog-revisione-toolbar" class="prog-revisione-toolbar" hidden aria-label="Strumenti di revisione">
+                <div>
+                    <p class="prog-revisione-eyebrow">Modalità revisione attiva</p>
+                    <p class="prog-revisione-identita" id="prog-revisione-identita"></p>
+                </div>
+                <div class="prog-revisione-toolbar-azioni">
+                    <button type="button" id="prog-annotazione-generale">＋ Nota generale</button>
+                    <button type="button" id="prog-vedi-annotazioni">
+                        Annotazioni <span id="prog-revisione-contatore" class="prog-revisione-contatore">0</span>
+                    </button>
+                    <button type="button" id="prog-esci-revisione" class="prog-revisione-esci">Esci</button>
+                </div>
+            </section>
+
+            <section class="prog-intro" aria-labelledby="prog-intro-titolo">
+                <h3 id="prog-intro-titolo">I contenuti da trattare, anno per anno.</h3>
+                <p>Organizzati in <strong>unità di apprendimento (UDA)</strong>: contenuti e attività,
+                   fasi di lavoro, <strong>prodotto finale</strong> e prova esperta di laboratorio.</p>
+                <div class="prog-guida">
+                    <p><strong>Trova le UDA.</strong> Scegli l’anno, usa la ricerca o il filtro Sezione per
+                       le attività di compresenza, laboratorio e orientamento. Tutte le UDA restano in questa pagina.</p>
+                    <p><strong>Prepara il piano di lavoro.</strong> Premi <em>＋ Programmazione</em> sulle UDA che svolgerai:
+                       il riepilogo in basso porta al piano della classe da scaricare in Word.</p>
+                    <p><strong>Consulta il curricolo.</strong> Attiva <em>Mostra competenze</em> per leggere gli agganci
+                       di ogni attività alle competenze di indirizzo.</p>
+                </div>
+            </section>
+
+            <section class="prog-sezione">
+                <div class="prog-barra">
+                    <div class="prog-toggle" role="group" aria-label="Scegli come ordinare i programmi">
+                        <button type="button" class="tab-btn active" data-vista="contenuti" aria-pressed="true">Contenuti per anno</button>
+                        <button type="button" class="tab-btn" data-vista="competenza" aria-pressed="false">Per competenza</button>
+                    </div>
+                    <div class="prog-filtri">
+                        <span class="prog-campo">
+                            <label class="prog-filtro-label" for="prog-filtro-anno">Anno</label>
+                            <select id="prog-filtro-anno">
+                                <option value="">Tutti gli anni</option>
+                            </select>
+                        </span>
+                        <span class="prog-campo">
+                            <label class="prog-filtro-label" for="prog-filtro-sezione">Sezione</label>
+                            <select id="prog-filtro-sezione">
+                                <option value="">Tutte le UDA</option>
+                            </select>
+                        </span>
+                        <span class="prog-campo">
+                            <label class="prog-filtro-label" for="prog-cerca">Cerca</label>
+                            <input type="search" id="prog-cerca" placeholder="argomento, attività, prova…">
+                        </span>
+                        <label class="prog-switch">
+                            <input type="checkbox" id="prog-mostra-competenze">
+                            <span>Mostra competenze</span>
+                        </label>
+                    </div>
+                </div>
+                <div id="prog-contatori" class="prog-contatori" hidden></div>
+            </section>
+
+            <div id="prog-lista">
+                <div class="loading">Caricamento dei programmi in corso...</div>
+            </div>
+
+            <section id="prog-approfondimenti" class="prog-sezione">
+                <h3 class="prog-sezione-titolo">Approfondimenti</h3>
+                <p class="small-note">Da aprire solo se servono: il quadro dei livelli di autonomia
+                   e l'impianto didattico e valutativo.</p>
+                <div id="prog-livelli-lista"></div>
+                <div id="prog-impianto"></div>
+            </section>
+
+            <section class="prog-sezione prog-fonti">
+                <h3 class="prog-sezione-titolo">Fonti normative</h3>
+                <ul>
+                    <li>D.Lgs. 13 aprile 2017, n. 61 — revisione dei percorsi dell'istruzione professionale.</li>
+                    <li>D.M. 24 maggio 2018, n. 92 — Regolamento e Linee guida; <strong>Allegato C</strong>,
+                        risultati di apprendimento intermedi per l'indirizzo Servizi per la sanità e l'assistenza sociale.</li>
+                    <li>D.I. MLPS/MIUR 8 gennaio 2018 — Quadro Nazionale delle Qualificazioni,
+                        <strong>Allegato 1, Tabella A</strong>. G.U. Serie Generale del 25 gennaio 2018.</li>
+                    <li>D.Lgs. 13 aprile 2017, n. 62 — valutazione e certificazione delle competenze.</li>
+                    <li>Raccomandazione del Consiglio dell'Unione europea del 22 maggio 2018 (2018/C 189/01)
+                        — competenze chiave per l'apprendimento permanente.</li>
+                </ul>
+                <p class="small-note" id="prog-verifica-data"></p>
+            </section>
+        </div>
+    </main>
+
+    <dialog id="prog-auth-dialog" class="prog-dialog prog-auth-dialog" aria-labelledby="prog-auth-title">
+        <div class="prog-dialog-testata">
+            <div>
+                <p class="prog-dialog-eyebrow">Area riservata</p>
+                <h2 id="prog-auth-title">Programmazione Carola</h2>
+            </div>
+            
+        </div>
+        <form id="prog-auth-form" class="prog-auth-form">
+            <p>Inserisci la password dei Programmi per consultare la programmazione di Pierluigi Carola.</p>
+            <label for="prog-auth-password">Password</label>
+            <input type="password" id="prog-auth-password" name="password" autocomplete="current-password" required>
+            <fieldset class="prog-identita-fieldset" hidden>
+                <legend>Chi sta lavorando?</legend>
+                <div class="prog-identita-opzioni">
+                    <label>
+                        <input type="radio" name="editor-name" value="Salvatore" required>
+                        <span>S</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="editor-name" value="Pierluigi" required checked>
+                        <span>P</span>
+                    </label>
+                </div>
+                <p>La scelta vale per tutta la sessione e mantiene separate le due linee di revisione.</p>
+            </fieldset>
+            <p id="prog-auth-messaggio" class="prog-form-messaggio" role="status" aria-live="polite"></p>
+            <button type="submit" class="prog-btn-primario">Accedi</button>
+            <a class="prog-torna-pubblica" href="programmi.html">← Programmazione pubblica</a>
+        </form>
+    </dialog>
+
+    <dialog id="prog-editor-dialog" class="prog-dialog prog-editor-dialog" aria-labelledby="prog-editor-title">
+        <div class="prog-dialog-testata prog-editor-testata">
+            <div>
+                <p class="prog-dialog-eyebrow" id="prog-editor-eyebrow">Revisione UDA</p>
+                <h2 id="prog-editor-title">Modifica in bozza</h2>
+                <p id="prog-editor-sottotitolo" class="prog-editor-sottotitolo"></p>
+            </div>
+            <button type="button" class="prog-dialog-chiudi" data-prog-dialog-close aria-label="Chiudi">×</button>
+        </div>
+        <form id="prog-editor-form" class="prog-editor-form">
+            <div class="prog-editor-scroller">
+                <div id="prog-editor-avviso" class="prog-editor-avviso" hidden></div>
+                <div id="prog-editor-campi" class="prog-editor-campi"></div>
+                <section class="prog-editor-nota">
+                    <label for="prog-editor-nota-generale">Annotazione generale</label>
+                    <p>Usala per indicazioni che riguardano l’intera UDA, anche senza riscrivere un campo.</p>
+                    <textarea id="prog-editor-nota-generale" rows="4" placeholder="Esempio: accorciare questa UDA e distinguere meglio la parte teorica dal laboratorio."></textarea>
+                </section>
+            </div>
+            <div class="prog-editor-piede">
+                <p id="prog-editor-messaggio" class="prog-form-messaggio" role="status" aria-live="polite"></p>
+                <div>
+                    <button type="button" class="prog-btn-secondario" data-prog-dialog-close>Annulla</button>
+                    <button type="submit" class="prog-btn-primario">Salva bozza</button>
+                </div>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog id="prog-elenco-dialog" class="prog-dialog prog-elenco-dialog" aria-labelledby="prog-elenco-title">
+        <div class="prog-dialog-testata">
+            <div>
+                <p class="prog-dialog-eyebrow">Area riservata</p>
+                <h2 id="prog-elenco-title">Annotazioni e modifiche</h2>
+            </div>
+            <button type="button" class="prog-dialog-chiudi" data-prog-dialog-close aria-label="Chiudi">×</button>
+        </div>
+        <div class="prog-elenco-filtri">
+            <label>Anno
+                <select id="prog-elenco-anno"><option value="">Tutti</option></select>
+            </label>
+            <label>Stato
+                <select id="prog-elenco-stato">
+                    <option value="">Tutti</option>
+                    <option value="bozza">Da valutare</option>
+                    <option value="approvata">Approvata</option>
+                    <option value="applicata">Applicata</option>
+                    <option value="archiviata">Archiviata</option>
+                </select>
+            </label>
+            <label>Autore
+                <select id="prog-elenco-autore">
+                    <option value="">Tutti</option>
+                    <option value="Salvatore">S</option>
+                    <option value="Pierluigi">P</option>
+                </select>
+            </label>
+            <button type="button" id="prog-esporta-annotazioni" class="prog-btn-secondario">Esporta Markdown</button>
+        </div>
+        <p id="prog-elenco-messaggio" class="prog-form-messaggio" role="status" aria-live="polite"></p>
+        <div id="prog-elenco-contenuto" class="prog-elenco-contenuto"></div>
+    </dialog>
+
+    <footer>
+        <div class="container">
+            <p>Metodologie Operative - Servizi Sociosanitari</p>
+            <p>IIS Meucci - Mattei | Decimomannu</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem;">&copy; 2025 - Tutti i diritti riservati</p>
+            <div class="home-link">
+                <a href="https://salvapicconi.github.io/metodologieoperative/">🏠 Torna alla Home</a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="prog-selezione" class="prog-selezione" role="region" aria-label="UDA scelte per la programmazione" hidden>
+        <div class="container prog-selezione-dentro">
+            <span class="prog-selezione-et">📝 Programmazione</span>
+            <span id="prog-selezione-anni" class="prog-selezione-anni"></span>
+            <button type="button" id="prog-selezione-svuota" class="prog-selezione-svuota">Svuota</button>
+        </div>
+    </div>
+
+    <script src="materiali.js"></script>
+    <script src="assets/programmi-carola-accesso.js?v=20261014c"></script>
+    <script src="programmi.js?v=20261014c"></script>
+    <script type="module" src="assets/programmi-revisione.js?v=20261014c"></script>
+</body>
+
+</html>

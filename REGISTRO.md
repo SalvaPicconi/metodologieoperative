@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-14** · Codex · Separate le 16 UDA Carola in una sezione con password e catalogo protetto sul server; restano pubbliche le 43 UDA Picconi e integrate. Numeri, contenuti, annotazioni e pianificazioni già salvate conservati.
+
 - **2026-10-14** · Codex · Programmi per i colleghi: consultazione diretta, nuova veste grafica e tempi lasciati al docente. Prima: profilo dell’operatore, bisogni e titolo di educazione civica corretti; sei allegati originali recuperati. Separazione della programmazione Carola rinviata. (`233797e`)
 
 - **2026-10-13** · Codex · Collage autobiografico: flusso unico con teoria e dodici opere prima della scelta; nucleo inserito con un clic e due domande semplici da scrivere con esempi. Nuova veste bianco caldo e blu, materiali illustrati e risposte precedenti conservate. (`dd192b4`)

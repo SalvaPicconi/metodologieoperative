@@ -6,24 +6,41 @@ Questo documento è il punto di ripartenza per lavorare sulla pagina **Programmi
 - Repository: `SalvaPicconi/metodologieoperative`
 - Pubblicazione: GitHub Pages dal ramo `main`, directory radice
 - File generato mostrato dalla pagina: `programmi.json`
-- Stato verificato: 26 agosto 2026
+- Stato aggiornato: 14 ottobre 2026
 - Commit funzionale di riferimento: `a821042`
 
-## Stato attuale
+## Stato attuale — 14 ottobre 2026
 
-| Anno | Livello QNQ | UDA pubblicate | Nota |
-| --- | ---: | ---: | --- |
-| Primo | 2 | 12 | Programma del docente integrato con tre UDA del collega |
-| Secondo | 2 | 16 | Programmi delle due seconde integrati con tre UDA del collega |
-| Terzo | 3 | 12 | UDA 5 con due percorsi alternativi; 13 record nel JSON contando l'alternativa |
-| Quarto | 3–4 | 11 | Base provvisoria integrata con tre UDA del collega |
-| Quinto | 4 | 5 | Orientamento del docente e quattro UDA del collega; programma del titolare ancora in attesa |
+| Anno | UDA pubbliche Picconi e integrate | UDA Carola riservate |
+| --- | ---: | ---: |
+| Primo | 9 | 1 |
+| Secondo | 13 | 3 |
+| Terzo | 9 | 5 |
+| Quarto | 8 | 3 |
+| Quinto | 4 | 4 |
+| Totale | 43 | 16 |
+
+`programmi.json` e `materiali-curricolo.json` contengono solo P e P+C. Le 16 UDA C,
+con numeri e contenuti originali, sono nella tabella privata `private.programmi_cataloghi`;
+sono servite da `programmi-carola` solo con una sessione valida del profilo Pierluigi.
+`programmi-carola.html` usa la password dei Programmi già configurata: è una password
+condivisa di accesso, non un account personale verificato di identità. Le sessioni nel browser
+sono separate da quelle della revisione pubblica e i dati non sono salvati in JSON statici.
+La revisione esistente conserva password, sessioni e annotazioni.
+
+Anche il piano storico di integrazione e i sorgenti C sono conservati nel catalogo privato.
+Le pianificazioni salvate nel browser mantengono le scelte rese riservate; quando si apre
+il piano Carola vengono riprese nell'archivio separato con i tempi già impostati.
+
+Le copie delle UDA precedentemente pubblicate possono restare nella cronologia GitHub e
+nei download già effettuati. La protezione riguarda il catalogo corrente: non è una
+cancellazione retroattiva delle copie già condivise.
 
 Decisioni attive:
 
 - Il collegamento e la pagina si chiamano **Programmi SSAS**.
 - Ogni UDA dichiara la propria origine: **P** programma del docente titolare, **C** programma del collega, **P+C** UDA del docente con innesti del collega.
-- Il confronto fra i due programmi è conservato in `programmi-src/_integrazione/piano.json`: ogni punto della fonte è classificato come già coperto, scartato perché duplicato, innestato o trasformato in una nuova UDA.
+- Il confronto fra i due programmi è conservato in `private.programmi_cataloghi.piano_integrazione`: ogni punto della fonte è classificato come già coperto, scartato perché duplicato, innestato o trasformato in una nuova UDA.
 - Al terzo anno l'UDA 5 presenta due alternative: **dipendenze e Ser.D** oppure **tutela del minore**. Nella programmazione se ne sceglie una.
 - Il welfare state resta nel secondo anno. Al terzo anno l'UDA 2 è dedicata alle esercitazioni su casi concreti, dai bisogni ai servizi.
 - La Pet Therapy non fa parte dei programmi.
@@ -33,8 +50,13 @@ Decisioni attive:
 
 ## Architettura
 
+Il catalogo Carola si conserva e si aggiorna nel database privato, fuori dal repository pubblico.
+L’endpoint legge soltanto dopo avere verificato hash del token, scadenza e profilo Pierluigi.
+La RPC è eseguibile solo dal servizio backend; anon e authenticated non possono leggerla.
+
+
 ```text
-programmi-src/*.json, _integrazione/piano.json e qnq-tabella-a.txt
+programmi-src/*.json e qnq-tabella-a.txt (solo P e P+C)
                     │
                     ▼
           scripts/programmi.py
@@ -63,7 +85,7 @@ programmi-src/*.json, _integrazione/piano.json e qnq-tabella-a.txt
 | `programmi-src/competenze-trasversali.json` | Competenze chiave europee, area generale ed educazione civica: fonti del ripiego del cappello |
 | `programmi-src/moduli-<anno>.json` | UDA dei cinque anni |
 | `programmi-src/modulo-tutela-minori.json` | Percorso alternativo all'UDA 5 del terzo anno |
-| `programmi-src/_integrazione/piano.json` | Mappa del confronto fra programma del docente e programma del collega |
+| `private.programmi_cataloghi.piano_integrazione` | Mappa del confronto fra programma del docente e programma del collega |
 | `scripts/programmi.py` | Validazione, costruzione ed elenco dei programmi |
 | `programmi.json` | Output generato e caricato dal browser |
 | `programmi.js` | Filtri e rendering della pagina |

@@ -80,3 +80,8 @@
     .prog-site { background: #fff; }
     .prog-site > header, .prog-site nav, .prog-site footer, .prog-accesso-revisione, .prog-skip, .prog-scegli { display: none !important; }
 }
+.prog-link-carola { margin: -.5rem 0 1.6rem; font-size: .9rem; }
+.prog-link-carola a { color: #17385a; text-underline-offset: 3px; }
+.prog-site[data-programmi-locked="true"] { background: #f7f5ef; }
+.prog-site[data-programmi-locked="true"] .prog-auth-dialog::backdrop { background: #17385ad9; backdrop-filter: blur(5px); }
+.prog-torna-pubblica { display: block; margin-top: 1rem; color: #17385a; }
