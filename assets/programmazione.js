@@ -286,8 +286,8 @@
         if (scelte.some((s) => s.chiave === chiave)) {
             return;
         }
-        const modulo = trovaModulo(chiave);
-        scelte.push({ chiave, periodo: modulo.periodo || '', ore: modulo.monteOre || '' });
+        // Tempi e ore sono scelti dal docente; le bozze già salvate restano invariate.
+        scelte.push({ chiave, periodo: '', ore: '' });
     }
 
     function disegnaCatalogo() {
@@ -305,7 +305,6 @@
               <input type="checkbox" value="${esc(chiave)}"${spuntata}>
               <span class="pi-voce-testo">
                 <span class="pi-voce-titolo"><span class="pi-voce-num">UDA ${esc(numero)}</span> ${esc(modulo.titolo)} ${etichetta}</span>
-                <span class="pi-voce-meta">${esc(modulo.periodo)} · ${esc(modulo.monteOre)}</span>
                 <span class="pi-voce-sintesi">${esc(modulo.sintesi)}</span>
               </span>
             </label>`;

@@ -77,11 +77,7 @@ async function inizializza() {
         await attivaAreaRiservata();
         return;
     }
-    if (sessionStorage.getItem(OSPITE_KEY) === '1') {
-        await attivaSolaLettura();
-        return;
-    }
-    mostraBloccoPagina();
+    await attivaSolaLettura();
 }
 
 function campo(chiave, etichetta, tipo, lettore = null) {
@@ -102,9 +98,6 @@ function raccogliElementi() {
     ui.authPassword = document.getElementById('prog-auth-password');
     ui.authNames = [...document.querySelectorAll('input[name="editor-name"]')];
     ui.authMessaggio = document.getElementById('prog-auth-messaggio');
-    ui.accessoLibero = document.getElementById('prog-accesso-libero');
-    ui.letturaBarra = document.getElementById('prog-lettura-barra');
-    ui.esciLettura = document.getElementById('prog-esci-lettura');
 
     ui.editorDialog = document.getElementById('prog-editor-dialog');
     ui.editorForm = document.getElementById('prog-editor-form');
@@ -128,8 +121,6 @@ function raccogliElementi() {
 function collegaEventi() {
     ui.accesso?.addEventListener('click', apriAccesso);
     ui.authForm?.addEventListener('submit', eseguiAccesso);
-    ui.accessoLibero?.addEventListener('click', entraInSolaLettura);
-    ui.esciLettura?.addEventListener('click', esciDaSolaLettura);
     ui.esci?.addEventListener('click', eseguiUscita);
     ui.notaGenerale?.addEventListener('click', () => apriEditorNotaGenerale());
     ui.vediAnnotazioni?.addEventListener('click', apriElenco);
@@ -287,24 +278,14 @@ async function eseguiUscita() {
     sessionStorage.removeItem(SESSION_KEY);
     sessionStorage.removeItem(IDENTITY_KEY);
     impostaModalitaEditor(false);
-    mostraBloccoPagina();
-    ui.esci.disabled = false;
-}
-
-async function entraInSolaLettura() {
-    sessionStorage.setItem(OSPITE_KEY, '1');
     await attivaSolaLettura();
+    ui.esci.disabled = false;
 }
 
 async function attivaSolaLettura() {
     impostaModalitaEditor(false);
     impostaSolaLettura(true);
     await attivaAreaRiservata();
-}
-
-function esciDaSolaLettura() {
-    impostaSolaLettura(false);
-    mostraBloccoPagina();
 }
 
 function impostaSolaLettura(attiva) {
@@ -315,7 +296,6 @@ function impostaSolaLettura(attiva) {
         document.body.removeAttribute('data-programmi-ospite');
         sessionStorage.removeItem(OSPITE_KEY);
     }
-    if (ui.letturaBarra) ui.letturaBarra.hidden = !attiva;
 }
 
 async function attivaAreaRiservata() {
@@ -323,15 +303,6 @@ async function attivaAreaRiservata() {
     if (ui.authDialog?.open) ui.authDialog.close();
     document.dispatchEvent(new CustomEvent('mo:programmi-unlocked'));
     await Promise.all([caricaProgrammi(), caricaRevisioni()]);
-}
-
-function mostraBloccoPagina() {
-    document.body.dataset.programmiLocked = 'true';
-    document.body.removeAttribute('data-programmi-editor');
-    messaggio(ui.authMessaggio, '');
-    ui.authPassword.value = '';
-    if (!ui.authDialog.open) ui.authDialog.showModal();
-    window.setTimeout(() => ui.authPassword.focus(), 50);
 }
 
 async function caricaRevisioni() {
@@ -891,7 +862,7 @@ async function chiamaApi(action, payload = {}, opzioni = {}) {
             sessionStorage.removeItem(SESSION_KEY);
             sessionStorage.removeItem(IDENTITY_KEY);
             impostaModalitaEditor(false);
-            mostraBloccoPagina();
+            impostaSolaLettura(true);
         }
         throw new Error(data.error || 'Servizio temporaneamente non disponibile.');
     }

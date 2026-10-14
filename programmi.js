@@ -50,11 +50,15 @@ function scriviSelezione(selezione) {
 let programmiCaricati = false;
 let udaDaAprire = '';
 
-document.addEventListener('mo:programmi-unlocked', () => {
+function avviaProgrammi() {
     if (programmiCaricati) return;
     programmiCaricati = true;
     caricaProgrammi();
-});
+}
+
+// La consultazione pubblica non dipende dalla disponibilità dell'area di revisione.
+document.addEventListener('DOMContentLoaded', avviaProgrammi);
+document.addEventListener('mo:programmi-unlocked', avviaProgrammi);
 
 async function caricaProgrammi() {
     const contenitore = document.getElementById('prog-lista');
@@ -212,8 +216,12 @@ function preparaControlli() {
 
     document.querySelectorAll('.prog-toggle .tab-btn').forEach((bottone) => {
         bottone.addEventListener('click', () => {
-            document.querySelectorAll('.prog-toggle .tab-btn').forEach((b) => b.classList.remove('active'));
+            document.querySelectorAll('.prog-toggle .tab-btn').forEach((b) => {
+                b.classList.remove('active');
+                b.setAttribute('aria-pressed', 'false');
+            });
             bottone.classList.add('active');
+            bottone.setAttribute('aria-pressed', 'true');
             stato.vista = bottone.dataset.vista;
             disegnaLista();
         });
@@ -538,8 +546,6 @@ function schedaModulo(modulo, anno, competenzaCarta) {
         : '';
 
     const meta = [
-        modulo.periodo ? `<span class="prog-meta-voce"><span class="prog-meta-et">Periodo</span>${escapeHtml(modulo.periodo)}</span>` : '',
-        modulo.monteOre ? `<span class="prog-meta-voce"><span class="prog-meta-et">Ore</span>${escapeHtml(modulo.monteOre)}</span>` : '',
         modulo.compresenza ? `<span class="prog-meta-voce"><span class="prog-meta-et">Compresenza</span>${escapeHtml(modulo.compresenza)}</span>` : ''
     ].filter(Boolean).join('');
 
@@ -749,7 +755,7 @@ function schedaProva(prova) {
         <dt>Compito</dt><dd>${escapeHtml(prova.compito)}</dd>
         <dt>Contesto</dt><dd>${escapeHtml(prova.contesto)}</dd>
         <dt>Prodotto</dt><dd>${escapeHtml(prova.prodotto)}</dd>
-        <dt>Durata e modalità</dt><dd>${escapeHtml(prova.durata)} — ${escapeHtml(prova.modalita)}</dd>
+        <dt>Modalità</dt><dd>${escapeHtml(prova.modalita)}</dd>
         <dt>Risorse</dt><dd>${prova.risorse.map(escapeHtml).join(' · ')}</dd>
         ${prova.imprevisto
           ? `<dt>Imprevisto</dt><dd>${escapeHtml(prova.imprevisto)}</dd>`
@@ -763,7 +769,7 @@ function schedaMateriali(materiali) {
     const voci = materiali || [];
     const corpo = voci.length
         ? voci.map((m) => `<a class="prog-materiale" href="${escapeHtml(m.file)}">${escapeHtml(m.titolo)}</a>`).join('')
-        : '<span class="prog-materiale-vuoto">da collegare</span>';
+        : '<span class="prog-materiale-vuoto">Nessun materiale collegato.</span>';
     return `<div class="prog-materiali"><span class="prog-materiali-etichetta">Materiali</span>${corpo}</div>`;
 }
 

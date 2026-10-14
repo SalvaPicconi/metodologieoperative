@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-14** · Codex · Bozza locale dei Programmi per i colleghi: consultazione diretta, nuova veste grafica e tempi lasciati al docente. Prima: profilo dell’operatore, bisogni e titolo di educazione civica corretti; sei allegati originali recuperati. Separazione della programmazione Carola rinviata. (revisione locale, non pubblicata)
+
 - **2026-10-13** · Codex · Collage autobiografico: flusso unico con teoria e dodici opere prima della scelta; nucleo inserito con un clic e due domande semplici da scrivere con esempi. Nuova veste bianco caldo e blu, materiali illustrati e risposte precedenti conservate. (`dd192b4`)
 - **2026-10-13** · Codex · Collage autobiografico di seconda: nuclei ed emozioni, foto facoltative, materiali spiegati, dodici opere autentiche e riquadro UDA; conservati i campi precedenti e corretto il ripristino delle risposte locali. (`d274537`)
 - **2026-10-12** · Claude · «Lavori della classe» → «Mappe di rete»: vista per alunno con la mappa di Giulia e quella di Marco affiancate (resta la vista per caso).
