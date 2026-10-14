@@ -9,6 +9,7 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-14** · Claude · Mappa della rete: ogni legame ha la sua natura, rapporto informale o formale, indipendente dai nodi (la zia può avere un rapporto informale con Giulia e uno formale con la coordinatrice); le mappe già salvate non cambiano.
 - **2026-10-13** · Codex · Collage autobiografico: flusso unico con teoria e dodici opere prima della scelta; nucleo inserito con un clic e due domande semplici da scrivere con esempi. Nuova veste bianco caldo e blu, materiali illustrati e risposte precedenti conservate. (`dd192b4`)
 - **2026-10-13** · Codex · Collage autobiografico di seconda: nuclei ed emozioni, foto facoltative, materiali spiegati, dodici opere autentiche e riquadro UDA; conservati i campi precedenti e corretto il ripristino delle risposte locali. (`d274537`)
 - **2026-10-12** · Claude · «Mappe di rete» si apre su «Un alunno alla volta»: nome grande e le sue due mappe, Giulia e Marco, con ◀ ▶ e frecce della tastiera per passare al successivo.

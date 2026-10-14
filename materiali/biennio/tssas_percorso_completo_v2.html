@@ -1005,10 +1005,10 @@
                         </div>
                         <div class="mappa-rete" id="a4-box">
                             <div class="nt">🖊️ Disegna le due reti, Giulia e Marco <span class="bonus-tag">bonus</span></div>
-                            <p class="hint">Aggiungi i nodi (ruoli, mai nomi veri), poi collegali. Puoi trascinare i nodi e, toccandoli, rinominarli o eliminarli anche dopo. La pagina conta nodi, legami, ponti e nodi isolati. Disegna tutte e due le reti, Giulia e Marco: passi dall'una all'altra con i pulsanti qui sotto e restano salvate entrambe.</p>
+                            <p class="hint">Aggiungi i nodi (ruoli, mai nomi veri), poi collegali. Ogni legame ha la sua forza (forte, debole, ponte) e la sua natura: <strong>rapporto informale</strong> o <strong>formale</strong>, anche tra le stesse persone (la zia ha un rapporto informale con Giulia e uno formale con la coordinatrice). Puoi trascinare i nodi e, toccandoli, rinominarli o eliminarli anche dopo. La pagina conta nodi, legami, ponti e nodi isolati. Disegna tutte e due le reti, Giulia e Marco: passi dall'una all'altra con i pulsanti qui sotto e restano salvate entrambe.</p>
                             <div class="a4-tabs" id="a4-tabs"></div>
                             <div class="mr-row"><input type="text" id="a4-nodo" data-progress-ignore maxlength="22" placeholder="es. zia, allenatrice, consultorio" aria-label="Nome del nodo"><select id="a4-tipo" data-progress-ignore aria-label="Tipo di nodo"><option value="inf">informale</option><option value="for">formale</option></select><button class="btn btn-sm" type="button" onclick="a4AggiungiNodo()">+ Nodo</button></div>
-                            <div class="mr-row"><select id="a4-da" data-progress-ignore aria-label="Da"></select><span>↔</span><select id="a4-a" data-progress-ignore aria-label="A"></select><select id="a4-leg" data-progress-ignore aria-label="Tipo di legame"><option value="forte">legame forte</option><option value="debole">legame debole</option><option value="ponte">ponte</option></select><button class="btn btn-sm" type="button" onclick="a4Collega()">+ Legame</button><button class="btn btn-sm btn-soft" type="button" onclick="a4Annulla()">↶ Annulla l'ultima mossa</button></div>
+                            <div class="mr-row"><select id="a4-da" data-progress-ignore aria-label="Da"></select><span>↔</span><select id="a4-a" data-progress-ignore aria-label="A"></select><select id="a4-leg" data-progress-ignore aria-label="Tipo di legame"><option value="forte">legame forte</option><option value="debole">legame debole</option><option value="ponte">ponte</option></select><select id="a4-nat" data-progress-ignore aria-label="Natura del rapporto"><option value="inf">rapporto informale</option><option value="for">rapporto formale</option></select><button class="btn btn-sm" type="button" onclick="a4Collega()">+ Legame</button><button class="btn btn-sm btn-soft" type="button" onclick="a4Annulla()">↶ Annulla l'ultima mossa</button></div>
                             <svg id="a4-svg" viewBox="0 0 600 360" role="img" aria-label="La tua mappa della rete"></svg>
                             <div class="mr-row a4-sel" id="a4-sel"></div>
                             <div class="mr-conta" id="a4-conta"></div>
@@ -2966,7 +2966,8 @@
         if (a === b || isNaN(a) || isNaN(b)) return;
         const gia = st.e.findIndex(([x, y]) => (x === a && y === b) || (x === b && y === a));
         if (gia >= 0) { a4Sel = { e: gia }; a4Render(); return; }
-        a4Memo(st); st.e.push([a, b, t]); a4Sel = { e: st.e.length - 1 }; a4Salva(st);
+        const nat = document.getElementById('a4-nat')?.value === 'for' ? 'for' : 'inf';
+        a4Memo(st); st.e.push([a, b, t, nat]); a4Sel = { e: st.e.length - 1 }; a4Salva(st);
     }
     function a4Annulla() { const p = a4Pila(); if (!p.length) return; a4Sel = null; a4Salva(JSON.parse(p.pop())); }
 
@@ -2979,8 +2980,21 @@
         a4Memo(st); nd.l = l; a4Salva(st);
     }
     function a4CambiaTipo() {
-        const st = a4Stato(); const nd = st.n[a4Sel?.n]; if (!nd) return;
-        a4Memo(st); nd.t = nd.t === 'for' ? 'inf' : 'for'; delete nd.x; delete nd.y; a4Salva(st);
+        const st = a4Stato(); const i = a4Sel?.n, nd = st.n[i]; if (!nd) return;
+        a4Memo(st);
+        st.e.forEach(e => { if ((e[0] === i || e[1] === i) && e[3] !== 'inf' && e[3] !== 'for') e[3] = a4Natura(st, e).n; }); // i rapporti già stabiliti non cambiano natura
+        nd.t = nd.t === 'for' ? 'inf' : 'for'; delete nd.x; delete nd.y; a4Salva(st);
+    }
+    // Natura del rapporto: scritta nel legame (e[3]); per i legami salvati prima si deduce dai nodi
+    function a4Natura(st, e) {
+        if (e[3] === 'inf' || e[3] === 'for') return { n: e[3], dedotta: false };
+        const tipo = i => i >= 0 && st.n[i] ? st.n[i].t : '';
+        return { n: tipo(e[0]) === 'for' || tipo(e[1]) === 'for' ? 'for' : 'inf', dedotta: true };
+    }
+    function a4NaturaLegame(n) { const st = a4Stato(); const e = st.e[a4Sel?.e]; if (!e || e[3] === n) return; a4Memo(st); e[3] = n; a4Salva(st); }
+    function a4PropostaNatura() {
+        const st = a4Stato(), sel = document.getElementById('a4-nat'); if (!sel) return;
+        sel.value = a4Natura(st, [+document.getElementById('a4-da').value, +document.getElementById('a4-a').value]).n;
     }
     function a4EliminaNodo() {
         const st = a4Stato(); const i = a4Sel?.n; if (!st.n[i]) return;
@@ -3016,15 +3030,18 @@
     // Legami fra due nodi: curvi e spinti verso l'esterno, così non passano sopra la Persona
     function a4Tracciato(p1, p2, daPersona) {
         const [x1, y1] = p1, [x2, y2] = p2;
-        if (daPersona) return `M${x1.toFixed(1)} ${y1.toFixed(1)} L${x2.toFixed(1)} ${y2.toFixed(1)}`;
+        if (daPersona) return { d: `M${x1.toFixed(1)} ${y1.toFixed(1)} L${x2.toFixed(1)} ${y2.toFixed(1)}`, m: [(x1 + x2) / 2, (y1 + y2) / 2] };
         const mx = (x1 + x2) / 2, my = (y1 + y2) / 2, len = Math.hypot(x2 - x1, y2 - y1) || 1;
         let ux = mx - A4_C[0], uy = my - A4_C[1], l = Math.hypot(ux, uy);
         if (l < 30) { ux = -(y2 - y1); uy = x2 - x1; l = len; if (uy > 0) { ux = -ux; uy = -uy; } }
         ux /= l; uy /= l;
         const k = Math.max(l < 70 ? 150 - l : 40, len * 0.28);
-        return `M${x1.toFixed(1)} ${y1.toFixed(1)} Q${(mx + ux * k).toFixed(1)} ${(my + uy * k).toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`;
+        const qx = mx + ux * k, qy = my + uy * k;
+        return { d: `M${x1.toFixed(1)} ${y1.toFixed(1)} Q${qx.toFixed(1)} ${qy.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`, m: [(x1 + 2 * qx + x2) / 4, (y1 + 2 * qy + y2) / 4] };
     }
-    const A4_STILE = { forte: ['#0E7C7C', 4.5, ''], debole: ['#94a3b8', 2.2, '7 6'], ponte: ['#CC0073', 3.2, ''] };
+    // Forza → spessore e tratteggio; natura → colore (verde informale, blu formale), come i nodi. Il ponte resta fucsia.
+    const A4_STILE = { forte: [4.5, ''], debole: [2.4, '7 6'], ponte: [3.2, ''] };
+    const A4_NAT = { inf: '#7FA00C', for: '#0E7C7C' };
     // Disegno della mappa (usato anche dal registro della classe per le mappe degli studenti)
     function a4Disegno(st, sel, titolo) {
         const N = st.n.length, [cx, cy] = A4_C, P = a4Posizioni(st), at = i => i < 0 ? A4_C : P[i];
@@ -3033,8 +3050,9 @@
             <g ${F} font-size="11" font-weight="700" letter-spacing=".08em"><text x="12" y="20" fill="#6b8a0e">RETE INFORMALE</text><text x="588" y="20" text-anchor="end" fill="#0E7C7C">RETE FORMALE</text></g>${titolo ? `<text x="300" y="21" text-anchor="middle" ${F} font-size="13" font-weight="700" fill="#1f2933">${esc(titolo)}</text>` : ''}`;
         st.e.forEach(([a, b, t], k) => {
             if ((a >= 0 && !P[a]) || (b >= 0 && !P[b])) return;
-            const d = a4Tracciato(at(a), at(b), a < 0 || b < 0), [col, w, dash] = A4_STILE[t] || A4_STILE.debole, on = sel && sel.e === k;
-            g += `<g class="a4e" data-e="${k}">${on ? `<path d="${d}" fill="none" stroke="#FF0090" stroke-opacity=".35" stroke-width="${w + 8}" stroke-linecap="round"/>` : ''}<path d="${d}" fill="none" stroke="transparent" stroke-width="16"/><path d="${d}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" ${dash ? `stroke-dasharray="${dash}"` : ''}/></g>`;
+            const { d, m } = a4Tracciato(at(a), at(b), a < 0 || b < 0), [w, dash] = A4_STILE[t] || A4_STILE.debole, on = sel && sel.e === k;
+            const nat = A4_NAT[a4Natura(st, [a, b, t, st.e[k][3]]).n], col = t === 'ponte' ? '#CC0073' : nat;
+            g += `<g class="a4e" data-e="${k}">${on ? `<path d="${d}" fill="none" stroke="#FF0090" stroke-opacity=".35" stroke-width="${w + 8}" stroke-linecap="round"/>` : ''}<path d="${d}" fill="none" stroke="transparent" stroke-width="16"/><path d="${d}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" ${dash ? `stroke-dasharray="${dash}"` : ''}/><circle cx="${m[0].toFixed(1)}" cy="${m[1].toFixed(1)}" r="4.5" fill="${nat}" stroke="#fff" stroke-width="1.5"/></g>`;
         });
         g += `<circle cx="${cx}" cy="${cy}" r="36" fill="#0E7C7C" opacity=".15"/><circle cx="${cx}" cy="${cy}" r="30" fill="#1DD3D3" stroke="#0E7C7C" stroke-width="2"/><text x="${cx}" y="${cy + 5}" text-anchor="middle" font-size="13.5" font-weight="700" fill="#083d3d" ${F}>Persona</text>`;
         st.n.forEach((nd, i) => {
@@ -3043,10 +3061,10 @@
         });
         if (!N) g += `<text x="${cx}" y="${cy + 75}" text-anchor="middle" font-size="13" fill="#52606d" ${F}>Aggiungi il primo nodo qui sopra</text>`;
         g += `<g ${F} font-size="11.5" fill="#52606d"><rect x="6" y="334" width="588" height="22" rx="8" fill="#fff" opacity=".85"/>
-            <line x1="16" y1="345" x2="44" y2="345" stroke="#0E7C7C" stroke-width="4.5" stroke-linecap="round"/><text x="50" y="349">forte</text>
-            <line x1="92" y1="345" x2="120" y2="345" stroke="#94a3b8" stroke-width="2.2" stroke-dasharray="7 6"/><text x="126" y="349">debole</text>
-            <line x1="176" y1="345" x2="204" y2="345" stroke="#CC0073" stroke-width="3.2" stroke-linecap="round"/><text x="210" y="349">ponte</text>
-            <circle cx="290" cy="345" r="5" fill="#9CB912"/><text x="299" y="349">informale</text><circle cx="372" cy="345" r="5" fill="#0E7C7C"/><text x="381" y="349">formale</text></g>`;
+            <line x1="16" y1="345" x2="44" y2="345" stroke="#52606d" stroke-width="4.5" stroke-linecap="round"/><text x="50" y="349">forte</text>
+            <line x1="88" y1="345" x2="116" y2="345" stroke="#52606d" stroke-width="2.4" stroke-dasharray="7 6"/><text x="122" y="349">debole</text>
+            <line x1="168" y1="345" x2="196" y2="345" stroke="#CC0073" stroke-width="3.2" stroke-linecap="round"/><text x="202" y="349">ponte</text>
+            <text x="252" y="349" font-weight="700">nodi e rapporti:</text><circle cx="352" cy="345" r="5" fill="#7FA00C"/><text x="361" y="349">informale</text><circle cx="432" cy="345" r="5" fill="#0E7C7C"/><text x="441" y="349">formale</text></g>`;
         return g;
     }
     function a4Conta(st) {
@@ -3055,8 +3073,9 @@
         const isolati = st.n.filter((_, i) => !legati.has(i)).length;
         const forti = st.e.filter(e => e[2] === 'forte').length, deboli = st.e.filter(e => e[2] === 'debole').length, ponti = st.e.filter(e => e[2] === 'ponte').length;
         const inf = st.n.filter(x => x.t === 'inf').length;
+        const rInf = st.e.filter(e => a4Natura(st, e).n === 'inf').length;
         const pl = (n, s1, sn) => `${n} ${n === 1 ? s1 : sn}`;
-        return `<strong>${pl(N, 'nodo', 'nodi')}</strong> (${pl(inf, 'informale', 'informali')}, ${pl(N - inf, 'formale', 'formali')}) · <strong>${pl(st.e.length, 'legame', 'legami')}</strong> (${pl(forti, 'forte', 'forti')}, ${pl(deboli, 'debole', 'deboli')}) · <strong>${pl(ponti, 'ponte', 'ponti')}</strong> · <strong>${pl(isolati, 'nodo isolato', 'nodi isolati')}</strong>`;
+        return `<strong>${pl(N, 'nodo', 'nodi')}</strong> (${pl(inf, 'informale', 'informali')}, ${pl(N - inf, 'formale', 'formali')}) · <strong>${pl(st.e.length, 'legame', 'legami')}</strong> (${pl(forti, 'forte', 'forti')}, ${pl(deboli, 'debole', 'deboli')}; ${pl(rInf, 'rapporto informale', 'rapporti informali')}, ${pl(st.e.length - rInf, 'formale', 'formali')}) · <strong>${pl(ponti, 'ponte', 'ponti')}</strong> · <strong>${pl(isolati, 'nodo isolato', 'nodi isolati')}</strong>`;
     }
     function a4Barra(st) {
         const box = document.getElementById('a4-sel'); if (!box) return;
@@ -3066,8 +3085,8 @@
             const nd = st.n[a4Sel.n];
             box.innerHTML = `<span>Nodo <strong>«${esc(nd.l)}»</strong> (${nd.t === 'for' ? 'formale' : 'informale'})</span>${b('a4Rinomina()', '✏️ Rinomina')}${b('a4CambiaTipo()', nd.t === 'for' ? '🔄 Rendi informale' : '🔄 Rendi formale')}${b('a4EliminaNodo()', '🗑 Elimina nodo', 'btn-soft')}${chiudi}`;
         } else if (a4Sel && st.e[a4Sel.e]) {
-            const [x, y, t] = st.e[a4Sel.e];
-            box.innerHTML = `<span>Legame <strong>${esc(a4Nome(st, x))} ↔ ${esc(a4Nome(st, y))}</strong>:</span>${['forte', 'debole', 'ponte'].map(k => b(`a4TipoLegame('${k}')`, k === t ? `● ${k}` : k, k === t ? '' : 'btn-soft')).join('')}${b('a4EliminaLegame()', '🗑 Elimina legame', 'btn-soft')}${chiudi}`;
+            const e = st.e[a4Sel.e], [x, y, t] = e, nat = a4Natura(st, e);
+            box.innerHTML = `<span>Legame <strong>${esc(a4Nome(st, x))} ↔ ${esc(a4Nome(st, y))}</strong>:</span>${['forte', 'debole', 'ponte'].map(k => b(`a4TipoLegame('${k}')`, k === t ? `● ${k}` : k, k === t ? '' : 'btn-soft')).join('')}<span style="margin-left:6px">rapporto:</span>${[['inf', 'informale'], ['for', 'formale']].map(([k, l]) => b(`a4NaturaLegame('${k}')`, k === nat.n ? `● ${l}` : l, k === nat.n ? '' : 'btn-soft')).join('')}${b('a4EliminaLegame()', '🗑 Elimina legame', 'btn-soft')}${chiudi}`;
         } else {
             a4Sel = null;
             box.innerHTML = `<span class="hint" style="margin:0">💡 Trascina i nodi per sistemarli. Tocca un nodo o un legame per rinominarlo, cambiarlo o eliminarlo.</span>${st.n.some(nd => nd.x !== undefined) ? b('a4Riordina()', '↺ Rimetti in ordine', 'btn-soft') : ''}`;
@@ -3129,7 +3148,7 @@
         a4Schede();
         if (!svg.dataset.mr) { svg.dataset.mr = '1'; a4Interazioni(svg); }
         const opt = `<option value="-1">Persona</option>` + st.n.map((nd, i) => `<option value="${i}">${esc(nd.l)}</option>`).join('');
-        ['a4-da', 'a4-a'].forEach((id, k) => { const sel = document.getElementById(id); const v = sel.value; sel.innerHTML = opt; if (v !== '' && sel.querySelector(`option[value="${v}"]`)) sel.value = v; else sel.value = k === 0 ? '-1' : (N ? '0' : '-1'); });
+        ['a4-da', 'a4-a'].forEach((id, k) => { const sel = document.getElementById(id); const v = sel.value; sel.innerHTML = opt; if (v !== '' && sel.querySelector(`option[value="${v}"]`)) sel.value = v; else sel.value = k === 0 ? '-1' : (N ? '0' : '-1'); sel.onchange = a4PropostaNatura; });
         document.getElementById('a4-conta').innerHTML = a4Conta(st);
         a4Barra(st);
     }
