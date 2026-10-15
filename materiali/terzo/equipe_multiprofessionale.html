@@ -56,10 +56,14 @@ a{color:var(--pd)}
 :focus-visible{outline:3px solid var(--p);outline-offset:2px}
 @media print{nav.indice{display:none}section{break-inside:avoid-page}}
 </style>
+<link rel="stylesheet" href="../../assets/equipe-terza.css?v=20261015">
+<script src="../../assets/docente-accesso.js?v=20260926" defer></script>
 </head>
 <body>
+<a class="skip-link" href="#contenuto">Vai al contenuto</a>
 <header>
   <div class="w">
+    <a class="back-link" href="../../terzo.html">← Terzo anno</a>
     <div class="eyebrow">Metodologie Operative · Terzo anno · UDA 3 Le figure professionali e l'équipe multiprofessionale</div>
     <h1>L'équipe multiprofessionale</h1>
     <p>Chi c'è attorno a una persona che chiede aiuto, che cosa fa ciascun professionista e come si arriva a una decisione condivisa.</p>
@@ -70,11 +74,20 @@ a{color:var(--pd)}
   <a href="#che-cose">Che cos'è</a><a href="#come-lavora">Come lavora</a><a href="#figure">Le figure</a><a href="#schema">Schema</a><a href="#esercizi">Esercizi</a><a href="#caso">Caso d'équipe</a><a href="#compiti">Compiti</a>
 </nav>
 
-<main>
+<main id="contenuto">
+<div class="strumenti" aria-label="Strumenti di lavoro">
+  <div id="identity-tools"></div>
+  <div class="azioni">
+    <button type="button" data-save-progress>Salva il lavoro</button>
+    <button type="button" id="esporta-rosa" class="secondario">Scarica le risposte del caso Rosa</button>
+    <button type="button" id="apri-lim" class="secondario">Risposte della classe · LIM</button>
+  </div>
+  <p id="stato-lavoro" role="status">Il lavoro con il tuo codice si salva automaticamente. Come ospite resta in questo browser.</p>
+</div>
 
 <section id="che-cose">
   <h2>1. Che cos'è l'équipe multiprofessionale</h2>
-  <p>Un'<strong>équipe</strong> è un gruppo di persone che lavora insieme per raggiungere un obiettivo comune. Si dice <strong>multiprofessionale</strong> quando le persone del gruppo hanno professioni diverse: il medico, l'infermiere, l'assistente sociale, lo psicologo, l'educatore, l'operatore sociale, l'OSS. Ognuno porta conoscenze e competenze del proprio campo, ma tutti lavorano per la stessa persona e con la stessa finalità: il suo benessere fisico, psichico e sociale.</p>
+  <p>Un'<strong>équipe</strong> è un gruppo di persone che lavora insieme per raggiungere un obiettivo comune. Si dice <strong>multiprofessionale</strong> quando le persone del gruppo hanno professioni diverse: il medico, l'infermiere, l'assistente sociale, lo psicologo, l'educatore, l'operatore sociale, l'operatore socio-sanitario (OSS). Ognuno porta conoscenze e competenze del proprio campo, ma tutti lavorano per la stessa persona e con la stessa finalità: il suo benessere fisico, psichico e sociale.</p>
   <p>Il lavoro d'équipe si regge su due principi.</p>
   <ul>
     <li><strong>Integrazione.</strong> I saperi delle diverse professioni si mettono insieme: la risposta che nasce dal confronto è migliore della somma dei singoli pareri, perché tiene conto di tutti gli aspetti della vita della persona.</li>
@@ -90,7 +103,7 @@ a{color:var(--pd)}
 <section id="come-lavora">
   <h2>2. Come lavora un'équipe</h2>
   <h3>La riunione d'équipe</h3>
-  <p>Il momento centrale è la <strong>riunione d'équipe</strong>, in cui si discute il caso di una persona. Di solito la coordina l'assistente sociale o il responsabile del servizio e segue alcuni passaggi:</p>
+  <p>Il momento centrale è la <strong>riunione d'équipe</strong>, in cui si discute il caso di una persona. La coordina la figura individuata dal servizio in relazione al progetto e alla sua organizzazione. Segue alcuni passaggi:</p>
   <ol>
     <li>si presenta il caso: chi è la persona, che cosa chiede, che cosa è successo;</li>
     <li>ogni professionista porta le informazioni del proprio campo: la salute, la situazione familiare ed economica, il comportamento nelle attività, i desideri della persona;</li>
@@ -100,20 +113,20 @@ a{color:var(--pd)}
   </ol>
   <p>La persona e la sua famiglia non sono spettatori: il progetto si costruisce con loro, e le decisioni vanno spiegate e condivise.</p>
   <h3>Un'équipe prevista dalla legge: l'unità di valutazione multidimensionale</h3>
-  <p>Per le persone non autosufficienti o con disabilità, le ASL e i Comuni formano l'<strong>UVM</strong>, unità di valutazione multidimensionale. È un'équipe composta di solito da un medico, un infermiere e un assistente sociale, a cui si aggiungono altre figure secondo il caso. Valuta la situazione della persona sotto tutti gli aspetti (sanitario, sociale, delle autonomie) e decide quali servizi attivare.</p>
+  <p>Per le persone non autosufficienti o con disabilità, le aziende sanitarie locali (ASL) e i Comuni formano l'<strong>UVM</strong>, unità di valutazione multidimensionale. È un'équipe composta di solito da un medico, un infermiere e un assistente sociale, a cui si aggiungono altre figure secondo il caso. Valuta la situazione della persona sotto tutti gli aspetti (sanitario, sociale, delle autonomie) e decide quali servizi attivare.</p>
   <h3>Scrivere per l'équipe: fatti, non giudizi</h3>
   <p>Nei documenti dell'équipe (verbali, relazioni, diari delle attività) si scrivono <strong>fatti osservabili</strong>, con il giorno e l'ora, e non giudizi sulla persona. «Martedì alle 10 ha lasciato il laboratorio dopo dieci minuti e non ha voluto parlare» è un fatto. «È svogliato» è un giudizio: non aiuta i colleghi a capire e rischia di etichettare la persona. Il linguaggio dei documenti è preciso e professionale: questo modo di scrivere si chiama <strong>linguaggio settoriale</strong>, ed è una delle competenze che si allenano nel triennio.</p>
 </section>
 
 <section id="figure">
   <h2>3. Le figure professionali</h2>
-  <p>Le figure sono raggruppate per area. Per ciascuna trovi che cosa fa, come si diventa, dove lavora e un'attenzione su ciò che <em>non</em> fa, perché conoscere i confini dei ruoli è indispensabile per lavorare bene insieme. Le regole sulla formazione cambiano nel tempo: quelle indicate valgono oggi.</p>
+  <p>Le figure sono raggruppate per area. Per ciascuna trovi che cosa fa, come si diventa, dove lavora e un'attenzione su ciò che <em>non</em> fa, perché conoscere i confini dei ruoli è indispensabile per lavorare bene insieme. Le schede distinguono funzioni, formazione e luoghi di lavoro. Per orientarti a un percorso formativo consulta anche i riferimenti in fondo alla pagina e i requisiti del corso o del bando.</p>
 
   <div class="gruppo"><h3>🏥 Area sanitaria</h3>
     <div class="figura"><h4>Medico di medicina generale (medico di famiglia)</h4><dl>
       <dt>Che cosa fa</dt><dd>È il primo riferimento per la salute della persona, che lo sceglie fra i medici della sua zona e può cambiarlo quando vuole. Visita in ambulatorio e a casa, prescrive farmaci ed esami, rilascia certificati, invia agli specialisti e segue nel tempo le malattie croniche. Conosce la storia di salute della persona e della famiglia.</dd>
       <dt>Come si diventa</dt><dd>Laurea magistrale a ciclo unico in Medicina e chirurgia (sei anni), che dal 2020 abilita alla professione; iscrizione all'Ordine dei medici; corso di formazione specifica in medicina generale di tre anni organizzato dalle Regioni.</dd>
-      <dt>Dove lavora</dt><dd>Nel proprio ambulatorio, convenzionato con il Servizio sanitario nazionale, e a domicilio; collabora con l'ADI e con i servizi del distretto.</dd>
+      <dt>Dove lavora</dt><dd>Nel proprio ambulatorio, convenzionato con il Servizio sanitario nazionale, e a domicilio; collabora con l’assistenza domiciliare integrata (ADI) e con i servizi del distretto.</dd>
       <dt>Attenzione</dt><dd>Chi vive per più di tre mesi in un'altra città per studio, lavoro o cure può scegliere temporaneamente un medico lì.</dd></dl></div>
     <div class="figura"><h4>Pediatra di libera scelta</h4><dl>
       <dt>Che cosa fa</dt><dd>È il medico di famiglia dei bambini: ne segue la crescita, fa i controlli periodici (i «bilanci di salute»), cura le malattie e indirizza agli specialisti.</dd>
@@ -123,12 +136,12 @@ a{color:var(--pd)}
     <div class="figura"><h4>Medico specialista</h4><dl>
       <dt>Che cosa fa</dt><dd>Si occupa della prevenzione, della diagnosi e della cura delle malattie di un organo o di un campo preciso. Nei servizi sociali e sociosanitari si incontrano spesso il <strong>geriatra</strong> (malattie dell'anziano), il <strong>fisiatra</strong> (riabilitazione), lo <strong>psichiatra</strong> (disturbi mentali), il <strong>neuropsichiatra infantile</strong> (sviluppo e disturbi neurologici e psichici dei minori), il <strong>neurologo</strong> (malattie del sistema nervoso).</dd>
       <dt>Come si diventa</dt><dd>Laurea in Medicina e chirurgia e scuola di specializzazione, che dura di solito da quattro a cinque anni.</dd>
-      <dt>Dove lavora</dt><dd>In ospedale, negli ambulatori della ASL, nei servizi specialistici (centro di salute mentale, neuropsichiatria infantile, SerD), in strutture private accreditate.</dd>
+      <dt>Dove lavora</dt><dd>In ospedale, negli ambulatori della ASL, nei servizi specialistici (centro di salute mentale, neuropsichiatria infantile, servizi per le dipendenze — SerD), in strutture private accreditate.</dd>
       <dt>Attenzione</dt><dd>Lo psichiatra è un medico: a differenza dello psicologo può prescrivere farmaci.</dd></dl></div>
     <div class="figura"><h4>Infermiere</h4><dl>
       <dt>Che cosa fa</dt><dd>È responsabile dell'assistenza infermieristica: pianifica l'assistenza, somministra le terapie prescritte dal medico, fa medicazioni, controlla i parametri vitali, educa la persona e la famiglia a gestire la malattia. L'<strong>infermiere di famiglia e di comunità</strong> segue le persone fragili a casa e nel territorio.</dd>
       <dt>Come si diventa</dt><dd>Laurea triennale in Infermieristica, che abilita alla professione; iscrizione all'Ordine delle professioni infermieristiche. Dopo si può proseguire con la laurea magistrale o con master.</dd>
-      <dt>Dove lavora</dt><dd>Ospedali, ambulatori, assistenza domiciliare integrata, RSA, strutture residenziali, scuole, anche come libero professionista.</dd>
+      <dt>Dove lavora</dt><dd>Ospedali, ambulatori, assistenza domiciliare integrata, residenze sanitarie assistenziali (RSA), strutture residenziali, scuole, anche come libero professionista.</dd>
       <dt>Attenzione</dt><dd>Non fa diagnosi mediche e non prescrive farmaci: individua i bisogni di assistenza della persona e se ne fa carico.</dd></dl></div>
     <div class="figura"><h4>Ostetrica e ostetrico</h4><dl>
       <dt>Che cosa fa</dt><dd>Assiste la donna durante la gravidanza, il parto e il periodo dopo il parto (il puerperio, circa sei settimane), si prende cura del neonato nei primi giorni, fa educazione sulla salute sessuale e riproduttiva.</dd>
@@ -177,14 +190,14 @@ a{color:var(--pd)}
   <div class="gruppo"><h3>🎨 Area educativa</h3>
     <div class="figura"><h4>Educatore professionale</h4><dl>
       <dt>Che cosa fa</dt><dd>Progetta e realizza interventi educativi per favorire la crescita, l'autonomia e l'inclusione di minori, persone con disabilità, anziani e persone a rischio di emarginazione.</dd>
-      <dt>Come si diventa</dt><dd>Ci sono due strade. L'<strong>educatore professionale socio-pedagogico</strong> si laurea in Scienze dell'educazione e della formazione e lavora nei servizi socio-educativi e socio-assistenziali (legge 205 del 2017, detta «legge Iori»). L'<strong>educatore professionale socio-sanitario</strong> si laurea in Educazione professionale, una laurea delle professioni sanitarie, e lavora soprattutto nei servizi sanitari e sociosanitari, come quelli per le dipendenze o per la salute mentale.</dd>
+      <dt>Come si diventa</dt><dd>Ci sono due strade. L'<strong>educatore professionale socio-pedagogico</strong> si laurea in Scienze dell'educazione e della formazione e lavora nei servizi socio-educativi e socio-assistenziali (legge 205 del 2017, detta «legge Iori»). Per l’esercizio della professione socio-pedagogica la legge 55/2024 prevede anche l’iscrizione al relativo albo. L'<strong>educatore professionale socio-sanitario</strong> si laurea in Educazione professionale, una laurea delle professioni sanitarie, e lavora soprattutto nei servizi sanitari e sociosanitari, come quelli per le dipendenze o per la salute mentale.</dd>
       <dt>Dove lavora</dt><dd>Comunità per minori, centri diurni, servizi per la disabilità, SerD, centri di salute mentale, carceri, scuole.</dd></dl></div>
     <div class="figura"><h4>Educatore nei servizi per l'infanzia</h4><dl>
       <dt>Che cosa fa</dt><dd>Lavora al nido con i bambini da 0 a 3 anni: ne cura l'accoglienza, le routine, il gioco, lo sviluppo affettivo, sociale e cognitivo, e collabora con le famiglie.</dd>
       <dt>Come si diventa</dt><dd>Laurea in Scienze dell'educazione con l'indirizzo per i servizi per l'infanzia, oppure laurea in Scienze della formazione primaria con un corso di specializzazione (D.Lgs. 65/2017).</dd></dl></div>
     <div class="figura"><h4>Pedagogista</h4><dl>
       <dt>Che cosa fa</dt><dd>Progetta, coordina e valuta interventi educativi; fa consulenza a famiglie, scuole e servizi; supervisiona il lavoro degli educatori.</dd>
-      <dt>Come si diventa</dt><dd>Laurea magistrale in area pedagogica; dal 2024 esiste un albo professionale (legge 55 del 2024).</dd></dl></div>
+      <dt>Come si diventa</dt><dd>Laurea magistrale in una delle classi previste per la professione e iscrizione all’albo dei pedagogisti, istituito dalla legge 55/2024. Per i requisiti specifici e le disposizioni transitorie si consultano la normativa e le indicazioni dell’Ordine.</dd></dl></div>
     <div class="figura"><h4>Animatore sociale</h4><dl>
       <dt>Che cosa fa</dt><dd>Progetta e conduce attività di animazione (laboratori, giochi, musica, teatro, uscite) per favorire la socializzazione, la partecipazione e il benessere. Parte dalle capacità di ciascuno e adatta le attività alle persone.</dd>
       <dt>Come si diventa</dt><dd>Con corsi di qualifica professionale organizzati dalle Regioni.</dd>
@@ -193,10 +206,10 @@ a{color:var(--pd)}
 
   <div class="gruppo"><h3>💪 Area dell'assistenza alla persona</h3>
     <div class="figura"><h4>Operatore socio-sanitario (OSS)</h4><dl>
-      <dt>Che cosa fa</dt><dd>Assiste direttamente la persona nei bisogni di base: igiene personale, alimentazione, movimento, cura dell'ambiente di vita. Collabora con l'infermiere nelle attività sanitarie semplici, aiuta la persona ad assumere i farmaci prescritti, osserva e riferisce all'équipe.</dd>
-      <dt>Come si diventa</dt><dd>Con un corso regionale di almeno 1000 ore, fra teoria, esercitazioni e tirocinio, secondo l'accordo fra Stato e Regioni del 2001, e un esame finale; la qualifica vale in tutta Italia.</dd>
+      <dt>Che cosa fa</dt><dd>Assiste direttamente la persona nei bisogni di base: igiene personale, alimentazione, movimento, cura dell'ambiente di vita. Collabora con il professionista sanitario o sociale di riferimento, secondo il piano di assistenza e i compiti attribuiti. Osserva e riferisce all’équipe; le attività a carattere sanitario vanno svolte entro il proprio profilo e secondo le indicazioni del professionista responsabile. Non prescrive o modifica le terapie.</dd>
+      <dt>Come si diventa</dt><dd>Con un percorso di formazione disciplinato dalle Regioni e dalle Province autonome e un esame finale. Il profilo rivisto, recepito dal DPCM 25 marzo 2025, prevede un corso di almeno <strong>1000 ore</strong>, fra teoria, esercitazioni e tirocinio. Restano equipollenti le qualifiche conseguite con l’accordo del 2001; per i corsi già autorizzati sono previste disposizioni transitorie.</dd>
       <dt>Dove lavora</dt><dd>Ospedali, RSA, centri diurni, assistenza domiciliare.</dd>
-      <dt>Attenzione</dt><dd>Non è la stessa figura dell'operatore sociale diplomato nel nostro indirizzo: la qualifica OSS si ottiene solo con il corso regionale.</dd></dl></div>
+      <dt>Attenzione</dt><dd>Il diploma del nostro indirizzo <strong>non attribuisce automaticamente la qualifica OSS</strong>. Eventuali crediti o percorsi integrativi seguono le disposizioni applicabili: non vanno confusi con un’equivalenza fra i due titoli.</dd></dl></div>
     <div class="figura"><h4>Assistente familiare</h4><dl>
       <dt>Che cosa fa</dt><dd>Assiste in casa anziani o persone non autosufficienti nella vita quotidiana: igiene, pasti, pulizie, compagnia, spesso convivendo con la persona. Nel linguaggio comune è chiamata «badante».</dd>
       <dt>Come si diventa</dt><dd>È un lavoro domestico regolato da un contratto nazionale; molte Regioni hanno corsi di formazione e registri pubblici degli assistenti familiari.</dd>
@@ -208,7 +221,7 @@ a{color:var(--pd)}
 
 <section id="schema">
   <h2>4. Lo schema delle figure</h2>
-  <div class="tab"><table>
+  <div class="tab" tabindex="0" aria-label="Schema delle figure professionali: scorri orizzontalmente se necessario"><table>
     <thead><tr><th>Figura</th><th>Formazione</th><th>Compito principale</th></tr></thead>
     <tbody>
       <tr><td>Medico di famiglia</td><td>Laurea in Medicina (6 anni) + formazione in medicina generale (3 anni)</td><td>Primo riferimento per la salute; prescrive, certifica, invia agli specialisti</td></tr>
@@ -224,7 +237,7 @@ a{color:var(--pd)}
       <tr><td>Educatore professionale</td><td>Laurea in Scienze dell'educazione o in Educazione professionale</td><td>Interventi educativi per crescita, autonomia, inclusione</td></tr>
       <tr><td>Pedagogista</td><td>Laurea magistrale pedagogica (albo dal 2024)</td><td>Progetta e coordina interventi educativi</td></tr>
       <tr><td>Animatore sociale</td><td>Qualifica regionale</td><td>Attività di animazione e socializzazione</td></tr>
-      <tr><td>OSS</td><td>Corso regionale di 1000 ore</td><td>Assistenza diretta nei bisogni di base</td></tr>
+      <tr><td>OSS</td><td>Percorso regionale: almeno 1000 ore, salvo crediti riconosciuti</td><td>Assistenza diretta nei bisogni di base</td></tr>
       <tr><td>Assistente familiare</td><td>Contratto di lavoro domestico; corsi regionali facoltativi</td><td>Aiuto quotidiano in casa</td></tr>
       <tr><td>Operatore sociale (il nostro indirizzo)</td><td>Diploma di istruzione professionale Servizi per la sanità e l'assistenza sociale</td><td>Collabora a progetti e attività, anima, osserva e documenta</td></tr>
     </tbody>
@@ -258,7 +271,9 @@ a{color:var(--pd)}
   <div class="caso">
     <p>Rosa ha 79 anni e vive sola in un paese. Ha il diabete e da un mese sembra più confusa: dimentica di prendere le medicine, ha perso peso e al centro diurno, che frequenta il martedì e il giovedì, parla meno con le altre persone. La figlia vive a Cagliari e la chiama ogni sera. Il medico di famiglia ha chiesto una valutazione. Alla riunione partecipano il medico di famiglia, l'assistente sociale del Comune, l'infermiera dell'assistenza domiciliare, l'OSS che va da Rosa due volte a settimana e l'operatore sociale del centro diurno.</p>
   </div>
-  <p class="cons"><strong>Come si lavora.</strong> In gruppi di cinque, ciascuno sceglie una figura diversa. Prima scrivi da solo (cinque minuti), poi confrontatevi come in una vera riunione (quindici minuti) e scrivete insieme la decisione.</p>
+  <p class="cons"><strong>Come si lavora.</strong> In gruppi di cinque, con una figura diversa assegnata a ciascuno. Prima scrivi da solo (cinque minuti), poi confrontatevi come in una vera riunione (quindici minuti) e scrivete insieme la decisione.</p>
+  <p><strong>Prima di iniziare.</strong> Il caso è inventato. Usa le informazioni del racconto: non aggiungere diagnosi, visite o osservazioni mai riferite. Se manca un dato necessario al tuo ruolo, trasformalo in una domanda. Non conosciamo ancora che cosa desidera Rosa: anche questo va chiarito con lei.</p>
+  <div id="rosa-prima">
   <label class="campo" for="eq_caso_ruolo">La figura che interpreto</label>
   <select id="eq_caso_ruolo" name="eq_caso_ruolo">
     <option value="">— scegli —</option>
@@ -272,6 +287,32 @@ a{color:var(--pd)}
   <textarea id="eq_caso_decisione" name="eq_caso_decisione"></textarea>
   <label class="campo" for="eq_caso_verbale">Una frase per il verbale, scritta come fatto e non come giudizio</label>
   <textarea id="eq_caso_verbale" name="eq_caso_verbale" style="min-height:4rem"></textarea>
+  </div>
+  <details class="revisione" id="rosa-revisione">
+    <summary>Una nuova informazione · aprite dopo aver scritto la prima proposta</summary>
+    <div class="revisione-contenuto">
+      <h3>La telefonata della figlia</h3>
+      <div class="caso nuova-informazione"><p>Prima di chiudere la riunione arriva una telefonata della figlia di Rosa: «Da questa settimana posso fermarmi da lei il sabato mattina. Durante la settimana lavoro a Cagliari. Vorrei aiutarla, ma non so bene che cosa le serva».</p></div>
+      <p>Riprendete la proposta già scritta e conservatela come prima versione. Discutete quali parti possono cambiare e quali questioni restano aperte. Prima di assegnare un compito alla figlia, indicate che cosa va chiarito con lei e con Rosa. Per il confronto e la revisione considerate circa quindici minuti.</p>
+      <h4>Rivedere una decisione senza saltare i passaggi</h4>
+      <p>Un’informazione nuova può ampliare le risorse disponibili, ma va letta con precisione. La figlia <strong>dichiara una disponibilità</strong>: il gruppo deve ancora chiarire che cosa può fare, con quale continuità e che cosa ne pensa Rosa. Una risorsa diventa parte del progetto quando compiti e accordi sono definiti con le persone coinvolte.</p>
+      <p>Rivedere non significa ricominciare da zero. Indicate che cosa cambiate, il motivo e ciò che mantenete. La presenza del sabato non chiarisce, da sola, le dimenticanze dei farmaci, la perdita di peso o il cambiamento osservato al centro: la valutazione sanitaria resta affidata ai professionisti competenti. L’operatore sociale contribuisce con osservazioni e domande, non formula diagnosi.</p>
+      <label class="campo" for="eq_rosa_nuova_informazione">1. Informazione nuova e fonte</label>
+      <p class="aiuto" id="aiuto-rosa-info">Che cosa sappiamo dalla telefonata? Che cosa resta da verificare prima di considerarlo un aiuto concordato?</p>
+      <textarea id="eq_rosa_nuova_informazione" name="eq_rosa_nuova_informazione" aria-describedby="aiuto-rosa-info"></textarea>
+      <label class="campo" for="eq_rosa_decisione_rivista">2. Decisione rivista e motivazione</label>
+      <p class="aiuto" id="aiuto-rosa-decisione">Confronta la prima proposta: che cosa cambia, perché e che cosa mantenete? Se non la cambiate, motivatelo.</p>
+      <textarea id="eq_rosa_decisione_rivista" name="eq_rosa_decisione_rivista" aria-describedby="aiuto-rosa-decisione"></textarea>
+      <label class="campo" for="eq_rosa_responsabilita">3. Responsabilità e accordi da chiarire</label>
+      <p class="aiuto" id="aiuto-rosa-responsabilita">Chi chiarisce la disponibilità della figlia e coinvolge Rosa? Quali questioni spettano ai professionisti sanitari? Distingui azioni proposte e azioni già concordate.</p>
+      <textarea id="eq_rosa_responsabilita" name="eq_rosa_responsabilita" aria-describedby="aiuto-rosa-responsabilita"></textarea>
+      <label class="campo" for="eq_rosa_verifica">4. Che cosa verificare e quando ritrovarsi</label>
+      <p class="aiuto" id="aiuto-rosa-verifica">Quale cambiamento concreto osserverete rispetto all’obiettivo? Chi lo riferirà? Fissate un momento per rivedere la proposta.</p>
+      <textarea id="eq_rosa_verifica" name="eq_rosa_verifica" aria-describedby="aiuto-rosa-verifica"></textarea>
+      <div class="consegna-verbale"><h4>Chiudete la riunione con un verbale</h4><p>Nel gruppo assegnate anche il compito di verbalizzare. Rileggete insieme il testo: deve far capire quali informazioni avete usato, quali decisioni avete rivisto e chi deve fare che cosa. Segnalate i punti ancora da concordare con Rosa; non presentateli come accordi già raggiunti.</p><p><a href="verbale-equipe-rosa.docx" download>Scarica il format del verbale · Word modificabile</a></p></div>
+      <details class="autocontrollo"><summary>Prima di consegnare</summary><ul><li>Abbiamo distinto fatti riferiti, ipotesi e informazioni mancanti.</li><li>Il verbale fa capire la differenza fra prima proposta e decisione rivista.</li><li>Abbiamo previsto come ascoltare Rosa, senza attribuirle desideri non espressi.</li><li>Ogni azione ha un responsabile coerente con il proprio ruolo e un termine.</li><li>La verifica indica che cosa osservare e quando confrontarsi di nuovo.</li></ul></details>
+    </div>
+  </details>
   <div class="box info"><h4>Per il confronto in classe</h4><p>Chi ha notato per primo che qualcosa non andava, e perché proprio quella figura? Che cosa succederebbe se ognuno decidesse da solo? Come si coinvolgono Rosa e la figlia nella decisione?</p></div>
 </section>
 
@@ -290,10 +331,16 @@ a{color:var(--pd)}
   <textarea id="eq_d5" name="eq_d5"></textarea>
 </section>
 
-<p class="nota-doc">Riferimenti: D.M. 92/2018 (profilo e curricolo dell'indirizzo); legge 205/2017, commi 594-601 (educatori); legge 55/2024 (pedagogisti); D.M. 151/2023 (mediatori familiari); D.Lgs. 65/2017 (servizi per l'infanzia); Accordo Stato-Regioni del 22 febbraio 2001 (OSS).</p>
+<p class="nota-doc">Riferimenti: D.M. 92/2018 (profilo e curricolo dell'indirizzo); legge 205/2017, commi 594-601 (educatori); legge 55/2024 (pedagogisti); D.M. 151/2023 (mediatori familiari); D.Lgs. 65/2017 (servizi per l'infanzia); <a href="https://www.gazzettaufficiale.it/eli/id/2025/06/21/25A03429/SG">DPCM 25 marzo 2025 (profilo OSS)</a>, accordo allegato: artt. 1–2 (funzioni e collaborazione), 10 (formazione), 19 (crediti), 21–22 (qualifiche precedenti e transizione). Per le professioni pedagogiche: <a href="https://www.gazzettaufficiale.it/eli/id/2024/04/23/24G00072/sg">legge 55/2024</a>. Riscontro dei riferimenti OSS e degli albi pedagogici: 15 ottobre 2026.</p>
 </main>
+<aside id="pannello-lim" hidden aria-labelledby="lim-titolo">
+  <div class="lim-heading"><h2 id="lim-titolo">Caso Rosa · risposte della classe</h2><button type="button" id="chiudi-lim" class="secondario">Chiudi e nascondi le risposte</button></div>
+  <p>Risposte raccolte per domanda, senza nomi o codici degli studenti. Nelle risposte usate soltanto i personaggi del caso, senza inserire dati personali.</p>
+  <div class="lim-tools"><label for="lim-classe">Classe</label><input id="lim-classe" data-progress-ignore autocomplete="off" placeholder="es. 3sa" maxlength="4"><label for="lim-momento">Momento</label><select id="lim-momento" data-progress-ignore><option value="prima">Prima proposta</option><option value="revisione">Revisione dopo la telefonata</option></select><button type="button" id="aggiorna-lim">Leggi le risposte</button></div>
+  <p id="lim-stato" role="status"></p><div id="lim-risposte"></div>
+</aside>
 
-<footer>Metodologie Operative · Indirizzo Servizi per la sanità e l'assistenza sociale · IIS Meucci-Mattei, Decimomannu · <a href="../../terzo.html">Torna al terzo anno</a></footer>
+<footer>Metodologie Operative · Indirizzo Servizi per la sanità e l'assistenza sociale · IIS Meucci - Mattei | Decimomannu · <a href="../../terzo.html">Torna al terzo anno</a></footer>
 
 <script>
 const ES1 = [
@@ -310,7 +357,7 @@ const ES2 = [
   { t: "L'infermiere può prescrivere farmaci se il medico non c'è.", a: false, why: "Falso: prescrivere è compito del medico. L'infermiere somministra le terapie prescritte e gestisce l'assistenza infermieristica." },
   { t: "Lo psicoterapeuta può avere una formazione da psicologo oppure da medico.", a: true, why: "Vero: dopo l'abilitazione, sia lo psicologo sia il medico possono frequentare una scuola di psicoterapia di almeno quattro anni." },
   { t: "L'ostetrica è un infermiere con una specializzazione.", a: false, why: "Falso: l'ostetrica ha una propria laurea triennale ed è una professione autonoma." },
-  { t: "Il diploma del nostro indirizzo dà la qualifica di OSS.", a: false, why: "Falso: la qualifica OSS si ottiene solo con il corso regionale di 1000 ore. L'operatore sociale è un'altra figura." },
+  { t: "Il diploma del nostro indirizzo dà la qualifica di OSS.", a: false, why: "Falso: il diploma non attribuisce automaticamente la qualifica OSS, che richiede lo specifico percorso e l’esame. Il profilo recepito nel 2025 prevede almeno 1000 ore, con possibilità di crediti secondo le disposizioni applicabili." },
   { t: "Nell'équipe ogni professionista decide da solo quello che riguarda il suo campo, senza informare gli altri.", a: false, why: "Falso: il principio di interdipendenza chiede di condividere le informazioni utili e di decidere insieme il progetto." },
   { t: "L'educatore professionale può laurearsi in Scienze dell'educazione oppure in Educazione professionale.", a: true, why: "Vero: sono le due strade, socio-pedagogica e socio-sanitaria, e portano a lavorare in servizi in parte diversi." },
   { t: "Lo psichiatra e lo psicologo possono entrambi prescrivere farmaci.", a: false, why: "Falso: lo psichiatra è un medico e può prescriverli; lo psicologo no." },
@@ -355,7 +402,8 @@ window.addEventListener('mo:progress-restored',e=>{
 <script>
 window.MO_PROGRESS_CONFIG = {
   pagePath: window.location.pathname,
-  inputSelector: 'textarea, input, select',
+  inputSelector: 'main textarea, main select',
+  onRestore: function (saved) { return window.MOEquipe.restore(saved); },
   autoSave: true,
   onBeforeSave: function (data) {
     // I campi che questa pagina non conosce vengono conservati: nessuna risposta va persa.
@@ -363,7 +411,7 @@ window.MO_PROGRESS_CONFIG = {
     try {
       const campi = Array.from(document.querySelectorAll('main textarea, main select'));
       const compilati = campi.filter(el => String(el.value || '').trim().length > 0).length;
-      data._meta = { campiCompilati: compilati, totale: campi.length, percentuale: campi.length ? Math.round(compilati / campi.length * 100) : 0 };
+      data._meta = { ...(window.__moDatiCaricati?._meta || {}), campiCompilati: compilati, totale: campi.length, percentuale: campi.length ? Math.round(compilati / campi.length * 100) : 0 };
     } catch (e) {}
     return data;
   }
@@ -391,6 +439,7 @@ window.MO_IDENTITY_CONFIG = {
   guestStudentCode: 'ospite'
 };
 </script>
+<script src="../../assets/equipe-terza.js?v=20261015"></script>
 <script type="module" src="../../assets/progress.js?v=20260926"></script>
 <script type="module" src="../../assets/progress-global.js?v=20260926"></script>
 </body>
