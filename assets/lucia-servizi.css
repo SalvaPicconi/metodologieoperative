@@ -1,0 +1,73 @@
+@font-face{font-family:'DM Sans';src:url('collage-fonts/dm-sans-regular.ttf') format('truetype');font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:'DM Sans';src:url('collage-fonts/dm-sans-semibold.ttf') format('truetype');font-style:normal;font-weight:600 800;font-display:swap}
+@font-face{font-family:'DM Serif';src:url('collage-fonts/dm-serif-display.ttf') format('truetype');font-style:normal;font-weight:400;font-display:swap}
+:root{--carta:#f7f5ef;--foglio:#fffdf9;--testo:#202c3b;--blu:#17385a;--secondario:#5b6570;--bordo:#d7d9d8;--azzurro:#eaf0f4}
+html{scroll-behavior:smooth;scroll-padding-top:1.5rem}
+body{font-family:'DM Sans',sans-serif;background:var(--carta);color:var(--testo);line-height:1.65;padding:24px}
+.container{max-width:1120px;background:var(--foglio);padding:clamp(20px,4vw,56px);box-shadow:none;border:1px solid var(--bordo)}
+a{color:var(--blu);text-underline-offset:.18em}
+.skip-link{position:absolute;left:10px;top:-80px;z-index:10001;background:var(--blu);color:white;padding:12px}
+.skip-link:focus{top:10px}
+.header{text-align:left;border-bottom:1px solid var(--bordo);padding-bottom:24px}
+.back-link{display:inline-block;margin-bottom:20px}
+.school-name{font-size:.9rem;font-weight:600;color:var(--secondario)}
+.course-name{font-size:.95rem;color:var(--secondario)}
+h1{font-family:'DM Serif',Georgia,serif;font-weight:400;font-size:clamp(2.1rem,5vw,3.6rem);line-height:1.1;color:var(--blu);margin:16px 0}
+.caso-header{background:var(--blu);font-size:1.2rem;text-align:left;padding:20px 24px;border-radius:4px 4px 0 0}
+.caso{border-color:var(--bordo);border-radius:4px;overflow:visible;box-shadow:none;break-before:auto}
+.caso-testo{background:var(--azzurro);border-bottom:1px solid var(--bordo);font-size:1rem}
+.domanda-titolo{display:block;color:var(--blu);font-weight:600}
+.student-info,.istruzioni{background:var(--azzurro);border:1px solid var(--bordo);border-radius:4px}
+.istruzioni h3,.istruzioni ul{color:var(--testo)}
+input,textarea,select,button{font:inherit}
+input,textarea,select{color:var(--testo);background:white;border:1px solid #7a858c;border-radius:3px;max-width:100%}
+textarea{min-height:120px;resize:vertical;line-height:1.6;overflow-wrap:anywhere}
+textarea:focus,input:focus,select:focus{border-color:var(--blu);box-shadow:none}
+:focus-visible{outline:3px solid #a75134;outline-offset:3px}
+button,.azione-lucia{background:var(--blu);color:#fff;border:1px solid var(--blu);border-radius:3px;padding:10px 16px;min-height:44px;font-weight:600;cursor:pointer;line-height:1.4}
+button:hover,.azione-lucia:hover{background:#254e73;color:#fff}
+.secondario,.btn-print{background:var(--foglio);color:var(--blu)}
+.btn-export{background:var(--blu);color:white}
+.secondario:hover,.btn-print:hover{background:var(--azzurro);color:var(--blu)}
+.azione-lucia{display:inline-flex;align-items:center;text-decoration:none}
+.strumenti-pagina{padding:18px 0 24px;border-bottom:1px solid var(--bordo);margin-bottom:28px}
+.azioni-pagina,.strumenti-lucia{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:16px 0}
+#identity-tools{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+#identity-tools #studentLabel,#identity-tools #resetStudent{position:static!important;box-shadow:none!important}
+#identity-tools #studentLabel{background:var(--azzurro)!important;color:var(--testo)!important;font-size:.9rem!important}
+#identity-tools #resetStudent{background:var(--foglio)!important;color:var(--blu)!important;border:1px solid var(--bordo)!important}
+#stato-lavoro,.aiuto-campo{font-size:.93rem;color:var(--secondario)}
+.lucia{padding:28px 24px;border-top:1px solid var(--bordo)}
+.lucia .sopratitolo{text-transform:uppercase;letter-spacing:.07em;font-size:.8rem;color:var(--secondario);font-weight:600}
+.lucia h2{font-family:'DM Serif',Georgia,serif;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:400;line-height:1.2;color:var(--blu);margin:8px 0 18px}
+.lucia h3{font-size:1.25rem;line-height:1.35;color:var(--blu);margin:32px 0 12px}
+.lucia h4{font-size:1rem;color:var(--blu);margin-bottom:8px}
+.lucia p{margin-bottom:14px}
+.lucia label{display:block;margin:24px 0 8px;font-weight:600;color:var(--blu)}
+.lucia textarea{width:100%;padding:12px;margin:0}
+.lucia select{width:100%;max-width:520px;padding:12px;min-height:48px}
+.nota-lucia,.checklist-lucia{background:var(--azzurro);padding:20px;border-left:3px solid var(--blu);margin:24px 0}
+.nota-lucia h3{margin-top:0}
+.nota-lucia p:last-child,.checklist-lucia p:last-child{margin-bottom:0}
+.alternative-lucia{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:16px 0;border-top:1px solid var(--bordo);border-bottom:1px solid var(--bordo)}
+.alternative-lucia>div{min-width:0}
+.schede-lucia{border:1px solid var(--bordo);padding:18px;margin:20px 0;background:#fff}
+.schede-lucia summary{cursor:pointer;color:var(--blu);font-weight:600;min-height:44px}
+.schede-lucia article{border-top:1px solid var(--bordo);padding-top:18px;margin-top:18px}
+.schede-lucia article p{margin-bottom:8px}
+.etichetta-simulazione{margin-top:14px;color:var(--secondario)}
+.fonti-lucia{font-size:.9rem;margin-top:20px}
+.lim-panel{border:2px solid var(--blu);padding:24px;margin:24px 0;background:var(--foglio)}
+.lim-panel h2{font-family:'DM Serif',Georgia,serif;font-weight:400;color:var(--blu);font-size:2rem}
+.lim-panel label{display:block;font-weight:600;margin-top:16px}
+.lim-panel input,.lim-panel select{padding:10px;max-width:100%;width:450px}
+.lim-risposta{border-top:1px solid var(--bordo);padding-top:20px;margin-top:20px;overflow-wrap:anywhere}
+.lim-risposta h3{color:var(--blu);font-size:1.15rem}
+.lim-risposta ul{padding-left:24px}
+.lim-risposta li{font-size:1.25rem;margin:14px 0;white-space:pre-wrap}
+body.lim .student-info,body.lim .istruzioni,body.lim .caso,body.lim .buttons,body.lim .site-footer{display:none}
+[hidden]{display:none!important}
+.site-footer a{color:var(--blu)}
+@media(max-width:650px){body{padding:8px}.container{padding:20px 14px}.student-info{grid-template-columns:1fr;padding:16px}.caso-header,.caso-testo,.domanda,.lucia{padding:18px 14px}.alternative-lucia{grid-template-columns:1fr;gap:8px}.azioni-pagina button,.strumenti-lucia>*{width:100%;justify-content:center}.lim-panel{padding:16px}body .student-info{gap:16px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+@media print{body{background:white;padding:0;color:#000}.container{max-width:none;padding:0;border:0;box-shadow:none}.strumenti-pagina,.skip-link,.buttons,.strumenti-lucia,.back-link,.site-footer,#mostra-imprevisto,.lim-panel,#studentLabel,#resetStudent,[data-save-progress],.home-floating-link{display:none!important}.caso{break-inside:auto;margin-bottom:20px}.domanda,.nota-lucia,.schede-lucia article{break-inside:avoid}.caso-header{background:white;color:#000;border-bottom:2px solid #444}.caso-testo,.nota-lucia,.checklist-lucia{background:#fff;border-color:#777}textarea{border-color:#777;height:auto;min-height:90px}.lucia{padding:20px 0}body.print-lucia .caso:not(#caso-lucia){display:none}.student-info{background:white}.alternative-lucia{grid-template-columns:1fr 1fr}.schede-lucia summary{min-height:0}}
