@@ -409,9 +409,14 @@ window.MO_PROGRESS_CONFIG = {
     // I campi che questa pagina non conosce vengono conservati: nessuna risposta va persa.
     try { const prima = window.__moDatiCaricati || {}; Object.keys(prima).forEach(k => { if (k !== '_meta' && !(k in data)) data[k] = prima[k]; }); } catch (e) {}
     try {
-      const campi = Array.from(document.querySelectorAll('main textarea, main select'));
+      const tutti = Array.from(document.querySelectorAll('main textarea, main select'));
+      // La revisione è un'aggiunta: il completamento dei 30 campi precedenti non diminuisce.
+      const campi = tutti.filter(el => !el.id.startsWith('eq_rosa_'));
+      const revisione = tutti.filter(el => el.id.startsWith('eq_rosa_'));
       const compilati = campi.filter(el => String(el.value || '').trim().length > 0).length;
-      data._meta = { ...(window.__moDatiCaricati?._meta || {}), campiCompilati: compilati, totale: campi.length, percentuale: campi.length ? Math.round(compilati / campi.length * 100) : 0 };
+      const precedente = window.__moDatiCaricati?._meta || {};
+      data._meta = { ...precedente, campiCompilati: compilati, totale: campi.length, percentuale: campi.length ? Math.round(compilati / campi.length * 100) : 0,
+        rosaRevisione: { ...(precedente.rosaRevisione || {}), compilati: revisione.filter(el => String(el.value || '').trim().length > 0).length, totale: revisione.length } };
     } catch (e) {}
     return data;
   }
