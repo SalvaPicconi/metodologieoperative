@@ -9,7 +9,7 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
-- **2026-10-15** · Codex · Preparata in locale la lezione di prima sui bisogni e la relazione d’aiuto: schema originale, sei tappe, casi guidati e scheda Word. Collegata alla UDA 5 e al catalogo del biennio; pubblicazione da autorizzare.
+- **2026-10-15** · Codex · Lezione di prima sui bisogni e la relazione d’aiuto: schema originale, sei tappe, casi guidati e scheda Word. Collegata alla UDA 5 e al catalogo del biennio. (`c5a37a1`)
 
 - **2026-10-14** · Codex · Separate le 16 UDA Carola in una sezione con password e catalogo protetto sul server; restano pubbliche le 43 UDA Picconi e integrate. Numeri, contenuti, annotazioni e pianificazioni già salvate conservati.
 
