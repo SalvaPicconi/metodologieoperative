@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-15** · Codex · Terza: il caso Rosa comprende la revisione dopo la telefonata della figlia, un verbale Word e le risposte anonime per la LIM. Corretti gli esempi D2/D3 del collage naturale, conservando la scheda. (`11e97e3`)
+
 - **2026-10-15** · Codex · Lezione di prima sui bisogni e la relazione d’aiuto: schema originale, sei tappe, casi guidati e scheda Word. Collegata alla UDA 5 e al catalogo del biennio. (`c5a37a1`)
 
 - **2026-10-14** · Codex · Separate le 16 UDA Carola in una sezione con password e catalogo protetto sul server; restano pubbliche le 43 UDA Picconi e integrate. Numeri, contenuti, annotazioni e pianificazioni già salvate conservati.
