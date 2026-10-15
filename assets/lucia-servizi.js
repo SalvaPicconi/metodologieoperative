@@ -99,8 +99,19 @@
   window.exportPDF = function () {
     if (!window.html2pdf) { alert('Il download PDF non è disponibile. Usa «Stampa» e scegli Salva come PDF.'); return; }
     const nome = byId('nome').value || 'Studente', classe = byId('classe').value || 'Classe';
+    const position = { x: window.scrollX, y: window.scrollY }, behavior = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = 'auto';
+    window.scrollTo(0, 0);
     beforePrint();
-    window.html2pdf().set({ margin: 10, filename: `Esercitazione_${nome.replace(/\s+/g, '_')}_${classe}.pdf`, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } }).from(byId('content')).save().then(afterPrint, () => { afterPrint(); alert('Usa «Stampa» per salvare il lavoro come PDF.'); });
+    const finish = () => { afterPrint(); window.scrollTo(position.x, position.y); document.documentElement.style.scrollBehavior = behavior; };
+    const canvasOptions = { scale: 1, scrollX: 0, scrollY: 0, onclone(doc) {
+      doc.querySelectorAll('.strumenti-pagina,.strumenti-lucia,.buttons,.back-link,.site-footer,#mostra-imprevisto').forEach(el => { el.style.display = 'none'; });
+      doc.querySelectorAll('[placeholder]').forEach(el => el.removeAttribute('placeholder'));
+    } };
+    window.html2pdf().set({ margin: 10, filename: `Esercitazione_${nome.replace(/\s+/g, '_')}_${classe}.pdf`, image: { type: 'jpeg', quality: 0.98 }, html2canvas: canvasOptions, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } }).from(byId('content')).toContainer().get('container').then(function (container) {
+      // Misura il contenitore già impaginato: documenti lunghi restano entro i limiti del canvas.
+      this.set({ html2canvas: { ...canvasOptions, scale: Math.min(1, 16000 / Math.max(container.scrollHeight, container.scrollWidth, 1)) } });
+    }).save().then(finish, () => { finish(); alert('Usa «Stampa» per salvare il lavoro come PDF.'); });
   };
   // Il comando precedente resta disponibile senza toccare chiavi sconosciute.
   window.clearAll = function () {

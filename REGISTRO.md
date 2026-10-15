@@ -9,7 +9,7 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
-- **2026-10-15** · Codex · Terza: il caso Lucia ora comprende il dossier Word, la scelta motivata fra griglia e mappa, schede simulate sull’accesso ai servizi e revisione dopo una nuova informazione. Le risposte precedenti sono conservate; confronto anonimo sulla LIM.
+- **2026-10-15** · Codex · Terza: il caso Lucia ora comprende il dossier Word, la scelta motivata fra griglia e mappa, schede simulate sull’accesso ai servizi e revisione dopo una nuova informazione. Le risposte precedenti sono conservate; confronto anonimo sulla LIM. (`5a21642`)
 
 - **2026-10-15** · Codex · Terza: il caso Rosa comprende la revisione dopo la telefonata della figlia, un verbale Word e le risposte anonime per la LIM. Corretti gli esempi D2/D3 del collage naturale, conservando la scheda. (`11e97e3`)
 
