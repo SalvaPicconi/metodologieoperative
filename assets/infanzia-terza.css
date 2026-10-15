@@ -1,0 +1,58 @@
+@font-face{font-family:'DM Sans';src:url('collage-fonts/dm-sans-regular.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:'DM Sans';src:url('collage-fonts/dm-sans-semibold.ttf') format('truetype');font-weight:600 800;font-display:swap}
+@font-face{font-family:'DM Serif Display';src:url('collage-fonts/dm-serif-display.ttf') format('truetype');font-weight:400;font-display:swap}
+:root{--infanzia-blue:#17385a;--infanzia-paper:#f7f5ef;--infanzia-ink:#202c3b;--infanzia-line:#c9d0d4;--color-primary:#17385a;--color-primary-dark:#17385a;--color-primary-darker:#122c47;--color-primary-light:#63819b;--color-primary-tint:#eaf0f4;--font-heading:'DM Serif Display',Georgia,serif;--font-body:'DM Sans',sans-serif}
+html{scroll-padding-top:5rem}
+body{background:var(--infanzia-paper);color:var(--infanzia-ink);font-family:'DM Sans',sans-serif;font-size:17px;line-height:1.65}
+header{background:var(--infanzia-paper);color:var(--infanzia-ink);border-bottom:1px solid var(--infanzia-line);padding:1.5rem 0}
+header h1{font-family:'DM Serif Display',Georgia,serif;font-weight:400;color:var(--infanzia-blue);font-size:clamp(1.6rem,3vw,2.2rem)}
+header p{color:#4c5965}
+main .container{max-width:1080px}
+main{padding-top:1.5rem;padding-bottom:4rem}
+.page-title{padding:1.3rem 0 1.7rem;border:0;border-radius:0;box-shadow:none;background:transparent}
+.page-title h2{font:400 clamp(2.3rem,5vw,3.6rem)/1.12 'DM Serif Display',Georgia,serif;color:var(--infanzia-blue);margin:.6rem 0 1rem}
+.page-title p,.card>p,.infanzia-reading p{max-width:80ch}
+.page-title .infanzia-eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.09em;color:#4c5965}
+.page-title .infanzia-lead{font-size:1.2rem}
+.page-title .breadcrumb a{color:var(--infanzia-blue)}
+.card{border:1px solid var(--infanzia-line);border-radius:5px;box-shadow:none;background:#fffdf9;margin:1.5rem 0;padding:clamp(1rem,3vw,2rem)}
+.card h3{font:400 1.85rem/1.25 'DM Serif Display',Georgia,serif;color:var(--infanzia-blue);margin:0 0 1rem}
+.card h4{font-size:1.08rem;color:var(--infanzia-blue);margin:1.3rem 0 .5rem}
+.indice-pagina{display:flex;flex-wrap:wrap;gap:.4rem .7rem;background:#fffdf9;border:1px solid var(--infanzia-line);padding:.6rem}
+.indice-pagina a{display:inline-flex;align-items:center;min-height:44px;padding:.25rem .55rem;border-radius:3px;color:var(--infanzia-blue);background:#eaf0f4}
+main a{color:var(--infanzia-blue);text-decoration:underline;text-underline-offset:3px}
+.infanzia-skills,.infanzia-downloads{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1rem 0}
+.infanzia-skills article,.infanzia-downloads article{min-width:0;padding:1rem;border:1px solid var(--infanzia-line);border-radius:4px}
+.infanzia-skills article h4,.infanzia-downloads article h4{margin-top:0}
+.infanzia-skills p{margin:.55rem 0}
+.infanzia-quote{font-size:1.08rem;border-left:3px solid #63819b;padding-left:.8rem}
+.infanzia-note,.infanzia-case{background:#eaf0f4;border-left:4px solid var(--infanzia-blue);padding:.4rem 1.1rem;margin:1.2rem 0}
+.infanzia-note h4{margin-top:.8rem}
+.btn-download{display:inline-flex;align-items:center;min-height:44px;border:1px solid var(--infanzia-blue);border-radius:4px;background:var(--infanzia-blue);color:#fff;padding:.65rem .85rem;text-align:left;font-weight:600;line-height:1.4}
+.btn-download:hover{background:#284d6d;color:#fff}
+.infanzia-reading{margin:1.2rem 0;border-block:1px solid var(--infanzia-line);padding:0 .2rem}
+summary{cursor:pointer;min-height:44px;padding:.8rem .2rem;font-weight:600;color:var(--infanzia-blue)}
+.progress-box{padding:1rem;background:#fffdf9;border:1px solid var(--infanzia-line);border-radius:4px;margin-top:2rem}
+.progress-box label{display:block;margin:.8rem 0 .4rem;font-weight:600}
+.progress-box textarea{font:inherit;background:#fff;color:var(--infanzia-ink);width:100%;min-height:10rem;border:1px solid #8796a3;border-radius:3px;padding:.7rem}
+.infanzia-help,#infanzia-stato{color:#4c5965;font-size:.92rem}
+.infanzia-tools{display:flex;gap:.7rem;flex-wrap:wrap}
+.infanzia-tools button{font:600 1rem 'DM Sans',sans-serif;min-height:44px;padding:.65rem .9rem;background:var(--infanzia-blue);color:#fff;border:1px solid var(--infanzia-blue);border-radius:4px;cursor:pointer}
+.infanzia-tools button:disabled{opacity:.6;cursor:wait}
+.skip-link{position:fixed;left:1rem;top:-10rem;background:#fff;padding:.75rem;z-index:10001;color:var(--infanzia-blue)}
+.skip-link:focus{top:.5rem}
+:focus-visible{outline:3px solid #9b4c0a;outline-offset:4px}
+[hidden]{display:none!important}
+#infanzia-identita{max-width:1080px;display:flex;flex-wrap:wrap;align-items:center;gap:.65rem;padding-top:1rem}
+#infanzia-identita #studentLabel,#infanzia-identita #resetStudent,#infanzia-identita .home-floating-link{position:static!important;inset:auto!important;margin:0!important;background:#eaf0f4!important;color:var(--infanzia-blue)!important;border:1px solid var(--infanzia-line)!important;border-radius:4px!important;box-shadow:none!important;font:600 .85rem 'DM Sans',sans-serif!important;padding:.6rem .8rem!important;min-height:44px;display:inline-flex;align-items:center;line-height:1.4}
+body>nav li.nav-ai a{background:var(--infanzia-blue);color:#fff}
+body>nav li.nav-ai a:hover,body>nav li.nav-ai a:focus{background:#284d6d;color:#fff}
+@media(max-width:600px){.infanzia-skills,.infanzia-downloads{grid-template-columns:1fr}.container{padding-inline:1rem}.card{padding:1rem}.page-title h2{font-size:2.35rem}.indice-pagina{position:static}html{scroll-padding-top:1rem}.btn-download{width:100%;overflow-wrap:anywhere}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{body{background:#fff;font-size:11pt}header,body>nav,.indice-pagina,.skip-link,.home-floating-link,#studentLabel,#resetStudent,.infanzia-tools,#infanzia-stato{display:none!important}main{padding:0}.container{max-width:none;padding:0}.card{border:0;padding:0;margin:1rem 0}.infanzia-skills,.infanzia-downloads{display:block}.infanzia-skills article,.infanzia-downloads article{break-inside:avoid;margin:.5rem 0}h3,h4{break-after:avoid}.infanzia-reading{border:0}details>*{display:block!important}details>summary{display:block}.btn-download{background:#fff!important;color:#17385a!important;border:0;padding:0}a{color:#17385a!important}.page-title h2{font-size:26pt}.progress-box{break-before:page}textarea{min-height:5rem}}
+@media print{#infanzia-identita{display:none!important}}
+
++#confronto-terza label{display:block;font-weight:600;margin:1.4rem 0 .4rem;color:#17385a}#confronto-terza textarea{display:block;width:100%;font:inherit;line-height:1.6;min-height:9rem;padding:.7rem;border:1px solid #8796a3;background:#fff;border-radius:3px;color:#202c3b}
+#pannello-lim{max-width:1192px;margin:2rem auto;padding:clamp(1rem,3vw,2rem);background:#fffdf9;border:2px solid #17385a}.lim-heading,.lim-tools{display:flex;flex-wrap:wrap;align-items:center;gap:.8rem}.lim-heading{justify-content:space-between}.lim-tools input{font:inherit;width:6rem;padding:.5rem}.lim-tools button,.lim-heading button{font:600 1rem 'DM Sans',sans-serif;color:#fff;background:#17385a;border:1px solid #17385a;border-radius:4px;min-height:44px;padding:.6rem .9rem}.lim-risposta{padding:1rem;margin:1rem 0;background:#eaf0f4}.lim-risposta li{padding:.8rem .3rem;font-size:1.2rem;white-space:pre-wrap;overflow-wrap:anywhere;border-bottom:1px solid #c9d0d4}body.lim main,body.lim header,body.lim>nav,body.lim footer,body.lim #infanzia-identita{display:none!important}body.lim #pannello-lim{font-size:20px}#infanzia-scarica{background:#fffdf9;color:#17385a}
+@media(max-width:600px){.lim-tools{align-items:stretch;flex-direction:column}.lim-tools input{width:100%}#materiali-infanzia .file-list{grid-template-columns:1fr!important}}
+@media print{#pannello-lim,#confronto-terza{display:none!important}}

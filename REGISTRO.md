@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-15** · Codex · Terza, infanzia: progetto per i 3–6 anni dal collage già disponibile, con scheda Word, prova dell’allestimento e revisione. Tre sintesi salvabili e confronto anonimo alla LIM; materiali precedenti conservati. (anteprima locale)
+
 - **2026-10-15** · Codex · Terza, SerD: primo colloquio con Marco, schede Word per i ruoli e resoconto con bozza di piano. Ascolto e gestione del rifiuto, conservando diario e materiali precedenti. (`870cfca`)
 
 - **2026-10-15** · Codex · Terza: il caso Lucia ora comprende il dossier Word, la scelta motivata fra griglia e mappa, schede simulate sull’accesso ai servizi e revisione dopo una nuova informazione. Le risposte precedenti sono conservate; confronto anonimo sulla LIM. (`5a21642`)
