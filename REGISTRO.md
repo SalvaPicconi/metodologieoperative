@@ -29,8 +29,11 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 - **2026-10-14** · Codex · Programmi per i colleghi: consultazione diretta, nuova veste grafica e tempi lasciati al docente. Prima: profilo dell’operatore, bisogni e titolo di educazione civica corretti; sei allegati originali recuperati. Separazione della programmazione Carola rinviata. (`233797e`)
 
+- **2026-10-14** · Claude · Tappa 4, «Proprietà per proprietà» riscritta come «Confronta le due reti: cinque domande»: domande semplici, scelta Giulia/Marco/uguale, la frase del racconto come indizio e un esempio svolto; risposte già date conservate.
+- **2026-10-14** · Claude · Mappa della rete: ogni legame ha la sua natura, rapporto informale o formale, indipendente dai nodi (la zia può avere un rapporto informale con Giulia e uno formale con la coordinatrice); le mappe già salvate non cambiano.
 - **2026-10-13** · Codex · Collage autobiografico: flusso unico con teoria e dodici opere prima della scelta; nucleo inserito con un clic e due domande semplici da scrivere con esempi. Nuova veste bianco caldo e blu, materiali illustrati e risposte precedenti conservate. (`dd192b4`)
 - **2026-10-13** · Codex · Collage autobiografico di seconda: nuclei ed emozioni, foto facoltative, materiali spiegati, dodici opere autentiche e riquadro UDA; conservati i campi precedenti e corretto il ripristino delle risposte locali. (`d274537`)
+- **2026-10-12** · Claude · «Mappe di rete» si apre su «Un alunno alla volta»: nome grande e le sue due mappe, Giulia e Marco, con ◀ ▶ e frecce della tastiera per passare al successivo.
 - **2026-10-12** · Claude · «Lavori della classe» → «Mappe di rete»: vista per alunno con la mappa di Giulia e quella di Marco affiancate (resta la vista per caso).
 - **2026-10-12** · Claude · Mappa della rete: il pulsante «🔄 Ho sbagliato: scambia Giulia e Marco» corregge chi ha attribuito la mappa al caso sbagliato, senza toccare i disegni.
 - **2026-10-12** · Claude · Percorso «Operatore sociale», tappa 4: gli studenti disegnano tutte e due le reti, Giulia e Marco, salvate separatamente (chi aveva già una mappa indica di chi è, senza perderla); il docente le vede divise per caso in «Lavori della classe».

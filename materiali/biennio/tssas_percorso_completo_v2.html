@@ -346,6 +346,12 @@
         .a4-tab small { font-weight: 400; color: var(--ink-soft); margin-left: 4px; }
         .a4-tab.on { background: var(--lime); border-color: var(--lime-dark); }
         .a4-chiedi { background: var(--warn-bg); border: 2px solid #eab308; border-radius: 12px; padding: 8px 12px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+        .reg-uno-nav { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 4px 0 12px; }
+        .reg-uno-nav .btn { font-size: 1.3em; padding: 8px 18px; }
+        .reg-uno-nome { font-size: 1.6em; font-weight: 800; color: var(--turchese-deep); text-align: center; min-width: 220px; line-height: 1.2; }
+        .reg-uno-nome small { display: block; font-size: .5em; font-weight: 400; color: var(--ink-soft); }
+        .reg-uno figcaption { font-size: 1.05em; margin-bottom: 4px; }
+        .reg-uno .reg-manca div { min-height: 300px; font-size: 1.1em; }
         .reg-alunno { border: 1px solid var(--line); border-radius: 12px; padding: 8px 12px 12px; margin: 10px 0; background: white; }
         .reg-alunno > h4 { display: flex; gap: 8px; align-items: baseline; margin-bottom: 6px; }
         .reg-alunno > h4 .meta { font-weight: 400; font-size: .85em; color: var(--ink-soft); }
@@ -376,6 +382,16 @@
         .prop-griglia .prop-nome span { display: block; font-size: .82em; color: var(--ink-soft); }
         .prop-griglia select, .prop-griglia input[type="text"] { width: 100%; }
         @media (max-width: 640px) { .prop-griglia .prop-row { grid-template-columns: 1fr; } }
+        .prop-esempio { background: var(--warn-bg); border-left: 4px solid #eab308; border-radius: 8px; padding: 8px 12px; margin: 8px 0 12px; font-size: .93em; }
+        .prop-card { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; margin: 10px 0; background: white; }
+        .prop-dom { display: flex; gap: 10px; align-items: flex-start; font-size: 1.02em; }
+        .prop-n { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--turchese-deep); color: white; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+        .prop-nome2 { display: block; font-size: .75em; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--turchese-deep); }
+        .prop-aiuto { display: block; font-size: .85em; color: var(--ink-soft); margin-top: 2px; }
+        .prop-ctrl { display: grid; grid-template-columns: minmax(150px, .35fr) 1fr; gap: 10px; margin-top: 8px; padding-left: 38px; }
+        .prop-l { display: flex; flex-direction: column; gap: 4px; font-size: .82em; font-weight: 700; color: var(--ink-soft); }
+        .prop-l select, .prop-l input { font: inherit; font-size: 1.15em; font-weight: 400; color: var(--ink); border: 2px solid var(--line); border-radius: 10px; padding: 7px 9px; background: white; width: 100%; }
+        @media (max-width: 640px) { .prop-ctrl { grid-template-columns: 1fr; padding-left: 0; } }
         .pensiero-per-te { margin: 22px 0 8px; padding: 16px 20px; border-radius: 16px; background: linear-gradient(135deg, #fff 0%, var(--spiego) 100%); border: 2px solid var(--turchese); }
         .pensiero-per-te h3 { color: var(--turchese-deep); margin-bottom: 8px; }
         .pensiero-per-te p { margin: 8px 0; }
@@ -999,41 +1015,52 @@
                         </div>
                         <div class="mappa-rete" id="a4-box">
                             <div class="nt">🖊️ Disegna le due reti, Giulia e Marco <span class="bonus-tag">bonus</span></div>
-                            <p class="hint">Aggiungi i nodi (ruoli, mai nomi veri), poi collegali. Puoi trascinare i nodi e, toccandoli, rinominarli o eliminarli anche dopo. La pagina conta nodi, legami, ponti e nodi isolati. Disegna tutte e due le reti, Giulia e Marco: passi dall'una all'altra con i pulsanti qui sotto e restano salvate entrambe.</p>
+                            <p class="hint">Aggiungi i nodi (ruoli, mai nomi veri), poi collegali. Ogni legame ha la sua forza (forte, debole, ponte) e la sua natura: <strong>rapporto informale</strong> o <strong>formale</strong>, anche tra le stesse persone (la zia ha un rapporto informale con Giulia e uno formale con la coordinatrice). Puoi trascinare i nodi e, toccandoli, rinominarli o eliminarli anche dopo. La pagina conta nodi, legami, ponti e nodi isolati. Disegna tutte e due le reti, Giulia e Marco: passi dall'una all'altra con i pulsanti qui sotto e restano salvate entrambe.</p>
                             <div class="a4-tabs" id="a4-tabs"></div>
                             <div class="mr-row"><input type="text" id="a4-nodo" data-progress-ignore maxlength="22" placeholder="es. zia, allenatrice, consultorio" aria-label="Nome del nodo"><select id="a4-tipo" data-progress-ignore aria-label="Tipo di nodo"><option value="inf">informale</option><option value="for">formale</option></select><button class="btn btn-sm" type="button" onclick="a4AggiungiNodo()">+ Nodo</button></div>
-                            <div class="mr-row"><select id="a4-da" data-progress-ignore aria-label="Da"></select><span>↔</span><select id="a4-a" data-progress-ignore aria-label="A"></select><select id="a4-leg" data-progress-ignore aria-label="Tipo di legame"><option value="forte">legame forte</option><option value="debole">legame debole</option><option value="ponte">ponte</option></select><button class="btn btn-sm" type="button" onclick="a4Collega()">+ Legame</button><button class="btn btn-sm btn-soft" type="button" onclick="a4Annulla()">↶ Annulla l'ultima mossa</button></div>
+                            <div class="mr-row"><select id="a4-da" data-progress-ignore aria-label="Da"></select><span>↔</span><select id="a4-a" data-progress-ignore aria-label="A"></select><select id="a4-leg" data-progress-ignore aria-label="Tipo di legame"><option value="forte">legame forte</option><option value="debole">legame debole</option><option value="ponte">ponte</option></select><select id="a4-nat" data-progress-ignore aria-label="Natura del rapporto"><option value="inf">rapporto informale</option><option value="for">rapporto formale</option></select><button class="btn btn-sm" type="button" onclick="a4Collega()">+ Legame</button><button class="btn btn-sm btn-soft" type="button" onclick="a4Annulla()">↶ Annulla l'ultima mossa</button></div>
                             <svg id="a4-svg" viewBox="0 0 600 360" role="img" aria-label="La tua mappa della rete"></svg>
                             <div class="mr-row a4-sel" id="a4-sel"></div>
                             <div class="mr-conta" id="a4-conta"></div>
                         </div>
                         <div class="campo prop-griglia">
-                            <label>Proprietà per proprietà <span class="pts">+5</span></label>
-                            <p class="hint">Per ognuna delle cinque proprietà scegli in quale rete è più forte e scrivi l'indizio che hai trovato nel testo. Attenzione: più forte non vuol dire sempre migliore.</p>
-                            <div class="prop-row">
-                                <div class="prop-nome"><strong>Ampiezza</strong><span>quanti nodi ci sono</span></div>
-                                <select id="rete2-p-ampiezza" name="rete2-p-ampiezza" aria-label="Ampiezza: in quale rete è più forte"><option value="">più forte in…</option><option value="A">A · Giulia</option><option value="B">B · Marco</option><option value="pari">pari o dipende</option></select>
-                                <input type="text" id="rete2-i-ampiezza" name="rete2-i-ampiezza" data-points="1" aria-label="Ampiezza: l'indizio nel testo" placeholder="l'indizio nel testo">
+                            <label>Confronta le due reti: cinque domande <span class="pts">+5</span></label>
+                            <p class="hint">Per ogni domanda fai due cose: <strong>1)</strong> scegli <strong>Giulia</strong>, <strong>Marco</strong> o «uguale»; <strong>2)</strong> scrivi la frase del racconto che te lo fa capire (puoi copiarla o dirla con parole tue). Attenzione: «di più» non vuol dire sempre «meglio».</p>
+                            <div class="prop-esempio"><strong>Esempio, su un'altra storia.</strong> Luca esce con tre amici, Sara con uno solo. <em>Chi ha più persone intorno?</em> → <strong>Luca</strong> · <em>Perché?</em> → «Luca esce con tre amici».</div>
+                            <div class="prop-card">
+                                <div class="prop-dom"><span class="prop-n">1</span><div><span class="prop-nome2">Ampiezza</span>Chi ha <strong>più persone</strong> intorno?<span class="prop-aiuto">Conta i nodi: chi c'è vicino al ragazzo o alla ragazza.</span></div></div>
+                                <div class="prop-ctrl">
+                                    <label class="prop-l">La risposta<select id="rete2-p-ampiezza" name="rete2-p-ampiezza" aria-label="1 · Ampiezza: Chi ha più persone intorno?"><option value="">scegli…</option><option value="A">👧 Giulia</option><option value="B">👦 Marco</option><option value="pari">uguale o dipende</option></select></label>
+                                    <label class="prop-l prop-l-wide">Perché? La frase del racconto che te lo fa capire<input type="text" id="rete2-i-ampiezza" name="rete2-i-ampiezza" data-points="1" aria-label="1 · Ampiezza: la frase del racconto" placeholder="scrivi qui la frase del racconto…"></label>
+                                </div>
                             </div>
-                            <div class="prop-row">
-                                <div class="prop-nome"><strong>Forza e reciprocità</strong><span>legami stabili e fidati; l'aiuto va nei due sensi o qualcuno si sovraccarica?</span></div>
-                                <select id="rete2-p-forza" name="rete2-p-forza" aria-label="Forza e reciprocità: in quale rete è più forte"><option value="">più forte in…</option><option value="A">A · Giulia</option><option value="B">B · Marco</option><option value="pari">pari o dipende</option></select>
-                                <input type="text" id="rete2-i-forza" name="rete2-i-forza" data-points="1" aria-label="Forza e reciprocità: l'indizio nel testo" placeholder="l'indizio nel testo">
+                            <div class="prop-card">
+                                <div class="prop-dom"><span class="prop-n">2</span><div><span class="prop-nome2">Forza e reciprocità</span>Chi ha persone <strong>vicine e fidate</strong> che lo aiutano davvero, adesso?<span class="prop-aiuto">Guarda anche se qualcuno dà tanto senza ricevere aiuto: rischia di stancarsi.</span></div></div>
+                                <div class="prop-ctrl">
+                                    <label class="prop-l">La risposta<select id="rete2-p-forza" name="rete2-p-forza" aria-label="2 · Forza e reciprocità: Chi ha persone vicine e fidate che lo aiutano davvero, adesso?"><option value="">scegli…</option><option value="A">👧 Giulia</option><option value="B">👦 Marco</option><option value="pari">uguale o dipende</option></select></label>
+                                    <label class="prop-l prop-l-wide">Perché? La frase del racconto che te lo fa capire<input type="text" id="rete2-i-forza" name="rete2-i-forza" data-points="1" aria-label="2 · Forza e reciprocità: la frase del racconto" placeholder="scrivi qui la frase del racconto…"></label>
+                                </div>
                             </div>
-                            <div class="prop-row">
-                                <div class="prop-nome"><strong>Densità</strong><span>quanto i nodi si conoscono fra loro: coordina l'aiuto, ma può anche controllare</span></div>
-                                <select id="rete2-p-densita" name="rete2-p-densita" aria-label="Densità: in quale rete è più forte"><option value="">più forte in…</option><option value="A">A · Giulia</option><option value="B">B · Marco</option><option value="pari">pari o dipende</option></select>
-                                <input type="text" id="rete2-i-densita" name="rete2-i-densita" data-points="1" aria-label="Densità: l'indizio nel testo" placeholder="l'indizio nel testo">
+                            <div class="prop-card">
+                                <div class="prop-dom"><span class="prop-n">3</span><div><span class="prop-nome2">Densità</span>In quale rete le persone <strong>si conoscono di più tra loro</strong>?<span class="prop-aiuto">Utile per organizzarsi in fretta, ma attenzione: le notizie girano anche quando non dovrebbero.</span></div></div>
+                                <div class="prop-ctrl">
+                                    <label class="prop-l">La risposta<select id="rete2-p-densita" name="rete2-p-densita" aria-label="3 · Densità: In quale rete le persone si conoscono di più tra loro?"><option value="">scegli…</option><option value="A">👧 Giulia</option><option value="B">👦 Marco</option><option value="pari">uguale o dipende</option></select></label>
+                                    <label class="prop-l prop-l-wide">Perché? La frase del racconto che te lo fa capire<input type="text" id="rete2-i-densita" name="rete2-i-densita" data-points="1" aria-label="3 · Densità: la frase del racconto" placeholder="scrivi qui la frase del racconto…"></label>
+                                </div>
                             </div>
-                            <div class="prop-row">
-                                <div class="prop-nome"><strong>Diversità</strong><span>quanti ambienti diversi: famiglia, scuola, sport, servizi...</span></div>
-                                <select id="rete2-p-diversita" name="rete2-p-diversita" aria-label="Diversità: in quale rete è più forte"><option value="">più forte in…</option><option value="A">A · Giulia</option><option value="B">B · Marco</option><option value="pari">pari o dipende</option></select>
-                                <input type="text" id="rete2-i-diversita" name="rete2-i-diversita" data-points="1" aria-label="Diversità: l'indizio nel testo" placeholder="l'indizio nel testo">
+                            <div class="prop-card">
+                                <div class="prop-dom"><span class="prop-n">4</span><div><span class="prop-nome2">Diversità</span>Chi ha persone di <strong>ambienti più diversi</strong>?<span class="prop-aiuto">Famiglia, scuola, sport, parrocchia, servizi: quanti di questi mondi ci sono?</span></div></div>
+                                <div class="prop-ctrl">
+                                    <label class="prop-l">La risposta<select id="rete2-p-diversita" name="rete2-p-diversita" aria-label="4 · Diversità: Chi ha persone di ambienti più diversi?"><option value="">scegli…</option><option value="A">👧 Giulia</option><option value="B">👦 Marco</option><option value="pari">uguale o dipende</option></select></label>
+                                    <label class="prop-l prop-l-wide">Perché? La frase del racconto che te lo fa capire<input type="text" id="rete2-i-diversita" name="rete2-i-diversita" data-points="1" aria-label="4 · Diversità: la frase del racconto" placeholder="scrivi qui la frase del racconto…"></label>
+                                </div>
                             </div>
-                            <div class="prop-row">
-                                <div class="prop-nome"><strong>Ponti e isolamento</strong><span>chi collega ambienti separati, chi resta ai margini</span></div>
-                                <select id="rete2-p-ponti" name="rete2-p-ponti" aria-label="Ponti e isolamento: in quale rete è più forte"><option value="">più forte in…</option><option value="A">A · Giulia</option><option value="B">B · Marco</option><option value="pari">pari o dipende</option></select>
-                                <input type="text" id="rete2-i-ponti" name="rete2-i-ponti" data-points="1" aria-label="Ponti e isolamento: l'indizio nel testo" placeholder="l'indizio nel testo">
+                            <div class="prop-card">
+                                <div class="prop-dom"><span class="prop-n">5</span><div><span class="prop-nome2">Ponti e isolamento</span>Chi ha più <strong>persone-ponte</strong> verso altri ambienti? E chi rischia di <strong>restare solo</strong>?<span class="prop-aiuto">Un ponte è chi mette in contatto due mondi, per esempio la famiglia con la scuola.</span></div></div>
+                                <div class="prop-ctrl">
+                                    <label class="prop-l">La risposta<select id="rete2-p-ponti" name="rete2-p-ponti" aria-label="5 · Ponti e isolamento: Chi ha più persone-ponte verso altri ambienti? E chi rischia di restare solo?"><option value="">scegli…</option><option value="A">👧 Giulia</option><option value="B">👦 Marco</option><option value="pari">uguale o dipende</option></select></label>
+                                    <label class="prop-l prop-l-wide">Perché? La frase del racconto che te lo fa capire<input type="text" id="rete2-i-ponti" name="rete2-i-ponti" data-points="1" aria-label="5 · Ponti e isolamento: la frase del racconto" placeholder="scrivi qui la frase del racconto…"></label>
+                                </div>
                             </div>
                         </div>
                         <div class="campo"><label for="rete2-confronto">Tenendo conto di tutte e cinque le proprietà, quale rete sostiene meglio la persona? Indica anche un punto debole della rete più forte <span class="pts">+1</span></label><p class="hint">Non basta contare le persone: spiega perché, e che cosa potrebbe andare storto anche nella rete migliore.</p><textarea id="rete2-confronto" name="rete2-confronto" data-points="1" placeholder="La rete più solida è quella di ... perché ..."></textarea></div>
@@ -2491,7 +2518,7 @@
     /* Vista grafica dei lavori degli studenti: mappa studenti × tappe, bacheca di una tappa con le
        risposte di tutti, quaderno del singolo studente. Legge soltanto (progress_docente_classe) e non
        crea campi input/select/textarea: il salvataggio automatico della pagina non lo vede. */
-    const REG = { cls: '', rows: [], classi: null, vista: 'mappe', mappeVista: 'alunno', tappa: 1, stud: 0, ordine: 'nome', auto: null, struttura: null, anon: null };
+    const REG = { cls: '', rows: [], classi: null, vista: 'mappe', mappeVista: 'uno', mappeStud: 0, tappa: 1, stud: 0, ordine: 'nome', auto: null, struttura: null, anon: null };
 
     function regStruttura() {
         if (REG.struttura) return REG.struttura;
@@ -2716,13 +2743,30 @@
             return `<div class="reg-alunno"><h4><button class="reg-link" onclick="registroVista('studente', { stud: ${k}, tappa: 4 })">${esc(nome(k))}</button> <span class="meta">${fatte}/2 mappe</span></h4><div class="reg-coppia">${cella('giulia')}${cella('marco')}</div></div>`;
         }).join('');
     }
+    // Un alunno alla volta: nome grande, le sue due mappe grandi una accanto all'altra, ◀ ▶ per passare al successivo
+    function regMappeUno() {
+        const rows = REG.rows, n = rows.length, i = Math.max(0, Math.min(REG.mappeStud, n - 1)); REG.mappeStud = i;
+        const mm = regMappe(rows[i].data);
+        const cella = p => { const x = mm.find(y => y.p === p); return x ? regFig(`${A4_PERS[p]} · rete di ${p === 'giulia' ? 'Giulia' : 'Marco'}${x.certo ? '' : ' <span class="meta">(da confermare)</span>'}`, p, x.m) : `<figure class="reg-manca"><figcaption>${A4_PERS[p]} · rete di ${p === 'giulia' ? 'Giulia' : 'Marco'}</figcaption><div>non ancora disegnata</div></figure>`; };
+        const vai = k => `registroMappeStud(${k})`;
+        return `<div class="reg-uno-nav"><button class="btn btn-soft" ${i <= 0 ? 'disabled' : ''} onclick="${vai(i - 1)}">◀</button><div class="reg-uno-nome">${esc(regNome(i))}<small>${i + 1} di ${n} · ${mm.length}/2 mappe</small></div><button class="btn btn-soft" ${i >= n - 1 ? 'disabled' : ''} onclick="${vai(i + 1)}">▶</button></div>
+            <div class="reg-coppia reg-uno">${cella('giulia')}${cella('marco')}</div>
+            <div class="chipslist" style="margin-top:12px">${rows.map((r, k) => { const c = regMappe(r.data).length; return `<button class="reg-chip${k === i ? ' on' : ''}" onclick="${vai(k)}">${esc(regNome(k))} <small>${c}/2</small></button>`; }).join('')}</div>
+            <p class="meta" style="margin-top:6px;color:var(--ink-soft);font-size:.85em">Suggerimento: usa le frecce ← → della tastiera per passare da un alunno all'altro.</p>`;
+    }
+    function registroMappeStud(k) { REG.mappeStud = k; regDisegna(); $('#regCorpo').scrollTop = 0; }
+    document.addEventListener('keydown', e => {
+        if (!$('#registro')?.classList.contains('show') || REG.vista !== 'mappe' || REG.mappeVista !== 'uno' || !REG.rows.length) return;
+        if (e.key === 'ArrowRight' && REG.mappeStud < REG.rows.length - 1) registroMappeStud(REG.mappeStud + 1);
+        if (e.key === 'ArrowLeft' && REG.mappeStud > 0) registroMappeStud(REG.mappeStud - 1);
+    });
     function regVistaMappe() {
         const g = regGalleria(REG.rows, regNome);
         const due = REG.rows.filter(r => regMappe(r.data).length >= 2).length;
         const sw = (v, t) => `<button class="reg-chip${REG.mappeVista === v ? ' on' : ''}" onclick="REG.mappeVista='${v}'; regDisegna()">${t}</button>`;
-        return `<div class="reg-nav"><h3>🕸️ Le mappe della rete</h3><span class="meta">${g.tot} mappe · ${due}/${REG.rows.length} studenti le hanno fatte tutte e due · tappa 4</span><span style="margin-left:auto;display:flex;gap:6px">${sw('alunno', '👤 Per alunno')}${sw('caso', '🧩 Per caso')}</span></div>` +
+        return `<div class="reg-nav"><h3>🕸️ Le mappe della rete</h3><span class="meta">${g.tot} mappe · ${due}/${REG.rows.length} studenti le hanno fatte tutte e due · tappa 4</span><span style="margin-left:auto;display:flex;gap:6px;flex-wrap:wrap">${sw('uno', '🔍 Un alunno alla volta')}${sw('alunno', '👥 Tutti gli alunni')}${sw('caso', '🧩 Per caso')}</span></div>` +
             (!g.tot ? '<div class="reg-vuoto">Nessuno studente di questa classe ha ancora disegnato la mappa della rete (tappa 4).</div>'
-                : REG.mappeVista === 'caso' ? g.html : regMappePerAlunno(REG.rows, regNome));
+                : REG.mappeVista === 'caso' ? g.html : REG.mappeVista === 'alunno' ? regMappePerAlunno(REG.rows, regNome) : regMappeUno());
     }
 
     /* --- vista 1: riepilogo della classe --- */
@@ -2943,7 +2987,8 @@
         if (a === b || isNaN(a) || isNaN(b)) return;
         const gia = st.e.findIndex(([x, y]) => (x === a && y === b) || (x === b && y === a));
         if (gia >= 0) { a4Sel = { e: gia }; a4Render(); return; }
-        a4Memo(st); st.e.push([a, b, t]); a4Sel = { e: st.e.length - 1 }; a4Salva(st);
+        const nat = document.getElementById('a4-nat')?.value === 'for' ? 'for' : 'inf';
+        a4Memo(st); st.e.push([a, b, t, nat]); a4Sel = { e: st.e.length - 1 }; a4Salva(st);
     }
     function a4Annulla() { const p = a4Pila(); if (!p.length) return; a4Sel = null; a4Salva(JSON.parse(p.pop())); }
 
@@ -2956,8 +3001,21 @@
         a4Memo(st); nd.l = l; a4Salva(st);
     }
     function a4CambiaTipo() {
-        const st = a4Stato(); const nd = st.n[a4Sel?.n]; if (!nd) return;
-        a4Memo(st); nd.t = nd.t === 'for' ? 'inf' : 'for'; delete nd.x; delete nd.y; a4Salva(st);
+        const st = a4Stato(); const i = a4Sel?.n, nd = st.n[i]; if (!nd) return;
+        a4Memo(st);
+        st.e.forEach(e => { if ((e[0] === i || e[1] === i) && e[3] !== 'inf' && e[3] !== 'for') e[3] = a4Natura(st, e).n; }); // i rapporti già stabiliti non cambiano natura
+        nd.t = nd.t === 'for' ? 'inf' : 'for'; delete nd.x; delete nd.y; a4Salva(st);
+    }
+    // Natura del rapporto: scritta nel legame (e[3]); per i legami salvati prima si deduce dai nodi
+    function a4Natura(st, e) {
+        if (e[3] === 'inf' || e[3] === 'for') return { n: e[3], dedotta: false };
+        const tipo = i => i >= 0 && st.n[i] ? st.n[i].t : '';
+        return { n: tipo(e[0]) === 'for' || tipo(e[1]) === 'for' ? 'for' : 'inf', dedotta: true };
+    }
+    function a4NaturaLegame(n) { const st = a4Stato(); const e = st.e[a4Sel?.e]; if (!e || e[3] === n) return; a4Memo(st); e[3] = n; a4Salva(st); }
+    function a4PropostaNatura() {
+        const st = a4Stato(), sel = document.getElementById('a4-nat'); if (!sel) return;
+        sel.value = a4Natura(st, [+document.getElementById('a4-da').value, +document.getElementById('a4-a').value]).n;
     }
     function a4EliminaNodo() {
         const st = a4Stato(); const i = a4Sel?.n; if (!st.n[i]) return;
@@ -2993,15 +3051,18 @@
     // Legami fra due nodi: curvi e spinti verso l'esterno, così non passano sopra la Persona
     function a4Tracciato(p1, p2, daPersona) {
         const [x1, y1] = p1, [x2, y2] = p2;
-        if (daPersona) return `M${x1.toFixed(1)} ${y1.toFixed(1)} L${x2.toFixed(1)} ${y2.toFixed(1)}`;
+        if (daPersona) return { d: `M${x1.toFixed(1)} ${y1.toFixed(1)} L${x2.toFixed(1)} ${y2.toFixed(1)}`, m: [(x1 + x2) / 2, (y1 + y2) / 2] };
         const mx = (x1 + x2) / 2, my = (y1 + y2) / 2, len = Math.hypot(x2 - x1, y2 - y1) || 1;
         let ux = mx - A4_C[0], uy = my - A4_C[1], l = Math.hypot(ux, uy);
         if (l < 30) { ux = -(y2 - y1); uy = x2 - x1; l = len; if (uy > 0) { ux = -ux; uy = -uy; } }
         ux /= l; uy /= l;
         const k = Math.max(l < 70 ? 150 - l : 40, len * 0.28);
-        return `M${x1.toFixed(1)} ${y1.toFixed(1)} Q${(mx + ux * k).toFixed(1)} ${(my + uy * k).toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`;
+        const qx = mx + ux * k, qy = my + uy * k;
+        return { d: `M${x1.toFixed(1)} ${y1.toFixed(1)} Q${qx.toFixed(1)} ${qy.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`, m: [(x1 + 2 * qx + x2) / 4, (y1 + 2 * qy + y2) / 4] };
     }
-    const A4_STILE = { forte: ['#0E7C7C', 4.5, ''], debole: ['#94a3b8', 2.2, '7 6'], ponte: ['#CC0073', 3.2, ''] };
+    // Forza → spessore e tratteggio; natura → colore (verde informale, blu formale), come i nodi. Il ponte resta fucsia.
+    const A4_STILE = { forte: [4.5, ''], debole: [2.4, '7 6'], ponte: [3.2, ''] };
+    const A4_NAT = { inf: '#7FA00C', for: '#0E7C7C' };
     // Disegno della mappa (usato anche dal registro della classe per le mappe degli studenti)
     function a4Disegno(st, sel, titolo) {
         const N = st.n.length, [cx, cy] = A4_C, P = a4Posizioni(st), at = i => i < 0 ? A4_C : P[i];
@@ -3010,8 +3071,9 @@
             <g ${F} font-size="11" font-weight="700" letter-spacing=".08em"><text x="12" y="20" fill="#6b8a0e">RETE INFORMALE</text><text x="588" y="20" text-anchor="end" fill="#0E7C7C">RETE FORMALE</text></g>${titolo ? `<text x="300" y="21" text-anchor="middle" ${F} font-size="13" font-weight="700" fill="#1f2933">${esc(titolo)}</text>` : ''}`;
         st.e.forEach(([a, b, t], k) => {
             if ((a >= 0 && !P[a]) || (b >= 0 && !P[b])) return;
-            const d = a4Tracciato(at(a), at(b), a < 0 || b < 0), [col, w, dash] = A4_STILE[t] || A4_STILE.debole, on = sel && sel.e === k;
-            g += `<g class="a4e" data-e="${k}">${on ? `<path d="${d}" fill="none" stroke="#FF0090" stroke-opacity=".35" stroke-width="${w + 8}" stroke-linecap="round"/>` : ''}<path d="${d}" fill="none" stroke="transparent" stroke-width="16"/><path d="${d}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" ${dash ? `stroke-dasharray="${dash}"` : ''}/></g>`;
+            const { d, m } = a4Tracciato(at(a), at(b), a < 0 || b < 0), [w, dash] = A4_STILE[t] || A4_STILE.debole, on = sel && sel.e === k;
+            const nat = A4_NAT[a4Natura(st, [a, b, t, st.e[k][3]]).n], col = t === 'ponte' ? '#CC0073' : nat;
+            g += `<g class="a4e" data-e="${k}">${on ? `<path d="${d}" fill="none" stroke="#FF0090" stroke-opacity=".35" stroke-width="${w + 8}" stroke-linecap="round"/>` : ''}<path d="${d}" fill="none" stroke="transparent" stroke-width="16"/><path d="${d}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" ${dash ? `stroke-dasharray="${dash}"` : ''}/><circle cx="${m[0].toFixed(1)}" cy="${m[1].toFixed(1)}" r="4.5" fill="${nat}" stroke="#fff" stroke-width="1.5"/></g>`;
         });
         g += `<circle cx="${cx}" cy="${cy}" r="36" fill="#0E7C7C" opacity=".15"/><circle cx="${cx}" cy="${cy}" r="30" fill="#1DD3D3" stroke="#0E7C7C" stroke-width="2"/><text x="${cx}" y="${cy + 5}" text-anchor="middle" font-size="13.5" font-weight="700" fill="#083d3d" ${F}>Persona</text>`;
         st.n.forEach((nd, i) => {
@@ -3020,10 +3082,10 @@
         });
         if (!N) g += `<text x="${cx}" y="${cy + 75}" text-anchor="middle" font-size="13" fill="#52606d" ${F}>Aggiungi il primo nodo qui sopra</text>`;
         g += `<g ${F} font-size="11.5" fill="#52606d"><rect x="6" y="334" width="588" height="22" rx="8" fill="#fff" opacity=".85"/>
-            <line x1="16" y1="345" x2="44" y2="345" stroke="#0E7C7C" stroke-width="4.5" stroke-linecap="round"/><text x="50" y="349">forte</text>
-            <line x1="92" y1="345" x2="120" y2="345" stroke="#94a3b8" stroke-width="2.2" stroke-dasharray="7 6"/><text x="126" y="349">debole</text>
-            <line x1="176" y1="345" x2="204" y2="345" stroke="#CC0073" stroke-width="3.2" stroke-linecap="round"/><text x="210" y="349">ponte</text>
-            <circle cx="290" cy="345" r="5" fill="#9CB912"/><text x="299" y="349">informale</text><circle cx="372" cy="345" r="5" fill="#0E7C7C"/><text x="381" y="349">formale</text></g>`;
+            <line x1="16" y1="345" x2="44" y2="345" stroke="#52606d" stroke-width="4.5" stroke-linecap="round"/><text x="50" y="349">forte</text>
+            <line x1="88" y1="345" x2="116" y2="345" stroke="#52606d" stroke-width="2.4" stroke-dasharray="7 6"/><text x="122" y="349">debole</text>
+            <line x1="168" y1="345" x2="196" y2="345" stroke="#CC0073" stroke-width="3.2" stroke-linecap="round"/><text x="202" y="349">ponte</text>
+            <text x="252" y="349" font-weight="700">nodi e rapporti:</text><circle cx="352" cy="345" r="5" fill="#7FA00C"/><text x="361" y="349">informale</text><circle cx="432" cy="345" r="5" fill="#0E7C7C"/><text x="441" y="349">formale</text></g>`;
         return g;
     }
     function a4Conta(st) {
@@ -3032,8 +3094,9 @@
         const isolati = st.n.filter((_, i) => !legati.has(i)).length;
         const forti = st.e.filter(e => e[2] === 'forte').length, deboli = st.e.filter(e => e[2] === 'debole').length, ponti = st.e.filter(e => e[2] === 'ponte').length;
         const inf = st.n.filter(x => x.t === 'inf').length;
+        const rInf = st.e.filter(e => a4Natura(st, e).n === 'inf').length;
         const pl = (n, s1, sn) => `${n} ${n === 1 ? s1 : sn}`;
-        return `<strong>${pl(N, 'nodo', 'nodi')}</strong> (${pl(inf, 'informale', 'informali')}, ${pl(N - inf, 'formale', 'formali')}) · <strong>${pl(st.e.length, 'legame', 'legami')}</strong> (${pl(forti, 'forte', 'forti')}, ${pl(deboli, 'debole', 'deboli')}) · <strong>${pl(ponti, 'ponte', 'ponti')}</strong> · <strong>${pl(isolati, 'nodo isolato', 'nodi isolati')}</strong>`;
+        return `<strong>${pl(N, 'nodo', 'nodi')}</strong> (${pl(inf, 'informale', 'informali')}, ${pl(N - inf, 'formale', 'formali')}) · <strong>${pl(st.e.length, 'legame', 'legami')}</strong> (${pl(forti, 'forte', 'forti')}, ${pl(deboli, 'debole', 'deboli')}; ${pl(rInf, 'rapporto informale', 'rapporti informali')}, ${pl(st.e.length - rInf, 'formale', 'formali')}) · <strong>${pl(ponti, 'ponte', 'ponti')}</strong> · <strong>${pl(isolati, 'nodo isolato', 'nodi isolati')}</strong>`;
     }
     function a4Barra(st) {
         const box = document.getElementById('a4-sel'); if (!box) return;
@@ -3043,8 +3106,8 @@
             const nd = st.n[a4Sel.n];
             box.innerHTML = `<span>Nodo <strong>«${esc(nd.l)}»</strong> (${nd.t === 'for' ? 'formale' : 'informale'})</span>${b('a4Rinomina()', '✏️ Rinomina')}${b('a4CambiaTipo()', nd.t === 'for' ? '🔄 Rendi informale' : '🔄 Rendi formale')}${b('a4EliminaNodo()', '🗑 Elimina nodo', 'btn-soft')}${chiudi}`;
         } else if (a4Sel && st.e[a4Sel.e]) {
-            const [x, y, t] = st.e[a4Sel.e];
-            box.innerHTML = `<span>Legame <strong>${esc(a4Nome(st, x))} ↔ ${esc(a4Nome(st, y))}</strong>:</span>${['forte', 'debole', 'ponte'].map(k => b(`a4TipoLegame('${k}')`, k === t ? `● ${k}` : k, k === t ? '' : 'btn-soft')).join('')}${b('a4EliminaLegame()', '🗑 Elimina legame', 'btn-soft')}${chiudi}`;
+            const e = st.e[a4Sel.e], [x, y, t] = e, nat = a4Natura(st, e);
+            box.innerHTML = `<span>Legame <strong>${esc(a4Nome(st, x))} ↔ ${esc(a4Nome(st, y))}</strong>:</span>${['forte', 'debole', 'ponte'].map(k => b(`a4TipoLegame('${k}')`, k === t ? `● ${k}` : k, k === t ? '' : 'btn-soft')).join('')}<span style="margin-left:6px">rapporto:</span>${[['inf', 'informale'], ['for', 'formale']].map(([k, l]) => b(`a4NaturaLegame('${k}')`, k === nat.n ? `● ${l}` : l, k === nat.n ? '' : 'btn-soft')).join('')}${b('a4EliminaLegame()', '🗑 Elimina legame', 'btn-soft')}${chiudi}`;
         } else {
             a4Sel = null;
             box.innerHTML = `<span class="hint" style="margin:0">💡 Trascina i nodi per sistemarli. Tocca un nodo o un legame per rinominarlo, cambiarlo o eliminarlo.</span>${st.n.some(nd => nd.x !== undefined) ? b('a4Riordina()', '↺ Rimetti in ordine', 'btn-soft') : ''}`;
@@ -3106,7 +3169,7 @@
         a4Schede();
         if (!svg.dataset.mr) { svg.dataset.mr = '1'; a4Interazioni(svg); }
         const opt = `<option value="-1">Persona</option>` + st.n.map((nd, i) => `<option value="${i}">${esc(nd.l)}</option>`).join('');
-        ['a4-da', 'a4-a'].forEach((id, k) => { const sel = document.getElementById(id); const v = sel.value; sel.innerHTML = opt; if (v !== '' && sel.querySelector(`option[value="${v}"]`)) sel.value = v; else sel.value = k === 0 ? '-1' : (N ? '0' : '-1'); });
+        ['a4-da', 'a4-a'].forEach((id, k) => { const sel = document.getElementById(id); const v = sel.value; sel.innerHTML = opt; if (v !== '' && sel.querySelector(`option[value="${v}"]`)) sel.value = v; else sel.value = k === 0 ? '-1' : (N ? '0' : '-1'); sel.onchange = a4PropostaNatura; });
         document.getElementById('a4-conta').innerHTML = a4Conta(st);
         a4Barra(st);
     }
