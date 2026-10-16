@@ -9,7 +9,7 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
-- **2026-10-16** · Codex · Infanzia: bozza di una nuova apertura sulla progettazione per i 3–6 anni, con criteri leggibili e collage presentato come applicazione. Campi, progetto Word e repertorio conservati. (revisione locale da valutare)
+- **2026-10-16** · Codex · Infanzia: nuova apertura sulla progettazione per i 3–6 anni, con criteri leggibili e collage presentato come applicazione. Campi, progetto Word e repertorio conservati; rilascio autorizzato. (contenuti `39ec68a`)
 
 - **2026-10-16** · Codex · Nuova sezione Educazione civica e percorso di terza «Dall’informazione alla partecipazione»: ricerca autonoma, scheda salvabile e stampabile, otto slide, PowerPoint e schema PDF. Collegati terza e Programmi; raccordo civico locale e rubrica da completare. (contenuti `e3604a2`; pubblicazione autorizzata)
 
