@@ -28,7 +28,8 @@ const stato = {
 
 // Le UDA scelte per la programmazione individuale: { "Primo anno": [chiavi…] }.
 // Stanno nel browser e le legge programmazione.html, che ne fa il piano di lavoro in Word.
-const SELEZIONE_KEY = 'mo-programmazione-selezione';
+const CATALOGO_CAROLA = document.body.dataset.programmiCatalogo === 'carola';
+const SELEZIONE_KEY = CATALOGO_CAROLA ? 'mo-programmazione-carola-selezione' : 'mo-programmazione-selezione';
 
 function leggiSelezione() {
     try {
@@ -50,11 +51,15 @@ function scriviSelezione(selezione) {
 let programmiCaricati = false;
 let udaDaAprire = '';
 
-document.addEventListener('mo:programmi-unlocked', () => {
+function avviaProgrammi() {
     if (programmiCaricati) return;
     programmiCaricati = true;
     caricaProgrammi();
-});
+}
+
+// La consultazione pubblica non dipende dalla disponibilità dell'area di revisione.
+document.addEventListener('DOMContentLoaded', () => { if (!CATALOGO_CAROLA) avviaProgrammi(); });
+document.addEventListener('mo:programmi-unlocked', avviaProgrammi);
 
 async function caricaProgrammi() {
     const contenitore = document.getElementById('prog-lista');
@@ -63,11 +68,16 @@ async function caricaProgrammi() {
     }
 
     try {
+        if (CATALOGO_CAROLA) {
+            stato.dati = window.MO_CAROLA_DOCUMENTO;
+            if (!stato.dati) throw new Error('Accesso richiesto.');
+        } else {
         const risposta = await fetch(PROGRAMMI_JSON_URL, { cache: 'no-cache' });
         if (!risposta.ok) {
             throw new Error(`HTTP ${risposta.status}`);
         }
         stato.dati = await risposta.json();
+        }
     } catch (errore) {
         console.error('Errore nel caricamento di programmi.json:', errore);
         contenitore.innerHTML = '<div class="empty-state"><p>Non è stato possibile caricare i programmi.</p>'
@@ -212,8 +222,12 @@ function preparaControlli() {
 
     document.querySelectorAll('.prog-toggle .tab-btn').forEach((bottone) => {
         bottone.addEventListener('click', () => {
-            document.querySelectorAll('.prog-toggle .tab-btn').forEach((b) => b.classList.remove('active'));
+            document.querySelectorAll('.prog-toggle .tab-btn').forEach((b) => {
+                b.classList.remove('active');
+                b.setAttribute('aria-pressed', 'false');
+            });
             bottone.classList.add('active');
+            bottone.setAttribute('aria-pressed', 'true');
             stato.vista = bottone.dataset.vista;
             disegnaLista();
         });
@@ -342,7 +356,7 @@ function aggiornaSelezione() {
     barra.hidden = anni.length === 0;
     document.body.classList.toggle('prog-con-selezione', anni.length > 0);
     document.getElementById('prog-selezione-anni').innerHTML = anni.map(([anno, quante]) => `
-        <a class="prog-selezione-vai" href="programmazione.html?anno=${encodeURIComponent(anno)}">
+        <a class="prog-selezione-vai" href="programmazione.html?anno=${encodeURIComponent(anno)}${CATALOGO_CAROLA ? '&catalogo=carola' : ''}">
           ${escapeHtml(anno)} · ${quante} UDA <span aria-hidden="true">→</span>
           <span class="sr-only">: componi il piano di lavoro</span></a>`).join('');
 }
@@ -538,8 +552,6 @@ function schedaModulo(modulo, anno, competenzaCarta) {
         : '';
 
     const meta = [
-        modulo.periodo ? `<span class="prog-meta-voce"><span class="prog-meta-et">Periodo</span>${escapeHtml(modulo.periodo)}</span>` : '',
-        modulo.monteOre ? `<span class="prog-meta-voce"><span class="prog-meta-et">Ore</span>${escapeHtml(modulo.monteOre)}</span>` : '',
         modulo.compresenza ? `<span class="prog-meta-voce"><span class="prog-meta-et">Compresenza</span>${escapeHtml(modulo.compresenza)}</span>` : ''
     ].filter(Boolean).join('');
 
@@ -725,7 +737,8 @@ function badgeOrigine(origine) {
 const PAGINE_SEZIONE = {
     compresenza: 'compresenza.html',
     laboratorio: 'laboratorio.html',
-    orientamento: 'orientamento.html'
+    orientamento: 'orientamento.html',
+    'educazione-civica': 'educazione-civica.html'
 };
 
 function badgeSezione(sezione) {
@@ -749,7 +762,7 @@ function schedaProva(prova) {
         <dt>Compito</dt><dd>${escapeHtml(prova.compito)}</dd>
         <dt>Contesto</dt><dd>${escapeHtml(prova.contesto)}</dd>
         <dt>Prodotto</dt><dd>${escapeHtml(prova.prodotto)}</dd>
-        <dt>Durata e modalità</dt><dd>${escapeHtml(prova.durata)} — ${escapeHtml(prova.modalita)}</dd>
+        <dt>Modalità</dt><dd>${escapeHtml(prova.modalita)}</dd>
         <dt>Risorse</dt><dd>${prova.risorse.map(escapeHtml).join(' · ')}</dd>
         ${prova.imprevisto
           ? `<dt>Imprevisto</dt><dd>${escapeHtml(prova.imprevisto)}</dd>`
@@ -763,7 +776,7 @@ function schedaMateriali(materiali) {
     const voci = materiali || [];
     const corpo = voci.length
         ? voci.map((m) => `<a class="prog-materiale" href="${escapeHtml(m.file)}">${escapeHtml(m.titolo)}</a>`).join('')
-        : '<span class="prog-materiale-vuoto">da collegare</span>';
+        : '<span class="prog-materiale-vuoto">Nessun materiale collegato.</span>';
     return `<div class="prog-materiali"><span class="prog-materiali-etichetta">Materiali</span>${corpo}</div>`;
 }
 

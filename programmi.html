@@ -8,15 +8,17 @@
     <title>Programmi SSAS - Metodologie Operative</title>
     <meta name="description" content="Proposta di programmazione di Metodologie Operative ancorata al curricolo verticale SSAS, ai livelli QNQ e alle prove esperte di laboratorio">
     <link rel="stylesheet" href="style.css?v=20261007b">
-    <link rel="stylesheet" href="assets/programmi-revisione.css?v=20260907b">
+    <link rel="stylesheet" href="assets/programmi-revisione.css?v=20261014a">
+    <link rel="stylesheet" href="assets/programmi-pagina.css?v=20261014c">
 </head>
 
-<body data-programmi-locked="true">
+<body class="prog-site" data-programmi-locked="false" data-programmi-ospite="true">
+    <a class="prog-skip" href="#prog-contenuto">Vai alla programmazione</a>
     <header>
         <div class="container">
             <h1>Materiali Didattici - Metodologie Operative</h1>
             <p>Servizi per la Sanità e l'Assistenza Sociale</p>
-            <p style="font-size: 0.9rem; margin-top: 0.5rem;">IIS Meucci Mattei - Cagliari (Sede Decimomannu)</p>
+            <p style="font-size: 0.9rem; margin-top: 0.5rem;">IIS Meucci - Mattei | Decimomannu</p>
         </div>
     </header>
 
@@ -27,6 +29,7 @@
             <li><a href="terzo.html">Terzo anno</a></li>
             <li><a href="quarto.html">Quarto anno</a></li>
             <li><a href="quinto.html">Quinto anno</a></li>
+            <li><a href="educazione-civica.html">Educazione civica</a></li>
             <li class="nav-group"><a href="index.html#metodi">Metodi e laboratori</a>
                 <ul class="nav-sub">
                     <li><a href="lezioni-partecipate.html">Lezioni partecipate</a></li>
@@ -41,6 +44,7 @@
             <li class="nav-group"><a href="index.html#docente" class="active">Docente</a>
                 <ul class="nav-sub">
                     <li><a href="programmi.html" class="active" aria-current="page">Programmi</a></li>
+                    <li><a href="programmi-carola.html">Programmazione Carola</a></li>
                     <li><a href="programmazione.html">Programmazione individuale</a></li>
                     <li><a href="area_docente.html">Area docente</a></li>
                     <li><a href="anno-di-prova.html">Anno di prova</a></li>
@@ -49,16 +53,16 @@
         </ul>
     </nav>
 
-    <main>
+    <main id="prog-contenuto">
         <div class="container prog-pagina">
             <div class="page-title">
                 <div class="prog-titolo-riga">
-                    <h2>🗂️ Programmi SSAS</h2>
+                    <div><p class="prog-eyebrow">Metodologie Operative · Percorso quinquennale</p><h2>Programmazione SSAS</h2></div>
                     <button type="button" id="prog-accesso-revisione" class="prog-accesso-revisione">
                         🔐 Accesso revisione
                     </button>
                 </div>
-                <p>Proposta di programmazione ancorata alle competenze di indirizzo del curricolo SSAS (Servizi per la sanità e l'assistenza sociale)
+                <p class="prog-presentazione">Proposta di programmazione ancorata alle competenze di indirizzo del curricolo SSAS (Servizi per la sanità e l'assistenza sociale)
                    — D.M. 24 maggio 2018 n. 92, Allegato C — e ai livelli del Quadro Nazionale delle Qualificazioni.</p>
             </div>
 
@@ -76,34 +80,27 @@
                 </div>
             </section>
 
-            <section id="prog-lettura-barra" class="prog-lettura-barra" hidden aria-label="Modalità di consultazione">
-                <p><span aria-hidden="true">📖</span> <strong>Accesso libero, in sola lettura.</strong>
-                   I programmi sono qui per essere consultati e per prendere spunto: annotazioni e proposte di modifica non sono disponibili.</p>
-                <div class="prog-lettura-barra-azioni">
-                    <button type="button" id="prog-esci-lettura" class="prog-btn-secondario">Esci</button>
-                </div>
-            </section>
+            <p class="prog-link-carola"><a href="programmi-carola.html">🔒 Programmazione di Pierluigi Carola</a></p>
 
-            <section class="prog-intro">
-                <p>I contenuti da trattare anno per anno, organizzati in <strong>unità didattiche di
-                   apprendimento</strong>. Ogni UDA dichiara il periodo, il monte ore, le attività, le fasi di
-                   lavoro e il <strong>prodotto finale</strong> che gli studenti consegnano nella prova esperta
-                   di laboratorio.</p>
-                <p>Qui ci sono <strong>tutte</strong> le UDA. Quelle che si svolgono in compresenza con Scienze umane,
-                   in laboratorio o come attività di orientamento portano un'etichetta colorata e compaiono anche
-                   nella pagina della loro sezione; il filtro <em>Sezione</em> le isola.</p>
-                <p><strong>Per preparare la programmazione di una classe</strong> premi <em>＋ Programmazione</em>
-                   sulle UDA che farai: in basso compare il riepilogo per anno, e da lì si passa al piano di lavoro
-                   da scaricare in Word. Funziona anche senza password.</p>
-                <p>Serve il dettaglio curricolare? Attiva <em>Mostra competenze</em>: su ogni attività comparirà
-                   la competenza di indirizzo che intercetta.</p>
+            <section class="prog-intro" aria-labelledby="prog-intro-titolo">
+                <h3 id="prog-intro-titolo">I contenuti da trattare, anno per anno.</h3>
+                <p>Organizzati in <strong>unità di apprendimento (UDA)</strong>: contenuti e attività,
+                   fasi di lavoro, <strong>prodotto finale</strong> e prova esperta di laboratorio.</p>
+                <div class="prog-guida">
+                    <p><strong>Trova le UDA.</strong> Scegli l’anno, usa la ricerca o il filtro Sezione per
+                       le attività di compresenza, laboratorio, orientamento ed Educazione civica. Tutte le UDA restano in questa pagina.</p>
+                    <p><strong>Prepara il piano di lavoro.</strong> Premi <em>＋ Programmazione</em> sulle UDA che svolgerai:
+                       il riepilogo in basso porta al piano della classe da scaricare in Word.</p>
+                    <p><strong>Consulta il curricolo.</strong> Attiva <em>Mostra competenze</em> per leggere gli agganci
+                       di ogni attività alle competenze di indirizzo.</p>
+                </div>
             </section>
 
             <section class="prog-sezione">
                 <div class="prog-barra">
                     <div class="prog-toggle" role="group" aria-label="Scegli come ordinare i programmi">
-                        <button type="button" class="tab-btn active" data-vista="contenuti">Contenuti per anno</button>
-                        <button type="button" class="tab-btn" data-vista="competenza">Per competenza</button>
+                        <button type="button" class="tab-btn active" data-vista="contenuti" aria-pressed="true">Contenuti per anno</button>
+                        <button type="button" class="tab-btn" data-vista="competenza" aria-pressed="false">Per competenza</button>
                     </div>
                     <div class="prog-filtri">
                         <span class="prog-campo">
@@ -164,11 +161,12 @@
         <div class="prog-dialog-testata">
             <div>
                 <p class="prog-dialog-eyebrow">Area riservata</p>
-                <h2 id="prog-auth-title">Accedi ai Programmi SSAS</h2>
+                <h2 id="prog-auth-title">Accesso revisione</h2>
             </div>
+            <button type="button" class="prog-dialog-chiudi" data-prog-dialog-close aria-label="Chiudi accesso revisione">×</button>
         </div>
         <form id="prog-auth-form" class="prog-auth-form">
-            <p>Questa pagina è riservata. Inserisci la password condivisa per consultare i Programmi e gestire annotazioni e proposte di modifica.</p>
+            <p>Inserisci la password condivisa per gestire annotazioni e proposte di modifica della programmazione.</p>
             <label for="prog-auth-password">Password</label>
             <input type="password" id="prog-auth-password" name="password" autocomplete="current-password" required>
             <fieldset class="prog-identita-fieldset">
@@ -188,14 +186,6 @@
             <p id="prog-auth-messaggio" class="prog-form-messaggio" role="status" aria-live="polite"></p>
             <button type="submit" class="prog-btn-primario">Accedi</button>
         </form>
-        <div class="prog-auth-libero">
-            <p class="prog-auth-separatore"><span>oppure</span></p>
-            <button type="button" id="prog-accesso-libero" class="prog-btn-secondario prog-auth-libero-btn">
-                <span aria-hidden="true" class="prog-auth-libero-icona">📖</span> Accedi liberamente e prendi spunto
-            </button>
-            <p class="prog-auth-libero-nota">Senza password: i programmi si leggono per intero,
-               non si annota e non si modifica nulla.</p>
-        </div>
     </dialog>
 
     <dialog id="prog-editor-dialog" class="prog-dialog prog-editor-dialog" aria-labelledby="prog-editor-title">
@@ -264,7 +254,7 @@
     <footer>
         <div class="container">
             <p>Metodologie Operative - Servizi Sociosanitari</p>
-            <p>IIS Meucci Mattei - Cagliari</p>
+            <p>IIS Meucci - Mattei | Decimomannu</p>
             <p style="margin-top: 1rem; font-size: 0.9rem;">&copy; 2025 - Tutti i diritti riservati</p>
             <div class="home-link">
                 <a href="https://salvapicconi.github.io/metodologieoperative/">🏠 Torna alla Home</a>
@@ -281,8 +271,8 @@
     </div>
 
     <script src="materiali.js"></script>
-    <script src="programmi.js?v=20261007b"></script>
-    <script type="module" src="assets/programmi-revisione.js?v=20260907b"></script>
+    <script src="programmi.js?v=20261014c"></script>
+    <script type="module" src="assets/programmi-revisione.js?v=20261014c"></script>
 </body>
 
 </html>

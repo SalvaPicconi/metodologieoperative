@@ -248,14 +248,32 @@
             }
         }
     </style>
+<link rel="stylesheet" href="../../assets/lucia-servizi.css?v=20261015">
+<script src="../../assets/docente-accesso.js?v=20260926" defer></script>
 </head>
 <body>
-    <div class="container" id="content">
+<a class="skip-link" href="#content">Vai al contenuto</a>
+    <main class="container" id="content">
         <div class="header">
-            <div class="school-name">IIS Meucci Mattei di Cagliari Sede Decimomannu</div>
+            <a class="back-link" href="../../terzo.html">← Terzo anno</a>
+            <div class="school-name">IIS Meucci - Mattei | Decimomannu</div>
+            <h1>Dai bisogni ai servizi</h1>
             <div class="course-name">Servizi per la sanità e l'assistenza sociale</div>
         </div>
 
+        <div class="strumenti-pagina">
+          <div id="identity-tools"></div>
+          <div class="azioni-pagina"><button type="button" id="salva-lavoro" data-save-progress disabled>Salva il lavoro</button><button type="button" id="apri-lim" class="secondario">Risposte della classe · LIM</button><button type="button" id="riprendi-legacy" class="secondario" hidden>Riprendi una bozza precedente di questo browser</button></div>
+          <p id="stato-lavoro" role="status">Attendi l’ingresso con il tuo codice oppure scegli la modalità ospite.</p>
+        </div>
+        <section id="pannello-lim" class="lim-panel" hidden aria-labelledby="titolo-lim">
+          <h2 id="titolo-lim">Il caso Lucia · confronto sulla LIM</h2>
+          <button type="button" id="chiudi-lim" class="secondario">Torna al lavoro</button>
+          <label for="lim-classe">Classe</label><input id="lim-classe" placeholder="3sa" autocomplete="off">
+          <label for="lim-momento">Quali risposte vuoi confrontare?</label><select id="lim-momento"><option value="prima">Le quattro risposte iniziali</option><option value="dossier">Scelta dello strumento e percorso</option><option value="revisione">Revisione e verifica</option></select>
+          <div class="azioni-pagina"><button type="button" id="aggiorna-lim">Leggi le risposte</button></div>
+          <p id="lim-stato" role="status"></p><div id="lim-risposte"></div>
+        </section>
         <div class="student-info">
             <div class="info-field">
                 <label for="nome">Nome e Cognome:</label>
@@ -263,7 +281,7 @@
             </div>
             <div class="info-field">
                 <label for="classe">Classe:</label>
-                <input type="text" id="classe" name="classe" placeholder="Es: 4A">
+                <input type="text" id="classe" name="classe" placeholder="Es: 3sa">
             </div>
             <div class="info-field">
                 <label for="data">Data:</label>
@@ -288,8 +306,8 @@
         </div>
 
         <!-- CASO 1 -->
-        <div class="caso">
-            <div class="caso-header">CASO 1: Signora Lucia - Anziana con fragilità multiple</div>
+        <div class="caso" id="caso-lucia">
+            <h2 class="caso-header">CASO 1: Signora Lucia - Anziana con fragilità multiple</h2>
             <div class="caso-testo">
                 La signora Lucia ha 79 anni e vive sola nel suo appartamento al terzo piano senza ascensore. È vedova da 5 anni e ha un figlio che vive a Milano per lavoro, che riesce a venirla a trovare solo una volta al mese. 
                 <br><br>
@@ -301,29 +319,94 @@
             </div>
 
             <div class="domanda">
-                <div class="domanda-titolo">1. Analisi dei bisogni: Individua e descrivi tutti i bisogni (fisiologici, di sicurezza, sociali, ecc.) che emergono dalla situazione di Lucia, utilizzando la Piramide di Maslow come riferimento teorico.</div>
-                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+                <label class="domanda-titolo" for="servizi_risposta_01">1. Analisi dei bisogni: Individua e descrivi tutti i bisogni (fisiologici, di sicurezza, sociali, ecc.) che emergono dalla situazione di Lucia, utilizzando la Piramide di Maslow come riferimento teorico.</label>
+                <p class="aiuto-campo">Le categorie di Maslow orientano la lettura: i bisogni possono coesistere. Motiva le priorità attraverso i dati del caso e ciò che va chiarito con Lucia. <a href="https://psychclassics.yorku.ca/Maslow/motivation.htm" target="_blank" rel="noopener">Maslow, 1943: flessibilità e soddisfazione parziale dei bisogni</a>.</p>
+                <textarea id="servizi_risposta_01" name="servizi_risposta_01" data-servizi-legacy="0" placeholder="Scrivi qui la tua risposta..."></textarea>
             </div>
 
             <div class="domanda">
-                <div class="domanda-titolo">2. Servizi appropriati: Quali servizi socio-sanitari (sia integrativi che eventualmente sostitutivi) proporresti per Lucia? Motiva le tue scelte spiegando perché ogni servizio è appropriato alla sua situazione specifica.</div>
-                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+                <label class="domanda-titolo" for="servizi_risposta_02">2. Servizi appropriati: Quali servizi socio-sanitari (sia integrativi che eventualmente sostitutivi) proporresti per Lucia? Motiva le tue scelte spiegando perché ogni servizio è appropriato alla sua situazione specifica.</label>
+                <textarea id="servizi_risposta_02" name="servizi_risposta_02" data-servizi-legacy="1" placeholder="Scrivi qui la tua risposta..."></textarea>
             </div>
 
             <div class="domanda">
-                <div class="domanda-titolo">3. Figure professionali: Elenca e descrivi il ruolo di tutte le figure professionali che dovrebbero essere coinvolte nella presa in carico di Lucia, specificando cosa ciascuna può fare per lei.</div>
-                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+                <label class="domanda-titolo" for="servizi_risposta_03">3. Figure professionali: Elenca e descrivi il ruolo di tutte le figure professionali che dovrebbero essere coinvolte nella presa in carico di Lucia, specificando cosa ciascuna può fare per lei.</label>
+                <p class="aiuto-campo">Motiva quali figure sono pertinenti e quali condizioni richiedono una loro valutazione. Un elenco lungo non sostituisce la spiegazione dei compiti.</p>
+                <textarea id="servizi_risposta_03" name="servizi_risposta_03" data-servizi-legacy="2" placeholder="Scrivi qui la tua risposta..."></textarea>
             </div>
 
             <div class="domanda">
-                <div class="domanda-titolo">4. Progetto individualizzato: Delinea un progetto di intervento integrato per Lucia, indicando gli obiettivi a breve e lungo termine e come i diversi servizi possono lavorare in sinergia.</div>
-                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+                <label class="domanda-titolo" for="servizi_risposta_04">4. Progetto individualizzato: Delinea un progetto di intervento integrato per Lucia, indicando gli obiettivi a breve e lungo termine e come i diversi servizi possono lavorare in sinergia.</label>
+                <textarea id="servizi_risposta_04" name="servizi_risposta_04" data-servizi-legacy="3" placeholder="Scrivi qui la tua risposta..."></textarea>
             </div>
+        <section class="lucia" id="lucia-dossier" aria-labelledby="titolo-dossier">
+          <p class="sopratitolo">Caso Lucia · Il dossier operativo</p>
+          <h2 id="titolo-dossier">Dai dati a un percorso motivato</h2>
+          <p>Riprendi le quattro risposte che hai scritto. Ora scegli come organizzare le informazioni e controlla se le risposte proposte sono praticabili. La richiesta arriva dal figlio: per costruire il percorso manca ancora la voce di Lucia.</p>
+          <div class="strumenti-lucia">
+            <a class="azione-lucia" href="dossier-lucia.docx" download>Scarica il dossier Word · 3 pagine</a>
+            <button type="button" id="stampa-lucia" class="secondario">Stampa il solo caso Lucia</button>
+            <button type="button" id="scarica-lucia" class="secondario">Scarica le mie risposte</button>
+          </div>
+          <div class="nota-lucia">
+            <h3>Un dato, un’ipotesi, una domanda</h3>
+            <p><strong>Dato della traccia:</strong> Lucia ha iniziato a saltare alcuni pasti. <strong>Ipotesi:</strong> anche mangiare da sola potrebbe rendere meno desiderabile cucinare. <strong>Domanda:</strong> «In quali momenti preparare da mangiare diventa più difficile?».</p>
+            <p>Il dato è scritto nel racconto. L’ipotesi è una spiegazione da controllare. La domanda aiuta a capire: non contiene già la risposta. Non sappiamo quali aiuti Lucia desideri, quali attività riesca a svolgere o quali contatti possa ancora coltivare. Il figlio è presente nella rete, ma non conosciamo tutti i suoi compiti e le sue disponibilità.</p>
+            <p><strong>Da operatore sociale:</strong> raccogli e documenti informazioni, riferisci ciò che emerge e collabori al percorso. Le valutazioni cliniche e le decisioni sull’ammissione ai servizi spettano ai soggetti competenti.</p>
+          </div>
+
+          <h3>Scegliere uno strumento</h3>
+          <p>Prima scrivi individualmente le domande che faresti a Lucia. Poi, in piccolo gruppo, scegliete uno strumento. Il docente assegna le funzioni di lettura del caso, controllo delle fonti e documentazione; tutti contribuiscono e motivano almeno una scelta.</p>
+          <div class="alternative-lucia">
+            <div><h4>Griglia bisogni–risorse–vincoli</h4><p>Per ogni dato collega un bisogno possibile, le risorse documentate, gli ostacoli e ciò che manca. Aiuta a confrontare le situazioni quotidiane; può rendere meno visibili i legami fra le persone.</p></div>
+            <div><h4>Mappa della rete con note</h4><p>Metti Lucia al centro e collega persone e servizi. Distingui contatti presenti e aiuti ancora da concordare. Le note devono mostrare anche bisogni, vincoli e dati mancanti. Puoi descrivere nodi e legami con un elenco.</p></div>
+          </div>
+          <label for="lucia_strumento">Quale strumento scegliete?</label>
+          <select id="lucia_strumento" name="lucia_strumento" data-lucia-field>
+            <option value="">Scegliete dopo il confronto</option>
+            <option value="griglia">Griglia bisogni–risorse–vincoli</option>
+            <option value="mappa">Mappa della rete con note</option>
+          </select>
+          <label for="lucia_motivo">Perché vi aiuta? Che cosa rischia di lasciare in ombra?</label>
+          <textarea id="lucia_motivo" name="lucia_motivo" data-lucia-field rows="3" placeholder="Motivate la scelta. Non occorre compilare entrambi gli strumenti."></textarea>
+          <label for="lucia_dati_domande">Dati, ipotesi e domande alla persona</label>
+          <p class="aiuto-campo" id="aiuto-dati">Riporta una breve sintesi della griglia o della mappa del dossier. Distingui ciò che il racconto documenta, ciò che ipotizzate e le domande che fareste a Lucia.</p>
+          <textarea id="lucia_dati_domande" name="lucia_dati_domande" data-lucia-field rows="6" aria-describedby="aiuto-dati"></textarea>
+
+          <h3>Dal bisogno alla risposta: controllare l’accesso</h3>
+          <p><strong>Bisogno:</strong> ciò che serve alla persona. <strong>Prestazione:</strong> l’aiuto concreto proposto. <strong>Servizio:</strong> chi organizza o offre quell’aiuto. <strong>Accesso:</strong> i passaggi e le condizioni per poterlo ricevere. Per Lucia, nominare un’assistenza domiciliare non chiarisce ancora che cosa farà, chi la valuterà e quando potrà iniziare.</p>
+          <details class="schede-lucia" id="schede-contesto">
+            <summary>Consulta le quattro schede del fascicolo</summary>
+            <p class="etichetta-simulazione"><strong>Fascicolo didattico simulato.</strong> Il caso non indica il Comune di residenza. Queste condizioni servono all’esercitazione e non descrivono l’offerta attuale di un ente reale.</p>
+            <article><h4>A · Servizio sociale e assistenza domiciliare sociale</h4><p>Il servizio sociale ascolta la domanda e valuta la situazione con la persona. Nel fascicolo, una possibile assistenza a casa riguarda la preparazione dei pasti e le attività domestiche concordate. Prima dell’avvio occorrono valutazione, verifica delle condizioni di accesso e accordo su attività, tempi ed eventuale quota a carico della persona. Costi e data di avvio non sono ancora noti. Non è assistenza continuativa.</p></article>
+            <article><h4>B · Punto Unico di Accesso (PUA)</h4><p>È il riferimento per orientare una domanda sociosanitaria e avviare, quando necessaria, la valutazione multidimensionale. Non è una prestazione quotidiana a domicilio. Nel fascicolo non è ancora stata svolta una valutazione: documentate chi contattare e quali informazioni raccogliere.</p></article>
+            <article><h4>C · Assistenza Domiciliare Integrata (ADI)</h4><p>Riguarda cure a domicilio quando le condizioni sanitarie le richiedono. La pagina ASL Cagliari indica la valutazione del medico di medicina generale e la proposta di attivazione tramite PUA. Non sostituisce automaticamente la spesa, la compagnia o le pulizie. Dal racconto non si può concludere che Lucia sia già ammessa: indicate quale valutazione manca.</p></article>
+            <article><h4>D · Opportunità di socialità e accompagnamento</h4><p>Nel territorio simulato esiste un incontro settimanale di lettura. Un’associazione raccoglie richieste di accompagnamento; il turno deve essere confermato ogni settimana. Non è verificata l’accessibilità del tragitto dal terzo piano. Non sappiamo se la lettura interessi a Lucia. La proposta richiede un confronto con lei e una verifica concreta degli spostamenti.</p></article>
+            <p class="fonti-lucia">Riferimenti reali per distinguere le funzioni: <a href="https://www.asl8cagliari.it/come_fare_per/sportello-punto-unico-di-accesso-pua/" target="_blank" rel="noopener">PUA · ASL Cagliari</a> e <a href="https://www.asl8cagliari.it/servizio/assistenza-domiciliare-integrata-adi/" target="_blank" rel="noopener">ADI · ASL Cagliari</a>, consultati il 15 ottobre 2026. Turni, disponibilità e attività del fascicolo restano simulati.</p>
+          </details>
+          <label for="lucia_percorso">Due priorità provvisorie e il percorso possibile</label>
+          <p class="aiuto-campo" id="aiuto-percorso">Riprendi le risposte 2–4, senza ricopiarle. Per ogni priorità indica: obiettivo da concordare con Lucia; aiuto concreto; servizio o persona; primo passo per l’accesso; condizioni da verificare; chi fa che cosa e quando controllare il risultato. Richiama la scheda o la fonte usata. Se manca un dato, dichiaralo.</p>
+          <textarea id="lucia_percorso" name="lucia_percorso" data-lucia-field rows="8" aria-describedby="aiuto-percorso"></textarea>
+
+          <h3>Quando cambia una disponibilità</h3>
+          <p>Conservate la prima proposta prima di leggere l’aggiornamento. Nel dossier tenete distinguibili la versione iniziale e la revisione.</p>
+          <button type="button" id="mostra-imprevisto" aria-expanded="false" aria-controls="imprevisto-lucia">Leggi la nuova informazione</button>
+          <div id="imprevisto-lucia" class="nota-lucia" hidden>
+            <p><strong>Nuova informazione fittizia:</strong> il figlio comunica che il prossimo mese non potrà venire. Quali azioni della vostra proposta dipendevano dalla sua presenza? La notizia non dice che interrompa ogni contatto o ogni altro aiuto.</p>
+            <p>Se nessuna azione dipendeva dalla visita, spiegate perché il percorso resta valido e controllate le altre disponibilità ipotizzate. Non affidate automaticamente i compiti a un vicino o a un volontario: la loro disponibilità deve essere documentata.</p>
+          </div>
+          <label for="lucia_revisione">Che cosa cambiate e perché? Che cosa resta valido?</label>
+          <textarea id="lucia_revisione" name="lucia_revisione" data-lucia-field rows="5" placeholder="Richiamate l’azione iniziale, la modifica e il motivo. Se una parte resta uguale, spiegatelo."></textarea>
+          <label for="lucia_verifica">Che cosa resta da concordare e come controllerete il risultato?</label>
+          <textarea id="lucia_verifica" name="lucia_verifica" data-lucia-field rows="4" placeholder="Indicate interlocutore, informazione o accordo mancante e momento della verifica."></textarea>
+          <div class="checklist-lucia"><h4>Rileggete il dossier</h4><p>Si riconoscono dati e ipotesi? Avete motivato lo strumento? La voce di Lucia resta presente? Prestazioni e accesso sono coerenti? Compiti e limiti sono espliciti? È chiaro che cosa è cambiato e come lo verificherete?</p><p>Confrontate con un altro gruppo una scelta e una questione ancora aperta. Valutate le ragioni, non il numero di servizi elencati.</p></div>
+        </section>
+
         </div>
 
         <!-- CASO 2 -->
         <div class="caso">
-            <div class="caso-header">CASO 2: Marco - Giovane con disabilità intellettiva</div>
+            <h2 class="caso-header">CASO 2: Marco - Giovane con disabilità intellettiva</h2>
             <div class="caso-testo">
                 Marco ha 22 anni e presenta una disabilità intellettiva di grado medio-lieve. Vive con i genitori, entrambi ultrasessantenni. Ha frequentato la scuola superiore conseguendo un attestato di competenze. È una persona socievole, gli piace stare con gli altri e ha un buon livello di autonomia nelle attività quotidiane di base (igiene personale, vestirsi, mangiare).
                 <br><br>
@@ -335,29 +418,29 @@
             </div>
 
             <div class="domanda">
-                <div class="domanda-titolo">1. Analisi della situazione: Identifica le risorse, le potenzialità e le criticità presenti in questa situazione. Considera sia gli aspetti relativi a Marco che quelli relativi al contesto familiare.</div>
-                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+                <label class="domanda-titolo" for="servizi_risposta_05">1. Analisi della situazione: Identifica le risorse, le potenzialità e le criticità presenti in questa situazione. Considera sia gli aspetti relativi a Marco che quelli relativi al contesto familiare.</label>
+                <textarea id="servizi_risposta_05" name="servizi_risposta_05" data-servizi-legacy="4" placeholder="Scrivi qui la tua risposta..."></textarea>
             </div>
 
             <div class="domanda">
-                <div class="domanda-titolo">2. Obiettivi di intervento: Formula almeno 4 obiettivi specifici e realistici per Marco, distinguendo tra obiettivi a breve termine (3-6 mesi) e obiettivi a medio-lungo termine (1-2 anni). Usa il criterio SMART (specifici, misurabili, accessibili cioè raggiungibili con le risorse disponibili, rilevanti per il bisogno, temporizzati).</div>
-                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+                <label class="domanda-titolo" for="servizi_risposta_06">2. Obiettivi di intervento: Formula almeno 4 obiettivi specifici e realistici per Marco, distinguendo tra obiettivi a breve termine (3-6 mesi) e obiettivi a medio-lungo termine (1-2 anni). Usa il criterio SMART (specifici, misurabili, accessibili cioè raggiungibili con le risorse disponibili, rilevanti per il bisogno, temporizzati).</label>
+                <textarea id="servizi_risposta_06" name="servizi_risposta_06" data-servizi-legacy="5" placeholder="Scrivi qui la tua risposta..."></textarea>
             </div>
 
             <div class="domanda">
-                <div class="domanda-titolo">3. Servizi e interventi: Quali servizi proporresti per Marco e perché? Come questi servizi possono supportare lo sviluppo delle sue autonomie e l'emancipazione? Considera sia servizi diurni che percorsi verso l'autonomia abitativa.</div>
-                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+                <label class="domanda-titolo" for="servizi_risposta_07">3. Servizi e interventi: Quali servizi proporresti per Marco e perché? Come questi servizi possono supportare lo sviluppo delle sue autonomie e l'emancipazione? Considera sia servizi diurni che percorsi verso l'autonomia abitativa.</label>
+                <textarea id="servizi_risposta_07" name="servizi_risposta_07" data-servizi-legacy="6" placeholder="Scrivi qui la tua risposta..."></textarea>
             </div>
 
             <div class="domanda">
-                <div class="domanda-titolo">4. Lavoro con la famiglia: Come lavoreresti con i genitori di Marco per supportarli nel processo di "lasciare andare" e promuovere una maggiore autonomia del figlio? Quali strategie educative potresti suggerire?</div>
-                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+                <label class="domanda-titolo" for="servizi_risposta_08">4. Lavoro con la famiglia: Come lavoreresti con i genitori di Marco per supportarli nel processo di "lasciare andare" e promuovere una maggiore autonomia del figlio? Quali strategie educative potresti suggerire?</label>
+                <textarea id="servizi_risposta_08" name="servizi_risposta_08" data-servizi-legacy="7" placeholder="Scrivi qui la tua risposta..."></textarea>
             </div>
         </div>
 
         <!-- CASO 3 -->
         <div class="caso">
-            <div class="caso-header">CASO 3: Famiglia Russo - Emergenza abitativa e sociale</div>
+            <h2 class="caso-header">CASO 3: Famiglia Russo - Emergenza abitativa e sociale</h2>
             <div class="caso-testo">
                 La famiglia Russo è composta da: Paolo (42 anni, disoccupato da 8 mesi dopo il fallimento della ditta per cui lavorava), Anna (39 anni, fa pulizie a ore guadagnando circa 400€/mese), e due figli - Sofia (15 anni, frequenta il terzo anno delle superiori) e Matteo (9 anni, scuola primaria).
                 <br><br>
@@ -369,29 +452,29 @@
             </div>
 
             <div class="domanda">
-                <div class="domanda-titolo">1. Valutazione urgenza: Questa situazione presenta caratteristiche di emergenza sociale? Motiva la tua risposta e indica quali servizi devono intervenire immediatamente.</div>
-                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+                <label class="domanda-titolo" for="servizi_risposta_09">1. Valutazione urgenza: Questa situazione presenta caratteristiche di emergenza sociale? Motiva la tua risposta e indica quali servizi devono intervenire immediatamente.</label>
+                <textarea id="servizi_risposta_09" name="servizi_risposta_09" data-servizi-legacy="8" placeholder="Scrivi qui la tua risposta..."></textarea>
             </div>
 
             <div class="domanda">
-                <div class="domanda-titolo">2. Bisogni multidimensionali: Analizza i bisogni di ciascun membro della famiglia (Paolo, Anna, Sofia, Matteo), considerando gli aspetti abitativi, economici, relazionali, psicologici e sociali.</div>
-                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+                <label class="domanda-titolo" for="servizi_risposta_10">2. Bisogni multidimensionali: Analizza i bisogni di ciascun membro della famiglia (Paolo, Anna, Sofia, Matteo), considerando gli aspetti abitativi, economici, relazionali, psicologici e sociali.</label>
+                <textarea id="servizi_risposta_10" name="servizi_risposta_10" data-servizi-legacy="9" placeholder="Scrivi qui la tua risposta..."></textarea>
             </div>
 
             <div class="domanda">
-                <div class="domanda-titolo">3. Piano di intervento integrato: Proponi un piano di intervento completo che affronti sia le emergenze immediate (dove andranno a vivere? come mangeranno?) sia gli interventi a medio termine per stabilizzare la famiglia. Quali servizi, contributi economici e supporti psico-sociali attiveresti?</div>
-                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+                <label class="domanda-titolo" for="servizi_risposta_11">3. Piano di intervento integrato: Proponi un piano di intervento completo che affronti sia le emergenze immediate (dove andranno a vivere? come mangeranno?) sia gli interventi a medio termine per stabilizzare la famiglia. Quali servizi, contributi economici e supporti psico-sociali attiveresti?</label>
+                <textarea id="servizi_risposta_11" name="servizi_risposta_11" data-servizi-legacy="10" placeholder="Scrivi qui la tua risposta..."></textarea>
             </div>
 
             <div class="domanda">
-                <div class="domanda-titolo">4. Rete formale e informale: Identifica tutti gli attori della rete (formale e informale) che potrebbero essere coinvolti nel supporto a questa famiglia. Come possono coordinarsi tra loro per offrire un aiuto efficace?</div>
-                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+                <label class="domanda-titolo" for="servizi_risposta_12">4. Rete formale e informale: Identifica tutti gli attori della rete (formale e informale) che potrebbero essere coinvolti nel supporto a questa famiglia. Come possono coordinarsi tra loro per offrire un aiuto efficace?</label>
+                <textarea id="servizi_risposta_12" name="servizi_risposta_12" data-servizi-legacy="11" placeholder="Scrivi qui la tua risposta..."></textarea>
             </div>
         </div>
 
         <!-- CASO 4 -->
         <div class="caso">
-            <div class="caso-header">CASO 4: Signor Giuseppe - Persona senza fissa dimora</div>
+            <h2 class="caso-header">CASO 4: Signor Giuseppe - Persona senza fissa dimora</h2>
             <div class="caso-testo">
                 Il signor Giuseppe ha 58 anni. È italiano, originario della provincia di Cagliari. Vive per strada da circa 3 anni. Prima lavorava come muratore, ma dopo un grave incidente sul lavoro che gli ha causato problemi alla schiena, non ha più potuto svolgere lavori pesanti. Ha iniziato a bere, ha perso il lavoro, poi la casa, e gradualmente tutti i contatti con la famiglia.
                 <br><br>
@@ -403,29 +486,29 @@
             </div>
 
             <div class="domanda">
-                <div class="domanda-titolo">1. Analisi della situazione di marginalità: Analizza i fattori che hanno portato Giuseppe alla condizione di senza dimora e i bisogni primari e secondari che emergono dal caso. Considera gli aspetti sanitari, abitativi, relazionali e psicologici.</div>
-                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+                <label class="domanda-titolo" for="servizi_risposta_13">1. Analisi della situazione di marginalità: Analizza i fattori che hanno portato Giuseppe alla condizione di senza dimora e i bisogni primari e secondari che emergono dal caso. Considera gli aspetti sanitari, abitativi, relazionali e psicologici.</label>
+                <textarea id="servizi_risposta_13" name="servizi_risposta_13" data-servizi-legacy="12" placeholder="Scrivi qui la tua risposta..."></textarea>
             </div>
 
             <div class="domanda">
-                <div class="domanda-titolo">2. Costruzione della relazione d'aiuto: Giuseppe è molto diffidente verso i servizi. Quali strategie utilizzeresti per costruire una relazione di fiducia con lui? Quali caratteristiche della relazione d'aiuto (empatia, ascolto attivo, rispetto, non giudizio) sono particolarmente importanti in questo caso?</div>
-                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+                <label class="domanda-titolo" for="servizi_risposta_14">2. Costruzione della relazione d'aiuto: Giuseppe è molto diffidente verso i servizi. Quali strategie utilizzeresti per costruire una relazione di fiducia con lui? Quali caratteristiche della relazione d'aiuto (empatia, ascolto attivo, rispetto, non giudizio) sono particolarmente importanti in questo caso?</label>
+                <textarea id="servizi_risposta_14" name="servizi_risposta_14" data-servizi-legacy="13" placeholder="Scrivi qui la tua risposta..."></textarea>
             </div>
 
             <div class="domanda">
-                <div class="domanda-titolo">3. Interventi nell'immediato e a lungo termine: Distingui tra gli interventi urgenti da attivare subito (entro pochi giorni) e un progetto di reinserimento sociale a lungo termine. Quali servizi proporresti? Come gestiresti il suo rifiuto dei dormitori?</div>
-                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+                <label class="domanda-titolo" for="servizi_risposta_15">3. Interventi nell'immediato e a lungo termine: Distingui tra gli interventi urgenti da attivare subito (entro pochi giorni) e un progetto di reinserimento sociale a lungo termine. Quali servizi proporresti? Come gestiresti il suo rifiuto dei dormitori?</label>
+                <textarea id="servizi_risposta_15" name="servizi_risposta_15" data-servizi-legacy="14" placeholder="Scrivi qui la tua risposta..."></textarea>
             </div>
 
             <div class="domanda">
-                <div class="domanda-titolo">4. Approccio multidisciplinare: Questo caso richiede la collaborazione di diversi professionisti e servizi (sanitari, sociali, forse anche legali/amministrativi). Descrivi come dovrebbe essere organizzato un lavoro di équipe multidisciplinare per Giuseppe.</div>
-                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+                <label class="domanda-titolo" for="servizi_risposta_16">4. Approccio multidisciplinare: Questo caso richiede la collaborazione di diversi professionisti e servizi (sanitari, sociali, forse anche legali/amministrativi). Descrivi come dovrebbe essere organizzato un lavoro di équipe multidisciplinare per Giuseppe.</label>
+                <textarea id="servizi_risposta_16" name="servizi_risposta_16" data-servizi-legacy="15" placeholder="Scrivi qui la tua risposta..."></textarea>
             </div>
         </div>
 
         <!-- CASO 5 -->
         <div class="caso">
-            <div class="caso-header">CASO 5: Signora Elena - Caregiver in burnout</div>
+            <h2 class="caso-header">CASO 5: Signora Elena - Caregiver in burnout</h2>
             <div class="caso-testo">
                 Elena ha 52 anni e lavora a tempo parziale in un supermercato (4 ore al giorno, 5 giorni a settimana). Da 4 anni si prende cura del marito Roberto (55 anni) che ha avuto un grave ictus che gli ha causato emiparesi destra e afasia. Roberto è parzialmente autosufficiente: può mangiare da solo con qualche difficoltà, ma ha bisogno di aiuto per lavarsi, vestirsi, e per spostarsi usa il bastone ma è molto instabile.
                 <br><br>
@@ -442,23 +525,23 @@
             </div>
 
             <div class="domanda">
-                <div class="domanda-titolo">1. La sindrome del caregiver: Descrivi cosa sta vivendo Elena utilizzando il concetto di «carico del caregiver» (in inglese <em>caregiver burden</em>: il peso fisico ed emotivo dell'assistenza) o di «sindrome del caregiver». Quali sono i segnali di allarme che emergono dal caso? Perché è importante intervenire non solo sul paziente (Roberto) ma anche sul caregiver?</div>
-                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+                <label class="domanda-titolo" for="servizi_risposta_17">1. La sindrome del caregiver: Descrivi cosa sta vivendo Elena utilizzando il concetto di «carico del caregiver» (in inglese <em>caregiver burden</em>: il peso fisico ed emotivo dell'assistenza) o di «sindrome del caregiver». Quali sono i segnali di allarme che emergono dal caso? Perché è importante intervenire non solo sul paziente (Roberto) ma anche sul caregiver?</label>
+                <textarea id="servizi_risposta_17" name="servizi_risposta_17" data-servizi-legacy="16" placeholder="Scrivi qui la tua risposta..."></textarea>
             </div>
 
             <div class="domanda">
-                <div class="domanda-titolo">2. Bisogni di Elena e di Roberto: Analizza separatamente i bisogni di Elena e quelli di Roberto. Come possono essere interconnessi? È possibile che un intervento efficace per Roberto abbia benefici anche per Elena?</div>
-                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+                <label class="domanda-titolo" for="servizi_risposta_18">2. Bisogni di Elena e di Roberto: Analizza separatamente i bisogni di Elena e quelli di Roberto. Come possono essere interconnessi? È possibile che un intervento efficace per Roberto abbia benefici anche per Elena?</label>
+                <textarea id="servizi_risposta_18" name="servizi_risposta_18" data-servizi-legacy="17" placeholder="Scrivi qui la tua risposta..."></textarea>
             </div>
 
             <div class="domanda">
-                <div class="domanda-titolo">3. Servizi di supporto: Quali servizi socio-sanitari proporresti per alleggerire il carico assistenziale di Elena e supportare Roberto? Costruisci una proposta che preveda interventi domiciliari, semiresidenziali, e anche supporto psicologico per la famiglia. Motiva ogni scelta.</div>
-                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+                <label class="domanda-titolo" for="servizi_risposta_19">3. Servizi di supporto: Quali servizi socio-sanitari proporresti per alleggerire il carico assistenziale di Elena e supportare Roberto? Costruisci una proposta che preveda interventi domiciliari, semiresidenziali, e anche supporto psicologico per la famiglia. Motiva ogni scelta.</label>
+                <textarea id="servizi_risposta_19" name="servizi_risposta_19" data-servizi-legacy="18" placeholder="Scrivi qui la tua risposta..."></textarea>
             </div>
 
             <div class="domanda">
-                <div class="domanda-titolo">4. Prevenzione del burnout: Quali strategie concrete suggeriresti a Elena per prevenire il peggioramento del burnout? Come può ritagliarsi spazi per sé senza sentirsi in colpa? Qual è il ruolo dell'operatore sociale nel supportare i caregiver familiari?</div>
-                <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
+                <label class="domanda-titolo" for="servizi_risposta_20">4. Prevenzione del burnout: Quali strategie concrete suggeriresti a Elena per prevenire il peggioramento del burnout? Come può ritagliarsi spazi per sé senza sentirsi in colpa? Qual è il ruolo dell'operatore sociale nel supportare i caregiver familiari?</label>
+                <textarea id="servizi_risposta_20" name="servizi_risposta_20" data-servizi-legacy="19" placeholder="Scrivi qui la tua risposta..."></textarea>
             </div>
         </div>
 
@@ -467,108 +550,10 @@
             <button class="btn-print" onclick="window.print()">🖨️ Stampa</button>
             
         </div>
-    </div>
+    </main>
 
-    <script>
-        // Imposta la data odierna
-        document.getElementById('data').valueAsDate = new Date();
-
-        // Funzione per esportare in PDF
-        function exportPDF() {
-            const nome = document.getElementById('nome').value || 'Studente';
-            const classe = document.getElementById('classe').value || 'Classe';
-            const filename = `Esercitazione_${nome.replace(/\s+/g, '_')}_${classe}.pdf`;
-            
-            const element = document.getElementById('content');
-            const opt = {
-                margin: 10,
-                filename: filename,
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2 },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-            
-            html2pdf().set(opt).from(element).save();
-        }
-
-        // Funzione per cancellare tutti i campi
-        function clearAll() {
-            if (confirm('Sei sicuro di voler cancellare tutte le risposte? Questa azione non può essere annullata.')) {
-                const textareas = document.querySelectorAll('textarea');
-                textareas.forEach(textarea => textarea.value = '');
-                document.getElementById('nome').value = '';
-                document.getElementById('classe').value = '';
-            }
-        }
-
-        // Salvataggio automatico nel localStorage ogni 30 secondi
-        setInterval(() => {
-            const data = {
-                nome: document.getElementById('nome').value,
-                classe: document.getElementById('classe').value,
-                data: document.getElementById('data').value,
-                risposte: Array.from(document.querySelectorAll('textarea')).map(t => t.value)
-            };
-            localStorage.setItem('esercitazione_servizi', JSON.stringify(data));
-        }, 30000);
-
-        // Recupero dei dati salvati al caricamento della pagina
-        window.onload = function() {
-            const saved = localStorage.getItem('esercitazione_servizi');
-            if (saved && confirm('Sono state trovate risposte salvate precedentemente. Vuoi recuperarle?')) {
-                const data = JSON.parse(saved);
-                document.getElementById('nome').value = data.nome || '';
-                document.getElementById('classe').value = data.classe || '';
-                document.getElementById('data').value = data.data || '';
-                const textareas = document.querySelectorAll('textarea');
-                data.risposte.forEach((risposta, index) => {
-                    if (textareas[index]) {
-                        textareas[index].value = risposta;
-                    }
-                });
-            }
-        };
-    </script>
-    <footer class="site-footer">
-      <a href="https://salvapicconi.github.io/metodologieoperative/">🏠 Torna alla Home</a>
-    </footer>
-    <script>
-        window.MO_PROGRESS_CONFIG = {
-            pagePath: window.location.pathname,
-            inputSelector: 'textarea, input:not([type="file"])',
-            onBeforeSave(data) {
-                try {
-                    const payload = {
-                        nome: document.getElementById('nome')?.value || '',
-                        classe: document.getElementById('classe')?.value || '',
-                        data: document.getElementById('data')?.value || '',
-                        risposte: Array.from(document.querySelectorAll('textarea')).map(t => t.value)
-                    };
-                    data._esercitazioneServizi = payload;
-                } catch (error) {
-                    console.error('Errore onBeforeSave esercitazioni servizi:', error);
-                }
-                return data;
-            },
-            onRestore(saved) {
-                try {
-                    const state = saved && saved._esercitazioneServizi;
-                    if (!state) return;
-                    if (document.getElementById('nome')) document.getElementById('nome').value = state.nome || '';
-                    if (document.getElementById('classe')) document.getElementById('classe').value = state.classe || '';
-                    if (document.getElementById('data')) document.getElementById('data').value = state.data || '';
-                    const textareas = document.querySelectorAll('textarea');
-                    (state.risposte || []).forEach((value, index) => {
-                        if (textareas[index]) {
-                            textareas[index].value = value || '';
-                        }
-                    });
-                } catch (error) {
-                    console.error('Errore onRestore esercitazioni servizi:', error);
-                }
-            }
-        };
-    </script>
+    <script src="../../assets/lucia-servizi.js?v=20261015"></script>
+    <footer class="site-footer"><a href="../../terzo.html">← Materiali del terzo anno</a></footer>
     <script>
         window.MO_IDENTITY_CONFIG = {
             message: 'Inserisci la classe (es. 3sa) e il codice cognome+iniziale tutto minuscolo (es. rossi g → rossig).',

@@ -3,7 +3,7 @@
     "fonteCurricolo": "D.M. 24 maggio 2018 n. 92, Allegato C",
     "fonteQNQ": "D.I. MLPS/MIUR 8 gennaio 2018, Allegato 1 (Tabella A)",
     "verificaNormativa": "2026-08-21",
-    "aggiornato": "2026-10-12",
+    "aggiornato": "2026-10-16",
     "anni": [
       "Primo anno",
       "Secondo anno",
@@ -14,7 +14,8 @@
     "sezioni": {
       "compresenza": "Compresenza con Scienze umane",
       "laboratorio": "Laboratorio",
-      "orientamento": "Attività di orientamento"
+      "orientamento": "Attività di orientamento",
+      "educazione-civica": "Educazione civica"
     },
     "avvertenza": "File generato da scripts/programmi.py: non modificarlo a mano."
   },
@@ -1575,14 +1576,15 @@
     },
     "civica": {
       "_fonte": "Legge 20 agosto 2019, n. 92, art. 3; D.M. 7 settembre 2024, n. 183 e Linee guida allegate.",
-      "_nota": "Delle competenze delle Linee guida si riporta qui soltanto quella gia' in uso nel curricolo verticale. Aggiungerne altre richiede di copiarle verbatim dalle Linee guida.",
+      "_nota": "Catalogo delle competenze civiche usate nel curricolo e nelle UDA. Ogni nuova voce deve essere copiata verbatim dalle Linee guida. Competenza 10 del secondo ciclo verificata sul documento ufficiale, p. 21, il 16 ottobre 2026; testo della voce preesistente 3 conservato.",
       "nuclei": [
         "Costituzione",
         "Sviluppo sostenibile",
         "Cittadinanza digitale"
       ],
       "competenze": {
-        "3": "Rispettare le regole e le norme che governano lo stato di diritto, la convivenza sociale e la vita quotidiana in famiglia, a scuola, nella comunità e nel mondo del lavoro, per rapportarsi correttamente con gli altri, esercitare consapevolmente diritti e doveri e contribuire al bene comune e al rispetto dei diritti delle persone."
+        "3": "Rispettare le regole e le norme che governano lo stato di diritto, la convivenza sociale e la vita quotidiana in famiglia, a scuola, nella comunità e nel mondo del lavoro, per rapportarsi correttamente con gli altri, esercitare consapevolmente diritti e doveri e contribuire al bene comune e al rispetto dei diritti delle persone.",
+        "10": "Sviluppare la capacità di accedere alle informazioni, alle fonti, ai contenuti digitali, in modo critico, responsabile e consapevole."
       }
     }
   },
@@ -1736,14 +1738,14 @@
       "titolo": "L'indirizzo sociosanitario e l'operatore sociale",
       "periodo": "Settembre – Novembre",
       "monteOre": "20 ore",
-      "prodottoFinale": "Il fascicolo di classe che raccoglie le tre schede compilate sui servizi del territorio.",
+      "prodottoFinale": "La scheda del profilo dell'operatore sociale, con ruolo, funzioni, obiettivi e attività, presentata al gruppo classe.",
       "fasi": [
         "Avvio: si raccoglie che cosa gli studenti immaginano siano i servizi per la sanità e l'assistenza sociale, e lo si confronta con la definizione della disciplina.",
         "Costruzione delle conoscenze: si studiano il concetto di servizio sociosanitario, la definizione della disciplina e il suo taglio pratico e laboratoriale, il modo in cui i servizi sono organizzati, le funzioni di chi ci lavora e le figure professionali della relazione d'aiuto.",
         "Laboratorio: le competenze in uscita del profilo professionale vengono riscritte in forma poetica e poi tradotte in lingua sarda.",
-        "Prova esperta e restituzione: si compilano le schede di tre servizi del territorio e si raccolgono in un fascicolo di classe. La verifica orale chiude il modulo."
+        "Prova esperta e restituzione: si compila la scheda del profilo dell'operatore sociale e la si presenta al gruppo classe. La verifica orale chiude il modulo."
       ],
-      "sintesi": "Che cosa sono i servizi per la sanità e l'assistenza sociale e che cosa fa chi ci lavora.",
+      "sintesi": "Conoscere l'indirizzo sociosanitario e descrivere ruolo, funzioni, obiettivi e attività dell'operatore sociale.",
       "contenuti": [
         {
           "attivita": "Introduzione al corso e alle materie di indirizzo: che cosa sono i servizi per la sanità e l'assistenza sociale",
@@ -1865,38 +1867,37 @@
         }
       ],
       "provaEsperta": {
-        "titolo": "La scheda-servizio",
-        "compito": "Compilare il format della scheda-servizio su tre servizi del territorio indicati dal docente, usando le fonti fornite: denominazione, ente titolare, tipologia, utenza, prestazioni, come si accede.",
-        "contesto": "Il territorio di Decimomannu e dell'area vasta di Cagliari, già esplorato in classe attraverso i materiali forniti.",
-        "prodotto": "Tre schede-servizio compilate, raccolte in un fascicolo di classe.",
+        "titolo": "Il profilo dell'operatore sociale",
+        "compito": "Compilare il format del profilo dell'operatore sociale usando i materiali selezionati dal docente: ruolo, funzioni, obiettivi, attività e competenze del profilo in uscita. Presentare la scheda alla classe distinguendo il ruolo dell'operatore da quello delle altre figure della relazione d'aiuto.",
+        "contesto": "L'indirizzo sociosanitario e il profilo professionale già studiati in classe, attraverso le parti del percorso selezionate dal docente.",
+        "prodotto": "Scheda del profilo dell'operatore sociale compilata e breve presentazione orale.",
         "durata": "2 ore di laboratorio",
         "modalita": "coppie",
         "risorse": [
-          "format della scheda-servizio",
-          "elenco delle fonti da consultare",
-          "postazioni informatiche"
+          "format della scheda del profilo dell'operatore sociale",
+          "materiali sul profilo professionale selezionati dal docente",
+          "competenze del profilo in uscita"
         ],
         "imprevisto": "",
         "evidenze": [
-          "completezza delle tre schede",
-          "correttezza nella classificazione del servizio",
-          "uso corretto delle fonti fornite",
-          "partecipazione"
+          "completezza della scheda",
+          "correttezza nella descrizione di ruolo, funzioni e attività",
+          "distinzione fra le figure della relazione d'aiuto",
+          "chiarezza della presentazione"
         ]
       },
       "focus": {
-        "competenza": "C1",
+        "competenza": "C5",
         "abilita": [
-          "Identificare le diverse tipologie di servizi presenti sul territorio"
+          "Descrivere i compiti dei soggetti che partecipano alla presa in carico della persona ammalata"
         ],
         "conoscenze": [
-          "Tipologia dei servizi sociali, socio-educativi, sociosanitari, sanitari",
-          "I principi di sussidiarietà nell'organizzazione dei servizi"
+          "I soggetti che partecipano alla presa in carico della persona malata e i loro compiti"
         ],
-        "nota": "La prova chiede di classificare tre servizi reali sul format: si valuta il riconoscimento della tipologia e di chi ne è titolare. Il profilo dell'operatore (C5) resta il contenuto che dà senso alla classificazione, non ciò che si consegna.",
-        "competenzaTitolo": "Competenza in uscita n° 1: Collaborare nella gestione di progetti e attività dei servizi sociali, socio-sanitari e socio-educativi, rivolti a bambini e adolescenti, persone con disabilità, anziani, minori a rischio, soggetti con disagio psico-sociale e altri soggetti in situazione di svantaggio, anche attraverso lo sviluppo di reti territoriali formali e informali.",
-        "competenzaNum": 1,
-        "competenzaIntermedia": "Costruire mappe dei servizi sociali, socio-sanitari e socio-educativi disponibili nel territorio e delle principali prestazioni erogate alle diverse tipologie di utenza",
+        "nota": "La prova richiede di descrivere ruolo, funzioni, obiettivi e attività dell'operatore sociale e di distinguerli dai compiti delle altre figure della relazione d'aiuto.",
+        "competenzaTitolo": "Competenza in uscita n° 5: Partecipare alla presa in carico socio-assistenziale di soggetti le cui condizioni determinino uno stato di non autosufficienza parziale o totale, di terminalità, di compromissione delle capacità cognitive e motorie, applicando procedure e tecniche stabilite e facendo uso dei principali ausili e presidi.",
+        "competenzaNum": 5,
+        "competenzaIntermedia": "Adottare atteggiamenti coerenti al concetto di salute e cura come risultante di un approccio multidimensionale che contempli i livelli biologico, psicologico e sociale",
         "compresenzaScienzeUmane": false
       },
       "materiali": [
@@ -2031,6 +2032,10 @@
         {
           "titolo": "L'operatore sociale: percorso a tappe",
           "file": "materiali/biennio/tssas_percorso_completo_v2.html"
+        },
+        {
+          "titolo": "La rete sociale: tracce di riflessione sul sociogramma (Word)",
+          "file": "materiali/biennio/rete_sociale_sociogramma.docx"
         }
       ],
       "origine": "P",
@@ -2150,7 +2155,12 @@
         "competenzaIntermedia": "Realizzare semplici attività di animazione ludica e sociale in contesti noti",
         "compresenzaScienzeUmane": false
       },
-      "materiali": [],
+      "materiali": [
+        {
+          "titolo": "Il dilemma di Sofia: copione per il laboratorio (Word)",
+          "file": "materiali/biennio/dilemma_sofia.docx"
+        }
+      ],
       "origine": "P",
       "anno": "Primo anno",
       "periodoCurricolo": "Biennio",
@@ -2166,14 +2176,14 @@
       "titolo": "Bisogni umani e relazione d'aiuto",
       "periodo": "Dicembre – Febbraio",
       "monteOre": "18 ore",
-      "prodottoFinale": "La griglia bisogno-servizio compilata sulle tre situazioni proposte.",
+      "prodottoFinale": "Lo schema dei bisogni non soddisfatti e del loro impatto nella relazione d'aiuto, accompagnato dalla griglia bisogno-servizio compilata su tre situazioni.",
       "fasi": [
         "Avvio: si parte da situazioni concrete per far emergere di che cosa una persona ha davvero bisogno.",
         "Costruzione delle conoscenze: si studia la teoria dei bisogni umani e si costruisce lo schema dei bisogni non soddisfatti.",
-        "Laboratorio: si analizzano le caratteristiche della relazione d'aiuto, l'importanza dell'osservazione come suo strumento, e le modalità con cui i servizi intervengono per il benessere bio-psico-sociale della persona.",
-        "Prova esperta e restituzione: si compila la griglia che collega ogni bisogno al servizio capace di rispondere. Le verifiche orali su bisogni, welfare e relazione d'aiuto chiudono il modulo."
+        "Laboratorio: si osservano tre situazioni e si collega il bisogno non soddisfatto alle conseguenze sulla persona e agli atteggiamenti utili nella relazione d'aiuto.",
+        "Prova esperta e restituzione: si completa lo schema dei bisogni non soddisfatti e la griglia bisogno-servizio sulle tre situazioni, usando le schede informative fornite dal docente; si confrontano le motivazioni in classe."
       ],
-      "sintesi": "Dai bisogni della persona alle risposte dei servizi, passando per la relazione che li tiene insieme.",
+      "sintesi": "Riconoscere i bisogni soddisfatti e non soddisfatti, le loro conseguenze sulla persona e il loro impatto nella relazione d'aiuto.",
       "contenuti": [
         {
           "attivita": "Introduzione alla teoria dei bisogni umani",
@@ -2280,22 +2290,23 @@
         }
       ],
       "provaEsperta": {
-        "titolo": "Dal bisogno al servizio",
-        "compito": "A partire da tre brevi situazioni fornite, riconoscere il bisogno prevalente di ciascuna persona e indicare sul format quale servizio del territorio può rispondere, motivando la scelta in due righe.",
+        "titolo": "Bisogni non soddisfatti e relazione d'aiuto",
+        "compito": "A partire da tre brevi situazioni fornite, riconoscere il bisogno prevalente non soddisfatto, descrivere le conseguenze sulla persona e indicare un atteggiamento utile nella relazione d'aiuto. Completare la griglia bisogno-servizio consultando le schede informative fornite dal docente e motivare ogni scelta.",
         "contesto": "Tre situazioni già lette e discusse in classe, riproposte su scheda.",
-        "prodotto": "Griglia bisogno-servizio compilata per le tre situazioni.",
+        "prodotto": "Schema dei bisogni non soddisfatti e del loro impatto nella relazione d'aiuto; griglia bisogno-servizio compilata sulle tre situazioni.",
         "durata": "2 ore di laboratorio",
         "modalita": "coppie",
         "risorse": [
-          "format della griglia bisogno-servizio",
+          "format dello schema dei bisogni non soddisfatti e della griglia bisogno-servizio",
           "schede delle tre situazioni",
-          "fascicolo delle schede-servizio prodotto nel modulo 2"
+          "schede informative sui servizi fornite dal docente"
         ],
         "imprevisto": "",
         "evidenze": [
-          "corretta individuazione del bisogno prevalente",
-          "pertinenza del servizio indicato",
-          "chiarezza della motivazione",
+          "corretta individuazione del bisogno prevalente non soddisfatto",
+          "coerenza fra bisogno, conseguenze e atteggiamento nella relazione d'aiuto",
+          "pertinenza del servizio indicato rispetto alle informazioni fornite",
+          "chiarezza delle motivazioni",
           "partecipazione"
         ]
       },
@@ -2307,7 +2318,7 @@
         "conoscenze": [
           "I principali bisogni legati all'età e alle condizioni dell'individuo"
         ],
-        "nota": "La prova si apre sul riconoscimento del bisogno prevalente e solo dopo chiede il servizio: la prima evidenza valutata è la rilevazione del bisogno. La relazione d'aiuto (C5) è la cornice dentro cui si impara a farla.",
+        "nota": "La prova valuta il riconoscimento dei bisogni non soddisfatti, delle loro conseguenze e dell'impatto nella relazione d'aiuto; la scelta del servizio è guidata dalle schede fornite dal docente.",
         "competenzaTitolo": "Competenza in uscita n° 4: Prendersi cura e collaborare al soddisfacimento dei bisogni di base di bambini, persone con disabilità, anziani nell’espletamento delle più comuni attività quotidiane.",
         "competenzaNum": 4,
         "competenzaIntermedia": "Rilevare, in modo guidato, condizioni, stili di vita e bisogni legati all'età",
@@ -2315,12 +2326,24 @@
       },
       "materiali": [
         {
-          "titolo": "L'operatore sociale: percorso a tappe",
-          "file": "materiali/biennio/tssas_percorso_completo_v2.html"
+          "titolo": "Bisogni umani e relazione d’aiuto · lezione partecipata",
+          "file": "materiali/biennio/bisogni-relazione-aiuto.html"
         },
         {
-          "titolo": "L'operatore sociale: ripasso",
-          "file": "materiali/biennio/tssas_teoria_ripasso.html"
+          "titolo": "Bisogni e relazione d’aiuto · scheda operativa",
+          "file": "materiali/biennio/bisogni_relazione_aiuto_scheda.docx"
+        },
+        {
+          "titolo": "Bisogni umani: tabella di riferimento (Word)",
+          "file": "materiali/biennio/bisogni_tabella_riferimento.docx"
+        },
+        {
+          "titolo": "Storie sui bisogni (Word)",
+          "file": "materiali/biennio/bisogni_storie.docx"
+        },
+        {
+          "titolo": "Bisogni e relazione d'aiuto: scheda guida (Word)",
+          "file": "materiali/biennio/bisogni_scheda_guida.docx"
         }
       ],
       "origine": "P+C",
@@ -2671,7 +2694,7 @@
         "risorse": [
           "format della carta d'identità dell'utente",
           "schema dei bisogni costruito nel modulo 5",
-          "fascicolo delle schede-servizio del modulo 2"
+          "schede informative sui servizi fornite dal docente"
         ],
         "imprevisto": "",
         "evidenze": [
@@ -2703,6 +2726,10 @@
         {
           "titolo": "L'operatore sociale: ripasso",
           "file": "materiali/biennio/tssas_teoria_ripasso.html"
+        },
+        {
+          "titolo": "Utenza: famiglia, infanzia e adolescenza (Word)",
+          "file": "materiali/biennio/utenza_famiglia_infanzia_adolescenza.docx"
         }
       ],
       "origine": "P",
@@ -2718,7 +2745,7 @@
     },
     {
       "n": 8,
-      "titolo": "Educazione civica e lettura dell'attualità",
+      "titolo": "Il pericolo della gratificazione istantanea e la cultura del tutto e subito",
       "periodo": "Aprile – Maggio",
       "monteOre": "10 ore",
       "prodottoFinale": "Il manifesto contro uno stereotipo, affisso negli spazi della scuola con la sua didascalia.",
@@ -2901,140 +2928,6 @@
       "competenze": [
         "C1",
         "C2"
-      ]
-    },
-    {
-      "n": 10,
-      "titolo": "Laboratorio di animazione: fondamenti e tecniche espressive",
-      "origine": "C",
-      "periodo": "Febbraio – Aprile",
-      "monteOre": "40 ore",
-      "sintesi": "Che cos'è l'animazione, come si progetta a partire dai bisogni, e le tecniche espressive di base del laboratorio.",
-      "prodottoFinale": "Il repertorio illustrato delle tecniche di animazione sperimentate, con la scheda di un'attività pronta per essere condotta.",
-      "fasi": [
-        "Avvio: si osservano esempi di attività di animazione già realizzate, per capire a cosa servono e chi le conduce.",
-        "Costruzione delle conoscenze: si studiano definizione, tipologie e fasi della vita a cui si rivolge l'animazione, e come si progetta a partire dai bisogni.",
-        "Laboratorio: si sperimentano le tecniche grafico-pittoriche, plastico-manipolative e manuali, usando i materiali propri dell'animazione.",
-        "Prova esperta e restituzione: si prepara e si conduce un'attività di animazione con i compagni, utilizzando una delle tecniche sperimentate."
-      ],
-      "contenuti": [
-        {
-          "attivita": "L'animazione: definizione, caratteristiche e tipologie, e l'animazione nelle varie fasi della vita",
-          "agganci": [
-            {
-              "competenza": "C8",
-              "abilita": [
-                "Identificare le principali tecniche di animazione ludica e sociale"
-              ],
-              "conoscenze": [
-                "Obiettivi e tecniche dell'animazione ludica e sociale anche con strumenti multimediali"
-              ]
-            },
-            {
-              "competenza": "C4",
-              "abilita": [
-                "Riconoscere i bisogni legati all'età e alle condizioni dell'individuo"
-              ],
-              "conoscenze": [
-                "I principali bisogni legati all'età e alle condizioni dell'individuo"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "Progettare l'animazione: analisi dei bisogni e definizione degli obiettivi, e l'animatore: requisiti essenziali e agire professionale",
-          "agganci": [
-            {
-              "competenza": "C8",
-              "abilita": [
-                "Identificare le principali tecniche di animazione ludica e sociale"
-              ],
-              "conoscenze": [
-                "Obiettivi e tecniche dell'animazione ludica e sociale anche con strumenti multimediali"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "Il laboratorio di animazione: caratteristiche, peculiarità e materiali",
-          "agganci": [
-            {
-              "competenza": "C8",
-              "abilita": [
-                "Riconoscere i materiali e gli strumenti utili all'animazione ludica e sociale"
-              ],
-              "conoscenze": [
-                "Obiettivi e tecniche dell'animazione ludica e sociale anche con strumenti multimediali"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "Tecniche e attività grafico-pittoriche, plastico-manipolative e manuali: caratteristiche e obiettivi",
-          "agganci": [
-            {
-              "competenza": "C8",
-              "abilita": [
-                "Identificare le principali tecniche di animazione ludica e sociale"
-              ],
-              "conoscenze": [
-                "Obiettivi e tecniche dell'animazione ludica e sociale anche con strumenti multimediali"
-              ]
-            }
-          ]
-        }
-      ],
-      "provaEsperta": {
-        "titolo": "Condurre un'attività di animazione",
-        "compito": "A piccoli gruppi, scegliere una tecnica di animazione sperimentata in laboratorio, prepararla sulla scheda fornita e condurla con i compagni.",
-        "contesto": "Il laboratorio della classe, con i materiali di animazione già utilizzati nelle esercitazioni.",
-        "prodotto": "Scheda dell'attività di animazione compilata e attività condotta in laboratorio.",
-        "durata": "4 ore di laboratorio",
-        "modalita": "piccolo gruppo",
-        "risorse": [
-          "format della scheda di attività di animazione",
-          "materiali del laboratorio di animazione",
-          "repertorio delle tecniche sperimentate"
-        ],
-        "imprevisto": "",
-        "evidenze": [
-          "completezza della scheda",
-          "correttezza nell'uso della tecnica scelta",
-          "cura dei materiali",
-          "partecipazione"
-        ]
-      },
-      "focus": {
-        "competenza": "C8",
-        "abilita": [
-          "Identificare le principali tecniche di animazione ludica e sociale",
-          "Riconoscere i materiali e gli strumenti utili all'animazione ludica e sociale"
-        ],
-        "conoscenze": [
-          "Obiettivi e tecniche dell'animazione ludica e sociale anche con strumenti multimediali"
-        ],
-        "nota": "Quattro attività su cinque costruiscono il repertorio delle tecniche di animazione e la prova ne fa condurre una: si valuta la correttezza nell'uso della tecnica scelta. I bisogni per età (C4) motivano la scelta, non la eseguono.",
-        "competenzaTitolo": "Competenza in uscita n° 8: Realizzare in autonomia o in collaborazione con altre figure professionali, attività educative, di animazione sociale, ludiche e culturali adeguate ai diversi contesti e ai diversi bisogni.",
-        "competenzaNum": 8,
-        "competenzaIntermedia": "Realizzare semplici attività di animazione ludica e sociale in contesti noti",
-        "compresenzaScienzeUmane": false
-      },
-      "materiali": [
-        {
-          "titolo": "Percorso di animazione: teoria",
-          "file": "materiali/biennio/percorso_animativo_teoria.html"
-        },
-        {
-          "titolo": "Percorso di animazione: esercitazione",
-          "file": "materiali/biennio/percorso_animativo_interattivo.html"
-        }
-      ],
-      "anno": "Primo anno",
-      "periodoCurricolo": "Biennio",
-      "livelloQNQ": "2",
-      "competenze": [
-        "C4",
-        "C8"
       ]
     },
     {
@@ -4742,351 +4635,6 @@
       ]
     },
     {
-      "n": 14,
-      "titolo": "La comunicazione efficace nella relazione d'aiuto",
-      "origine": "C",
-      "sezione": "compresenza",
-      "periodo": "Trasversale all'anno",
-      "monteOre": "6 ore",
-      "sintesi": "Le tecniche della comunicazione efficace nella relazione d'aiuto: ascolto, empatia, assertività, resilienza. In parte in compresenza con Scienze umane.",
-      "compresenza": "Scienze umane",
-      "prodottoFinale": "Il vademecum delle buone prassi comunicative nella relazione d'aiuto, compilato sul format dopo la sperimentazione in coppia.",
-      "fasi": [
-        "Si parte da un'esperienza di ascolto vissuta dagli studenti, per capire che cosa significa sentirsi davvero ascoltati.",
-        "Si presentano le tecniche: l'ascolto attivo, l'osservazione, il rispecchiamento e la comunicazione empatica.",
-        "Si aggiungono l'assertività, la resilienza e il ruolo dell'ironia nel dialogo.",
-        "In coppia si sperimenta un breve dialogo su una situazione data, provando le tecniche appena viste.",
-        "Si compila il vademecum delle buone prassi e si confrontano le versioni dei diversi gruppi."
-      ],
-      "contenuti": [
-        {
-          "attivita": "Comunicare in modo efficace nella relazione d'aiuto: le buone prassi. L'ascolto attivo come strumento di base.",
-          "agganci": [
-            {
-              "competenza": "C2",
-              "abilita": [
-                "Ascoltare attivamente e comunicare in modo non conflittuale"
-              ],
-              "conoscenze": []
-            }
-          ]
-        },
-        {
-          "attivita": "L'osservazione, la comprensione empatica, il rispecchiamento e il rispecchiamento empatico. La comunicazione empatica nella relazione d'aiuto.",
-          "agganci": [
-            {
-              "competenza": "C2",
-              "abilita": [
-                "Ascoltare attivamente e comunicare in modo non conflittuale"
-              ],
-              "conoscenze": []
-            }
-          ]
-        },
-        {
-          "attivita": "L'assertività e la resilienza come risorse nella relazione d'aiuto.",
-          "agganci": [
-            {
-              "competenza": "C2",
-              "abilita": [
-                "Esporre le proprie idee all'interno di un gruppo di lavoro osservando le regole dello scambio comunicativo"
-              ],
-              "conoscenze": []
-            }
-          ]
-        },
-        {
-          "attivita": "L'ironia nella comunicazione: quando aiuta e quando rischia di essere fraintesa.",
-          "aggancio": "trasversale",
-          "nota": "Elemento di stile comunicativo che completa il quadro delle buone prassi, senza corrispondere a una voce puntuale del curricolo di indirizzo."
-        }
-      ],
-      "provaEsperta": {
-        "titolo": "Il vademecum della comunicazione efficace",
-        "compito": "In coppia, sperimentare un breve dialogo su una situazione data applicando ascolto attivo e rispecchiamento, poi compilare il format del vademecum delle buone prassi comunicative nella relazione d'aiuto.",
-        "contesto": "Situazioni di ascolto tipiche della relazione d'aiuto, già proposte in classe.",
-        "prodotto": "Vademecum delle buone prassi comunicative compilato sul format.",
-        "durata": "2 ore di laboratorio",
-        "modalita": "coppie",
-        "risorse": [
-          "format del vademecum della comunicazione efficace",
-          "situazioni di ascolto guidate",
-          "scheda di autovalutazione dell'ascolto"
-        ],
-        "imprevisto": "",
-        "evidenze": [
-          "uso corretto delle tecniche di ascolto attivo",
-          "completezza del vademecum",
-          "partecipazione al dialogo simulato"
-        ]
-      },
-      "focus": {
-        "competenza": "C2",
-        "abilita": [
-          "Ascoltare attivamente e comunicare in modo non conflittuale",
-          "Esporre le proprie idee all'interno di un gruppo di lavoro osservando le regole dello scambio comunicativo"
-        ],
-        "conoscenze": [],
-        "nota": "Tutti e tre gli agganci stanno su C2 e la prova fa sperimentare in coppia ascolto attivo e rispecchiamento: si valuta l'uso corretto delle tecniche. Nel biennio C2 non ha conoscenze assegnate a Metodologie Operative: la conoscenza arriva dal ripiego trasversale.",
-        "ripiego": {
-          "europea": "Competenza personale, sociale e capacità di imparare a imparare",
-          "generale": {
-            "competenza": 2,
-            "asse": "Asse dei linguaggi",
-            "abilita": [
-              "Ascoltare, applicando tecniche di supporto alla comprensione, testi prodotti da una pluralità di canali comunicativi"
-            ],
-            "conoscenze": [
-              "Strumenti e codici della comunicazione in contesti formali, organizzativi e professionali"
-            ],
-            "titolo": "Utilizzare il patrimonio lessicale ed espressivo della lingua italiana secondo le esigenze comunicative nei vari contesti: sociali, culturali, scientifici, economici, tecnologici e professionali"
-          }
-        },
-        "competenzaTitolo": "Competenza in uscita n° 2: Partecipare e cooperare nei gruppi di lavoro e nelle équipe multi-professionali in diversi contesti organizzativi /lavorativi.",
-        "competenzaNum": 2,
-        "competenzaIntermedia": "Partecipare e cooperare nei gruppi di lavoro in ambito scolastico",
-        "compresenzaScienzeUmane": false
-      },
-      "materiali": [],
-      "anno": "Secondo anno",
-      "periodoCurricolo": "Biennio",
-      "livelloQNQ": "2",
-      "competenze": [
-        "C2"
-      ]
-    },
-    {
-      "n": 15,
-      "titolo": "I servizi del territorio: catalogo e forme dell'assistenza",
-      "origine": "C",
-      "periodo": "Gennaio – Marzo",
-      "monteOre": "30 ore",
-      "sintesi": "Un catalogo ragionato dei servizi del territorio, dai servizi integrativi alle diverse forme di assistenza.",
-      "prodottoFinale": "Il catalogo dei servizi del territorio, costruito a schede per tipologia di assistenza e verificato con una ricerca su una fonte reale.",
-      "fasi": [
-        "Si parte dai servizi già incontrati nel modulo sul welfare e si chiede alla classe quali, fra tutti, non conosce ancora davvero.",
-        "Si presentano uno per uno i servizi: integrativi e sostitutivi, accompagnamento e trasporto, le diverse forme di assistenza.",
-        "Si aggiungono il centro diurno, il consultorio familiare e i servizi residenziali.",
-        "In laboratorio i gruppi costruiscono la scheda di ciascun servizio, verificando le informazioni con una fonte reale del territorio.",
-        "La prova esperta chiude il modulo: le schede si assemblano nel catalogo e si presentano alla classe."
-      ],
-      "contenuti": [
-        {
-          "attivita": "I servizi e interventi rivolti a tutti i cittadini: servizi integrativi e servizi sostitutivi. Il servizio di accompagnamento e di trasporto.",
-          "agganci": [
-            {
-              "competenza": "C1",
-              "abilita": [
-                "Identificare le diverse tipologie di servizi presenti sul territorio"
-              ],
-              "conoscenze": [
-                "Tipologia dei servizi sociali, socio-educativi, sociosanitari, sanitari"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "Le forme di assistenza: assistenza economica, assistenza abitativa, assistenza domiciliare e assistenza domiciliare integrata (ADI).",
-          "agganci": [
-            {
-              "competenza": "C1",
-              "abilita": [
-                "Individuare le opportunità offerte dal territorio per rispondere a bisogni sociali, socio-sanitari e socio-educativi"
-              ],
-              "conoscenze": [
-                "Tipologia dei servizi sociali, socio-educativi, sociosanitari, sanitari"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "Il Centro diurno e il Consultorio familiare: a chi si rivolgono e quali prestazioni offrono.",
-          "agganci": [
-            {
-              "competenza": "C1",
-              "abilita": [
-                "Identificare le diverse tipologie di servizi presenti sul territorio"
-              ],
-              "conoscenze": [
-                "Tipologia dei servizi sociali, socio-educativi, sociosanitari, sanitari"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "I servizi residenziali: casa famiglia, comunità alloggio, centro di accoglienza notturna.",
-          "agganci": [
-            {
-              "competenza": "C1",
-              "abilita": [
-                "Identificare le diverse tipologie di servizi presenti sul territorio"
-              ],
-              "conoscenze": [
-                "Tipologia dei servizi sociali, socio-educativi, sociosanitari, sanitari"
-              ]
-            }
-          ]
-        }
-      ],
-      "provaEsperta": {
-        "titolo": "Il catalogo dei servizi del territorio",
-        "compito": "A piccoli gruppi, ricercare un servizio reale del territorio fra quelli assegnati e compilare la scheda del format: tipologia, requisiti di accesso, prestazioni, ente erogatore. Le schede si raccolgono in un catalogo di classe.",
-        "contesto": "I servizi del territorio già presentati in classe, con l'elenco degli enti da contattare o consultare online.",
-        "prodotto": "Scheda del servizio compilata e catalogo di classe assemblato.",
-        "durata": "4 ore di laboratorio",
-        "modalita": "piccolo gruppo",
-        "risorse": [
-          "format della scheda servizio",
-          "elenco degli enti del territorio",
-          "postazioni informatiche"
-        ],
-        "imprevisto": "",
-        "evidenze": [
-          "correttezza delle informazioni raccolte",
-          "completezza della scheda rispetto al format",
-          "coerenza del servizio con la tipologia assegnata",
-          "partecipazione"
-        ]
-      },
-      "focus": {
-        "competenza": "C1",
-        "abilita": [
-          "Identificare le diverse tipologie di servizi presenti sul territorio",
-          "Individuare le opportunità offerte dal territorio per rispondere a bisogni sociali, socio-sanitari e socio-educativi"
-        ],
-        "conoscenze": [
-          "Tipologia dei servizi sociali, socio-educativi, sociosanitari, sanitari",
-          "Fonti e documenti per rilevazione dei servizi territoriali"
-        ],
-        "nota": "Tutti e quattro gli agganci stanno su C1 e la prova fa cercare un servizio reale su una fonte vera e collocarlo nella tipologia assegnata. È la stessa competenza del modulo 2, spostata dalla lettura del documento alla ricognizione del territorio.",
-        "competenzaTitolo": "Competenza in uscita n° 1: Collaborare nella gestione di progetti e attività dei servizi sociali, socio-sanitari e socio-educativi, rivolti a bambini e adolescenti, persone con disabilità, anziani, minori a rischio, soggetti con disagio psico-sociale e altri soggetti in situazione di svantaggio, anche attraverso lo sviluppo di reti territoriali formali e informali.",
-        "competenzaNum": 1,
-        "competenzaIntermedia": "Costruire mappe dei servizi sociali, socio-sanitari e socio-educativi disponibili nel territorio e delle principali prestazioni erogate alle diverse tipologie di utenza",
-        "compresenzaScienzeUmane": false
-      },
-      "materiali": [
-        {
-          "titolo": "Servizi e interventi: teoria",
-          "file": "materiali/terzo/percorsi_autoapprendimento_teoria.html"
-        },
-        {
-          "titolo": "Servizi e interventi: percorsi di autoapprendimento",
-          "file": "materiali/terzo/percorsi_autoapprendimento.html"
-        }
-      ],
-      "anno": "Secondo anno",
-      "periodoCurricolo": "Biennio",
-      "livelloQNQ": "2",
-      "competenze": [
-        "C1"
-      ]
-    },
-    {
-      "n": 16,
-      "titolo": "Tecniche di animazione: lettura, drammatizzazione, musica",
-      "origine": "C",
-      "sezione": "laboratorio",
-      "periodo": "Marzo – Maggio",
-      "monteOre": "40 ore",
-      "sintesi": "Tre tecniche di animazione messe alla prova in laboratorio: la lettura, la drammatizzazione, la musica.",
-      "prodottoFinale": "Il quaderno di animazione con le tre schede tecniche — lettura, drammatizzazione, musica — e la conduzione di un'attività alla classe.",
-      "fasi": [
-        "Si parte dal ricordo di un racconto, di una scena recitata o di una canzone che ha lasciato il segno, per capire perché l'animazione funziona.",
-        "Si presenta la tecnica dell'animazione alla lettura: come si sceglie un testo, come si legge ad alta voce, quali obiettivi si perseguono.",
-        "Si passa alla drammatizzazione e al role playing: la messa in scena come strumento di lavoro con le persone.",
-        "Si arriva alle attività sonoro-musicali: strumenti semplici, canto, ascolto guidato.",
-        "In laboratorio ogni gruppo prepara e conduce una breve attività per ciascuna tecnica, rivolta a un'utenza scelta.",
-        "La prova esperta chiude il percorso: le tre schede tecniche si raccolgono nel quaderno di animazione e si presentano alla classe."
-      ],
-      "contenuti": [
-        {
-          "attivita": "Tecniche e attività di animazione alla lettura: caratteristiche e obiettivi.",
-          "agganci": [
-            {
-              "competenza": "C8",
-              "abilita": [
-                "Identificare le principali tecniche di animazione ludica e sociale"
-              ],
-              "conoscenze": [
-                "Obiettivi e tecniche dell'animazione ludica e sociale anche con strumenti multimediali"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "Tecniche e attività di drammatizzazione e role playing: caratteristiche e obiettivi.",
-          "agganci": [
-            {
-              "competenza": "C8",
-              "abilita": [
-                "Identificare le principali tecniche di animazione ludica e sociale"
-              ],
-              "conoscenze": [
-                "Obiettivi e tecniche dell'animazione ludica e sociale anche con strumenti multimediali"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "Tecniche e attività sonoro-musicali: caratteristiche e obiettivi.",
-          "agganci": [
-            {
-              "competenza": "C8",
-              "abilita": [
-                "Riconoscere i materiali e gli strumenti utili all'animazione ludica e sociale"
-              ],
-              "conoscenze": [
-                "Obiettivi e tecniche dell'animazione ludica e sociale anche con strumenti multimediali"
-              ]
-            }
-          ]
-        }
-      ],
-      "provaEsperta": {
-        "titolo": "Il quaderno di animazione a tre tecniche",
-        "compito": "A piccoli gruppi, scegliere un'utenza di riferimento e progettare tre brevi attività di animazione, una per ciascuna tecnica — lettura, drammatizzazione, musica — compilando per ognuna la scheda tecnica del format. Condurre almeno una delle tre attività alla classe.",
-        "contesto": "Le tre tecniche già presentate e sperimentate in classe, con le schede delle utenze già usate nei moduli precedenti.",
-        "prodotto": "Quaderno di animazione con le tre schede tecniche compilate e conduzione di un'attività alla classe.",
-        "durata": "6 ore di laboratorio",
-        "modalita": "piccolo gruppo",
-        "risorse": [
-          "format della scheda tecnica dell'attività",
-          "testi per l'animazione alla lettura",
-          "strumenti musicali semplici",
-          "schede delle utenze"
-        ],
-        "imprevisto": "",
-        "evidenze": [
-          "coerenza fra tecnica, obiettivo e utenza scelta",
-          "completezza delle tre schede tecniche",
-          "efficacia della conduzione",
-          "partecipazione"
-        ]
-      },
-      "focus": {
-        "competenza": "C8",
-        "abilita": [
-          "Identificare le principali tecniche di animazione ludica e sociale",
-          "Riconoscere i materiali e gli strumenti utili all'animazione ludica e sociale"
-        ],
-        "conoscenze": [
-          "Obiettivi e tecniche dell'animazione ludica e sociale anche con strumenti multimediali"
-        ],
-        "nota": "Tre tecniche di animazione provate e poi progettate per un'utenza scelta: la prova valuta la coerenza fra tecnica, obiettivo e utenza e l'efficacia della conduzione. È il repertorio di C8 portato al livello di progettazione.",
-        "competenzaTitolo": "Competenza in uscita n° 8: Realizzare in autonomia o in collaborazione con altre figure professionali, attività educative, di animazione sociale, ludiche e culturali adeguate ai diversi contesti e ai diversi bisogni.",
-        "competenzaNum": 8,
-        "competenzaIntermedia": "Realizzare semplici attività di animazione ludica e sociale in contesti noti",
-        "compresenzaScienzeUmane": false
-      },
-      "materiali": [],
-      "anno": "Secondo anno",
-      "periodoCurricolo": "Biennio",
-      "livelloQNQ": "2",
-      "competenze": [
-        "C8"
-      ]
-    },
-    {
       "n": 1,
       "titolo": "Intelligenza artificiale e competenze digitali",
       "periodo": "Settembre – Ottobre",
@@ -5282,7 +4830,7 @@
           "strumenti alternativi per la lettura del caso",
           "format del dossier e checklist dello standard"
         ],
-        "imprevisto": "A metà prova viene meno la risorsa informale sulla quale il gruppo aveva costruito una parte del percorso: il piano deve essere riorganizzato mantenendo lo standard richiesto.",
+        "imprevisto": "A metà prova viene meno una risorsa documentata nel fascicolo e utilizzata dal gruppo nel percorso. Il piano deve essere riorganizzato mantenendo lo standard richiesto. Nella prova valutata la variante deve incidere su una risorsa effettivamente usata, senza penalizzare percorsi autonomi dall’aiuto familiare.",
         "evidenze": [
           "correttezza della rilevazione di bisogni, risorse e vincoli",
           "adeguatezza del metodo scelto e della sua motivazione",
@@ -5310,6 +4858,10 @@
         {
           "titolo": "Interventi nei servizi: esercitazioni",
           "file": "materiali/terzo/esercitazioni_servizi.html"
+        },
+        {
+          "titolo": "Il caso Lucia: dossier operativo modificabile",
+          "file": "materiali/terzo/dossier-lucia.docx"
         },
         {
           "titolo": "Bisogni e risposte (livello intermedio)",
@@ -5473,6 +5025,10 @@
           "file": "materiali/terzo/equipe_multiprofessionale.html"
         },
         {
+          "titolo": "Caso Rosa · format del verbale d’équipe",
+          "file": "materiali/terzo/verbale-equipe-rosa.docx"
+        },
+        {
           "titolo": "Ripasso del terzo anno",
           "file": "materiali/terzo/ripasso-terzo-anno.html"
         },
@@ -5627,13 +5183,13 @@
       "titolo": "Le dipendenze da sostanze e il Ser.D",
       "periodo": "Gennaio – Febbraio",
       "monteOre": "8 ore",
-      "prodottoFinale": "Il resoconto del colloquio motivazionale condotto sul caso assegnato e la bozza di piano individualizzato redatta sul format del servizio.",
+      "prodottoFinale": "Il resoconto di un colloquio simulato e la bozza di un primo passo motivato, distinguendo accordi, proposte, rifiuti e questioni da affidare ai professionisti competenti.",
       "fasi": [
         "Si parte dalle idee diffuse sulla dipendenza e si verifica quali reggono al confronto con i dati.",
         "Si studiano le dipendenze da sostanze nella loro dimensione multifattoriale, fra corpo, storia personale e contesto sociale.",
         "Si entra nel servizio: come è organizzato il Ser.D, chi ci lavora e come vi si accede.",
-        "Si esercita il colloquio motivazionale sulle fasi di pre-contemplazione e contemplazione, lavorando sui casi con i kit operativi delle diverse figure professionali.",
-        "Si conduce il colloquio sul caso assegnato e da lì si redige la bozza di piano individualizzato."
+        "Si esercitano ascolto e domande nel colloquio, usando precontemplazione e contemplazione come ipotesi da motivare rispetto a un cambiamento preciso.",
+        "Si osserva un primo colloquio, si risponde a una richiesta di interrompere e si riprova un passaggio. Dal resoconto si costruisce una bozza di piano con responsabilità e verifica."
       ],
       "sintesi": "Dal fenomeno al servizio: come si legge una dipendenza e come si lavora con chi la vive.",
       "contenuti": [
@@ -5666,7 +5222,7 @@
           ]
         },
         {
-          "attivita": "Il colloquio motivazionale: le fasi di pre-contemplazione e contemplazione",
+          "attivita": "Il colloquio motivazionale: ascolto, ambivalenza e ipotesi sulle fasi di precontemplazione e contemplazione, da verificare con la persona",
           "agganci": [
             {
               "competenza": "C3",
@@ -5705,24 +5261,26 @@
         }
       ],
       "provaEsperta": {
-        "titolo": "Il colloquio motivazionale e il piano di intervento",
-        "compito": "Condurre il colloquio motivazionale con la persona del caso assegnato, riconoscendo in quale fase si trova, e redigere a partire dal colloquio la bozza di piano individualizzato sul format fornito: bisogni rilevati, risorse, vincoli, obiettivi a breve termine, servizi da attivare.",
-        "contesto": "Il caso di una persona in carico al Ser.D, con documentazione realistica e ruoli distribuiti nel gruppo.",
-        "prodotto": "Registrazione o resoconto del colloquio e bozza di piano individualizzato.",
+        "titolo": "Ascoltare, documentare e concordare un primo passo",
+        "compito": "Condurre un breve colloquio simulato sul caso assegnato. Formulare, se sostenuta dai dati, un’ipotesi sulla disponibilità rispetto a un cambiamento preciso e documentare le informazioni mancanti. Rispondere alla richiesta di interrompere, riprovare un passaggio dopo il confronto e redigere un resoconto con bozza di piano: domanda o bisogno, risorsa, limite, obiettivo, azione proposta o concordata, responsabilità e verifica. Se manca l’accordo, documentarlo senza inventare il consenso. Diagnosi e terapie non sono compiti da improvvisare.",
+        "contesto": "Primo colloquio di una persona al SerD, dopo l’accoglienza. Caso inventato con informazioni comuni e scheda separata per chi interpreta la persona; eventuali dati e valutazioni sanitarie sono forniti dal docente.",
+        "prodotto": "Griglia di osservazione, resoconto del colloquio e bozza di un primo passo con responsabilità e verifica, anche in presenza di rifiuto.",
         "durata": "4 ore di laboratorio",
-        "modalita": "piccolo gruppo con ruoli assegnati",
+        "modalita": "piccolo gruppo con ruoli assegnati: conduzione nel ruolo simulato di assistente sociale, persona del caso e osservazione/documentazione; confronto e breve ripetizione di uno scambio",
         "risorse": [
-          "fascicolo del caso",
-          "kit operativi per figura professionale",
-          "format del piano individualizzato",
-          "schema delle fasi del cambiamento"
+          "situazione comune del caso",
+          "schede separate per conduzione, personaggio e osservazione",
+          "format del resoconto e della bozza di piano",
+          "schema delle fasi del cambiamento e abilità comunicative",
+          "scheda ufficiale del servizio per le informazioni da verificare"
         ],
-        "imprevisto": "Durante il colloquio la persona nega il problema e chiede di interrompere: va deciso come proseguire senza rompere la relazione.",
+        "imprevisto": "Durante il colloquio la persona ridimensiona il problema e chiede di interrompere: decidere come rispondere, rispettando la richiesta e proponendo soltanto se accettato una breve chiusura o un contatto futuro.",
         "evidenze": [
-          "riconoscimento corretto della fase motivazionale",
-          "qualità delle domande poste",
-          "gestione del rifiuto senza forzatura",
-          "coerenza fra colloquio e piano redatto"
+          "distinzione fra dichiarazioni, osservazioni, ipotesi e informazioni mancanti",
+          "ipotesi motivata sulla disponibilità al cambiamento, oppure motivazione dell’insufficienza dei dati",
+          "qualità delle domande e delle restituzioni, con revisione motivata di uno scambio",
+          "rispetto del rifiuto senza forzature o consenso inventato",
+          "coerenza fra colloquio e bozza di piano, con responsabilità e verifica"
         ]
       },
       "focus": {
@@ -5734,7 +5292,7 @@
         "conoscenze": [
           "Utenti e gruppi con specifici bisogni comunicativi"
         ],
-        "nota": "Il tema è la dipendenza (C9) e il servizio il Ser.D (C7), ma tre evidenze su quattro giudicano la conduzione del colloquio: riconoscere la fase motivazionale, la qualità delle domande, la gestione del rifiuto senza forzatura. Il cappello segue la prova, dove la competenza è osservabile; il piano individualizzato (C1) la chiude.",
+        "nota": "Il tema è la dipendenza (C9) e il servizio il SerD (C7). La prova osserva soprattutto la comunicazione (C3): ascoltare la domanda, motivare un’ipotesi, rispondere al rifiuto e rivedere una formulazione. Resoconto e bozza di piano (C1) distinguono dati, proposte e accordi, nel rispetto dei ruoli.",
         "competenzaTitolo": "Competenza in uscita n° 3: Facilitare la comunicazione tra persone e gruppi, anche di culture e contesti diversi, adottando modalità comunicative e relazionali adeguate ai diversi ambiti professionali e alle diverse tipologie di utenza.",
         "competenzaNum": 3,
         "competenzaIntermedia": "Agire, anche in ambienti non noti, individuando modalità di comunicazione idonee a favorire la relazione",
@@ -5742,8 +5300,20 @@
       },
       "materiali": [
         {
-          "titolo": "Laboratorio sulle dipendenze e gioco di ruolo al SerD",
+          "titolo": "Un primo colloquio al SerD: preparazione e laboratorio",
           "file": "lab_dipendenze.html"
+        },
+        {
+          "titolo": "SerD: scheda di conduzione del colloquio (Word)",
+          "file": "materiali/terzo/serd-conduzione.docx"
+        },
+        {
+          "titolo": "SerD: osservazione, resoconto e bozza di piano (Word)",
+          "file": "materiali/terzo/serd-osservazione-resoconto.docx"
+        },
+        {
+          "titolo": "SerD: personaggio Marco, da distribuire a parte (Word)",
+          "file": "materiali/terzo/serd-personaggio-marco.docx"
         },
         {
           "titolo": "Ripasso del terzo anno",
@@ -5766,13 +5336,13 @@
       "titolo": "La seconda infanzia e le pratiche operative",
       "periodo": "Febbraio – Marzo",
       "monteOre": "8 ore",
-      "prodottoFinale": "Una proposta di gioco euristico allestita e provata con i compagni, con la scheda progettuale e le osservazioni raccolte durante la prova.",
+      "prodottoFinale": "Una proposta di esplorazione e composizione con materiali aperti per i 3–6 anni, allestita e provata fra compagni, con scheda progettuale, osservazioni e revisione motivata.",
       "fasi": [
         "Si osservano bambini che giocano, dal vero o in video, e si annota che cosa fanno davvero, prima di qualsiasi spiegazione.",
         "Si studia come si impara fra i tre e i sei anni, con la zona di sviluppo prossimale e il sostegno dell'adulto.",
         "Si legge il gioco come diritto riconosciuto e come metodo di lavoro. Si incontrano Dewey, Montessori, Goldschmied e Malaguzzi.",
         "Si richiama come si progetta un'attività di animazione — analisi dei bisogni del gruppo, definizione degli obiettivi — prima di scegliere materiali e tecniche, per qualunque proposta rivolta ai minori.",
-        "I gruppi allestiscono la proposta di gioco euristico, la provano con i compagni nel ruolo dei bambini e la riadattano dopo l'osservazione."
+        "I gruppi allestiscono la proposta di esplorazione con materiali aperti, ne provano consegna e organizzazione fra compagni e la riadattano, dichiarando i limiti della prova rispetto a un uso con bambini."
       ],
       "sintesi": "Come si impara fra i tre e i sei anni, e che cosa significa per chi progetta attività.",
       "contenuti": [
@@ -5849,23 +5419,24 @@
         }
       ],
       "provaEsperta": {
-        "titolo": "Il cestino euristico",
-        "compito": "Progettare e allestire una proposta di gioco euristico per un gruppo di bambini di età assegnata: selezionare i materiali motivandone la scelta, prevedere l'allestimento dello spazio, definire il ruolo dell'adulto e le avvertenze di sicurezza. Provare la proposta con i compagni nel ruolo dei bambini.",
-        "contesto": "Una sezione di scuola dell'infanzia descritta su scheda, con vincoli reali di spazio e materiali.",
-        "prodotto": "Proposta di gioco allestita, scheda progettuale e prova con osservazione.",
+        "titolo": "Dai materiali alla proposta educativa",
+        "compito": "Riprendere un’attività già disponibile, come il collage con materiali naturali, e progettarne l’uso per il gruppo di bambini descritto. Motivare obiettivo, materiali, allestimento, scelte dei bambini e aiuto dell’adulto. Provare fra compagni consegna e allestimento, documentando osservazioni, limiti e revisione; la prova fra adolescenti non dimostra l’efficacia per i bambini. Distinguere i riferimenti al gioco euristico per i più piccoli dai loro adattamenti per i 3–6 anni.",
+        "contesto": "Un gruppo di scuola dell’infanzia descritto in una situazione didattica inventata o assegnata dal docente, con vincoli di spazio e materiali.",
+        "prodotto": "Proposta allestita, progetto nei nove nuclei forniti, osservazioni e pagina della revisione; tre sintesi per il confronto.",
         "durata": "4 ore di laboratorio",
-        "modalita": "piccolo gruppo con ruoli assegnati",
+        "modalita": "piccolo gruppo con ruoli assegnati di progettazione/conduzione, materiali e allestimento, osservazione/documentazione; prova fra compagni",
         "risorse": [
-          "materiali naturali e di recupero",
-          "format della scheda progettuale",
-          "riferimenti su gioco euristico e Reggio Emilia Approach"
+          "attività del repertorio BambinoLAB e materiali controllati dal docente",
+          "format della scheda progettuale in nove nuclei con pagina della prova e della revisione",
+          "scheda del contesto 3–6 anni",
+          "riferimenti sull’esplorazione, sul sostegno dell’adulto e sulla documentazione educativa"
         ],
-        "imprevisto": "All'avvio della prova due materiali previsti non sono disponibili: la proposta va riadattata mantenendo l'obiettivo dichiarato.",
+        "imprevisto": "Prima della prova il docente indica due materiali effettivamente presenti nel progetto che non sono disponibili. Riadattare la proposta motivando come conservare l’obiettivo e le scelte dei bambini; se una funzione non è sostituibile, dichiarare il limite e concordare come procedere.",
         "evidenze": [
-          "motivazione della scelta dei materiali",
-          "coerenza fra età, obiettivo e proposta",
-          "capacità di riadattare senza snaturare l'obiettivo",
-          "attenzione alle avvertenze di sicurezza"
+          "motivazione del rapporto fra obiettivo, materiali e scelte dei bambini",
+          "coerenza fra età e contesto assegnati, proposta e aiuto dell’adulto",
+          "revisione motivata con controllo delle condizioni e dei rischi",
+          "distinzione fra osservazioni, ipotesi e limiti della prova fra compagni"
         ]
       },
       "focus": {
@@ -5878,7 +5449,7 @@
           "Strumenti per la progettazione delle attività di animazione socio-educativa",
           "Caratteristiche e finalità psicopedagogiche delle attività di animazione"
         ],
-        "nota": "Quattro agganci su cinque e l'intera prova stanno su C8: si progetta e si allestisce una proposta di gioco euristico per un'età precisa, motivando la scelta dei materiali. Le teorie dell'apprendimento e l'osservazione del bambino (C4) forniscono il criterio della progettazione.",
+        "nota": "Quattro agganci su cinque e l'intera prova stanno su C8: si progetta e si allestisce una proposta educativa con materiali aperti per i 3–6 anni, motivando obiettivo, materiali e scelte lasciate ai bambini. Il gioco euristico per i più piccoli è un riferimento da distinguere dall'adattamento proposto. Le teorie dell'apprendimento e l'osservazione del bambino (C4) forniscono il criterio della progettazione.",
         "competenzaTitolo": "Competenza in uscita n° 8: Realizzare in autonomia o in collaborazione con altre figure professionali, attività educative, di animazione sociale, ludiche e culturali adeguate ai diversi contesti e ai diversi bisogni.",
         "competenzaNum": 8,
         "competenzaIntermedia": "Programmare e realizzare semplici attività di animazione socio-educative rivolte a minori",
@@ -5888,6 +5459,10 @@
         {
           "titolo": "Laboratorio per l'infanzia: dispense e schede",
           "file": "lab_infanzia.html"
+        },
+        {
+          "titolo": "Progetto operativo infanzia: nove nuclei, prova e revisione (Word)",
+          "file": "materiali/terzo/infanzia-progetto-operativo.docx"
         },
         {
           "titolo": "Ripasso del terzo anno",
@@ -6164,643 +5739,105 @@
     },
     {
       "n": 9,
-      "titolo": "Il Servizio Sanitario Nazionale e il consultorio familiare",
-      "origine": "C",
-      "periodo": "Settembre – Ottobre",
-      "monteOre": "8 ore",
-      "sintesi": "Come è organizzato il Servizio Sanitario Nazionale e come il Consultorio familiare vi si inserisce.",
-      "prodottoFinale": "La scheda informativa del Consultorio familiare, con il collegamento alle prestazioni previste dai LEA.",
+      "titolo": "Dall’informazione alla partecipazione",
+      "periodo": "Percorso nel corso dell’anno, secondo la programmazione della classe",
+      "monteOre": "4 ore iniziali, ampliabili a 6–8",
+      "prodottoFinale": "Dossier documentato del gruppo e proposta o istanza motivata, destinata simbolicamente all’istituzione competente.",
       "fasi": [
-        "Si richiama che cos'è il Servizio Sanitario Nazionale, a partire da ciò che gli studenti già conoscono per esperienza diretta o familiare.",
-        "Si studiano i Livelli Essenziali di Assistenza: prevenzione collettiva, assistenza distrettuale, assistenza ospedaliera.",
-        "Si entra nel Consultorio familiare: come nasce, come si è trasformato nel tempo, quali funzioni svolge oggi e chi ne fa parte.",
-        "Ogni gruppo costruisce la scheda del Consultorio assegnato, collegando le prestazioni ai LEA di riferimento, e la rivede dopo l'imprevisto comunicato dal docente."
+        "Dalla discussione introduttiva sulle notizie si passa alla ricerca: tre gruppi, Sardegna, Italia e Francia, scelgono autonomamente una protesta studentesca recente e confrontano almeno due fonti giornalistiche. Prima ora.",
+        "Si distinguono fatti, opinioni e rivendicazioni e si analizzano problema collettivo, cause, conseguenze, bisogni e diritti. Si compila la scheda di gruppo. Seconda ora.",
+        "Si identifica l’istituzione competente attraverso una fonte ufficiale e si confrontano le tre scale territoriali. Terza ora.",
+        "Si redigono il dossier e una richiesta argomentata, si presenta il lavoro e si risponde a una domanda critica. Ruoli assegnati e revisione dopo la verifica di una fonte inesatta o superata. Quarta ora.",
+        "Possibile ampliamento: confronto con quotidiani cartacei di biblioteca, emeroteca o messi a disposizione, senza obbligo di acquisto; confronto tra gruppi e revisione delle proposte."
       ],
+      "sintesi": "Le proteste studentesche: conoscere, comprendere, proporre. Ricerca autonoma in tre gruppi — Sardegna, Italia, Francia — dal confronto delle fonti alla partecipazione democratica.",
       "contenuti": [
         {
-          "attivita": "Il Servizio Sanitario Nazionale: come è organizzato e i Livelli Essenziali di Assistenza (LEA) — prevenzione collettiva, assistenza distrettuale, assistenza ospedaliera.",
-          "agganci": [
-            {
-              "competenza": "C5",
-              "abilita": [
-                "Individuare interventi di prevenzione e azioni di sanità pubblica"
-              ],
-              "conoscenze": [
-                "La legislazione nazionale e regionale socio assistenziale e sanitaria"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "Il Consultorio familiare: nascita, evoluzione storica, funzioni principali e composizione dell'organico.",
-          "agganci": [
-            {
-              "competenza": "C7",
-              "abilita": [
-                "Collegare le tipologie di prestazioni ai rispettivi servizi"
-              ],
-              "conoscenze": [
-                "Enti e agenzie di fornitura di servizi sociali e/o sanitari"
-              ]
-            }
-          ]
-        }
-      ],
-      "provaEsperta": {
-        "titolo": "Il Consultorio in rete con il SSN",
-        "compito": "Costruire una scheda di presentazione del Consultorio familiare del territorio assegnato, collegando le prestazioni erogate ai relativi LEA (prevenzione collettiva, assistenza distrettuale, assistenza ospedaliera) e indicando come vi si accede.",
-        "contesto": "Un Consultorio familiare reale o verosimile del territorio, con dati di funzionamento forniti dal docente.",
-        "prodotto": "Scheda informativa del Consultorio familiare, con il collegamento alle prestazioni del SSN.",
-        "durata": "3 ore di laboratorio",
-        "modalita": "piccolo gruppo con ruoli assegnati",
-        "risorse": [
-          "organigramma tipo del Consultorio familiare",
-          "sintesi dei LEA",
-          "format della scheda informativa"
-        ],
-        "imprevisto": "A metà lavoro il gruppo scopre che una prestazione data per scontata non rientra nei LEA del consultorio scelto e va ricollocata nel servizio giusto.",
-        "evidenze": [
-          "correttezza del collegamento fra prestazioni e LEA",
-          "completezza della scheda",
-          "capacità di ricollocare la prestazione dopo l'imprevisto",
-          "chiarezza espositiva"
-        ]
-      },
-      "focus": {
-        "competenza": "C5",
-        "abilita": [
-          "Individuare interventi di prevenzione e azioni di sanità pubblica"
-        ],
-        "conoscenze": [
-          "La legislazione nazionale e regionale socio assistenziale e sanitaria"
-        ],
-        "nota": "La prima evidenza è la correttezza del collegamento fra prestazioni e LEA, che sono definiti per legge: il cappello sta sulla cornice legislativa e di sanità pubblica. Il Consultorio come ente erogatore (C7) è il caso su cui la cornice viene applicata.",
-        "competenzaTitolo": "Competenza in uscita n° 5: Partecipare alla presa in carico socio-assistenziale di soggetti le cui condizioni determinino uno stato di non autosufficienza parziale o totale, di terminalità, di compromissione delle capacità cognitive e motorie, applicando procedure e tecniche stabilite e facendo uso dei principali ausili e presidi.",
-        "competenzaNum": 5,
-        "competenzaIntermedia": "Programmare semplici azioni per soddisfare i bisogni socio-assistenziali e sanitari in ottica di prevenzione e promozione della salute",
-        "compresenzaScienzeUmane": false
-      },
-      "materiali": [],
-      "anno": "Terzo anno",
-      "periodoCurricolo": "Terzo Anno",
-      "livelloQNQ": "3",
-      "competenze": [
-        "C5",
-        "C7"
-      ]
-    },
-    {
-      "n": 10,
-      "titolo": "I minori: arco di vita e proposte operative",
-      "origine": "C",
-      "periodo": "Novembre – Dicembre",
-      "monteOre": "12 ore",
-      "sintesi": "Le fasi dell'arco di vita del minore, dal periodo neonatale all'adolescenza, e le proposte operative e le figure professionali coerenti con ciascuna.",
-      "prodottoFinale": "La scheda del profilo evolutivo del minore assegnato, con le proposte operative e le figure professionali coinvolte.",
-      "fasi": [
-        "Si ripercorre la periodizzazione dell'arco di vita e si richiama il concetto di famiglia nelle sue diverse forme, come cornice per leggere i casi.",
-        "Si passano in rassegna le fasi — neonatale, prima infanzia, terza infanzia, adolescenza — con le proposte operative tipiche di ciascuna. La seconda infanzia non viene ripetuta: è già approfondita in un modulo dedicato.",
-        "Si approfondisce il disagio minorile: come si riconosce, quali interventi sono previsti.",
-        "Si studiano le figure professionali e le organizzazioni che lavorano per famiglie e minori.",
-        "Ogni gruppo lavora sul caso assegnato, costruisce la scheda del profilo evolutivo e la proposta operativa, e la aggiorna dopo l'imprevisto."
-      ],
-      "contenuti": [
-        {
-          "attivita": "Periodizzazione dell'arco di vita: fasi e intervalli temporali. Ripresa del concetto di famiglia e delle famiglie, nella loro evoluzione, caratteristiche e tipologie.",
+          "attivita": "Informarsi: individuare autonomamente una notizia recente di protesta studentesca e confrontare almeno due fonti identificabili, datate e confrontabili, verificando se sono indipendenti.",
           "aggancio": "trasversale",
-          "nota": "È la cornice concettuale su cui si innestano le proposte operative per fascia d'età: il curricolo di indirizzo aggancia le abilità alle proposte operative specifiche, non alla premessa teorica."
+          "nota": "Percorso di Educazione civica su ricerca delle fonti e partecipazione: non attribuisce automaticamente i codici delle competenze civiche alle competenze professionali SSAS."
         },
         {
-          "attivita": "La fase neonatale e le proposte operative per accompagnarla.",
-          "agganci": [
-            {
-              "competenza": "C4",
-              "abilita": [
-                "Adottare tecniche di osservazione e accudimento del bambino"
-              ],
-              "conoscenze": [
-                "Tecniche di osservazione e accudimento in età evolutiva"
-              ]
-            }
-          ]
+          "attivita": "Comprendere: ricostruire che cosa, dove, quando, chi e perché; distinguere fatti accertati, interpretazioni, rivendicazioni e informazioni da verificare.",
+          "aggancio": "trasversale",
+          "nota": "Percorso di Educazione civica su ricerca delle fonti e partecipazione: non attribuisce automaticamente i codici delle competenze civiche alle competenze professionali SSAS."
         },
         {
-          "attivita": "La prima infanzia e le proposte operative.",
-          "agganci": [
-            {
-              "competenza": "C4",
-              "abilita": [
-                "Adottare tecniche di osservazione e accudimento del bambino"
-              ],
-              "conoscenze": [
-                "Tecniche di osservazione e accudimento in età evolutiva"
-              ]
-            }
-          ]
+          "attivita": "Analizzare il problema pubblico: protagonisti, possibili cause e conseguenze, bisogni, diritti e interessi differenti.",
+          "aggancio": "trasversale",
+          "nota": "Percorso di Educazione civica su ricerca delle fonti e partecipazione: non attribuisce automaticamente i codici delle competenze civiche alle competenze professionali SSAS."
         },
         {
-          "attivita": "La terza infanzia e le proposte operative. L'adolescenza e le proposte operative.",
-          "agganci": [
-            {
-              "competenza": "C4",
-              "abilita": [
-                "Adottare tecniche di osservazione e accudimento del bambino"
-              ],
-              "conoscenze": [
-                "Tecniche di osservazione e accudimento in età evolutiva"
-              ]
-            }
-          ]
+          "attivita": "Individuare le istituzioni competenti con una prova tratta da fonti ufficiali, distinguendo il sistema italiano da quello francese.",
+          "aggancio": "trasversale",
+          "nota": "Percorso di Educazione civica su ricerca delle fonti e partecipazione: non attribuisce automaticamente i codici delle competenze civiche alle competenze professionali SSAS."
         },
         {
-          "attivita": "Il disagio minorile e le proposte operative di intervento.",
-          "agganci": [
-            {
-              "competenza": "C9",
-              "abilita": [
-                "Individuazione di bisogni risorse vincoli e limiti"
-              ],
-              "conoscenze": [
-                "Problemi e interventi relativi all'integrazione sociale, scolastica e lavorativa, e normativa di riferimento"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "Le figure professionali e le organizzazioni che lavorano per famiglie e minori.",
-          "agganci": [
-            {
-              "competenza": "C2",
-              "abilita": [
-                "Individuare il proprio ruolo e quello delle altre figure in contesti operativi"
-              ],
-              "conoscenze": [
-                "Le figure professionali nei servizi: formazione, profilo, ruolo e funzioni"
-              ]
-            }
-          ]
+          "attivita": "Elaborare una proposta concreta e motivata con destinatario, richiesta e limiti; ascoltare obiezioni, rivedere il dossier dopo una nuova verifica e confrontare eventualmente carta e web.",
+          "aggancio": "trasversale",
+          "nota": "Percorso di Educazione civica su ricerca delle fonti e partecipazione: non attribuisce automaticamente i codici delle competenze civiche alle competenze professionali SSAS."
         }
       ],
       "provaEsperta": {
-        "titolo": "Il profilo del minore e le proposte operative",
-        "compito": "Ricostruire il profilo evolutivo di un minore assegnato (fascia di età, bisogni tipici, eventuale disagio) e proporre due attività operative adeguate, individuando anche le figure professionali coinvolgibili.",
-        "contesto": "Un caso sintetico di minore, con fascia d'età e situazione familiare indicate, senza dati identificativi.",
-        "prodotto": "Scheda del profilo evolutivo con le proposte operative e le figure professionali di riferimento.",
-        "durata": "4 ore di laboratorio",
-        "modalita": "piccolo gruppo con ruoli assegnati",
+        "titolo": "Dal problema documentato all’istanza pubblica",
+        "compito": "Preparare un dossier essenziale e una lettera o istanza argomentata sul caso scelto dagli studenti. Documentare le fonti, distinguere fatti e opinioni, motivare la competenza del destinatario e la plausibilità della richiesta. Presentare il lavoro e rispondere a un’obiezione. Nessun invio reale senza decisione del docente e verifiche.",
+        "contesto": "Una rappresentanza studentesca intende portare all’attenzione di un soggetto competente un problema ricostruito dalla cronaca: il docente non assegna un caso risolto né una posizione politica.",
+        "prodotto": "Dossier con fonti, analisi e revisioni; istanza motivata rivolta simbolicamente all’ente individuato; breve restituzione orale.",
+        "durata": "Nel percorso di 4 ore iniziali; ampliamento possibile a 6–8 ore.",
+        "modalita": "Tre gruppi territoriali con ruoli assegnati: ricercatore delle fonti, analista del problema, referente istituzionale, redattore e portavoce; ruoli adattati al numero dei componenti.",
         "risorse": [
-          "schema delle fasi dell'arco di vita",
-          "repertorio di proposte operative per fascia d'età",
-          "schede delle figure professionali"
+          "Browser e fonti giornalistiche",
+          "Fonti ufficiali delle istituzioni",
+          "Scheda operativa, schema PDF e presentazione",
+          "Eventuali quotidiani di biblioteca o messi a disposizione senza obbligo di spesa"
         ],
-        "imprevisto": "A metà lavoro emerge un elemento di disagio non previsto nella scheda iniziale, e le proposte operative vanno riviste di conseguenza.",
+        "imprevisto": "Una fonte risulta inesatta, superata o contraddetta: il gruppo verifica, corregge il dossier, conserva la traccia della prima versione e spiega che cosa cambia nella proposta.",
         "evidenze": [
-          "correttezza del collocamento nella fascia d'età",
-          "adeguatezza delle proposte operative",
-          "capacità di rivedere le proposte dopo l'imprevisto",
-          "individuazione corretta delle figure professionali"
+          "Tracciabilità e confronto delle fonti",
+          "Correttezza della ricostruzione e distinzione fatti/opinioni",
+          "Motivazione della competenza istituzionale",
+          "Plausibilità e argomentazione della proposta",
+          "Revisione documentata dopo l’imprevisto",
+          "Cooperazione e confronto rispettoso; non si valuta l’orientamento politico. Rubrica analitica da completare successivamente."
         ]
       },
       "focus": {
-        "competenza": "C4",
-        "abilita": [
-          "Adottare tecniche di osservazione e accudimento del bambino",
-          "Predisporre semplici piani di lavoro"
-        ],
-        "conoscenze": [
-          "Tecniche di osservazione e accudimento in età evolutiva",
-          "I piani di lavoro"
-        ],
-        "nota": "Tre agganci su cinque e le prime due evidenze stanno su C4: collocare correttamente il minore nella fascia d'età e proporre attività adeguate. A differenza del tirocinio, qui l'osservazione non è sul campo ma su un profilo da ricostruire, e il prodotto è una proposta operativa.",
-        "competenzaTitolo": "Competenza in uscita n° 4: Prendersi cura e collaborare al soddisfacimento dei bisogni di base di bambini, persone con disabilità, anziani nell’espletamento delle più comuni attività quotidiane.",
-        "competenzaNum": 4,
-        "competenzaIntermedia": "Programmare azioni per soddisfare bisogni e favorire condizioni di benessere del bambino",
-        "compresenzaScienzeUmane": false
-      },
-      "materiali": [],
-      "anno": "Terzo anno",
-      "periodoCurricolo": "Terzo Anno",
-      "livelloQNQ": "3",
-      "competenze": [
-        "C2",
-        "C4",
-        "C9"
-      ]
-    },
-    {
-      "n": 11,
-      "titolo": "L'asilo nido e la scuola dell'infanzia",
-      "origine": "C",
-      "periodo": "Gennaio – Febbraio",
-      "monteOre": "16 ore",
-      "sintesi": "Come funziona un Asilo Nido, nelle sue diverse forme, e che cosa lo differenzia dalla Scuola dell'infanzia.",
-      "prodottoFinale": "La carta dei servizi essenziale dell'Asilo Nido assegnato, con la proposta di attività educativa o ludico-espressiva.",
-      "fasi": [
-        "Si presentano le diverse tipologie di Asilo Nido — tradizionale, aziendale, micro-nido, agri-nido — e le loro differenze.",
-        "Si studia come si organizza il nido: la programmazione educativa, l'organico, la documentazione richiesta e la carta dei servizi.",
-        "Si osservano le routine quotidiane del nido e si passano in rassegna le attività educative e ludico-espressive tipiche.",
-        "Si presenta la Scuola dell'infanzia, per confronto, nelle sue caratteristiche e nelle sue attività.",
-        "Ogni gruppo costruisce la carta dei servizi del nido assegnato e la propria proposta di attività, adattandole dopo l'imprevisto."
-      ],
-      "contenuti": [
-        {
-          "attivita": "Caratteristiche e tipologie di Asilo Nido: Asilo Nido, Asilo Nido Aziendale, Micro-Nido, Agri-Nido.",
-          "agganci": [
-            {
-              "competenza": "C7",
-              "abilita": [
-                "Collegare le tipologie di prestazioni ai rispettivi servizi"
-              ],
-              "conoscenze": [
-                "Enti e agenzie di fornitura di servizi sociali e/o sanitari"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "La programmazione educativa e l'organico dell'Asilo Nido. La documentazione: requisiti, modulistica, carta dei servizi.",
-          "agganci": [
-            {
-              "competenza": "C2",
-              "abilita": [
-                "Individuare il proprio ruolo e quello delle altre figure in contesti operativi"
-              ],
-              "conoscenze": [
-                "Le figure professionali nei servizi: formazione, profilo, ruolo e funzioni"
-              ]
-            },
-            {
-              "competenza": "C1",
-              "abilita": [
-                "Individuare le modalità di compilazione dei format relativi a piani individualizzati e progetti"
-              ],
-              "conoscenze": [
-                "Modelli e tecniche di redazione di piani e progetti individuali"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "I rituali dell'Asilo Nido, le routine quotidiane. Le attività educative e ludico-espressive.",
-          "agganci": [
-            {
-              "competenza": "C4",
-              "abilita": [
-                "Adottare tecniche di osservazione e accudimento del bambino"
-              ],
-              "conoscenze": [
-                "Tecniche di osservazione e accudimento in età evolutiva"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "La Scuola dell'infanzia: caratteristiche e attività.",
-          "agganci": [
-            {
-              "competenza": "C7",
-              "abilita": [
-                "Collegare le tipologie di prestazioni ai rispettivi servizi"
-              ],
-              "conoscenze": [
-                "Enti e agenzie di fornitura di servizi sociali e/o sanitari"
-              ]
-            }
-          ]
+        "trasversale": true,
+        "nota": "La prova osserva la verifica delle informazioni e la partecipazione democratica. I riferimenti nazionali sono le competenze civiche 1, 2 e 10, distinte dai codici SSAS. Il raccordo specifico al curricolo civico della terza resta da completare con il consiglio di classe.",
+        "ripiego": {
+          "europea": "Competenza in materia di cittadinanza",
+          "civica": {
+            "nucleo": "Cittadinanza digitale",
+            "competenza": "10",
+            "titolo": "Sviluppare la capacità di accedere alle informazioni, alle fonti, ai contenuti digitali, in modo critico, responsabile e consapevole."
+          }
         }
-      ],
-      "provaEsperta": {
-        "titolo": "La carta dei servizi del nido",
-        "compito": "Costruire, per l'Asilo Nido assegnato (o la sua variante aziendale, micro-nido o agri-nido), la carta dei servizi essenziale: organico, programmazione educativa di massima, routine tipiche e un esempio di attività educativa o ludico-espressiva coerente con l'età dei bambini.",
-        "contesto": "Un Asilo Nido di tipologia assegnata, con dati organizzativi di base forniti dal docente.",
-        "prodotto": "Carta dei servizi essenziale del nido, con la proposta di attività allegata.",
-        "durata": "4 ore di laboratorio",
-        "modalita": "piccolo gruppo con ruoli assegnati",
-        "risorse": [
-          "esempi di carte dei servizi di asili nido reali",
-          "format della documentazione richiesta",
-          "repertorio di attività educative e ludico-espressive"
-        ],
-        "imprevisto": "A metà lavoro cambia la tipologia di nido assegnata (da Asilo Nido tradizionale ad Agri-Nido o Nido Aziendale): il gruppo deve adattare organico e attività alle caratteristiche della nuova tipologia.",
-        "evidenze": [
-          "correttezza dei riferimenti alla tipologia di nido",
-          "coerenza fra organico, programmazione e routine",
-          "adeguatezza dell'attività proposta all'età dei bambini",
-          "capacità di adattamento dopo l'imprevisto"
-        ]
-      },
-      "focus": {
-        "competenza": "C7",
-        "abilita": [
-          "Collegare le tipologie di prestazioni ai rispettivi servizi"
-        ],
-        "conoscenze": [
-          "Enti e agenzie di fornitura di servizi sociali e/o sanitari"
-        ],
-        "nota": "La prima evidenza è la correttezza dei riferimenti alla tipologia di nido e l'imprevisto ne cambia la tipologia a metà lavoro: si valuta il riconoscimento del servizio e di ciò che eroga. Organico e programmazione (C2, C1) e le routine (C4) sono le voci della carta dei servizi che si compila.",
-        "competenzaTitolo": "Competenza in uscita n°7: Gestire azioni di informazione e di orientamento dell’utente per facilitare l’accessibilità e la fruizione autonoma dei servizi pubblici e privati presenti sul territorio.",
-        "competenzaNum": 7,
-        "competenzaIntermedia": "Rilevare i servizi sul territorio, distinguendo le diverse modalità di accesso e di erogazione delle prestazioni",
-        "compresenzaScienzeUmane": false
-      },
-      "materiali": [],
-      "anno": "Terzo anno",
-      "periodoCurricolo": "Terzo Anno",
-      "livelloQNQ": "3",
-      "competenze": [
-        "C1",
-        "C2",
-        "C4",
-        "C7"
-      ]
-    },
-    {
-      "n": 12,
-      "titolo": "Servizi e interventi per famiglie e minori",
-      "origine": "C",
-      "periodo": "Marzo – Aprile",
-      "monteOre": "20 ore",
-      "sintesi": "La rete dei servizi socio-assistenziali e sanitari per famiglie e minori, e come si costruisce un progetto d'intervento che li collega.",
-      "prodottoFinale": "Il progetto d'intervento sintetico per il caso assegnato, con la mappa dei servizi attivati.",
-      "fasi": [
-        "Si presenta la gamma dei servizi socio-assistenziali rivolti a famiglie e minori, distinguendo servizi integrativi e sostitutivi.",
-        "Si approfondiscono affido, adozione e i servizi residenziali che sostituiscono la famiglia quando serve.",
-        "Si passa ai servizi sanitari per famiglie e minori, compresi quelli di neuropsichiatria infantile, e ai servizi educativo-scolastici.",
-        "Si introduce la progettazione in ambito socio-assistenziale e si legge insieme un primo caso professionale come esempio guidato.",
-        "Ogni gruppo lavora sul caso assegnato, costruisce il progetto d'intervento e lo rivede dopo l'imprevisto."
-      ],
-      "contenuti": [
-        {
-          "attivita": "Servizi socio assistenziali per famiglie e minori: servizi integrativi e sostitutivi, in generale.",
-          "agganci": [
-            {
-              "competenza": "C7",
-              "abilita": [
-                "Collegare le tipologie di prestazioni ai rispettivi servizi"
-              ],
-              "conoscenze": [
-                "Enti e agenzie di fornitura di servizi sociali e/o sanitari"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "I servizi integrativi del territorio: Baby Parking, ludoteca, centro di aggregazione, centro ricreativo diurno. Il Centro per le famiglie, il Consultorio giovani, l'Assistenza Domiciliare minorile.",
-          "agganci": [
-            {
-              "competenza": "C7",
-              "abilita": [
-                "Individuare le modalità di accesso alle tipologie di prestazioni"
-              ],
-              "conoscenze": [
-                "Modalità di accesso ai servizi pubblici, privati e privati convenzionati e procedure per l'accesso"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "Affido, Adozione, Adozione a distanza, Adozione Internazionale: caratteristiche e differenze.",
-          "agganci": [
-            {
-              "competenza": "C7",
-              "abilita": [
-                "Collegare le tipologie di prestazioni ai rispettivi servizi"
-              ],
-              "conoscenze": [
-                "Le reti formali ed informali per l'accesso ai servizi"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "I servizi residenziali sostitutivi della famiglia: Casa famiglia, Casa per donne maltrattate, Comunità educativo-assistenziali, Domicili autonomi per giovani, Gruppo Appartamento.",
-          "agganci": [
-            {
-              "competenza": "C9",
-              "abilita": [
-                "Individuazione di bisogni risorse vincoli e limiti"
-              ],
-              "conoscenze": [
-                "Problemi e interventi relativi all'integrazione sociale, scolastica e lavorativa, e normativa di riferimento"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "I servizi sanitari rivolti a famiglie e minori: assistenza sanitaria di base, diagnostica, terapeutica e riabilitativa. Il Servizio di Neuropsichiatria dell'infanzia (NPI) e l'UONPIA.",
-          "agganci": [
-            {
-              "competenza": "C7",
-              "abilita": [
-                "Collegare le tipologie di prestazioni ai rispettivi servizi"
-              ],
-              "conoscenze": [
-                "Enti e agenzie di fornitura di servizi sociali e/o sanitari"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "Servizi educativo-scolastici per minori: la scuola dell'infanzia e le scuole secondarie, nella rete dei servizi.",
-          "agganci": [
-            {
-              "competenza": "C7",
-              "abilita": [
-                "Collegare le tipologie di prestazioni ai rispettivi servizi"
-              ],
-              "conoscenze": [
-                "Enti e agenzie di fornitura di servizi sociali e/o sanitari"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "La progettazione in ambito socio-assistenziale per famiglie e minori: come si costruisce un progetto d'intervento.",
-          "agganci": [
-            {
-              "competenza": "C1",
-              "abilita": [
-                "Riconoscere le relazioni tra obiettivi e attività di un progetto in ambito sociale, socio-sanitario e socio-educativo"
-              ],
-              "conoscenze": [
-                "Modelli e tecniche di progettazione in ambito sociale"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "Analisi di un caso professionale riguardante famiglie e minori: lettura del caso e individuazione dei servizi attivabili.",
-          "agganci": [
-            {
-              "competenza": "C1",
-              "abilita": [
-                "Decodificare i compiti dei diversi soggetti coinvolti nell'attuazione di una procedura o di un protocollo"
-              ],
-              "conoscenze": [
-                "Metodologia del lavoro sociale, socio-sanitario socio-educativo"
-              ]
-            }
-          ]
-        }
-      ],
-      "provaEsperta": {
-        "titolo": "Il progetto per la famiglia e il minore",
-        "compito": "Analizzare il caso professionale assegnato — una famiglia con un minore in una situazione di bisogno — individuare i servizi socio-assistenziali e sanitari attivabili, e costruire un semplice progetto d'intervento che li colleghi in una sequenza motivata.",
-        "contesto": "Un caso sociosanitario simulato riguardante una famiglia e un minore, privo di dati identificativi, con bisogni multipli (assistenziali, sanitari, educativi).",
-        "prodotto": "Progetto d'intervento sintetico, con la mappa dei servizi attivati e la relativa motivazione.",
-        "durata": "4 ore di laboratorio",
-        "modalita": "piccolo gruppo con ruoli assegnati",
-        "risorse": [
-          "fascicolo del caso",
-          "catalogo dei servizi per famiglie e minori",
-          "format del progetto d'intervento"
-        ],
-        "imprevisto": "A metà lavoro il servizio individuato come prioritario risulta non disponibile nel territorio del caso, e il gruppo deve individuare un'alternativa che risponda allo stesso bisogno.",
-        "evidenze": [
-          "correttezza del collegamento fra bisogni e servizi",
-          "coerenza della sequenza del progetto",
-          "capacità di trovare un'alternativa dopo l'imprevisto",
-          "chiarezza della motivazione delle scelte"
-        ]
-      },
-      "focus": {
-        "competenza": "C7",
-        "abilita": [
-          "Collegare le tipologie di prestazioni ai rispettivi servizi",
-          "Individuare le modalità di accesso alle tipologie di prestazioni"
-        ],
-        "conoscenze": [
-          "Enti e agenzie di fornitura di servizi sociali e/o sanitari",
-          "Le reti formali ed informali per l'accesso ai servizi"
-        ],
-        "nota": "Cinque agganci su otto e la prima evidenza stanno su C7: collegare i bisogni della famiglia ai servizi attivabili e alle loro modalità di accesso. La progettazione dell'intervento (C1) ordina la sequenza; l'imprevisto toglie il servizio prioritario e obbliga a ricostruire la rete.",
-        "competenzaTitolo": "Competenza in uscita n°7: Gestire azioni di informazione e di orientamento dell’utente per facilitare l’accessibilità e la fruizione autonoma dei servizi pubblici e privati presenti sul territorio.",
-        "competenzaNum": 7,
-        "competenzaIntermedia": "Rilevare i servizi sul territorio, distinguendo le diverse modalità di accesso e di erogazione delle prestazioni",
-        "compresenzaScienzeUmane": false
       },
       "materiali": [
         {
-          "titolo": "La fase preliminare del progetto d'intervento",
-          "file": "materiali/terzo/modulo-progetto-intervento.html"
+          "titolo": "Dall’informazione alla partecipazione · percorso, scheda e slide",
+          "file": "materiali/educazione-civica/dall-informazione-alla-partecipazione.html"
+        },
+        {
+          "titolo": "Presentazione originale · 8 slide",
+          "file": "materiali/educazione-civica/Presentazione_Educazione_Civica_Dall_Informazione_alla_Partecipazione.pptx"
+        },
+        {
+          "titolo": "Schema della ricerca · PDF A4",
+          "file": "materiali/educazione-civica/Schema_educazione_civica_ricerca_studenti.pdf"
         }
       ],
+      "origine": "P",
+      "sezione": "educazione-civica",
+      "riferimentiNormativi": [
+        "D.M. 7 settembre 2024, n. 183, Linee guida allegate, secondo ciclo, competenze 1, 2 e 10; pp. 17–18 e 21–22.",
+        "Costituzione italiana, artt. 3, 17, 21 e 34. Art. 40: diritto di sciopero dei lavoratori, distinto dalla protesta studentesca."
+      ],
+      "verificaNormativa": "2026-10-16",
       "anno": "Terzo anno",
       "periodoCurricolo": "Terzo Anno",
       "livelloQNQ": "3",
-      "competenze": [
-        "C1",
-        "C7",
-        "C9"
-      ]
-    },
-    {
-      "n": 13,
-      "titolo": "Il gioco, l'attività ludica e i diritti dell'infanzia",
-      "origine": "C",
-      "periodo": "Da definire",
-      "monteOre": "8 ore",
-      "sintesi": "Il valore del gioco per la persona, come si costruiscono le sue regole, e il diritto al gioco per l'infanzia e l'adolescenza.",
-      "prodottoFinale": "Il gioco progettato dal gruppo per una fascia d'età assegnata, con la sua scheda di regole e la breve riflessione sul diritto al gioco.",
-      "fasi": [
-        "Avvio: si ricorda un gioco della propria infanzia e si condivide in classe che cosa rappresentava.",
-        "Costruzione delle conoscenze: si studiano definizione, caratteristiche e valore del gioco per la persona, insieme al diritto al gioco riconosciuto all'infanzia e all'adolescenza.",
-        "Laboratorio: si sperimentano alcune tecniche ludico-ricreative e si costruiscono le regole di un gioco nuovo, pensato per bambini o ragazzi di un'età precisa.",
-        "Prova esperta e restituzione: ogni gruppo, con i ruoli assegnati, compila la scheda del gioco costruito, lo adatta al cambiamento comunicato a metà prova e lo propone ai compagni."
-      ],
-      "contenuti": [
-        {
-          "attivita": "Il gioco: definizioni, caratteristiche, tipologie e valore per la persona",
-          "agganci": [
-            {
-              "competenza": "C8",
-              "abilita": [
-                "Riconoscere le tecniche di animazione in relazione alle diverse età e ai bisogni dei minori"
-              ],
-              "conoscenze": [
-                "Caratteristiche e finalità psicopedagogiche delle attività di animazione"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "La costruzione di un gioco: regole e buone prassi",
-          "agganci": [
-            {
-              "competenza": "C8",
-              "abilita": [
-                "Individuare tecniche e strumenti utili per la programmazione e la realizzazione di attività di animazione rivolte ai minori"
-              ],
-              "conoscenze": [
-                "Strumenti per la progettazione delle attività di animazione socio-educativa"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "Attività e tecniche ludico-ricreative",
-          "agganci": [
-            {
-              "competenza": "C8",
-              "abilita": [
-                "Riconoscere le tecniche di animazione in relazione alle diverse età e ai bisogni dei minori"
-              ],
-              "conoscenze": [
-                "Caratteristiche e finalità psicopedagogiche delle attività di animazione"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "Educazione civica: i diritti dell'infanzia e dell'adolescenza, letti a partire dal diritto al gioco",
-          "aggancio": "trasversale",
-          "nota": "Tema di Educazione Civica in compresenza con Scienze umane, collegato al diritto al gioco riconosciuto all'infanzia e all'adolescenza."
-        }
-      ],
-      "provaEsperta": {
-        "titolo": "Costruire un gioco",
-        "compito": "A piccoli gruppi, costruire un gioco nuovo o adattato per minori di una fascia d'età assegnata, definirne le regole sulla scheda e proporlo ai compagni. Quando cambia una condizione, adattare regole e materiali e annotare sulla scheda che cosa si è cambiato e perché.",
-        "contesto": "Un gruppo di bambini o ragazzi descritto su scheda, con età, numero dei partecipanti e spazio a disposizione; i compagni fanno la parte dei destinatari.",
-        "prodotto": "Scheda del gioco con le regole, conduzione del gioco con i compagni e nota sull'adattamento.",
-        "durata": "3 ore di laboratorio",
-        "modalita": "piccolo gruppo con ruoli assegnati: chi conduce, chi prepara i materiali, chi osserva e annota",
-        "risorse": [
-          "format della scheda del gioco",
-          "materiali del laboratorio",
-          "repertorio di giochi ludico-ricreativi",
-          "schede dei gruppi di destinatari"
-        ],
-        "imprevisto": "A metà prova cambia il gruppo dei destinatari: un'età diversa oppure un numero diverso di partecipanti. Il gioco va adattato senza cambiarne l'obiettivo.",
-        "evidenze": [
-          "chiarezza delle regole scritte",
-          "coerenza fra il gioco, l'età e i bisogni dei destinatari",
-          "adeguatezza dell'adattamento all'imprevisto",
-          "rispetto del ruolo assegnato nel gruppo"
-        ]
-      },
-      "focus": {
-        "competenza": "C8",
-        "abilita": [
-          "Individuare tecniche e strumenti utili per la programmazione e la realizzazione di attività di animazione rivolte ai minori",
-          "Riconoscere le tecniche di animazione in relazione alle diverse età e ai bisogni dei minori"
-        ],
-        "conoscenze": [
-          "Strumenti per la progettazione delle attività di animazione socio-educativa",
-          "Caratteristiche e finalità psicopedagogiche delle attività di animazione"
-        ],
-        "nota": "Si costruisce un gioco per minori di un'età precisa e se ne scrivono le regole: la prova valuta la coerenza fra gioco, età e bisogni dei destinatari e la tenuta dell'adattamento. I diritti dell'infanzia restano attività trasversale dichiarata, fuori dal curricolo di indirizzo. La UDA nasce nel programma del primo anno del collega ed è stata portata in terza, dove C8 riguarda proprio l'animazione rivolta ai minori.",
-        "competenzaTitolo": "Competenza in uscita n° 8: Realizzare in autonomia o in collaborazione con altre figure professionali, attività educative, di animazione sociale, ludiche e culturali adeguate ai diversi contesti e ai diversi bisogni.",
-        "competenzaNum": 8,
-        "competenzaIntermedia": "Programmare e realizzare semplici attività di animazione socio-educative rivolte a minori",
-        "compresenzaScienzeUmane": false
-      },
-      "materiali": [],
-      "anno": "Terzo anno",
-      "periodoCurricolo": "Terzo Anno",
-      "livelloQNQ": "3",
-      "competenze": [
-        "C8"
-      ]
+      "competenze": []
     },
     {
       "n": 1,
@@ -7791,321 +6828,6 @@
       ]
     },
     {
-      "n": 9,
-      "titolo": "Il disagio psichico e i servizi per la salute mentale",
-      "origine": "C",
-      "periodo": "Febbraio – Marzo",
-      "monteOre": "10 ore",
-      "sintesi": "I servizi della rete della salute mentale, dal Dipartimento di Salute Mentale alle misure di tutela per la persona in crisi.",
-      "prodottoFinale": "La mappa dei servizi della salute mentale del territorio assegnato, con la scheda di orientamento per l'utente e la sua famiglia.",
-      "fasi": [
-        "Si parte da un caso raccontato in classe, senza nomi, di una persona che ha avuto bisogno di un servizio di salute mentale, e si prova a capire a chi si sarebbe potuta rivolgere.",
-        "Si studiano il concetto di salute mentale, l'intensità assistenziale e l'organizzazione del Dipartimento di Salute Mentale.",
-        "Si costruisce la rete dei servizi: Centro di Salute Mentale, Servizio Psichiatrico di Diagnosi e Cura, Day Hospital psichiatrico, Centro Diurno e Comunità Terapeutica.",
-        "Si studiano l'accertamento e il trattamento sanitario obbligatorio e le Residenze per l'Esecuzione delle Misure di Sicurezza, distinguendo cura e tutela.",
-        "Prova esperta: si costruisce la mappa dei servizi del territorio assegnato e si scrive la scheda di orientamento, motivando a chi ci si rivolgerebbe nei diversi casi."
-      ],
-      "contenuti": [
-        {
-          "attivita": "Il concetto di salute mentale, l'intensità assistenziale e l'organizzazione del Dipartimento di Salute Mentale",
-          "agganci": [
-            {
-              "competenza": "C9",
-              "abilita": [
-                "Riconoscere problemi e interventi legati all'area psico-sociale e dell'integrazione"
-              ],
-              "conoscenze": [
-                "Le problematiche psico-sociali connesse alle diverse categorie di utenza dei servizi"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "La rete dei servizi per la salute mentale: Centro di Salute Mentale e intervento terapeutico riabilitativo individuale, Servizio Psichiatrico di Diagnosi e Cura, Day Hospital psichiatrico, Centro Diurno psichiatrico e Comunità Terapeutica",
-          "agganci": [
-            {
-              "competenza": "C9",
-              "abilita": [
-                "Riconoscere problemi e interventi legati all'area psico-sociale e dell'integrazione"
-              ],
-              "conoscenze": [
-                "Tecniche d'intervento rivolte a soggetti multiproblematici e svantaggiati"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "L'accertamento e il trattamento sanitario obbligatorio; le Residenze per l'Esecuzione delle Misure di Sicurezza",
-          "agganci": [
-            {
-              "competenza": "C9",
-              "abilita": [
-                "Analizzare casi e formulare ipotesi d'intervento"
-              ],
-              "conoscenze": [
-                "Metodologia per l'analisi dei casi"
-              ]
-            }
-          ]
-        }
-      ],
-      "provaEsperta": {
-        "titolo": "La mappa dei servizi di salute mentale del territorio",
-        "compito": "Costruire la mappa dei servizi di salute mentale disponibili nel territorio assegnato e scrivere una scheda di orientamento che indichi, per situazioni diverse, quale servizio contattare e perché.",
-        "contesto": "Un territorio assegnato, con informazioni sui servizi fornite in modo incompleto e da integrare con la ricerca.",
-        "prodotto": "Mappa dei servizi e scheda di orientamento.",
-        "durata": "4 ore di laboratorio",
-        "modalita": "piccolo gruppo, ciascuno approfondisce un servizio della rete",
-        "risorse": [
-          "schede dei servizi di salute mentale",
-          "normativa di riferimento su ASO e TSO",
-          "format della scheda di orientamento"
-        ],
-        "imprevisto": "A metà lavoro arriva una situazione aggiuntiva, non prevista nella consegna iniziale, che richiede un servizio diverso da quelli già mappati.",
-        "evidenze": [
-          "correttezza della mappa dei servizi",
-          "coerenza fra situazione e servizio individuato",
-          "giustificazione delle scelte di orientamento nella scheda",
-          "capacità di integrare la situazione imprevista nella mappa"
-        ]
-      },
-      "focus": {
-        "competenza": "C9",
-        "abilita": [
-          "Riconoscere problemi e interventi legati all'area psico-sociale e dell'integrazione",
-          "Analizzare casi e formulare ipotesi d'intervento"
-        ],
-        "conoscenze": [
-          "Tecniche d'intervento rivolte a soggetti multiproblematici e svantaggiati",
-          "Le problematiche psico-sociali connesse alle diverse categorie di utenza dei servizi"
-        ],
-        "nota": "Tutti e tre gli agganci stanno su C9 e la prova costruisce la mappa dei servizi di salute mentale con la scheda di orientamento: si valutano la coerenza fra situazione e servizio e la giustificazione delle scelte. È una mappa di servizi, ma letta dal lato del problema psico-sociale, non della prestazione.",
-        "competenzaTitolo": "Competenza in uscita n° 9: Realizzare, in collaborazione con altre figure professionali, azioni a sostegno e a tutela della persona con fragilità e/o disabilità e della sua famiglia, per favorire l’integrazione e migliorare o salvaguardare la qualità della vita.",
-        "competenzaNum": 9,
-        "competenzaIntermedia": "Collaborare nella elaborazione e attuazione di progetti di integrazione sociale e di prevenzione primaria, secondaria e terziaria rivolti a singoli o a gruppi",
-        "compresenzaScienzeUmane": false
-      },
-      "materiali": [],
-      "anno": "Quarto anno",
-      "periodoCurricolo": "Quarto Anno",
-      "livelloQNQ": "3-4",
-      "competenze": [
-        "C9"
-      ]
-    },
-    {
-      "n": 10,
-      "titolo": "Servizi e interventi per le persone con disabilità",
-      "origine": "C",
-      "periodo": "Marzo – Aprile",
-      "monteOre": "10 ore",
-      "sintesi": "Il catalogo dei servizi per le persone con disabilità, dai servizi diurni alle strutture residenziali, applicato a un caso professionale.",
-      "prodottoFinale": "La scheda di orientamento ai servizi per il caso professionale assegnato, con la proposta motivata dei servizi da attivare.",
-      "fasi": [
-        "Si parte dal racconto di una famiglia che cerca servizi per un figlio con disabilità e si prova a immaginare a chi si rivolgerebbe per primo.",
-        "Si studiano i servizi socio-assistenziali integrativi e sostitutivi: centro diurno, centro socioriabilitativo, servizi ambulatoriali di riabilitazione.",
-        "Si studiano l'integrazione scolastica, la formazione professionale, l'integrazione lavorativa, l'assistenza domiciliare, l'assistenza economica e il servizio di accompagnamento e trasporto.",
-        "Si studiano le strutture residenziali: Residenza Sanitaria Assistenziale, Comunità Alloggio, Servizio di Autonomia e Gruppo Appartamento.",
-        "Prova esperta: a partire da un caso professionale, si individuano i servizi attivabili e si scrive la scheda di orientamento motivando le scelte."
-      ],
-      "contenuti": [
-        {
-          "attivita": "I servizi socio-assistenziali integrativi e sostitutivi: centro diurno, centro socioriabilitativo, servizi ambulatoriali di riabilitazione",
-          "agganci": [
-            {
-              "competenza": "C7",
-              "abilita": [
-                "Individuare servizi e prestazioni che rispondono ai diversi bisogni"
-              ],
-              "conoscenze": [
-                "La distribuzione sul territorio e della fruizione dei servizi: rilevazioni statistiche"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "L'integrazione scolastica, la formazione professionale e l'integrazione lavorativa della persona con disabilità",
-          "agganci": [
-            {
-              "competenza": "C7",
-              "abilita": [
-                "Individuare servizi e prestazioni che rispondono ai diversi bisogni"
-              ],
-              "conoscenze": [
-                "La distribuzione sul territorio e della fruizione dei servizi: rilevazioni statistiche"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "L'assistenza domiciliare e l'assistenza economica nelle loro diverse tipologie; il servizio di accompagnamento e trasporto",
-          "agganci": [
-            {
-              "competenza": "C7",
-              "abilita": [
-                "Individuare servizi e prestazioni che rispondono ai diversi bisogni"
-              ],
-              "conoscenze": [
-                "La distribuzione sul territorio e della fruizione dei servizi: rilevazioni statistiche"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "Le strutture residenziali per la disabilità: Residenza Sanitaria Assistenziale, Comunità Alloggio, Servizio di Autonomia e Gruppo Appartamento",
-          "agganci": [
-            {
-              "competenza": "C7",
-              "abilita": [
-                "Individuare servizi e prestazioni che rispondono ai diversi bisogni"
-              ],
-              "conoscenze": [
-                "La distribuzione sul territorio e della fruizione dei servizi: rilevazioni statistiche"
-              ]
-            }
-          ]
-        }
-      ],
-      "provaEsperta": {
-        "titolo": "Il caso professionale: quali servizi attivare",
-        "compito": "A partire dal caso professionale assegnato, individuare i servizi per la disabilità attivabili fra quelli studiati e scrivere la scheda di orientamento per la famiglia, motivando la scelta di ciascun servizio proposto.",
-        "contesto": "Il caso di una persona con disabilità e della sua famiglia, con informazioni fornite in modo parziale.",
-        "prodotto": "Scheda di orientamento ai servizi, con proposta motivata.",
-        "durata": "4 ore di laboratorio",
-        "modalita": "piccolo gruppo, ciascuno approfondisce un'area di servizi",
-        "risorse": [
-          "fascicolo del caso professionale",
-          "schede dei servizi per la disabilità",
-          "format della scheda di orientamento"
-        ],
-        "imprevisto": "A metà lavoro emerge un'informazione sul caso non dichiarata all'inizio, che rende necessario rivedere i servizi già individuati.",
-        "evidenze": [
-          "pertinenza dei servizi individuati rispetto al caso",
-          "giustificazione delle scelte nella scheda di orientamento",
-          "capacità di rivedere la proposta alla luce dell'informazione emersa",
-          "chiarezza della scheda per la famiglia"
-        ]
-      },
-      "focus": {
-        "competenza": "C7",
-        "abilita": [
-          "Individuare servizi e prestazioni che rispondono ai diversi bisogni",
-          "Veicolare informazioni sotto varie forme per instaurare una proficua relazione d'aiuto"
-        ],
-        "conoscenze": [
-          "La distribuzione sul territorio e della fruizione dei servizi: rilevazioni statistiche"
-        ],
-        "nota": "Tutti e quattro gli agganci stanno su C7 e la prova chiede quali servizi attivare per un caso professionale, motivando le scelte in una scheda destinata alla famiglia. Rispetto al modulo 9, qui si parte dal catalogo dei servizi e si arriva al caso, non viceversa.",
-        "competenzaTitolo": "Competenza in uscita n°7: Gestire azioni di informazione e di orientamento dell’utente per facilitare l’accessibilità e la fruizione autonoma dei servizi pubblici e privati presenti sul territorio.",
-        "competenzaNum": 7,
-        "competenzaIntermedia": "Orientare l'utenza alla fruizione dei servizi in relazione ai bisogni e alle prestazioni",
-        "compresenzaScienzeUmane": false
-      },
-      "materiali": [
-        {
-          "titolo": "Fascicolo tecnico-pratico sulle disabilità",
-          "file": "materiali/laboratorio/fascicolo_disabilita_4sa.html"
-        },
-        {
-          "titolo": "Le disabilità: parole, modelli e leggi",
-          "file": "materiali/quarto/disabilita_dalle_leggi_al_progetto.html"
-        }
-      ],
-      "anno": "Quarto anno",
-      "periodoCurricolo": "Quarto Anno",
-      "livelloQNQ": "3-4",
-      "competenze": [
-        "C7"
-      ]
-    },
-    {
-      "n": 11,
-      "titolo": "Riabilitazione e co-terapie",
-      "origine": "C",
-      "periodo": "Aprile – Maggio",
-      "monteOre": "10 ore",
-      "sintesi": "Le attività riabilitative sanitarie e le co-terapie a supporto dell'autonomia della persona.",
-      "prodottoFinale": "La scheda di co-progettazione di un percorso riabilitativo, con l'autocontrollo delle scelte fatte.",
-      "fasi": [
-        "Si parte da un elenco di attività osservate in un servizio e si prova a distinguere quelle sanitarie da quelle sociali.",
-        "Si studiano le attività riabilitative sanitarie e sociali: fisioterapia, logopedia, riabilitazione psichiatrica e Terapia Occupazionale.",
-        "Si studiano le co-terapie: psicomotricità, musicoterapia e interventi assistiti con gli animali.",
-        "In laboratorio si analizza un caso e si individuano gli interventi più adatti a supportare le capacità residue della persona.",
-        "Prova esperta: si compila la scheda di co-progettazione del percorso riabilitativo e la si rilegge con la griglia di autocontrollo."
-      ],
-      "contenuti": [
-        {
-          "attivita": "Le attività riabilitative sanitarie e sociali: fisioterapia, logopedia, riabilitazione psichiatrica e Terapia Occupazionale",
-          "agganci": [
-            {
-              "competenza": "C5",
-              "abilita": [
-                "Individuare gli interventi ai fini del mantenimento delle capacità residue e a supporto dell'autonomia"
-              ],
-              "conoscenze": [
-                "Diagnosi funzionale, capacità residue, supporto all'autonomia"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "Le co-terapie: psicomotricità, musicoterapia e interventi assistiti con gli animali (I.A.A.)",
-          "agganci": [
-            {
-              "competenza": "C5",
-              "abilita": [
-                "Individuare gli interventi ai fini del mantenimento delle capacità residue e a supporto dell'autonomia"
-              ],
-              "conoscenze": [
-                "Diagnosi funzionale, capacità residue, supporto all'autonomia"
-              ]
-            }
-          ]
-        }
-      ],
-      "provaEsperta": {
-        "titolo": "La scheda di co-progettazione del percorso riabilitativo",
-        "compito": "A partire dal caso assegnato, individuare gli interventi riabilitativi e le co-terapie più adatti a supportare le capacità residue della persona e compilare la scheda di co-progettazione del percorso. Rileggere la scheda con la griglia di autocontrollo prima di consegnarla.",
-        "contesto": "Il caso di una persona in fase di riabilitazione, con documentazione clinica e sociale fornita in modo essenziale.",
-        "prodotto": "Scheda di co-progettazione del percorso riabilitativo e griglia di autocontrollo compilata.",
-        "durata": "3 ore di laboratorio",
-        "modalita": "piccolo gruppo, ciascuno approfondisce una tecnica riabilitativa o una co-terapia",
-        "risorse": [
-          "fascicolo del caso",
-          "schede delle tecniche riabilitative e delle co-terapie",
-          "griglia di autocontrollo"
-        ],
-        "imprevisto": "A metà lavoro si scopre che la persona non tollera una delle tecniche proposte inizialmente: il percorso va rivisto.",
-        "evidenze": [
-          "coerenza fra bisogni della persona e interventi scelti",
-          "correttezza delle informazioni sulle tecniche riabilitative",
-          "esito della rilettura con la griglia di autocontrollo",
-          "capacità di rivedere il percorso dopo l'imprevisto"
-        ]
-      },
-      "focus": {
-        "competenza": "C5",
-        "abilita": [
-          "Individuare gli interventi ai fini del mantenimento delle capacità residue e a supporto dell'autonomia"
-        ],
-        "conoscenze": [
-          "Diagnosi funzionale, capacità residue, supporto all'autonomia"
-        ],
-        "nota": "Entrambi gli agganci e l'intera prova stanno su C5: si co-progetta un percorso riabilitativo a partire dalle capacità residue della persona e se ne rilegge la coerenza con la griglia di autocontrollo.",
-        "competenzaTitolo": "Competenza in uscita n° 5: Partecipare alla presa in carico socio-assistenziale di soggetti le cui condizioni determinino uno stato di non autosufficienza parziale o totale, di terminalità, di compromissione delle capacità cognitive e motorie, applicando procedure e tecniche stabilite e facendo uso dei principali ausili e presidi.",
-        "competenzaNum": 5,
-        "competenzaIntermedia": "Predisporre interventi per il soddisfacimento dei bisogni di base socio-assistenziale e sanitari",
-        "compresenzaScienzeUmane": false
-      },
-      "materiali": [],
-      "anno": "Quarto anno",
-      "periodoCurricolo": "Quarto Anno",
-      "livelloQNQ": "3-4",
-      "competenze": [
-        "C5"
-      ]
-    },
-    {
       "n": 1,
       "titolo": "Orientamento alle professioni: incontri a scuola, visite guidate e laboratori",
       "periodo": "Trasversale all'anno",
@@ -8212,516 +6934,6 @@
         "C1",
         "C2",
         "C10"
-      ]
-    },
-    {
-      "n": 2,
-      "titolo": "Cultura, intercultura e accoglienza",
-      "origine": "C",
-      "periodo": "Ottobre – Novembre",
-      "monteOre": "6 ore",
-      "sintesi": "Il fenomeno migratorio, le forme di protezione internazionale e il sistema italiano di accoglienza, fino ai percorsi di cittadinanza.",
-      "prodottoFinale": "Una scheda informativa multilingue sul sistema di accoglienza italiano, pensata per un centro di prima informazione all'utenza straniera.",
-      "fasi": [
-        "La classe raccoglie notizie e dati recenti sul fenomeno migratorio, a partire da fonti giornalistiche e istituzionali.",
-        "Si definiscono insieme i termini chiave: protezione internazionale, sussidiaria e umanitaria.",
-        "Si ricostruisce il percorso di accoglienza in Italia, dalla prima alla seconda accoglienza, con materiali normativi semplificati.",
-        "Si approfondisce il tema della cittadinanza italiana e dei suoi requisiti.",
-        "I gruppi costruiscono la scheda informativa e la mettono alla prova con una simulazione di sportello."
-      ],
-      "contenuti": [
-        {
-          "attivita": "Terminologia e forme di protezione internazionale, sussidiaria e umanitaria riconosciute ai migranti.",
-          "agganci": [
-            {
-              "competenza": "C9",
-              "abilita": [
-                "Individuare i bisogni e le problematiche specifiche del minore, dell'anziano, delle persone con disabilità, con disagio psichico, dei nuclei familiari, degli immigrati e di particolari categorie svantaggiate"
-              ],
-              "conoscenze": []
-            }
-          ]
-        },
-        {
-          "attivita": "Il processo di accoglienza in Italia: prima accoglienza (Hotspot, CPA, CAS, CPR) e seconda accoglienza (rete SAI).",
-          "agganci": [
-            {
-              "competenza": "C7",
-              "abilita": [
-                "Indicare le varie opportunità di fruizione dei servizi presenti sul territorio"
-              ],
-              "conoscenze": [
-                "Principi universalistici nella erogazione dei servizi e principi di uguaglianza nell'accesso"
-              ]
-            },
-            {
-              "competenza": "C3",
-              "abilita": [
-                "Attivare azioni di promozione della mediazione interculturale"
-              ],
-              "conoscenze": [
-                "Tecniche e approcci per la facilitazione della comunicazione tra persone e nei gruppi"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "La cittadinanza italiana: requisiti e percorsi di acquisizione.",
-          "agganci": [
-            {
-              "competenza": "C7",
-              "abilita": [
-                "Individuare azioni utili ad assicurare il rispetto dei diritti e doveri delle persone"
-              ],
-              "conoscenze": [
-                "Principi universalistici nella erogazione dei servizi e principi di uguaglianza nell'accesso"
-              ]
-            }
-          ]
-        }
-      ],
-      "provaEsperta": {
-        "titolo": "Lo sportello informativo per l'utenza straniera",
-        "compito": "Realizzare una scheda informativa multilingue (o in italiano semplificato) sul sistema di accoglienza e sui percorsi di cittadinanza, e simulare un colloquio allo sportello con un utente straniero.",
-        "contesto": "Un centro di prima informazione territoriale che riceve richieste di orientamento da persone migranti e dalle loro famiglie.",
-        "prodotto": "Scheda informativa multilingue e verbale della simulazione di sportello.",
-        "durata": "4 ore di elaborazione e 2 ore di simulazione",
-        "modalita": "piccolo gruppo, con un coordinatore che integra i contributi e i materiali dei compagni prima della simulazione",
-        "risorse": [
-          "fonti normative semplificate sul diritto d'asilo",
-          "materiali multilingue di enti pubblici e del terzo settore",
-          "modello di scheda informativa"
-        ],
-        "imprevisto": "Durante la simulazione l'utente pone una domanda su un caso non previsto dalla scheda, per esempio il ricongiungimento familiare, e il gruppo deve reperire rapidamente un'informazione attendibile o indicare a chi rivolgersi.",
-        "evidenze": [
-          "chiarezza e correttezza delle informazioni fornite",
-          "capacità di adattare il linguaggio all'utente",
-          "gestione dell'imprevisto durante la simulazione",
-          "integrazione dei contributi del gruppo nella scheda finale"
-        ]
-      },
-      "focus": {
-        "competenza": "C7",
-        "abilita": [
-          "Indicare le varie opportunità di fruizione dei servizi presenti sul territorio",
-          "Individuare azioni utili ad assicurare il rispetto dei diritti e doveri delle persone"
-        ],
-        "conoscenze": [
-          "Principi universalistici nella erogazione dei servizi e principi di uguaglianza nell'accesso"
-        ],
-        "nota": "Il prodotto è una scheda informativa per uno sportello e la prova la mette alla prova in un colloquio: si valutano la correttezza delle informazioni e l'adattamento del linguaggio all'utente. La mediazione interculturale (C3) è la tecnica con cui lo si fa, le forme di protezione (C9) il contenuto da spiegare.",
-        "competenzaTitolo": "Competenza in uscita n°7: Gestire azioni di informazione e di orientamento dell’utente per facilitare l’accessibilità e la fruizione autonoma dei servizi pubblici e privati presenti sul territorio.",
-        "competenzaNum": 7,
-        "competenzaIntermedia": "Gestire azioni di informazione e di orientamento dell'utente per facilitare l'accessibilità e la fruizione autonoma dei servizi pubblici e privati presenti sul territorio",
-        "compresenzaScienzeUmane": false
-      },
-      "materiali": [],
-      "anno": "Quinto anno",
-      "periodoCurricolo": "Quinto Anno",
-      "livelloQNQ": "4",
-      "competenze": [
-        "C3",
-        "C7",
-        "C9"
-      ]
-    },
-    {
-      "n": 3,
-      "titolo": "Progettare un servizio: dalla pianificazione alla valutazione",
-      "origine": "C",
-      "periodo": "Novembre – Dicembre",
-      "monteOre": "14 ore",
-      "sintesi": "Il ciclo di progettazione di un servizio sociale: dall'analisi dei bisogni alla valutazione finale.",
-      "prodottoFinale": "Un progetto di servizio completo, con scheda di analisi dei bisogni, piano di attuazione e strumenti di valutazione.",
-      "fasi": [
-        "Gli studenti individuano un bisogno reale del territorio a partire da fonti locali e testimonianze.",
-        "Definiscono obiettivi, destinatari e risorse necessarie al servizio da progettare.",
-        "Costruiscono il piano di attuazione, con fasi, tempi e responsabilità.",
-        "Simulano l'avvio del servizio e affrontano un imprevisto organizzativo.",
-        "Predispongono gli strumenti di monitoraggio e valutazione e restituiscono i risultati alla classe."
-      ],
-      "contenuti": [
-        {
-          "attivita": "Analisi dei bisogni e definizione degli obiettivi di un servizio sociale.",
-          "agganci": [
-            {
-              "competenza": "C1",
-              "abilita": [
-                "Individuare l'apporto da fornire alla elaborazione di progetti in ambito sociale e piani individualizzati"
-              ],
-              "conoscenze": [
-                "La progettazione nei servizi"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "Pianificazione delle fasi, dei tempi e delle risorse del servizio, compresa la ricerca di finanziamenti.",
-          "agganci": [
-            {
-              "competenza": "C8",
-              "abilita": [
-                "Riconoscere le modalità di gestione nella realizzazione dei progetti sociali",
-                "Predisporre e attivare semplici progetti di fundraising e crowdfunding"
-              ],
-              "conoscenze": [
-                "La gestione delle risorse per la realizzazione dei progetti sociali di animazione"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "Monitoraggio in itinere e valutazione finale del servizio progettato.",
-          "agganci": [
-            {
-              "competenza": "C10",
-              "abilita": [
-                "Utilizzare tecniche per il monitoraggio dei progetti e dei servizi"
-              ],
-              "conoscenze": [
-                "Modalità, tecniche e strumenti di monitoraggio di progetti e interventi"
-              ]
-            },
-            {
-              "competenza": "C8",
-              "abilita": [
-                "Valutare attività di animazione sociale rivolte alle diverse tipologie di utenza, verificandone la sostenibilità e l'efficacia"
-              ],
-              "conoscenze": [
-                "Strumenti di valutazione in itinere e finale di un progetto"
-              ]
-            }
-          ]
-        }
-      ],
-      "provaEsperta": {
-        "titolo": "Il progetto di servizio dall'idea alla valutazione",
-        "compito": "Progettare un servizio sociale rivolto a una fascia di utenza scelta dal gruppo, dall'analisi dei bisogni alla valutazione finale, e presentarlo come se fosse da sottoporre a un ente finanziatore.",
-        "contesto": "Un ente del terzo settore che deve rispondere a un bando per l'attivazione di un nuovo servizio sul territorio.",
-        "prodotto": "Documento di progetto con analisi dei bisogni, piano di attuazione, budget di massima e strumenti di valutazione.",
-        "durata": "10 ore di progettazione, 4 ore di presentazione e restituzione",
-        "modalita": "gruppo con un coordinatore di progetto che integra i materiali prodotti dai sottogruppi in un unico documento",
-        "risorse": [
-          "dati e fonti sui bisogni del territorio",
-          "modello di scheda di progettazione",
-          "esempi di bandi e schede di rendicontazione"
-        ],
-        "imprevisto": "A metà lavoro una risorsa data per certa, uno spazio, un finanziamento o un collaboratore, viene meno e il gruppo deve rivedere il piano senza ridurre gli obiettivi principali del servizio.",
-        "evidenze": [
-          "coerenza tra bisogni, obiettivi e attività previste",
-          "qualità della revisione del piano dopo l'imprevisto",
-          "integrazione dei contributi dei sottogruppi nel documento finale",
-          "adeguatezza degli strumenti di valutazione proposti"
-        ]
-      },
-      "focus": {
-        "competenza": "C1",
-        "abilita": [
-          "Individuare l'apporto da fornire alla elaborazione di progetti in ambito sociale e piani individualizzati"
-        ],
-        "conoscenze": [
-          "La progettazione nei servizi"
-        ],
-        "nota": "L'oggetto è un servizio, non un'attività di animazione: la prima evidenza è la coerenza fra bisogni, obiettivi e attività previste e il progetto si presenta come se andasse sottoposto a un ente. La gestione delle risorse e gli strumenti di valutazione (C8) e il monitoraggio (C10) sono le sezioni che il progetto deve contenere.",
-        "competenzaTitolo": "Competenza in uscita n° 1: Collaborare nella gestione di progetti e attività dei servizi sociali, socio-sanitari e socio-educativi, rivolti a bambini e adolescenti, persone con disabilità, anziani, minori a rischio, soggetti con disagio psico-sociale e altri soggetti in situazione di svantaggio, anche attraverso lo sviluppo di reti territoriali formali e informali.",
-        "competenzaNum": 1,
-        "competenzaIntermedia": "Collaborare nella gestione di progetti e attività dei servizi sociali, socio-sanitari e socio-educativi, rivolti bambini e adolescenti, persone con disabilità, anziani, minori a rischio, soggetti con disagio psico-sociale e altri soggetti in situazione di svantaggio, anche attraverso lo sviluppo di reti territoriali formali e informali",
-        "compresenzaScienzeUmane": false
-      },
-      "materiali": [],
-      "anno": "Quinto anno",
-      "periodoCurricolo": "Quinto Anno",
-      "livelloQNQ": "4",
-      "competenze": [
-        "C1",
-        "C8",
-        "C10"
-      ]
-    },
-    {
-      "n": 4,
-      "titolo": "Servizi e interventi per le persone anziane",
-      "origine": "C",
-      "periodo": "Gennaio – Marzo",
-      "monteOre": "20 ore",
-      "sintesi": "I bisogni della persona anziana e la rete dei servizi, domiciliari, semiresidenziali e residenziali, dedicati a lei.",
-      "prodottoFinale": "Una mappa ragionata dei servizi per la persona anziana del territorio, con una scheda di approfondimento su un caso professionale.",
-      "fasi": [
-        "Si parte dalla conoscenza della persona anziana: le fasi dell'invecchiamento, l'autosufficienza e i bisogni di assistenza.",
-        "Si approfondisce il tema del fine vita e delle cure palliative con materiali e testimonianze guidate.",
-        "La classe censisce e classifica i servizi rivolti alle persone anziane presenti sul territorio, dai servizi di comunità a quelli residenziali.",
-        "Si analizzano le figure professionali coinvolte e la relazione di aiuto con la persona anziana.",
-        "In laboratorio si costruisce un caso professionale e si discute in gruppo come orientare la persona e la famiglia verso il servizio più adatto."
-      ],
-      "contenuti": [
-        {
-          "attivita": "La persona anziana: periodizzazione, non autosufficienza (ADL e iADL), bisogni di assistenza della persona anziana e malata, invecchiamento attivo.",
-          "agganci": [
-            {
-              "competenza": "C4",
-              "abilita": [
-                "Individuare le attività finalizzate alla promozione, conservazione e mantenimento delle capacità della persona e di sostegno alla famiglia"
-              ],
-              "conoscenze": [
-                "Strumenti e tecniche per la rilevazione dello stato di salute e scale dei livelli di autonomia",
-                "Caratteristiche, fasi e tipologia delle relazioni di aiuto e di cura in rapporto ai bisogni della persona anziana, della persona con disabilità e della sua famiglia"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "Il fine vita: cure palliative e modalità di accompagnamento della persona anziana e della sua famiglia.",
-          "agganci": [
-            {
-              "competenza": "C5",
-              "abilita": [
-                "Individuare interventi relativi alle cure palliative",
-                "Adottare modalità comunicativo-relazionali atte a sostenere l'accompagnamento del fine vita"
-              ],
-              "conoscenze": []
-            }
-          ]
-        },
-        {
-          "attivita": "Servizi e interventi per le persone anziane: tipologie e classificazioni; le attività aggreganti, culturali, motorie e occupazionali.",
-          "agganci": [
-            {
-              "competenza": "C7",
-              "abilita": [
-                "Indicare le varie opportunità di fruizione dei servizi presenti sul territorio"
-              ],
-              "conoscenze": [
-                "Principi universalistici nella erogazione dei servizi e principi di uguaglianza nell'accesso"
-              ]
-            },
-            {
-              "competenza": "C8",
-              "abilita": [
-                "Riconoscere le modalità di gestione nella realizzazione dei progetti sociali"
-              ],
-              "conoscenze": [
-                "La gestione delle risorse per la realizzazione dei progetti sociali di animazione"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "Il servizio volontario per le persone anziane e le forme di scambio tra generazioni: orto sociale, banca del tempo, università della terza età.",
-          "agganci": [
-            {
-              "competenza": "C9",
-              "abilita": [
-                "Identificare gli elementi caratterizzanti i progetti d'integrazione sociale"
-              ],
-              "conoscenze": []
-            }
-          ]
-        },
-        {
-          "attivita": "I servizi domiciliari e semiresidenziali: Centro Diurno, assistenza economica, assistenza domiciliare e telesoccorso.",
-          "agganci": [
-            {
-              "competenza": "C7",
-              "abilita": [
-                "Riconoscere gli elementi di qualità dei servizi per orientare la persona alla loro fruizione"
-              ],
-              "conoscenze": [
-                "Principi universalistici nella erogazione dei servizi e principi di uguaglianza nell'accesso"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "I servizi residenziali per la persona anziana: Comunità Alloggio, Casa Famiglia, Casa Albergo, Casa di Riposo e Residenza Sanitaria Assistenziale (RSA).",
-          "agganci": [
-            {
-              "competenza": "C6",
-              "abilita": [
-                "Individuare le difficoltà di utilizzo degli ausili e degli strumenti negli ambienti di vita",
-                "Individuare un'adeguata distribuzione degli spazi e degli arredi negli ambienti in cui vivono persone con difficoltà motorie"
-              ],
-              "conoscenze": [
-                "Ausili e strumenti per il mantenimento delle capacità residue e l'autonomia delle persone negli ambienti di vita",
-                "Criteri e uso degli spazi e degli arredi in condizioni di comfort e di sicurezza negli ambienti di vita"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "Le figure professionali e le organizzazioni che lavorano per le persone anziane; la relazione di aiuto con la persona anziana.",
-          "agganci": [
-            {
-              "competenza": "C2",
-              "abilita": [
-                "Individuare gli stili organizzativi e di leadership"
-              ],
-              "conoscenze": [
-                "Gli stili organizzativi"
-              ]
-            },
-            {
-              "competenza": "C4",
-              "abilita": [
-                "Indicare proposte e iniziative per la predisposizione e attuazione del Piano Assistenziale Individualizzato"
-              ],
-              "conoscenze": [
-                "Caratteristiche, fasi e tipologia delle relazioni di aiuto e di cura in rapporto ai bisogni della persona anziana, della persona con disabilità e della sua famiglia"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "Il caso professionale per le persone anziane: analisi di una situazione reale e individuazione del servizio più adeguato.",
-          "agganci": [
-            {
-              "competenza": "C9",
-              "abilita": [
-                "Individuare i bisogni e le problematiche specifiche del minore, dell'anziano, delle persone con disabilità, con disagio psichico, dei nuclei familiari, degli immigrati e di particolari categorie svantaggiate"
-              ],
-              "conoscenze": []
-            }
-          ]
-        }
-      ],
-      "provaEsperta": {
-        "titolo": "La mappa dei servizi per la persona anziana e il caso professionale",
-        "compito": "Costruire una mappa ragionata dei servizi per le persone anziane del territorio (domiciliari, semiresidenziali, residenziali) e analizzare un caso professionale per individuare il servizio più adatto, coordinando il lavoro dei sottogruppi dedicati a ciascuna tipologia di servizio.",
-        "contesto": "Uno sportello sociale che deve orientare una famiglia con una persona anziana non autosufficiente verso i servizi disponibili sul territorio.",
-        "prodotto": "Mappa dei servizi con schede descrittive per tipologia e relazione scritta sul caso professionale, con la proposta di orientamento motivata.",
-        "durata": "16 ore di lavoro in piccoli gruppi, 4 ore di restituzione e discussione del caso",
-        "modalita": "piccoli gruppi per tipologia di servizio, con un coordinatore generale che integra le schede in un'unica mappa condivisa",
-        "risorse": [
-          "elenco e materiali informativi dei servizi del territorio",
-          "scala di valutazione ADL/iADL",
-          "format della scheda di orientamento al servizio"
-        ],
-        "imprevisto": "Nel caso professionale emerge, a metà lavoro, un'informazione nuova sulla famiglia, per esempio l'indisponibilità di un caregiver, che rende inadatto il servizio inizialmente scelto e il gruppo deve rivedere la proposta di orientamento.",
-        "evidenze": [
-          "correttezza e completezza della mappa dei servizi",
-          "coerenza della proposta di orientamento con i bisogni rilevati",
-          "gestione dell'imprevisto e revisione motivata della proposta",
-          "integrazione delle schede dei sottogruppi nella mappa finale"
-        ]
-      },
-      "focus": {
-        "competenza": "C7",
-        "abilita": [
-          "Indicare le varie opportunità di fruizione dei servizi presenti sul territorio",
-          "Riconoscere gli elementi di qualità dei servizi per orientare la persona alla loro fruizione"
-        ],
-        "conoscenze": [
-          "Principi universalistici nella erogazione dei servizi e principi di uguaglianza nell'accesso"
-        ],
-        "nota": "È la UDA più larga dell'anno: dieci agganci distribuiti su sette competenze, perché la persona anziana attraversa tutto il profilo. Decide la prova, che consegna una mappa ragionata dei servizi e una proposta di orientamento su un caso: le prime due evidenze sono la completezza della mappa e la coerenza della proposta con i bisogni rilevati. Cura e relazione (C4), fine vita (C5), ambiente di vita (C6), animazione (C8), volontariato e integrazione (C9) e figure professionali (C2) sono i contenuti che riempiono le schede della mappa, non il criterio con cui si valuta.",
-        "competenzaTitolo": "Competenza in uscita n°7: Gestire azioni di informazione e di orientamento dell’utente per facilitare l’accessibilità e la fruizione autonoma dei servizi pubblici e privati presenti sul territorio.",
-        "competenzaNum": 7,
-        "competenzaIntermedia": "Gestire azioni di informazione e di orientamento dell'utente per facilitare l'accessibilità e la fruizione autonoma dei servizi pubblici e privati presenti sul territorio",
-        "compresenzaScienzeUmane": false
-      },
-      "materiali": [],
-      "anno": "Quinto anno",
-      "periodoCurricolo": "Quinto Anno",
-      "livelloQNQ": "4",
-      "competenze": [
-        "C2",
-        "C4",
-        "C5",
-        "C6",
-        "C7",
-        "C8",
-        "C9"
-      ]
-    },
-    {
-      "n": 5,
-      "titolo": "Laboratorio di animazione per gli anziani e ruolo del caregiver",
-      "origine": "C",
-      "periodo": "Aprile – Maggio",
-      "monteOre": "10 ore",
-      "sintesi": "La progettazione di attività di animazione per le persone anziane e il ruolo del caregiver nella loro assistenza quotidiana.",
-      "prodottoFinale": "Un progetto di animazione per un gruppo di persone anziane, pronto per essere proposto a una struttura o a un servizio del territorio.",
-      "fasi": [
-        "Gli studenti analizzano i bisogni di un gruppo di persone anziane individuato come destinatario del progetto.",
-        "Definiscono obiettivi e attività di animazione coerenti con quei bisogni.",
-        "Progettano nel dettaglio le attività, i materiali e i tempi del laboratorio.",
-        "Approfondiscono il ruolo del caregiver e il suo rapporto con l'animatore e con l'équipe.",
-        "Presentano il progetto simulando la proposta a un servizio reale."
-      ],
-      "contenuti": [
-        {
-          "attivita": "Progettare l'animazione per le persone anziane: analisi dei bisogni, definizione degli obiettivi e progettazione delle attività.",
-          "agganci": [
-            {
-              "competenza": "C8",
-              "abilita": [
-                "Riconoscere le modalità di gestione nella realizzazione dei progetti sociali",
-                "Valutare attività di animazione sociale rivolte alle diverse tipologie di utenza, verificandone la sostenibilità e l'efficacia"
-              ],
-              "conoscenze": [
-                "La gestione delle risorse per la realizzazione dei progetti sociali di animazione",
-                "Strumenti di valutazione in itinere e finale di un progetto"
-              ]
-            }
-          ]
-        },
-        {
-          "attivita": "Il ruolo del caregiver nell'assistenza e nella relazione con la persona anziana.",
-          "agganci": [
-            {
-              "competenza": "C4",
-              "abilita": [
-                "Individuare le attività finalizzate alla promozione, conservazione e mantenimento delle capacità della persona e di sostegno alla famiglia"
-              ],
-              "conoscenze": [
-                "Caratteristiche, fasi e tipologia delle relazioni di aiuto e di cura in rapporto ai bisogni della persona anziana, della persona con disabilità e della sua famiglia"
-              ]
-            }
-          ]
-        }
-      ],
-      "provaEsperta": {
-        "titolo": "Il progetto di animazione e il ruolo del caregiver",
-        "compito": "Progettare un laboratorio di animazione per un gruppo di persone anziane individuato, definendo bisogni, obiettivi, attività e materiali, e presentarlo a un servizio del territorio insieme a indicazioni per il caregiver di riferimento.",
-        "contesto": "Un centro diurno per persone anziane che chiede alla classe una proposta di animazione settimanale.",
-        "prodotto": "Progetto di animazione con scheda delle attività e nota informativa per il caregiver.",
-        "durata": "8 ore di progettazione, 2 ore di presentazione",
-        "modalita": "piccolo gruppo con un coordinatore che integra le proposte di attività dei singoli componenti nel progetto finale",
-        "risorse": [
-          "scheda di analisi dei bisogni del gruppo destinatario",
-          "materiali e attrezzature per attività di animazione",
-          "esempi di progetti di animazione già realizzati"
-        ],
-        "imprevisto": "Il giorno della presentazione il centro comunica che due persone del gruppo non potranno partecipare per motivi di salute e il gruppo deve adattare rapidamente l'attività prevista senza snaturarne gli obiettivi.",
-        "evidenze": [
-          "coerenza tra bisogni rilevati, obiettivi e attività proposte",
-          "adattamento dell'attività all'imprevisto",
-          "integrazione dei contributi dei singoli componenti nel progetto",
-          "qualità delle indicazioni fornite al caregiver"
-        ]
-      },
-      "focus": {
-        "competenza": "C8",
-        "abilita": [
-          "Riconoscere le modalità di gestione nella realizzazione dei progetti sociali",
-          "Valutare attività di animazione sociale rivolte alle diverse tipologie di utenza, verificandone la sostenibilità e l'efficacia"
-        ],
-        "conoscenze": [
-          "La gestione delle risorse per la realizzazione dei progetti sociali di animazione",
-          "Strumenti di valutazione in itinere e finale di un progetto"
-        ],
-        "nota": "Si progetta un laboratorio di animazione pronto da proporre a una struttura: la prima evidenza è la coerenza fra bisogni, obiettivi e attività, l'ultima la qualità delle indicazioni lasciate al caregiver. Il ruolo del caregiver e la relazione di cura (C4) sono il contesto in cui il progetto dovrà funzionare.",
-        "competenzaTitolo": "Competenza in uscita n° 8: Realizzare in autonomia o in collaborazione con altre figure professionali, attività educative, di animazione sociale, ludiche e culturali adeguate ai diversi contesti e ai diversi bisogni.",
-        "competenzaNum": 8,
-        "competenzaIntermedia": "Realizzare in autonomia o in collaborazione con altre figure professionali, attività educative, di animazione sociale, ludiche e culturali adeguate ai diversi contesti e ai diversi bisogni",
-        "compresenzaScienzeUmane": false
-      },
-      "materiali": [],
-      "anno": "Quinto anno",
-      "periodoCurricolo": "Quinto Anno",
-      "livelloQNQ": "4",
-      "competenze": [
-        "C4",
-        "C8"
       ]
     },
     {

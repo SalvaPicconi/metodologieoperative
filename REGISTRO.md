@@ -9,6 +9,26 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-16** · Codex · Infanzia: nuova apertura sulla progettazione per i 3–6 anni, con criteri leggibili e collage presentato come applicazione. Campi, progetto Word e repertorio conservati; rilascio autorizzato. (contenuti `39ec68a`)
+
+- **2026-10-16** · Codex · Nuova sezione Educazione civica e percorso di terza «Dall’informazione alla partecipazione»: ricerca autonoma, scheda salvabile e stampabile, otto slide, PowerPoint e schema PDF. Collegati terza e Programmi; raccordo civico locale e rubrica da completare. (contenuti `e3604a2`; pubblicazione autorizzata)
+
+- **2026-10-16** · Codex · Terza, infanzia: completati nella pagina e nel progetto Word i sei criteri per scegliere i materiali; chiarito il focus della prova e corretta l’impaginazione. Collaudo locale concluso e rilascio autorizzato. (contenuti `131767a`, `2bc3f81`)
+
+- **2026-10-15** · Codex · Terza, infanzia: progetto per i 3–6 anni dal collage già disponibile, con scheda Word, prova dell’allestimento e revisione. Tre sintesi salvabili e confronto anonimo alla LIM; materiali precedenti conservati. (anteprima locale)
+
+- **2026-10-15** · Codex · Terza, SerD: primo colloquio con Marco, schede Word per i ruoli e resoconto con bozza di piano. Ascolto e gestione del rifiuto, conservando diario e materiali precedenti. (`870cfca`)
+
+- **2026-10-15** · Codex · Terza: il caso Lucia ora comprende il dossier Word, la scelta motivata fra griglia e mappa, schede simulate sull’accesso ai servizi e revisione dopo una nuova informazione. Le risposte precedenti sono conservate; confronto anonimo sulla LIM. (`5a21642`)
+
+- **2026-10-15** · Codex · Terza: il caso Rosa comprende la revisione dopo la telefonata della figlia, un verbale Word e le risposte anonime per la LIM. Corretti gli esempi D2/D3 del collage naturale, conservando la scheda. (`11e97e3`)
+
+- **2026-10-15** · Codex · Lezione di prima sui bisogni e la relazione d’aiuto: schema originale, sei tappe, casi guidati e scheda Word. Collegata alla UDA 5 e al catalogo del biennio. (`c5a37a1`)
+
+- **2026-10-14** · Codex · Separate le 16 UDA Carola in una sezione con password e catalogo protetto sul server; restano pubbliche le 43 UDA Picconi e integrate. Numeri, contenuti, annotazioni e pianificazioni già salvate conservati.
+
+- **2026-10-14** · Codex · Programmi per i colleghi: consultazione diretta, nuova veste grafica e tempi lasciati al docente. Prima: profilo dell’operatore, bisogni e titolo di educazione civica corretti; sei allegati originali recuperati. Separazione della programmazione Carola rinviata. (`233797e`)
+
 - **2026-10-14** · Claude · Tappa 4, «Proprietà per proprietà» riscritta come «Confronta le due reti: cinque domande»: domande semplici, scelta Giulia/Marco/uguale, la frase del racconto come indizio e un esempio svolto; risposte già date conservate.
 - **2026-10-14** · Claude · Mappa della rete: ogni legame ha la sua natura, rapporto informale o formale, indipendente dai nodi (la zia può avere un rapporto informale con Giulia e uno formale con la coordinatrice); le mappe già salvate non cambiano.
 - **2026-10-13** · Codex · Collage autobiografico: flusso unico con teoria e dodici opere prima della scelta; nucleo inserito con un clic e due domande semplici da scrivere con esempi. Nuova veste bianco caldo e blu, materiali illustrati e risposte precedenti conservate. (`dd192b4`)

@@ -278,12 +278,16 @@ Alcune UDA non stanno solo nei Programmi. Il campo facoltativo `sezione` dichiar
 | `"compresenza"` | `compresenza.html` — UDA svolte con Scienze umane |
 | `"laboratorio"` | `laboratorio.html` — laboratori in senso stretto |
 | `"orientamento"` | `orientamento.html` — le UDA di orientamento alle professioni, una per anno |
+| `"educazione-civica"` | `educazione-civica.html` — i percorsi civici disponibili, raggruppati per anno |
 
-La UDA resta scritta in un posto solo, `programmi-src/`: le tre pagine la leggono da `programmi.json`
+La UDA resta scritta in un posto solo, `programmi-src/`: le pagine la leggono da `programmi.json`
 con `assets/uda-sezione.js` e rimandano ai Programmi con `programmi.html?uda=<chiave>`. Nei Programmi
 la sezione è un'etichetta colorata accanto al titolo e un filtro (`?sezione=…`), così lì restano
-visibili **tutte** le UDA. Il build rifiuta un valore diverso dai tre; per aggiungerne uno si tocca
+visibili **tutte** le UDA. Il build rifiuta un valore diverso da quelli elencati; per aggiungerne uno si tocca
 `SEZIONI` in `scripts/programmi.py` e `PAGINE_SEZIONE` in `programmi.js`.
+
+Il catalogo di Educazione civica usa `data-attivita="true"`: il primo materiale HTML apre il percorso
+per gli studenti. Procedura, fonti verificate e limiti del raccordo locale in `EDUCAZIONE_CIVICA.md`.
 
 ### Programmazione individuale
 

@@ -5,18 +5,20 @@
     <meta name="page-id" content="attivita-laboratorio-01">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laboratorio - Simulazione Intervento Dipendenze</title>
+    <title>Un primo colloquio al SerD · Metodologie Operative</title>
     <meta name="description"
-        content="Materiali per l'attività di simulazione sul tema delle dipendenze patologiche.">
+        content="Ascolto, osservazione e resoconto del primo colloquio al SerD: il caso Marco, schede Word e materiali sulle dipendenze.">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/serd-terza.css">
 </head>
 
 <body>
+    <a class="skip-link" href="#contenuto">Vai al contenuto</a>
     <header>
         <div class="container">
             <h1>Laboratorio - Metodologie Operative</h1>
             <p>Percorsi immersivi e attività guidate per la classe</p>
-            <p style="font-size: 0.9rem; margin-top: 0.5rem;">IIS Meucci Mattei - Cagliari (Sede Decimomannu)</p>
+            <p style="font-size: 0.9rem; margin-top: 0.5rem;">IIS Meucci - Mattei | Decimomannu</p>
         </div>
     </header>
 
@@ -27,6 +29,7 @@
             <li><a href="terzo.html">Terzo anno</a></li>
             <li><a href="quarto.html">Quarto anno</a></li>
             <li><a href="quinto.html">Quinto anno</a></li>
+            <li><a href="educazione-civica.html">Educazione civica</a></li>
             <li class="nav-group"><a href="index.html#metodi" class="active">Metodi e laboratori</a>
                 <ul class="nav-sub">
                     <li><a href="lezioni-partecipate.html">Lezioni partecipate</a></li>
@@ -41,6 +44,7 @@
             <li class="nav-group"><a href="index.html#docente">Docente</a>
                 <ul class="nav-sub">
                     <li><a href="programmi.html">Programmi</a></li>
+                    <li><a href="programmi-carola.html">Programmazione Carola</a></li>
                     <li><a href="programmazione.html">Programmazione individuale</a></li>
                     <li><a href="area_docente.html">Area docente</a></li>
                     <li><a href="anno-di-prova.html">Anno di prova</a></li>
@@ -49,84 +53,111 @@
         </ul>
     </nav>
 
-    <main>
+    <div id="serd-identita" class="container" role="group" aria-label="Identità e strumenti"></div>
+    <main id="contenuto" tabindex="-1">
         <div class="container">
             <div class="page-title">
-                <p class="breadcrumb"><a href="laboratorio.html">← Laboratorio</a></p>
-                <h2>💊 Simulazione intervento dipendenze</h2>
-                <p>Studio del servizio e gioco di ruolo sui colloqui al SerD.</p>
+                <p class="breadcrumb"><a href="laboratorio.html">← Laboratorio</a> · Terzo anno · UDA 3.5</p>
+                <p class="serd-eyebrow">ASCOLTO · COLLOQUIO · DOCUMENTAZIONE</p>
+                <h2>Un primo colloquio al SerD</h2>
+                <p class="serd-lead">Comprendere che cosa porta una persona al servizio, ascoltare ciò che desidera e concordare un passo possibile.</p>
+                <p>Lavorerete sul caso inventato di Marco, ripreso dal kit sui colloqui con Marco e Sara. Una persona conduce, una interpreta Marco e una osserva. Le schede sono modificabili in Word e utilizzabili anche su carta.</p>
             </div>
 
             <div class="indice-pagina" role="navigation" aria-label="In questa pagina">
-                <a href="#preparazione">1 · Studio e preparazione</a>
-                <a href="#gioco-di-ruolo">2 · Gioco di ruolo al SerD</a>
+                <a href="#servizio">Il servizio</a>
+                <a href="#ascoltare">Ascoltare e orientarsi</a>
+                <a href="#gioco-di-ruolo">Il colloquio</a>
+                <a href="#documentare">Resoconto e primo passo</a>
+                <a href="#preparazione">Altri materiali</a>
+                <a href="#diario">Diario</a>
             </div>
 
-            <section class="card" id="preparazione" style="margin-bottom: 2rem; border-left: 5px solid #e74c3c; scroll-margin-top: 70px;">
-                <h3>1 · Studio e preparazione</h3>
-                <p>Prima del gioco: il servizio, il protocollo d'intervento e gli strumenti dell'équipe.</p>
-                <div class="file-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem;">
-                    <div class="materiale-item">
-                        <div class="materiale-header">
-                            <h4>📄 Guida dipendenze</h4>
-                        </div>
-                        <a href="materiali/laboratorio/dipendenze/1%20Guida%20Dipendenze.pdf" class="btn-download" download>📥 Scarica guida</a>
-                    </div>
-
-                    <div class="materiale-item">
-                        <div class="materiale-header">
-                            <h4>📝 Protocollo operativo SerD</h4>
-                        </div>
-                        <a href="materiali/laboratorio/dipendenze/2%20Protocollo%20Operativo%20Intervento%20Dipendenze_Serd.pdf" class="btn-download" download>📥 Scarica protocollo</a>
-                    </div>
-
-                    <div class="materiale-item">
-                        <div class="materiale-header">
-                            <h4>📊 Kit operativo SerD</h4>
-                        </div>
-                        <a href="materiali/laboratorio/dipendenze/3%20KIT%20Operativo%20Serd_%20Simulazione.pdf" class="btn-download" download>📥 Scarica kit</a>
-                    </div>
-
-                    <div class="materiale-item">
-                        <div class="materiale-header">
-                            <h4>🖼️ Infografiche</h4>
-                        </div>
-                        <a href="materiali/laboratorio/infografiche_dipendenze.html" class="btn-download">👁️ Visualizza a schermo</a>
-                    </div>
-                </div>
+            <section class="card" id="servizio" aria-labelledby="titolo-servizio">
+                <h3 id="titolo-servizio">La persona incontra un servizio</h3>
+                <p>Il <strong>SerD è il Servizio per le Dipendenze</strong>. Si occupa di prevenzione, diagnosi, cura e riabilitazione, mettendo in relazione interventi sanitari, psicologici, educativi e sociali. Una richiesta di aiuto può riguardare la salute, le relazioni, il lavoro o più aspetti insieme.</p>
+                <p>L’accoglienza permette di comprendere la domanda e orientare i passaggi successivi. Nel lavoro dell’operatore sociale conta riconoscere che cosa la persona chiede, raccogliere informazioni pertinenti e collaborare con le figure competenti. Le osservazioni vanno documentate senza trasformarle in diagnosi.</p>
+                <div class="serd-note"><p><strong>Il percorso si costruisce sulla situazione.</strong> Il diagramma in tredici fasi dei materiali di approfondimento rappresenta un esempio didattico: non impone a ogni persona lo stesso ordine di incontri, le stesse figure o l’ingresso in comunità. Ogni proposta richiede valutazione, confronto con la persona e verifica.</p></div>
+                <h4>Accesso, riservatezza e anonimato</h4>
+                <p>La riservatezza riguarda la protezione delle informazioni; l’anonimato richiesto dalla persona è una tutela specifica prevista dall’articolo 120 del D.P.R. 309/1990. Non sono sinonimi. Prima di dare indicazioni pratiche, verificate sulla scheda del servizio come avviene il primo contatto e quali condizioni riguardano la prestazione richiesta.</p>
+                <p>Per il territorio consultate la <a href="https://www.asl8cagliari.it/strutture/servizio-sanitario-dipendenze-serd-cagliari/" target="_blank" rel="noopener">scheda ufficiale del SerD di Cagliari — ASL Cagliari</a>. Nel colloquio simulate una spiegazione chiara di ciò che sapete e indicate che cosa dovete ancora verificare. Evitate promesse assolute come «nessuno saprà mai nulla».</p>
             </section>
 
-            <section class="card" id="gioco-di-ruolo" style="margin-bottom: 2rem; border-left: 5px solid #f97316; scroll-margin-top: 70px;">
-                <h3>🎭 2 · Gioco di ruolo: i colloqui al SerD</h3>
-                <p>Gli studenti-attori interpretano utenti e operatori; il resto della classe osserva e restituisce.</p>
-                <div class="file-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem;">
-                    <div class="materiale-item">
-                        <div class="materiale-header">
-                            <h4>🎭 Parte A · Schede personaggio (per gli studenti-attori)</h4>
-                        </div>
-                        <a href="materiali/laboratorio/dipendenze/5%20PARTE%20A%20%E2%80%94%20SCHEDE%20PERSONAGGIO%20(PER%20GLI%20STUDENTI-ATTORI).pdf" class="btn-download" download>📥 Scarica schede</a>
-                    </div>
-
-                    <div class="materiale-item">
-                        <div class="materiale-header">
-                            <h4>📄 Parte B · Colloqui</h4>
-                        </div>
-                        <a href="materiali/laboratorio/dipendenze/4_PARTE%20B%20COLLOQUI.pdf" class="btn-download" download>📥 Scarica colloqui</a>
-                    </div>
-
-                    <div class="materiale-item">
-                        <div class="materiale-header">
-                            <h4>💬 Simulazione dei colloqui motivazionali</h4>
-                        </div>
-                        <a href="materiali/laboratorio/dipendenze/6_Simulazione_Colloqui_Motivazionali.pdf" class="btn-download" download>📥 Scarica simulazione</a>
-                    </div>
+            <section class="card" id="ascoltare" aria-labelledby="titolo-ascoltare">
+                <h3 id="titolo-ascoltare">Ascoltare prima di proporre</h3>
+                <p>Nel <strong>colloquio motivazionale</strong> si esplorano le ragioni e le difficoltà del cambiamento insieme alla persona. Gli esercizi seguenti allenano alcune abilità comunicative; un colloquio scolastico breve non esaurisce il metodo professionale.</p>
+                <p><strong>L’ambivalenza</strong> è la presenza contemporanea di ragioni per cambiare e ragioni per continuare come prima. Ascoltate entrambe, senza decidere al posto di Marco. Il suo rifiuto può riguardare una domanda, il modo in cui la ponete o il colloquio di oggi: va compreso nel contesto.</p>
+                <h4>Quattro abilità, da scegliere durante la conversazione</h4>
+                <p><strong>OARS</strong> raccoglie quattro termini inglesi: <span lang="en">Open questions, Affirmations, Reflective listening, Summaries</span>.</p>
+                <div class="serd-skills">
+                    <article><h4>Domande aperte</h4><p>Invitano a raccontare e precisare.</p><p class="serd-quote">«Che cosa vorresti capire in questo incontro?»</p><p>Una domanda alla volta. Le domande chiuse possono servire per chiarire un dato: evitate una sequenza che sembri un interrogatorio.</p></article>
+                    <article><h4>Valorizzazioni</h4><p>Riconoscono un impegno o una risorsa concreta.</p><p class="serd-quote">«Hai trovato il modo di arrivare fin qui, pur avendo molti dubbi.»</p><p>Usate solo elementi emersi. Una frase generica come «sei bravissimo» dice poco di ciò che la persona ha fatto.</p></article>
+                    <article><h4>Ascolto riflessivo</h4><p>Restituisce il significato che avete compreso e permette di correggerlo.</p><p class="serd-quote">«Vorresti stare meglio e ti preoccupa ciò che cambierebbe nella tua vita.»</p><p>Attendete la risposta: Marco può confermare, precisare o smentire la vostra lettura.</p></article>
+                    <article><h4>Riassunti</h4><p>Collegano i punti importanti e verificano la comprensione.</p><p class="serd-quote">«Ti preoccupa il malore; oggi vuoi informazioni, ma non hai deciso un percorso. Ho capito bene?»</p><p>Non inserite nel riassunto una decisione che la persona non ha espresso.</p></article>
                 </div>
+                <h4>Una mappa del cambiamento, da usare con cautela</h4>
+                <p>Il modello di Prochaska e DiClemente distingue <strong>precontemplazione</strong> (non si sta considerando un cambiamento), <strong>contemplazione</strong> (lo si considera, con dubbi), <strong>preparazione</strong>, <strong>azione</strong> e <strong>mantenimento</strong>. Riprendere un comportamento può richiedere di rivedere il percorso. Le posizioni possono cambiare e riguardano un comportamento preciso: presentarsi al servizio non basta a stabilirle.</p>
+                <p>Nel resoconto formulate un’ipotesi provvisoria: <strong>rispetto a quale cambiamento?</strong> Quali parole la sostengono? Che cosa manca per confermarla? È possibile voler tornare per informazioni e non essere pronti a modificare l’uso di sostanze. Se i dati non bastano, scrivetelo.</p>
+                <details class="serd-reading"><summary>Leggere una frase senza trasformarla in un’etichetta</summary>
+                    <p><strong>Marco:</strong> «Sono venuto perché mia madre insiste. Però quel malore mi ha preoccupato. Non so se voglio iniziare qualcosa.»</p>
+                    <p><strong>Dato:</strong> Marco riferisce una pressione familiare e una preoccupazione personale. <strong>Ipotesi:</strong> sta considerando un aiuto, ma la sua disponibilità a cambiare l’uso di sostanze resta da esplorare. <strong>Domanda possibile:</strong> «Che cosa vorresti capire oggi, prima di decidere?»</p>
+                    <p>Confrontate questa lettura con «non vuole collaborare». Quale delle due permette a un collega di capire che cosa è stato effettivamente detto?</p>
+                </details>
             </section>
-            <details class="progress-box">
-                <summary>🔏 Diario di bordo</summary>
-                <textarea name="progress_note"
-                    placeholder="Annota qui i gruppi coinvolti, le fasi concluse e gli impegni per il prossimo incontro."
-                    rows="6"></textarea>
+
+            <section class="card" id="gioco-di-ruolo" aria-labelledby="titolo-colloquio">
+                <h3 id="titolo-colloquio">Il primo incontro con Marco</h3>
+                <div class="serd-case"><p><strong>La situazione comune.</strong> Marco ha 25 anni e si presenta al SerD dopo le sollecitazioni della madre e un malore avvenuto la settimana precedente. Nella sua storia compare l’uso di eroina e cocaina, anche in forma di crack. Sara, la sua compagna, non partecipa a questo incontro. Non avete sue dichiarazioni dirette.</p><p><strong>Per questa scena:</strong> il colloquio si svolge dopo l’accoglienza e non è in corso un’emergenza. Gli eventuali dati e le valutazioni sanitarie sono forniti dal docente. Le battute e l’imprevisto sono una rielaborazione didattica del caso.</p></div>
+                <p>Con ruoli assegnati, preparate un incontro di circa <strong>8–10 minuti</strong>. Chi conduce assume il ruolo simulato di assistente sociale e lavora sull’ascolto della domanda, sulle risorse e sull’orientamento. Chi osserva annota parole e comportamenti, senza interrompere.</p>
+                <div class="serd-downloads">
+                    <article><h4>Chi conduce</h4><p>Presentazione del ruolo, traccia flessibile e gestione della richiesta di fermarsi.</p><a class="btn-download" href="materiali/terzo/serd-conduzione.docx" download>Scarica la scheda di conduzione · Word</a></article>
+                    <article><h4>Chi osserva e documenta</h4><p>Griglia, resoconto e bozza di piano da compilare dopo il confronto.</p><a class="btn-download" href="materiali/terzo/serd-osservazione-resoconto.docx" download>Scarica osservazione e resoconto · Word</a></article>
+                </div>
+                <details class="serd-reading"><summary>Scheda per chi interpreta Marco · da distribuire a parte</summary><p>Leggetela solo se interpretate Marco. Chi conduce lavora con le informazioni emerse nel colloquio.</p><a class="btn-download" href="materiali/terzo/serd-personaggio-marco.docx" download>Scarica la scheda di Marco · Word</a></details>
+                <h4>Il compito di chi conduce</h4>
+                <p>Presentatevi, chiarite il ruolo e chiedete che cosa Marco desidera dall’incontro. Selezionate poche domande e seguite le sue risposte. Quando proponete un’informazione, chiedete se gli interessa e verificate che cosa ne ha compreso. Non assegnate cure né decidete per Sara, che è assente.</p>
+                <div class="serd-note"><h4>Quando Marco chiede di fermarsi</h4><p>A un segnale del docente, chi interpreta Marco dice: <strong>«Per me non c’è tutto questo problema. Non voglio continuare, vorrei andare.»</strong></p><p>Fermate le domande. Riconoscete la richiesta e, se Marco accetta, chiarite brevemente che cosa lo ha messo a disagio. Potete proporre di chiudere con una sola informazione o un contatto futuro, lasciandogli la possibilità di rifiutare. Se conferma che vuole terminare, chiudete l’incontro. Il risultato da valutare è la qualità della risposta, anche quando non si raggiunge un accordo.</p></div>
+                <h4>Riguardare un passaggio</h4>
+                <p>Al termine, chi osserva restituisce una frase precisa e il suo effetto. Chi interpretava Marco descrive come ha ricevuto quella frase. Chi conduce spiega la propria intenzione e prova una formulazione diversa per due o tre scambi. Confrontate le versioni: che cosa è cambiato? Che cosa resta incerto?</p>
+            </section>
+
+            <section class="card" id="documentare" aria-labelledby="titolo-documentare">
+                <h3 id="titolo-documentare">Dal colloquio a un primo passo motivato</h3>
+                <p>Nel Word riportate una sintesi comprensibile a un collega. Distinguete <strong>parole riferite</strong>, <strong>comportamenti osservati</strong>, <strong>ipotesi</strong> e <strong>informazioni mancanti</strong>. Le notizie su Sara restano informazioni indirette attribuite a Marco.</p>
+                <p>La bozza di piano nasce dal colloquio: collega un bisogno o una domanda a una risorsa, un limite e un’azione possibile. Precisate che cosa è stato concordato, che cosa è una vostra proposta e che cosa Marco ha rifiutato. Indicate chi dovrebbe fare il passo, a quale condizione e quando verificarlo. Se Marco non concorda un’azione, documentate la chiusura e la disponibilità del servizio: non inventate il consenso.</p>
+                <details class="serd-reading"><summary>Esempio di scrittura da discutere</summary><p><strong>Frase poco documentata:</strong> «Marco è resistente e deve entrare in comunità.»</p><p><strong>Riscrittura:</strong> «Marco riferisce di essere preoccupato per il malore. Dice che oggi vuole soltanto informazioni. Quando viene proposto un nuovo incontro risponde che preferisce fermarsi. L’incontro viene chiuso senza un appuntamento concordato. Resta da chiarire se desidera ricevere i recapiti del servizio.»</p><p>Questa riscrittura è un esempio possibile, non il finale da riprodurre. Il vostro resoconto deve corrispondere alla simulazione svolta.</p></details>
+                <h4>Prima di consegnare</h4>
+                <ul><li>Ogni ipotesi è sostenuta da una frase o da un’osservazione, oppure dichiarata da verificare.</li><li>La risposta all’imprevisto e il passaggio riprovato sono documentati.</li><li>La bozza distingue accordi, proposte e rifiuti, con responsabilità e verifica.</li><li>Le questioni sanitarie o di tutela sono rimesse alle figure competenti, senza diagnosi o prescrizioni improvvisate.</li></ul>
+                <p><strong>Confronto alla LIM:</strong> ciascun gruppo propone oralmente una coppia di frasi, prima e dopo la revisione, usando soltanto il caso inventato. La classe discute quale formulazione documenta meglio ciò che è accaduto. Non proiettate il diario personale.</p>
+            </section>
+
+            <section class="card" id="preparazione" aria-labelledby="titolo-materiali">
+                <h3 id="titolo-materiali">Studio e altri colloqui del laboratorio</h3>
+                <p>Per ampliare il lavoro ritrovate qui la guida, il diagramma e il kit con Marco e Sara. Nelle schede che simulano professioni sanitarie, diagnosi e terapie sono contenuti da analizzare con il docente: non compiti clinici da eseguire. Le fasi del cambiamento e i percorsi narrativi sono ipotesi didattiche, da confrontare con le informazioni disponibili.</p>
+                <div class="serd-downloads">
+                    <article><h4>Guida alle dipendenze</h4><a class="btn-download" href="materiali/laboratorio/dipendenze/1%20Guida%20Dipendenze.pdf" download>Scarica la guida · PDF</a></article>
+                    <article><h4>Diagramma del percorso</h4><a class="btn-download" href="materiali/laboratorio/dipendenze/2%20Protocollo%20Operativo%20Intervento%20Dipendenze_Serd.pdf" download>Scarica il diagramma · PDF</a></article>
+                    <article><h4>Kit operativo SerD</h4><a class="btn-download" href="materiali/laboratorio/dipendenze/3%20KIT%20Operativo%20Serd_%20Simulazione.pdf" download>Scarica il kit · PDF</a></article>
+                    <article><h4>Infografiche</h4><a class="btn-download" href="materiali/laboratorio/infografiche_dipendenze.html">Apri le infografiche</a></article>
+                    <article><h4>Personaggi: Marco e Sara</h4><a class="btn-download" href="materiali/laboratorio/dipendenze/5%20PARTE%20A%20%E2%80%94%20SCHEDE%20PERSONAGGIO%20(PER%20GLI%20STUDENTI-ATTORI).pdf" download>Scarica le schede · PDF</a></article>
+                    <article><h4>Colloqui di approfondimento</h4><a class="btn-download" href="materiali/laboratorio/dipendenze/4_PARTE%20B%20COLLOQUI.pdf" download>Scarica i colloqui · PDF</a></article>
+                    <article><h4>Tre momenti nel percorso</h4><a class="btn-download" href="materiali/laboratorio/dipendenze/6_Simulazione_Colloqui_Motivazionali.pdf" download>Scarica la simulazione · PDF</a></article>
+                </div>
+                <details class="serd-reading"><summary>Fonti per approfondire</summary><ul>
+                    <li><a href="https://motivationalinterviewing.org/node/11216" target="_blank" rel="noopener">Motivational Interviewing Network of Trainers: Understanding Motivational Interviewing</a> — collaborazione, autonomia e abilità OARS.</li>
+                    <li><a href="https://www.ncbi.nlm.nih.gov/sites/books/NBK571068/" target="_blank" rel="noopener">SAMHSA, TIP 35 (2019), capitolo 3</a> — ambivalenza e processi del colloquio motivazionale.</li>
+                    <li><a href="https://def.giustiziatributaria.gov.it/DocTribFrontend/executePrintArticolo.do?codiceOrdinamento=0000000000001200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&amp;id=%7BFE3C50C7-6967-4A8B-B822-AEFB95E760D2%7D&amp;idAttoNormativo=%7B73FA8607-7A0A-47BC-B1DA-0ED20C98794F%7D" target="_blank" rel="noopener">D.P.R. 309/1990, articolo 120</a> — richiesta di cura e tutela dell’anonimato.</li>
+                    <li><a href="https://www.asl8cagliari.it/strutture/servizio-sanitario-dipendenze-serd-cagliari/" target="_blank" rel="noopener">ASL Cagliari: SerD di Cagliari</a> — funzioni e contatti del servizio.</li>
+                </ul><p>Fonti consultate il 15 ottobre 2026. Caso e schede derivano dai materiali didattici di Salvatore Picconi.</p></details>
+            </section>
+
+            <details class="progress-box" id="diario">
+                <summary>Diario dell’attività</summary>
+                <label for="serd-diario">Annotazioni sul lavoro svolto</label>
+                <textarea id="serd-diario" name="progress_note" placeholder="Annota qui i gruppi coinvolti, le fasi concluse e gli impegni per il prossimo incontro." rows="6" disabled></textarea>
+                <p class="serd-help">Per il diario usa i codici dei gruppi. Non inserire esperienze personali, nomi o dati sanitari reali. Il diario è distinto dalle schede Word della simulazione.</p>
+                <div class="serd-tools"><button type="button" data-save-progress disabled>Salva il diario</button><button type="button" id="serd-importa" hidden>Riprendi una vecchia bozza locale</button></div>
+                <p id="serd-stato" role="status">Attendo l’accesso o la scelta ospite.</p>
             </details>
         </div>
     </main>
@@ -134,7 +165,7 @@
     <footer>
         <div class="container">
             <p>Metodologie Operative - Servizi Sociosanitari</p>
-            <p>IIS Meucci Mattei - Cagliari</p>
+            <p>IIS Meucci - Mattei | Decimomannu</p>
             <p style="margin-top: 1rem; font-size: 0.9rem;">&copy; 2025 - Tutti i diritti riservati</p>
             <div class="home-link">
                 <a href="https://salvapicconi.github.io/metodologieoperative/">🏠 Torna alla Home</a>
@@ -143,12 +174,7 @@
     </footer>
 
     <script src="materiali.js"></script>
-    <script>
-        window.MO_PROGRESS_CONFIG = {
-            inputSelector: '.progress-box textarea',
-            pagePath: window.location.pathname
-        };
-    </script>
+    <script src="assets/serd-terza.js"></script>
     <script>
         window.MO_IDENTITY_CONFIG = {
             message: 'Inserisci la classe (es. 3sa) e il codice cognome+iniziale tutto minuscolo (es. rossi g → rossig).',
