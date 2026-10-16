@@ -16,6 +16,19 @@
 
     function scheda(modulo) {
         const chiave = `${slug(modulo.anno)}-uda-${modulo.n}`;
+        // Cataloghi di attività: i contenuti curricolari restano nei Programmi,
+        // il primo materiale HTML è l'ingresso al percorso per gli studenti.
+        if (contenitore.dataset.attivita === 'true') {
+            const pagina = (modulo.materiali || []).find(m => /\.html(?:[?#]|$)/i.test(m.file));
+            return `<article class="civica-card">
+              <p class="civica-eyebrow">UDA ${esc(modulo.n)} · ${esc(modulo.monteOre)}</p>
+              <h4>${esc(modulo.titolo)}</h4><p>${esc(modulo.sintesi)}</p>
+              <p><strong>Prodotto:</strong> ${esc(modulo.prodottoFinale)}</p>
+              <div class="civica-azioni">
+                ${pagina ? `<a class="civica-button" href="${esc(pagina.file)}">Apri il percorso →</a>` : ''}
+                <a href="programmi.html?uda=${encodeURIComponent(chiave)}">Nella programmazione</a>
+              </div></article>`;
+        }
         const prova = modulo.provaEsperta || {};
         const attivita = (modulo.contenuti || []).map((c) => `<li>${esc(c.attivita)}</li>`).join('');
         return `
@@ -55,16 +68,23 @@
                 if (!delAnno.length) {
                     return '';
                 }
-                return `<h4 class="uda-sezione-anno">${esc(anno)}</h4>${delAnno.map(scheda).join('')}`;
+                const h = contenitore.dataset.attivita === 'true' ? 'h3' : 'h4';
+                return `<${h} class="uda-sezione-anno">${esc(anno)}</${h}>${delAnno.map(scheda).join('')}`;
             }).join('');
+            const h = contenitore.dataset.attivita === 'true' ? 'h2' : 'h3';
             contenitore.innerHTML = `
-              <h3 class="uda-sezione-testata">${esc(contenitore.dataset.titolo || 'Unità di apprendimento')}</h3>
+              <${h} class="uda-sezione-testata">${esc(contenitore.dataset.titolo || 'Unità di apprendimento')}</${h}>
               <p class="uda-sezione-intro">${esc(contenitore.dataset.intro || '')}
                  <a href="programmi.html?sezione=${encodeURIComponent(sezione)}">Vedile tutte nei Programmi</a>.</p>
               ${perAnno}`;
         })
         .catch((errore) => {
             console.error('Impossibile caricare le UDA della sezione:', errore);
-            contenitore.hidden = true;
+            if (contenitore.dataset.attivita === 'true') {
+                // Mantiene raggiungibile il materiale anche se il catalogo non si carica.
+                contenitore.innerHTML = '<p>Il catalogo non è disponibile. Ricarica la pagina oppure <a href="materiali/educazione-civica/dall-informazione-alla-partecipazione.html">apri Dall’informazione alla partecipazione · terzo anno</a>.</p>';
+            } else {
+                contenitore.hidden = true;
+            }
         });
 })();

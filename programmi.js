@@ -737,7 +737,8 @@ function badgeOrigine(origine) {
 const PAGINE_SEZIONE = {
     compresenza: 'compresenza.html',
     laboratorio: 'laboratorio.html',
-    orientamento: 'orientamento.html'
+    orientamento: 'orientamento.html',
+    'educazione-civica': 'educazione-civica.html'
 };
 
 function badgeSezione(sezione) {

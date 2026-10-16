@@ -16,6 +16,7 @@ MENU = [
     ("Terzo anno", "terzo.html"),
     ("Quarto anno", "quarto.html"),
     ("Quinto anno", "quinto.html"),
+    ("Educazione civica", "educazione-civica.html"),
     ("Metodi e laboratori", "index.html#metodi", [
         ("Lezioni partecipate", "lezioni-partecipate.html"),
         ("Laboratorio", "laboratorio.html"),

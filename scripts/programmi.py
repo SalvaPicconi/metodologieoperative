@@ -44,6 +44,7 @@ SEZIONI = {
     "compresenza": "Compresenza con Scienze umane",
     "laboratorio": "Laboratorio",
     "orientamento": "Attività di orientamento",
+    "educazione-civica": "Educazione civica",
 }
 
 
