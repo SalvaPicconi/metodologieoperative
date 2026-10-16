@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-16** · Codex · Terza, infanzia: completati nella pagina e nel progetto Word i sei criteri per scegliere i materiali; chiarito il focus della prova e corretta l’impaginazione. Collaudo locale concluso, pubblicazione da autorizzare. (anteprima locale)
+
 - **2026-10-15** · Codex · Terza, infanzia: progetto per i 3–6 anni dal collage già disponibile, con scheda Word, prova dell’allestimento e revisione. Tre sintesi salvabili e confronto anonimo alla LIM; materiali precedenti conservati. (anteprima locale)
 
 - **2026-10-15** · Codex · Terza, SerD: primo colloquio con Marco, schede Word per i ruoli e resoconto con bozza di piano. Ascolto e gestione del rifiuto, conservando diario e materiali precedenti. (`870cfca`)
