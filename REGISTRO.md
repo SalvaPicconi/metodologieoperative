@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-21** · Codex · Nella finestra di accesso, i pulsanti «Entra come ospite» e «Genera codice» hanno ora una scritta scura e leggibile su sfondo bianco. Correzione verificata localmente nelle pagine che condividono il componente. (anteprima locale)
+
 - **2026-10-20** · Codex · Il laboratorio di cittadinanza «Dall’informazione alla partecipazione» è ora raggiungibile anche da Metodi e laboratori, nella sezione Laboratorio, senza duplicare la pagina già disponibile per la terza. (pubblicazione su `main`)
 
 - **2026-10-16** · Codex · Infanzia: nuova apertura sulla progettazione per i 3–6 anni, con criteri leggibili e collage presentato come applicazione. Campi, progetto Word e repertorio conservati; rilascio autorizzato. (contenuti `39ec68a`)

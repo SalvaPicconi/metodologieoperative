@@ -444,8 +444,8 @@ function askIdentity() {
       <input id="cls" placeholder="${classPlaceholder}" style="width:100%;margin-bottom:8px;padding:6px;border:1px solid #ccc;border-radius:6px;">
       <input id="cod" placeholder="${codePlaceholder}" style="width:100%;margin-bottom:12px;padding:6px;border:1px solid #ccc;border-radius:6px;">
       <div style="display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px;">
-        ${allowGuest ? '<button id="guest" style="padding:6px 10px;border:1px solid #ccc;background:#fff;border-radius:6px;cursor:pointer;">Entra come ospite</button>' : ''}
-        ${showGenerator ? '<button id="gen" style="padding:6px 10px;border:1px solid #ccc;background:#fff;border-radius:6px;cursor:pointer;">Genera codice</button>' : ''}
+        ${allowGuest ? '<button id="guest" style="padding:6px 10px;border:1px solid #ccc;background:#fff;color:#111827;border-radius:6px;cursor:pointer;">Entra come ospite</button>' : ''}
+        ${showGenerator ? '<button id="gen" style="padding:6px 10px;border:1px solid #ccc;background:#fff;color:#111827;border-radius:6px;cursor:pointer;">Genera codice</button>' : ''}
         <button id="ok" style="background:#0ea5e9;color:#fff;padding:6px 10px;border:none;border-radius:6px;cursor:pointer;">Continua</button>
       </div>
     </div>`;
