@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-22** · Codex · Predisposta la pubblicazione diretta da GitHub ad Aruba: caricamento dei soli file modificati, verifica e conservazione dei file esistenti. Attivazione subordinata al secret FTP. (ramo Aruba)
+
 - **2026-10-22** · Codex · Aggiunta alla home l’anteprima di condivisione di Metodologie Operative SSAS: copertina dedicata, titolo e descrizione per i social. Contenuti e salvataggi invariati. (Aruba)
 
 - **2026-10-22** · Codex · Preparata l’esportazione per metodologieoperativessas.it su Aruba, con collegamenti e PWA adattati e gli stessi salvataggi Supabase. Funzioni protette compatibili e verificate su Supabase; adattato il sito all’indirizzo www richiesto da Aruba, pubblicazione e collaudo in corso. (migrazione Aruba)

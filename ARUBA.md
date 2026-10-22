@@ -53,3 +53,23 @@ sul nuovo hosting la copia precedente o uno ZIP gia verificato. Per le funzioni
 Supabase conservare il sorgente/versione live precedente al deploy: il ripristino
 deve mantenere i controlli di autenticazione e non richiede modifiche ai dati.
 Il nuovo dominio non attiva ancora acquisti, abbonamenti o un paywall.
+
+## Caricamento automatico da GitHub
+
+Il workflow `Pubblica su Aruba` parte dai push sul ramo
+`codex/aruba-metodologieoperativessas`; `main` e il vecchio GitHub Pages restano
+indipendenti. Serve un solo repository secret: `ARUBA_FTP_PASSWORD`, con la
+password FTP dell'account Aruba indicato nell'email di attivazione.
+Inserirlo in Settings > Secrets and variables > Actions del repository.
+La password non va nel codice, nei log o in chat.
+
+Il workflow controlla le sorgenti, genera la stessa esportazione e carica con
+FTPS soltanto i file modificati. Verifica i byte rileggendoli dal server, carica
+la home per ultima e non cancella file. La prima esecuzione parte dal manifest
+della release Aruba `0995452`, già verificata online; le successive leggono lo
+stato `.aruba-deploy.json` sul server. Una home diversa dall'ultima nota blocca
+il caricamento per evitare di sovrascrivere modifiche concorrenti.
+
+Se manca il secret, il workflow si ferma prima di connettersi. Dopo averlo
+inserito, rieseguire il job da Actions. Verificare comunque la pagina e
+l'immagine pubbliche: il controllo FTPS non prova che la cache HTTP sia aggiornata.

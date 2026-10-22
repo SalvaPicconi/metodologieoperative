@@ -1,0 +1,39 @@
+name: Pubblica su Aruba
+
+on:
+  push:
+    branches: [codex/aruba-metodologieoperativessas]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aruba-production
+  cancel-in-progress: false
+
+jobs:
+  pubblica:
+    if: github.ref == 'refs/heads/codex/aruba-metodologieoperativessas'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Controlla configurazione FTP
+        env:
+          ARUBA_FTP_PASSWORD: ${{ secrets.ARUBA_FTP_PASSWORD }}
+        run: |
+          if [ -z "$ARUBA_FTP_PASSWORD" ]; then
+            echo '::error::Inserire ARUBA_FTP_PASSWORD nei repository secrets, poi rieseguire questo workflow.'
+            exit 1
+          fi
+      - name: Controlla programmi
+        run: python3 scripts/programmi.py check
+      - name: Prepara soltanto i file pubblici
+        run: python3 scripts/package_aruba.py --output "$RUNNER_TEMP/aruba-release"
+      - name: Carica i file modificati con FTPS
+        env:
+          ARUBA_FTP_PASSWORD: ${{ secrets.ARUBA_FTP_PASSWORD }}
+        run: python3 scripts/deploy_aruba.py --release "$RUNNER_TEMP/aruba-release"
