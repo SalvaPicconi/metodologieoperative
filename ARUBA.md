@@ -1,6 +1,6 @@
 # Pubblicazione su Aruba
 
-Destinazione: `https://metodologieoperativessas.it/`, Hosting Basic Linux.
+Destinazione: `https://www.metodologieoperativessas.it/`, Hosting Basic Linux.
 Il repository conserva le fonti compatibili con il vecchio GitHub Pages.
 L'esportazione adatta soltanto gli indirizzi, la PWA e il ritorno alla home;
 dataset, campi delle attivita e protocollo Supabase rimangono identici.
@@ -27,7 +27,7 @@ sono esclusi dallo ZIP. Lo script non sovrascrive un'esportazione precedente.
    Verificare OPTIONS sia dal nuovo indirizzo sia da GitHub; una richiesta senza
    sessione deve continuare a essere respinta senza esporre contenuti protetti.
 4. Caricare/estrarre lo ZIP, compreso `.htaccess`, nella radice web del nuovo dominio.
-5. Verificare HTTPS, www verso dominio principale, percorsi vecchi prefissati verso
+5. Verificare HTTPS, dominio senza www verso www, percorsi vecchi prefissati verso
    radice, home, navigazione, file scaricabili e installazione PWA. I redirect sono
    inizialmente temporanei (302), per poter correggere la configurazione.
 6. Confrontare gli hash dei file serviti con `release.json`; provare l'accesso

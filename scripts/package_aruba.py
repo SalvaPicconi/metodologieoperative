@@ -15,7 +15,7 @@ from urllib.parse import unquote, urlsplit
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
-DOMAIN = "https://metodologieoperativessas.it"
+DOMAIN = "https://www.metodologieoperativessas.it"
 OLD = "https://salvapicconi.github.io/metodologieoperative"
 EXCLUDED = {".github", "scripts", "supabase", "programmi-src", "PWA-Metodologie-Operative"}
 
@@ -87,8 +87,8 @@ def main():
 DirectoryIndex index.html
 RewriteEngine On
 RewriteCond %{HTTPS} !=on [OR]
-RewriteCond %{HTTP_HOST} !^metodologieoperativessas\\.it$ [NC]
-RewriteRule ^ https://metodologieoperativessas.it%{REQUEST_URI} [R=302,L]
+RewriteCond %{HTTP_HOST} !^www\\.metodologieoperativessas\\.it$ [NC]
+RewriteRule ^ https://www.metodologieoperativessas.it%{REQUEST_URI} [R=302,L]
 RewriteRule ^metodologieoperative(?:/(.*))?$ /$1 [R=302,L]
 <IfModule mod_headers.c>
   <FilesMatch "^(service-worker\\.js|manifest\\.json)$">
