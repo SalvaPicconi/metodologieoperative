@@ -4,7 +4,7 @@ import { createClient } from "npm:@supabase/supabase-js@2.112.4";
 const admin = createClient(Deno.env.get("SUPABASE_URL") ?? "", Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "", {
   auth: { persistSession: false, autoRefreshToken: false },
 });
-const ORIGINS = new Set(["https://salvapicconi.github.io", "http://localhost:8420", "http://127.0.0.1:8420", "http://127.0.0.1:8437"]);
+const ORIGINS = new Set(["https://metodologieoperativessas.it", "https://www.metodologieoperativessas.it", "https://salvapicconi.github.io", "http://localhost:8420", "http://127.0.0.1:8420", "http://127.0.0.1:8437"]);
 
 function response(req: Request, body: unknown, status = 200) {
   return new Response(JSON.stringify(body), { status, headers: {

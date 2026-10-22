@@ -4,6 +4,8 @@ import { createClient } from "npm:@supabase/supabase-js@2.112.4";
 const SESSION_HOURS = 6;
 const ALLOWED_ORIGINS = new Set([
   "https://salvapicconi.github.io",
+  "https://metodologieoperativessas.it",
+  "https://www.metodologieoperativessas.it",
   "http://localhost:8420",
   "http://127.0.0.1:8420",
 ]);
