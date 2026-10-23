@@ -2369,8 +2369,10 @@
             const nv = JSON.stringify([...new Set((Array.isArray(arr) ? arr : []).map(x => tappaAggiornata(x, '')))]);
             if (viste.value !== nv) { viste.value = nv; fireInput(viste); }
         }
+        // Il campo si segna come modificato solo se è arrivato un salvataggio: senza dati caricati (pagina nuova
+        // o connessione caduta) nessun salvataggio automatico deve partire da qui.
         const ver = $('#stato_versione');
-        if (ver.value !== VERSIONE_TAPPE) { ver.value = VERSIONE_TAPPE; fireInput(ver); }
+        if (ver.value !== VERSIONE_TAPPE) { ver.value = VERSIONE_TAPPE; if (salvati && Object.keys(salvati).length) fireInput(ver); }
     }
 
     /* ---------- MODALITÀ LIM (docente) ---------- */
@@ -3332,7 +3334,9 @@
     aggiornaTutto();
     vaiTappa(1, { noScroll: true });
     // se dopo 4 secondi non è arrivato nessun ripristino, prova comunque a leggere i campi (es. modalità ospite con dati locali)
-    setTimeout(() => { if (!restored) { aggiornaNumerazione(); Object.keys(ACTS).forEach(applyActState); aggiornaTutto(); } }, 4000);
+    // Qui le risposte salvate possono non essere ancora arrivate (lo studente sta scrivendo classe e codice):
+    // nessun campo va toccato, altrimenti il salvataggio automatico partirebbe con la pagina vuota.
+    setTimeout(() => { if (!restored) { Object.keys(ACTS).forEach(applyActState); aggiornaTutto(); } }, 4000);
     nuoveAttivitaRender();
     setTimeout(() => { if (!restored) nuoveAttivitaRender(); }, 4100);
     </script>
