@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-23** · Claude · Biennio, percorso sull'operatore sociale: dalla tappa 5 in poi da 12 a 7 tappe più Casa Serena come appendice facoltativa per la seconda. Testi lunghi in riquadri chiusi, esercizi ripetuti nelle «Attività extra»; nessuna risposta degli studenti persa, chi era avanti ritrova la tappa giusta. (main `42f1edc`; Aruba da pubblicare)
+
 - **2026-10-22** · Codex · Predisposta la pubblicazione diretta da GitHub ad Aruba: caricamento dei soli file modificati, verifica e conservazione dei file esistenti. Attivazione subordinata al secret FTP. (ramo Aruba)
 
 - **2026-10-22** · Codex · Aggiunta alla home l’anteprima di condivisione di Metodologie Operative SSAS: copertina dedicata, titolo e descrizione per i social. Contenuti e salvataggi invariati. (Aruba)
