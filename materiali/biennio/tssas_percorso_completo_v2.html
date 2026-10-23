@@ -397,6 +397,28 @@
         .pensiero-per-te p { margin: 8px 0; }
         .pensiero-per-te .perche { font-size: .93em; color: var(--ink-soft); }
         @media print { .riattiva, .fine-parte { display: none !important; } }
+        /* ---------- REVISIONE ottobre 2026: tappe 5-7 più corte, attività extra chiuse, appendice ---------- */
+        .utenze { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 10px; margin: 14px 0; }
+        .utenza { background: rgba(255,255,255,.92); border-radius: 12px; padding: 12px 14px; border: 1px solid rgba(0,0,0,.06); border-top: 5px solid var(--turchese); }
+        .utenza h4 { color: var(--turchese-deep); font-size: 1.02em; margin-bottom: 4px; }
+        .utenza p { font-size: .93em; margin: 4px 0; }
+        .utenza .bis { background: var(--paper-soft); border-radius: 8px; padding: 5px 9px; margin-top: 8px; }
+        .schemi-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; align-items: start; margin: 12px 0; }
+        .schemi-2 .schema { margin: 0; max-width: none; }
+        details.approfondisci { background: rgba(255,255,255,.75); border: 1px solid var(--line); border-radius: 12px; margin: 12px 0; }
+        details.approfondisci > summary { cursor: pointer; padding: 10px 14px; font-weight: 700; color: var(--turchese-deep); }
+        details.approfondisci > .dentro { padding: 0 14px 12px; }
+        details.extra { border: 2px dashed var(--lime-dark); border-radius: 16px; margin: 18px 0; background: #fbfef0; }
+        details.extra > summary { cursor: pointer; padding: 12px 18px; font-weight: 800; font-size: 1.05em; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; list-style: none; }
+        details.extra > summary::-webkit-details-marker { display: none; }
+        details.extra > summary::before { content: '▸'; color: var(--lime-dark); transition: transform .2s; }
+        details.extra[open] > summary::before { transform: rotate(90deg); }
+        details.extra > summary small { font-weight: 400; font-size: .82em; color: var(--ink-soft); }
+        details.extra .extra-stato:not(:empty) { font-size: .78em; font-weight: 700; color: var(--turchese-deep); background: white; border: 1px solid var(--turchese); border-radius: 999px; padding: 1px 10px; }
+        details.extra > .extra-body { padding: 0 14px 6px; }
+        .checklist.servizi small { display: block; font-weight: 400; font-size: .86em; color: var(--ink-soft); }
+        .pill.pill-extra { border-style: dashed; }
+        @media print { details.extra { border: 0; background: none; } details.extra > summary::before { content: ''; } }
         /* ---------- REGISTRO DELLA CLASSE (docente, sola lettura) ---------- */
         body.reg-aperto { overflow: hidden; }
         .registro { position: fixed; inset: 0; z-index: 10000; background: rgba(15, 23, 32, .55); display: none; padding: 12px; }
@@ -512,6 +534,7 @@
     <div class="state-storage" style="display:none" aria-hidden="true">
         <input type="hidden" id="stato_tappa" name="stato_tappa" value="1">
         <input type="hidden" id="stato_tappe_viste" name="stato_tappe_viste" value="[1]">
+        <input type="hidden" id="stato_versione" name="stato_versione" value="">
         <input type="hidden" id="riattiva-ultimo" name="riattiva-ultimo" value="">
         <input type="hidden" id="a2-voto1" name="a2-voto1" value="">
         <input type="hidden" id="a2-voto2" name="a2-voto2" value="">
@@ -524,7 +547,7 @@
     <div class="container">
         <div class="header">
             <h1>🎓 L'operatore sociale per la sanità e l'assistenza sociale</h1>
-            <p>Dodici argomenti sul profilo dell'operatore sociale, sulle persone destinatarie degli interventi, sul lavoro di rete e sulla progettazione. Ogni argomento comprende contenuti, esercizi e domande. Il lavoro si salva automaticamente con il codice personale.</p>
+            <p>Sette tappe sul profilo dell'operatore sociale, sulle persone destinatarie degli interventi, sul lavoro di rete e sul caso di Maria, più un caso facoltativo per la seconda. Ogni tappa ha contenuti, esercizi e domande; in fondo, chiuse, le attività extra. Il lavoro si salva automaticamente con il codice personale.</p>
             <div class="header-actions">
                 <a href="tssas_teoria_ripasso.html" class="btn btn-white">📖 Ripassa la teoria</a>
                 <button class="btn btn-ghost" id="btnLim" onclick="toggleLim()">🖥️ Modalità LIM (docente)</button>
@@ -536,22 +559,23 @@
 
         <div class="score-section">
             <div class="score-box"><div class="label">PUNTI</div><div class="value"><span id="currentScore">0</span><span class="max">/<span id="maxScore">0</span></span></div></div>
-            <div class="score-box"><div class="label">TAPPA</div><div class="value"><span id="currentTappa">1</span><span class="max">/12</span></div></div>
+            <div class="score-box"><div class="label">TAPPA</div><div class="value"><span id="currentTappa">1</span><span class="max" id="maxTappa">/7</span></div></div>
             <div class="badges" id="badges">
                 <span class="badge" data-badge="1" data-tappe="1,2">🎯 Esploratore</span>
                 <span class="badge" data-badge="2" data-tappe="3,4">📚 Studioso</span>
-                <span class="badge" data-badge="3" data-tappe="5,6">🔍 Analista</span>
-                <span class="badge" data-badge="4" data-tappe="7,8">🎨 Sperimentatore</span>
-                <span class="badge" data-badge="5" data-tappe="9">💡 Pensatore</span>
-                <span class="badge" data-badge="6" data-tappe="10,11,12">🏆 Maestro operatore</span>
+                <span class="badge" data-badge="3" data-tappe="5">🔍 Analista</span>
+                <span class="badge" data-badge="4" data-tappe="6">🎨 Sperimentatore</span>
+                <span class="badge" data-badge="5" data-tappe="7">💡 Pensatore</span>
+                <span class="badge" data-badge="6" data-tappe="8" title="Con Casa Serena, in seconda">🏆 Maestro operatore</span>
             </div>
         </div>
 
         <nav class="nav-tappe" id="navTappe" aria-label="Tappe del percorso">
             <div class="parte"><span class="parte-nome">A · Chi è</span><button class="pill" data-t="1">1</button><button class="pill" data-t="2">2</button><button class="pill" data-t="3">3</button><button class="pill" data-t="4">4</button></div>
-            <div class="parte"><span class="parte-nome">B · Le persone</span><button class="pill" data-t="5">5</button><button class="pill" data-t="6">6</button></div>
-            <div class="parte"><span class="parte-nome">C · Maria</span><button class="pill" data-t="7">7</button><button class="pill" data-t="8">8</button><button class="pill" data-t="9">9</button></div>
-            <div class="parte"><span class="parte-nome">D · Casa Serena</span><button class="pill" data-t="10">10</button><button class="pill" data-t="11">11</button><button class="pill" data-t="12">12</button></div>
+            <div class="parte"><span class="parte-nome">B · Le persone</span><button class="pill" data-t="5">5</button></div>
+            <div class="parte"><span class="parte-nome">C · Maria</span><button class="pill" data-t="6">6</button></div>
+            <div class="parte"><span class="parte-nome">D · Traguardo</span><button class="pill" data-t="7">7</button></div>
+            <div class="parte"><span class="parte-nome">Per la seconda</span><button class="pill pill-extra" data-t="8" title="Casa Serena · facoltativa">+</button></div>
         </nav>
 
         <div class="riprendi" id="riprendi">
@@ -610,7 +634,7 @@
                     </div>
                     <div class="campo">
                         <label for="brainstorming-iniziale">Che cosa pensi che faccia? <span class="pts">+5</span></label>
-                        <p class="hint">Due o tre righe: dove immagini che lavori, con chi, che cosa fa in una giornata. Alla tappa 9 rileggerai questo testo per vedere che cosa è cambiato.</p>
+                        <p class="hint">Due o tre righe: dove immagini che lavori, con chi, che cosa fa in una giornata. Alla tappa 7 rileggerai questo testo per vedere che cosa è cambiato.</p>
                         <textarea id="brainstorming-iniziale" name="brainstorming-iniziale" data-points="5" placeholder="Secondo me l'operatore sociale..."></textarea>
                     </div>
                 </div>
@@ -862,7 +886,7 @@
                     <div class="confronto-body">
                         <div class="domanda-classe">
                             <div class="q">Che differenza c'è tra una RSA e un centro diurno? E perché un anziano potrebbe preferire l'assistenza a casa?</div>
-                            <div class="attese"><strong>Risposte attese:</strong> in RSA si vive, al centro diurno si passa la giornata. A casa si conservano abitudini, oggetti, vicini: la dimensione sociale e psicologica resta intatta. La scelta dipende dal livello di autonomia (torna alla tappa 6).</div>
+                            <div class="attese"><strong>Risposte attese:</strong> in RSA si vive, al centro diurno si passa la giornata. A casa si conservano abitudini, oggetti, vicini: la dimensione sociale e psicologica resta intatta. La scelta dipende dal livello di autonomia (la ritrovi alla tappa 5).</div>
                         </div>
                         <div class="domanda-classe">
                             <div class="q">Quale dei sei verbi vi sembra più difficile? Quale vi piacerebbe di più?</div>
@@ -1110,28 +1134,26 @@
                     <div class="nota fonte">Fonti: R. Waldinger, M. Schulz, <em>The Good Life</em> (2023), Harvard Study of Adult Development; OMS, Commissione sulla connessione sociale, <em>From loneliness to social connection</em> (30 giugno 2025).</div>
                 </div>
 
-                <div class="tappa-nav"><button class="btn btn-soft" onclick="vaiTappa(3)">← Tappa 3</button><button class="btn" onclick="vaiTappa(5)">Tappa 5 · Famiglia, infanzia, adolescenza →</button></div>
+                <div class="tappa-nav"><button class="btn btn-soft" onclick="vaiTappa(3)">← Tappa 3</button><button class="btn" onclick="vaiTappa(5)">Tappa 5 · Le persone che incontrerai →</button></div>
             </section>
 
             <!-- ===================== TAPPA 5 ===================== -->
-            <section class="tappa" id="tappa5" data-t="5" data-min="20">
+            <!-- Revisione di ottobre 2026: le vecchie tappe 5 e 6 sono diventate questa. Nessun campo ha cambiato nome:
+                 quelli che non stanno più nel percorso principale sono in «Attività extra», in fondo alla tappa. -->
+            <section class="tappa" id="tappa5" data-t="5" data-min="25">
                 <div class="tappa-head">
                     <div class="tappa-num">5</div>
                     <div>
-                        <h2>Le persone che incontrerai (1): famiglia, infanzia, adolescenza</h2>
-                        <div class="sub">Parte B · Le tipologie di utenza dei servizi</div>
-                        <div class="chips"><span class="chip tempo">⏱️ 20 minuti</span><span class="chip comp">C4 · bisogni legati all'età</span><span class="chip comp">C1 · tipologia di utenza dei servizi</span></div>
+                        <h2>Le persone che incontrerai</h2>
+                        <div class="sub">Parte B · Sei tipi di utenza, un bisogno chiave ciascuno</div>
+                        <div class="chips"><span class="chip tempo">⏱️ 25 minuti</span><span class="chip comp">C4 · bisogni legati all'età e alle condizioni</span><span class="chip comp">C1 · tipologia di utenza dei servizi</span></div>
                     </div>
                 </div>
-                <div class="obiettivo"><strong>Alla fine della tappa sai:</strong> descrivere i bisogni tipici delle prime fasi della vita e le forme che ha oggi la famiglia.</div>
+                <div class="obiettivo"><strong>Alla fine della tappa sai:</strong> riconoscere sei tipi di utenza, dire qual è il bisogno principale di ciascuno e rispondere a un adolescente senza giudicarlo.</div>
 
                 <div class="step step-spiego">
-                    <div class="step-title"><span class="tag">CONTENUTI</span> Chi sono gli utenti e le prime età della vita <span class="min">9 min</span></div>
-
-                    <h3>Chi sono gli «utenti»</h3>
-                    <p>Nei servizi si chiama <strong>utente</strong> chi usufruisce di un servizio. La parola è tecnica, ma dietro c'è sempre una persona con valori che l'operatore deve rispettare: la <span class="hl">libertà di agire</span>, il rispetto degli altri e la <span class="hl">responsabilità</span>, cioè la consapevolezza delle proprie azioni. Il compito dell'operatore è attivare un percorso educativo che porti la persona ad assumersi le proprie responsabilità, non a delegarle.</p>
-                    <p>Le tipologie di utenza si distinguono soprattutto per <strong>età</strong> (bambini, adolescenti, adulti, anziani) e per <strong>condizione</strong> (disabilità, dipendenze, povertà, migrazione). Ogni tipologia ha bisogni diversi e richiede servizi e approcci diversi.</p>
-
+                    <div class="step-title"><span class="tag">CONTENUTI</span> Sei utenze, sei bisogni <span class="min">8 min</span></div>
+                    <p>Nei servizi si chiama <strong>utente</strong> chi usa un servizio. Dietro la parola c'è sempre una persona, con la sua <span class="hl">libertà</span> e le sue <span class="hl">responsabilità</span>. Le utenze si distinguono per <strong>età</strong> e per <strong>condizione</strong>.</p>
                     <div class="schema schema-wide">
                         <svg viewBox="0 0 760 150" role="img" aria-label="Linea del tempo delle età della vita: infanzia 0-10, adolescenza 10-18 e tarda adolescenza fino a 25, età adulta, terza età dai 65">
                             <defs><style>.t{font-family:Segoe UI,Tahoma,sans-serif;font-weight:700}.s{font-family:Segoe UI,Tahoma,sans-serif;font-size:11px;fill:#334}</style></defs>
@@ -1157,103 +1179,40 @@
                         <div class="didascalia">Le fasce di età usate nei servizi. I confini sono indicativi: ogni persona ha i suoi tempi.</div>
                     </div>
 
-                    <h3>👨‍👩‍👧‍👦 La famiglia</h3>
-                    <p>La famiglia è l'<strong>istituzione di base della società</strong>: la Costituzione (art. 29) la riconosce come «società naturale fondata sul matrimonio», ma oggi le forme sono molte di più. La famiglia <em>nucleare</em> (genitori e figli) resta la più diffusa, ma sono sempre più numerose:</p>
-                    <ul>
-                        <li>le <strong>persone sole</strong> (famiglie unipersonali), soprattutto anziani;</li>
-                        <li>le famiglie <strong>monogenitoriali</strong>: un solo genitore con i figli;</li>
-                        <li>le famiglie <strong>ricostituite</strong>: nate da una nuova unione dopo una separazione, con figli di unioni precedenti;</li>
-                        <li>le <strong>convivenze</strong> senza matrimonio e le <strong>unioni civili</strong> (legge 76/2016);</li>
-                        <li>le famiglie <strong>omogenitoriali</strong> (dette anche «arcobaleno»).</li>
-                    </ul>
-                    <p>Le famiglie italiane hanno oggi <strong>pochi componenti</strong>: si fanno meno figli e più tardi. Il compito della famiglia resta lo stesso: garantire la <strong>sopravvivenza, lo sviluppo e il sostegno</strong> di ciascun membro.</p>
-                    <div class="nota attenzione"><strong>I problemi di oggi.</strong> La famiglia è più fragile (separazioni, solitudine), ha meno sicurezza economica (lavoro precario), e deve occuparsi sempre più a lungo degli anziani, perché la vita si è allungata. Quando la famiglia non regge da sola, entrano in gioco i servizi e l'operatore sociale.</div>
-
-                    <h3>👶 L'infanzia (0-10 anni)</h3>
-                    <p>I bambini hanno diritti propri, riconosciuti dalla <strong>Convenzione ONU sui diritti dell'infanzia</strong> (1989, legge italiana 176/1991). L'infanzia si divide in tre fasi:</p>
-                    <ul>
-                        <li><strong>Prima infanzia (0-3 anni)</strong>: totale dipendenza dagli adulti. Il bambino ha bisogno di cure costanti e di un legame sicuro con chi lo accudisce.</li>
-                        <li><strong>Seconda infanzia (3-6 anni)</strong>: affermazione della personalità («faccio io!»), interesse per gli altri bambini, gioco simbolico, scuola dell'infanzia.</li>
-                        <li><strong>Terza infanzia (6-10 anni)</strong>: scuola primaria, regole, amicizie, primi compiti e responsabilità.</li>
-                    </ul>
-                    <p>In questi anni avvengono sviluppi decisivi: <strong>percettivo-motorio</strong> (il sistema nervoso matura, la coordinazione migliora), <strong>linguistico</strong> (dalla lallazione alle frasi complete), <strong>affettivo-relazionale</strong> (il legame con i genitori diventa la base per fidarsi degli altri).</p>
-
-                    <h3>🧒 L'adolescenza (10-18 anni, e oltre)</h3>
-                    <p>È la <strong>fase di passaggio</strong> dall'infanzia all'età adulta. Comprende la <strong>pubertà</strong> (10-14 anni), con i cambiamenti del corpo, l'<strong>adolescenza</strong> vera e propria fino ai 18 anni e una <strong>tarda adolescenza</strong> che oggi può arrivare ai 25 anni, perché studio e dipendenza economica dalla famiglia si allungano.</p>
-                    <p>La cosiddetta <strong>crisi adolescenziale</strong> è normale, non è una malattia: insofferenza verso gli adulti, ribellione alle regole, fatica ad abbandonare il sé infantile mentre si costruisce un'identità nuova. Diventa un problema quando porta a <strong>disadattamento</strong>: abbandono scolastico, isolamento, comportamenti a rischio.</p>
-                    <div class="nota esempio"><strong>Il ruolo dell'operatore</strong> con gli adolescenti: prevenire i conflitti invece di reprimerli, <strong>discutere le regole</strong> invece di imporle e basta, proporre attività in cui il ragazzo possa riuscire, individualizzare l'intervento «con realismo e umanità».</div>
-                    <div class="nota semplice"><strong>In parole semplici.</strong> La famiglia oggi ha tante forme e spesso fa fatica. I bambini dipendono dagli adulti e crescono a tappe. Gli adolescenti si staccano dagli adulti per diventare grandi: è normale, ma qualcuno ha bisogno di una mano per non perdersi.</div>
-                </div>
-
-                <div class="step step-provate">
-                    <div class="step-title"><span class="tag">ESERCIZIO</span> Di chi stiamo parlando? <span class="min">5 min</span></div>
-                    <div data-act="ute1"></div>
-                </div>
-
-                                <div class="step step-provate step-bonus">
-                    <div class="step-title"><span class="tag">ESERCIZIO</span> Parlare con Matteo, 15 anni <span class="bonus-tag">bonus</span> <span class="min">4 min</span></div>
-                    <div class="nuova-att">
-                        <p class="act-istr">Matteo frequenta il centro di aggregazione giovanile. Oggi arriva, butta lo zaino per terra e ti parla. A ogni battuta scegli come risponde l'operatore: vedrai come reagisce Matteo.</p>
-                        <div id="a5-box"></div>
-                    </div>
-                </div>
-
-                <div class="fine-parte">✂️ <strong>Fine della prima parte.</strong> Se la lezione finisce qui, la prossima volta si riparte da questo punto.</div>
-
-                <div class="step step-confronto">
-                    <div class="step-title"><span class="tag">RISPOSTE E DISCUSSIONE</span> <span class="min">5 min</span></div>
-                    <div class="campo pensa-prima">
-                        <label for="pensiero-t5">✍️ Prima di parlarne, scrivi da solo: Voi siete adolescenti: quali regole avete «discusso» a casa o a scuola? Che cosa aiuta un adulto a farsi ascoltare?</label>
-                        <p class="hint">Un minuto, due righe. Poi leggi la risposta del vicino. <span class="bonus-tag">facoltativo</span></p>
-                        <textarea id="pensiero-t5" name="pensiero-t5" placeholder="Secondo me..."></textarea>
-                    </div>
-                    <button class="btn btn-soft btn-confronta" data-confronta="5">Apri il confronto</button>
-                    <div class="confronto-body">
-                        <div class="domanda-classe">
-                            <div class="q">Voi siete adolescenti: quali regole avete «discusso» a casa o a scuola? Che cosa aiuta un adulto a farsi ascoltare?</div>
-                            <div class="attese"><strong>Risposte attese:</strong> spiegare il perché, ascoltare, essere coerenti, non urlare, dare fiducia. Collegare ai tre atteggiamenti di Rogers della tappa 1.</div>
+                    <div class="utenze">
+                        <div class="utenza" style="border-top-color:#9CB912">
+                            <h4>👨‍👩‍👧‍👦 La famiglia</h4>
+                            <p>Oggi ha molte <span class="hl">forme</span>: nucleare, <strong>monogenitoriale</strong> (un solo genitore), <strong>ricostituita</strong> (dopo una separazione), convivenze e unioni civili, persone sole.</p>
+                            <p class="bis"><strong>Bisogno chiave:</strong> reggere quando vengono meno lavoro, soldi, salute o l'aiuto dei parenti.</p>
                         </div>
-                        <div class="domanda-classe">
-                            <div class="q">Perché la stessa situazione (un genitore solo con due figli) può essere «normale» per una famiglia e un problema per un'altra?</div>
-                            <div class="attese"><strong>Risposte attese:</strong> dipende dalle risorse: soldi, lavoro, rete di parenti e amici, salute. Anticipa il caso di Maria (tappa 7).</div>
+                        <div class="utenza" style="border-top-color:#C6E716">
+                            <h4>👶 L'infanzia · 0-10 anni</h4>
+                            <p>Il bambino dipende dagli adulti e cresce a tappe: <strong>0-3</strong> dipendenza totale, <strong>3-6</strong> «faccio io!», <strong>6-10</strong> scuola e regole. Ha diritti propri (Convenzione ONU, 1989).</p>
+                            <p class="bis"><strong>Bisogno chiave:</strong> cure costanti e un <span class="hl">legame sicuro</span> con chi lo accudisce.</p>
                         </div>
-                                            <div class="nuova-att">
-                            <div class="nt">🎭 Prova a tre <span class="bonus-tag">bonus</span></div>
-                            <p class="act-istr">Gruppi di tre, ruoli a rotazione. <strong>Operatore</strong>: risponde a Matteo. <strong>Matteo</strong>: risponde a monosillabi finché non si sente ascoltato. <strong>Osservatore</strong>: compila la griglia. Novanta secondi di dialogo, poi: che cosa è successo? che cosa ha funzionato e perché? che cosa porto via?</p>
-                            <div class="campo"><label for="a5-oss1">L'operatore ha rimandato a Matteo la sua emozione con parole sue?</label><select id="a5-oss1" name="a5-oss1"><option value="">— osservatore —</option><option>sì</option><option>in parte</option><option>no</option></select></div>
-                            <div class="campo"><label for="a5-oss2">Ha evitato giudizi e consigli non richiesti?</label><select id="a5-oss2" name="a5-oss2"><option value="">— osservatore —</option><option>sì</option><option>in parte</option><option>no</option></select></div>
-                            <div class="campo"><label for="a5-oss3">Ha lasciato decidere Matteo?</label><select id="a5-oss3" name="a5-oss3"><option value="">— osservatore —</option><option>sì</option><option>in parte</option><option>no</option></select></div>
-                            <div class="campo"><label for="a5-portovia">Che cosa porto via da questa prova?</label><textarea id="a5-portovia" name="a5-portovia" placeholder="Ho capito che..."></textarea></div>
+                        <div class="utenza" style="border-top-color:#1DD3D3">
+                            <h4>🧒 L'adolescenza · 10-18 anni</h4>
+                            <p>Si stacca dagli adulti per costruirsi un'identità; oggi la <strong>tarda adolescenza</strong> arriva fino ai 25 anni. La <span class="hl">crisi adolescenziale</span> è normale, non è una malattia.</p>
+                            <p class="bis"><strong>Bisogno chiave:</strong> adulti che ascoltano e regole <strong>discusse</strong>, non solo imposte. Il rischio è il disadattamento: abbandono della scuola, isolamento.</p>
+                        </div>
+                        <div class="utenza" style="border-top-color:#FF0090">
+                            <h4>👴 La terza età · dai 65 anni</h4>
+                            <p>In Italia quasi una persona su quattro. I <strong>«giovani anziani»</strong> sono spesso attivi e in salute, i <strong>grandi anziani</strong> (oltre gli 80) più fragili.</p>
+                            <p class="bis"><strong>Bisogno chiave:</strong> restare attivo e non restare solo. È l'<span class="hl">invecchiamento attivo</span> (OMS): l'anziano è una risorsa.</p>
+                        </div>
+                        <div class="utenza" style="border-top-color:#0E7C7C">
+                            <h4>♿ La disabilità</h4>
+                            <p>Secondo l'<span class="hl">ICF</span> dell'OMS la disabilità nasce dall'incontro fra la condizione di salute e l'<strong>ambiente</strong>. La legge 104/1992 dà accesso al sostegno e a percorsi personalizzati.</p>
+                            <p class="bis"><strong>Bisogno chiave:</strong> barriere tolte, ausili, occasioni per partecipare come tutti.</p>
+                        </div>
+                        <div class="utenza" style="border-top-color:#CC0073">
+                            <h4>🔗 Le dipendenze</h4>
+                            <p>Un comportamento che la persona <span class="hl">non riesce più a controllare</span>. Da sostanze (alcol, droghe, tabacco, farmaci) o da comportamenti (azzardo, videogiochi, telefono, shopping).</p>
+                            <p class="bis"><strong>Bisogno chiave:</strong> trovare un'altra risposta al vuoto che la dipendenza riempie.</p>
                         </div>
                     </div>
-                </div>
 
-                <div class="tappa-nav"><button class="btn btn-soft" onclick="vaiTappa(4)">← Tappa 4</button><button class="btn" onclick="vaiTappa(6)">Tappa 6 · Terza età, disabilità, dipendenze →</button></div>
-            </section>
-
-            <!-- ===================== TAPPA 6 ===================== -->
-            <section class="tappa" id="tappa6" data-t="6" data-min="20">
-                <div class="tappa-head">
-                    <div class="tappa-num">6</div>
-                    <div>
-                        <h2>Le persone che incontrerai (2): terza età, disabilità, dipendenze</h2>
-                        <div class="sub">Parte B · Le tipologie di utenza dei servizi</div>
-                        <div class="chips"><span class="chip tempo">⏱️ 20 minuti</span><span class="chip comp">C4 · bisogni legati all'età e alle condizioni</span><span class="chip">🏠 con esercizio da finire a casa</span></div>
-                    </div>
-                </div>
-                <div class="obiettivo"><strong>Alla fine della tappa sai:</strong> spiegare che cosa cambia nella vecchiaia, che cosa dice l'ICF sulla disabilità e che cosa distingue una dipendenza da un'abitudine.</div>
-
-                <div class="step step-spiego">
-                    <div class="step-title"><span class="tag">CONTENUTI</span> Tre condizioni, tre sguardi diversi <span class="min">9 min</span></div>
-
-                    <h3>👴 La terza età (65 anni e oltre)</h3>
-                    <p>In Italia <strong>quasi una persona su quattro ha più di 65 anni</strong> (dati ISTAT): siamo uno dei Paesi più «anziani» del mondo. Per questo gli anziani sono l'utenza più numerosa dei servizi.</p>
-                    <p>La vita di una persona si può leggere in <strong>tre grandi tappe</strong>: lo <em>sviluppo</em> (dalla nascita all'età adulta), l'<em>adultità</em> (lavoro e responsabilità) e la <em>senilità</em> (dall'età della pensione in poi). Ma il confine della vecchiaia si sposta sempre più avanti: oggi si distingue tra <strong>«giovani anziani»</strong>, spesso attivi e in salute, e <strong>grandi anziani</strong> oltre gli 80 anni, più fragili.</p>
-                    <p>Il modo di guardare la vecchiaia è cambiato. Non più solo «assenza di malattia», ma <span class="hl">invecchiamento attivo</span> (concetto proposto dall'OMS nel 2002): l'anziano è una <strong>risorsa</strong> per la famiglia e per la società, e va aiutato a restare partecipe, autonomo e in salute il più a lungo possibile.</p>
-                    <div class="nota attenzione"><strong>Le sfide.</strong> Involuzione fisica e a volte mentale, malattie croniche, perdita del coniuge e degli amici, riduzione del reddito, solitudine. Il rischio più grande è che l'anziano «si spenga»: smetta di fare, di uscire, di curarsi. Per questo l'operatore lavora molto sulla dimensione psicologica e sociale: la mente e gli interessi non invecchiano se restano attivi.</div>
-
-                    <h3>♿ La disabilità</h3>
-                    <p>Nel 2001 l'OMS ha pubblicato l'<span class="hl">ICF</span> (Classificazione Internazionale del Funzionamento, della Disabilità e della Salute), che ha cambiato il modo di pensare la disabilità. La disabilità <strong>non è una caratteristica della persona</strong>, ma il risultato della <strong>relazione</strong> tra la sua condizione di salute e i fattori personali e ambientali.</p>
+                    <div class="schemi-2">
                     <div class="schema">
                         <svg viewBox="0 0 600 260" role="img" aria-label="Schema ICF: la condizione di salute influenza funzioni e strutture corporee, attività e partecipazione; sotto, i fattori ambientali e personali influenzano tutto">
                             <defs><style>.t{font-family:Segoe UI,Tahoma,sans-serif;font-weight:700}.s{font-family:Segoe UI,Tahoma,sans-serif;font-size:11px;fill:#334}</style><marker id="b" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#52606d"/></marker></defs>
@@ -1275,11 +1234,6 @@
                         </svg>
                         <div class="didascalia">ICF: la stessa condizione di salute produce disabilità diverse a seconda dell'ambiente. Un gradino è una barriera, una rampa no.</div>
                     </div>
-                    <p>Le dimensioni dell'ICF sono cinque: <strong>condizioni di salute</strong>, <strong>funzioni e strutture corporee</strong>, <strong>attività</strong> (il grado di autonomia), <strong>partecipazione sociale</strong>, <strong>fattori ambientali e personali</strong>. L'obiettivo dell'operatore è la <span class="hl">promozione dell'integrazione sociale</span>: rimuovere barriere, procurare ausili, creare occasioni di partecipazione. E ricordare che la persona con disabilità ha gli stessi bisogni di tutti: amore, considerazione, gratificazione.</p>
-                    <div class="nota fonte">Riferimenti: <strong>legge 104/1992</strong>, legge quadro sui diritti delle persone con disabilità, che prevede la certificazione per accedere a percorsi personalizzati (sostegno scolastico, permessi per i familiari, ausili). <strong>Convenzione ONU sui diritti delle persone con disabilità</strong> (2006, legge 18/2009). <strong>D.Lgs. 62/2024</strong>, che riforma la valutazione della disabilità e introduce il «progetto di vita» personalizzato.</div>
-
-                    <h3>🔗 Le dipendenze</h3>
-                    <p>Una <strong>dipendenza</strong> è un comportamento ripetitivo che la persona <strong>non riesce più a controllare</strong>, basato su un bisogno psicologico e/o fisico, e che continua anche quando fa male alla salute, alle relazioni, allo studio o al lavoro. La differenza con un'abitudine sta proprio qui: l'abitudine si può interrompere, la dipendenza no, o non da soli.</p>
                     <div class="schema schema-nuovo">
                         <svg viewBox="0 0 640 210" role="img" aria-label="Abitudine o dipendenza: quattro segnali di perdita di controllo" font-family="Segoe UI,Tahoma,sans-serif">
 <defs><linearGradient id="mos6-gctl" x1="0" x2="1"><stop offset="0" stop-color="#dcfce7"/><stop offset="1" stop-color="#fee2e2"/></linearGradient></defs>
@@ -1296,17 +1250,109 @@
 </svg>
                         <div class="didascalia">Quattro segnali di perdita di controllo: è la differenza fra un'abitudine e una dipendenza.</div>
                     </div>
+                    </div>
 
+                    <div class="nota semplice"><strong>In parole semplici.</strong> Ogni età e ogni condizione ha un bisogno principale. L'operatore lo riconosce, ma guarda sempre la persona intera: il corpo, la testa e chi ha intorno, come alla tappa 2.</div>
+
+                    <details class="approfondisci">
+                        <summary>📖 Per saperne di più: le sei utenze spiegate per esteso</summary>
+                        <div class="dentro">
+                    <h3>👨‍👩‍👧‍👦 La famiglia</h3>
+                    <p>La famiglia è l'<strong>istituzione di base della società</strong>: la Costituzione (art. 29) la riconosce come «società naturale fondata sul matrimonio», ma oggi le forme sono molte di più. La famiglia <em>nucleare</em> (genitori e figli) resta la più diffusa, ma sono sempre più numerose:</p>
+                    <ul>
+                        <li>le <strong>persone sole</strong> (famiglie unipersonali), soprattutto anziani;</li>
+                        <li>le famiglie <strong>monogenitoriali</strong>: un solo genitore con i figli;</li>
+                        <li>le famiglie <strong>ricostituite</strong>: nate da una nuova unione dopo una separazione, con figli di unioni precedenti;</li>
+                        <li>le <strong>convivenze</strong> senza matrimonio e le <strong>unioni civili</strong> (legge 76/2016);</li>
+                        <li>le famiglie <strong>omogenitoriali</strong> (dette anche «arcobaleno»).</li>
+                    </ul>
+                    <p>Le famiglie italiane hanno oggi <strong>pochi componenti</strong>: si fanno meno figli e più tardi. Il compito della famiglia resta lo stesso: garantire la <strong>sopravvivenza, lo sviluppo e il sostegno</strong> di ciascun membro.</p>
+                    <div class="nota attenzione"><strong>I problemi di oggi.</strong> La famiglia è più fragile (separazioni, solitudine), ha meno sicurezza economica (lavoro precario), e deve occuparsi sempre più a lungo degli anziani, perché la vita si è allungata. Quando la famiglia non regge da sola, entrano in gioco i servizi e l'operatore sociale.</div>
+                    <h3>👶 L'infanzia (0-10 anni)</h3>
+                    <p>I bambini hanno diritti propri, riconosciuti dalla <strong>Convenzione ONU sui diritti dell'infanzia</strong> (1989, legge italiana 176/1991). L'infanzia si divide in tre fasi:</p>
+                    <ul>
+                        <li><strong>Prima infanzia (0-3 anni)</strong>: totale dipendenza dagli adulti. Il bambino ha bisogno di cure costanti e di un legame sicuro con chi lo accudisce.</li>
+                        <li><strong>Seconda infanzia (3-6 anni)</strong>: affermazione della personalità («faccio io!»), interesse per gli altri bambini, gioco simbolico, scuola dell'infanzia.</li>
+                        <li><strong>Terza infanzia (6-10 anni)</strong>: scuola primaria, regole, amicizie, primi compiti e responsabilità.</li>
+                    </ul>
+                    <p>In questi anni avvengono sviluppi decisivi: <strong>percettivo-motorio</strong> (il sistema nervoso matura, la coordinazione migliora), <strong>linguistico</strong> (dalla lallazione alle frasi complete), <strong>affettivo-relazionale</strong> (il legame con i genitori diventa la base per fidarsi degli altri).</p>
+                    <h3>🧒 L'adolescenza (10-18 anni, e oltre)</h3>
+                    <p>È la <strong>fase di passaggio</strong> dall'infanzia all'età adulta. Comprende la <strong>pubertà</strong> (10-14 anni), con i cambiamenti del corpo, l'<strong>adolescenza</strong> vera e propria fino ai 18 anni e una <strong>tarda adolescenza</strong> che oggi può arrivare ai 25 anni, perché studio e dipendenza economica dalla famiglia si allungano.</p>
+                    <p>La cosiddetta <strong>crisi adolescenziale</strong> è normale, non è una malattia: insofferenza verso gli adulti, ribellione alle regole, fatica ad abbandonare il sé infantile mentre si costruisce un'identità nuova. Diventa un problema quando porta a <strong>disadattamento</strong>: abbandono scolastico, isolamento, comportamenti a rischio.</p>
+                    <div class="nota esempio"><strong>Il ruolo dell'operatore</strong> con gli adolescenti: prevenire i conflitti invece di reprimerli, <strong>discutere le regole</strong> invece di imporle e basta, proporre attività in cui il ragazzo possa riuscire, individualizzare l'intervento «con realismo e umanità».</div>
+                    <h3>👴 La terza età (65 anni e oltre)</h3>
+                    <p>In Italia <strong>quasi una persona su quattro ha più di 65 anni</strong> (dati ISTAT): siamo uno dei Paesi più «anziani» del mondo. Per questo gli anziani sono l'utenza più numerosa dei servizi.</p>
+                    <p>La vita di una persona si può leggere in <strong>tre grandi tappe</strong>: lo <em>sviluppo</em> (dalla nascita all'età adulta), l'<em>adultità</em> (lavoro e responsabilità) e la <em>senilità</em> (dall'età della pensione in poi). Ma il confine della vecchiaia si sposta sempre più avanti: oggi si distingue tra <strong>«giovani anziani»</strong>, spesso attivi e in salute, e <strong>grandi anziani</strong> oltre gli 80 anni, più fragili.</p>
+                    <p>Il modo di guardare la vecchiaia è cambiato. Non più solo «assenza di malattia», ma <span class="hl">invecchiamento attivo</span> (concetto proposto dall'OMS nel 2002): l'anziano è una <strong>risorsa</strong> per la famiglia e per la società, e va aiutato a restare partecipe, autonomo e in salute il più a lungo possibile.</p>
+                    <div class="nota attenzione"><strong>Le sfide.</strong> Involuzione fisica e a volte mentale, malattie croniche, perdita del coniuge e degli amici, riduzione del reddito, solitudine. Il rischio più grande è che l'anziano «si spenga»: smetta di fare, di uscire, di curarsi. Per questo l'operatore lavora molto sulla dimensione psicologica e sociale: la mente e gli interessi non invecchiano se restano attivi.</div>
+                    <h3>♿ La disabilità</h3>
+                    <p>Nel 2001 l'OMS ha pubblicato l'<span class="hl">ICF</span> (Classificazione Internazionale del Funzionamento, della Disabilità e della Salute), che ha cambiato il modo di pensare la disabilità. La disabilità <strong>non è una caratteristica della persona</strong>, ma il risultato della <strong>relazione</strong> tra la sua condizione di salute e i fattori personali e ambientali.</p>
+                    <p>Le dimensioni dell'ICF sono cinque: <strong>condizioni di salute</strong>, <strong>funzioni e strutture corporee</strong>, <strong>attività</strong> (il grado di autonomia), <strong>partecipazione sociale</strong>, <strong>fattori ambientali e personali</strong>. L'obiettivo dell'operatore è la <span class="hl">promozione dell'integrazione sociale</span>: rimuovere barriere, procurare ausili, creare occasioni di partecipazione. E ricordare che la persona con disabilità ha gli stessi bisogni di tutti: amore, considerazione, gratificazione.</p>
+                    <div class="nota fonte">Riferimenti: <strong>legge 104/1992</strong>, legge quadro sui diritti delle persone con disabilità, che prevede la certificazione per accedere a percorsi personalizzati (sostegno scolastico, permessi per i familiari, ausili). <strong>Convenzione ONU sui diritti delle persone con disabilità</strong> (2006, legge 18/2009). <strong>D.Lgs. 62/2024</strong>, che riforma la valutazione della disabilità e introduce il «progetto di vita» personalizzato.</div>
+                    <h3>🔗 Le dipendenze</h3>
+                    <p>Una <strong>dipendenza</strong> è un comportamento ripetitivo che la persona <strong>non riesce più a controllare</strong>, basato su un bisogno psicologico e/o fisico, e che continua anche quando fa male alla salute, alle relazioni, allo studio o al lavoro. La differenza con un'abitudine sta proprio qui: l'abitudine si può interrompere, la dipendenza no, o non da soli.</p>
                     <div class="grid-2">
                         <div class="card"><h4>📋 Dipendenze da sostanze</h4><ul><li><strong>Alcol</strong>: in Italia circa una persona su sei ha abitudini di consumo a rischio (ISTAT).</li><li><strong>Droghe</strong>: il primo contatto avviene spesso già nella prima adolescenza.</li><li><strong>Tabacco</strong>: fuma circa un adulto su quattro (Istituto Superiore di Sanità).</li><li><strong>Farmaci</strong>: uso senza controllo medico di ansiolitici, sonniferi, antidolorifici.</li></ul></div>
                         <div class="card"><h4>🌐 Dipendenze comportamentali («nuove dipendenze»)</h4><ul><li><strong>Gioco d'azzardo</strong> (disturbo da gioco d'azzardo, riconosciuto come dipendenza).</li><li><strong>Videogiochi e internet</strong>: il <em>gaming disorder</em> è riconosciuto dall'OMS dal 2019.</li><li><strong>Nomofobia</strong>: paura di restare senza telefono o senza rete.</li><li><strong>Shopping compulsivo</strong>.</li><li><strong>Relazioni solo virtuali</strong> che sostituiscono quelle reali.</li></ul><p style="font-size:.9em;margin-top:6px"><strong>Hikikomori</strong>: ritiro sociale volontario, per mesi o anni, in camera. Non è una dipendenza in senso stretto, ma spesso si accompagna all'uso continuo dello schermo.</p></div>
                     </div>
                     <p><strong>Chi rischia di più?</strong> Chi non sopporta la frustrazione, chi cerca un'indipendenza assoluta dagli altri, chi non riesce ad accettare la quotidianità e cerca una via di fuga. La dipendenza «riempie» un vuoto: per questo l'operatore lavora sul vuoto, non solo sul comportamento.</p>
                     <div class="nota attenzione"><strong>Attenzione ai numeri.</strong> Le percentuali cambiano ogni anno e dipendono da come si misura: usale come ordine di grandezza, non come dato preciso. Le fonti ufficiali in Italia sono ISTAT, Istituto Superiore di Sanità e la Relazione annuale al Parlamento sulle dipendenze.</div>
-                    <div class="nota semplice"><strong>In parole semplici.</strong> L'anziano è una risorsa da tenere attiva. La disabilità dipende anche dall'ambiente: togli le barriere e cambia tutto. La dipendenza è un comportamento che comanda la persona invece di essere comandato da lei.</div>
+                        </div>
+                    </details>
                 </div>
 
-                                <div class="fine-parte">✂️ <strong>Fine della prima parte.</strong> Se la lezione finisce qui, la prossima volta si riparte da questo punto.</div>
+                <div class="step step-provate">
+                    <div class="step-title"><span class="tag">ESERCIZIO</span> Di chi stiamo parlando? <span class="min">6 min</span></div>
+                    <p class="act-istr">Dodici indizi: prima le età della vita, poi le condizioni. Per ognuno scegli l'utenza.</p>
+                    <div data-act="ute1"></div>
+                    <div data-act="ute2"></div>
+                </div>
+
+                <div class="fine-parte">✂️ <strong>Fine della prima parte.</strong> Se la lezione finisce qui, la prossima volta si riparte da Matteo.</div>
+
+                <div class="step step-provate">
+                    <div class="step-title"><span class="tag">ESERCIZIO</span> Parlare con Matteo, 15 anni <span class="min">4 min</span></div>
+                    <div class="nuova-att">
+                        <p class="act-istr">Matteo frequenta il centro di aggregazione giovanile. Oggi arriva, butta lo zaino per terra e ti parla. A ogni battuta scegli come risponde l'operatore: vedrai come reagisce Matteo.</p>
+                        <div id="a5-box"></div>
+                    </div>
+                </div>
+
+                <div class="step step-confronto">
+                    <div class="step-title"><span class="tag">RISPOSTE E DISCUSSIONE</span> <span class="min">5 min</span></div>
+                    <div class="campo pensa-prima">
+                        <label for="pensiero-t5">✍️ Prima di parlarne, scrivi da solo: Voi siete adolescenti: quali regole avete «discusso» a casa o a scuola? Che cosa aiuta un adulto a farsi ascoltare?</label>
+                        <p class="hint">Un minuto, due righe. Poi leggi la risposta del vicino. <span class="bonus-tag">facoltativo</span></p>
+                        <textarea id="pensiero-t5" name="pensiero-t5" placeholder="Secondo me..."></textarea>
+                    </div>
+                    <button class="btn btn-soft btn-confronta" data-confronta="5">Apri il confronto</button>
+                    <div class="confronto-body">
+                        <div class="domanda-classe">
+                            <div class="q">Voi siete adolescenti: quali regole avete «discusso» a casa o a scuola? Che cosa aiuta un adulto a farsi ascoltare?</div>
+                            <div class="attese"><strong>Risposte attese:</strong> spiegare il perché, ascoltare, essere coerenti, non urlare, dare fiducia. Collegare ai tre atteggiamenti di Rogers della tappa 1.</div>
+                        </div>
+                        <div class="domanda-classe">
+                            <div class="q">Un gradino davanti a un negozio: per chi è una barriera? Che cosa cambia se mettiamo una rampa?</div>
+                            <div class="attese"><strong>Risposte attese:</strong> per chi usa la carrozzina, ma anche per un passeggino, per un anziano con il bastone. La rampa non cambia la persona, cambia la disabilità: è il cuore dell'ICF.</div>
+                        </div>
+                        <div class="domanda-classe">
+                            <div class="q">Quando l'uso del telefono diventa una dipendenza? Con quale segnale ve ne accorgereste in un amico?</div>
+                            <div class="attese"><strong>Risposte attese:</strong> quando non riesce a smettere anche se vuole, quando sta male senza, quando rinuncia a scuola, sport, amici. Non è la quantità di ore, è la perdita di controllo.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <details class="extra">
+                    <summary>➕ Attività extra <small>per chi finisce prima, per la prova a tre o per casa · non servono a completare la tappa</small><span class="extra-stato"></span></summary>
+                    <div class="extra-body">
+                        <div class="step step-provate step-bonus">
+                            <div class="step-title"><span class="tag">IN CLASSE</span> 🎭 Prova a tre: Matteo dal vivo <span class="bonus-tag">bonus</span> <span class="min">6 min</span></div>
+                            <p class="act-istr">Gruppi di tre, ruoli a rotazione. <strong>Operatore</strong>: risponde a Matteo. <strong>Matteo</strong>: risponde a monosillabi finché non si sente ascoltato. <strong>Osservatore</strong>: compila la griglia. Novanta secondi di dialogo, poi: che cosa è successo? che cosa ha funzionato e perché? che cosa porto via?</p>
+                            <div class="campo"><label for="a5-oss1">L'operatore ha rimandato a Matteo la sua emozione con parole sue?</label><select id="a5-oss1" name="a5-oss1"><option value="">— osservatore —</option><option>sì</option><option>in parte</option><option>no</option></select></div>
+                            <div class="campo"><label for="a5-oss2">Ha evitato giudizi e consigli non richiesti?</label><select id="a5-oss2" name="a5-oss2"><option value="">— osservatore —</option><option>sì</option><option>in parte</option><option>no</option></select></div>
+                            <div class="campo"><label for="a5-oss3">Ha lasciato decidere Matteo?</label><select id="a5-oss3" name="a5-oss3"><option value="">— osservatore —</option><option>sì</option><option>in parte</option><option>no</option></select></div>
+                            <div class="campo"><label for="a5-portovia">Che cosa porto via da questa prova?</label><textarea id="a5-portovia" name="a5-portovia" placeholder="Ho capito che..."></textarea></div>
+                        </div>
                 <div class="step step-provate step-bonus">
                     <div class="step-title"><span class="tag">ESERCIZIO</span> Rina, poi Davide: dall'esempio all'analisi da soli <span class="bonus-tag">bonus</span> <span class="min">5 min</span></div>
                     <div class="nota esempio">
@@ -1329,10 +1375,8 @@
                     </div>
                     <p class="hint">Dopo Rina e Davide, l'analisi di un'utenza a scelta, qui sotto, la fai tutta da solo.</p>
                 </div>
-
-                <div class="step step-provate">
-                    <div class="step-title"><span class="tag">ESERCIZIO</span> Di chi stiamo parlando? Poi scegli un'utenza e analizzala <span class="min">7 min</span></div>
-                    <div data-act="ute2"></div>
+                        <div class="step step-provate step-bonus">
+                            <div class="step-title"><span class="tag">DA SOLO</span> Un'utenza a scelta <span class="bonus-tag">bonus</span> <span class="min">10 min</span></div>
                     <div class="act">
                         <div class="act-title">🤔 Analisi di un'utenza <span class="pts">+15</span></div>
                         <p class="act-istr">Scegli <strong>una</strong> tipologia tra le sei studiate e applica il modello bio-psico-sociale. In classe compila i primi quattro campi; gli ultimi due puoi finirli a casa.</p>
@@ -1351,43 +1395,35 @@
                         <div class="campo"><label for="ac-criticita">Quali difficoltà può incontrare l'operatore con questa utenza? <span class="pts">+3</span> <span class="chip">🏠 a casa</span></label><textarea id="ac-criticita" name="ac-criticita" data-points="3" data-optional="1" placeholder="Pensa a: comunicazione, fiducia, rifiuto dell'aiuto, famiglia, tempi..."></textarea></div>
                         <div class="campo"><label for="ac-rete">Perché per questa utenza è importante il lavoro di rete? <span class="pts">+2</span> <span class="chip">🏠 a casa</span></label><textarea id="ac-rete" name="ac-rete" data-points="2" data-optional="1" placeholder="Quali risorse formali e informali servono insieme?"></textarea></div>
                     </div>
-                </div>
-
-                <div class="step step-confronto">
-                    <div class="step-title"><span class="tag">RISPOSTE E DISCUSSIONE</span> <span class="min">4 min</span></div>
-                    <div class="campo pensa-prima">
-                        <label for="pensiero-t6">✍️ Prima di parlarne, scrivi da solo: Un gradino davanti a un negozio: per chi è una barriera? Che cosa cambia se mettiamo una rampa?</label>
-                        <p class="hint">Un minuto, due righe. Poi leggi la risposta del vicino. <span class="bonus-tag">facoltativo</span></p>
-                        <textarea id="pensiero-t6" name="pensiero-t6" placeholder="Secondo me..."></textarea>
-                    </div>
-                    <button class="btn btn-soft btn-confronta" data-confronta="6">Apri il confronto</button>
-                    <div class="confronto-body">
-                        <div class="domanda-classe">
-                            <div class="q">Un gradino davanti a un negozio: per chi è una barriera? Che cosa cambia se mettiamo una rampa?</div>
-                            <div class="attese"><strong>Risposte attese:</strong> per chi usa la carrozzina, ma anche per un passeggino, per un anziano con il bastone. La rampa non cambia la persona, cambia la disabilità: è il cuore dell'ICF.</div>
-                        </div>
-                        <div class="domanda-classe">
-                            <div class="q">Quando l'uso del telefono diventa una dipendenza? Con quale segnale ve ne accorgereste in un amico?</div>
-                            <div class="attese"><strong>Risposte attese:</strong> quando non riesce a smettere anche se vuole, quando sta male senza, quando rinuncia a scuola, sport, amici. Non è la quantità di ore, è la perdita di controllo.</div>
-                        </div>
+                            <details class="approfondisci"><summary>Un esempio di analisi (terza età)</summary><div class="dentro">
                         <div class="esempio-risposta"><h5>Esempio di analisi (terza età)</h5><strong>Biologico:</strong> controllo delle malattie croniche, movimento quotidiano, alimentazione adeguata. <strong>Psicologico:</strong> sentirsi utile, avere progetti, elaborare i lutti. <strong>Sociale:</strong> non restare solo, mantenere contatti con famiglia e quartiere. <strong>Difficoltà:</strong> rifiuto dell'aiuto («non sono vecchio»), diffidenza, familiari assenti. <strong>Rete:</strong> medico di famiglia e servizi domiciliari (formale) insieme a vicini, parrocchia, centro anziani (informale).</div>
+                            </div></details>
+                        </div>
+                        <div class="step step-provate step-bonus">
+                            <div class="step-title"><span class="tag">DA PENSARE</span> La rampa e il gradino <span class="bonus-tag">bonus</span></div>
+                            <div class="campo">
+                                <label for="pensiero-t6">✍️ Un gradino davanti a un negozio: per chi è una barriera? Che cosa cambia se mettiamo una rampa?</label>
+                                <textarea id="pensiero-t6" name="pensiero-t6" placeholder="Secondo me..."></textarea>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </details>
 
-                <div class="tappa-nav"><button class="btn btn-soft" onclick="vaiTappa(5)">← Tappa 5</button><button class="btn" onclick="vaiTappa(7)">Tappa 7 · Il caso di Maria →</button></div>
+                <div class="tappa-nav"><button class="btn btn-soft" onclick="vaiTappa(4)">← Tappa 4</button><button class="btn" onclick="vaiTappa(6)">Tappa 6 · Il caso di Maria →</button></div>
             </section>
 
-            <!-- ===================== TAPPA 7 ===================== -->
-            <section class="tappa" id="tappa7" data-t="7" data-min="20">
+            <!-- ===================== TAPPA 6 ===================== -->
+            <!-- Revisione di ottobre 2026: le vecchie tappe 7 e 8 sono diventate questa. -->
+            <section class="tappa" id="tappa6" data-t="6" data-min="30">
                 <div class="tappa-head">
-                    <div class="tappa-num">7</div>
+                    <div class="tappa-num">6</div>
                     <div>
-                        <h2>Il caso di Maria: analisi e obiettivi</h2>
-                        <div class="sub">Parte C · Applichiamo il modello a una famiglia vera (inventata, ma verosimile)</div>
-                        <div class="chips"><span class="chip tempo">⏱️ 20 minuti</span><span class="chip comp">C5 · approccio multidimensionale</span><span class="chip">👥 in coppia</span></div>
+                        <h2>Il caso di Maria</h2>
+                        <div class="sub">Parte C · Dall'analisi al progetto: obiettivi e rete</div>
+                        <div class="chips"><span class="chip tempo">⏱️ 30 minuti</span><span class="chip comp">C5 · approccio multidimensionale</span><span class="chip comp">C1 · individuare le opportunità offerte dal territorio</span><span class="chip">👥 in coppia</span></div>
                     </div>
                 </div>
-                <div class="obiettivo"><strong>Alla fine della tappa sai:</strong> analizzare una situazione con il modello bio-psico-sociale e trasformare l'analisi in obiettivi di intervento.</div>
+                <div class="obiettivo"><strong>Alla fine della tappa sai:</strong> analizzare una famiglia con il modello bio-psico-sociale, trasformare l'analisi in obiettivi e scegliere i servizi e le persone da attivare.</div>
 
                 <div class="step step-spiego">
                     <div class="step-title"><span class="tag">CONTENUTI</span> Il caso, letto insieme <span class="min">5 min</span></div>
@@ -1406,8 +1442,6 @@
                         </ul>
                         <p class="nota" style="margin-top:8px"><strong>🎯 Il tuo compito.</strong> Sei operatore sociale del servizio sociale territoriale del Comune. L'assistente sociale ti ha chiesto di seguire questa famiglia: devi analizzare la situazione e proporre un intervento.</p>
                     </div>
-
-                    <h3>Come si passa dall'analisi al progetto</h3>
                     <div class="schema">
                         <svg viewBox="0 0 600 120" role="img" aria-label="Le quattro fasi del progetto: analisi, obiettivi, azioni e rete, verifica">
                             <defs><style>.t{font-family:Segoe UI,Tahoma,sans-serif;font-weight:700}.s{font-family:Segoe UI,Tahoma,sans-serif;font-size:11px;fill:#334}</style><marker id="c" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#52606d"/></marker></defs>
@@ -1418,23 +1452,16 @@
                             <path d="M135 55 L158 55" stroke="#52606d" stroke-width="2" marker-end="url(#c)"/><path d="M285 55 L308 55" stroke="#52606d" stroke-width="2" marker-end="url(#c)"/><path d="M435 55 L458 55" stroke="#52606d" stroke-width="2" marker-end="url(#c)"/>
                             <path d="M522 85 L522 105 L72 105 L72 87" fill="none" stroke="#52606d" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#c)"/>
                         </svg>
-                        <div class="didascalia">Il progetto è un ciclo: dopo la verifica si torna all'analisi. Oggi facciamo i passi 1 e 2, alla tappa 8 il passo 3.</div>
+                        <div class="didascalia">Il progetto è un ciclo: dopo la verifica si torna all'analisi. Con Maria fai i passi 1, 2 e 3; la verifica la impari con Casa Serena.</div>
                     </div>
-                    <p>Un <strong>obiettivo</strong> è un cambiamento che vogliamo vedere nella persona, non un'azione nostra. «Fare un colloquio» è un'azione; «Maria dorme meglio e si sente meno sola» è un obiettivo. Scrivi obiettivi <strong>concreti</strong> (si capisce che cosa cambia) e <strong>realistici</strong> (si può raggiungere in qualche mese).</p>
-                </div>
-
-                                <div class="step step-provate step-bonus">
-                    <div class="step-title"><span class="tag">ESERCIZIO</span> Obiettivo, azione o troppo vago? <span class="bonus-tag">bonus</span> <span class="min">3 min</span></div>
-                    <p class="act-istr">Prima di scrivere gli obiettivi per Maria: guarda come sono fatti quelli buoni e quelli che non funzionano.</p>
-                    <div data-act="obiettivi"></div>
-                    <div class="campo"><label for="a7-riscrivi">✏️ Riscrivi «Maria sta meglio» come un obiettivo vero</label><input type="text" id="a7-riscrivi" name="a7-riscrivi" placeholder="Entro ... Maria ..."></div>
+                    <div class="nota semplice"><strong>In parole semplici.</strong> Un <span class="hl">obiettivo</span> dice che cosa cambia per la persona; un'<span class="hl">azione</span> dice che cosa fa l'operatore. «Fare un colloquio» è un'azione; «Maria dorme meglio e si sente meno sola» è un obiettivo.</div>
                 </div>
 
                 <div class="step step-provate">
-                    <div class="step-title"><span class="tag">ESERCIZIO</span> Analisi e obiettivi <span class="min">10 min</span></div>
+                    <div class="step-title"><span class="tag">ESERCIZIO</span> Passo 1 · Che cosa vedo <span class="min">7 min</span></div>
                     <span class="coppia">👥 Lavorate in coppia, ma ognuno scrive sul proprio computer</span>
                     <div class="act">
-                        <div class="act-title">📊 Passo 1 · Analisi bio-psico-sociale <span class="pts">+12</span></div>
+                        <div class="act-title">📊 Analisi bio-psico-sociale <span class="pts">+12</span></div>
                         <p class="act-istr">Per ogni dimensione scrivi <strong>che cosa vedi nel caso</strong>: prendi i fatti dalla scheda, non inventare. Bastano due o tre righe per dimensione.</p>
                         <div class="campi-3">
                             <div class="campo"><label for="step1-biologico">🔬 Dimensione biologica e materiale <span class="pts">+4</span></label><p class="hint">Salute, sonno, casa, soldi, cibo.</p><textarea id="step1-biologico" name="step1-biologico" data-points="4" placeholder="Nel caso vedo che..."></textarea></div>
@@ -1442,14 +1469,47 @@
                             <div class="campo"><label for="step1-sociale">🌍 Dimensione sociale <span class="pts">+4</span></label><p class="hint">Relazioni, rete, scuola, quartiere, servizi.</p><textarea id="step1-sociale" name="step1-sociale" data-points="4" placeholder="Nel caso vedo che..."></textarea></div>
                         </div>
                     </div>
+                </div>
+
+                <div class="step step-provate">
+                    <div class="step-title"><span class="tag">ESERCIZIO</span> Passo 2 · Che cosa deve cambiare <span class="min">8 min</span></div>
+                    <p class="act-istr">Prima guarda come sono fatti gli obiettivi buoni e quelli che non funzionano, poi scrivi i tuoi: concreti (si capisce che cosa cambia) e realistici (si raggiungono in qualche mese).</p>
+                    <div data-act="obiettivi"></div>
                     <div class="act">
-                        <div class="act-title">🎯 Passo 2 · Tre obiettivi, uno per dimensione <span class="pts">+12</span></div>
+                        <div class="act-title">🎯 Tre obiettivi, uno per dimensione <span class="pts">+12</span></div>
                         <p class="act-istr">Scrivi che cosa deve <strong>cambiare</strong> per Maria e i bambini. Comincia con un verbo che descrive il cambiamento: «garantire», «ridurre», «recuperare», «creare».</p>
                         <div class="campi-3">
                             <div class="campo"><label for="step2-obiettivo1">Obiettivo 1 · area biologica e materiale <span class="pts">+4</span></label><textarea id="step2-obiettivo1" name="step2-obiettivo1" data-points="4" placeholder="Entro tre mesi la famiglia..."></textarea></div>
                             <div class="campo"><label for="step2-obiettivo2">Obiettivo 2 · area psicologica <span class="pts">+4</span></label><textarea id="step2-obiettivo2" name="step2-obiettivo2" data-points="4" placeholder="Entro tre mesi Maria... e Luca..."></textarea></div>
                             <div class="campo"><label for="step2-obiettivo3">Obiettivo 3 · area sociale <span class="pts">+4</span></label><textarea id="step2-obiettivo3" name="step2-obiettivo3" data-points="4" placeholder="Entro tre mesi attorno alla famiglia..."></textarea></div>
                         </div>
+                    </div>
+                </div>
+
+                <div class="fine-parte">✂️ <strong>Fine della prima parte.</strong> Se la lezione finisce qui, la prossima volta si riparte dal passo 3.</div>
+
+                <div class="step step-provate">
+                    <div class="step-title"><span class="tag">ESERCIZIO</span> Passo 3 · Chi attivo <span class="min">8 min</span></div>
+                    <span class="coppia">👥 In coppia, ognuno sul proprio computer</span>
+                    <div class="act">
+                        <div class="act-title">🏥 Rete formale: quali servizi attivi? <span class="pts">+6</span></div>
+                        <p class="act-istr">Ogni servizio risponde a un bisogno preciso. Spunta quelli che attiveresti (almeno tre), poi spiega <strong>per quale bisogno</strong> attivi ciascuno.</p>
+                        <div class="checklist servizi">
+                            <label><input type="checkbox" name="maria-servizi" value="servizio-sociale" data-label="Servizio sociale del Comune"> <span>Servizio sociale del Comune<small>valuta la situazione, contributi, aiuto per l'affitto; attiva gli altri servizi</small></span></label>
+                            <label><input type="checkbox" name="maria-servizi" value="centro-impiego" data-label="Centro per l'impiego"> <span>Centro per l'impiego<small>orientamento, corsi, offerte di lavoro</small></span></label>
+                            <label><input type="checkbox" name="maria-servizi" value="consultorio" data-label="Consultorio familiare"> <span>Consultorio familiare (ASL)<small>sostegno psicologico gratuito a genitori e figli</small></span></label>
+                            <label><input type="checkbox" name="maria-servizi" value="scuola" data-label="Scuola di Luca"> <span>Scuola di Luca<small>incontri con gli insegnanti, sportello, recupero</small></span></label>
+                            <label><input type="checkbox" name="maria-servizi" value="npi" data-label="Neuropsichiatria infantile"> <span>Neuropsichiatria infantile (ASL)<small>valuta se il comportamento di Luca nasconde una difficoltà</small></span></label>
+                            <label><input type="checkbox" name="maria-servizi" value="educativa" data-label="Servizio educativo domiciliare"> <span>Servizio educativo domiciliare<small>un educatore a casa alcune ore a settimana</small></span></label>
+                            <label><input type="checkbox" name="maria-servizi" value="doposcuola" data-label="Doposcuola / centro estivo"> <span>Doposcuola / centro estivo<small>tiene i bambini mentre Maria cerca lavoro</small></span></label>
+                            <label><input type="checkbox" name="maria-servizi" value="medico" data-label="Medico di famiglia"> <span>Medico di famiglia<small>segue la salute di Maria: il sonno, l'ansia</small></span></label>
+                        </div>
+                        <div class="campo"><label for="step3-reti-formali">Per ogni servizio spuntato: per quale bisogno lo attivo? <span class="pts">+6</span></label><textarea id="step3-reti-formali" name="step3-reti-formali" data-points="6" placeholder="Servizio sociale → per...&#10;Centro per l'impiego → per...&#10;..."></textarea></div>
+                    </div>
+                    <div class="act">
+                        <div class="act-title">🤝 Rete informale: chi coinvolgi? <span class="pts">+5</span></div>
+                        <p class="act-istr">La rete informale va <strong>cercata</strong>, non data per scontata: i nonni lontani possono aiutare lo stesso, i vicini possono diventare una rete di vicinato, un gruppo di auto-aiuto per genitori soli può spezzare l'isolamento di Maria.</p>
+                        <div class="campo"><label for="step3-reti-informali">Persone e gruppi non professionali da attivare, e come <span class="pts">+5</span></label><textarea id="step3-reti-informali" name="step3-reti-informali" data-points="5" placeholder="Nonni → ...&#10;Vicini → ...&#10;Gruppo di genitori → ..."></textarea></div>
                     </div>
                 </div>
 
@@ -1460,72 +1520,44 @@
                         <p class="hint">Un minuto, due righe. Poi leggi la risposta del vicino. <span class="bonus-tag">facoltativo</span></p>
                         <textarea id="pensiero-t7" name="pensiero-t7" placeholder="Secondo me..."></textarea>
                     </div>
-                    <button class="btn btn-soft btn-confronta" data-confronta="7">Apri il confronto</button>
+                    <button class="btn btn-soft btn-confronta" data-confronta="6">Apri il confronto</button>
                     <div class="confronto-body">
+                        <div class="domanda-classe">
+                            <div class="q">Perché la stessa situazione (un genitore solo con due figli) può essere «normale» per una famiglia e un problema per un'altra?</div>
+                            <div class="attese"><strong>Risposte attese:</strong> dipende dalle risorse: soldi, lavoro, rete di parenti e amici, salute. È il caso di Maria.</div>
+                        </div>
                         <div class="domanda-classe">
                             <div class="q">Da quale dimensione partireste con Maria? Perché?</div>
                             <div class="attese"><strong>Risposte attese:</strong> molti diranno «i soldi» (biologico-materiale): è l'urgenza. Ma senza lavorare sulla solitudine (sociale) e sull'ansia (psicologico) il problema torna. Il progetto lavora su tutte e tre, con priorità diverse nel tempo.</div>
                         </div>
                         <div class="esempio-risposta"><h5>Esempio di analisi</h5><strong>Biologico e materiale:</strong> Maria dorme male per lo stress; appartamento piccolo; difficoltà economiche per cibo, affitto e bollette. <strong>Psicologico:</strong> ansia, bassa autostima («non ce la faccio»), paura; Luca esprime il disagio con l'aggressività; Sofia cerca il padre assente. <strong>Sociale:</strong> isolamento, genitori lontani, padre assente, poche amicizie; la scuola segnala i problemi di Luca.</div>
                         <div class="esempio-risposta"><h5>Esempio di obiettivi</h5><strong>1.</strong> Garantire la sicurezza abitativa e alimentare della famiglia grazie a contributi economici e sostegno materiale. <strong>2.</strong> Sostenere Maria nel recupero dell'autostima e nella gestione dell'ansia; aiutare Luca a esprimere le emozioni legate all'assenza del padre. <strong>3.</strong> Creare una rete di supporto attorno alla famiglia: socializzazione di Maria, integrazione scolastica di Luca.</div>
-                    </div>
-                </div>
-
-                <div class="tappa-nav"><button class="btn btn-soft" onclick="vaiTappa(6)">← Tappa 6</button><button class="btn" onclick="vaiTappa(8)">Tappa 8 · La rete attorno a Maria →</button></div>
-            </section>
-
-            <!-- ===================== TAPPA 8 ===================== -->
-            <section class="tappa" id="tappa8" data-t="8" data-min="15">
-                <div class="tappa-head">
-                    <div class="tappa-num">8</div>
-                    <div>
-                        <h2>Il caso di Maria: la rete</h2>
-                        <div class="sub">Parte C · Chi attiviamo e perché</div>
-                        <div class="chips"><span class="chip tempo">⏱️ 15 minuti</span><span class="chip comp">C1 · individuare le opportunità offerte dal territorio</span><span class="chip">🏠 sfida extra a casa</span></div>
-                    </div>
-                </div>
-                <div class="obiettivo"><strong>Alla fine della tappa sai:</strong> scegliere le risorse formali e informali adatte a un caso e motivare la scelta.</div>
-
-                <div class="step step-spiego">
-                    <div class="step-title"><span class="tag">CONTENUTI</span> I servizi che un operatore del Comune può attivare <span class="min">4 min</span></div>
-                    <p>Quando l'operatore sociale progetta la rete, deve conoscere <strong>che cosa fa ciascun servizio</strong>. Ecco i più utili per una famiglia come quella di Maria:</p>
-                    <table class="tabella">
-                        <tr><th>Servizio</th><th>Che cosa fa</th></tr>
-                        <tr><td><strong>Servizio sociale del Comune</strong></td><td>Valuta la situazione e può concedere contributi economici di emergenza, sostegno all'affitto, esenzioni; attiva gli altri servizi.</td></tr>
-                        <tr><td><strong>Centro per l'impiego</strong></td><td>Aiuta a cercare lavoro: orientamento, corsi, offerte. Maria ha esperienza come cameriera.</td></tr>
-                        <tr><td><strong>Consultorio familiare (ASL)</strong></td><td>Sostegno psicologico gratuito a genitori e figli, aiuto nelle separazioni.</td></tr>
-                        <tr><td><strong>Scuola di Luca</strong></td><td>Incontri con gli insegnanti, sportello psicologico, attività di recupero e socializzazione.</td></tr>
-                        <tr><td><strong>Neuropsichiatria infantile (ASL)</strong></td><td>Valuta se il comportamento di Luca nasconde una difficoltà da trattare.</td></tr>
-                        <tr><td><strong>Servizio educativo domiciliare</strong></td><td>Un educatore va a casa alcune ore a settimana per sostenere Maria nel ruolo di genitore e seguire i bambini.</td></tr>
-                        <tr><td><strong>Centro estivo e doposcuola</strong></td><td>Tengono i bambini mentre Maria cerca lavoro; fanno socializzare Luca.</td></tr>
-                    </table>
-                    <p>La rete informale va <strong>cercata</strong>, non data per scontata: i nonni lontani possono comunque aiutare (videochiamate, visite, un piccolo aiuto economico), i vicini possono diventare una rete di vicinato, un <strong>gruppo di auto-aiuto per genitori soli</strong> può spezzare l'isolamento di Maria.</p>
-                </div>
-
-                <div class="step step-provate">
-                    <div class="step-title"><span class="tag">ESERCIZIO</span> Costruisci la rete di Maria <span class="min">8 min</span></div>
-                    <span class="coppia">👥 In coppia, ognuno sul proprio computer</span>
-                    <div class="act">
-                        <div class="act-title">🏥 Rete formale: quali servizi attivi? <span class="pts">+6</span></div>
-                        <p class="act-istr">Spunta i servizi che attiveresti (almeno tre), poi spiega per ciascuno <strong>per quale bisogno</strong> lo attivi.</p>
-                        <div class="checklist">
-                            <label><input type="checkbox" name="maria-servizi" value="servizio-sociale"> Servizio sociale del Comune</label>
-                            <label><input type="checkbox" name="maria-servizi" value="centro-impiego"> Centro per l'impiego</label>
-                            <label><input type="checkbox" name="maria-servizi" value="consultorio"> Consultorio familiare</label>
-                            <label><input type="checkbox" name="maria-servizi" value="scuola"> Scuola di Luca</label>
-                            <label><input type="checkbox" name="maria-servizi" value="npi"> Neuropsichiatria infantile</label>
-                            <label><input type="checkbox" name="maria-servizi" value="educativa"> Servizio educativo domiciliare</label>
-                            <label><input type="checkbox" name="maria-servizi" value="doposcuola"> Doposcuola / centro estivo</label>
-                            <label><input type="checkbox" name="maria-servizi" value="medico"> Medico di famiglia</label>
+                        <div class="domanda-classe">
+                            <div class="q">Quali servizi ha scelto quasi tutta la classe? Quale è stato scelto da pochi, e perché?</div>
+                            <div class="attese"><strong>Uso in classe:</strong> mostra il grafico delle risposte. Di solito tutti scelgono servizio sociale e centro per l'impiego; pochi la neuropsichiatria (paura dell'«etichetta») e il doposcuola (sembra poco importante, invece libera tempo a Maria).</div>
                         </div>
-                        <div class="campo"><label for="step3-reti-formali">Per ogni servizio spuntato: per quale bisogno lo attivo? <span class="pts">+6</span></label><textarea id="step3-reti-formali" name="step3-reti-formali" data-points="6" placeholder="Servizio sociale → per...&#10;Centro per l'impiego → per...&#10;..."></textarea></div>
+                        <div class="domanda-classe">
+                            <div class="q">Se attivate sette servizi in una volta, che cosa succede a Maria?</div>
+                            <div class="attese"><strong>Risposte attese:</strong> si sente sommersa, deve andare a sette appuntamenti, si perde. Serve un ordine: prima le urgenze (soldi, casa), poi il resto. È la sfida della linea del tempo, fra le attività extra.</div>
+                        </div>
+                        <div class="esempio-risposta"><h5>Esempio</h5><strong>Formale:</strong> Servizio sociale → contributo economico d'emergenza; Centro per l'impiego → ricollocazione di Maria; Consultorio → sostegno psicologico; Scuola → sportello e incontri con gli insegnanti; Neuropsichiatria → valutazione di Luca; Educativa domiciliare → sostegno alla genitorialità. <strong>Informale:</strong> nonni con videochiamate e visite; vicini per una rete di vicinato; gruppo di auto-aiuto per genitori soli.</div>
+                    <div class="schema schema-nuovo" style="margin-top:14px">
+                        <svg viewBox="0 0 640 280" role="img" aria-label="Bisogni di Maria collegati ai servizi e alle persone che rispondono" font-family="Segoe UI,Tahoma,sans-serif">
+<text x="130" y="24" font-size="12" font-weight="700" fill="#52606d" text-anchor="middle" letter-spacing=".05em">IL BISOGNO</text>
+<text x="500" y="24" font-size="12" font-weight="700" fill="#52606d" text-anchor="middle" letter-spacing=".05em">CHI RISPONDE</text><rect x="20" y="40" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="58" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Soldi, affitto, bollette</text><rect x="20" y="76" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="94" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Un lavoro per Maria</text><rect x="20" y="112" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="130" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Ansia e solitudine di Maria</text><rect x="20" y="148" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="166" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Il comportamento di Luca</text><rect x="20" y="184" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="202" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Tempo libero per cercare lavoro</text><rect x="20" y="220" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="238" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Sostegno come mamma</text><rect x="380" y="40" width="240" height="28" rx="8" fill="#e6f7f7" stroke="#0E7C7C"/><text x="500" y="58" font-size="12.5" font-weight="700" fill="#0E7C7C" text-anchor="middle">Servizio sociale del Comune</text><rect x="380" y="76" width="240" height="28" rx="8" fill="#e6f7f7" stroke="#0E7C7C"/><text x="500" y="94" font-size="12.5" font-weight="700" fill="#0E7C7C" text-anchor="middle">Centro per l'impiego</text><rect x="380" y="112" width="240" height="28" rx="8" fill="#e6f7f7" stroke="#0E7C7C"/><text x="500" y="130" font-size="12.5" font-weight="700" fill="#0E7C7C" text-anchor="middle">Consultorio · nonni · gruppo AMA</text><rect x="380" y="148" width="240" height="28" rx="8" fill="#e6f7f7" stroke="#0E7C7C"/><text x="500" y="166" font-size="12.5" font-weight="700" fill="#0E7C7C" text-anchor="middle">Scuola · neuropsichiatria infantile</text><rect x="380" y="184" width="240" height="28" rx="8" fill="#e6f7f7" stroke="#0E7C7C"/><text x="500" y="202" font-size="12.5" font-weight="700" fill="#0E7C7C" text-anchor="middle">Doposcuola · centro estivo</text><rect x="380" y="220" width="240" height="28" rx="8" fill="#e6f7f7" stroke="#0E7C7C"/><text x="500" y="238" font-size="12.5" font-weight="700" fill="#0E7C7C" text-anchor="middle">Educativa domiciliare</text><path d="M240 54 C310 54 310 54 380 54" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 90 C310 90 310 90 380 90" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 126 C310 126 310 126 380 126" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 162 C310 162 310 162 380 162" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 198 C310 198 310 198 380 198" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 234 C310 234 310 234 380 234" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 90 C310 90 310 198 380 198" fill="none" stroke="#CC0073" stroke-width="2"/><path d="M240 162 C310 162 310 234 380 234" fill="none" stroke="#CC0073" stroke-width="2"/>
+<text x="320" y="272" font-size="11.5" fill="#CC0073" text-anchor="middle">in rosa: un servizio che risponde a un secondo bisogno (il doposcuola libera tempo a Maria)</text></svg>
+                        <div class="didascalia">Ogni servizio risponde a un bisogno preciso; alcuni rispondono a due.</div>
                     </div>
-                    <div class="act">
-                        <div class="act-title">🤝 Rete informale: chi coinvolgi? <span class="pts">+5</span></div>
-                        <div class="campo"><label for="step3-reti-informali">Persone e gruppi non professionali da attivare, e come <span class="pts">+5</span></label><textarea id="step3-reti-informali" name="step3-reti-informali" data-points="5" placeholder="Nonni → ...&#10;Vicini → ...&#10;Gruppo di genitori → ..."></textarea></div>
                     </div>
                 </div>
 
+                <details class="extra">
+                    <summary>➕ Attività extra <small>per chi finisce prima o per casa · non servono a completare la tappa</small><span class="extra-stato"></span></summary>
+                    <div class="extra-body">
+                        <div class="step step-provate step-bonus">
+                            <div class="step-title"><span class="tag">DA SOLO</span> Un obiettivo vero <span class="bonus-tag">bonus</span> <span class="min">2 min</span></div>
+                    <div class="campo"><label for="a7-riscrivi">✏️ Riscrivi «Maria sta meglio» come un obiettivo vero</label><input type="text" id="a7-riscrivi" name="a7-riscrivi" placeholder="Entro ... Maria ..."></div>
+                        </div>
                                 <div class="step step-provate step-bonus">
                     <div class="step-title"><span class="tag">ESERCIZIO</span> L'imprevisto: il caso di Maria cambia <span class="bonus-tag">bonus</span> <span class="min">4 min</span></div>
                     <p class="act-istr">Hai costruito la rete di Maria. Tre settimane dopo succede qualcosa. In coppia pescate una carta (o usate quella che vi assegna il docente): coppie vicine con carte diverse.</p>
@@ -1537,36 +1569,6 @@
                     <div class="campo"><label for="a8-chi">2. Chi può coprire il vuoto? Pensa sia alla rete formale sia a quella informale.</label><textarea id="a8-chi" name="a8-chi"></textarea></div>
                     <div class="campo"><label for="a8-ordine">3. Che cosa cambia nell'ordine degli interventi?</label><textarea id="a8-ordine" name="a8-ordine"></textarea></div>
                 </div>
-
-                <div class="step step-confronto">
-                    <div class="step-title"><span class="tag">RISPOSTE E DISCUSSIONE</span> <span class="min">3 min</span></div>
-                    <div class="campo pensa-prima">
-                        <label for="pensiero-t8">✍️ Prima di parlarne, scrivi da solo: Quali servizi ha scelto quasi tutta la classe? Quale è stato scelto da pochi, e perché?</label>
-                        <p class="hint">Un minuto, due righe. Poi leggi la risposta del vicino. <span class="bonus-tag">facoltativo</span></p>
-                        <textarea id="pensiero-t8" name="pensiero-t8" placeholder="Secondo me..."></textarea>
-                    </div>
-                    <button class="btn btn-soft btn-confronta" data-confronta="8">Apri il confronto</button>
-                    <div class="confronto-body">
-                        <div class="domanda-classe">
-                            <div class="q">Quali servizi ha scelto quasi tutta la classe? Quale è stato scelto da pochi, e perché?</div>
-                            <div class="attese"><strong>Uso in classe:</strong> mostra il grafico delle risposte. Di solito tutti scelgono servizio sociale e centro per l'impiego; pochi la neuropsichiatria (paura dell'«etichetta») e il doposcuola (sembra poco importante, invece libera tempo a Maria).</div>
-                        </div>
-                        <div class="domanda-classe">
-                            <div class="q">Se attivate sette servizi in una volta, che cosa succede a Maria?</div>
-                            <div class="attese"><strong>Risposte attese:</strong> si sente sommersa, deve andare a sette appuntamenti, si perde. Serve un ordine: prima le urgenze (soldi, casa), poi il resto. È la sfida extra.</div>
-                        </div>
-                        <div class="esempio-risposta"><h5>Esempio</h5><strong>Formale:</strong> Servizio sociale → contributo economico d'emergenza; Centro per l'impiego → ricollocazione di Maria; Consultorio → sostegno psicologico; Scuola → sportello e incontri con gli insegnanti; Neuropsichiatria → valutazione di Luca; Educativa domiciliare → sostegno alla genitorialità. <strong>Informale:</strong> nonni con videochiamate e visite; vicini per una rete di vicinato; gruppo di auto-aiuto per genitori soli.</div>
-                    <div class="schema schema-nuovo" style="margin-top:14px">
-                        <svg viewBox="0 0 640 280" role="img" aria-label="Bisogni di Maria collegati ai servizi e alle persone che rispondono" font-family="Segoe UI,Tahoma,sans-serif">
-<text x="130" y="24" font-size="12" font-weight="700" fill="#52606d" text-anchor="middle" letter-spacing=".05em">IL BISOGNO</text>
-<text x="500" y="24" font-size="12" font-weight="700" fill="#52606d" text-anchor="middle" letter-spacing=".05em">CHI RISPONDE</text><rect x="20" y="40" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="58" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Soldi, affitto, bollette</text><rect x="20" y="76" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="94" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Un lavoro per Maria</text><rect x="20" y="112" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="130" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Ansia e solitudine di Maria</text><rect x="20" y="148" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="166" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Il comportamento di Luca</text><rect x="20" y="184" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="202" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Tempo libero per cercare lavoro</text><rect x="20" y="220" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="238" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Sostegno come mamma</text><rect x="380" y="40" width="240" height="28" rx="8" fill="#e6f7f7" stroke="#0E7C7C"/><text x="500" y="58" font-size="12.5" font-weight="700" fill="#0E7C7C" text-anchor="middle">Servizio sociale del Comune</text><rect x="380" y="76" width="240" height="28" rx="8" fill="#e6f7f7" stroke="#0E7C7C"/><text x="500" y="94" font-size="12.5" font-weight="700" fill="#0E7C7C" text-anchor="middle">Centro per l'impiego</text><rect x="380" y="112" width="240" height="28" rx="8" fill="#e6f7f7" stroke="#0E7C7C"/><text x="500" y="130" font-size="12.5" font-weight="700" fill="#0E7C7C" text-anchor="middle">Consultorio · nonni · gruppo AMA</text><rect x="380" y="148" width="240" height="28" rx="8" fill="#e6f7f7" stroke="#0E7C7C"/><text x="500" y="166" font-size="12.5" font-weight="700" fill="#0E7C7C" text-anchor="middle">Scuola · neuropsichiatria infantile</text><rect x="380" y="184" width="240" height="28" rx="8" fill="#e6f7f7" stroke="#0E7C7C"/><text x="500" y="202" font-size="12.5" font-weight="700" fill="#0E7C7C" text-anchor="middle">Doposcuola · centro estivo</text><rect x="380" y="220" width="240" height="28" rx="8" fill="#e6f7f7" stroke="#0E7C7C"/><text x="500" y="238" font-size="12.5" font-weight="700" fill="#0E7C7C" text-anchor="middle">Educativa domiciliare</text><path d="M240 54 C310 54 310 54 380 54" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 90 C310 90 310 90 380 90" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 126 C310 126 310 126 380 126" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 162 C310 162 310 162 380 162" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 198 C310 198 310 198 380 198" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 234 C310 234 310 234 380 234" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 90 C310 90 310 198 380 198" fill="none" stroke="#CC0073" stroke-width="2"/><path d="M240 162 C310 162 310 234 380 234" fill="none" stroke="#CC0073" stroke-width="2"/>
-<text x="320" y="272" font-size="11.5" fill="#CC0073" text-anchor="middle">in rosa: un servizio che risponde a un secondo bisogno (il doposcuola libera tempo a Maria)</text></svg>
-                        <div class="didascalia">Ogni servizio risponde a un bisogno preciso; alcuni rispondono a due.</div>
-                    </div>
-
-                    </div>
-                </div>
-
                 <div class="step step-casa">
                     <div class="step-title"><span class="tag">🏠 A CASA</span> Sfida extra: la linea del tempo <span class="min">+10 punti bonus</span></div>
                     <div class="campo opzionale">
@@ -1574,26 +1576,35 @@
                         <textarea id="sfida-timeline" name="sfida-timeline" data-points="10" data-optional="1" placeholder="MESE 1 · urgenze e presa in carico:&#10;- settimana 1: ...&#10;- settimana 2: ...&#10;&#10;MESE 2 · consolidamento:&#10;- ...&#10;&#10;MESE 3 · autonomia e verifica:&#10;- ..."></textarea>
                     </div>
                 </div>
+                        <div class="step step-provate step-bonus">
+                            <div class="step-title"><span class="tag">DA PENSARE</span> Le scelte della classe <span class="bonus-tag">bonus</span></div>
+                            <div class="campo">
+                                <label for="pensiero-t8">✍️ Quali servizi ha scelto quasi tutta la classe? Quale è stato scelto da pochi, e perché?</label>
+                                <textarea id="pensiero-t8" name="pensiero-t8" placeholder="Secondo me..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </details>
 
-                <div class="tappa-nav"><button class="btn btn-soft" onclick="vaiTappa(7)">← Tappa 7</button><button class="btn" onclick="vaiTappa(9)">Tappa 9 · Fermiamoci a riflettere →</button></div>
+                <div class="tappa-nav"><button class="btn btn-soft" onclick="vaiTappa(5)">← Tappa 5</button><button class="btn" onclick="vaiTappa(7)">Tappa 7 · Traguardo →</button></div>
             </section>
 
-            <!-- ===================== TAPPA 9 ===================== -->
-            <section class="tappa" id="tappa9" data-t="9" data-min="15">
+            <!-- ===================== TAPPA 7 ===================== -->
+            <!-- Revisione di ottobre 2026: le vecchie tappe 9 e 12 sono diventate questa. -->
+            <section class="tappa" id="tappa7" data-t="7" data-min="25">
                 <div class="tappa-head">
-                    <div class="tappa-num">9</div>
+                    <div class="tappa-num">7</div>
                     <div>
-                        <h2>Fermiamoci a riflettere</h2>
-                        <div class="sub">Parte C · Che cosa ho imparato e come ho imparato</div>
-                        <div class="chips"><span class="chip tempo">⏱️ 15 minuti</span><span class="chip comp">C2 · esporre le proprie idee nel gruppo</span><span class="chip">🏠 quattro domande a casa</span></div>
+                        <h2>Traguardo: che cosa so adesso</h2>
+                        <div class="sub">Parte D · Rileggo, verifico, mi valuto</div>
+                        <div class="chips"><span class="chip tempo">⏱️ 25 minuti</span><span class="chip comp">C2 · esporre le proprie idee nel gruppo</span><span class="chip">📝 quiz finale a sondaggio</span></div>
                     </div>
                 </div>
-                <div class="obiettivo"><strong>Alla fine della tappa sai:</strong> confrontare ciò che pensavi all'inizio con ciò che sai ora, e riconoscere come impari meglio.</div>
+                <div class="obiettivo"><strong>Alla fine della tappa:</strong> hai confrontato ciò che pensavi alla tappa 1 con ciò che sai ora, verificato le conoscenze con dieci domande e valutato onestamente le tue competenze.</div>
 
                 <div class="step step-spiego">
-                    <div class="step-title"><span class="tag">CONTENUTI</span> Perché fermarsi <span class="min">3 min</span></div>
+                    <div class="step-title"><span class="tag">CONTENUTI</span> Perché fermarsi <span class="min">2 min</span></div>
                     <p>Ragionare su come si è imparato si chiama <strong>metacognizione</strong>. Serve a due cose: fissare meglio ciò che si è capito e scoprire il proprio modo di imparare, così da usarlo anche nelle altre materie. Un operatore sociale fa lo stesso ogni giorno con il proprio lavoro: si ferma, rilegge, si chiede che cosa ha funzionato.</p>
-                    <div class="nota esempio">Rileggi ora quello che avevi scritto alla tappa 1: <strong id="richiamo-brainstorming" style="font-style:italic">…</strong></div>
                     <div class="schema schema-nuovo">
                         <svg viewBox="0 0 640 220" role="img" aria-label="Ciclo della metacognizione: pianifico, controllo, valuto" font-family="Segoe UI,Tahoma,sans-serif">
 <defs><marker id="mos9-ar9" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9z" fill="#0E7C7C"/></marker></defs>
@@ -1609,43 +1620,49 @@
 </svg>
                         <div class="didascalia">Il ciclo con cui si impara a imparare, lo stesso con cui l'operatore rivede il proprio lavoro.</div>
                     </div>
-
                 </div>
 
                 <div class="step step-provate">
-                    <div class="step-title"><span class="tag">ESERCIZIO</span> Due domande in classe <span class="min">8 min</span></div>
+                    <div class="step-title"><span class="tag">ESERCIZIO</span> Che cosa è cambiato <span class="min">5 min</span></div>
+                    <div class="nota esempio">Rileggi ora quello che avevi scritto alla tappa 1: <strong id="richiamo-brainstorming" style="font-style:italic">…</strong></div>
                     <div class="campo"><label for="riflessione-1">1. Che cosa è cambiato nella tua idea di operatore sociale rispetto alla tappa 1? <span class="pts">+5</span></label><textarea id="riflessione-1" name="riflessione-1" data-points="5" placeholder="All'inizio pensavo che... Ora ho capito che... La cosa che mi ha sorpreso di più..."></textarea></div>
-                    <div class="campo"><label for="riflessione-2">2. I tre concetti più importanti che hai incontrato, e perché <span class="pts">+5</span></label><textarea id="riflessione-2" name="riflessione-2" data-points="5" placeholder="1. ... perché...&#10;2. ... perché...&#10;3. ... perché..."></textarea></div>
                 </div>
 
-                                <div class="step step-provate step-bonus">
-                    <div class="step-title"><span class="tag">ESERCIZIO</span> Pensavo, ora penso · Scarica la memoria <span class="bonus-tag">bonus</span> <span class="min">5 min</span></div>
-                    <div class="nuova-att">
-                        <div class="nt">💭 Pensavo… ora penso…</div>
-                        <p class="hint">Alla tappa 1 avevi scritto: <em class="richiamo-bs">…</em></p>
-                        <div class="campo"><label for="a9-pensavo">Prima pensavo che l'operatore sociale…</label><textarea id="a9-pensavo" name="a9-pensavo"></textarea></div>
-                        <div class="campo"><label for="a9-orapenso">Ora penso che…</label><textarea id="a9-orapenso" name="a9-orapenso"></textarea></div>
-                        <div class="campo"><label for="a9-cambio">Che cosa mi ha fatto cambiare idea</label><input type="text" id="a9-cambio" name="a9-cambio"></div>
-                    </div>
-                    <div class="nuova-att">
-                        <div class="nt">🧠 Scarica la memoria <span class="timer-mem" id="a9-timer">2:00</span></div>
-                        <p class="act-istr">Due minuti, senza guardare gli appunti né la pagina: scrivi tutto quello che ricordi del percorso. Parole, concetti, esempi.</p>
-                        <button class="btn btn-sm" type="button" onclick="a9Timer()">▶ Avvia i due minuti</button>
-                        <div class="campo"><label for="a9-memoria">Quello che ricordo</label><textarea id="a9-memoria" name="a9-memoria" placeholder="rete, ICF, Rogers..."></textarea></div>
-                        <p><strong>Poi controlla:</strong> spunta i concetti chiave che avevi scritto. Quelli senza spunta sono da ripassare.</p>
-                        <div class="concetti" data-cb-title="Concetti chiave ricordati"><label><input type="checkbox" name="a9-concetti" value="operatore sociale"> operatore sociale</label><label><input type="checkbox" name="a9-concetti" value="relazione d'aiuto"> relazione d'aiuto</label><label><input type="checkbox" name="a9-concetti" value="i tre atteggiamenti di Rogers"> i tre atteggiamenti di Rogers</label><label><input type="checkbox" name="a9-concetti" value="modello bio-psico-sociale"> modello bio-psico-sociale</label><label><input type="checkbox" name="a9-concetti" value="rete formale"> rete formale</label><label><input type="checkbox" name="a9-concetti" value="rete informale"> rete informale</label><label><input type="checkbox" name="a9-concetti" value="nodi, legami e ponti"> nodi, legami e ponti</label><label><input type="checkbox" name="a9-concetti" value="ICF"> ICF</label><label><input type="checkbox" name="a9-concetti" value="invecchiamento attivo"> invecchiamento attivo</label><label><input type="checkbox" name="a9-concetti" value="dipendenza"> dipendenza</label><label><input type="checkbox" name="a9-concetti" value="obiettivo e azione"> obiettivo e azione</label><label><input type="checkbox" name="a9-concetti" value="progetto e verifica"> progetto e verifica</label></div>
+                <div class="step step-provate">
+                    <div class="step-title"><span class="tag">ESERCIZIO</span> Quiz finale <span class="min">8 min</span></div>
+                    <div data-act="quizf"></div>
+                </div>
+
+                <div class="step step-provate">
+                    <div class="step-title"><span class="tag">ESERCIZIO</span> Autovalutazione delle competenze <span class="min">5 min</span></div>
+                    <p class="act-istr">Valuta onestamente da 1 (per niente) a 5 (pienamente). Non è un voto: serve a te e al docente per capire dove insistere. <span class="pts">+20 quando completi tutte e sei</span></p>
+                    <div id="autoval">
+                        <div class="autoval-item"><label>1. Comprendo il modello bio-psico-sociale e so applicarlo</label><div class="scala"><label><input type="radio" name="comp1" value="1">1<br>per niente</label><label><input type="radio" name="comp1" value="2">2<br>poco</label><label><input type="radio" name="comp1" value="3">3<br>abbastanza</label><label><input type="radio" name="comp1" value="4">4<br>molto</label><label><input type="radio" name="comp1" value="5">5<br>pienamente</label></div></div>
+                        <div class="autoval-item"><label>2. Conosco le competenze e i luoghi di lavoro dell'operatore sociale</label><div class="scala"><label><input type="radio" name="comp2" value="1">1</label><label><input type="radio" name="comp2" value="2">2</label><label><input type="radio" name="comp2" value="3">3</label><label><input type="radio" name="comp2" value="4">4</label><label><input type="radio" name="comp2" value="5">5</label></div></div>
+                        <div class="autoval-item"><label>3. So riconoscere le tipologie di utenza e i loro bisogni</label><div class="scala"><label><input type="radio" name="comp3" value="1">1</label><label><input type="radio" name="comp3" value="2">2</label><label><input type="radio" name="comp3" value="3">3</label><label><input type="radio" name="comp3" value="4">4</label><label><input type="radio" name="comp3" value="5">5</label></div></div>
+                        <div class="autoval-item"><label>4. So distinguere la rete formale da quella informale e leggere nodi, legami, ponti e isolamenti</label><div class="scala"><label><input type="radio" name="comp4" value="1">1</label><label><input type="radio" name="comp4" value="2">2</label><label><input type="radio" name="comp4" value="3">3</label><label><input type="radio" name="comp4" value="4">4</label><label><input type="radio" name="comp4" value="5">5</label></div></div>
+                        <div class="autoval-item"><label>5. So progettare un intervento partendo dall'analisi</label><div class="scala"><label><input type="radio" name="comp5" value="1">1</label><label><input type="radio" name="comp5" value="2">2</label><label><input type="radio" name="comp5" value="3">3</label><label><input type="radio" name="comp5" value="4">4</label><label><input type="radio" name="comp5" value="5">5</label></div></div>
+                        <div class="autoval-item"><label>6. Ho consapevolezza della dimensione etica del lavoro dell'operatore</label><div class="scala"><label><input type="radio" name="comp6" value="1">1</label><label><input type="radio" name="comp6" value="2">2</label><label><input type="radio" name="comp6" value="3">3</label><label><input type="radio" name="comp6" value="4">4</label><label><input type="radio" name="comp6" value="5">5</label></div></div>
                     </div>
                 </div>
 
                 <div class="step step-confronto">
-                    <div class="step-title"><span class="tag">RISPOSTE E DISCUSSIONE</span> <span class="min">4 min</span></div>
+                    <div class="step-title"><span class="tag">RISPOSTE E DISCUSSIONE</span> <span class="min">5 min</span></div>
                     <div class="campo pensa-prima">
-                        <label for="pensiero-t9">✍️ Prima di parlarne, scrivi da solo: Giro veloce: ognuno dice una cosa che ha scoperto e che prima non sapeva.</label>
+                        <label for="pensiero-t12">✍️ Prima di parlarne, scrivi da solo: Guardate il grafico della classe: su quale domanda abbiamo sbagliato di più? Rispieghiamola insieme.</label>
                         <p class="hint">Un minuto, due righe. Poi leggi la risposta del vicino. <span class="bonus-tag">facoltativo</span></p>
-                        <textarea id="pensiero-t9" name="pensiero-t9" placeholder="Secondo me..."></textarea>
+                        <textarea id="pensiero-t12" name="pensiero-t12" placeholder="Secondo me..."></textarea>
                     </div>
-                    <button class="btn btn-soft btn-confronta" data-confronta="9">Apri il confronto</button>
+                    <button class="btn btn-soft btn-confronta" data-confronta="7">Apri il confronto</button>
                     <div class="confronto-body">
+                        <div class="domanda-classe">
+                            <div class="q">Guardate il grafico della classe: su quale domanda abbiamo sbagliato di più? Rispieghiamola insieme.</div>
+                            <div class="attese"><strong>Uso in classe:</strong> premi «Risposte della classe» e parti dalla domanda con più errori. Chi ha risposto bene spiega ai compagni.</div>
+                        </div>
+                        <div class="domanda-classe">
+                            <div class="q">Confrontate l'autovalutazione con il quiz: dove vi sentivate sicuri e invece avete sbagliato? Dove il contrario?</div>
+                            <div class="attese"><strong>Scopo:</strong> allenare la capacità di valutarsi, che è una competenza dell'operatore (autocontrollo e giustificazione delle scelte, richiesta nei livelli successivi del QNQ).</div>
+                        </div>
                         <div class="domanda-classe">
                             <div class="q">Giro veloce: ognuno dice una cosa che ha scoperto e che prima non sapeva.</div>
                             <div class="attese"><strong>Uso in classe:</strong> confronta con le «tre parole» della tappa 1 mostrate alla LIM. Che parole sono entrate? «Rete», «progetto», «ICF», «bio-psico-sociale».</div>
@@ -1657,28 +1674,79 @@
                     </div>
                 </div>
 
-                <div class="step step-casa">
-                    <div class="step-title"><span class="tag">🏠 A CASA</span> Le altre quattro domande <span class="min">+20 punti</span></div>
+                <details class="extra">
+                    <summary>➕ Attività extra <small>ripasso e riflessioni da fare in classe o a casa · non servono a completare la tappa</small><span class="extra-stato"></span></summary>
+                    <div class="extra-body">
+                        <div class="step step-provate step-bonus">
+                            <div class="step-title"><span class="tag">RIPASSO</span> Scarica la memoria e i tre concetti <span class="bonus-tag">bonus</span> <span class="min">5 min</span></div>
+                    <div class="nuova-att">
+                        <div class="nt">🧠 Scarica la memoria <span class="timer-mem" id="a9-timer">2:00</span></div>
+                        <p class="act-istr">Due minuti, senza guardare gli appunti né la pagina: scrivi tutto quello che ricordi del percorso. Parole, concetti, esempi.</p>
+                        <button class="btn btn-sm" type="button" onclick="a9Timer()">▶ Avvia i due minuti</button>
+                        <div class="campo"><label for="a9-memoria">Quello che ricordo</label><textarea id="a9-memoria" name="a9-memoria" placeholder="rete, ICF, Rogers..."></textarea></div>
+                        <p><strong>Poi controlla:</strong> spunta i concetti chiave che avevi scritto. Quelli senza spunta sono da ripassare.</p>
+                        <div class="concetti" data-cb-title="Concetti chiave ricordati"><label><input type="checkbox" name="a9-concetti" value="operatore sociale"> operatore sociale</label><label><input type="checkbox" name="a9-concetti" value="relazione d'aiuto"> relazione d'aiuto</label><label><input type="checkbox" name="a9-concetti" value="i tre atteggiamenti di Rogers"> i tre atteggiamenti di Rogers</label><label><input type="checkbox" name="a9-concetti" value="modello bio-psico-sociale"> modello bio-psico-sociale</label><label><input type="checkbox" name="a9-concetti" value="rete formale"> rete formale</label><label><input type="checkbox" name="a9-concetti" value="rete informale"> rete informale</label><label><input type="checkbox" name="a9-concetti" value="nodi, legami e ponti"> nodi, legami e ponti</label><label><input type="checkbox" name="a9-concetti" value="ICF"> ICF</label><label><input type="checkbox" name="a9-concetti" value="invecchiamento attivo"> invecchiamento attivo</label><label><input type="checkbox" name="a9-concetti" value="dipendenza"> dipendenza</label><label><input type="checkbox" name="a9-concetti" value="obiettivo e azione"> obiettivo e azione</label><label><input type="checkbox" name="a9-concetti" value="progetto e verifica"> progetto e verifica</label></div>
+                    </div>
+                    <div class="campo"><label for="riflessione-2">2. I tre concetti più importanti che hai incontrato, e perché <span class="pts">+5</span></label><textarea id="riflessione-2" name="riflessione-2" data-points="5" placeholder="1. ... perché...&#10;2. ... perché...&#10;3. ... perché..."></textarea></div>
+                        </div>
+                        <div class="step step-provate step-bonus">
+                            <div class="step-title"><span class="tag">RIFLESSIONE</span> Pensavo… ora penso… <span class="bonus-tag">bonus</span> <span class="min">4 min</span></div>
+                    <div class="nuova-att">
+                        <div class="nt">💭 Pensavo… ora penso…</div>
+                        <p class="hint">Alla tappa 1 avevi scritto: <em class="richiamo-bs">…</em></p>
+                        <div class="campo"><label for="a9-pensavo">Prima pensavo che l'operatore sociale…</label><textarea id="a9-pensavo" name="a9-pensavo"></textarea></div>
+                        <div class="campo"><label for="a9-orapenso">Ora penso che…</label><textarea id="a9-orapenso" name="a9-orapenso"></textarea></div>
+                        <div class="campo"><label for="a9-cambio">Che cosa mi ha fatto cambiare idea</label><input type="text" id="a9-cambio" name="a9-cambio"></div>
+                    </div>
+                        </div>
+                        <div class="step step-casa">
+                            <div class="step-title"><span class="tag">🏠 A CASA</span> Quattro domande su come hai imparato <span class="bonus-tag">bonus</span></div>
                     <div class="campo"><label for="riflessione-3">3. Quali argomenti o attività hai trovato più difficili? Che cosa ti è rimasto meno chiaro? <span class="pts">+5</span></label><textarea id="riflessione-3" name="riflessione-3" data-points="5" placeholder="L'argomento più complesso è stato... perché... Vorrei capire meglio..."></textarea></div>
                     <div class="campo"><label for="riflessione-4">4. Nel caso di Maria, che cosa ti è sembrato facile e che cosa difficile? <span class="pts">+5</span></label><textarea id="riflessione-4" name="riflessione-4" data-points="5" placeholder="Applicare il modello è stato... La parte più facile... La più complessa..."></textarea></div>
                     <div class="campo"><label for="riflessione-5">5. Tra ascolto, empatia, creatività e flessibilità, quali competenze pensi di avere già? Quali devi allenare? <span class="pts">+5</span></label><textarea id="riflessione-5" name="riflessione-5" data-points="5" placeholder="Penso di avere già... perché... Devo allenare... Potrei farlo così..."></textarea></div>
                     <div class="campo"><label for="riflessione-6">6. Come impari meglio: leggendo, facendo esercizi, analizzando casi, discutendo? <span class="pts">+5</span></label><textarea id="riflessione-6" name="riflessione-6" data-points="5" placeholder="Imparo meglio quando... In futuro potrei..."></textarea></div>
+                        </div>
+                <div class="step step-casa">
+                    <div class="step-title"><span class="tag">🏠 A CASA</span> Il mio piano d'azione</div>
+                    <p class="act-istr">Ora che hai finito il percorso, scrivi i tuoi prossimi passi come futuro operatore sociale.</p>
+                    <div class="campo opzionale"><label for="piano-cosa">📚 Che cosa voglio approfondire nei prossimi mesi?</label><textarea id="piano-cosa" name="piano-cosa" data-points="0" data-optional="1" placeholder="Argomenti, competenze, temi che vorrei capire meglio..."></textarea></div>
+                    <div class="campo opzionale"><label for="piano-come">🛠️ Come intendo farlo?</label><textarea id="piano-come" name="piano-come" data-points="0" data-optional="1" placeholder="Libri, video, laboratori a scuola, volontariato, parlare con chi fa questo lavoro..."></textarea></div>
+                    <div class="campo opzionale"><label for="piano-quando">📅 Quando?</label><textarea id="piano-quando" name="piano-quando" data-points="0" data-optional="1" placeholder="Entro fine mese... nei prossimi tre mesi... quest'anno..."></textarea></div>
+                    <div class="campo opzionale"><label for="piano-impegno">💪 Il mio impegno come futuro operatore sociale</label><textarea id="piano-impegno" name="piano-impegno" data-points="0" data-optional="1" placeholder="Mi impegno a essere un operatore che..."></textarea></div>
+                </div>
+                        <div class="step step-provate step-bonus">
+                            <div class="step-title"><span class="tag">DA PENSARE</span> Una cosa nuova <span class="bonus-tag">bonus</span></div>
+                            <div class="campo">
+                                <label for="pensiero-t9">✍️ Una cosa che hai scoperto in questo percorso e che prima non sapevi</label>
+                                <textarea id="pensiero-t9" name="pensiero-t9" placeholder="Non sapevo che..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <div class="traguardo">
+                    <div style="font-size:3em">🎉</div>
+                    <h2>Complimenti!</h2>
+                    <p>Hai completato il percorso sull'operatore sociale.</p>
+                    <div class="box"><div style="color:#666">Punteggio</div><div class="fs"><span id="finalScore">0</span>/<span id="finalMax">0</span></div><div id="finalBadges" style="margin-top:6px;font-size:.9em"></div></div>
                 </div>
 
-                <div class="tappa-nav"><button class="btn btn-soft" onclick="vaiTappa(8)">← Tappa 8</button><button class="btn" onclick="vaiTappa(10)">Tappa 10 · Casa Serena: l'analisi →</button></div>
+                <div class="tappa-nav"><button class="btn btn-soft" onclick="vaiTappa(6)">← Tappa 6</button><button class="btn btn-lime" onclick="window.print()">🖨️ Stampa il tuo lavoro completo</button><button class="btn btn-soft" onclick="vaiTappa(8)">Per la seconda · Casa Serena →</button></div>
             </section>
 
-            <!-- ===================== TAPPA 10 ===================== -->
-            <section class="tappa" id="tappa10" data-t="10" data-min="20">
+            <!-- ===================== APPENDICE · CASA SERENA ===================== -->
+            <!-- Revisione di ottobre 2026: le vecchie tappe 10 e 11, facoltative. data-appendice tiene i loro punti fuori dal totale. -->
+            <section class="tappa" id="tappa8" data-t="8" data-min="20" data-appendice="1">
                 <div class="tappa-head">
-                    <div class="tappa-num">10</div>
+                    <div class="tappa-num">+</div>
                     <div>
-                        <h2>Casa Serena: l'analisi</h2>
-                        <div class="sub">Parte D · Un caso complesso, affrontato in gruppo con i ruoli</div>
-                        <div class="chips"><span class="chip tempo">⏱️ 20 minuti</span><span class="chip comp">C2 · cooperare nei gruppi di lavoro</span><span class="chip comp">C5 · presa in carico</span><span class="chip">👥 gruppi di 3</span></div>
+                        <h2>Per la seconda · Casa Serena</h2>
+                        <div class="sub">Appendice facoltativa · Un caso complesso, in équipe: analisi, progetto, etica e verifica</div>
+                        <div class="chips"><span class="chip tempo">⏱️ due parti da 20 minuti</span><span class="chip comp">C2 · cooperare nei gruppi di lavoro</span><span class="chip comp">C5 · presa in carico</span><span class="chip">👥 gruppi di 3</span></div>
                     </div>
                 </div>
-                <div class="obiettivo"><strong>Alla fine della tappa sai:</strong> analizzare due persone e un gruppo con il modello bio-psico-sociale, lavorando in équipe con un ruolo preciso.</div>
+                <div class="obiettivo"><strong>Alla fine sai:</strong> lavorare in équipe con un ruolo preciso, analizzare due persone e un gruppo, scrivere obiettivi S.M.A.R.T. e dire come verificherai il progetto.</div>
+                <div class="nota attenzione"><strong>Facoltativa.</strong> Riprende con un caso più difficile quello che hai fatto con Maria. Si fa in seconda, o in prima se la classe ha tempo: non serve per completare il percorso.</div>
 
                 <div class="step step-spiego">
                     <div class="step-title"><span class="tag">CONTENUTI</span> Il caso e i ruoli <span class="min">6 min</span></div>
@@ -1714,24 +1782,16 @@
                     <h3>I tre ruoli del gruppo</h3>
                     <p>In un'équipe ognuno ha un compito, ma tutti conoscono tutto. Formate gruppi di tre e assegnate i ruoli: <strong>ognuno scrive nel proprio computer la parte di cui è responsabile</strong>, ma il testo si decide insieme.</p>
                     <table class="tabella">
-                        <tr><th>Ruolo</th><th>Di che cosa risponde</th><th>Tappa</th></tr>
-                        <tr><td><strong>🔎 Analista</strong></td><td>Analisi di Giuseppe e Anna e delle tensioni di gruppo. Deve trovare le cause, non solo descrivere i sintomi.</td><td>10</td></tr>
-                        <tr><td><strong>🛠️ Progettista</strong></td><td>Obiettivi, azioni per Giuseppe, per Anna e per il gruppo, strategie con le famiglie.</td><td>11</td></tr>
-                        <tr><td><strong>📏 Valutatore</strong></td><td>Équipe e vincoli, dimensione etica, indicatori per capire se il progetto funziona.</td><td>11</td></tr>
+                        <tr><th>Ruolo</th><th>Di che cosa risponde</th><th>Parte</th></tr>
+                        <tr><td><strong>🔎 Analista</strong></td><td>Analisi di Giuseppe e Anna e delle tensioni di gruppo. Deve trovare le cause, non solo descrivere i sintomi.</td><td>1 · analisi</td></tr>
+                        <tr><td><strong>🛠️ Progettista</strong></td><td>Obiettivi, azioni per Giuseppe, per Anna e per il gruppo, strategie con le famiglie.</td><td>2 · progetto</td></tr>
+                        <tr><td><strong>📏 Valutatore</strong></td><td>Équipe e vincoli, dimensione etica, indicatori per capire se il progetto funziona.</td><td>2 · progetto</td></tr>
                     </table>
                     <div class="nota semplice"><strong>Consiglio.</strong> Prima di scrivere, cinque minuti a voce: ognuno dice che cosa vede. Poi ciascuno scrive la propria parte guardando anche il computer degli altri.</div>
                 </div>
 
-                                <div class="step step-provate step-bonus">
-                    <div class="step-title"><span class="tag">ESERCIZIO</span> Il cerchio dei punti di vista <span class="bonus-tag">bonus</span> <span class="min">5 min</span></div>
-                    <p class="act-istr">Da fare nei «cinque minuti a voce». Ognuno del gruppo sceglie un punto di vista diverso e completa le tre frasi; poi le dice agli altri. L'analista annota le cause che emergono.</p>
-                    <div class="campo"><label for="a10-punto">Parlo dal punto di vista di…</label><select id="a10-punto" name="a10-punto"><option value="">— scegli —</option><option>Giuseppe, 82 anni</option><option>Il figlio di Giuseppe</option><option>Anna, 75 anni</option><option>L'animatore</option><option>Un ospite escluso dai gruppetti</option></select></div>
-                    <div class="campo"><label for="a10-penso">Io penso che…</label><input type="text" id="a10-penso" name="a10-penso" placeholder="che cosa vede e che cosa prova questa persona"></div>
-                    <div class="campo"><label for="a10-domanda">Una domanda che mi faccio da qui è…</label><input type="text" id="a10-domanda" name="a10-domanda" placeholder="che cosa vorrebbe chiedere all'équipe?"></div>
-                </div>
-
                 <div class="step step-provate">
-                    <div class="step-title"><span class="tag">ESERCIZIO</span> Analisi della situazione <span class="min">10 min</span></div>
+                    <div class="step-title"><span class="tag">ESERCIZIO</span> Parte 1 · Analisi della situazione <span class="min">10 min</span></div>
                     <span class="coppia">🔎 Scrive l'analista, ma il gruppo decide insieme</span>
                     <div class="campo"><label for="ruolo-gruppo">Il mio ruolo in questo gruppo</label><select id="ruolo-gruppo" name="ruolo-gruppo"><option value="">— scegli —</option><option>Analista</option><option>Progettista</option><option>Valutatore</option></select></div>
                     <div class="act">
@@ -1751,7 +1811,7 @@
                         <p class="hint">Un minuto, due righe. Poi leggi la risposta del vicino. <span class="bonus-tag">facoltativo</span></p>
                         <textarea id="pensiero-t10" name="pensiero-t10" placeholder="Secondo me..."></textarea>
                     </div>
-                    <button class="btn btn-soft btn-confronta" data-confronta="10">Apri il confronto</button>
+                    <button class="btn btn-soft btn-confronta" data-confronta="8">Apri il confronto</button>
                     <div class="confronto-body">
                         <div class="domanda-classe">
                             <div class="q">Giuseppe «ha smesso di prendersi cura di sé»: è un problema biologico, psicologico o sociale?</div>
@@ -1764,20 +1824,7 @@
                     </div>
                 </div>
 
-                <div class="tappa-nav"><button class="btn btn-soft" onclick="vaiTappa(9)">← Tappa 9</button><button class="btn" onclick="vaiTappa(11)">Tappa 11 · Casa Serena: il progetto →</button></div>
-            </section>
-
-            <!-- ===================== TAPPA 11 ===================== -->
-            <section class="tappa" id="tappa11" data-t="11" data-min="20">
-                <div class="tappa-head">
-                    <div class="tappa-num">11</div>
-                    <div>
-                        <h2>Casa Serena: il progetto</h2>
-                        <div class="sub">Parte D · Obiettivi, azioni, équipe, etica e verifica</div>
-                        <div class="chips"><span class="chip tempo">⏱️ 20 minuti</span><span class="chip comp">C2 · cooperare nei gruppi di lavoro</span><span class="chip">👥 stessi gruppi</span></div>
-                    </div>
-                </div>
-                <div class="obiettivo"><strong>Alla fine della tappa sai:</strong> scrivere obiettivi concreti, tradurli in azioni, tenere conto dei vincoli e dell'etica, e dire come verificherai i risultati.</div>
+                <div class="fine-parte">✂️ <strong>Fine della prima parte.</strong> La seconda parte si fa negli stessi gruppi.</div>
 
                 <div class="step step-spiego">
                     <div class="step-title"><span class="tag">CONTENUTI</span> Obiettivi ben scritti, etica e verifica <span class="min">5 min</span></div>
@@ -1806,11 +1853,10 @@
 <text x="320" y="156" font-size="12.5" fill="#52606d" text-anchor="middle">Se manca un anello, il progetto non si può verificare.</text></svg>
                         <div class="didascalia">Cinque anelli con l'esempio di Giuseppe: se ne manca uno, il progetto non si può verificare.</div>
                     </div>
-
                 </div>
 
                 <div class="step step-provate">
-                    <div class="step-title"><span class="tag">ESERCIZIO</span> Il progetto <span class="min">12 min</span></div>
+                    <div class="step-title"><span class="tag">ESERCIZIO</span> Parte 2 · Il progetto <span class="min">12 min</span></div>
                     <span class="coppia">🛠️ Scrive il progettista</span>
                     <div class="act">
                         <div class="act-title">Progettazione dell'intervento <span class="pts">+20</span></div>
@@ -1828,19 +1874,6 @@
                     </div>
                 </div>
 
-                                <div class="fine-parte">✂️ <strong>Fine della prima parte.</strong> Se la lezione finisce qui, la prossima volta si riparte da questo punto.</div>
-                <div class="step step-provate step-bonus">
-                    <div class="step-title"><span class="tag">ESERCIZIO</span> Revisione tra gruppi <span class="bonus-tag">bonus</span> <span class="min">12 min</span></div>
-                    <p class="act-istr">Il vostro gruppo si sposta al computer del gruppo accanto e legge il suo progetto qui sopra. Compilate la griglia <strong>sul loro computer</strong>. Poi tornate al vostro, leggete la revisione ricevuta e correggete.</p>
-                    <div class="campo"><label for="a11-c1">Gli obiettivi sono S.M.A.R.T.?</label><select id="a11-c1" name="a11-c1"><option value="">— scegli —</option><option>sì</option><option>in parte</option><option>no</option></select></div>
-                    <div class="campo"><label for="a11-c2">Gli obiettivi parlano della persona, non dell'operatore?</label><select id="a11-c2" name="a11-c2"><option value="">— scegli —</option><option>sì</option><option>in parte</option><option>no</option></select></div>
-                    <div class="campo"><label for="a11-c3">Le azioni rispettano i vincoli (niente assunzioni)?</label><select id="a11-c3" name="a11-c3"><option value="">— scegli —</option><option>sì</option><option>in parte</option><option>no</option></select></div>
-                    <div class="campo"><label for="a11-c4">C'è almeno un indicatore concreto per la verifica?</label><select id="a11-c4" name="a11-c4"><option value="">— scegli —</option><option>sì</option><option>in parte</option><option>no</option></select></div>
-                    <div class="campo"><label for="a11-forza">⭐ Un punto di forza</label><input type="text" id="a11-forza" name="a11-forza" placeholder="che cosa funziona davvero"></div>
-                    <div class="campo"><label for="a11-suggerimento">🔧 Un suggerimento concreto</label><input type="text" id="a11-suggerimento" name="a11-suggerimento" placeholder="un'azione che possono fare subito"></div>
-                    <div class="campo"><label for="a11-cambiato">🔁 Dopo la revisione ricevuta: che cosa abbiamo cambiato nel progetto, e perché</label><textarea id="a11-cambiato" name="a11-cambiato"></textarea></div>
-                </div>
-
                 <div class="step step-confronto">
                     <div class="step-title"><span class="tag">RISPOSTE E DISCUSSIONE</span> Ogni gruppo presenta in due minuti <span class="min">3 min + presentazioni</span></div>
                     <div class="campo pensa-prima">
@@ -1848,7 +1881,7 @@
                         <p class="hint">Un minuto, due righe. Poi leggi la risposta del vicino. <span class="bonus-tag">facoltativo</span></p>
                         <textarea id="pensiero-t11" name="pensiero-t11" placeholder="Secondo me..."></textarea>
                     </div>
-                    <button class="btn btn-soft btn-confronta" data-confronta="11">Apri il confronto</button>
+                    <button class="btn btn-soft btn-confronta" data-confronta="8">Apri il confronto</button>
                     <div class="confronto-body">
                         <div class="domanda-classe">
                             <div class="q">Ogni gruppo presenta il suo progetto in due minuti: un obiettivo, un'azione, un indicatore. La classe vota il progetto più convincente e dice perché.</div>
@@ -1861,90 +1894,43 @@
                     </div>
                 </div>
 
+                <details class="extra">
+                    <summary>➕ Attività extra <small>per arricchire il lavoro di gruppo · facoltative</small><span class="extra-stato"></span></summary>
+                    <div class="extra-body">
                                 <div class="step step-provate step-bonus">
-                    <div class="step-title"><span class="tag">ESERCIZIO</span> Facoltativa · Il dilemma di Giuseppe <span class="bonus-tag">bonus</span> <span class="min">20 min</span></div>
+                    <div class="step-title"><span class="tag">ESERCIZIO</span> Il cerchio dei punti di vista <span class="bonus-tag">bonus</span> <span class="min">5 min</span></div>
+                    <p class="act-istr">Da fare nei «cinque minuti a voce». Ognuno del gruppo sceglie un punto di vista diverso e completa le tre frasi; poi le dice agli altri. L'analista annota le cause che emergono.</p>
+                    <div class="campo"><label for="a10-punto">Parlo dal punto di vista di…</label><select id="a10-punto" name="a10-punto"><option value="">— scegli —</option><option>Giuseppe, 82 anni</option><option>Il figlio di Giuseppe</option><option>Anna, 75 anni</option><option>L'animatore</option><option>Un ospite escluso dai gruppetti</option></select></div>
+                    <div class="campo"><label for="a10-penso">Io penso che…</label><input type="text" id="a10-penso" name="a10-penso" placeholder="che cosa vede e che cosa prova questa persona"></div>
+                    <div class="campo"><label for="a10-domanda">Una domanda che mi faccio da qui è…</label><input type="text" id="a10-domanda" name="a10-domanda" placeholder="che cosa vorrebbe chiedere all'équipe?"></div>
+                </div>
+                <div class="step step-provate step-bonus">
+                    <div class="step-title"><span class="tag">ESERCIZIO</span> Revisione tra gruppi <span class="bonus-tag">bonus</span> <span class="min">12 min</span></div>
+                    <p class="act-istr">Il vostro gruppo si sposta al computer del gruppo accanto e legge il suo progetto qui sopra. Compilate la griglia <strong>sul loro computer</strong>. Poi tornate al vostro, leggete la revisione ricevuta e correggete.</p>
+                    <div class="campo"><label for="a11-c1">Gli obiettivi sono S.M.A.R.T.?</label><select id="a11-c1" name="a11-c1"><option value="">— scegli —</option><option>sì</option><option>in parte</option><option>no</option></select></div>
+                    <div class="campo"><label for="a11-c2">Gli obiettivi parlano della persona, non dell'operatore?</label><select id="a11-c2" name="a11-c2"><option value="">— scegli —</option><option>sì</option><option>in parte</option><option>no</option></select></div>
+                    <div class="campo"><label for="a11-c3">Le azioni rispettano i vincoli (niente assunzioni)?</label><select id="a11-c3" name="a11-c3"><option value="">— scegli —</option><option>sì</option><option>in parte</option><option>no</option></select></div>
+                    <div class="campo"><label for="a11-c4">C'è almeno un indicatore concreto per la verifica?</label><select id="a11-c4" name="a11-c4"><option value="">— scegli —</option><option>sì</option><option>in parte</option><option>no</option></select></div>
+                    <div class="campo"><label for="a11-forza">⭐ Un punto di forza</label><input type="text" id="a11-forza" name="a11-forza" placeholder="che cosa funziona davvero"></div>
+                    <div class="campo"><label for="a11-suggerimento">🔧 Un suggerimento concreto</label><input type="text" id="a11-suggerimento" name="a11-suggerimento" placeholder="un'azione che possono fare subito"></div>
+                    <div class="campo"><label for="a11-cambiato">🔁 Dopo la revisione ricevuta: che cosa abbiamo cambiato nel progetto, e perché</label><textarea id="a11-cambiato" name="a11-cambiato"></textarea></div>
+                </div>
+                                <div class="step step-provate step-bonus">
+                    <div class="step-title"><span class="tag">ESERCIZIO</span> Il dilemma di Giuseppe <span class="bonus-tag">bonus</span> <span class="min">20 min</span></div>
                     <p><strong>Giuseppe rifiuta tutte le attività. Il figlio chiede al centro di «obbligarlo», perché a casa sta peggio. L'équipe deve insistere?</strong></p>
                     <p class="act-istr">Gruppi di quattro, due coppie. <strong>1.</strong> La coppia A prepara il «sì, insistere» (benessere, rischio, richiesta della famiglia); la coppia B il «no» (autodeterminazione, dignità): 4 minuti. <strong>2.</strong> Due minuti a testa, l'altra coppia ascolta e riassume. <strong>3.</strong> Si scambiano le posizioni: ognuno difende l'altra tesi con un argomento nuovo. <strong>4.</strong> Si lasciano le posizioni e si decide insieme.</p>
                     <div class="campo"><label for="a12-posizione">La mia coppia all'inizio sosteneva</label><select id="a12-posizione" name="a12-posizione"><option value="">— scegli —</option><option>A · sì, insistere</option><option>B · no, rispettare il rifiuto</option></select></div>
                     <div class="campo"><label for="a12-decisione">Che cosa fa l'équipe? Scrivete una decisione che tenga conto di entrambe le ragioni</label><textarea id="a12-decisione" name="a12-decisione" placeholder="Non lo obbliga, ma..."></textarea></div>
                     <div class="campo"><label for="a12-argomento">L'argomento dell'altra coppia che ci ha fatto cambiare idea</label><input type="text" id="a12-argomento" name="a12-argomento"></div>
                 </div>
-
                 <div class="step step-casa">
                     <div class="step-title"><span class="tag">🏠 A CASA</span> Riflessione finale sul caso</div>
                     <div class="campo opzionale"><label for="riflessione-finale-caso">Come ti sei sentito/a davanti a una situazione così complessa? Quali competenze hai usato? Che cosa ti ha aiutato?</label><textarea id="riflessione-finale-caso" name="riflessione-finale-caso" data-points="0" data-optional="1" placeholder="Mi sono sentito/a... Le competenze che ho usato... Ciò che mi ha aiutato... Se fossi davvero l'operatore, la difficoltà maggiore sarebbe..."></textarea></div>
                 </div>
-
-                <div class="tappa-nav"><button class="btn btn-soft" onclick="vaiTappa(10)">← Tappa 10</button><button class="btn" onclick="vaiTappa(12)">Tappa 12 · Traguardo →</button></div>
-            </section>
-
-            <!-- ===================== TAPPA 12 ===================== -->
-            <section class="tappa" id="tappa12" data-t="12" data-min="20">
-                <div class="tappa-head">
-                    <div class="tappa-num">12</div>
-                    <div>
-                        <h2>Traguardo: autovalutazione, quiz finale, piano d'azione</h2>
-                        <div class="sub">Parte D · Che cosa so fare adesso</div>
-                        <div class="chips"><span class="chip tempo">⏱️ 20 minuti</span><span class="chip">📝 quiz finale a sondaggio</span></div>
                     </div>
-                </div>
-                <div class="obiettivo"><strong>Alla fine della tappa:</strong> hai valutato onestamente le tue competenze, verificato le conoscenze con dieci domande e scritto i tuoi prossimi passi.</div>
+                </details>
 
-                <div class="step step-provate">
-                    <div class="step-title"><span class="tag">ESERCIZIO</span> Autovalutazione delle competenze <span class="min">5 min</span></div>
-                    <p class="act-istr">Valuta onestamente da 1 (per niente) a 5 (pienamente). Non è un voto: serve a te e al docente per capire dove insistere. <span class="pts">+20 quando completi tutte e sei</span></p>
-                    <div id="autoval">
-                        <div class="autoval-item"><label>1. Comprendo il modello bio-psico-sociale e so applicarlo</label><div class="scala"><label><input type="radio" name="comp1" value="1">1<br>per niente</label><label><input type="radio" name="comp1" value="2">2<br>poco</label><label><input type="radio" name="comp1" value="3">3<br>abbastanza</label><label><input type="radio" name="comp1" value="4">4<br>molto</label><label><input type="radio" name="comp1" value="5">5<br>pienamente</label></div></div>
-                        <div class="autoval-item"><label>2. Conosco le competenze e i luoghi di lavoro dell'operatore sociale</label><div class="scala"><label><input type="radio" name="comp2" value="1">1</label><label><input type="radio" name="comp2" value="2">2</label><label><input type="radio" name="comp2" value="3">3</label><label><input type="radio" name="comp2" value="4">4</label><label><input type="radio" name="comp2" value="5">5</label></div></div>
-                        <div class="autoval-item"><label>3. So riconoscere le tipologie di utenza e i loro bisogni</label><div class="scala"><label><input type="radio" name="comp3" value="1">1</label><label><input type="radio" name="comp3" value="2">2</label><label><input type="radio" name="comp3" value="3">3</label><label><input type="radio" name="comp3" value="4">4</label><label><input type="radio" name="comp3" value="5">5</label></div></div>
-                        <div class="autoval-item"><label>4. So distinguere la rete formale da quella informale e leggere nodi, legami, ponti e isolamenti</label><div class="scala"><label><input type="radio" name="comp4" value="1">1</label><label><input type="radio" name="comp4" value="2">2</label><label><input type="radio" name="comp4" value="3">3</label><label><input type="radio" name="comp4" value="4">4</label><label><input type="radio" name="comp4" value="5">5</label></div></div>
-                        <div class="autoval-item"><label>5. So progettare un intervento partendo dall'analisi</label><div class="scala"><label><input type="radio" name="comp5" value="1">1</label><label><input type="radio" name="comp5" value="2">2</label><label><input type="radio" name="comp5" value="3">3</label><label><input type="radio" name="comp5" value="4">4</label><label><input type="radio" name="comp5" value="5">5</label></div></div>
-                        <div class="autoval-item"><label>6. Ho consapevolezza della dimensione etica del lavoro dell'operatore</label><div class="scala"><label><input type="radio" name="comp6" value="1">1</label><label><input type="radio" name="comp6" value="2">2</label><label><input type="radio" name="comp6" value="3">3</label><label><input type="radio" name="comp6" value="4">4</label><label><input type="radio" name="comp6" value="5">5</label></div></div>
-                    </div>
-                </div>
-
-                <div class="step step-provate">
-                    <div class="step-title"><span class="tag">ESERCIZIO</span> Quiz finale <span class="min">8 min</span></div>
-                    <div data-act="quizf"></div>
-                </div>
-
-                <div class="step step-confronto">
-                    <div class="step-title"><span class="tag">RISPOSTE E DISCUSSIONE</span> <span class="min">4 min</span></div>
-                    <div class="campo pensa-prima">
-                        <label for="pensiero-t12">✍️ Prima di parlarne, scrivi da solo: Guardate il grafico della classe: su quale domanda abbiamo sbagliato di più? Rispieghiamola insieme.</label>
-                        <p class="hint">Un minuto, due righe. Poi leggi la risposta del vicino. <span class="bonus-tag">facoltativo</span></p>
-                        <textarea id="pensiero-t12" name="pensiero-t12" placeholder="Secondo me..."></textarea>
-                    </div>
-                    <button class="btn btn-soft btn-confronta" data-confronta="12">Apri il confronto</button>
-                    <div class="confronto-body">
-                        <div class="domanda-classe">
-                            <div class="q">Guardate il grafico della classe: su quale domanda abbiamo sbagliato di più? Rispieghiamola insieme.</div>
-                            <div class="attese"><strong>Uso in classe:</strong> premi «Risposte della classe» e parti dalla domanda con più errori. Chi ha risposto bene spiega ai compagni.</div>
-                        </div>
-                        <div class="domanda-classe">
-                            <div class="q">Confrontate l'autovalutazione con il quiz: dove vi sentivate sicuri e invece avete sbagliato? Dove il contrario?</div>
-                            <div class="attese"><strong>Scopo:</strong> allenare la capacità di valutarsi, che è una competenza dell'operatore (autocontrollo e giustificazione delle scelte, richiesta nei livelli successivi del QNQ).</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="step step-casa">
-                    <div class="step-title"><span class="tag">🏠 A CASA</span> Il mio piano d'azione</div>
-                    <p class="act-istr">Ora che hai finito il percorso, scrivi i tuoi prossimi passi come futuro operatore sociale.</p>
-                    <div class="campo opzionale"><label for="piano-cosa">📚 Che cosa voglio approfondire nei prossimi mesi?</label><textarea id="piano-cosa" name="piano-cosa" data-points="0" data-optional="1" placeholder="Argomenti, competenze, temi che vorrei capire meglio..."></textarea></div>
-                    <div class="campo opzionale"><label for="piano-come">🛠️ Come intendo farlo?</label><textarea id="piano-come" name="piano-come" data-points="0" data-optional="1" placeholder="Libri, video, laboratori a scuola, volontariato, parlare con chi fa questo lavoro..."></textarea></div>
-                    <div class="campo opzionale"><label for="piano-quando">📅 Quando?</label><textarea id="piano-quando" name="piano-quando" data-points="0" data-optional="1" placeholder="Entro fine mese... nei prossimi tre mesi... quest'anno..."></textarea></div>
-                    <div class="campo opzionale"><label for="piano-impegno">💪 Il mio impegno come futuro operatore sociale</label><textarea id="piano-impegno" name="piano-impegno" data-points="0" data-optional="1" placeholder="Mi impegno a essere un operatore che..."></textarea></div>
-                </div>
-
-                <div class="traguardo">
-                    <div style="font-size:3em">🎉</div>
-                    <h2>Complimenti!</h2>
-                    <p>Hai completato il percorso sull'operatore sociale.</p>
-                    <div class="box"><div style="color:#666">Punteggio</div><div class="fs"><span id="finalScore">0</span>/<span id="finalMax">0</span></div><div id="finalBadges" style="margin-top:6px;font-size:.9em"></div></div>
-                </div>
-
-                <div class="tappa-nav"><button class="btn btn-soft" onclick="vaiTappa(11)">← Tappa 11</button><button class="btn btn-lime" onclick="window.print()">🖨️ Stampa il tuo lavoro completo</button></div>
+                <div class="tappa-nav"><button class="btn btn-soft" onclick="vaiTappa(7)">← Tappa 7</button><button class="btn btn-lime" onclick="window.print()">🖨️ Stampa il tuo lavoro completo</button></div>
             </section>
 
         </div><!-- /content -->
@@ -1974,7 +1960,7 @@
             ]
         },
         perche6: {
-            tappa: 6, bonus: true, titolo: '🤔 Perché proprio lì?', pts: 1,
+            tappa: 5, bonus: true, titolo: '🤔 Perché proprio lì?', pts: 1,
             istr: 'Due domande sull\'esempio di Rina e sul caso di Davide.',
             o: ['Biologica', 'Psicologica', 'Sociale'],
             items: [
@@ -1983,7 +1969,7 @@
             ]
         },
         obiettivi: {
-            tappa: 7, bonus: true, titolo: '🎯 Obiettivo, azione o troppo vago?', pts: 1,
+            tappa: 6, bonus: true, titolo: '🎯 Obiettivo, azione o troppo vago?', pts: 1,
             istr: 'Un obiettivo dice che cosa cambia per la persona. Un\'azione dice che cosa fa l\'operatore. Un obiettivo troppo vago non si può verificare.',
             o: ['Obiettivo ben scritto', "Azione dell'operatore", 'Troppo vago'],
             items: [
@@ -2083,7 +2069,7 @@
             ]
         },
         ute1: {
-            tappa: 5, titolo: '👥 Di chi stiamo parlando?', pts: 1,
+            tappa: 5, titolo: '👥 Di chi stiamo parlando? · le età della vita', pts: 1,
             istr: 'Leggi l\'indizio e scegli la tipologia di utenza.',
             o: ['Famiglia', 'Infanzia', 'Adolescenza'],
             items: [
@@ -2096,7 +2082,7 @@
             ]
         },
         ute2: {
-            tappa: 6, titolo: '👥 Di chi stiamo parlando?', pts: 1,
+            tappa: 5, titolo: '👥 Di chi stiamo parlando? · le condizioni', pts: 1,
             istr: 'Leggi l\'indizio e scegli la tipologia di utenza.',
             o: ['Terza età', 'Disabilità', 'Dipendenze'],
             items: [
@@ -2109,7 +2095,7 @@
             ]
         },
         quizf: {
-            tappa: 12, titolo: '📝 Quiz finale', pts: 3, quiz: true,
+            tappa: 7, titolo: '📝 Quiz finale', pts: 3, quiz: true,
             istr: 'Dieci domande su tutto il percorso. Ogni risposta corretta al primo tentativo vale 3 punti.',
             items: [
                 { t: "L'operatore sociale è principalmente un professionista:", o: ["Dell'area sanitaria che si occupa di cure mediche", "Della relazione d'aiuto che promuove il benessere bio-psico-sociale", "Dell'area amministrativa dei servizi sociali"], a: 1, why: "Relazione d'aiuto e benessere bio-psico-sociale: tappa 1." },
@@ -2127,7 +2113,16 @@
     };
 
     /* ===================================================================== */
-    const N_TAPPE = 12;
+    const N_TAPPE = 8;     // sette tappe più l'appendice Casa Serena
+    const N_PERCORSO = 7;  // le tappe che contano per finire il percorso
+    /* Revisione di ottobre 2026: da 12 tappe a 7 più un'appendice. Un salvataggio senza stato_versione usa la
+       numerazione vecchia: si converte, così «Riprendi da lì» porta alla tappa giusta. */
+    const VERSIONE_TAPPE = '2';
+    const TAPPA_DA_VECCHIA = { 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 5, 7: 6, 8: 6, 9: 7, 10: 8, 11: 8, 12: 7 };
+    function tappaAggiornata(n, versione) {
+        n = parseInt(n, 10) || 1;
+        return versione === VERSIONE_TAPPE ? Math.max(1, Math.min(N_TAPPE, n)) : (TAPPA_DA_VECCHIA[n] || 1);
+    }
     let tappaCorrente = 1;
     const actState = {};           // id -> { idx: {f, d} }
     const doneFields = new Set();  // id dei campi già premiati (per il popup)
@@ -2235,8 +2230,10 @@
         return $$('textarea[data-points], input[type="text"][data-points], select[data-points]').filter(el => +el.dataset.points > 0);
     }
     function fieldRequired(el) {
-        return +el.dataset.points > 0 && !el.dataset.optional && !el.closest('.step-casa');
+        return +el.dataset.points > 0 && !el.dataset.optional && !el.closest('.step-casa') && !el.closest('.extra');
     }
+    // Attività extra e appendice danno punti, ma non entrano nel totale: sono bonus
+    function fuoriTotale(el) { return Boolean(el.closest('.extra, [data-appendice]')); }
     function autovalDone() {
         return [1, 2, 3, 4, 5, 6].every(n => $$(`input[name="comp${n}"]`).some(r => r.checked));
     }
@@ -2244,7 +2241,7 @@
     /* ---------- punteggio ---------- */
     function calcMax() {
         let m = 0;
-        scoredFields().forEach(el => m += +el.dataset.points);
+        scoredFields().filter(el => !fuoriTotale(el)).forEach(el => m += +el.dataset.points);
         Object.keys(ACTS).filter(id => !ACTS[id].bonus).forEach(id => m += ACTS[id].items.length * ACTS[id].pts);
         m += 20; // autovalutazione
         return m;
@@ -2264,14 +2261,16 @@
         if (!acts.every(id => { const r = actPoints(id); return r.done === r.n; })) return false;
         const req = $$('textarea[data-points], input[type="text"][data-points], select[data-points]', sec).filter(fieldRequired);
         if (!req.every(fieldFilled)) return false;
-        if (n === 12 && !autovalDone()) return false;
+        if (n === N_PERCORSO && !autovalDone()) return false;
         return true;
     }
-    function tappaEsercizioCompleto(n) {
-        const acts = Object.keys(ACTS).filter(id => ACTS[id].tappa === n && !ACTS[id].bonus);
+    // «Apri il confronto» si sblocca con gli esercizi che stanno prima del bottone (Casa Serena ne ha due)
+    function tappaEsercizioCompleto(n, fino) {
+        const prima = el => Boolean(el) && (!fino || Boolean(el.compareDocumentPosition(fino) & Node.DOCUMENT_POSITION_FOLLOWING));
+        const acts = Object.keys(ACTS).filter(id => ACTS[id].tappa === n && !ACTS[id].bonus && prima($(`[data-act="${id}"]`)));
         const okActs = acts.every(id => { const r = actPoints(id); return r.done === r.n; });
         const sec = $(`#tappa${n}`);
-        const req = $$('.step-provate textarea[data-points], .step-provate input[type="text"][data-points], .step-provate select[data-points]', sec).filter(fieldRequired);
+        const req = $$('.step-provate textarea[data-points], .step-provate input[type="text"][data-points], .step-provate select[data-points]', sec).filter(fieldRequired).filter(prima);
         return okActs && req.every(fieldFilled);
     }
 
@@ -2279,7 +2278,8 @@
         const score = calcScore(), max = calcMax();
         $('#currentScore').textContent = score; $('#maxScore').textContent = max;
         $('#finalScore').textContent = score; $('#finalMax').textContent = max;
-        $('#currentTappa').textContent = tappaCorrente;
+        $('#currentTappa').textContent = tappaCorrente > N_PERCORSO ? '+' : tappaCorrente;
+        $('#maxTappa').textContent = tappaCorrente > N_PERCORSO ? ' extra' : `/${N_PERCORSO}`;
         // pill
         $$('.pill').forEach(p => { const n = +p.dataset.t; p.classList.toggle('active', n === tappaCorrente); p.classList.toggle('done', tappaDone(n)); });
         // campi
@@ -2289,9 +2289,14 @@
         // badge
         let nb = 0;
         $$('.badge').forEach(b => { const ok = b.dataset.tappe.split(',').every(t => tappaDone(+t)); b.classList.toggle('unlocked', ok); if (ok) nb++; });
-        $('#finalBadges').textContent = nb ? `${nb} badge su 6` : '';
+        $('#finalBadges').textContent = nb ? `${nb} badge su 6${nb === 5 && !tappaDone(8) ? ' · il sesto arriva con Casa Serena, in seconda' : ''}` : '';
         // confronta
-        $$('.btn-confronta').forEach(b => { const n = +b.dataset.confronta; const ok = tappaEsercizioCompleto(n); b.disabled = !ok && !document.body.classList.contains('lim'); b.textContent = ok ? 'Apri le risposte' : 'Prima completa l’esercizio'; });
+        $$('.btn-confronta').forEach(b => { const n = +b.dataset.confronta; const ok = tappaEsercizioCompleto(n, b); b.disabled = !ok && !document.body.classList.contains('lim'); b.textContent = ok ? 'Apri le risposte' : 'Prima completa l’esercizio'; });
+        // attività extra: quante risposte ci sono già, così nessuno perde di vista il proprio lavoro
+        $$('details.extra').forEach(d => {
+            const n = $$('textarea, input[type="text"], select', d).filter(el => !el.matches('[data-progress-ignore]') && fieldFilled(el)).length;
+            const st = $('.extra-stato', d); if (st) st.textContent = n ? `✍️ ${n} ${n === 1 ? 'risposta già scritta' : 'risposte già scritte'}` : '';
+        });
         // richiamo brainstorming
         const bs = $('#brainstorming-iniziale')?.value.trim();
         const rc = $('#richiamo-brainstorming'); if (rc) rc.textContent = bs ? `«${bs}»` : '(non avevi ancora scritto nulla alla tappa 1)';
@@ -2343,6 +2348,7 @@
         Object.keys(ACTS).forEach(applyActState);
         scoredFields().forEach(el => { if (fieldFilled(el)) doneFields.add(el.id); });
         if (autovalDone()) doneFields.add('autoval');
+        aggiornaNumerazione(window.__moDatiCaricati);
         const saved = parseInt($('#stato_tappa').value || '1', 10) || 1;
         restored = true;
         if (saved > 1 && !document.body.classList.contains('lim')) {
@@ -2352,6 +2358,20 @@
         }
         aggiornaTutto();
     });
+
+    // Si converte solo ciò che arriva da un salvataggio con la numerazione vecchia: decide il dato salvato,
+    // non il campo della pagina, perché lo studente può entrare dopo qualche secondo.
+    function aggiornaNumerazione(salvati) {
+        if (salvati && 'stato_tappa' in salvati && String(salvati.stato_versione ?? '') !== VERSIONE_TAPPE) {
+            const t = $('#stato_tappa'), nt = String(tappaAggiornata(salvati.stato_tappa, ''));
+            if (t.value !== nt) { t.value = nt; fireInput(t); }
+            const viste = $('#stato_tappe_viste'); let arr = []; try { arr = JSON.parse(salvati.stato_tappe_viste || '[]'); } catch { arr = []; }
+            const nv = JSON.stringify([...new Set((Array.isArray(arr) ? arr : []).map(x => tappaAggiornata(x, '')))]);
+            if (viste.value !== nv) { viste.value = nv; fireInput(viste); }
+        }
+        const ver = $('#stato_versione');
+        if (ver.value !== VERSIONE_TAPPE) { ver.value = VERSIONE_TAPPE; fireInput(ver); }
+    }
 
     /* ---------- MODALITÀ LIM (docente) ---------- */
     /* La modalità LIM è riservata al docente: stessa password e stessa sessione (6 ore)
@@ -2498,7 +2518,7 @@
         cbNames.forEach(name => {
             const count = {}; let answered = 0;
             rows.forEach(d => { const v = d[name]; const arr = Array.isArray(v) ? v : (v ? [v] : []); if (arr.length) answered++; arr.forEach(x => count[x] = (count[x] || 0) + 1); });
-            const labels = {}; $$(`input[name="${name}"]`, sec).forEach(c => labels[c.value] = c.parentElement.textContent.trim());
+            const labels = {}; $$(`input[name="${name}"]`, sec).forEach(c => labels[c.value] = c.dataset.label || c.parentElement.textContent.trim());
             const cbTitolo = $(`input[name="${name}"]`, sec)?.closest('[data-cb-title]')?.dataset.cbTitle || 'Servizi scelti';
             html += `<h4 style="margin-top:12px">☑️ ${esc(cbTitolo)} <span class="meta">${answered}/${n} hanno scelto</span></h4><div class="chipslist">${Object.entries(count).sort((a, b) => b[1] - a[1]).map(([v, c]) => `<span>${esc(labels[v] || v)} <strong>${c}</strong></span>`).join('') || '<span>nessuna scelta</span>'}</div>`;
         });
@@ -2537,11 +2557,11 @@
                     opts: sel ? Object.fromEntries([...el.options].map(o => [o.value, o.textContent.trim()])) : null });
             });
             [...new Set($$('input[type="checkbox"]', sec).map(c => c.name).filter(Boolean))].forEach(name => {
-                const labels = {}; $$(`input[name="${name}"]`, sec).forEach(c => labels[c.value] = c.parentElement.textContent.trim());
+                const labels = {}; $$(`input[name="${name}"]`, sec).forEach(c => labels[c.value] = c.dataset.label || c.parentElement.textContent.trim());
                 campi.push({ key: name, tipo: 'check', req: false, label: $(`input[name="${name}"]`, sec)?.closest('[data-cb-title]')?.dataset.cbTitle || 'Servizi scelti', opts: labels });
             });
             [...new Set($$('input[type="radio"]', sec).map(r => r.name).filter(Boolean))].forEach(name => {
-                campi.push({ key: name, tipo: 'radio', req: n === 12 && /^comp\d$/.test(name), label: $(`input[name="${name}"]`, sec)?.closest('.autoval-item')?.querySelector('label')?.textContent.trim() || name });
+                campi.push({ key: name, tipo: 'radio', req: n === N_PERCORSO && /^comp\d$/.test(name), label: $(`input[name="${name}"]`, sec)?.closest('.autoval-item')?.querySelector('label')?.textContent.trim() || name });
             });
             out[n] = { n, titolo: $('.tappa-head h2', sec)?.textContent.trim() || `Tappa ${n}`, campi, acts: Object.keys(ACTS).filter(id => ACTS[id].tappa === n), a2: speciali.a2 === n, a4: speciali.a4 === n, a5: speciali.a5 === n };
         }
@@ -2580,7 +2600,7 @@
         const tappe = []; let tot = 0, ok = 0;
         for (let n = 1; n <= N_TAPPE; n++) { const t = regTappa(d, n); tappe.push(t); tot += t.tot; ok += t.ok; }
         const meta = d._meta && typeof d._meta === 'object' ? d._meta : {};
-        return { tappe, pct: tot ? Math.round(ok / tot * 100) : 0, punti: meta.punti, puntiMax: meta.puntiMax, arrivato: parseInt(d.stato_tappa, 10) || 1, quando: row.updated_at ? new Date(row.updated_at) : null };
+        return { tappe, pct: tot ? Math.round(ok / tot * 100) : 0, punti: meta.punti, puntiMax: meta.puntiMax, arrivato: tappaAggiornata(d.stato_tappa, d.stato_versione), quando: row.updated_at ? new Date(row.updated_at) : null };
     }
 
     function regAnon() {
@@ -3194,7 +3214,7 @@
         const st = jget('a5-dialogo', null) || { k: 0, f: [] };
         let html = '';
         for (let i = 0; i < Math.min(st.k, A5.length); i++) { const ok = A5[i].o.find(o => o.ok); html += `<div class="chi">Matteo</div><div class="bolla">${esc(A5[i].m)}</div><div class="chi" style="text-align:right">Tu</div><div class="bolla io">${esc(ok.t)}</div>`; }
-        if (st.k >= A5.length) { box.innerHTML = html + `<div class="fbn ok">✅ ${esc(A5[A5.length - 1].o.find(o => o.ok).f)}<br><strong>Fine del dialogo.</strong> Nel confronto lo proverete a voce, a tre.</div>`; return; }
+        if (st.k >= A5.length) { box.innerHTML = html + `<div class="fbn ok">✅ ${esc(A5[A5.length - 1].o.find(o => o.ok).f)}<br><strong>Fine del dialogo.</strong> Se c'è tempo, provatelo a voce, a tre: è fra le attività extra.</div>`; return; }
         const s = A5[st.k];
         html += `<div class="chi">Matteo</div><div class="bolla">${esc(s.m)}</div><div class="chi" style="margin-top:6px">Tu rispondi…</div><div class="opts col">${s.o.map((o, i) => `<button type="button" class="opt" data-i="${i}">${esc(o.t)}</button>`).join('')}</div><div id="a5-fb">${ultimo || ''}</div>`;
         box.innerHTML = html;
@@ -3220,36 +3240,38 @@
     function a9Timer() { clearInterval(a9T); let sec = 120; const el = document.getElementById('a9-timer'); const draw = () => el.textContent = sec > 0 ? `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, '0')}` : 'tempo!'; draw(); a9T = setInterval(() => { sec--; draw(); if (sec <= 0) clearInterval(a9T); }, 1000); document.getElementById('a9-memoria')?.focus(); }
 
     /* ---------- R · Riattiva ---------- */
-    const RIATTIVA_APERTE = {
-        1: ["In una frase: che cosa vuol dire «relazione d'aiuto»?", "Un percorso costruito insieme, in cui la persona resta protagonista delle sue scelte e l'operatore fa emergere le sue capacità."],
-        2: ["Perché un problema in una dimensione si sposta nelle altre? Fai un esempio.", "Perché corpo, mente e relazioni si influenzano: l'anziano che si rompe il femore esce meno, si isola, si rattrista e guarisce più lentamente."],
-        3: ["Che differenza c'è fra un servizio residenziale e uno semiresidenziale?", "Nel residenziale la persona ci vive giorno e notte; nel semiresidenziale ci passa la giornata e la sera torna a casa."],
-        4: ["Che cos'è un «ponte» in una rete, e perché conta?", "Un legame che collega ambienti diversi: può portare informazioni e opportunità nuove."],
-        5: ["Perché la crisi adolescenziale non è una malattia?", "È la fatica normale di passare dall'identità infantile a quella adulta; diventa un problema solo se porta a disadattamento."],
-        6: ["Secondo l'ICF, perché una rampa «cambia la disabilità»?", "Perché la disabilità dipende anche dall'ambiente: togliendo la barriera la persona partecipa."],
-        7: ["Che differenza c'è fra un obiettivo e un'azione?", "L'obiettivo è il cambiamento che vogliamo vedere nella persona; l'azione è ciò che fa l'operatore per arrivarci."],
-        8: ["Perché non si attivano tutti i servizi insieme?", "La persona si sentirebbe sommersa: serve un ordine, prima le urgenze e poi il resto."],
-        9: ["Che cos'è la metacognizione?", "Ragionare su come si impara: pianificare, controllare, valutare il proprio modo di lavorare."],
-        10: ["Perché dietro un comportamento come quello di Anna si cerca un bisogno?", "Perché il comportamento è un segnale: non si giudica, si cerca il bisogno che lo muove."],
-        11: ["Che cosa vuol dire S.M.A.R.T.? Spiega almeno due lettere.", "Specifico, Misurabile, Accessibile, Rilevante, Temporizzato."]
-    };
+    // [tappa, domanda, risposta modello]
+    const RIATTIVA_APERTE = [
+        [1, "In una frase: che cosa vuol dire «relazione d'aiuto»?", "Un percorso costruito insieme, in cui la persona resta protagonista delle sue scelte e l'operatore fa emergere le sue capacità."],
+        [2, "Perché un problema in una dimensione si sposta nelle altre? Fai un esempio.", "Perché corpo, mente e relazioni si influenzano: l'anziano che si rompe il femore esce meno, si isola, si rattrista e guarisce più lentamente."],
+        [3, "Che differenza c'è fra un servizio residenziale e uno semiresidenziale?", "Nel residenziale la persona ci vive giorno e notte; nel semiresidenziale ci passa la giornata e la sera torna a casa."],
+        [4, "Che cos'è un «ponte» in una rete, e perché conta?", "Un legame che collega ambienti diversi: può portare informazioni e opportunità nuove."],
+        [5, "Perché la crisi adolescenziale non è una malattia?", "È la fatica normale di passare dall'identità infantile a quella adulta; diventa un problema solo se porta a disadattamento."],
+        [5, "Secondo l'ICF, perché una rampa «cambia la disabilità»?", "Perché la disabilità dipende anche dall'ambiente: togliendo la barriera la persona partecipa."],
+        [6, "Che differenza c'è fra un obiettivo e un'azione?", "L'obiettivo è il cambiamento che vogliamo vedere nella persona; l'azione è ciò che fa l'operatore per arrivarci."],
+        [6, "Perché non si attivano tutti i servizi insieme?", "La persona si sentirebbe sommersa: serve un ordine, prima le urgenze e poi il resto."],
+        [7, "Che cos'è la metacognizione?", "Ragionare su come si impara: pianificare, controllare, valutare il proprio modo di lavorare."],
+        [8, "Perché dietro un comportamento come quello di Anna si cerca un bisogno?", "Perché il comportamento è un segnale: non si giudica, si cerca il bisogno che lo muove."],
+        [8, "Che cosa vuol dire S.M.A.R.T.? Spiega almeno due lettere.", "Specifico, Misurabile, Accessibile, Rilevante, Temporizzato."]
+    ];
+    const daTappa = t => t > N_PERCORSO ? 'Da Casa Serena' : `Dalla tappa ${t}`;
     function rng(seed) { let h = 1779033703 ^ seed.length; for (let i = 0; i < seed.length; i++) { h = Math.imul(h ^ seed.charCodeAt(i), 3432918353); h = h << 13 | h >>> 19; } return () => { h = Math.imul(h ^ h >>> 16, 2246822507); h = Math.imul(h ^ h >>> 13, 3266489909); return ((h ^= h >>> 16) >>> 0) / 4294967296; }; }
     function oggi() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; }
     function riattivaDomande(N) {
         const r = rng(`${oggi()}|${N}`);
         const pool = t0 => { const out = []; Object.keys(ACTS).filter(id => !ACTS[id].bonus).forEach(id => ACTS[id].items.forEach((it, i) => { const t = ACTS[id].tappa; if (t0(t)) out.push({ id, i }); })); return out; };
         const pick = arr => arr.length ? arr[Math.floor(r() * arr.length)] : null;
-        const recenti = pool(t => t === N - 1 || (N - 1 === 12 && t === 12));
+        const recenti = pool(t => t === N - 1);
         const lontane = pool(t => t <= N - 2);
-        let a = pick(recenti.length ? recenti : pool(t => t < N)), b = pick(lontane.length ? lontane : pool(t => t < N).filter(x => x !== a));
-        const aperte = Object.keys(RIATTIVA_APERTE).map(Number).filter(t => t < N);
+        let a = pick(recenti.length ? recenti : pool(t => t < N)), b = pick((lontane.length ? lontane : pool(t => t < N)).filter(x => !a || x.id !== a.id || x.i !== a.i));
+        const aperte = RIATTIVA_APERTE.filter(([t]) => t < N);
         return { key: `${oggi()}|${N}`, q: [a, b].filter(Boolean), open: pick(aperte) };
     }
     function riattivaApri() {
         const p = document.getElementById('riattiva'); p.classList.add('show');
         const sel = document.getElementById('riattiva-tappa');
-        if (!sel.options.length) sel.innerHTML = Array.from({ length: 12 }, (_, k) => `<option value="${k + 2}">${k + 2 <= 12 ? k + 2 : 'fine percorso'}</option>`).join('');
-        const viste = jget('stato_tappe_viste', [1]); if (!sel.dataset.touched) sel.value = String(Math.min(13, Math.max(2, ...viste)));
+        if (!sel.options.length) sel.innerHTML = Array.from({ length: N_TAPPE }, (_, k) => k + 2).map(v => `<option value="${v}">${v <= N_PERCORSO ? v : v === N_TAPPE ? 'Casa Serena (per la seconda)' : 'fine percorso'}</option>`).join('');
+        const viste = jget('stato_tappe_viste', [1]); if (!sel.dataset.touched) sel.value = String(Math.min(N_TAPPE + 1, Math.max(2, ...viste)));
         sel.onchange = () => sel.dataset.touched = '1';
         const ult = jget('riattiva-ultimo', null);
         if (ult && ult.key && ult.key.startsWith(oggi())) { sel.value = ult.key.split('|')[1]; riattivaGenera(); }
@@ -3263,10 +3285,10 @@
         let html = '';
         D.q.forEach((q, n) => {
             const act = ACTS[q.id], it = act.items[q.i], opts = it.o || act.o;
-            html += `<div class="ra-item" data-n="${n}"><div class="qn">Dalla tappa ${act.tappa} · ${esc(it.t)}</div><div class="opts">${opts.map((o, k) => `<button type="button" class="opt" data-k="${k}">${esc(o)}</button>`).join('')}</div><div class="rfb"></div></div>`;
+            html += `<div class="ra-item" data-n="${n}"><div class="qn">${daTappa(act.tappa)} · ${esc(it.t)}</div><div class="opts">${opts.map((o, k) => `<button type="button" class="opt" data-k="${k}">${esc(o)}</button>`).join('')}</div><div class="rfb"></div></div>`;
         });
         const ab = document.getElementById('riattiva-aperta-box');
-        if (D.open) { ab.style.display = 'block'; document.getElementById('riattiva-aperta-q').textContent = `Dalla tappa ${D.open} · ${RIATTIVA_APERTE[D.open][0]}`; const m = document.getElementById('riattiva-modello'); m.textContent = RIATTIVA_APERTE[D.open][1]; m.style.display = 'none'; } else ab.style.display = 'none';
+        if (D.open) { ab.style.display = 'block'; document.getElementById('riattiva-aperta-q').textContent = `${daTappa(D.open[0])} · ${D.open[1]}`; const m = document.getElementById('riattiva-modello'); m.textContent = D.open[2]; m.style.display = 'none'; } else ab.style.display = 'none';
         box.innerHTML = html || '<p>Dalla tappa 2 in poi ci sono domande da riattivare.</p>';
         const segna = (n, k, primo) => {
             const q = D.q[n], act = ACTS[q.id], it = act.items[q.i]; const el = box.querySelector(`.ra-item[data-n="${n}"]`);
@@ -3299,6 +3321,10 @@
         out.innerHTML = html;
     }
 
+    let chiuseInStampa = [];
+    window.addEventListener('beforeprint', () => { chiuseInStampa = $$('.content details:not([open])'); chiuseInStampa.forEach(d => d.open = true); });
+    window.addEventListener('afterprint', () => { chiuseInStampa.forEach(d => d.open = false); chiuseInStampa = []; });
+
     function nuoveAttivitaRender() { a2Render(); a4Render(); a5Render(); a8Mostra(); }
     window.addEventListener('mo:progress-restored', nuoveAttivitaRender);
     /* ---------- avvio ---------- */
@@ -3306,7 +3332,7 @@
     aggiornaTutto();
     vaiTappa(1, { noScroll: true });
     // se dopo 4 secondi non è arrivato nessun ripristino, prova comunque a leggere i campi (es. modalità ospite con dati locali)
-    setTimeout(() => { if (!restored) { Object.keys(ACTS).forEach(applyActState); aggiornaTutto(); } }, 4000);
+    setTimeout(() => { if (!restored) { aggiornaNumerazione(); Object.keys(ACTS).forEach(applyActState); aggiornaTutto(); } }, 4000);
     nuoveAttivitaRender();
     setTimeout(() => { if (!restored) nuoveAttivitaRender(); }, 4100);
     </script>
@@ -3324,7 +3350,7 @@
                     Object.keys(prima).forEach(k => { if (k !== '_meta' && !(k in data)) data[k] = prima[k]; });
                 } catch (e) { }
                 try {
-                    const req = Array.from(document.querySelectorAll('textarea[data-points], input[type="text"][data-points], select[data-points]')).filter(el => +el.dataset.points > 0);
+                    const req = Array.from(document.querySelectorAll('textarea[data-points], input[type="text"][data-points], select[data-points]')).filter(el => +el.dataset.points > 0 && !el.closest('.extra, [data-appendice]'));
                     const filled = req.filter(el => String(el.value || '').trim().length > 0).length;
                     let actsTot = 0, actsDone = 0;
                     Object.keys(ACTS).filter(id => !ACTS[id].bonus).forEach(id => { const r = actPoints(id); actsTot += r.n; actsDone += r.done; });
