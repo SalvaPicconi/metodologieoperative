@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-23** · Codex · Percorso sull'operatore sociale: compilazione e salvataggi disponibili solo dopo il recupero delle risposte, con avviso durante l'attesa e protezione anche premendo Salva con la connessione lenta. Verificati in locale anche gli ultimi salvataggi dalle vecchie tappe 5, 6 e 7; rilascio Aruba ancora in attesa della fine della lezione.
+
 - **2026-10-23** · Claude · Percorso sull'operatore sociale: prima della pubblicazione su Aruba, corretto un caso in cui la pagina nuova avrebbe potuto salvare prima di caricare le risposte di chi entra lentamente. La versione online non ne era toccata.
 
 - **2026-10-23** · Claude · Biennio, percorso sull'operatore sociale: dalla tappa 5 in poi da 12 a 7 tappe più Casa Serena come appendice facoltativa per la seconda. Testi lunghi in riquadri chiusi, esercizi ripetuti nelle «Attività extra»; nessuna risposta degli studenti persa, chi era avanti ritrova la tappa giusta. (main `42f1edc`; Aruba da pubblicare)

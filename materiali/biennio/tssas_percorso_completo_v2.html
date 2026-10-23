@@ -544,7 +544,8 @@
         <input type="hidden" id="a5-dialogo" name="a5-dialogo" value="">
     </div>
 
-    <div class="container">
+    <p id="recupero-lavoro" role="status" style="max-width:1100px;margin:18px auto;padding:12px 18px;background:#fff;border-radius:12px">Recupero del lavoro salvato in corso. Attendi prima di iniziare.</p>
+    <div class="container" inert>
         <div class="header">
             <h1>🎓 L'operatore sociale per la sanità e l'assistenza sociale</h1>
             <p>Sette tappe sul profilo dell'operatore sociale, sulle persone destinatarie degli interventi, sul lavoro di rete e sul caso di Maria, più un caso facoltativo per la seconda. Ogni tappa ha contenuti, esercizi e domande; in fondo, chiuse, le attività extra. Il lavoro si salva automaticamente con il codice personale.</p>
@@ -2357,6 +2358,8 @@
             $('#riprendiBtn').onclick = () => { $('#riprendi').classList.remove('show'); vaiTappa(saved); };
         }
         aggiornaTutto();
+        document.querySelector('.container')?.removeAttribute('inert');
+        const avvisoRecupero = $('#recupero-lavoro'); if (avvisoRecupero) avvisoRecupero.hidden = true;
     });
 
     // Si converte solo ciò che arriva da un salvataggio con la numerazione vecchia: decide il dato salvato,
@@ -3347,6 +3350,9 @@
             inputSelector: 'textarea, input, select',
             autoSave: true,
             onBeforeSave: function (data) {
+                // Prima recuperare le risposte: con una connessione lenta non si deve
+                // mai riscrivere il lavoro remoto con i campi ancora vuoti della pagina.
+                if (!restored) return { __skipSave: true };
                 // Non perdere mai il lavoro già salvato: i campi che questa versione della pagina
                 // non ha più (per esempio quelli di versioni precedenti) vengono conservati così come sono.
                 try {
