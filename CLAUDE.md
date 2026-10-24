@@ -65,13 +65,24 @@ lavoro, o subito dopo se serve l'hash; se in un giorno si fanno più cose distin
 
 Tre livelli, in quest'ordine, sia in home sia nel menu:
 
-1. **Le classi** — `biennio.html`, `terzo.html`, `quarto.html`, `quinto.html`;
-2. **Metodi e laboratori** — lezioni partecipate, laboratorio, peer tutoring, compresenza,
-   attività di orientamento, glossario, più `intelligenza-artificiale.html` (pagina propria, non più sezione della home);
-3. **Docente** — programmi SSAS, programmazione individuale, area docente, anno di prova.
+1. **Le classi** — `biennio.html`, `terzo.html`, `quarto.html`, `quinto.html`, direttamente nella barra;
+2. **Metodi e laboratori** (tendina) — lezioni partecipate, laboratorio, peer tutoring, compresenza,
+   attività di orientamento, educazione civica, intelligenza artificiale, glossario;
+3. **Docente** (tendina) — programmi SSAS, programmazione individuale, programmazione Carola,
+   area docente. La pagina `anno-di-prova.html` resta nel sito ma fuori da menu e home (24 ottobre 2026).
 
-Il menu è unico e **non si modifica a mano**: si cambia `MENU` in `scripts/nav.py` e si lancia
-`python3 scripts/nav.py`, che riscrive il `<nav>` di tutte le pagine.
+La home mostra **solo le voci da aprire**, negli stessi tre livelli e nello stesso ordine del menu:
+niente descrizioni lunghe, niente riquadri speciali. Una pagina nuova si aggiunge prima in `LIVELLI`.
+
+Testata, menu e briciole **non si modificano a mano**: si cambia `LIVELLI` (e `ALIAS` per le
+sottopagine, come `lab_infanzia.html`) in `scripts/nav.py` e si lancia `python3 scripts/nav.py`,
+che riscrive in tutte le pagine la testata, il `<nav>`, le briciole «Home › livello › pagina» con la
+voce precedente e la successiva, e il richiamo ad `assets/nav.js` (menu nei telefoni).
+
+La veste grafica è **rosa e blu**: blu notte `#17385a`, il rosa del logo SSAS `#ec166c` per gli elementi
+decorativi e `#d6105f` per testi e pulsanti (leggibile), fondo `#f5f6fa` e superfici bianche; DM Serif per
+i titoli e DM Sans per il testo, serviti da `assets/collage-fonts/` (decisione del titolare, 24 ottobre 2026) —
+ed è fissata nei token di `:root` e nella sezione «Veste editoriale» in fondo a `style.css`.
 
 Le parole della materia si definiscono in un posto solo, `glossario.html` (array `VOCI`): quando
 una pagina usa un termine nuovo o ne cambia la spiegazione, si aggiorna anche il glossario, con
