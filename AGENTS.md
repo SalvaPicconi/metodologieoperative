@@ -1,6 +1,8 @@
 # Sito Metodologie Operative — note di progetto
 
-Sito statico pubblicato su GitHub Pages sotto `/metodologieoperative/`.
+Sito statico pubblicato su **Aruba**: https://www.metodologieoperativessas.it/ (Hosting Basic Linux).
+GitHub Pages è disattivato dal 23 ottobre 2026 e non va riattivato. Le fonti restano scritte per il
+vecchio prefisso `/metodologieoperative/`: l'esportazione per Aruba adatta indirizzi e PWA.
 In locale si serve dalla root: `preview_start` con la configurazione `static-site`
 di `.Codex/launch.json` (porta 8420).
 
@@ -9,6 +11,44 @@ Due dataset indipendenti:
 - **`materiali.json`** — i materiali didattici per anno, letti da `materiali.js`.
   Si modifica a mano, seguendo `GUIDA-RAPIDA.txt`.
 - **`programmi.json`** — la proposta di programmazione, **generata**: vedi sotto.
+
+---
+
+## Pubblicazione su Aruba
+
+**Unire una PR in `main` non pubblica niente.** Il sito si aggiorna soltanto con il workflow
+«Pubblica su Aruba» (`.github/workflows/aruba-deploy.yml`), che parte dai push sul ramo
+`codex/aruba-metodologieoperativessas`. Il nome del ramo non lo riserva a Codex: chi ha il consenso
+del titolare pubblica lì, Claude compreso. Su quel ramo stanno anche gli strumenti, assenti da `main`:
+`ARUBA.md`, `scripts/package_aruba.py`, `scripts/deploy_aruba.py` e il workflow. Partendo da `main`,
+le istruzioni complete si leggono con `git show origin/codex/aruba-metodologieoperativessas:ARUBA.md`.
+
+Procedura per ogni revisione:
+
+1. `git fetch origin`, poi un ramo proprio dalla **cima remota del ramo Aruba**: contiene revisioni e
+   protezioni dei salvataggi già in produzione che `main` può non avere. Niente reset distruttivi,
+   force-push o cancellazione di rami.
+2. Solo la revisione approvata. Se il lavoro sta su `main`, si porta sul ramo Aruba soltanto quello,
+   conservando tutta l'infrastruttura Aruba; non si sostituisce un ramo con l'altro.
+3. Controlli: `python3 scripts/programmi.py check` e
+   `python3 scripts/package_aruba.py --output <cartella-nuova>`; si confrontano gli hash di
+   `release.json` con quelli della produzione: devono cambiare solo i file della revisione.
+4. Pagine che salvano risposte: stessi `page-id`, percorso, nomi dei campi e funzioni di ripristino.
+   Con dati simulati si provano accesso lento, salvataggio anticipato, riapertura e salvataggi vecchi.
+5. Si pubblica solo la revisione concreta che il titolare ha approvato, nel momento che ha autorizzato,
+   senza richiedere un consenso già dato. Si rifà `git fetch`, si controlla che la cima Aruba sia
+   quella esaminata e sia antenata della revisione, poi un **push normale, non forzato**, sul ramo
+   Aruba. Se il remoto è avanzato si integra e si ricontrolla, senza sovrascrivere.
+6. Si verifica il run del workflow **per quello stesso commit** (REST:
+   `GET /repos/SalvaPicconi/metodologieoperative/actions/workflows/aruba-deploy.yml/runs?head_sha=<sha>`;
+   nel cloud `gh pr` e GraphQL possono essere bloccati, si usa `gh api` REST o gli strumenti GitHub
+   della sessione). Poi HTTPS, hash dei file pubblici modificati contro `release.json` e prova nel
+   browser. Un collaudo con la password docente si fa con il titolare, non si dichiara per deduzione.
+7. La password FTP sta solo nel secret `ARUBA_FTP_PASSWORD` di GitHub Actions: non si chiede, non si
+   legge, non si copia. Non si cambiano trigger, permessi o protezioni per far passare un rilascio.
+8. Una riga in `REGISTRO.md` con commit e run del workflow.
+
+Se qualcosa blocca, si indicano operazione, errore esatto (senza credenziali) e rimedio minimo.
 
 ---
 
