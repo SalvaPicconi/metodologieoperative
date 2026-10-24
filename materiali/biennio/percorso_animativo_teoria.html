@@ -1,365 +1,216 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teoria: Tecniche di Animazione Ludico-Sociale</title>
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap"
-        rel="stylesheet">
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>L'animazione ludica e sociale · Teoria</title>
+    <meta name="description" content="Teoria sull'animazione ludica e sociale per il biennio: dimensioni e fasi dell'animazione, metodologia del gioco, comunicazione, tecniche ludiche e ambiti di applicazione.">
+    <link rel="stylesheet" href="../../assets/materiale.css?v=20261024">
+    <script src="../../assets/materiale.js?v=20261024" defer></script>
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            color: #1f2937;
-            line-height: 1.6;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4 {
-            font-family: 'Merriweather', serif;
-        }
-
-        .header-gradient {
-            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-        }
+        .aree { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 10px 0 12px; }
+        .aree li { margin: 0; padding: 4px 12px; border: 2px solid var(--tinta); border-radius: 999px; font-weight: 600; font-size: .9rem; }
+        .aree li:nth-child(2) { border-color: var(--rosa); }
+        .aree li:nth-child(3) { border-color: var(--verde); }
+        .aree li:nth-child(4) { border-color: var(--acqua); }
+        .aree li:nth-child(5) { border-color: var(--color-primary); }
+        .ambito h3 { font-family: var(--font-titoli); font-weight: 400; font-size: 1.6rem; margin-top: 34px; }
+        .glossario dt { font-weight: 700; color: var(--color-primary); margin-top: 14px; }
+        .glossario dd { margin: 2px 0 0; }
+        .alla-prova { margin: 40px 0 10px; padding: 26px; text-align: center; background: var(--color-surface); border: 1px solid var(--color-line); border-top: 6px solid var(--rosa); }
+        .alla-prova p { font-family: var(--font-titoli); font-size: 1.5rem; color: var(--color-primary); }
     </style>
 </head>
+<body data-tinta="lime">
+<a class="skip" href="#contenuto">Vai al contenuto</a>
+<div class="barra shell">
+    <a href="../../biennio.html#arg-animazione">← Materiali del biennio</a>
+    <a href="percorso_animativo_interattivo.html">Esercizio pratico</a>
+    <span class="sito">Metodologie Operative</span>
+</div>
 
-<body class="bg-gray-50">
-
-    <header class="header-gradient text-white p-6 shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
-            <div>
-                <span class="text-indigo-200 text-sm font-bold uppercase tracking-wider">Metodologie Operative</span>
-                <h1 class="text-2xl md:text-3xl font-bold mt-1">L'Animazione Ludica e Sociale</h1>
-            </div>
-            <a href="percorso_animativo_interattivo.html"
-                class="mt-4 md:mt-0 bg-white text-indigo-700 font-bold py-2 px-6 rounded-full shadow hover:bg-indigo-50 transition transform hover:-translate-y-0.5">
-                Vai all'Esercizio Pratico →
-            </a>
+<main id="contenuto">
+    <header class="shell">
+        <div class="testata testata--archi">
+            <p class="occhiello">Biennio · Teoria</p>
+            <h1>L'animazione ludica e sociale</h1>
+            <p class="lead">Che cosa vuol dire animare, come si usa il gioco con un gruppo, quali tecniche servono e come cambia l'animazione al nido, con le persone con disabilità e con gli anziani.</p>
         </div>
     </header>
 
-    <main class="container mx-auto p-4 md:p-8 max-w-4xl">
+    <nav class="indice" aria-label="Unità">
+        <ol class="shell">
+            <li><a href="#unita1"><span class="n">1</span>Che cos'è</a></li>
+            <li class="t-rosa"><a href="#unita2"><span class="n">2</span>Il gioco</a></li>
+            <li class="t-verde"><a href="#unita3"><span class="n">3</span>La comunicazione</a></li>
+            <li class="t-acqua"><a href="#unita4"><span class="n">4</span>Le tecniche</a></li>
+            <li class="t-blu"><a href="#ambiti"><span class="n">5</span>Gli ambiti</a></li>
+            <li><a href="#parole"><span class="n">6</span>Parole da sapere</a></li>
+        </ol>
+    </nav>
 
-        <!-- UNITA 1: INTRODUZIONE -->
-        <section class="mb-12 bg-white p-8 rounded-xl shadow-sm border border-gray-100">
-            <span class="text-indigo-600 font-bold tracking-wide text-sm uppercase">Unità 1</span>
-            <h2 class="text-3xl font-bold text-gray-900 mb-6">Cos'è l'Animazione?</h2>
-
-            <div class="grid md:grid-cols-2 gap-8 mb-8">
-                <div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">Definizione</h3>
-                    <p class="text-gray-600 mb-4">
-                        Il termine <strong>Animazione</strong> (da <em>anima</em> + <em>azione</em>) richiama l'idea di
-                        dare anima all'azione. Rappresenta una modalità per "tirare fuori" le risorse personali,
-                        liberare l'espressività, scoprire e allenare la creatività.
-                    </p>
-                    <p class="text-gray-600">
-                        È una pratica sociale che permette di prendere coscienza e sviluppare le proprie
-                        <strong>potenzialità</strong> (percettive, espressive, creative).
-                    </p>
-                </div>
-                <div class="bg-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500">
-                    <h3 class="text-lg font-bold text-indigo-900 mb-2">Le 3 Dimensioni dell'Animazione</h3>
-                    <ul class="space-y-3">
-                        <li class="flex items-start">
-                            <span
-                                class="bg-indigo-200 text-indigo-800 rounded-full h-6 w-6 flex items-center justify-center text-xs font-bold mr-2 mt-1">1</span>
-                            <div><strong>Personale:</strong> Accogliere i diversi punti di vista e riflettere
-                                sull'esperienza.</div>
-                        </li>
-                        <li class="flex items-start">
-                            <span
-                                class="bg-indigo-200 text-indigo-800 rounded-full h-6 w-6 flex items-center justify-center text-xs font-bold mr-2 mt-1">2</span>
-                            <div><strong>Interpersonale:</strong> Favorire la conoscenza reciproca e l'empatia (mettersi
-                                nei panni dell'altro).</div>
-                        </li>
-                        <li class="flex items-start">
-                            <span
-                                class="bg-indigo-200 text-indigo-800 rounded-full h-6 w-6 flex items-center justify-center text-xs font-bold mr-2 mt-1">3</span>
-                            <div><strong>Collaborativa:</strong> Promuovere la partecipazione e il senso di appartenenza
-                                al gruppo.</div>
-                        </li>
-                    </ul>
-                </div>
+    <div class="shell">
+        <!-- UNITÀ 1 -->
+        <section class="sezione" id="unita1">
+            <h2><span class="num">1</span>Che cos'è l'animazione</h2>
+            <div class="definizione">
+                <p>Il termine <dfn>animazione</dfn> (da <em>anima</em> + <em>azione</em>) richiama l'idea di dare anima all'azione. Rappresenta una modalità per «tirare fuori» le risorse personali, liberare l'espressività, scoprire e allenare la creatività.</p>
+                <p>È una pratica sociale che permette di prendere coscienza e sviluppare le proprie <strong>potenzialità</strong> (percettive, espressive, creative).</p>
             </div>
 
-            <div class="mt-8">
-                <h3 class="text-xl font-bold text-gray-800 mb-4">Le Fasi dell'Animazione</h3>
-                <p class="text-gray-600 mb-4">L'animazione non è un evento isolato ma un processo che "chiama in causa"
-                    fantasia, creatività e immaginazione. Si basa su:</p>
-                <div class="grid md:grid-cols-3 gap-4 text-center">
-                    <div class="p-4 bg-gray-50 rounded-lg">
-                        <div class="text-3xl mb-2">👀</div>
-                        <h4 class="font-bold">Osservazione</h4>
-                        <p class="text-sm text-gray-500">Strumento indispensabile per capire il comportamento e le
-                            emozioni del gruppo.</p>
-                    </div>
-                    <div class="p-4 bg-gray-50 rounded-lg">
-                        <div class="text-3xl mb-2">🎭</div>
-                        <h4 class="font-bold">Azione</h4>
-                        <p class="text-sm text-gray-500">L'attività vera e propria (il gioco, il laboratorio,
-                            l'esperienza).</p>
-                    </div>
-                    <div class="p-4 bg-gray-50 rounded-lg">
-                        <div class="text-3xl mb-2">🔄</div>
-                        <h4 class="font-bold">Riflessione (Debriefing)</h4>
-                        <p class="text-sm text-gray-500">Rielaborare l'esperienza, condividere significati e feedback.
-                        </p>
-                    </div>
+            <h3>Le tre dimensioni dell'animazione</h3>
+            <div class="confronto">
+                <div class="t-lime"><h4>Personale</h4><p>Accogliere i diversi punti di vista e riflettere sull'esperienza.</p></div>
+                <div class="t-rosa"><h4>Interpersonale</h4><p>Favorire la conoscenza reciproca e l'empatia (mettersi nei panni dell'altro).</p></div>
+                <div class="t-verde"><h4>Collaborativa</h4><p>Promuovere la partecipazione e il senso di appartenenza al gruppo.</p></div>
+            </div>
+
+            <h3>Le fasi dell'animazione</h3>
+            <p>L'animazione non è un evento isolato ma un processo che «chiama in causa» fantasia, creatività e immaginazione. Si basa su:</p>
+            <ol class="passi">
+                <li class="t-acqua"><b>👀 Osservazione</b>Strumento indispensabile per capire il comportamento e le emozioni del gruppo.</li>
+                <li class="t-rosa"><b>🎭 Azione</b>L'attività vera e propria (il gioco, il laboratorio, l'esperienza).</li>
+                <li class="t-verde"><b>🔄 Riflessione (<em>debriefing</em>)</b>Rielaborare l'esperienza, condividere significati e riscontri.</li>
+            </ol>
+        </section>
+
+        <!-- UNITÀ 2 -->
+        <section class="sezione t-rosa" id="unita2">
+            <h2><span class="num">2</span>Metodologia del gioco</h2>
+            <h3>Il senso del gioco</h3>
+            <p>Non esiste un'idea assoluta di gioco, ma è una <strong>occasione preziosa</strong> per la crescita. È uno «spazio sperimentale» dove esporsi al «come se» per fare esperienza del «come è».</p>
+            <div class="in-breve"><p class="etichetta">In sintesi</p><p>L'animazione favorisce la fiducia e lo scambio fra le persone, ed è uno strumento essenziale nei servizi.</p></div>
+
+            <div class="confronto">
+                <div>
+                    <h3>Obiettivi dell'animatore</h3>
+                    <ul>
+                        <li>Supportare e guidare il gruppo partendo dai bisogni.</li>
+                        <li>Prendersi cura del clima relazionale ed emotivo.</li>
+                        <li>Mettere in risalto conoscenze e abilità di ciascuno.</li>
+                        <li>Favorire lo scambio e il confronto.</li>
+                        <li>Stimolare la presa di coscienza.</li>
+                        <li>Verificare il grado di soddisfazione.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Aree di interesse</h3>
+                    <ul class="aree">
+                        <li>Creatività</li><li>Espressività</li><li>Socialità</li><li>Fisicità</li><li>Ludica</li>
+                    </ul>
+                    <p class="nota">Queste aree propongono percorsi flessibili che tengono conto del vissuto personale e delle dinamiche di gruppo.</p>
                 </div>
             </div>
         </section>
 
-        <!-- UNITÀ 2: METODOLOGIA -->
-        <section class="mb-12 bg-white p-8 rounded-xl shadow-sm border border-gray-100">
-            <span class="text-pink-600 font-bold tracking-wide text-sm uppercase">Unità 2</span>
-            <h2 class="text-3xl font-bold text-gray-900 mb-6">Metodologia del Gioco</h2>
-
-            <div class="mb-8">
-                <h3 class="text-xl font-bold text-gray-800 mb-3">Il Senso del Gioco</h3>
-                <p class="text-gray-600 mb-4">
-                    Non esiste un'idea assoluta di gioco, ma è una <strong>occasione preziosa</strong> per la crescita.
-                    È uno "spazio sperimentale" dove esporsi al "come se" per fare esperienza del "come è".
-                </p>
-                <blockquote
-                    class="border-l-4 border-pink-400 pl-4 italic text-gray-600 my-4 bg-pink-50 py-2 pr-2 rounded-r">
-                    In sintesi: l'animazione favorisce la fiducia e lo scambio fra le persone, ed è uno strumento essenziale nei servizi.
-                </blockquote>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">Obiettivi dell'Animatore</h3>
-                    <ul class="list-disc list-inside text-gray-700 space-y-2">
-                        <li><strong>Supportare e guidare</strong> il gruppo partendo dai bisogni.</li>
-                        <li><strong>Prendersi cura del clima</strong> relazionale ed emotivo.</li>
-                        <li>Mettere in risalto <strong>conoscenze e abilità</strong> di ciascuno.</li>
-                        <li>Favorire lo <strong>scambio e il confronto</strong>.</li>
-                        <li>Stimolare la <strong>presa di coscienza</strong>.</li>
-                        <li>Verificare il <strong>grado di soddisfazione</strong>.</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">Aree di Interesse</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-pink-100 text-pink-800 rounded-full text-sm">Creatività</span>
-                        <span class="px-3 py-1 bg-pink-100 text-pink-800 rounded-full text-sm">Espressività</span>
-                        <span class="px-3 py-1 bg-pink-100 text-pink-800 rounded-full text-sm">Socialità</span>
-                        <span class="px-3 py-1 bg-pink-100 text-pink-800 rounded-full text-sm">Fisicità</span>
-                        <span class="px-3 py-1 bg-pink-100 text-pink-800 rounded-full text-sm">Ludica</span>
-                    </div>
-                    <p class="mt-4 text-sm text-gray-500">
-                        Queste aree propongono percorsi flessibili che tengono conto del vissuto personale e delle
-                        dinamiche di gruppo.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- UNITA 3: COMUNICAZIONE -->
-        <section class="mb-12 bg-white p-8 rounded-xl shadow-sm border border-gray-100">
-            <span class="text-green-600 font-bold tracking-wide text-sm uppercase">Unità 3</span>
-            <h2 class="text-3xl font-bold text-gray-900 mb-6">La Comunicazione nell'Animazione</h2>
-
-            <p class="text-gray-600 mb-6">
-                La comunicazione occupa una buona parte della pratica animativa. Permette di elaborare il vissuto
-                personale e porsi in una situazione di reciprocità.
-            </p>
-
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse border border-gray-200 rounded-lg overflow-hidden">
-                    <thead class="bg-gray-100 text-gray-700 uppercase text-xs">
-                        <tr>
-                            <th class="p-4 border-b">Tecnica</th>
-                            <th class="p-4 border-b">Caratteristiche</th>
-                            <th class="p-4 border-b">Esempio</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-sm text-gray-700">
-                        <tr class="hover:bg-gray-50">
-                            <td class="p-4 border-b font-bold text-green-700 uppercase">Il Rilancio</td>
-                            <td class="p-4 border-b">L'animatore riprende ciò che ha detto un partecipante, lo ripete con altre parole e chiede di precisarlo, così il discorso va avanti.</td>
-                            <td class="p-4 border-b italic">"Che cosa intendi dire esattamente con...?"</td>
-                        </tr>
-                        <tr class="hover:bg-gray-50">
-                            <td class="p-4 border-b font-bold text-green-700 uppercase">Domanda Aperta</td>
-                            <td class="p-4 border-b">Domande utili per avere pareri, stimolare il proseguimento
-                                dell'esposizione.</td>
-                            <td class="p-4 border-b italic">"Che cosa pensate potremmo fare a proposito di...?"</td>
-                        </tr>
-                        <tr class="hover:bg-gray-50">
-                            <td class="p-4 border-b font-bold text-green-700 uppercase">Specchio</td>
-                            <td class="p-4 border-b">L'animatore ripropone al gruppo la domanda di un partecipante per
-                                stimolare la discussione collettiva.</td>
-                            <td class="p-4 border-b italic">"Che cosa ne pensate della domanda di Giovanni?"</td>
-                        </tr>
+        <!-- UNITÀ 3 -->
+        <section class="sezione t-verde" id="unita3">
+            <h2><span class="num">3</span>La comunicazione nell'animazione</h2>
+            <p>La comunicazione occupa una buona parte della pratica animativa. Permette di elaborare il vissuto personale e porsi in una situazione di reciprocità.</p>
+            <div class="tabella-wrap">
+                <table class="tabella">
+                    <caption>Tre tecniche per far parlare il gruppo</caption>
+                    <thead><tr><th style="width: 20%">Tecnica</th><th>Caratteristiche</th><th style="width: 32%">Esempio</th></tr></thead>
+                    <tbody>
+                        <tr><th scope="row">Il rilancio</th><td>L'animatore riprende ciò che ha detto un partecipante, lo ripete con altre parole e chiede di precisarlo, così il discorso va avanti.</td><td><em>«Che cosa intendi dire esattamente con...?»</em></td></tr>
+                        <tr><th scope="row">La domanda aperta</th><td>Domande utili per avere pareri, stimolare il proseguimento dell'esposizione.</td><td><em>«Che cosa pensate potremmo fare a proposito di...?»</em></td></tr>
+                        <tr><th scope="row">Lo specchio</th><td>L'animatore ripropone al gruppo la domanda di un partecipante per stimolare la discussione collettiva.</td><td><em>«Che cosa ne pensate della domanda di Giovanni?»</em></td></tr>
                     </tbody>
                 </table>
             </div>
-
-            <div class="mt-6 bg-green-50 p-4 rounded-lg">
-                <h3 class="font-bold text-green-800 mb-2">Livelli di Comunicazione nel Gioco</h3>
-                <p class="text-sm text-green-700">Verbale, non verbale, paraverbale: il gioco permette di acquisire stili
-                    e forme di comunicazione e comprenderne il significato.</p>
+            <div class="definizione">
+                <h3>Livelli di comunicazione nel gioco</h3>
+                <p>Verbale, non verbale, paraverbale: il gioco permette di acquisire stili e forme di comunicazione e comprenderne il significato.</p>
             </div>
         </section>
 
-
-        <!-- UNITA 4: TECNICHE E GIOCHI -->
-        <section class="mb-12 bg-white p-8 rounded-xl shadow-sm border border-gray-100">
-            <span class="text-yellow-600 font-bold tracking-wide text-sm uppercase">Unità 4</span>
-            <h2 class="text-3xl font-bold text-gray-900 mb-6">Tipologie di Tecniche Ludiche</h2>
-
-            <div class="grid md:grid-cols-2 gap-6">
-
-                <!-- GIOCHI COOPERATIVI -->
-                <div class="border border-yellow-200 rounded-lg p-5">
-                    <h3 class="text-xl font-bold text-yellow-700 mb-2 uppercase">Giochi Cooperativi</h3>
-                    <p class="text-gray-600 text-sm mb-4">Si basano sull'accettazione e conoscenza reciproca. Il clima
-                        di fiducia fa sì che <strong>nessuno perda o venga escluso</strong>.</p>
-                    <ul class="text-sm space-y-2">
-                        <li><strong>A. Giochi Collaborativi:</strong> Incentivano la partecipazione per un fine comune
-                            (es. <em>Corsa a ostacoli a coppie</em>).</li>
-                        <li><strong>B. Problem Solving:</strong> Risolvere problemi grazie al contributo della diversità
-                            del gruppo (es. <em>Carton Boat</em>).</li>
+        <!-- UNITÀ 4 -->
+        <section class="sezione t-acqua" id="unita4">
+            <h2><span class="num">4</span>Tipologie di tecniche ludiche</h2>
+            <div class="confronto">
+                <div class="t-lime">
+                    <h3>Giochi cooperativi</h3>
+                    <p>Si basano sull'accettazione e conoscenza reciproca. Il clima di fiducia fa sì che <strong>nessuno perda o venga escluso</strong>.</p>
+                    <ul>
+                        <li><strong>A. Giochi collaborativi:</strong> incentivano la partecipazione per un fine comune (es. <em>Corsa a ostacoli a coppie</em>).</li>
+                        <li><strong>B. <em>Problem solving</em>:</strong> risolvere problemi grazie al contributo della diversità del gruppo (es. <em>Carton Boat</em>).</li>
                     </ul>
                 </div>
-
-                <!-- TECNICHE DI INTERAZIONE -->
-                <div class="border border-blue-200 rounded-lg p-5">
-                    <h3 class="text-xl font-bold text-blue-700 mb-2 uppercase">Tecniche di Interazione</h3>
-                    <p class="text-gray-600 text-sm mb-4">Mettono in relazione le persone permettendo lo scambio
-                        consapevole di risorse.</p>
-                    <ul class="text-sm space-y-2">
-                        <li><strong>A. Giochi di Conoscenza:</strong> Per iniziare a dare vita a relazioni e legami (es.
-                            <em>Presentazione a coppie</em>).</li>
-                        <li><strong>B. Brainstorming:</strong> "Tempesta di cervelli". Far emergere idee liberamente,
-                            anche assurde, senza giudizio iniziale.</li>
+                <div class="t-rosa">
+                    <h3>Tecniche di interazione</h3>
+                    <p>Mettono in relazione le persone permettendo lo scambio consapevole di risorse.</p>
+                    <ul>
+                        <li><strong>A. Giochi di conoscenza:</strong> per iniziare a dare vita a relazioni e legami (es. <em>Presentazione a coppie</em>).</li>
+                        <li><strong>B. <em>Brainstorming</em>:</strong> «tempesta di cervelli». Far emergere idee liberamente, anche assurde, senza giudizio iniziale.</li>
                     </ul>
                 </div>
             </div>
         </section>
 
+        <!-- AMBITI -->
+        <section class="sezione t-blu" id="ambiti">
+            <h2><span class="num">5</span>Ambiti di applicazione</h2>
 
-        <!-- AMBITI DI APPLICAZIONE -->
-        <section class="mb-12 bg-white p-8 rounded-xl shadow-sm border border-gray-100 border-l-8 border-l-purple-500">
-            <h2 class="text-3xl font-bold text-gray-900 mb-6">Ambiti di Applicazione</h2>
-
-            <!-- ASILO NIDO -->
-            <div class="mb-8">
-                <h3 class="text-2xl font-bold text-purple-700 mb-3 flex items-center">
-                    <span class="text-3xl mr-2">👶</span> Asilo Nido (0-3 anni)
-                </h3>
-                <p class="text-gray-600 mb-4">
-                    Il gioco del neonato parte dal proprio corpo e da quello di chi si prende cura di lui, spesso la madre. Attraverso il gioco
-                    apprende, sente e gusta.
-                    L'attività può essere condotta con diverse modalità:
-                </p>
-                <div class="grid md:grid-cols-3 gap-4 mb-4">
-                    <div class="bg-gray-50 p-3 rounded border">
-                        <strong class="block text-purple-600">Guidata</strong>
-                        <span class="text-xs text-gray-500">L'educatrice presenta e anima, dando respiro al divertimento
-                            (es. Bruco cooperativo).</span>
-                    </div>
-                    <div class="bg-gray-50 p-3 rounded border">
-                        <strong class="block text-purple-600">Coordinata</strong>
-                        <span class="text-xs text-gray-500">L'educatrice avvia fornendo stimoli, poi esce di scena (es.
-                            Il salto del giocattolo).</span>
-                    </div>
-                    <div class="bg-gray-50 p-3 rounded border">
-                        <strong class="block text-purple-600">Libera</strong>
-                        <span class="text-xs text-gray-500">Il bambino gioca liberamente con la propria inventiva; l'educatrice osserva senza intervenire.</span>
-                    </div>
-                </div>
-                <div class="bg-purple-50 p-4 rounded text-sm text-purple-800">
-                    <strong>Il Colloquio Preliminare:</strong> Fondamentale prima dell'inserimento per raccogliere
-                    la storia di gioco del bambino, detta <em>anamnesi ludica</em>: che cosa gli piace, come gioca, se ha oggetti preferiti.
+            <div class="ambito">
+                <h3>👶 Asilo nido (0-3 anni)</h3>
+                <p>Il gioco del neonato parte dal proprio corpo e da quello di chi si prende cura di lui, spesso la madre. Attraverso il gioco apprende, sente e gusta. L'attività può essere condotta con diverse modalità, che lasciano al bambino sempre più spazio:</p>
+                <ol class="passi">
+                    <li class="t-rosa"><b>Guidata</b>L'educatrice presenta e anima, dando respiro al divertimento (es. Bruco cooperativo).</li>
+                    <li class="t-verde"><b>Coordinata</b>L'educatrice avvia fornendo stimoli, poi esce di scena (es. Il salto del giocattolo).</li>
+                    <li class="t-acqua"><b>Libera</b>Il bambino gioca liberamente con la propria inventiva; l'educatrice osserva senza intervenire.</li>
+                </ol>
+                <div class="definizione t-lime">
+                    <p><strong>Il colloquio preliminare</strong> è fondamentale prima dell'inserimento per raccogliere la storia di gioco del bambino, detta <dfn>anamnesi ludica</dfn>: che cosa gli piace, come gioca, se ha oggetti preferiti.</p>
                 </div>
             </div>
 
-            <hr class="border-gray-200 my-8">
-
-            <!-- DISABILITA -->
-            <div class="mb-8">
-                <h3 class="text-2xl font-bold text-purple-700 mb-3 flex items-center">
-                    <span class="text-3xl mr-2">♿</span> Soggetti con Disabilità
-                </h3>
-                <p class="text-gray-600 mb-4">
-                    L'animazione ludica può essere rivolta a <strong>gruppi misti</strong>. Permette di sperimentare
-                    abilità residue, comprensione e accettazione.
-                </p>
-                <div class="bg-white border border-gray-300 rounded p-4 shadow-sm">
-                    <h4 class="font-bold text-gray-700 mb-2">Suggerimenti Operativi:</h4>
-                    <ul class="list-disc list-inside text-gray-600 space-y-1">
-                        <li>Adattare la <strong>numerosità</strong> del gruppo (gruppi di 2-3 persone quando serve un sostegno elevato).
-                        </li>
-                        <li>Se necessario, inserire un <strong>sostegno individuale</strong>.</li>
-                        <li>Attività <strong>alla portata</strong> di tutti (attenzione ai segnali psicofisici).</li>
+            <div class="ambito">
+                <h3>♿ Persone con disabilità</h3>
+                <p>L'animazione ludica può essere rivolta a <strong>gruppi misti</strong>. Permette di sperimentare abilità residue, comprensione e accettazione.</p>
+                <div class="riquadro">
+                    <h4>Suggerimenti operativi</h4>
+                    <ul>
+                        <li>Adattare la numerosità del gruppo (gruppi di 2-3 persone quando serve un sostegno elevato).</li>
+                        <li>Se necessario, inserire un sostegno individuale.</li>
+                        <li>Attività alla portata di tutti (attenzione ai segnali psicofisici).</li>
                         <li>Ripetere l'attività aumenta sicurezza e memorizzazione (routine).</li>
-                        <li><strong>Esempio:</strong> "Caccia al cuscino" (variante inclusiva della sedia musicale o
-                            acchiapparella).</li>
+                        <li><strong>Esempio:</strong> «Caccia al cuscino» (variante inclusiva della sedia musicale o acchiapparella).</li>
                     </ul>
                 </div>
             </div>
 
-            <hr class="border-gray-200 my-8">
-
-            <!-- ANZIANI -->
-            <div>
-                <h3 class="text-2xl font-bold text-purple-700 mb-3 flex items-center">
-                    <span class="text-3xl mr-2">👴</span> Servizi per Anziani
-                </h3>
-                <p class="text-gray-600 mb-4">
-                    Significa favorire un'autentica relazione interpersonale, <strong>dare valore al tempo
-                        libero</strong> e contribuire a mantenere le <strong>capacità residue</strong>.
-                </p>
-                <p class="text-gray-600">
-                    Attraverso il dialogo e l'apertura verso l'altro, si incoraggia il sostegno reciproco e la fiducia
-                    in se stessi. Il gioco diventa strumento per combattere l'isolamento e la depressione, frequenti nell'età anziana.
-                </p>
+            <div class="ambito">
+                <h3>👴 Servizi per anziani</h3>
+                <p>Significa favorire un'autentica relazione interpersonale, <strong>dare valore al tempo libero</strong> e contribuire a mantenere le <strong>capacità residue</strong>.</p>
+                <p>Attraverso il dialogo e l'apertura verso l'altro, si incoraggia il sostegno reciproco e la fiducia in se stessi. Il gioco diventa strumento per combattere l'isolamento e la depressione, frequenti nell'età anziana.</p>
             </div>
-
         </section>
 
         <!-- PAROLE DA SAPERE -->
-        <section id="parole" class="mb-12 bg-white p-8 rounded-xl shadow-sm border border-gray-100">
-            <span class="text-indigo-600 font-bold tracking-wide text-sm uppercase">Glossario</span>
-            <h2 class="text-3xl font-bold text-gray-900 mb-6">Parole da sapere</h2>
-            <p class="text-gray-600 mb-4">Nell'animazione si usano molte parole inglesi. Eccole spiegate: le trovi anche nell'esercizio pratico.</p>
-            <dl class="space-y-3 text-gray-700">
-                <div><dt class="font-bold">Animazione socioculturale</dt><dd>L'animazione che coinvolge le persone nella vita del gruppo e della comunità, per creare legami, partecipazione e senso di appartenenza.</dd></div>
-                <div><dt class="font-bold"><em>Setting</em></dt><dd>Lo spazio in cui si svolge l'attività: quello fisico (la stanza, la disposizione delle sedie, i materiali) e quello relazionale (il clima, le regole di rispetto).</dd></div>
-                <div><dt class="font-bold"><em>Ice-breaking</em> (rompighiaccio)</dt><dd>Un gioco breve da fare all'inizio per sciogliere l'imbarazzo e far conoscere le persone.</dd></div>
-                <div><dt class="font-bold"><em>Debriefing</em></dt><dd>Il momento dopo il gioco in cui il gruppo ripensa a che cosa è successo, che cosa ha provato e che cosa ha imparato. L'animatore fa domande aperte e non giudica.</dd></div>
-                <div><dt class="font-bold"><em>Brainstorming</em></dt><dd>Letteralmente «tempesta di cervelli»: il gruppo dice liberamente tutte le idee che vengono in mente, senza giudicarle; solo dopo si scelgono le migliori.</dd></div>
-                <div><dt class="font-bold"><em>Problem solving</em></dt><dd>Risolvere un problema insieme, mettendo in comune le capacità diverse di ciascuno.</dd></div>
-                <div><dt class="font-bold"><em>Circle time</em></dt><dd>Il «tempo del cerchio»: il gruppo si siede in cerchio e, con regole chiare (parla uno alla volta, gli altri ascoltano), ognuno può esprimere pensieri ed emozioni.</dd></div>
+        <section class="sezione" id="parole">
+            <h2><span class="num">6</span>Parole da sapere</h2>
+            <p>Nell'animazione si usano molte parole inglesi. Eccole spiegate: le trovi anche nell'esercizio pratico.</p>
+            <dl class="glossario">
+                <dt><dfn>Animazione socioculturale</dfn></dt><dd>L'animazione che coinvolge le persone nella vita del gruppo e della comunità, per creare legami, partecipazione e senso di appartenenza.</dd>
+                <dt><dfn><em>Setting</em></dfn></dt><dd>Lo spazio in cui si svolge l'attività: quello fisico (la stanza, la disposizione delle sedie, i materiali) e quello relazionale (il clima, le regole di rispetto).</dd>
+                <dt><dfn><em>Ice-breaking</em></dfn> (rompighiaccio)</dt><dd>Un gioco breve da fare all'inizio per sciogliere l'imbarazzo e far conoscere le persone.</dd>
+                <dt><dfn><em>Debriefing</em></dfn></dt><dd>Il momento dopo il gioco in cui il gruppo ripensa a che cosa è successo, che cosa ha provato e che cosa ha imparato. L'animatore fa domande aperte e non giudica.</dd>
+                <dt><dfn><em>Brainstorming</em></dfn></dt><dd>Letteralmente «tempesta di cervelli»: il gruppo dice liberamente tutte le idee che vengono in mente, senza giudicarle; solo dopo si scelgono le migliori.</dd>
+                <dt><dfn><em>Problem solving</em></dfn></dt><dd>Risolvere un problema insieme, mettendo in comune le capacità diverse di ciascuno.</dd>
+                <dt><dfn><em>Circle time</em></dfn></dt><dd>Il «tempo del cerchio»: il gruppo si siede in cerchio e, con regole chiare (parla uno alla volta, gli altri ascoltano), ognuno può esprimere pensieri ed emozioni.</dd>
             </dl>
         </section>
 
-    </main>
+        <div class="alla-prova non-stampare">
+            <p>Hai studiato la teoria?</p>
+            <a class="button" href="percorso_animativo_interattivo.html">Mettiti alla prova con l'esercizio pratico →</a>
+        </div>
 
-    <footer class="bg-gray-800 text-gray-300 p-8 text-center mt-12">
-        <p class="mb-4">Hai studiato la teoria?</p>
-        <a href="percorso_animativo_interattivo.html"
-            class="inline-block bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
-            Mettiti alla prova con l'Esercizio Pratico! 🚀
-        </a>
-    </footer>
-
+        <footer class="piede">
+            <p>Metodologie Operative · L'animazione ludica e sociale</p>
+            <a href="#contenuto">Torna all'inizio</a>
+        </footer>
+    </div>
+</main>
 </body>
-
 </html>

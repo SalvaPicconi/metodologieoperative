@@ -5,138 +5,151 @@
     <meta name="page-id" content="attivita-materiali-biennio-percorso-animativo-interattivo">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Percorso Animativo Interattivo: Tecniche di Animazione Ludico-Creativa</title>
+    <title>L'animazione ludica e sociale · Esercizio pratico</title>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../../assets/materiale.css?v=20261024">
+    <script src="../../assets/materiale.js?v=20261024" defer></script>
 
     <!-- jsPDF e html2canvas per l'esportazione PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
 
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
+        /* Esercizio sull'animazione: lime del logo; le classi di utilità rimaste nel markup
+           (eredità di Tailwind) sono in gran parte inerti, qui si definiscono solo quelle che servono. */
+        .hidden { display: none !important; }
+        .block { display: block; }
+        .text-center { text-align: center; }
+        .w-full { width: 100%; }
+        .flex { display: flex; }
+        .items-start { align-items: flex-start; }
+        .grid { display: grid; gap: 14px; }
+        .space-y-1 > * + * { margin-top: .25rem; }
+        .space-y-4 > * + * { margin-top: 1rem; }
+        .space-y-6 > * + * { margin-top: 1.5rem; }
+        @media (min-width: 768px) {
+            .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .md\:col-span-2 { grid-column: span 2; }
         }
 
-        .header-gradient {
-            background: linear-gradient(135deg, #d946ef 0%, #ec4899 100%);
+        /* Testata con punteggio e tappe */
+        header.testata-gioco { position: sticky; top: 0; z-index: 40; background: var(--color-bg); border-bottom: 1px solid var(--color-line); }
+        .testata-gioco .riga { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 0 6px; }
+        .testata-gioco .titolo { font-family: var(--font-titoli); font-size: 1.35rem; color: var(--color-primary); line-height: 1.2; margin: 0; }
+        .testata-gioco .punti { display: flex; flex-direction: column; align-items: center; min-width: 76px; padding: 4px 10px; border: 2px solid var(--lime); background: var(--color-surface); }
+        .testata-gioco .punti span:first-child { display: block; font-size: 1.5rem; font-weight: 800; color: var(--color-primary); line-height: 1.1; }
+        .testata-gioco .punti span:last-child { font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--color-ink-soft); }
+        #score { display: inline-block; transition: transform .3s; }
+        #score.scale-150 { transform: scale(1.5); }
+        #progress-bar { display: flex; gap: 6px; padding: 4px 0 10px; }
+        #progress-bar .progress-box { flex: 1 1 0; }
+        #progress-bar .progress-box > div {
+            display: grid; place-items: center; height: 32px; border: 2px solid var(--lime); background: var(--color-surface);
+            font-weight: 700; font-size: .9rem; color: var(--color-primary);
         }
+        #progress-bar .progress-box:nth-child(2n) > div { border-color: var(--rosa); }
+        #progress-bar .progress-box:nth-child(3n) > div { border-color: var(--acqua); }
+        #progress-bar .progress-box > div.bg-green-500 { background: var(--verde); border-color: var(--verde); color: #fff; }
+        .phase-completed-animation { animation: completata .8s ease-out; }
+        @keyframes completata { 50% { transform: scale(1.08); } }
 
-        @keyframes phaseComplete {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
-            }
+        /* Fasi */
+        main.container { width: min(960px, calc(100% - 32px)); margin: 0 auto; padding: 24px 0; }
+        .phase { padding: 26px 28px; background: var(--color-surface); border: 1px solid var(--color-line); border-top: 6px solid var(--tinta); }
+        #fase2, #fase4 { --tinta: var(--rosa); --tinta-testo: var(--rosa-testo); --tinta-tenue: var(--rosa-tenue); }
+        #fase2-5, #fase5 { --tinta: var(--verde); --tinta-testo: var(--verde-testo); --tinta-tenue: var(--verde-tenue); }
+        #fase3, #fase6 { --tinta: var(--acqua); --tinta-testo: var(--acqua-testo); --tinta-tenue: var(--acqua-tenue); }
+        .phase > h2 { font-size: clamp(1.7rem, 3.6vw, 2.3rem); margin: 0 0 18px; }
+        .phase > h2 span { font-family: var(--font-testo); font-size: .9rem; color: var(--color-ink-soft); font-weight: 400; letter-spacing: 0; }
+        .phase > div, .phase > .space-y-6 { margin-bottom: 22px; }
+        .phase h3 { margin: 0 0 8px; }
+        .phase p { margin: 0 0 8px; }
+        .phase label { margin: 0 0 6px; color: var(--color-primary); }
+        .phase textarea, .phase input[type="text"] { display: block; width: 100%; padding: 11px 12px; background: #fff; color: var(--color-ink); border: 1px solid #788796; border-radius: 3px; font: inherit; line-height: 1.55; }
+        .phase textarea:focus { outline: 3px solid var(--tinta); outline-offset: 1px; }
 
-            50% {
-                transform: scale(1.1);
-            }
-
-            100% {
-                transform: scale(1);
-                box-shadow: 0 0 10px 10px rgba(34, 197, 94, 0);
-            }
+        /* Riquadri: scenario, focus, sfida */
+        .phase div[class*="border-l-4"], .phase div[class*="bg-indigo-50"], .phase div[class*="bg-red-50"] {
+            padding: 14px 18px; background: var(--tinta-tenue); border-left: 5px solid var(--tinta);
         }
+        .phase div[class*="bg-yellow-100"] { padding: 14px 18px; background: var(--color-surface); border: 2px dashed var(--lime); }
+        .phase div[class*="bg-gray-50"], .phase [id^="quiz"] { padding: 16px 18px; background: var(--color-bg); border: 1px solid var(--color-line); }
+        .phase .font-bold { font-weight: 700; }
 
-        .phase-completed-animation {
-            animation: phaseComplete 1s ease-out;
+        /* Quiz */
+        .phase [id^="quiz"] > div { margin-bottom: 14px; }
+        .phase [id^="quiz"] .font-medium { font-weight: 600; color: var(--color-primary); }
+        .phase [id^="quiz"] input[type="radio"] { accent-color: var(--tinta-testo); width: 17px; height: 17px; vertical-align: -3px; margin-right: 6px; }
+        .text-green-600 { color: var(--verde-testo); }
+        .text-red-600 { color: var(--rosa-testo); }
+        .text-sm { font-size: .9rem; }
+        .font-semibold { font-weight: 600; }
+
+        /* Passi della scheda attività */
+        .phase ul.space-y-4 { list-style: none; padding: 0; }
+        .phase ul.space-y-4 > li { gap: 14px; }
+        .phase ul.space-y-4 > li > span { flex: 0 0 auto; display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--tinta); color: var(--color-primary); font-weight: 700; }
+        .phase ul.space-y-4 strong.block { display: block; color: var(--color-primary); font-size: .9rem; letter-spacing: .04em; }
+
+        /* Autovalutazione */
+        #autovalutazione { border-collapse: collapse; background: #fff; font-size: .94rem; }
+        #autovalutazione th, #autovalutazione td { padding: 9px 8px; border-bottom: 1px solid var(--color-line); }
+        #autovalutazione thead th { background: var(--tinta-tenue); color: var(--color-primary); }
+        #autovalutazione input[type="radio"] { accent-color: var(--tinta-testo); width: 18px; height: 18px; }
+
+        /* Pulsanti */
+        main button, footer.navigazione button, #modal button {
+            min-height: 44px; padding: 9px 16px; border: 1px solid var(--color-primary); border-radius: 4px;
+            background: var(--color-primary); color: #fff; font: inherit; font-weight: 600; cursor: pointer;
         }
+        main button:hover, footer.navigazione button:hover { background: #254f75; }
+        footer.navigazione { width: min(960px, calc(100% - 32px)); margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; }
+        footer.navigazione > div { display: flex; flex-wrap: wrap; gap: 8px; }
+        footer.navigazione button[class*="bg-gray-300"], footer.navigazione button[class*="bg-green-600"], footer.navigazione button[class*="bg-red-600"], footer.navigazione button[class*="bg-indigo-600"] { background: transparent; color: var(--color-primary); }
+        footer.navigazione button:disabled { opacity: .45; cursor: default; }
 
-        @media print {
-            body {
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-
-            .no-print {
-                display: none !important;
-            }
-
-            .printable-content {
-                display: block !important;
-                box-shadow: none !important;
-                border: 1px solid #ccc;
-                margin-bottom: 1rem;
-            }
-
-            .phase {
-                display: block !important;
-                page-break-before: always;
-            }
-        }
+        /* Badge finale e finestra del badge */
+        #final-badge, [id="final-badge-container"] { padding: 22px; background: var(--lime-tenue); border: 2px dashed var(--lime); text-align: center; }
+        #modal { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; background: rgba(23, 56, 90, .55); }
+        #modal.hidden { display: none !important; }
+        #modal > div { max-width: 420px; margin: 16px; padding: 28px; background: #fff; border-top: 6px solid var(--lime); text-align: center; }
+        #modal-emoji { font-size: 3.2rem; margin: 0 0 8px; }
 
         @media (max-width: 640px) {
-            .header-gradient {
-                padding: 1.25rem;
-            }
-
-            #progress-bar {
-                flex-wrap: wrap;
-                gap: 0.75rem;
-            }
-
-            #progress-bar .progress-box {
-                width: calc(50% - 0.75rem);
-            }
-
-            #progress-bar .progress-box div {
-                height: 2.5rem;
-                width: 2.5rem;
-                font-size: 1rem;
-            }
-
-            main.container {
-                padding: 1rem 0.75rem;
-            }
-
-            .phase {
-                padding: 1.5rem;
-            }
+            .testata-gioco .titolo { font-size: 1.1rem; }
+            #progress-bar { flex-wrap: wrap; }
+            #progress-bar .progress-box { flex: 1 1 calc(25% - 6px); }
+            .phase { padding: 20px 16px; }
+            #autovalutazione td, #autovalutazione th { padding: 7px 4px; font-size: .85rem; }
         }
-
-        @media (max-width: 420px) {
-            #progress-bar {
-                gap: 0.5rem;
-            }
-
-            #progress-bar .progress-box {
-                width: calc(50% - 0.5rem);
-            }
-
-            #progress-bar .progress-box div {
-                height: 2.25rem;
-                width: 2.25rem;
-                font-size: 0.95rem;
-            }
+        @media print {
+            .no-print { display: none !important; }
+            .phase { display: block !important; break-before: page; border: 1px solid #ccc; }
+            #fase1 { break-before: auto; }
         }
     </style>
 </head>
 
-<body class="bg-gray-100">
+<body data-tinta="lime">
 
-    <header class="header-gradient text-white p-4 shadow-lg sticky top-0 z-50 no-print">
-        <div class="container mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div>
-                    <h1 class="text-2xl font-bold">Laboratorio: Tecniche di Animazione</h1>
-                    <p class="text-sm opacity-90">Esercitazione Pratica Interattiva</p>
-                    <a href="percorso_animativo_teoria.html"
-                        class="inline-block mt-2 text-xs bg-white text-pink-600 font-bold px-3 py-1 rounded-full hover:bg-gray-100 transition">
-                        📖 Ripassa la Teoria
-                    </a>
-                </div>
-                <div class="text-center mt-4 md:mt-0">
-                    <span class="text-3xl font-bold" id="score">0</span>
-                    <span class="block text-sm">PUNTI</span>
-                </div>
+    <div class="barra shell no-print">
+        <a href="../../biennio.html#arg-animazione">← Materiali del biennio</a>
+        <a href="percorso_animativo_teoria.html">📖 Ripassa la teoria</a>
+        <span class="sito">Metodologie Operative</span>
+    </div>
+    <div class="shell no-print" style="padding-top: 24px">
+        <p class="occhiello" style="color: var(--lime-testo)">Biennio · Esercizio pratico</p>
+        <div class="identita" data-identita></div>
+    </div>
+    <header class="testata-gioco no-print">
+        <div class="shell">
+            <div class="riga">
+                <h1 class="titolo">Laboratorio: tecniche di animazione</h1>
+                <div class="punti"><span id="score">0</span><span>punti</span></div>
             </div>
-            <div class="flex justify-between items-center mt-4" id="progress-bar">
+            <div id="progress-bar" aria-label="Tappe del percorso">
                 <div class="progress-box w-1/6 text-center" id="progress-1">
                     <div
                         class="mx-auto bg-white/30 rounded-full h-8 w-8 flex items-center justify-center font-bold text-lg">
@@ -190,7 +203,7 @@
             <input type="hidden" id="state-quiz-status" name="state_quiz_status" value="{}">
         </div>
         <section id="fase1" class="phase bg-white p-6 rounded-lg shadow-md">
-            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">🎯 FASE 1: Si apre il sipario! <span
+            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">Fase 1 · Si apre il sipario <span
                     class="text-lg font-medium text-gray-500">(15 punti)</span></h2>
 
             <div class="mb-6">
@@ -222,7 +235,7 @@
         </section>
 
         <section id="fase2" class="phase bg-white p-6 rounded-lg shadow-md hidden">
-            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">📚 FASE 2: La cassetta degli attrezzi <span
+            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">Fase 2 · La cassetta degli attrezzi <span
                     class="text-lg font-medium text-gray-500">(25 punti)</span></h2>
 
             <div class="mb-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-md">
@@ -236,7 +249,7 @@
 
             <div id="quiz1" class="bg-gray-50 p-4 rounded-lg border"
                 data-quiz-config='{"points":10,"answers":{"q1":"b","q2":"c","q3":"b","q4":"b"}}'>
-                <h3 class="text-lg font-semibold mb-2">Quiz Intermedio</h3>
+                <h3 class="text-lg font-semibold mb-2">Quiz intermedio</h3>
                 <div class="mb-4">
                     <p class="font-medium">1. L'animazione socio-culturale ha come scopo principale:</p>
                     <div class="space-y-1 mt-1">
@@ -279,13 +292,12 @@
                 </div>
 
                 <button onclick="checkQuiz('quiz1')"
-                    class="bg-pink-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-pink-700">Controlla
-                    Risposte</button>
+                    class="bg-pink-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-pink-700">Controlla le risposte</button>
             </div>
         </section>
 
         <section id="fase2-5" class="phase bg-white p-6 rounded-lg shadow-md hidden">
-            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">⚠️ SOTTOFASE 2.5: Giocare sul serio <span
+            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">Fase 2.5 · Giocare sul serio <span
                     class="text-lg font-medium text-gray-500">(15 punti)</span></h2>
 
             <div class="mb-6 bg-red-50 p-4 rounded-lg border border-red-200">
@@ -314,26 +326,26 @@
         </section>
 
         <section id="fase3" class="phase bg-white p-6 rounded-lg shadow-md hidden">
-            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">🎨 FASE 3: Progettiamo un'emozione <span
+            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">Fase 3 · Progettiamo un'emozione <span
                     class="text-lg font-medium text-gray-500">(35 punti)</span></h2>
 
             <div class="mb-6">
-                <h3 class="text-xl font-bold text-gray-700 mb-3">Attività guidata: Creare una Scheda Attività</h3>
+                <h3 class="text-xl font-bold text-gray-700 mb-3">Attività guidata: creare una scheda attività</h3>
                 <ul class="space-y-4">
                     <li class="flex items-start"><span
                             class="bg-pink-600 text-white font-bold rounded-full h-8 w-8 flex items-center justify-center mr-4">1</span>
-                        <div><strong class="block">ANALISI E OBIETTIVI</strong>Chi sono i destinatari (età, numero,
+                        <div><strong class="block">Analisi e obiettivi</strong>Chi sono i destinatari (età, numero,
                             caratteristiche)? Cosa voglio ottenere con questa attività (es. favorire la conoscenza,
                             stimolare la collaborazione, etc.)?</div>
                     </li>
                     <li class="flex items-start"><span
                             class="bg-pink-600 text-white font-bold rounded-full h-8 w-8 flex items-center justify-center mr-4">2</span>
-                        <div><strong class="block">SVOLGIMENTO E REGOLE</strong>Descrivi passo dopo passo come si svolge
+                        <div><strong class="block">Svolgimento e regole</strong>Descrivi passo dopo passo come si svolge
                             il gioco. Le regole devono essere semplici, chiare e spiegate in modo coinvolgente.</div>
                     </li>
                     <li class="flex items-start"><span
                             class="bg-pink-600 text-white font-bold rounded-full h-8 w-8 flex items-center justify-center mr-4">3</span>
-                        <div><strong class="block">RISORSE</strong>Elenca tutti i materiali necessari e descrivi come
+                        <div><strong class="block">Risorse</strong>Elenca tutti i materiali necessari e descrivi come
                             deve essere preparato lo spazio (setting). Non dimenticare la risorsa più importante: il
                             tempo!</div>
                     </li>
@@ -370,7 +382,7 @@
         </section>
 
         <section id="fase3-5" class="phase bg-white p-6 rounded-lg shadow-md hidden">
-            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">💪 SOTTOFASE 3.5: L'arte del Debriefing <span
+            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">Fase 3.5 · L'arte del <em>debriefing</em> <span
                     class="text-lg font-medium text-gray-500">(20 punti + 10 extra)</span></h2>
 
             <div class="mb-6 bg-indigo-50 p-4 rounded-lg border border-indigo-200">
@@ -429,7 +441,7 @@
         </section>
 
         <section id="fase4" class="phase bg-white p-6 rounded-lg shadow-md hidden">
-            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">🧠 FASE 4: Guardarsi allo specchio <span
+            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">Fase 4 · Guardarsi allo specchio <span
                     class="text-lg font-medium text-gray-500">(30 punti)</span></h2>
 
             <div class="space-y-6">
@@ -467,11 +479,11 @@
         </section>
 
         <section id="fase5" class="phase bg-white p-6 rounded-lg shadow-md hidden">
-            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">🎪 FASE 5: Missione Centro Estivo <span
+            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">Fase 5 · Missione centro estivo <span
                     class="text-lg font-medium text-gray-500">(50 punti)</span></h2>
 
             <div class="mb-6 bg-gray-50 p-4 rounded-lg border">
-                <h3 class="text-xl font-bold text-gray-700 mb-2">Caso di Studio Complesso</h3>
+                <h3 class="text-xl font-bold text-gray-700 mb-2">Caso di studio</h3>
                 <p class="text-gray-600">Sei l'animatore di un gruppo di 12 bambini (età 8-10 anni) in un centro estivo.
                     Il gruppo è eterogeneo: c'è Sofia, molto timida, che tende a isolarsi; c'è Leo, iperattivo e che
                     fatica a rispettare le regole; e c'è Anna, una bambina con un disturbo dello spettro autistico
@@ -515,11 +527,11 @@
         </section>
 
         <section id="fase6" class="phase bg-white p-6 rounded-lg shadow-md hidden">
-            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">📈 FASE 6: Il mio kit da animatore <span
+            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">Fase 6 · Il mio kit da animatore <span
                     class="text-lg font-medium text-gray-500">(50 punti)</span></h2>
 
             <div class="mb-8">
-                <h3 class="text-xl font-bold text-gray-700 mb-3">Autovalutazione delle Competenze</h3>
+                <h3 class="text-xl font-bold text-gray-700 mb-3">Autovalutazione delle competenze</h3>
                 <p class="text-gray-600 mb-4">Valuta onestamente il tuo livello di sicurezza su una scala da 1 (molto
                     insicuro) a 5 (molto sicuro).</p>
                 <table class="w-full text-left" id="autovalutazione">
@@ -579,13 +591,7 @@
                 </table>
             </div>
 
-            <div id="quizFinale" class="mb-8 bg-gray-50 p-4 rounded-lg border">
-                <h3 class="text-xl font-bold text-gray-700 mb-3">Quiz Finale Riepilogativo</h3>
-                <p class="text-gray-600 mb-4">Completa il quiz per consolidare le tue conoscenze. (10 domande)</p>
-                <button onclick="alert('Quiz finale in preparazione!')"
-                    class="bg-pink-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-pink-700">Inizia il Quiz
-                    Finale</button>
-            </div>
+
 
             <div class="mb-6">
                 <h3 class="text-xl font-bold text-gray-700 mb-3">Piano d'azione personalizzato</h3>
@@ -619,7 +625,7 @@
         </section>
     </main>
 
-    <footer class="container mx-auto p-4 md:px-8 flex flex-col md:flex-row justify-between items-center no-print">
+    <footer class="navigazione no-print">
         <div class="flex space-x-2 mb-4 md:mb-0">
             <button id="prevBtn" onclick="navigate('prev')"
                 class="bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed">Indietro</button>
