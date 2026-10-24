@@ -41,7 +41,6 @@ LIVELLI = [
         ("Programmazione individuale", "programmazione.html"),
         ("Programmazione Carola", "programmi-carola.html"),
         ("Area docente", "area_docente.html"),
-        ("Anno di prova", "anno-di-prova.html"),
     ]),
 ]
 
