@@ -4,178 +4,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verifica Sommativa - Quarto Anno</title>
-    <link rel="stylesheet" href="../../style.css">
+    <title>Verifica sommativa · Quarto anno</title>
+    <link rel="stylesheet" href="../../assets/materiale.css?v=20261024">
     <style>
-        .verification-container {
-            max-width: 800px;
-            margin: 2rem auto;
-            background: white;
-            padding: 3rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            display: none;
+        body { padding: 0 16px; }
+        .verification-container { max-width: 860px; margin: 28px auto; padding: 0 0 40px; display: none; }
+        .verification-header { margin-bottom: 24px; padding: 26px 30px; position: relative; background: var(--color-surface); border: 1px solid var(--color-line); }
+        .verification-header::before { content: ""; position: absolute; left: -1px; right: -1px; top: -1px; height: 6px; background: linear-gradient(90deg, var(--lime) 0 25%, var(--rosa) 25% 50%, var(--verde) 50% 75%, var(--acqua) 75%); }
+        .verification-header .intestazione { font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; color: var(--color-ink-soft); margin-bottom: 10px; }
+        .verification-header h1 { margin: 0 0 6px; }
+        .verification-header p { margin: 2px 0; color: var(--color-ink-soft); }
+
+        .student-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 26px; padding: 18px 20px; background: var(--tinta-tenue); }
+        .field-group { display: flex; flex-direction: column; }
+        .field-group label { font-size: .85rem; font-weight: 600; color: var(--color-primary); margin-bottom: 4px; }
+        .field-group input { border: 1px solid var(--color-line); padding: 8px 10px; font: inherit; background: #fff; }
+
+        #verification-content h3 { margin: 36px 0 6px; padding: 10px 16px; background: var(--color-primary); color: #fff; font-family: var(--font-testo); font-size: 1.05rem; letter-spacing: .02em; }
+        #verification-content h3.sez-a { border-left: 8px solid var(--lime); }
+        #verification-content h3.sez-b { border-left: 8px solid var(--rosa); }
+        #verification-content h3.sez-c { border-left: 8px solid var(--verde); }
+        #verification-content h3.sez-d { border-left: 8px solid var(--acqua); }
+        #verification-content h3.sez-a-bis { border-left: 8px solid var(--lime); }
+        #verification-content h3.sez-b-bis { border-left: 8px solid var(--rosa); }
+        #verification-content h3.sez-c-bis { border-left: 8px solid var(--verde); }
+        #verification-content h3.centrato { background: none; color: var(--color-primary); text-align: center; border: 0; margin-top: 46px; }
+        .centrato { text-align: center; }
+        .riservato { color: var(--color-ink-soft); }
+
+        .question-block { margin: 18px 0 26px; padding: 16px 18px; background: var(--color-surface); border: 1px solid var(--color-line); page-break-inside: avoid; break-inside: avoid; }
+        .question-text { font-weight: 600; margin-bottom: 10px; color: var(--color-primary); }
+        .opzioni { margin-left: 4px; }
+        .opzioni label { display: block; margin: 0 0 2px; padding: 5px 10px; font-weight: 400; font-size: 1rem; border: 1px solid transparent; cursor: pointer; }
+        .opzioni label:hover { background: var(--tinta-tenue); border-color: var(--color-line); }
+        .opzioni input { margin-right: 6px; accent-color: var(--color-primary); }
+
+        .answer-lines { background-image: linear-gradient(#cfd6df 1px, transparent 1px); background-size: 100% 2rem; background-position: 0 2rem; border: 1px solid var(--color-line); min-height: 150px; width: 100%; margin-top: 8px; resize: none; overflow-y: hidden; line-height: 2rem; padding: .1rem 1rem 0; font-family: inherit; font-size: 1.05rem; box-sizing: border-box; background-color: #fff; }
+        textarea.breve, textarea.media { width: 100%; border: 1px solid var(--color-line); font: inherit; padding: 6px 8px; box-sizing: border-box; }
+        textarea.breve { height: 60px; }
+        textarea.media { height: 150px; }
+
+        #verification-content table { width: 100%; border-collapse: collapse; margin-top: 12px; background: #fff; }
+        #verification-content th, #verification-content td { border: 1px solid var(--color-line); padding: 10px 12px; text-align: left; vertical-align: top; }
+        #verification-content thead th { background: var(--tinta-tenue); color: var(--color-primary); font-size: .88rem; }
+        #verification-content tbody td:first-child { font-weight: 600; }
+        table.riepilogo { max-width: 620px; margin: 12px auto !important; }
+        table.riepilogo td:nth-child(2), table.riepilogo th:nth-child(n+2) { text-align: center; }
+        table.riepilogo tbody td:first-child { font-weight: 400; }
+        table.riepilogo tr.totale td { background: var(--tinta-tenue); font-weight: 700; }
+        table.riepilogo tr.totale td:first-child { text-align: right; }
+
+        .scheda { margin-bottom: 26px; padding: 18px 22px; background: var(--color-surface); border: 1px solid var(--color-line); border-left: 6px solid var(--acqua); font-size: .95rem; }
+        .scheda h4 { margin-top: 0; color: var(--acqua-testo); }
+        .scheda p:last-child { margin-bottom: 0; }
+        .campo { margin-bottom: 1rem; }
+        .etichetta-campo { font-weight: 700; color: var(--color-primary); }
+        #verification-content thead th { text-transform: lowercase; }
+        #verification-content thead th::first-letter { text-transform: uppercase; }
+        .caso { margin-bottom: 26px; padding: 18px 22px; background: var(--lime-tenue); border-left: 6px solid var(--lime); }
+        .caso h4 { margin-top: 0; color: var(--lime-testo); }
+
+        .conversione-box { max-width: 620px; margin: 26px auto; padding: 18px 20px; background: var(--color-surface); border: 1px solid var(--color-line); }
+        .conversione-box h4 { margin-top: 0; }
+        .conversione { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; text-align: center; font-size: .9rem; }
+        .conversione div { padding: 6px 2px; background: var(--tinta-tenue); }
+        .conversione .testa { background: var(--color-primary); color: #fff; font-weight: 700; }
+        .chiusura { margin-top: 30px; padding-top: 24px; border-top: 2px solid var(--color-line); }
+        .firma { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 24px; font-weight: 600; }
+        .firma .voto { font-size: 1.15rem; }
+
+        #lock-screen { position: fixed; inset: 0; background: var(--color-primary); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+        .lock-card { background: #fff; padding: 2.4rem; text-align: center; width: 90%; max-width: 400px; border-top: 6px solid var(--tinta); }
+        .lock-card p { color: var(--color-ink-soft); margin-top: .5rem; }
+        .lock-icon { font-size: 2.6rem; margin-bottom: .6rem; }
+        .lock-input { width: 100%; padding: .9rem; font-size: 1.1rem; margin: 1.2rem 0; border: 2px solid var(--color-line); text-align: center; box-sizing: border-box; }
+        .lock-btn { background: var(--color-primary); color: #fff; border: none; padding: .9rem 2rem; font-size: 1.05rem; cursor: pointer; width: 100%; font-weight: 600; }
+        .lock-btn:hover { background: var(--tinta-testo); }
+        .error-msg { color: var(--rosa-testo); margin-top: 1rem; display: none; }
+
+        .print-actions { position: fixed; bottom: 5.5rem; right: 1.2rem; display: flex; gap: .6rem; }
+        .action-btn { background: var(--color-primary); color: #fff; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,.2); cursor: pointer; border: none; font-size: 1.3rem; }
+        .action-btn:hover { background: var(--tinta-testo); }
+
+        @media (max-width: 640px) {
+            .verification-header { padding: 20px 16px; }
+            .conversione { grid-template-columns: repeat(4, 1fr); }
+            #verification-content th, #verification-content td { padding: 8px; }
         }
-
-        .verification-header {
-            text-align: center;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .student-fields {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-            background: #f8f9fa;
-            padding: 1.5rem;
-            border-radius: 8px;
-        }
-
-        .field-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .field-group label {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 0.5rem;
-        }
-
-        .field-group input {
-            border: 1px solid #ddd;
-            padding: 0.5rem;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-
-        .question-block {
-            margin-bottom: 2.5rem;
-            page-break-inside: avoid;
-        }
-
-        .question-text {
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #2c3e50;
-        }
-
-        .answer-lines {
-            background-image: linear-gradient(#ccc 1px, transparent 1px);
-            background-size: 100% 2rem;
-            background-position: 0 2rem;
-            border: 1px solid #ddd;
-            min-height: 150px;
-            width: 100%;
-            margin-top: 0.5rem;
-
-            /* Textarea specific */
-            resize: none;
-            overflow-y: hidden;
-            line-height: 2rem;
-            padding: 0.1rem 1rem 0;
-            font-family: inherit;
-            font-size: 1.1rem;
-            box-sizing: border-box;
-            background-color: #fff;
-        }
-
-        #lock-screen {
-            position: fixed;
-            inset: 0;
-            background: #2c3e50;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-        }
-
-        .lock-card {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 16px;
-            text-align: center;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .lock-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .lock-input {
-            width: 100%;
-            padding: 1rem;
-            font-size: 1.2rem;
-            margin: 1.5rem 0;
-            border: 2px solid #eee;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .lock-btn {
-            background: #3498db;
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            width: 100%;
-            font-weight: 600;
-        }
-
-        .lock-btn:hover {
-            background: #2980b9;
-        }
-
-        .error-msg {
-            color: #e74c3c;
-            margin-top: 1rem;
-            display: none;
-        }
-
-        .print-actions {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            display: flex;
-            gap: 1rem;
-        }
-
-        .action-btn {
-            background: #2c3e50;
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            border: none;
-            font-size: 1.5rem;
-            transition: transform 0.2s;
-        }
-
-        .action-btn:hover {
-            transform: scale(1.1);
+        @media print {
+            body { padding: 0; }
+            .print-actions { display: none !important; }
+            .verification-container { margin: 0; }
+            .question-block { border: 0; padding: 0; }
+            #verification-content h3 { background: none; color: #000; border-left-width: 6px; }
         }
     </style>
 </head>
 
-<body>
+<body data-tinta="rosa">
     <div id="lock-screen">
         <div class="lock-card">
             <div class="lock-icon">🔒</div>
-            <h2>Area Riservata</h2>
-            <p style="color: #666; margin-top: 0.5rem;">Inserisci la password per la verifica del Quarto Anno.</p>
+            <h2>Area riservata</h2>
+            <p>Inserisci la password per la verifica del quarto anno.</p>
             <input type="password" id="password-input" class="lock-input" placeholder="Password">
             <button class="lock-btn" onclick="checkPassword()">Accedi</button>
             <p id="error-msg" class="error-msg">Password non corretta</p>
@@ -184,9 +115,10 @@
 
     <div id="verification-content" class="verification-container">
         <header class="verification-header">
-            <h1 id="doc-title" style="margin-bottom: 0.5rem; color: #2c3e50;">VERIFICA SOMMATIVA</h1>
-            <p style="font-size: 1.1rem; margin: 0.2rem 0;">1° Quadrimestre - Metodologie Operative</p>
-            <p style="font-size: 1rem; margin: 0.2rem 0;">Anno Scolastico 2024/2025</p>
+            <div class="intestazione">IIS Meucci Mattei, Decimomannu · Metodologie Operative · Classe quarta, indirizzo sociosanitario</div>
+            <h1 id="doc-title">Verifica sommativa</h1>
+            <p>Primo quadrimestre · Metodologie Operative</p>
+            <p>Anno scolastico 2025/2026</p>
         </header>
 
         <div class="student-fields">
@@ -205,24 +137,24 @@
         </div>
 
         <div id="questions-container">
-            <h3 style="margin-top: 2rem;">SEZIONE A - CONOSCENZE BASE</h3>
+            <h3 class="sez-a">Sezione A · Conoscenze di base</h3>
             <p><strong>20 punti | Tempo consigliato: 20 minuti</strong></p>
             <p>Per ogni domanda, indica con una X la risposta corretta. Ogni risposta corretta vale 2 punti.</p>
 
             <!-- A1 -->
             <div class="question-block">
                 <div class="question-text">A1. Il modello bio-psico-sociale considera la persona:</div>
-                <div style="margin-left: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                <div class="opzioni">
+                    <label>
                         <input id="vq_4" type="checkbox"> a) Solo negli aspetti fisici e biologici
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_5" type="checkbox"> b) Nella sua totalità: aspetti biologici, psicologici e sociali
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_6" type="checkbox"> c) Principalmente negli aspetti economici e lavorativi
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_7" type="checkbox"> d) Solo nelle relazioni familiari
                     </label>
                 </div>
@@ -231,18 +163,18 @@
             <!-- A2 -->
             <div class="question-block">
                 <div class="question-text">A2. L'OSS (Operatore Socio-Sanitario) può:</div>
-                <div style="margin-left: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                <div class="opzioni">
+                    <label>
                         <input id="vq_8" type="checkbox"> a) Prescrivere farmaci autonomamente
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_9" type="checkbox"> b) Somministrare alcuni farmaci su indicazione del medico, ma non fare
                         iniezioni
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_10" type="checkbox"> c) Effettuare diagnosi mediche
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_11" type="checkbox"> d) Redigere il Progetto Individualizzato in autonomia
                     </label>
                 </div>
@@ -251,17 +183,17 @@
             <!-- A3 -->
             <div class="question-block">
                 <div class="question-text">A3. La Legge 328/2000 ha istituito:</div>
-                <div style="margin-left: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                <div class="opzioni">
+                    <label>
                         <input id="vq_12" type="checkbox"> a) Il Servizio Sanitario Nazionale
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_13" type="checkbox"> b) Il Sistema Integrato di Interventi e Servizi Sociali
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_14" type="checkbox"> c) L'obbligo scolastico fino a 16 anni
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_15" type="checkbox"> d) La figura dell'Assistente Sociale
                     </label>
                 </div>
@@ -270,17 +202,17 @@
             <!-- A4 -->
             <div class="question-block">
                 <div class="question-text">A4. Il Segretariato Sociale è:</div>
-                <div style="margin-left: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                <div class="opzioni">
+                    <label>
                         <input id="vq_16" type="checkbox"> a) Un servizio a pagamento riservato agli anziani
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_17" type="checkbox"> b) Il punto di riferimento informativo primario per l'accesso ai servizi
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_18" type="checkbox"> c) Un servizio residenziale per persone non autosufficienti
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_19" type="checkbox"> d) L'ufficio che gestisce le pratiche pensionistiche
                     </label>
                 </div>
@@ -289,17 +221,17 @@
             <!-- A5 -->
             <div class="question-block">
                 <div class="question-text">A5. La differenza principale tra SAD e ADI è che:</div>
-                <div style="margin-left: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                <div class="opzioni">
+                    <label>
                         <input id="vq_20" type="checkbox"> a) Il SAD è gestito dal Comune (socio-assistenziale), l'ADI dalla ASL (socio-sanitario)
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_21" type="checkbox"> b) Il SAD è gratuito, l'ADI è a pagamento
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_22" type="checkbox"> c) Il SAD è solo per anziani, l'ADI solo per disabili
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_23" type="checkbox"> d) Non c'è nessuna differenza, sono sinonimi
                     </label>
                 </div>
@@ -308,17 +240,17 @@
             <!-- A6 -->
             <div class="question-block">
                 <div class="question-text">A6. Nell'animazione sociale, il «debriefing» serve a:</div>
-                <div style="margin-left: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                <div class="opzioni">
+                    <label>
                         <input id="vq_24" type="checkbox"> a) Stabilire chi ha vinto il gioco
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_25" type="checkbox"> b) Aiutare il gruppo a riflettere sull'esperienza vissuta
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_26" type="checkbox"> c) Spiegare le regole prima dell'attività
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_27" type="checkbox"> d) Preparare i materiali per il gioco successivo
                     </label>
                 </div>
@@ -327,18 +259,18 @@
             <!-- A7 -->
             <div class="question-block">
                 <div class="question-text">A7. Lo psicoterapeuta, rispetto allo psicologo:</div>
-                <div style="margin-left: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                <div class="opzioni">
+                    <label>
                         <input id="vq_28" type="checkbox"> a) Non può mai prescrivere farmaci
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_29" type="checkbox"> b) Ha completato una scuola quadriennale di specializzazione dopo la
                         laurea
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_30" type="checkbox"> c) Lavora solo negli ospedali
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_31" type="checkbox"> d) Si occupa solo di bambini
                     </label>
                 </div>
@@ -347,17 +279,17 @@
             <!-- A8 -->
             <div class="question-block">
                 <div class="question-text">A8. Un obiettivo di progettazione ben scritto deve:</div>
-                <div style="margin-left: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                <div class="opzioni">
+                    <label>
                         <input id="vq_32" type="checkbox"> a) Descrivere solo il servizio da erogare (es. 'fornire assistenza')
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_33" type="checkbox"> b) Indicare il cambiamento atteso, misurabile e con tempi definiti
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_34" type="checkbox"> c) Essere il più generico possibile per adattarsi a tutti
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_35" type="checkbox"> d) Riguardare solo gli aspetti economici dell'intervento
                     </label>
                 </div>
@@ -366,17 +298,17 @@
             <!-- A9 -->
             <div class="question-block">
                 <div class="question-text">A9. I LEA (Livelli Essenziali di Assistenza) riguardano:</div>
-                <div style="margin-left: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                <div class="opzioni">
+                    <label>
                         <input id="vq_36" type="checkbox"> a) Prestazioni e servizi sanitari garantiti dal SSN a tutti i cittadini
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_37" type="checkbox"> b) Solo i servizi sociali dei Comuni
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_38" type="checkbox"> c) I requisiti per aprire una RSA
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_39" type="checkbox"> d) Le tariffe dei servizi privati
                     </label>
                 </div>
@@ -385,41 +317,41 @@
             <!-- A10 -->
             <div class="question-block">
                 <div class="question-text">A10. La rete informale di supporto a un utente comprende:</div>
-                <div style="margin-left: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                <div class="opzioni">
+                    <label>
                         <input id="vq_40" type="checkbox"> a) ASL, Servizi Sociali, Scuole
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_41" type="checkbox"> b) Famiglia, amici, vicini, volontariato
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_42" type="checkbox"> c) Solo gli operatori professionali retribuiti
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_43" type="checkbox"> d) Le strutture residenziali pubbliche
                     </label>
                 </div>
             </div>
 
-            <h3 style="margin-top: 2rem;">SEZIONE A-BIS - CONOSCENZE SUI SERVIZI PER LA COMUNITÀ</h3>
+            <h3 class="sez-a-bis">Sezione A bis · Conoscenze sui servizi per la comunità</h3>
             <p><strong>20 punti | Tempo consigliato: 20 minuti</strong></p>
 
             <!-- A11 -->
             <div class="question-block">
                 <div class="question-text">A11. I Servizi e Interventi Integrativi hanno come obiettivo principale:
                 </div>
-                <div style="margin-left: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                <div class="opzioni">
+                    <label>
                         <input id="vq_44" type="checkbox"> a) L'allontanamento della persona dal proprio ambiente di vita
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_45" type="checkbox"> b) La sostituzione completa della famiglia nell'assistenza
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_46" type="checkbox"> c) Garantire la permanenza della persona nel proprio ambiente di vita il
                         più a lungo possibile
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_47" type="checkbox"> d) Il ricovero immediato in struttura residenziale
                     </label>
                 </div>
@@ -428,18 +360,18 @@
             <!-- A12 -->
             <div class="question-block">
                 <div class="question-text">A12. Il Servizio di Pronto Intervento Sociale (PIS):</div>
-                <div style="margin-left: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                <div class="opzioni">
+                    <label>
                         <input id="vq_48" type="checkbox"> a) Offre assistenza economica mensile continuativa
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_49" type="checkbox"> b) Interviene in situazioni di emergenza sociale 24h su 24, con
                         accoglienza temporanea fino a 15 giorni
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_50" type="checkbox"> c) È un servizio privato a pagamento
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_51" type="checkbox"> d) Si occupa esclusivamente di emergenze sanitarie
                     </label>
                 </div>
@@ -448,18 +380,18 @@
             <!-- A13 -->
             <div class="question-block">
                 <div class="question-text">A13. Il Centro Diurno è un servizio:</div>
-                <div style="margin-left: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                <div class="opzioni">
+                    <label>
                         <input id="vq_52" type="checkbox"> a) Residenziale che ospita la persona 24 ore su 24
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_53" type="checkbox"> b) Semiresidenziale che fornisce supporto durante il giorno per
                         mantenere le capacità residue
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_54" type="checkbox"> c) Esclusivamente sanitario gestito dalla ASL
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_55" type="checkbox"> d) Riservato solo ai minori
                     </label>
                 </div>
@@ -469,17 +401,17 @@
             <div class="question-block">
                 <div class="question-text">A14. La Casa Famiglia e la Comunità Alloggio si distinguono principalmente
                     per:</div>
-                <div style="margin-left: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                <div class="opzioni">
+                    <label>
                         <input id="vq_56" type="checkbox"> a) Il tipo di utenza accolta (minori vs adulti)
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_57" type="checkbox"> b) Il numero di persone accolte (Casa Famiglia fino a 6, Comunità Alloggio da 7 a 12)
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_58" type="checkbox"> c) La durata del soggiorno (temporaneo vs permanente)
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_59" type="checkbox"> d) La presenza o assenza di personale educativo
                     </label>
                 </div>
@@ -488,17 +420,17 @@
             <!-- A15 -->
             <div class="question-block">
                 <div class="question-text">A15. Il Gruppo per l'Autonomia è destinato a:</div>
-                <div style="margin-left: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                <div class="opzioni">
+                    <label>
                         <input id="vq_60" type="checkbox"> a) Persone con gravi disabilità che necessitano assistenza continua 24h
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_61" type="checkbox"> b) Persone autosufficienti con lievi disabilità che possono vivere in forma autogestita
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_62" type="checkbox"> c) Esclusivamente minori in difficoltà familiare
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_63" type="checkbox"> d) Persone senza fissa dimora in emergenza
                     </label>
                 </div>
@@ -507,17 +439,17 @@
             <!-- A16 -->
             <div class="question-block">
                 <div class="question-text">A16. L'Assistenza Economica viene attivata:</div>
-                <div style="margin-left: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                <div class="opzioni">
+                    <label>
                         <input id="vq_64" type="checkbox"> a) Automaticamente per tutti i cittadini residenti con basso reddito
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_65" type="checkbox"> b) Dall'Assistente Sociale mediante un progetto d'intervento, tenendo conto dell'ISEE
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_66" type="checkbox"> c) Direttamente dalla banca di riferimento del cittadino
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_67" type="checkbox"> d) Solo in caso di emergenza sanitaria documentata
                     </label>
                 </div>
@@ -526,17 +458,17 @@
             <!-- A17 -->
             <div class="question-block">
                 <div class="question-text">A17. L'Assistenza Abitativa (ERP - Edilizia Residenziale Pubblica) consiste in:</div>
-                <div style="margin-left: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                <div class="opzioni">
+                    <label>
                         <input id="vq_68" type="checkbox"> a) Un contributo economico per pagare l'affitto di mercato
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_69" type="checkbox"> b) La concessione di abitazioni pubbliche con canone ridotto tramite bando comunale
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_70" type="checkbox"> c) L'inserimento in una Casa Famiglia
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_71" type="checkbox"> d) Un servizio di manutenzione gratuita della propria abitazione
                     </label>
                 </div>
@@ -545,18 +477,18 @@
             <!-- A18 -->
             <div class="question-block">
                 <div class="question-text">A18. Il Centro di Accoglienza Notturna è rivolto a:</div>
-                <div style="margin-left: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                <div class="opzioni">
+                    <label>
                         <input id="vq_72" type="checkbox"> a) Solo cittadini italiani con residenza nel comune
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_73" type="checkbox"> b) Persone senza fissa dimora in condizioni di disagio,
                         indipendentemente da cittadinanza e residenza
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_74" type="checkbox"> c) Solo minori non accompagnati
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_75" type="checkbox"> d) Esclusivamente anziani non autosufficienti
                     </label>
                 </div>
@@ -565,18 +497,18 @@
             <!-- A19 -->
             <div class="question-block">
                 <div class="question-text">A19. I Servizi Residenziali (come le RSA) intervengono quando:</div>
-                <div style="margin-left: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                <div class="opzioni">
+                    <label>
                         <input id="vq_76" type="checkbox"> a) La persona preferisce non vivere con la propria famiglia
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_77" type="checkbox"> b) La persona non può vivere dignitosamente a domicilio e/o non può
                         essere assistita a casa
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_78" type="checkbox"> c) La famiglia lo richiede per comodità organizzativa
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_79" type="checkbox"> d) Solo in caso di malattie infettive acute
                     </label>
                 </div>
@@ -585,24 +517,24 @@
             <!-- A20 -->
             <div class="question-block">
                 <div class="question-text">A20. Il Servizio di Accompagnamento e Trasporto ha come obiettivo:</div>
-                <div style="margin-left: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                <div class="opzioni">
+                    <label>
                         <input id="vq_80" type="checkbox"> a) Sostituire completamente i mezzi pubblici
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_81" type="checkbox"> b) Favorire la mobilità e la partecipazione sociale di persone con
                         difficoltà motorie
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_82" type="checkbox"> c) Trasportare solo verso strutture sanitarie
                     </label>
-                    <label style="display: block; margin-bottom: 0.5rem;">
+                    <label>
                         <input id="vq_83" type="checkbox"> d) Essere disponibile esclusivamente per emergenze
                     </label>
                 </div>
             </div>
 
-            <h3 style="margin-top: 2rem;">SEZIONE B - COMPRENSIONE E COLLEGAMENTO</h3>
+            <h3 class="sez-b">Sezione B · Comprensione e collegamento</h3>
             <p><strong>25 punti | Tempo consigliato: 25 minuti</strong></p>
             <p>Rispondi alle domande in modo sintetico ma completo.</p>
 
@@ -621,78 +553,66 @@
             <div class="question-block">
                 <div class="question-text">B3. (9 punti) Completa la tabella indicando, per ogni figura professionale,
                     il titolo di studio richiesto e un compito principale.</div>
-                <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                <table>
                     <thead>
-                        <tr style="background: #f8f9fa;">
-                            <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left;">FIGURA PROFESSIONALE
+                        <tr>
+                            <th>FIGURA PROFESSIONALE
                             </th>
-                            <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left;">TITOLO DI STUDIO</th>
-                            <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left;">COMPITO PRINCIPALE
+                            <th>TITOLO DI STUDIO</th>
+                            <th>COMPITO PRINCIPALE
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">Assistente Sociale</td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_86"
-                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td>Assistente Sociale</td>
+                            <td><textarea id="vq_86" class="breve"
                                     oninput="autoExpand(this)"></textarea></td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_87"
-                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td><textarea id="vq_87" class="breve"
                                     oninput="autoExpand(this)"></textarea></td>
                         </tr>
                         <tr>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">OSS</td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_88"
-                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td>OSS</td>
+                            <td><textarea id="vq_88" class="breve"
                                     oninput="autoExpand(this)"></textarea></td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_89"
-                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td><textarea id="vq_89" class="breve"
                                     oninput="autoExpand(this)"></textarea></td>
                         </tr>
                         <tr>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">Animatore Sociale
+                            <td>Animatore Sociale
                             </td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_90"
-                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td><textarea id="vq_90" class="breve"
                                     oninput="autoExpand(this)"></textarea></td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_91"
-                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td><textarea id="vq_91" class="breve"
                                     oninput="autoExpand(this)"></textarea></td>
                         </tr>
                         <tr>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">Educatore
+                            <td>Educatore
                                 Professionale</td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_92"
-                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td><textarea id="vq_92" class="breve"
                                     oninput="autoExpand(this)"></textarea></td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_93"
-                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td><textarea id="vq_93" class="breve"
                                     oninput="autoExpand(this)"></textarea></td>
                         </tr>
                                             <tr>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">Psicologo</td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_94"
-                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td>Psicologo</td>
+                            <td><textarea id="vq_94" class="breve"
                                     oninput="autoExpand(this)"></textarea></td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_95"
-                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td><textarea id="vq_95" class="breve"
                                     oninput="autoExpand(this)"></textarea></td>
                         </tr>
                         <tr>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">Medico di Base</td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_96"
-                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td>Medico di Base</td>
+                            <td><textarea id="vq_96" class="breve"
                                     oninput="autoExpand(this)"></textarea></td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_97"
-                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td><textarea id="vq_97" class="breve"
                                     oninput="autoExpand(this)"></textarea></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3 style="margin-top: 2rem;">SEZIONE B-BIS - COMPRENSIONE DEI SERVIZI</h3>
+            <h3 class="sez-b-bis">Sezione B bis · Comprensione dei servizi</h3>
             <p><strong>25 punti | Tempo consigliato: 25 minuti</strong></p>
 
             <div class="question-block">
@@ -710,82 +630,69 @@
             <div class="question-block">
                 <div class="question-text">B6. (9 punti) Completa la tabella indicando, per ogni servizio, i destinatari
                     principali e l'ente che attiva l'accesso.</div>
-                <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                <table>
                     <thead>
-                        <tr style="background: #f8f9fa;">
-                            <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left;">SERVIZIO</th>
-                            <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left;">DESTINATARI</th>
-                            <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left;">ATTIVAZIONE</th>
+                        <tr>
+                            <th>SERVIZIO</th>
+                            <th>DESTINATARI</th>
+                            <th>ATTIVAZIONE</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">Centro Diurno</td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_100"
-                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td>Centro Diurno</td>
+                            <td><textarea id="vq_100" class="breve"
                                     oninput="autoExpand(this)"></textarea></td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_101"
-                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td><textarea id="vq_101" class="breve"
                                     oninput="autoExpand(this)"></textarea></td>
                         </tr>
                         <tr>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">Centro Diurno
+                            <td>Centro Diurno
                                 Integrato</td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_102"
-                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td><textarea id="vq_102" class="breve"
                                     oninput="autoExpand(this)"></textarea></td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_103"
-                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td><textarea id="vq_103" class="breve"
                                     oninput="autoExpand(this)"></textarea></td>
                         </tr>
                         <tr>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">Assistenza Abitativa
+                            <td>Assistenza Abitativa
                                 (ERP)</td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_104"
-                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td><textarea id="vq_104" class="breve"
                                     oninput="autoExpand(this)"></textarea></td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_105"
-                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td><textarea id="vq_105" class="breve"
                                     oninput="autoExpand(this)"></textarea></td>
                         </tr>
                                             <tr>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">Centro Accoglienza Notturna</td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_106"
-                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td>Centro Accoglienza Notturna</td>
+                            <td><textarea id="vq_106" class="breve"
                                     oninput="autoExpand(this)"></textarea></td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_107"
-                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td><textarea id="vq_107" class="breve"
                                     oninput="autoExpand(this)"></textarea></td>
                         </tr>
                         <tr>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">Gruppo per l'Autonomia</td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_108"
-                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td>Gruppo per l'Autonomia</td>
+                            <td><textarea id="vq_108" class="breve"
                                     oninput="autoExpand(this)"></textarea></td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_109"
-                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td><textarea id="vq_109" class="breve"
                                     oninput="autoExpand(this)"></textarea></td>
                         </tr>
                         <tr>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem; font-weight: 600;">Casa Famiglia</td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_110"
-                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td>Casa Famiglia</td>
+                            <td><textarea id="vq_110" class="breve"
                                     oninput="autoExpand(this)"></textarea></td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_111"
-                                    style="width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td><textarea id="vq_111" class="breve"
                                     oninput="autoExpand(this)"></textarea></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3 style="margin-top: 2rem;">SEZIONE C - APPLICAZIONE PRATICA</h3>
+            <h3 class="sez-c">Sezione C · Applicazione pratica</h3>
             <p><strong>35 punti | Tempo consigliato: 45 minuti</strong></p>
             <p>Leggi attentamente il caso e rispondi alle domande.</p>
 
-            <div
-                style="background: #fff3cd; padding: 1.5rem; border-radius: 8px; border: 1px solid #ffeeba; margin-bottom: 2rem;">
-                <h4 style="margin-top: 0; color: #856404;">📄 CASO DI STUDIO: LA SIGNORA MARIA</h4>
+            <div class="caso">
+                <h4>📄 Caso di studio: la signora Maria</h4>
                 <p>Maria ha 78 anni, vedova da 5 anni, vive sola in un appartamento al secondo piano senza ascensore in
                     un piccolo paese della Sardegna. Ha una figlia, Lucia (50 anni), che vive a 40 km di distanza e
                     lavora a tempo pieno. Maria soffre di artrosi alle ginocchia che le rende difficile camminare e
@@ -802,27 +709,24 @@
                 <div class="question-text">C1. (10 punti) ANALISI DEI BISOGNI<br><span
                         style="font-weight: normal; font-size: 0.95rem;">Utilizzando il modello bio-psico-sociale,
                         identifica e descrivi i principali bisogni di Maria suddividendoli nelle tre aree.</span></div>
-                <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                <table>
                     <thead>
-                        <tr style="background: #f8f9fa;">
-                            <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left; width: 33%;">AREA
+                        <tr>
+                            <th style="width: 33%;">AREA
                                 BIOLOGICA</th>
-                            <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left; width: 33%;">AREA
+                            <th style="width: 33%;">AREA
                                 PSICOLOGICA</th>
-                            <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left; width: 33%;">AREA
+                            <th style="width: 33%;">AREA
                                 SOCIALE</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_112"
-                                    style="width: 100%; height: 150px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td><textarea id="vq_112" class="media"
                                     oninput="autoExpand(this)"></textarea></td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_113"
-                                    style="width: 100%; height: 150px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td><textarea id="vq_113" class="media"
                                     oninput="autoExpand(this)"></textarea></td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_114"
-                                    style="width: 100%; height: 150px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td><textarea id="vq_114" class="media"
                                     oninput="autoExpand(this)"></textarea></td>
                         </tr>
                     </tbody>
@@ -833,20 +737,18 @@
                 <div class="question-text">C2. (8 punti) ATTIVAZIONE DELLA RETE<br><span
                         style="font-weight: normal; font-size: 0.95rem;">Identifica le risorse della rete formale e
                         informale che potrebbero essere attivate per supportare Maria.</span></div>
-                <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                <table>
                     <thead>
-                        <tr style="background: #f8f9fa;">
-                            <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left; width: 50%;">RETE FORMALE</th>
-                            <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left; width: 50%;">RETE INFORMALE</th>
+                        <tr>
+                            <th style="width: 50%;">RETE FORMALE</th>
+                            <th style="width: 50%;">RETE INFORMALE</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_115"
-                                    style="width: 100%; height: 150px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td><textarea id="vq_115" class="media"
                                     oninput="autoExpand(this)"></textarea></td>
-                            <td style="border: 1px solid #ddd; padding: 0.8rem;"><textarea id="vq_116"
-                                    style="width: 100%; height: 150px; border: 1px solid #ccc; border-radius: 4px;"
+                            <td><textarea id="vq_116" class="media"
                                     oninput="autoExpand(this)"></textarea></td>
                         </tr>
                     </tbody>
@@ -858,12 +760,12 @@
                         style="font-weight: normal; font-size: 0.95rem;">Indica almeno DUE servizi (integrativi o
                         sostitutivi) che proporresti per Maria. Per ciascun servizio specifica: nome del servizio, chi
                         lo eroga, quali bisogni soddisfa, quali figure professionali sono coinvolte.</span></div>
-                <div style="margin-bottom: 1rem;">
-                    <label style="font-weight: 600;">SERVIZIO 1:</label>
+                <div class="campo">
+                    <label class="etichetta-campo">Servizio 1</label>
                     <textarea id="vq_117" class="answer-lines" oninput="autoExpand(this)"></textarea>
                 </div>
-                <div style="margin-bottom: 1rem;">
-                    <label style="font-weight: 600;">SERVIZIO 2:</label>
+                <div class="campo">
+                    <label class="etichetta-campo">Servizio 2</label>
                     <textarea id="vq_118" class="answer-lines" oninput="autoExpand(this)"></textarea>
                 </div>
             </div>
@@ -875,7 +777,7 @@
                 <textarea id="vq_119" class="answer-lines" oninput="autoExpand(this)"></textarea>
             </div>
 
-            <h3 style="margin-top: 2rem;">SEZIONE C-BIS - APPLICAZIONE DEI SERVIZI AL CASO</h3>
+            <h3 class="sez-c-bis">Sezione C bis · Applicazione dei servizi al caso</h3>
             <p><strong>35 punti | Tempo consigliato: 35 minuti</strong></p>
 
             <div class="question-block">
@@ -903,8 +805,8 @@
                         supporto domiciliare, inizia a mostrare segni di decadimento cognitivo che le rendono difficile
                         gestire le proprie finanze (pensione, bollette, spese sanitarie) e prendere decisioni importanti
                         per la sua salute. Leggi prima il quadro informativo.</span></div>
-                <div style="background: #f8f9fa; border: 1px solid #ddd; border-radius: 8px; padding: 1rem 1.2rem; margin: 1rem 0; font-size: 0.95rem;">
-                    <h4 style="margin-top: 0;">📋 SCHEDA INFORMATIVA: L'AMMINISTRATORE DI SOSTEGNO</h4>
+                <div class="scheda">
+                    <h4>📋 Scheda informativa: l'amministratore di sostegno</h4>
                     <p><strong>Che cos'è.</strong> L'Amministratore di Sostegno (AdS) è una figura di protezione
                         giuridica per le persone che, per effetto di un'infermità o di una menomazione fisica o
                         psichica, si trovano nell'impossibilità, anche parziale o temporanea, di provvedere ai propri
@@ -942,7 +844,7 @@
                 <textarea id="vq_124" class="answer-lines" oninput="autoExpand(this)"></textarea>
             </div>
 
-            <h3 style="margin-top: 2rem;">SEZIONE D - RIFLESSIONE</h3>
+            <h3 class="sez-d">Sezione D · Riflessione</h3>
             <p><strong>20 punti | Tempo consigliato: 20 minuti</strong></p>
             <p>Rifletti sul tuo apprendimento e sul significato professionale di quanto studiato.</p>
 
@@ -960,93 +862,92 @@
                 <textarea id="vq_126" class="answer-lines" oninput="autoExpand(this)"></textarea>
             </div>
 
-            <h3 style="margin-top: 3rem; text-align: center;">RIEPILOGO VALUTAZIONE</h3>
-            <p style="text-align: center; color: #666;">(Riservato al docente)</p>
+            <h3 class="centrato">Riepilogo della valutazione</h3>
+            <p class="centrato riservato">(Riservato al docente)</p>
 
-            <table style="width: 100%; max-width: 600px; margin: 1rem auto; border-collapse: collapse;">
+            <table class="riepilogo">
                 <thead>
-                    <tr style="background: #f8f9fa;">
-                        <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: left;">SEZIONE</th>
-                        <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: center; width: 100px;">MAX PUNTI
+                    <tr>
+                        <th>SEZIONE</th>
+                        <th>MAX PUNTI
                         </th>
-                        <th style="border: 1px solid #ddd; padding: 0.8rem; text-align: center; width: 100px;">PUNTI
+                        <th>PUNTI
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td style="border: 1px solid #ddd; padding: 0.8rem;">A - Conoscenze base</td>
-                        <td style="border: 1px solid #ddd; padding: 0.8rem; text-align: center;"><b>20</b></td>
-                        <td style="border: 1px solid #ddd; padding: 0.8rem;"></td>
+                        <td>A · Conoscenze di base</td>
+                        <td><b>20</b></td>
+                        <td></td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #ddd; padding: 0.8rem;">A-BIS - Conoscenze servizi</td>
-                        <td style="border: 1px solid #ddd; padding: 0.8rem; text-align: center;"><b>20</b></td>
-                        <td style="border: 1px solid #ddd; padding: 0.8rem;"></td>
+                        <td>A bis · Conoscenze sui servizi</td>
+                        <td><b>20</b></td>
+                        <td></td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #ddd; padding: 0.8rem;">B - Comprensione e collegamento</td>
-                        <td style="border: 1px solid #ddd; padding: 0.8rem; text-align: center;"><b>25</b></td>
-                        <td style="border: 1px solid #ddd; padding: 0.8rem;"></td>
+                        <td>B · Comprensione e collegamento</td>
+                        <td><b>25</b></td>
+                        <td></td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #ddd; padding: 0.8rem;">B-BIS - Comprensione servizi</td>
-                        <td style="border: 1px solid #ddd; padding: 0.8rem; text-align: center;"><b>25</b></td>
-                        <td style="border: 1px solid #ddd; padding: 0.8rem;"></td>
+                        <td>B bis · Comprensione dei servizi</td>
+                        <td><b>25</b></td>
+                        <td></td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #ddd; padding: 0.8rem;">C - Applicazione pratica</td>
-                        <td style="border: 1px solid #ddd; padding: 0.8rem; text-align: center;"><b>35</b></td>
-                        <td style="border: 1px solid #ddd; padding: 0.8rem;"></td>
+                        <td>C · Applicazione pratica</td>
+                        <td><b>35</b></td>
+                        <td></td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #ddd; padding: 0.8rem;">C-BIS - Applicazione servizi</td>
-                        <td style="border: 1px solid #ddd; padding: 0.8rem; text-align: center;"><b>35</b></td>
-                        <td style="border: 1px solid #ddd; padding: 0.8rem;"></td>
+                        <td>C bis · Applicazione dei servizi</td>
+                        <td><b>35</b></td>
+                        <td></td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #ddd; padding: 0.8rem;">D - Riflessione professionale</td>
-                        <td style="border: 1px solid #ddd; padding: 0.8rem; text-align: center;"><b>20</b></td>
-                        <td style="border: 1px solid #ddd; padding: 0.8rem;"></td>
+                        <td>D · Riflessione professionale</td>
+                        <td><b>20</b></td>
+                        <td></td>
                     </tr>
-                    <tr style="background: #e9ecef; font-weight: bold;">
-                        <td style="border: 1px solid #ddd; padding: 0.8rem; text-align: right;">TOTALE</td>
-                        <td style="border: 1px solid #ddd; padding: 0.8rem; text-align: center;">180</td>
-                        <td style="border: 1px solid #ddd; padding: 0.8rem;"></td>
+                    <tr class="totale">
+                        <td>Totale</td>
+                        <td>180</td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>
 
-            <div style="max-width: 600px; margin: 2rem auto; padding: 1.5rem; background: #f8f9fa; border-radius: 8px;">
-                <h4 style="margin-top: 0;">CONVERSIONE PUNTEGGIO → VOTO (su 180 punti)</h4>
-                <div
-                    style="display: grid; grid-template-columns: repeat(8, 1fr); gap: 5px; text-align: center; font-size: 0.9rem;">
-                    <div style="background: #ddd; padding: 5px;">PUNTI</div>
-                    <div style="background: white; padding: 5px;">0-89</div>
-                    <div style="background: white; padding: 5px;">90-107</div>
-                    <div style="background: white; padding: 5px;">108-125</div>
-                    <div style="background: white; padding: 5px;">126-143</div>
-                    <div style="background: white; padding: 5px;">144-161</div>
-                    <div style="background: white; padding: 5px;">162-171</div>
-                    <div style="background: white; padding: 5px;">172-180</div>
+            <div class="conversione-box">
+                <h4>Conversione del punteggio in voto (su 180 punti)</h4>
+                <div class="conversione">
+                    <div class="testa">Punti</div>
+                    <div>0-89</div>
+                    <div>90-107</div>
+                    <div>108-125</div>
+                    <div>126-143</div>
+                    <div>144-161</div>
+                    <div>162-171</div>
+                    <div>172-180</div>
 
-                    <div style="background: #ddd; padding: 5px;">VOTO</div>
-                    <div style="background: white; padding: 5px;"><b>4</b></div>
-                    <div style="background: white; padding: 5px;"><b>5</b></div>
-                    <div style="background: white; padding: 5px;"><b>6</b></div>
-                    <div style="background: white; padding: 5px;"><b>7</b></div>
-                    <div style="background: white; padding: 5px;"><b>8</b></div>
-                    <div style="background: white; padding: 5px;"><b>9</b></div>
-                    <div style="background: white; padding: 5px;"><b>10</b></div>
+                    <div class="testa">Voto</div>
+                    <div><b>4</b></div>
+                    <div><b>5</b></div>
+                    <div><b>6</b></div>
+                    <div><b>7</b></div>
+                    <div><b>8</b></div>
+                    <div><b>9</b></div>
+                    <div><b>10</b></div>
                 </div>
             </div>
 
-            <div style="margin-top: 2rem; border-top: 2px solid #eee; padding-top: 2rem;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-                    <span style="font-weight: 600; font-size: 1.2rem;">VOTO FINALE: ________ / 10</span>
-                    <span style="font-weight: 600;">Firma del docente: ________________________</span>
+            <div class="chiusura">
+                <div class="firma">
+                    <span class="voto">Voto finale: ________ / 10</span>
+                    <span>Firma del docente: ________________________</span>
                 </div>
-                <p><strong>NOTE E OSSERVAZIONI:</strong></p>
+                <p><strong>Note e osservazioni</strong></p>
                 <textarea id="vq_127" class="answer-lines" style="height: 100px;" oninput="autoExpand(this)"></textarea>
             </div>
         </div>
