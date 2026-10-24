@@ -4,7 +4,7 @@
     <meta name="page-id" content="attivita-materiali-ai-intelligenza-artificiale-semplificata-01">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intelligenza Artificiale - Versione Semplificata</title>
+    <title>Intelligenza artificiale – Versione semplificata</title>
     <style>
         /* ==================== VARIABILI CSS ACCESSIBILI ==================== */
         :root {
@@ -464,12 +464,42 @@
             color: var(--primary-color);
         }
     </style>
+    <style>
+        /* Veste del sito: caratteri e colori del logo (tinta verde per la versione semplificata) */
+        @font-face { font-family: 'DM Sans'; src: url('../../assets/collage-fonts/dm-sans-regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
+        @font-face { font-family: 'DM Sans'; src: url('../../assets/collage-fonts/dm-sans-semibold.ttf') format('truetype'); font-weight: 600 800; font-display: swap; }
+        @font-face { font-family: 'DM Serif'; src: url('../../assets/collage-fonts/dm-serif-display.ttf') format('truetype'); font-weight: 400; font-display: swap; }
+        :root {
+            --primary-color: #17385a;
+            --secondary-color: #57bda8;
+            --success-color: #008036;
+            --bg-light: #f5f6fa;
+            --text-dark: #1f2a37;
+            --border-color: #dde2ea;
+            --box-shadow: none;
+        }
+        body { font-family: 'DM Sans', Arial, sans-serif; }
+        .header { background: #17385a; border-radius: 0; border-bottom: 6px solid; border-image: linear-gradient(90deg, #80cd29 0 25%, #ec166c 25% 50%, #008036 50% 75%, #57bda8 75%) 1; }
+        .header h1 { font-family: 'DM Serif', Georgia, serif; font-weight: 400; font-size: 34px; }
+        .simple-card h2 { font-family: 'DM Serif', Georgia, serif; font-weight: 400; }
+        .simple-card, .progress-container, .exam-simple, .schema-simple, .exercise-simple, .timer-box { border-radius: 4px; }
+        .simple-card { border-left-color: #008036; }
+        .progress-fill { background: #008036; }
+        .info-simple { border-radius: 0; }
+        .info-simple.blue { background: #e7f5f2; border-color: #57bda8; }
+        .info-simple.green { background: #e5f3ea; border-color: #008036; }
+        .info-simple.yellow { background: #f1f8e7; border-color: #80cd29; }
+        .nav-simple button, .big-button, .exercise-simple button, .timer-buttons button { border-radius: 4px; }
+        .exercise-simple label:hover, .exercise-simple label:has(input:checked) { background: #e7f5f2; }
+        .feedback-simple.correct { background: #e5f3ea; color: #006b2d; border-color: #008036; }
+        .feedback-simple.incorrect { background: #fdebf2; color: #a30d4a; border-color: #ec166c; }
+    </style>
 </head>
 <body>
     <!-- ==================== HEADER ==================== -->
     <div class="header">
-        <h1>🤖 Intelligenza Artificiale</h1>
-        <p>Versione Semplificata e Accessibile</p>
+        <h1>🤖 Intelligenza artificiale</h1>
+        <p>Versione semplificata e accessibile</p>
     </div>
 
     <!-- ==================== BARRA PROGRESSO ==================== -->
@@ -482,12 +512,12 @@
 
     <!-- ==================== TIMER PAUSE ==================== -->
     <div class="timer-box" id="timer-box">
-        <h3>⏱️ Pausa Concentrazione</h3>
+        <h3>⏱️ Pausa concentrazione</h3>
         <p>Prenditi una pausa di 5 minuti!</p>
         <div class="timer-display" id="timer-display">5:00</div>
         <div class="timer-buttons">
-            <button onclick="startTimer()">▶️ Inizia Pausa</button>
-            <button onclick="closeTimer()">✅ Continua a Studiare</button>
+            <button onclick="startTimer()">▶️ Inizia la pausa</button>
+            <button onclick="closeTimer()">✅ Continua a studiare</button>
         </div>
     </div>
 
@@ -509,7 +539,7 @@
             
             <p><strong>Cosa imparerai:</strong></p>
             <ul>
-                <li>Cos'è l'Intelligenza Artificiale</li>
+                <li>Cos'è l'intelligenza artificiale</li>
                 <li>Come funziona</li>
                 <li>Dove la usiamo ogni giorno</li>
                 <li>Come parlare con l'IA</li>
@@ -529,24 +559,24 @@
                 <p>Vai piano. Non devi finire tutto subito. Puoi fare una pausa ogni 20 minuti. C'è un timer che ti aiuta!</p>
             </div>
 
-            <button class="big-button" onclick="showSection('teoria')">📚 Inizia le Lezioni</button>
+            <button class="big-button" onclick="showSection('teoria')">📚 Inizia le lezioni</button>
         </div>
     </section>
 
     <!-- ==================== TEORIA SEMPLIFICATA ==================== -->
     <section id="teoria">
         <div class="simple-card">
-            <h2>📚 Lezione 1: Cos'è l'Intelligenza Artificiale</h2>
+            <h2>📚 Lezione 1: cos'è l'intelligenza artificiale</h2>
             
             <div class="big-icon">🤖</div>
 
-            <p><strong>Intelligenza Artificiale (IA)</strong> significa: computer che imparano a fare cose.</p>
+            <p><strong>Intelligenza artificiale (IA)</strong> significa: computer che imparano a fare cose.</p>
 
             <p>È come quando tu impari a giocare a un gioco. All'inizio non sai come fare, poi piano piano migliori. Anche i computer possono imparare!</p>
 
             <div class="info-simple blue">
                 <strong>🔎 Esempio della vita quotidiana</strong>
-                <p>Quando chiedi al telefono "che tempo fa?" e lui ti risponde: questa è Intelligenza Artificiale!</p>
+                <p>Quando chiedi al telefono «che tempo fa?» e lui ti risponde: questa è intelligenza artificiale!</p>
             </div>
 
             <h3>📱 Dove usi già l'IA ogni giorno</h3>
@@ -565,13 +595,13 @@
         </div>
 
         <div class="simple-card">
-            <h2>📚 Lezione 2: Come Funziona l'IA</h2>
+            <h2>📚 Lezione 2: come funziona l'IA</h2>
             
             <div class="big-icon">🧠</div>
 
             <p>L'IA impara <strong>guardando tanti esempi</strong>, come fai tu a scuola.</p>
 
-            <h3>Esempio: Riconoscere un Gatto</h3>
+            <h3>Esempio: riconoscere un gatto</h3>
             <ol>
                 <li>Dai al computer 1000 foto di gatti</li>
                 <li>Il computer guarda tutte le foto</li>
@@ -584,7 +614,7 @@
                 <p>Tu vedi tante parole scritte e impari a leggere. L'IA vede tante foto e impara a riconoscere le cose.</p>
             </div>
 
-            <h3>🔢 Cosa Serve all'IA</h3>
+            <h3>🔢 Cosa serve all'IA</h3>
             <ul>
                 <li><strong>Dati</strong>: foto, testi, numeri (tante informazioni!)</li>
                 <li><strong>Computer potenti</strong>: per calcolare veloce</li>
@@ -593,13 +623,13 @@
         </div>
 
         <div class="simple-card">
-            <h2>📚 Lezione 3: Parlare con l'IA (Prompt)</h2>
+            <h2>📚 Lezione 3: parlare con l'IA (prompt)</h2>
             
             <div class="big-icon">💬</div>
 
             <p>Per parlare bene con l'IA (come ChatGPT), devi dirle cose chiare.</p>
 
-            <h3>🎯 Come Fare una Buona Richiesta</h3>
+            <h3>🎯 Come fare una buona richiesta</h3>
 
             <div class="info-simple yellow">
                 <strong>Esempio MALE ❌</strong>
@@ -613,7 +643,7 @@
                 <p>→ L'IA sa esattamente cosa vuoi!</p>
             </div>
 
-            <h3>📝 Regole per Parlare con l'IA</h3>
+            <h3>📝 Regole per parlare con l'IA</h3>
             <ol>
                 <li><strong>Spiega cosa vuoi</strong>: "Fai un riassunto"</li>
                 <li><strong>Spiega per chi</strong>: "Per uno studente"</li>
@@ -627,13 +657,13 @@
         </div>
 
         <div class="simple-card">
-            <h2>📚 Lezione 4: L'IA a Scuola (NotebookLM)</h2>
+            <h2>📚 Lezione 4: l'IA a scuola (NotebookLM)</h2>
             
             <div class="big-icon">📓</div>
 
             <p><strong>NotebookLM</strong> è un programma di Google che ti aiuta a studiare.</p>
 
-            <h3>🎙️ Cosa Può Fare</h3>
+            <h3>🎙️ Cosa può fare</h3>
             <ul>
                 <li><strong>Podcast audio</strong>: trasforma i tuoi appunti in un audio da ascoltare</li>
                 <li><strong>Riassunti</strong>: fa un riassunto dei tuoi documenti</li>
@@ -642,7 +672,7 @@
             </ul>
 
             <div class="info-simple green">
-                <strong>✅ Come Usarlo</strong>
+                <strong>✅ Come usarlo</strong>
                 <p>1. Carica i tuoi appunti o PDF<br>
                 2. Chiedi cosa vuoi (riassunto, domande...)<br>
                 3. Studia con quello che ti dà!</p>
@@ -655,11 +685,11 @@
         </div>
 
         <div class="simple-card">
-            <h2>📚 Lezione 5: Cose Buone e Problemi dell'IA</h2>
+            <h2>📚 Lezione 5: cose buone e problemi dell'IA</h2>
             
             <div class="big-icon">⚖️</div>
 
-            <h3>✅ Cose Buone</h3>
+            <h3>✅ Cose buone</h3>
             <ul>
                 <li><strong>Medicina</strong>: aiuta i dottori a trovare malattie</li>
                 <li><strong>Scuola</strong>: ti aiuta a studiare meglio</li>
@@ -676,7 +706,7 @@
             </ul>
 
             <div class="info-simple blue">
-                <strong>💡 Come Usarla Bene</strong>
+                <strong>💡 Come usarla bene</strong>
                 <p>1. Non credere a tutto quello che dice l'IA<br>
                 2. Controlla le informazioni importanti<br>
                 3. Non darle informazioni personali<br>
@@ -685,13 +715,13 @@
         </div>
 
         <div class="simple-card">
-            <h2>📚 Lezione 6: Parole da Ricordare</h2>
+            <h2>📚 Lezione 6: parole da ricordare</h2>
             
             <div class="big-icon">📖</div>
 
-            <h3>Dizionario Semplice</h3>
+            <h3>Dizionario semplice</h3>
 
-            <p><strong>Intelligenza Artificiale (IA)</strong><br>
+            <p><strong>Intelligenza artificiale (IA)</strong><br>
             Computer che imparano a fare cose.</p>
 
             <p><strong>Dati</strong><br>
@@ -707,23 +737,23 @@
             Programma di Google che ti aiuta a studiare con l'IA.</p>
 
             <div class="info-simple green">
-                <strong>✅ Fine delle Lezioni!</strong>
+                <strong>✅ Fine delle lezioni!</strong>
                 <p>Ora puoi guardare gli schemi, fare gli esercizi e poi la verifica.</p>
             </div>
 
-            <button class="big-button" onclick="showSection('schemi')">📊 Vai agli Schemi</button>
+            <button class="big-button" onclick="showSection('schemi')">📊 Vai agli schemi</button>
         </div>
     </section>
 
     <!-- ==================== SCHEMI SEMPLIFICATI ==================== -->
     <section id="schemi">
         <div class="simple-card">
-            <h2>📊 Schemi Visivi</h2>
+            <h2>📊 Schemi visivi</h2>
             <p>Questi schemi ti aiutano a vedere come funziona l'IA.</p>
         </div>
 
         <div class="schema-simple">
-            <h3>1. Come Impara l'IA</h3>
+            <h3>1. Come impara l'IA</h3>
             <svg width="600" height="300" viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
                 <!-- Dati -->
                 <rect x="50" y="100" width="120" height="100" rx="10" fill="#a8c5e0" stroke="#7c9bbf" stroke-width="3"/>
@@ -755,7 +785,7 @@
         </div>
 
         <div class="schema-simple">
-            <h3>2. Dove Usi l'IA Ogni Giorno</h3>
+            <h3>2. Dove usi l'IA ogni giorno</h3>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: left;">
                 <div class="info-simple blue">
                     <strong>📱 Telefono</strong>
@@ -777,7 +807,7 @@
         </div>
 
         <div class="schema-simple">
-            <h3>3. Come Parlare con l'IA (Prompt)</h3>
+            <h3>3. Come parlare con l'IA (prompt)</h3>
             <div class="info-simple green" style="text-align: left;">
                 <strong>✅ ESEMPIO BUONO</strong>
                 <p style="background: white; padding: 15px; border-radius: 8px; margin-top: 10px;">
@@ -793,7 +823,7 @@
             </div>
         </div>
 
-        <button class="big-button" onclick="showSection('esercizi')">✏️ Vai agli Esercizi</button>
+        <button class="big-button" onclick="showSection('esercizi')">✏️ Vai agli esercizi</button>
     </section>
 
     <!-- ==================== ESERCIZI SEMPLIFICATI ==================== -->
@@ -806,7 +836,7 @@
         <!-- ESERCIZIO 1 -->
         <div class="exercise-simple">
             <h3>Esercizio 1</h3>
-            <div class="question">Cos'è l'Intelligenza Artificiale?</div>
+            <div class="question">Cos'è l'intelligenza artificiale?</div>
             
             <label>
                 <input type="radio" name="ex1" value="a">
@@ -821,7 +851,7 @@
                 Una persona molto intelligente
             </label>
             
-            <button onclick="checkExercise(1, 'a')">Verifica Risposta</button>
+            <button onclick="checkExercise(1, 'a')">Verifica la risposta</button>
             <div class="feedback-simple" id="feedback1"></div>
         </div>
 
@@ -843,7 +873,7 @@
                 Quando scrivo con una penna
             </label>
             
-            <button onclick="checkExercise(2, 'a')">Verifica Risposta</button>
+            <button onclick="checkExercise(2, 'a')">Verifica la risposta</button>
             <div class="feedback-simple" id="feedback2"></div>
         </div>
 
@@ -865,7 +895,7 @@
                 Lo sa già da sola
             </label>
             
-            <button onclick="checkExercise(3, 'a')">Verifica Risposta</button>
+            <button onclick="checkExercise(3, 'a')">Verifica la risposta</button>
             <div class="feedback-simple" id="feedback3"></div>
         </div>
 
@@ -887,31 +917,31 @@
                 "Ciao"
             </label>
             
-            <button onclick="checkExercise(4, 'b')">Verifica Risposta</button>
+            <button onclick="checkExercise(4, 'b')">Verifica la risposta</button>
             <div class="feedback-simple" id="feedback4"></div>
         </div>
 
-        <button class="big-button" onclick="calculateScore()">📊 Vedi il Punteggio</button>
+        <button class="big-button" onclick="calculateScore()">📊 Vedi il punteggio</button>
         
         <div class="simple-card" id="score-card" style="display: none; background: #e6ffe6; border-color: #66cc66;">
             <h2>🎉 Risultato</h2>
             <div class="big-icon" id="score-icon"></div>
             <p id="score-text" style="font-size: 24px; font-weight: bold; text-align: center;"></p>
             <p id="score-message" style="text-align: center; margin-top: 20px;"></p>
-            <button class="big-button" onclick="showSection('verifica')">📝 Vai alla Verifica Finale</button>
+            <button class="big-button" onclick="showSection('verifica')">📝 Vai alla verifica finale</button>
         </div>
     </section>
 
     <!-- ==================== VERIFICA SEMPLIFICATA ==================== -->
     <section id="verifica">
         <div class="simple-card">
-            <h2>📝 Verifica Finale</h2>
+            <h2>📝 Verifica finale</h2>
             <p>Rispondi a queste domande per mostrare cosa hai imparato.</p>
         </div>
 
         <!-- DATI STUDENTE -->
         <div class="exam-simple">
-            <h3>I Tuoi Dati</h3>
+            <h3>I tuoi dati</h3>
             <input type="text" id="nome" name="nome" placeholder="Il tuo nome">
             <input type="text" id="classe" name="classe" placeholder="La tua classe">
             <input type="date" id="data" name="data">
@@ -920,7 +950,7 @@
         <!-- DOMANDA 1 -->
         <div class="exam-simple">
             <h3>Domanda 1</h3>
-            <p><strong>Cos'è l'Intelligenza Artificiale? Spiega con parole tue.</strong></p>
+            <p><strong>Cos'è l'intelligenza artificiale? Spiega con parole tue.</strong></p>
             <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
         </div>
 
@@ -950,7 +980,7 @@
         <!-- DOMANDA 5 -->
         <div class="exam-simple">
             <h3>Domanda 5</h3>
-            <p><strong>Scrivi 2 cose buone e 2 problemi dell'Intelligenza Artificiale.</strong></p>
+            <p><strong>Scrivi 2 cose buone e 2 problemi dell'intelligenza artificiale.</strong></p>
             <p><strong>Cose buone:</strong></p>
             <p>1. <input type="text"></p>
             <p>2. <input type="text"></p>
@@ -966,12 +996,12 @@
             <textarea placeholder="Scrivi qui la tua risposta..."></textarea>
         </div>
 
-        <button class="big-button" onclick="window.print()">🖨️ Stampa la Verifica</button>
+        <button class="big-button" onclick="window.print()">🖨️ Stampa la verifica</button>
 
         <div class="simple-card" style="background: #e6f2ff; margin-top: 30px;">
             <h2>🎉 Complimenti!</h2>
             <div class="big-icon">⭐</div>
-            <p style="text-align: center; font-size: 20px;">Hai finito tutto il percorso sull'Intelligenza Artificiale!</p>
+            <p style="text-align: center; font-size: 20px;">Hai finito tutto il percorso sull'intelligenza artificiale!</p>
             <p style="text-align: center; margin-top: 20px;">Ora sai cos'è l'IA, come funziona e come usarla bene. Bravo! 👏</p>
         </div>
     </section>
