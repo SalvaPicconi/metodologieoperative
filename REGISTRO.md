@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-24** · Claude · Pubblicate su Aruba le due pagine di quinta (caso professionale; relazione e seconda prova) con il glossario aggiornato. (Aruba `7c5159d`, run «Pubblica su Aruba» n. 10 riuscito, 6 file online verificati)
+
 - **2026-10-24** · Claude · Quinto anno: prime due pagine di teoria ed esercizi, «Il caso professionale» (UDA 8) e «La relazione professionale e la seconda prova» (UDA 7, quadro del D.M. 164/2022), collegate ai Programmi; glossario con otto termini di quinta. Non ancora pubblicato su Aruba. (ramo `claude/quinto-materiali`)
 
 - **2026-10-24** · Claude · Pubblicati su Aruba biennio, terzo e quarto rivisti, con il glossario allargato; il PDF della verifica di quarta non è più raggiungibile (410). (Aruba `07b8d8f`, run «Pubblica su Aruba» n. 8 riuscito, 37 file online verificati)
