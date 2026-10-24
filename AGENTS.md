@@ -25,13 +25,23 @@ lavoro, o subito dopo se serve l'hash; se in un giorno si fanno più cose distin
 
 Tre livelli, in quest'ordine, sia in home sia nel menu:
 
-1. **Le classi** — `biennio.html`, `terzo.html`, `quarto.html`, `quinto.html`;
-2. **Metodi e laboratori** — lezioni partecipate, laboratorio, peer tutoring, compresenza,
-   più `intelligenza-artificiale.html` (pagina propria, non più sezione della home);
-3. **Docente** — programmi SSAS, area docente, anno di prova.
+1. **Le classi** — `biennio.html`, `terzo.html`, `quarto.html`, `quinto.html`, direttamente nella barra;
+2. **Metodi e laboratori** (tendina) — lezioni partecipate, laboratorio, peer tutoring, compresenza,
+   attività di orientamento, educazione civica, intelligenza artificiale, glossario;
+3. **Docente** (tendina) — programmi SSAS, programmazione individuale, programmazione Carola,
+   area docente, anno di prova.
 
-Il menu è unico e **non si modifica a mano**: si cambia `MENU` in `scripts/nav.py` e si lancia
-`python3 scripts/nav.py`, che riscrive il `<nav>` di tutte le pagine.
+La home mostra **solo le voci da aprire**, negli stessi tre livelli e nello stesso ordine del menu:
+niente descrizioni lunghe, niente riquadri speciali. Una pagina nuova si aggiunge prima in `LIVELLI`.
+
+Testata, menu e briciole **non si modificano a mano**: si cambia `LIVELLI` (e `ALIAS` per le
+sottopagine, come `lab_infanzia.html`) in `scripts/nav.py` e si lancia `python3 scripts/nav.py`,
+che riscrive in tutte le pagine la testata, il `<nav>`, le briciole «Home › livello › pagina» con la
+voce precedente e la successiva, e il richiamo ad `assets/nav.js` (menu nei telefoni).
+
+La veste grafica è quella di Educazione civica e Programmi — carta `#f7f5ef`, blu notte `#17385a`,
+terracotta `#a75134`, DM Serif per i titoli e DM Sans per il testo, serviti da `assets/collage-fonts/` —
+ed è fissata nei token di `:root` e nella sezione «Veste editoriale» in fondo a `style.css`.
 
 Ogni pagina anno segue lo stesso ordine: **materiali per argomento → verifiche → programma
 dell'anno → fine anno → annotazioni** (queste ultime chiuse di default).

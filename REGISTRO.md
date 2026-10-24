@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-24** · Claude · Nuova home con le sole voci da aprire, in tre livelli (classi, metodi e laboratori, docente) e nello stesso ordine del menu; Educazione civica e Intelligenza artificiale entrano in «Metodi e laboratori». Testata unica, briciole «Sei qui» con pagina precedente e successiva, e veste grafica di Educazione civica estesa a tutto il sito. (ramo `claude/home-menu-gerarchia`)
+
 - **2026-10-23** · Claude · Biennio, percorso sull'operatore sociale: dalla tappa 5 in poi da 12 a 7 tappe più Casa Serena come appendice facoltativa per la seconda. Testi lunghi in riquadri chiusi, esercizi ripetuti nelle «Attività extra»; nessuna risposta degli studenti persa, chi era avanti ritrova la tappa giusta. (ramo `claude/percorso-operatore-snellito`)
 
 - **2026-10-21** · Codex · Nella finestra di accesso, i pulsanti «Entra come ospite» e «Genera codice» hanno ora una scritta scura e leggibile su sfondo bianco. Correzione verificata localmente nelle pagine che condividono il componente. (anteprima locale)

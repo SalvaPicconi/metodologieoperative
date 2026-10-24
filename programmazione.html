@@ -10,22 +10,26 @@
     <link rel="stylesheet" href="assets/programmazione.css?v=20261007a">
 </head>
 <body>
-    <header>
+    <header class="testata">
         <div class="container">
-            <h1>Materiali Didattici - Metodologie Operative</h1>
-            <p>Servizi per la Sanità e l'Assistenza Sociale</p>
-            <p style="font-size: 0.9rem; margin-top: 0.5rem;">IIS Meucci Mattei - Cagliari (Sede Decimomannu)</p>
+            <a class="testata-marchio" href="index.html">
+                <img src="logo/mark.svg" alt="" width="44" height="44">
+                <span>
+                    <span class="testata-scuola">IIS Meucci-Mattei · Decimomannu</span>
+                    <span class="testata-titolo">Metodologie Operative</span>
+                    <span class="testata-indirizzo">Servizi per la Sanità e l’Assistenza Sociale</span>
+                </span>
+            </a>
         </div>
     </header>
 
     <nav>
         <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="biennio.html">Biennio</a></li>
-            <li><a href="terzo.html">Terzo anno</a></li>
-            <li><a href="quarto.html">Quarto anno</a></li>
-            <li><a href="quinto.html">Quinto anno</a></li>
-            <li><a href="educazione-civica.html">Educazione civica</a></li>
+            <li class="nav-piatto"><a href="biennio.html">Biennio</a></li>
+            <li class="nav-piatto"><a href="terzo.html">Terzo anno</a></li>
+            <li class="nav-piatto"><a href="quarto.html">Quarto anno</a></li>
+            <li class="nav-piatto nav-fine-livello"><a href="quinto.html">Quinto anno</a></li>
             <li class="nav-group"><a href="index.html#metodi">Metodi e laboratori</a>
                 <ul class="nav-sub">
                     <li><a href="lezioni-partecipate.html">Lezioni partecipate</a></li>
@@ -33,21 +37,31 @@
                     <li><a href="peer_tutoring.html">Peer tutoring</a></li>
                     <li><a href="compresenza.html">Compresenza Scienze umane</a></li>
                     <li><a href="orientamento.html">Attività di orientamento</a></li>
+                    <li><a href="educazione-civica.html">Educazione civica</a></li>
+                    <li><a href="intelligenza-artificiale.html">Intelligenza artificiale</a></li>
                     <li><a href="glossario.html">Glossario</a></li>
                 </ul>
             </li>
-            <li class="nav-ai"><a href="intelligenza-artificiale.html">Intelligenza artificiale</a></li>
             <li class="nav-group"><a href="index.html#docente" class="active">Docente</a>
                 <ul class="nav-sub">
-                    <li><a href="programmi.html">Programmi</a></li>
-                    <li><a href="programmi-carola.html">Programmazione Carola</a></li>
+                    <li><a href="programmi.html">Programmi SSAS</a></li>
                     <li><a href="programmazione.html" class="active" aria-current="page">Programmazione individuale</a></li>
+                    <li><a href="programmi-carola.html">Programmazione Carola</a></li>
                     <li><a href="area_docente.html">Area docente</a></li>
                     <li><a href="anno-di-prova.html">Anno di prova</a></li>
                 </ul>
             </li>
         </ul>
     </nav>
+    <!-- briciole: scripts/nav.py -->
+    <div class="briciole" role="navigation" aria-label="Sei qui">
+        <div class="container">
+            <p class="briciole-percorso"><a href="index.html">Home</a><span class="briciole-sep" aria-hidden="true">›</span><a href="index.html#docente">Docente</a><span class="briciole-sep" aria-hidden="true">›</span><span aria-current="page">Programmazione individuale</span></p>
+            <p class="briciole-vicini"><a href="programmi.html" rel="prev">← Programmi SSAS</a><a href="programmi-carola.html" rel="next">Programmazione Carola →</a></p>
+        </div>
+    </div>
+    <script src="assets/nav.js?v=20261024" defer></script>
+    <!-- /briciole -->
 
     <main>
         <div class="container pi">
