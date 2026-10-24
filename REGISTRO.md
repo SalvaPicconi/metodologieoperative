@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-24** · Claude · Istruzioni di progetto aggiornate: il sito si pubblica su Aruba dal ramo `codex/aruba-metodologieoperativessas`, non da `main`; procedura di rilascio e ripristino senza GitHub Pages in `CLAUDE.md`, `AGENTS.md` e `ARUBA.md`. Nessun file pubblico cambiato. (ramo Aruba e `main`, solo documentazione)
+
 - **2026-10-23** · Codex · Percorso sull'operatore sociale: compilazione e salvataggi disponibili solo dopo il recupero delle risposte, con avviso durante l'attesa e protezione anche premendo Salva con la connessione lenta. Verificati in locale anche gli ultimi salvataggi dalle vecchie tappe 5, 6 e 7; rilascio Aruba ancora in attesa della fine della lezione.
 
 - **2026-10-23** · Claude · Percorso sull'operatore sociale: prima della pubblicazione su Aruba, corretto un caso in cui la pagina nuova avrebbe potuto salvare prima di caricare le risposte di chi entra lentamente. La versione online non ne era toccata.
