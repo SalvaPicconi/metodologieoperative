@@ -66,7 +66,7 @@ async function caricaMateriali(sezione, containerId = 'materiali-lista') {
     container.innerHTML = '<div class="loading">Caricamento materiali in corso...</div>';
 
     try {
-        const cacheBustParam = 'v=20261020';
+        const cacheBustParam = 'v=20261024';
         const response = await fetch(`${MATERIALI_JSON_URL}?${cacheBustParam}`, {
             cache: 'no-cache'
         });

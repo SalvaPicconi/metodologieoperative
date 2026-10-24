@@ -6,6 +6,9 @@ nessuna pagina: restano qui solo per recuperarli se servono.
 | File | Perché è qui | Versione tenuta |
 |---|---|---|
 | `animazione/Dispensa_Animazione_Ludico_Ricreativa_sorgente.docx` | Stesso manuale della dispensa in PDF, che è più completa | `materiali/laboratorio/animazione/2 Dispensa_Animazione_Ludico_Ricreativa.pdf` |
+| `bisogni/bisogni_scheda_guida.docx` | Scheda guida della vecchia prova sui bisogni (1ª, UDA 5): consegne e griglie sono confluite nella scheda operativa del 15 ottobre 2026 | `materiali/biennio/bisogni_relazione_aiuto_scheda.docx` |
+| `bisogni/bisogni_storie.docx` | Storie per individuare i bisogni, sostituite dai tre casi della lezione e della scheda operativa | `materiali/biennio/bisogni_relazione_aiuto_scheda.docx` |
+| `bisogni/bisogni_tabella_riferimento.docx` | Tabella dei bisogni di Maslow, ripresa nello schema della lezione partecipata e nella scheda operativa | `materiali/biennio/bisogni-relazione-aiuto.html` |
 
 Le pagine HTML archiviate restano invece al loro posto, perché conservano i salvataggi degli
 studenti: sono elencate sotto la chiave `archivio` di `materiali.json`, con motivo e sostituto.

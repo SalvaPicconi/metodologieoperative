@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-24** · Claude · Biennio rivisto: le pagine dei materiali prendono i colori del logo, una tinta per pagina, con indici, schemi (ciclo della progettazione, piramide di Maslow, diamante del welfare, linea del tempo delle leggi) e paragrafi più brevi; la progettazione torna a stampare. Gruppi diventa «Il gruppo e l'auto mutuo aiuto», l'animazione ha un argomento e una UDA propria (1ª, UDA 10), tre Word sui bisogni vanno in archivio, il glossario si allarga. Salvataggi invariati. Non ancora pubblicato su Aruba. (ramo `claude/biennio-materiali`)
+
 - **2026-10-24** · Claude · Colori del sito cambiati in rosa e blu: il rosa del logo SSAS accanto al blu notte, fondo chiaro al posto del beige, anche nelle pagine di Educazione civica, Programmi e nei laboratori già rifatti. (Aruba `a0c2e06`, run «Pubblica su Aruba» n. 6 riuscito, 19 file online verificati)
 
 - **2026-10-24** · Claude · Nuova home con le sole voci da aprire, in tre livelli (classi, metodi e laboratori, docente) e nello stesso ordine del menu; Educazione civica e Intelligenza artificiale entrano in «Metodi e laboratori». Testata unica, briciole «Sei qui» con pagina precedente e successiva, e veste grafica di Educazione civica estesa a tutto il sito; «Anno di prova» non compare più in menu e home. (Aruba `3cce13b`, run «Pubblica su Aruba» n. 4 riuscito, 28 file online verificati)
