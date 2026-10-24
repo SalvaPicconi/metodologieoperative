@@ -7,644 +7,147 @@
     <meta name="description" content="Modulo didattico di autoapprendimento sulla fase preliminare del progetto d'intervento sociosanitario - Prof. Salvatore Picconi">
     <meta name="keywords" content="progettazione sociale, metodologie operative, servizi sociosanitari, didattica innovativa">
     <meta name="author" content="Prof. Salvatore Picconi">
-    <title>La Fase Preliminare del Progetto d'Intervento | Metodologie Operative</title>
+    <title>La fase preliminare del progetto d'intervento | Metodologie Operative</title>
     
+    <link rel="stylesheet" href="../../assets/materiale.css?v=20261024">
+    <script src="../../assets/materiale.js?v=20261024" defer></script>
     <style>
-        /* Reset e variabili CSS */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary-color: #c41e3a;
-            --secondary-color: #0891b2;
-            --accent-color: #f59e0b;
-            --bg-light: #f8fafc;
-            --bg-white: #ffffff;
-            --text-dark: #1e293b;
-            --text-gray: #475569;
-            --border-color: #e2e8f0;
-            --success-color: #10b981;
-            --warning-color: #f59e0b;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--text-dark);
-            background-color: var(--bg-light);
-        }
-
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, var(--primary-color) 0%, #991628 100%);
-            color: white;
-            padding: 2rem 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-
-        .header .subtitle {
-            font-size: 1.1rem;
-            opacity: 0.95;
-            margin-bottom: 1rem;
-        }
-
-        .header .meta {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-            font-size: 0.95rem;
-            opacity: 0.9;
-        }
-
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Navigation */
-        .nav-pills {
-            background: white;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            gap: 1rem;
-            overflow-x: auto;
-        }
-
-        .nav-pill {
-            padding: 0.75rem 1.5rem;
-            border-radius: 50px;
-            border: 2px solid var(--border-color);
-            background: white;
-            color: var(--text-dark);
-            text-decoration: none;
-            transition: all 0.3s;
-            white-space: nowrap;
-            font-weight: 500;
-        }
-
-        .nav-pill:hover, .nav-pill.active {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-            transform: translateY(-2px);
-        }
-
-        /* Container principale */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        /* Cards */
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-        }
-
-        /* Info box */
-        .info-box {
-            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-            border-left: 4px solid var(--secondary-color);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin: 1.5rem 0;
-        }
-
-        .info-box.warning {
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-            border-left-color: var(--warning-color);
-        }
-
-        .info-box.success {
-            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
-            border-left-color: var(--success-color);
-        }
-
-        /* Section headers */
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 3px solid var(--primary-color);
-        }
-
-        .section-number {
-            background: var(--primary-color);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .section-header h2 {
-            color: var(--primary-color);
-            font-size: 1.8rem;
-        }
-
-        .section-subtitle {
-            color: var(--text-gray);
-            font-size: 1rem;
-            font-style: italic;
-            margin-top: 0.25rem;
-        }
-
-        /* Fase badge */
-        .fase-badge {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .fase-1 { background: #dbeafe; color: #1e40af; }
-        .fase-2 { background: #fce7f3; color: #be185d; }
-        .fase-3 { background: #d1fae5; color: #065f46; }
-        .fase-4 { background: #fef3c7; color: #92400e; }
-
-        /* Attività */
-        .attivita {
-            background: var(--bg-light);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin: 1.5rem 0;
-            border: 2px solid var(--border-color);
-        }
-
-        .attivita-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .attivita-icon {
-            background: var(--secondary-color);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-
-        .attivita h3 {
-            color: var(--secondary-color);
-            font-size: 1.3rem;
-        }
-
-        /* Tabelle */
-        .table-responsive {
-            overflow-x: auto;
-            margin: 1.5rem 0;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        th {
-            background: var(--primary-color);
-            color: white;
-            padding: 1rem;
-            text-align: left;
-            font-weight: 600;
-        }
-
-        td {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        tr:nth-child(even) {
-            background: var(--bg-light);
-        }
-
-        /* Liste */
-        .checklist {
-            list-style: none;
-        }
-
-        .checklist li {
-            padding: 0.75rem;
-            margin: 0.5rem 0;
-            background: var(--bg-light);
-            border-radius: 6px;
-            padding-left: 2.5rem;
-            position: relative;
-        }
-
-        .checklist li:before {
-            content: "✓";
-            position: absolute;
-            left: 0.75rem;
-            color: var(--success-color);
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .btn-primary {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #991628;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(196, 30, 58, 0.3);
-        }
-
-        .btn-secondary {
-            background: var(--secondary-color);
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #0e7490;
-            transform: translateY(-2px);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-        }
-
-        .btn-outline:hover {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        /* Download section */
-        .download-section {
-            background: linear-gradient(135deg, var(--primary-color) 0%, #991628 100%);
-            color: white;
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-            margin: 2rem 0;
-        }
-
-        .download-section h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .download-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .download-card {
-            background: rgba(255,255,255,0.1);
-            padding: 1.5rem;
-            border-radius: 8px;
-            backdrop-filter: blur(10px);
-        }
-
-        .download-card:hover {
-            background: rgba(255,255,255,0.2);
-        }
-
-        /* AI Integration box */
-        .ai-box {
-            background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
-            border: 2px solid #a855f7;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .ai-box-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .ai-icon {
-            background: #a855f7;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-
-        .ai-box h4 {
-            color: #7c3aed;
-            font-size: 1.2rem;
-        }
-
-        .prompt-example {
-            background: white;
-            padding: 1rem;
-            border-radius: 6px;
-            border-left: 4px solid #a855f7;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            margin: 1rem 0;
-        }
-
-        /* Timeline */
-        .timeline {
-            position: relative;
-            padding: 2rem 0;
-        }
-
-        .timeline:before {
-            content: '';
-            position: absolute;
-            left: 30px;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: var(--primary-color);
-        }
-
-        .timeline-item {
-            position: relative;
-            padding-left: 80px;
-            margin-bottom: 2rem;
-        }
-
-        .timeline-marker {
-            position: absolute;
-            left: 15px;
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            background: var(--primary-color);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            box-shadow: 0 0 0 4px white;
-        }
-
-        .timeline-content {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-
-        /* Footer */
-        .footer {
-            background: var(--text-dark);
-            color: white;
-            padding: 2rem 0;
-            margin-top: 4rem;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            text-align: center;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-        }
-
-        .footer-links a:hover {
-            opacity: 1;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.8rem;
-            }
-
-            .container {
-                padding: 1rem;
-            }
-
-            .card {
-                padding: 1.5rem;
-            }
-
-            .nav-container {
-                padding: 0 1rem;
-            }
-
-            .section-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .timeline:before {
-                left: 15px;
-            }
-
-            .timeline-item {
-                padding-left: 60px;
-            }
-        }
-
-        /* Utilities */
-        .mb-1 { margin-bottom: 0.5rem; }
-        .mb-2 { margin-bottom: 1rem; }
-        .mb-3 { margin-bottom: 1.5rem; }
-        .mt-2 { margin-top: 1rem; }
-        .mt-3 { margin-top: 1.5rem; }
-
+        /* La fase preliminare del progetto d'intervento: rosa del logo, fasi con gli archi */
+        .header { padding: 0; }
+        .header-content { padding: 0; }
+        .meta { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 12px; font-size: .88rem; color: var(--color-ink-soft); }
+        .meta-item { display: flex; gap: 6px; }
+
+        .nav-pills { position: sticky; top: 0; z-index: 20; background: var(--color-bg); border-block: 1px solid var(--color-line); }
+        .nav-container { width: min(1080px, calc(100% - 32px)); margin: 0 auto; display: flex; gap: 6px; overflow-x: auto; padding: 10px 0; }
+        .nav-pill { flex: 0 0 auto; padding: 6px 13px; background: var(--color-surface); border: 1px solid var(--color-line); border-radius: 999px; font-size: .84rem; font-weight: 600; text-decoration: none; color: var(--color-primary); white-space: nowrap; }
+        .nav-pill:hover, .nav-pill.active { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
+
+        .container { width: min(1080px, calc(100% - 32px)); margin: 0 auto; padding: 10px 0 30px; }
+        .card { margin: 28px 0; padding: 28px 30px; background: var(--color-surface); border: 1px solid var(--color-line); border-top: 6px solid var(--tinta); scroll-margin-top: 70px; }
+        #fase1 { --tinta: var(--lime);  --tinta-testo: var(--lime-testo);  --tinta-tenue: var(--lime-tenue); }
+        #fase2 { --tinta: var(--rosa);  --tinta-testo: var(--rosa-testo);  --tinta-tenue: var(--rosa-tenue); }
+        #fase3 { --tinta: var(--verde); --tinta-testo: var(--verde-testo); --tinta-tenue: var(--verde-tenue); }
+        #fase4 { --tinta: var(--acqua); --tinta-testo: var(--acqua-testo); --tinta-tenue: var(--acqua-tenue); }
+        #valutazione, #risorse, #introduzione { --tinta: var(--color-primary); --tinta-testo: var(--color-primary); --tinta-tenue: var(--color-primary-tint); }
+
+        .section-header { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 18px; }
+        .section-number { font-size: 1.8rem; line-height: 1.2; }
+        .section-header h2 { margin: 0 0 4px; }
+        .section-subtitle { margin: 0; color: var(--color-ink-soft); font-style: italic; }
+        .fase-badge { display: inline-block; margin-bottom: 14px; padding: 3px 10px; background: var(--tinta-tenue); color: var(--tinta-testo); font-size: .75rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
+
+        .attivita { margin: 22px 0; padding: 20px 22px; background: var(--color-bg); border-left: 5px solid var(--tinta); scroll-margin-top: 70px; }
+        .attivita-header { display: flex; gap: 10px; align-items: baseline; margin-bottom: 10px; }
+        .attivita-icon { font-size: 1.1rem; }
+        .attivita-header h3 { margin: 0; font-size: 1.12rem; }
+
+        .info-box { margin: 14px 0; padding: 14px 18px; background: var(--color-surface); border: 1px solid var(--color-line); border-left: 5px solid var(--color-primary); }
+        .info-box h3, .info-box h4 { margin: 0 0 6px; }
+        .info-box > :last-child { margin-bottom: 0; }
+        .info-box.success { border-left-color: var(--verde); background: var(--verde-tenue); border-color: transparent; border-left-color: var(--verde); }
+        .info-box.warning { border-left-color: var(--rosa); background: var(--rosa-tenue); border-color: transparent; border-left-color: var(--rosa); }
+        .ai-box { margin: 14px 0; padding: 14px 18px; background: var(--color-surface); border: 1px dashed var(--acqua-testo); }
+        .ai-box-header { display: flex; gap: 8px; align-items: center; margin-bottom: 6px; }
+        .ai-box-header h4 { margin: 0; }
+        .ai-icon { font-size: 1.3rem; }
+        .prompt-example { margin: 8px 0; padding: 10px 14px; background: var(--acqua-tenue); font-size: .93rem; }
+
+        .checklist { list-style: none; padding: 0; }
+        .checklist li { position: relative; padding-left: 26px; margin: 5px 0; }
+        .checklist li::before { content: "✓"; position: absolute; left: 4px; color: var(--verde-testo); font-weight: 700; }
+
+        .timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin: 16px 0; }
+        .timeline-item { display: flex; gap: 10px; padding: 12px 14px; background: var(--color-surface); border: 1px solid var(--color-line); border-top: 4px solid var(--lime); }
+        .timeline-item:nth-child(2) { border-top-color: var(--rosa); }
+        .timeline-item:nth-child(3) { border-top-color: var(--verde); }
+        .timeline-item:nth-child(4) { border-top-color: var(--acqua); }
+        .timeline-marker { flex: 0 0 auto; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--color-primary); color: #fff; font-weight: 700; font-size: .85rem; }
+        .timeline-content h4 { margin: 0 0 4px; font-size: .98rem; }
+        .timeline-content p { margin: 0; font-size: .9rem; }
+
+        .table-responsive { overflow-x: auto; margin: 14px 0; }
+        .card table { width: 100%; border-collapse: collapse; background: var(--color-surface); font-size: .94rem; }
+        .card th, .card td { padding: 10px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--color-line); }
+        .card thead th { background: var(--tinta-tenue); color: var(--color-primary); border-bottom: 2px solid var(--tinta); }
+
+        .sette { list-style: none; counter-reset: dom; padding: 0; margin: 16px 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+        .sette li { counter-increment: dom; margin: 0; padding: 12px 14px 16px; background: var(--color-surface); border: 1px solid var(--color-line); border-top: 4px solid var(--tinta); }
+        .sette li:nth-child(4n+1) { border-top-color: var(--lime); }
+        .sette li:nth-child(4n+2) { border-top-color: var(--rosa); }
+        .sette li:nth-child(4n+3) { border-top-color: var(--verde); }
+        .sette li:nth-child(4n) { border-top-color: var(--acqua); }
+        .sette li::before { content: counter(dom); align-self: flex-start; display: inline-grid; place-items: center; width: 24px; height: 24px; margin-bottom: 6px; border-radius: 50%; background: var(--color-primary); color: #fff; font-size: .78rem; font-weight: 700; }
+        .sette b { display: block; color: var(--color-primary); font-size: 1.05rem; }
+        .sette small { display: block; color: var(--color-ink-soft); }
+        .sette li { display: flex; flex-direction: column; }
+        .sette .riga { display: block; margin-top: auto; padding-top: 14px; border-bottom: 1px dotted #9aa3ad; height: 1.4em; }
+
+        .accordion { margin: 16px 0; }
+        .accordion-item { margin-bottom: 8px; background: var(--color-surface); border: 1px solid var(--color-line); }
+        .accordion-header { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 12px 16px; cursor: pointer; font-weight: 600; color: var(--color-primary); }
+        .accordion-header:hover { background: var(--color-primary-tint); }
+        .accordion-icon { transition: transform .3s; }
+        .accordion-item.active .accordion-icon { transform: rotate(180deg); }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+        .accordion-item.active .accordion-content { max-height: 2400px; }
+        .accordion-body { padding: 4px 16px 16px; }
+
+        .progress-container { margin: 20px 0; padding: 16px 18px; background: var(--color-bg); }
+        .progress-bar { height: 24px; background: var(--color-surface); border: 1px solid var(--color-line); }
+        .progress-fill { height: 100%; background: var(--verde); color: #fff; font-size: .8rem; font-weight: 700; text-align: center; line-height: 22px; transition: width 1s ease; }
+
+        .download-section { margin: 18px 0; }
+        .download-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+        .download-card { padding: 14px 16px; background: var(--color-primary); color: #fff; }
+        .download-card h4 { margin: 0 0 4px; color: #fff; }
+        .download-card p { margin: 0; font-size: .9rem; }
+        .btn { display: inline-block; min-height: 40px; padding: 8px 14px; border: 1px solid var(--color-primary); border-radius: 4px; background: var(--color-primary); color: #fff; font-weight: 600; text-decoration: none; }
+        .btn-outline { background: transparent; }
+        .btn-secondary { background: var(--color-surface); color: var(--color-primary); }
+
+        .priorita { display: inline-block; padding: 2px 8px; font-size: .8rem; font-weight: 700; }
+        .priorita.alta { background: var(--rosa-tenue); color: var(--rosa-testo); }
+        .priorita.media { background: var(--lime-tenue); color: var(--lime-testo); }
+        pre.albero { margin: 8px 0 0; padding: 12px 14px; background: var(--color-surface); border: 1px solid var(--color-line); overflow-x: auto; font-size: .88rem; }
+        .text-muted { color: var(--color-ink-soft); }
         .text-center { text-align: center; }
-        .text-muted { color: var(--text-gray); }
+        .mt-2 { margin-top: .8rem; } .mt-3 { margin-top: 1.2rem; } .mb-2 { margin-bottom: .8rem; }
 
-        /* Print styles */
+        .footer { margin-top: 30px; padding: 22px 0; border-top: 1px solid var(--color-line); color: var(--color-ink-soft); font-size: .88rem; }
+        .footer-content { width: min(1080px, calc(100% - 32px)); margin: 0 auto; }
+        .footer a { color: var(--color-primary); }
+        .footer-links { display: flex; flex-wrap: wrap; gap: 6px 16px; }
+
+        @media (max-width: 760px) {
+            .card { padding: 20px 16px; }
+            .attivita { padding: 16px 14px; }
+        }
         @media print {
-            .nav-pills, .download-section, .footer, .btn { display: none; }
-            .card { box-shadow: none; border: 1px solid var(--border-color); }
-        }
-
-        /* Accordion styles */
-        .accordion {
-            margin: 1.5rem 0;
-        }
-
-        .accordion-item {
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            overflow: hidden;
-        }
-
-        .accordion-header {
-            background: var(--bg-light);
-            padding: 1rem 1.5rem;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-            transition: background 0.3s;
-        }
-
-        .accordion-header:hover {
-            background: #e2e8f0;
-        }
-
-        .accordion-icon {
-            transition: transform 0.3s;
-        }
-
-        .accordion-item.active .accordion-icon {
-            transform: rotate(180deg);
-        }
-
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .accordion-item.active .accordion-content {
-            max-height: 2000px;
-        }
-
-        .accordion-body {
-            padding: 1.5rem;
-        }
-
-        /* Progress bar */
-        .progress-container {
-            background: var(--bg-light);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin: 2rem 0;
-        }
-
-        .progress-bar {
-            background: #e2e8f0;
-            height: 30px;
-            border-radius: 15px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .progress-fill {
-            background: linear-gradient(90deg, var(--success-color) 0%, #059669 100%);
-            height: 100%;
-            border-radius: 15px;
-            transition: width 1s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
+            .nav-pills { display: none !important; }
+            .accordion-content { max-height: none !important; }
+            .card, .attivita { break-inside: auto; }
+            .attivita-header, .info-box, .ai-box, .sette li { break-inside: avoid; }
         }
     </style>
 </head>
-<body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-content">
-            <h1>🎓 La Fase Preliminare del Progetto d'Intervento</h1>
-            <p class="subtitle">Modulo di Autoapprendimento Progressivo Guidato</p>
+<body data-tinta="rosa">
+<a class="skip" href="#contenuto">Vai al contenuto</a>
+<div class="barra shell">
+    <a href="../../terzo.html#arg-progetto">← Materiali del terzo anno</a>
+    <a href="../../quarto.html#arg-progetto">Materiali del quarto anno</a>
+    <span class="sito">Metodologie Operative</span>
+</div>
+
+    <header class="header shell" id="contenuto">
+        <div class="testata testata--archi header-content">
+            <p class="occhiello">Terzo anno · Modulo di autoapprendimento guidato</p>
+            <h1>La fase preliminare del progetto d'intervento</h1>
+            <p class="lead">Dal bisogno della persona alle sette domande della progettazione: analisi, priorità, risorse e prima stesura del progetto.</p>
             <div class="meta">
-                <div class="meta-item">
-                    <span>📚</span>
-                    <span>Metodologie Operative</span>
-                </div>
-                <div class="meta-item">
-                    <span>👥</span>
-                    <span>Classe 3ª - Servizi Sociosanitari</span>
-                </div>
-                <div class="meta-item">
-                    <span>⏱️</span>
-                    <span>8-10 ore</span>
-                </div>
-                <div class="meta-item">
-                    <span>👨‍🏫</span>
-                    <span>Prof. Salvatore Picconi</span>
-                </div>
+                <div class="meta-item"><span>👥</span><span>Classe terza · indirizzo sociosanitario</span></div>
+                <div class="meta-item"><span>⏱️</span><span>8-10 ore</span></div>
+                <div class="meta-item"><span>🧭</span><span>Quattro fasi di lavoro</span></div>
             </div>
         </div>
     </header>
@@ -652,13 +155,13 @@
     <!-- Navigation -->
     <nav class="nav-pills">
         <div class="nav-container">
-            <a href="#introduzione" class="nav-pill">📖 Introduzione</a>
-            <a href="#fase1" class="nav-pill">1️⃣ Concettualizzazione</a>
-            <a href="#fase2" class="nav-pill">2️⃣ Coinvolgimento</a>
-            <a href="#fase3" class="nav-pill">3️⃣ Applicazione</a>
-            <a href="#fase4" class="nav-pill">4️⃣ Riflessione</a>
-            <a href="#valutazione" class="nav-pill">📊 Valutazione</a>
-            <a href="#risorse" class="nav-pill">📥 Risorse</a>
+            <a href="#introduzione" class="nav-pill">Introduzione</a>
+            <a href="#fase1" class="nav-pill">1 · Concettualizzazione</a>
+            <a href="#fase2" class="nav-pill">2 · Coinvolgimento</a>
+            <a href="#fase3" class="nav-pill">3 · Applicazione</a>
+            <a href="#fase4" class="nav-pill">4 · Riflessione</a>
+            <a href="#valutazione" class="nav-pill">Valutazione</a>
+            <a href="#risorse" class="nav-pill">Risorse</a>
         </div>
     </nav>
 
@@ -670,13 +173,13 @@
             <div class="section-header">
                 <div class="section-number">📖</div>
                 <div>
-                    <h2>Introduzione al Modulo</h2>
+                    <h2>Introduzione al modulo</h2>
                     <p class="section-subtitle">Scopri come progettare interventi sociosanitari efficaci</p>
                 </div>
             </div>
 
             <div class="info-box">
-                <h3>🎯 Obiettivi di Apprendimento</h3>
+                <h3>🎯 Obiettivi di apprendimento</h3>
                 <p>Al termine di questo modulo sarai in grado di:</p>
                 <ul class="checklist">
                     <li>Analizzare i bisogni di una persona in difficoltà utilizzando strumenti professionali</li>
@@ -687,35 +190,35 @@
                 </ul>
             </div>
 
-            <h3>🧠 Il Metodo: Autoapprendimento Progressivo Guidato</h3>
+            <h3>🧠 Il metodo: autoapprendimento progressivo guidato</h3>
             <p>Questo modulo segue un approccio innovativo basato su <strong>4 fasi ricorsive</strong> che ti permetteranno di costruire autonomamente le tue competenze:</p>
 
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-marker">1</div>
                     <div class="timeline-content">
-                        <h4>Curiosità → Concettualizzazione</h4>
+                        <h4>Curiosità → concettualizzazione</h4>
                         <p>Attivare l'interesse e costruire il quadro teorico di riferimento</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-marker">2</div>
                     <div class="timeline-content">
-                        <h4>Comprensione → Coinvolgimento</h4>
+                        <h4>Comprensione → coinvolgimento</h4>
                         <p>Collegare la teoria alla realtà attraverso casi concreti</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-marker">3</div>
                     <div class="timeline-content">
-                        <h4>Applicazione → Azione</h4>
+                        <h4>Applicazione → azione</h4>
                         <p>Trasformare il sapere in competenza attraverso la pratica</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-marker">4</div>
                     <div class="timeline-content">
-                        <h4>Riflessione → Interiorizzazione</h4>
+                        <h4>Riflessione → interiorizzazione</h4>
                         <p>Consolidare l'apprendimento attraverso l'autovalutazione</p>
                     </div>
                 </div>
@@ -735,11 +238,11 @@
 
         <!-- FASE 1 -->
         <section id="fase1" class="card">
-            <span class="fase-badge fase-1">FASE 1: INTRODUZIONE E CONCETTUALIZZAZIONE</span>
+            <span class="fase-badge fase-1">Fase 1 · Introduzione e concettualizzazione</span>
             <div class="section-header">
                 <div class="section-number">1️⃣</div>
                 <div>
-                    <h2>Curiosità e Quadro di Riferimento</h2>
+                    <h2>Curiosità e quadro di riferimento</h2>
                     <p class="section-subtitle">"Perché si progetta? Dalla necessità alla risposta professionale"</p>
                 </div>
             </div>
@@ -748,7 +251,7 @@
             <div class="attivita">
                 <div class="attivita-header">
                     <div class="attivita-icon">📍</div>
-                    <h3>Attività 1.1 - Stimolo Iniziale (15 min)</h3>
+                    <h3>Attività 1.1 · Stimolo iniziale (15 min)</h3>
                 </div>
 
                 <div class="info-box">
@@ -774,7 +277,7 @@
             <div class="attivita">
                 <div class="attivita-header">
                     <div class="attivita-icon">📍</div>
-                    <h3>Attività 1.2 - Concetti Chiave (30 min)</h3>
+                    <h3>Attività 1.2 · Concetti chiave (30 min)</h3>
                 </div>
 
                 <h4>📖 Lettura attiva</h4>
@@ -788,7 +291,7 @@
                 <div class="ai-box mt-3">
                     <div class="ai-box-header">
                         <div class="ai-icon">🤖</div>
-                        <h4>Supporto IA per la Lettura</h4>
+                        <h4>Supporto IA per la lettura</h4>
                     </div>
                     <p>Usa lo strumento di IA indicato dal docente per comprendere meglio i concetti:</p>
                     
@@ -803,7 +306,7 @@
                     </div>
                 </div>
 
-                <h4 class="mt-3">🗺️ Crea la tua Mappa Concettuale</h4>
+                <h4 class="mt-3">🗺️ Crea la tua mappa concettuale</h4>
                 <p>Dopo la lettura, costruisci una mappa concettuale (su carta o digitale con Canva/Coggle) che risponda a:</p>
                 <ul class="checklist">
                     <li>Cos'è un progetto d'intervento?</li>
@@ -822,51 +325,20 @@
             <div class="attivita" id="attivita-1-3">
                 <div class="attivita-header">
                     <div class="attivita-icon">📍</div>
-                    <h3>Attività 1.3 - Le 7 Domande della Progettazione (20 min)</h3>
+                    <h3>Attività 1.3 · Le 7 domande della progettazione (20 min)</h3>
                 </div>
 
                 <p>Riprendi il caso di Maria dell'attività 1.1. Ora che conosci il metodo delle 7 domande, rispondi in modo più strutturato:</p>
 
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Domanda</th>
-                                <th>Risposta per il caso di Maria</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>A CHI?</strong><br>(utente e contesto)</td>
-                                <td><em>Compila tu...</em></td>
-                            </tr>
-                            <tr>
-                                <td><strong>PERCHÉ?</strong><br>(obiettivi)</td>
-                                <td><em>Compila tu...</em></td>
-                            </tr>
-                            <tr>
-                                <td><strong>CHE COSA?</strong><br>(attività e interventi)</td>
-                                <td><em>Compila tu...</em></td>
-                            </tr>
-                            <tr>
-                                <td><strong>COME?</strong><br>(metodo)</td>
-                                <td><em>Compila tu...</em></td>
-                            </tr>
-                            <tr>
-                                <td><strong>QUANDO?</strong><br>(tempi di realizzazione)</td>
-                                <td><em>Compila tu...</em></td>
-                            </tr>
-                            <tr>
-                                <td><strong>CON CHE COSA?</strong><br>(strumenti)</td>
-                                <td><em>Compila tu...</em></td>
-                            </tr>
-                            <tr>
-                                <td><strong>DOVE?</strong><br>(spazi)</td>
-                                <td><em>Compila tu...</em></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <ol class="sette" aria-label="Le sette domande per il caso di Maria">
+                    <li><b>A chi?</b><small>la persona e il suo contesto</small><span class="riga" aria-hidden="true"></span><em class="text-muted">Compila tu…</em></li>
+                    <li><b>Perché?</b><small>gli obiettivi</small><span class="riga" aria-hidden="true"></span><em class="text-muted">Compila tu…</em></li>
+                    <li><b>Che cosa?</b><small>le attività e gli interventi</small><span class="riga" aria-hidden="true"></span><em class="text-muted">Compila tu…</em></li>
+                    <li><b>Come?</b><small>il metodo</small><span class="riga" aria-hidden="true"></span><em class="text-muted">Compila tu…</em></li>
+                    <li><b>Quando?</b><small>i tempi di realizzazione</small><span class="riga" aria-hidden="true"></span><em class="text-muted">Compila tu…</em></li>
+                    <li><b>Con che cosa?</b><small>gli strumenti</small><span class="riga" aria-hidden="true"></span><em class="text-muted">Compila tu…</em></li>
+                    <li><b>Dove?</b><small>gli spazi</small><span class="riga" aria-hidden="true"></span><em class="text-muted">Compila tu…</em></li>
+                </ol>
 
                 <div class="ai-box mt-3">
                     <div class="ai-box-header">
@@ -881,18 +353,18 @@
 
                 <div class="info-box success mt-3">
                     <h4>✅ Prodotto atteso</h4>
-                    <p>Tabella compilata (individuale o a coppie) da consegnare o caricare su Google Classroom</p>
+                    <p>Scheda delle sette domande compilata, individualmente o a coppie, da consegnare o caricare su Google Classroom.</p>
                 </div>
             </div>
         </section>
 
         <!-- FASE 2 -->
         <section id="fase2" class="card">
-            <span class="fase-badge fase-2">FASE 2: COINVOLGIMENTO E PARTECIPAZIONE</span>
+            <span class="fase-badge fase-2">Fase 2 · Coinvolgimento e partecipazione</span>
             <div class="section-header">
                 <div class="section-number">2️⃣</div>
                 <div>
-                    <h2>I Bisogni Reali: Riconoscere, Analizzare, Scegliere</h2>
+                    <h2>I bisogni reali: riconoscere, analizzare, scegliere</h2>
                     <p class="section-subtitle">"Dalla teoria alla realtà attraverso casi concreti"</p>
                 </div>
             </div>
@@ -901,11 +373,11 @@
             <div class="attivita">
                 <div class="attivita-header">
                     <div class="attivita-icon">📍</div>
-                    <h3>Attività 2.1 - Analisi dei Bisogni: Il Caso di Marco (40 min)</h3>
+                    <h3>Attività 2.1 · Analisi dei bisogni: il caso di Marco (40 min)</h3>
                 </div>
 
                 <div class="info-box">
-                    <h4>📖 Il Caso</h4>
+                    <h4>📖 Il caso</h4>
                     <p><em>"Marco ha 16 anni, frequenta la 2ª superiore. Negli ultimi mesi è spesso assente, arriva a scuola stanco, non partecipa. I professori si sono accorti che ha difficoltà a concentrarsi. La madre lavora su turni, il padre è all'estero. Marco passa molto tempo solo a casa, di notte gioca online fino a tardi. Ha pochi amici."</em></p>
                 </div>
 
@@ -916,7 +388,7 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Categoria di Bisogno</th>
+                                <th>Categoria di bisogno</th>
                                 <th>Cosa emerge nel caso di Marco?</th>
                                 <th>Chi potrebbe aiutare?</th>
                             </tr>
@@ -949,7 +421,7 @@
                 <div class="ai-box mt-3">
                     <div class="ai-box-header">
                         <div class="ai-icon">🤖</div>
-                        <h4>Analisi Approfondita con IA</h4>
+                        <h4>Analisi approfondita con IA</h4>
                     </div>
                     <div class="prompt-example">
                         <strong>Prompt suggerito:</strong><br>
@@ -967,12 +439,12 @@
             <div class="attivita" id="attivita-2-2">
                 <div class="attivita-header">
                     <div class="attivita-icon">📍</div>
-                    <h3>Attività 2.2 - Gerarchia dei Problemi (30 min)</h3>
+                    <h3>Attività 2.2 · Gerarchia dei problemi (30 min)</h3>
                 </div>
 
                 <p>Nel caso di Marco, distingui tra problemi manifesti (quello che si vede) e problemi latenti (le cause profonde).</p>
 
-                <h4 class="mt-3">🌳 Costruisci l'Albero dei Problemi</h4>
+                <h4 class="mt-3">🌳 Costruisci l'albero dei problemi</h4>
                 <p>Struttura:</p>
                 <ul>
                     <li><strong>In alto (rami):</strong> Le conseguenze possibili</li>
@@ -982,7 +454,7 @@
 
                 <div class="info-box warning">
                     <h4>💡 Esempio guidato</h4>
-                    <pre style="background: white; padding: 1rem; border-radius: 6px; overflow-x: auto;">
+                    <pre class="albero">
 CONSEGUENZE → Rischio abbandono scolastico, isolamento totale
        ↑
 PROBLEMA CENTRALE → Difficoltà di concentrazione e partecipazione
@@ -1012,12 +484,12 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
             <div class="attivita" id="attivita-2-3">
                 <div class="attivita-header">
                     <div class="attivita-icon">📍</div>
-                    <h3>Attività 2.3 - Selezione dei Problemi Prioritari (20 min)</h3>
+                    <h3>Attività 2.3 · Selezione dei problemi prioritari (20 min)</h3>
                 </div>
 
                 <p>Hai individuato molti problemi. Su quale dovresti intervenire per primo?</p>
 
-                <h4 class="mt-3">🎯 Criteri di Priorità (vedi pagina 177)</h4>
+                <h4 class="mt-3">🎯 Criteri di priorità (vedi pagina 177)</h4>
                 <ul>
                     <li><strong>Urgenza:</strong> Quanto è grave? (scala 1-5)</li>
                     <li><strong>Fattibilità:</strong> Possiamo intervenire realisticamente? (scala 1-5)</li>
@@ -1032,7 +504,7 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
                                 <th>Urgenza<br>(1-5)</th>
                                 <th>Fattibilità<br>(1-5)</th>
                                 <th>Impatto<br>(1-5)</th>
-                                <th>TOTALE</th>
+                                <th>Totale</th>
                                 <th>Priorità</th>
                             </tr>
                         </thead>
@@ -1043,7 +515,7 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
                                 <td>3</td>
                                 <td>4</td>
                                 <td><strong>12</strong></td>
-                                <td><span style="background: #fca5a5; padding: 0.25rem 0.5rem; border-radius: 4px;">ALTA</span></td>
+                                <td><span class="priorita alta">Alta</span></td>
                             </tr>
                             <tr>
                                 <td>Es. Isolamento sociale</td>
@@ -1051,7 +523,7 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
                                 <td>4</td>
                                 <td>5</td>
                                 <td><strong>13</strong></td>
-                                <td><span style="background: #fca5a5; padding: 0.25rem 0.5rem; border-radius: 4px;">ALTA</span></td>
+                                <td><span class="priorita alta">Alta</span></td>
                             </tr>
                             <tr>
                                 <td>Es. Difficoltà scolastiche</td>
@@ -1059,7 +531,7 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
                                 <td>3</td>
                                 <td>3</td>
                                 <td><strong>9</strong></td>
-                                <td><span style="background: #fde047; padding: 0.25rem 0.5rem; border-radius: 4px;">MEDIA</span></td>
+                                <td><span class="priorita media">Media</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -1074,11 +546,11 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
 
         <!-- FASE 3 -->
         <section id="fase3" class="card">
-            <span class="fase-badge fase-3">FASE 3: APPLICAZIONE OPERATIVA</span>
+            <span class="fase-badge fase-3">Fase 3 · Applicazione operativa</span>
             <div class="section-header">
                 <div class="section-number">3️⃣</div>
                 <div>
-                    <h2>Dal Bisogno al Progetto: Costruire la Risposta</h2>
+                    <h2>Dal bisogno al progetto: costruire la risposta</h2>
                     <p class="section-subtitle">"Tradurre il sapere in competenza operativa"</p>
                 </div>
             </div>
@@ -1087,12 +559,12 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
             <div class="attivita" id="attivita-3-1">
                 <div class="attivita-header">
                     <div class="attivita-icon">📍</div>
-                    <h3>Attività 3.1 - Analisi Risorse e Limiti (40 min)</h3>
+                    <h3>Attività 3.1 · Analisi di risorse e limiti (40 min)</h3>
                 </div>
 
                 <p>Per progettare un intervento per Marco, devi conoscere le risorse disponibili nel territorio.</p>
 
-                <h4 class="mt-3">🗺️ Mappa delle Risorse Territoriali</h4>
+                <h4 class="mt-3">🗺️ Mappa delle risorse territoriali</h4>
                 <p>Riferimento: Pagine 178-179 del manuale</p>
 
                 <div class="table-responsive">
@@ -1100,8 +572,8 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
                         <thead>
                             <tr>
                                 <th style="width: 25%;">Categoria</th>
-                                <th>Risorse Disponibili</th>
-                                <th>Limiti/Vincoli</th>
+                                <th>Risorse disponibili</th>
+                                <th>Limiti e vincoli</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -1145,7 +617,7 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
                 </div>
 
                 <div class="info-box warning mt-3">
-                    <h4>🎭 Simulazione Realistica</h4>
+                    <h4>🎭 Simulazione realistica</h4>
                     <p>Immagina che il tuo Comune abbia:</p>
                     <ul>
                         <li>Un centro giovani aperto 3 pomeriggi a settimana</li>
@@ -1158,7 +630,7 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
                 <div class="ai-box mt-3">
                     <div class="ai-box-header">
                         <div class="ai-icon">🤖</div>
-                        <h4>Esplora il Territorio con IA</h4>
+                        <h4>Esplora il territorio con IA</h4>
                     </div>
                     <div class="prompt-example">
                         <strong>Prompt suggerito:</strong><br>
@@ -1176,11 +648,11 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
             <div class="attivita">
                 <div class="attivita-header">
                     <div class="attivita-icon">📍</div>
-                    <h3>Attività 3.2 - Progettazione Completa per Marco (90 min - LABORATORIO)</h3>
+                    <h3>Attività 3.2 · Progettazione completa per Marco (90 min · Laboratorio)</h3>
                 </div>
 
                 <div class="info-box">
-                    <h4>👥 Lavoro di Gruppo</h4>
+                    <h4>👥 Lavoro di gruppo</h4>
                     <p>In gruppo (3-4 persone), progettate un intervento concreto per Marco seguendo la struttura delle 7 domande e integrando:</p>
                     <ul class="checklist">
                         <li>L'analisi dei bisogni</li>
@@ -1189,13 +661,13 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
                     </ul>
                 </div>
 
-                <h4 class="mt-3">📋 Template di Progetto</h4>
+                <h4 class="mt-3">📋 Template di progetto</h4>
                 <p>Il vostro progetto deve includere le seguenti sezioni:</p>
 
                 <div class="accordion">
                     <div class="accordion-item">
                         <div class="accordion-header" onclick="toggleAccordion(this)">
-                            <span>1. PRESA IN CARICO (A CHI)</span>
+                            <span>1. Presa in carico · a chi?</span>
                             <span class="accordion-icon">▼</span>
                         </div>
                         <div class="accordion-content">
@@ -1214,7 +686,7 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
 
                     <div class="accordion-item">
                         <div class="accordion-header" onclick="toggleAccordion(this)">
-                            <span>2. ANALISI DEI BISOGNI (PERCHÉ)</span>
+                            <span>2. Analisi dei bisogni · perché?</span>
                             <span class="accordion-icon">▼</span>
                         </div>
                         <div class="accordion-content">
@@ -1231,7 +703,7 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
 
                     <div class="accordion-item">
                         <div class="accordion-header" onclick="toggleAccordion(this)">
-                            <span>3. OBIETTIVI (PERCHÉ - finalità)</span>
+                            <span>3. Obiettivi · perché? (le finalità)</span>
                             <span class="accordion-icon">▼</span>
                         </div>
                         <div class="accordion-content">
@@ -1249,7 +721,7 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
 
                     <div class="accordion-item">
                         <div class="accordion-header" onclick="toggleAccordion(this)">
-                            <span>4. ATTIVITÀ E INTERVENTI (CHE COSA)</span>
+                            <span>4. Attività e interventi · che cosa?</span>
                             <span class="accordion-icon">▼</span>
                         </div>
                         <div class="accordion-content">
@@ -1262,7 +734,7 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
 
                     <div class="accordion-item">
                         <div class="accordion-header" onclick="toggleAccordion(this)">
-                            <span>5. METODO (COME)</span>
+                            <span>5. Metodo · come?</span>
                             <span class="accordion-icon">▼</span>
                         </div>
                         <div class="accordion-content">
@@ -1278,7 +750,7 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
 
                     <div class="accordion-item">
                         <div class="accordion-header" onclick="toggleAccordion(this)">
-                            <span>6. TEMPI (QUANDO)</span>
+                            <span>6. Tempi · quando?</span>
                             <span class="accordion-icon">▼</span>
                         </div>
                         <div class="accordion-content">
@@ -1295,7 +767,7 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
 
                     <div class="accordion-item">
                         <div class="accordion-header" onclick="toggleAccordion(this)">
-                            <span>7. RISORSE (CON CHE COSA)</span>
+                            <span>7. Risorse · con che cosa?</span>
                             <span class="accordion-icon">▼</span>
                         </div>
                         <div class="accordion-content">
@@ -1311,7 +783,7 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
 
                     <div class="accordion-item">
                         <div class="accordion-header" onclick="toggleAccordion(this)">
-                            <span>8. SPAZI (DOVE)</span>
+                            <span>8. Spazi · dove?</span>
                             <span class="accordion-icon">▼</span>
                         </div>
                         <div class="accordion-content">
@@ -1328,7 +800,7 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
                 <div class="ai-box mt-3">
                     <div class="ai-box-header">
                         <div class="ai-icon">🤖</div>
-                        <h4>IA come Consulente di Progetto</h4>
+                        <h4>IA come consulente di progetto</h4>
                     </div>
                     <p>Usate lo strumento di IA indicato dal docente per:</p>
                     <div class="prompt-example">
@@ -1355,19 +827,19 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
             <div class="attivita">
                 <div class="attivita-header">
                     <div class="attivita-icon">📍</div>
-                    <h3>Attività 3.3 - Presentazione dei Progetti (60 min)</h3>
+                    <h3>Attività 3.3 · Presentazione dei progetti (60 min)</h3>
                 </div>
 
                 <p>Ogni gruppo presenta il proprio progetto (max 7 minuti). Gli altri gruppi compilano una griglia di ascolto attivo.</p>
 
-                <h4 class="mt-3">👂 Griglia di Ascolto Attivo</h4>
+                <h4 class="mt-3">👂 Griglia di ascolto attivo</h4>
                 <div class="table-responsive">
                     <table>
                         <thead>
                             <tr>
                                 <th>Criterio</th>
                                 <th>Sì/No</th>
-                                <th>Note e Suggerimenti</th>
+                                <th>Note e suggerimenti</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -1401,7 +873,7 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
                 </div>
 
                 <div class="info-box mt-3">
-                    <h4>💬 Feedback tra Pari</h4>
+                    <h4>💬 Feedback tra pari</h4>
                     <p>Ogni gruppo riceve almeno 2 domande/suggerimenti costruttivi dagli altri compagni.</p>
                 </div>
             </div>
@@ -1409,11 +881,11 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
 
         <!-- FASE 4 -->
         <section id="fase4" class="card">
-            <span class="fase-badge fase-4">FASE 4: RIFLESSIVITÀ E VERIFICA</span>
+            <span class="fase-badge fase-4">Fase 4 · Riflessività e verifica</span>
             <div class="section-header">
                 <div class="section-number">4️⃣</div>
                 <div>
-                    <h2>Cosa Ho Imparato? Come Posso Applicarlo?</h2>
+                    <h2>Cosa ho imparato? Come posso applicarlo?</h2>
                     <p class="section-subtitle">"Consolidare e interiorizzare attraverso la metacognizione"</p>
                 </div>
             </div>
@@ -1422,12 +894,12 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
             <div class="attivita">
                 <div class="attivita-header">
                     <div class="attivita-icon">📍</div>
-                    <h3>Attività 4.1 - Diario Riflessivo Individuale (30 min)</h3>
+                    <h3>Attività 4.1 · Diario riflessivo individuale (30 min)</h3>
                 </div>
 
                 <p>Rispondi alle seguenti domande in forma di diario personale (scritto, vocale registrato o video-diario).</p>
 
-                <h4 class="mt-3">🤔 Domande per la Riflessione Metacognitiva</h4>
+                <h4 class="mt-3">🤔 Domande per la riflessione metacognitiva</h4>
 
                 <div class="info-box">
                     <h4>1. Cosa ho scoperto che non sapevo prima?</h4>
@@ -1473,7 +945,7 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
                 <div class="ai-box mt-3">
                     <div class="ai-box-header">
                         <div class="ai-icon">🤖</div>
-                        <h4>Supporto IA per la Riflessione</h4>
+                        <h4>Supporto IA per la riflessione</h4>
                     </div>
                     <div class="prompt-example">
                         <strong>Prompt suggerito:</strong><br>
@@ -1491,7 +963,7 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
             <div class="attivita">
                 <div class="attivita-header">
                     <div class="attivita-icon">📍</div>
-                    <h3>Attività 4.2 - Autovalutazione delle Competenze (20 min)</h3>
+                    <h3>Attività 4.2 · Autovalutazione delle competenze (20 min)</h3>
                 </div>
 
                 <p>Valuta onestamente il tuo livello di competenza prima e dopo il modulo.</p>
@@ -1500,7 +972,7 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
                     <table>
                         <thead>
                             <tr>
-                                <th>COMPETENZA</th>
+                                <th>Competenza</th>
                                 <th>Prima<br>del modulo</th>
                                 <th>Dopo<br>il modulo</th>
                                 <th>Cosa devo ancora<br>migliorare?</th>
@@ -1568,10 +1040,10 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
             <div class="attivita">
                 <div class="attivita-header">
                     <div class="attivita-icon">📍</div>
-                    <h3>Attività 4.3 - Sintesi Collaborativa Finale (30 min)</h3>
+                    <h3>Attività 4.3 · Sintesi collaborativa finale (30 min)</h3>
                 </div>
 
-                <h4>⭕ Circle Time Conclusivo</h4>
+                <h4>⭕ Circle time conclusivo</h4>
                 <p>Gli studenti in cerchio condividono brevemente:</p>
                 <ul class="checklist">
                     <li>1 cosa che porteranno con sé da questo modulo</li>
@@ -1579,7 +1051,7 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
                     <li>1 domanda che rimane aperta</li>
                 </ul>
 
-                <h4 class="mt-3">📜 Decalogo del "Buon Progettista"</h4>
+                <h4 class="mt-3">📜 Decalogo del «buon progettista»</h4>
                 <p>Costruite insieme alla classe un decalogo (10 principi) del buon progettista sociale. Esempio di inizio:</p>
                 <ol>
                     <li>Ascolta prima di agire</li>
@@ -1601,13 +1073,13 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
             <div class="section-header">
                 <div class="section-number">📊</div>
                 <div>
-                    <h2>Valutazione del Modulo</h2>
+                    <h2>Valutazione del modulo</h2>
                     <p class="section-subtitle">Criteri e modalità di valutazione</p>
                 </div>
             </div>
 
             <div class="info-box">
-                <h3>⚖️ Valutazione Formativa (Durante il Percorso)</h3>
+                <h3>⚖️ Valutazione formativa (durante il percorso)</h3>
                 <p>Viene valutata:</p>
                 <ul class="checklist">
                     <li>Partecipazione attiva alle discussioni</li>
@@ -1618,7 +1090,7 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
             </div>
 
             <div class="info-box warning mt-3">
-                <h3>📝 Valutazione Sommativa (Finale)</h3>
+                <h3>📝 Valutazione sommativa (finale)</h3>
                 <p>La valutazione finale si compone di:</p>
                 <ul>
                     <li><strong>50%</strong> - Progetto di gruppo per il caso Marco</li>
@@ -1627,11 +1099,11 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
                 </ul>
             </div>
 
-            <h3 class="mt-3">🎯 Compito Autentico Finale (VALUTAZIONE INDIVIDUALE)</h3>
+            <h3 class="mt-3">🎯 Compito autentico finale (valutazione individuale)</h3>
             
             <div class="attivita">
                 <div class="info-box">
-                    <h4>📋 Situazione-Problema Autentica</h4>
+                    <h4>📋 Situazione-problema autentica</h4>
                     <p><em>"L'associazione 'Mani Amiche' del tuo paese ti chiede una consulenza. Vogliono attivare un servizio di sostegno per anziani soli che vivono in campagna. Hanno un budget limitato (€1000), 3 volontari disponibili il sabato pomeriggio e uno spazio in prestito dalla parrocchia. Non sanno da dove iniziare."</em></p>
                 </div>
 
@@ -1646,7 +1118,7 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
                     <li>Suggerimenti su come potrebbero iniziare (fase preliminare)</li>
                 </ol>
 
-                <h4 class="mt-3">🎯 Griglia di Valutazione</h4>
+                <h4 class="mt-3">🎯 Griglia di valutazione</h4>
                 <div class="table-responsive">
                     <table>
                         <thead>
@@ -1707,40 +1179,40 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
             <div class="section-header">
                 <div class="section-number">📥</div>
                 <div>
-                    <h2>Risorse e Materiali Scaricabili</h2>
+                    <h2>Risorse e materiali scaricabili</h2>
                     <p class="section-subtitle">Tutto ciò che ti serve per completare il modulo</p>
                 </div>
             </div>
 
             <div class="download-section">
-                <h3>📚 Materiali Didattici</h3>
+                <h3>📚 Materiali didattici</h3>
                 <p>Le schede operative sono dentro le attività: ogni pulsante porta alla tabella da compilare.</p>
 
                 <div class="download-grid">
                     <div class="download-card">
-                        <h4>📋 Scheda 7 Domande</h4>
-                        <p>La tabella da compilare è nell'attività 1.3</p>
+                        <h4>📋 Scheda delle 7 domande</h4>
+                        <p>La scheda da compilare è nell'attività 1.3.</p>
                         <a href="#attivita-1-3" class="btn btn-outline" style="color: white; border-color: white; margin-top: 0.5rem;">Vai all'attività</a>
                     </div>
                     <div class="download-card">
-                        <h4>🌳 Albero dei Problemi</h4>
+                        <h4>🌳 Albero dei problemi</h4>
                         <p>La tabella da compilare è nell'attività 2.2</p>
                         <a href="#attivita-2-2" class="btn btn-outline" style="color: white; border-color: white; margin-top: 0.5rem;">Vai all'attività</a>
                     </div>
                     <div class="download-card">
-                        <h4>📊 Griglia Priorità</h4>
+                        <h4>📊 Griglia delle priorità</h4>
                         <p>La tabella da compilare è nell'attività 2.3</p>
                         <a href="#attivita-2-3" class="btn btn-outline" style="color: white; border-color: white; margin-top: 0.5rem;">Vai all'attività</a>
                     </div>
                     <div class="download-card">
-                        <h4>🗺️ Mappa Risorse</h4>
+                        <h4>🗺️ Mappa delle risorse</h4>
                         <p>La tabella da compilare è nell'attività 3.1</p>
                         <a href="#attivita-3-1" class="btn btn-outline" style="color: white; border-color: white; margin-top: 0.5rem;">Vai all'attività</a>
                     </div>
                 </div>
             </div>
 
-            <h3 class="mt-3">🔗 Collegamenti Utili</h3>
+            <h3 class="mt-3">🔗 Collegamenti utili</h3>
             <div class="table-responsive">
                 <table>
                     <thead>
@@ -1776,7 +1248,7 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
             </div>
 
             <div class="info-box mt-3">
-                <h3>📖 Bibliografia Essenziale</h3>
+                <h3>📖 Bibliografia essenziale</h3>
                 <ul>
                     <li><strong>Manuale del corso:</strong> Metodologie Operative, Unità 1 (pagine 170-183)</li>
                     <li>Approfondimenti sulla progettazione sociale su siti istituzionali (ASL, Servizi Sociali)</li>
@@ -1785,7 +1257,7 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
             </div>
 
             <div class="info-box warning mt-3">
-                <h3>💡 Come Usare l'IA in Modo Etico</h3>
+                <h3>💡 Come usare l'IA in modo etico</h3>
                 <p><strong>Regole d'Oro:</strong></p>
                 <ul class="checklist">
                     <li>Usa l'IA per comprendere meglio, non per copiare</li>
@@ -1799,7 +1271,7 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
 
         <!-- Progresso -->
         <div class="progress-container">
-            <h3>🎯 Il Tuo Progresso nel Modulo</h3>
+            <h3>🎯 Il tuo progresso nel modulo</h3>
             <p class="text-muted mb-2">Completa tutte le attività per padroneggiare la fase preliminare del progetto d'intervento</p>
             <div class="progress-bar">
                 <div class="progress-fill" style="width: 0%;" id="progressBar">0%</div>
@@ -1809,21 +1281,12 @@ CAUSE → Solitudine + Stanchezza cronica + Scarso supporto familiare
 
     </div>
 
-    <!-- Footer -->
     <footer class="footer">
-        <div class="footer-content">
-            <h3>Prof. Salvatore Picconi</h3>
-            <p>IIS Meucci Mattei - Cagliari Sede Decimomannu</p>
-            <p>Indirizzo: Servizi per la Sanità e l'Assistenza Sociale</p>
-            
-            <div class="footer-links">
-                <a href="https://salvapicconi.github.io/metodologieoperative" target="_blank">🌐 Sito del Corso</a>
-                <a href="#" onclick="window.print(); return false;">🖨️ Stampa Pagina</a>
-            </div>
-            
-            <p style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.8;">
-                © 2024 - Materiale didattico ad uso esclusivo degli studenti dell'IIS Meucci Mattei
-            </p>
+        <div class="footer-content footer-links">
+            <span>Metodologie Operative · La fase preliminare del progetto d'intervento</span>
+            <a href="../../terzo.html">Materiali del terzo anno</a>
+            <a href="#" onclick="window.print(); return false;">Stampa la pagina</a>
+            <a href="#contenuto">Torna all'inizio</a>
         </div>
     </footer>
 
