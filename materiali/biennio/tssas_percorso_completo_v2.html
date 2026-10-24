@@ -6,30 +6,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Operatore sociale - Percorso a tappe per la lezione partecipata</title>
+    <link rel="stylesheet" href="../../assets/materiale.css?v=20261024">
+    <script src="../../assets/materiale.js?v=20261024" defer></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --turchese: #1DD3D3;
-            --turchese-dark: #16A8A8;
-            --turchese-deep: #0E7C7C;
-            --lime: #C6E716;
-            --lime-dark: #9CB912;
-            --fucsia: #FF0090;
-            --fucsia-dark: #CC0073;
-            --ink: #1f2933;
-            --ink-soft: #52606d;
+            --turchese: #57bda8;
+            --turchese-dark: #1b6f5f;
+            --turchese-deep: #17385a;
+            --lime: #80cd29;
+            --lime-dark: #447010;
+            --fucsia: #ec166c;
+            --fucsia-dark: #d6105f;
+            --ink: #202c3b;
+            --ink-soft: #5b6570;
             --paper: #ffffff;
-            --paper-soft: #f4f9f9;
-            --line: #d9e2e6;
+            --paper-soft: #f5f6fa;
+            --line: #dde1e8;
             --ok: #16a34a;
             --ok-bg: #dcfce7;
             --no: #dc2626;
             --no-bg: #fee2e2;
             --warn-bg: #fff7d6;
-            --spiego: #e6f7f7;
-            --provate: #f3fbd9;
-            --confronto: #ffe6f3;
+            --spiego: #e7f5f2;
+            --provate: #f1f8e7;
+            --confronto: #fdebf2;
             --casa: #eef2ff;
             --fs: 1rem;
         }
@@ -89,7 +91,7 @@
         .ritmo > div { display: flex; gap: 10px; align-items: flex-start; font-size: .92em; }
         .ritmo .n { flex: 0 0 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; color: var(--ink); }
         .ritmo .n.s { background: var(--spiego); color: var(--turchese-deep); }
-        .ritmo .n.p { background: var(--provate); color: #4d6b00; }
+        .ritmo .n.p { background: var(--provate); color: #447010; }
         .ritmo .n.c { background: var(--confronto); color: var(--fucsia-dark); }
         .ritmo strong { display: block; }
 
@@ -103,7 +105,7 @@
         .score-box .value { font-size: 1.6em; font-weight: 800; color: var(--fucsia); line-height: 1.1; }
         .score-box .max { font-size: .6em; color: #999; }
         .badges { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
-        .badge { background: rgba(255,255,255,.55); border-radius: 999px; padding: 4px 10px; font-size: .8em; font-weight: 700; color: #6b7a00; opacity: .55; display: inline-flex; gap: 6px; align-items: center; }
+        .badge { background: rgba(255,255,255,.55); border-radius: 999px; padding: 4px 10px; font-size: .8em; font-weight: 700; color: #447010; opacity: .55; display: inline-flex; gap: 6px; align-items: center; }
         .badge.unlocked { background: white; color: var(--fucsia-dark); opacity: 1; box-shadow: 0 2px 8px rgba(0,0,0,.15); }
 
         /* ---------- NAV TAPPE ---------- */
@@ -179,7 +181,7 @@
         .step p { margin: 6px 0; }
         .step ul, .step ol { margin: 6px 0 6px 22px; }
         .step li { margin: 3px 0; }
-        .hl { background: linear-gradient(120deg, rgba(198,231,22,.55) 0%, rgba(198,231,22,.55) 100%); padding: 0 4px; border-radius: 3px; font-weight: 700; }
+        .hl { background: linear-gradient(120deg, rgba(128,205,41,.35) 0%, rgba(128,205,41,.35) 100%); padding: 0 4px; border-radius: 3px; font-weight: 700; }
         .nota { background: rgba(255,255,255,.75); border-radius: 10px; padding: 10px 14px; margin: 10px 0; font-size: .95em; }
         .nota.semplice { border-left: 4px solid var(--turchese); }
         .nota.fonte { font-size: .82em; color: var(--ink-soft); border-left: 4px solid var(--line); }
@@ -190,7 +192,7 @@
         .card h4 { color: var(--fucsia-dark); margin-bottom: 6px; font-size: 1em; }
         .tabella { width: 100%; border-collapse: collapse; background: rgba(255,255,255,.85); border-radius: 10px; overflow: hidden; font-size: .93em; margin: 10px 0; }
         .tabella th, .tabella td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
-        .tabella th { background: rgba(29,211,211,.18); color: var(--turchese-deep); }
+        .tabella th { background: rgba(87,189,168,.18); color: var(--turchese-deep); }
 
         /* schemi SVG */
         .schema { background: white; border-radius: 12px; padding: 10px; margin: 12px auto; max-width: 620px; border: 1px solid var(--line); }
@@ -213,7 +215,7 @@
         .campi-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
         .checklist { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 6px; margin: 8px 0; }
         .checklist label { display: flex; gap: 8px; align-items: flex-start; background: white; border: 2px solid var(--line); border-radius: 10px; padding: 8px 10px; cursor: pointer; font-weight: 500; font-size: .95em; }
-        .checklist label:has(input:checked) { border-color: var(--turchese); background: #ecfdfd; }
+        .checklist label:has(input:checked) { border-color: var(--turchese); background: #e7f5f2; }
         .checklist input { margin-top: 4px; }
         .coppia { display: inline-flex; gap: 6px; align-items: center; background: white; border-radius: 999px; padding: 3px 12px; font-size: .85em; font-weight: 700; color: var(--turchese-deep); border: 1px solid var(--turchese); margin: 4px 0 8px; }
 
@@ -300,7 +302,7 @@
             .tabella.rete-proprieta tr { border: 1px solid var(--line); border-radius: 10px; margin: 10px 0; overflow: hidden; background: rgba(255,255,255,.85); }
             .tabella.rete-proprieta td { border-bottom: 1px solid var(--line); padding: 9px 12px; }
             .tabella.rete-proprieta td:last-child { border-bottom: 0; }
-            .tabella.rete-proprieta td:first-child { background: rgba(29,211,211,.18); color: var(--turchese-deep); }
+            .tabella.rete-proprieta td:first-child { background: rgba(87,189,168,.18); color: var(--turchese-deep); }
             .tabella.rete-proprieta td:nth-child(2)::before, .tabella.rete-proprieta td:nth-child(3)::before { display: block; font-size: .76em; font-weight: 800; color: var(--ink-soft); text-transform: uppercase; letter-spacing: .03em; margin-bottom: 2px; }
             .tabella.rete-proprieta td:nth-child(2)::before { content: 'Che cosa osserviamo'; }
             .tabella.rete-proprieta td:nth-child(3)::before { content: "Perché conta per l'operatore"; }
@@ -316,7 +318,7 @@
         }
 
         /* ---------- ATTIVITÀ AGGIUNTE (settembre 2026): tutte bonus, nessuna obbligatoria ---------- */
-        .bonus-tag { font-size: .68em; padding: 2px 9px; border-radius: 999px; background: var(--lime); color: #3f4a00; font-weight: 800; letter-spacing: .04em; }
+        .bonus-tag { font-size: .68em; padding: 2px 9px; border-radius: 999px; background: var(--lime); color: #17385a; font-weight: 800; letter-spacing: .04em; }
         .step-bonus { border: 2px dashed var(--lime-dark); }
         .fine-parte { margin: 20px 0 8px; padding: 10px 14px; border-top: 3px dashed var(--turchese); color: var(--turchese-deep); background: var(--paper-soft); font-size: .95em; }
         .schema-nuovo { max-width: 680px; }
@@ -373,7 +375,7 @@
         .riattiva.show { display: block; }
         .riattiva h3 { margin-bottom: 6px; }
         .riattiva .ra-item { background: white; border-radius: 12px; padding: 10px 14px; margin: 8px 0; border: 1px solid var(--line); }
-        .lim-box { background: #1f2933; color: #e6f7f7; border-radius: 10px; padding: 10px 12px; margin-top: 10px; font-size: .92em; }
+        .lim-box { background: #202c3b; color: #e7f5f2; border-radius: 10px; padding: 10px 12px; margin-top: 10px; font-size: .92em; }
         .lim-box .barra { display: grid; grid-template-columns: 2em 1fr 3.2em; gap: 6px; align-items: center; margin: 3px 0; }
         .lim-box .barra i { display: block; height: 12px; border-radius: 6px; background: var(--turchese); }
         .lim-box .barra i.ok { background: #4ade80; }
@@ -408,7 +410,7 @@
         details.approfondisci { background: rgba(255,255,255,.75); border: 1px solid var(--line); border-radius: 12px; margin: 12px 0; }
         details.approfondisci > summary { cursor: pointer; padding: 10px 14px; font-weight: 700; color: var(--turchese-deep); }
         details.approfondisci > .dentro { padding: 0 14px 12px; }
-        details.extra { border: 2px dashed var(--lime-dark); border-radius: 16px; margin: 18px 0; background: #fbfef0; }
+        details.extra { border: 2px dashed var(--lime-dark); border-radius: 16px; margin: 18px 0; background: #f1f8e7; }
         details.extra > summary { cursor: pointer; padding: 12px 18px; font-weight: 800; font-size: 1.05em; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; list-style: none; }
         details.extra > summary::-webkit-details-marker { display: none; }
         details.extra > summary::before { content: '▸'; color: var(--lime-dark); transition: transform .2s; }
@@ -433,7 +435,7 @@
         .reg-chip { border: 2px solid var(--turchese); background: white; color: var(--turchese-deep); border-radius: 999px; padding: 3px 11px; font: inherit; font-weight: 700; cursor: pointer; }
         .reg-chip small { font-weight: 400; color: var(--ink-soft); }
         .reg-chip.on { background: var(--turchese-deep); border-color: var(--turchese-deep); color: white; }
-        .reg-chip.on small { color: #d5f5f5; }
+        .reg-chip.on small { color: #e7f5f2; }
         .reg-tabs { display: flex; gap: 6px; padding: 8px 16px 0; border-bottom: 2px solid var(--line); flex-wrap: wrap; }
         .reg-tabs button { border: 0; background: none; font: inherit; font-weight: 700; color: var(--ink-soft); padding: 8px 12px; border-bottom: 3px solid transparent; margin-bottom: -2px; cursor: pointer; }
         .reg-tabs button.on { color: var(--turchese-deep); border-bottom-color: var(--turchese-deep); }
@@ -457,7 +459,7 @@
         .reg-cella:hover { outline: 3px solid var(--ink); }
         .rc0 { background: #eef2f4; color: #94a3b8; }
         .rc1 { background: #fde68a; color: #713f12; }
-        .rc2 { background: #a5e8e8; color: #083d3d; }
+        .rc2 { background: #bfe3da; color: #083d3d; }
         .rc3 { background: var(--ok); color: white; }
         .reg-legenda { display: flex; flex-wrap: wrap; gap: 12px; font-size: .82em; color: var(--ink-soft); margin: 10px 2px; align-items: center; }
         .reg-legenda i { display: inline-block; width: 16px; height: 12px; border-radius: 4px; vertical-align: middle; margin-right: 4px; }
@@ -499,10 +501,49 @@
         .reg-acts li { padding: 3px 0; border-bottom: 1px dashed var(--line); }
         @media (max-width: 640px) { .registro { padding: 0; } .reg-box { border-radius: 0; } }
         @media print { .registro { display: none !important; } }
+
+        /* ---------- Veste del sito: colori del logo, superfici piane ---------- */
+        body { font-family: var(--font-testo); background: var(--color-bg); padding: 0 0 40px; }
+        .container { max-width: 1100px; margin: 0 auto; background: transparent; border-radius: 0; box-shadow: none; overflow: visible; }
+        .header { background: transparent; color: var(--color-ink); text-align: left; padding: 40px 0 22px; }
+        .header h1 { font-family: var(--font-titoli); font-weight: 400; font-size: clamp(2.2rem, 5vw, 3.4rem); color: var(--color-primary); text-shadow: none; margin-bottom: 6px; }
+        .header .sottotitolo { font-size: 1.05rem; color: var(--color-ink-soft); margin: 0 0 14px; max-width: none; }
+        .header p { opacity: 1; margin: 0 0 14px; max-width: 760px; }
+        .header .lead { font-size: 1.15rem; color: var(--color-ink); }
+        .header-actions { justify-content: flex-start; }
+        .header .btn, .header .btn-white, .header .btn-ghost { background: var(--color-surface); color: var(--color-primary); border: 1px solid var(--color-primary); box-shadow: none; border-radius: 4px; }
+        .header .btn:hover { transform: none; box-shadow: none; background: var(--color-primary-tint); }
+        details.strumenti-docente { margin-top: 12px; font-size: .9rem; }
+        details.strumenti-docente > summary { cursor: pointer; color: var(--color-ink-soft); padding: 6px 0; }
+        details.strumenti-docente .header-actions { margin-top: 8px; }
+        .score-section { background: var(--color-surface); border: 1px solid var(--color-line); border-top: 4px solid var(--lime); border-radius: 0; }
+        .score-box { box-shadow: none; border: 1px solid var(--color-line); border-radius: 4px; }
+        .badge { background: var(--color-bg); }
+        .badge.unlocked { box-shadow: none; border: 1px solid var(--rosa); }
+        .nav-tappe { background: var(--color-surface); border: 1px solid var(--color-line); border-top: 0; }
+        .nav-tappe .parte:nth-child(1) { --parte: var(--lime); }
+        .nav-tappe .parte:nth-child(2) { --parte: var(--rosa); }
+        .nav-tappe .parte:nth-child(3) { --parte: var(--verde); }
+        .nav-tappe .parte:nth-child(4) { --parte: var(--acqua); }
+        .nav-tappe .parte:nth-child(5) { --parte: var(--color-primary); }
+        .nav-tappe .parte-nome { color: var(--color-primary); border-bottom: 3px solid var(--parte); }
+        .step, .tappa { border-radius: 0; }
+        .step-title, .tappa h2, h2.tappa-titolo { font-family: var(--font-titoli); font-weight: 400; color: var(--color-primary); }
+        .hl { background: none; padding: 0; font-weight: 600; color: var(--color-primary); text-decoration: underline; text-decoration-color: var(--lime); text-decoration-thickness: 3px; text-underline-offset: .2em; }
+        .traguardo { background: var(--lime-tenue); border: 2px solid var(--lime); border-radius: 0; }
+        .pensiero-per-te { background: var(--acqua-tenue); border-radius: 0; }
+        .reg-head { background: var(--color-primary); }
+        .card, .act, .utenza, .nota, .tabella, .autoval-item, details.approfondisci, details.extra, .nuova-att { border-radius: 4px; }
+        #recupero-lavoro { border: 1px solid var(--color-line); border-radius: 0 !important; }
     </style>
 </head>
 
-<body>
+<body data-tinta="acqua">
+    <div class="barra shell">
+        <a href="../../biennio.html#arg-operatore">← Materiali del biennio</a>
+        <a href="../../programmi.html?anno=Primo%20anno">Programma della prima</a>
+        <span class="sito">Metodologie Operative</span>
+    </div>
     <div class="overlay" id="overlay"></div>
     <div class="points-popup" id="pointsPopup">
         <div style="font-size: 2.4em;">🎉</div>
@@ -547,15 +588,25 @@
     <p id="recupero-lavoro" role="status" style="max-width:1100px;margin:18px auto;padding:12px 18px;background:#fff;border-radius:12px">Recupero del lavoro salvato in corso. Attendi prima di iniziare.</p>
     <div class="container" inert>
         <div class="header">
-            <h1>🎓 L'operatore sociale per la sanità e l'assistenza sociale</h1>
-            <p>Sette tappe sul profilo dell'operatore sociale, sulle persone destinatarie degli interventi, sul lavoro di rete e sul caso di Maria, più un caso facoltativo per la seconda. Ogni tappa ha contenuti, esercizi e domande; in fondo, chiuse, le attività extra. Il lavoro si salva automaticamente con il codice personale.</p>
+            <p class="occhiello">Primo anno · Percorso a tappe</p>
+            <h1>L'operatore sociale</h1>
+            <p class="sottotitolo">Operatore dei servizi per la sanità e l'assistenza sociale</p>
+            <div class="arcobaleno" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+            <p class="lead">Sette tappe sul profilo dell'operatore sociale, sulle persone destinatarie degli interventi, sul lavoro di rete e sul caso di Maria, più un caso facoltativo per la seconda.</p>
+            <p>Ogni tappa ha contenuti, esercizi e domande; in fondo, chiuse, le attività extra. Il lavoro si salva automaticamente con il codice personale.</p>
             <div class="header-actions">
                 <a href="tssas_teoria_ripasso.html" class="btn btn-white">📖 Ripassa la teoria</a>
-                <button class="btn btn-ghost" id="btnLim" onclick="toggleLim()">🖥️ Modalità LIM (docente)</button>
-                <button class="btn btn-white" onclick="registroApri()">📋 Lavori della classe (docente)</button>
                 <button class="btn btn-ghost" onclick="window.print()">🖨️ Stampa il percorso</button>
                 <button class="btn btn-ghost" onclick="riattivaApri()">🔁 Riattiva · 3 domande</button>
             </div>
+            <div class="identita" data-identita></div>
+            <details class="strumenti-docente">
+                <summary>Strumenti per il docente</summary>
+                <div class="header-actions">
+                    <button class="btn btn-ghost" id="btnLim" onclick="toggleLim()">🖥️ Modalità LIM</button>
+                    <button class="btn btn-white" onclick="registroApri()">📋 Lavori della classe</button>
+                </div>
+            </details>
         </div>
 
         <div class="score-section">
@@ -644,8 +695,8 @@
                     <div class="step-title"><span class="tag">CONTENUTI</span> Un mestiere fatto di relazioni <span class="min">7 min</span></div>
 
                     <h3>La definizione</h3>
-                    <p>L'<span class="hl">operatore sociale per la sanità e l'assistenza sociale</span> è la figura professionale che esce dal tuo indirizzo di studi. Il profilo ufficiale dice che possiede competenze per <strong>co-progettare, organizzare e attuare</strong>, con diversi livelli di autonomia e responsabilità, <strong>interventi che rispondono alle esigenze sociali e sanitarie</strong> di singole persone, gruppi e comunità. Lo scopo è la <strong>socializzazione</strong>, l'<strong>integrazione</strong> e la promozione del <strong>benessere bio-psico-sociale</strong>, della salute e dell'assistenza.</p>
-                    <p>Il profilo aggiunge una cosa importante: l'operatore accompagna le persone <strong>in ogni fase della vita</strong>, dal bambino all'anziano, e lo fa coinvolgendo <strong>sia la persona sia le reti informali e territoriali</strong>. Cioè: non lavora da solo e non lavora «sopra» le persone, ma con loro.</p>
+                    <p>L'<span class="hl">operatore sociale</span> per la sanità e l'assistenza sociale è la figura professionale che esce dal tuo indirizzo di studi. Il profilo ufficiale dice che possiede competenze per <strong>co-progettare, organizzare e attuare</strong>, con diversi livelli di autonomia e responsabilità, interventi che rispondono alle esigenze sociali e sanitarie di singole persone, gruppi e comunità. Lo scopo è la <strong>socializzazione</strong>, l'<strong>integrazione</strong> e la promozione del <strong>benessere bio-psico-sociale</strong>, della salute e dell'assistenza.</p>
+                    <p>Il profilo aggiunge una cosa importante: l'operatore accompagna le persone in ogni fase della vita, dal bambino all'anziano, e lo fa coinvolgendo sia la persona sia le reti informali e territoriali. Cioè: non lavora da solo e non lavora «sopra» le persone, ma con loro.</p>
                     <div class="nota fonte">Fonte: profilo di uscita dell'indirizzo «Servizi per la sanità e l'assistenza sociale», D.Lgs. 61/2017 e D.M. 24 maggio 2018 n. 92.</div>
 
                     <h3>Un professionista della relazione d'aiuto</h3>
@@ -658,22 +709,22 @@
                         <li><strong>Autenticità</strong>: essere sinceri e coerenti; le persone si accorgono quando fingiamo.</li>
                     </ul>
                     <div class="schema schema-nuovo">
-                        <svg viewBox="0 0 640 230" role="img" aria-label="Scala dell'aiuto: da faccio al posto tuo a fai da solo, sostenuta da ascolto, accettazione e autenticità" font-family="Segoe UI,Tahoma,sans-serif">
-<defs><marker id="mos1-ar1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9z" fill="#0E7C7C"/></marker></defs>
-<line x1="30" y1="88" x2="612" y2="88" stroke="#0E7C7C" stroke-width="3" marker-end="url(#mos1-ar1)"/>
+                        <svg viewBox="0 0 640 230" role="img" aria-label="Scala dell'aiuto: da faccio al posto tuo a fai da solo, sostenuta da ascolto, accettazione e autenticità" font-family="DM Sans,sans-serif">
+<defs><marker id="mos1-ar1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9z" fill="#17385a"/></marker></defs>
+<line x1="30" y1="88" x2="612" y2="88" stroke="#17385a" stroke-width="3" marker-end="url(#mos1-ar1)"/>
 <g font-size="13" font-weight="700" text-anchor="middle">
 <rect x="20" y="30" width="130" height="44" rx="10" fill="#fee2e2" stroke="#dc2626"/><text x="85" y="50" fill="#7f1d1d">Faccio</text><text x="85" y="66" fill="#7f1d1d">al posto tuo</text>
 <rect x="170" y="30" width="130" height="44" rx="10" fill="#fff7d6" stroke="#eab308"/><text x="235" y="50" fill="#713f12">Facciamo</text><text x="235" y="66" fill="#713f12">insieme</text>
-<rect x="320" y="30" width="130" height="44" rx="10" fill="#e6f7f7" stroke="#1DD3D3"/><text x="385" y="50" fill="#0E7C7C">Ti accompagno,</text><text x="385" y="66" fill="#0E7C7C">decidi tu</text>
+<rect x="320" y="30" width="130" height="44" rx="10" fill="#e7f5f2" stroke="#57bda8"/><text x="385" y="50" fill="#17385a">Ti accompagno,</text><text x="385" y="66" fill="#17385a">decidi tu</text>
 <rect x="470" y="30" width="130" height="44" rx="10" fill="#dcfce7" stroke="#16a34a"/><text x="535" y="50" fill="#14532d">Fai da solo</text><text x="535" y="66" fill="#14532d">🎯 obiettivo</text>
 </g>
-<g font-size="11.5" fill="#52606d" text-anchor="middle"><text x="85" y="108">dipendenza</text><text x="535" y="108">autonomia</text><text x="310" y="108">l'operatore sposta la persona verso destra</text></g>
-<rect x="20" y="130" width="580" height="1" fill="#d9e2e6"/>
-<text x="310" y="152" font-size="12" font-weight="700" fill="#52606d" text-anchor="middle" letter-spacing=".05em">SU CHE COSA POGGIA · I TRE ATTEGGIAMENTI DI ROGERS</text>
+<g font-size="11.5" fill="#5b6570" text-anchor="middle"><text x="85" y="108">dipendenza</text><text x="535" y="108">autonomia</text><text x="310" y="108">l'operatore sposta la persona verso destra</text></g>
+<rect x="20" y="130" width="580" height="1" fill="#dde1e8"/>
+<text x="310" y="152" font-size="12" font-weight="700" fill="#5b6570" text-anchor="middle" letter-spacing=".05em">SU CHE COSA POGGIA · I TRE ATTEGGIAMENTI DI ROGERS</text>
 <g font-size="13" text-anchor="middle">
-<rect x="20" y="164" width="185" height="52" rx="10" fill="#fff" stroke="#d9e2e6"/><text x="112" y="186" font-weight="700" fill="#1f2933">👂 Ascolto ed empatia</text><text x="112" y="204" fill="#52606d" font-size="11.5">capire «come se» fossi lui</text>
-<rect x="218" y="164" width="185" height="52" rx="10" fill="#fff" stroke="#d9e2e6"/><text x="310" y="186" font-weight="700" fill="#1f2933">🤲 Accettazione</text><text x="310" y="204" fill="#52606d" font-size="11.5">accolgo senza giudicare</text>
-<rect x="416" y="164" width="185" height="52" rx="10" fill="#fff" stroke="#d9e2e6"/><text x="508" y="186" font-weight="700" fill="#1f2933">💬 Autenticità</text><text x="508" y="204" fill="#52606d" font-size="11.5">sono sincero e coerente</text>
+<rect x="20" y="164" width="185" height="52" rx="10" fill="#fff" stroke="#dde1e8"/><text x="112" y="186" font-weight="700" fill="#202c3b">👂 Ascolto ed empatia</text><text x="112" y="204" fill="#5b6570" font-size="11.5">capire «come se» fossi lui</text>
+<rect x="218" y="164" width="185" height="52" rx="10" fill="#fff" stroke="#dde1e8"/><text x="310" y="186" font-weight="700" fill="#202c3b">🤲 Accettazione</text><text x="310" y="204" fill="#5b6570" font-size="11.5">accolgo senza giudicare</text>
+<rect x="416" y="164" width="185" height="52" rx="10" fill="#fff" stroke="#dde1e8"/><text x="508" y="186" font-weight="700" fill="#202c3b">💬 Autenticità</text><text x="508" y="204" fill="#5b6570" font-size="11.5">sono sincero e coerente</text>
 </g></svg>
                         <div class="didascalia">L'aiuto professionale sposta la persona verso destra, e poggia su tre atteggiamenti.</div>
                     </div>
@@ -737,25 +788,25 @@
                     <div class="schema">
                         <svg viewBox="0 0 600 330" role="img" aria-label="Schema del modello bio-psico-sociale: tre cerchi che si sovrappongono, biologico, psicologico e sociale, con la persona al centro">
                             <defs>
-                                <style>.t{font-family:Segoe UI,Tahoma,sans-serif;font-weight:700}.s{font-family:Segoe UI,Tahoma,sans-serif;font-size:12px;fill:#334}</style>
+                                <style>.t{font-family:DM Sans,sans-serif;font-weight:700}.s{font-family:DM Sans,sans-serif;font-size:12px;fill:#334}</style>
                             </defs>
-                            <circle cx="230" cy="130" r="105" fill="#1DD3D3" fill-opacity=".38"/>
-                            <circle cx="370" cy="130" r="105" fill="#C6E716" fill-opacity=".45"/>
-                            <circle cx="300" cy="225" r="105" fill="#FF0090" fill-opacity=".28"/>
-                            <text x="165" y="80" class="t" font-size="17" fill="#0E7C7C">BIOLOGICO</text>
+                            <circle cx="230" cy="130" r="105" fill="#57bda8" fill-opacity=".38"/>
+                            <circle cx="370" cy="130" r="105" fill="#80cd29" fill-opacity=".45"/>
+                            <circle cx="300" cy="225" r="105" fill="#ec166c" fill-opacity=".28"/>
+                            <text x="165" y="80" class="t" font-size="17" fill="#17385a">BIOLOGICO</text>
                             <text x="140" y="100" class="s">corpo, salute, malattia,</text>
                             <text x="140" y="116" class="s">sonno, alimentazione, età</text>
                             <text x="345" y="80" class="t" font-size="17" fill="#5b6f00">PSICOLOGICO</text>
                             <text x="345" y="100" class="s">emozioni, pensieri,</text>
                             <text x="345" y="116" class="s">autostima, comportamenti</text>
-                            <text x="258" y="300" class="t" font-size="17" fill="#CC0073">SOCIALE</text>
+                            <text x="258" y="300" class="t" font-size="17" fill="#d6105f">SOCIALE</text>
                             <text x="210" y="318" class="s">famiglia, amici, scuola, lavoro, casa, servizi</text>
-                            <circle cx="300" cy="160" r="34" fill="#fff" stroke="#1f2933" stroke-width="2"/>
-                            <text x="300" y="157" class="t" font-size="12" text-anchor="middle" fill="#1f2933">LA</text>
-                            <text x="300" y="172" class="t" font-size="12" text-anchor="middle" fill="#1f2933">PERSONA</text>
-                            <path d="M115 235 Q 60 160 115 60" fill="none" stroke="#52606d" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#a)"/>
-                            <defs><marker id="a" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#52606d"/></marker></defs>
-                            <text x="20" y="150" class="s" fill="#52606d">le tre</text><text x="20" y="165" class="s" fill="#52606d">dimensioni</text><text x="20" y="180" class="s" fill="#52606d">si influenzano</text>
+                            <circle cx="300" cy="160" r="34" fill="#fff" stroke="#202c3b" stroke-width="2"/>
+                            <text x="300" y="157" class="t" font-size="12" text-anchor="middle" fill="#202c3b">LA</text>
+                            <text x="300" y="172" class="t" font-size="12" text-anchor="middle" fill="#202c3b">PERSONA</text>
+                            <path d="M115 235 Q 60 160 115 60" fill="none" stroke="#5b6570" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#a)"/>
+                            <defs><marker id="a" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5b6570"/></marker></defs>
+                            <text x="20" y="150" class="s" fill="#5b6570">le tre</text><text x="20" y="165" class="s" fill="#5b6570">dimensioni</text><text x="20" y="180" class="s" fill="#5b6570">si influenzano</text>
                         </svg>
                         <div class="didascalia">Le tre dimensioni si sovrappongono: un problema in una zona si sposta nelle altre.</div>
                     </div>
@@ -770,7 +821,7 @@
 
                     <h3>Perché le dimensioni si influenzano</h3>
                     <div class="nota esempio"><strong>Esempio.</strong> Un anziano cade e si rompe il femore (<em>biologico</em>). Resta a letto per settimane e non può più uscire: si sente inutile e triste (<em>psicologico</em>). Non vede più gli amici del bar e i figli abitano lontano: resta isolato (<em>sociale</em>). L'isolamento peggiora l'umore, l'umore basso gli toglie la voglia di fare la riabilitazione, e la gamba guarisce più lentamente. Il cerchio si chiude e si rinforza da solo.</div>
-                    <p>Ecco perché l'operatore sociale <strong>non può curare solo un pezzo</strong>: se il fisioterapista lavora sulla gamba ma nessuno lavora sulla solitudine, il risultato sarà scarso. E vale anche al contrario: un buon intervento su una dimensione migliora le altre. Riportare l'anziano al bar con un accompagnamento (<em>sociale</em>) gli restituisce il buon umore (<em>psicologico</em>) e la voglia di camminare (<em>biologico</em>).</p>
+                    <p>Ecco perché l'operatore sociale non può curare solo un pezzo: se il fisioterapista lavora sulla gamba ma nessuno lavora sulla solitudine, il risultato sarà scarso. E vale anche al contrario: un buon intervento su una dimensione migliora le altre. Riportare l'anziano al bar con un accompagnamento (<em>sociale</em>) gli restituisce il buon umore (<em>psicologico</em>) e la voglia di camminare (<em>biologico</em>).</p>
                     <div class="nota semplice"><strong>In parole semplici.</strong> Per capire una persona guardo tre cose insieme: il corpo, la testa e chi ha intorno. Se tocco una, si muovono anche le altre.</div>
                 </div>
 
@@ -843,12 +894,12 @@
                     <h3>Dove lavora</h3>
                     <p>L'operatore sociale lavora in <strong>istituzioni pubbliche e private</strong> del settore socio-sanitario, socio-assistenziale e socio-educativo. I luoghi più comuni:</p>
                     <div class="schema schema-nuovo">
-                        <svg viewBox="0 0 640 236" role="img" aria-label="Quanto tempo la persona passa nel servizio in un giorno: residenziale tutto il giorno, semiresidenziale dalle 9 alle 17, domiciliare poche ore a casa" font-family="Segoe UI,Tahoma,sans-serif">
-<text x="20" y="22" font-size="12" font-weight="700" fill="#52606d" letter-spacing=".05em">UNA GIORNATA · QUANDO LA PERSONA È SEGUITA DAL SERVIZIO</text>
-<text x="190" y="222" font-size="11" fill="#52606d" text-anchor="middle">0:00</text><line x1="190" y1="40" x2="190" y2="206" stroke="#d9e2e6" stroke-dasharray="2 3"/><text x="295" y="222" font-size="11" fill="#52606d" text-anchor="middle">6:00</text><line x1="295" y1="40" x2="295" y2="206" stroke="#d9e2e6" stroke-dasharray="2 3"/><text x="400" y="222" font-size="11" fill="#52606d" text-anchor="middle">12:00</text><line x1="400" y1="40" x2="400" y2="206" stroke="#d9e2e6" stroke-dasharray="2 3"/><text x="505" y="222" font-size="11" fill="#52606d" text-anchor="middle">18:00</text><line x1="505" y1="40" x2="505" y2="206" stroke="#d9e2e6" stroke-dasharray="2 3"/><text x="610" y="222" font-size="11" fill="#52606d" text-anchor="middle">24:00</text><line x1="610" y1="40" x2="610" y2="206" stroke="#d9e2e6" stroke-dasharray="2 3"/>
-<text x="20" y="62" font-size="13" font-weight="700" fill="#1f2933">🏠 Residenziale</text><text x="20" y="78" font-size="11.5" fill="#52606d">RSA, comunità: ci vive</text><rect x="190" y="48" width="420" height="30" rx="6" fill="#f4f9f9" stroke="#d9e2e6"/><rect x="190.0" y="48" width="420.0" height="30" rx="6" fill="#1DD3D3" stroke="#0E7C7C"/>
-<text x="20" y="116" font-size="13" font-weight="700" fill="#1f2933">☀️ Semiresidenziale</text><text x="20" y="132" font-size="11.5" fill="#52606d">centro diurno: la sera a casa</text><rect x="190" y="102" width="420" height="30" rx="6" fill="#f4f9f9" stroke="#d9e2e6"/><rect x="347.5" y="102" width="140.0" height="30" rx="6" fill="#C6E716" stroke="#9CB912"/>
-<text x="20" y="170" font-size="13" font-weight="700" fill="#1f2933">🚪 Domiciliare</text><text x="20" y="186" font-size="11.5" fill="#52606d">l'operatore va da lei</text><rect x="190" y="156" width="420" height="30" rx="6" fill="#f4f9f9" stroke="#d9e2e6"/><rect x="347.5" y="156" width="35.0" height="30" rx="6" fill="#ffe6f3" stroke="#CC0073"/><rect x="452.5" y="156" width="17.5" height="30" rx="6" fill="#ffe6f3" stroke="#CC0073"/>
+                        <svg viewBox="0 0 640 236" role="img" aria-label="Quanto tempo la persona passa nel servizio in un giorno: residenziale tutto il giorno, semiresidenziale dalle 9 alle 17, domiciliare poche ore a casa" font-family="DM Sans,sans-serif">
+<text x="20" y="22" font-size="12" font-weight="700" fill="#5b6570" letter-spacing=".05em">UNA GIORNATA · QUANDO LA PERSONA È SEGUITA DAL SERVIZIO</text>
+<text x="190" y="222" font-size="11" fill="#5b6570" text-anchor="middle">0:00</text><line x1="190" y1="40" x2="190" y2="206" stroke="#dde1e8" stroke-dasharray="2 3"/><text x="295" y="222" font-size="11" fill="#5b6570" text-anchor="middle">6:00</text><line x1="295" y1="40" x2="295" y2="206" stroke="#dde1e8" stroke-dasharray="2 3"/><text x="400" y="222" font-size="11" fill="#5b6570" text-anchor="middle">12:00</text><line x1="400" y1="40" x2="400" y2="206" stroke="#dde1e8" stroke-dasharray="2 3"/><text x="505" y="222" font-size="11" fill="#5b6570" text-anchor="middle">18:00</text><line x1="505" y1="40" x2="505" y2="206" stroke="#dde1e8" stroke-dasharray="2 3"/><text x="610" y="222" font-size="11" fill="#5b6570" text-anchor="middle">24:00</text><line x1="610" y1="40" x2="610" y2="206" stroke="#dde1e8" stroke-dasharray="2 3"/>
+<text x="20" y="62" font-size="13" font-weight="700" fill="#202c3b">🏠 Residenziale</text><text x="20" y="78" font-size="11.5" fill="#5b6570">RSA, comunità: ci vive</text><rect x="190" y="48" width="420" height="30" rx="6" fill="#f5f6fa" stroke="#dde1e8"/><rect x="190.0" y="48" width="420.0" height="30" rx="6" fill="#57bda8" stroke="#17385a"/>
+<text x="20" y="116" font-size="13" font-weight="700" fill="#202c3b">☀️ Semiresidenziale</text><text x="20" y="132" font-size="11.5" fill="#5b6570">centro diurno: la sera a casa</text><rect x="190" y="102" width="420" height="30" rx="6" fill="#f5f6fa" stroke="#dde1e8"/><rect x="347.5" y="102" width="140.0" height="30" rx="6" fill="#80cd29" stroke="#447010"/>
+<text x="20" y="170" font-size="13" font-weight="700" fill="#202c3b">🚪 Domiciliare</text><text x="20" y="186" font-size="11.5" fill="#5b6570">l'operatore va da lei</text><rect x="190" y="156" width="420" height="30" rx="6" fill="#f5f6fa" stroke="#dde1e8"/><rect x="347.5" y="156" width="35.0" height="30" rx="6" fill="#fdebf2" stroke="#d6105f"/><rect x="452.5" y="156" width="17.5" height="30" rx="6" fill="#fdebf2" stroke="#d6105f"/>
 </svg>
                         <div class="didascalia">La differenza fra i tre tipi di servizio è il tempo: tutto il giorno, di giorno, poche ore a casa.</div>
                     </div>
@@ -915,7 +966,7 @@
                     <div class="step-title"><span class="tag">CONTENUTI</span> Le reti attorno a una persona: risorse, nodi e legami <span class="min">16 min</span></div>
 
                     <h3>Che cos'è il lavoro di rete</h3>
-                    <p>L'operatore sociale <strong>non lavora mai da solo</strong>. Nessun bisogno importante si risolve con una sola persona o con un solo servizio. Il <span class="hl">lavoro di rete</span> consiste nel <strong>creare collegamenti e sinergie</strong> tra tutte le risorse che possono aiutare una persona: chi le sta vicino ogni giorno e i servizi organizzati del territorio.</p>
+                    <p>L'operatore sociale non lavora mai da solo. Nessun bisogno importante si risolve con una sola persona o con un solo servizio. Il <span class="hl">lavoro di rete</span> consiste nel <strong>creare collegamenti e sinergie</strong> tra tutte le risorse che possono aiutare una persona: chi le sta vicino ogni giorno e i servizi organizzati del territorio.</p>
                     <p>Si lavora in rete a tre livelli:</p>
                     <ul>
                         <li><strong>Con la persona</strong>: si attiva la <em>presa in carico</em>, cioè il servizio si assume la responsabilità di seguirla, e si costruisce insieme un <em>progetto personalizzato</em> in cui la persona è protagonista.</li>
@@ -925,10 +976,10 @@
 
                     <div class="schema">
                         <svg viewBox="0 0 600 340" role="img" aria-label="Schema della rete: la persona al centro, attorno la rete informale, più esterna la rete formale">
-                            <defs><style>.t{font-family:Segoe UI,Tahoma,sans-serif;font-weight:700}.s{font-family:Segoe UI,Tahoma,sans-serif;font-size:12px;fill:#334}</style></defs>
-                            <ellipse cx="300" cy="170" rx="290" ry="160" fill="#1DD3D3" fill-opacity=".22" stroke="#16A8A8" stroke-width="2"/>
-                            <ellipse cx="300" cy="170" rx="180" ry="100" fill="#C6E716" fill-opacity=".38" stroke="#9CB912" stroke-width="2"/>
-                            <circle cx="300" cy="170" r="42" fill="#fff" stroke="#1f2933" stroke-width="2"/>
+                            <defs><style>.t{font-family:DM Sans,sans-serif;font-weight:700}.s{font-family:DM Sans,sans-serif;font-size:12px;fill:#334}</style></defs>
+                            <ellipse cx="300" cy="170" rx="290" ry="160" fill="#57bda8" fill-opacity=".22" stroke="#1b6f5f" stroke-width="2"/>
+                            <ellipse cx="300" cy="170" rx="180" ry="100" fill="#80cd29" fill-opacity=".38" stroke="#447010" stroke-width="2"/>
+                            <circle cx="300" cy="170" r="42" fill="#fff" stroke="#202c3b" stroke-width="2"/>
                             <text x="300" y="167" class="t" font-size="12" text-anchor="middle">LA</text>
                             <text x="300" y="182" class="t" font-size="12" text-anchor="middle">PERSONA</text>
                             <text x="300" y="92" class="t" font-size="14" text-anchor="middle" fill="#5b6f00">RETE INFORMALE (primaria)</text>
@@ -937,13 +988,13 @@
                             <text x="400" y="150" class="s">volontari</text>
                             <text x="395" y="200" class="s">gruppi, parrocchia</text>
                             <text x="300" y="255" class="s" text-anchor="middle">compagni di classe, di squadra</text>
-                            <text x="300" y="30" class="t" font-size="14" text-anchor="middle" fill="#0E7C7C">RETE FORMALE (secondaria)</text>
+                            <text x="300" y="30" class="t" font-size="14" text-anchor="middle" fill="#17385a">RETE FORMALE (secondaria)</text>
                             <text x="35" y="110" class="s">Comune, servizi sociali</text>
                             <text x="35" y="240" class="s">ASL, medico di famiglia</text>
                             <text x="470" y="110" class="s">scuola</text>
                             <text x="440" y="240" class="s">cooperative sociali</text>
                             <text x="300" y="318" class="s" text-anchor="middle">centri per l'impiego, consultori, tribunale per i minorenni</text>
-                            <path d="M300 128 L300 100" stroke="#1f2933" stroke-width="2"/><path d="M300 212 L300 245" stroke="#1f2933" stroke-width="2"/><path d="M258 170 L215 170" stroke="#1f2933" stroke-width="2"/><path d="M342 170 L385 170" stroke="#1f2933" stroke-width="2"/>
+                            <path d="M300 128 L300 100" stroke="#202c3b" stroke-width="2"/><path d="M300 212 L300 245" stroke="#202c3b" stroke-width="2"/><path d="M258 170 L215 170" stroke="#202c3b" stroke-width="2"/><path d="M342 170 L385 170" stroke="#202c3b" stroke-width="2"/>
                         </svg>
                         <div class="didascalia">L'operatore sta «in mezzo»: collega la persona alle due reti e le due reti tra loro.</div>
                     </div>
@@ -959,31 +1010,32 @@
 
                     <h3>Dalla lista delle persone alla forma della rete</h3>
                     <p>Distinguere rete formale e informale è necessario, ma non basta. Questa distinzione risponde alla domanda <strong>«che tipo di risorsa è?»</strong>. Per capire davvero la situazione di una persona bisogna aggiungere altre domande: <strong>chi è collegato con chi?</strong> Quali rapporti sono forti e affidabili? Quali mettono in contatto ambienti diversi? Chi è isolato? Che cosa può circolare attraverso ciascun rapporto?</p>
-                    <p>La <span class="hl">Social Network Analysis (SNA), cioè analisi delle reti sociali</span>, rappresenta la rete come un insieme di <strong>nodi</strong> e <strong>legami</strong>. I nodi possono essere persone, gruppi, servizi o organizzazioni. I legami sono le relazioni attraverso cui possono passare affetto, cura, informazioni, fiducia, regole, presentazioni e occasioni concrete. Quando la mappa parte da una persona e osserva chi le sta intorno, si parla di <strong>rete personale o egocentrata</strong>: «ego» indica soltanto il punto da cui comincia l'osservazione.</p>
+                    <p>La <span class="hl">Social Network Analysis</span> (SNA), cioè analisi delle reti sociali, rappresenta la rete come un insieme di <strong>nodi</strong> e <strong>legami</strong>. I nodi possono essere persone, gruppi, servizi o organizzazioni. I legami sono le relazioni attraverso cui possono passare affetto, cura, informazioni, fiducia, regole, presentazioni e occasioni concrete.</p>
+                            <p>Quando la mappa parte da una persona e osserva chi le sta intorno, si parla di <strong>rete personale o egocentrata</strong>: «ego» indica soltanto il punto da cui comincia l'osservazione.</p>
 
                     <div class="schema schema-wide">
                         <svg viewBox="0 0 760 420" role="img" aria-label="Esempio di rete personale: Sara è collegata a nodi familiari, scolastici e sportivi; alcuni nodi fanno da ponte verso altri ambienti">
                             <defs>
-                                <style>.rn{font-family:Segoe UI,Tahoma,sans-serif;font-weight:700;font-size:13px;fill:#1f2933}.rl{font-family:Segoe UI,Tahoma,sans-serif;font-size:12px;fill:#52606d}.rs{stroke:#52606d;stroke-width:5;stroke-linecap:round}.rw{stroke:#52606d;stroke-width:2;stroke-dasharray:7 6}.rb{stroke:#cc0073;stroke-width:3;stroke-dasharray:9 5}</style>
+                                <style>.rn{font-family:DM Sans,sans-serif;font-weight:700;font-size:13px;fill:#202c3b}.rl{font-family:DM Sans,sans-serif;font-size:12px;fill:#5b6570}.rs{stroke:#5b6570;stroke-width:5;stroke-linecap:round}.rw{stroke:#5b6570;stroke-width:2;stroke-dasharray:7 6}.rb{stroke:#d6105f;stroke-width:3;stroke-dasharray:9 5}</style>
                             </defs>
                             <path d="M380 210 L190 105 M380 210 L180 285 M380 210 L375 70 M380 210 L570 95 M380 210 L590 280" class="rs" opacity=".75"/>
                             <path d="M190 105 L80 55 M180 285 L70 345 M375 70 L500 40 M570 95 L690 55 M590 280 L700 345" class="rw"/>
                             <path d="M180 285 Q360 395 590 280 M375 70 Q520 155 570 95" class="rb" fill="none"/>
 
-                            <circle cx="380" cy="210" r="54" fill="#1DD3D3" stroke="#0E7C7C" stroke-width="3"/>
+                            <circle cx="380" cy="210" r="54" fill="#57bda8" stroke="#17385a" stroke-width="3"/>
                             <text x="380" y="206" class="rn" text-anchor="middle">SARA</text><text x="380" y="224" class="rl" text-anchor="middle">persona osservata</text>
 
-                            <circle cx="190" cy="105" r="42" fill="#C6E716" fill-opacity=".75" stroke="#7f9500" stroke-width="2"/><text x="190" y="110" class="rn" text-anchor="middle">famiglia</text>
-                            <circle cx="180" cy="285" r="42" fill="#C6E716" fill-opacity=".75" stroke="#7f9500" stroke-width="2"/><text x="180" y="290" class="rn" text-anchor="middle">amica</text>
+                            <circle cx="190" cy="105" r="42" fill="#80cd29" fill-opacity=".75" stroke="#7f9500" stroke-width="2"/><text x="190" y="110" class="rn" text-anchor="middle">famiglia</text>
+                            <circle cx="180" cy="285" r="42" fill="#80cd29" fill-opacity=".75" stroke="#7f9500" stroke-width="2"/><text x="180" y="290" class="rn" text-anchor="middle">amica</text>
                             <circle cx="375" cy="70" r="42" fill="#E8F1FF" stroke="#4f78b8" stroke-width="2"/><text x="375" y="75" class="rn" text-anchor="middle">scuola</text>
-                            <circle cx="570" cy="95" r="42" fill="#C6E716" fill-opacity=".75" stroke="#7f9500" stroke-width="2"/><text x="570" y="100" class="rn" text-anchor="middle">allenatrice</text>
-                            <circle cx="590" cy="280" r="42" fill="#C6E716" fill-opacity=".75" stroke="#7f9500" stroke-width="2"/><text x="590" y="276" class="rn" text-anchor="middle">compagna</text><text x="590" y="293" class="rn" text-anchor="middle">di squadra</text>
+                            <circle cx="570" cy="95" r="42" fill="#80cd29" fill-opacity=".75" stroke="#7f9500" stroke-width="2"/><text x="570" y="100" class="rn" text-anchor="middle">allenatrice</text>
+                            <circle cx="590" cy="280" r="42" fill="#80cd29" fill-opacity=".75" stroke="#7f9500" stroke-width="2"/><text x="590" y="276" class="rn" text-anchor="middle">compagna</text><text x="590" y="293" class="rn" text-anchor="middle">di squadra</text>
 
                             <circle cx="80" cy="55" r="35" fill="#fff" stroke="#7f9500" stroke-width="2"/><text x="80" y="60" class="rl" text-anchor="middle">zia</text>
                             <circle cx="70" cy="345" r="35" fill="#fff" stroke="#7f9500" stroke-width="2"/><text x="70" y="350" class="rl" text-anchor="middle">gruppo amici</text>
                             <circle cx="500" cy="40" r="35" fill="#fff" stroke="#4f78b8" stroke-width="2"/><text x="500" y="45" class="rl" text-anchor="middle">docente</text>
                             <circle cx="690" cy="55" r="35" fill="#fff" stroke="#7f9500" stroke-width="2"/><text x="690" y="52" class="rl" text-anchor="middle">società</text><text x="690" y="67" class="rl" text-anchor="middle">sportiva</text>
-                            <circle cx="700" cy="345" r="35" fill="#fff" stroke="#cc0073" stroke-width="2"/><text x="700" y="342" class="rl" text-anchor="middle">corso</text><text x="700" y="357" class="rl" text-anchor="middle">esterno</text>
+                            <circle cx="700" cy="345" r="35" fill="#fff" stroke="#d6105f" stroke-width="2"/><text x="700" y="342" class="rl" text-anchor="middle">corso</text><text x="700" y="357" class="rl" text-anchor="middle">esterno</text>
 
                             <line x1="250" y1="392" x2="295" y2="392" class="rs"/><text x="305" y="397" class="rl">legame forte</text>
                             <line x1="430" y1="392" x2="475" y2="392" class="rw"/><text x="485" y="397" class="rl">legame più debole</text>
@@ -1006,12 +1058,14 @@
 
                     <h3>La rete può «predire» il futuro?</h3>
                     <p>La Social Network Analysis non è un unico modello che indovina il futuro. È una prospettiva e un insieme di metodi che rendono osservabile e misurabile la struttura delle relazioni. Le misure della rete possono poi essere usate, insieme ad altri dati, in modelli statistici che studiano quali esiti diventano più o meno probabili.</p>
-                    <p>Le proprietà della rete aiutano a formulare <strong>previsioni probabilistiche</strong>: indicano quali informazioni e risorse una persona ha maggiori possibilità di incontrare e quanto sostegno potrebbe ricevere in una difficoltà. I legami forti offrono spesso fiducia e aiuto continuativo; i legami più deboli, come conoscenze e contatti tra ambienti diversi, possono portare informazioni nuove. Per questo le reti contribuiscono al <strong>capitale sociale</strong>: le risorse a cui una persona può accedere attraverso le proprie relazioni.</p>
+                    <p>Le proprietà della rete aiutano a formulare <strong>previsioni probabilistiche</strong>: indicano quali informazioni e risorse una persona ha maggiori possibilità di incontrare e quanto sostegno potrebbe ricevere in una difficoltà. I legami forti offrono spesso fiducia e aiuto continuativo; i legami più deboli, come conoscenze e contatti tra ambienti diversi, possono portare informazioni nuove.</p>
+                            <p>Per questo le reti contribuiscono al <strong>capitale sociale</strong>: le risorse a cui una persona può accedere attraverso le proprie relazioni.</p>
                     <p>La ricerca ha collegato alcune configurazioni di rete alla circolazione delle opportunità lavorative, alla creatività professionale e alla mobilità economica. Ma una rete <strong>non determina</strong> il lavoro, il reddito o la vita di una persona. Contano anche istruzione, capacità, salute, scelte, condizioni economiche, regole delle istituzioni, discriminazioni e avvenimenti imprevisti. La rete modifica il campo delle possibilità: non scrive in anticipo il risultato.</p>
                     <div class="nota attenzione"><strong>Una rete non è sempre un vantaggio.</strong> Può sostenere, ma anche escludere, controllare, trasmettere informazioni sbagliate o rinforzare comportamenti dannosi. L'operatore non conta soltanto i contatti: osserva la qualità dei legami, le risorse realmente accessibili e i costi che ricadono sulle persone.</div>
 
                     <h3>Che cosa cambia nel lavoro dell'operatore sociale</h3>
-                    <p>L'operatore non si limita a compilare due elenchi, uno formale e uno informale. Costruisce una <strong>mappa ragionata</strong>, individua legami forti, ponti, sovraccarichi e vuoti. Poi, con il consenso della persona, prova a rendere accessibili nuove connessioni: un servizio, un gruppo, un'attività sportiva o culturale, un percorso formativo, un luogo di incontro. Non «regala amicizie» e non colpevolizza chi ha una rete povera: crea condizioni in cui possano nascere legami e circolare risorse.</p>
+                    <p>L'operatore non si limita a compilare due elenchi, uno formale e uno informale. Costruisce una <strong>mappa ragionata</strong>, individua legami forti, ponti, sovraccarichi e vuoti.</p>
+                            <p>Poi, con il consenso della persona, prova a rendere accessibili nuove connessioni: un servizio, un gruppo, un'attività sportiva o culturale, un percorso formativo, un luogo di incontro. Non «regala amicizie» e non colpevolizza chi ha una rete povera: crea condizioni in cui possano nascere legami e circolare risorse.</p>
                     <div class="nota esempio"><strong>Esempio.</strong> Due ragazze hanno entrambe otto persone nella propria rete. Nella prima rete tutti appartengono alla stessa famiglia e conoscono le stesse cose. Nella seconda ci sono anche una compagna di squadra, una docente e una conoscente che frequenta un corso professionale. Il numero dei nodi è uguale, ma la seconda rete contiene più ponti verso ambienti diversi: è quindi più probabile che faccia arrivare informazioni nuove. Non garantisce un lavoro, ma amplia le possibilità di venirne a conoscenza e di prepararsi.</div>
 
                     <div class="nota fonte">Riferimenti: legge 328/2000 (legge quadro sul sistema integrato di interventi e servizi sociali); legge 833/1978 (Servizio Sanitario Nazionale); legge 381/1991 (cooperative sociali); D.Lgs. 117/2017 (Codice del Terzo settore).</div>
@@ -1025,22 +1079,28 @@
                     <div data-act="rete1"></div>
                     <div class="act">
                         <div class="act-title">🕸️ Due reti a confronto <span class="pts">+9</span></div>
-                        <p class="act-istr">Giulia e Marco hanno sedici anni e vivono la stessa situazione: la madre, che li cresce, deve essere ricoverata in ospedale per un mese. Cambia soltanto la rete che hanno attorno. Per ciascun caso ricava i <strong>nodi</strong> (chi c'è, formale o informale) e i <strong>legami</strong> (forti, deboli, ponti, chi è isolato). Poi confrontale una proprietà alla volta, usando tutte e cinque le proprietà spiegate sopra, e pensa al lavoro dell'operatore sociale.</p>
+                        <p class="act-istr">Giulia e Marco hanno sedici anni e vivono la stessa situazione: la madre, che li cresce, deve essere ricoverata in ospedale per un mese. Cambia soltanto la rete che hanno attorno.</p>
+                            <p class="act-istr">Per ciascun caso ricava i <strong>nodi</strong> (chi c'è, formale o informale) e i <strong>legami</strong> (forti, deboli, ponti, chi è isolato). Poi confrontale una proprietà alla volta, usando tutte e cinque le proprietà spiegate sopra, e pensa al lavoro dell'operatore sociale.</p>
                         <div class="grid-2">
                             <div class="card">
                                 <h4>🟢 Caso A · Giulia</h4>
-                                <p>La nonna abita nella stessa via e fa quasi tutto: le prepara la cena, le lava i vestiti, la aspetta sveglia la sera. Nessuno si è offerto di darle il cambio, e comincia a essere stanca. La zia accompagna Giulia a scuola in macchina. Giulia gioca a pallavolo: l'allenatrice conosce la famiglia e si è offerta di riaccompagnarla dopo gli allenamenti. In classe ha due amiche con cui studia, e una di loro fa volontariato con il gruppo della parrocchia. La coordinatrice di classe, avvisata dalla zia, ha segnalato la situazione allo sportello d'ascolto della scuola. La madre è seguita dal medico di famiglia, che ha già preso contatto con il servizio sociale del Comune per l'assistenza a domicilio quando tornerà a casa. Nel paese si conoscono tutti: in due giorni la notizia del ricovero ha fatto il giro, e la madre, che voleva tenerla riservata, ci è rimasta male.</p>
+                                <p>La nonna abita nella stessa via e fa quasi tutto: le prepara la cena, le lava i vestiti, la aspetta sveglia la sera. Nessuno si è offerto di darle il cambio, e comincia a essere stanca. La zia accompagna Giulia a scuola in macchina.</p>
+                                    <p>Giulia gioca a pallavolo: l'allenatrice conosce la famiglia e si è offerta di riaccompagnarla dopo gli allenamenti. In classe ha due amiche con cui studia, e una di loro fa volontariato con il gruppo della parrocchia. La coordinatrice di classe, avvisata dalla zia, ha segnalato la situazione allo sportello d'ascolto della scuola.</p>
+                                    <p>La madre è seguita dal medico di famiglia, che ha già preso contatto con il servizio sociale del Comune per l'assistenza a domicilio quando tornerà a casa. Nel paese si conoscono tutti: in due giorni la notizia del ricovero ha fatto il giro, e la madre, che voleva tenerla riservata, ci è rimasta male.</p>
                                 <div class="campo"><label for="rete2-giulia">La rete di Giulia: nodi e legami <span class="pts">+1</span></label><textarea id="rete2-giulia" name="rete2-giulia" data-points="1" placeholder="Nodi informali: ...&#10;Nodi formali: ...&#10;Legami forti: ...&#10;Ponti (chi collega ambienti diversi): ..."></textarea></div>
                             </div>
                             <div class="card">
                                 <h4>🟠 Caso B · Marco</h4>
-                                <p>Il padre lavora su turni in un'altra città e torna solo nel fine settimana; telefona ogni sera, ma nessuno gli ha chiesto di organizzarsi per il mese del ricovero. Marco e la madre si sono trasferiti da pochi mesi: nel quartiere non conosce nessuno e ha lasciato la squadra di calcio della città di prima. Gli amici di prima gli scrivono ogni sera e lui si fida di loro, ma abitano a duecento chilometri. In classe parla con un solo compagno, che abita nel suo stesso palazzo e fa parte di un gruppo scout: non sa niente del ricovero. A scuola nessuno è stato avvisato. Anche la madre di Marco è seguita dal medico di famiglia, che però non sa che Marco resterà solo.</p>
+                                <p>Il padre lavora su turni in un'altra città e torna solo nel fine settimana; telefona ogni sera, ma nessuno gli ha chiesto di organizzarsi per il mese del ricovero.</p>
+                                    <p>Marco e la madre si sono trasferiti da pochi mesi: nel quartiere non conosce nessuno e ha lasciato la squadra di calcio della città di prima. Gli amici di prima gli scrivono ogni sera e lui si fida di loro, ma abitano a duecento chilometri.</p>
+                                    <p>In classe parla con un solo compagno, che abita nel suo stesso palazzo e fa parte di un gruppo scout: non sa niente del ricovero. A scuola nessuno è stato avvisato. Anche la madre di Marco è seguita dal medico di famiglia, che però non sa che Marco resterà solo.</p>
                                 <div class="campo"><label for="rete2-marco">La rete di Marco: nodi e legami <span class="pts">+1</span></label><textarea id="rete2-marco" name="rete2-marco" data-points="1" placeholder="Nodi informali: ...&#10;Nodi formali: ...&#10;Legami forti o deboli: ...&#10;Chi manca, chi è lontano, dove c'è isolamento: ..."></textarea></div>
                             </div>
                         </div>
                         <div class="mappa-rete" id="a4-box">
                             <div class="nt">🖊️ Disegna le due reti, Giulia e Marco <span class="bonus-tag">bonus</span></div>
-                            <p class="hint">Aggiungi i nodi (ruoli, mai nomi veri), poi collegali. Ogni legame ha la sua forza (forte, debole, ponte) e la sua natura: <strong>rapporto informale</strong> o <strong>formale</strong>, anche tra le stesse persone (la zia ha un rapporto informale con Giulia e uno formale con la coordinatrice). Puoi trascinare i nodi e, toccandoli, rinominarli o eliminarli anche dopo. La pagina conta nodi, legami, ponti e nodi isolati. Disegna tutte e due le reti, Giulia e Marco: passi dall'una all'altra con i pulsanti qui sotto e restano salvate entrambe.</p>
+                            <p class="hint">Aggiungi i nodi (ruoli, mai nomi veri), poi collegali. Ogni legame ha la sua forza (forte, debole, ponte) e la sua natura: <strong>rapporto informale</strong> o <strong>formale</strong>, anche tra le stesse persone (la zia ha un rapporto informale con Giulia e uno formale con la coordinatrice). </p>
+                            <p class="hint">Puoi trascinare i nodi e, toccandoli, rinominarli o eliminarli anche dopo. La pagina conta nodi, legami, ponti e nodi isolati. Disegna tutte e due le reti, Giulia e Marco: passi dall'una all'altra con i pulsanti qui sotto e restano salvate entrambe.</p>
                             <div class="a4-tabs" id="a4-tabs"></div>
                             <div class="mr-row"><input type="text" id="a4-nodo" data-progress-ignore maxlength="22" placeholder="es. zia, allenatrice, consultorio" aria-label="Nome del nodo"><select id="a4-tipo" data-progress-ignore aria-label="Tipo di nodo"><option value="inf">informale</option><option value="for">formale</option></select><button class="btn btn-sm" type="button" onclick="a4AggiungiNodo()">+ Nodo</button></div>
                             <div class="mr-row"><select id="a4-da" data-progress-ignore aria-label="Da"></select><span>↔</span><select id="a4-a" data-progress-ignore aria-label="A"></select><select id="a4-leg" data-progress-ignore aria-label="Tipo di legame"><option value="forte">legame forte</option><option value="debole">legame debole</option><option value="ponte">ponte</option></select><select id="a4-nat" data-progress-ignore aria-label="Natura del rapporto"><option value="inf">rapporto informale</option><option value="for">rapporto formale</option></select><button class="btn btn-sm" type="button" onclick="a4Collega()">+ Legame</button><button class="btn btn-sm btn-soft" type="button" onclick="a4Annulla()">↶ Annulla l'ultima mossa</button></div>
@@ -1067,7 +1127,7 @@
                                 </div>
                             </div>
                             <div class="prop-card">
-                                <div class="prop-dom"><span class="prop-n">3</span><div><span class="prop-nome2">Densità</span>In quale rete le persone <strong>si conoscono di più tra loro</strong>?<span class="prop-aiuto">Utile per organizzarsi in fretta, ma attenzione: le notizie girano anche quando non dovrebbero.</span></div></div>
+                                <div class="prop-dom"><span class="prop-n">3</span><div><span class="prop-nome2">Densità</span>In quale rete le persone si conoscono di più tra loro?<span class="prop-aiuto">Utile per organizzarsi in fretta, ma attenzione: le notizie girano anche quando non dovrebbero.</span></div></div>
                                 <div class="prop-ctrl">
                                     <label class="prop-l">La risposta<select id="rete2-p-densita" name="rete2-p-densita" aria-label="3 · Densità: In quale rete le persone si conoscono di più tra loro?"><option value="">scegli…</option><option value="A">👧 Giulia</option><option value="B">👦 Marco</option><option value="pari">uguale o dipende</option></select></label>
                                     <label class="prop-l prop-l-wide">Perché? La frase del racconto che te lo fa capire<input type="text" id="rete2-i-densita" name="rete2-i-densita" data-points="1" aria-label="3 · Densità: la frase del racconto" placeholder="scrivi qui la frase del racconto…"></label>
@@ -1129,7 +1189,8 @@
                 <div class="pensiero-per-te">
                     <h3>💬 Un pensiero per te</h3>
                     <p>Oggi abbiamo guardato le reti di Giulia e di Marco. Ora pensa per un momento alla tua.</p>
-                    <p>Le relazioni sono come un muscolo: se non le alleni si indeboliscono, se dedichi loro tempo diventano più forti. Abbi cura di te e di chi ti sta accanto. Fai sapere alle persone a cui tieni che ci sei, ricambia l'aiuto che ricevi, non dimenticare chi vedi meno spesso: a volte è proprio un legame più debole a portarti un'occasione nuova. Non serve avere tanti contatti; servono legami di cui fidarsi, e il coraggio di chiedere una mano quando serve.</p>
+                    <p>Le relazioni sono come un muscolo: se non le alleni si indeboliscono, se dedichi loro tempo diventano più forti. Abbi cura di te e di chi ti sta accanto.</p>
+                    <p>Fai sapere alle persone a cui tieni che ci sei, ricambia l'aiuto che ricevi, non dimenticare chi vedi meno spesso: a volte è proprio un legame più debole a portarti un'occasione nuova. Non serve avere tanti contatti; servono legami di cui fidarsi, e il coraggio di chiedere una mano quando serve.</p>
                     <p>Chiedere aiuto non è un segno di debolezza: è la prima competenza di chi, un giorno, aiuterà gli altri per mestiere. Se in questo periodo ti senti solo o sola, parlane con un adulto di cui ti fidi o con lo sportello d'ascolto della scuola.</p>
                     <p class="perche"><em>Perché te lo diciamo.</em> Lo studio sulla felicità più lungo del mondo, quello dell'Università di Harvard, segue le stesse persone da più di 85 anni. La scoperta più chiara è che relazioni buone ci rendono più felici e più sani. E l'Organizzazione Mondiale della Sanità ha calcolato che, fra i ragazzi della vostra età, circa uno su cinque si sente solo: non siete i soli, e si può fare qualcosa.</p>
                     <div class="nota fonte">Fonti: R. Waldinger, M. Schulz, <em>The Good Life</em> (2023), Harvard Study of Adult Development; OMS, Commissione sulla connessione sociale, <em>From loneliness to social connection</em> (30 giugno 2025).</div>
@@ -1157,11 +1218,11 @@
                     <p>Nei servizi si chiama <strong>utente</strong> chi usa un servizio. Dietro la parola c'è sempre una persona, con la sua <span class="hl">libertà</span> e le sue <span class="hl">responsabilità</span>. Le utenze si distinguono per <strong>età</strong> e per <strong>condizione</strong>.</p>
                     <div class="schema schema-wide">
                         <svg viewBox="0 0 760 150" role="img" aria-label="Linea del tempo delle età della vita: infanzia 0-10, adolescenza 10-18 e tarda adolescenza fino a 25, età adulta, terza età dai 65">
-                            <defs><style>.t{font-family:Segoe UI,Tahoma,sans-serif;font-weight:700}.s{font-family:Segoe UI,Tahoma,sans-serif;font-size:11px;fill:#334}</style></defs>
-                            <rect x="20" y="55" width="150" height="34" rx="6" fill="#C6E716" fill-opacity=".7"/>
-                            <rect x="170" y="55" width="150" height="34" rx="6" fill="#1DD3D3" fill-opacity=".7"/>
-                            <rect x="320" y="55" width="260" height="34" rx="6" fill="#d9e2e6"/>
-                            <rect x="580" y="55" width="160" height="34" rx="6" fill="#FF0090" fill-opacity=".45"/>
+                            <defs><style>.t{font-family:DM Sans,sans-serif;font-weight:700}.s{font-family:DM Sans,sans-serif;font-size:11px;fill:#334}</style></defs>
+                            <rect x="20" y="55" width="150" height="34" rx="6" fill="#80cd29" fill-opacity=".7"/>
+                            <rect x="170" y="55" width="150" height="34" rx="6" fill="#57bda8" fill-opacity=".7"/>
+                            <rect x="320" y="55" width="260" height="34" rx="6" fill="#dde1e8"/>
+                            <rect x="580" y="55" width="160" height="34" rx="6" fill="#ec166c" fill-opacity=".45"/>
                             <text x="95" y="77" class="t" font-size="13" text-anchor="middle">INFANZIA</text>
                             <text x="245" y="77" class="t" font-size="13" text-anchor="middle">ADOLESCENZA</text>
                             <text x="450" y="77" class="t" font-size="13" text-anchor="middle">ETÀ ADULTA</text>
@@ -1175,40 +1236,40 @@
                             <text x="322" y="110" class="s">tarda adol.</text><text x="322" y="123" class="s">18-25</text>
                             <text x="470" y="110" class="s">lavoro, responsabilità</text>
                             <text x="600" y="110" class="s">pensione, «giovani anziani»</text><text x="600" y="123" class="s">e grandi anziani (80+)</text>
-                            <line x1="20" y1="92" x2="740" y2="92" stroke="#52606d" stroke-width="1"/>
+                            <line x1="20" y1="92" x2="740" y2="92" stroke="#5b6570" stroke-width="1"/>
                         </svg>
                         <div class="didascalia">Le fasce di età usate nei servizi. I confini sono indicativi: ogni persona ha i suoi tempi.</div>
                     </div>
 
                     <div class="utenze">
-                        <div class="utenza" style="border-top-color:#9CB912">
+                        <div class="utenza" style="border-top-color:#447010">
                             <h4>👨‍👩‍👧‍👦 La famiglia</h4>
                             <p>Oggi ha molte <span class="hl">forme</span>: nucleare, <strong>monogenitoriale</strong> (un solo genitore), <strong>ricostituita</strong> (dopo una separazione), convivenze e unioni civili, persone sole.</p>
                             <p class="bis"><strong>Bisogno chiave:</strong> reggere quando vengono meno lavoro, soldi, salute o l'aiuto dei parenti.</p>
                         </div>
-                        <div class="utenza" style="border-top-color:#C6E716">
+                        <div class="utenza" style="border-top-color:#80cd29">
                             <h4>👶 L'infanzia · 0-10 anni</h4>
                             <p>Il bambino dipende dagli adulti e cresce a tappe: <strong>0-3</strong> dipendenza totale, <strong>3-6</strong> «faccio io!», <strong>6-10</strong> scuola e regole. Ha diritti propri (Convenzione ONU, 1989).</p>
                             <p class="bis"><strong>Bisogno chiave:</strong> cure costanti e un <span class="hl">legame sicuro</span> con chi lo accudisce.</p>
                         </div>
-                        <div class="utenza" style="border-top-color:#1DD3D3">
+                        <div class="utenza" style="border-top-color:#57bda8">
                             <h4>🧒 L'adolescenza · 10-18 anni</h4>
                             <p>Si stacca dagli adulti per costruirsi un'identità; oggi la <strong>tarda adolescenza</strong> arriva fino ai 25 anni. La <span class="hl">crisi adolescenziale</span> è normale, non è una malattia.</p>
                             <p class="bis"><strong>Bisogno chiave:</strong> adulti che ascoltano e regole <strong>discusse</strong>, non solo imposte. Il rischio è il disadattamento: abbandono della scuola, isolamento.</p>
                         </div>
-                        <div class="utenza" style="border-top-color:#FF0090">
+                        <div class="utenza" style="border-top-color:#ec166c">
                             <h4>👴 La terza età · dai 65 anni</h4>
                             <p>In Italia quasi una persona su quattro. I <strong>«giovani anziani»</strong> sono spesso attivi e in salute, i <strong>grandi anziani</strong> (oltre gli 80) più fragili.</p>
                             <p class="bis"><strong>Bisogno chiave:</strong> restare attivo e non restare solo. È l'<span class="hl">invecchiamento attivo</span> (OMS): l'anziano è una risorsa.</p>
                         </div>
-                        <div class="utenza" style="border-top-color:#0E7C7C">
+                        <div class="utenza" style="border-top-color:#17385a">
                             <h4>♿ La disabilità</h4>
                             <p>Secondo l'<span class="hl">ICF</span> dell'OMS la disabilità nasce dall'incontro fra la condizione di salute e l'<strong>ambiente</strong>. La legge 104/1992 dà accesso al sostegno e a percorsi personalizzati.</p>
                             <p class="bis"><strong>Bisogno chiave:</strong> barriere tolte, ausili, occasioni per partecipare come tutti.</p>
                         </div>
-                        <div class="utenza" style="border-top-color:#CC0073">
+                        <div class="utenza" style="border-top-color:#d6105f">
                             <h4>🔗 Le dipendenze</h4>
-                            <p>Un comportamento che la persona <span class="hl">non riesce più a controllare</span>. Da sostanze (alcol, droghe, tabacco, farmaci) o da comportamenti (azzardo, videogiochi, telefono, shopping).</p>
+                            <p>Un comportamento che la persona non riesce più a controllare. Da sostanze (alcol, droghe, tabacco, farmaci) o da comportamenti (azzardo, videogiochi, telefono, shopping).</p>
                             <p class="bis"><strong>Bisogno chiave:</strong> trovare un'altra risposta al vuoto che la dipendenza riempie.</p>
                         </div>
                     </div>
@@ -1216,38 +1277,38 @@
                     <div class="schemi-2">
                     <div class="schema">
                         <svg viewBox="0 0 600 260" role="img" aria-label="Schema ICF: la condizione di salute influenza funzioni e strutture corporee, attività e partecipazione; sotto, i fattori ambientali e personali influenzano tutto">
-                            <defs><style>.t{font-family:Segoe UI,Tahoma,sans-serif;font-weight:700}.s{font-family:Segoe UI,Tahoma,sans-serif;font-size:11px;fill:#334}</style><marker id="b" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#52606d"/></marker></defs>
-                            <rect x="200" y="15" width="200" height="40" rx="8" fill="#1DD3D3" fill-opacity=".5" stroke="#16A8A8"/>
+                            <defs><style>.t{font-family:DM Sans,sans-serif;font-weight:700}.s{font-family:DM Sans,sans-serif;font-size:11px;fill:#334}</style><marker id="b" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5b6570"/></marker></defs>
+                            <rect x="200" y="15" width="200" height="40" rx="8" fill="#57bda8" fill-opacity=".5" stroke="#1b6f5f"/>
                             <text x="300" y="40" class="t" font-size="13" text-anchor="middle">CONDIZIONE DI SALUTE</text>
-                            <rect x="20" y="110" width="170" height="50" rx="8" fill="#fff" stroke="#9CB912" stroke-width="2"/>
+                            <rect x="20" y="110" width="170" height="50" rx="8" fill="#fff" stroke="#447010" stroke-width="2"/>
                             <text x="105" y="131" class="t" font-size="12" text-anchor="middle">FUNZIONI E STRUTTURE</text><text x="105" y="148" class="s" text-anchor="middle">corpo (es. le gambe)</text>
-                            <rect x="215" y="110" width="170" height="50" rx="8" fill="#fff" stroke="#9CB912" stroke-width="2"/>
+                            <rect x="215" y="110" width="170" height="50" rx="8" fill="#fff" stroke="#447010" stroke-width="2"/>
                             <text x="300" y="131" class="t" font-size="12" text-anchor="middle">ATTIVITÀ</text><text x="300" y="148" class="s" text-anchor="middle">che cosa riesce a fare (es. spostarsi)</text>
-                            <rect x="410" y="110" width="170" height="50" rx="8" fill="#fff" stroke="#9CB912" stroke-width="2"/>
+                            <rect x="410" y="110" width="170" height="50" rx="8" fill="#fff" stroke="#447010" stroke-width="2"/>
                             <text x="495" y="131" class="t" font-size="12" text-anchor="middle">PARTECIPAZIONE</text><text x="495" y="148" class="s" text-anchor="middle">vita sociale (es. andare a scuola)</text>
-                            <rect x="90" y="205" width="200" height="40" rx="8" fill="#FF0090" fill-opacity=".25" stroke="#CC0073"/>
+                            <rect x="90" y="205" width="200" height="40" rx="8" fill="#ec166c" fill-opacity=".25" stroke="#d6105f"/>
                             <text x="190" y="224" class="t" font-size="12" text-anchor="middle">FATTORI AMBIENTALI</text><text x="190" y="238" class="s" text-anchor="middle">barriere, ausili, servizi, atteggiamenti</text>
-                            <rect x="310" y="205" width="200" height="40" rx="8" fill="#FF0090" fill-opacity=".25" stroke="#CC0073"/>
+                            <rect x="310" y="205" width="200" height="40" rx="8" fill="#ec166c" fill-opacity=".25" stroke="#d6105f"/>
                             <text x="410" y="224" class="t" font-size="12" text-anchor="middle">FATTORI PERSONALI</text><text x="410" y="238" class="s" text-anchor="middle">età, carattere, motivazione</text>
-                            <path d="M300 55 L105 108" stroke="#52606d" stroke-width="1.5" marker-end="url(#b)"/><path d="M300 55 L300 108" stroke="#52606d" stroke-width="1.5" marker-end="url(#b)"/><path d="M300 55 L495 108" stroke="#52606d" stroke-width="1.5" marker-end="url(#b)"/>
-                            <path d="M190 203 L105 162" stroke="#CC0073" stroke-width="1.5" marker-end="url(#b)"/><path d="M190 203 L300 162" stroke="#CC0073" stroke-width="1.5" marker-end="url(#b)"/><path d="M410 203 L300 162" stroke="#CC0073" stroke-width="1.5" marker-end="url(#b)"/><path d="M410 203 L495 162" stroke="#CC0073" stroke-width="1.5" marker-end="url(#b)"/>
-                            <path d="M190 135 L213 135" stroke="#52606d" stroke-width="1.5"/><path d="M385 135 L408 135" stroke="#52606d" stroke-width="1.5"/>
+                            <path d="M300 55 L105 108" stroke="#5b6570" stroke-width="1.5" marker-end="url(#b)"/><path d="M300 55 L300 108" stroke="#5b6570" stroke-width="1.5" marker-end="url(#b)"/><path d="M300 55 L495 108" stroke="#5b6570" stroke-width="1.5" marker-end="url(#b)"/>
+                            <path d="M190 203 L105 162" stroke="#d6105f" stroke-width="1.5" marker-end="url(#b)"/><path d="M190 203 L300 162" stroke="#d6105f" stroke-width="1.5" marker-end="url(#b)"/><path d="M410 203 L300 162" stroke="#d6105f" stroke-width="1.5" marker-end="url(#b)"/><path d="M410 203 L495 162" stroke="#d6105f" stroke-width="1.5" marker-end="url(#b)"/>
+                            <path d="M190 135 L213 135" stroke="#5b6570" stroke-width="1.5"/><path d="M385 135 L408 135" stroke="#5b6570" stroke-width="1.5"/>
                         </svg>
                         <div class="didascalia">ICF: la stessa condizione di salute produce disabilità diverse a seconda dell'ambiente. Un gradino è una barriera, una rampa no.</div>
                     </div>
                     <div class="schema schema-nuovo">
-                        <svg viewBox="0 0 640 210" role="img" aria-label="Abitudine o dipendenza: quattro segnali di perdita di controllo" font-family="Segoe UI,Tahoma,sans-serif">
+                        <svg viewBox="0 0 640 210" role="img" aria-label="Abitudine o dipendenza: quattro segnali di perdita di controllo" font-family="DM Sans,sans-serif">
 <defs><linearGradient id="mos6-gctl" x1="0" x2="1"><stop offset="0" stop-color="#dcfce7"/><stop offset="1" stop-color="#fee2e2"/></linearGradient></defs>
-<rect x="20" y="30" width="600" height="34" rx="17" fill="url(#mos6-gctl)" stroke="#d9e2e6"/>
+<rect x="20" y="30" width="600" height="34" rx="17" fill="url(#mos6-gctl)" stroke="#dde1e8"/>
 <text x="36" y="52" font-size="13" font-weight="700" fill="#14532d">ABITUDINE · la comando io</text>
 <text x="604" y="52" font-size="13" font-weight="700" fill="#7f1d1d" text-anchor="end">DIPENDENZA · mi comanda lei</text>
 <g font-size="12.5" text-anchor="middle">
-<circle cx="110" cy="100" r="15" fill="#fff" stroke="#CC0073" stroke-width="2"/><text x="110" y="105" font-weight="800" fill="#CC0073">1</text><text x="110" y="136" fill="#1f2933">non riesce a smettere</text><text x="110" y="152" fill="#1f2933">anche se vuole</text>
-<circle cx="250" cy="100" r="15" fill="#fff" stroke="#CC0073" stroke-width="2"/><text x="250" y="105" font-weight="800" fill="#CC0073">2</text><text x="250" y="136" fill="#1f2933">sta male</text><text x="250" y="152" fill="#1f2933">quando non può</text>
-<circle cx="390" cy="100" r="15" fill="#fff" stroke="#CC0073" stroke-width="2"/><text x="390" y="105" font-weight="800" fill="#CC0073">3</text><text x="390" y="136" fill="#1f2933">rinuncia a scuola,</text><text x="390" y="152" fill="#1f2933">sport, amici</text>
-<circle cx="530" cy="100" r="15" fill="#fff" stroke="#CC0073" stroke-width="2"/><text x="530" y="105" font-weight="800" fill="#CC0073">4</text><text x="530" y="136" fill="#1f2933">continua anche</text><text x="530" y="152" fill="#1f2933">se gli fa male</text>
+<circle cx="110" cy="100" r="15" fill="#fff" stroke="#d6105f" stroke-width="2"/><text x="110" y="105" font-weight="800" fill="#d6105f">1</text><text x="110" y="136" fill="#202c3b">non riesce a smettere</text><text x="110" y="152" fill="#202c3b">anche se vuole</text>
+<circle cx="250" cy="100" r="15" fill="#fff" stroke="#d6105f" stroke-width="2"/><text x="250" y="105" font-weight="800" fill="#d6105f">2</text><text x="250" y="136" fill="#202c3b">sta male</text><text x="250" y="152" fill="#202c3b">quando non può</text>
+<circle cx="390" cy="100" r="15" fill="#fff" stroke="#d6105f" stroke-width="2"/><text x="390" y="105" font-weight="800" fill="#d6105f">3</text><text x="390" y="136" fill="#202c3b">rinuncia a scuola,</text><text x="390" y="152" fill="#202c3b">sport, amici</text>
+<circle cx="530" cy="100" r="15" fill="#fff" stroke="#d6105f" stroke-width="2"/><text x="530" y="105" font-weight="800" fill="#d6105f">4</text><text x="530" y="136" fill="#202c3b">continua anche</text><text x="530" y="152" fill="#202c3b">se gli fa male</text>
 </g>
-<text x="320" y="190" font-size="13" font-weight="700" fill="#0E7C7C" text-anchor="middle">Non conta quante ore: conta chi comanda.</text>
+<text x="320" y="190" font-size="13" font-weight="700" fill="#17385a" text-anchor="middle">Non conta quante ore: conta chi comanda.</text>
 </svg>
                         <div class="didascalia">Quattro segnali di perdita di controllo: è la differenza fra un'abitudine e una dipendenza.</div>
                     </div>
@@ -1259,7 +1320,7 @@
                         <summary>📖 Per saperne di più: le sei utenze spiegate per esteso</summary>
                         <div class="dentro">
                     <h3>👨‍👩‍👧‍👦 La famiglia</h3>
-                    <p>La famiglia è l'<strong>istituzione di base della società</strong>: la Costituzione (art. 29) la riconosce come «società naturale fondata sul matrimonio», ma oggi le forme sono molte di più. La famiglia <em>nucleare</em> (genitori e figli) resta la più diffusa, ma sono sempre più numerose:</p>
+                    <p>La famiglia è l'istituzione di base della società: la Costituzione (art. 29) la riconosce come «società naturale fondata sul matrimonio», ma oggi le forme sono molte di più. La famiglia <em>nucleare</em> (genitori e figli) resta la più diffusa, ma sono sempre più numerose:</p>
                     <ul>
                         <li>le <strong>persone sole</strong> (famiglie unipersonali), soprattutto anziani;</li>
                         <li>le famiglie <strong>monogenitoriali</strong>: un solo genitore con i figli;</li>
@@ -1267,7 +1328,7 @@
                         <li>le <strong>convivenze</strong> senza matrimonio e le <strong>unioni civili</strong> (legge 76/2016);</li>
                         <li>le famiglie <strong>omogenitoriali</strong> (dette anche «arcobaleno»).</li>
                     </ul>
-                    <p>Le famiglie italiane hanno oggi <strong>pochi componenti</strong>: si fanno meno figli e più tardi. Il compito della famiglia resta lo stesso: garantire la <strong>sopravvivenza, lo sviluppo e il sostegno</strong> di ciascun membro.</p>
+                    <p>Le famiglie italiane hanno oggi <strong>pochi componenti</strong>: si fanno meno figli e più tardi. Il compito della famiglia resta lo stesso: garantire la sopravvivenza, lo sviluppo e il sostegno di ciascun membro.</p>
                     <div class="nota attenzione"><strong>I problemi di oggi.</strong> La famiglia è più fragile (separazioni, solitudine), ha meno sicurezza economica (lavoro precario), e deve occuparsi sempre più a lungo degli anziani, perché la vita si è allungata. Quando la famiglia non regge da sola, entrano in gioco i servizi e l'operatore sociale.</div>
                     <h3>👶 L'infanzia (0-10 anni)</h3>
                     <p>I bambini hanno diritti propri, riconosciuti dalla <strong>Convenzione ONU sui diritti dell'infanzia</strong> (1989, legge italiana 176/1991). L'infanzia si divide in tre fasi:</p>
@@ -1282,12 +1343,12 @@
                     <p>La cosiddetta <strong>crisi adolescenziale</strong> è normale, non è una malattia: insofferenza verso gli adulti, ribellione alle regole, fatica ad abbandonare il sé infantile mentre si costruisce un'identità nuova. Diventa un problema quando porta a <strong>disadattamento</strong>: abbandono scolastico, isolamento, comportamenti a rischio.</p>
                     <div class="nota esempio"><strong>Il ruolo dell'operatore</strong> con gli adolescenti: prevenire i conflitti invece di reprimerli, <strong>discutere le regole</strong> invece di imporle e basta, proporre attività in cui il ragazzo possa riuscire, individualizzare l'intervento «con realismo e umanità».</div>
                     <h3>👴 La terza età (65 anni e oltre)</h3>
-                    <p>In Italia <strong>quasi una persona su quattro ha più di 65 anni</strong> (dati ISTAT): siamo uno dei Paesi più «anziani» del mondo. Per questo gli anziani sono l'utenza più numerosa dei servizi.</p>
+                    <p>In Italia quasi una persona su quattro ha più di 65 anni (dati ISTAT): siamo uno dei Paesi più «anziani» del mondo. Per questo gli anziani sono l'utenza più numerosa dei servizi.</p>
                     <p>La vita di una persona si può leggere in <strong>tre grandi tappe</strong>: lo <em>sviluppo</em> (dalla nascita all'età adulta), l'<em>adultità</em> (lavoro e responsabilità) e la <em>senilità</em> (dall'età della pensione in poi). Ma il confine della vecchiaia si sposta sempre più avanti: oggi si distingue tra <strong>«giovani anziani»</strong>, spesso attivi e in salute, e <strong>grandi anziani</strong> oltre gli 80 anni, più fragili.</p>
                     <p>Il modo di guardare la vecchiaia è cambiato. Non più solo «assenza di malattia», ma <span class="hl">invecchiamento attivo</span> (concetto proposto dall'OMS nel 2002): l'anziano è una <strong>risorsa</strong> per la famiglia e per la società, e va aiutato a restare partecipe, autonomo e in salute il più a lungo possibile.</p>
                     <div class="nota attenzione"><strong>Le sfide.</strong> Involuzione fisica e a volte mentale, malattie croniche, perdita del coniuge e degli amici, riduzione del reddito, solitudine. Il rischio più grande è che l'anziano «si spenga»: smetta di fare, di uscire, di curarsi. Per questo l'operatore lavora molto sulla dimensione psicologica e sociale: la mente e gli interessi non invecchiano se restano attivi.</div>
                     <h3>♿ La disabilità</h3>
-                    <p>Nel 2001 l'OMS ha pubblicato l'<span class="hl">ICF</span> (Classificazione Internazionale del Funzionamento, della Disabilità e della Salute), che ha cambiato il modo di pensare la disabilità. La disabilità <strong>non è una caratteristica della persona</strong>, ma il risultato della <strong>relazione</strong> tra la sua condizione di salute e i fattori personali e ambientali.</p>
+                    <p>Nel 2001 l'OMS ha pubblicato l'<span class="hl">ICF</span> (Classificazione Internazionale del Funzionamento, della Disabilità e della Salute), che ha cambiato il modo di pensare la disabilità. La disabilità non è una caratteristica della persona, ma il risultato della <strong>relazione</strong> tra la sua condizione di salute e i fattori personali e ambientali.</p>
                     <p>Le dimensioni dell'ICF sono cinque: <strong>condizioni di salute</strong>, <strong>funzioni e strutture corporee</strong>, <strong>attività</strong> (il grado di autonomia), <strong>partecipazione sociale</strong>, <strong>fattori ambientali e personali</strong>. L'obiettivo dell'operatore è la <span class="hl">promozione dell'integrazione sociale</span>: rimuovere barriere, procurare ausili, creare occasioni di partecipazione. E ricordare che la persona con disabilità ha gli stessi bisogni di tutti: amore, considerazione, gratificazione.</p>
                     <div class="nota fonte">Riferimenti: <strong>legge 104/1992</strong>, legge quadro sui diritti delle persone con disabilità, che prevede la certificazione per accedere a percorsi personalizzati (sostegno scolastico, permessi per i familiari, ausili). <strong>Convenzione ONU sui diritti delle persone con disabilità</strong> (2006, legge 18/2009). <strong>D.Lgs. 62/2024</strong>, che riforma la valutazione della disabilità e introduce il «progetto di vita» personalizzato.</div>
                     <h3>🔗 Le dipendenze</h3>
@@ -1445,13 +1506,13 @@
                     </div>
                     <div class="schema">
                         <svg viewBox="0 0 600 120" role="img" aria-label="Le quattro fasi del progetto: analisi, obiettivi, azioni e rete, verifica">
-                            <defs><style>.t{font-family:Segoe UI,Tahoma,sans-serif;font-weight:700}.s{font-family:Segoe UI,Tahoma,sans-serif;font-size:11px;fill:#334}</style><marker id="c" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#52606d"/></marker></defs>
-                            <rect x="10" y="25" width="125" height="60" rx="10" fill="#1DD3D3" fill-opacity=".45" stroke="#16A8A8"/><text x="72" y="52" class="t" font-size="13" text-anchor="middle">1. ANALISI</text><text x="72" y="70" class="s" text-anchor="middle">bio-psico-sociale</text>
-                            <rect x="160" y="25" width="125" height="60" rx="10" fill="#C6E716" fill-opacity=".55" stroke="#9CB912"/><text x="222" y="52" class="t" font-size="13" text-anchor="middle">2. OBIETTIVI</text><text x="222" y="70" class="s" text-anchor="middle">uno per dimensione</text>
-                            <rect x="310" y="25" width="125" height="60" rx="10" fill="#FF0090" fill-opacity=".3" stroke="#CC0073"/><text x="372" y="52" class="t" font-size="13" text-anchor="middle">3. AZIONI E RETE</text><text x="372" y="70" class="s" text-anchor="middle">chi fa che cosa</text>
+                            <defs><style>.t{font-family:DM Sans,sans-serif;font-weight:700}.s{font-family:DM Sans,sans-serif;font-size:11px;fill:#334}</style><marker id="c" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5b6570"/></marker></defs>
+                            <rect x="10" y="25" width="125" height="60" rx="10" fill="#57bda8" fill-opacity=".45" stroke="#1b6f5f"/><text x="72" y="52" class="t" font-size="13" text-anchor="middle">1. ANALISI</text><text x="72" y="70" class="s" text-anchor="middle">bio-psico-sociale</text>
+                            <rect x="160" y="25" width="125" height="60" rx="10" fill="#80cd29" fill-opacity=".55" stroke="#447010"/><text x="222" y="52" class="t" font-size="13" text-anchor="middle">2. OBIETTIVI</text><text x="222" y="70" class="s" text-anchor="middle">uno per dimensione</text>
+                            <rect x="310" y="25" width="125" height="60" rx="10" fill="#ec166c" fill-opacity=".3" stroke="#d6105f"/><text x="372" y="52" class="t" font-size="13" text-anchor="middle">3. AZIONI E RETE</text><text x="372" y="70" class="s" text-anchor="middle">chi fa che cosa</text>
                             <rect x="460" y="25" width="125" height="60" rx="10" fill="#e8f1ff" stroke="#1e3a8a"/><text x="522" y="52" class="t" font-size="13" text-anchor="middle">4. VERIFICA</text><text x="522" y="70" class="s" text-anchor="middle">sta funzionando?</text>
-                            <path d="M135 55 L158 55" stroke="#52606d" stroke-width="2" marker-end="url(#c)"/><path d="M285 55 L308 55" stroke="#52606d" stroke-width="2" marker-end="url(#c)"/><path d="M435 55 L458 55" stroke="#52606d" stroke-width="2" marker-end="url(#c)"/>
-                            <path d="M522 85 L522 105 L72 105 L72 87" fill="none" stroke="#52606d" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#c)"/>
+                            <path d="M135 55 L158 55" stroke="#5b6570" stroke-width="2" marker-end="url(#c)"/><path d="M285 55 L308 55" stroke="#5b6570" stroke-width="2" marker-end="url(#c)"/><path d="M435 55 L458 55" stroke="#5b6570" stroke-width="2" marker-end="url(#c)"/>
+                            <path d="M522 85 L522 105 L72 105 L72 87" fill="none" stroke="#5b6570" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#c)"/>
                         </svg>
                         <div class="didascalia">Il progetto è un ciclo: dopo la verifica si torna all'analisi. Con Maria fai i passi 1, 2 e 3; la verifica la impari con Casa Serena.</div>
                     </div>
@@ -1463,7 +1524,7 @@
                     <span class="coppia">👥 Lavorate in coppia, ma ognuno scrive sul proprio computer</span>
                     <div class="act">
                         <div class="act-title">📊 Analisi bio-psico-sociale <span class="pts">+12</span></div>
-                        <p class="act-istr">Per ogni dimensione scrivi <strong>che cosa vedi nel caso</strong>: prendi i fatti dalla scheda, non inventare. Bastano due o tre righe per dimensione.</p>
+                        <p class="act-istr">Per ogni dimensione scrivi che cosa vedi nel caso: prendi i fatti dalla scheda, non inventare. Bastano due o tre righe per dimensione.</p>
                         <div class="campi-3">
                             <div class="campo"><label for="step1-biologico">🔬 Dimensione biologica e materiale <span class="pts">+4</span></label><p class="hint">Salute, sonno, casa, soldi, cibo.</p><textarea id="step1-biologico" name="step1-biologico" data-points="4" placeholder="Nel caso vedo che..."></textarea></div>
                             <div class="campo"><label for="step1-psicologico">🧠 Dimensione psicologica <span class="pts">+4</span></label><p class="hint">Emozioni, pensieri, paure, comportamenti di Maria e dei bambini.</p><textarea id="step1-psicologico" name="step1-psicologico" data-points="4" placeholder="Nel caso vedo che..."></textarea></div>
@@ -1543,10 +1604,10 @@
                         </div>
                         <div class="esempio-risposta"><h5>Esempio</h5><strong>Formale:</strong> Servizio sociale → contributo economico d'emergenza; Centro per l'impiego → ricollocazione di Maria; Consultorio → sostegno psicologico; Scuola → sportello e incontri con gli insegnanti; Neuropsichiatria → valutazione di Luca; Educativa domiciliare → sostegno alla genitorialità. <strong>Informale:</strong> nonni con videochiamate e visite; vicini per una rete di vicinato; gruppo di auto-aiuto per genitori soli.</div>
                     <div class="schema schema-nuovo" style="margin-top:14px">
-                        <svg viewBox="0 0 640 280" role="img" aria-label="Bisogni di Maria collegati ai servizi e alle persone che rispondono" font-family="Segoe UI,Tahoma,sans-serif">
-<text x="130" y="24" font-size="12" font-weight="700" fill="#52606d" text-anchor="middle" letter-spacing=".05em">IL BISOGNO</text>
-<text x="500" y="24" font-size="12" font-weight="700" fill="#52606d" text-anchor="middle" letter-spacing=".05em">CHI RISPONDE</text><rect x="20" y="40" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="58" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Soldi, affitto, bollette</text><rect x="20" y="76" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="94" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Un lavoro per Maria</text><rect x="20" y="112" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="130" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Ansia e solitudine di Maria</text><rect x="20" y="148" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="166" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Il comportamento di Luca</text><rect x="20" y="184" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="202" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Tempo libero per cercare lavoro</text><rect x="20" y="220" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="238" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Sostegno come mamma</text><rect x="380" y="40" width="240" height="28" rx="8" fill="#e6f7f7" stroke="#0E7C7C"/><text x="500" y="58" font-size="12.5" font-weight="700" fill="#0E7C7C" text-anchor="middle">Servizio sociale del Comune</text><rect x="380" y="76" width="240" height="28" rx="8" fill="#e6f7f7" stroke="#0E7C7C"/><text x="500" y="94" font-size="12.5" font-weight="700" fill="#0E7C7C" text-anchor="middle">Centro per l'impiego</text><rect x="380" y="112" width="240" height="28" rx="8" fill="#e6f7f7" stroke="#0E7C7C"/><text x="500" y="130" font-size="12.5" font-weight="700" fill="#0E7C7C" text-anchor="middle">Consultorio · nonni · gruppo AMA</text><rect x="380" y="148" width="240" height="28" rx="8" fill="#e6f7f7" stroke="#0E7C7C"/><text x="500" y="166" font-size="12.5" font-weight="700" fill="#0E7C7C" text-anchor="middle">Scuola · neuropsichiatria infantile</text><rect x="380" y="184" width="240" height="28" rx="8" fill="#e6f7f7" stroke="#0E7C7C"/><text x="500" y="202" font-size="12.5" font-weight="700" fill="#0E7C7C" text-anchor="middle">Doposcuola · centro estivo</text><rect x="380" y="220" width="240" height="28" rx="8" fill="#e6f7f7" stroke="#0E7C7C"/><text x="500" y="238" font-size="12.5" font-weight="700" fill="#0E7C7C" text-anchor="middle">Educativa domiciliare</text><path d="M240 54 C310 54 310 54 380 54" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 90 C310 90 310 90 380 90" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 126 C310 126 310 126 380 126" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 162 C310 162 310 162 380 162" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 198 C310 198 310 198 380 198" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 234 C310 234 310 234 380 234" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 90 C310 90 310 198 380 198" fill="none" stroke="#CC0073" stroke-width="2"/><path d="M240 162 C310 162 310 234 380 234" fill="none" stroke="#CC0073" stroke-width="2"/>
-<text x="320" y="272" font-size="11.5" fill="#CC0073" text-anchor="middle">in rosa: un servizio che risponde a un secondo bisogno (il doposcuola libera tempo a Maria)</text></svg>
+                        <svg viewBox="0 0 640 280" role="img" aria-label="Bisogni di Maria collegati ai servizi e alle persone che rispondono" font-family="DM Sans,sans-serif">
+<text x="130" y="24" font-size="12" font-weight="700" fill="#5b6570" text-anchor="middle" letter-spacing=".05em">IL BISOGNO</text>
+<text x="500" y="24" font-size="12" font-weight="700" fill="#5b6570" text-anchor="middle" letter-spacing=".05em">CHI RISPONDE</text><rect x="20" y="40" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="58" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Soldi, affitto, bollette</text><rect x="20" y="76" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="94" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Un lavoro per Maria</text><rect x="20" y="112" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="130" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Ansia e solitudine di Maria</text><rect x="20" y="148" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="166" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Il comportamento di Luca</text><rect x="20" y="184" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="202" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Tempo libero per cercare lavoro</text><rect x="20" y="220" width="220" height="28" rx="8" fill="#fff7d6" stroke="#eab308"/><text x="130" y="238" font-size="12.5" font-weight="700" fill="#713f12" text-anchor="middle">Sostegno come mamma</text><rect x="380" y="40" width="240" height="28" rx="8" fill="#e7f5f2" stroke="#17385a"/><text x="500" y="58" font-size="12.5" font-weight="700" fill="#17385a" text-anchor="middle">Servizio sociale del Comune</text><rect x="380" y="76" width="240" height="28" rx="8" fill="#e7f5f2" stroke="#17385a"/><text x="500" y="94" font-size="12.5" font-weight="700" fill="#17385a" text-anchor="middle">Centro per l'impiego</text><rect x="380" y="112" width="240" height="28" rx="8" fill="#e7f5f2" stroke="#17385a"/><text x="500" y="130" font-size="12.5" font-weight="700" fill="#17385a" text-anchor="middle">Consultorio · nonni · gruppo AMA</text><rect x="380" y="148" width="240" height="28" rx="8" fill="#e7f5f2" stroke="#17385a"/><text x="500" y="166" font-size="12.5" font-weight="700" fill="#17385a" text-anchor="middle">Scuola · neuropsichiatria infantile</text><rect x="380" y="184" width="240" height="28" rx="8" fill="#e7f5f2" stroke="#17385a"/><text x="500" y="202" font-size="12.5" font-weight="700" fill="#17385a" text-anchor="middle">Doposcuola · centro estivo</text><rect x="380" y="220" width="240" height="28" rx="8" fill="#e7f5f2" stroke="#17385a"/><text x="500" y="238" font-size="12.5" font-weight="700" fill="#17385a" text-anchor="middle">Educativa domiciliare</text><path d="M240 54 C310 54 310 54 380 54" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 90 C310 90 310 90 380 90" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 126 C310 126 310 126 380 126" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 162 C310 162 310 162 380 162" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 198 C310 198 310 198 380 198" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 234 C310 234 310 234 380 234" fill="none" stroke="#94a3b8" stroke-width="1.6"/><path d="M240 90 C310 90 310 198 380 198" fill="none" stroke="#d6105f" stroke-width="2"/><path d="M240 162 C310 162 310 234 380 234" fill="none" stroke="#d6105f" stroke-width="2"/>
+<text x="320" y="272" font-size="11.5" fill="#d6105f" text-anchor="middle">in rosa: un servizio che risponde a un secondo bisogno (il doposcuola libera tempo a Maria)</text></svg>
                         <div class="didascalia">Ogni servizio risponde a un bisogno preciso; alcuni rispondono a due.</div>
                     </div>
                     </div>
@@ -1607,17 +1668,17 @@
                     <div class="step-title"><span class="tag">CONTENUTI</span> Perché fermarsi <span class="min">2 min</span></div>
                     <p>Ragionare su come si è imparato si chiama <strong>metacognizione</strong>. Serve a due cose: fissare meglio ciò che si è capito e scoprire il proprio modo di imparare, così da usarlo anche nelle altre materie. Un operatore sociale fa lo stesso ogni giorno con il proprio lavoro: si ferma, rilegge, si chiede che cosa ha funzionato.</p>
                     <div class="schema schema-nuovo">
-                        <svg viewBox="0 0 640 220" role="img" aria-label="Ciclo della metacognizione: pianifico, controllo, valuto" font-family="Segoe UI,Tahoma,sans-serif">
-<defs><marker id="mos9-ar9" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9z" fill="#0E7C7C"/></marker></defs>
+                        <svg viewBox="0 0 640 220" role="img" aria-label="Ciclo della metacognizione: pianifico, controllo, valuto" font-family="DM Sans,sans-serif">
+<defs><marker id="mos9-ar9" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9z" fill="#17385a"/></marker></defs>
 <g font-size="13" text-anchor="middle">
-<rect x="20" y="40" width="180" height="96" rx="14" fill="#fff" stroke="#1DD3D3" stroke-width="2"/><text x="110" y="66" font-weight="800" fill="#0E7C7C">1 · PIANIFICO</text><text x="110" y="90" fill="#1f2933">Che cosa devo fare?</text><text x="110" y="108" fill="#1f2933">Come lo faccio?</text>
-<rect x="230" y="40" width="180" height="96" rx="14" fill="#fff" stroke="#C6E716" stroke-width="2"/><text x="320" y="66" font-weight="800" fill="#6b7a00">2 · CONTROLLO</text><text x="320" y="90" fill="#1f2933">Sto capendo?</text><text x="320" y="108" fill="#1f2933">Che cosa cambio?</text>
-<rect x="440" y="40" width="180" height="96" rx="14" fill="#fff" stroke="#FF0090" stroke-width="2"/><text x="530" y="66" font-weight="800" fill="#CC0073">3 · VALUTO</text><text x="530" y="90" fill="#1f2933">Che cosa ha funzionato?</text><text x="530" y="108" fill="#1f2933">Che cosa farò diverso?</text>
+<rect x="20" y="40" width="180" height="96" rx="14" fill="#fff" stroke="#57bda8" stroke-width="2"/><text x="110" y="66" font-weight="800" fill="#17385a">1 · PIANIFICO</text><text x="110" y="90" fill="#202c3b">Che cosa devo fare?</text><text x="110" y="108" fill="#202c3b">Come lo faccio?</text>
+<rect x="230" y="40" width="180" height="96" rx="14" fill="#fff" stroke="#80cd29" stroke-width="2"/><text x="320" y="66" font-weight="800" fill="#447010">2 · CONTROLLO</text><text x="320" y="90" fill="#202c3b">Sto capendo?</text><text x="320" y="108" fill="#202c3b">Che cosa cambio?</text>
+<rect x="440" y="40" width="180" height="96" rx="14" fill="#fff" stroke="#ec166c" stroke-width="2"/><text x="530" y="66" font-weight="800" fill="#d6105f">3 · VALUTO</text><text x="530" y="90" fill="#202c3b">Che cosa ha funzionato?</text><text x="530" y="108" fill="#202c3b">Che cosa farò diverso?</text>
 </g>
-<line x1="202" y1="88" x2="226" y2="88" stroke="#0E7C7C" stroke-width="2.5" marker-end="url(#mos9-ar9)"/>
-<line x1="412" y1="88" x2="436" y2="88" stroke="#0E7C7C" stroke-width="2.5" marker-end="url(#mos9-ar9)"/>
-<path d="M530 138 C530 190 110 190 110 142" fill="none" stroke="#0E7C7C" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#mos9-ar9)"/>
-<text x="320" y="206" font-size="12.5" fill="#52606d" text-anchor="middle">si ricomincia · è quello che fa anche l'operatore con il suo lavoro</text>
+<line x1="202" y1="88" x2="226" y2="88" stroke="#17385a" stroke-width="2.5" marker-end="url(#mos9-ar9)"/>
+<line x1="412" y1="88" x2="436" y2="88" stroke="#17385a" stroke-width="2.5" marker-end="url(#mos9-ar9)"/>
+<path d="M530 138 C530 190 110 190 110 142" fill="none" stroke="#17385a" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#mos9-ar9)"/>
+<text x="320" y="206" font-size="12.5" fill="#5b6570" text-anchor="middle">si ricomincia · è quello che fa anche l'operatore con il suo lavoro</text>
 </svg>
                         <div class="didascalia">Il ciclo con cui si impara a imparare, lo stesso con cui l'operatore rivede il proprio lavoro.</div>
                     </div>
@@ -1753,22 +1814,22 @@
                     <div class="step-title"><span class="tag">CONTENUTI</span> Il caso e i ruoli <span class="min">6 min</span></div>
                     <div class="grid-2">
                         <div class="card" style="background:#FFF3E0;border-left:5px solid #FF9800"><h4 style="color:#E65100">🏢 Il contesto</h4><p>Sei operatore sociale al <strong>Centro Diurno «Casa Serena»</strong>, che accoglie 25 anziani (età media 78 anni) per socializzazione, animazione e assistenza leggera. È aperto cinque giorni a settimana, dalle 9 alle 17.</p><p><strong>L'équipe:</strong> una coordinatrice (assistente sociale), due operatori sociali (tu e una collega), due OSS, un animatore, un fisioterapista part-time.</p></div>
-                        <div class="card" style="background:#E1F5FE;border-left:5px solid #03A9F4"><h4 style="color:#0277BD">🎯 Il compito</h4><p>La coordinatrice ti ha chiesto di <strong>analizzare la situazione e proporre un progetto</strong> che affronti le criticità, coinvolgendo l'équipe e le famiglie. Lo presenterai in riunione d'équipe tra una settimana.</p><p><strong>Vincoli:</strong> budget ridotto, non si può assumere; il fisioterapista sarà in ferie tre settimane il mese prossimo.</p></div>
+                        <div class="card" style="background:#E1F5FE;border-left:5px solid #03A9F4"><h4 style="color:#0277BD">🎯 Il compito</h4><p>La coordinatrice ti ha chiesto di analizzare la situazione e proporre un progetto che affronti le criticità, coinvolgendo l'équipe e le famiglie. Lo presenterai in riunione d'équipe tra una settimana.</p><p><strong>Vincoli:</strong> budget ridotto, non si può assumere; il fisioterapista sarà in ferie tre settimane il mese prossimo.</p></div>
                     </div>
                     <div class="schema schema-nuovo">
-                        <svg viewBox="0 0 640 250" role="img" aria-label="L'équipe di Casa Serena attorno agli ospiti e alle famiglie" font-family="Segoe UI,Tahoma,sans-serif">
+                        <svg viewBox="0 0 640 250" role="img" aria-label="L'équipe di Casa Serena attorno agli ospiti e alle famiglie" font-family="DM Sans,sans-serif">
 <g font-size="12.5" text-anchor="middle" font-weight="700">
-<rect x="220" y="14" width="200" height="40" rx="10" fill="#1DD3D3"/><text x="320" y="32" fill="#083d3d">Coordinatrice</text><text x="320" y="47" fill="#083d3d" font-weight="400" font-size="11.5">assistente sociale</text>
-<line x1="320" y1="54" x2="320" y2="74" stroke="#0E7C7C" stroke-width="2"/><line x1="70" y1="74" x2="570" y2="74" stroke="#0E7C7C" stroke-width="2"/>
-<line x1="70" y1="74" x2="70" y2="90" stroke="#0E7C7C" stroke-width="2"/><line x1="195" y1="74" x2="195" y2="90" stroke="#0E7C7C" stroke-width="2"/><line x1="320" y1="74" x2="320" y2="90" stroke="#0E7C7C" stroke-width="2"/><line x1="445" y1="74" x2="445" y2="90" stroke="#0E7C7C" stroke-width="2"/><line x1="570" y1="74" x2="570" y2="90" stroke="#0E7C7C" stroke-width="2"/>
-<rect x="15" y="90" width="110" height="44" rx="10" fill="#fff" stroke="#FF0090" stroke-width="2"/><text x="70" y="109" fill="#CC0073">2 operatori</text><text x="70" y="124" fill="#CC0073">sociali · tu</text>
-<rect x="140" y="90" width="110" height="44" rx="10" fill="#fff" stroke="#0E7C7C"/><text x="195" y="116" fill="#1f2933">2 OSS</text>
-<rect x="265" y="90" width="110" height="44" rx="10" fill="#fff" stroke="#0E7C7C"/><text x="320" y="109" fill="#1f2933">Animatore</text><text x="320" y="124" fill="#b45309" font-weight="400" font-size="11">demotivato</text>
-<rect x="390" y="90" width="110" height="44" rx="10" fill="#fff" stroke="#94a3b8" stroke-dasharray="5 4"/><text x="445" y="109" fill="#1f2933">Fisioterapista</text><text x="445" y="124" fill="#b45309" font-weight="400" font-size="11">ferie: 3 settimane</text>
-<rect x="515" y="90" width="110" height="44" rx="10" fill="#f4f9f9" stroke="#d9e2e6"/><text x="570" y="109" fill="#52606d">Medico</text><text x="570" y="124" fill="#52606d" font-weight="400" font-size="11">esterno</text>
-<rect x="120" y="170" width="400" height="60" rx="30" fill="#f3fbd9" stroke="#9CB912"/><text x="320" y="194" fill="#3f4a00">25 ospiti · Giuseppe · Anna · i gruppetti</text><text x="320" y="214" fill="#3f4a00" font-weight="400">e le famiglie, che chiedono più comunicazione</text>
+<rect x="220" y="14" width="200" height="40" rx="10" fill="#57bda8"/><text x="320" y="32" fill="#083d3d">Coordinatrice</text><text x="320" y="47" fill="#083d3d" font-weight="400" font-size="11.5">assistente sociale</text>
+<line x1="320" y1="54" x2="320" y2="74" stroke="#17385a" stroke-width="2"/><line x1="70" y1="74" x2="570" y2="74" stroke="#17385a" stroke-width="2"/>
+<line x1="70" y1="74" x2="70" y2="90" stroke="#17385a" stroke-width="2"/><line x1="195" y1="74" x2="195" y2="90" stroke="#17385a" stroke-width="2"/><line x1="320" y1="74" x2="320" y2="90" stroke="#17385a" stroke-width="2"/><line x1="445" y1="74" x2="445" y2="90" stroke="#17385a" stroke-width="2"/><line x1="570" y1="74" x2="570" y2="90" stroke="#17385a" stroke-width="2"/>
+<rect x="15" y="90" width="110" height="44" rx="10" fill="#fff" stroke="#ec166c" stroke-width="2"/><text x="70" y="109" fill="#d6105f">2 operatori</text><text x="70" y="124" fill="#d6105f">sociali · tu</text>
+<rect x="140" y="90" width="110" height="44" rx="10" fill="#fff" stroke="#17385a"/><text x="195" y="116" fill="#202c3b">2 OSS</text>
+<rect x="265" y="90" width="110" height="44" rx="10" fill="#fff" stroke="#17385a"/><text x="320" y="109" fill="#202c3b">Animatore</text><text x="320" y="124" fill="#b45309" font-weight="400" font-size="11">demotivato</text>
+<rect x="390" y="90" width="110" height="44" rx="10" fill="#fff" stroke="#94a3b8" stroke-dasharray="5 4"/><text x="445" y="109" fill="#202c3b">Fisioterapista</text><text x="445" y="124" fill="#b45309" font-weight="400" font-size="11">ferie: 3 settimane</text>
+<rect x="515" y="90" width="110" height="44" rx="10" fill="#f5f6fa" stroke="#dde1e8"/><text x="570" y="109" fill="#5b6570">Medico</text><text x="570" y="124" fill="#5b6570" font-weight="400" font-size="11">esterno</text>
+<rect x="120" y="170" width="400" height="60" rx="30" fill="#f1f8e7" stroke="#447010"/><text x="320" y="194" fill="#17385a">25 ospiti · Giuseppe · Anna · i gruppetti</text><text x="320" y="214" fill="#17385a" font-weight="400">e le famiglie, che chiedono più comunicazione</text>
 </g>
-<g stroke="#9CB912" stroke-width="1.5"><line x1="70" y1="134" x2="170" y2="176"/><line x1="195" y1="134" x2="230" y2="170"/><line x1="320" y1="134" x2="320" y2="170"/><line x1="445" y1="134" x2="410" y2="170"/><line x1="570" y1="134" x2="470" y2="176"/></g>
+<g stroke="#447010" stroke-width="1.5"><line x1="70" y1="134" x2="170" y2="176"/><line x1="195" y1="134" x2="230" y2="170"/><line x1="320" y1="134" x2="320" y2="170"/><line x1="445" y1="134" x2="410" y2="170"/><line x1="570" y1="134" x2="470" y2="176"/></g>
 </svg>
                         <div class="didascalia">Chi c'è attorno a Giuseppe e Anna: ruoli, vuoti (il fisioterapista in ferie) e segnali (l'animatore demotivato).</div>
                     </div>
@@ -1781,7 +1842,7 @@
                         </ul>
                     </div>
                     <h3>I tre ruoli del gruppo</h3>
-                    <p>In un'équipe ognuno ha un compito, ma tutti conoscono tutto. Formate gruppi di tre e assegnate i ruoli: <strong>ognuno scrive nel proprio computer la parte di cui è responsabile</strong>, ma il testo si decide insieme.</p>
+                    <p>In un'équipe ognuno ha un compito, ma tutti conoscono tutto. Formate gruppi di tre e assegnate i ruoli: ognuno scrive nel proprio computer la parte di cui è responsabile, ma il testo si decide insieme.</p>
                     <table class="tabella">
                         <tr><th>Ruolo</th><th>Di che cosa risponde</th><th>Parte</th></tr>
                         <tr><td><strong>🔎 Analista</strong></td><td>Analisi di Giuseppe e Anna e delle tensioni di gruppo. Deve trovare le cause, non solo descrivere i sintomi.</td><td>1 · analisi</td></tr>
@@ -1848,10 +1909,10 @@
                     <h3>Come si verifica un progetto</h3>
                     <p>Si decidono <strong>prima</strong> degli <strong>indicatori</strong>, cioè segnali osservabili: quante volte Giuseppe partecipa, quanti litigi in un mese, quante famiglie vengono agli incontri. Si sceglie <strong>come</strong> osservarli (griglia di osservazione, questionario, colloquio) e <strong>quando</strong> (ogni settimana, ogni mese).</p>
                     <div class="schema schema-nuovo">
-                        <svg viewBox="0 0 640 170" role="img" aria-label="Dall'obiettivo alla verifica, con l'esempio di Giuseppe" font-family="Segoe UI,Tahoma,sans-serif">
-<defs><marker id="mos11-ar11" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1L9 5L1 9z" fill="#0E7C7C"/></marker></defs>
-<text x="20" y="22" font-size="12" font-weight="700" fill="#52606d" letter-spacing=".05em">DALL'OBIETTIVO ALLA VERIFICA · L'ESEMPIO DI GIUSEPPE</text><rect x="10" y="36" width="112" height="92" rx="12" fill="#1DD3D3" stroke="rgba(0,0,0,.12)"/><text x="66" y="60" font-size="11.5" font-weight="800" fill="#083d3d" text-anchor="middle" letter-spacing=".05em">OBIETTIVO</text><text x="66" y="86" font-size="12" fill="#1f2933" text-anchor="middle">Giuseppe va</text><text x="66" y="103" font-size="12" fill="#1f2933" text-anchor="middle">a un gruppo 2 v./sett.</text><path d="M124 82 l10 0" stroke="#0E7C7C" stroke-width="2.5" marker-end="url(#mos11-ar11)"/><rect x="136" y="36" width="112" height="92" rx="12" fill="#C6E716" stroke="rgba(0,0,0,.12)"/><text x="192" y="60" font-size="11.5" font-weight="800" fill="#3f4a00" text-anchor="middle" letter-spacing=".05em">AZIONE</text><text x="192" y="86" font-size="12" fill="#1f2933" text-anchor="middle">sceglie lui;</text><text x="192" y="103" font-size="12" fill="#1f2933" text-anchor="middle">la 1ª volta lo affianco</text><path d="M250 82 l10 0" stroke="#0E7C7C" stroke-width="2.5" marker-end="url(#mos11-ar11)"/><rect x="262" y="36" width="112" height="92" rx="12" fill="#ffe6f3" stroke="rgba(0,0,0,.12)"/><text x="318" y="60" font-size="11.5" font-weight="800" fill="#CC0073" text-anchor="middle" letter-spacing=".05em">INDICATORE</text><text x="318" y="86" font-size="12" fill="#1f2933" text-anchor="middle">presenze</text><text x="318" y="103" font-size="12" fill="#1f2933" text-anchor="middle">a settimana (≥ 2)</text><path d="M376 82 l10 0" stroke="#0E7C7C" stroke-width="2.5" marker-end="url(#mos11-ar11)"/><rect x="388" y="36" width="112" height="92" rx="12" fill="#e6f7f7" stroke="rgba(0,0,0,.12)"/><text x="444" y="60" font-size="11.5" font-weight="800" fill="#0E7C7C" text-anchor="middle" letter-spacing=".05em">STRUMENTO</text><text x="444" y="86" font-size="12" fill="#1f2933" text-anchor="middle">griglia di</text><text x="444" y="103" font-size="12" fill="#1f2933" text-anchor="middle">osservazione</text><path d="M502 82 l10 0" stroke="#0E7C7C" stroke-width="2.5" marker-end="url(#mos11-ar11)"/><rect x="514" y="36" width="112" height="92" rx="12" fill="#fff7d6" stroke="rgba(0,0,0,.12)"/><text x="570" y="60" font-size="11.5" font-weight="800" fill="#713f12" text-anchor="middle" letter-spacing=".05em">QUANDO</text><text x="570" y="86" font-size="12" fill="#1f2933" text-anchor="middle">ogni venerdì;</text><text x="570" y="103" font-size="12" fill="#1f2933" text-anchor="middle">verifica a 2 mesi</text>
-<text x="320" y="156" font-size="12.5" fill="#52606d" text-anchor="middle">Se manca un anello, il progetto non si può verificare.</text></svg>
+                        <svg viewBox="0 0 640 170" role="img" aria-label="Dall'obiettivo alla verifica, con l'esempio di Giuseppe" font-family="DM Sans,sans-serif">
+<defs><marker id="mos11-ar11" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1L9 5L1 9z" fill="#17385a"/></marker></defs>
+<text x="20" y="22" font-size="12" font-weight="700" fill="#5b6570" letter-spacing=".05em">DALL'OBIETTIVO ALLA VERIFICA · L'ESEMPIO DI GIUSEPPE</text><rect x="10" y="36" width="112" height="92" rx="12" fill="#57bda8" stroke="rgba(0,0,0,.12)"/><text x="66" y="60" font-size="11.5" font-weight="800" fill="#083d3d" text-anchor="middle" letter-spacing=".05em">OBIETTIVO</text><text x="66" y="86" font-size="12" fill="#202c3b" text-anchor="middle">Giuseppe va</text><text x="66" y="103" font-size="12" fill="#202c3b" text-anchor="middle">a un gruppo 2 v./sett.</text><path d="M124 82 l10 0" stroke="#17385a" stroke-width="2.5" marker-end="url(#mos11-ar11)"/><rect x="136" y="36" width="112" height="92" rx="12" fill="#80cd29" stroke="rgba(0,0,0,.12)"/><text x="192" y="60" font-size="11.5" font-weight="800" fill="#17385a" text-anchor="middle" letter-spacing=".05em">AZIONE</text><text x="192" y="86" font-size="12" fill="#202c3b" text-anchor="middle">sceglie lui;</text><text x="192" y="103" font-size="12" fill="#202c3b" text-anchor="middle">la 1ª volta lo affianco</text><path d="M250 82 l10 0" stroke="#17385a" stroke-width="2.5" marker-end="url(#mos11-ar11)"/><rect x="262" y="36" width="112" height="92" rx="12" fill="#fdebf2" stroke="rgba(0,0,0,.12)"/><text x="318" y="60" font-size="11.5" font-weight="800" fill="#d6105f" text-anchor="middle" letter-spacing=".05em">INDICATORE</text><text x="318" y="86" font-size="12" fill="#202c3b" text-anchor="middle">presenze</text><text x="318" y="103" font-size="12" fill="#202c3b" text-anchor="middle">a settimana (≥ 2)</text><path d="M376 82 l10 0" stroke="#17385a" stroke-width="2.5" marker-end="url(#mos11-ar11)"/><rect x="388" y="36" width="112" height="92" rx="12" fill="#e7f5f2" stroke="rgba(0,0,0,.12)"/><text x="444" y="60" font-size="11.5" font-weight="800" fill="#17385a" text-anchor="middle" letter-spacing=".05em">STRUMENTO</text><text x="444" y="86" font-size="12" fill="#202c3b" text-anchor="middle">griglia di</text><text x="444" y="103" font-size="12" fill="#202c3b" text-anchor="middle">osservazione</text><path d="M502 82 l10 0" stroke="#17385a" stroke-width="2.5" marker-end="url(#mos11-ar11)"/><rect x="514" y="36" width="112" height="92" rx="12" fill="#fff7d6" stroke="rgba(0,0,0,.12)"/><text x="570" y="60" font-size="11.5" font-weight="800" fill="#713f12" text-anchor="middle" letter-spacing=".05em">QUANDO</text><text x="570" y="86" font-size="12" fill="#202c3b" text-anchor="middle">ogni venerdì;</text><text x="570" y="103" font-size="12" fill="#202c3b" text-anchor="middle">verifica a 2 mesi</text>
+<text x="320" y="156" font-size="12.5" fill="#5b6570" text-anchor="middle">Se manca un anello, il progetto non si può verificare.</text></svg>
                         <div class="didascalia">Cinque anelli con l'esempio di Giuseppe: se ne manca uno, il progetto non si può verificare.</div>
                     </div>
                 </div>
@@ -2532,7 +2593,7 @@
             const vals = rows.map(d => parseInt(d[name], 10)).filter(v => !isNaN(v));
             const label = $(`input[name="${name}"]`, sec)?.closest('.autoval-item')?.querySelector('label')?.textContent || name;
             const avg = vals.length ? (vals.reduce((a, b) => a + b, 0) / vals.length).toFixed(1) : '—';
-            html += `<div style="margin:6px 0"><strong>${esc(label)}</strong> <span class="meta">${vals.length}/${n} · media ${avg}/5</span><div class="bar"><span style="width:${vals.length ? avg / 5 * 100 : 0}%;background:#1DD3D3"></span></div></div>`;
+            html += `<div style="margin:6px 0"><strong>${esc(label)}</strong> <span class="meta">${vals.length}/${n} · media ${avg}/5</span><div class="bar"><span style="width:${vals.length ? avg / 5 * 100 : 0}%;background:#57bda8"></span></div></div>`;
         });
         panel.innerHTML = html;
         panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -2855,7 +2916,7 @@
             else if (c.tipo === 'radio') {
                 const vals = con.map(k => parseInt(rows[k].data[c.key], 10)).filter(v => !isNaN(v));
                 const avg = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 0;
-                h += `<div><span class="meta">media ${vals.length ? avg.toFixed(1) : '—'}/5</span><div class="bar"><span style="width:${avg / 5 * 100}%;background:#1DD3D3"></span></div></div>`;
+                h += `<div><span class="meta">media ${vals.length ? avg.toFixed(1) : '—'}/5</span><div class="bar"><span style="width:${avg / 5 * 100}%;background:#57bda8"></span></div></div>`;
             } else {
                 const conta = {}, chi = {};
                 con.forEach(k => { const v = rows[k].data[c.key]; (Array.isArray(v) ? v : [v]).forEach(x => { x = String(x); conta[x] = (conta[x] || 0) + 1; (chi[x] = chi[x] || []).push(regNome(k)); }); });
@@ -3087,30 +3148,30 @@
     }
     // Forza → spessore e tratteggio; natura → colore (verde informale, blu formale), come i nodi. Il ponte resta fucsia.
     const A4_STILE = { forte: [4.5, ''], debole: [2.4, '7 6'], ponte: [3.2, ''] };
-    const A4_NAT = { inf: '#7FA00C', for: '#0E7C7C' };
+    const A4_NAT = { inf: '#7FA00C', for: '#17385a' };
     // Disegno della mappa (usato anche dal registro della classe per le mappe degli studenti)
     function a4Disegno(st, sel, titolo) {
         const N = st.n.length, [cx, cy] = A4_C, P = a4Posizioni(st), at = i => i < 0 ? A4_C : P[i];
-        const F = 'font-family="Segoe UI,Tahoma,sans-serif"';
-        let g = `<rect x="0" y="0" width="300" height="360" fill="#f6fbe7"/><rect x="300" y="0" width="300" height="360" fill="#ecf8f8"/><line x1="300" y1="8" x2="300" y2="330" stroke="#d9e2e6" stroke-dasharray="3 5"/>
-            <g ${F} font-size="11" font-weight="700" letter-spacing=".08em"><text x="12" y="20" fill="#6b8a0e">RETE INFORMALE</text><text x="588" y="20" text-anchor="end" fill="#0E7C7C">RETE FORMALE</text></g>${titolo ? `<text x="300" y="21" text-anchor="middle" ${F} font-size="13" font-weight="700" fill="#1f2933">${esc(titolo)}</text>` : ''}`;
+        const F = 'font-family="DM Sans,sans-serif"';
+        let g = `<rect x="0" y="0" width="300" height="360" fill="#f6fbe7"/><rect x="300" y="0" width="300" height="360" fill="#ecf8f8"/><line x1="300" y1="8" x2="300" y2="330" stroke="#dde1e8" stroke-dasharray="3 5"/>
+            <g ${F} font-size="11" font-weight="700" letter-spacing=".08em"><text x="12" y="20" fill="#6b8a0e">RETE INFORMALE</text><text x="588" y="20" text-anchor="end" fill="#17385a">RETE FORMALE</text></g>${titolo ? `<text x="300" y="21" text-anchor="middle" ${F} font-size="13" font-weight="700" fill="#202c3b">${esc(titolo)}</text>` : ''}`;
         st.e.forEach(([a, b, t], k) => {
             if ((a >= 0 && !P[a]) || (b >= 0 && !P[b])) return;
             const { d, m } = a4Tracciato(at(a), at(b), a < 0 || b < 0), [w, dash] = A4_STILE[t] || A4_STILE.debole, on = sel && sel.e === k;
-            const nat = A4_NAT[a4Natura(st, [a, b, t, st.e[k][3]]).n], col = t === 'ponte' ? '#CC0073' : nat;
-            g += `<g class="a4e" data-e="${k}">${on ? `<path d="${d}" fill="none" stroke="#FF0090" stroke-opacity=".35" stroke-width="${w + 8}" stroke-linecap="round"/>` : ''}<path d="${d}" fill="none" stroke="transparent" stroke-width="16"/><path d="${d}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" ${dash ? `stroke-dasharray="${dash}"` : ''}/><circle cx="${m[0].toFixed(1)}" cy="${m[1].toFixed(1)}" r="4.5" fill="${nat}" stroke="#fff" stroke-width="1.5"/></g>`;
+            const nat = A4_NAT[a4Natura(st, [a, b, t, st.e[k][3]]).n], col = t === 'ponte' ? '#d6105f' : nat;
+            g += `<g class="a4e" data-e="${k}">${on ? `<path d="${d}" fill="none" stroke="#ec166c" stroke-opacity=".35" stroke-width="${w + 8}" stroke-linecap="round"/>` : ''}<path d="${d}" fill="none" stroke="transparent" stroke-width="16"/><path d="${d}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" ${dash ? `stroke-dasharray="${dash}"` : ''}/><circle cx="${m[0].toFixed(1)}" cy="${m[1].toFixed(1)}" r="4.5" fill="${nat}" stroke="#fff" stroke-width="1.5"/></g>`;
         });
-        g += `<circle cx="${cx}" cy="${cy}" r="36" fill="#0E7C7C" opacity=".15"/><circle cx="${cx}" cy="${cy}" r="30" fill="#1DD3D3" stroke="#0E7C7C" stroke-width="2"/><text x="${cx}" y="${cy + 5}" text-anchor="middle" font-size="13.5" font-weight="700" fill="#083d3d" ${F}>Persona</text>`;
+        g += `<circle cx="${cx}" cy="${cy}" r="36" fill="#17385a" opacity=".15"/><circle cx="${cx}" cy="${cy}" r="30" fill="#57bda8" stroke="#17385a" stroke-width="2"/><text x="${cx}" y="${cy + 5}" text-anchor="middle" font-size="13.5" font-weight="700" fill="#083d3d" ${F}>Persona</text>`;
         st.n.forEach((nd, i) => {
             const [x, y] = P[i], w = a4Larg(nd), frm = nd.t === 'for', on = sel && sel.n === i;
-            g += `<g class="a4n" data-i="${i}" style="cursor:grab"><rect x="${x - w / 2 + 1.5}" y="${y - 13}" width="${w}" height="30" rx="15" fill="#000" opacity=".08"/><rect x="${x - w / 2}" y="${y - 15}" width="${w}" height="30" rx="15" fill="${frm ? '#e0f6f6' : '#f1f9d4'}" stroke="${on ? '#FF0090' : frm ? '#0E7C7C' : '#9CB912'}" stroke-width="${on ? 3 : 1.6}"/><circle cx="${x - w / 2 + 13}" cy="${y}" r="5" fill="${frm ? '#0E7C7C' : '#9CB912'}"/><text x="${x - w / 2 + 24}" y="${y + 4.5}" font-size="12.5" font-weight="700" fill="#1f2933" ${F}>${esc(nd.l)}</text></g>`;
+            g += `<g class="a4n" data-i="${i}" style="cursor:grab"><rect x="${x - w / 2 + 1.5}" y="${y - 13}" width="${w}" height="30" rx="15" fill="#000" opacity=".08"/><rect x="${x - w / 2}" y="${y - 15}" width="${w}" height="30" rx="15" fill="${frm ? '#e0f6f6' : '#f1f9d4'}" stroke="${on ? '#ec166c' : frm ? '#17385a' : '#447010'}" stroke-width="${on ? 3 : 1.6}"/><circle cx="${x - w / 2 + 13}" cy="${y}" r="5" fill="${frm ? '#17385a' : '#447010'}"/><text x="${x - w / 2 + 24}" y="${y + 4.5}" font-size="12.5" font-weight="700" fill="#202c3b" ${F}>${esc(nd.l)}</text></g>`;
         });
-        if (!N) g += `<text x="${cx}" y="${cy + 75}" text-anchor="middle" font-size="13" fill="#52606d" ${F}>Aggiungi il primo nodo qui sopra</text>`;
-        g += `<g ${F} font-size="11.5" fill="#52606d"><rect x="6" y="334" width="588" height="22" rx="8" fill="#fff" opacity=".85"/>
-            <line x1="16" y1="345" x2="44" y2="345" stroke="#52606d" stroke-width="4.5" stroke-linecap="round"/><text x="50" y="349">forte</text>
-            <line x1="88" y1="345" x2="116" y2="345" stroke="#52606d" stroke-width="2.4" stroke-dasharray="7 6"/><text x="122" y="349">debole</text>
-            <line x1="168" y1="345" x2="196" y2="345" stroke="#CC0073" stroke-width="3.2" stroke-linecap="round"/><text x="202" y="349">ponte</text>
-            <text x="252" y="349" font-weight="700">nodi e rapporti:</text><circle cx="352" cy="345" r="5" fill="#7FA00C"/><text x="361" y="349">informale</text><circle cx="432" cy="345" r="5" fill="#0E7C7C"/><text x="441" y="349">formale</text></g>`;
+        if (!N) g += `<text x="${cx}" y="${cy + 75}" text-anchor="middle" font-size="13" fill="#5b6570" ${F}>Aggiungi il primo nodo qui sopra</text>`;
+        g += `<g ${F} font-size="11.5" fill="#5b6570"><rect x="6" y="334" width="588" height="22" rx="8" fill="#fff" opacity=".85"/>
+            <line x1="16" y1="345" x2="44" y2="345" stroke="#5b6570" stroke-width="4.5" stroke-linecap="round"/><text x="50" y="349">forte</text>
+            <line x1="88" y1="345" x2="116" y2="345" stroke="#5b6570" stroke-width="2.4" stroke-dasharray="7 6"/><text x="122" y="349">debole</text>
+            <line x1="168" y1="345" x2="196" y2="345" stroke="#d6105f" stroke-width="3.2" stroke-linecap="round"/><text x="202" y="349">ponte</text>
+            <text x="252" y="349" font-weight="700">nodi e rapporti:</text><circle cx="352" cy="345" r="5" fill="#7FA00C"/><text x="361" y="349">informale</text><circle cx="432" cy="345" r="5" fill="#17385a"/><text x="441" y="349">formale</text></g>`;
         return g;
     }
     function a4Conta(st) {
