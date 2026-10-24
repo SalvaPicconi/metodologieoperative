@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-24** · Claude · Pubblicato su Aruba il Laboratorio rivisto (manipolativi, autobiografico, animazione, colori del logo su dipendenze, infanzia, collage ed educazione civica). (Aruba `2bc2496`, run «Pubblica su Aruba» n. 11 riuscito, 16 file online verificati)
+
 - **2026-10-24** · Claude · Laboratorio rivisto: i laboratori manipolativi e il laboratorio autobiografico riscritti con schemi (l'autobiografico ora mostra tutte e sette le fasi in una pagina), animazione con titoli a norma, colori del logo su dipendenze, infanzia, collage ed educazione civica; tre termini nuovi nel glossario. Salvataggi invariati. Non ancora pubblicato su Aruba. (ramo `claude/laboratorio-materiali`)
 
 - **2026-10-24** · Claude · Pubblicate su Aruba le due pagine di quinta (caso professionale; relazione e seconda prova) con il glossario aggiornato. (Aruba `7c5159d`, run «Pubblica su Aruba» n. 10 riuscito, 6 file online verificati)
