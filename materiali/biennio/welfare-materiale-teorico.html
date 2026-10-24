@@ -1,918 +1,164 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
 <head>
     <meta name="page-id" content="attivita-materiali-biennio-welfare-materiale-teorico-01">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Il welfare e i servizi sociosanitari · Teoria</title>
+    <meta name="description" content="Teoria sul welfare per il biennio: bisogni, tre pilastri, diamante del welfare, modelli, leggi, enti, servizi, relazione d'aiuto, rete, strumenti e competenze dell'operatore sociale.">
+    <link rel="stylesheet" href="../../assets/materiale.css?v=20261024">
+    <script src="../../assets/materiale.js?v=20261024" defer></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* Piramide di Maslow: la barra si allarga scendendo verso la base */
+        .piramide { list-style: none; padding: 0; margin: 26px 0; }
+        .piramide > li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; align-items: center; margin: 0 0 8px; }
+        .piramide .barra-livello {
+            justify-self: center; width: var(--w); padding: 10px 8px; text-align: center;
+            background: var(--tinta); color: #fff; font-weight: 700; font-size: .9rem; line-height: 1.3;
+        }
+        .piramide .t-lime .barra-livello, .piramide .t-acqua .barra-livello { color: var(--color-primary); }
+        .piramide p { margin: 0; font-size: .93rem; line-height: 1.5; }
+        .piramide p + p { margin-top: 3px; }
+
+        /* Tre pilastri */
+        .pilastri > * h3 { margin-top: 0; }
+        .pilastri .chi { font-size: .82rem; color: var(--color-ink-soft); margin-top: -6px; }
+        .pilastri h4 { font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; color: var(--tinta-testo); margin: 14px 0 4px; }
+
+        /* Equazione della rete */
+        .equazione { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 12px; align-items: stretch; margin: 24px 0; }
+        .equazione > div { background: var(--color-surface); border: 1px solid var(--color-line); border-top: 4px solid var(--tinta); padding: 16px 18px; }
+        .equazione > div h3 { margin-top: 0; }
+        .equazione > div p:last-child { margin-bottom: 0; }
+        .equazione .segno { align-self: center; font-size: 2rem; font-weight: 700; color: var(--tinta-testo); }
+
+        /* Carte dei servizi */
+        .vista { display: flex; gap: 8px; margin: 16px 0; }
+        .vista .bottone[aria-pressed="true"] { background: var(--color-primary); color: #fff; }
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+        .card { background: var(--color-surface); border: 1px solid var(--color-line); border-top: 4px solid var(--tinta); padding: 14px 16px; font-size: .93rem; }
+        .card-title { font-weight: 700; color: var(--color-primary); margin-bottom: 4px; }
+        .card-pillar { display: inline-block; margin: 8px 0; padding: 2px 8px; background: var(--tinta-tenue); color: var(--tinta-testo); font-size: .78rem; font-weight: 700; }
+        .card-need p { margin: 4px 0 0; color: var(--color-ink-soft); }
+        .cards-slider { display: none; max-width: 420px; }
+        .cards-slider.active { display: block; }
+        .slider-controls { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 12px; }
+
+        /* Scenari */
+        .scenario h3 { margin-top: 0; }
+        .scenario .analisi { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 12px; }
+        .scenario .analisi > div { border-top: 3px solid var(--tinta); padding-top: 8px; }
+        .scenario .analisi h4 { margin-top: 0; }
+        .scenario ul { padding-left: 1.1em; font-size: .94rem; }
+
+        @media (max-width: 760px) {
+            .piramide > li { grid-template-columns: 1fr; gap: 6px; margin-bottom: 16px; }
+            .piramide .barra-livello { justify-self: start; }
+            .equazione { grid-template-columns: 1fr; }
+            .equazione .segno { justify-self: center; font-size: 1.6rem; line-height: 1; }
         }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-            color: white;
-            line-height: 1.8;
-            font-size: 16px;
-            padding-top: 70px; /* Spazio per header fisso mobile */
-        }
-
-        :focus-visible {
-            outline: 3px solid #c41e3a;
-            outline-offset: 2px;
-        }
-
-        /* HEADER */
-        .header {
-            background: linear-gradient(135deg, #000000 0%, #1a5c3a 50%, #c41e3a 100%);
-            padding: 0.5rem;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .header.hidden {
-            transform: translateY(-100%);
-        }
-
-        .header h1 {
-            font-size: 1rem;
-            margin-bottom: 0.3rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            display: none; /* Nascosto su mobile per default */
-        }
-
-        .header .subtitle {
-            font-size: 0.8rem;
-            opacity: 0.9;
-            display: none; /* Nascosto su mobile per default */
-        }
-
-        /* MENU NAVIGAZIONE */
-        .nav-menu {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 0.3rem;
-            padding: 0.3rem;
-        }
-
-        .nav-btn {
-            background: white;
-            color: #1a5c3a;
-            border: none;
-            padding: 0.4rem 0.6rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.7rem;
-            transition: all 0.3s;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-
-        .nav-btn:hover {
-            background: #c41e3a;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
-
-        .nav-btn.active {
-            background: #c41e3a;
-            color: white;
-        }
-
-        /* CONTAINER */
-        .container {
-            max-width: 1200px;
-            margin: 1rem auto;
-            padding: 0 0.5rem 4rem;
-        }
-
-        /* SEZIONI */
-        .section {
-            background: white;
-            color: #333;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            display: none;
-        }
-
-        .section.active {
-            display: block;
-            animation: fadeIn 0.5s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* TITOLI */
-        .section-title {
-            color: #1a5c3a;
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 4px solid #c41e3a;
-            text-align: center;
-        }
-
-        .sub-title {
-            color: #c41e3a;
-            font-size: 1.4rem;
-            margin: 2rem 0 1rem;
-        }
-
-        .small-title {
-            color: #1a5c3a;
-            font-size: 1.2rem;
-            margin: 1.5rem 0 1rem;
-        }
-
-        /* BOX INFORMATIVI */
-        .info-box {
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin: 1.5rem 0;
-            border-left: 5px solid;
-        }
-
-        .info-box.blue {
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-            border-left-color: #2196f3;
-            color: #0d47a1;
-        }
-
-        .info-box.green {
-            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
-            border-left-color: #4caf50;
-            color: #1b5e20;
-        }
-
-        .info-box.yellow {
-            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
-            border-left-color: #ffc107;
-            color: #5b4500;
-        }
-
-        .info-box.red {
-            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
-            border-left-color: #e91e63;
-            color: #880e4f;
-        }
-
-        .info-box h3 {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-        }
-
-        .info-box p {
-            line-height: 1.8;
-            margin-bottom: 0.8rem;
-        }
-
-        .info-box ul {
-            margin-left: 1.5rem;
-        }
-
-        .info-box li {
-            margin-bottom: 0.5rem;
-        }
-
-        /* TESTO */
-        p {
-            margin-bottom: 1.2rem;
-            font-size: 1rem;
-            line-height: 1.8;
-        }
-
-        strong {
-            color: #1a5c3a;
-            font-weight: 600;
-        }
-
-        ul {
-            margin-left: 2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        li {
-            margin-bottom: 0.8rem;
-            line-height: 1.7;
-        }
-
-        /* TABELLE */
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 2rem 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            font-size: 0.9rem;
-            overflow-x: auto;
-            display: block;
-        }
-
-        .data-table th {
-            background: #1a5c3a;
-            color: white;
-            padding: 1rem;
-            text-align: left;
-            font-size: 0.95rem;
-        }
-
-        .data-table td {
-            padding: 1rem;
-            border-bottom: 1px solid #ddd;
-            line-height: 1.7;
-        }
-
-        .data-table tr:nth-child(even) {
-            background: #f9f9f9;
-        }
-
-        /* PIRAMIDE MASLOW */
-        .maslow-pyramid {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 2rem 0;
-        }
-
-        .pyramid-level {
-            width: 100%;
-            max-width: 900px;
-            background: #f5f5f5;
-            border: 2px solid #1a5c3a;
-            padding: 1rem;
-            margin: 0.3rem 0;
-            border-radius: 8px;
-            transition: all 0.3s;
-        }
-
-        .pyramid-level:hover {
-            transform: scale(1.02);
-            box-shadow: 0 4px 12px rgba(26, 92, 58, 0.2);
-        }
-
-        .pyramid-level:nth-child(1) { width: 95%; background: #ffebee; }
-        .pyramid-level:nth-child(2) { width: 85%; background: #fff3e0; }
-        .pyramid-level:nth-child(3) { width: 75%; background: #fff9c4; }
-        .pyramid-level:nth-child(4) { width: 65%; background: #e1f5fe; }
-        .pyramid-level:nth-child(5) { width: 55%; background: #e8f5e9; }
-        .pyramid-level:nth-child(6) { width: 45%; background: #f3e5f5; }
-        .pyramid-level:nth-child(7) { width: 35%; background: #fce4ec; }
-        .pyramid-level:nth-child(8) { width: 25%; background: #e8eaf6; }
-
-        .pyramid-level h4 {
-            color: #1a5c3a;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        .pyramid-level p {
-            color: #555;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        /* CARATTERISTICHE CARDS */
-        .characteristics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .characteristic-card {
-            background: white;
-            border: 2px solid #1a5c3a;
-            border-radius: 10px;
-            padding: 1.5rem;
-            transition: all 0.3s;
-        }
-
-        .characteristic-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 16px rgba(26, 92, 58, 0.2);
-        }
-
-        .characteristic-card h4 {
-            color: #c41e3a;
-            font-size: 1.2rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .characteristic-card p {
-            color: #555;
-            line-height: 1.7;
-            margin: 0;
-        }
-
-        /* CARTE SERVIZIO */
-        .cards-controls {
-            display: flex;
-            gap: 1rem;
-            margin: 2rem 0 1.5rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .view-btn {
-            background: #1a5c3a;
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-
-        .view-btn:hover {
-            background: #c41e3a;
-            transform: translateY(-2px);
-        }
-
-        .view-btn.active {
-            background: #c41e3a;
-        }
-
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .cards-slider {
-            display: none;
-        }
-
-        .cards-slider.active {
-            display: block;
-        }
-
-        .card {
-            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
-            border-left: 5px solid #1a5c3a;
-            border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-            border-left-color: #c41e3a;
-        }
-
-        .card-title {
-            color: #1a5c3a;
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            line-height: 1.4;
-        }
-
-        .card-description {
-            color: #555;
-            margin-bottom: 1.2rem;
-            font-style: italic;
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-
-        .card-pillar {
-            display: inline-block;
-            background: #1a5c3a;
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            margin-bottom: 0.8rem;
-        }
-
-        .card-need {
-            background: #f9f9f9;
-            padding: 1rem;
-            border-radius: 6px;
-            border-left: 3px solid #c41e3a;
-            margin-top: 1rem;
-        }
-
-        .card-need strong {
-            color: #c41e3a;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        /* SLIDER */
-        .slider-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 1.5rem;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .slider-btn {
-            background: #1a5c3a;
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
-            flex: 1;
-            min-width: 120px;
-        }
-
-        .slider-btn:hover {
-            background: #c41e3a;
-        }
-
-        .slider-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-
-        .slider-counter {
-            color: #1a5c3a;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        /* SCHEMA RETE */
-        .network-schema {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
-            align-items: center;
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: #f9f9f9;
-            border-radius: 10px;
-        }
-
-        .network-box {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            border: 3px solid;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .network-box.formal {
-            border-color: #2196f3;
-            background: #e3f2fd;
-        }
-
-        .network-box.informal {
-            border-color: #ff9800;
-            background: #fff3e0;
-        }
-
-        .network-box.integrated {
-            border-color: #4caf50;
-            background: #e8f5e9;
-        }
-
-        .network-box h4 {
-            color: #1a5c3a;
-            font-size: 1.2rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .network-box p {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin: 0.5rem 0;
-        }
-
-        .network-arrow {
-            font-size: 2rem;
-            color: #1a5c3a;
-            font-weight: bold;
-            text-align: center;
-            transform: rotate(90deg);
-        }
-
-        /* SCENARI */
-        .scenario-box {
-            background: #f9f9f9;
-            border-left: 5px solid #2196f3;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            border-radius: 10px;
-        }
-
-        .scenario-box h4 {
-            color: #1a5c3a;
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-        }
-
-        .scenario-box .scenario-content {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-        }
-
-        .scenario-box .scenario-analysis {
-            background: #e3f2fd;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-        }
-
-        .scenario-box .scenario-analysis h5 {
-            color: #c41e3a;
-            margin-bottom: 0.8rem;
-        }
-
-        /* SCROLL TO TOP */
-        .scroll-to-top {
-            position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            background: #1a5c3a;
-            color: white;
-            border: none;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.3rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            transition: all 0.3s;
-            opacity: 0;
-            pointer-events: none;
-            z-index: 998;
-        }
-
-        .scroll-to-top.show {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .scroll-to-top:hover {
-            background: #c41e3a;
-            transform: translateY(-3px);
-        }
-
-        /* TABLET E DESKTOP */
-        @media (min-width: 768px) {
-            body {
-                padding-top: 120px;
-            }
-
-            .header {
-                padding: 1.5rem 1rem;
-            }
-
-            .header h1 {
-                display: block;
-                font-size: clamp(1.5rem, 5vw, 2.5rem);
-                margin-bottom: 0.5rem;
-            }
-
-            .header .subtitle {
-                display: block;
-                font-size: clamp(1rem, 3vw, 1.3rem);
-            }
-
-            .nav-menu {
-                gap: 0.5rem;
-                margin-top: 1.5rem;
-                padding: 0 1rem;
-            }
-
-            .nav-btn {
-                padding: 0.8rem 1.2rem;
-                font-size: 0.95rem;
-            }
-
-            .container {
-                margin: 2rem auto;
-                padding: 0 1rem 6rem;
-            }
-
-            .section {
-                padding: 3rem;
-                margin-bottom: 2rem;
-            }
-
-            .section-title {
-                font-size: 2.5rem;
-            }
-
-            .sub-title {
-                font-size: 1.8rem;
-            }
-
-            .small-title {
-                font-size: 1.4rem;
-            }
-
-            .network-schema {
-                grid-template-columns: 1fr auto 1fr auto 1fr;
-                padding: 2rem;
-            }
-
-            .network-arrow {
-                transform: rotate(0deg);
-            }
-
-            .characteristics-grid {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            }
-
-            .cards-grid {
-                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-                gap: 1.8rem;
-            }
-
-            .data-table {
-                font-size: 1.05rem;
-            }
-
-            .scroll-to-top {
-                width: 50px;
-                height: 50px;
-                font-size: 1.5rem;
-            }
-        }
-
-        /* STAMPA */
         @media print {
-            body {
-                background: white;
-                color: black;
-                padding-top: 0;
-            }
-
-            .header {
-                position: static;
-                background: white;
-                color: black;
-                border-bottom: 3px solid #1a5c3a;
-            }
-
-            .nav-menu,
-            .cards-controls,
-            .scroll-to-top {
-                display: none !important;
-            }
-
-            .section {
-                display: block !important;
-                page-break-after: always;
-            }
+            .vista, .cards-slider { display: none !important; }
+            .cards-grid { display: grid !important; grid-template-columns: repeat(3, 1fr); }
+            .card { break-inside: avoid; }
         }
     </style>
 </head>
-<body>
-    <!-- HEADER -->
-    <div class="header">
-        <h1>📚 Il welfare e i servizi sociosanitari</h1>
-        <p class="subtitle">Teoria per il biennio · Metodologie Operative</p>
-        
-        <!-- MENU NAVIGAZIONE -->
-        <div class="nav-menu">
-            <button class="nav-btn active" onclick="showSection('competenze')">🎓 Competenze</button>
-            <button class="nav-btn" onclick="showSection('intro')">📘 Intro</button>
-            <button class="nav-btn" onclick="showSection('pilastri')">🏛️ Pilastri</button>
-            <button class="nav-btn" onclick="showSection('servizi')">🃏 Servizi</button>
-            <button class="nav-btn" onclick="showSection('leggi')">⚖️ Leggi</button>
-            <button class="nav-btn" onclick="showSection('enti')">🏢 Enti</button>
-            <button class="nav-btn" onclick="showSection('diamante')">💎 Diamante</button>
-            <button class="nav-btn" onclick="showSection('modelli')">🌍 Modelli</button>
-            <button class="nav-btn" onclick="showSection('maslow')">🔺 Bisogni</button>
-            <button class="nav-btn" onclick="showSection('relazione')">❤️ Relazione</button>
-            <button class="nav-btn" onclick="showSection('rete')">🌐 Rete</button>
-            <button class="nav-btn" onclick="showSection('strumenti')">🛠️ Strumenti</button>
-            <button class="nav-btn" onclick="showSection('scenari')">🎭 Scenari</button>
+<body data-tinta="rosa">
+<a class="skip" href="#contenuto">Vai al contenuto</a>
+<div class="barra shell">
+    <a href="../../biennio.html#arg-welfare">← Materiali del biennio</a>
+    <a href="../../programmi.html?anno=Secondo%20anno">Programma della seconda</a>
+    <a href="welfare-4-fasi-COMPLETO.html">Percorso in 4 fasi</a>
+    <span class="sito">Metodologie Operative</span>
+</div>
+
+<main id="contenuto">
+    <header class="shell">
+        <div class="testata testata--archi">
+            <p class="occhiello">Biennio · Teoria</p>
+            <h1>Il welfare e i servizi sociosanitari</h1>
+            <p class="lead">Che cos'è il welfare italiano, come è organizzato, quali servizi offre e perché l'operatore sociale deve conoscerlo per orientare le persone verso l'aiuto giusto.</p>
+            <div class="identita" data-identita></div>
         </div>
-    </div>
+    </header>
 
-    <div class="container">
-        <!-- ==================== -->
-        <!-- SEZIONE 1: INTRODUZIONE -->
-        <!-- ==================== -->
-        <div class="section" id="intro">
-            <h2 class="section-title">📘 Che cos'è il welfare</h2>
+    <nav class="indice" aria-label="Argomenti">
+        <ol class="shell">
+            <li><a href="#intro"><span class="n">1</span>Che cos'è</a></li>
+            <li><a href="#maslow"><span class="n">2</span>Bisogni</a></li>
+            <li><a href="#pilastri"><span class="n">3</span>Pilastri</a></li>
+            <li><a href="#diamante"><span class="n">4</span>Diamante</a></li>
+            <li><a href="#modelli"><span class="n">5</span>Modelli</a></li>
+            <li><a href="#leggi"><span class="n">6</span>Leggi</a></li>
+            <li><a href="#enti"><span class="n">7</span>Enti</a></li>
+            <li><a href="#servizi"><span class="n">8</span>Servizi</a></li>
+            <li><a href="#relazione"><span class="n">9</span>Relazione</a></li>
+            <li><a href="#rete"><span class="n">10</span>Rete</a></li>
+            <li><a href="#strumenti"><span class="n">11</span>Strumenti</a></li>
+            <li><a href="#competenze"><span class="n">12</span>Competenze</a></li>
+            <li><a href="#scenari"><span class="n">13</span>Scenari</a></li>
+        </ol>
+    </nav>
 
-            <div class="info-box blue">
-                <h3>💡 Che cosa imparerai</h3>
-                <p>In queste pagine scopri che cos'è il welfare italiano, come è organizzato, quali servizi offre e
-                perché l'operatore sociale deve conoscerlo per orientare le persone verso l'aiuto giusto.</p>
+    <div class="shell">
+
+        <!-- 1. CHE COS'È -->
+        <section class="sezione" id="intro">
+            <h2><span class="num">1</span>Che cos'è il welfare</h2>
+            <h3>Una parola inglese, un'idea molto concreta</h3>
+            <p>«<dfn>Welfare</dfn>» è una parola inglese che vuol dire <strong>benessere</strong>. Con <dfn>welfare state</dfn>, in italiano <strong>Stato sociale</strong>, si indica l'insieme delle leggi, degli enti e dei servizi con cui lo Stato protegge le persone dai rischi della vita: la malattia, la vecchiaia, la perdita del lavoro, la povertà, la disabilità. Lo scopo è garantire a tutti condizioni di vita dignitose.</p>
+            <p>In Italia questo compito nasce dalla <strong>Costituzione</strong>:</p>
+            <ul>
+                <li>l'<strong>articolo 3</strong> chiede alla Repubblica di rimuovere gli ostacoli economici e sociali che limitano l'uguaglianza fra i cittadini;</li>
+                <li>l'<strong>articolo 32</strong> tutela la salute come diritto di ogni persona;</li>
+                <li>l'<strong>articolo 38</strong> garantisce assistenza a chi non ha i mezzi per vivere e previdenza a chi lavora.</li>
+            </ul>
+
+            <h3>Come funziona: norme, regole, azioni</h3>
+            <p>Il welfare è un <strong>sistema organizzato</strong>, cioè un insieme di parti che lavorano insieme. Si può descrivere con tre elementi:</p>
+            <ol class="passi">
+                <li><b>Le norme</b>Le leggi che stabiliscono diritti e doveri: per esempio la legge 833 del 1978, che ha istituito il Servizio sanitario nazionale.</li>
+                <li><b>Le regole di applicazione</b>Dicono chi ha diritto a una prestazione e come si chiede: per esempio i requisiti di età e di contributi per andare in pensione.</li>
+                <li><b>Le azioni concrete</b>Gli enti erogano, cioè forniscono, le prestazioni: la visita del medico, il pagamento della pensione, l'operatore che va a casa di un anziano. Nei manuali queste azioni coordinate si chiamano anche «corsi d'azione».</li>
+            </ol>
+
+            <h3>Gli obiettivi del welfare</h3>
+            <div class="confronto">
+                <div class="t-lime"><h4>Ridurre le disuguaglianze</h4><p>Il welfare cerca di ridurre la distanza economica e sociale fra chi ha di più e chi ha di meno, perché tutti abbiano le stesse opportunità di partenza.</p></div>
+                <div class="t-verde"><h4>Favorire l'inclusione sociale</h4><p>Vuol dire permettere a tutti di partecipare alla vita della comunità, comprese le persone più fragili: chi ha una disabilità, chi è povero, chi arriva da un altro Paese.</p></div>
+                <div class="t-acqua"><h4>Garantire sicurezza sociale</h4><p>Il welfare è come una rete di protezione: quando succede qualcosa di grave, come una malattia o la perdita del lavoro, la persona non resta sola e ha di che vivere.</p></div>
             </div>
 
-            <h3 class="sub-title">Una parola inglese, un'idea molto concreta</h3>
-            <p><strong>«Welfare»</strong> è una parola inglese che vuol dire <strong>benessere</strong>. Con
-            <strong>welfare state</strong>, in italiano <strong>Stato sociale</strong>, si indica l'insieme delle leggi,
-            degli enti e dei servizi con cui lo Stato protegge le persone dai rischi della vita: la malattia, la
-            vecchiaia, la perdita del lavoro, la povertà, la disabilità. Lo scopo è garantire a tutti condizioni di
-            vita dignitose.</p>
-            <p>In Italia questo compito nasce dalla <strong>Costituzione</strong>. L'articolo 3 chiede alla Repubblica
-            di rimuovere gli ostacoli economici e sociali che limitano l'uguaglianza fra i cittadini; l'articolo 32
-            tutela la salute come diritto di ogni persona; l'articolo 38 garantisce assistenza a chi non ha i mezzi per
-            vivere e previdenza a chi lavora.</p>
-
-            <div class="info-box green">
-                <h3>📖 Come funziona: norme, regole, azioni</h3>
-                <p>Il welfare è un <strong>sistema organizzato</strong>, cioè un insieme di parti che lavorano
-                insieme. Si può descrivere con tre elementi:</p>
-                <ul>
-                    <li><strong>le norme</strong>, cioè le leggi che stabiliscono diritti e doveri: per esempio la
-                    legge 833 del 1978, che ha istituito il Servizio sanitario nazionale;</li>
-                    <li><strong>le regole di applicazione</strong>, che dicono chi ha diritto a una prestazione e come
-                    si chiede: per esempio i requisiti di età e di contributi per andare in pensione;</li>
-                    <li><strong>le azioni concrete</strong> degli enti che erogano, cioè forniscono, le prestazioni:
-                    la visita del medico, il pagamento della pensione, l'operatore che va a casa di un anziano. Nei
-                    manuali queste azioni coordinate si chiamano anche «corsi d'azione».</li>
-                </ul>
+            <div class="definizione">
+                <h3>Perché conta per l'operatore sociale</h3>
+                <p>L'operatore sociale lavora ogni giorno dentro il sistema del welfare. Per aiutare davvero una persona deve sapere quali servizi esistono, a quali bisogni rispondono e come ci si arriva: solo così può orientarla verso le risorse giuste, invece di lasciarla girare da un ufficio all'altro.</p>
             </div>
+            <div class="in-breve"><p class="etichetta">In parole semplici</p><p>Il welfare è l'insieme degli aiuti che lo Stato organizza perché nessuno resti solo davanti a una malattia, alla vecchiaia, alla povertà o alla perdita del lavoro. L'operatore sociale deve conoscerlo per indicare alle persone dove trovare aiuto.</p></div>
+        </section>
 
-            <h3 class="sub-title">Gli obiettivi del welfare</h3>
-            <div class="characteristics-grid">
-                <div class="characteristic-card">
-                    <h4>⚖️ Ridurre le disuguaglianze</h4>
-                    <p>Il welfare cerca di ridurre la distanza economica e sociale fra chi ha di più e chi ha di meno,
-                    perché tutti abbiano le stesse opportunità di partenza.</p>
-                </div>
-                <div class="characteristic-card">
-                    <h4>🤝 Favorire l'inclusione sociale</h4>
-                    <p>Vuol dire permettere a tutti di partecipare alla vita della comunità, comprese le persone più
-                    fragili: chi ha una disabilità, chi è povero, chi arriva da un altro Paese.</p>
-                </div>
-                <div class="characteristic-card">
-                    <h4>🛡️ Garantire sicurezza sociale</h4>
-                    <p>Il welfare è come una rete di protezione: quando succede qualcosa di grave, come una malattia
-                    o la perdita del lavoro, la persona non resta sola e ha di che vivere.</p>
-                </div>
-            </div>
+        <!-- 2. MASLOW -->
+        <section class="sezione" id="maslow">
+            <h2><span class="num">2</span>La piramide di Maslow e il welfare</h2>
+            <p><strong>Abraham Maslow</strong> (1908-1970) è stato uno psicologo statunitense. Nel 1943 propose di ordinare i bisogni umani in una <dfn>piramide dei bisogni</dfn> a cinque livelli: alla base i bisogni fisiologici, poi sicurezza, appartenenza, stima e, in cima, la realizzazione di sé.</p>
+            <p>Nei suoi scritti successivi parlò anche di bisogni di conoscenza, estetici e di trascendenza: per questo alcuni manuali, come questo materiale, presentano una piramide a otto livelli.</p>
+            <p>L'idea di fondo è che i bisogni più elementari tendono a farsi sentire per primi. Maslow però precisava che un livello non deve essere soddisfatto del tutto prima che contino quelli superiori: nella vita reale i bisogni convivono.</p>
 
-            <div class="info-box blue">
-                <h3>🎯 Perché conta per l'operatore sociale</h3>
-                <p>L'operatore sociale lavora ogni giorno dentro il sistema del welfare. Per aiutare davvero una
-                persona deve sapere quali servizi esistono, a quali bisogni rispondono e come ci si arriva: solo così
-                può orientarla verso le risorse giuste, invece di lasciarla girare da un ufficio all'altro.</p>
-            </div>
-            <div class="info-box yellow"><h3>🗣️ In parole semplici</h3><p>Il welfare è l'insieme degli aiuti che lo Stato organizza perché nessuno resti solo davanti a una malattia, alla vecchiaia, alla povertà o alla perdita del lavoro. L'operatore sociale deve conoscerlo per indicare alle persone dove trovare aiuto.</p></div>
+            <h3>La piramide dei bisogni</h3>
+            <p>Ogni livello indica un tipo di bisogno. Il welfare interviene quando la persona o la sua famiglia non riescono a soddisfarlo da sole.</p>
+            <ol class="piramide" reversed>
+                <li class="t-acqua"><span class="barra-livello" style="--w: 30%">8 · Trascendenza</span><div><p><strong>Bisogno:</strong> dare un senso alla propria vita andando oltre sé stessi, per esempio aiutando gli altri.</p><p><strong>Il welfare risponde con:</strong> volontariato, iniziative della comunità, luoghi di incontro e di dialogo.</p></div></li>
+                <li class="t-verde"><span class="barra-livello" style="--w: 40%">7 · Realizzazione di sé</span><div><p><strong>Bisogno:</strong> sviluppare le proprie capacità e la propria creatività.</p><p><strong>Il welfare risponde con:</strong> orientamento e formazione professionale, percorsi di crescita personale.</p></div></li>
+                <li class="t-rosa"><span class="barra-livello" style="--w: 50%">6 · Bisogni estetici</span><div><p><strong>Bisogno:</strong> vivere in un ambiente bello, ordinato, armonioso.</p><p><strong>Il welfare risponde con:</strong> cultura e arte accessibili a tutti, spazi pubblici curati e accoglienti.</p></div></li>
+                <li class="t-lime"><span class="barra-livello" style="--w: 60%">5 · Conoscenza</span><div><p><strong>Bisogno:</strong> capire, esplorare, imparare.</p><p><strong>Il welfare risponde con:</strong> scuola, biblioteche, accesso a internet, formazione per gli adulti.</p></div></li>
+                <li class="t-acqua"><span class="barra-livello" style="--w: 70%">4 · Stima</span><div><p><strong>Bisogno:</strong> sentirsi capaci e rispettati dagli altri.</p><p><strong>Il welfare risponde con:</strong> formazione professionale e percorsi che rafforzano la capacità di decidere da sé (in inglese <em>empowerment</em>).</p></div></li>
+                <li class="t-verde"><span class="barra-livello" style="--w: 80%">3 · Appartenenza</span><div><p><strong>Bisogno:</strong> amore, amicizia, far parte di un gruppo.</p><p><strong>Il welfare risponde con:</strong> gruppi di sostegno, centri di aggregazione, attività di socializzazione.</p></div></li>
+                <li class="t-rosa"><span class="barra-livello" style="--w: 90%">2 · Sicurezza</span><div><p><strong>Bisogno:</strong> protezione, stabilità economica, una casa sicura.</p><p><strong>Il welfare risponde con:</strong> sostegni economici, aiuti per la casa, servizi per il lavoro, supporto psicologico.</p></div></li>
+                <li class="t-lime"><span class="barra-livello" style="--w: 100%">1 · Bisogni fisiologici</span><div><p><strong>Bisogno:</strong> cibo, acqua, riposo, salute del corpo.</p><p><strong>Il welfare risponde con:</strong> mense e pacchi alimentari, dormitori, cure sanitarie di base.</p></div></li>
+            </ol>
 
-        </div>
-
-        <!-- ==================== -->
-        <!-- SEZIONE 2: I 3 PILASTRI -->
-        <!-- ==================== -->
-        <div class="section" id="pilastri">
-            <h2 class="section-title">🏛️ I tre pilastri del welfare</h2>
-
-            <div class="info-box blue">
-                <h3>📌 Tre settori, tre modi di proteggere</h3>
-                <p>Il welfare italiano si regge su tre grandi settori, chiamati <strong>pilastri</strong>: la
-                <strong>sanità</strong>, la <strong>previdenza</strong> e l'<strong>assistenza sociale</strong>.
-                Si distinguono soprattutto per due cose: <em>chi ha diritto</em> alle prestazioni e <em>con quali
-                soldi</em> sono pagate.</p>
-            </div>
-
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th style="width: 22%;">Pilastro</th>
-                        <th style="width: 38%;">Che cosa garantisce e a chi</th>
-                        <th style="width: 40%;">Esempi di servizi e prestazioni</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>🏥 Sanità</strong><br><small>Servizio sanitario nazionale, tramite le ASL</small></td>
-                        <td>Tutela la salute fisica e mentale e previene le malattie. È <strong>universale</strong>:
-                        vale per tutte le persone, ed è pagata con le tasse di tutti. Per alcune prestazioni si paga
-                        una piccola quota, il <em>ticket</em>.</td>
-                        <td>Medico di famiglia e pediatra, ospedali, vaccinazioni e screening, 118, riabilitazione,
-                        servizi di salute mentale, consultori familiari.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>💰 Previdenza</strong><br><small>soprattutto l'INPS</small></td>
-                        <td>Protegge chi <strong>lavora o ha lavorato</strong>. Durante la vita lavorativa una parte
-                        dello stipendio viene versata all'INPS: sono i <em>contributi</em>. Quando la persona smette di
-                        lavorare o perde il lavoro, riceve una prestazione collegata a quei contributi.</td>
-                        <td>Pensione di vecchiaia, indennità di disoccupazione (NASpI), assegno di invalidità per i
-                        lavoratori, indennità di maternità e di malattia.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>🤝 Assistenza sociale</strong><br><small>soprattutto i Comuni; alcune prestazioni le paga l'INPS</small></td>
-                        <td>Aiuta chi è in difficoltà <strong>anche se non ha mai lavorato</strong>. Spesso l'accesso
-                        dipende dal reddito della famiglia, misurato con l'<em>ISEE</em> (Indicatore della situazione
-                        economica equivalente).</td>
-                        <td>Assistenza domiciliare, asili nido, centri diurni, servizi per persone senza dimora,
-                        invalidità civile e indennità di accompagnamento, Assegno di inclusione per le famiglie povere
-                        (dal 2024 ha preso il posto del reddito di cittadinanza), Assegno unico universale per i figli
-                        (dal 2022 ha preso il posto di assegni familiari e bonus bebè).</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="info-box green">
-                <h3>🔗 I tre pilastri lavorano insieme</h3>
-                <p>I pilastri non sono compartimenti separati. Una persona anziana, per esempio, può avere bisogno
-                nello stesso momento della <strong>sanità</strong> (cure mediche e riabilitazione), della
-                <strong>previdenza</strong> (la pensione per vivere) e dell'<strong>assistenza sociale</strong>
-                (un aiuto a casa per lavarsi e cucinare).</p>
-                <p style="margin-top: 1rem;">Per questo l'operatore sociale deve saper collegare i servizi dei diversi
-                pilastri: la persona ha una vita sola, e l'aiuto deve arrivarle in modo coordinato.</p>
-            </div>
-            <div class="info-box yellow"><h3>🗣️ In parole semplici</h3><p>La sanità cura tutti. La previdenza restituisce, sotto forma di pensione o di sostegno, ciò che una persona ha versato lavorando. L'assistenza aiuta chi è in difficoltà, anche se non ha mai lavorato.</p></div>
-
-        </div>
-
-        <!-- ==================== -->
-        <!-- SEZIONE 3: MASLOW -->
-        <!-- ==================== -->
-        <div class="section" id="maslow">
-            <h2 class="section-title">🔺 La piramide di Maslow e il welfare</h2>
-
-            <div class="info-box blue">
-                <h3>👤 Abraham Maslow e la sua teoria</h3>
-                <p><strong>Abraham Maslow</strong> (1908-1970) è stato uno psicologo statunitense. Nel 1943 propose
-                di ordinare i bisogni umani in una <strong>piramide</strong> a cinque livelli: alla base i bisogni
-                fisiologici, poi sicurezza, appartenenza, stima e, in cima, la realizzazione di sé. Nei suoi scritti
-                successivi parlò anche di bisogni di conoscenza, estetici e di trascendenza: per questo alcuni manuali,
-                come questo materiale, presentano una piramide a otto livelli.</p>
-                <p style="margin-top: 0.8rem;">L'idea di fondo è che i bisogni più elementari tendono a farsi sentire
-                per primi. Maslow però precisava che un livello non deve essere soddisfatto del tutto prima che contino
-                quelli superiori: nella vita reale i bisogni convivono.</p>
-            </div>
-
-            <h3 class="sub-title">📊 La piramide dei bisogni</h3>
-            <p>Ogni livello indica un tipo di bisogno. Il welfare interviene quando la persona o la sua famiglia non
-            riescono a soddisfarlo da sole.</p>
-
-            <div class="maslow-pyramid">
-                <div class="pyramid-level">
-                    <h4>8️⃣ Trascendenza</h4>
-                    <p><strong>Bisogno:</strong> dare un senso alla propria vita andando oltre sé stessi, per esempio aiutando gli altri.</p>
-                    <p><strong>Il welfare risponde con:</strong> volontariato, iniziative della comunità, luoghi di incontro e di dialogo.</p>
-                </div>
-                <div class="pyramid-level">
-                    <h4>7️⃣ Realizzazione di sé</h4>
-                    <p><strong>Bisogno:</strong> sviluppare le proprie capacità e la propria creatività.</p>
-                    <p><strong>Il welfare risponde con:</strong> orientamento e formazione professionale, percorsi di crescita personale.</p>
-                </div>
-                <div class="pyramid-level">
-                    <h4>6️⃣ Bisogni estetici</h4>
-                    <p><strong>Bisogno:</strong> vivere in un ambiente bello, ordinato, armonioso.</p>
-                    <p><strong>Il welfare risponde con:</strong> cultura e arte accessibili a tutti, spazi pubblici curati e accoglienti.</p>
-                </div>
-                <div class="pyramid-level">
-                    <h4>5️⃣ Bisogni di conoscenza</h4>
-                    <p><strong>Bisogno:</strong> capire, esplorare, imparare.</p>
-                    <p><strong>Il welfare risponde con:</strong> scuola, biblioteche, accesso a internet, formazione per gli adulti.</p>
-                </div>
-                <div class="pyramid-level">
-                    <h4>4️⃣ Bisogni di stima</h4>
-                    <p><strong>Bisogno:</strong> sentirsi capaci e rispettati dagli altri.</p>
-                    <p><strong>Il welfare risponde con:</strong> formazione professionale e percorsi che rafforzano la capacità di decidere da sé (in inglese <em>empowerment</em>).</p>
-                </div>
-                <div class="pyramid-level">
-                    <h4>3️⃣ Bisogni di appartenenza</h4>
-                    <p><strong>Bisogno:</strong> amore, amicizia, far parte di un gruppo.</p>
-                    <p><strong>Il welfare risponde con:</strong> gruppi di sostegno, centri di aggregazione, attività di socializzazione.</p>
-                </div>
-                <div class="pyramid-level">
-                    <h4>2️⃣ Bisogni di sicurezza</h4>
-                    <p><strong>Bisogno:</strong> protezione, stabilità economica, una casa sicura.</p>
-                    <p><strong>Il welfare risponde con:</strong> sostegni economici, aiuti per la casa, servizi per il lavoro, supporto psicologico.</p>
-                </div>
-                <div class="pyramid-level">
-                    <h4>1️⃣ Bisogni fisiologici</h4>
-                    <p><strong>Bisogno:</strong> cibo, acqua, riposo, salute del corpo.</p>
-                    <p><strong>Il welfare risponde con:</strong> mense e pacchi alimentari, dormitori, cure sanitarie di base.</p>
-                </div>
-            </div>
-
-            <div class="info-box green">
-                <h3>🎯 Come la usa l'operatore</h3>
+            <div class="definizione">
+                <h3>Come la usa l'operatore</h3>
                 <p>Quando incontra una persona, l'operatore può usare la piramide per:</p>
                 <ul>
                     <li><strong>riconoscere</strong> quali bisogni non sono soddisfatti;</li>
@@ -920,761 +166,478 @@
                     <li><strong>costruire un percorso</strong> che arrivi, passo dopo passo, anche ai bisogni più alti;</li>
                     <li><strong>scegliere</strong> i servizi più adatti a ciascun bisogno.</li>
                 </ul>
-                <p style="margin-top: 0.8rem;">La piramide è uno strumento per mettere ordine, non una regola rigida:
-                una persona senza casa ha bisogno di un tetto, ma anche di essere ascoltata e rispettata.</p>
+                <p>La piramide è uno strumento per mettere ordine, non una regola rigida: una persona senza casa ha bisogno di un tetto, ma anche di essere ascoltata e rispettata.</p>
             </div>
-            <div class="info-box yellow"><h3>🗣️ In parole semplici</h3><p>Maslow ha messo in fila i bisogni delle persone, dai più semplici ai più alti. Serve all'operatore per capire che cosa manca e da dove cominciare, sapendo che i bisogni si fanno sentire tutti insieme.</p></div>
+            <div class="in-breve"><p class="etichetta">In parole semplici</p><p>Maslow ha messo in fila i bisogni delle persone, dai più semplici ai più alti. Serve all'operatore per capire che cosa manca e da dove cominciare, sapendo che i bisogni si fanno sentire tutti insieme.</p></div>
+        </section>
 
-        </div>
-
-        <!-- ==================== -->
-        <!-- SEZIONE 4: RELAZIONE D'AIUTO -->
-        <!-- ==================== -->
-        <div class="section" id="relazione">
-            <h2 class="section-title">❤️ La relazione d'aiuto</h2>
-
-            <div class="info-box blue">
-                <h3>🤝 Che cos'è la relazione d'aiuto</h3>
-                <p>La <strong>relazione d'aiuto</strong> è il fondamento di ogni intervento sociale e sanitario. È una
-                relazione professionale: l'operatore mette a disposizione competenze, tempo e presenza per sostenere
-                la persona nel suo percorso verso il benessere, lasciandole le decisioni che la riguardano.</p>
-            </div>
-
-            <h3 class="sub-title">📋 Le caratteristiche fondamentali</h3>
-            <div class="characteristics-grid">
-                <div class="characteristic-card">
-                    <h4>❤️ Empatia</h4>
-                    <p>È la capacità di capire sentimenti ed emozioni dell'altro mettendosi nei suoi panni, senza
-                    giudicare e senza confondersi con lui. Permette di capire come la persona vive la sua situazione.</p>
+        <!-- 3. PILASTRI -->
+        <section class="sezione" id="pilastri">
+            <h2><span class="num">3</span>I tre pilastri del welfare</h2>
+            <p>Il welfare italiano si regge su tre grandi settori, chiamati <dfn>pilastri</dfn>: la <strong>sanità</strong>, la <strong>previdenza</strong> e l'<strong>assistenza sociale</strong>. Si distinguono soprattutto per due cose: <em>chi ha diritto</em> alle prestazioni e <em>con quali soldi</em> sono pagate.</p>
+            <div class="confronto pilastri">
+                <div class="t-acqua">
+                    <h3>Sanità</h3>
+                    <p class="chi">Servizio sanitario nazionale, tramite le ASL</p>
+                    <h4>Che cosa garantisce e a chi</h4>
+                    <p>Tutela la salute fisica e mentale e previene le malattie. È <dfn>universale</dfn>: vale per tutte le persone, ed è pagata con le tasse di tutti. Per alcune prestazioni si paga una piccola quota, il <em>ticket</em>.</p>
+                    <h4>Esempi</h4>
+                    <p>Medico di famiglia e pediatra, ospedali, vaccinazioni e screening, 118, riabilitazione, servizi di salute mentale, consultori familiari.</p>
                 </div>
-                <div class="characteristic-card">
-                    <h4>👥 Asimmetria</h4>
-                    <p>La relazione non è alla pari: l'operatore porta competenze professionali, la persona porta il suo
-                    bisogno. L'operatore deve usare questa differenza con equilibrio, senza trasformarla in potere.</p>
+                <div class="t-verde">
+                    <h3>Previdenza</h3>
+                    <p class="chi">soprattutto l'INPS</p>
+                    <h4>Che cosa garantisce e a chi</h4>
+                    <p>Protegge chi <strong>lavora o ha lavorato</strong>. Durante la vita lavorativa una parte dello stipendio viene versata all'INPS: sono i <dfn>contributi</dfn>. Quando la persona smette di lavorare o perde il lavoro, riceve una prestazione collegata a quei contributi.</p>
+                    <h4>Esempi</h4>
+                    <p>Pensione di vecchiaia, indennità di disoccupazione (NASpI), assegno di invalidità per i lavoratori, indennità di maternità e di malattia.</p>
                 </div>
-                <div class="characteristic-card">
-                    <h4>📋 Etica</h4>
-                    <p>L'operatore rispetta la dignità della persona e i principi della professione. È tenuto alla
-                    <strong>riservatezza</strong>: le informazioni sulla persona si condividono solo con chi deve
-                    conoscerle per aiutarla.</p>
-                </div>
-                <div class="characteristic-card">
-                    <h4>🧑‍💼 Professionalità</h4>
-                    <p>Unisce competenza tecnica e capacità di relazione. Richiede di aggiornarsi e di riflettere sul
-                    proprio lavoro: questa capacità si chiama <strong>riflessività</strong>.</p>
-                </div>
-                <div class="characteristic-card">
-                    <h4>🔄 Scambio</h4>
-                    <p>La relazione va in due direzioni: anche l'operatore impara dall'incontro con la persona, perché
-                    ognuno ha qualcosa da insegnare.</p>
-                </div>
-                <div class="characteristic-card">
-                    <h4>🎁 Dono</h4>
-                    <p>L'operatore offre tempo, ascolto e competenze con generosità. È un dono professionale: non
-                    chiede alla persona di ricambiare.</p>
+                <div class="t-rosa">
+                    <h3>Assistenza sociale</h3>
+                    <p class="chi">soprattutto i Comuni; alcune prestazioni le paga l'INPS</p>
+                    <h4>Che cosa garantisce e a chi</h4>
+                    <p>Aiuta chi è in difficoltà <strong>anche se non ha mai lavorato</strong>. Spesso l'accesso dipende dal reddito della famiglia, misurato con l'<dfn>ISEE</dfn> (Indicatore della situazione economica equivalente).</p>
+                    <h4>Esempi</h4>
+                    <p>Assistenza domiciliare, asili nido, centri diurni, servizi per persone senza dimora, invalidità civile e indennità di accompagnamento, Assegno di inclusione per le famiglie povere (dal 2024 ha preso il posto del reddito di cittadinanza), Assegno unico universale per i figli (dal 2022 ha preso il posto di assegni familiari e bonus bebè).</p>
                 </div>
             </div>
-
-            <h3 class="sub-title">🔄 Dal bisogno alla risposta: il percorso</h3>
-            <div class="info-box green">
-                <h3>🔍 Le tre fasi del processo di aiuto</h3>
-                <ol style="margin-left: 2rem; margin-top: 1rem;">
-                    <li style="margin-bottom: 1rem;"><strong>Percezione del disagio.</strong> La persona si accorge
-                    della distanza fra la sua situazione e quella che desidera. Non tutti se ne accorgono allo stesso
-                    modo: contano la cultura, la famiglia, i soldi, i valori.</li>
-                    <li style="margin-bottom: 1rem;"><strong>Formulazione della domanda.</strong> Qualcuno chiede
-                    aiuto: la persona stessa, un familiare o un'altra persona importante per lei. Spesso la richiesta non
-                    è chiara, e l'operatore deve <em>decodificarla</em>, cioè capire che cosa c'è dietro.</li>
-                    <li style="margin-bottom: 1rem;"><strong>Decodifica e risposta.</strong> L'operatore analizza la
-                    domanda e cerca la risposta adatta. Più il bisogno viene letto con attenzione, più la risposta
-                    arriva presto e funziona.</li>
-                </ol>
+            <div class="definizione">
+                <h3>I tre pilastri lavorano insieme</h3>
+                <p>I pilastri non sono compartimenti separati. Una persona anziana, per esempio, può avere bisogno nello stesso momento della <strong>sanità</strong> (cure mediche e riabilitazione), della <strong>previdenza</strong> (la pensione per vivere) e dell'<strong>assistenza sociale</strong> (un aiuto a casa per lavarsi e cucinare).</p>
+                <p>Per questo l'operatore sociale deve saper collegare i servizi dei diversi pilastri: la persona ha una vita sola, e l'aiuto deve arrivarle in modo coordinato.</p>
             </div>
-            <div class="info-box yellow"><h3>🗣️ In parole semplici</h3><p>Aiutare per mestiere vuol dire ascoltare, capire che cosa la persona chiede davvero e cercare insieme a lei la risposta giusta, nel rispetto della sua dignità e della riservatezza.</p></div>
+            <div class="in-breve"><p class="etichetta">In parole semplici</p><p>La sanità cura tutti. La previdenza restituisce, sotto forma di pensione o di sostegno, ciò che una persona ha versato lavorando. L'assistenza aiuta chi è in difficoltà, anche se non ha mai lavorato.</p></div>
+        </section>
 
-        </div>
+        <!-- 4. DIAMANTE -->
+        <section class="sezione" id="diamante">
+            <h2><span class="num">4</span>Il diamante del welfare e il welfare mix</h2>
+            <p>Il politologo <strong>Maurizio Ferrera</strong> ha proposto di rappresentare il welfare con un <dfn>diamante del welfare</dfn> a quattro vertici: <strong>Stato, famiglia, mercato e Terzo settore</strong>. Il benessere delle persone dipende da tutti e quattro. Quando la responsabilità è divisa fra più attori si parla di <dfn>welfare mix</dfn>, cioè welfare «misto».</p>
 
-        <!-- ==================== -->
-        <!-- SEZIONE 5: COMPETENZE -->
-        <!-- ==================== -->
-        <div class="section active" id="competenze">
-            <h2 class="section-title">🎓 Le competenze dell'operatore sociale</h2>
+            <figure class="schema" style="max-width: 560px">
+                <svg viewBox="0 0 520 340" role="img" aria-labelledby="diamante-titolo">
+                    <title id="diamante-titolo">Il diamante del welfare: Stato in alto, mercato a destra, famiglia in basso, Terzo settore a sinistra; al centro il benessere delle persone.</title>
+                    <polygon points="260,40 470,170 260,300 50,170" fill="#fdebf2" stroke="#d6105f" stroke-width="3"/>
+                    <line x1="260" y1="40" x2="260" y2="300" stroke="#dde1e8" stroke-width="2"/>
+                    <line x1="50" y1="170" x2="470" y2="170" stroke="#dde1e8" stroke-width="2"/>
+                    <rect x="190" y="150" width="140" height="40" fill="#fff" stroke="#17385a"/>
+                    <text x="260" y="168" text-anchor="middle" font-size="15" font-weight="700" fill="#17385a">Benessere</text>
+                    <text x="260" y="184" text-anchor="middle" font-size="13" fill="#17385a">delle persone</text>
+                    <g font-size="17" font-weight="700" text-anchor="middle">
+                        <rect x="195" y="14" width="130" height="34" rx="17" fill="#57bda8"/><text x="260" y="37" fill="#17385a">Stato</text>
+                        <rect x="400" y="153" width="116" height="34" rx="17" fill="#80cd29"/><text x="458" y="176" fill="#17385a">Mercato</text>
+                        <rect x="195" y="292" width="130" height="34" rx="17" fill="#008036"/><text x="260" y="315" fill="#fff">Famiglia</text>
+                        <rect x="4" y="153" width="130" height="34" rx="17" fill="#ec166c"/><text x="69" y="176" fill="#fff">Terzo settore</text>
+                    </g>
+                </svg>
+                <figcaption>Il diamante del welfare: quattro attori intorno al benessere delle persone.</figcaption>
+            </figure>
 
-            <div class="info-box blue">
-                <h3>💼 Che cosa vuol dire essere competenti</h3>
-                <p>Essere competenti non vuol dire solo «sapere le cose». Una <strong>competenza</strong> è l'insieme
-                di conoscenze, abilità pratiche e atteggiamenti che permette di agire bene in una situazione reale:
-                per esempio accogliere un anziano al centro diurno sapendo che cosa dire, che cosa fare e come
-                comportarsi.</p>
+            <div class="confronto">
+                <div class="t-acqua"><h3>Stato</h3><p><strong>Che cosa fa:</strong> decide le politiche sociali e garantisce i servizi essenziali, come la sanità, la scuola, le pensioni, la NASpI, l'Assegno unico.</p><p><strong>Limiti:</strong> costi alti e rischio di burocrazia.</p></div>
+                <div class="t-verde"><h3>Famiglia</h3><p><strong>Che cosa fa:</strong> è la prima rete di aiuto, soprattutto nei Paesi mediterranei: i nonni che tengono i nipoti, i figli che assistono i genitori anziani, gli aiuti economici fra generazioni.</p><p><strong>Limiti:</strong> il carico della cura ricade soprattutto sulle donne.</p></div>
+                <div class="t-rosa"><h3>Terzo settore</h3><p><strong>Che cosa fa:</strong> associazioni, cooperative sociali e volontariato offrono servizi senza scopo di lucro: la Caritas con mense e dormitori, la Croce Rossa, le cooperative che gestiscono centri per persone con disabilità, i doposcuola gratuiti.</p><p><strong>Limiti:</strong> risorse limitate e presenza diversa da un territorio all'altro.</p></div>
+                <div class="t-lime"><h3>Mercato</h3><p><strong>Che cosa fa:</strong> crea lavoro e reddito, paga le tasse, offre servizi a pagamento. Molte aziende offrono ai dipendenti servizi di <em>welfare aziendale</em>: asili, buoni pasto, polizze sanitarie, fondi pensione.</p><p><strong>Limiti:</strong> chi ha più soldi ottiene servizi migliori, e le disuguaglianze crescono.</p></div>
             </div>
+            <div class="definizione">
+                <h3>Il welfare mix: trovare l'equilibrio</h3>
+                <p>Il benessere collettivo dipende dall'equilibrio fra i quattro attori:</p>
+                <ul>
+                    <li>se pesa troppo lo Stato, i costi possono diventare insostenibili;</li>
+                    <li>se pesa troppo il mercato, crescono le disuguaglianze;</li>
+                    <li>se pesa troppo la famiglia, il lavoro di cura grava sulle donne;</li>
+                    <li>se il Terzo settore è debole, la comunità è meno unita.</li>
+                </ul>
+                <p>Un welfare giusto ha bisogno che tutti e quattro facciano la loro parte.</p>
+            </div>
+            <div class="in-breve"><p class="etichetta">In parole semplici</p><p>Al benessere delle persone lavorano in quattro: lo Stato, la famiglia, il mercato e il Terzo settore. Nessuno ce la fa da solo, e l'operatore sociale deve saperli coinvolgere tutti.</p></div>
+        </section>
 
-            <h3 class="sub-title">🎯 Le tre dimensioni della competenza</h3>
-            <div class="characteristics-grid">
-                <div class="characteristic-card">
-                    <h4>📚 Sapere</h4>
-                    <p><strong>Le conoscenze teoriche</strong>: le leggi del settore sociale, i metodi di intervento,
-                    i principi del welfare, elementi di psicologia e di sociologia, elementi di igiene e di cultura
-                    medico-sanitaria.</p>
+        <!-- 5. MODELLI -->
+        <section class="sezione" id="modelli">
+            <h2><span class="num">5</span>I modelli di welfare</h2>
+            <p>Ogni Paese organizza il welfare a modo suo. Per confrontare i sistemi ci si fa due domande: <strong>chi ha diritto</strong> ai servizi, tutti o solo alcuni? E <strong>chi li garantisce</strong>, soprattutto lo Stato, il lavoro, il mercato o la famiglia?</p>
+
+            <h3>Universalità e selettività</h3>
+            <div class="confronto">
+                <div class="t-acqua">
+                    <h4>Universalità</h4>
+                    <p>Un servizio è <dfn>universale</dfn> quando spetta a tutti i cittadini, senza guardare il reddito. Un esempio italiano è il Servizio sanitario nazionale.</p>
+                    <p><strong>Vantaggi:</strong> nessuno si sente etichettato, i cittadini si sentono uguali, cresce la coesione sociale.</p>
+                    <p><strong>Svantaggi:</strong> costa di più e aiuta anche chi potrebbe farcela da solo.</p>
                 </div>
-                <div class="characteristic-card">
-                    <h4>🛠️ Saper fare</h4>
-                    <p><strong>Le abilità pratiche</strong>: condurre un colloquio, progettare un intervento,
-                    lavorare in équipe, compilare e tenere in ordine la documentazione.</p>
-                </div>
-                <div class="characteristic-card">
-                    <h4>❤️ Saper essere</h4>
-                    <p><strong>Gli atteggiamenti</strong>: empatia e ascolto attivo, etica professionale, capacità di
-                    gestire le proprie emozioni, rispetto e assenza di giudizio, capacità di adattarsi.</p>
+                <div class="t-rosa">
+                    <h4>Selettività</h4>
+                    <p>Un servizio è <dfn>selettivo</dfn> quando spetta solo a chi ha certi requisiti, di solito un reddito basso misurato con l'ISEE. Un esempio italiano è l'Assegno di inclusione.</p>
+                    <p><strong>Vantaggi:</strong> costa meno e concentra le risorse su chi ne ha più bisogno.</p>
+                    <p><strong>Svantaggi:</strong> richiede molte pratiche e può creare <em>stigma</em>.</p>
                 </div>
             </div>
-
-            <div class="info-box green">
-                <h3>🌱 Una quarta dimensione: saper diventare</h3>
-                <p>Chi lavora con le persone continua a imparare per tutta la vita. <strong>Saper diventare</strong>
-                vuol dire imparare dalle esperienze, riflettere sul proprio modo di lavorare, aggiornarsi su metodi e
-                leggi nuove e crescere come persona e come professionista.</p>
-                <p style="margin-top: 0.8rem;">Le stesse dimensioni si ritrovano nelle competenze del profilo in uscita
-                dell'indirizzo, che nel percorso sull'operatore sociale hai incontrato come sei verbi: organizzare,
-                promuovere, collaborare, facilitare, realizzare, raccogliere dati.</p>
-            </div>
-            <div class="info-box yellow"><h3>🗣️ In parole semplici</h3><p>Un buon operatore sa le cose, le sa fare e sa come comportarsi con le persone. E continua a imparare.</p></div>
-
-        </div>
-
-        <!-- ==================== -->
-        <!-- SEZIONE 6: 18 SERVIZI -->
-        <!-- ==================== -->
-        <div class="section" id="servizi">
-            <h2 class="section-title">🃏 Diciotto servizi del welfare</h2>
-
-            <div class="info-box blue">
-                <h3>🎯 Una panoramica</h3>
-                <p>Ogni carta presenta un servizio: a che cosa serve, a quale pilastro appartiene e a quali bisogni
-                della piramide di Maslow risponde. Il collegamento con i bisogni è una lettura possibile, non l'unica:
-                quasi ogni servizio risponde a più bisogni insieme.</p>
+            <div class="attenzione">
+                <h3>Che cos'è lo stigma</h3>
+                <p>Lo <dfn>stigma</dfn> è un'etichetta negativa. Nei servizi selettivi chi riceve un aiuto può essere visto come «di serie B», o addirittura come colpevole della propria situazione, e può vergognarsi di chiedere ciò che gli spetta.</p>
+                <p>Per questo molte persone che avrebbero diritto a un aiuto non lo chiedono. L'operatore deve saperlo, e presentare i servizi come <strong>diritti</strong> e non come favori.</p>
             </div>
 
-            <div class="cards-controls">
-                <button class="view-btn active" onclick="toggleView('grid')">📊 Vista Griglia</button>
-                <button class="view-btn" onclick="toggleView('slider')">➡️ Scorrimento</button>
+            <h3>I quattro modelli europei</h3>
+            <p>Il sociologo danese Gøsta Esping-Andersen, nel 1990, ha distinto tre modelli di welfare; il politologo italiano Maurizio Ferrera, nel 1996, ne ha aggiunto un quarto per i Paesi del Sud Europa.</p>
+            <div class="tabella-wrap">
+                <table class="tabella">
+                    <thead><tr><th style="width: 22%">Modello</th><th style="width: 24%">Paesi</th><th>Come funziona</th></tr></thead>
+                    <tbody>
+                        <tr><th scope="row">Socialdemocratico</th><td>Svezia, Norvegia, Danimarca, Finlandia</td><td>I servizi sono <strong>universali</strong> e di buona qualità, pagati con tasse alte. Le disuguaglianze sono basse, ma la spesa pubblica è molto alta.</td></tr>
+                        <tr><th scope="row">Corporativo (o conservatore)</th><td>Germania, Francia, Austria, Belgio</td><td>Le protezioni sono legate al <strong>lavoro</strong> e ai contributi versati, spesso diverse da categoria a categoria. La famiglia ha un ruolo importante. Chi non ha lavorato è meno protetto.</td></tr>
+                        <tr><th scope="row">Liberale</th><td>Regno Unito, Stati Uniti, Canada, Australia</td><td>Lo Stato interviene soprattutto per i più poveri, con aiuti <strong>selettivi</strong>; il resto si compra sul mercato, per esempio le assicurazioni sanitarie. Costa poco allo Stato, ma lascia grandi disuguaglianze.</td></tr>
+                        <tr><th scope="row">Mediterraneo</th><td>Italia, Spagna, Grecia, Portogallo</td><td>È un <strong>misto</strong>: sanità universale, pensioni legate al lavoro, aiuti contro la povertà selettivi e arrivati tardi. La famiglia, e soprattutto le donne, reggono gran parte del lavoro di cura.</td></tr>
+                    </tbody>
+                </table>
             </div>
+            <div class="in-breve"><p class="etichetta">In conclusione</p><p>Nessun modello è perfetto, e nella realtà i Paesi mescolano elementi diversi. L'Italia, per esempio, ha una sanità universale come i Paesi del Nord, pensioni legate al lavoro come la Germania e un forte peso della famiglia, tipico del Sud Europa.</p></div>
+        </section>
 
+        <!-- 6. LEGGI -->
+        <section class="sezione" id="leggi">
+            <h2><span class="num">6</span>Le leggi fondamentali del welfare italiano</h2>
+            <p>I diritti delle persone e i doveri dei servizi sono scritti nelle leggi. Conoscerne le principali aiuta l'operatore a spiegare alle persone a che cosa hanno diritto e a quale servizio rivolgersi.</p>
+            <ol class="linea-tempo">
+                <li><span class="anno">1978</span><h3>Legge 180: la «legge Basaglia»</h3><p>Prende il nome dallo psichiatra Franco Basaglia. Ha chiuso i manicomi e ha spostato la cura delle persone con disturbi mentali nei servizi del territorio, rispettando i loro diritti civili. Pochi mesi dopo è stata assorbita nella legge 833 sul Servizio sanitario nazionale.</p></li>
+                <li><span class="anno">1978</span><h3>Legge 833: il Servizio sanitario nazionale</h3><p>Ha istituito il <strong>Servizio sanitario nazionale (SSN)</strong>. Garantisce l'assistenza sanitaria a tutti, indipendentemente dal reddito, ed è pagato con le tasse (la <em>fiscalità generale</em>).</p><p>È un servizio <strong>universale</strong>, ma non del tutto gratuito: per alcune prestazioni, come esami e visite specialistiche, si paga il ticket, da cui sono esentate molte persone, per esempio per reddito o per malattie croniche.</p></li>
+                <li><span class="anno">1992</span><h3>Legge 104: i diritti delle persone con disabilità</h3><p>È la legge quadro per l'assistenza, l'integrazione sociale e i diritti delle persone con disabilità. Prevede, per esempio, l'inclusione scolastica con l'insegnante di sostegno e i permessi di lavoro per i familiari che assistono una persona con disabilità grave.</p></li>
+                <li><span class="anno">1999</span><h3>Legge 68: il diritto al lavoro delle persone con disabilità</h3><p>Favorisce l'inserimento lavorativo delle persone con disabilità con il <strong>collocamento mirato</strong>: le aziende sopra una certa dimensione devono riservare dei posti di lavoro e i servizi aiutano a trovare il lavoro adatto alle capacità della persona.</p></li>
+                <li><span class="anno">2000</span><h3>Legge 328: il sistema integrato di interventi e servizi sociali</h3><p>È la legge quadro dei servizi sociali. Organizza un <strong>sistema integrato</strong>, in cui Stato, Regioni, Comuni e Terzo settore (associazioni, cooperative sociali, volontariato) collaborano per programmare e offrire i servizi. Stabilisce che la programmazione avvenga sul territorio con il <em>Piano di zona</em>.</p></li>
+                <li><span class="anno">2005</span><h3>Legge regionale 23 (Sardegna)</h3><p>Organizza in Sardegna il sistema integrato dei servizi alla persona, cioè il modo in cui la Regione e i Comuni gestiscono i servizi sociali.</p></li>
+                <li><span class="anno">2015</span><h3>D.Lgs. 22</h3><p>Ha introdotto la NASpI, l'indennità mensile per chi perde il lavoro, e rafforzato i servizi che aiutano a trovarne uno nuovo.</p></li>
+                <li><span class="anno">2017 → 2024</span><h3>Le misure contro la povertà</h3><p>In pochi anni si sono succedute tre misure: il Reddito di inclusione (REI, D.Lgs. 147 del 2017), il Reddito di cittadinanza (dal 2019 al 2023) e oggi l'Assegno di inclusione (D.L. 48 del 2023, in vigore dal 2024), che unisce un aiuto economico a un percorso di inclusione sociale e lavorativa.</p></li>
+                <li><span class="anno">2021</span><h3>D.Lgs. 230</h3><p>Ha creato l'Assegno unico universale per i figli, che dal 2022 ha preso il posto degli assegni familiari e dei bonus per i nuovi nati.</p></li>
+                <li><span class="anno">2024</span><h3>D.Lgs. 62: la riforma della disabilità</h3><p>Ha aggiornato la legge 104: oggi si parla di <strong>persona con disabilità</strong> (non più di «handicappato» o «disabile») e di <strong>progetto di vita</strong> personalizzato.</p></li>
+            </ol>
+            <p class="nota">Le misure economiche cambiano spesso: prima di dare un'informazione a una persona, l'operatore controlla sempre sul sito dell'INPS o del Comune.</p>
+        </section>
+
+        <!-- 7. ENTI -->
+        <section class="sezione" id="enti">
+            <h2><span class="num">7</span>Gli enti del welfare</h2>
+            <p>Il welfare è gestito da enti diversi, ciascuno con i suoi compiti. Sapere chi fa che cosa è indispensabile per indirizzare le persone nel posto giusto al primo tentativo.</p>
+            <div class="tabella-wrap">
+                <table class="tabella">
+                    <caption>Chi fa che cosa</caption>
+                    <thead><tr><th style="width: 24%">Ente</th><th>Di che cosa si occupa</th></tr></thead>
+                    <tbody>
+                        <tr><th scope="row">INPS<br><small>Istituto nazionale della previdenza sociale</small></th><td>Paga le pensioni, l'indennità di disoccupazione e altre prestazioni economiche: l'invalidità civile e l'indennità di accompagnamento, l'Assegno unico per i figli, l'Assegno di inclusione.</td></tr>
+                        <tr><th scope="row">Comuni</th><td>Sono responsabili dei <strong>servizi sociali</strong> del territorio: segretariato sociale, assistenza domiciliare, asili nido, centri diurni, contributi economici. Spesso li gestiscono insieme ai Comuni vicini: in Sardegna questo coordinamento si chiama <em>PLUS</em>, Piano locale unitario dei servizi.</td></tr>
+                        <tr><th scope="row">ASL<br><small>Aziende sanitarie locali</small></th><td>Gestiscono i servizi sanitari pubblici del territorio: medici di famiglia, ospedali, consultori, servizi specialistici, servizi per la salute mentale e per le dipendenze.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="definizione">
+                <h3>Gli enti collaborano</h3>
+                <p>Per dare una risposta completa gli enti devono lavorare insieme: l'INPS garantisce le risorse economiche, l'ASL i servizi sanitari e sociosanitari, i Comuni i servizi sociali. Sopra di loro la <strong>Regione</strong> programma e finanzia sanità e servizi sociali. L'operatore sociale aiuta la persona a muoversi fra questi enti, senza perdersi.</p>
+            </div>
+        </section>
+
+        <!-- 8. SERVIZI -->
+        <section class="sezione" id="servizi">
+            <h2><span class="num">8</span>Diciotto servizi del welfare</h2>
+            <p>Ogni carta presenta un servizio: a che cosa serve, a quale pilastro appartiene e a quali bisogni della piramide di Maslow risponde. Il collegamento con i bisogni è una lettura possibile, non l'unica: quasi ogni servizio risponde a più bisogni insieme.</p>
+            <div class="vista" role="group" aria-label="Come vedere le carte">
+                <button type="button" class="bottone secondario view-btn" aria-pressed="true" onclick="toggleView('grid')">Tutte le carte</button>
+                <button type="button" class="bottone secondario view-btn" aria-pressed="false" onclick="toggleView('slider')">Una alla volta</button>
+            </div>
             <div id="cards-grid" class="cards-grid"></div>
-            
             <div id="cards-slider" class="cards-slider">
                 <div id="current-card"></div>
                 <div class="slider-controls">
-                    <button class="slider-btn" id="prev-btn" onclick="changeCard(-1)">⬅️ Prec.</button>
-                    <div class="slider-counter">
-                        <span id="card-counter">1</span> / 18
-                    </div>
-                    <button class="slider-btn" id="next-btn" onclick="changeCard(1)">Succ. ➡️</button>
+                    <button type="button" class="bottone secondario" id="prev-btn" onclick="changeCard(-1)">← Precedente</button>
+                    <span><span id="card-counter">1</span> / 18</span>
+                    <button type="button" class="bottone secondario" id="next-btn" onclick="changeCard(1)">Successiva →</button>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- ==================== -->
-        <!-- SEZIONE 7: LA RETE -->
-        <!-- ==================== -->
-        <div class="section" id="rete">
-            <h2 class="section-title">🌐 La rete nel lavoro sociale</h2>
-
-            <div class="info-box blue">
-                <h3>🤝 Perché si parla di rete</h3>
-                <p>Nessun operatore e nessun servizio può rispondere da solo a tutti i bisogni di una persona. Il
-                lavoro sociale funziona quando si costruisce una <strong>rete</strong>: un insieme di persone e di
-                servizi che collaborano per il benessere della stessa persona.</p>
+        <!-- 9. RELAZIONE -->
+        <section class="sezione" id="relazione">
+            <h2><span class="num">9</span>La relazione d'aiuto</h2>
+            <div class="definizione">
+                <p>La <dfn>relazione d'aiuto</dfn> è il fondamento di ogni intervento sociale e sanitario. È una relazione professionale: l'operatore mette a disposizione competenze, tempo e presenza per sostenere la persona nel suo percorso verso il benessere, lasciandole le decisioni che la riguardano.</p>
             </div>
 
-            <h3 class="sub-title">📊 Due reti che si completano</h3>
-            <div class="network-schema">
-                <div class="network-box formal">
-                    <h4>🏢 Rete formale</h4>
-                    <p>È formata da <strong>servizi e professionisti</strong> che aiutano per compito, con regole,
-                    orari e ruoli stabiliti dalle leggi.</p>
-                    <p style="margin-top: 1rem;"><strong>Esempi:</strong> ASL e ospedali, servizi sociali del Comune,
-                    scuole, cooperative sociali, centri per l'impiego.</p>
-                </div>
-                <div class="network-arrow">+</div>
-                <div class="network-box informal">
-                    <h4>❤️ Rete informale</h4>
-                    <p>È formata dalle <strong>persone vicine</strong>, che aiutano per affetto o per scelta e non per
-                    lavoro.</p>
-                    <p style="margin-top: 1rem;"><strong>Esempi:</strong> famiglia, amici, vicini di casa, volontari del
-                    quartiere, parrocchie.</p>
-                </div>
-                <div class="network-arrow">=</div>
-                <div class="network-box integrated">
-                    <h4>🌟 Sistema integrato</h4>
-                    <p>Quando le due reti collaborano, l'aiuto è <strong>più completo e più continuo</strong>: la
-                    persona è meno sola e le risorse di ciascuno vengono usate meglio.</p>
-                </div>
+            <h3>Le caratteristiche fondamentali</h3>
+            <div class="confronto">
+                <div class="t-rosa"><h4>Empatia</h4><p>L'<dfn>empatia</dfn> è la capacità di capire sentimenti ed emozioni dell'altro mettendosi nei suoi panni, senza giudicare e senza confondersi con lui. Permette di capire come la persona vive la sua situazione.</p></div>
+                <div class="t-acqua"><h4>Asimmetria</h4><p>La relazione non è alla pari: l'operatore porta competenze professionali, la persona porta il suo bisogno. L'operatore deve usare questa differenza con equilibrio, senza trasformarla in potere.</p></div>
+                <div class="t-verde"><h4>Etica</h4><p>L'operatore rispetta la dignità della persona e i principi della professione. È tenuto alla <dfn>riservatezza</dfn>: le informazioni sulla persona si condividono solo con chi deve conoscerle per aiutarla.</p></div>
+                <div class="t-lime"><h4>Professionalità</h4><p>Unisce competenza tecnica e capacità di relazione. Richiede di aggiornarsi e di riflettere sul proprio lavoro: questa capacità si chiama <dfn>riflessività</dfn>.</p></div>
+                <div class="t-rosa"><h4>Scambio</h4><p>La relazione va in due direzioni: anche l'operatore impara dall'incontro con la persona, perché ognuno ha qualcosa da insegnare.</p></div>
+                <div class="t-acqua"><h4>Dono</h4><p>L'operatore offre tempo, ascolto e competenze con generosità. È un dono professionale: non chiede alla persona di ricambiare.</p></div>
             </div>
 
-            <div class="info-box green">
-                <h3>🎯 Che cosa fa l'operatore nella rete</h3>
-                <p>L'operatore sociale <strong>individua</strong> le risorse formali e informali presenti,
-                <strong>attiva</strong> i servizi adatti alla situazione, <strong>coordina</strong> gli interventi,
-                <strong>valorizza</strong> ciò che la persona e la famiglia sanno già fare e <strong>fa comunicare</strong>
-                la rete formale con quella informale. Nel percorso sull'operatore sociale trovi anche come si legge la
-                forma di una rete: nodi, legami, ponti.</p>
-            </div>
-            <div class="info-box yellow"><h3>🗣️ In parole semplici</h3><p>Intorno a ogni persona ci sono chi le vuole bene e chi la aiuta per lavoro. L'operatore li fa collaborare.</p></div>
+            <h3>Dal bisogno alla risposta: le tre fasi del processo di aiuto</h3>
+            <ol class="passi">
+                <li><b>Percezione del disagio</b>La persona si accorge della distanza fra la sua situazione e quella che desidera. Non tutti se ne accorgono allo stesso modo: contano la cultura, la famiglia, i soldi, i valori.</li>
+                <li><b>Formulazione della domanda</b>Qualcuno chiede aiuto: la persona stessa, un familiare o un'altra persona importante per lei. Spesso la richiesta non è chiara, e l'operatore deve <em>decodificarla</em>, cioè capire che cosa c'è dietro.</li>
+                <li><b>Decodifica e risposta</b>L'operatore analizza la domanda e cerca la risposta adatta. Più il bisogno viene letto con attenzione, più la risposta arriva presto e funziona.</li>
+            </ol>
+            <div class="in-breve"><p class="etichetta">In parole semplici</p><p>Aiutare per mestiere vuol dire ascoltare, capire che cosa la persona chiede davvero e cercare insieme a lei la risposta giusta, nel rispetto della sua dignità e della riservatezza.</p></div>
+        </section>
 
-        </div>
-
-        <!-- ==================== -->
-        <!-- SEZIONE 8: STRUMENTI -->
-        <!-- ==================== -->
-        <div class="section" id="strumenti">
-            <h2 class="section-title">🛠️ Gli strumenti dell'operatore</h2>
-
-            <div class="info-box blue">
-                <h3>🎯 Perché servono strumenti</h3>
-                <p>Per raccogliere informazioni, capire i bisogni e costruire un rapporto di fiducia, l'operatore usa
-                strumenti professionali. Due dei più importanti sono il <strong>colloquio</strong> e la
-                <strong>visita domiciliare</strong>, che di solito si svolge insieme all'assistente sociale.</p>
-            </div>
-
-            <h3 class="sub-title">💬 Il colloquio</h3>
-            <div class="characteristics-grid">
-                <div class="characteristic-card">
-                    <h4>🎯 A che cosa serve</h4>
-                    <p>Serve a raccogliere informazioni, capire i bisogni, costruire fiducia e rendere la persona
-                    partecipe delle decisioni.</p>
+        <!-- 10. RETE -->
+        <section class="sezione" id="rete">
+            <h2><span class="num">10</span>La rete nel lavoro sociale</h2>
+            <p>Nessun operatore e nessun servizio può rispondere da solo a tutti i bisogni di una persona. Il lavoro sociale funziona quando si costruisce una <dfn>rete</dfn>: un insieme di persone e di servizi che collaborano per il benessere della stessa persona.</p>
+            <h3>Due reti che si completano</h3>
+            <div class="equazione">
+                <div class="t-acqua">
+                    <h3>Rete formale</h3>
+                    <p>È formata da <strong>servizi e professionisti</strong> che aiutano per compito, con regole, orari e ruoli stabiliti dalle leggi.</p>
+                    <p><strong>Esempi:</strong> ASL e ospedali, servizi sociali del Comune, scuole, cooperative sociali, centri per l'impiego.</p>
                 </div>
-                <div class="characteristic-card">
-                    <h4>✅ Punti di forza</h4>
-                    <p>La comunicazione è diretta; si possono esplorare le emozioni e le motivazioni della persona; si
-                    può adattare alla situazione.</p>
+                <span class="segno" aria-hidden="true">+</span>
+                <div class="t-rosa">
+                    <h3>Rete informale</h3>
+                    <p>È formata dalle <strong>persone vicine</strong>, che aiutano per affetto o per scelta e non per lavoro.</p>
+                    <p><strong>Esempi:</strong> famiglia, amici, vicini di casa, volontari del quartiere, parrocchie.</p>
                 </div>
-                <div class="characteristic-card">
-                    <h4>⚠️ Limiti</h4>
-                    <p>Dipende dalla disponibilità della persona, richiede capacità di comunicare e può essere
-                    condizionato dalle emozioni, sue e dell'operatore.</p>
+                <span class="segno" aria-hidden="true">=</span>
+                <div class="t-verde">
+                    <h3>Sistema integrato</h3>
+                    <p>Quando le due reti collaborano, l'aiuto è <strong>più completo e più continuo</strong>: la persona è meno sola e le risorse di ciascuno vengono usate meglio.</p>
                 </div>
             </div>
+            <div class="definizione">
+                <h3>Che cosa fa l'operatore nella rete</h3>
+                <p>L'operatore sociale <strong>individua</strong> le risorse formali e informali presenti, <strong>attiva</strong> i servizi adatti alla situazione, <strong>coordina</strong> gli interventi, <strong>valorizza</strong> ciò che la persona e la famiglia sanno già fare e <strong>fa comunicare</strong> la rete formale con quella informale.</p>
+                <p>Nel percorso sull'operatore sociale trovi anche come si legge la forma di una rete: nodi, legami, ponti.</p>
+            </div>
+            <div class="in-breve"><p class="etichetta">In parole semplici</p><p>Intorno a ogni persona ci sono chi le vuole bene e chi la aiuta per lavoro. L'operatore li fa collaborare.</p></div>
+        </section>
 
-            <div class="info-box green">
-                <h3>💡 Tecniche per un buon colloquio</h3>
+        <!-- 11. STRUMENTI -->
+        <section class="sezione" id="strumenti">
+            <h2><span class="num">11</span>Gli strumenti dell'operatore</h2>
+            <p>Per raccogliere informazioni, capire i bisogni e costruire un rapporto di fiducia, l'operatore usa strumenti professionali. Due dei più importanti sono il <dfn>colloquio</dfn> e la <dfn>visita domiciliare</dfn>, che di solito si svolge insieme all'assistente sociale.</p>
+            <div class="tabella-wrap">
+                <table class="tabella">
+                    <caption>Colloquio e visita domiciliare a confronto</caption>
+                    <thead><tr><th style="width: 18%"></th><th>Il colloquio</th><th>La visita domiciliare</th></tr></thead>
+                    <tbody>
+                        <tr><th scope="row">A che cosa serve</th><td>Serve a raccogliere informazioni, capire i bisogni, costruire fiducia e rendere la persona partecipe delle decisioni.</td><td>Permette di vedere l'ambiente in cui la persona vive, le condizioni della casa, i rapporti in famiglia e quanto la persona è autonoma nella vita di tutti i giorni.</td></tr>
+                        <tr><th scope="row">Punti di forza</th><td>La comunicazione è diretta; si possono esplorare le emozioni e le motivazioni della persona; si può adattare alla situazione.</td><td>Si osserva la realtà direttamente, si raccolgono informazioni che in ufficio non emergono e la persona si sente più a suo agio perché è a casa sua.</td></tr>
+                        <tr><th scope="row">Limiti</th><td>Dipende dalla disponibilità della persona, richiede capacità di comunicare e può essere condizionato dalle emozioni, sue e dell'operatore.</td><td>Può mettere a disagio, richiede molta delicatezza e tocca la vita privata della persona.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="definizione">
+                <h3>Tecniche per un buon colloquio</h3>
                 <ul>
-                    <li><strong>Ascolto attivo:</strong> concentrarsi su ciò che dice la persona, senza interromperla.</li>
-                    <li><strong>Domande aperte:</strong> domande a cui non si risponde con un sì o con un no, come «Come si sente?» invece di «Sta bene?».</li>
-                    <li><strong>Riformulazione:</strong> ripetere con parole proprie ciò che si è capito, per controllare di aver capito bene.</li>
-                    <li><strong>Empatia:</strong> far capire alla persona che si comprendono i suoi sentimenti.</li>
-                    <li><strong>Assenza di giudizio:</strong> accogliere ciò che la persona racconta senza criticarla.</li>
+                    <li><dfn>Ascolto attivo</dfn>: concentrarsi su ciò che dice la persona, senza interromperla.</li>
+                    <li><strong>Domande aperte</strong>: domande a cui non si risponde con un sì o con un no, come «Come si sente?» invece di «Sta bene?».</li>
+                    <li><strong>Riformulazione</strong>: ripetere con parole proprie ciò che si è capito, per controllare di aver capito bene.</li>
+                    <li><strong>Empatia</strong>: far capire alla persona che si comprendono i suoi sentimenti.</li>
+                    <li><strong>Assenza di giudizio</strong>: accogliere ciò che la persona racconta senza criticarla.</li>
                 </ul>
             </div>
+            <div class="attenzione">
+                <h3>Le regole etiche della visita domiciliare</h3>
+                <p>Durante una visita a casa l'operatore:</p>
+                <ul>
+                    <li>chiede il permesso prima di entrare e di osservare;</li>
+                    <li>rispetta la riservatezza e l'intimità della persona;</li>
+                    <li>non giudica le condizioni della casa;</li>
+                    <li>mantiene un comportamento professionale e discreto;</li>
+                    <li>non racconta a nessuno ciò che ha visto, se non a chi deve saperlo per aiutare.</li>
+                </ul>
+            </div>
+        </section>
 
-            <h3 class="sub-title">🏠 La visita domiciliare</h3>
-            <div class="characteristics-grid">
-                <div class="characteristic-card">
-                    <h4>🎯 A che cosa serve</h4>
-                    <p>Permette di vedere l'ambiente in cui la persona vive, le condizioni della casa, i rapporti in
-                    famiglia e quanto la persona è autonoma nella vita di tutti i giorni.</p>
-                </div>
-                <div class="characteristic-card">
-                    <h4>✅ Punti di forza</h4>
-                    <p>Si osserva la realtà direttamente, si raccolgono informazioni che in ufficio non emergono e la
-                    persona si sente più a suo agio perché è a casa sua.</p>
-                </div>
-                <div class="characteristic-card">
-                    <h4>⚠️ Limiti</h4>
-                    <p>Può mettere a disagio, richiede molta delicatezza e tocca la vita privata della persona.</p>
-                </div>
+        <!-- 12. COMPETENZE -->
+        <section class="sezione" id="competenze">
+            <h2><span class="num">12</span>Le competenze dell'operatore sociale</h2>
+            <p>Essere competenti non vuol dire solo «sapere le cose». Una <dfn>competenza</dfn> è l'insieme di conoscenze, abilità pratiche e atteggiamenti che permette di agire bene in una situazione reale: per esempio accogliere un anziano al centro diurno sapendo che cosa dire, che cosa fare e come comportarsi.</p>
+            <h3>Le tre dimensioni della competenza</h3>
+            <div class="confronto">
+                <div class="t-acqua"><h4>Sapere</h4><p><strong>Le conoscenze teoriche</strong>: le leggi del settore sociale, i metodi di intervento, i principi del welfare, elementi di psicologia e di sociologia, elementi di igiene e di cultura medico-sanitaria.</p></div>
+                <div class="t-verde"><h4>Saper fare</h4><p><strong>Le abilità pratiche</strong>: condurre un colloquio, progettare un intervento, lavorare in équipe, compilare e tenere in ordine la documentazione.</p></div>
+                <div class="t-rosa"><h4>Saper essere</h4><p><strong>Gli atteggiamenti</strong>: empatia e ascolto attivo, etica professionale, capacità di gestire le proprie emozioni, rispetto e assenza di giudizio, capacità di adattarsi.</p></div>
+            </div>
+            <div class="definizione t-lime">
+                <h3>Una quarta dimensione: saper diventare</h3>
+                <p>Chi lavora con le persone continua a imparare per tutta la vita. <strong>Saper diventare</strong> vuol dire imparare dalle esperienze, riflettere sul proprio modo di lavorare, aggiornarsi su metodi e leggi nuove e crescere come persona e come professionista.</p>
+                <p>Le stesse dimensioni si ritrovano nelle competenze del profilo in uscita dell'indirizzo, che nel percorso sull'operatore sociale hai incontrato come sei verbi: organizzare, promuovere, collaborare, facilitare, realizzare, raccogliere dati.</p>
+            </div>
+            <div class="in-breve"><p class="etichetta">In parole semplici</p><p>Un buon operatore sa le cose, le sa fare e sa come comportarsi con le persone. E continua a imparare.</p></div>
+        </section>
+
+        <!-- 13. SCENARI -->
+        <section class="sezione" id="scenari">
+            <h2><span class="num">13</span>Scenari pratici</h2>
+            <p>Questi due scenari sono inventati ma verosimili: sono situazioni che un operatore sociale può incontrare. Per ciascuno trovi i bisogni, i servizi da attivare e la rete da coinvolgere. Prova prima a pensarci da solo, poi apri l'analisi e confronta.</p>
+
+            <div class="riquadro scenario t-acqua">
+                <p class="etichetta">Scenario 1</p>
+                <h3>Maria, 78 anni: il ritorno a casa dopo una frattura</h3>
+                <p>Maria, 78 anni, vive sola e torna a casa dopo essersi rotta il femore. Le fa male muoversi, cammina con il deambulatore e ha paura di cadere di nuovo. La figlia vive in un'altra città e può venire solo nel fine settimana.</p>
+                <details class="approfondimento">
+                    <summary>Apri l'analisi</summary>
+                    <div class="analisi">
+                        <div class="t-lime"><h4>I bisogni, secondo Maslow</h4><ul>
+                            <li><strong>Bisogni fisiologici:</strong> muoversi in casa, tenere sotto controllo il dolore, lavarsi, mangiare regolarmente.</li>
+                            <li><strong>Bisogni di sicurezza:</strong> non cadere di nuovo, avere una casa sicura, sapere che qualcuno interviene in caso di bisogno.</li>
+                            <li><strong>Bisogni di appartenenza:</strong> non restare isolata, mantenere i contatti con le persone.</li>
+                        </ul></div>
+                        <div class="t-verde"><h4>I servizi da attivare</h4><ul>
+                            <li><strong>Sanità:</strong> fisioterapia a casa o in un centro vicino; controllo del dolore con il medico di famiglia.</li>
+                            <li><strong>Sanità e sociale insieme:</strong> l'ADI, Assistenza domiciliare integrata, che porta a casa sia prestazioni sanitarie sia aiuto nelle attività quotidiane.</li>
+                            <li><strong>Assistenza sociale:</strong> pasti a domicilio, telesoccorso (un dispositivo per chiamare aiuto) e, se le condizioni lo richiedono, la domanda di invalidità civile e di indennità di accompagnamento.</li>
+                        </ul></div>
+                        <div class="t-rosa"><h4>La rete</h4><ul>
+                            <li><strong>Rete formale:</strong> medico di famiglia, fisioterapista, OSS (operatore socio-sanitario) per l'igiene personale, servizio sociale del Comune.</li>
+                            <li><strong>Rete informale:</strong> la figlia, che coordina nel fine settimana; una vicina che passa ogni giorno; volontari per la compagnia.</li>
+                            <li><strong>Strumenti:</strong> una visita domiciliare per valutare la casa, colloqui con Maria e con la figlia, il confronto in équipe.</li>
+                        </ul></div>
+                    </div>
+                </details>
             </div>
 
-            <div class="info-box yellow">
-                <h3>⚠️ Le regole etiche della visita domiciliare</h3>
-                <p>Durante una visita a casa l'operatore chiede il permesso prima di entrare e di osservare, rispetta
-                la riservatezza e l'intimità della persona, non giudica le condizioni della casa, mantiene un
-                comportamento professionale e discreto e non racconta a nessuno ciò che ha visto, se non a chi deve
-                saperlo per aiutare.</p>
+            <div class="riquadro scenario t-rosa">
+                <p class="etichetta">Scenario 2</p>
+                <h3>Yara, 16 anni: difficoltà a scuola e in famiglia</h3>
+                <p>Yara, 16 anni, frequenta un corso di formazione professionale (CFP, centro di formazione professionale). Da qualche mese ha perso motivazione, fa molte assenze e litiga spesso in famiglia.</p>
+                <p>Ha un PEI, cioè un Piano educativo individualizzato pensato per lei dalla scuola insieme alla famiglia e ai servizi, ma non riesce a seguirlo. I genitori non sanno come aiutarla.</p>
+                <details class="approfondimento">
+                    <summary>Apri l'analisi</summary>
+                    <div class="analisi">
+                        <div class="t-lime"><h4>I bisogni, secondo Maslow</h4><ul>
+                            <li><strong>Bisogni di appartenenza:</strong> sentirsi parte del gruppo classe, avere relazioni positive con i coetanei.</li>
+                            <li><strong>Bisogni di stima:</strong> riuscire a scuola, vedere riconosciute le proprie capacità.</li>
+                            <li><strong>Realizzazione di sé:</strong> avere un progetto per il futuro e una motivazione propria.</li>
+                        </ul></div>
+                        <div class="t-verde"><h4>I servizi da attivare</h4><ul>
+                            <li><strong>Assistenza sociale:</strong> un educatore professionale, un tutor a scuola, la mediazione familiare per ridurre i conflitti.</li>
+                            <li><strong>Sanità:</strong> sostegno psicologico nel consultorio o nei servizi del territorio; se serve, la neuropsichiatria infantile della ASL.</li>
+                            <li><strong>Scuola:</strong> un incontro fra docenti, famiglia e servizi per rivedere il PEI insieme a Yara.</li>
+                        </ul></div>
+                    </div>
+                </details>
             </div>
+        </section>
 
-        </div>
-
-        <!-- ==================== -->
-        <!-- SEZIONE 9: SCENARI -->
-        <!-- ==================== -->
-        <div class="section" id="scenari">
-            <h2 class="section-title">🎭 Scenari pratici</h2>
-
-            <div class="info-box blue">
-                <h3>📖 Imparare dai casi</h3>
-                <p>Questi due scenari sono inventati ma verosimili: sono situazioni che un operatore sociale può
-                incontrare. Per ciascuno trovi i bisogni, i servizi da attivare e la rete da coinvolgere. Prova prima a
-                pensarci da solo, poi confronta con l'analisi.</p>
-            </div>
-
-            <div class="scenario-box">
-                <h4>Scenario 1 – Maria, 78 anni: il ritorno a casa dopo una frattura</h4>
-                <div class="scenario-content">
-                    <p><strong>🔍 Situazione:</strong></p>
-                    <p>Maria, 78 anni, vive sola e torna a casa dopo essersi rotta il femore. Le fa male muoversi,
-                    cammina con il deambulatore e ha paura di cadere di nuovo. La figlia vive in un'altra città e può
-                    venire solo nel fine settimana.</p>
-                </div>
-                <div class="scenario-analysis">
-                    <h5>📊 I bisogni, secondo la piramide di Maslow</h5>
-                    <ul style="margin-left: 1rem;">
-                        <li><strong>Bisogni fisiologici:</strong> muoversi in casa, tenere sotto controllo il dolore, lavarsi, mangiare regolarmente.</li>
-                        <li><strong>Bisogni di sicurezza:</strong> non cadere di nuovo, avere una casa sicura, sapere che qualcuno interviene in caso di bisogno.</li>
-                        <li><strong>Bisogni di appartenenza:</strong> non restare isolata, mantenere i contatti con le persone.</li>
-                    </ul>
-                </div>
-                <div class="scenario-analysis" style="background: #e8f5e9;">
-                    <h5>🏥 I servizi da attivare</h5>
-                    <ul style="margin-left: 1rem;">
-                        <li><strong>Sanità:</strong> fisioterapia a casa o in un centro vicino; controllo del dolore con il medico di famiglia.</li>
-                        <li><strong>Sanità e sociale insieme:</strong> l'ADI, Assistenza domiciliare integrata, che porta a casa sia prestazioni sanitarie sia aiuto nelle attività quotidiane.</li>
-                        <li><strong>Assistenza sociale:</strong> pasti a domicilio, telesoccorso (un dispositivo per chiamare aiuto) e, se le condizioni lo richiedono, la domanda di invalidità civile e di indennità di accompagnamento.</li>
-                    </ul>
-                </div>
-                <div class="scenario-analysis" style="background: #fff3e0;">
-                    <h5>🌐 La rete</h5>
-                    <ul style="margin-left: 1rem;">
-                        <li><strong>Rete formale:</strong> medico di famiglia, fisioterapista, OSS (operatore socio-sanitario) per l'igiene personale, servizio sociale del Comune.</li>
-                        <li><strong>Rete informale:</strong> la figlia, che coordina nel fine settimana; una vicina che passa ogni giorno; volontari per la compagnia.</li>
-                        <li><strong>Strumenti:</strong> una visita domiciliare per valutare la casa, colloqui con Maria e con la figlia, il confronto in équipe.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="scenario-box">
-                <h4>Scenario 2 – Yara, 16 anni: difficoltà a scuola e in famiglia</h4>
-                <div class="scenario-content">
-                    <p><strong>🔍 Situazione:</strong></p>
-                    <p>Yara, 16 anni, frequenta un corso di formazione professionale (CFP, centro di formazione
-                    professionale). Da qualche mese ha perso motivazione, fa molte assenze e litiga spesso in famiglia.
-                    Ha un PEI, cioè un Piano educativo individualizzato pensato per lei dalla scuola insieme alla
-                    famiglia e ai servizi, ma non riesce a seguirlo. I genitori non sanno come aiutarla.</p>
-                </div>
-                <div class="scenario-analysis">
-                    <h5>📊 I bisogni, secondo la piramide di Maslow</h5>
-                    <ul style="margin-left: 1rem;">
-                        <li><strong>Bisogni di appartenenza:</strong> sentirsi parte del gruppo classe, avere relazioni positive con i coetanei.</li>
-                        <li><strong>Bisogni di stima:</strong> riuscire a scuola, vedere riconosciute le proprie capacità.</li>
-                        <li><strong>Realizzazione di sé:</strong> avere un progetto per il futuro e una motivazione propria.</li>
-                    </ul>
-                </div>
-                <div class="scenario-analysis" style="background: #e8f5e9;">
-                    <h5>🏥 I servizi da attivare</h5>
-                    <ul style="margin-left: 1rem;">
-                        <li><strong>Assistenza sociale:</strong> un educatore professionale, un tutor a scuola, la mediazione familiare per ridurre i conflitti.</li>
-                        <li><strong>Sanità:</strong> sostegno psicologico nel consultorio o nei servizi del territorio; se serve, la neuropsichiatria infantile della ASL.</li>
-                        <li><strong>Scuola:</strong> un incontro fra docenti, famiglia e servizi per rivedere il PEI insieme a Yara.</li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- ==================== -->
-        <!-- SEZIONE 10: LEGGI FONDAMENTALI -->
-        <!-- ==================== -->
-        <div class="section" id="leggi">
-            <h2 class="section-title">⚖️ Le leggi fondamentali del welfare italiano</h2>
-
-            <div class="info-box blue">
-                <h3>📜 Perché studiare le leggi</h3>
-                <p>I diritti delle persone e i doveri dei servizi sono scritti nelle leggi. Conoscerne le principali
-                aiuta l'operatore a spiegare alle persone a che cosa hanno diritto e a quale servizio rivolgersi.</p>
-            </div>
-
-            <h3 class="sub-title">🏥 Legge 833 del 1978: il Servizio sanitario nazionale</h3>
-            <div class="info-box green">
-                <p>Ha istituito il <strong>Servizio sanitario nazionale (SSN)</strong>. Garantisce l'assistenza
-                sanitaria a tutti, indipendentemente dal reddito, ed è pagato con le tasse (la <em>fiscalità
-                generale</em>). È un servizio <strong>universale</strong>, ma non del tutto gratuito: per alcune
-                prestazioni, come esami e visite specialistiche, si paga il ticket, da cui sono esentate molte
-                persone, per esempio per reddito o per malattie croniche.</p>
-            </div>
-
-            <h3 class="sub-title">🤝 Legge 328 del 2000: il sistema integrato di interventi e servizi sociali</h3>
-            <div class="info-box green">
-                <p>È la legge quadro dei servizi sociali. Organizza un <strong>sistema integrato</strong>, in cui
-                Stato, Regioni, Comuni e Terzo settore (associazioni, cooperative sociali, volontariato) collaborano
-                per programmare e offrire i servizi. Stabilisce che la programmazione avvenga sul territorio con il
-                <em>Piano di zona</em>.</p>
-            </div>
-
-            <h3 class="sub-title">♿ Legge 104 del 1992: i diritti delle persone con disabilità</h3>
-            <div class="info-box green">
-                <p>È la legge quadro per l'assistenza, l'integrazione sociale e i diritti delle persone con disabilità.
-                Prevede, per esempio, l'inclusione scolastica con l'insegnante di sostegno e i permessi di lavoro per i
-                familiari che assistono una persona con disabilità grave. Nel 2024 il D.Lgs. 62/2024 l'ha aggiornata:
-                oggi si parla di <strong>persona con disabilità</strong> (non più di «handicappato» o «disabile») e di
-                <strong>progetto di vita</strong> personalizzato.</p>
-            </div>
-
-            <h3 class="sub-title">💼 Legge 68 del 1999: il diritto al lavoro delle persone con disabilità</h3>
-            <div class="info-box green">
-                <p>Favorisce l'inserimento lavorativo delle persone con disabilità con il <strong>collocamento
-                mirato</strong>: le aziende sopra una certa dimensione devono riservare dei posti di lavoro e i servizi
-                aiutano a trovare il lavoro adatto alle capacità della persona.</p>
-            </div>
-
-            <h3 class="sub-title">🧠 Legge 180 del 1978: la «legge Basaglia»</h3>
-            <div class="info-box green">
-                <p>Prende il nome dallo psichiatra Franco Basaglia. Ha chiuso i manicomi e ha spostato la cura delle
-                persone con disturbi mentali nei servizi del territorio, rispettando i loro diritti civili. Pochi mesi
-                dopo è stata assorbita nella legge 833 sul Servizio sanitario nazionale.</p>
-            </div>
-
-            <h3 class="sub-title">📋 Altre norme importanti</h3>
-            <table class="data-table">
-                <thead><tr><th style="width: 32%;">Norma</th><th>Che cosa prevede</th></tr></thead>
-                <tbody>
-                    <tr><td><strong>Legge regionale 23 del 2005 (Sardegna)</strong></td><td>Organizza in Sardegna il sistema integrato dei servizi alla persona, cioè il modo in cui la Regione e i Comuni gestiscono i servizi sociali.</td></tr>
-                    <tr><td><strong>D.Lgs. 22 del 2015</strong></td><td>Ha introdotto la NASpI, l'indennità mensile per chi perde il lavoro, e rafforzato i servizi che aiutano a trovarne uno nuovo.</td></tr>
-                    <tr><td><strong>Le misure contro la povertà</strong></td><td>In pochi anni si sono succedute tre misure: il Reddito di inclusione (REI, D.Lgs. 147 del 2017), il Reddito di cittadinanza (dal 2019 al 2023) e oggi l'Assegno di inclusione (D.L. 48 del 2023, in vigore dal 2024), che unisce un aiuto economico a un percorso di inclusione sociale e lavorativa.</td></tr>
-                    <tr><td><strong>D.Lgs. 230 del 2021</strong></td><td>Ha creato l'Assegno unico universale per i figli, che dal 2022 ha preso il posto degli assegni familiari e dei bonus per i nuovi nati.</td></tr>
-                </tbody>
-            </table>
-            <p class="small" style="margin-top: 0.8rem; color: #555;">Le misure economiche cambiano spesso: prima di dare un'informazione a una persona, l'operatore controlla sempre sul sito dell'INPS o del Comune.</p>
-
-        </div>
-
-        <!-- ==================== -->
-        <!-- SEZIONE 11: ENTI DEL WELFARE -->
-        <!-- ==================== -->
-        <div class="section" id="enti">
-            <h2 class="section-title">🏢 Gli enti del welfare</h2>
-
-            <div class="info-box blue">
-                <h3>🎯 Chi fa che cosa</h3>
-                <p>Il welfare è gestito da enti diversi, ciascuno con i suoi compiti. Sapere chi fa che cosa è
-                indispensabile per indirizzare le persone nel posto giusto al primo tentativo.</p>
-            </div>
-
-            <div class="characteristics-grid">
-                <div class="characteristic-card">
-                    <h4>💼 INPS</h4>
-                    <p><strong>Istituto nazionale della previdenza sociale.</strong> Paga le pensioni, l'indennità di
-                    disoccupazione e altre prestazioni economiche: l'invalidità civile e l'indennità di
-                    accompagnamento, l'Assegno unico per i figli, l'Assegno di inclusione.</p>
-                </div>
-                <div class="characteristic-card">
-                    <h4>🏛️ Comuni</h4>
-                    <p>Sono responsabili dei <strong>servizi sociali</strong> del territorio: segretariato sociale,
-                    assistenza domiciliare, asili nido, centri diurni, contributi economici. Spesso li gestiscono
-                    insieme ai Comuni vicini: in Sardegna questo coordinamento si chiama <em>PLUS</em>, Piano locale
-                    unitario dei servizi.</p>
-                </div>
-                <div class="characteristic-card">
-                    <h4>🏥 ASL</h4>
-                    <p><strong>Aziende sanitarie locali.</strong> Gestiscono i servizi sanitari pubblici del territorio:
-                    medici di famiglia, ospedali, consultori, servizi specialistici, servizi per la salute mentale e
-                    per le dipendenze.</p>
-                </div>
-            </div>
-
-            <div class="info-box green">
-                <h3>🔗 Gli enti collaborano</h3>
-                <p>Per dare una risposta completa gli enti devono lavorare insieme: l'INPS garantisce le risorse
-                economiche, l'ASL i servizi sanitari e sociosanitari, i Comuni i servizi sociali. Sopra di loro la
-                <strong>Regione</strong> programma e finanzia sanità e servizi sociali. L'operatore sociale aiuta la
-                persona a muoversi fra questi enti, senza perdersi.</p>
-            </div>
-
-        </div>
-
-        <!-- ==================== -->
-        <!-- SEZIONE 12: MODELLI DI WELFARE -->
-        <!-- ==================== -->
-        <div class="section" id="modelli">
-            <h2 class="section-title">🌍 I modelli di welfare</h2>
-
-            <div class="info-box blue">
-                <h3>🔍 Due domande per capire un modello</h3>
-                <p>Ogni Paese organizza il welfare a modo suo. Per confrontare i sistemi ci si fa due domande:
-                <strong>chi ha diritto</strong> ai servizi, tutti o solo alcuni? E <strong>chi li garantisce</strong>,
-                soprattutto lo Stato, il lavoro, il mercato o la famiglia?</p>
-            </div>
-
-            <h3 class="sub-title">Universalità e selettività</h3>
-            <div class="characteristics-grid">
-                <div class="characteristic-card">
-                    <h4>🌐 Universalità</h4>
-                    <p>Un servizio è <strong>universale</strong> quando spetta a tutti i cittadini, senza guardare il
-                    reddito. Un esempio italiano è il Servizio sanitario nazionale.</p>
-                    <p><strong>Vantaggi:</strong> nessuno si sente etichettato, i cittadini si sentono uguali, cresce la
-                    coesione sociale. <strong>Svantaggi:</strong> costa di più e aiuta anche chi potrebbe farcela da solo.</p>
-                </div>
-                <div class="characteristic-card">
-                    <h4>🎯 Selettività</h4>
-                    <p>Un servizio è <strong>selettivo</strong> quando spetta solo a chi ha certi requisiti, di solito un
-                    reddito basso misurato con l'ISEE. Un esempio italiano è l'Assegno di inclusione.</p>
-                    <p><strong>Vantaggi:</strong> costa meno e concentra le risorse su chi ne ha più bisogno.
-                    <strong>Svantaggi:</strong> richiede molte pratiche e può creare <em>stigma</em>.</p>
-                </div>
-            </div>
-
-            <div class="info-box yellow">
-                <h3>⚠️ Che cos'è lo stigma</h3>
-                <p>Lo <strong>stigma</strong> è un'etichetta negativa. Nei servizi selettivi chi riceve un aiuto può
-                essere visto come «di serie B», o addirittura come colpevole della propria situazione, e può
-                vergognarsi di chiedere ciò che gli spetta. Per questo molte persone che avrebbero diritto a un aiuto
-                non lo chiedono. L'operatore deve saperlo, e presentare i servizi come <strong>diritti</strong> e non
-                come favori.</p>
-            </div>
-
-            <h3 class="sub-title">I quattro modelli europei</h3>
-            <p>Il sociologo danese Gøsta Esping-Andersen, nel 1990, ha distinto tre modelli di welfare; il politologo
-            italiano Maurizio Ferrera, nel 1996, ne ha aggiunto un quarto per i Paesi del Sud Europa.</p>
-            <table class="data-table">
-                <thead><tr><th style="width: 22%;">Modello</th><th style="width: 22%;">Paesi</th><th>Come funziona</th></tr></thead>
-                <tbody>
-                    <tr><td><strong>🌟 Socialdemocratico</strong></td><td>Svezia, Norvegia, Danimarca, Finlandia</td><td>I servizi sono <strong>universali</strong> e di buona qualità, pagati con tasse alte. Le disuguaglianze sono basse, ma la spesa pubblica è molto alta.</td></tr>
-                    <tr><td><strong>💼 Corporativo</strong> (o conservatore)</td><td>Germania, Francia, Austria, Belgio</td><td>Le protezioni sono legate al <strong>lavoro</strong> e ai contributi versati, spesso diverse da categoria a categoria. La famiglia ha un ruolo importante. Chi non ha lavorato è meno protetto.</td></tr>
-                    <tr><td><strong>💰 Liberale</strong></td><td>Regno Unito, Stati Uniti, Canada, Australia</td><td>Lo Stato interviene soprattutto per i più poveri, con aiuti <strong>selettivi</strong>; il resto si compra sul mercato, per esempio le assicurazioni sanitarie. Costa poco allo Stato, ma lascia grandi disuguaglianze.</td></tr>
-                    <tr><td><strong>🏖️ Mediterraneo</strong></td><td>Italia, Spagna, Grecia, Portogallo</td><td>È un <strong>misto</strong>: sanità universale, pensioni legate al lavoro, aiuti contro la povertà selettivi e arrivati tardi. La famiglia, e soprattutto le donne, reggono gran parte del lavoro di cura.</td></tr>
-                </tbody>
-            </table>
-            <div class="info-box green">
-                <h3>🎓 In conclusione</h3>
-                <p>Nessun modello è perfetto, e nella realtà i Paesi mescolano elementi diversi. L'Italia, per esempio,
-                ha una sanità universale come i Paesi del Nord, pensioni legate al lavoro come la Germania e un forte
-                peso della famiglia, tipico del Sud Europa.</p>
-            </div>
-
-        </div>
-
-        <!-- ==================== -->
-        <!-- SEZIONE 13: DIAMANTE DEL WELFARE -->
-        <!-- ==================== -->
-        <div class="section" id="diamante">
-            <h2 class="section-title">💎 Il diamante del welfare e il welfare mix</h2>
-
-            <div class="info-box blue">
-                <h3>🔷 Quattro attori, non uno solo</h3>
-                <p>Il politologo <strong>Maurizio Ferrera</strong> ha proposto di rappresentare il welfare con un
-                <strong>diamante</strong> a quattro vertici: <strong>Stato, famiglia, mercato e Terzo settore</strong>.
-                Il benessere delle persone dipende da tutti e quattro. Quando la responsabilità è divisa fra più
-                attori si parla di <strong>welfare mix</strong>, cioè welfare «misto».</p>
-            </div>
-
-            <div class="characteristics-grid">
-                <div class="characteristic-card">
-                    <h4>🏛️ Stato</h4>
-                    <p><strong>Che cosa fa:</strong> decide le politiche sociali e garantisce i servizi essenziali, come la
-                    sanità, la scuola, le pensioni, la NASpI, l'Assegno unico.</p>
-                    <p><strong>Limiti:</strong> costi alti e rischio di burocrazia.</p>
-                </div>
-                <div class="characteristic-card">
-                    <h4>👨‍👩‍👧 Famiglia</h4>
-                    <p><strong>Che cosa fa:</strong> è la prima rete di aiuto, soprattutto nei Paesi mediterranei: i nonni
-                    che tengono i nipoti, i figli che assistono i genitori anziani, gli aiuti economici fra generazioni.</p>
-                    <p><strong>Limiti:</strong> il carico della cura ricade soprattutto sulle donne.</p>
-                </div>
-                <div class="characteristic-card">
-                    <h4>🤝 Terzo settore</h4>
-                    <p><strong>Che cosa fa:</strong> associazioni, cooperative sociali e volontariato offrono servizi senza
-                    scopo di lucro: la Caritas con mense e dormitori, la Croce Rossa, le cooperative che gestiscono centri
-                    per persone con disabilità, i doposcuola gratuiti.</p>
-                    <p><strong>Limiti:</strong> risorse limitate e presenza diversa da un territorio all'altro.</p>
-                </div>
-                <div class="characteristic-card">
-                    <h4>💼 Mercato</h4>
-                    <p><strong>Che cosa fa:</strong> crea lavoro e reddito, paga le tasse, offre servizi a pagamento. Molte
-                    aziende offrono ai dipendenti servizi di <em>welfare aziendale</em>: asili, buoni pasto, polizze
-                    sanitarie, fondi pensione.</p>
-                    <p><strong>Limiti:</strong> chi ha più soldi ottiene servizi migliori, e le disuguaglianze crescono.</p>
-                </div>
-            </div>
-
-            <div class="info-box green">
-                <h3>⚖️ Il welfare mix: trovare l'equilibrio</h3>
-                <p>Il benessere collettivo dipende dall'equilibrio fra i quattro attori. Se pesa troppo lo Stato, i costi
-                possono diventare insostenibili; se pesa troppo il mercato, crescono le disuguaglianze; se pesa troppo la
-                famiglia, il lavoro di cura grava sulle donne; se il Terzo settore è debole, la comunità è meno unita.
-                Un welfare giusto ha bisogno che tutti e quattro facciano la loro parte.</p>
-            </div>
-            <div class="info-box yellow"><h3>🗣️ In parole semplici</h3><p>Al benessere delle persone lavorano in quattro: lo Stato, la famiglia, il mercato e il Terzo settore. Nessuno ce la fa da solo, e l'operatore sociale deve saperli coinvolgere tutti.</p></div>
-
-        </div>
+        <footer class="piede">
+            <p>Metodologie Operative · Il welfare e i servizi sociosanitari</p>
+            <a href="#contenuto">Torna all'inizio</a>
+        </footer>
     </div>
+</main>
 
-    <!-- SCROLL TO TOP -->
-    <button class="scroll-to-top" id="scroll-to-top" onclick="scrollToTop()">⬆️</button>
+<script>
+    // ========== DATI SERVIZI ==========
+    const servicesData = [
+        { title: "Ospedali pubblici", description: "Cure specialistiche e ricoveri", pillar: "Sanità", need: "Risponde ai bisogni fisiologici (salute fisica) e di sicurezza (protezione dalla malattia)" },
+        { title: "Medico di famiglia", description: "Cure di base e prevenzione", pillar: "Sanità", need: "Risponde ai bisogni fisiologici (salute) e di sicurezza (monitoraggio continuo)" },
+        { title: "Vaccinazioni e screening", description: "Prevenzione e diagnosi precoce", pillar: "Sanità", need: "Risponde ai bisogni di sicurezza (prevenzione malattie)" },
+        { title: "Centri di riabilitazione", description: "Recupero fisico e funzionale", pillar: "Sanità", need: "Risponde ai bisogni fisiologici (recupero fisico) e di stima (recupero autonomia)" },
+        { title: "Servizi di salute mentale", description: "Supporto psicologico e psichiatrico", pillar: "Sanità", need: "Risponde ai bisogni di sicurezza (equilibrio psicologico) e di stima (benessere emotivo)" },
+        { title: "Assistenza domiciliare", description: "Aiuto a casa per anziani e persone fragili", pillar: "Assistenza sociale", need: "Risponde ai bisogni fisiologici (cura quotidiana) e di appartenenza (non isolamento)" },
+        { title: "Pensione di vecchiaia", description: "Reddito per chi non lavora più", pillar: "Previdenza", need: "Risponde ai bisogni fisiologici (sostentamento) e di sicurezza (stabilità economica)" },
+        { title: "Indennità di disoccupazione (NASpI)", description: "Sostegno mensile a chi perde il lavoro", pillar: "Previdenza", need: "Risponde ai bisogni di sicurezza (protezione economica temporanea)" },
+        { title: "Assegno unico universale per i figli", description: "Aiuto economico alle famiglie con figli (dal 2022, al posto di assegni familiari e bonus bebè)", pillar: "Assistenza sociale", need: "Risponde ai bisogni fisiologici (cura figli) e di appartenenza (sostegno famiglia)" },
+        { title: "Invalidità civile e indennità di accompagnamento", description: "Sostegno economico per chi ha una disabilità o non è autosufficiente (lo paga l'INPS)", pillar: "Assistenza sociale", need: "Risponde ai bisogni fisiologici (cure necessarie) e di sicurezza (copertura spese)" },
+        { title: "Asili nido", description: "Cura ed educazione per l'infanzia", pillar: "Assistenza sociale", need: "Risponde ai bisogni di appartenenza (socializzazione) e conoscenza (educazione precoce)" },
+        { title: "Centri per persone con disabilità", description: "Inclusione e riabilitazione", pillar: "Assistenza sociale", need: "Risponde ai bisogni di appartenenza (inclusione sociale) e stima (riconoscimento abilità)" },
+        { title: "Servizi per senza fissa dimora", description: "Accoglienza e pasti", pillar: "Assistenza sociale", need: "Risponde ai bisogni fisiologici (cibo, riparo) e di sicurezza (protezione)" },
+        { title: "Corsi di formazione professionale", description: "Riqualificazione e reinserimento", pillar: "Assistenza sociale", need: "Risponde ai bisogni di conoscenza (apprendimento) e auto-realizzazione (crescita)" },
+        { title: "Assegno di inclusione", description: "Aiuto economico e percorso di inclusione per le famiglie povere (dal 2024, al posto del reddito di cittadinanza)", pillar: "Assistenza sociale", need: "Risponde ai bisogni fisiologici (sostentamento di base) e di sicurezza (dignità)" },
+        { title: "Corsi di lingua per immigrati", description: "Inclusione socio-lavorativa", pillar: "Assistenza sociale", need: "Risponde ai bisogni di appartenenza (integrazione) e conoscenza (lingua)" },
+        { title: "Servizi per le dipendenze (SerD)", description: "Prevenzione, cura e riabilitazione", pillar: "Sanità", need: "Risponde ai bisogni di sicurezza (salute) e auto-realizzazione (recupero vita)" },
+        { title: "Centri diurni territoriali", description: "Supporto e socializzazione", pillar: "Assistenza sociale", need: "Risponde ai bisogni di appartenenza (comunità) e stima (partecipazione)" }
+    ];
+    // Ogni pilastro ha il colore usato nel confronto dei tre pilastri
+    const tintaPilastro = { "Sanità": "t-acqua", "Previdenza": "t-verde", "Assistenza sociale": "t-rosa" };
 
-    <script>
-        // ========== DATI SERVIZI ==========
-        const servicesData = [
-            { title: "Ospedali pubblici", description: "Cure specialistiche e ricoveri", pillar: "🏥 Sanità", need: "Risponde ai bisogni fisiologici (salute fisica) e di sicurezza (protezione dalla malattia)" },
-            { title: "Medico di famiglia", description: "Cure di base e prevenzione", pillar: "🏥 Sanità", need: "Risponde ai bisogni fisiologici (salute) e di sicurezza (monitoraggio continuo)" },
-            { title: "Vaccinazioni e screening", description: "Prevenzione e diagnosi precoce", pillar: "🏥 Sanità", need: "Risponde ai bisogni di sicurezza (prevenzione malattie)" },
-            { title: "Centri di riabilitazione", description: "Recupero fisico e funzionale", pillar: "🏥 Sanità", need: "Risponde ai bisogni fisiologici (recupero fisico) e di stima (recupero autonomia)" },
-            { title: "Servizi di salute mentale", description: "Supporto psicologico e psichiatrico", pillar: "🏥 Sanità", need: "Risponde ai bisogni di sicurezza (equilibrio psicologico) e di stima (benessere emotivo)" },
-            { title: "Assistenza domiciliare", description: "Aiuto a casa per anziani e persone fragili", pillar: "🤝 Assistenza sociale", need: "Risponde ai bisogni fisiologici (cura quotidiana) e di appartenenza (non isolamento)" },
-            { title: "Pensione di vecchiaia", description: "Reddito per chi non lavora più", pillar: "💰 Previdenza", need: "Risponde ai bisogni fisiologici (sostentamento) e di sicurezza (stabilità economica)" },
-            { title: "Indennità di disoccupazione (NASpI)", description: "Sostegno mensile a chi perde il lavoro", pillar: "💰 Previdenza", need: "Risponde ai bisogni di sicurezza (protezione economica temporanea)" },
-            { title: "Assegno unico universale per i figli", description: "Aiuto economico alle famiglie con figli (dal 2022, al posto di assegni familiari e bonus bebè)", pillar: "🤝 Assistenza sociale", need: "Risponde ai bisogni fisiologici (cura figli) e di appartenenza (sostegno famiglia)" },
-            { title: "Invalidità civile e indennità di accompagnamento", description: "Sostegno economico per chi ha una disabilità o non è autosufficiente (lo paga l'INPS)", pillar: "🤝 Assistenza sociale", need: "Risponde ai bisogni fisiologici (cure necessarie) e di sicurezza (copertura spese)" },
-            { title: "Asili nido", description: "Cura ed educazione per l'infanzia", pillar: "🤝 Assistenza sociale", need: "Risponde ai bisogni di appartenenza (socializzazione) e conoscenza (educazione precoce)" },
-            { title: "Centri per persone con disabilità", description: "Inclusione e riabilitazione", pillar: "🤝 Assistenza sociale", need: "Risponde ai bisogni di appartenenza (inclusione sociale) e stima (riconoscimento abilità)" },
-            { title: "Servizi per senza fissa dimora", description: "Accoglienza e pasti", pillar: "🤝 Assistenza sociale", need: "Risponde ai bisogni fisiologici (cibo, riparo) e di sicurezza (protezione)" },
-            { title: "Corsi di formazione professionale", description: "Riqualificazione e reinserimento", pillar: "🤝 Assistenza sociale", need: "Risponde ai bisogni di conoscenza (apprendimento) e auto-realizzazione (crescita)" },
-            { title: "Assegno di inclusione", description: "Aiuto economico e percorso di inclusione per le famiglie povere (dal 2024, al posto del reddito di cittadinanza)", pillar: "🤝 Assistenza sociale", need: "Risponde ai bisogni fisiologici (sostentamento di base) e di sicurezza (dignità)" },
-            { title: "Corsi di lingua per immigrati", description: "Inclusione socio-lavorativa", pillar: "🤝 Assistenza sociale", need: "Risponde ai bisogni di appartenenza (integrazione) e conoscenza (lingua)" },
-            { title: "Servizi per le dipendenze (SerD)", description: "Prevenzione, cura e riabilitazione", pillar: "🏥 Sanità", need: "Risponde ai bisogni di sicurezza (salute) e auto-realizzazione (recupero vita)" },
-            { title: "Centri diurni territoriali", description: "Supporto e socializzazione", pillar: "🤝 Assistenza sociale", need: "Risponde ai bisogni di appartenenza (comunità) e stima (partecipazione)" }
-        ];
+    let currentCardIndex = 0;
 
-        let currentCardIndex = 0;
-
-        // ========== NAVIGAZIONE ==========
-        function showSection(sectionId) {
-            document.querySelectorAll('.section').forEach(section => {
-                section.classList.remove('active');
-            });
-            document.getElementById(sectionId).classList.add('active');
-
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // ========== CARTE SERVIZI ==========
-        function generateCards() {
-            const gridContainer = document.getElementById('cards-grid');
-            servicesData.forEach((service, index) => {
-                const card = createCardElement(service, index);
-                gridContainer.appendChild(card);
-            });
-            updateSliderCard();
-        }
-
-        function createCardElement(service, index) {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
-                <div class="card-title">${index + 1}. ${service.title}</div>
-                <div class="card-description">${service.description}</div>
-                <div class="card-pillar">${service.pillar}</div>
-                <div class="card-need">
-                    <strong>🔗 Collegamento con i bisogni:</strong>
-                    <p style="margin: 0.5rem 0 0; color: #555; font-size: 0.95rem;">${service.need}</p>
-                </div>
-            `;
-            return card;
-        }
-
-        function toggleView(view) {
-            const grid = document.getElementById('cards-grid');
-            const slider = document.getElementById('cards-slider');
-            const buttons = document.querySelectorAll('.view-btn');
-            
-            buttons.forEach(btn => btn.classList.remove('active'));
-            
-            if (view === 'grid') {
-                grid.style.display = 'grid';
-                slider.classList.remove('active');
-                buttons[0].classList.add('active');
-            } else {
-                grid.style.display = 'none';
-                slider.classList.add('active');
-                buttons[1].classList.add('active');
-            }
-        }
-
-        function updateSliderCard() {
-            const container = document.getElementById('current-card');
-            const service = servicesData[currentCardIndex];
-            container.innerHTML = '';
-            container.appendChild(createCardElement(service, currentCardIndex));
-            
-            document.getElementById('card-counter').textContent = currentCardIndex + 1;
-            document.getElementById('prev-btn').disabled = currentCardIndex === 0;
-            document.getElementById('next-btn').disabled = currentCardIndex === servicesData.length - 1;
-        }
-
-        function changeCard(direction) {
-            currentCardIndex += direction;
-            if (currentCardIndex < 0) currentCardIndex = 0;
-            if (currentCardIndex >= servicesData.length) currentCardIndex = servicesData.length - 1;
-            updateSliderCard();
-        }
-
-        // ========== SCROLL TO TOP ==========
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // ========== HEADER HIDE ON SCROLL ==========
-        let lastScrollTop = 0;
-        const header = document.querySelector('.header');
-        const scrollThreshold = 100; // Pixel minimi prima di nascondere l'header
-
-        window.addEventListener('scroll', () => {
-            const scrollBtn = document.getElementById('scroll-to-top');
-            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-            
-            // Gestione pulsante scroll to top
-            if (currentScroll > 300) {
-                scrollBtn.classList.add('show');
-            } else {
-                scrollBtn.classList.remove('show');
-            }
-
-            // Gestione header hide/show
-            if (currentScroll > scrollThreshold) {
-                if (currentScroll > lastScrollTop) {
-                    // Scroll verso il basso - nascondi header
-                    header.classList.add('hidden');
-                } else {
-                    // Scroll verso l'alto - mostra header
-                    header.classList.remove('hidden');
-                }
-            } else {
-                // Quando si è in cima alla pagina, mostra sempre l'header
-                header.classList.remove('hidden');
-            }
-            
-            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    // ========== CARTE SERVIZI ==========
+    function generateCards() {
+        const gridContainer = document.getElementById('cards-grid');
+        servicesData.forEach((service, index) => {
+            gridContainer.appendChild(createCardElement(service, index));
         });
+        updateSliderCard();
+    }
 
-        // ========== INIZIALIZZAZIONE ==========
-        document.addEventListener('DOMContentLoaded', () => {
-            generateCards();
-        });
-    </script>
-    <script>
-        window.MO_PROGRESS_CONFIG = {
-            pagePath: window.location.pathname,
-            inputSelector: 'textarea, input:not([type="file"]), select, [contenteditable="true"]'
-        };
-    </script>
-    <script>
-        window.MO_IDENTITY_CONFIG = {
-            message: 'Inserisci la classe (es. 3sa) e il codice cognome+iniziale tutto minuscolo (es. rossi g → rossig).',
-            classPlaceholder: 'Classe (es. 3sa)',
-            classPattern: '^[1-5][a-z]{1,2}$',
-            classExample: '3sa',
-            classErrorMessage: 'Classe non valida: usa una cifra da 1 a 5 seguita da 1-2 lettere minuscole (es. 3sa).',
-            stripWhitespaceInClass: true,
-            storeClassLowercase: true,
-            storeClassUppercase: false,
-            codePlaceholder: 'Codice (es. rossig)',
-            codePattern: '^[a-zà-ü]{2,}[a-z]$',
-            codeExample: 'rossig',
-            codeErrorMessage: 'Codice non valido: usa cognome tutto minuscolo + iniziale del nome (es. rossi g → rossig).',
-            sanitizeCode: true,
-            stripWhitespaceInCode: true,
-            storeCodeLowercase: true,
-            storeCodeUppercase: false,
-            hideGenerator: true,
-            guestAllowed: true,
-            guestClassCode: 'ospite',
-            guestStudentCode: 'ospite'
-        };
-    </script>
+    function createCardElement(service, index) {
+        const card = document.createElement('div');
+        card.className = 'card ' + (tintaPilastro[service.pillar] || '');
+        card.innerHTML = `
+            <div class="card-title">${index + 1}. ${service.title}</div>
+            <div class="card-description">${service.description}</div>
+            <div class="card-pillar">${service.pillar}</div>
+            <div class="card-need">
+                <strong>Collegamento con i bisogni:</strong>
+                <p>${service.need}</p>
+            </div>
+        `;
+        return card;
+    }
 
-    <script type="module" src="../../assets/progress.js?v=20260926"></script>
-    <script type="module" src="../../assets/progress-global.js?v=20260926"></script>
+    function toggleView(view) {
+        const grid = document.getElementById('cards-grid');
+        const slider = document.getElementById('cards-slider');
+        const buttons = document.querySelectorAll('.view-btn');
+        const griglia = view === 'grid';
+        grid.style.display = griglia ? 'grid' : 'none';
+        slider.classList.toggle('active', !griglia);
+        buttons[0].setAttribute('aria-pressed', String(griglia));
+        buttons[1].setAttribute('aria-pressed', String(!griglia));
+    }
+
+    function updateSliderCard() {
+        const container = document.getElementById('current-card');
+        container.innerHTML = '';
+        container.appendChild(createCardElement(servicesData[currentCardIndex], currentCardIndex));
+        document.getElementById('card-counter').textContent = currentCardIndex + 1;
+        document.getElementById('prev-btn').disabled = currentCardIndex === 0;
+        document.getElementById('next-btn').disabled = currentCardIndex === servicesData.length - 1;
+    }
+
+    function changeCard(direction) {
+        currentCardIndex = Math.min(Math.max(currentCardIndex + direction, 0), servicesData.length - 1);
+        updateSliderCard();
+    }
+
+    document.addEventListener('DOMContentLoaded', generateCards);
+</script>
+<script>
+    window.MO_PROGRESS_CONFIG = {
+        pagePath: window.location.pathname,
+        inputSelector: 'textarea, input:not([type="file"]), select, [contenteditable="true"]'
+    };
+</script>
+<script>
+    window.MO_IDENTITY_CONFIG = {
+        message: 'Inserisci la classe (es. 3sa) e il codice cognome+iniziale tutto minuscolo (es. rossi g → rossig).',
+        classPlaceholder: 'Classe (es. 3sa)',
+        classPattern: '^[1-5][a-z]{1,2}$',
+        classExample: '3sa',
+        classErrorMessage: 'Classe non valida: usa una cifra da 1 a 5 seguita da 1-2 lettere minuscole (es. 3sa).',
+        stripWhitespaceInClass: true,
+        storeClassLowercase: true,
+        storeClassUppercase: false,
+        codePlaceholder: 'Codice (es. rossig)',
+        codePattern: '^[a-zà-ü]{2,}[a-z]$',
+        codeExample: 'rossig',
+        codeErrorMessage: 'Codice non valido: usa cognome tutto minuscolo + iniziale del nome (es. rossi g → rossig).',
+        sanitizeCode: true,
+        stripWhitespaceInCode: true,
+        storeCodeLowercase: true,
+        storeCodeUppercase: false,
+        hideGenerator: true,
+        guestAllowed: true,
+        guestClassCode: 'ospite',
+        guestStudentCode: 'ospite'
+    };
+</script>
+
+<script type="module" src="../../assets/progress.js?v=20260926"></script>
+<script type="module" src="../../assets/progress-global.js?v=20260926"></script>
 </body>
 </html>
