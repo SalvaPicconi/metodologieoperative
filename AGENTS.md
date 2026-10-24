@@ -69,7 +69,7 @@ Tre livelli, in quest'ordine, sia in home sia nel menu:
 2. **Metodi e laboratori** (tendina) — lezioni partecipate, laboratorio, peer tutoring, compresenza,
    attività di orientamento, educazione civica, intelligenza artificiale, glossario;
 3. **Docente** (tendina) — programmi SSAS, programmazione individuale, programmazione Carola,
-   area docente, anno di prova.
+   area docente. La pagina `anno-di-prova.html` resta nel sito ma fuori da menu e home (24 ottobre 2026).
 
 La home mostra **solo le voci da aprire**, negli stessi tre livelli e nello stesso ordine del menu:
 niente descrizioni lunghe, niente riquadri speciali. Una pagina nuova si aggiunge prima in `LIVELLI`.
