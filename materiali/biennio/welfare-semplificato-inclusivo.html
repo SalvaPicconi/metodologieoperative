@@ -5,413 +5,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Il welfare · Versione semplificata</title>
+    <link rel="stylesheet" href="../../assets/materiale.css?v=20261024">
+    <script src="../../assets/materiale.js?v=20261024" defer></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* Versione semplificata: stessi colori della completa, caratteri grandi, molto spazio */
+        body { font-size: 19px; line-height: 1.8; }
+        .container { width: min(860px, calc(100% - 32px)); margin: 0 auto; }
+        .header { margin: 30px 0 24px; padding: 26px 24px; text-align: center; background: var(--color-surface); border: 1px solid var(--color-line); border-top: 8px solid var(--rosa); }
+        .header h1 { margin: 6px 0 4px; }
+        .header p { margin: 0; font-size: 1.15rem; color: var(--color-ink-soft); }
+        .emoji-big { font-size: 2.6rem; line-height: 1.2; text-align: center; margin: 6px 0 12px; }
+        .header .arcobaleno { margin: 14px auto 0; }
 
-        body {
-            font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
-            background: linear-gradient(135deg, #FFE5E5 0%, #FFF8DC 50%, #E0F2F7 100%);
-            color: #333;
-            line-height: 1.8;
-            font-size: 20px;
-            padding: 1rem;
-        }
+        .student-info { margin: 18px 0; padding: 18px 20px; background: var(--color-surface); border: 1px solid var(--color-line); }
+        .student-info h3 { margin: 0 0 8px; font-size: 1.1rem; }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 30px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
+        .progress-bar { position: sticky; top: 0; z-index: 10; height: 28px; margin: 18px 0; background: var(--color-surface); border: 2px solid var(--color-primary); }
+        .progress-fill { height: 100%; min-width: 2.6em; background: var(--lime); color: var(--color-primary); font-weight: 700; font-size: .85rem; text-align: center; line-height: 24px; transition: width .4s; }
 
-        .header {
-            background: linear-gradient(135deg, #FF6B9D 0%, #FFA07A 100%);
-            padding: 2rem;
-            text-align: center;
-            border-radius: 20px;
-            margin-bottom: 2rem;
-            box-shadow: 0 5px 15px rgba(255,107,157,0.3);
-        }
+        .section { margin: 34px 0; padding: 26px 24px; background: var(--color-surface); border: 1px solid var(--color-line); border-top: 6px solid var(--tinta); }
+        .section:nth-of-type(4n+1) { --tinta: var(--lime);  --tinta-testo: var(--lime-testo);  --tinta-tenue: var(--lime-tenue); }
+        .section:nth-of-type(4n+2) { --tinta: var(--rosa);  --tinta-testo: var(--rosa-testo);  --tinta-tenue: var(--rosa-tenue); }
+        .section:nth-of-type(4n+3) { --tinta: var(--verde); --tinta-testo: var(--verde-testo); --tinta-tenue: var(--verde-tenue); }
+        .section:nth-of-type(4n)   { --tinta: var(--acqua); --tinta-testo: var(--acqua-testo); --tinta-tenue: var(--acqua-tenue); }
+        .section-title { font-family: var(--font-titoli); font-weight: 400; font-size: clamp(1.8rem, 4vw, 2.3rem); color: var(--color-primary); text-align: center; margin: 0 0 8px; }
 
-        .header h1 {
-            font-size: 2.5rem;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            margin-bottom: 0.5rem;
-        }
+        .card { margin: 16px 0; padding: 18px 20px; background: var(--tinta-tenue); }
+        .card-title { font-weight: 700; color: var(--color-primary); font-size: 1.12rem; margin-bottom: 8px; }
+        .card-content { font-size: 1.05rem; }
+        .card-content strong { color: var(--color-primary); }
 
-        .header p {
-            font-size: 1.3rem;
-            color: white;
-        }
+        .activity-box { margin: 20px 0; padding: 18px 20px; border: 3px dashed var(--tinta); background: #fff; }
+        .activity-title { font-weight: 700; font-size: 1.2rem; color: var(--tinta-testo); text-align: center; margin-bottom: 8px; }
+        .activity-box p[style] { font-size: 1.12rem !important; }
 
-        .section {
-            margin: 3rem 0;
-            padding: 2rem;
-            background: linear-gradient(135deg, #FFF9E6 0%, #FFFACD 100%);
-            border-radius: 20px;
-            border: 4px solid #FFD700;
-        }
+        .input-field { display: block; width: 100%; margin: 10px 0; padding: 14px 16px; font-size: 1.05rem; background: #fff; color: var(--color-ink); border: 2px solid #788796; border-radius: 6px; }
+        .input-field:focus { outline: 3px solid var(--tinta); outline-offset: 1px; border-color: var(--color-primary); }
+        textarea.input-field { min-height: 120px; resize: vertical; }
 
-        .section-title {
-            font-size: 2rem;
-            color: #FF1493;
-            text-align: center;
-            margin-bottom: 1.5rem;
-            padding: 1rem;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
+        .visual-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin: 16px 0; }
+        .visual-card { padding: 16px; text-align: center; background: #fff; border: 2px solid var(--color-line); border-radius: 8px; }
+        .visual-card-emoji { font-size: 2.6rem; line-height: 1.2; }
+        .visual-card-title { font-weight: 700; color: var(--color-primary); margin: 6px 0; }
+        .visual-card-title small { display: block; font-weight: 400; font-size: .85rem; color: var(--color-ink-soft); }
+        .visual-card-text { font-size: 1rem; }
+        .pilastri-semplici .visual-card:nth-child(1) { border-color: var(--acqua); }
+        .pilastri-semplici .visual-card:nth-child(2) { border-color: var(--verde); }
+        .pilastri-semplici .visual-card:nth-child(3) { border-color: var(--rosa); }
+        .attori-semplici .visual-card:nth-child(1) { border-color: var(--acqua); }
+        .attori-semplici .visual-card:nth-child(2) { border-color: var(--verde); }
+        .attori-semplici .visual-card:nth-child(3) { border-color: var(--rosa); }
+        .attori-semplici .visual-card:nth-child(4) { border-color: var(--lime); }
 
-        .emoji-big {
-            font-size: 4rem;
-            text-align: center;
-            margin: 1rem 0;
-        }
+        .example-box { margin: 18px 0; padding: 18px 20px; background: #fff; border-left: 6px solid var(--tinta); }
+        .example-title { font-weight: 700; color: var(--tinta-testo); margin-bottom: 6px; }
 
-        .card {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            margin: 1.5rem 0;
-            border: 3px solid #87CEEB;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
+        .matching-game { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 12px 0; }
+        .matching-game h3 { color: var(--color-primary) !important; font-size: 1.05rem; }
+        .matching-item { padding: 14px 10px; text-align: center; background: #fff; border: 3px solid var(--color-line); border-radius: 8px; cursor: pointer; font-size: 1rem; }
+        .matching-item:hover { border-color: var(--color-primary); }
+        .matching-item.selected { border-color: var(--rosa); background: var(--rosa-tenue); }
+        .matching-item.correct { border-color: var(--verde); background: var(--verde-tenue); }
+        .emoji-card { font-size: 2.3rem; line-height: 1.2; }
 
-        .card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        }
+        .feedback { margin: 12px 0; font-size: 1.1rem; text-align: center; font-weight: 600; }
+        .feedback:empty { display: none; }
+        .feedback.correct { padding: 12px; background: var(--verde-tenue); color: var(--verde-testo); }
+        .feedback.try-again { padding: 12px; background: var(--rosa-tenue); color: var(--rosa-testo); }
 
-        .card-title {
-            font-size: 1.8rem;
-            color: #FF6347;
-            margin-bottom: 1rem;
-            text-align: center;
-            font-weight: bold;
-        }
+        .checkbox-big { display: flex; align-items: center; gap: 14px; margin: 10px 0; padding: 12px 14px; background: #fff; border: 2px solid var(--color-line); border-radius: 6px; }
+        .checkbox-big input[type="checkbox"] { width: 28px; height: 28px; flex: 0 0 auto; accent-color: var(--verde); }
+        .checkbox-big label { margin: 0; font-weight: 400; font-size: 1.05rem; cursor: pointer; }
 
-        .card-content {
-            font-size: 1.3rem;
-            line-height: 2;
-            color: #333;
-        }
+        .star-rating { display: flex; justify-content: center; gap: 10px; font-size: 2.4rem; }
+        .star { cursor: pointer; filter: grayscale(1); opacity: .45; }
+        .star.selected, .star:hover { filter: none; opacity: 1; }
 
-        .activity-box {
-            background: linear-gradient(135deg, #E6F3FF 0%, #CCE5FF 100%);
-            border: 4px dashed #4169E1;
-            border-radius: 20px;
-            padding: 2rem;
-            margin: 2rem 0;
-        }
+        .celebration { display: none; margin: 24px 0; padding: 24px; text-align: center; font-size: 2.4rem; background: var(--lime-tenue); border: 3px solid var(--lime); }
+        .celebration.show { display: block; }
 
-        .activity-title {
-            font-size: 1.8rem;
-            color: #4169E1;
-            text-align: center;
-            margin-bottom: 1.5rem;
-            font-weight: bold;
-        }
+        .btn { display: block; width: 100%; min-height: 56px; margin: 26px 0; padding: 14px; font: inherit; font-weight: 700; font-size: 1.1rem; border: 0; border-radius: 6px; cursor: pointer; }
+        .btn-primary { background: var(--color-primary); color: #fff; }
+        .btn-primary:hover { background: #254f75; }
 
-        .input-field {
-            width: 100%;
-            padding: 1.5rem;
-            border: 3px solid #87CEEB;
-            border-radius: 15px;
-            font-family: inherit;
-            font-size: 1.3rem;
-            margin: 1rem 0;
-            background: white;
+        @media (max-width: 760px) {
+            body { font-size: 18px; }
+            .section { padding: 20px 16px; }
         }
-
-        .input-field:focus {
-            outline: none;
-            border-color: #FF6B9D;
-            box-shadow: 0 0 0 4px rgba(255,107,157,0.2);
-        }
-
-        textarea.input-field {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        .matching-game {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .matching-item {
-            background: white;
-            border: 3px solid #98FB98;
-            border-radius: 15px;
-            padding: 1.5rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .matching-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-        }
-
-        .matching-item.selected {
-            background: #98FB98;
-            border-color: #32CD32;
-        }
-
-        .matching-item.correct {
-            background: #90EE90;
-            border-color: #228B22;
-            animation: celebrate 0.5s;
-        }
-
-        @keyframes celebrate {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        .emoji-card {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .btn {
-            padding: 1.5rem 3rem;
-            border: none;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: block;
-            width: 100%;
-            margin: 2rem 0;
-            text-align: center;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #FF6B9D 0%, #FFA07A 100%);
-            color: white;
-            box-shadow: 0 5px 15px rgba(255,107,157,0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255,107,157,0.5);
-        }
-
-        .visual-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .visual-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            text-align: center;
-            border: 4px solid #FFD700;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .visual-card-emoji {
-            font-size: 5rem;
-            margin-bottom: 1rem;
-        }
-
-        .visual-card-title {
-            font-size: 1.5rem;
-            color: #FF6347;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .visual-card-text {
-            font-size: 1.2rem;
-            color: #555;
-            line-height: 1.6;
-        }
-
-        .feedback {
-            padding: 1.5rem;
-            border-radius: 15px;
-            margin: 1rem 0;
-            font-size: 1.3rem;
-            text-align: center;
-            font-weight: bold;
-            display: none;
-        }
-
-        .feedback.correct {
-            background: #90EE90;
-            color: #006400;
-            border: 3px solid #228B22;
-            display: block;
-            animation: celebrate 0.5s;
-        }
-
-        .feedback.try-again {
-            background: #FFE4B5;
-            color: #8B4513;
-            border: 3px solid #FFA500;
-            display: block;
-        }
-
-        .student-info {
-            background: linear-gradient(135deg, #FFE5E5 0%, #FFD1DC 100%);
-            padding: 2rem;
-            border-radius: 20px;
-            margin: 2rem 0;
-            border: 3px solid #FF69B4;
-        }
-
-        .student-info h3 {
-            color: #FF1493;
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        .checkbox-big {
-            margin: 1rem 0;
-            padding: 1rem;
-            background: white;
-            border-radius: 10px;
-            border: 2px solid #87CEEB;
-        }
-
-        .checkbox-big input[type="checkbox"] {
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            margin-right: 1rem;
-            vertical-align: middle;
-        }
-
-        .checkbox-big label {
-            font-size: 1.3rem;
-            cursor: pointer;
-            vertical-align: middle;
-        }
-
-        .progress-bar {
-            background: #E0E0E0;
-            border-radius: 20px;
-            height: 40px;
-            margin: 2rem 0;
-            overflow: hidden;
-            border: 3px solid #4169E1;
-        }
-
-        .progress-fill {
-            background: linear-gradient(135deg, #FF6B9D 0%, #FFA07A 100%);
-            height: 100%;
-            transition: width 0.5s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .star-rating {
-            text-align: center;
-            margin: 2rem 0;
-        }
-
-        .star {
-            font-size: 3rem;
-            cursor: pointer;
-            transition: transform 0.2s;
-            display: inline-block;
-            margin: 0 0.5rem;
-        }
-
-        .star:hover {
-            transform: scale(1.2);
-        }
-
-        .star.selected {
-            animation: star-glow 0.5s;
-        }
-
-        @keyframes star-glow {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.3); }
-        }
-
-        .celebration {
-            text-align: center;
-            font-size: 4rem;
-            margin: 2rem 0;
-            display: none;
-        }
-
-        .celebration.show {
-            display: block;
-            animation: bounce 1s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
         @media print {
-            body {
-                background: white;
-            }
-            .container {
-                box-shadow: none;
-            }
-            .btn {
-                display: none;
-            }
-        }
-
-        .example-box {
-            background: white;
-            border-left: 6px solid #32CD32;
-            padding: 1.5rem;
-            margin: 1rem 0;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
-
-        .example-title {
-            color: #228B22;
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .example-text {
-            font-size: 1.2rem;
-            line-height: 1.8;
+            body { font-size: 12pt; }
+            .btn, .progress-bar, .celebration { display: none !important; }
+            .section { break-inside: avoid-page; }
         }
     </style>
 </head>
-<body>
+<body data-tinta="rosa">
+    <div class="barra shell">
+        <a href="../../biennio.html#arg-welfare">← Materiali del biennio</a>
+        <span class="sito">Metodologie Operative</span>
+    </div>
     <div class="container">
         <!-- INTESTAZIONE -->
         <div class="header">
             <div class="emoji-big">🌈 ❤️ 🏠</div>
             <h1>Il welfare</h1>
             <p>Gli aiuti che ci fanno stare bene</p>
+            <div class="arcobaleno" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+            <div class="identita" data-identita style="justify-content: center"></div>
         </div>
 
         <!-- INFORMAZIONI STUDENTE -->
@@ -538,6 +238,17 @@
                 </div>
             </div>
 
+            <div class="card">
+                <div class="card-title">💎 Quattro squadre per stare bene</div>
+                <div class="card-content">Il benessere non dipende solo dallo Stato. Lavorano insieme quattro squadre:</div>
+            </div>
+            <div class="visual-grid attori-semplici">
+                <div class="visual-card"><div class="visual-card-emoji">🏛️</div><div class="visual-card-title">Lo Stato</div><div class="visual-card-text">Ospedali, scuole, pensioni</div></div>
+                <div class="visual-card"><div class="visual-card-emoji">👨‍👩‍👧</div><div class="visual-card-title">La famiglia</div><div class="visual-card-text">I nonni, i genitori, i figli</div></div>
+                <div class="visual-card"><div class="visual-card-emoji">❤️</div><div class="visual-card-title">I volontari<br><small>si chiama <strong>Terzo settore</strong></small></div><div class="visual-card-text">Caritas, Croce Rossa, associazioni</div></div>
+                <div class="visual-card"><div class="visual-card-emoji">🏢</div><div class="visual-card-title">Le aziende<br><small>si chiama <strong>mercato</strong></small></div><div class="visual-card-text">Il lavoro, lo stipendio, gli aiuti ai dipendenti</div></div>
+            </div>
+
             <div class="activity-box">
                 <div class="activity-title">✏️ Ora tocca a te!</div>
                 <p style="font-size: 1.3rem; text-align: center; margin-bottom: 1rem;">
@@ -554,10 +265,10 @@
             <div class="emoji-big">🏥 🏫 🏠</div>
 
             <div class="card">
-                <div class="card-title">Ci sono tre tipi principali di aiuti. Ognuno ha un nome preciso:</div>
+                <div class="card-title">Ci sono tre tipi principali di aiuti. Ognuno ha un nome preciso. Nella versione completa si chiamano i tre <strong>pilastri</strong> del welfare.</div>
             </div>
 
-            <div class="visual-grid">
+            <div class="visual-grid pilastri-semplici">
                 <div class="visual-card">
                     <div class="visual-card-emoji">🏥</div>
                     <div class="visual-card-title">SALUTE<br><small>si chiama <strong>sanità</strong></small></div>
@@ -576,7 +287,6 @@
                     <div class="visual-card-text">
                         <strong>Esempi:</strong><br>
                         • Pensione per chi ha lavorato<br>
-                        • Assegno unico per i figli<br>
                         • Aiuto se perdi il lavoro
                     </div>
                 </div>
@@ -589,7 +299,8 @@
                         • Asilo nido<br>
                         • Aiuto a casa<br>
                         • Centri per bambini<br>
-                        • Mensa per chi ha fame
+                        • Mensa per chi ha fame<br>
+                        • Assegno unico per i figli
                     </div>
                 </div>
             </div>
@@ -706,14 +417,14 @@
         <div class="celebration" id="celebration">
             🎉 🎊 🎈
             <br>
-            <span style="font-size: 2rem;">OTTIMO LAVORO!</span>
+            <span style="font-size: 2rem;">Ottimo lavoro!</span>
             <br>
             🏆 ⭐ 🌟
         </div>
 
         <!-- PULSANTE STAMPA -->
         <button class="btn btn-primary" onclick="printWork()">
-            🖨️ STAMPA IL TUO LAVORO
+            🖨️ Stampa il tuo lavoro
         </button>
     </div>
 
