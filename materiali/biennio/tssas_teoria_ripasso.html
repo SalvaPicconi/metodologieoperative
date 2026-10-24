@@ -1,392 +1,134 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>L'operatore sociale · Ripasso di teoria</title>
+    <meta name="description" content="Ripasso di teoria sull'operatore sociale: chi è, il modello bio-psico-sociale, le competenze, dove lavora, il lavoro di rete e le persone con cui lavora.">
+    <link rel="stylesheet" href="../../assets/materiale.css?v=20261024">
+    <script src="../../assets/materiale.js?v=20261024" defer></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --color-turchese: #1DD3D3;
-            --color-lime: #C6E716;
-            --color-fucsia: #FF0090;
-            --color-turchese-dark: #16A8A8;
-            --color-lime-dark: #9CB912;
-            --color-fucsia-dark: #CC0073;
-            --bg-color: #f0f4f8;
-            --text-color: #333;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            padding-bottom: 60px;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-            min-height: 100vh;
-        }
-
-        /* HEADER */
-        .header {
-            background: linear-gradient(135deg, var(--color-turchese) 0%, var(--color-turchese-dark) 100%);
-            color: white;
-            padding: 30px 20px;
-            text-align: center;
-            position: relative;
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
-            box-shadow: 0 5px 15px rgba(29, 211, 211, 0.3);
-        }
-
-        .header h1 {
-            font-size: 1.8em;
-            margin-bottom: 10px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-        }
-
-        .header p {
-            font-size: 1.1em;
-            opacity: 0.95;
-        }
-
-        /* NAVIGATION BAR for MOBILE */
-        .nav-bar {
-            background: white;
-            padding: 15px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .back-link {
-            text-decoration: none;
-            color: #666;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.9em;
-        }
-
-        .back-link:hover {
-            color: var(--color-turchese-dark);
-        }
-
-        /* CONTENT SECTIONS */
-        .section {
-            padding: 25px 20px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .section-title {
-            color: var(--color-turchese-dark);
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .emoji-icon {
-            font-size: 1.2em;
-        }
-
-        /* INFO BOXES (Recycled styles) */
-        .info-box {
-            border-radius: 12px;
-            padding: 20px;
-            margin: 15px 0;
-            border-left: 5px solid;
-            background: #fff;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
-
-        .info-box h3 {
-            font-size: 1.2em;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .info-box-blue {
-            background: #E3F2FD;
-            border-left-color: #2196F3;
-        }
-
-        .info-box-blue h3 {
-            color: #1976D2;
-        }
-
-        .info-box-green {
-            background: #E8F5E9;
-            border-left-color: #4CAF50;
-        }
-
-        .info-box-green h3 {
-            color: #388E3C;
-        }
-
-        .info-box-yellow {
-            background: #FFFDE7;
-            border-left-color: #FBC02D;
-        }
-
-        .info-box-yellow h3 {
-            color: #F57F17;
-        }
-
-        .info-box-purple {
-            background: #F3E5F5;
-            border-left-color: #9C27B0;
-        }
-
-        .info-box-purple h3 {
-            color: #7B1FA2;
-        }
-
-        .info-box-red {
-            background: #FFEBEE;
-            border-left-color: #EF5350;
-        }
-
-        .info-box-red h3 {
-            color: #C62828;
-        }
-
-        .info-box ul {
-            list-style: none;
-            padding-left: 5px;
-        }
-
-        .info-box ul li {
-            padding: 6px 0 6px 25px;
-            position: relative;
-        }
-
-        .info-box ul li::before {
-            content: "•";
-            position: absolute;
-            left: 5px;
-            font-weight: bold;
-            color: inherit;
-        }
-
-        .highlight {
-            background: rgba(221, 255, 68, 0.4);
-            /* Lime transparent */
-            padding: 0 4px;
-            border-radius: 4px;
-            font-weight: 600;
-        }
-
-        /* CARDS for User Types */
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-            border: 1px solid #eee;
-        }
-
-        .card h4 {
-            color: var(--color-turchese-dark);
-            font-size: 1.2em;
-            margin-bottom: 10px;
-            border-bottom: 2px solid var(--color-turchese);
-            padding-bottom: 5px;
-            display: inline-block;
-        }
-
-        /* FAB for Scroll Top (Optional for Study) */
-        .fab {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--color-fucsia);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(255, 0, 144, 0.4);
-            cursor: pointer;
-            opacity: 0.8;
-            transition: all 0.3s;
-            text-decoration: none;
-            font-size: 1.5em;
-        }
-
-        .fab:hover {
-            opacity: 1;
-            transform: translateY(-3px);
-        }
-
-        @media (max-width: 600px) {
-            .header h1 {
-                font-size: 1.5em;
-            }
-
-            .section {
-                padding: 20px 15px;
-            }
-        }
+        .verbi { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+        .verbi li { margin: 0; padding: 12px 14px; background: var(--color-surface); border: 1px solid var(--color-line); border-left: 5px solid var(--tinta); }
+        .verbi li:nth-child(6n+1) { border-left-color: var(--lime); }
+        .verbi li:nth-child(6n+2) { border-left-color: var(--rosa); }
+        .verbi li:nth-child(6n+3) { border-left-color: var(--verde); }
+        .verbi li:nth-child(6n+5) { border-left-color: var(--color-primary); }
+        .verbi strong { display: block; color: var(--color-primary); }
+        .persone h3 { margin-top: 0; font-size: 1.05rem; }
     </style>
 </head>
+<body data-tinta="acqua">
+<a class="skip" href="#contenuto">Vai al contenuto</a>
+<div class="barra shell">
+    <a href="tssas_percorso_completo_v2.html">← Torna al percorso</a>
+    <a href="../../biennio.html#arg-operatore">Materiali del biennio</a>
+    <span class="sito">Metodologie Operative</span>
+</div>
 
-<body>
-
-    <div class="container">
-        <!-- NAV BAR -->
-        <div class="nav-bar">
-            <a href="tssas_percorso_completo_v2.html" class="back-link">
-                <span>←</span> Torna al percorso
-            </a>
-            <div style="font-weight: bold; color: var(--color-turchese-dark);">Modalità studio 📖</div>
-        </div>
-
-        <!-- HEADER -->
-        <div class="header">
+<main id="contenuto">
+    <header class="shell">
+        <div class="testata testata--banda">
+            <p class="occhiello">Primo anno · Ripasso di teoria</p>
             <h1>L'operatore sociale</h1>
-            <p>Sintesi di teoria e concetti chiave</p>
+            <p class="lead">Sintesi di teoria e concetti chiave del percorso a tappe.</p>
         </div>
+    </header>
 
-        <!-- SEZIONE 1: DEFINIZIONE E MODELLO -->
-        <div class="section">
-            <h2 class="section-title"><span class="emoji-icon">📚</span> Concetti fondamentali</h2>
+    <nav class="indice" aria-label="Argomenti">
+        <ol class="shell">
+            <li><a href="#concetti"><span class="n">1</span>Concetti fondamentali</a></li>
+            <li class="t-verde"><a href="#professione"><span class="n">2</span>La professione</a></li>
+            <li class="t-rosa"><a href="#rete"><span class="n">3</span>Il lavoro di rete</a></li>
+            <li class="t-lime"><a href="#persone"><span class="n">4</span>Le persone</a></li>
+        </ol>
+    </nav>
 
-            <div class="info-box info-box-blue">
-                <h3>Chi è l'operatore sociale</h3>
-                <p>L'operatore sociale è un <strong>professionista della relazione d'aiuto</strong>. Lavora con persone di tutte le età, singole o in gruppo, per sostenerle nella crescita personale e aiutarle a partecipare alla vita sociale. Fa parte del sistema dei servizi sociosanitari e lavora sempre insieme ad altre figure.</p>
+    <div class="shell">
+        <!-- 1. CONCETTI -->
+        <section class="sezione" id="concetti">
+            <h2><span class="num">1</span>Concetti fondamentali</h2>
+            <h3>Chi è l'operatore sociale</h3>
+            <div class="definizione">
+                <p>L'<dfn>operatore sociale</dfn> è la figura professionale che esce dall'indirizzo sociosanitario: un <strong>professionista della relazione d'aiuto</strong>. Lavora con persone di tutte le età, singole o in gruppo, per sostenerle nella crescita personale e aiutarle a partecipare alla vita sociale.</p>
+                <p>Fa parte del sistema dei servizi sociosanitari e lavora sempre insieme ad altre figure.</p>
+            </div>
+            <div class="attenzione">
                 <p>Non va confuso con l'<strong>operatore socio-sanitario (OSS)</strong>: è un'altra figura, con una qualifica regionale, che si occupa soprattutto dell'assistenza diretta alla persona.</p>
             </div>
 
-            <div class="info-box info-box-blue">
-                <h3>Il modello bio-psico-sociale</h3>
-                <p>È un <strong>modo di guardare la salute e la malattia</strong>, proposto dallo psichiatra George Engel nel 1977: lo stato di una persona dipende dall'intreccio di tre dimensioni, che si influenzano a vicenda. Per questo l'operatore le osserva tutte e tre.</p>
-                <ul>
-                    <li><strong>Biologica</strong>: il corpo, cioè la salute fisica, le malattie, l'età, i fattori genetici.</li>
-                    <li><strong>Psicologica</strong>: la mente, cioè emozioni, pensieri, memoria, comportamenti.</li>
-                    <li><strong>Sociale</strong>: l'ambiente di vita, cioè famiglia, amici, casa, lavoro, cultura.</li>
-                </ul>
+            <h3>Il modello bio-psico-sociale</h3>
+            <p>Il <dfn>modello bio-psico-sociale</dfn> è un modo di guardare la salute e la malattia, proposto dallo psichiatra George Engel nel 1977: lo stato di una persona dipende dall'intreccio di tre dimensioni, che si influenzano a vicenda. Per questo l'operatore le osserva tutte e tre.</p>
+            <div class="confronto">
+                <div class="t-rosa"><h4>Biologica</h4><p>Il corpo, cioè la salute fisica, le malattie, l'età, i fattori genetici.</p></div>
+                <div class="t-lime"><h4>Psicologica</h4><p>La mente, cioè emozioni, pensieri, memoria, comportamenti.</p></div>
+                <div class="t-verde"><h4>Sociale</h4><p>L'ambiente di vita, cioè famiglia, amici, casa, lavoro, cultura.</p></div>
             </div>
-        </div>
+        </section>
 
-        <!-- SEZIONE 2: COMPETENZE E CONTESTI -->
-        <div class="section">
-            <h2 class="section-title"><span class="emoji-icon">🛠️</span> La professione</h2>
+        <!-- 2. PROFESSIONE -->
+        <section class="sezione t-verde" id="professione">
+            <h2><span class="num">2</span>La professione</h2>
+            <h3>Le competenze in sei verbi</h3>
+            <ul class="verbi">
+                <li><strong>Organizzare</strong>e attuare interventi che rispondono a un bisogno sociale o sanitario.</li>
+                <li><strong>Promuovere</strong>il benessere, aiutando le persone a stare bene prima che stiano male.</li>
+                <li><strong>Collaborare</strong>nei progetti dei servizi, lavorando in équipe.</li>
+                <li><strong>Facilitare</strong>la comunicazione fra persone e gruppi che faticano a capirsi.</li>
+                <li><strong>Realizzare</strong>attività educative e di animazione.</li>
+                <li><strong>Raccogliere</strong>ed elaborare dati sulle persone e sulle attività, nel rispetto della privacy.</li>
+            </ul>
 
-            <div class="info-box info-box-green">
-                <h3>Le competenze in sei verbi</h3>
-                <ul>
-                    <li><strong>Organizzare</strong> e attuare interventi che rispondono a un bisogno sociale o sanitario.</li>
-                    <li><strong>Promuovere</strong> il benessere, aiutando le persone a stare bene prima che stiano male.</li>
-                    <li><strong>Collaborare</strong> nei progetti dei servizi, lavorando in équipe.</li>
-                    <li><strong>Facilitare</strong> la comunicazione fra persone e gruppi che faticano a capirsi.</li>
-                    <li><strong>Realizzare</strong> attività educative e di animazione.</li>
-                    <li><strong>Raccogliere</strong> ed elaborare dati sulle persone e sulle attività, nel rispetto della privacy.</li>
-                </ul>
+            <h3>Dove lavora</h3>
+            <div class="tabella-wrap">
+                <table class="tabella">
+                    <thead><tr><th style="width: 26%">Servizio</th><th>Che cosa vuol dire</th><th style="width: 34%">Esempi</th></tr></thead>
+                    <tbody>
+                        <tr><th scope="row">Residenziale</th><td>Le persone vivono nella struttura giorno e notte.</td><td>RSA (residenze sanitarie assistenziali), comunità educative e terapeutiche</td></tr>
+                        <tr><th scope="row">Semiresidenziale</th><td>Le persone passano la giornata nel servizio e la sera tornano a casa.</td><td>Centri diurni</td></tr>
+                        <tr><th scope="row">Domiciliare e territoriale</th><td>L'operatore va dalle persone, nei luoghi in cui vivono.</td><td>A casa delle persone, servizi sociali del Comune, scuola</td></tr>
+                    </tbody>
+                </table>
             </div>
+        </section>
 
-            <div class="info-box info-box-green">
-                <h3>Dove lavora</h3>
-                <p>Nei <strong>servizi residenziali</strong>, dove le persone vivono giorno e notte (RSA, comunità educative e terapeutiche); nei <strong>servizi semiresidenziali</strong>, dove passano la giornata e la sera tornano a casa (centri diurni); nei <strong>servizi domiciliari e territoriali</strong>, a casa delle persone, nei servizi sociali del Comune, a scuola.</p>
+        <!-- 3. RETE -->
+        <section class="sezione t-rosa" id="rete">
+            <h2><span class="num">3</span>Il lavoro di rete</h2>
+            <div class="definizione">
+                <p>Il <dfn>lavoro di rete</dfn> collega le diverse risorse che possono aiutare una persona, perché nessun servizio, da solo, basta. L'operatore conosce la rete e la fa funzionare.</p>
             </div>
-        </div>
-
-        <!-- SEZIONE 3: LAVORO DI RETE -->
-        <div class="section">
-            <h2 class="section-title"><span class="emoji-icon">🌐</span> Il lavoro di rete</h2>
-
-            <div class="info-box info-box-yellow">
-                <h3>Che cos'è</h3>
-                <p>Lavorare in rete significa collegare le diverse risorse che possono aiutare una persona, perché nessun servizio, da solo, basta. L'operatore conosce la rete e la fa funzionare.</p>
-                <div style="margin-top: 15px; display: grid; gap: 10px;">
-                    <div style="background: rgba(255,255,255,0.6); padding: 10px; border-radius: 8px;">
-                        <strong>🤝 Rete informale (primaria):</strong> le persone vicine per legame, non per lavoro: famiglia, amici, vicini di casa, volontari, gruppi di auto-aiuto, associazioni del quartiere.
-                    </div>
-                    <div style="background: rgba(255,255,255,0.6); padding: 10px; border-radius: 8px;">
-                        <strong>🏥 Rete formale (secondaria):</strong> i servizi che aiutano per compito istituzionale: Servizio sanitario nazionale (SSN), servizi sociali del Comune, scuole, centri specialistici, cooperative sociali.
-                    </div>
+            <div class="confronto">
+                <div class="t-lime">
+                    <h3>🤝 Rete informale (primaria)</h3>
+                    <p>Le persone vicine per legame, non per lavoro: famiglia, amici, vicini di casa, volontari, gruppi di auto mutuo aiuto, associazioni del quartiere.</p>
+                </div>
+                <div class="t-acqua">
+                    <h3>🏥 Rete formale (secondaria)</h3>
+                    <p>I servizi che aiutano per compito istituzionale: Servizio sanitario nazionale (SSN), servizi sociali del Comune, scuole, centri specialistici, cooperative sociali.</p>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- SEZIONE 4: UTENZA -->
-        <div class="section">
-            <h2 class="section-title"><span class="emoji-icon">👥</span> Le persone con cui lavora</h2>
-            <p style="margin-bottom: 20px;">L'operatore sociale lavora con persone diverse, ognuna con bisogni propri.</p>
-
-            <div class="card-grid">
-
-                <div class="card">
-                    <h4>👨‍👩‍👧‍👦 La famiglia</h4>
-                    <p>È il primo luogo di cura e di crescita. Oggi ha molte forme: famiglie con un solo genitore, ricomposte dopo una separazione, con genitori dello stesso sesso. Le difficoltà più frequenti sono il lavoro precario, la cura di anziani e malati, la fragilità dei legami.</p>
-                </div>
-
-                <div class="card">
-                    <h4>👶 L'infanzia (0-10 anni)</h4>
-                    <p>È l'età in cui si sviluppano movimento, linguaggio e affetti. L'operatore sostiene i genitori nel loro compito e collabora alla tutela dei bambini in difficoltà.</p>
-                </div>
-
-                <div class="card">
-                    <h4>🧒 L'adolescenza (10-18 anni)</h4>
-                    <p>È il passaggio in cui si costruisce la propria identità. Può portare conflitti, isolamento, dipendenze, abbandono della scuola: l'operatore offre ascolto e occasioni di partecipazione.</p>
-                </div>
-
-                <div class="card">
-                    <h4>👴 La terza età (dai 65 anni)</h4>
-                    <p>Non è solo una fase di perdita: gli anziani sono una risorsa. Le sfide sono le malattie, la solitudine, il rischio di perdere l'autonomia; l'obiettivo è l'<strong>invecchiamento attivo</strong>.</p>
-                </div>
-
-                <div class="card">
-                    <h4>♿ La disabilità</h4>
-                    <p>Secondo l'ICF nasce dall'interazione fra la condizione di salute della persona e l'ambiente in cui vive. L'obiettivo è l'inclusione e la massima autonomia possibile; la legge di riferimento è la 104 del 1992, aggiornata dal D.Lgs. 62/2024.</p>
-                </div>
-
-                <div class="card">
-                    <h4>🔗 Le dipendenze</h4>
-                    <p>Sono un bisogno che la persona non riesce a controllare. Possono riguardare sostanze (alcol, droghe, tabacco) o comportamenti (gioco d'azzardo, uso eccessivo di internet, dei social o dello shopping).</p>
-                </div>
-
+        <!-- 4. PERSONE -->
+        <section class="sezione t-lime" id="persone">
+            <h2><span class="num">4</span>Le persone con cui lavora</h2>
+            <p>L'operatore sociale lavora con persone diverse, ognuna con bisogni propri.</p>
+            <div class="confronto persone">
+                <div class="t-rosa"><h3>👨‍👩‍👧‍👦 La famiglia</h3><p>È il primo luogo di cura e di crescita. Oggi ha molte forme: famiglie con un solo genitore, ricomposte dopo una separazione, con genitori dello stesso sesso.</p><p>Le difficoltà più frequenti sono il lavoro precario, la cura di anziani e malati, la fragilità dei legami.</p></div>
+                <div class="t-lime"><h3>👶 L'infanzia (0-10 anni)</h3><p>È l'età in cui si sviluppano movimento, linguaggio e affetti. L'operatore sostiene i genitori nel loro compito e collabora alla tutela dei bambini in difficoltà.</p></div>
+                <div class="t-verde"><h3>🧒 L'adolescenza (10-18 anni)</h3><p>È il passaggio in cui si costruisce la propria identità. Può portare conflitti, isolamento, dipendenze, abbandono della scuola: l'operatore offre ascolto e occasioni di partecipazione.</p></div>
+                <div class="t-acqua"><h3>👴 La terza età (dai 65 anni)</h3><p>Non è solo una fase di perdita: gli anziani sono una risorsa. Le sfide sono le malattie, la solitudine, il rischio di perdere l'autonomia; l'obiettivo è l'<dfn>invecchiamento attivo</dfn>.</p></div>
+                <div class="t-blu"><h3>♿ La disabilità</h3><p>Secondo l'ICF (Classificazione internazionale del funzionamento, della disabilità e della salute) nasce dall'interazione fra la condizione di salute della persona e l'ambiente in cui vive. L'obiettivo è l'inclusione e la massima autonomia possibile; la legge di riferimento è la 104 del 1992, aggiornata dal D.Lgs. 62/2024.</p></div>
+                <div class="t-rosa"><h3>🔗 Le dipendenze</h3><p>Sono un bisogno che la persona non riesce a controllare. Possono riguardare sostanze (alcol, droghe, tabacco) o comportamenti (gioco d'azzardo, uso eccessivo di internet, dei social o dello shopping).</p></div>
             </div>
-        </div>
+        </section>
 
-        <!-- FOOTER -->
-        <div class="section" style="text-align: center; color: #999; font-size: 0.9em;">
-            <p>Metodologie Operative · Indirizzo Servizi per la sanità e l'assistenza sociale</p>
-        </div>
-
+        <footer class="piede">
+            <p>Metodologie Operative · L'operatore sociale, ripasso di teoria</p>
+            <a href="#contenuto">Torna all'inizio</a>
+        </footer>
     </div>
-
-    <!-- Scroll Top Button -->
-    <a href="#" class="fab" title="Torna su">↑</a>
-
+</main>
 </body>
-
 </html>
