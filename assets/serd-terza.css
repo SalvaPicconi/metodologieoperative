@@ -1,7 +1,7 @@
 @font-face{font-family:'DM Sans';src:url('collage-fonts/dm-sans-regular.ttf') format('truetype');font-weight:400;font-display:swap}
 @font-face{font-family:'DM Sans';src:url('collage-fonts/dm-sans-semibold.ttf') format('truetype');font-weight:600 800;font-display:swap}
 @font-face{font-family:'DM Serif Display';src:url('collage-fonts/dm-serif-display.ttf') format('truetype');font-weight:400;font-display:swap}
-:root{--serd-blue:#17385a;--serd-paper:#f7f5ef;--serd-ink:#202c3b;--serd-line:#c9d0d4;--color-primary:#17385a;--color-primary-dark:#17385a;--color-primary-darker:#122c47;--color-primary-light:#63819b;--color-primary-tint:#eaf0f4;--font-heading:'DM Serif Display',Georgia,serif;--font-body:'DM Sans',sans-serif}
+:root{--serd-blue:#17385a;--serd-paper:#f5f6fa;--serd-ink:#202c3b;--serd-line:#c9d0d4;--color-primary:#17385a;--color-primary-dark:#17385a;--color-primary-darker:#122c47;--color-primary-light:#63819b;--color-primary-tint:#eaf0f4;--font-heading:'DM Serif Display',Georgia,serif;--font-body:'DM Sans',sans-serif}
 html{scroll-padding-top:5rem}
 body{background:var(--serd-paper);color:var(--serd-ink);font-family:'DM Sans',sans-serif;font-size:17px;line-height:1.65}
 header{background:var(--serd-paper);color:var(--serd-ink);border-bottom:1px solid var(--serd-line);padding:1.5rem 0}
@@ -15,10 +15,10 @@ main{padding-top:1.5rem;padding-bottom:4rem}
 .page-title .serd-eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.09em;color:#4c5965}
 .page-title .serd-lead{font-size:1.2rem}
 .page-title .breadcrumb a{color:var(--serd-blue)}
-.card{border:1px solid var(--serd-line);border-radius:5px;box-shadow:none;background:#fffdf9;margin:1.5rem 0;padding:clamp(1rem,3vw,2rem)}
+.card{border:1px solid var(--serd-line);border-radius:5px;box-shadow:none;background:#ffffff;margin:1.5rem 0;padding:clamp(1rem,3vw,2rem)}
 .card h3{font:400 1.85rem/1.25 'DM Serif Display',Georgia,serif;color:var(--serd-blue);margin:0 0 1rem}
 .card h4{font-size:1.08rem;color:var(--serd-blue);margin:1.3rem 0 .5rem}
-.indice-pagina{display:flex;flex-wrap:wrap;gap:.4rem .7rem;background:#fffdf9;border:1px solid var(--serd-line);padding:.6rem}
+.indice-pagina{display:flex;flex-wrap:wrap;gap:.4rem .7rem;background:#ffffff;border:1px solid var(--serd-line);padding:.6rem}
 .indice-pagina a{display:inline-flex;align-items:center;min-height:44px;padding:.25rem .55rem;border-radius:3px;color:var(--serd-blue);background:#eaf0f4}
 main a{color:var(--serd-blue);text-decoration:underline;text-underline-offset:3px}
 .serd-skills,.serd-downloads{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1rem 0}
@@ -32,7 +32,7 @@ main a{color:var(--serd-blue);text-decoration:underline;text-underline-offset:3p
 .btn-download:hover{background:#284d6d;color:#fff}
 .serd-reading{margin:1.2rem 0;border-block:1px solid var(--serd-line);padding:0 .2rem}
 summary{cursor:pointer;min-height:44px;padding:.8rem .2rem;font-weight:600;color:var(--serd-blue)}
-.progress-box{padding:1rem;background:#fffdf9;border:1px solid var(--serd-line);border-radius:4px;margin-top:2rem}
+.progress-box{padding:1rem;background:#ffffff;border:1px solid var(--serd-line);border-radius:4px;margin-top:2rem}
 .progress-box label{display:block;margin:.8rem 0 .4rem;font-weight:600}
 .progress-box textarea{font:inherit;background:#fff;color:var(--serd-ink);width:100%;min-height:10rem;border:1px solid #8796a3;border-radius:3px;padding:.7rem}
 .serd-help,#serd-stato{color:#4c5965;font-size:.92rem}

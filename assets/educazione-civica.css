@@ -1,7 +1,7 @@
 @font-face{font-family:'DM Sans';src:url('collage-fonts/dm-sans-regular.ttf') format('truetype');font-weight:400;font-display:swap}
 @font-face{font-family:'DM Sans';src:url('collage-fonts/dm-sans-semibold.ttf') format('truetype');font-weight:600 800;font-display:swap}
 @font-face{font-family:'DM Serif';src:url('collage-fonts/dm-serif-display.ttf') format('truetype');font-weight:400;font-display:swap}
-:root{--ec-bg:#f7f5ef;--ec-paper:#fffdf9;--ec-ink:#202c3b;--ec-soft:#5b6570;--ec-blue:#17385a;--ec-light:#eaf0f4;--ec-line:#d7d9d8;--ec-accent:#a75134}
+:root{--ec-bg:#f5f6fa;--ec-paper:#ffffff;--ec-ink:#202c3b;--ec-soft:#5b6570;--ec-blue:#17385a;--ec-light:#eaf0f4;--ec-line:#dde1e8;--ec-accent:#d6105f}
 .civica-site{background:var(--ec-bg);color:var(--ec-ink);font-family:'DM Sans',system-ui,sans-serif;font-size:17px;line-height:1.7}
 .civica-site *{box-sizing:border-box}
 .civica-site [hidden]{display:none!important}
