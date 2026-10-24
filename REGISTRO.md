@@ -9,6 +9,10 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-24** · Claude · Pubblicata su Aruba la Compresenza rivista (materiali per argomento, test di Stroop, storie sui pregiudizi, glossario) con i ritocchi alla verifica IA. (Aruba `e2a7663`, run «Pubblica su Aruba» n. 13 riuscito, 8 file online verificati)
+
+- **2026-10-24** · Claude · Compresenza rivista: materiali ordinati per argomento (pregiudizio; attenzione e test di Stroop), test di Stroop e storie sui pregiudizi nei colori del logo, con titoli a norma; le storie si leggono anche dal telefono e spiegano le tre parti del pregiudizio; pregiudizio, stereotipo e test di Stroop nel glossario. Salvataggi invariati. Non ancora pubblicato su Aruba. (ramo `claude/compresenza-materiali`)
+
 - **2026-10-24** · Claude · Pubblicata su Aruba la sezione Intelligenza artificiale rivista (percorso in sei fasi, versione semplificata, verifica) e il glossario con IA, prompt e bias algoritmico. (Aruba `cb0d5b4`, run «Pubblica su Aruba» n. 12 riuscito, 4 file online verificati)
 
 - **2026-10-24** · Claude · Verifica IA: tolto uno sblocco «?docente=1» rimasto per errore nello stile (non funzionava); titolo della versione semplificata a norma. Non ancora pubblicato su Aruba. (ramo `claude/ia-materiali`)

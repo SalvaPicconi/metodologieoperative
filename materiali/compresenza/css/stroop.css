@@ -3,6 +3,10 @@
    Prof. Salvatore Picconi - IIS Meucci Mattei
    ======================================== */
 
+@font-face { font-family: 'DM Sans'; src: url('../../../assets/collage-fonts/dm-sans-regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'DM Sans'; src: url('../../../assets/collage-fonts/dm-sans-semibold.ttf') format('truetype'); font-weight: 600 800; font-display: swap; }
+@font-face { font-family: 'DM Serif'; src: url('../../../assets/collage-fonts/dm-serif-display.ttf') format('truetype'); font-weight: 400; font-display: swap; }
+
 /* === RESET E VARIABILI === */
 * {
     margin: 0;
@@ -12,23 +16,23 @@
 
 :root {
     /* Palette Colori Principale */
-    --primary-color: #2563eb;
-    --primary-dark: #1e40af;
-    --primary-light: #60a5fa;
-    --secondary-color: #0891b2;
-    --secondary-dark: #0e7490;
+    --primary-color: #17385a;
+    --primary-dark: #0f2740;
+    --primary-light: #57bda8;
+    --secondary-color: #1b6f5f;
+    --secondary-dark: #00612a;
     
     /* Colori di Stato */
-    --success-color: #10b981;
-    --warning-color: #f59e0b;
-    --error-color: #ef4444;
-    --info-color: #3b82f6;
+    --success-color: #008036;
+    --warning-color: #5f9a1c;
+    --error-color: #d6105f;
+    --info-color: #57bda8;
     
     /* Livelli di Difficoltà */
-    --level-base: #10b981;
-    --level-medium: #f59e0b;
-    --level-high: #f97316;
-    --level-max: #ef4444;
+    --level-base: #008036;
+    --level-medium: #5f9a1c;
+    --level-high: #ec166c;
+    --level-max: #b0124f;
     
     /* Grigi */
     --gray-50: #f9fafb;
@@ -43,7 +47,7 @@
     --gray-900: #111827;
     
     /* Tipografia */
-    --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-main: 'DM Sans', Arial, sans-serif;
     --font-mono: 'Courier New', Courier, monospace;
     
     /* Spaziature */
@@ -77,7 +81,7 @@ body {
     font-family: var(--font-main);
     line-height: 1.6;
     color: var(--gray-800);
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #f5f6fa;
     min-height: 100vh;
     padding-bottom: var(--spacing-2xl);
 }
@@ -301,7 +305,7 @@ body {
 }
 
 .note {
-    background: #fef3c7;
+    background: #f2f9e6;
     border-left: 4px solid var(--warning-color);
     padding: var(--spacing-lg);
     border-radius: var(--radius-md);
@@ -392,7 +396,7 @@ body {
 
 .instruction-box.important {
     border: 3px solid var(--primary-color);
-    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    background: #e8eef5;
 }
 
 .instruction-box h3 {
@@ -444,7 +448,7 @@ body {
 }
 
 .difficulty-info {
-    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    background: #e6f4f1;
     padding: var(--spacing-xl);
     border-radius: var(--radius-lg);
     margin-bottom: var(--spacing-lg);
@@ -642,7 +646,7 @@ body {
     text-align: center;
     margin-bottom: var(--spacing-2xl);
     padding: var(--spacing-2xl);
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #f5f6fa;
     border-radius: var(--radius-xl);
     color: white;
 }
@@ -756,7 +760,7 @@ body {
 }
 
 .interpretation {
-    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    background: #e6f4f1;
     padding: var(--spacing-xl);
     border-radius: var(--radius-lg);
     margin-bottom: var(--spacing-2xl);
@@ -867,14 +871,14 @@ body {
 }
 
 .case-action {
-    background: #fef3c7;
+    background: #f2f9e6;
     padding: var(--spacing-lg);
     border-radius: var(--radius-md);
     border: 2px solid var(--warning-color);
 }
 
 .cases-conclusion {
-    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    background: #e6f4ec;
     padding: var(--spacing-2xl);
     border-radius: var(--radius-lg);
     margin-top: var(--spacing-xl);
@@ -1169,3 +1173,8 @@ body {
 .mb-2 { margin-bottom: var(--spacing-md); }
 .mb-3 { margin-bottom: var(--spacing-lg); }
 .mb-4 { margin-bottom: var(--spacing-xl); }
+
+/* === Veste del sito: colori del logo e caratteri === */
+h1, h2 { font-family: 'DM Serif', Georgia, serif; font-weight: 400; letter-spacing: 0; }
+.header, header.header { border-bottom: 6px solid; border-image: linear-gradient(90deg, #80cd29 0 25%, #ec166c 25% 50%, #008036 50% 75%, #57bda8 75%) 1; }
+button, .btn, input, select, textarea { font-family: inherit; }

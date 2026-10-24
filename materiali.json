@@ -475,30 +475,34 @@
     {
       "titolo": "Test di Stroop · laboratorio di valutazione cognitiva",
       "file": "materiali/compresenza/test-stroop.html",
-      "descrizione": "Attività interattiva con 30 prove progressive, dashboard risultati, certificato PDF e casi clinici per la compresenza Scienze Umane.",
+      "descrizione": "Attività interattiva con 30 prove progressive, dashboard risultati, certificato PDF e casi clinici per la compresenza con Scienze umane.",
       "data": "2025-11-13",
-      "tipo": "interattivo"
+      "tipo": "interattivo",
+      "argomento": "percezione"
     },
     {
       "titolo": "Storie e griglie sui pregiudizi · versione per la LIM",
       "file": "materiali/compresenza/pregiudizio/storie-griglie-pregiudizi.html",
       "descrizione": "Tre storie (xenofobia, omotransfobia, discriminazione sociale) da leggere in classe, ciascuna con la griglia di lavoro su emozioni, comportamenti e credenze.",
       "data": "2025-10-02",
-      "tipo": "interattivo"
+      "tipo": "interattivo",
+      "argomento": "pregiudizio"
     },
     {
       "titolo": "Storie di pregiudizi · testo da stampare",
       "file": "materiali/compresenza/pregiudizio/storie-pregiudizi.docx",
       "descrizione": "Le storie sui pregiudizi in formato Word, per la lettura in gruppo (UDA «Pregiudizio, autorità e percezione»).",
       "data": "2025-10-02",
-      "tipo": "download"
+      "tipo": "download",
+      "argomento": "pregiudizio"
     },
     {
       "titolo": "Griglie sui pregiudizi · scheda da stampare",
       "file": "materiali/compresenza/pregiudizio/griglie-pregiudizi.docx",
       "descrizione": "Griglie di analisi del pregiudizio (emozioni, comportamenti, credenze) da compilare in piccolo gruppo.",
       "data": "2025-10-02",
-      "tipo": "download"
+      "tipo": "download",
+      "argomento": "pregiudizio"
     }
   ],
   "argomenti": {
@@ -629,6 +633,18 @@
         "id": "strumenti",
         "titolo": "Strumenti di coordinamento",
         "descrizione": "Hub operativo, linee guida, patto formativo e registro."
+      }
+    ],
+    "compresenza": [
+      {
+        "id": "pregiudizio",
+        "titolo": "Il pregiudizio: storie e griglie",
+        "descrizione": "Tre storie da leggere in gruppo e la griglia su credenze, emozioni e comportamenti."
+      },
+      {
+        "id": "percezione",
+        "titolo": "Attenzione e percezione: il test di Stroop",
+        "descrizione": "Una prova di attenzione selettiva, con la teoria e i casi clinici."
       }
     ]
   },
