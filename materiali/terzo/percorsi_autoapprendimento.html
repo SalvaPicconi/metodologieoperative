@@ -6,538 +6,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Servizi sociosanitari · Percorso di autoapprendimento</title>
+    <link rel="stylesheet" href="../../assets/materiale.css?v=20261024">
+    <script src="../../assets/materiale.js?v=20261024" defer></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .school-name {
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .course-name {
-            font-size: 16px;
-            opacity: 0.9;
-        }
-
-        .progress-bar-container {
-            background: white;
-            padding: 20px 30px;
-            border-bottom: 2px solid #ecf0f1;
-        }
-
-        .progress-label {
-            font-size: 14px;
-            color: #7f8c8d;
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 25px;
-            background: #ecf0f1;
-            border-radius: 12px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-            transition: width 0.5s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 12px;
-        }
-
-        .content {
-            padding: 30px;
-        }
-
-        .nav-buttons {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .nav-btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-            font-size: 14px;
-        }
-
-        .nav-btn.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .nav-btn:not(.active) {
-            background: #ecf0f1;
-            color: #34495e;
-        }
-
-        .nav-btn:not(.active):hover {
-            background: #bdc3c7;
-            transform: translateY(-2px);
-        }
-
-        .module {
-            display: none;
-        }
-
-        .module.active {
-            display: block;
-            animation: fadeIn 0.5s;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .button-white {
-            background: white;
-            color: #667eea;
-            margin-top: 20px;
-            position: relative;
-            z-index: 100;
-            cursor: pointer;
-            pointer-events: auto;
-            text-decoration: none;
-            display: inline-flex;
-            border-radius: 50px;
-            padding: 10px 25px;
-            font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .button-white:hover {
-            background: #f8f9fa;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-            color: #5a6fd6;
-        }
-
-        .module-title {
-            font-size: 28px;
-            color: #2c3e50;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid #667eea;
-        }
-
-        .theory-section {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            border-left: 5px solid #667eea;
-        }
-
-        .theory-section h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 20px;
-        }
-
-        .theory-section p,
-        .theory-section ul {
-            line-height: 1.8;
-            color: #34495e;
-            margin-bottom: 15px;
-        }
-
-        .theory-section ul {
-            margin-left: 20px;
-        }
-
-        .theory-section li {
-            margin-bottom: 8px;
-        }
-
-        .key-concept {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 5px;
-        }
-
-        .key-concept strong {
-            color: #856404;
-        }
-
-        .quiz-section {
-            background: #e8f4fd;
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-        }
-
-        .quiz-title {
-            font-size: 22px;
-            color: #2c3e50;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .question {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .question-text {
-            font-weight: 600;
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-size: 16px;
-        }
-
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .option {
-            padding: 12px 15px;
-            border: 2px solid #ecf0f1;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .option:hover {
-            border-color: #667eea;
-            background: #f8f9fa;
-        }
-
-        .option.selected {
-            border-color: #667eea;
-            background: #e8f4fd;
-        }
-
-        .option.correct {
-            border-color: #27ae60;
-            background: #d4edda;
-        }
-
-        .option.incorrect {
-            border-color: #e74c3c;
-            background: #f8d7da;
-        }
-
-        .check-btn {
-            background: #667eea;
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-top: 15px;
-            transition: all 0.3s;
-        }
-
-        .check-btn:hover {
-            background: #764ba2;
-            transform: translateY(-2px);
-        }
-
-        .check-btn:disabled {
-            background: #bdc3c7;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .feedback {
-            margin-top: 15px;
-            padding: 15px;
-            border-radius: 8px;
-            font-weight: 600;
-            display: none;
-        }
-
-        .feedback.correct {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-            display: block;
-        }
-
-        .feedback.incorrect {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-            display: block;
-        }
-
-        .exercise-section {
-            background: #fff3e6;
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-        }
-
-        .exercise-title {
-            font-size: 22px;
-            color: #2c3e50;
-            margin-bottom: 20px;
-        }
-
-        .matching-exercise {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .match-column {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        .match-item {
-            padding: 12px;
-            margin-bottom: 10px;
-            border: 2px solid #ecf0f1;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .match-item:hover {
-            border-color: #667eea;
-            transform: translateX(5px);
-        }
-
-        .match-item.selected {
-            background: #e8f4fd;
-            border-color: #667eea;
-        }
-
-        .match-item.matched {
-            background: #d4edda;
-            border-color: #27ae60;
-            cursor: default;
-        }
-
-        .complete-button {
-            background: #27ae60;
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-top: 15px;
-        }
-
-        .complete-button:hover {
-            background: #229954;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-left: 10px;
-        }
-
-        .badge.completed {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .badge.in-progress {
-            background: #fff3cd;
-            color: #856404;
-        }
-
-        .badge.locked {
-            background: #f8d7da;
-            color: #721c24;
-        }
-
-        textarea {
-            width: 100%;
-            min-height: 100px;
-            padding: 15px;
-            border: 2px solid #ecf0f1;
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 14px;
-            resize: vertical;
-        }
-
-        textarea:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .summary-section {
-            background: #e8f8f5;
-            padding: 25px;
-            border-radius: 10px;
-            margin-top: 30px;
-        }
-
-        .score-display {
-            font-size: 48px;
-            font-weight: bold;
-            text-align: center;
-            color: #667eea;
-            margin: 20px 0;
-        }
-
-        .export-buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-            justify-content: center;
-        }
-
-        .export-btn {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .export-btn.pdf {
-            background: #e74c3c;
-            color: white;
-        }
-
-        .export-btn.pdf:hover {
-            background: #c0392b;
-        }
+        /* Percorso di autoapprendimento sui servizi: un arco del logo per modulo */
+        #module-0 { --tinta: var(--lime);  --tinta-testo: var(--lime-testo);  --tinta-tenue: var(--lime-tenue); }
+        #module-1 { --tinta: var(--acqua); --tinta-testo: var(--acqua-testo); --tinta-tenue: var(--acqua-tenue); }
+        #module-2 { --tinta: var(--rosa);  --tinta-testo: var(--rosa-testo);  --tinta-tenue: var(--rosa-tenue); }
+        #module-3 { --tinta: var(--verde); --tinta-testo: var(--verde-testo); --tinta-tenue: var(--verde-tenue); }
+        #module-4 { --tinta: var(--color-primary); --tinta-testo: var(--color-primary); --tinta-tenue: var(--color-primary-tint); }
+
+        .container { width: min(1000px, calc(100% - 32px)); margin: 0 auto; }
+        .header { padding: 34px 0 18px; }
+        .header h1 { margin-bottom: 8px; }
+        .header .lead { margin-bottom: 14px; }
+        .header.testata--banda { padding: 18px 0 20px 26px; margin-top: 30px; }
+        .site-footer { margin: 30px 0; padding-top: 18px; border-top: 1px solid var(--color-line); font-size: .88rem; }
+
+        .progress-bar-container { margin: 6px 0 16px; }
+        .progress-label { display: flex; justify-content: space-between; font-size: .85rem; color: var(--color-ink-soft); margin-bottom: 4px; }
+        .progress-bar { height: 22px; background: var(--color-surface); border: 1px solid var(--color-line); }
+        .progress-fill { height: 100%; min-width: 2.6em; background: var(--lime); color: var(--color-primary); font-size: .75rem; font-weight: 700; text-align: center; line-height: 20px; transition: width .4s; }
+
+        .nav-buttons { position: sticky; top: 0; z-index: 20; display: flex; gap: 6px; overflow-x: auto; padding: 10px 0; background: var(--color-bg); border-block: 1px solid var(--color-line); }
+        .nav-btn { flex: 0 0 auto; min-height: 40px; padding: 6px 14px; background: var(--color-surface); color: var(--color-primary); border: 1px solid var(--color-line); border-bottom: 3px solid var(--color-line); font: inherit; font-size: .85rem; font-weight: 600; cursor: pointer; }
+        .nav-btn:nth-child(1) { border-bottom-color: var(--lime); }
+        .nav-btn:nth-child(2) { border-bottom-color: var(--acqua); }
+        .nav-btn:nth-child(3) { border-bottom-color: var(--rosa); }
+        .nav-btn:nth-child(4) { border-bottom-color: var(--verde); }
+        .nav-btn:nth-child(5) { border-bottom-color: var(--color-primary); }
+        .nav-btn.active { background: var(--color-primary); color: #fff; }
+
+        .module { display: none; padding: 26px 0; }
+        .module.active { display: block; }
+        .module-title { font-family: var(--font-titoli); font-size: clamp(1.8rem, 3.8vw, 2.4rem); line-height: 1.15; color: var(--color-primary); padding-bottom: 12px; margin-bottom: 18px; border-bottom: 4px solid var(--tinta); }
+
+        .theory-section, .quiz-section, .exercise-section, .summary-section { margin: 18px 0; padding: 22px 24px; background: var(--color-surface); border: 1px solid var(--color-line); }
+        .theory-section h3 { font-size: 1.1rem; margin: 22px 0 8px; }
+        .theory-section h3:first-child { margin-top: 0; }
+        .theory-section ul, .theory-section ol { padding-left: 1.2em; }
+        details.ripasso { margin: 18px 0; background: var(--color-surface); border: 1px solid var(--color-line); border-left: 5px solid var(--tinta); padding: 4px 20px; }
+        details.ripasso > summary { cursor: pointer; font-weight: 600; color: var(--color-primary); padding: 10px 0; min-height: 44px; }
+        details.ripasso[open] { padding-bottom: 14px; }
+        details.ripasso .theory-section { border: 0; padding: 0; margin: 6px 0 0; }
+        details.ripasso .rimando { font-size: .88rem; margin: 12px 0 0; }
+        .key-concept { margin: 16px 0; padding: 14px 18px; background: var(--tinta-tenue); border-left: 5px solid var(--tinta); }
+
+        .quiz-title, .exercise-title { font-weight: 700; font-size: 1.08rem; color: var(--color-primary); margin-bottom: 12px; }
+        .question { margin: 16px 0; }
+        .question-text { font-weight: 600; color: var(--color-primary); margin-bottom: 8px; }
+        .options { display: grid; gap: 8px; }
+        .option { display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: #fff; border: 1px solid var(--color-line); cursor: pointer; }
+        .option input { margin-top: 4px; accent-color: var(--tinta-testo); }
+        .option:hover { border-color: var(--tinta-testo); }
+        .option.selected { border-color: var(--color-primary); background: var(--color-primary-tint); }
+        .option.correct { border-color: var(--verde); background: var(--verde-tenue); }
+        .option.incorrect { border-color: var(--rosa); background: var(--rosa-tenue); }
+
+        .check-btn, .complete-button, .export-btn { min-height: 44px; margin-top: 12px; padding: 10px 16px; background: var(--color-primary); color: #fff; border: 1px solid var(--color-primary); border-radius: 4px; font: inherit; font-weight: 600; cursor: pointer; }
+        .check-btn:hover, .complete-button:hover, .export-btn:hover { background: #254f75; }
+        .check-btn:disabled { opacity: .5; cursor: default; }
+        .feedback { margin-top: 12px; font-size: .94rem; }
+        .feedback:empty { display: none; }
+        .feedback.correct { padding: 10px 14px; background: var(--verde-tenue); border-left: 4px solid var(--verde); }
+        .feedback.incorrect { padding: 10px 14px; background: var(--rosa-tenue); border-left: 4px solid var(--rosa); }
+
+        textarea { display: block; width: 100%; min-height: 120px; margin-top: 8px; padding: 11px 12px; background: #fff; color: var(--color-ink); border: 1px solid #788796; border-radius: 3px; font: inherit; line-height: 1.55; resize: vertical; }
+        textarea:focus { outline: 3px solid var(--tinta); outline-offset: 1px; }
+
+        .matching-container > div { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+        .match-item { padding: 12px 14px; background: #fff; border: 1px solid var(--color-line); border-left: 4px solid var(--tinta); cursor: pointer; }
+        .match-item:hover { border-color: var(--color-primary); }
+        .match-item.selected { background: var(--color-primary-tint); border-color: var(--color-primary); }
+        .match-item.matched { background: var(--verde-tenue); border-color: var(--verde); }
+
+        .case-study { margin: 14px 0; padding: 16px 18px; background: var(--tinta-tenue); border-left: 5px solid var(--tinta); }
+        .case-study-title { font-weight: 700; color: var(--color-primary); margin-bottom: 6px; }
+        .hint-box { margin: 12px 0; padding: 12px 16px; border: 1px dashed var(--tinta-testo); font-size: .94rem; }
+        .score-display { font-family: var(--font-titoli); font-size: 3rem; text-align: center; color: var(--color-primary); }
+        .summary-section h2 { font-size: 1.6rem; }
+        .summary-section h3 { color: var(--color-primary) !important; }
+        .export-buttons { margin: 20px 0; }
+        .badge { display: inline-block; padding: 2px 9px; font-size: .75rem; font-weight: 700; border-radius: 3px; background: var(--color-primary-tint); color: var(--color-primary); }
+        .badge.completed { background: var(--verde-tenue); color: var(--verde-testo); }
 
         @media (max-width: 768px) {
-            .matching-exercise {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-buttons {
-                flex-direction: column;
-            }
+            .theory-section, .quiz-section, .exercise-section, .summary-section { padding: 18px 16px; }
         }
-
-        .hint-box {
-            background: #d1ecf1;
-            border-left: 4px solid #17a2b8;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 5px;
-        }
-
-        .case-study {
-            background: white;
-            border: 2px solid #667eea;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-
-        .case-study-title {
-            color: #667eea;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .site-footer {
-            text-align: center;
-            margin-top: 2rem;
-            padding: 1rem 0;
-            font-size: 1rem;
-        }
-
-        .site-footer a {
-            color: #1a5c3a;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease, text-decoration 0.3s ease;
-        }
-
-        .site-footer a:hover {
-            color: #c41e3a;
-            text-decoration: underline;
-        }
-
-        @media (max-width: 480px) {
-            .site-footer {
-                padding: 0.75rem 0;
-            }
+        @media print {
+            .nav-buttons, .check-btn, .complete-button, .export-buttons, .progress-bar-container { display: none !important; }
+            .module { display: block !important; break-before: page; }
+            #module-0 { break-before: auto; }
         }
     </style>
 </head>
 
-<body>
+<body data-tinta="acqua">
+    <div class="barra shell">
+        <a href="../../terzo.html#arg-servizi">← Materiali del terzo anno</a>
+        <a href="percorsi_autoapprendimento_teoria.html">📖 Teoria sui servizi</a>
+        <span class="sito">Metodologie Operative</span>
+    </div>
     <div class="container">
-        <div class="header">
-            <div class="school-name">IIS Meucci Mattei di Cagliari Sede Decimomannu</div>
-            <div class="course-name">Servizi per la sanità e l'assistenza sociale - Percorsi di Autoapprendimento</div>
-            <a href="percorsi_autoapprendimento_teoria.html" class="button-white">
-                <span style="font-size: 1.2em; margin-right: 8px;">📖</span> Ripassa la Teoria
-            </a>
+        <div class="header testata--banda">
+            <p class="occhiello">Terzo anno · Percorso di autoapprendimento</p>
+            <h1>I servizi sociosanitari</h1>
+            <p class="lead">Cinque moduli per conoscere le politiche sociali, i servizi integrativi e sostitutivi e il percorso che conduce dalla domanda di aiuto al progetto individualizzato.</p>
+            <div class="identita" data-identita></div>
         </div>
 
         <div class="progress-bar-container">
@@ -552,19 +127,21 @@
 
         <div class="content">
             <div class="nav-buttons">
-                <button class="nav-btn active" onclick="showModule(0)">Modulo 1: Politiche Sociali</button>
-                <button class="nav-btn" onclick="showModule(1)">Modulo 2: Servizi Integrativi</button>
-                <button class="nav-btn" onclick="showModule(2)">Modulo 3: Servizi Sostitutivi</button>
-                <button class="nav-btn" onclick="showModule(3)">Modulo 4: Applicazione Pratica</button>
-                <button class="nav-btn" onclick="showModule(4)">Riepilogo e Valutazione</button>
+                <button class="nav-btn active" onclick="showModule(0)">1 · Politiche sociali</button>
+                <button class="nav-btn" onclick="showModule(1)">2 · Servizi integrativi</button>
+                <button class="nav-btn" onclick="showModule(2)">3 · Servizi sostitutivi</button>
+                <button class="nav-btn" onclick="showModule(3)">4 · Applicazione pratica</button>
+                <button class="nav-btn" onclick="showModule(4)">5 · Riepilogo e autovalutazione</button>
             </div>
 
             <!-- MODULO 1: POLITICHE SOCIALI -->
             <div class="module active" id="module-0">
-                <div class="module-title">Modulo 1: Politiche Sociali e Sistema Integrato</div>
+                <div class="module-title">Modulo 1 · Le politiche sociali e il sistema integrato</div>
 
+                <details class="ripasso">
+                <summary>Rileggi la teoria: politiche sociali e sistema integrato</summary>
                 <div class="theory-section">
-                    <h3>Cosa sono le Politiche Sociali?</h3>
+                    <h3>Che cosa sono le politiche sociali</h3>
                     <p>Le politiche sociali sono tutti quegli interventi da parte dello Stato rivolti alle persone che
                         presentano una qualunque forma di disagio o svantaggio. Sono quella parte delle politiche
                         pubbliche che mirano a <strong>tutelare i cittadini dai rischi sociali</strong>, promuovendo e
@@ -582,14 +159,14 @@
                         di beni e servizi.
                     </div>
 
-                    <h3>Finalità del Settore Servizi Sociali</h3>
+                    <h3>Le finalità dei servizi sociali comunali</h3>
                     <p>Il settore Servizi Sociali di ogni Comune ha come finalità:</p>
                     <ul>
                         <li>La promozione, il mantenimento e il recupero dello stato di benessere dei cittadini</li>
                         <li>Il pieno sviluppo delle persone nell'ambito dei rapporti familiari e sociali</li>
                     </ul>
 
-                    <h3>Due Categorie di Servizi</h3>
+                    <h3>Due categorie di servizi</h3>
                     <p><strong>Servizi e Interventi Integrativi:</strong> Garantiscono la permanenza della persona nel
                         proprio ambiente di vita il più a lungo possibile, offrendo supporto assistenziale e la
                         mobilitazione di tutte le risorse possibili.</p>
@@ -597,9 +174,11 @@
                         bisogno che possono essere gestite con l'allontanamento temporaneo della persona dal proprio
                         ambiente di vita, per poi ripristinare e potenziare l'ambiente stesso.</p>
                 </div>
+                <p class="rimando">Teoria completa: <a href="percorsi_autoapprendimento_teoria.html#politiche">Le politiche sociali →</a></p>
+            </details>
 
                 <div class="quiz-section">
-                    <div class="quiz-title">Quiz di Verifica</div>
+                    <div class="quiz-title">Quiz di verifica</div>
 
                     <div class="question" data-correct="0">
                         <div class="question-text">1. Qual è l'obiettivo principale delle politiche sociali?</div>
@@ -649,27 +228,29 @@
                         </div>
                     </div>
 
-                    <button class="check-btn" onclick="checkQuiz(0)">Verifica Risposte</button>
+                    <button class="check-btn" onclick="checkQuiz(0)">Verifica le risposte</button>
                     <div class="feedback" id="feedback-0"></div>
                 </div>
 
                 <div class="exercise-section">
-                    <div class="exercise-title">Esercizio: Rifletti e Scrivi</div>
+                    <div class="exercise-title">Esercizio · Rifletti e scrivi</div>
                     <p><strong>Domanda:</strong> Secondo te, perché è importante che il sistema di servizi sociali sia
                         "integrato" (cioè coinvolga diversi enti come Comuni, ASL, Province)? Quali vantaggi porta
                         questa integrazione alle persone che hanno bisogno di aiuto?</p>
                     <textarea id="reflection-1" name="reflection-1"
                         placeholder="Scrivi qui la tua riflessione (minimo 150 parole)..."></textarea>
-                    <button class="complete-button" onclick="saveReflection(1)">Salva Riflessione</button>
+                    <button class="complete-button" onclick="saveReflection(1)">Salva la riflessione</button>
                 </div>
             </div>
 
             <!-- MODULO 2: SERVIZI INTEGRATIVI -->
             <div class="module" id="module-1">
-                <div class="module-title">Modulo 2: I Servizi Integrativi</div>
+                <div class="module-title">Modulo 2 · I servizi integrativi</div>
 
+                <details class="ripasso">
+                <summary>Rileggi la teoria: i servizi integrativi</summary>
                 <div class="theory-section">
-                    <h3>Panoramica dei Servizi Integrativi</h3>
+                    <h3>Panoramica dei servizi integrativi</h3>
                     <p>I servizi integrativi sono pensati per supportare le persone mantenendole nel loro ambiente di
                         vita abituale. Vediamoli nel dettaglio:</p>
 
@@ -724,9 +305,11 @@
                             riabilitative</li>
                     </ul>
                 </div>
+                <p class="rimando">Teoria completa: <a href="percorsi_autoapprendimento_teoria.html#integrativi">I servizi e gli interventi integrativi →</a></p>
+            </details>
 
                 <div class="quiz-section">
-                    <div class="quiz-title">Quiz di Verifica</div>
+                    <div class="quiz-title">Quiz di verifica</div>
 
                     <div class="question" data-correct="1">
                         <div class="question-text">1. Qual è la differenza principale tra SAD e ADI?</div>
@@ -773,12 +356,12 @@
                         </div>
                     </div>
 
-                    <button class="check-btn" onclick="checkQuiz(1)">Verifica Risposte</button>
+                    <button class="check-btn" onclick="checkQuiz(1)">Verifica le risposte</button>
                     <div class="feedback" id="feedback-1"></div>
                 </div>
 
                 <div class="exercise-section">
-                    <div class="exercise-title">Esercizio di Abbinamento: Servizio - Situazione</div>
+                    <div class="exercise-title">Esercizio · Abbina la situazione al servizio</div>
                     <p>Abbina ogni situazione al servizio integrativo più appropriato:</p>
 
                     <div id="matching-1" class="matching-container">
@@ -816,17 +399,19 @@
                             </div>
                         </div>
                     </div>
-                    <button class="complete-button" onclick="checkMatching(1)">Verifica Abbinamenti</button>
+                    <button class="complete-button" onclick="checkMatching(1)">Verifica gli abbinamenti</button>
                     <div class="feedback" id="matching-feedback-1"></div>
                 </div>
             </div>
 
             <!-- MODULO 3: SERVIZI SOSTITUTIVI -->
             <div class="module" id="module-2">
-                <div class="module-title">Modulo 3: I Servizi Sostitutivi</div>
+                <div class="module-title">Modulo 3 · I servizi sostitutivi</div>
 
+                <details class="ripasso">
+                <summary>Rileggi la teoria: i servizi sostitutivi</summary>
                 <div class="theory-section">
-                    <h3>Quando servono i Servizi Sostitutivi?</h3>
+                    <h3>Quando servono i servizi sostitutivi</h3>
                     <p>I servizi sostitutivi intervengono quando la permanenza nel proprio ambiente di vita non è più
                         possibile o appropriata. L'obiettivo è sempre quello di <strong>ripristinare e potenziare
                             l'ambiente originario</strong> quando possibile.</p>
@@ -871,9 +456,11 @@
                         complessi che richiedono un ambiente protetto e specializzato.
                     </div>
                 </div>
+                <p class="rimando">Teoria completa: <a href="percorsi_autoapprendimento_teoria.html#sostitutivi">I servizi e gli interventi sostitutivi →</a></p>
+            </details>
 
                 <div class="quiz-section">
-                    <div class="quiz-title">Quiz di Verifica</div>
+                    <div class="quiz-title">Quiz di verifica</div>
 
                     <div class="question" data-correct="1">
                         <div class="question-text">1. Qual è la differenza principale tra Casa Famiglia e Comunità
@@ -922,12 +509,12 @@
                         </div>
                     </div>
 
-                    <button class="check-btn" onclick="checkQuiz(2)">Verifica Risposte</button>
+                    <button class="check-btn" onclick="checkQuiz(2)">Verifica le risposte</button>
                     <div class="feedback" id="feedback-2"></div>
                 </div>
 
                 <div class="exercise-section">
-                    <div class="exercise-title">Caso di Studio: Scegli il Servizio Appropriato</div>
+                    <div class="exercise-title">Caso di studio · Scegli il servizio appropriato</div>
                     <div class="case-study">
                         <div class="case-study-title">Caso: Maria e Luigi</div>
                         <p>Maria ha 25 anni e presenta una disabilità intellettiva lieve. Sa lavarsi, vestirsi e
@@ -947,25 +534,25 @@
                         <strong>Suggerimento:</strong> Considera il livello di autonomia, le capacità residue, i
                         desideri espressi e l'intensità assistenziale necessaria.
                     </div>
-                    <button class="complete-button" onclick="saveCaseStudy(2)">Salva Analisi</button>
+                    <button class="complete-button" onclick="saveCaseStudy(2)">Salva l'analisi</button>
                 </div>
             </div>
 
             <!-- MODULO 4: APPLICAZIONE PRATICA -->
             <div class="module" id="module-3">
-                <div class="module-title">Modulo 4: Applicazione Pratica - Costruisci il Percorso</div>
+                <div class="module-title">Modulo 4 · Applicazione pratica: costruire il percorso</div>
 
                 <div class="theory-section">
-                    <h3>Dalla Domanda alla Risposta: L'Iter di Accesso ai Servizi</h3>
+                    <h3>Dalla domanda alla risposta: l'iter di accesso ai servizi</h3>
                     <p>Quando una persona ha bisogno di aiuto, segue tipicamente questo percorso:</p>
-                    <ol style="line-height: 2;">
-                        <li><strong>Primo contatto</strong> → Segretariato Sociale</li>
-                        <li><strong>Valutazione iniziale</strong> → Identificazione del bisogno</li>
-                        <li><strong>Presa in carico</strong> → Servizio Sociale Professionale</li>
-                        <li><strong>Progetto Individualizzato</strong> → Piano di intervento personalizzato</li>
-                        <li><strong>Attivazione servizi</strong> → Integrativi e/o sostitutivi</li>
-                        <li><strong>Monitoraggio</strong> → Verifica efficacia e aggiustamenti</li>
-                    </ol>
+                    <ol class="passi">
+                    <li><b>Primo contatto</b>Segretariato sociale</li>
+                    <li><b>Valutazione iniziale</b>Identificazione del bisogno</li>
+                    <li><b>Presa in carico</b>Servizio sociale professionale</li>
+                    <li><b>Progetto individualizzato</b>Piano di intervento personalizzato</li>
+                    <li><b>Attivazione dei servizi</b>Integrativi e/o sostitutivi</li>
+                    <li><b>Monitoraggio</b>Verifica dell'efficacia e aggiustamenti</li>
+                </ol>
 
                     <div class="key-concept">
                         <strong>Importante:</strong> Il progetto individualizzato deve sempre coinvolgere la persona e
@@ -975,10 +562,10 @@
                 </div>
 
                 <div class="exercise-section">
-                    <div class="exercise-title">Esercizio Complesso: Progetta l'Intervento</div>
+                    <div class="exercise-title">Esercizio di sintesi · Progetta l'intervento</div>
 
                     <div class="case-study">
-                        <div class="case-study-title">Caso Complesso: La Famiglia Neri</div>
+                        <div class="case-study-title">Il caso della famiglia Neri</div>
                         <p><strong>Situazione:</strong> La signora Anna Neri, 76 anni, vedova, vive sola. Ha l'Alzheimer
                             in fase iniziale-media e il diabete. Sua figlia Carla (50 anni) lavora a tempo pieno e abita a
                             30 km di distanza. Carla viene a trovarla ogni sera dopo il lavoro ma è esausta.</p>
@@ -998,73 +585,72 @@
                         bisogni sia di Anna che di Carla. Struttura la tua risposta seguendo questi punti:</p>
 
                     <div style="margin: 20px 0;">
-                        <strong>1. Analisi dei Bisogni (di Anna e di Carla)</strong>
+                        <strong>1. Analisi dei bisogni (di Anna e di Carla)</strong>
                         <textarea id="project-needs" name="project-needs"
                             placeholder="Elenca e analizza tutti i bisogni identificati..."></textarea>
                     </div>
 
                     <div style="margin: 20px 0;">
-                        <strong>2. Obiettivi a Breve Termine (1-3 mesi)</strong>
+                        <strong>2. Obiettivi a breve termine (1-3 mesi)</strong>
                         <textarea id="project-short" name="project-short"
                             placeholder="Quali obiettivi immediati vuoi raggiungere?"></textarea>
                     </div>
 
                     <div style="margin: 20px 0;">
-                        <strong>3. Obiettivi a Medio-Lungo Termine (6-12 mesi)</strong>
+                        <strong>3. Obiettivi a medio-lungo termine (6-12 mesi)</strong>
                         <textarea id="project-long" name="project-long"
                             placeholder="Dove vuoi arrivare nel medio periodo?"></textarea>
                     </div>
 
                     <div style="margin: 20px 0;">
-                        <strong>4. Servizi da Attivare (specificare quali e perché)</strong>
+                        <strong>4. Servizi da attivare (quali e perché)</strong>
                         <textarea id="project-services" name="project-services"
                             placeholder="Elenca tutti i servizi che attiveresti e spiega il motivo di ogni scelta..."></textarea>
                     </div>
 
                     <div style="margin: 20px 0;">
-                        <strong>5. Coordinamento della Rete (formale e informale)</strong>
+                        <strong>5. Coordinamento della rete (formale e informale)</strong>
                         <textarea id="project-network" name="project-network"
                             placeholder="Come coordinerai tutti gli attori coinvolti?"></textarea>
                     </div>
 
                     <div style="margin: 20px 0;">
-                        <strong>6. Monitoraggio e Valutazione</strong>
+                        <strong>6. Monitoraggio e valutazione</strong>
                         <textarea id="project-monitoring" name="project-monitoring"
                             placeholder="Come verificherai che il progetto sta funzionando?"></textarea>
                     </div>
 
-                    <button class="complete-button" onclick="saveProject()">Salva Progetto Completo</button>
+                    <button class="complete-button" onclick="saveProject()">Salva il progetto</button>
                 </div>
             </div>
 
             <!-- MODULO 5: RIEPILOGO -->
             <div class="module" id="module-4">
-                <div class="module-title">Modulo 5: Riepilogo e Autovalutazione Finale</div>
+                <div class="module-title">Modulo 5 · Riepilogo e autovalutazione finale</div>
 
                 <div class="summary-section">
-                    <h2 style="text-align: center; color: #2c3e50; margin-bottom: 20px;">Il Tuo Percorso di
-                        Apprendimento</h2>
+                    <h2 style="text-align: center; color: #2c3e50; margin-bottom: 20px;">Il tuo percorso di apprendimento</h2>
 
                     <div class="score-display" id="final-score">0%</div>
 
                     <div style="background: white; padding: 20px; border-radius: 10px; margin: 20px 0;">
-                        <h3 style="color: #667eea; margin-bottom: 15px;">Riepilogo Moduli Completati</h3>
+                        <h3 style="color: #667eea; margin-bottom: 15px;">Moduli completati</h3>
                         <div id="modules-summary"></div>
                     </div>
 
                     <div style="background: white; padding: 20px; border-radius: 10px; margin: 20px 0;">
-                        <h3 style="color: #667eea; margin-bottom: 15px;">Competenze Acquisite</h3>
+                        <h3 style="color: #667eea; margin-bottom: 15px;">Competenze acquisite</h3>
                         <ul id="skills-list" style="line-height: 2;"></ul>
                     </div>
 
                     <div style="background: #fff3cd; padding: 20px; border-radius: 10px; margin: 20px 0;">
-                        <h3 style="color: #856404; margin-bottom: 15px;">Aree da Approfondire</h3>
+                        <h3 style="color: #856404; margin-bottom: 15px;">Aree da approfondire</h3>
                         <div id="improve-areas"></div>
                     </div>
                 </div>
 
                 <div class="quiz-section">
-                    <div class="quiz-title">Test Finale di Autovalutazione</div>
+                    <div class="quiz-title">Test finale di autovalutazione</div>
 
                     <div class="question" data-correct="1">
                         <div class="question-text">1. Una persona anziana sola con problemi di mobilità ma ancora lucida
@@ -1147,12 +733,12 @@
                         </div>
                     </div>
 
-                    <button class="check-btn" onclick="checkFinalQuiz()">Verifica Test Finale</button>
+                    <button class="check-btn" onclick="checkFinalQuiz()">Verifica il test finale</button>
                     <div class="feedback" id="feedback-final"></div>
                 </div>
 
                 <div class="export-buttons">
-                    <button class="export-btn pdf" onclick="exportProgress()">Esporta Report Completo (PDF)</button>
+                    <button class="export-btn pdf" onclick="exportProgress()">Esporta il resoconto completo (PDF)</button>
                 </div>
             </div>
 
@@ -1533,7 +1119,7 @@
         setInterval(saveState, 30000);
     </script>
     <footer class="site-footer">
-        <a href="https://salvapicconi.github.io/metodologieoperative/">🏠 Torna alla Home</a>
+        <a href="../../terzo.html">← Materiali del terzo anno</a>
     </footer>
     <script>
         window.MO_PROGRESS_CONFIG = {
