@@ -14,13 +14,6 @@
             box-sizing: border-box;
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const params = new URLSearchParams(window.location.search);
-            if (params.get('docente') === '1') {
-                setTimeout(() => sbloccaVerifica(true), 0);
-            }
-        });
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #ec166c 0%, #17385a 25%, #57bda8 50%, #57bda8 75%, #80cd29 100%);

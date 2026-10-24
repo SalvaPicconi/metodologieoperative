@@ -9,6 +9,10 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-24** · Claude · Pubblicata su Aruba la sezione Intelligenza artificiale rivista (percorso in sei fasi, versione semplificata, verifica) e il glossario con IA, prompt e bias algoritmico. (Aruba `cb0d5b4`, run «Pubblica su Aruba» n. 12 riuscito, 4 file online verificati)
+
+- **2026-10-24** · Claude · Verifica IA: tolto uno sblocco «?docente=1» rimasto per errore nello stile (non funzionava); titolo della versione semplificata a norma. Non ancora pubblicato su Aruba. (ramo `claude/ia-materiali`)
+
 - **2026-10-24** · Claude · Intelligenza artificiale rivista: percorso in sei fasi, versione semplificata e verifica con i colori del logo e i caratteri del sito, titoli e testi in italiano scolastico (domande della verifica invariate); IA, prompt e bias algoritmico nel glossario. Salvataggi invariati. Non ancora pubblicato su Aruba. (ramo `claude/ia-materiali`)
 
 - **2026-10-24** · Claude · Pubblicato su Aruba il Laboratorio rivisto (manipolativi, autobiografico, animazione, colori del logo su dipendenze, infanzia, collage ed educazione civica). (Aruba `2bc2496`, run «Pubblica su Aruba» n. 11 riuscito, 16 file online verificati)
