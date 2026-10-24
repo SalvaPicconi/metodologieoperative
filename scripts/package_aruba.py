@@ -18,6 +18,9 @@ ROOT = Path(__file__).resolve().parents[1]
 DOMAIN = "https://www.metodologieoperativessas.it"
 OLD = "https://salvapicconi.github.io/metodologieoperative"
 EXCLUDED = {".github", "scripts", "supabase", "programmi-src", "PWA-Metodologie-Operative"}
+# File che restano nel repository ma non vanno online: non si esportano e l'.htaccess
+# risponde 410, perche la pubblicazione non cancella mai i file gia presenti sul server.
+NON_PUBBLICATI = {"materiali/quarto/verifica_sommativa_4SSAS.pdf"}  # testo della verifica protetta da password
 
 
 class Fields(HTMLParser):
@@ -69,7 +72,7 @@ def main():
     changed, hashes = [], {}
     for name in filter(None, files):
         path = Path(name)
-        if path.parts[0] in EXCLUDED or path.name.startswith("."):
+        if path.parts[0] in EXCLUDED or path.name.startswith(".") or name in NON_PUBBLICATI:
             continue
         if len(path.parts) == 1 and path.suffix.lower() in {".md", ".txt"}:
             continue
@@ -90,7 +93,7 @@ RewriteCond %{HTTPS} !=on [OR]
 RewriteCond %{HTTP_HOST} !^www\\.metodologieoperativessas\\.it$ [NC]
 RewriteRule ^ https://www.metodologieoperativessas.it%{REQUEST_URI} [R=302,L]
 RewriteRule ^metodologieoperative(?:/(.*))?$ /$1 [R=302,L]
-<IfModule mod_headers.c>
+''' + "".join(f"RewriteRule ^{re.escape(name)}$ - [G,L]\n" for name in sorted(NON_PUBBLICATI)) + '''<IfModule mod_headers.c>
   <FilesMatch "^(service-worker\\.js|manifest\\.json)$">
     Header set Cache-Control "no-cache"
   </FilesMatch>

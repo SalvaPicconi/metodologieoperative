@@ -30,6 +30,9 @@ La nuova cartella contiene `site/`, lo ZIP da estrarre nella radice web Aruba e
 `release.json` con commit sorgente, file adattati e hash SHA-256 dei file esportati.
 Non caricare il repository completo: codice server, fonti e istruzioni interne
 sono esclusi dallo ZIP. Lo script non sovrascrive un'esportazione precedente.
+I file elencati in `NON_PUBBLICATI` restano nel repository ma non vanno online:
+non entrano nello ZIP e l'`.htaccess` risponde «410 Gone», perché la pubblicazione
+non cancella i file già presenti sul server.
 
 ## Ordine di attivazione e verifica (storico: migrazione del 22 ottobre 2026)
 
