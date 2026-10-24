@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La relazione professionale e la seconda prova · Quinto anno · Metodologie Operative</title>
+<meta name="description" content="Quinto anno, Metodologie Operative: come si scrive una relazione professionale che permette a un servizio di decidere, e come è costruita la seconda prova dell'esame di Stato per l'indirizzo sociosanitario.">
+<link rel="stylesheet" href="../../assets/materiale.css?v=20261024">
+<script src="../../assets/materiale.js?v=20261024" defer></script>
+<style>
+.t-rosa .num, .t-verde .num, .indice .t-rosa .n, .indice .t-verde .n { color: #fff; }
+.sezione > ol.passi { max-width: none; }
+.struttura { list-style: none; counter-reset: sez; padding: 0; margin: 20px 0; border: 1px solid var(--color-line); background: var(--color-surface); }
+.struttura li { counter-increment: sez; display: grid; grid-template-columns: 44px 1fr; gap: 2px 12px; padding: 12px 16px; border-top: 1px solid var(--color-line); margin: 0; }
+.struttura li:first-child { border-top: 0; }
+.struttura li::before { content: counter(sez); grid-row: span 2; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--tinta); color: #fff; font-weight: 700; }
+.struttura b { color: var(--color-primary); }
+.struttura span { color: var(--color-ink-soft); font-size: .95rem; }
+.schede { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 20px 0; }
+.schede > div { background: var(--color-surface); border: 1px solid var(--color-line); border-left: 5px solid var(--tinta); padding: 14px 16px; }
+.schede > div > :first-child { margin-top: 0; }
+.schede > div > :last-child { margin-bottom: 0; }
+.schede h4 { margin: 0 0 4px; font-size: 1rem; color: var(--color-primary); }
+.schede > div:nth-child(4n+1) { border-left-color: var(--rosa); }
+.schede > div:nth-child(4n+2) { border-left-color: var(--acqua); }
+.schede > div:nth-child(4n+3) { border-left-color: var(--lime); }
+.schede > div:nth-child(4n) { border-left-color: var(--verde); }
+.nuclei { margin: 12px 0; padding-left: 22px; }
+.nuclei li { margin-bottom: 6px; }
+.punti td:last-child, .punti th:last-child { text-align: center; width: 110px; }
+.punti tfoot td { font-weight: 700; background: var(--tinta-tenue); }
+.es { background: var(--color-surface); border: 1px solid var(--color-line); border-top: 4px solid var(--tinta); padding: 18px 20px; margin: 22px 0; }
+.es h3 { margin-top: 0; }
+.cons { color: var(--color-ink-soft); font-size: .95rem; }
+.scena { background: var(--tinta-tenue); padding: 14px 16px; margin: 10px 0 14px; }
+.scena p:last-child { margin-bottom: 0; }
+.voce { padding: 12px 0; border-top: 1px dashed var(--color-line); }
+.voce:first-of-type { border-top: 0; }
+.voce p { margin: .2rem 0 .5rem; }
+select { font: inherit; font-size: 1rem; border: 1px solid var(--color-line); padding: .45rem .6rem; background: #fff; max-width: 100%; min-width: 16rem; }
+textarea { width: 100%; min-height: 5.5rem; resize: vertical; }
+label.campo { display: block; font-weight: 600; margin: 1rem 0 .35rem; }
+.riscontro { display: none; margin-top: .5rem; padding: .55rem .75rem; font-size: .95rem; }
+.riscontro.ok { display: block; background: var(--verde-tenue); color: var(--verde-testo); }
+.riscontro.ko { display: block; background: var(--rosa-tenue); color: var(--rosa-testo); }
+.ripasso-link { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+.ripasso-link li { margin: 0; }
+.ripasso-link a { display: block; padding: 12px 14px; background: var(--color-surface); border: 1px solid var(--color-line); border-left: 4px solid var(--tinta); text-decoration: none; color: var(--color-primary); font-weight: 600; }
+.ripasso-link small { display: block; color: var(--color-ink-soft); font-weight: 400; }
+@media (max-width: 640px) {
+  select { min-width: 0; width: 100%; }
+  .struttura li { grid-template-columns: 38px 1fr; }
+}
+</style>
+</head>
+<body data-tinta="rosa">
+<a class="skip" href="#contenuto">Vai al contenuto</a>
+<div class="barra shell">
+  <a href="../../quinto.html#arg-relazione">← Materiali del quinto anno</a>
+  <a href="caso-professionale.html">Il caso professionale</a>
+  <span class="sito">Metodologie Operative</span>
+</div>
+
+<main id="contenuto">
+<header class="shell">
+  <div class="testata testata--banda">
+    <p class="occhiello">Quinto anno · Teoria ed esercizi</p>
+    <h1>La relazione professionale e la seconda prova</h1>
+    <p class="lead">Scrivere il documento con cui un servizio decide: dal caso alla proposta, in un testo che deve reggersi da solo. È anche ciò che la seconda prova dell'esame di Stato chiede di saper fare.</p>
+  </div>
+</header>
+
+<nav class="indice" aria-label="Sezioni della pagina">
+  <ol class="shell">
+    <li><a href="#relazione"><span class="n">1</span>La relazione</a></li>
+    <li class="t-acqua"><a href="#struttura"><span class="n">2</span>La struttura</a></li>
+    <li class="t-lime"><a href="#prova"><span class="n">3</span>La seconda prova</a></li>
+    <li class="t-verde"><a href="#pari"><span class="n">4</span>Pari opportunità</a></li>
+    <li><a href="#privacy"><span class="n">5</span>La privacy</a></li>
+    <li class="t-acqua"><a href="#indicatori"><span class="n">6</span>Gli indicatori</a></li>
+    <li class="t-lime"><a href="#esercizi"><span class="n">7</span>Esercizi</a></li>
+  </ol>
+</nav>
+
+<div class="shell">
+
+<section class="sezione" id="relazione">
+  <h2><span class="num">1</span>Che cos'è una relazione professionale</h2>
+  <div class="definizione">
+    <p>La <dfn>relazione professionale</dfn> è il documento scritto con cui l'operatore presenta una situazione a chi deve prendere una decisione: il responsabile del servizio, l'équipe, l'unità di valutazione, a volte il giudice. Descrive i fatti, li interpreta in modo motivato e formula una proposta.</p>
+  </div>
+  <p>Chi la legge spesso non conosce la persona e ha poco tempo. Per questo la relazione deve <strong>reggersi da sola</strong>: chi la riceve deve poter capire la situazione e decidere senza che nessuno gliela spieghi a voce.</p>
+  <div class="schede">
+    <div><h4>Il destinatario</h4><p>Si scrive per qualcuno: che cosa deve sapere per decidere, e che cosa invece non gli serve.</p></div>
+    <div><h4>Lo scopo</h4><p>La relazione serve a una decisione: attivare un servizio, modificare un progetto, verificarne gli esiti.</p></div>
+    <div><h4>Il registro</h4><p>Lessico professionale, frasi chiare, nessun giudizio morale sulla persona, nessuna espressione colloquiale.</p></div>
+  </div>
+  <h3>Fatti osservati e valutazioni</h3>
+  <p>La regola più importante della scrittura professionale è tenere distinti ciò che si è <strong>osservato</strong> e ciò che si <strong>valuta</strong>. Il fatto si può verificare; la valutazione è un'interpretazione e va motivata.</p>
+  <div class="confronto">
+    <div class="t-rosa"><h4>Valutazione non motivata</h4><p>«La signora è trascurata e non collabora.»</p></div>
+    <div class="t-verde"><h4>Fatto osservato, con la fonte</h4><p>«Durante la visita domiciliare del 10 marzo il frigorifero era vuoto; la signora ha detto di non voler ricevere il servizio di assistenza domiciliare.»</p></div>
+  </div>
+</section>
+
+<section class="sezione t-acqua" id="struttura">
+  <h2><span class="num">2</span>La struttura della relazione</h2>
+  <p>Le relazioni dei servizi hanno formati diversi, ma seguono in genere questo ordine.</p>
+  <ol class="struttura">
+    <li><b>Intestazione</b><span>Destinatario, oggetto, data, chi scrive e in quale servizio.</span></li>
+    <li><b>Fonti e metodo</b><span>Da dove vengono le informazioni: colloqui, visite domiciliari, documenti, altri servizi.</span></li>
+    <li><b>Presentazione della situazione</b><span>I dati essenziali sulla persona e sul suo contesto, solo quelli che servono alla decisione.</span></li>
+    <li><b>Lettura del bisogno</b><span>Quali bisogni emergono, letti secondo la categoria di utenza e motivati dai fatti.</span></li>
+    <li><b>Risorse e rete</b><span>La rete formale (servizi) e informale (famiglia, vicini, volontari) su cui si può contare, con i suoi limiti.</span></li>
+    <li><b>Ipotesi di intervento</b><span>Obiettivi, azioni, chi le svolge, tempi e risorse; eventuali alternative a confronto.</span></li>
+    <li><b>Indicatori di esito</b><span>Che cosa dirà, alla verifica, se l'intervento ha funzionato.</span></li>
+    <li><b>Conclusioni e firma</b><span>La proposta in sintesi, la richiesta al destinatario, la firma di chi risponde del testo.</span></li>
+  </ol>
+</section>
+
+<section class="sezione t-lime" id="prova">
+  <h2><span class="num">3</span>La seconda prova dell'esame di Stato</h2>
+  <p>Negli istituti professionali di nuovo ordinamento la seconda prova scritta non riguarda una singola disciplina, ma le <strong>competenze in uscita</strong> dell'indirizzo. Il quadro di riferimento è fissato dal <strong>D.M. 164 del 15 giugno 2022</strong>, Allegato I, per l'indirizzo Servizi per la sanità e l'assistenza sociale.</p>
+  <h3>Come nasce la traccia</h3>
+  <ol class="passi">
+    <li><b>La parte nazionale</b>Il Ministero indica la tipologia della prova e il nucleo o i nuclei tematici fondamentali a cui fare riferimento.</li>
+    <li><b>La commissione</b>Declina le indicazioni ministeriali sul percorso svolto dalla scuola, in coerenza con il Piano dell'offerta formativa.</li>
+    <li><b>Lo svolgimento</b>La durata prevista dal quadro di riferimento è di 6 ore; la commissione può consegnare documenti, tabelle, grafici e dati utili all'elaborato.</li>
+  </ol>
+  <p class="cons">Le modalità di dettaglio, come il numero di proposte di traccia che la commissione prepara, sono fissate ogni anno dall'ordinanza ministeriale sull'esame.</p>
+
+  <h3>Le quattro tipologie</h3>
+  <div class="tabella-wrap"><table class="tabella">
+    <thead><tr><th scope="col">Tipologia</th><th scope="col">Che cosa chiede</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">A</th><td>Redazione di una relazione professionale sulla base dell'analisi di documenti, tabelle, dati.</td></tr>
+      <tr><th scope="row">B</th><td>Analisi e soluzione di problematiche in un contesto operativo riguardante l'area professionale (caso aziendale/caso professionale).</td></tr>
+      <tr><th scope="row">C</th><td>Individuazione, predisposizione o descrizione delle fasi per la realizzazione di un servizio.</td></tr>
+      <tr><th scope="row">D</th><td>Elaborazione di un progetto finalizzato all'innovazione della filiera di produzione e/o alla promozione di servizi e prestazioni professionali del settore.</td></tr>
+    </tbody>
+  </table></div>
+
+  <details class="approfondimento">
+    <summary>Gli otto nuclei tematici fondamentali dell'indirizzo</summary>
+    <ol class="nuclei">
+      <li>Metodi di progettazione e relative azioni di pianificazione, gestione, valutazione dei progetti per rispondere ai bisogni delle persone; reti formali e informali come elementi di contesto operativo.</li>
+      <li>Raccolta e modalità di trattamento e trasmissione di dati e informazioni per mezzo di diversi canali e registri comunicativi; norme di sicurezza e privacy.</li>
+      <li>Figure professionali di riferimento, forme e modalità di comunicazione interpersonale nei diversi contesti sociali e di lavoro; uso della comunicazione come strumento educativo.</li>
+      <li>Condizioni d'accesso e fruizione dei servizi educativi, sociali, sociosanitari e sanitari.</li>
+      <li>Metodi, strumenti e condizioni del prendere in cura persone con fragilità o in situazioni di svantaggio per cause sociali o patologie.</li>
+      <li>Allestimento e cura dell'ambiente di vita delle persone in difficoltà e norme di sicurezza.</li>
+      <li>Attività educative, di animazione, ludiche e culturali in rapporto alle diverse tipologie di utenza.</li>
+      <li>Inclusione socio-culturale di singoli o gruppi, prevenzione e contrasto all'emarginazione e alla discriminazione sociale.</li>
+    </ol>
+    <p class="cons">Testo del D.M. 164/2022, Allegato I.</p>
+  </details>
+
+  <h3>Come viene valutata</h3>
+  <div class="tabella-wrap"><table class="tabella punti">
+    <thead><tr><th scope="col">Indicatore</th><th scope="col">Punti</th></tr></thead>
+    <tbody>
+      <tr><td>Utilizzo del patrimonio lessicale ed espressivo della lingua italiana secondo le esigenze comunicative del contesto professionale</td><td>4</td></tr>
+      <tr><td>Utilizzo di una struttura logico-espositiva coerente a quanto richiesto dalla tipologia di prova</td><td>3</td></tr>
+      <tr><td>Padronanza delle conoscenze relative ai nuclei tematici fondamentali di riferimento della prova</td><td>5</td></tr>
+      <tr><td>Ricorso agli aspetti delle competenze professionali specifiche utili a conseguire le finalità dell'elaborato</td><td>8</td></tr>
+    </tbody>
+    <tfoot><tr><td>Totale</td><td>20</td></tr></tfoot>
+  </table></div>
+  <p>L'indicatore che pesa di più riguarda le <strong>competenze professionali</strong>: la commissione cerca soprattutto la capacità di leggere la situazione, scegliere e motivare un intervento coerente.</p>
+
+  <h3>Come si legge una consegna</h3>
+  <ol class="passi">
+    <li><b>Tipologia</b>Che cosa devo produrre: una relazione, la soluzione di un caso, le fasi di un servizio, un progetto?</li>
+    <li><b>Destinatario e ruolo</b>Chi sono io nella situazione, e a chi è rivolto il mio testo?</li>
+    <li><b>Dati</b>Che cosa dicono i documenti allegati; che cosa manca e devo dichiarare come ipotesi.</li>
+    <li><b>Richieste</b>Elenco tutti i punti a cui devo rispondere, nell'ordine dato.</li>
+    <li><b>Scaletta</b>Distribuisco il tempo fra le richieste prima di scrivere.</li>
+  </ol>
+</section>
+
+<section class="sezione t-verde" id="pari">
+  <h2><span class="num">4</span>Le pari opportunità come criterio della proposta</h2>
+  <p>Una proposta di intervento non si misura solo sulla sua fattibilità. Si misura anche su quanto amplia le possibilità della persona di accedere a ciò a cui ha diritto come tutti: le <strong>cure</strong>, l'<strong>istruzione</strong> e la formazione, il <strong>lavoro</strong>.</p>
+  <div class="schede">
+    <div><h4>Accesso alle cure</h4><p>La proposta rende più facile raggiungere i servizi sanitari, comprendere le terapie, partecipare alle scelte di cura?</p></div>
+    <div><h4>Istruzione e formazione</h4><p>Permette di frequentare la scuola o un corso, con i sostegni necessari, invece di rinunciarvi?</p></div>
+    <div><h4>Lavoro</h4><p>Apre o protegge una possibilità di lavoro, anche attraverso il collocamento mirato o un inserimento accompagnato?</p></div>
+  </div>
+  <p>Una buona relazione rende esplicito questo criterio: non si limita a dire che cosa si fa, ma spiega quali opportunità la proposta restituisce alla persona.</p>
+</section>
+
+<section class="sezione" id="privacy">
+  <h2><span class="num">5</span>La privacy nella relazione</h2>
+  <p>La relazione contiene dati personali e spesso dati sulla salute, che il Regolamento europeo sulla protezione dei dati (GDPR, Regolamento UE 2016/679, articolo 9) tutela in modo speciale come <em>categorie particolari di dati</em>. In Italia il Codice in materia di protezione dei dati personali (D.Lgs. 196/2003, aggiornato dal D.Lgs. 101/2018) completa la disciplina.</p>
+  <div class="schede">
+    <div><h4>Quali dati si scrivono</h4><p>Solo quelli necessari allo scopo della relazione: è il principio di <strong>minimizzazione</strong>.</p></div>
+    <div><h4>Quali si omettono</h4><p>Informazioni che non servono alla decisione, anche se interessanti; dati di terzi non coinvolti.</p></div>
+    <div><h4>A chi si consegna</h4><p>Solo a chi deve conoscerla per il suo ruolo, attraverso canali sicuri.</p></div>
+    <div><h4>Per quanto si conserva</h4><p>Per il tempo necessario allo scopo, secondo le regole del servizio: è il principio di <strong>limitazione della conservazione</strong>.</p></div>
+  </div>
+  <div class="attenzione"><p>Nelle esercitazioni e all'esame si usano nomi di fantasia o iniziali. Un dato sulla salute non si inserisce mai in uno strumento pubblico, come un servizio di intelligenza artificiale, nemmeno senza il nome.</p></div>
+</section>
+
+<section class="sezione t-acqua" id="indicatori">
+  <h2><span class="num">6</span>Gli indicatori di esito</h2>
+  <div class="definizione">
+    <p>Un <dfn>indicatore di esito</dfn> è un elemento osservabile o misurabile che dice, a una data stabilita, se l'obiettivo dell'intervento è stato raggiunto. Si dichiara <strong>prima</strong> di cominciare, non dopo.</p>
+  </div>
+  <p>Ogni indicatore risponde a quattro domande: che cosa si osserva, come si rileva, quando, e quale valore si considera un successo.</p>
+  <div class="tabella-wrap"><table class="tabella">
+    <thead><tr><th scope="col">Obiettivo</th><th scope="col">Indicatore</th><th scope="col">Rilevazione</th></tr></thead>
+    <tbody>
+      <tr><td>Ridurre l'isolamento di un anziano</td><td>Partecipazione alle attività del centro sociale: almeno due volte alla settimana</td><td>Registro presenze del centro, dopo tre mesi</td></tr>
+      <tr><td>Recuperare autonomia nella preparazione dei pasti</td><td>Pasti preparati da solo, con l'aiuto dell'operatore domiciliare solo per la spesa</td><td>Diario dell'operatore e scala IADL, dopo sei mesi</td></tr>
+      <tr><td>Favorire la frequenza scolastica di un ragazzo</td><td>Assenze mensili inferiori a quattro giorni</td><td>Registro di classe, ogni mese per un quadrimestre</td></tr>
+    </tbody>
+  </table></div>
+  <p>Un indicatore generico, come «la persona sta meglio», non permette di verificare nulla. Il collegamento con gli obiettivi SMART, che hai studiato nel biennio, è diretto: un obiettivo misurabile e definito nel tempo porta con sé il suo indicatore.</p>
+</section>
+
+<section class="sezione t-lime" id="esercizi">
+  <h2><span class="num">7</span>Esercizi</h2>
+  <p class="cons">Le risposte si salvano mentre scrivi, con la classe e il codice inseriti all'inizio.</p>
+
+  <div class="es">
+    <h3>1 · Fatto o valutazione?</h3>
+    <p class="cons">Per ogni frase indica se descrive un fatto osservato o una valutazione. Il riscontro spiega perché.</p>
+    <div id="rp-fatto-voci"></div>
+  </div>
+
+  <div class="es">
+    <h3>2 · Riscrivi come fatto</h3>
+    <p class="cons">Trasforma ogni valutazione in una frase che descrive un fatto osservato, con la sua fonte. Puoi inventare i dettagli, purché siano plausibili.</p>
+    <label class="campo" for="rp_riscrivi_1">1. «Il ragazzo è svogliato e aggressivo.»</label>
+    <textarea id="rp_riscrivi_1" name="rp_riscrivi_1" style="min-height:4rem"></textarea>
+    <label class="campo" for="rp_riscrivi_2">2. «La famiglia non si interessa della nonna.»</label>
+    <textarea id="rp_riscrivi_2" name="rp_riscrivi_2" style="min-height:4rem"></textarea>
+    <label class="campo" for="rp_riscrivi_3">3. «La casa è in condizioni pessime.»</label>
+    <textarea id="rp_riscrivi_3" name="rp_riscrivi_3" style="min-height:4rem"></textarea>
+  </div>
+
+  <div class="es">
+    <h3>3 · Quale tipologia?</h3>
+    <p class="cons">Per ogni consegna indica la tipologia di seconda prova a cui corrisponde.</p>
+    <div id="rp-tipologia-voci"></div>
+  </div>
+
+  <div class="es">
+    <h3>4 · Lo scrivo o no?</h3>
+    <p class="cons">Stai scrivendo la relazione su Giorgio, 45 anni, seguito dal centro di salute mentale, per proporre un inserimento lavorativo in cooperativa. Per ogni informazione indica se va nella relazione.</p>
+    <div id="rp-privacy-voci"></div>
+  </div>
+
+  <div class="es">
+    <h3>5 · Scrivi una sezione</h3>
+    <div class="scena">
+      <p><strong>Il caso.</strong> Giorgio, 45 anni, vive con la madre di 78 anni. Da dieci anni è seguito dal centro di salute mentale per un disturbo dell'umore, oggi stabile con la terapia. Ha lavorato come magazziniere fino a cinque anni fa. Passa le giornate in casa; la madre riferisce che «non esce più». Una cooperativa sociale del paese cerca un addetto al magazzino per venti ore settimanali e può affiancargli un tutor. Il finanziamento del progetto copre sei mesi.</p>
+    </div>
+    <label class="campo" for="rp_sezione_bisogno">Scrivi la lettura del bisogno, separando i fatti dalle valutazioni.</label>
+    <textarea id="rp_sezione_bisogno" name="rp_sezione_bisogno"></textarea>
+    <label class="campo" for="rp_sezione_ipotesi">Scrivi l'ipotesi di intervento: obiettivi, azioni, chi le svolge, tempi.</label>
+    <textarea id="rp_sezione_ipotesi" name="rp_sezione_ipotesi"></textarea>
+    <label class="campo" for="rp_sezione_indicatori">Scrivi due indicatori di esito, con rilevazione e scadenza.</label>
+    <textarea id="rp_sezione_indicatori" name="rp_sezione_indicatori"></textarea>
+    <label class="campo" for="rp_sezione_pari">Quali opportunità restituisce a Giorgio la tua proposta?</label>
+    <textarea id="rp_sezione_pari" name="rp_sezione_pari" style="min-height:4rem"></textarea>
+  </div>
+
+  <h3>Per ripassare</h3>
+  <ul class="ripasso-link">
+    <li><a href="caso-professionale.html">Il caso professionale<small>Quinto anno · dalla lettura all'ipotesi</small></a></li>
+    <li><a href="../biennio/progettazione_individualizzata_teoria.html">La progettazione individualizzata<small>Biennio · obiettivi SMART, verifica e valutazione</small></a></li>
+    <li><a href="../terzo/percorsi_autoapprendimento_teoria.html">Servizi e interventi per la comunità<small>Terzo anno · rete dei servizi e livelli essenziali</small></a></li>
+    <li><a href="../terzo/equipe_multiprofessionale.html">L'équipe multiprofessionale<small>Terzo anno · figure e verbale</small></a></li>
+  </ul>
+</section>
+
+<footer class="piede">
+  <p>Metodologie Operative · La relazione professionale e la seconda prova</p>
+  <a href="../../quinto.html">Torna ai materiali del quinto anno</a>
+</footer>
+</div>
+</main>
+
+<script>
+const ES = {
+  fatto: { opz: [["fatto","Fatto osservato"],["valutazione","Valutazione"]], voci: [
+    { t: "«Il signor Bruno è depresso.»", a: "valutazione", why: "È un'interpretazione, e per di più un termine clinico che spetta a chi può fare una diagnosi. Si descrive invece che cosa si è visto o sentito." },
+    { t: "«Durante il colloquio del 3 aprile il signor Bruno ha pianto due volte parlando della moglie.»", a: "fatto", why: "Descrive un comportamento osservato, con la data e la circostanza." },
+    { t: "«La madre riferisce che il figlio non esce di casa da due settimane.»", a: "fatto", why: "È un fatto riferito, con la sua fonte: si scrive chi l'ha detto." },
+    { t: "«La famiglia è inadeguata.»", a: "valutazione", why: "È un giudizio generico e non motivato: non dice che cosa manca né su quali fatti si basa." },
+    { t: "«Nell'ultimo mese la signora ha saltato tre visite di controllo programmate.»", a: "fatto", why: "È un dato verificabile, che si può controllare nell'agenda del servizio." }
+  ]},
+  tipologia: { opz: [["A","Tipologia A"],["B","Tipologia B"],["C","Tipologia C"],["D","Tipologia D"]], voci: [
+    { t: "Sulla base dei dati allegati sulla popolazione anziana del Comune, redigi per il responsabile del servizio un documento che illustri la situazione e proponga priorità di intervento.", a: "A", why: "Si chiede una relazione professionale a partire da dati e tabelle." },
+    { t: "Una famiglia con tre figli ha perso la casa: analizza la situazione e indica come interverresti come operatore del servizio sociale.", a: "B", why: "È un caso professionale da analizzare e risolvere in un contesto operativo." },
+    { t: "Descrivi le fasi necessarie per avviare un servizio di trasporto sociale per le persone con disabilità del territorio.", a: "C", why: "Si chiede di individuare e descrivere le fasi di realizzazione di un servizio." },
+    { t: "Elabora un progetto che promuova presso le famiglie del territorio un nuovo servizio di sollievo per i caregiver.", a: "D", why: "È un progetto per innovare o promuovere servizi e prestazioni del settore." }
+  ]},
+  privacy: { opz: [["si","Sì, è necessario"],["no","No, non serve allo scopo"]], voci: [
+    { t: "Che da dieci anni è seguito dal centro di salute mentale e che la terapia lo mantiene stabile.", a: "si", why: "È pertinente alla proposta: spiega perché serve un inserimento accompagnato. Si scrive in modo essenziale, senza dettagli clinici superflui." },
+    { t: "Il nome e la diagnosi precisa della sorella, ricoverata anni fa per un problema simile.", a: "no", why: "Riguarda una terza persona non coinvolta e non serve alla decisione: viola la minimizzazione." },
+    { t: "Che ha lavorato come magazziniere fino a cinque anni fa.", a: "si", why: "È una competenza utile per l'inserimento proposto." },
+    { t: "Le vicende sentimentali di Giorgio di quando aveva vent'anni.", a: "no", why: "Non hanno alcun rapporto con la proposta di inserimento lavorativo." },
+    { t: "Che il finanziamento copre sei mesi.", a: "si", why: "È un vincolo che il responsabile deve conoscere per decidere." }
+  ]}
+};
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+Object.entries(ES).forEach(([k,es])=>{
+  document.getElementById(`rp-${k}-voci`).innerHTML = es.voci.map((v,i)=>`<div class="voce"><p>${i+1}. ${esc(v.t)}</p><select id="rp_${k}_${i+1}" name="rp_${k}_${i+1}" data-k="${k}" data-i="${i}" aria-label="Esercizio ${esc(k)}, voce ${i+1}"><option value="">— scegli —</option>${es.opz.map(([v,l])=>`<option value="${v}">${l}</option>`).join('')}</select><div class="riscontro" id="rp_r_${k}_${i}" role="status"></div></div>`).join('');
+});
+function valuta(sel){
+  const k=sel.dataset.k,i=+sel.dataset.i,r=document.getElementById(`rp_r_${k}_${i}`); if(!r) return;
+  if(sel.value===''){r.className='riscontro';r.textContent='';return;}
+  const v=ES[k].voci[i], giusto=sel.value===v.a;
+  r.className='riscontro '+(giusto?'ok':'ko');
+  r.textContent=giusto?'✅ Giusto. '+v.why:'❌ Non ancora. Rileggi la sezione corrispondente e riprova.';
+}
+document.addEventListener('change',e=>{ if(e.target.matches('select[data-k]')) valuta(e.target); });
+window.addEventListener('mo:progress-restored',e=>{
+  try{const d=e?.detail?.data; window.__moDatiCaricati=(d&&typeof d==='object')?d:(typeof d==='string'?JSON.parse(d):{});}catch{window.__moDatiCaricati={};}
+  document.querySelectorAll('select[data-k]').forEach(valuta);
+});
+</script>
+<script>
+window.MO_PROGRESS_CONFIG = {
+  pagePath: window.location.pathname,
+  inputSelector: 'textarea, input, select',
+  autoSave: true,
+  onBeforeSave: function (data) {
+    try { const prima = window.__moDatiCaricati || {}; Object.keys(prima).forEach(k => { if (k !== '_meta' && !(k in data)) data[k] = prima[k]; }); } catch (e) {}
+    try {
+      const campi = Array.from(document.querySelectorAll('main textarea, main select'));
+      const compilati = campi.filter(el => String(el.value || '').trim().length > 0).length;
+      data._meta = { campiCompilati: compilati, totale: campi.length, percentuale: campi.length ? Math.round(compilati / campi.length * 100) : 0 };
+    } catch (e) {}
+    return data;
+  }
+};
+window.MO_IDENTITY_CONFIG = {
+  message: 'Inserisci la classe (es. 5sa) e il codice cognome+iniziale tutto minuscolo (es. rossi g → rossig).',
+  classPlaceholder: 'Classe (es. 5sa)', classPattern: '^[1-5][a-z]{1,2}$', classExample: '5sa',
+  classErrorMessage: 'Classe non valida: usa una cifra da 1 a 5 seguita da 1-2 lettere minuscole (es. 5sa).',
+  stripWhitespaceInClass: true, storeClassLowercase: true, storeClassUppercase: false,
+  codePlaceholder: 'Codice (es. rossig)', codePattern: '^[a-zà-ü]{2,}[a-z]$', codeExample: 'rossig',
+  codeErrorMessage: 'Codice non valido: usa cognome tutto minuscolo + iniziale del nome (es. rossi g → rossig).',
+  sanitizeCode: true, stripWhitespaceInCode: true, storeCodeLowercase: true, storeCodeUppercase: false,
+  hideGenerator: true, guestAllowed: true, guestClassCode: 'ospite', guestStudentCode: 'ospite'
+};
+</script>
+<script type="module" src="../../assets/progress.js?v=20260926"></script>
+<script type="module" src="../../assets/progress-global.js?v=20260926"></script>
+</body>
+</html>
