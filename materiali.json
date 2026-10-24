@@ -311,7 +311,24 @@
       "argomento": "progetto"
     }
   ],
-  "quinto": [],
+  "quinto": [
+    {
+      "titolo": "Il caso professionale",
+      "file": "materiali/quinto/caso-professionale.html",
+      "descrizione": "Dalla storia di una persona al documento su cui un'équipe decide: categorie di utenza, progetto di integrazione o intervento assistenziale, griglia osservativa, schema cronologico, scale ADL e IADL, unità di valutazione, diritto della persona a decidere.",
+      "data": "2026-10-24",
+      "tipo": "interattivo",
+      "argomento": "caso"
+    },
+    {
+      "titolo": "La relazione professionale e la seconda prova",
+      "file": "materiali/quinto/relazione-seconda-prova.html",
+      "descrizione": "Come si scrive la relazione con cui un servizio decide: fatti e valutazioni, struttura, privacy, indicatori di esito. Il quadro della seconda prova (D.M. 164/2022): tipologie, nuclei tematici, griglia.",
+      "data": "2026-10-24",
+      "tipo": "interattivo",
+      "argomento": "relazione"
+    }
+  ],
   "ai": [
     {
       "titolo": "L'intelligenza artificiale · percorso in sei fasi",
@@ -559,6 +576,18 @@
         "id": "progetto",
         "titolo": "Il progetto d'intervento",
         "descrizione": "La fase preliminare applicata ai casi."
+      }
+    ],
+    "quinto": [
+      {
+        "id": "caso",
+        "titolo": "Il caso professionale",
+        "descrizione": "Dalla lettura del caso all'ipotesi di intervento, in unità di valutazione."
+      },
+      {
+        "id": "relazione",
+        "titolo": "La relazione professionale e la seconda prova",
+        "descrizione": "Scrivere il documento con cui un servizio decide; il quadro della seconda prova d'esame."
       }
     ],
     "ai": [

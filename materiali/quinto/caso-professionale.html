@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Il caso professionale · Quinto anno · Metodologie Operative</title>
+<meta name="description" content="Quinto anno, Metodologie Operative: dal racconto di una persona al documento su cui un'équipe decide. Categorie di utenza, progetto di integrazione, griglia osservativa, schema cronologico, unità di valutazione, diritto della persona a decidere.">
+<link rel="stylesheet" href="../../assets/materiale.css?v=20261024">
+<script src="../../assets/materiale.js?v=20261024" defer></script>
+<style>
+.t-rosa .num, .t-verde .num, .indice .t-rosa .n, .indice .t-verde .n { color: #fff; }
+.sezione > ol.passi { max-width: none; }
+.schede { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 20px 0; }
+.schede > div { background: var(--color-surface); border: 1px solid var(--color-line); border-left: 5px solid var(--tinta); padding: 14px 16px; }
+.schede > div > :first-child { margin-top: 0; }
+.schede > div > :last-child { margin-bottom: 0; }
+.schede h4 { margin: 0 0 4px; font-size: 1rem; color: var(--color-primary); }
+.schede > div:nth-child(4n+1) { border-left-color: var(--acqua); }
+.schede > div:nth-child(4n+2) { border-left-color: var(--rosa); }
+.schede > div:nth-child(4n+3) { border-left-color: var(--lime); }
+.schede > div:nth-child(4n) { border-left-color: var(--verde); }
+.scala { columns: 2; column-gap: 28px; margin: 8px 0 0; padding-left: 20px; }
+.scala li { break-inside: avoid; margin-bottom: 4px; }
+.es { background: var(--color-surface); border: 1px solid var(--color-line); border-top: 4px solid var(--tinta); padding: 18px 20px; margin: 22px 0; }
+.es h3 { margin-top: 0; }
+.cons { color: var(--color-ink-soft); font-size: .95rem; }
+.scena { background: var(--tinta-tenue); padding: 14px 16px; margin: 10px 0 14px; }
+.scena p:last-child { margin-bottom: 0; }
+.voce { padding: 12px 0; border-top: 1px dashed var(--color-line); }
+.voce:first-of-type { border-top: 0; }
+.voce p { margin: .2rem 0 .5rem; }
+select { font: inherit; font-size: 1rem; border: 1px solid var(--color-line); padding: .45rem .6rem; background: #fff; max-width: 100%; min-width: 16rem; }
+textarea { width: 100%; min-height: 5.5rem; resize: vertical; }
+label.campo { display: block; font-weight: 600; margin: 1rem 0 .35rem; }
+.riscontro { display: none; margin-top: .5rem; padding: .55rem .75rem; font-size: .95rem; }
+.riscontro.ok { display: block; background: var(--verde-tenue); color: var(--verde-testo); }
+.riscontro.ko { display: block; background: var(--rosa-tenue); color: var(--rosa-testo); }
+.griglia-campi { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 18px; }
+.ripasso-link { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+.ripasso-link li { margin: 0; }
+.ripasso-link a { display: block; padding: 12px 14px; background: var(--color-surface); border: 1px solid var(--color-line); border-left: 4px solid var(--tinta); text-decoration: none; color: var(--color-primary); font-weight: 600; }
+.ripasso-link small { display: block; color: var(--color-ink-soft); font-weight: 400; }
+@media (max-width: 640px) {
+  .scala { columns: 1; }
+  .griglia-campi { grid-template-columns: 1fr; }
+  select { min-width: 0; width: 100%; }
+}
+</style>
+</head>
+<body data-tinta="acqua">
+<a class="skip" href="#contenuto">Vai al contenuto</a>
+<div class="barra shell">
+  <a href="../../quinto.html#arg-caso">← Materiali del quinto anno</a>
+  <a href="relazione-seconda-prova.html">La relazione professionale</a>
+  <span class="sito">Metodologie Operative</span>
+</div>
+
+<main id="contenuto">
+<header class="shell">
+  <div class="testata testata--riquadro">
+    <p class="occhiello">Quinto anno · Teoria ed esercizi</p>
+    <h1>Il caso professionale</h1>
+    <p class="lead">Dalla storia di una persona al documento su cui un'équipe può decidere: leggere il bisogno, ordinare le informazioni, formulare ipotesi di intervento e sostenere la decisione davanti a chi la vive.</p>
+  </div>
+</header>
+
+<nav class="indice" aria-label="Sezioni della pagina">
+  <ol class="shell">
+    <li><a href="#caso"><span class="n">1</span>Il caso</a></li>
+    <li class="t-rosa"><a href="#utenza"><span class="n">2</span>Le categorie di utenza</a></li>
+    <li class="t-lime"><a href="#integrazione"><span class="n">3</span>Integrazione o assistenza</a></li>
+    <li class="t-verde"><a href="#strumenti"><span class="n">4</span>Gli strumenti</a></li>
+    <li><a href="#valutazione"><span class="n">5</span>L'unità di valutazione</a></li>
+    <li class="t-rosa"><a href="#diritti"><span class="n">6</span>Il diritto di decidere</a></li>
+    <li class="t-lime"><a href="#esercizi"><span class="n">7</span>Esercizi</a></li>
+  </ol>
+</nav>
+
+<div class="shell">
+
+<section class="sezione" id="caso">
+  <h2><span class="num">1</span>Che cos'è un caso professionale</h2>
+  <p>Ai servizi le situazioni arrivano come racconti: una telefonata, una segnalazione della scuola o del medico, il colloquio con un familiare preoccupato. Sono racconti parziali, spesso disordinati, a volte contraddittori.</p>
+  <div class="definizione">
+    <p>Il <dfn>caso professionale</dfn> è il documento che trasforma la storia di una persona in una situazione su cui un servizio può lavorare: raccoglie i dati essenziali, distingue ciò che si sa da ciò che si suppone, mette in evidenza bisogni, risorse e vincoli.</p>
+  </div>
+  <p>La distanza fra la storia e il caso è il lavoro dell'operatore. Prima di proporre qualsiasi intervento occorre chiedersi <strong>che cosa manca</strong> per poter decidere.</p>
+  <div class="schede">
+    <div><h4>Chi è la persona</h4><p>Età, situazione familiare e abitativa, salute, autonomia, interessi, ciò che desidera.</p></div>
+    <div><h4>Chi segnala e perché</h4><p>La fonte della segnalazione, che cosa ha visto e che cosa riferisce per sentito dire.</p></div>
+    <div><h4>Che cosa è già attivo</h4><p>Servizi in corso, familiari, vicini, volontari: la rete formale e informale.</p></div>
+    <div><h4>Che cosa non sappiamo</h4><p>Le informazioni mancanti, da raccogliere prima di decidere, e chi può fornirle.</p></div>
+  </div>
+  <div class="attenzione"><p>Un caso professionale non contiene giudizi sulla persona («è trascurata», «non collabora»), ma fatti osservati e riferiti, con la loro fonte. Le valutazioni si scrivono a parte e si motivano.</p></div>
+</section>
+
+<section class="sezione t-rosa" id="utenza">
+  <h2><span class="num">2</span>Leggere il bisogno secondo la categoria di utenza</h2>
+  <p>Ogni persona è unica, ma l'appartenenza a una categoria di utenza orienta lo sguardo: suggerisce quali bisogni indagare, quali rischi non sottovalutare e quali servizi coinvolgere.</p>
+  <div class="tabella-wrap"><table class="tabella">
+    <thead><tr><th scope="col">Categoria</th><th scope="col">Che cosa leggere con attenzione</th><th scope="col">Servizi e figure di riferimento</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Minore</th><td>Bisogni di crescita, cura ed educazione; tutela da trascuratezza e maltrattamento; rapporto con la scuola; capacità dei genitori di rispondere ai suoi bisogni.</td><td>Servizio sociale del Comune, consultorio familiare, neuropsichiatria dell'infanzia e dell'adolescenza, scuola, autorità giudiziaria minorile quando serve la tutela.</td></tr>
+      <tr><th scope="row">Anziano</th><td>Autonomia nelle attività quotidiane, salute e terapie, solitudine, sicurezza della casa, carico sul familiare che assiste.</td><td>Medico di medicina generale, servizio sociale, assistenza domiciliare (SAD e ADI), centri diurni, RSA, unità di valutazione.</td></tr>
+      <tr><th scope="row">Persona con disabilità</th><td>Funzionamento nelle attività e nella partecipazione, barriere e facilitatori dell'ambiente, desideri e progetto di vita.</td><td>Servizi della ASL e del Comune, unità di valutazione multidimensionale, scuola, servizi per l'inserimento lavorativo.</td></tr>
+      <tr><th scope="row">Disagio psichico</th><td>Continuità delle cure, relazioni, lavoro e abitazione, rischio di isolamento e di stigma, capacità di chiedere aiuto.</td><td>Centro di salute mentale, servizio sociale, cooperative per l'inserimento lavorativo, gruppi di auto mutuo aiuto.</td></tr>
+      <tr><th scope="row">Nucleo familiare</th><td>Risorse economiche e abitative, ripartizione dei compiti di cura, conflitti, rete di sostegno.</td><td>Servizio sociale, consultorio, centri per la famiglia, misure di sostegno al reddito.</td></tr>
+      <tr><th scope="row">Persona immigrata</th><td>Lingua, permesso di soggiorno e accesso ai diritti, isolamento, differenze culturali nel modo di intendere salute e cura.</td><td>Servizio sociale, sportelli per stranieri, mediatore linguistico-culturale, centri per l'impiego, associazioni.</td></tr>
+    </tbody>
+  </table></div>
+  <p>Le categorie spesso si sovrappongono: una madre sola immigrata con un figlio con disabilità chiede di leggere insieme più dimensioni. La categoria orienta la lettura, non la sostituisce.</p>
+</section>
+
+<section class="sezione t-lime" id="integrazione">
+  <h2><span class="num">3</span>Progetto di integrazione o intervento assistenziale</h2>
+  <p>Davanti a un bisogno si può rispondere in due modi diversi. Entrambi hanno senso, ma non vanno confusi.</p>
+  <div class="confronto">
+    <div class="t-rosa"><h3>Intervento assistenziale</h3><p>Risponde a un bisogno <strong>immediato</strong>, spesso sostituendosi alla persona: le si porta il pasto, le si paga la bolletta, le si trova un posto letto. È necessario nell'urgenza, ma da solo non cambia la situazione.</p></div>
+    <div class="t-verde"><h3>Progetto di integrazione sociale</h3><p>Punta all'<strong>autonomia</strong> e alla <strong>partecipazione</strong> della persona alla vita della comunità. Ha obiettivi dichiarati, attori con compiti precisi, tempi e verifiche.</p></div>
+  </div>
+  <h3>Gli elementi che caratterizzano un progetto di integrazione</h3>
+  <ol class="passi">
+    <li><b>Obiettivi</b>Che cosa deve cambiare nella vita della persona, formulato in modo verificabile.</li>
+    <li><b>Attori</b>La persona, la famiglia, i servizi e la rete informale, ciascuno con un compito.</li>
+    <li><b>Azioni</b>Che cosa si fa, in quale ordine, con quali risorse.</li>
+    <li><b>Tempi</b>Una durata e le date delle verifiche intermedie.</li>
+    <li><b>Verifica</b>Gli indicatori che diranno se il progetto ha funzionato.</li>
+  </ol>
+  <div class="esempio"><p>Portare ogni giorno il pasto a un anziano che vive solo è un intervento assistenziale. Accompagnarlo, con un volontario, al pranzo del centro sociale del quartiere due volte alla settimana, con l'obiettivo di riallacciare relazioni e verificarlo dopo tre mesi, è un progetto di integrazione.</p></div>
+</section>
+
+<section class="sezione t-verde" id="strumenti">
+  <h2><span class="num">4</span>Mettere ordine: griglia osservativa, schema cronologico, scale di autonomia</h2>
+  <p>Un racconto disordinato diventa lavorabile quando le informazioni vengono distribuite su strumenti che obbligano a guardare tutto e a separare i fatti dalle supposizioni.</p>
+  <div class="confronto">
+    <div class="t-acqua"><h3>Griglia osservativa</h3><p>Distribuisce le informazioni per <strong>aree di vita</strong>: salute, autonomia nelle attività quotidiane, relazioni familiari e sociali, abitazione, risorse economiche, rete dei servizi. Le caselle vuote mostrano subito ciò che manca.</p></div>
+    <div class="t-lime"><h3>Schema cronologico</h3><p>Mette in fila gli <strong>eventi</strong> con la loro data: che cosa è successo e quando. Rende visibili i cambiamenti, per esempio un peggioramento dopo un lutto o un ricovero.</p></div>
+  </div>
+  <h3>Le scale dei livelli di autonomia</h3>
+  <p>Per leggere il grado di autonomia, soprattutto della persona anziana, i servizi usano scale standardizzate. Le più diffuse sono due.</p>
+  <div class="schede">
+    <div><h4>ADL · attività di base della vita quotidiana</h4><p>Scala di Katz: indica se la persona svolge da sola le attività essenziali per la cura di sé.</p>
+      <ul class="scala"><li>lavarsi</li><li>vestirsi</li><li>usare il gabinetto</li><li>spostarsi dal letto alla sedia</li><li>controllare la continenza</li><li>alimentarsi</li></ul></div>
+    <div><h4>IADL · attività strumentali della vita quotidiana</h4><p>Scala di Lawton: riguarda le attività che permettono di vivere da soli in casa.</p>
+      <ul class="scala"><li>usare il telefono</li><li>fare la spesa</li><li>preparare i pasti</li><li>governare la casa</li><li>fare il bucato</li><li>usare i mezzi di trasporto</li><li>gestire i farmaci</li><li>gestire il denaro</li></ul></div>
+  </div>
+  <p>Le scale non sostituiscono l'osservazione e il colloquio: offrono un linguaggio comune all'équipe e permettono di confrontare la situazione nel tempo.</p>
+</section>
+
+<section class="sezione" id="valutazione">
+  <h2><span class="num">5</span>L'unità di valutazione</h2>
+  <p>Quando una situazione richiede interventi sia sanitari sia sociali, la decisione si prende in un'<strong>unità di valutazione multidimensionale</strong>, formata da ASL e Comune: di norma il medico, l'infermiere e l'assistente sociale, a cui si aggiungono altre figure secondo il caso, come il medico di medicina generale, lo specialista, l'educatore, lo psicologo. La persona e la sua famiglia partecipano alla valutazione.</p>
+  <h3>Come si conduce la riunione</h3>
+  <ol class="passi">
+    <li><b>Ordine del giorno</b>Il coordinatore presenta il caso e la decisione da prendere.</li>
+    <li><b>Contributi</b>Ogni figura porta le informazioni del proprio campo, a turno e nei tempi stabiliti.</li>
+    <li><b>Ipotesi</b>Si confrontano le ipotesi di intervento, con vantaggi e limiti.</li>
+    <li><b>Decisione</b>Si sceglie una proposta e se ne dichiara la motivazione.</li>
+    <li><b>Verbale</b>Si mette per iscritto chi fa che cosa, entro quando, e la data della verifica.</li>
+  </ol>
+  <h3>Gli stili di leadership</h3>
+  <p>Il modo in cui il coordinatore guida il gruppo influisce sulla qualità della decisione. Lo psicologo Kurt Lewin ha descritto tre stili.</p>
+  <div class="schede">
+    <div><h4>Autoritario</h4><p>Il coordinatore decide da solo e assegna i compiti. È rapido, ma riduce il contributo delle diverse professionalità.</p></div>
+    <div><h4>Democratico</h4><p>Il coordinatore dà la parola a tutti, sintetizza e porta il gruppo a una decisione condivisa. È lo stile più adatto al lavoro d'équipe.</p></div>
+    <div><h4>Permissivo</h4><p>Il coordinatore lascia fare e non guida. Il gruppo rischia di disperdersi e di non decidere.</p></div>
+  </div>
+  <p>Per ripassare chi fa che cosa nell'équipe, vedi la pagina sull'<a href="../terzo/equipe_multiprofessionale.html">équipe multiprofessionale</a> del terzo anno.</p>
+</section>
+
+<section class="sezione t-rosa" id="diritti">
+  <h2><span class="num">6</span>Il diritto della persona a decidere</h2>
+  <p>La persona non è l'oggetto della decisione, ma una delle parti che decidono. Questo diritto ha fondamento nella Costituzione: l'articolo 2 riconosce i diritti inviolabili della persona, l'articolo 3 la pari dignità sociale, l'articolo 32 stabilisce che nessuno può essere obbligato a un determinato trattamento sanitario se non per disposizione di legge.</p>
+  <div class="definizione"><p>L'<dfn>autodeterminazione</dfn> è il diritto della persona a scegliere della propria vita, dopo essere stata informata in modo comprensibile sulle possibilità e sulle conseguenze. In ambito sanitario la legge 219 del 2017 disciplina il <strong>consenso informato</strong>, che la persona può anche rifiutare o ritirare.</p></div>
+  <p>Può accadere che la scelta della persona complichi il lavoro del servizio: rifiuta la residenza, non vuole che si contatti un familiare, chiede un intervento che non è il più sicuro. In questi casi l'unità di valutazione:</p>
+  <ul>
+    <li>ascolta le ragioni della persona e verifica che abbia compreso le alternative;</li>
+    <li>costruisce la migliore proposta possibile dentro la scelta della persona;</li>
+    <li>scrive a verbale, con chiarezza e senza reticenze, che cosa con quella scelta non è possibile garantire.</li>
+  </ul>
+  <div class="attenzione"><p>Quando la persona non è in grado di provvedere ai propri interessi, il giudice tutelare può nominare un amministratore di sostegno (legge 6 del 2004), che la affianca senza toglierle la capacità di agire per tutto ciò che il decreto di nomina non prevede.</p></div>
+</section>
+
+<section class="sezione t-lime" id="esercizi">
+  <h2><span class="num">7</span>Esercizi</h2>
+  <p class="cons">Le risposte si salvano mentre scrivi, con la classe e il codice inseriti all'inizio.</p>
+
+  <div class="es">
+    <h3>1 · Che cosa manca?</h3>
+    <div class="scena">
+      <p><strong>Segnalazione telefonica al servizio sociale del Comune.</strong> «Sono la vicina della signora Teresa, ha 81 anni e vive da sola al primo piano. Da quando è morto il marito, l'anno scorso, esce poco. La settimana scorsa è caduta in cortile, l'ho aiutata io. Mi sembra che non mangi bene e in casa c'è disordine. Ha un figlio che vive a Milano, ma credo che si sentano poco. Io non posso occuparmene tutti i giorni.»</p>
+    </div>
+    <label class="campo" for="cp_manca_fatti">Quali sono i fatti osservati dalla vicina, e quali le sue supposizioni?</label>
+    <textarea id="cp_manca_fatti" name="cp_manca_fatti"></textarea>
+    <label class="campo" for="cp_manca_info">Quali informazioni mancano per poter decidere? Indica anche chi potrebbe fornirle.</label>
+    <textarea id="cp_manca_info" name="cp_manca_info"></textarea>
+  </div>
+
+  <div class="es">
+    <h3>2 · Assistenza o integrazione?</h3>
+    <p class="cons">Per ogni intervento indica se è una risposta assistenziale o un progetto di integrazione sociale. Il riscontro spiega perché.</p>
+    <div id="cp-tipo-voci"></div>
+  </div>
+
+  <div class="es">
+    <h3>3 · La griglia osservativa del caso di Teresa</h3>
+    <p class="cons">Distribuisci le informazioni della segnalazione nelle aree. Dove non sai niente, scrivi che cosa chiederesti.</p>
+    <div class="griglia-campi">
+      <div><label class="campo" for="cp_griglia_salute">Salute</label><textarea id="cp_griglia_salute" name="cp_griglia_salute"></textarea></div>
+      <div><label class="campo" for="cp_griglia_autonomia">Autonomia nelle attività quotidiane</label><textarea id="cp_griglia_autonomia" name="cp_griglia_autonomia"></textarea></div>
+      <div><label class="campo" for="cp_griglia_relazioni">Relazioni familiari e sociali</label><textarea id="cp_griglia_relazioni" name="cp_griglia_relazioni"></textarea></div>
+      <div><label class="campo" for="cp_griglia_casa">Abitazione</label><textarea id="cp_griglia_casa" name="cp_griglia_casa"></textarea></div>
+      <div><label class="campo" for="cp_griglia_economia">Risorse economiche</label><textarea id="cp_griglia_economia" name="cp_griglia_economia"></textarea></div>
+      <div><label class="campo" for="cp_griglia_rete">Rete formale e informale</label><textarea id="cp_griglia_rete" name="cp_griglia_rete"></textarea></div>
+    </div>
+    <label class="campo" for="cp_cronologia">Schema cronologico: metti in fila gli eventi che conosci, con la loro data, anche approssimativa.</label>
+    <textarea id="cp_cronologia" name="cp_cronologia"></textarea>
+  </div>
+
+  <div class="es">
+    <h3>4 · Due ipotesi, una proposta</h3>
+    <p class="cons">Immagina che il colloquio a domicilio confermi le difficoltà di Teresa nel preparare i pasti e nel governare la casa, e che il figlio sia disponibile a sostenere una parte delle spese.</p>
+    <label class="campo" for="cp_ipotesi_a">Ipotesi A: descrivi un intervento a domicilio (obiettivi, attori, tempi).</label>
+    <textarea id="cp_ipotesi_a" name="cp_ipotesi_a"></textarea>
+    <label class="campo" for="cp_ipotesi_b">Ipotesi B: descrivi un'alternativa (per esempio semiresidenziale o residenziale), con obiettivi, attori e tempi.</label>
+    <textarea id="cp_ipotesi_b" name="cp_ipotesi_b"></textarea>
+    <label class="campo" for="cp_scelta">Quale proposta porteresti all'unità di valutazione, e perché?</label>
+    <textarea id="cp_scelta" name="cp_scelta"></textarea>
+  </div>
+
+  <div class="es">
+    <h3>5 · La persona dice no</h3>
+    <p class="cons">Durante la seduta Teresa fa sapere che non lascerà la sua casa in nessun caso.</p>
+    <label class="campo" for="cp_rifiuto_proposta">Come cambia la proposta, con le stesse risorse?</label>
+    <textarea id="cp_rifiuto_proposta" name="cp_rifiuto_proposta"></textarea>
+    <label class="campo" for="cp_rifiuto_verbale">Scrivi la frase da mettere a verbale su ciò che, con questa scelta, non è possibile garantire.</label>
+    <textarea id="cp_rifiuto_verbale" name="cp_rifiuto_verbale" style="min-height:4rem"></textarea>
+  </div>
+
+  <h3>Per ripassare</h3>
+  <ul class="ripasso-link">
+    <li><a href="../biennio/progettazione_individualizzata_teoria.html">La progettazione individualizzata<small>Biennio · le fasi del progetto</small></a></li>
+    <li><a href="../terzo/esercitazioni_servizi.html">Dai dati alle ipotesi<small>Terzo anno · il caso di Lucia</small></a></li>
+    <li><a href="../terzo/equipe_multiprofessionale.html">L'équipe multiprofessionale<small>Terzo anno · figure, riunione, verbale</small></a></li>
+    <li><a href="../quarto/disabilita_dalle_leggi_al_progetto.html">Le disabilità<small>Quarto anno · ICF e progetto di vita</small></a></li>
+  </ul>
+</section>
+
+<footer class="piede">
+  <p>Metodologie Operative · Il caso professionale</p>
+  <a href="../../quinto.html">Torna ai materiali del quinto anno</a>
+</footer>
+</div>
+</main>
+
+<script>
+const TIPO = [
+  { t: "Consegna a domicilio del pasto, ogni giorno, a un anziano che non riesce più a cucinare.", a: "assistenza", why: "Risponde a un bisogno immediato sostituendosi alla persona: è necessario, ma da solo non cambia la sua situazione." },
+  { t: "Un percorso di tre mesi con un educatore per imparare a usare i mezzi pubblici, con l'obiettivo di andare da solo al centro diurno.", a: "integrazione", why: "Ha un obiettivo di autonomia, un attore con un compito, un tempo definito e un esito verificabile." },
+  { t: "Il pagamento straordinario di una bolletta della luce a una famiglia in difficoltà.", a: "assistenza", why: "È un aiuto economico immediato, utile nell'urgenza: non prevede obiettivi di cambiamento né verifiche." },
+  { t: "L'inserimento lavorativo di una persona seguita dal centro di salute mentale in una cooperativa, con un tutor e una verifica dopo sei mesi.", a: "integrazione", why: "Punta alla partecipazione attraverso il lavoro, con attori, tempi e verifica dichiarati." },
+  { t: "Un posto letto per una notte in una struttura di accoglienza per una persona senza dimora.", a: "assistenza", why: "È una risposta di pronto intervento: protegge la persona, ma non costruisce ancora un percorso." }
+];
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+document.getElementById('cp-tipo-voci').innerHTML = TIPO.map((v,i)=>`<div class="voce"><p>${i+1}. ${esc(v.t)}</p><select id="cp_tipo_${i+1}" name="cp_tipo_${i+1}" data-i="${i}" aria-label="Intervento ${i+1}"><option value="">— scegli —</option><option value="assistenza">Risposta assistenziale</option><option value="integrazione">Progetto di integrazione</option></select><div class="riscontro" id="cp_r_${i}" role="status"></div></div>`).join('');
+function valuta(sel){
+  const i=+sel.dataset.i, r=document.getElementById('cp_r_'+i); if(!r) return;
+  if(sel.value===''){r.className='riscontro';r.textContent='';return;}
+  const giusto=sel.value===TIPO[i].a;
+  r.className='riscontro '+(giusto?'ok':'ko');
+  r.textContent=(giusto?'✅ Giusto. ':'❌ Non ancora. ')+(giusto?TIPO[i].why:'Chiediti se l\'intervento ha obiettivi di cambiamento, tempi e verifiche, o se risponde solo al bisogno di oggi.');
+}
+document.addEventListener('change',e=>{ if(e.target.matches('select[id^="cp_tipo_"]')) valuta(e.target); });
+window.addEventListener('mo:progress-restored',e=>{
+  try{const d=e?.detail?.data; window.__moDatiCaricati=(d&&typeof d==='object')?d:(typeof d==='string'?JSON.parse(d):{});}catch{window.__moDatiCaricati={};}
+  document.querySelectorAll('select[id^="cp_tipo_"]').forEach(valuta);
+});
+</script>
+<script>
+window.MO_PROGRESS_CONFIG = {
+  pagePath: window.location.pathname,
+  inputSelector: 'textarea, input, select',
+  autoSave: true,
+  onBeforeSave: function (data) {
+    try { const prima = window.__moDatiCaricati || {}; Object.keys(prima).forEach(k => { if (k !== '_meta' && !(k in data)) data[k] = prima[k]; }); } catch (e) {}
+    try {
+      const campi = Array.from(document.querySelectorAll('main textarea, main select'));
+      const compilati = campi.filter(el => String(el.value || '').trim().length > 0).length;
+      data._meta = { campiCompilati: compilati, totale: campi.length, percentuale: campi.length ? Math.round(compilati / campi.length * 100) : 0 };
+    } catch (e) {}
+    return data;
+  }
+};
+window.MO_IDENTITY_CONFIG = {
+  message: 'Inserisci la classe (es. 5sa) e il codice cognome+iniziale tutto minuscolo (es. rossi g → rossig).',
+  classPlaceholder: 'Classe (es. 5sa)', classPattern: '^[1-5][a-z]{1,2}$', classExample: '5sa',
+  classErrorMessage: 'Classe non valida: usa una cifra da 1 a 5 seguita da 1-2 lettere minuscole (es. 5sa).',
+  stripWhitespaceInClass: true, storeClassLowercase: true, storeClassUppercase: false,
+  codePlaceholder: 'Codice (es. rossig)', codePattern: '^[a-zà-ü]{2,}[a-z]$', codeExample: 'rossig',
+  codeErrorMessage: 'Codice non valido: usa cognome tutto minuscolo + iniziale del nome (es. rossi g → rossig).',
+  sanitizeCode: true, stripWhitespaceInCode: true, storeCodeLowercase: true, storeCodeUppercase: false,
+  hideGenerator: true, guestAllowed: true, guestClassCode: 'ospite', guestStudentCode: 'ospite'
+};
+</script>
+<script type="module" src="../../assets/progress.js?v=20260926"></script>
+<script type="module" src="../../assets/progress-global.js?v=20260926"></script>
+</body>
+</html>
