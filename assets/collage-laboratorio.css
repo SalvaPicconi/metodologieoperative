@@ -19,3 +19,9 @@ html{scroll-padding-top:24px}.flow-section{padding:48px 0;border-bottom:1px soli
 @media(max-width:1050px){.opening-gallery{grid-template-columns:repeat(3,minmax(0,1fr))}.nucleus-choice{min-height:145px}.nucleus-choice strong{font-size:15px}}
 @media(max-width:760px){.flow-section{padding:33px 0}.opening-gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.opening-gallery img{height:186px;padding:9px}.opening-gallery .art-copy{padding:13px}.opening-gallery .art-copy p{font-size:11px}.opening-gallery .art-copy h4{font-size:13px}.nucleus-choice{padding:16px 13px;gap:8px;min-height:186px}.nucleus-choice[aria-pressed=true]{padding:15px 12px}.nucleus-choice strong{font-size:14px}.nucleus-choice small{font-size:12px}.choose-label{font-size:10px}.art-sources{grid-template-columns:1fr}.notes-save{display:block}.notes-save p{margin-top:12px}.flow-stop{padding:22px}.flow-stop h3{font-size:29px}.after-work>summary{font-size:15px;padding:20px}.after-work .fold-body{padding:18px}.selected-guide{padding:14px}.selected-guide p{font-size:13px}}
 @media(max-width:390px){.opening-gallery img{height:162px}.opening-gallery .art-copy h4{font-size:12px}.nucleus-choice strong{font-size:13px}.nucleus-choice small{font-size:11px}.nucleus-choice{padding:14px 11px;min-height:172px}.nucleus-choice[aria-pressed=true]{padding:13px 10px}.flow-stop h3{font-size:25px}}
+/* Colori del logo: tinta acqua per il collage, gli archi del logo sotto il titolo */
+.hero-copy h1::after{content:"";display:block;height:6px;max-width:220px;margin-top:18px;background:linear-gradient(90deg,#80cd29 0 25%,#ec166c 25% 50%,#008036 50% 75%,#57bda8 75%)}
+.fold{border-left:4px solid #57bda8}
+.fold:nth-of-type(4n+2){border-left-color:#ec166c}.fold:nth-of-type(4n+3){border-left-color:#80cd29}.fold:nth-of-type(4n){border-left-color:#008036}
+.material-card,.art-card{border-top:4px solid #57bda8}
+.essentials{border-left:5px solid #57bda8}

@@ -100,3 +100,10 @@ body>nav li.nav-ai a:hover,body>nav li.nav-ai a:focus{background:#284d6d;color:#
   .infanzia-nucleo{margin-top:1rem;padding-top:.7rem}
   .infanzia-apertura h3{font-size:24pt}
 }
+/* Colori del logo: tinta lime per l'infanzia, gli archi del logo come filo della pagina */
+.page-title::after{content:"";display:block;height:6px;max-width:260px;margin-top:1rem;background:linear-gradient(90deg,#80cd29 0 25%,#ec166c 25% 50%,#008036 50% 75%,#57bda8 75%)}
+.card{border-top:5px solid #80cd29}
+.card:nth-of-type(4n+2){border-top-color:#ec166c}.card:nth-of-type(4n+3){border-top-color:#008036}.card:nth-of-type(4n){border-top-color:#57bda8}
+.infanzia-note,.infanzia-case{background:#f1f8e7;border-left-color:#80cd29}
+.indice-pagina a{background:#f1f8e7}
+.infanzia-skills article,.infanzia-downloads article{border-left:4px solid #80cd29}

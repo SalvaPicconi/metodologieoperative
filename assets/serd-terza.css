@@ -51,3 +51,10 @@ body>nav li.nav-ai a:hover,body>nav li.nav-ai a:focus{background:#284d6d;color:#
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 @media print{body{background:#fff;font-size:11pt}header,body>nav,.indice-pagina,.skip-link,.home-floating-link,#studentLabel,#resetStudent,.serd-tools,#serd-stato{display:none!important}main{padding:0}.container{max-width:none;padding:0}.card{border:0;padding:0;margin:1rem 0}.serd-skills,.serd-downloads{display:block}.serd-skills article,.serd-downloads article{break-inside:avoid;margin:.5rem 0}h3,h4{break-after:avoid}.serd-reading{border:0}details>*{display:block!important}details>summary{display:block}.btn-download{background:#fff!important;color:#17385a!important;border:0;padding:0}a{color:#17385a!important}.page-title h2{font-size:26pt}.progress-box{break-before:page}textarea{min-height:5rem}}
 @media print{#serd-identita{display:none!important}}
+/* Colori del logo: tinta verde per le dipendenze, gli archi del logo come filo della pagina */
+.page-title::after{content:"";display:block;height:6px;max-width:260px;margin-top:1rem;background:linear-gradient(90deg,#80cd29 0 25%,#ec166c 25% 50%,#008036 50% 75%,#57bda8 75%)}
+.card{border-top:5px solid #008036}
+.card:nth-of-type(4n+2){border-top-color:#ec166c}.card:nth-of-type(4n+3){border-top-color:#57bda8}.card:nth-of-type(4n){border-top-color:#80cd29}
+.serd-note,.serd-case{background:#e5f3ea;border-left-color:#008036}
+.indice-pagina a{background:#e5f3ea}
+.serd-skills article,.serd-downloads article{border-left:4px solid #008036}
