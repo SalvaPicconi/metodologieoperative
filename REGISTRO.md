@@ -9,6 +9,10 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-24** · Claude · Pubblicati su Aruba biennio, terzo e quarto rivisti, con il glossario allargato; il PDF della verifica di quarta non è più raggiungibile (410). (Aruba `07b8d8f`, run «Pubblica su Aruba» n. 8 riuscito, 37 file online verificati)
+
+- **2026-10-24** · Claude · Quarto anno rivisto: la pagina sulle disabilità ha i tre modelli a confronto, lo schema dell'ICF, la linea del tempo delle leggi e le parole del D.Lgs. 62 in tabella; fascicolo, guida e verifica nei colori del logo (verifica aggiornata al 2025/2026). Il PDF della verifica protetta non va più online. Glossario con sei termini nuovi. Salvataggi invariati. Non ancora pubblicato su Aruba. (ramo `claude/quarto-materiali`)
+
 - **2026-10-24** · Claude · Terzo anno rivisto: servizi sociosanitari con teoria riscritta, schemi e livelli essenziali a confronto; le versioni intermedia e semplificata diventano quelle di «Dai bisogni ai servizi»; l'équipe presenta le figure in tabelle «chi fa che cosa»; il modulo sul progetto d'intervento ha le sette domande in schede; ripasso, guida e verifica nei colori del logo. Glossario con sette termini nuovi. Salvataggi invariati. Non ancora pubblicato su Aruba. (ramo `claude/terzo-materiali`)
 
 - **2026-10-24** · Claude · Biennio rivisto: le pagine dei materiali prendono i colori del logo, una tinta per pagina, con indici, schemi (ciclo della progettazione, piramide di Maslow, diamante del welfare, linea del tempo delle leggi) e paragrafi più brevi; la progettazione torna a stampare. Gruppi diventa «Il gruppo e l'auto mutuo aiuto», l'animazione ha un argomento e una UDA propria (1ª, UDA 10), tre Word sui bisogni vanno in archivio, il glossario si allarga. Salvataggi invariati. Non ancora pubblicato su Aruba. (ramo `claude/biennio-materiali`)

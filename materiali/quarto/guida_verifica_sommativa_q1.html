@@ -1,196 +1,80 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guida alla Verifica Sommativa - 1° Quadrimestre - Quarto Anno</title>
-    <link rel="stylesheet" href="../../style.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Guida alla verifica sommativa · Quarto anno, primo quadrimestre</title>
+    <meta name="description" content="Guida alla verifica sommativa del primo quadrimestre del quarto anno: struttura della prova e argomenti da preparare, con i collegamenti ai materiali.">
+    <link rel="stylesheet" href="../../assets/materiale.css?v=20261024">
+    <script src="../../assets/materiale.js?v=20261024" defer></script>
     <style>
-        .exam-section {
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            border-left: 5px solid #e74c3c;
-        }
+        .prove { list-style: none; padding: 0; margin: 16px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+        .prove li { margin: 0; padding: 16px 18px; background: var(--color-surface); border: 1px solid var(--color-line); border-top: 5px solid var(--tinta); }
+        .prove li:nth-child(1) { border-top-color: var(--lime); }
+        .prove li:nth-child(2) { border-top-color: var(--rosa); }
+        .prove li:nth-child(3) { border-top-color: var(--verde); }
+        .prove .icona { font-size: 1.6rem; display: block; margin-bottom: 4px; }
+        .prove h3 { margin: 0 0 4px; font-size: 1.05rem; }
+        .prove p { margin: 0; }
 
-        .exam-section h2 {
-            color: #c0392b;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .topic-list {
-            list-style: none;
-            padding: 0;
-            display: grid;
-            gap: 1rem;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        }
-
-        .topic-card {
-            background: #fdf2f2;
-            padding: 1.5rem;
-            border-radius: 8px;
-            border: 1px solid #fadbd8;
-        }
-
-        .topic-card h3 {
-            color: #c0392b;
-            margin-bottom: 0.5rem;
-        }
-
-        .topic-card p {
-            font-size: 0.95rem;
-            color: #555;
-            margin-bottom: 1rem;
-        }
-
-        .btn-study {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: #e74c3c;
-            color: white;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: background 0.2s;
-        }
-
-        .btn-study:hover {
-            background: #c0392b;
-        }
-
-        .exam-structure {
-            display: grid;
-            gap: 1.5rem;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            margin-top: 1.5rem;
-        }
-
-        .structure-card {
-            background: #f8f9fa;
-            padding: 1.5rem;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .structure-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 2rem;
-            color: #34495e;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .back-link:hover {
-            text-decoration: underline;
+        .argomenti { list-style: none; counter-reset: arg; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+        .argomenti li { counter-increment: arg; display: grid; grid-template-columns: 40px 1fr auto; gap: 4px 14px; align-items: center; margin: 0; padding: 14px 16px; background: var(--color-surface); border: 1px solid var(--color-line); border-left: 5px solid var(--tinta); }
+        .argomenti li::before { content: counter(arg); grid-row: span 2; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--color-primary); color: #fff; font-weight: 700; }
+        .argomenti h3 { margin: 0; font-size: 1.05rem; }
+        .argomenti p { margin: 0; grid-column: 2; color: var(--color-ink-soft); }
+        .argomenti a.vai { grid-column: 3; grid-row: 1 / span 2; white-space: nowrap; padding: 8px 14px; background: var(--color-primary); color: #fff; font-weight: 600; text-decoration: none; }
+        .argomenti a.vai:hover { background: var(--tinta-testo); }
+        @media (max-width: 640px) {
+            .argomenti li { grid-template-columns: 34px 1fr; }
+            .argomenti a.vai { grid-column: 2; grid-row: auto; justify-self: start; margin-top: 6px; }
         }
     </style>
 </head>
+<body data-tinta="verde">
+<a class="skip" href="#contenuto">Vai al contenuto</a>
+<div class="barra shell">
+    <a href="../../quarto.html">← Materiali del quarto anno</a>
+    <span class="sito">Metodologie Operative</span>
+</div>
 
-<body>
-    <header>
-        <div class="container">
-            <h1>Guida alla Verifica Sommativa</h1>
-            <p>1° Quadrimestre - Metodologie Operative - Classe Quarta</p>
+<main id="contenuto">
+    <header class="shell">
+        <div class="testata testata--riquadro">
+            <p class="occhiello">Quarto anno · Primo quadrimestre</p>
+            <h1>Guida alla verifica sommativa</h1>
+            <p class="lead">Come è costruita la prova e quali argomenti preparare, con il collegamento diretto ai materiali di studio.</p>
         </div>
     </header>
 
-    <main class="container">
-
-        <div class="exam-section">
-            <h2>🎯 Obiettivi e Struttura</h2>
-            <p>Questa verifica ha l'obiettivo di valutare le competenze acquisite durante il primo quadrimestre. Non si
-                tratterà solo di ricordare concetti teorici, ma di saperli applicare in contesti pratici simulati.</p>
-
-            <div class="exam-structure">
-                <div class="structure-card">
-                    <span class="structure-icon">☑️</span>
-                    <h3>Risposta Multipla</h3>
-                    <p>Domande per verificare la conoscenza puntuale dei concetti fondamentali.</p>
-                </div>
-                <div class="structure-card">
-                    <span class="structure-icon">✍️</span>
-                    <h3>Risposta Aperta</h3>
-                    <p>Spazi per argomentare, collegare concetti e dimostrare capacità di analisi.</p>
-                </div>
-                <div class="structure-card">
-                    <span class="structure-icon">🧩</span>
-                    <h3>Applicazione Pratica</h3>
-                    <p>Scenari reali dove dovrai applicare concretamente metodologie e strumenti appresi.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="exam-section" style="border-left-color: #3498db;">
-            <h2 style="color: #2980b9;">📚 Argomenti di Studio</h2>
-            <p style="margin-bottom: 2rem;">Prepara i seguenti argomenti utilizzando i link diretti ai materiali
-                interattivi:</p>
-
-            <ul class="topic-list">
-                <li class="topic-card">
-                    <h3>1. Operatore Sociale</h3>
-                    <p>Ruolo, competenze, ambiti di intervento e figura professionale dell'operatore sociale.
-                    </p>
-                    <a href="../biennio/tssas_percorso_completo_v2.html" class="btn-study">Vai al ripasso ➜</a>
-                </li>
-
-                <li class="topic-card">
-                    <h3>2. Tecniche di Animazione</h3>
-                    <p>Metodologie, progettazione di attività ludico-ricreative e gestione dei gruppi.</p>
-                    <a href="../biennio/percorso_animativo_interattivo.html" class="btn-study">Vai al ripasso ➜</a>
-                </li>
-
-                <li class="topic-card">
-                    <h3>3. Servizi alla Persona</h3>
-                    <p>Approfondimento sui servizi, l'organizzazione e le tipologie di intervento.</p>
-                    <a href="../terzo/percorsi_autoapprendimento.html" class="btn-study">Vai al ripasso ➜</a>
-                </li>
-
-                <li class="topic-card">
-                    <h3>4. Equipe Multiprofessionale</h3>
-                    <p>Il lavoro di rete, i ruoli nell'equipe, gli strumenti di comunicazione e collaborazione.</p>
-                    <a href="../terzo/equipe_multiprofessionale.html" class="btn-study">Vai al ripasso ➜</a>
-                </li>
-
-                <li class="topic-card">
-                    <h3>5. La Progettazione Individualizzata</h3>
-                    <p>Le 6 fasi della progettazione: analisi del problema, contesto, obiettivi, interventi, verifica e
-                        valutazione.</p>
-                    <a href="../biennio/progettazione_individualizzata_teoria.html" class="btn-study">Vai al ripasso
-                        ➜</a>
-                </li>
-
-                <li class="topic-card">
-                    <h3>6. Equipe e Figure Professionali</h3>
-                    <p>Slide di approfondimento su composizione, ruoli e funzioni dell'equipe nei servizi.</p>
-                    <a href="../terzo/equipe_multiprofessionale_slides.pdf" class="btn-study" download>Scarica Slide 📥</a>
-                </li>
+    <div class="shell">
+        <section class="sezione t-lime" id="struttura">
+            <h2><span class="num">1</span>Obiettivi e struttura della prova</h2>
+            <p>La verifica accerta le competenze acquisite nel primo quadrimestre. Non basta ricordare i concetti teorici: occorre saperli <strong>applicare</strong> a situazioni professionali simulate.</p>
+            <ul class="prove">
+                <li><span class="icona" aria-hidden="true">☑️</span><h3>Risposta multipla</h3><p>Domande che accertano la conoscenza puntuale dei concetti fondamentali.</p></li>
+                <li><span class="icona" aria-hidden="true">✍️</span><h3>Risposta aperta</h3><p>Spazi in cui argomentare, collegare i concetti e dimostrare capacità di analisi.</p></li>
+                <li><span class="icona" aria-hidden="true">🧩</span><h3>Applicazione pratica</h3><p>Situazioni realistiche in cui applicare i metodi e gli strumenti studiati.</p></li>
             </ul>
-        </div>
+        </section>
 
-        <div style="text-align: center;">
-            <a href="../../quarto.html" class="back-link">⬅ Torna ai materiali di Quarta</a>
-        </div>
+        <section class="sezione t-rosa" id="argomenti">
+            <h2><span class="num">2</span>Argomenti da preparare</h2>
+            <p>Per ogni argomento il collegamento porta al materiale di ripasso.</p>
+            <ol class="argomenti">
+                <li class="t-lime"><h3>L'operatore sociale</h3><p>Ruolo, competenze, ambiti di intervento e profilo professionale dell'operatore sociale.</p><a class="vai" href="../biennio/tssas_percorso_completo_v2.html">Ripassa →</a></li>
+                <li class="t-rosa"><h3>Le tecniche di animazione</h3><p>Metodi, progettazione di attività ludico-ricreative e conduzione dei gruppi.</p><a class="vai" href="../biennio/percorso_animativo_interattivo.html">Ripassa →</a></li>
+                <li class="t-verde"><h3>I servizi alla persona</h3><p>L'organizzazione dei servizi e le tipologie di intervento.</p><a class="vai" href="../terzo/percorsi_autoapprendimento.html">Ripassa →</a></li>
+                <li class="t-acqua"><h3>L'équipe multiprofessionale</h3><p>Il lavoro di rete, i ruoli nell'équipe, gli strumenti di comunicazione e di collaborazione.</p><a class="vai" href="../terzo/equipe_multiprofessionale.html">Ripassa →</a></li>
+                <li class="t-lime"><h3>La progettazione individualizzata</h3><p>Le sei fasi: analisi del problema, analisi del contesto, obiettivi, interventi, verifica e valutazione.</p><a class="vai" href="../biennio/progettazione_individualizzata_teoria.html">Ripassa →</a></li>
+                <li class="t-blu"><h3>L'équipe e le figure professionali</h3><p>Diapositive di approfondimento su composizione, ruoli e funzioni dell'équipe nei servizi.</p><a class="vai" href="../terzo/equipe_multiprofessionale_slides.pdf" download>Scarica il PDF ↓</a></li>
+            </ol>
+        </section>
 
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 - Metodologie Operative</p>
-        </div>
-    </footer>
+        <footer class="piede">
+            <p>Metodologie Operative · Guida alla verifica sommativa del quarto anno</p>
+            <a href="../../quarto.html">Torna ai materiali del quarto anno</a>
+        </footer>
+    </div>
+</main>
 </body>
-
 </html>
