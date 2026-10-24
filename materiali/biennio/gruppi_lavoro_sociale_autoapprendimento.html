@@ -4,551 +4,127 @@
     <meta name="page-id" content="attivita-materiali-biennio-gruppi-lavoro-sociale-autoapprendimento-01">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I Gruppi nel Lavoro Sociale - Percorso di Autoapprendimento</title>
+    <title>Il gruppo e l'auto mutuo aiuto · Metodologie Operative</title>
+    <link rel="stylesheet" href="../../assets/materiale.css?v=20261024">
+    <script src="../../assets/materiale.js?v=20261024" defer></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* Il gruppo e l'auto mutuo aiuto: verde del logo, testata in riquadro, fasi a tappe */
+        .container { width: min(1000px, calc(100% - 32px)); margin: 0 auto; }
+        .header { margin-top: 30px; }
+        .header h1 { margin-bottom: 8px; }
+
+        .progress-bar-container { position: sticky; top: 0; z-index: 20; margin: 24px 0 8px; padding: 10px 0 8px; background: var(--color-bg); border-bottom: 1px solid var(--color-line); }
+        .progress-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+        .progress-step { display: flex; align-items: center; gap: 8px; padding: 6px 10px; background: var(--color-surface); border: 1px solid var(--color-line); border-bottom: 4px solid var(--color-line); }
+        .progress-step:nth-child(1) { --tinta: var(--lime); }
+        .progress-step:nth-child(2) { --tinta: var(--rosa); }
+        .progress-step:nth-child(3) { --tinta: var(--verde); }
+        .progress-step:nth-child(4) { --tinta: var(--acqua); }
+        .progress-circle { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--tinta); font-weight: 700; font-size: .85rem; color: var(--color-primary); }
+        .progress-label { font-weight: 600; font-size: .88rem; color: var(--color-primary); }
+        .progress-step.active { border-bottom-color: var(--tinta); }
+        .progress-step.active .progress-circle { background: var(--tinta); color: #fff; }
+        .progress-step:nth-child(1).active .progress-circle, .progress-step:nth-child(4).active .progress-circle { color: var(--color-primary); }
+        .progress-step.completed { border-bottom-color: var(--tinta); }
+        .progress-step.completed .progress-circle { background: var(--tinta-tenue, #fff); }
+        #progress-text { margin: 8px 0 0; font-size: .85rem !important; font-weight: 400 !important; color: var(--color-ink-soft) !important; }
+
+        .fase { display: none; }
+        .fase.active { display: block; }
+        .fase-header { margin: 26px 0 18px; padding-bottom: 12px; border-bottom: 4px solid var(--tinta); }
+        .fase-title { font-family: var(--font-titoli); font-size: clamp(1.9rem, 4vw, 2.6rem); line-height: 1.15; color: var(--color-primary); }
+        .fase-subtitle { color: var(--color-ink-soft); font-size: 1.05rem; margin-top: 4px; }
+
+        .box { padding: 16px 20px; margin: 16px 0; background: var(--color-surface); border: 1px solid var(--color-line); }
+        .box h3 { font-size: 1rem; margin: 0 0 6px; }
+        .box > :last-child { margin-bottom: 0; }
+        .box ul { margin-bottom: 0; }
+        .box-yellow { border-left: 5px solid var(--lime); }
+        .box-green { background: var(--tinta-tenue); border-color: transparent; }
+        .box-purple { border-left: 5px solid var(--rosa); background: var(--rosa-tenue); border-color: transparent; border-left-color: var(--rosa); }
+
+        .content-section { margin: 26px 0; padding: 24px 26px; background: var(--color-surface); border: 1px solid var(--color-line); }
+        .content-section > h3 { font-family: var(--font-titoli); font-weight: 400; font-size: clamp(1.5rem, 3vw, 1.95rem); margin: 0 0 14px; }
+        .content-section h4 { font-size: 1.08rem; margin: 26px 0 8px; }
+        .content-section > p { max-width: 780px; }
+        .fade-in { animation: none; }
+
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 14px 0; }
+        .card { padding: 14px 16px; background: var(--color-bg); border-top: 4px solid var(--tinta); font-size: .95rem; }
+        .card-grid .card:nth-child(4n+1) { border-top-color: var(--lime); }
+        .card-grid .card:nth-child(4n+2) { border-top-color: var(--rosa); }
+        .card-grid .card:nth-child(4n+3) { border-top-color: var(--acqua); }
+        .card h4 { margin: 0 0 6px !important; }
+        .card ul { list-style: none; padding: 0; margin: 4px 0 0; }
+        .card > :last-child { margin-bottom: 0; }
+
+        .quote { margin: 16px 0; padding: 14px 20px; background: var(--tinta-tenue); border-left: 5px solid var(--tinta); }
+        .info-panel { margin: 16px 0; padding: 14px 20px; border: 1px dashed var(--tinta-testo); }
+        .info-panel h4 { margin-top: 0 !important; }
+        .info-panel > :last-child { margin-bottom: 0; }
+        .info-panel ul { list-style: none; padding: 0; }
+
+        .istruzione { display: grid; grid-template-columns: 34px 1fr; gap: 12px; margin: 18px 0; }
+        .numero-istruzione { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--tinta); color: #fff; font-weight: 700; }
+        .istruzione-text > strong:first-child { display: block; color: var(--color-primary); }
+
+        .input-group { margin: 14px 0; }
+        .input-group label { margin-top: 0; }
+        textarea, input[type="text"] { display: block; width: 100%; padding: 11px 12px; background: #fff; border: 1px solid #788796; border-radius: 3px; font: inherit; line-height: 1.55; }
+        textarea { min-height: 100px; resize: vertical; }
+        input[type="range"] { accent-color: var(--verde); }
+
+        .checkbox-group { display: grid; gap: 8px; margin: 12px 0; }
+        .checkbox-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: #fff; border: 1px solid var(--color-line); }
+        .checkbox-item input { width: 20px; height: 20px; margin-top: 4px; flex: 0 0 auto; accent-color: var(--verde); }
+        .checkbox-item label { margin: 0; font-weight: 400; }
+
+        .concept-map { margin: 16px 0; }
+        .upload-area { padding: 18px; text-align: center; border: 2px dashed var(--tinta); background: var(--tinta-tenue); }
+        .upload-area h3 { font-size: 1rem; }
+
+        .tabella-confronto { width: 100%; border-collapse: collapse; background: #fff; font-size: .94rem; }
+        .tabella-confronto th, .tabella-confronto td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--color-line); }
+        .tabella-confronto thead th { background: var(--tinta-tenue); color: var(--color-primary); border-bottom: 2px solid var(--tinta); }
+        .tabella-confronto input[type="text"] { border: 1px solid #788796 !important; background: #fff !important; padding: 8px !important; }
+
+        .btn-container { display: flex; flex-wrap: wrap; gap: 10px; margin: 26px 0; }
+        .btn { flex: 1 1 260px; min-height: 48px; padding: 12px 16px; font: inherit; font-weight: 600; border: 1px solid var(--color-primary); border-radius: 4px; cursor: pointer; }
+        .btn-primary { background: var(--color-primary); color: #fff; }
+        .btn-primary:hover { background: #254f75; }
+        .btn-secondary { background: transparent; color: var(--color-primary); }
+
+        .reference-section { margin: 26px 0; padding: 18px 20px; border-top: 3px solid var(--tinta); font-size: .88rem; color: var(--color-ink-soft); }
+        .reference-section h4 { margin-top: 0; color: var(--color-primary); }
+
+        @media (max-width: 760px) {
+            .progress-bar { gap: 4px; }
+            .progress-step { flex-direction: column; gap: 2px; padding: 6px 2px; text-align: center; }
+            .progress-label { font-size: .75rem; }
+            .content-section { padding: 18px 16px; }
+            .istruzione { grid-template-columns: 1fr; gap: 6px; }
         }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            font-size: 1.2em;
-            opacity: 0.9;
-        }
-
-        .progress-bar-container {
-            background: #f0f0f0;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .progress-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 800px;
-            margin: 0 auto 20px;
-        }
-
-        .progress-step {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            flex: 1;
-            position: relative;
-        }
-
-        .progress-step::after {
-            content: '';
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            width: 100%;
-            height: 3px;
-            background: #ddd;
-            z-index: 0;
-        }
-
-        .progress-step:last-child::after {
-            display: none;
-        }
-
-        .progress-circle {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #666;
-            z-index: 1;
-            position: relative;
-        }
-
-        .progress-step.active .progress-circle {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            transform: scale(1.2);
-        }
-
-        .progress-step.completed .progress-circle {
-            background: #4CAF50;
-            color: white;
-        }
-
-        .progress-step.completed::after {
-            background: #4CAF50;
-        }
-
-        .progress-label {
-            margin-top: 10px;
-            font-size: 0.9em;
-            color: #666;
-            font-weight: 600;
-        }
-
-        .fase {
-            display: none;
-            padding: 40px;
-            animation: fadeIn 0.5s;
-        }
-
-        .fase.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .fase-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .fase-title {
-            font-size: 2.5em;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .fase-subtitle {
-            font-size: 1.3em;
-            color: #666;
-        }
-
-        .box {
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .box-yellow {
-            background: linear-gradient(135deg, #FFF9C4 0%, #FFF59D 100%);
-            border-left: 5px solid #FBC02D;
-        }
-
-        .box-green {
-            background: linear-gradient(135deg, #C8E6C9 0%, #A5D6A7 100%);
-            border-left: 5px solid #4CAF50;
-        }
-
-        .box-blue {
-            background: linear-gradient(135deg, #BBDEFB 0%, #90CAF9 100%);
-            border-left: 5px solid #2196F3;
-        }
-
-        .box-purple {
-            background: linear-gradient(135deg, #E1BEE7 0%, #CE93D8 100%);
-            border-left: 5px solid #9C27B0;
-        }
-
-        .box h3 {
-            font-size: 1.5em;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .box ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .box ul li {
-            padding: 8px 0;
-            padding-left: 25px;
-            position: relative;
-        }
-
-        .box ul li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #4CAF50;
-            font-weight: bold;
-        }
-
-        .content-section {
-            background: #f9f9f9;
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-        }
-
-        .content-section h3 {
-            color: #667eea;
-            font-size: 1.8em;
-            margin-bottom: 20px;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 10px;
-        }
-
-        .content-section h4 {
-            color: #764ba2;
-            font-size: 1.4em;
-            margin: 25px 0 15px 0;
-        }
-
-        .content-section p {
-            line-height: 1.8;
-            color: #444;
-            margin-bottom: 15px;
-        }
-
-        .quote {
-            background: white;
-            border-left: 4px solid #667eea;
-            padding: 20px;
-            margin: 20px 0;
-            font-style: italic;
-            border-radius: 10px;
-        }
-
-        .input-group {
-            margin-bottom: 25px;
-        }
-
-        .input-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #333;
-            font-size: 1.1em;
-        }
-
-        .input-group input[type="text"],
-        .input-group textarea {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            font-size: 1em;
-            font-family: inherit;
-            transition: border-color 0.3s;
-        }
-
-        .input-group input[type="text"]:focus,
-        .input-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .input-group textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .upload-area {
-            border: 3px dashed #667eea;
-            border-radius: 15px;
-            padding: 40px;
-            text-align: center;
-            background: #f0f4ff;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .upload-area:hover {
-            background: #e8f0ff;
-            border-color: #764ba2;
-        }
-
-        .upload-area input[type="file"] {
-            display: none;
-        }
-
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin: 30px 0;
-        }
-
-        .card {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-
-        .card h4 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.3em;
-        }
-
-        .card ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .card ul li {
-            padding: 8px 0;
-            color: #555;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 15px 40px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            text-align: center;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
-        }
-
-        .btn-secondary {
-            background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
-            color: white;
-            margin-left: 15px;
-        }
-
-        .btn-secondary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
-        }
-
-        .btn-container {
-            text-align: center;
-            margin-top: 50px;
-            padding: 30px;
-        }
-
-        .checkbox-group {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-            transition: background 0.3s;
-        }
-
-        .checkbox-item:hover {
-            background: #f9f9f9;
-        }
-
-        .checkbox-item:last-child {
-            border-bottom: none;
-        }
-
-        .checkbox-item input[type="checkbox"] {
-            width: 25px;
-            height: 25px;
-            margin-right: 15px;
-            cursor: pointer;
-        }
-
-        .checkbox-item label {
-            cursor: pointer;
-            flex: 1;
-            font-size: 1.05em;
-        }
-
-        .info-panel {
-            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
-            border-left: 4px solid #2196F3;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 25px 0;
-        }
-
-        .info-panel h4 {
-            color: #1976D2;
-            margin-bottom: 10px;
-        }
-
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 15px;
-            margin: 25px 0;
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .reference-section {
-            background: #f0f0f0;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 40px;
-        }
-
-        .reference-section h4 {
-            color: #333;
-            margin-bottom: 15px;
-        }
-
-        .reference-section ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .reference-section ul li {
-            padding: 8px 0;
-            color: #555;
-            font-size: 0.95em;
-        }
-
-        .reference-section ul li::before {
-            content: '📚 ';
-            margin-right: 8px;
-        }
-
         @media print {
-            body {
-                background: white;
-            }
-            .container {
-                box-shadow: none;
-            }
-            .progress-bar-container,
-            .btn-container,
-            .header {
-                display: none !important;
-            }
-            .fase {
-                display: block !important;
-                page-break-after: always;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.8em;
-            }
-            .fase {
-                padding: 20px;
-            }
-            .card-grid {
-                grid-template-columns: 1fr;
-            }
-            .btn {
-                display: block;
-                margin: 10px 0 !important;
-            }
-        }
-
-        .highlight {
-            background: #FFF59D;
-            padding: 2px 5px;
-            border-radius: 3px;
-        }
-
-        .numero-istruzione {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 30px;
-            font-weight: bold;
-            margin-right: 10px;
-        }
-
-        .istruzione {
-            display: flex;
-            align-items: flex-start;
-            margin: 15px 0;
-            padding: 15px;
-            background: white;
-            border-radius: 10px;
-        }
-
-        .istruzione-text {
-            flex: 1;
-        }
-
-        .concept-map {
-            background: white;
-            border: 2px solid #667eea;
-            border-radius: 15px;
-            padding: 30px;
-            margin: 25px 0;
-            min-height: 300px;
-        }
-
-        .fade-in {
-            animation: fadeIn 0.6s ease-in;
+            .progress-bar-container, .btn-container, .upload-area { display: none !important; }
+            .fase { display: block !important; break-before: page; }
+            .fase:first-of-type { break-before: auto; }
+            .content-section, .card, .quote, .info-panel { break-inside: avoid; }
         }
     </style>
 </head>
-<body>
+<body data-tinta="verde">
+    <div class="barra shell">
+        <a href="../../biennio.html#arg-gruppi">← Materiali del biennio</a>
+        <a href="../../programmi.html?anno=Secondo%20anno">Programma della seconda</a>
+        <span class="sito">Metodologie Operative</span>
+    </div>
     <div class="container">
         <!-- HEADER -->
-        <div class="header">
-            <h1>🤝 I Gruppi nel Lavoro Sociale</h1>
-            <p>Percorso di Autoapprendimento Progressivo Guidato</p>
+        <div class="header testata--riquadro">
+            <p class="occhiello">Biennio · Percorso di autoapprendimento</p>
+            <h1>Il gruppo e l'auto mutuo aiuto</h1>
+            <p class="lead">Come nasce il Sé nelle relazioni, che cos'è un gruppo e come funzionano i gruppi di auto mutuo aiuto, dove le persone si sostengono a vicenda.</p>
+            <div class="identita" data-identita></div>
         </div>
 
         <!-- BARRA DI PROGRESSO -->
@@ -558,19 +134,19 @@
             <div class="progress-bar">
                 <div class="progress-step active" data-fase="1">
                     <div class="progress-circle">1</div>
-                    <div class="progress-label">SCOPRI</div>
+                    <div class="progress-label">Scopro</div>
                 </div>
                 <div class="progress-step" data-fase="2">
                     <div class="progress-circle">2</div>
-                    <div class="progress-label">ESPLORO</div>
+                    <div class="progress-label">Esploro</div>
                 </div>
                 <div class="progress-step" data-fase="3">
                     <div class="progress-circle">3</div>
-                    <div class="progress-label">APPLICO</div>
+                    <div class="progress-label">Applico</div>
                 </div>
                 <div class="progress-step" data-fase="4">
                     <div class="progress-circle">4</div>
-                    <div class="progress-label">RIFLETTO</div>
+                    <div class="progress-label">Rifletto</div>
                 </div>
             </div>
             <p id="progress-text" style="font-size: 1.2em; font-weight: 600; color: #667eea;">
@@ -581,12 +157,12 @@
         <!-- FASE 1: SCOPRI -->
         <div class="fase active" id="fase1">
             <div class="fase-header">
-                <div class="fase-title">🚀 FASE 1: SCOPRI</div>
+                <div class="fase-title">Fase 1 · Scopro</div>
                 <div class="fase-subtitle">"Cos'è un gruppo nel lavoro sociale?"</div>
             </div>
 
             <div class="box box-yellow">
-                <h3>🎯 COSA FAI ORA</h3>
+                <h3>🎯 Che cosa fai ora</h3>
                 <ul>
                     <li>Scrivi cosa pensi sia un "gruppo"</li>
                     <li>Leggi i concetti fondamentali</li>
@@ -595,15 +171,13 @@
             </div>
 
             <div class="box box-green">
-                <h3>💡 PERCHÉ LO FAI</h3>
-                <p style="font-size: 1.1em; margin: 0;">
-                    <strong>Perché capire come funzionano i gruppi ti aiuterà a lavorare meglio con le persone nei servizi sociali!</strong>
-                </p>
+                <h3>💡 Perché lo fai</h3>
+                <p>Perché capire come funzionano i gruppi ti aiuterà a lavorare meglio con le persone nei servizi sociali!</p>
             </div>
 
             <!-- BRAINSTORMING INIZIALE -->
             <div class="content-section">
-                <h3>🤔 Brainstorming Iniziale</h3>
+                <h3>🤔 Brainstorming iniziale</h3>
                 
                 <div class="input-group">
                     <label>✏️ Scrivi qui: Secondo te, cos'è un gruppo?</label>
@@ -618,12 +192,12 @@
 
             <!-- TEORIA BASE -->
             <div class="content-section">
-                <h3>📚 I Concetti Fondamentali</h3>
+                <h3>📚 I concetti fondamentali</h3>
 
                 <h4>🧠 Il Sé secondo George Herbert Mead</h4>
                 <p>
                     George Herbert Mead (1863-1931), filosofo e psicologo statunitense, è uno dei fondatori della psicologia sociale. 
-                    La sua teoria ci aiuta a capire come <span class="highlight">le persone costruiscono la propria identità attraverso le relazioni con gli altri</span>.
+                    La sua teoria ci aiuta a capire come le persone costruiscono la propria identità attraverso le relazioni con gli altri.
                 </p>
 
                 <div class="quote">
@@ -667,17 +241,16 @@
                     </div>
                 </div>
 
-                <h4>🎭 L'Interazione Simbolica (Herbert Blumer)</h4>
+                <h4>🎭 L'interazione simbolica (Herbert Blumer)</h4>
                 <p>
-                    Herbert Blumer, allievo di Mead, ha sviluppato tre principi fondamentali dell'<strong>interazionismo simbolico</strong>:
+                    Herbert Blumer, allievo di Mead, ha sviluppato tre principi fondamentali dell'<dfn>interazionismo simbolico</dfn>, il modo di studiare la società partendo dai significati che le persone si scambiano:
                 </p>
 
-                <div class="info-panel">
-                    <h4>I 3 Principi dell'Interazionismo Simbolico</h4>
-                    <p><strong>1.</strong> Le persone agiscono in base al <span class="highlight">significato</span> che le cose hanno per loro</p>
-                    <p><strong>2.</strong> Questi significati nascono dall'<span class="highlight">interazione sociale</span></p>
-                    <p><strong>3.</strong> I significati vengono <span class="highlight">modificati continuamente</span> attraverso l'interpretazione</p>
-                </div>
+                <ol class="passi" aria-label="I tre principi dell'interazionismo simbolico">
+                    <li><b>Il significato</b>Le persone agiscono in base al significato che le cose hanno per loro.</li>
+                    <li><b>L'interazione</b>Questi significati nascono dall'interazione sociale.</li>
+                    <li><b>L'interpretazione</b>I significati vengono modificati continuamente attraverso l'interpretazione.</li>
+                </ol>
 
                 <p>
                     Nei gruppi esistono due tipi di interazione:
@@ -697,11 +270,11 @@
                     </div>
                 </div>
 
-                <h4>👥 Cos'è un Gruppo Sociale?</h4>
+                <h4>👥 Che cos'è un gruppo sociale</h4>
                 
                 <div class="quote">
-                    <strong>DEFINIZIONE:</strong> Un gruppo è un insieme di individui che <span class="highlight">interagiscono reciprocamente</span>, 
-                    in modo <span class="highlight">ricorrente</span>, sulla base delle <span class="highlight">aspettative condivise</span> 
+                    Un <dfn>gruppo</dfn> è un insieme di individui che interagiscono reciprocamente, 
+                    in modo ricorrente, sulla base delle aspettative condivise 
                     riguardo al rispettivo comportamento.
                 </div>
 
@@ -713,7 +286,7 @@
                     <li>✅ <strong>Cultura</strong> - modi di fare, dire, stare insieme</li>
                 </ul>
 
-                <h4>✨ Quando un Gruppo Funziona?</h4>
+                <h4>✨ Quando un gruppo funziona</h4>
                 
                 <div class="card-grid">
                     <div class="card">
@@ -735,7 +308,7 @@
 
             <!-- MAPPA CONCETTUALE INIZIALE -->
             <div class="content-section">
-                <h3>🗺️ Crea la Tua Prima Mappa Concettuale</h3>
+                <h3>🗺️ Crea la tua prima mappa concettuale</h3>
                 
                 <div class="istruzione">
                     <span class="numero-istruzione">1</span>
@@ -779,7 +352,7 @@
 
             <div class="btn-container">
                 <button class="btn btn-primary" onclick="cambiaFase(2)">
-                    ✅ HAI FINITO? → VAI ALLA FASE 2: ESPLORO
+                    Hai finito? Vai alla fase 2 · Esploro →
                 </button>
             </div>
         </div>
@@ -787,12 +360,12 @@
         <!-- FASE 2: ESPLORO -->
         <div class="fase" id="fase2">
             <div class="fase-header">
-                <div class="fase-title">📚 FASE 2: ESPLORO</div>
+                <div class="fase-title">Fase 2 · Esploro</div>
                 <div class="fase-subtitle">"Vedo come funzionano i gruppi nel lavoro sociale"</div>
             </div>
 
             <div class="box box-yellow">
-                <h3>🎯 COSA FAI ORA</h3>
+                <h3>🎯 Che cosa fai ora</h3>
                 <ul>
                     <li>Scopri i diversi tipi di gruppi</li>
                     <li>Approfondisci i gruppi di auto-mutuo aiuto</li>
@@ -801,108 +374,63 @@
             </div>
 
             <div class="box box-green">
-                <h3>💡 PERCHÉ LO FAI</h3>
-                <p style="font-size: 1.1em; margin: 0;">
-                    <strong>Conoscere i diversi tipi di gruppi ti permette di scegliere il metodo giusto per ogni situazione!</strong>
-                </p>
+                <h3>💡 Perché lo fai</h3>
+                <p>Conoscere i diversi tipi di gruppi ti permette di scegliere il metodo giusto per ogni situazione!</p>
             </div>
 
             <!-- TIPOLOGIE DI GRUPPI -->
             <div class="content-section">
-                <h3>🔍 Le Tipologie di Gruppi nel Lavoro Sociale</h3>
+                <h3>🔍 I tipi di gruppo nel lavoro sociale</h3>
 
                 <p>
                     Nel lavoro sociale esistono diverse tipologie di gruppi, ognuna con funzioni e caratteristiche specifiche. 
                     Scopriamole insieme!
                 </p>
 
-                <div class="card-grid">
-                    <div class="card">
-                        <h4>🤝 Gruppi di Auto-Mutuo Aiuto</h4>
-                        <p><strong>Obiettivo:</strong> rafforzare le capacità e la fiducia delle persone (in inglese <em>empowerment</em>) e il sostegno reciproco</p>
-                        <p><strong>Caratteristiche:</strong></p>
-                        <ul>
-                            <li>Condivisione di esperienze</li>
-                            <li>Parità tra membri</li>
-                            <li>Facilitatore non direttivo</li>
-                        </ul>
-                    </div>
-
-                    <div class="card">
-                        <h4>📖 Gruppi Educativi</h4>
-                        <p><strong>Obiettivo:</strong> Apprendimento e crescita</p>
-                        <p><strong>Caratteristiche:</strong></p>
-                        <ul>
-                            <li>Trasmissione di conoscenze</li>
-                            <li>Sviluppo di competenze</li>
-                            <li>Educatore come guida</li>
-                        </ul>
-                    </div>
-
-                    <div class="card">
-                        <h4>💊 Gruppi Terapeutici</h4>
-                        <p><strong>Obiettivo:</strong> Gestione difficoltà emotive</p>
-                        <p><strong>Caratteristiche:</strong></p>
-                        <ul>
-                            <li>Supporto psicologico</li>
-                            <li>Elaborazione vissuti</li>
-                            <li>Terapeuta specializzato</li>
-                        </ul>
-                    </div>
-
-                    <div class="card">
-                        <h4>🎯 Gruppi di Lavoro</h4>
-                        <p><strong>Obiettivo:</strong> Raggiungere obiettivi specifici</p>
-                        <p><strong>Caratteristiche:</strong></p>
-                        <ul>
-                            <li>Compiti definiti</li>
-                            <li>Risultati misurabili</li>
-                            <li>Coordinatore operativo</li>
-                        </ul>
-                    </div>
-
-                    <div class="card">
-                        <h4>🎭 Gruppi Sociali</h4>
-                        <p><strong>Obiettivo:</strong> Socializzazione e relazioni</p>
-                        <p><strong>Caratteristiche:</strong></p>
-                        <ul>
-                            <li>Sviluppo legami sociali</li>
-                            <li>Inclusione sociale</li>
-                            <li>Animatore come supporto</li>
-                        </ul>
-                    </div>
+                <div class="tabella-wrap">
+                    <table class="tabella-confronto">
+                        <caption class="nota" style="text-align:left; padding-bottom:8px">Cinque tipi di gruppo a confronto</caption>
+                        <thead><tr><th>Tipo di gruppo</th><th>Obiettivo</th><th>Caratteristiche</th><th>Chi lo guida</th></tr></thead>
+                        <tbody>
+                            <tr><th scope="row">🤝 Auto mutuo aiuto</th><td>Rafforzare le capacità e la fiducia delle persone (in inglese <em>empowerment</em>) e il sostegno reciproco</td><td>Condivisione di esperienze; parità tra membri</td><td>Facilitatore non direttivo</td></tr>
+                            <tr><th scope="row">📖 Educativi</th><td>Apprendimento e crescita</td><td>Trasmissione di conoscenze; sviluppo di competenze</td><td>Educatore come guida</td></tr>
+                            <tr><th scope="row">💊 Terapeutici</th><td>Gestione delle difficoltà emotive</td><td>Supporto psicologico; elaborazione dei vissuti</td><td>Terapeuta specializzato</td></tr>
+                            <tr><th scope="row">🎯 Di lavoro</th><td>Raggiungere obiettivi specifici</td><td>Compiti definiti; risultati misurabili</td><td>Coordinatore operativo</td></tr>
+                            <tr><th scope="row">🎭 Sociali</th><td>Socializzazione e relazioni</td><td>Sviluppo di legami sociali; inclusione sociale</td><td>Animatore come supporto</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
             <!-- FOCUS AUTO-MUTUO AIUTO -->
             <div class="content-section">
-                <h3>🌟 Focus: I Gruppi di Auto-Mutuo Aiuto</h3>
+                <h3>🌟 Focus: i gruppi di auto mutuo aiuto</h3>
 
                 <p>
-                    I gruppi di auto-mutuo aiuto (AMA) rappresentano uno strumento fondamentale nel lavoro sociale. 
+                    I <dfn>gruppi di auto mutuo aiuto</dfn> (AMA) rappresentano uno strumento fondamentale nel lavoro sociale. 
                     Nascono negli anni '30 con gli Alcolisti Anonimi e si diffondono in tutto il mondo.
                 </p>
 
                 <div class="info-panel">
-                    <h4>📚 Definizione Scientifica</h4>
+                    <h4>📚 La definizione</h4>
                     <p>
                         Secondo la sociologa Thomasina Borkman (1999), i gruppi di auto-mutuo aiuto sono formati da persone che condividono un problema comune e si sostengono a vicenda, in un clima di solidarietà e di reciprocità.
                     </p>
                 </div>
 
-                <h4>🔑 Principio dell'Helper Therapy</h4>
+                <h4>🔑 Il principio dell'helper therapy</h4>
                 
                 <div class="quote">
                     Aiutarsi aiutando: chi aiuta un altro ne ricava a sua volta un beneficio, spesso più grande di quello che dà. <br><small>Il principio descritto da Frank Riessman nel 1965 (<em>helper therapy principle</em>)</small>
                 </div>
 
                 <p>
-                    Questo principio, che in italiano si riassume con l'espressione <strong>«aiutarsi aiutando»</strong>, significa che quando aiutiamo qualcuno 
+                    Questo principio, l'<dfn>helper therapy</dfn>, in italiano si riassume con l'espressione «aiutarsi aiutando», significa che quando aiutiamo qualcuno 
                     con la nostra esperienza, noi stessi ne traiamo beneficio: rafforziamo la nostra identità, 
                     confermiamo il nostro percorso di crescita e aumentiamo la nostra autostima.
                 </p>
 
-                <h4>✨ Caratteristiche dei Gruppi AMA</h4>
+                <h4>✨ Caratteristiche dei gruppi AMA</h4>
 
                 <div class="card-grid">
                     <div class="card">
@@ -929,7 +457,7 @@
                     </div>
 
                     <div class="card">
-                        <h4>🤲 Facilitatore</h4>
+                        <h4>🤲 Il facilitatore</h4>
                         <p>L'operatore sociale:</p>
                         <ul>
                             <li>Non dirige</li>
@@ -940,7 +468,7 @@
                     </div>
                 </div>
 
-                <h4>📜 Le Regole d'Oro dell'Auto-Mutuo Aiuto</h4>
+                <h4>📜 Le regole d'oro dell'auto mutuo aiuto</h4>
 
                 <div class="checkbox-group">
                     <div class="checkbox-item">
@@ -986,10 +514,10 @@
                     </div>
                 </div>
 
-                <h4>🎯 Finalità e Obiettivi</h4>
+                <h4>🎯 Finalità e obiettivi</h4>
 
                 <div class="info-panel">
-                    <h4>Cosa si raggiunge con l'Auto-Mutuo Aiuto?</h4>
+                    <h4>Che cosa si raggiunge con l'auto mutuo aiuto</h4>
                     <ul>
                         <li>→ Supporto emotivo e sociale</li>
                         <li>→ Valorizzazione delle risorse personali</li>
@@ -1009,7 +537,7 @@
 
             <!-- ESEMPI CONCRETI -->
             <div class="content-section">
-                <h3>📍 Esempi Concreti di Gruppi AMA</h3>
+                <h3>📍 Esempi concreti di gruppi AMA</h3>
 
                 <h4>🍷 C.A.T. - Club Alcologici Territoriali (un tempo Club degli Alcolisti in Trattamento)</h4>
 
@@ -1021,12 +549,12 @@
                     
                     <p style="margin-top: 20px;"><strong>💡 Filosofia:</strong></p>
                     <p>
-                        Il C.A.T. <span class="highlight">non tratta i problemi legati all'alcol come una malattia della sola persona</span>, ma come un comportamento legato allo stile di vita della famiglia e della comunità. L'obiettivo è cambiare lo stile di vita di tutta la famiglia, non solo smettere di bere.
+                        Il C.A.T. non tratta i problemi legati all'alcol come una malattia della sola persona, ma come un comportamento legato allo stile di vita della famiglia e della comunità. L'obiettivo è cambiare lo stile di vita di tutta la famiglia, non solo smettere di bere.
                     </p>
                 </div>
 
                 <div class="info-panel">
-                    <h4>👨‍👩‍👧‍👦 Ruolo della Famiglia nel C.A.T.</h4>
+                    <h4>👨‍👩‍👧‍👦 Il ruolo della famiglia nel C.A.T.</h4>
                     <p><strong>1. Partecipazione Attiva</strong> - I familiari partecipano agli incontri e condividono esperienze</p>
                     <p><strong>2. Sostegno Reciproco</strong> - La famiglia offre supporto emotivo essenziale</p>
                     <p><strong>3. Educazione</strong> - I familiari acquisiscono consapevolezza e strategie</p>
@@ -1052,7 +580,7 @@
                 </div>
 
                 <div class="info-panel">
-                    <h4>🌐 I Gruppi AMA sono Servizi di Welfare!</h4>
+                    <h4>🌐 I gruppi AMA sono una risorsa del welfare</h4>
                     <p>
                         In Italia i gruppi di auto-mutuo aiuto sono migliaia, su temi molto diversi: dipendenze, lutto, malattie, disagio psichico, genitorialità. 
                         Questi gruppi rappresentano una risorsa gratuita e accessibile per la comunità, 
@@ -1063,7 +591,7 @@
 
             <!-- LABORATORIO RAGIONAMENTO -->
             <div class="content-section">
-                <h3>🧪 Laboratorio di Ragionamento Operativo</h3>
+                <h3>🧪 Laboratorio di ragionamento operativo</h3>
 
                 <p>Ora che conosci i gruppi AMA, rifletti su queste domande:</p>
 
@@ -1090,7 +618,7 @@
 
             <div class="btn-container">
                 <button class="btn btn-primary" onclick="cambiaFase(3)">
-                    ✅ HAI FINITO? → VAI ALLA FASE 3: APPLICO
+                    Hai finito? Vai alla fase 3 · Applico →
                 </button>
             </div>
         </div>
@@ -1098,12 +626,12 @@
         <!-- FASE 3: APPLICO -->
         <div class="fase" id="fase3">
             <div class="fase-header">
-                <div class="fase-title">🛠️ FASE 3: APPLICO</div>
+                <div class="fase-title">Fase 3 · Applico</div>
                 <div class="fase-subtitle">"Faccio i collegamenti e progetto"</div>
             </div>
 
             <div class="box box-yellow">
-                <h3>🎯 COSA FAI ORA</h3>
+                <h3>🎯 Che cosa fai ora</h3>
                 <ul>
                     <li>Completa 6 esercizi pratici sui gruppi</li>
                     <li>Crea collegamenti tra teoria e pratica</li>
@@ -1112,15 +640,13 @@
             </div>
 
             <div class="box box-green">
-                <h3>💡 PERCHÉ LO FAI</h3>
-                <p style="font-size: 1.1em; margin: 0;">
-                    <strong>Applicare la teoria a situazioni reali ti prepara al lavoro vero nei servizi sociali!</strong>
-                </p>
+                <h3>💡 Perché lo fai</h3>
+                <p>Applicare la teoria a situazioni reali ti prepara al lavoro vero nei servizi sociali!</p>
             </div>
 
             <!-- ESERCIZI PRATICI -->
             <div class="content-section">
-                <h3>🎯 6 Esercizi Pratici sui Gruppi</h3>
+                <h3>🎯 Sei esercizi pratici sui gruppi</h3>
 
                 <div class="istruzione">
                     <span class="numero-istruzione">1</span>
@@ -1199,39 +725,39 @@
                             Completa questa tabella comparativa tra C.A.T. e Alcolisti Anonimi:
                         </p>
                         <div style="overflow-x: auto; margin-top: 15px;">
-                            <table style="width: 100%; border-collapse: collapse; background: white;">
+                            <table class="tabella-confronto">
                                 <thead>
-                                    <tr style="background: #667eea; color: white;">
-                                        <th style="padding: 15px; border: 1px solid #ddd;">Aspetto</th>
-                                        <th style="padding: 15px; border: 1px solid #ddd;">C.A.T.</th>
-                                        <th style="padding: 15px; border: 1px solid #ddd;">A.A.</th>
+                                    <tr>
+                                        <th>Aspetto</th>
+                                        <th>C.A.T.</th>
+                                        <th>A.A.</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>Ruolo famiglia</strong></td>
-                                        <td style="padding: 10px; border: 1px solid #ddd;">
+                                        <td><strong>Ruolo famiglia</strong></td>
+                                        <td>
                                             <input type="text" id="tab1" name="tab1" style="width: 100%; border: none; background: transparent;">
                                         </td>
-                                        <td style="padding: 10px; border: 1px solid #ddd;">
+                                        <td>
                                             <input type="text" id="tab2" name="tab2" style="width: 100%; border: none; background: transparent;">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>Visione problema</strong></td>
-                                        <td style="padding: 10px; border: 1px solid #ddd;">
+                                        <td><strong>Visione problema</strong></td>
+                                        <td>
                                             <input type="text" id="tab3" name="tab3" style="width: 100%; border: none; background: transparent;">
                                         </td>
-                                        <td style="padding: 10px; border: 1px solid #ddd;">
+                                        <td>
                                             <input type="text" id="tab4" name="tab4" style="width: 100%; border: none; background: transparent;">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>Metodo principale</strong></td>
-                                        <td style="padding: 10px; border: 1px solid #ddd;">
+                                        <td><strong>Metodo principale</strong></td>
+                                        <td>
                                             <input type="text" id="tab5" name="tab5" style="width: 100%; border: none; background: transparent;">
                                         </td>
-                                        <td style="padding: 10px; border: 1px solid #ddd;">
+                                        <td>
                                             <input type="text" id="tab6" name="tab6" style="width: 100%; border: none; background: transparent;">
                                         </td>
                                     </tr>
@@ -1266,10 +792,10 @@
 
             <!-- PROGETTO FINALE -->
             <div class="content-section">
-                <h3>🚀 Progetto Finale: Progetta un Intervento di Gruppo</h3>
+                <h3>🚀 Progetto finale: progetta un intervento di gruppo</h3>
 
                 <div class="info-panel">
-                    <h4>📋 La Tua Missione</h4>
+                    <h4>📋 La tua missione</h4>
                     <p>
                         Sei un operatore sociale in un centro per famiglie. Ti viene chiesto di progettare 
                         un gruppo di auto-mutuo aiuto per <strong>genitori con figli con disabilità</strong>.
@@ -1339,7 +865,7 @@
 
             <div class="btn-container">
                 <button class="btn btn-primary" onclick="cambiaFase(4)">
-                    ✅ HAI FINITO? → VAI ALLA FASE 4: RIFLETTO
+                    Hai finito? Vai alla fase 4 · Rifletto →
                 </button>
             </div>
         </div>
@@ -1347,12 +873,12 @@
         <!-- FASE 4: RIFLETTO -->
         <div class="fase" id="fase4">
             <div class="fase-header">
-                <div class="fase-title">💡 FASE 4: RIFLETTO</div>
+                <div class="fase-title">Fase 4 · Rifletto</div>
                 <div class="fase-subtitle">"Cosa ho imparato e come lo uso"</div>
             </div>
 
             <div class="box box-yellow">
-                <h3>🎯 COSA FAI ORA</h3>
+                <h3>🎯 Che cosa fai ora</h3>
                 <ul>
                     <li>Rispondi a 7 domande di autovalutazione</li>
                     <li>Crea la tua mappa concettuale finale</li>
@@ -1361,15 +887,13 @@
             </div>
 
             <div class="box box-green">
-                <h3>💡 PERCHÉ LO FAI</h3>
-                <p style="font-size: 1.1em; margin: 0;">
-                    <strong>Riflettere su ciò che hai imparato rende l'apprendimento permanente e utilizzabile!</strong>
-                </p>
+                <h3>💡 Perché lo fai</h3>
+                <p>Riflettere su ciò che hai imparato rende l'apprendimento permanente e utilizzabile!</p>
             </div>
 
             <!-- AUTOVALUTAZIONE -->
             <div class="content-section">
-                <h3>🔍 Autovalutazione del Percorso</h3>
+                <h3>🔍 Autovalutazione del percorso</h3>
 
                 <p>Prenditi il tempo necessario per riflettere su ciò che hai imparato. Sii sincero/a con te stesso/a!</p>
 
@@ -1446,7 +970,7 @@
 
             <!-- MAPPA FINALE -->
             <div class="content-section">
-                <h3>🗺️ Mappa Concettuale Finale</h3>
+                <h3>🗺️ Mappa concettuale finale</h3>
 
                 <p>
                     Ora che hai completato tutto il percorso, crea una nuova mappa concettuale che integri 
@@ -1486,7 +1010,7 @@
 
             <!-- CONFRONTO -->
             <div class="content-section">
-                <h3>📊 Confronto Prima/Dopo</h3>
+                <h3>📊 Confronto prima e dopo</h3>
 
                 <div class="input-group">
                     <label>Confronta la tua mappa iniziale con quella finale. Cosa è cambiato? Cosa hai aggiunto?</label>
@@ -1545,10 +1069,10 @@
 
             <!-- COMPITO FINALE -->
             <div class="content-section">
-                <h3>🎓 Compito Finale di Sintesi</h3>
+                <h3>🎓 Compito finale di sintesi</h3>
 
                 <div class="box box-purple">
-                    <h3>📝 La Tua Relazione Finale</h3>
+                    <h3>📝 La tua relazione finale</h3>
                     <p>
                         Scrivi una relazione di sintesi (200-300 parole) che risponda a questa domanda:
                     </p>
@@ -1594,10 +1118,10 @@
             <!-- PULSANTI FINALI -->
             <div class="btn-container">
                 <button class="btn btn-primary" onclick="window.print()">
-                    🖨️ STAMPA E CONSEGNA AL DOCENTE
+                    🖨️ Stampa e consegna
                 </button>
                 <button class="btn btn-secondary" onclick="scaricaPDF()">
-                    💾 SALVA COME PDF
+                    💾 Salva come PDF
                 </button>
             </div>
 
@@ -1675,9 +1199,7 @@
 
         window.onafterprint = function() {
             document.querySelectorAll('.fase').forEach((fase, index) => {
-                if (index + 1 !== faseCorrente) {
-                    fase.style.display = 'none';
-                }
+                fase.style.display = '';
             });
         };
 
