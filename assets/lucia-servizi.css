@@ -1,7 +1,7 @@
 @font-face{font-family:'DM Sans';src:url('collage-fonts/dm-sans-regular.ttf') format('truetype');font-style:normal;font-weight:400;font-display:swap}
 @font-face{font-family:'DM Sans';src:url('collage-fonts/dm-sans-semibold.ttf') format('truetype');font-style:normal;font-weight:600 800;font-display:swap}
 @font-face{font-family:'DM Serif';src:url('collage-fonts/dm-serif-display.ttf') format('truetype');font-style:normal;font-weight:400;font-display:swap}
-:root{--carta:#f7f5ef;--foglio:#fffdf9;--testo:#202c3b;--blu:#17385a;--secondario:#5b6570;--bordo:#d7d9d8;--azzurro:#eaf0f4}
+:root{--carta:#f5f6fa;--foglio:#ffffff;--testo:#202c3b;--blu:#17385a;--secondario:#5b6570;--bordo:#dde1e8;--azzurro:#eaf0f4}
 html{scroll-behavior:smooth;scroll-padding-top:1.5rem}
 body{font-family:'DM Sans',sans-serif;background:var(--carta);color:var(--testo);line-height:1.65;padding:24px}
 .container{max-width:1120px;background:var(--foglio);padding:clamp(20px,4vw,56px);box-shadow:none;border:1px solid var(--bordo)}
@@ -23,7 +23,7 @@ input,textarea,select,button{font:inherit}
 input,textarea,select{color:var(--testo);background:white;border:1px solid #7a858c;border-radius:3px;max-width:100%}
 textarea{min-height:120px;resize:vertical;line-height:1.6;overflow-wrap:anywhere}
 textarea:focus,input:focus,select:focus{border-color:var(--blu);box-shadow:none}
-:focus-visible{outline:3px solid #a75134;outline-offset:3px}
+:focus-visible{outline:3px solid #d6105f;outline-offset:3px}
 button,.azione-lucia{background:var(--blu);color:#fff;border:1px solid var(--blu);border-radius:3px;padding:10px 16px;min-height:44px;font-weight:600;cursor:pointer;line-height:1.4}
 button:hover,.azione-lucia:hover{background:#254e73;color:#fff}
 .secondario,.btn-print{background:var(--foglio);color:var(--blu)}

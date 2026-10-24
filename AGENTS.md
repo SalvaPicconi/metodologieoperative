@@ -79,8 +79,9 @@ sottopagine, come `lab_infanzia.html`) in `scripts/nav.py` e si lancia `python3 
 che riscrive in tutte le pagine la testata, il `<nav>`, le briciole «Home › livello › pagina» con la
 voce precedente e la successiva, e il richiamo ad `assets/nav.js` (menu nei telefoni).
 
-La veste grafica è quella di Educazione civica e Programmi — carta `#f7f5ef`, blu notte `#17385a`,
-terracotta `#a75134`, DM Serif per i titoli e DM Sans per il testo, serviti da `assets/collage-fonts/` —
+La veste grafica è **rosa e blu**: blu notte `#17385a`, il rosa del logo SSAS `#ec166c` per gli elementi
+decorativi e `#d6105f` per testi e pulsanti (leggibile), fondo `#f5f6fa` e superfici bianche; DM Serif per
+i titoli e DM Sans per il testo, serviti da `assets/collage-fonts/` (decisione del titolare, 24 ottobre 2026) —
 ed è fissata nei token di `:root` e nella sezione «Veste editoriale» in fondo a `style.css`.
 
 Ogni pagina anno segue lo stesso ordine: **materiali per argomento → verifiche → programma

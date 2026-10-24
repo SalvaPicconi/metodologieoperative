@@ -9,15 +9,16 @@
     --color-primary-darker: #0c2036;
     --color-primary-light: #3b6a96;
     --color-primary-tint: #eaf0f4;
-    --color-accent: #a75134;
-    --color-accent-dark: #8a3f27;
-    --color-accent-light: #e7b9a6;
+    --color-rosa: #ec166c;
+    --color-accent: #d6105f;
+    --color-accent-dark: #b00e4f;
+    --color-accent-light: #f9b8d2;
     --color-ink: #202c3b;
     --color-ink-soft: #5b6570;
-    --color-bg: #f7f5ef;
-    --color-surface: #fffdf9;
-    --color-border: #e1dfd8;
-    --color-line: #d7d9d8;
+    --color-bg: #f5f6fa;
+    --color-surface: #ffffff;
+    --color-border: #e3e6ec;
+    --color-line: #dde1e8;
     --font-heading: 'DM Sans', 'Segoe UI', system-ui, sans-serif;
     --font-body: 'DM Sans', 'Segoe UI', system-ui, sans-serif;
     --font-display: 'DM Serif', Georgia, serif;
@@ -3256,7 +3257,7 @@ nav a:hover {
 nav a.active {
     background: transparent;
     color: #ffffff;
-    box-shadow: inset 0 -3px 0 #e09a7c;
+    box-shadow: inset 0 -3px 0 #ff5ea0;
 }
 
 nav > ul > li:first-child,
@@ -3338,7 +3339,7 @@ nav.nav-collapsible .nav-sub a {
 nav.nav-collapsible .nav-sub a.active {
     background: rgba(255, 255, 255, 0.1);
     color: #ffffff;
-    box-shadow: inset 3px 0 0 #e09a7c;
+    box-shadow: inset 3px 0 0 #ff5ea0;
 }
 
 /* Briciole: dove sono, da dove vengo, che cosa viene dopo */
@@ -3518,7 +3519,7 @@ footer a {
     grid-row: span 2;
     font-family: var(--font-display);
     font-size: 1.6rem;
-    color: var(--color-accent);
+    color: var(--color-rosa);
 }
 
 .home-livello-head h2 {
@@ -3604,7 +3605,7 @@ footer a {
     align-content: end;
     min-height: 132px;
     padding: 1.3rem 1.4rem;
-    border-top: 3px solid var(--color-primary);
+    border-top: 3px solid var(--color-rosa);
 }
 
 .home-voci-classi .home-voce-titolo {
