@@ -55,6 +55,13 @@ footer{max-width:900px;margin:1rem auto 3rem;padding:0 1rem;color:var(--soft);fo
 a{color:var(--pd)}
 :focus-visible{outline:3px solid var(--p);outline-offset:2px}
 @media print{nav.indice{display:none}section{break-inside:avoid-page}}
+.chi-fa{min-width:0;font-size:.93rem}
+.chi-fa th[scope=row]{width:17%;color:var(--pd);background:#fff}
+.chi-fa td{width:28%}
+.chi-fa thead th{background:var(--pt)}
+.chi-fa .att{margin:.5rem 0 0;padding:.4rem .6rem;background:#fdebf2;font-size:.9rem}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (max-width:760px){.chi-fa,.chi-fa tbody,.chi-fa tr,.chi-fa td,.chi-fa th[scope=row]{display:block;width:auto}.chi-fa thead{display:none}.chi-fa tr{border:1px solid var(--line);border-top:4px solid #57bda8;margin:.8rem 0;padding:.4rem .2rem}.chi-fa td,.chi-fa th[scope=row]{border:0}.chi-fa td::before{content:attr(data-label);display:block;font-weight:600;color:var(--soft);font-size:.85rem}}
 </style>
 <link rel="stylesheet" href="../../assets/equipe-terza.css?v=20261024rosa">
 <script src="../../assets/docente-accesso.js?v=20260926" defer></script>
@@ -87,16 +94,19 @@ a{color:var(--pd)}
 
 <section id="che-cose">
   <h2>1. Che cos'è l'équipe multiprofessionale</h2>
-  <p>Un'<strong>équipe</strong> è un gruppo di persone che lavora insieme per raggiungere un obiettivo comune. Si dice <strong>multiprofessionale</strong> quando le persone del gruppo hanno professioni diverse: il medico, l'infermiere, l'assistente sociale, lo psicologo, l'educatore, l'operatore sociale, l'operatore socio-sanitario (OSS). Ognuno porta conoscenze e competenze del proprio campo, ma tutti lavorano per la stessa persona e con la stessa finalità: il suo benessere fisico, psichico e sociale.</p>
+  <p>Un'<strong>équipe</strong> è un gruppo di persone che lavora insieme per raggiungere un obiettivo comune. Si dice <strong>multiprofessionale</strong> quando le persone del gruppo hanno professioni diverse: il medico, l'infermiere, l'assistente sociale, lo psicologo, l'educatore, l'operatore sociale, l'operatore socio-sanitario (OSS).</p>
+  <p>Ognuno porta conoscenze e competenze del proprio campo, ma tutti lavorano per la stessa persona e con la stessa finalità: il suo benessere fisico, psichico e sociale.</p>
   <p>Il lavoro d'équipe si regge su due principi.</p>
   <ul>
     <li><strong>Integrazione.</strong> I saperi delle diverse professioni si mettono insieme: la risposta che nasce dal confronto è migliore della somma dei singoli pareri, perché tiene conto di tutti gli aspetti della vita della persona.</li>
     <li><strong>Interdipendenza.</strong> Il lavoro di ciascuno dipende da quello degli altri. Nessuno lavora da solo: ogni professionista rispetta il proprio ruolo e, quando una questione esce dal suo campo, chiede il parere di chi è competente o gli affida quel compito.</li>
   </ul>
   <h3>Perché conviene alla persona</h3>
-  <p>Una persona seguita da un'équipe riceve una <strong>risposta unica e coerente</strong>, invece di tanti pareri separati che rischiano di contraddirsi. Non deve raccontare la propria storia a ogni ufficio, e le decisioni che la riguardano nascono da un confronto fra punti di vista diversi, quindi sono più ponderate. L'équipe però funziona solo se i ruoli sono chiari, se ci si incontra con regolarità e se le informazioni importanti vengono scritte e condivise: altrimenti nascono sovrapposizioni, conflitti e vuoti.</p>
+  <p>Una persona seguita da un'équipe riceve una <strong>risposta unica e coerente</strong>, invece di tanti pareri separati che rischiano di contraddirsi. Non deve raccontare la propria storia a ogni ufficio, e le decisioni che la riguardano nascono da un confronto fra punti di vista diversi, quindi sono più ponderate.</p>
+  <p>L'équipe, però, funziona solo se i ruoli sono chiari, se ci si incontra con regolarità e se le informazioni importanti vengono scritte e condivise: altrimenti nascono sovrapposizioni, conflitti e vuoti.</p>
   <h3>L'operatore sociale nell'équipe</h3>
-  <p>L'operatore sociale conosce la persona nella vita di tutti i giorni: al centro diurno, a casa, nelle attività. Per questo nell'équipe ha un compito preciso: <strong>osservare e riferire fatti</strong>, cioè comportamenti che ha visto e parole che ha sentito, distinguendoli dalle proprie interpretazioni. Collabora alla realizzazione del progetto, cura la documentazione delle attività e rispetta la <strong>riservatezza</strong>: condivide con i colleghi solo le informazioni che servono ad aiutare la persona.</p>
+  <p>L'operatore sociale conosce la persona nella vita di tutti i giorni: al centro diurno, a casa, nelle attività. Per questo nell'équipe ha un compito preciso: <strong>osservare e riferire fatti</strong>, cioè comportamenti che ha visto e parole che ha sentito, distinguendoli dalle proprie interpretazioni.</p>
+  <p>Collabora alla realizzazione del progetto, cura la documentazione delle attività e rispetta la <strong>riservatezza</strong>: condivide con i colleghi solo le informazioni che servono ad aiutare la persona.</p>
   <div class="box facile"><h4>🗣️ In parole semplici</h4><p>L'équipe è una squadra di professionisti diversi che lavora per la stessa persona. Ognuno fa la sua parte e nessuno decide da solo. L'operatore sociale porta in squadra quello che vede ogni giorno.</p></div>
 </section>
 
@@ -107,115 +117,86 @@ a{color:var(--pd)}
   <ol>
     <li>si presenta il caso: chi è la persona, che cosa chiede, che cosa è successo;</li>
     <li>ogni professionista porta le informazioni del proprio campo: la salute, la situazione familiare ed economica, il comportamento nelle attività, i desideri della persona;</li>
-    <li>si confrontano le ipotesi, cioè le spiegazioni possibili di ciò che sta succedendo;</li>
-    <li>si decide un progetto: obiettivi, chi fa che cosa, entro quando;</li>
+    <li>si confrontano le <strong>ipotesi</strong>, cioè le spiegazioni possibili di ciò che sta succedendo;</li>
+    <li>si decide un <strong>progetto</strong>: obiettivi, chi fa che cosa, entro quando;</li>
     <li>si scrive il <strong>verbale</strong>, il documento che riassume le decisioni, e si fissa la data della verifica.</li>
   </ol>
   <p>La persona e la sua famiglia non sono spettatori: il progetto si costruisce con loro, e le decisioni vanno spiegate e condivise.</p>
   <h3>Un'équipe prevista dalla legge: l'unità di valutazione multidimensionale</h3>
   <p>Per le persone non autosufficienti o con disabilità, le aziende sanitarie locali (ASL) e i Comuni formano l'<strong>UVM</strong>, unità di valutazione multidimensionale. È un'équipe composta di solito da un medico, un infermiere e un assistente sociale, a cui si aggiungono altre figure secondo il caso. Valuta la situazione della persona sotto tutti gli aspetti (sanitario, sociale, delle autonomie) e decide quali servizi attivare.</p>
   <h3>Scrivere per l'équipe: fatti, non giudizi</h3>
-  <p>Nei documenti dell'équipe (verbali, relazioni, diari delle attività) si scrivono <strong>fatti osservabili</strong>, con il giorno e l'ora, e non giudizi sulla persona. «Martedì alle 10 ha lasciato il laboratorio dopo dieci minuti e non ha voluto parlare» è un fatto. «È svogliato» è un giudizio: non aiuta i colleghi a capire e rischia di etichettare la persona. Il linguaggio dei documenti è preciso e professionale: questo modo di scrivere si chiama <strong>linguaggio settoriale</strong>, ed è una delle competenze che si allenano nel triennio.</p>
+  <p>Nei documenti dell'équipe (verbali, relazioni, diari delle attività) si scrivono <strong>fatti osservabili</strong>, con il giorno e l'ora, e non giudizi sulla persona. «Martedì alle 10 ha lasciato il laboratorio dopo dieci minuti e non ha voluto parlare» è un fatto. «È svogliato» è un giudizio: non aiuta i colleghi a capire e rischia di etichettare la persona.</p>
+  <p>Il linguaggio dei documenti è preciso e professionale: questo modo di scrivere si chiama <strong>linguaggio settoriale</strong>, ed è una delle competenze che si allenano nel triennio.</p>
 </section>
 
 <section id="figure">
   <h2>3. Le figure professionali</h2>
-  <p>Le figure sono raggruppate per area. Per ciascuna trovi che cosa fa, come si diventa, dove lavora e un'attenzione su ciò che <em>non</em> fa, perché conoscere i confini dei ruoli è indispensabile per lavorare bene insieme. Le schede distinguono funzioni, formazione e luoghi di lavoro. Per orientarti a un percorso formativo consulta anche i riferimenti in fondo alla pagina e i requisiti del corso o del bando.</p>
+  <p>Le figure sono raggruppate per area. Per ciascuna la tabella indica che cosa fa, come si diventa e dove lavora; l'«attenzione» segnala ciò che la figura <em>non</em> fa, perché conoscere i confini dei ruoli è indispensabile per lavorare bene insieme.</p>
+  <p>Per orientarti verso un percorso formativo consulta anche i riferimenti in fondo alla pagina e i requisiti del corso o del bando.</p>
 
   <div class="gruppo"><h3>🏥 Area sanitaria</h3>
-    <div class="figura"><h4>Medico di medicina generale (medico di famiglia)</h4><dl>
-      <dt>Che cosa fa</dt><dd>È il primo riferimento per la salute della persona, che lo sceglie fra i medici della sua zona e può cambiarlo quando vuole. Visita in ambulatorio e a casa, prescrive farmaci ed esami, rilascia certificati, invia agli specialisti e segue nel tempo le malattie croniche. Conosce la storia di salute della persona e della famiglia.</dd>
-      <dt>Come si diventa</dt><dd>Laurea magistrale a ciclo unico in Medicina e chirurgia (sei anni), che dal 2020 abilita alla professione; iscrizione all'Ordine dei medici; corso di formazione specifica in medicina generale di tre anni organizzato dalle Regioni.</dd>
-      <dt>Dove lavora</dt><dd>Nel proprio ambulatorio, convenzionato con il Servizio sanitario nazionale, e a domicilio; collabora con l’assistenza domiciliare integrata (ADI) e con i servizi del distretto.</dd>
-      <dt>Attenzione</dt><dd>Chi vive per più di tre mesi in un'altra città per studio, lavoro o cure può scegliere temporaneamente un medico lì.</dd></dl></div>
-    <div class="figura"><h4>Pediatra di libera scelta</h4><dl>
-      <dt>Che cosa fa</dt><dd>È il medico di famiglia dei bambini: ne segue la crescita, fa i controlli periodici (i «bilanci di salute»), cura le malattie e indirizza agli specialisti.</dd>
-      <dt>Come si diventa</dt><dd>Laurea in Medicina e chirurgia e specializzazione in Pediatria.</dd>
-      <dt>Dove lavora</dt><dd>Nel proprio ambulatorio, convenzionato con il Servizio sanitario nazionale.</dd>
-      <dt>Attenzione</dt><dd>Segue i bambini fino a 6 anni obbligatoriamente e, se la famiglia lo sceglie, fino a 14; poi il ragazzo passa al medico di famiglia.</dd></dl></div>
-    <div class="figura"><h4>Medico specialista</h4><dl>
-      <dt>Che cosa fa</dt><dd>Si occupa della prevenzione, della diagnosi e della cura delle malattie di un organo o di un campo preciso. Nei servizi sociali e sociosanitari si incontrano spesso il <strong>geriatra</strong> (malattie dell'anziano), il <strong>fisiatra</strong> (riabilitazione), lo <strong>psichiatra</strong> (disturbi mentali), il <strong>neuropsichiatra infantile</strong> (sviluppo e disturbi neurologici e psichici dei minori), il <strong>neurologo</strong> (malattie del sistema nervoso).</dd>
-      <dt>Come si diventa</dt><dd>Laurea in Medicina e chirurgia e scuola di specializzazione, che dura di solito da quattro a cinque anni.</dd>
-      <dt>Dove lavora</dt><dd>In ospedale, negli ambulatori della ASL, nei servizi specialistici (centro di salute mentale, neuropsichiatria infantile, servizi per le dipendenze — SerD), in strutture private accreditate.</dd>
-      <dt>Attenzione</dt><dd>Lo psichiatra è un medico: a differenza dello psicologo può prescrivere farmaci.</dd></dl></div>
-    <div class="figura"><h4>Infermiere</h4><dl>
-      <dt>Che cosa fa</dt><dd>È responsabile dell'assistenza infermieristica: pianifica l'assistenza, somministra le terapie prescritte dal medico, fa medicazioni, controlla i parametri vitali, educa la persona e la famiglia a gestire la malattia. L'<strong>infermiere di famiglia e di comunità</strong> segue le persone fragili a casa e nel territorio.</dd>
-      <dt>Come si diventa</dt><dd>Laurea triennale in Infermieristica, che abilita alla professione; iscrizione all'Ordine delle professioni infermieristiche. Dopo si può proseguire con la laurea magistrale o con master.</dd>
-      <dt>Dove lavora</dt><dd>Ospedali, ambulatori, assistenza domiciliare integrata, residenze sanitarie assistenziali (RSA), strutture residenziali, scuole, anche come libero professionista.</dd>
-      <dt>Attenzione</dt><dd>Non fa diagnosi mediche e non prescrive farmaci: individua i bisogni di assistenza della persona e se ne fa carico.</dd></dl></div>
-    <div class="figura"><h4>Ostetrica e ostetrico</h4><dl>
-      <dt>Che cosa fa</dt><dd>Assiste la donna durante la gravidanza, il parto e il periodo dopo il parto (il puerperio, circa sei settimane), si prende cura del neonato nei primi giorni, fa educazione sulla salute sessuale e riproduttiva.</dd>
-      <dt>Come si diventa</dt><dd>Laurea triennale in Ostetricia. È una professione autonoma, non una specializzazione dell'infermiere.</dd>
-      <dt>Dove lavora</dt><dd>Ospedali, consultori familiari, ambulatori, a domicilio.</dd></dl></div>
-    <div class="figura"><h4>Le professioni della riabilitazione</h4><dl>
-      <dt>Chi sono</dt><dd><strong>Fisioterapista</strong>: recupera il movimento dopo traumi, interventi o malattie. <strong>Logopedista</strong>: si occupa di linguaggio, voce, comunicazione e deglutizione, dai bambini agli anziani. <strong>Terapista occupazionale</strong>: aiuta la persona a recuperare l'autonomia nelle attività quotidiane, come vestirsi o cucinare, anche con ausili. <strong>Tecnico della riabilitazione psichiatrica</strong>: accompagna le persone con disturbi mentali nel recupero delle abilità sociali e lavorative.</dd>
-      <dt>Come si diventa</dt><dd>Per ciascuna, una laurea triennale specifica delle professioni sanitarie, che abilita alla professione.</dd>
-      <dt>Dove lavora</dt><dd>Ospedali, centri di riabilitazione, servizi territoriali, RSA, a domicilio.</dd></dl></div>
-    <div class="figura"><h4>Altre professioni sanitarie</h4><dl>
-      <dt>Chi sono</dt><dd>Il <strong>tecnico di laboratorio biomedico</strong> esegue le analisi su sangue e altri campioni; il <strong>tecnico di radiologia medica</strong> esegue radiografie, TAC e risonanze; il <strong>dietista</strong> elabora piani alimentari e fa educazione all'alimentazione; l'<strong>igienista dentale</strong> previene le malattie della bocca; l'<strong>audioprotesista</strong> applica gli apparecchi acustici; l'<strong>ortottista</strong> valuta e rieduca la vista; il <strong>podologo</strong> cura i disturbi del piede.</dd>
-      <dt>Come si diventa</dt><dd>Laurea triennale specifica per ciascuna professione.</dd></dl></div>
+    <div class="tab"><table class="chi-fa">
+      <caption class="sr">Chi fa che cosa · Area sanitaria</caption>
+      <thead><tr><th scope="col">Figura</th><th scope="col">Che cosa fa</th><th scope="col">Come si diventa</th><th scope="col">Dove lavora</th></tr></thead>
+      <tbody>
+      <tr><th scope="row">Medico di medicina generale (medico di famiglia)</th><td data-label="Che cosa fa">È il primo riferimento per la salute della persona, che lo sceglie fra i medici della sua zona e può cambiarlo quando vuole. Visita in ambulatorio e a casa, prescrive farmaci ed esami, rilascia certificati, invia agli specialisti e segue nel tempo le malattie croniche. Conosce la storia di salute della persona e della famiglia.<p class="att"><strong>Attenzione.</strong> Chi vive per più di tre mesi in un'altra città per studio, lavoro o cure può scegliere temporaneamente un medico lì.</p></td><td data-label="Come si diventa">Laurea magistrale a ciclo unico in Medicina e chirurgia (sei anni), che dal 2020 abilita alla professione; iscrizione all'Ordine dei medici; corso di formazione specifica in medicina generale di tre anni organizzato dalle Regioni.</td><td data-label="Dove lavora">Nel proprio ambulatorio, convenzionato con il Servizio sanitario nazionale, e a domicilio; collabora con l’assistenza domiciliare integrata (ADI) e con i servizi del distretto.</td></tr>
+      <tr><th scope="row">Pediatra di libera scelta</th><td data-label="Che cosa fa">È il medico di famiglia dei bambini: ne segue la crescita, fa i controlli periodici (i «bilanci di salute»), cura le malattie e indirizza agli specialisti.<p class="att"><strong>Attenzione.</strong> Segue i bambini fino a 6 anni obbligatoriamente e, se la famiglia lo sceglie, fino a 14; poi il ragazzo passa al medico di famiglia.</p></td><td data-label="Come si diventa">Laurea in Medicina e chirurgia e specializzazione in Pediatria.</td><td data-label="Dove lavora">Nel proprio ambulatorio, convenzionato con il Servizio sanitario nazionale.</td></tr>
+      <tr><th scope="row">Medico specialista</th><td data-label="Che cosa fa">Si occupa della prevenzione, della diagnosi e della cura delle malattie di un organo o di un campo preciso. Nei servizi sociali e sociosanitari si incontrano spesso il <strong>geriatra</strong> (malattie dell'anziano), il <strong>fisiatra</strong> (riabilitazione), lo <strong>psichiatra</strong> (disturbi mentali), il <strong>neuropsichiatra infantile</strong> (sviluppo e disturbi neurologici e psichici dei minori), il <strong>neurologo</strong> (malattie del sistema nervoso).<p class="att"><strong>Attenzione.</strong> Lo psichiatra è un medico: a differenza dello psicologo può prescrivere farmaci.</p></td><td data-label="Come si diventa">Laurea in Medicina e chirurgia e scuola di specializzazione, che dura di solito da quattro a cinque anni.</td><td data-label="Dove lavora">In ospedale, negli ambulatori della ASL, nei servizi specialistici (centro di salute mentale, neuropsichiatria infantile, servizi per le dipendenze — SerD), in strutture private accreditate.</td></tr>
+      <tr><th scope="row">Infermiere</th><td data-label="Che cosa fa">È responsabile dell'assistenza infermieristica: pianifica l'assistenza, somministra le terapie prescritte dal medico, fa medicazioni, controlla i parametri vitali, educa la persona e la famiglia a gestire la malattia. L'<strong>infermiere di famiglia e di comunità</strong> segue le persone fragili a casa e nel territorio.<p class="att"><strong>Attenzione.</strong> Non fa diagnosi mediche e non prescrive farmaci: individua i bisogni di assistenza della persona e se ne fa carico.</p></td><td data-label="Come si diventa">Laurea triennale in Infermieristica, che abilita alla professione; iscrizione all'Ordine delle professioni infermieristiche. Dopo si può proseguire con la laurea magistrale o con master.</td><td data-label="Dove lavora">Ospedali, ambulatori, assistenza domiciliare integrata, residenze sanitarie assistenziali (RSA), strutture residenziali, scuole, anche come libero professionista.</td></tr>
+      <tr><th scope="row">Ostetrica e ostetrico</th><td data-label="Che cosa fa">Assiste la donna durante la gravidanza, il parto e il periodo dopo il parto (il puerperio, circa sei settimane), si prende cura del neonato nei primi giorni, fa educazione sulla salute sessuale e riproduttiva.</td><td data-label="Come si diventa">Laurea triennale in Ostetricia. È una professione autonoma, non una specializzazione dell'infermiere.</td><td data-label="Dove lavora">Ospedali, consultori familiari, ambulatori, a domicilio.</td></tr>
+      <tr><th scope="row">Le professioni della riabilitazione</th><td data-label="Che cosa fa"><strong>Fisioterapista</strong>: recupera il movimento dopo traumi, interventi o malattie. <strong>Logopedista</strong>: si occupa di linguaggio, voce, comunicazione e deglutizione, dai bambini agli anziani. <strong>Terapista occupazionale</strong>: aiuta la persona a recuperare l'autonomia nelle attività quotidiane, come vestirsi o cucinare, anche con ausili. <strong>Tecnico della riabilitazione psichiatrica</strong>: accompagna le persone con disturbi mentali nel recupero delle abilità sociali e lavorative.</td><td data-label="Come si diventa">Per ciascuna, una laurea triennale specifica delle professioni sanitarie, che abilita alla professione.</td><td data-label="Dove lavora">Ospedali, centri di riabilitazione, servizi territoriali, RSA, a domicilio.</td></tr>
+      <tr><th scope="row">Altre professioni sanitarie</th><td data-label="Che cosa fa">Il <strong>tecnico di laboratorio biomedico</strong> esegue le analisi su sangue e altri campioni; il <strong>tecnico di radiologia medica</strong> esegue radiografie, TAC e risonanze; il <strong>dietista</strong> elabora piani alimentari e fa educazione all'alimentazione; l'<strong>igienista dentale</strong> previene le malattie della bocca; l'<strong>audioprotesista</strong> applica gli apparecchi acustici; l'<strong>ortottista</strong> valuta e rieduca la vista; il <strong>podologo</strong> cura i disturbi del piede.</td><td data-label="Come si diventa">Laurea triennale specifica per ciascuna professione.</td><td data-label="Dove lavora">—</td></tr>
+      </tbody>
+    </table></div>
   </div>
 
   <div class="gruppo"><h3>🧠 Area psicologica</h3>
-    <div class="figura"><h4>Psicologo</h4><dl>
-      <dt>Che cosa fa</dt><dd>Valuta il funzionamento psicologico della persona, fa colloqui di sostegno, lavora sulla prevenzione e sul benessere di singoli, gruppi, famiglie e comunità.</dd>
-      <dt>Come si diventa</dt><dd>Laurea triennale e laurea magistrale in Psicologia, con un tirocinio pratico; la laurea magistrale abilita alla professione; iscrizione all'Albo degli psicologi.</dd>
-      <dt>Dove lavora</dt><dd>Consultori, servizi per le dipendenze e per la salute mentale, scuole, ospedali, studi privati.</dd>
-      <dt>Attenzione</dt><dd>Non è un medico: non prescrive farmaci. Per fare psicoterapia serve un'ulteriore specializzazione.</dd></dl></div>
-    <div class="figura"><h4>Psicoterapeuta</h4><dl>
-      <dt>Che cosa fa</dt><dd>Cura la sofferenza psichica con un percorso di psicoterapia, cioè una cura fatta di incontri regolari, secondo un preciso modello teorico, per esempio cognitivo-comportamentale o sistemico.</dd>
-      <dt>Come si diventa</dt><dd>È uno psicologo o un medico che, dopo l'abilitazione, ha frequentato una scuola di specializzazione in psicoterapia di almeno quattro anni.</dd>
-      <dt>Attenzione</dt><dd>Se è psicologo non prescrive farmaci; se è medico, per esempio psichiatra, può farlo.</dd></dl></div>
+    <div class="tab"><table class="chi-fa">
+      <caption class="sr">Chi fa che cosa · Area psicologica</caption>
+      <thead><tr><th scope="col">Figura</th><th scope="col">Che cosa fa</th><th scope="col">Come si diventa</th><th scope="col">Dove lavora</th></tr></thead>
+      <tbody>
+      <tr><th scope="row">Psicologo</th><td data-label="Che cosa fa">Valuta il funzionamento psicologico della persona, fa colloqui di sostegno, lavora sulla prevenzione e sul benessere di singoli, gruppi, famiglie e comunità.<p class="att"><strong>Attenzione.</strong> Non è un medico: non prescrive farmaci. Per fare psicoterapia serve un'ulteriore specializzazione.</p></td><td data-label="Come si diventa">Laurea triennale e laurea magistrale in Psicologia, con un tirocinio pratico; la laurea magistrale abilita alla professione; iscrizione all'Albo degli psicologi.</td><td data-label="Dove lavora">Consultori, servizi per le dipendenze e per la salute mentale, scuole, ospedali, studi privati.</td></tr>
+      <tr><th scope="row">Psicoterapeuta</th><td data-label="Che cosa fa">Cura la sofferenza psichica con un percorso di psicoterapia, cioè una cura fatta di incontri regolari, secondo un preciso modello teorico, per esempio cognitivo-comportamentale o sistemico.<p class="att"><strong>Attenzione.</strong> Se è psicologo non prescrive farmaci; se è medico, per esempio psichiatra, può farlo.</p></td><td data-label="Come si diventa">È uno psicologo o un medico che, dopo l'abilitazione, ha frequentato una scuola di specializzazione in psicoterapia di almeno quattro anni.</td><td data-label="Dove lavora">—</td></tr>
+      </tbody>
+    </table></div>
   </div>
 
   <div class="gruppo"><h3>🤝 Area sociale</h3>
-    <div class="figura"><h4>Assistente sociale</h4><dl>
-      <dt>Che cosa fa</dt><dd>Accoglie le persone e le famiglie in difficoltà, valuta il bisogno, le prende in carico, costruisce con loro un progetto, attiva i servizi e le risorse del territorio e coordina gli interventi. Nei casi di tutela dei minori lavora anche con il tribunale.</dd>
-      <dt>Come si diventa</dt><dd>Laurea triennale in Servizio sociale e abilitazione alla professione; iscrizione all'Albo degli assistenti sociali. Con la laurea magistrale e un altro esame si diventa assistente sociale specialista, che può dirigere e programmare i servizi.</dd>
-      <dt>Dove lavora</dt><dd>Servizi sociali dei Comuni, ASL e ospedali, consultori, carceri, Terzo settore.</dd>
-      <dt>Attenzione</dt><dd>Non è la stessa figura dell'operatore sociale diplomato nel nostro indirizzo: l'operatore collabora con l'assistente sociale, ma non la sostituisce.</dd></dl></div>
-    <div class="figura"><h4>Mediatore familiare</h4><dl>
-      <dt>Che cosa fa</dt><dd>Aiuta i genitori che si separano a comunicare e a trovare <em>da soli</em> accordi che rispettino i bisogni di tutti, soprattutto dei figli: dove vivranno, come si divideranno il tempo e le spese.</dd>
-      <dt>Come si diventa</dt><dd>Dal 2023 la professione è regolata da un decreto del Ministero della Giustizia (D.M. 151/2023): servono una laurea e una formazione specifica in mediazione familiare, con un periodo di pratica guidata.</dd>
-      <dt>Attenzione</dt><dd>Non decide al posto dei genitori e non fa terapia: facilita il dialogo.</dd></dl></div>
-    <div class="figura"><h4>Mediatore interculturale e mediatore linguistico</h4><dl>
-      <dt>Che cosa fanno</dt><dd>Il <strong>mediatore interculturale</strong> aiuta persone di origine straniera e servizi a capirsi: spiega le regole dei servizi, i significati culturali, le aspettative reciproche. Il <strong>mediatore linguistico</strong> traduce e interpreta fra lingue diverse.</dd>
-      <dt>Come si diventa</dt><dd>Il mediatore interculturale con corsi di qualifica regionali o universitari; spesso ha un'esperienza di migrazione. Il mediatore linguistico con una laurea in Mediazione linguistica.</dd>
-      <dt>Dove lavora</dt><dd>Servizi sociali e sanitari, scuole, centri di accoglienza, uffici pubblici.</dd></dl></div>
-    <div class="figura"><h4>Sociologo</h4><dl>
-      <dt>Che cosa fa</dt><dd>Studia la società e i suoi fenomeni con metodi di ricerca, come questionari e interviste. Nei servizi analizza i bisogni del territorio, valuta i risultati degli interventi e aiuta a programmarli, per esempio nei piani di zona.</dd>
-      <dt>Come si diventa</dt><dd>Laurea triennale e magistrale in Sociologia o in Scienze sociali.</dd></dl></div>
+    <div class="tab"><table class="chi-fa">
+      <caption class="sr">Chi fa che cosa · Area sociale</caption>
+      <thead><tr><th scope="col">Figura</th><th scope="col">Che cosa fa</th><th scope="col">Come si diventa</th><th scope="col">Dove lavora</th></tr></thead>
+      <tbody>
+      <tr><th scope="row">Assistente sociale</th><td data-label="Che cosa fa">Accoglie le persone e le famiglie in difficoltà, valuta il bisogno, le prende in carico, costruisce con loro un progetto, attiva i servizi e le risorse del territorio e coordina gli interventi. Nei casi di tutela dei minori lavora anche con il tribunale.<p class="att"><strong>Attenzione.</strong> Non è la stessa figura dell'operatore sociale diplomato nel nostro indirizzo: l'operatore collabora con l'assistente sociale, ma non la sostituisce.</p></td><td data-label="Come si diventa">Laurea triennale in Servizio sociale e abilitazione alla professione; iscrizione all'Albo degli assistenti sociali. Con la laurea magistrale e un altro esame si diventa assistente sociale specialista, che può dirigere e programmare i servizi.</td><td data-label="Dove lavora">Servizi sociali dei Comuni, ASL e ospedali, consultori, carceri, Terzo settore.</td></tr>
+      <tr><th scope="row">Mediatore familiare</th><td data-label="Che cosa fa">Aiuta i genitori che si separano a comunicare e a trovare <em>da soli</em> accordi che rispettino i bisogni di tutti, soprattutto dei figli: dove vivranno, come si divideranno il tempo e le spese.<p class="att"><strong>Attenzione.</strong> Non decide al posto dei genitori e non fa terapia: facilita il dialogo.</p></td><td data-label="Come si diventa">Dal 2023 la professione è regolata da un decreto del Ministero della Giustizia (D.M. 151/2023): servono una laurea e una formazione specifica in mediazione familiare, con un periodo di pratica guidata.</td><td data-label="Dove lavora">—</td></tr>
+      <tr><th scope="row">Mediatore interculturale e mediatore linguistico</th><td data-label="Che cosa fa">Il <strong>mediatore interculturale</strong> aiuta persone di origine straniera e servizi a capirsi: spiega le regole dei servizi, i significati culturali, le aspettative reciproche. Il <strong>mediatore linguistico</strong> traduce e interpreta fra lingue diverse.</td><td data-label="Come si diventa">Il mediatore interculturale con corsi di qualifica regionali o universitari; spesso ha un'esperienza di migrazione. Il mediatore linguistico con una laurea in Mediazione linguistica.</td><td data-label="Dove lavora">Servizi sociali e sanitari, scuole, centri di accoglienza, uffici pubblici.</td></tr>
+      <tr><th scope="row">Sociologo</th><td data-label="Che cosa fa">Studia la società e i suoi fenomeni con metodi di ricerca, come questionari e interviste. Nei servizi analizza i bisogni del territorio, valuta i risultati degli interventi e aiuta a programmarli, per esempio nei piani di zona.</td><td data-label="Come si diventa">Laurea triennale e magistrale in Sociologia o in Scienze sociali.</td><td data-label="Dove lavora">—</td></tr>
+      </tbody>
+    </table></div>
   </div>
 
   <div class="gruppo"><h3>🎨 Area educativa</h3>
-    <div class="figura"><h4>Educatore professionale</h4><dl>
-      <dt>Che cosa fa</dt><dd>Progetta e realizza interventi educativi per favorire la crescita, l'autonomia e l'inclusione di minori, persone con disabilità, anziani e persone a rischio di emarginazione.</dd>
-      <dt>Come si diventa</dt><dd>Ci sono due strade. L'<strong>educatore professionale socio-pedagogico</strong> si laurea in Scienze dell'educazione e della formazione e lavora nei servizi socio-educativi e socio-assistenziali (legge 205 del 2017, detta «legge Iori»). Per l’esercizio della professione socio-pedagogica la legge 55/2024 prevede anche l’iscrizione al relativo albo. L'<strong>educatore professionale socio-sanitario</strong> si laurea in Educazione professionale, una laurea delle professioni sanitarie, e lavora soprattutto nei servizi sanitari e sociosanitari, come quelli per le dipendenze o per la salute mentale.</dd>
-      <dt>Dove lavora</dt><dd>Comunità per minori, centri diurni, servizi per la disabilità, SerD, centri di salute mentale, carceri, scuole.</dd></dl></div>
-    <div class="figura"><h4>Educatore nei servizi per l'infanzia</h4><dl>
-      <dt>Che cosa fa</dt><dd>Lavora al nido con i bambini da 0 a 3 anni: ne cura l'accoglienza, le routine, il gioco, lo sviluppo affettivo, sociale e cognitivo, e collabora con le famiglie.</dd>
-      <dt>Come si diventa</dt><dd>Laurea in Scienze dell'educazione con l'indirizzo per i servizi per l'infanzia, oppure laurea in Scienze della formazione primaria con un corso di specializzazione (D.Lgs. 65/2017).</dd></dl></div>
-    <div class="figura"><h4>Pedagogista</h4><dl>
-      <dt>Che cosa fa</dt><dd>Progetta, coordina e valuta interventi educativi; fa consulenza a famiglie, scuole e servizi; supervisiona il lavoro degli educatori.</dd>
-      <dt>Come si diventa</dt><dd>Laurea magistrale in una delle classi previste per la professione e iscrizione all’albo dei pedagogisti, istituito dalla legge 55/2024. Per i requisiti specifici e le disposizioni transitorie si consultano la normativa e le indicazioni dell’Ordine.</dd></dl></div>
-    <div class="figura"><h4>Animatore sociale</h4><dl>
-      <dt>Che cosa fa</dt><dd>Progetta e conduce attività di animazione (laboratori, giochi, musica, teatro, uscite) per favorire la socializzazione, la partecipazione e il benessere. Parte dalle capacità di ciascuno e adatta le attività alle persone.</dd>
-      <dt>Come si diventa</dt><dd>Con corsi di qualifica professionale organizzati dalle Regioni.</dd>
-      <dt>Dove lavora</dt><dd>Centri diurni, RSA, comunità, centri di aggregazione, servizi per la disabilità.</dd></dl></div>
+    <div class="tab"><table class="chi-fa">
+      <caption class="sr">Chi fa che cosa · Area educativa</caption>
+      <thead><tr><th scope="col">Figura</th><th scope="col">Che cosa fa</th><th scope="col">Come si diventa</th><th scope="col">Dove lavora</th></tr></thead>
+      <tbody>
+      <tr><th scope="row">Educatore professionale</th><td data-label="Che cosa fa">Progetta e realizza interventi educativi per favorire la crescita, l'autonomia e l'inclusione di minori, persone con disabilità, anziani e persone a rischio di emarginazione.</td><td data-label="Come si diventa">Ci sono due strade. L'<strong>educatore professionale socio-pedagogico</strong> si laurea in Scienze dell'educazione e della formazione e lavora nei servizi socio-educativi e socio-assistenziali (legge 205 del 2017, detta «legge Iori»). Per l’esercizio della professione socio-pedagogica la legge 55/2024 prevede anche l’iscrizione al relativo albo. L'<strong>educatore professionale socio-sanitario</strong> si laurea in Educazione professionale, una laurea delle professioni sanitarie, e lavora soprattutto nei servizi sanitari e sociosanitari, come quelli per le dipendenze o per la salute mentale.</td><td data-label="Dove lavora">Comunità per minori, centri diurni, servizi per la disabilità, SerD, centri di salute mentale, carceri, scuole.</td></tr>
+      <tr><th scope="row">Educatore nei servizi per l'infanzia</th><td data-label="Che cosa fa">Lavora al nido con i bambini da 0 a 3 anni: ne cura l'accoglienza, le routine, il gioco, lo sviluppo affettivo, sociale e cognitivo, e collabora con le famiglie.</td><td data-label="Come si diventa">Laurea in Scienze dell'educazione con l'indirizzo per i servizi per l'infanzia, oppure laurea in Scienze della formazione primaria con un corso di specializzazione (D.Lgs. 65/2017).</td><td data-label="Dove lavora">—</td></tr>
+      <tr><th scope="row">Pedagogista</th><td data-label="Che cosa fa">Progetta, coordina e valuta interventi educativi; fa consulenza a famiglie, scuole e servizi; supervisiona il lavoro degli educatori.</td><td data-label="Come si diventa">Laurea magistrale in una delle classi previste per la professione e iscrizione all’albo dei pedagogisti, istituito dalla legge 55/2024. Per i requisiti specifici e le disposizioni transitorie si consultano la normativa e le indicazioni dell’Ordine.</td><td data-label="Dove lavora">—</td></tr>
+      <tr><th scope="row">Animatore sociale</th><td data-label="Che cosa fa">Progetta e conduce attività di animazione (laboratori, giochi, musica, teatro, uscite) per favorire la socializzazione, la partecipazione e il benessere. Parte dalle capacità di ciascuno e adatta le attività alle persone.</td><td data-label="Come si diventa">Con corsi di qualifica professionale organizzati dalle Regioni.</td><td data-label="Dove lavora">Centri diurni, RSA, comunità, centri di aggregazione, servizi per la disabilità.</td></tr>
+      </tbody>
+    </table></div>
   </div>
 
   <div class="gruppo"><h3>💪 Area dell'assistenza alla persona</h3>
-    <div class="figura"><h4>Operatore socio-sanitario (OSS)</h4><dl>
-      <dt>Che cosa fa</dt><dd>Assiste direttamente la persona nei bisogni di base: igiene personale, alimentazione, movimento, cura dell'ambiente di vita. Collabora con il professionista sanitario o sociale di riferimento, secondo il piano di assistenza e i compiti attribuiti. Osserva e riferisce all’équipe; le attività a carattere sanitario vanno svolte entro il proprio profilo e secondo le indicazioni del professionista responsabile. Non prescrive o modifica le terapie.</dd>
-      <dt>Come si diventa</dt><dd>Con un percorso di formazione disciplinato dalle Regioni e dalle Province autonome e un esame finale. Il profilo rivisto, recepito dal DPCM 25 marzo 2025, prevede un corso di almeno <strong>1000 ore</strong>, fra teoria, esercitazioni e tirocinio. Restano equipollenti le qualifiche conseguite con l’accordo del 2001; per i corsi già autorizzati sono previste disposizioni transitorie.</dd>
-      <dt>Dove lavora</dt><dd>Ospedali, RSA, centri diurni, assistenza domiciliare.</dd>
-      <dt>Attenzione</dt><dd>Il diploma del nostro indirizzo <strong>non attribuisce automaticamente la qualifica OSS</strong>. Eventuali crediti o percorsi integrativi seguono le disposizioni applicabili: non vanno confusi con un’equivalenza fra i due titoli.</dd></dl></div>
-    <div class="figura"><h4>Assistente familiare</h4><dl>
-      <dt>Che cosa fa</dt><dd>Assiste in casa anziani o persone non autosufficienti nella vita quotidiana: igiene, pasti, pulizie, compagnia, spesso convivendo con la persona. Nel linguaggio comune è chiamata «badante».</dd>
-      <dt>Come si diventa</dt><dd>È un lavoro domestico regolato da un contratto nazionale; molte Regioni hanno corsi di formazione e registri pubblici degli assistenti familiari.</dd>
-      <dt>Attenzione</dt><dd>Lavora su incarico della famiglia; per la persona è spesso la presenza più costante, e l'équipe deve tenerne conto.</dd></dl></div>
-    <div class="figura"><h4>Personale ausiliario</h4><dl>
-      <dt>Chi sono</dt><dd>Addetti alle pulizie, alla cucina, alla lavanderia, alla manutenzione, all'accoglienza. Non hanno compiti di cura, ma il loro lavoro è necessario al funzionamento del servizio, e spesso conoscono bene gli ospiti.</dd></dl></div>
+    <div class="tab"><table class="chi-fa">
+      <caption class="sr">Chi fa che cosa · Area dell'assistenza alla persona</caption>
+      <thead><tr><th scope="col">Figura</th><th scope="col">Che cosa fa</th><th scope="col">Come si diventa</th><th scope="col">Dove lavora</th></tr></thead>
+      <tbody>
+      <tr><th scope="row">Operatore socio-sanitario (OSS)</th><td data-label="Che cosa fa">Assiste direttamente la persona nei bisogni di base: igiene personale, alimentazione, movimento, cura dell'ambiente di vita. Collabora con il professionista sanitario o sociale di riferimento, secondo il piano di assistenza e i compiti attribuiti. Osserva e riferisce all’équipe; le attività a carattere sanitario vanno svolte entro il proprio profilo e secondo le indicazioni del professionista responsabile. Non prescrive o modifica le terapie.<p class="att"><strong>Attenzione.</strong> Il diploma del nostro indirizzo <strong>non attribuisce automaticamente la qualifica OSS</strong>. Eventuali crediti o percorsi integrativi seguono le disposizioni applicabili: non vanno confusi con un’equivalenza fra i due titoli.</p></td><td data-label="Come si diventa">Con un percorso di formazione disciplinato dalle Regioni e dalle Province autonome e un esame finale. Il profilo rivisto, recepito dal DPCM 25 marzo 2025, prevede un corso di almeno <strong>1000 ore</strong>, fra teoria, esercitazioni e tirocinio. Restano equipollenti le qualifiche conseguite con l’accordo del 2001; per i corsi già autorizzati sono previste disposizioni transitorie.</td><td data-label="Dove lavora">Ospedali, RSA, centri diurni, assistenza domiciliare.</td></tr>
+      <tr><th scope="row">Assistente familiare</th><td data-label="Che cosa fa">Assiste in casa anziani o persone non autosufficienti nella vita quotidiana: igiene, pasti, pulizie, compagnia, spesso convivendo con la persona. Nel linguaggio comune è chiamata «badante».<p class="att"><strong>Attenzione.</strong> Lavora su incarico della famiglia; per la persona è spesso la presenza più costante, e l'équipe deve tenerne conto.</p></td><td data-label="Come si diventa">È un lavoro domestico regolato da un contratto nazionale; molte Regioni hanno corsi di formazione e registri pubblici degli assistenti familiari.</td><td data-label="Dove lavora">—</td></tr>
+      <tr><th scope="row">Personale ausiliario</th><td data-label="Che cosa fa">Addetti alle pulizie, alla cucina, alla lavanderia, alla manutenzione, all'accoglienza. Non hanno compiti di cura, ma il loro lavoro è necessario al funzionamento del servizio, e spesso conoscono bene gli ospiti.</td><td data-label="Come si diventa">—</td><td data-label="Dove lavora">—</td></tr>
+      </tbody>
+    </table></div>
   </div>
 </section>
 

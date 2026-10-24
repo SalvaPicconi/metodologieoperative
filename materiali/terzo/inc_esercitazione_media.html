@@ -4,602 +4,88 @@
     <meta name="page-id" content="attivita-materiali-terzo-inc-esercitazione-media-01">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I Servizi Sociali - Esercitazione Guidata</title>
+    <title>Dai bisogni ai servizi · Versione intermedia</title>
+    <link rel="stylesheet" href="../../assets/materiale.css?v=20261024">
+    <script src="../../assets/materiale.js?v=20261024" defer></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
-            font-size: 18px;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-        }
-
-        .header {
-            text-align: center;
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 25px;
-        }
-
-        .header h1 {
-            font-size: 32px;
-            margin-bottom: 8px;
-        }
-
-        .header p {
-            font-size: 18px;
-        }
-
-        .student-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 25px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-        }
-
-        .info-field label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #2c3e50;
-        }
-
-        .info-field input {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #bdc3c7;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        .progress-bar {
-            background: #ecf0f1;
-            height: 30px;
-            border-radius: 15px;
-            margin: 20px 0;
-            overflow: hidden;
-            border: 2px solid #bdc3c7;
-        }
-
-        .progress-fill {
-            background: linear-gradient(90deg, #27ae60, #2ecc71);
-            height: 100%;
-            width: 0%;
-            transition: width 0.5s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-        }
-
-        .section {
-            background: #f8f9fa;
-            border: 3px solid #3498db;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 25px;
-        }
-
-        .section-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #3498db;
-        }
-
-        .service-card {
-            background: white;
-            border: 2px solid #bdc3c7;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            transition: all 0.3s;
-        }
-
-        .service-card:hover {
-            border-color: #3498db;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
-
-        .service-icon {
-            font-size: 50px;
-            min-width: 60px;
-            text-align: center;
-        }
-
-        .service-content h3 {
-            color: #2c3e50;
-            margin-bottom: 5px;
-            font-size: 20px;
-        }
-
-        .service-content p {
-            color: #555;
-            font-size: 16px;
-        }
-
-        .case-study {
-            background: #fff3cd;
-            border: 3px solid #ffc107;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-
-        .case-title {
-            font-size: 20px;
-            font-weight: bold;
-            color: #856404;
-            margin-bottom: 10px;
-        }
-
-        .case-text {
-            color: #333;
-            line-height: 1.8;
-            margin-bottom: 15px;
-        }
-
-        .question {
-            background: white;
-            border: 2px solid #3498db;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 15px 0;
-        }
-
-        .question-text {
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-size: 18px;
-        }
-
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .option {
-            padding: 15px;
-            border: 2px solid #bdc3c7;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .option:hover {
-            border-color: #3498db;
-            background: #f0f8ff;
-        }
-
-        .option input[type="radio"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
-
-        .option.selected {
-            border-color: #3498db;
-            background: #e8f4fd;
-        }
-
-        .option.correct {
-            border-color: #27ae60;
-            background: #d4edda;
-        }
-
-        .option.incorrect {
-            border-color: #e74c3c;
-            background: #f8d7da;
-        }
-
-        .check-btn {
-            background: #3498db;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 15px;
-            transition: all 0.3s;
-        }
-
-        .check-btn:hover {
-            background: #2980b9;
-            transform: translateY(-2px);
-        }
-
-        .feedback {
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-            font-weight: bold;
-            display: none;
-        }
-
-        .feedback.show {
-            display: block;
-        }
-
-        .feedback.success {
-            background: #d4edda;
-            border: 2px solid #27ae60;
-            color: #155724;
-        }
-
-        .feedback.error {
-            background: #f8d7da;
-            border: 2px solid #e74c3c;
-            color: #721c24;
-        }
-
-        .matching-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .match-column h4 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-            padding: 10px;
-            background: #ecf0f1;
-            border-radius: 5px;
-            text-align: center;
-        }
-
-        .match-item {
-            background: white;
-            border: 2px solid #bdc3c7;
-            padding: 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-            min-height: 60px;
-            display: flex;
-            align-items: center;
-        }
-
-        .match-item:hover {
-            border-color: #3498db;
-            transform: translateX(5px);
-        }
-
-        .match-item.selected {
-            background: #e8f4fd;
-            border-color: #3498db;
-            border-width: 3px;
-        }
-
-        .match-item.matched {
-            background: #d4edda;
-            border-color: #27ae60;
-            border-width: 3px;
-        }
-
-        textarea {
-            width: 100%;
-            min-height: 80px;
-            padding: 15px;
-            border: 2px solid #bdc3c7;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-            resize: vertical;
-        }
-
-        textarea:focus {
-            outline: none;
-            border-color: #3498db;
-        }
-
-        .complete-sentence {
-            background: white;
-            padding: 20px;
-            border: 2px solid #3498db;
-            border-radius: 10px;
-            margin: 15px 0;
-        }
-
-        .sentence {
-            font-size: 18px;
-            margin: 15px 0;
-            line-height: 2;
-        }
-
-        .blank {
-            display: inline-block;
-            min-width: 150px;
-            padding: 5px 10px;
-            border-bottom: 2px solid #3498db;
-            margin: 0 5px;
-            font-weight: bold;
-            color: #3498db;
-        }
-
-        .word-bank {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 8px;
-        }
-
-        .word {
-            background: white;
-            border: 2px solid #3498db;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .word:hover {
-            background: #3498db;
-            color: white;
-        }
-
-        .word.used {
-            background: #95a5a6;
-            border-color: #7f8c8d;
-            color: white;
-            cursor: not-allowed;
-        }
-
-        .sequence-box {
-            background: white;
-            padding: 20px;
-            border: 2px solid #9b59b6;
-            border-radius: 10px;
-            margin: 15px 0;
-        }
-
-        .sequence-items {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .sequence-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            border: 2px solid #bdc3c7;
-        }
-
-        .sequence-number {
-            width: 50px;
-            height: 50px;
-            border: 2px solid #bdc3c7;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            font-weight: bold;
-            background: white;
-        }
-
-        .sequence-item input {
-            width: 60px;
-            padding: 8px;
-            font-size: 18px;
-            font-weight: bold;
-            text-align: center;
-            border: 2px solid #3498db;
-            border-radius: 5px;
-        }
-
-        .buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-            justify-content: center;
-        }
-
-        .btn {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-
-        .btn-print {
-            background: #3498db;
-            color: white;
-        }
-
-        .btn-print:hover {
-            background: #2980b9;
-        }
-
-        .hint-box {
-            background: #d1ecf1;
-            border-left: 4px solid #17a2b8;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 5px;
-        }
-
-        .hint-box strong {
-            color: #0c5460;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 12px;
-                font-size: 16px;
-            }
-
-            .container {
-                padding: 20px;
-                border-radius: 16px;
-            }
-
-            .header {
-                padding: 20px;
-            }
-
-            .header h1 {
-                font-size: 26px;
-            }
-
-            .header p {
-                font-size: 16px;
-            }
-
-            .student-info {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-
-            .progress-bar {
-                height: 24px;
-            }
-
-            .section {
-                padding: 20px;
-            }
-
-            .section-title {
-                font-size: 20px;
-            }
-
-            .service-card {
-                flex-direction: column;
-                align-items: flex-start;
-                text-align: left;
-                gap: 12px;
-            }
-
-            .service-icon {
-                font-size: 40px;
-                min-width: auto;
-            }
-
-            .buttons {
-                flex-direction: column;
-                gap: 12px;
-                align-items: stretch;
-            }
-
-            .buttons button {
-                width: 100%;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body {
-                padding: 10px;
-                font-size: 15px;
-            }
-
-            .container {
-                padding: 18px;
-            }
-
-            .header h1 {
-                font-size: 22px;
-            }
-
-            .header p {
-                font-size: 15px;
-            }
-
-            .section-title {
-                font-size: 19px;
-            }
-
-            .service-content h3 {
-                font-size: 18px;
-            }
-
-            .service-content p {
-                font-size: 15px;
-            }
-
-            .case-title {
-                font-size: 18px;
-            }
-        }
-
-        @media print {
-            .buttons {
-                display: none;
-            }
-        }
-        .site-footer {
-            text-align: center;
-            margin-top: 2rem;
-            padding: 1rem 0;
-            font-size: 1rem;
-        }
-
-        .site-footer a {
-            color: #1a5c3a;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease, text-decoration 0.3s ease;
-        }
-
-        .site-footer a:hover {
-            color: #c41e3a;
-            text-decoration: underline;
-        }
-
-        @media (max-width: 480px) {
-            .site-footer {
-                padding: 0.75rem 0;
-            }
-        }
+        /* Dai bisogni ai servizi · versione intermedia */
+        .container { width: min(900px, calc(100% - 32px)); margin: 0 auto; }
+        .header { margin-top: 30px; }
+        .student-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0 14px; margin: 18px 0; padding: 14px 18px; background: var(--color-surface); border: 1px solid var(--color-line); }
+        .info-field label { margin: 8px 0 4px; font-size: .9rem; }
+        .info-field input { display: block; width: 100%; padding: 9px 10px; border: 1px solid #788796; border-radius: 3px; font: inherit; background: #fff; }
+        .progress-bar { position: sticky; top: 0; z-index: 10; height: 22px; margin: 14px 0; background: var(--color-surface); border: 1px solid var(--color-line); }
+        .progress-fill { width: 0; height: 100%; min-width: 2.6em; background: var(--lime); color: var(--color-primary); font-size: .75rem; font-weight: 700; text-align: center; line-height: 20px; transition: width .4s; }
+
+        .section { margin: 26px 0; padding: 22px 24px; background: var(--color-surface); border: 1px solid var(--color-line); border-top: 5px solid var(--tinta); }
+        .section:nth-of-type(4n+1) { --tinta: var(--lime); --tinta-testo: var(--lime-testo); --tinta-tenue: var(--lime-tenue); }
+        .section:nth-of-type(4n+2) { --tinta: var(--rosa); --tinta-testo: var(--rosa-testo); --tinta-tenue: var(--rosa-tenue); }
+        .section:nth-of-type(4n+3) { --tinta: var(--verde); --tinta-testo: var(--verde-testo); --tinta-tenue: var(--verde-tenue); }
+        .section:nth-of-type(4n) { --tinta: var(--acqua); --tinta-testo: var(--acqua-testo); --tinta-tenue: var(--acqua-tenue); }
+        .section-title { font-family: var(--font-titoli); font-size: clamp(1.5rem, 3.2vw, 1.9rem); color: var(--color-primary); margin-bottom: 14px; }
+
+        .service-card { display: flex; gap: 14px; align-items: flex-start; margin: 10px 0; padding: 12px 14px; border: 1px solid var(--color-line); border-left: 4px solid var(--tinta); }
+        .service-icon { font-size: 1.8rem; line-height: 1.2; }
+        .service-content h3 { margin: 0 0 2px; font-size: 1.02rem; }
+        .service-content p { margin: 0; font-size: .95rem; }
+        .categoria { display: inline-block; margin-left: 6px; padding: 1px 7px; font-size: .7rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; vertical-align: 2px; background: var(--acqua-tenue); color: var(--acqua-testo); }
+        .categoria.sostitutivo { background: var(--rosa-tenue); color: var(--rosa-testo); }
+        .categoria.sanitario { background: var(--color-primary-tint); color: var(--color-primary); }
+
+        .case-study { margin: 16px 0; padding: 16px 18px; background: var(--tinta-tenue); border-left: 5px solid var(--tinta); }
+        .case-title { font-weight: 700; color: var(--color-primary); margin-bottom: 6px; }
+        .case-text { margin-bottom: 10px; }
+        .question-text { font-weight: 600; color: var(--color-primary); margin: 8px 0; }
+        .options { display: grid; gap: 8px; }
+        .option { display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: #fff; border: 1px solid var(--color-line); cursor: pointer; }
+        .option input[type="radio"] { margin-top: 4px; accent-color: var(--color-primary); }
+        .option:hover { border-color: var(--color-primary); }
+        .option.selected { border-color: var(--color-primary); background: var(--color-primary-tint); }
+        .option.correct { border-color: var(--verde); background: var(--verde-tenue); }
+        .option.incorrect { border-color: var(--rosa); background: var(--rosa-tenue); }
+        .check-btn, .btn { min-height: 44px; margin-top: 12px; padding: 10px 16px; background: var(--color-primary); color: #fff; border: 1px solid var(--color-primary); border-radius: 4px; font: inherit; font-weight: 600; cursor: pointer; }
+        .check-btn:hover, .btn:hover { background: #254f75; }
+        .feedback { display: none; margin-top: 10px; padding: 10px 14px; font-size: .95rem; }
+        .feedback.show { display: block; }
+        .feedback.success { background: var(--verde-tenue); border-left: 4px solid var(--verde); }
+        .feedback.error { background: var(--rosa-tenue); border-left: 4px solid var(--rosa); }
+
+        .matching-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .match-column h4 { margin: 0 0 8px; font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; color: var(--tinta-testo); }
+        .match-item { margin: 8px 0; padding: 12px 14px; background: #fff; border: 1px solid var(--color-line); cursor: pointer; }
+        .match-item:hover { border-color: var(--color-primary); }
+        .match-item.selected { border-color: var(--color-primary); background: var(--color-primary-tint); }
+        .match-item.matched { border-color: var(--verde); background: var(--verde-tenue); }
+
+        .sentence { margin: 12px 0; line-height: 2.2; }
+        .sentence input { width: 210px; max-width: 100%; padding: 5px 8px; border: 1px solid #788796; border-radius: 3px; font: inherit; }
+        .word-bank { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 4px; padding: 12px; background: var(--tinta-tenue); }
+        .word { padding: 4px 10px; background: #fff; border: 1px solid var(--tinta); font-weight: 600; font-size: .92rem; }
+        .word.used { opacity: .45; }
+        .sequence-item { display: flex; align-items: center; gap: 12px; margin: 10px 0; padding: 10px 12px; background: #fff; border: 1px solid var(--color-line); }
+        .sequence-item input { width: 60px; padding: 8px; font-size: 1.1rem; text-align: center; border: 1px solid #788796; border-radius: 3px; }
+        textarea { display: block; width: 100%; min-height: 120px; padding: 11px 12px; border: 1px solid #788796; border-radius: 3px; font: inherit; line-height: 1.55; resize: vertical; }
+        .hint-box { margin: 14px 0; padding: 12px 16px; border: 1px dashed var(--tinta-testo); font-size: .94rem; }
+        .buttons { margin: 26px 0; }
+        @media (max-width: 760px) {
+            .section { padding: 18px 16px; }
+            .matching-grid { grid-template-columns: 1fr; }
+        }
+        @media print { .buttons, .check-btn, .progress-bar { display: none !important; } .section { break-inside: avoid-page; } }
     </style>
 </head>
-<body>
+<body data-tinta="verde">
+    <div class="barra shell">
+        <a href="../../terzo.html#arg-servizi">← Materiali del terzo anno</a>
+        <a href="esercitazioni_servizi.html">Versione completa</a>
+        <span class="sito">Metodologie Operative</span>
+    </div>
     <div class="container">
-        <div class="header">
-            <h1>I Servizi Sociali e Sanitari</h1>
-            <p>IIS Meucci Mattei - Esercitazione Guidata</p>
+        <div class="header testata--banda">
+            <p class="occhiello">Terzo anno · Versione intermedia</p>
+            <h1>Dai bisogni ai servizi</h1>
+            <p class="lead">Le stesse persone dell'esercitazione completa, in casi più brevi: per ciascuna si riconosce il bisogno e si sceglie il servizio adatto.</p>
+            <div class="identita" data-identita></div>
         </div>
 
         <div class="student-info">
@@ -609,7 +95,7 @@
             </div>
             <div class="info-field">
                 <label>Classe:</label>
-                <input type="text" id="classe" name="classe" placeholder="Es: 1A">
+                <input type="text" id="classe" name="classe" placeholder="Es. 3sa">
             </div>
             <div class="info-field">
                 <label>Data:</label>
@@ -627,70 +113,70 @@
 
         <!-- SEZIONE 1: CONOSCIAMO I SERVIZI -->
         <div class="section">
-            <div class="section-title">1. I Servizi che Aiutano le Persone</div>
+            <div class="section-title">1. I servizi che aiutano le persone</div>
             
-            <p style="margin-bottom: 20px;">Leggi con attenzione quali sono i principali servizi che aiutano le persone in difficoltà:</p>
+            <p>Leggi con attenzione i principali servizi che sostengono le persone in difficoltà. L'etichetta indica a quale categoria appartiene ciascun servizio: gli <strong>integrativi</strong> aiutano la persona a restare nel proprio ambiente di vita, i <strong>sostitutivi</strong> le offrono un altro luogo in cui vivere.</p>
 
             <div class="service-card">
                 <div class="service-icon">🏥</div>
                 <div class="service-content">
-                    <h3>Servizio Sanitario</h3>
-                    <p>Dottori, infermieri e ospedali che curano le persone malate o ferite.</p>
+                    <h3>Servizi sanitari (ASL) <span class="categoria sanitario">sanitario</span></h3>
+                    <p>Medici, infermieri e ospedali curano le persone malate o ferite.</p>
                 </div>
             </div>
 
             <div class="service-card">
                 <div class="service-icon">🏠</div>
                 <div class="service-content">
-                    <h3>Assistenza Domiciliare</h3>
-                    <p>Operatori che vanno a casa delle persone anziane o malate per aiutarle nelle attività quotidiane.</p>
+                    <h3>Assistenza domiciliare <span class="categoria integrativo">integrativo</span></h3>
+                    <p>Gli operatori si recano a casa delle persone anziane o malate e le aiutano nelle attività quotidiane.</p>
                 </div>
             </div>
 
             <div class="service-card">
                 <div class="service-icon">🎨</div>
                 <div class="service-content">
-                    <h3>Centro Diurno</h3>
-                    <p>Un luogo dove le persone possono passare la giornata, fare attività, socializzare e ricevere aiuto.</p>
+                    <h3>Centro diurno <span class="categoria integrativo">integrativo</span></h3>
+                    <p>Servizio semiresidenziale: la persona vi trascorre la giornata, svolge attività, incontra altre persone e la sera torna a casa.</p>
                 </div>
             </div>
 
             <div class="service-card">
                 <div class="service-icon">🏢</div>
                 <div class="service-content">
-                    <h3>Casa Famiglia</h3>
-                    <p>Una casa dove vivono persone che non possono stare nella loro famiglia. Ci sono educatori che le aiutano.</p>
+                    <h3>Casa famiglia <span class="categoria sostitutivo">sostitutivo</span></h3>
+                    <p>Piccola struttura in cui vivono, seguite da educatori, persone che non possono restare nella propria famiglia.</p>
                 </div>
             </div>
 
             <div class="service-card">
                 <div class="service-icon">🚗</div>
                 <div class="service-content">
-                    <h3>Servizio Trasporto</h3>
-                    <p>Mezzi speciali che accompagnano persone con difficoltà a muoversi verso ospedali, centri diurni, ecc.</p>
+                    <h3>Accompagnamento e trasporto <span class="categoria integrativo">integrativo</span></h3>
+                    <p>Mezzi attrezzati accompagnano le persone con difficoltà di movimento all'ospedale, al centro diurno o ad altri servizi.</p>
                 </div>
             </div>
 
             <div class="service-card">
                 <div class="service-icon">🤝</div>
                 <div class="service-content">
-                    <h3>Assistente Sociale</h3>
-                    <p>Una persona che ascolta i problemi delle famiglie e le aiuta a trovare i servizi giusti.</p>
+                    <h3>Servizio sociale professionale <span class="categoria integrativo">integrativo</span></h3>
+                    <p>L'assistente sociale ascolta i problemi delle persone e delle famiglie e attiva i servizi adatti.</p>
                 </div>
             </div>
         </div>
 
         <!-- SEZIONE 2: CASI PRATICI -->
         <div class="section">
-            <div class="section-title">2. Leggi i Casi e Rispondi</div>
+            <div class="section-title">2. Leggi i casi e rispondi</div>
 
             <div class="case-study">
-                <div class="case-title">Caso 1: La Signora Anna</div>
+                <div class="case-title">Caso 1 · La signora Lucia</div>
                 <div class="case-text">
-                    La signora Anna ha 80 anni e vive da sola. Ha difficoltà a camminare e non riesce più a fare la spesa o pulire casa. Sua figlia vive lontano e può venirla a trovare solo nel weekend. Anna vorrebbe continuare a vivere nella sua casa.
+                    La signora Lucia ha 79 anni e vive sola in un appartamento al terzo piano senza ascensore. Ha difficoltà a camminare, fatica a fare la spesa e a pulire la casa; di recente è caduta in casa. Il figlio vive a Milano e riesce a farle visita una volta al mese. Lucia desidera continuare a vivere nella sua casa.
                 </div>
                 <div class="question">
-                    <div class="question-text">Quale servizio potrebbe aiutare la signora Anna?</div>
+                    <div class="question-text">Quale servizio può aiutare la signora Lucia?</div>
                     <div class="options">
                         <div class="option" onclick="selectOption(this, 0, 1)">
                             <input type="radio" name="q1">
@@ -705,18 +191,18 @@
                             <span>Casa famiglia: la persona va a vivere in una piccola struttura</span>
                         </div>
                     </div>
-                    <button class="check-btn" onclick="checkAnswer(0, 1)">Verifica Risposta</button>
+                    <button class="check-btn" onclick="checkAnswer(0, 1)">Verifica la risposta</button>
                     <div class="feedback" id="feedback-0"></div>
                 </div>
             </div>
 
             <div class="case-study">
-                <div class="case-title">Caso 2: Marco</div>
+                <div class="case-title">Caso 2 · Marco</div>
                 <div class="case-text">
-                    Marco ha 13 anni e ha una disabilità intellettiva lieve. Va a scuola normalmente, ma dopo scuola sta sempre da solo a casa perché i genitori lavorano fino a sera. Marco si annoia e vorrebbe avere amici con cui giocare e fare attività.
+                    Marco ha 22 anni e una disabilità intellettiva di grado medio-lieve. Vive con i genitori, che tendono a fare tutto al posto suo. È socievole, ma trascorre le giornate in casa davanti alla televisione o allo smartphone. Vorrebbe svolgere attività e stare con altri giovani.
                 </div>
                 <div class="question">
-                    <div class="question-text">Quale servizio sarebbe più adatto per Marco?</div>
+                    <div class="question-text">Quale servizio è più adatto a Marco?</div>
                     <div class="options">
                         <div class="option" onclick="selectOption(this, 1, 0)">
                             <input type="radio" name="q2">
@@ -724,25 +210,25 @@
                         </div>
                         <div class="option" onclick="selectOption(this, 1, 1)">
                             <input type="radio" name="q2">
-                            <span>Centro diurno: attività e laboratori insieme ad altri ragazzi</span>
+                            <span>Centro diurno: attività e laboratori insieme ad altri giovani</span>
                         </div>
                         <div class="option" onclick="selectOption(this, 1, 0)">
                             <input type="radio" name="q2">
                             <span>Servizio di trasporto: accompagna la persona nei suoi spostamenti</span>
                         </div>
                     </div>
-                    <button class="check-btn" onclick="checkAnswer(1, 1)">Verifica Risposta</button>
+                    <button class="check-btn" onclick="checkAnswer(1, 1)">Verifica la risposta</button>
                     <div class="feedback" id="feedback-1"></div>
                 </div>
             </div>
 
             <div class="case-study">
-                <div class="case-title">Caso 3: La Famiglia Rossi</div>
+                <div class="case-title">Caso 3 · La famiglia Russo</div>
                 <div class="case-text">
-                    La famiglia Rossi ha perso la casa e non sa dove andare. Hanno due figli piccoli. Il papà ha perso il lavoro e la mamma guadagna poco. Sono molto preoccupati e non sanno a chi chiedere aiuto.
+                    La famiglia Russo ha ricevuto lo sfratto: entro trenta giorni dovrà lasciare la casa. Paolo, il padre, ha perso il lavoro; Anna, la madre, guadagna poco facendo pulizie a ore. I figli sono due: Sofia, di 15 anni, e Matteo, di 9. Sono molto preoccupati e non sanno a chi chiedere aiuto.
                 </div>
                 <div class="question">
-                    <div class="question-text">Chi dovrebbe contattare per primo la famiglia Rossi?</div>
+                    <div class="question-text">A chi dovrebbe rivolgersi per prima la famiglia Russo?</div>
                     <div class="options">
                         <div class="option" onclick="selectOption(this, 2, 0)">
                             <input type="radio" name="q3">
@@ -757,7 +243,7 @@
                             <span>Il servizio di trasporto: accompagna negli spostamenti</span>
                         </div>
                     </div>
-                    <button class="check-btn" onclick="checkAnswer(2, 1)">Verifica Risposta</button>
+                    <button class="check-btn" onclick="checkAnswer(2, 1)">Verifica la risposta</button>
                     <div class="feedback" id="feedback-2"></div>
                 </div>
             </div>
@@ -765,8 +251,8 @@
 
         <!-- SEZIONE 3: ABBINAMENTI -->
         <div class="section">
-            <div class="section-title">3. Abbina il Bisogno al Servizio Giusto</div>
-            <p style="margin-bottom: 15px;">Clicca prima su un bisogno (sinistra) e poi sul servizio corrispondente (destra).</p>
+            <div class="section-title">3. Abbina ogni bisogno al servizio adatto</div>
+            <p style="margin-bottom: 15px;">Fai clic prima su un bisogno (a sinistra), poi sul servizio corrispondente (a destra).</p>
 
             <div class="matching-grid">
                 <div class="match-column">
@@ -805,61 +291,61 @@
 
         <!-- SEZIONE 4: COMPLETA LE FRASI -->
         <div class="section">
-            <div class="section-title">4. Completa le Frasi</div>
-            <p style="margin-bottom: 15px;">Scegli la parola giusta dalla lista e scrivila negli spazi vuoti:</p>
+            <div class="section-title">4. Completa le frasi</div>
+            <p style="margin-bottom: 15px;">Scegli la parola corretta dall'elenco e scrivila nello spazio vuoto.</p>
 
             <div class="complete-sentence">
                 <div class="sentence">
-                    1. L'<input type="text" id="blank1" name="blank1" style="width: 200px; padding: 5px; border: 2px solid #3498db; border-radius: 5px;"> aiuta le persone che hanno problemi e non sanno a chi rivolgersi.
+                    1. L'<input type="text" id="blank1" name="blank1"> aiuta le persone che hanno problemi e non sanno a chi rivolgersi.
                 </div>
                 <div class="sentence">
-                    2. Il <input type="text" id="blank2" name="blank2" style="width: 200px; padding: 5px; border: 2px solid #3498db; border-radius: 5px;"> è un luogo dove le persone possono passare la giornata e fare attività insieme.
+                    2. Il <input type="text" id="blank2" name="blank2"> è un luogo dove le persone possono passare la giornata e fare attività insieme.
                 </div>
                 <div class="sentence">
-                    3. L'<input type="text" id="blank3" name="blank3" style="width: 200px; padding: 5px; border: 2px solid #3498db; border-radius: 5px;"> va a casa delle persone anziane o malate per aiutarle.
+                    3. L'<input type="text" id="blank3" name="blank3"> va a casa delle persone anziane o malate per aiutarle.
                 </div>
                 <div class="sentence">
-                    4. La <input type="text" id="blank4" name="blank4" style="width: 200px; padding: 5px; border: 2px solid #3498db; border-radius: 5px;"> è un posto dove vivono persone che non possono stare con la loro famiglia.
+                    4. La <input type="text" id="blank4" name="blank4"> è un posto dove vivono persone che non possono stare con la loro famiglia.
                 </div>
 
                 <div class="word-bank">
-                    <strong style="width: 100%; margin-bottom: 10px;">PAROLE DA USARE:</strong>
+                    <strong style="width: 100%;">Parole da usare</strong>
                     <span class="word">Assistente Sociale</span>
                     <span class="word">Centro Diurno</span>
                     <span class="word">Assistenza Domiciliare</span>
                     <span class="word">Casa Famiglia</span>
                 </div>
 
-                <button class="check-btn" onclick="checkBlanks()">Verifica Frasi</button>
+                <button class="check-btn" onclick="checkBlanks()">Verifica le frasi</button>
                 <div class="feedback" id="blanks-feedback"></div>
             </div>
         </div>
 
         <!-- SEZIONE 5: SEQUENZA LOGICA -->
         <div class="section">
-            <div class="section-title">5. Metti in Ordine</div>
-            <p style="margin-bottom: 15px;">Quando una persona ha bisogno di aiuto, questi sono i passaggi. Numera da 1 a 4 nell'ordine giusto:</p>
+            <div class="section-title">5. Metti in ordine i passaggi</div>
+            <p style="margin-bottom: 15px;">Quando una persona ha bisogno di aiuto, segue alcuni passaggi. Numerali da 1 a 4 nell'ordine corretto.</p>
 
             <div class="sequence-box">
                 <div class="sequence-items">
                     <div class="sequence-item">
-                        <input type="number" min="1" max="4" id="seq1" name="seq1" style="width: 60px; padding: 8px; font-size: 18px; text-align: center; border: 2px solid #3498db; border-radius: 5px;">
+                        <input type="number" min="1" max="4" id="seq1" name="seq1">
                         <span>La persona parla con l'Assistente Sociale del suo problema</span>
                     </div>
                     <div class="sequence-item">
-                        <input type="number" min="1" max="4" id="seq2" name="seq2" style="width: 60px; padding: 8px; font-size: 18px; text-align: center; border: 2px solid #3498db; border-radius: 5px;">
+                        <input type="number" min="1" max="4" id="seq2" name="seq2">
                         <span>La persona riceve l'aiuto dal servizio attivato</span>
                     </div>
                     <div class="sequence-item">
-                        <input type="number" min="1" max="4" id="seq3" name="seq3" style="width: 60px; padding: 8px; font-size: 18px; text-align: center; border: 2px solid #3498db; border-radius: 5px;">
+                        <input type="number" min="1" max="4" id="seq3" name="seq3">
                         <span>L'Assistente Sociale attiva il servizio più adatto</span>
                     </div>
                     <div class="sequence-item">
-                        <input type="number" min="1" max="4" id="seq4" name="seq4" style="width: 60px; padding: 8px; font-size: 18px; text-align: center; border: 2px solid #3498db; border-radius: 5px;">
+                        <input type="number" min="1" max="4" id="seq4" name="seq4">
                         <span>La persona si rende conto di avere bisogno di aiuto</span>
                     </div>
                 </div>
-                <button class="check-btn" onclick="checkSequence()">Verifica Sequenza</button>
+                <button class="check-btn" onclick="checkSequence()">Verifica la sequenza</button>
                 <div class="feedback" id="sequence-feedback"></div>
             </div>
 
@@ -870,21 +356,21 @@
 
         <!-- SEZIONE 6: DOMANDA APERTA -->
         <div class="section">
-            <div class="section-title">6. Scrivi la Tua Risposta</div>
+            <div class="section-title">6. Scrivi la tua risposta</div>
             
             <div class="question">
-                <div class="question-text">Secondo te, perché è importante che esistano questi servizi per aiutare le persone? Scrivi almeno 3 righe.</div>
+                <div class="question-text">Perché è importante che esistano questi servizi? Rispondi in almeno tre righe.</div>
                 <textarea id="open-answer" name="open-answer" placeholder="Scrivi qui la tua risposta..."></textarea>
                 <div class="hint-box">
                     <strong>💡 Per aiutarti:</strong> Pensa a cosa succederebbe se questi servizi non esistessero. Chi aiuterebbe le persone anziane? Chi aiuterebbe le famiglie in difficoltà?
                 </div>
-                <button class="check-btn" onclick="saveOpenAnswer()">Salva Risposta</button>
+                <button class="check-btn" onclick="saveOpenAnswer()">Salva la risposta</button>
                 <div class="feedback" id="open-feedback"></div>
             </div>
         </div>
 
         <div class="buttons">
-            <button class="btn btn-print" onclick="window.print()">Stampa Esercitazione</button>
+            <button class="btn btn-print" onclick="window.print()">Stampa l'esercitazione</button>
         </div>
     </div>
 
@@ -910,9 +396,9 @@
         }
 
                 const PERCHE_CASI = [
-            "Anna vuole restare a casa sua e l'aiuto le serve proprio lì: l'assistenza domiciliare glielo porta a casa. Il centro diurno la porterebbe fuori di giorno, la casa famiglia le farebbe lasciare la casa.",
-            "Marco ha bisogno di stare con altri ragazzi e di fare attività: il centro diurno offre proprio questo. L'assistenza domiciliare e il trasporto non servono a socializzare.",
-            "L'assistente sociale ascolta la situazione e attiva gli aiuti per la casa, il lavoro e il reddito. Il medico si occupa della salute, il trasporto degli spostamenti."
+            "Lucia desidera restare a casa sua e l'aiuto le serve proprio lì: l'assistenza domiciliare lo porta a domicilio. Il centro diurno la porterebbe fuori casa durante il giorno; la casa famiglia le farebbe lasciare la propria abitazione.",
+            "Marco ha bisogno di stare con altri giovani, di svolgere attività e di sviluppare la propria autonomia: il centro diurno offre proprio questo. L'assistenza domiciliare e il trasporto non rispondono al bisogno di socialità.",
+            "L'assistente sociale ascolta la situazione della famiglia e attiva gli aiuti per la casa, il lavoro e il reddito. Il medico si occupa della salute; il trasporto, degli spostamenti."
         ];
 
         function checkAnswer(questionNum, correctOption) {

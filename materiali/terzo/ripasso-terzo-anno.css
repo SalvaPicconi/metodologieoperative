@@ -1,22 +1,27 @@
+@font-face { font-family: 'DM Sans'; src: url('../../assets/collage-fonts/dm-sans-regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'DM Sans'; src: url('../../assets/collage-fonts/dm-sans-semibold.ttf') format('truetype'); font-weight: 600 800; font-display: swap; }
+@font-face { font-family: 'DM Serif'; src: url('../../assets/collage-fonts/dm-serif-display.ttf') format('truetype'); font-weight: 400; font-display: swap; }
+
+/* Colori del logo: acqua e verde come tinta della pagina, lime e rosa per gli accenti */
 :root {
-    --teal: #0e8b88;
-    --teal-dark: #075f5c;
-    --teal-soft: #e3f7f5;
-    --lime: #c7e51b;
-    --lime-soft: #f3facb;
-    --pink: #e6007e;
-    --pink-soft: #fde6f2;
-    --blue-soft: #e7f1fb;
-    --ink: #20303b;
-    --muted: #5d6b75;
-    --line: #d6e2e4;
-    --paper: #f4fbfa;
+    --teal: #1b6f5f;
+    --teal-dark: #17385a;
+    --teal-soft: #e7f5f2;
+    --lime: #80cd29;
+    --lime-soft: #f1f8e7;
+    --pink: #d6105f;
+    --pink-soft: #fdebf2;
+    --blue-soft: #eef1f7;
+    --ink: #1f2a37;
+    --muted: #5a6573;
+    --line: #dde2ea;
+    --paper: #f5f6fa;
     --white: #fff;
-    --ok: #1b7f4b;
-    --ok-soft: #e4f6eb;
+    --ok: #006b2d;
+    --ok-soft: #e5f3ea;
     --bad: #b33a36;
     --bad-soft: #fbe9e8;
-    --shadow: 0 18px 45px rgba(6, 72, 71, .16);
+    --shadow: 0 18px 45px rgba(23, 56, 90, .14);
 }
 
 * { box-sizing: border-box; }
@@ -27,8 +32,8 @@ body {
     min-height: 100vh;
     padding: 16px;
     color: var(--ink);
-    background: linear-gradient(135deg, #20c9c5 0%, #0e8b88 100%);
-    font: 1rem/1.65 "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(160deg, #57bda8 0%, #1b6f5f 55%, #17385a 100%);
+    font: 1rem/1.65 "DM Sans", "Segoe UI", Arial, sans-serif;
 }
 button, textarea, input, select { font: inherit; }
 button { color: inherit; }
@@ -57,7 +62,7 @@ a { color: inherit; }
     margin: 0 auto;
     padding: .8rem clamp(1rem, 4vw, 2.5rem);
     color: var(--white);
-    background: linear-gradient(100deg, #075f5c, #0e8b88);
+    background: #17385a; border-bottom: 5px solid; border-image: linear-gradient(90deg, #80cd29 0 25%, #ec166c 25% 50%, #008036 50% 75%, #57bda8 75%) 1;
     border-radius: 24px 24px 0 0;
 }
 .brand { display: inline-flex; align-items: center; gap: .8rem; text-decoration: none; }
@@ -225,7 +230,7 @@ a { color: inherit; }
     font-size: 1.2rem;
     font-weight: 950;
 }
-.mission-head h1 { margin: .1rem 0 .35rem; color: var(--teal-dark); font-size: clamp(2rem, 5vw, 3.3rem); line-height: 1.05; letter-spacing: -.035em; }
+.mission-head h1 { margin: .1rem 0 .35rem; color: var(--teal-dark); font-family: 'DM Serif', Georgia, serif; font-weight: 400; font-size: clamp(2rem, 5vw, 3.3rem); line-height: 1.05; letter-spacing: -.01em; }
 .mission-head > div:last-child > p:not(.kicker) { max-width: 760px; margin: 0; color: var(--muted); font-size: 1.04rem; }
 .mission-meta { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .7rem; }
 .meta-chip { padding: .25rem .55rem; border-radius: 999px; background: var(--blue-soft); color: #275278; font-size: .72rem; font-weight: 800; }
@@ -263,7 +268,7 @@ a { color: inherit; }
 .quiz-section { background: #f0f8fc; border: 1px solid #c9deeb; }
 .open-questions { background: var(--lime-soft); border: 1px solid #d8e994; }
 .section-heading { display: flex; align-items: start; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
-.section-heading h2 { margin: 0; color: var(--teal-dark); font-size: 1.45rem; }
+.section-heading h2 { margin: 0; color: var(--teal-dark); font-family: 'DM Serif', Georgia, serif; font-weight: 400; font-size: 1.55rem; }
 .section-heading p { margin: .15rem 0 0; color: var(--muted); }
 .activity-score { flex: 0 0 auto; padding: .3rem .6rem; border-radius: 9px; background: white; color: var(--teal-dark); font-weight: 900; }
 .question-list, .open-question-list { display: grid; gap: .85rem; }
