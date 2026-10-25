@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-25** · Claude · Pagine anno: ogni UDA è un unico riquadro, con il titolo in alto e sotto i contenuti e le attività; tolto il rimando «UDA … nel programma», che ripeteva la riga delle schede. Non ancora pubblicato su Aruba. (ramo `claude/ordine-uda`)
+
 - **2026-10-25** · Claude · Pubblicati su Aruba i titoli dei blocchi per contenuto, con la UDA come rimando ai Programmi. (Aruba `fdccc2d`, run «Pubblica su Aruba» n. 15 riuscito, 7 file online verificati)
 
 - **2026-10-25** · Claude · Nelle pagine anno il titolo di ogni blocco è il contenuto; la UDA resta come rimando discreto che apre la UDA nei Programmi. Non ancora pubblicato su Aruba. (ramo `claude/ordine-uda`)

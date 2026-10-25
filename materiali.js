@@ -165,8 +165,6 @@ function renderSezione(materiali, argomenti, opzioni = {}) {
             titolo: a.titolo,
             descrizione: a.descrizione,
             alias: a.alias || [],
-            uda: a.uda,
-            udaChiave: a.udaChiave,
             materiali: studio.filter(m => m.argomento === a.id)
         }));
         gruppi.push({
@@ -221,12 +219,11 @@ function renderGruppo(gruppo, mostraTitolo) {
     const intestazione = mostraTitolo ? `
         <div class="mat-gruppo-head">
             <h3>${escapeHtml(gruppo.titolo)}</h3>
-            ${gruppo.uda ? `<a class="mat-gruppo-uda" href="programmi.html?uda=${encodeURIComponent(gruppo.udaChiave || '')}">${escapeHtml(gruppo.uda)} · nel programma →</a>` : ''}
             ${gruppo.descrizione ? `<p>${escapeHtml(gruppo.descrizione)}</p>` : ''}
         </div>
     ` : '';
     return `
-        <div class="mat-gruppo" id="arg-${escapeHtml(gruppo.id)}">
+        <div class="mat-gruppo${mostraTitolo ? ' mat-gruppo--titolato' : ''}" id="arg-${escapeHtml(gruppo.id)}">
             ${(gruppo.alias || []).map(v => `<span id="arg-${escapeHtml(v)}"></span>`).join('')}
             ${intestazione}
             <div class="mat-grid">${ordinati.map(renderCard).join('')}</div>

@@ -94,16 +94,15 @@ elencato sotto la chiave `argomenti` della stessa sezione, che ne fissa ordine, 
 
 ```json
 "argomenti": { "terzo": [ { "id": "uda-3-3", "titolo": "Le figure professionali e l'équipe multiprofessionale",
-                            "descrizione": "...", "uda": "UDA 3", "udaChiave": "terzo-anno-uda-3",
-                            "alias": ["equipe"] } ] }
+                            "descrizione": "...", "alias": ["equipe"] } ] }
 ```
 
 Nelle pagine anno **ogni argomento è una UDA del programma** (decisione del titolare, 25 ottobre 2026):
 id `uda-<anno>-<n>`, titolo e descrizione copiati da `programmi-src/` (titolo, `sintesi`), stesso ordine
-dei programmi; nel biennio prima le UDA di prima, poi quelle di seconda. In pagina conta il contenuto: il
-titolo è quello della UDA senza numero, e la UDA compare solo come rimando discreto sotto il titolo
-(`uda`, per esempio «UDA 2 di seconda», con link a `programmi.html?uda=<udaChiave>`, la stessa chiave di
-`chiaveModulo` in `programmi.js`).
+dei programmi; nel biennio prima le UDA di prima, poi quelle di seconda. In pagina ogni UDA è **un unico
+contenitore**: il titolo della UDA in alto, senza numero, e sotto, nello stesso riquadro, i contenuti e le
+attività (classe `mat-gruppo--titolato`). Il numero non si ripete nel titolo: sta già nella riga
+«Nel programma» di ogni scheda.
 Un materiale usato da più UDA sta nella prima che lo usa (`materiali-curricolo.json` dice quali).
 Se una UDA cambia titolo o numero, si aggiorna anche qui. Fanno eccezione i blocchi che coprono l'anno
 intero (`ripasso`) e i materiali di un altro anno da riprendere (`ripresa`), che stanno in fondo.
