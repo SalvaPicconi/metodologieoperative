@@ -52,6 +52,16 @@ Se qualcosa blocca, si indicano operazione, errore esatto (senza credenziali) e 
 
 ---
 
+## Materiali nuovi da una fonte
+
+Quando il docente consegna una fonte (pagine di un libro, un testo, appunti, un PDF) da trasformare in
+attività, si segue **`.claude/skills/nuovo-materiale/SKILL.md`**: un pacchetto per UDA con spiegazione per la
+LIM, esercitazioni con salvataggio in tre livelli, laboratorio con strumento Word e verifica (modello deciso dal
+titolare il 25 ottobre 2026). Il sito si lavora sul ramo Aruba (vedi sopra): lì `package_aruba.py` esclude
+la cartella `.claude`, che non va online.
+
+---
+
 ## Registro dei lavori
 
 Ogni sessione che cambia qualcosa nel sito lascia **una riga** in `REGISTRO.md`, in cima al mese
