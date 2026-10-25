@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Rubriche semplici per artefatti digitali e manuali, giochi di ruolo e giochi di gruppo. Valutazioni salvate nel proprio browser.">
+  <title>Valutazione artefatti e attività laboratoriali · Metodologie Operative</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assets/valutazione.css?v=1">
+  <script defer src="assets/valutazione-rubriche.js?v=1"></script>
+  <script defer src="assets/valutazione-fonti.js?v=1"></script>
+  <script defer src="assets/valutazione-core.js?v=1"></script>
+  <script defer src="assets/valutazione.js?v=1"></script>
+</head>
+<body>
+  <a class="val-skip" href="#val-main">Vai alla valutazione</a>
+  <header class="testata">
+        <div class="container">
+            <a class="testata-marchio" href="index.html">
+                <img src="logo/mark.svg" alt="" width="44" height="44">
+                <span>
+                    <span class="testata-scuola">IIS Meucci-Mattei · Decimomannu</span>
+                    <span class="testata-titolo">Metodologie Operative</span>
+                    <span class="testata-indirizzo">Servizi per la Sanità e l’Assistenza Sociale</span>
+                </span>
+            </a>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li class="nav-piatto"><a href="biennio.html">Biennio</a></li>
+            <li class="nav-piatto"><a href="terzo.html">Terzo anno</a></li>
+            <li class="nav-piatto"><a href="quarto.html">Quarto anno</a></li>
+            <li class="nav-piatto nav-fine-livello"><a href="quinto.html">Quinto anno</a></li>
+            <li class="nav-group"><a href="index.html#metodi" class="active">Metodi e laboratori</a>
+                <ul class="nav-sub">
+                    <li><a href="lezioni-partecipate.html">Lezioni partecipate</a></li>
+                    <li><a href="laboratorio.html">Laboratorio</a></li>
+                    <li><a href="valutazione-artefatti.html" class="active" aria-current="page">Valutazione artefatti e attività laboratoriali</a></li>
+                    <li><a href="peer_tutoring.html">Peer tutoring</a></li>
+                    <li><a href="compresenza.html">Compresenza Scienze umane</a></li>
+                    <li><a href="orientamento.html">Attività di orientamento</a></li>
+                    <li><a href="educazione-civica.html">Educazione civica</a></li>
+                    <li><a href="intelligenza-artificiale.html">Intelligenza artificiale</a></li>
+                    <li><a href="glossario.html">Glossario</a></li>
+                </ul>
+            </li>
+            <li class="nav-group"><a href="index.html#docente">Docente</a>
+                <ul class="nav-sub">
+                    <li><a href="programmi.html">Programmi SSAS</a></li>
+                    <li><a href="programmazione.html">Programmazione individuale</a></li>
+                    <li><a href="programmi-carola.html">Programmazione Carola</a></li>
+                    <li><a href="area_docente.html">Area docente</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <!-- briciole: scripts/nav.py -->
+    <div class="briciole" role="navigation" aria-label="Sei qui">
+        <div class="container">
+            <p class="briciole-percorso"><a href="index.html">Home</a><span class="briciole-sep" aria-hidden="true">›</span><a href="index.html#metodi">Metodi e laboratori</a><span class="briciole-sep" aria-hidden="true">›</span><span aria-current="page">Valutazione artefatti e attività laboratoriali</span></p>
+            <p class="briciole-vicini"><a href="laboratorio.html" rel="prev">← Laboratorio</a><a href="peer_tutoring.html" rel="next">Peer tutoring →</a></p>
+        </div>
+    </div>
+    <script src="assets/nav.js?v=20261024" defer></script>
+    <!-- /briciole -->
+  <main id="val-main" class="container val-app">
+    <div class="val-heading"><p class="val-eyebrow">OSSERVARE · VALUTARE · MIGLIORARE</p><h2>Valutazione artefatti e attività laboratoriali</h2><p>Cinque criteri, da 1 a 5 punti. Scegli l’attività e l’anno, poi inserisci i nomi.</p></div>
+    <noscript><p>Per usare la rubrica, attiva JavaScript nel browser.</p></noscript>
+    <div id="val-warning" class="val-warning" role="alert" hidden></div>
+    <div class="val-toolbar">
+      <div class="val-activity-picker"><label for="val-activity">Attività salvate in questo browser</label><select id="val-activity" aria-label="Attività salvate"></select></div>
+      <button class="val-btn val-primary" id="val-new">＋ Nuova attività</button>
+      <div class="val-backup"><button class="val-btn" id="val-backup">↓ Salva copia</button><button class="val-btn" id="val-import">Importa copia</button><input id="val-file" type="file" accept=".json,application/json" hidden></div>
+    </div>
+    <p class="val-storage"><span id="val-save" role="status">Nomi e valutazioni restano in questo browser.</span> Usa “Salva copia” per conservarli in un file.</p>
+    <section id="val-welcome" class="val-panel val-welcome">
+      <span class="val-welcome-icon" aria-hidden="true">✓</span><h3>Una scheda per ogni attività.</h3><p>Inizia scegliendo che cosa osservare. I nomi si inseriscono a mano, uno alla volta.</p>
+      <div class="val-type-grid"><div><strong>Artefatti digitali</strong><span>Infografiche, presentazioni, video</span></div><div><strong>Artefatti manuali</strong><span>Collage, cartelloni, modelli</span></div><div><strong>Giochi di ruolo</strong><span>Simulazioni e colloqui</span></div><div><strong>Giochi di gruppo</strong><span>Attività cooperative e ludiche</span></div></div>
+      <button class="val-btn val-primary" data-action="new">Crea la prima attività →</button>
+    </section>
+    <div id="val-workspace" hidden>
+      <section class="val-context"><div><p class="val-eyebrow" id="val-kind"></p><h3 id="val-title"></h3><p id="val-meta"></p></div><div class="val-progress"><strong id="val-progress-count"></strong><span>schede complete</span></div></section>
+      <p id="val-expectation" class="val-expectation"></p>
+      <div class="val-tabs" role="tablist" aria-label="Viste della valutazione"><button class="val-tab" id="val-tab-assess" role="tab" aria-selected="true" aria-controls="val-assess" data-tab="assess">Valuta</button><button class="val-tab" id="val-tab-results" role="tab" aria-selected="false" tabindex="-1" aria-controls="val-results" data-tab="results">Risultati</button><button class="val-tab" id="val-tab-rubric" role="tab" aria-selected="false" tabindex="-1" aria-controls="val-rubric" data-tab="rubric">Criteri e livelli</button></div>
+      <section id="val-assess" role="tabpanel" aria-labelledby="val-tab-assess">
+        <div class="val-grid"><aside class="val-roster"><h3 id="val-roster-heading">Schede</h3><form id="val-add-form"><label for="val-new-name" id="val-name-label">Nome e cognome</label><div class="val-add-row"><input id="val-new-name" maxlength="100" required autocomplete="off"><button class="val-btn val-primary" aria-label="Aggiungi nome">＋</button></div><p id="val-add-error" role="alert"></p></form><div id="val-list"></div></aside><article id="val-sheet" class="val-panel"></article></div>
+      </section>
+      <section id="val-results" class="val-panel" role="tabpanel" aria-labelledby="val-tab-results" hidden></section>
+      <section id="val-rubric" class="val-panel" role="tabpanel" aria-labelledby="val-tab-rubric" hidden></section>
+      <details class="val-management"><summary>Gestisci attività e dati</summary><p>Le copie JSON contengono tutte le attività. L’importazione sostituisce i dati di questa pagina nel browser dopo una conferma.</p><button class="val-btn val-danger" id="val-delete-activity">Elimina l’attività selezionata</button></details>
+    </div>
+    <p class="val-method-note">I punteggi descrivono il lavoro osservato. Condividi prima la consegna e i criteri; usa i supporti concordati. Un criterio non osservato resta vuoto. Il risultato del gruppo non diventa automaticamente la valutazione di ciascun componente.</p>
+  </main>
+  <section id="val-print" aria-label="Versione per la stampa"></section>
+  <footer><div class="container"><p>Metodologie Operative · Servizi per la Sanità e l’Assistenza Sociale</p><p><a href="index.html">Torna alla home</a></p></div></footer>
+  <dialog id="val-dialog" aria-labelledby="val-dialog-title"><form id="val-create-form"><h2 id="val-dialog-title">Nuova attività</h2><p>Ogni attività conserva la propria rubrica e le proprie schede.</p><label for="val-create-title">Titolo dell’attività</label><input id="val-create-title" name="title" maxlength="120" required placeholder="Es. Infografica sull’inclusione">
+    <label for="val-create-type">Che cosa valuti?</label><select id="val-create-type" name="type"><option value="digitale">Artefatti digitali</option><option value="manuale">Artefatti manuali</option><option value="ruolo">Giochi di ruolo</option><option value="gruppo">Giochi di gruppo</option></select>
+    <div class="val-form-grid"><div><label for="val-create-year">Anno</label><select id="val-create-year" name="year"><option value="1">Primo anno</option><option value="2">Secondo anno</option><option value="3">Terzo anno</option><option value="4">Quarto anno</option><option value="5">Quinto anno</option></select></div><div><label for="val-create-class">Classe <span>(facoltativa)</span></label><input id="val-create-class" name="className" maxlength="40" placeholder="Es. 3A"></div></div>
+    <div class="val-form-grid"><div><label for="val-create-mode">Scheda riferita a</label><select id="val-create-mode" name="mode"><option value="individuale">Singolo alunno</option><option value="gruppo">Gruppo</option></select></div><div><label for="val-create-date">Data</label><input id="val-create-date" type="date" name="date" required></div></div>
+    <p id="val-create-error" class="val-error" role="alert"></p><div class="val-dialog-actions"><button type="button" class="val-btn" id="val-cancel">Annulla</button><button type="submit" class="val-btn val-primary">Crea attività</button></div>
+  </form></dialog>
+  <dialog id="val-rename-dialog" aria-labelledby="val-rename-title"><form id="val-rename-form"><h2 id="val-rename-title">Modifica nome</h2><label for="val-rename-input">Nome</label><input id="val-rename-input" maxlength="100" required><p id="val-rename-error" class="val-error" role="alert"></p><div class="val-dialog-actions"><button type="button" class="val-btn" id="val-rename-cancel">Annulla</button><button class="val-btn val-primary">Salva</button></div></form></dialog>
+  <div id="val-toast" class="val-toast" role="status" hidden></div>
+</body>
+</html>

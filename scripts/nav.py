@@ -29,6 +29,7 @@ LIVELLI = [
     ("Metodi e laboratori", "metodi", "tendina", [
         ("Lezioni partecipate", "lezioni-partecipate.html"),
         ("Laboratorio", "laboratorio.html"),
+        ("Valutazione artefatti e attività laboratoriali", "valutazione-artefatti.html"),
         ("Peer tutoring", "peer_tutoring.html"),
         ("Compresenza Scienze umane", "compresenza.html"),
         ("Attività di orientamento", "orientamento.html"),
