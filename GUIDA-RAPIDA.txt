@@ -92,12 +92,13 @@ Se vuoi vedere il sito sul tuo computer prima di caricarlo online:
   "file": "materiali/ANNO/nomefile.pdf",
   "descrizione": "Breve descrizione",
   "data": "2025-10-06",
-  "argomento": "welfare"
+  "argomento": "uda-2-2"
 }
 ```
 
-   `argomento` è l'id di uno dei nuclei elencati in fondo al file, sotto "argomenti"
-   (es. "welfare", "equipe"): decide sotto quale titolo compare il materiale.
+   `argomento` è l'id della UDA a cui serve il materiale, fra quelli elencati in fondo
+   al file sotto "argomenti": "uda-<anno>-<numero>" (es. "uda-2-2" = UDA 2 di seconda,
+   "uda-3-3" = UDA 3 di terza). Decide sotto quale UDA compare il materiale.
    Per le verifiche scrivi invece "tipo": "verifica" e "quadrimestre": 1 o 2.
 
 4. Inseriscilo nell'array giusto (biennio, terzo, quarto, o quinto)

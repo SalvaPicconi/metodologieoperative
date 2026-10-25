@@ -9,6 +9,18 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-25** · Claude · Pubblicate su Aruba le UDA in un unico riquadro nelle pagine anno. (Aruba `e4321bd`, run «Pubblica su Aruba» n. 16 riuscito, 7 file online verificati)
+
+- **2026-10-25** · Claude · Pagine anno: ogni UDA è un unico riquadro, con il titolo in alto e sotto i contenuti e le attività; tolto il rimando «UDA … nel programma», che ripeteva la riga delle schede. Non ancora pubblicato su Aruba. (ramo `claude/ordine-uda`)
+
+- **2026-10-25** · Claude · Pubblicati su Aruba i titoli dei blocchi per contenuto, con la UDA come rimando ai Programmi. (Aruba `fdccc2d`, run «Pubblica su Aruba» n. 15 riuscito, 7 file online verificati)
+
+- **2026-10-25** · Claude · Nelle pagine anno il titolo di ogni blocco è il contenuto; la UDA resta come rimando discreto che apre la UDA nei Programmi. Non ancora pubblicato su Aruba. (ramo `claude/ordine-uda`)
+
+- **2026-10-25** · Claude · Pubblicate su Aruba le pagine anno riordinate per UDA. (Aruba `af5e5d4`, run «Pubblica su Aruba» n. 14 riuscito, 6 file online verificati)
+
+- **2026-10-25** · Claude · Pagine anno riordinate: i materiali stanno sotto la UDA a cui servono, con numero e titolo del programma e nello stesso ordine (nel biennio prima le UDA di prima, poi quelle di seconda); nessun materiale modificato. I link «← Materiali dell'anno» ora portano al blocco giusto. Non ancora pubblicato su Aruba. (ramo `claude/ordine-uda`)
+
 - **2026-10-24** · Claude · Pubblicata su Aruba la Compresenza rivista (materiali per argomento, test di Stroop, storie sui pregiudizi, glossario) con i ritocchi alla verifica IA. (Aruba `e2a7663`, run «Pubblica su Aruba» n. 13 riuscito, 8 file online verificati)
 
 - **2026-10-24** · Claude · Compresenza rivista: materiali ordinati per argomento (pregiudizio; attenzione e test di Stroop), test di Stroop e storie sui pregiudizi nei colori del logo, con titoli a norma; le storie si leggono anche dal telefono e spiegano le tre parti del pregiudizio; pregiudizio, stereotipo e test di Stroop nel glossario. Salvataggi invariati. Non ancora pubblicato su Aruba. (ramo `claude/compresenza-materiali`)

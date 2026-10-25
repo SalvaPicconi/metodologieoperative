@@ -97,8 +97,20 @@ In `materiali.json` ogni materiale di una sezione anno porta `argomento`, l'id d
 elencato sotto la chiave `argomenti` della stessa sezione, che ne fissa ordine, titolo e descrizione:
 
 ```json
-"argomenti": { "terzo": [ { "id": "equipe", "titolo": "Équipe e figure professionali", "descrizione": "..." } ] }
+"argomenti": { "terzo": [ { "id": "uda-3-3", "titolo": "Le figure professionali e l'équipe multiprofessionale",
+                            "descrizione": "...", "alias": ["equipe"] } ] }
 ```
+
+Nelle pagine anno **ogni argomento è una UDA del programma** (decisione del titolare, 25 ottobre 2026):
+id `uda-<anno>-<n>`, titolo e descrizione copiati da `programmi-src/` (titolo, `sintesi`), stesso ordine
+dei programmi; nel biennio prima le UDA di prima, poi quelle di seconda. In pagina ogni UDA è **un unico
+contenitore**: il titolo della UDA in alto, senza numero, e sotto, nello stesso riquadro, i contenuti e le
+attività (classe `mat-gruppo--titolato`). Il numero non si ripete nel titolo: sta già nella riga
+«Nel programma» di ogni scheda.
+Un materiale usato da più UDA sta nella prima che lo usa (`materiali-curricolo.json` dice quali).
+Se una UDA cambia titolo o numero, si aggiorna anche qui. Fanno eccezione i blocchi che coprono l'anno
+intero (`ripasso`) e i materiali di un altro anno da riprendere (`ripresa`), che stanno in fondo.
+`alias` conserva i vecchi id come ancore (`#arg-welfare`), perché le pagine dei materiali vi rimandano.
 
 Dentro un argomento le schede vanno teoria → dispensa → attività → compito di realtà.
 Le verifiche (`"tipo": "verifica"`) non hanno argomento: stanno nel loro blocco, per quadrimestre.

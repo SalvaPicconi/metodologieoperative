@@ -81,6 +81,9 @@ async function caricaMateriali(sezione, containerId = 'materiali-lista') {
         const argomenti = (data.argomenti && data.argomenti[sezione]) || [];
 
         container.innerHTML = renderSezione(materiali, argomenti, container.dataset);
+        // I blocchi nascono adesso: un link come biennio.html#arg-welfare va portato lì a mano
+        const ancora = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+        if (ancora && container.contains(ancora)) ancora.scrollIntoView();
     } catch (error) {
         console.error('Errore nel caricamento dei materiali:', error);
         container.innerHTML = `
@@ -161,6 +164,7 @@ function renderSezione(materiali, argomenti, opzioni = {}) {
             id: a.id,
             titolo: a.titolo,
             descrizione: a.descrizione,
+            alias: a.alias || [],
             materiali: studio.filter(m => m.argomento === a.id)
         }));
         gruppi.push({
@@ -219,7 +223,8 @@ function renderGruppo(gruppo, mostraTitolo) {
         </div>
     ` : '';
     return `
-        <div class="mat-gruppo" id="arg-${escapeHtml(gruppo.id)}">
+        <div class="mat-gruppo${mostraTitolo ? ' mat-gruppo--titolato' : ''}" id="arg-${escapeHtml(gruppo.id)}">
+            ${(gruppo.alias || []).map(v => `<span id="arg-${escapeHtml(v)}"></span>`).join('')}
             ${intestazione}
             <div class="mat-grid">${ordinati.map(renderCard).join('')}</div>
         </div>
