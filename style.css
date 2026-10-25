@@ -3752,3 +3752,14 @@ body > #saveProgressBtn {
         right: 16px;
     }
 }
+
+/* Rimando alla UDA sotto il titolo di un blocco di materiali: il contenuto in primo piano, la UDA discreta */
+.mat-gruppo-uda {
+    display: inline-block;
+    margin-top: 0.25rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-ink-soft);
+    text-decoration: none;
+}
+.mat-gruppo-uda:hover { color: #d6105f; text-decoration: underline; }
