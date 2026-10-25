@@ -17,7 +17,7 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 DOMAIN = "https://www.metodologieoperativessas.it"
 OLD = "https://salvapicconi.github.io/metodologieoperative"
-EXCLUDED = {".github", "scripts", "supabase", "programmi-src", "PWA-Metodologie-Operative"}
+EXCLUDED = {".claude", ".github", "scripts", "supabase", "programmi-src", "PWA-Metodologie-Operative"}
 # File che restano nel repository ma non vanno online: non si esportano e l'.htaccess
 # risponde 410, perche la pubblicazione non cancella mai i file gia presenti sul server.
 NON_PUBBLICATI = {"materiali/quarto/verifica_sommativa_4SSAS.pdf"}  # testo della verifica protetta da password
