@@ -7,6 +7,7 @@ description: Trasformare una fonte del docente (pagine di un libro, un testo, ap
 
 Modello deciso dal titolare il 25 ottobre 2026. Vale per ogni materiale nuovo da una fonte.
 Le regole generali del sito (`CLAUDE.md`) restano valide: questa skill dice **che cosa** si produce e **in che ordine**.
+Copia nell'ecosistema del docente, per gli agenti fuori dal repository (ChatGPT): Google Drive, `00_ECOSISTEMA_AI/20_DIDATTICA/nuovo-materiale-pacchetto-uda.md`. Se si cambia il modello, si aggiornano tutte e due le copie.
 
 ## Il pacchetto
 

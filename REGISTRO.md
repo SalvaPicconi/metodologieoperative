@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Ottobre 2026
 
+- **2026-10-25** · Claude · Il modello per i materiali nuovi è anche su Google Drive, in `00_ECOSISTEMA_AI/20_DIDATTICA/nuovo-materiale-pacchetto-uda.md`, per gli agenti fuori dal repository. (ramo `claude/modello-materiali`)
+
 - **2026-10-25** · Claude · Il modello per i materiali nuovi è ora su `main` (PR #32) e sul ramo Aruba, dove lo leggono Claude e Codex; online non compare. (Aruba `da27597`, run «Pubblica su Aruba» n. 17 riuscito, nessun file del sito cambiato)
 
 - **2026-10-25** · Claude · Nessun cambiamento visibile: scritto il modello per trasformare una fonte del docente in un pacchetto per UDA (spiegazione per la LIM, esercitazioni in tre livelli, laboratorio con strumento Word, verifica), in `.claude/skills/nuovo-materiale/`, esclusa dal sito. (ramo `claude/modello-materiali`)
