@@ -9,7 +9,7 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
-- **2026-11-03** · Claude · Educazione civica, «Dall’informazione alla partecipazione»: nuova sezione «Video e dispensa» con il video verticale di ripasso e la dispensa in PDF per la verifica orale; la dispensa compare anche nella UDA 9 della pagina di terza.
+- **2026-11-03** · Claude · Educazione civica, «Dall’informazione alla partecipazione»: nuova sezione «Video e dispensa» con il video verticale di ripasso e la dispensa in PDF per la verifica orale; la dispensa compare anche nella UDA 9 della pagina di terza. (commit `63cd549`; [rilascio Aruba verificato](https://github.com/SalvaPicconi/metodologieoperative/actions/runs/41674927708))
 
 ## Ottobre 2026
 
