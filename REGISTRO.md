@@ -7,6 +7,10 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ---
 
+## Novembre 2026
+
+- **2026-11-03** · Claude · Educazione civica, «Dall’informazione alla partecipazione»: nuova sezione «Video e dispensa» con il video verticale di ripasso e la dispensa in PDF per la verifica orale; la dispensa compare anche nella UDA 9 della pagina di terza.
+
 ## Ottobre 2026
 
 - **2026-10-25** · Codex · Nuova sezione «Valutazione artefatti e attività laboratoriali»: quattro rubriche di cinque criteri, scelta dell’anno, schede individuali o di gruppo e graduatoria facoltativa. Nomi da inserire a mano; dati conservati nel browser, con copia, esportazione e stampa. (commit `13dc0d7`; [rilascio Aruba verificato](https://github.com/SalvaPicconi/metodologieoperative/actions/runs/40192244926))

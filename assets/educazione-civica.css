@@ -85,6 +85,8 @@
 .civica-downloads{list-style:none;padding:0}
 .civica-downloads li{padding:16px 0;border-bottom:1px solid var(--ec-line)}
 .civica-downloads a{font-weight:700}
+.civica-video{display:flex;justify-content:center;margin:18px 0 8px}
+.civica-video video{width:100%;max-width:360px;height:auto;aspect-ratio:9/16;border-radius:16px;background:#17385a;box-shadow:0 10px 30px rgba(23,56,90,.18)}
 #pannello-lim{padding:32px;background:var(--ec-paper)}
 .lim .civica-hero,.lim .civica-indice,.lim main,.lim header,.lim footer{display:none}
 .lim>.civica-wrap{display:none}
