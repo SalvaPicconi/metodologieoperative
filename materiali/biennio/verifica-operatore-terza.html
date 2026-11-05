@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>L’operatore sociale · Verifica di terza</title>
+    <link rel="stylesheet" href="../../style.css">
+    <style>
+        [hidden] { display: none !important; }
+        .prova { max-width: 58rem; margin: 0 auto; padding: 1rem; }
+        .prova form, .prova section { margin: 1rem 0; }
+        .prova .scheda { background: #fff; color: #172338; border: 1px solid #cbd5e1; border-radius: .7rem; padding: clamp(1rem, 3vw, 1.75rem); }
+        .prova input, .prova textarea, .prova select { display: block; width: 100%; margin: .35rem 0 1rem; font: inherit; }
+        .prova textarea { padding: .65rem; min-height: 5rem; resize: vertical; }
+        .prova label { font-weight: 700; }
+        .prova .testo { white-space: pre-wrap; overflow-wrap: anywhere; margin: .55rem 0; }
+        .prova .caso { background: #f0f5fb; border-left: .25rem solid #315886; padding: .8rem 1rem; margin: 1rem 0; }
+        .prova .quesito { padding: .8rem 0; border-bottom: 1px solid #dbe3eb; }
+        .prova .azioni { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin-top: .7rem; }
+        .prova button { cursor: pointer; }
+        .prova #stato { position: sticky; bottom: 0; background: #f2f6fc; border: 1px solid #9eb2cb; border-radius: .4rem; padding: .7rem; margin: 1rem 0; color: #172338; }
+    </style>
+    <script defer src="../../assets/docente-accesso.js?v=20260926"></script>
+    <script defer src="../../assets/verifica-operatore-terza.js?v=1"></script>
+</head>
+<body>
+<header>
+    <div class="container">
+        <h1>L’operatore sociale</h1>
+        <p>Verifica di Metodologie Operative · Classe terza SSAS</p>
+        <p>IIS Meucci - Mattei | Decimomannu</p>
+    </div>
+</header>
+<main class="prova">
+    <a id="ritorno" href="../../biennio.html#verifiche">← Biennio · Verifiche</a>
+    <form class="scheda" id="ingresso" hidden>
+        <h2>Accedi alla verifica</h2>
+        <p>Usa il codice studente abituale e la password della verifica. Per riprendere il lavoro usa lo stesso browser e lo stesso computer.</p>
+        <label for="classe">Classe (es. 3SA)</label>
+        <input id="classe" name="classe" required maxlength="3" autocapitalize="off" spellcheck="false">
+        <label for="codice">Codice studente (cognome + iniziale)</label>
+        <input id="codice" name="codice" required maxlength="65" autocapitalize="off" spellcheck="false">
+        <label for="pass">Password della verifica</label>
+        <input id="pass" name="pass" required type="password" maxlength="128" autocomplete="off">
+        <button class="btn btn-primary">Apri la verifica</button>
+    </form>
+    <form id="elaborato" hidden>
+        <p class="scheda">Rispondi con parole tue. Quando analizzi una situazione, usa il lessico della disciplina e indica il fatto che sostiene la tua risposta. Quando proponi un intervento, spiega perché è adatto alla persona e alle risorse disponibili.</p>
+        <div id="domande"></div>
+        <div class="azioni" id="azioni-studente">
+            <button id="salva" type="button" class="btn btn-secondary">Salva risposte</button>
+            <button id="consegna" type="submit" class="btn btn-primary">Consegna verifica</button>
+        </div>
+    </form>
+    <form class="scheda" id="accesso-docente" hidden>
+        <h2>Accesso docente</h2>
+        <label for="password-docente">Password dell’Area docente</label>
+        <input id="password-docente" required type="password" autocomplete="current-password">
+        <button class="btn btn-primary">Accedi</button>
+    </form>
+    <section class="scheda" id="correzione" hidden>
+        <h2>Elaborati della terza</h2>
+        <label for="elenco">Seleziona un elaborato</label>
+        <select id="elenco"></select>
+        <div class="azioni">
+            <button id="aggiorna" type="button" class="btn btn-secondary">Aggiorna elenco</button>
+            <button id="esporta" type="button" class="btn btn-primary" disabled>Scarica testo per correzione con IA</button>
+        </div>
+        <div id="lettura"></div>
+    </section>
+    <p role="status" aria-live="polite" id="stato">Caricamento…</p>
+    <noscript>Per compilare la prova, abilita JavaScript nel browser.</noscript>
+</main>
+</body>
+</html>
