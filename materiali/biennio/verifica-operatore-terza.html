@@ -18,6 +18,18 @@
         .prova .mappa line.selezionato { stroke: #9b174d; stroke-width: 5; }
         .prova .mappa circle { fill: #315886; }
         .prova .mappa text { fill: currentColor; font-size: 13px; paint-order: stroke; stroke: #f0f5fb; stroke-width: 4px; stroke-linejoin: round; }
+        .prova fieldset { min-width: 0; border: 0; padding: 0; margin: .6rem 0; }
+        .prova .scelte-visibili { display: grid; gap: .25rem; }
+        .prova .scelta { display: flex; gap: .55rem; align-items: flex-start; padding: .3rem 0; font-weight: 400; }
+        .prova .scelta input { width: auto; flex: none; margin: .35em 0 0; }
+        .prova .nodi { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(.65rem, 2vw, 1.6rem); max-width: 36rem; }
+        .prova .nodi button { z-index: 1; min-width: 0; min-height: 2.75rem; background: #fff; overflow-wrap: anywhere; }
+        .prova .nodi button[aria-pressed="true"] { outline: 2px solid #9b174d; background: #f8e7ef; }
+        .prova .nodi svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+        .prova .nodi line { stroke: #315886; stroke-width: 2; }
+        .prova .nodi line.ponte { stroke: #9b174d; stroke-dasharray: 6 4; stroke-width: 3; }
+        .prova .legami-creati { list-style: none; padding: 0; margin: .6rem 0; }
+        .prova .legami-creati button[aria-pressed="true"] { outline: 2px solid #9b174d; }
         .prova textarea { padding: .65rem; min-height: 5rem; resize: vertical; }
         .prova label { font-weight: 700; }
         .prova .testo { white-space: pre-wrap; overflow-wrap: anywhere; margin: .55rem 0; }
@@ -28,7 +40,7 @@
         .prova #stato { position: sticky; bottom: 0; background: #f2f6fc; border: 1px solid #9eb2cb; border-radius: .4rem; padding: .7rem; margin: 1rem 0; color: #172338; }
     </style>
     <script defer src="../../assets/docente-accesso.js?v=20260926"></script>
-    <script defer src="../../assets/verifica-operatore-terza.js?v=3"></script>
+    <script defer src="../../assets/verifica-operatore-terza.js?v=4"></script>
 </head>
 <body>
 <header>
@@ -73,7 +85,13 @@
         <p>Scarica il PDF prima della lezione per poterlo aprire e stampare anche senza Internet.</p>
         <div class="azioni">
             <button id="modello-cartaceo" type="button" class="btn btn-primary">Scarica il modello cartaceo (PDF)</button>
+            <button id="anteprima-docente" type="button" class="btn btn-secondary" aria-expanded="false" aria-controls="prova-anteprima-docente">Prova la versione attiva</button>
         </div>
+        <section id="prova-anteprima-docente" hidden>
+            <p>Anteprima docente. Le risposte inserite qui servono solo per provare la pagina.</p>
+            <div id="anteprima-quesiti"></div>
+            <button id="anteprima-nuovo-dato" class="btn btn-primary" type="button" hidden>Apri il nuovo dato nell’anteprima</button>
+        </section>
         <label for="elenco">Seleziona un elaborato</label>
         <select id="elenco"></select>
         <div class="azioni">

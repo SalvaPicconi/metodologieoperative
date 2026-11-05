@@ -72,7 +72,155 @@
         return figure;
     }
 
-    function render(container, sections, answers, readOnly) {
+    function readNetwork(item, value) {
+        const names = item.nodi;
+        try {
+            const data = JSON.parse(value);
+            const edges = data.legami.filter(edge => Array.isArray(edge) && edge.length === 2
+                && edge[0] !== edge[1] && edge.every(name => names.includes(name)));
+            const bridge = edges.find(edge => JSON.stringify(edge) === JSON.stringify(data.ponte));
+            return { legami: edges, ponte: bridge || null };
+        } catch {
+            return { legami: [], ponte: null };
+        }
+    }
+
+    function networkText(item, value) {
+        const data = readNetwork(item, value);
+        if (!data.legami.length) return 'Nessun collegamento.';
+        return data.legami.map(edge => edge.join(' ↔ ') + (edge === data.ponte ? ' (ponte)' : '')).join(' · ');
+    }
+
+    function buildNetwork(item, id, value) {
+        const fieldset = element('fieldset', '', 'costruisci-rete');
+        fieldset.dataset.answerWidget = 'true';
+        const input = element('input', '');
+        input.type = 'hidden';
+        input.name = item.id;
+        const nodes = element('div', '', 'nodi');
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('aria-hidden', 'true');
+        nodes.append(svg);
+        const status = element('p', 'Seleziona la prima persona.', 'testo');
+        status.setAttribute('role', 'status');
+        const edgeList = element('ul', '', 'legami-creati');
+        edgeList.setAttribute('aria-label', 'Collegamenti tracciati');
+        const state = readNetwork(item, value);
+        input.value = value || '';
+        let first = null;
+        const buttons = item.nodi.map(name => {
+            const button = element('button', name, 'btn btn-secondary');
+            button.type = 'button';
+            button.setAttribute('aria-pressed', 'false');
+            button.addEventListener('click', () => {
+                if (!first) {
+                    first = button;
+                    button.setAttribute('aria-pressed', 'true');
+                    status.textContent = 'Hai scelto ' + name + '. Seleziona la seconda persona.';
+                    return;
+                }
+                const previous = first;
+                first = null;
+                previous.setAttribute('aria-pressed', 'false');
+                if (previous === button) {
+                    status.textContent = 'Selezione annullata.';
+                    return;
+                }
+                const a = previous.textContent;
+                if (state.legami.some(edge => edge.includes(a) && edge.includes(name))) {
+                    status.textContent = 'Questo collegamento è già presente.';
+                    return;
+                }
+                state.legami.push([a, name]);
+                status.textContent = 'Collegamento aggiunto: ' + a + ' ↔ ' + name + '.';
+                save();
+                renderList();
+            });
+            nodes.append(button);
+            return button;
+        });
+        function save() {
+            input.value = JSON.stringify(state);
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+        function draw() {
+            svg.replaceChildren();
+            const area = nodes.getBoundingClientRect();
+            if (!area.width || !area.height) return;
+            svg.setAttribute('viewBox', '0 0 ' + area.width + ' ' + area.height);
+            state.legami.forEach(edge => {
+                const [a, b] = edge.map(name => buttons[item.nodi.indexOf(name)].getBoundingClientRect());
+                const line = document.createElementNS(svg.namespaceURI, 'line');
+                line.setAttribute('x1', a.x - area.x + a.width / 2);
+                line.setAttribute('y1', a.y - area.y + a.height / 2);
+                line.setAttribute('x2', b.x - area.x + b.width / 2);
+                line.setAttribute('y2', b.y - area.y + b.height / 2);
+                if (edge === state.ponte) line.classList.add('ponte');
+                svg.append(line);
+            });
+        }
+        function renderList() {
+            edgeList.replaceChildren();
+            state.legami.forEach(edge => {
+                const row = element('li', '', 'azioni');
+                const label = edge.join(' ↔ ');
+                const marker = element('button', edge === state.ponte ? 'Ponte indicato' : 'Segna come ponte', 'btn btn-secondary');
+                marker.type = 'button';
+                marker.setAttribute('aria-label', 'Ponte: ' + label);
+                marker.setAttribute('aria-pressed', String(edge === state.ponte));
+                marker.addEventListener('click', () => {
+                    state.ponte = state.ponte === edge ? null : edge;
+                    status.textContent = state.ponte ? 'Ponte indicato: ' + label + '.' : 'Indicazione del ponte rimossa.';
+                    save();
+                    renderList();
+                    edgeList.querySelectorAll('button')[state.legami.indexOf(edge) * 2]?.focus();
+                });
+                const remove = element('button', 'Rimuovi', 'btn btn-secondary');
+                remove.type = 'button';
+                remove.setAttribute('aria-label', 'Rimuovi il legame: ' + label);
+                remove.addEventListener('click', () => {
+                    if (state.ponte === edge) state.ponte = null;
+                    state.legami.splice(state.legami.indexOf(edge), 1);
+                    status.textContent = 'Collegamento rimosso: ' + label + '.';
+                    save();
+                    renderList();
+                    buttons[item.nodi.indexOf(edge[0])].focus();
+                });
+                row.append(element('span', label), marker, remove);
+                edgeList.append(row);
+            });
+            draw();
+        }
+        fieldset.setAttribute('aria-labelledby', id + '-titolo');
+        fieldset.setAttribute('aria-describedby', id + '-testo');
+        fieldset.append(input, nodes, status, edgeList);
+        const observer = new ResizeObserver(() => {
+            if (!fieldset.isConnected) observer.disconnect();
+            else draw();
+        });
+        observer.observe(nodes);
+        renderList();
+        return fieldset;
+    }
+
+    function visibleOptions(item, id, value) {
+        const group = element('fieldset', '', 'scelte-visibili');
+        group.setAttribute('aria-labelledby', id + '-titolo');
+        group.setAttribute('aria-describedby', id + '-testo');
+        item.opzioni.forEach(option => {
+            const label = element('label', '', 'scelta');
+            const input = element('input', '');
+            input.type = 'radio';
+            input.name = item.id;
+            input.value = option;
+            input.checked = option === value;
+            label.append(input, element('span', option));
+            group.append(label);
+        });
+        return group;
+    }
+
+    function render(container, sections, answers, readOnly, edition) {
         container.replaceChildren();
         let mapIndex = 0;
         sections.forEach((section, index) => {
@@ -82,20 +230,28 @@
                 if (!item.id) {
                     const context = element('div', '', 'caso');
                     context.append(element('h4', item.titolo), element('p', item.testo, 'testo'));
-                    item.mappe?.forEach(map => context.append(mapView(map, ++mapIndex, readOnly)));
-                    if (item.fase === 2) context.id = 'nuovo-dato';
+                    item.mappe?.forEach(map => context.append(mapView(map, container.id + '-' + (++mapIndex), readOnly || edition === 3)));
+                    if (item.fase === 2) context.dataset.nuovoDato = 'true';
                     block.append(context);
                     return;
                 }
                 const question = element('div', '', 'quesito');
-                const inputId = 'q-' + item.id;
-                const heading = element(readOnly ? 'h4' : 'label', `${item.id} ${item.titolo}`);
-                if (!readOnly) heading.htmlFor = inputId;
+                const inputId = container.id + '-q-' + item.id;
+                const grouped = item.tipo === 'rete' || (edition === 3 && item.opzioni);
+                const heading = element(readOnly || grouped ? 'h4' : 'label', `${item.id} ${item.titolo}`);
+                heading.id = inputId + '-titolo';
+                if (!readOnly && !grouped) heading.htmlFor = inputId;
                 const text = element('p', item.testo, 'testo');
                 text.id = inputId + '-testo';
                 question.append(heading, text);
                 if (readOnly) {
-                    question.append(element('p', answers[item.id] || 'Risposta assente.', 'testo'));
+                    const value = answers[item.id];
+                    question.append(element('p', value && item.tipo === 'rete'
+                        ? networkText(item, value) : value || 'Risposta assente.', 'testo'));
+                } else if (item.tipo === 'rete') {
+                    question.append(buildNetwork(item, inputId, answers[item.id]));
+                } else if (edition === 3 && item.opzioni) {
+                    question.append(visibleOptions(item, inputId, answers[item.id]));
                 } else {
                     const input = element(item.opzioni ? 'select' : 'textarea', '');
                     input.id = inputId;
@@ -105,7 +261,7 @@
                         item.opzioni.forEach(value => input.append(new Option(value, value)));
                     } else {
                         input.maxLength = 5000;
-                        input.rows = 3;
+                        input.rows = item.righe || 3;
                     }
                     input.value = answers[item.id] || '';
                     if (item.iniziale) input.dataset.iniziale = 'true';
@@ -128,19 +284,30 @@
         let saving = false;
         let delivered = false;
         let secondStage = false;
+        let edition = 1;
         let interactive = false;
         let openingStage = false;
         const stageButton = byId('apri-seconda-fase');
         const submitButton = byId('consegna');
-        const answerFields = () => [...form.querySelectorAll('textarea[name], select[name]')];
-        const snapshot = () => Object.fromEntries(answerFields().map(field => [field.name, field.value]));
+        const answerFields = () => [...form.querySelectorAll('textarea[name], select[name], input[name]')];
+        function snapshot() {
+            const values = {};
+            for (const field of answerFields()) {
+                if (field.type !== 'radio' || field.checked) values[field.name] = field.value;
+                else if (!(field.name in values)) values[field.name] = '';
+            }
+            return values;
+        }
         let queue = Promise.resolve();
 
         function protectFields() {
             answerFields().forEach(field => {
                 const locked = delivered || sending || openingStage || (secondStage && field.dataset.iniziale);
-                if (field.tagName === 'SELECT') field.disabled = Boolean(locked);
+                if (field.tagName === 'SELECT' || field.type === 'radio') field.disabled = Boolean(locked);
                 else field.readOnly = Boolean(locked);
+            });
+            form.querySelectorAll('[data-answer-widget]').forEach(field => {
+                field.disabled = delivered || sending || openingStage;
             });
             stageButton.hidden = !interactive || secondStage || delivered;
             stageButton.disabled = openingStage || sending;
@@ -203,18 +370,20 @@
                     key = Array.from(crypto.getRandomValues(new Uint8Array(32)), byte => byte.toString(16).padStart(2, '0')).join('');
                     localStorage.setItem(localKey, key);
                 }
-                const data = await rpc('verifica_operatore_apri_interattiva', {
+                const data = await rpc('verifica_operatore_apri_mista', {
                     p_password: password, p_classe: classe, p_codice: codice, p_chiave: key
                 });
-                interactive = data.edizione === 2;
+                edition = data.edizione;
+                interactive = edition >= 2;
                 secondStage = Boolean(data.seconda_fase);
-                render(byId('domande'), data.sezioni, data.risposte, false);
+                render(byId('domande'), data.sezioni, data.risposte, false, edition);
                 protectFields();
                 login.hidden = true;
                 form.hidden = false;
                 if (data.consegnato_il) lock();
                 say(delivered ? 'Verifica consegnata il ' + formatDate(data.consegnato_il) + '.'
-                    : 'Verifica aperta. Le risposte si salvano durante la compilazione.');
+                    : (edition < 3 ? 'Hai ripreso l’edizione precedente con le tue risposte salvate.'
+                    : 'Verifica aperta. Le risposte si salvano durante la compilazione.'));
             } catch (error) {
                 say(error.message || 'Non è stato possibile aprire la prova.');
             } finally {
@@ -233,10 +402,10 @@
             const answers = snapshot();
             const initial = answerFields().filter(field => field.dataset.iniziale);
             if (initial.some(field => !field.value.trim())) {
-                say('Completa i cinque passaggi della proposta iniziale.');
+                say('Completa la proposta iniziale.');
                 return;
             }
-            if (answers['5.3a'] === answers['5.3b']) {
+            if (edition === 2 && answers['5.3a'] === answers['5.3b']) {
                 say('Scegli due azioni diverse.');
                 return;
             }
@@ -252,8 +421,8 @@
                     });
                     secondStage = true;
                     dirty = false;
-                    render(byId('domande'), data.sezioni, data.risposte, false);
-                    byId('nuovo-dato')?.scrollIntoView();
+                    render(byId('domande'), data.sezioni, data.risposte, false, edition);
+                    byId('domande').querySelector('[data-nuovo-dato]')?.scrollIntoView();
                     say('Proposta iniziale registrata. Ora puoi rispondere al nuovo dato.');
                 } catch (error) {
                     say(error.message || 'Non è stato possibile aprire il nuovo dato. Riprova.');
@@ -291,7 +460,10 @@
                 if (item.opzioni) lines.push('Opzioni: ' + item.opzioni.join(' | '));
                 item.mappe?.forEach(map => lines.push(map.titolo + ': ' + map.legami
                     .map(([i, j]) => map.nodi[i][0] + ' ↔ ' + map.nodi[j][0]).join(' · ')));
-                if (item.id) lines.push('Risposta:', data.risposte[item.id] || '[risposta assente]');
+                if (item.id) {
+                    const answer = data.risposte[item.id];
+                    lines.push('Risposta:', answer && item.tipo === 'rete' ? networkText(item, answer) : answer || '[risposta assente]');
+                }
                 lines.push('');
             });
         });
@@ -342,12 +514,52 @@
                 const rows = await MODocente.chiama('verifica_operatore_docente');
                 select.append(new Option('Scegli un elaborato', ''));
                 rows.forEach(row => select.append(new Option(
-                    `${row.classe.toUpperCase()} · ${row.codice} · ${row.consegnato_il ? 'consegnato' : 'in corso'} · ${row.edizione === 2 ? 'interattiva' : 'scritta'}`, row.id)));
+                    `${row.classe.toUpperCase()} · ${row.codice} · ${row.consegnato_il ? 'consegnato' : 'in corso'} · ${row.edizione === 3 ? 'mista' : row.edizione === 2 ? 'interattiva' : 'scritta'}`, row.id)));
                 login.hidden = true;
                 review.hidden = false;
                 say(rows.length ? `Elaborati disponibili: ${rows.length}.` : 'Non ci sono ancora elaborati.');
             } catch (error) { failure(error); }
         }
+        const previewButton = byId('anteprima-docente');
+        const preview = byId('prova-anteprima-docente');
+        const reveal = byId('anteprima-nuovo-dato');
+        previewButton.addEventListener('click', async () => {
+            if (!preview.hidden) {
+                preview.hidden = true;
+                byId('anteprima-quesiti').replaceChildren();
+                previewButton.setAttribute('aria-expanded', 'false');
+                return;
+            }
+            previewButton.disabled = true;
+            try {
+                const data = await MODocente.chiama('verifica_operatore_anteprima_docente');
+                const target = byId('anteprima-quesiti');
+                render(target, data.sezioni, {}, false, data.edizione);
+                const second = target.querySelector('[data-nuovo-dato]');
+                if (second) {
+                    const part = [second];
+                    let next = second.nextElementSibling;
+                    while (next) {
+                        part.push(next);
+                        next = next.nextElementSibling;
+                    }
+                    part.forEach(el => { el.hidden = true; });
+                    reveal.onclick = () => {
+                        part.forEach(el => { el.hidden = false; });
+                        reveal.hidden = true;
+                        second.scrollIntoView();
+                    };
+                }
+                reveal.hidden = !second;
+                preview.hidden = false;
+                previewButton.setAttribute('aria-expanded', 'true');
+                say('Anteprima docente della verifica attiva.');
+            } catch (error) {
+                failure(error);
+            } finally {
+                previewButton.disabled = false;
+            }
+        });
         const paperButton = byId('modello-cartaceo');
         paperButton.addEventListener('click', async () => {
             paperButton.disabled = true;
@@ -355,7 +567,7 @@
             try {
                 const encoded = await MODocente.chiama('verifica_operatore_modello_cartaceo');
                 const bytes = Uint8Array.from(atob(encoded), char => char.charCodeAt(0));
-                download(new Blob([bytes], { type: 'application/pdf' }), 'Verifica_Operatore_Sociale_Terza_Cartacea.pdf');
+                download(new Blob([bytes], { type: 'application/pdf' }), 'Verifica_Operatore_Sociale_Terza_Modello_Cartaceo.pdf');
                 say('PDF scaricato. Conservalo sul computer per stamparlo anche senza Internet.');
             } catch (error) {
                 failure(error);
@@ -374,7 +586,7 @@
                 if (request !== readRequest) return;
                 if (!data) { say('Elaborato non disponibile.'); return; }
                 current = data;
-                render(byId('lettura'), data.sezioni, data.risposte, true);
+                render(byId('lettura'), data.sezioni, data.risposte, true, data.edizione);
                 exportButton.disabled = !data.consegnato_il;
                 say(data.consegnato_il ? 'Consegnato il ' + formatDate(data.consegnato_il) + '.'
                     : 'Elaborato in corso. Lo scaricamento è disponibile dopo la consegna.');
