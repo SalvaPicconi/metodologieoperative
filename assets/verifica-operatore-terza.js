@@ -27,8 +27,54 @@
         return data;
     }
 
+    function mapView(map, index, readOnly) {
+        const figure = element('figure', '', 'mappa');
+        const id = 'mappa-legame-' + index;
+        figure.append(element('figcaption', map.titolo));
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('viewBox', '0 0 460 240');
+        svg.setAttribute('role', 'img');
+        svg.setAttribute('aria-label', map.titolo);
+        const coordinate = (node, axis) => node[axis] * (axis === 1 ? 4.6 : 2.4);
+        function shape(tag, attrs) {
+            const node = document.createElementNS(svg.namespaceURI, tag);
+            for (const [key, value] of Object.entries(attrs)) node.setAttribute(key, value);
+            svg.append(node);
+            return node;
+        }
+        const paths = [];
+        const labels = [];
+        map.legami.forEach(([i, j]) => {
+            const [a, b] = [map.nodi[i], map.nodi[j]];
+            paths.push(shape('line', { x1: coordinate(a, 1), y1: coordinate(a, 2),
+                x2: coordinate(b, 1), y2: coordinate(b, 2) }));
+            labels.push(a[0] + ' ↔ ' + b[0]);
+        });
+        map.nodi.forEach(node => {
+            const [x, y] = [coordinate(node, 1), coordinate(node, 2)];
+            shape('circle', { cx: x, cy: y, r: 5 });
+            shape('text', { x, y: y + 20, 'text-anchor': 'middle' }).textContent = node[0];
+        });
+        figure.append(svg);
+        if (readOnly) {
+            figure.append(element('p', labels.join(' · '), 'testo'));
+        } else {
+            const label = element('label', 'Esplora i collegamenti: ' + map.titolo);
+            label.htmlFor = id;
+            const select = element('select', '');
+            select.id = id;
+            select.append(new Option('Scegli un collegamento da evidenziare', ''));
+            labels.forEach((name, i) => select.append(new Option(name, String(i))));
+            select.addEventListener('change', () => paths.forEach((path, i) =>
+                path.classList.toggle('selezionato', select.value === String(i))));
+            figure.append(label, select);
+        }
+        return figure;
+    }
+
     function render(container, sections, answers, readOnly) {
         container.replaceChildren();
+        let mapIndex = 0;
         sections.forEach((section, index) => {
             const block = element('section', '', 'scheda');
             block.append(element('h3', `${index + 1}. ${section.titolo}`));
@@ -36,6 +82,8 @@
                 if (!item.id) {
                     const context = element('div', '', 'caso');
                     context.append(element('h4', item.titolo), element('p', item.testo, 'testo'));
+                    item.mappe?.forEach(map => context.append(mapView(map, ++mapIndex, readOnly)));
+                    if (item.fase === 2) context.id = 'nuovo-dato';
                     block.append(context);
                     return;
                 }
@@ -49,12 +97,18 @@
                 if (readOnly) {
                     question.append(element('p', answers[item.id] || 'Risposta assente.', 'testo'));
                 } else {
-                    const input = element('textarea', '');
+                    const input = element(item.opzioni ? 'select' : 'textarea', '');
                     input.id = inputId;
                     input.name = item.id;
+                    if (item.opzioni) {
+                        input.append(new Option('Scegli una risposta', ''));
+                        item.opzioni.forEach(value => input.append(new Option(value, value)));
+                    } else {
+                        input.maxLength = 5000;
+                        input.rows = 3;
+                    }
                     input.value = answers[item.id] || '';
-                    input.maxLength = 5000;
-                    input.rows = 3;
+                    if (item.iniziale) input.dataset.iniziale = 'true';
                     input.setAttribute('aria-describedby', text.id);
                     question.append(input);
                 }
@@ -73,19 +127,38 @@
         let sending = false;
         let saving = false;
         let delivered = false;
+        let secondStage = false;
+        let interactive = false;
+        let openingStage = false;
+        const stageButton = byId('apri-seconda-fase');
+        const submitButton = byId('consegna');
+        const answerFields = () => [...form.querySelectorAll('textarea[name], select[name]')];
+        const snapshot = () => Object.fromEntries(answerFields().map(field => [field.name, field.value]));
         let queue = Promise.resolve();
+
+        function protectFields() {
+            answerFields().forEach(field => {
+                const locked = delivered || sending || openingStage || (secondStage && field.dataset.iniziale);
+                if (field.tagName === 'SELECT') field.disabled = Boolean(locked);
+                else field.readOnly = Boolean(locked);
+            });
+            stageButton.hidden = !interactive || secondStage || delivered;
+            stageButton.disabled = openingStage || sending;
+            submitButton.disabled = (interactive && !secondStage) || sending || openingStage;
+            byId('salva').disabled = sending || openingStage;
+        }
 
         function lock() {
             delivered = true;
             byId('azioni-studente').hidden = true;
-            form.querySelectorAll('textarea').forEach(input => { input.readOnly = true; });
+            protectFields();
         }
 
         function save(submit = false) {
             clearTimeout(timer);
             queue = queue.then(async () => {
-                if (delivered || (!submit && sending)) return;
-                const answers = Object.fromEntries(new FormData(form));
+                if (delivered || openingStage || (!submit && sending)) return;
+                const answers = snapshot();
                 dirty = false;
                 saving = true;
                 say(submit ? 'Consegna in corso…' : 'Salvataggio in corso…');
@@ -106,9 +179,7 @@
                     saving = false;
                     if (submit) {
                         sending = false;
-                        byId('consegna').disabled = false;
-                        byId('salva').disabled = false;
-                        if (!delivered) form.querySelectorAll('textarea').forEach(input => { input.readOnly = false; });
+                        protectFields();
                     }
                 }
             });
@@ -132,10 +203,13 @@
                     key = Array.from(crypto.getRandomValues(new Uint8Array(32)), byte => byte.toString(16).padStart(2, '0')).join('');
                     localStorage.setItem(localKey, key);
                 }
-                const data = await rpc('verifica_operatore_apri', {
+                const data = await rpc('verifica_operatore_apri_interattiva', {
                     p_password: password, p_classe: classe, p_codice: codice, p_chiave: key
                 });
+                interactive = data.edizione === 2;
+                secondStage = Boolean(data.seconda_fase);
                 render(byId('domande'), data.sezioni, data.risposte, false);
+                protectFields();
                 login.hidden = true;
                 form.hidden = false;
                 if (data.consegnato_il) lock();
@@ -147,25 +221,59 @@
                 button.disabled = false;
             }
         });
-        form.addEventListener('input', () => {
-            if (delivered || sending) return;
+        form.addEventListener('input', event => {
+            if (!event.target.name || delivered || sending || openingStage) return;
             dirty = true;
             clearTimeout(timer);
             timer = setTimeout(() => save(), 1400);
             say('Modifiche da salvare…');
         });
+        stageButton.addEventListener('click', () => {
+            if (!interactive || secondStage || openingStage) return;
+            const answers = snapshot();
+            const initial = answerFields().filter(field => field.dataset.iniziale);
+            if (initial.some(field => !field.value.trim())) {
+                say('Completa i cinque passaggi della proposta iniziale.');
+                return;
+            }
+            if (answers['5.3a'] === answers['5.3b']) {
+                say('Scegli due azioni diverse.');
+                return;
+            }
+            if (!confirm('Vuoi aprire il nuovo dato? La proposta iniziale sarà registrata e non sarà più modificabile.')) return;
+            openingStage = true;
+            clearTimeout(timer);
+            protectFields();
+            say('Registro la proposta iniziale…');
+            queue = queue.then(async () => {
+                try {
+                    const data = await rpc('verifica_operatore_apri_seconda_fase', {
+                        p_chiave: key, p_risposte: answers
+                    });
+                    secondStage = true;
+                    dirty = false;
+                    render(byId('domande'), data.sezioni, data.risposte, false);
+                    byId('nuovo-dato')?.scrollIntoView();
+                    say('Proposta iniziale registrata. Ora puoi rispondere al nuovo dato.');
+                } catch (error) {
+                    say(error.message || 'Non è stato possibile aprire il nuovo dato. Riprova.');
+                } finally {
+                    openingStage = false;
+                    protectFields();
+                }
+            });
+        });
         byId('salva').addEventListener('click', () => save());
         form.addEventListener('submit', event => {
             event.preventDefault();
-            if (delivered || sending || !confirm('Consegni la verifica? Dopo la consegna le risposte saranno definitive.')) return;
+            if (delivered || sending || openingStage || (interactive && !secondStage)
+                || !confirm('Consegni la verifica? Dopo la consegna le risposte saranno definitive.')) return;
             sending = true;
-            byId('salva').disabled = true;
-            byId('consegna').disabled = true;
-            form.querySelectorAll('textarea').forEach(input => { input.readOnly = true; });
+            protectFields();
             save(true);
         });
         window.addEventListener('beforeunload', event => {
-            if (!dirty && !sending && !saving) return;
+            if (!dirty && !sending && !saving && !openingStage) return;
             event.preventDefault();
             event.returnValue = '';
         });
@@ -180,6 +288,9 @@
             lines.push(`${index + 1}. ${section.titolo}`, '');
             section.elementi.forEach(item => {
                 lines.push([item.id, item.titolo].filter(Boolean).join(' '), item.testo);
+                if (item.opzioni) lines.push('Opzioni: ' + item.opzioni.join(' | '));
+                item.mappe?.forEach(map => lines.push(map.titolo + ': ' + map.legami
+                    .map(([i, j]) => map.nodi[i][0] + ' ↔ ' + map.nodi[j][0]).join(' · ')));
                 if (item.id) lines.push('Risposta:', data.risposte[item.id] || '[risposta assente]');
                 lines.push('');
             });
@@ -231,7 +342,7 @@
                 const rows = await MODocente.chiama('verifica_operatore_docente');
                 select.append(new Option('Scegli un elaborato', ''));
                 rows.forEach(row => select.append(new Option(
-                    `${row.classe.toUpperCase()} · ${row.codice} · ${row.consegnato_il ? 'consegnato' : 'in corso'}`, row.id)));
+                    `${row.classe.toUpperCase()} · ${row.codice} · ${row.consegnato_il ? 'consegnato' : 'in corso'} · ${row.edizione === 2 ? 'interattiva' : 'scritta'}`, row.id)));
                 login.hidden = true;
                 review.hidden = false;
                 say(rows.length ? `Elaborati disponibili: ${rows.length}.` : 'Non ci sono ancora elaborati.');

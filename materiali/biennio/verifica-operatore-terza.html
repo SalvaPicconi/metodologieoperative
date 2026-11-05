@@ -12,6 +12,12 @@
         .prova form, .prova section { margin: 1rem 0; }
         .prova .scheda { background: #fff; color: #172338; border: 1px solid #cbd5e1; border-radius: .7rem; padding: clamp(1rem, 3vw, 1.75rem); }
         .prova input, .prova textarea, .prova select { display: block; width: 100%; margin: .35rem 0 1rem; font: inherit; }
+        .prova .mappa { margin: .8rem 0; }
+        .prova .mappa svg { display: block; width: 100%; max-width: 37rem; height: auto; color: #172338; }
+        .prova .mappa line { stroke: #697684; stroke-width: 2; }
+        .prova .mappa line.selezionato { stroke: #9b174d; stroke-width: 5; }
+        .prova .mappa circle { fill: #315886; }
+        .prova .mappa text { fill: currentColor; font-size: 13px; paint-order: stroke; stroke: #f0f5fb; stroke-width: 4px; stroke-linejoin: round; }
         .prova textarea { padding: .65rem; min-height: 5rem; resize: vertical; }
         .prova label { font-weight: 700; }
         .prova .testo { white-space: pre-wrap; overflow-wrap: anywhere; margin: .55rem 0; }
@@ -22,7 +28,7 @@
         .prova #stato { position: sticky; bottom: 0; background: #f2f6fc; border: 1px solid #9eb2cb; border-radius: .4rem; padding: .7rem; margin: 1rem 0; color: #172338; }
     </style>
     <script defer src="../../assets/docente-accesso.js?v=20260926"></script>
-    <script defer src="../../assets/verifica-operatore-terza.js?v=2"></script>
+    <script defer src="../../assets/verifica-operatore-terza.js?v=3"></script>
 </head>
 <body>
 <header>
@@ -48,6 +54,9 @@
     <form id="elaborato" hidden>
         <p class="scheda">Rispondi con parole tue. Quando analizzi una situazione, usa il lessico della disciplina e indica il fatto che sostiene la tua risposta. Quando proponi un intervento, spiega perché è adatto alla persona e alle risorse disponibili.</p>
         <div id="domande"></div>
+        <div class="azioni">
+            <button id="apri-seconda-fase" type="button" class="btn btn-primary" hidden>Registra la proposta e apri il nuovo dato</button>
+        </div>
         <div class="azioni" id="azioni-studente">
             <button id="salva" type="button" class="btn btn-secondary">Salva risposte</button>
             <button id="consegna" type="submit" class="btn btn-primary">Consegna verifica</button>
