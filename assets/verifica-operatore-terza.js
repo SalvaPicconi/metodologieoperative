@@ -184,10 +184,14 @@
                 lines.push('');
             });
         });
-        const url = URL.createObjectURL(new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' }));
+        download(new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' }), 'elaborato-verifica-operatore.txt');
+    }
+
+    function download(blob, filename) {
+        const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = 'elaborato-verifica-operatore.txt';
+        link.download = filename;
         link.click();
         setTimeout(() => URL.revokeObjectURL(url), 3000);
     }
@@ -233,6 +237,21 @@
                 say(rows.length ? `Elaborati disponibili: ${rows.length}.` : 'Non ci sono ancora elaborati.');
             } catch (error) { failure(error); }
         }
+        const paperButton = byId('modello-cartaceo');
+        paperButton.addEventListener('click', async () => {
+            paperButton.disabled = true;
+            say('Preparazione del PDF…');
+            try {
+                const encoded = await MODocente.chiama('verifica_operatore_modello_cartaceo');
+                const bytes = Uint8Array.from(atob(encoded), char => char.charCodeAt(0));
+                download(new Blob([bytes], { type: 'application/pdf' }), 'Verifica_Operatore_Sociale_Terza_Cartacea.pdf');
+                say('PDF scaricato. Conservalo sul computer per stamparlo anche senza Internet.');
+            } catch (error) {
+                failure(error);
+            } finally {
+                paperButton.disabled = false;
+            }
+        });
         byId('aggiorna').addEventListener('click', refresh);
         select.addEventListener('change', async () => {
             resetDetail();

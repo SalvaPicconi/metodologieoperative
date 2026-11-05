@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-05** · Codex · Aggiunto nell’Area docente il PDF A4 della verifica «L’operatore sociale» di terza, da scaricare per stampare anche senza connessione. (commit di questa voce)
+
 - **2026-11-05** · Codex · Verifica digitale di terza «L’operatore sociale» in Biennio → Verifiche, con password della prova e salvataggio riservato. L’Area docente permette di leggere gli elaborati e scaricare un testo senza codice studente per la correzione assistita. (commit di questa voce)
 
 - **2026-11-03** · Claude · Educazione civica, «Dall’informazione alla partecipazione»: testo della pagina dimezzato e riscritto in forma manualistica, con le parole chiave in evidenza; scheda e salvataggi invariati. (commit `d073fe8`; [rilascio Aruba verificato](https://github.com/SalvaPicconi/metodologieoperative/actions/runs/41734361008))
