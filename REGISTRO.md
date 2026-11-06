@@ -9,7 +9,7 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
-- **2026-11-06** · Claude · Nella pagina del collage autobiografico c’è un video di tre minuti (voce Isabella, sottotitoli attivabili) che spiega tecnica e svolgimento del laboratorio. (commit di questa voce)
+- **2026-11-06** · Claude · Nella pagina del collage autobiografico c’è un video di tre minuti (voce Isabella, sottotitoli attivabili) che spiega tecnica e svolgimento del laboratorio; in apertura il pulsante «Guarda il video» porta direttamente al lettore. (commit di questa voce)
 
 - **2026-11-06** · Codex · Aggiunta la Versione B della verifica di terza «L’operatore sociale», con consegne in sequenza e modello cartaceo. (commit di questa voce)
 
