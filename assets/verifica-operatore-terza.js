@@ -254,7 +254,52 @@
         }
     }
 
-    function render(container, sections, answers, readOnly, edition, choices = {}) {
+    function teacherComment(item, inputId, feedback) {
+        let saved = feedback.commenti[item.id] || '';
+        const box = element('div', '', 'commento-docente');
+        const note = element('p', saved, 'commento-testo');
+        note.hidden = !saved;
+        const editor = element('details', '');
+        const toggle = element('summary', saved ? 'Modifica commento' : 'Aggiungi commento');
+        const form = element('form', '');
+        const field = element('textarea', '');
+        field.id = inputId + '-commento';
+        field.maxLength = 1200;
+        field.rows = 3;
+        field.value = saved;
+        const label = element('label', 'Commento al quesito ' + item.id);
+        label.htmlFor = field.id;
+        const submit = element('button', 'Salva commento', 'btn btn-secondary');
+        submit.type = 'submit';
+        const status = element('p', '', 'commento-stato');
+        status.setAttribute('role', 'status');
+        form.append(label, field, submit);
+        editor.append(toggle, form);
+        box.append(element('strong', 'Commento di correzione'), note, editor, status);
+        form.addEventListener('submit', async event => {
+            event.preventDefault();
+            if (submit.disabled) return;
+            submit.disabled = field.readOnly = true;
+            status.textContent = 'Salvataggio…';
+            try {
+                saved = await feedback.salva(item.id, field.value, saved);
+                feedback.commenti[item.id] = saved;
+                field.value = note.textContent = saved;
+                note.hidden = !saved;
+                toggle.textContent = saved ? 'Modifica commento' : 'Aggiungi commento';
+                editor.open = false;
+                status.textContent = 'Commento salvato.';
+                toggle.focus();
+            } catch (error) {
+                status.textContent = MODocente.messaggioErrore(error);
+            } finally {
+                submit.disabled = field.readOnly = false;
+            }
+        });
+        return box;
+    }
+
+    function render(container, sections, answers, readOnly, edition, choices = {}, feedback) {
         container.replaceChildren();
         let mapIndex = 0;
         sections.forEach((section, index) => {
@@ -285,6 +330,7 @@
                     const value = answers[item.id];
                     question.append(element('p', value && item.tipo === 'rete'
                         ? networkText(item, value) : value || 'Risposta assente.', 'testo'));
+                    if (feedback && item.tipo !== 'rete') question.append(teacherComment(item, inputId, feedback));
                 } else if (item.tipo === 'rete') {
                     question.append(buildNetwork(item, inputId, answers[item.id]));
                 } else if (showOptions) {
@@ -618,13 +664,20 @@
             resetDetail();
             if (!select.value) return;
             const request = readRequest;
+            const elaboratoId = select.value;
             say('Lettura dell’elaborato…');
             try {
-                const data = await MODocente.chiama('verifica_operatore_docente', { p_id: select.value });
+                const data = await MODocente.chiama('verifica_operatore_docente', { p_id: elaboratoId });
                 if (request !== readRequest) return;
                 if (!data) { say('Elaborato non disponibile.'); return; }
                 current = data;
-                render(byId('lettura'), data.sezioni, data.risposte, true, data.edizione, data.chiave_scelte);
+                const feedback = data.consegnato_il ? {
+                    commenti: data.commenti || {},
+                    salva: (id, testo, precedente) => MODocente.chiama('verifica_operatore_commento_salva', {
+                        p_id: elaboratoId, p_quesito: id, p_testo: testo, p_precedente: precedente
+                    })
+                } : undefined;
+                render(byId('lettura'), data.sezioni, data.risposte, true, data.edizione, data.chiave_scelte, feedback);
                 exportButton.disabled = !data.consegnato_il;
                 say(data.consegnato_il ? 'Consegnato il ' + formatDate(data.consegnato_il) + '.'
                     : 'Elaborato in corso. Lo scaricamento è disponibile dopo la consegna.');

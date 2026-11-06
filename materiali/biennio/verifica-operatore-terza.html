@@ -30,6 +30,12 @@
         .prova .esito-scelta { background: #e6eefb; color: #17385a; }
         .prova .esito-corretta { background: #dcefe3; color: #184b30; }
         .prova .esito-spiegazione { margin: .55rem 0; }
+        .prova .commento-docente { margin: .65rem 0 0; padding: .7rem .9rem; border-left: .25rem solid #277078; background: #eaf6f5; color: #174c55; overflow-wrap: anywhere; }
+        .prova .commento-testo { margin: .25rem 0; font-style: italic; white-space: pre-wrap; }
+        .prova .commento-docente summary { width: fit-content; cursor: pointer; font-size: .9rem; margin-top: .35rem; text-decoration: underline; }
+        .prova .commento-docente form { margin: .6rem 0 0; }
+        .prova .commento-stato { margin: .35rem 0 0; font-size: .9rem; }
+        .prova .commento-stato:empty { margin: 0; }
         .prova .nodi { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(.65rem, 2vw, 1.6rem); max-width: 36rem; }
         .prova .nodi button { z-index: 1; min-width: 0; min-height: 2.75rem; background: #fff; overflow-wrap: anywhere; }
         .prova .nodi button[aria-pressed="true"] { outline: 2px solid #9b174d; background: #f8e7ef; }
@@ -48,7 +54,7 @@
         .prova #stato { position: sticky; bottom: 0; background: #f2f6fc; border: 1px solid #9eb2cb; border-radius: .4rem; padding: .7rem; margin: 1rem 0; color: #172338; }
     </style>
     <script defer src="../../assets/docente-accesso.js?v=20260926"></script>
-    <script defer src="../../assets/verifica-operatore-terza.js?v=6"></script>
+    <script defer src="../../assets/verifica-operatore-terza.js?v=7"></script>
 </head>
 <body>
 <header>
