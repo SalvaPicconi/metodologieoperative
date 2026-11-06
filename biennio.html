@@ -116,11 +116,16 @@
 
     <script src="materiali.js?v=20261025c"></script>
     <script>
+        // Le verifiche hanno un accesso proprio. Aprendo la sezione direttamente
+        // si può scegliere la prova senza passare dal modulo per le annotazioni.
+        const accessoVerifiche = window.location.hash === '#verifiche';
         window.MO_PROGRESS_CONFIG = {
+            disabled: accessoVerifiche,
             inputSelector: '.progress-box textarea',
             pagePath: window.location.pathname,
             pathPrefixes: ['/metodologieoperative']
         };
+        if (accessoVerifiche) document.querySelector('.progress-box').hidden = true;
     </script>
     <script>
         window.MO_IDENTITY_CONFIG = {
