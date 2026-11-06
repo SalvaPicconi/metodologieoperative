@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-06** · Codex · Nell’Area docente, le scelte della verifica sull’operatore sociale mostrano tutte le alternative e distinguono la risposta dell’alunno dalla soluzione motivata. (commit di questa voce)
+
 - **2026-11-06** · Codex · Il collegamento diretto a Biennio → Verifiche apre l’elenco senza il modulo per le annotazioni. Ogni prova richiede le proprie credenziali. (commit di questa voce)
 
 - **2026-11-06** · Claude · Nella pagina del collage autobiografico c’è un video di tre minuti (voce Isabella, sottotitoli attivabili) che spiega tecnica e svolgimento del laboratorio; in apertura il pulsante «Guarda il video» porta direttamente al lettore. (commit di questa voce)

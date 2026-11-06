@@ -222,7 +222,39 @@
         return group;
     }
 
-    function render(container, sections, answers, readOnly, edition) {
+    function reviewOptions(question, options, selected, key) {
+        const list = element('ul', '', 'esito-opzioni');
+        list.setAttribute('role', 'list');
+        const correct = options.includes(key?.risposta) ? key.risposta : null;
+        for (const option of options) {
+            const row = element('li', option, 'esito-opzione');
+            const marks = element('div', '', 'esito-etichette');
+            if (option === selected) {
+                marks.append(element('span', 'Scelta dell’alunno', 'esito-etichetta esito-scelta'));
+            }
+            if (option === correct) {
+                row.classList.add('esito-opzione-corretta');
+                marks.append(element('span', 'Risposta corretta', 'esito-etichetta esito-corretta'));
+            }
+            if (marks.childElementCount) row.append(marks);
+            list.append(row);
+        }
+        question.append(list);
+        if (!selected) {
+            question.append(element('p', 'Nessuna risposta selezionata.', 'testo'));
+        } else if (!options.includes(selected)) {
+            const saved = element('p', '', 'testo');
+            saved.append(element('strong', 'Scelta registrata fuori elenco. '), selected);
+            question.append(saved);
+        }
+        if (correct && key.spiegazione) {
+            const reason = element('p', '', 'esito-spiegazione');
+            reason.append(element('strong', 'Perché è corretta. '), key.spiegazione);
+            question.append(reason);
+        }
+    }
+
+    function render(container, sections, answers, readOnly, edition, choices = {}) {
         container.replaceChildren();
         let mapIndex = 0;
         sections.forEach((section, index) => {
@@ -247,7 +279,9 @@
                 const text = element('p', item.testo, 'testo');
                 text.id = inputId + '-testo';
                 question.append(heading, text);
-                if (readOnly) {
+                if (readOnly && item.opzioni) {
+                    reviewOptions(question, item.opzioni, answers[item.id], choices[item.id]);
+                } else if (readOnly) {
                     const value = answers[item.id];
                     question.append(element('p', value && item.tipo === 'rete'
                         ? networkText(item, value) : value || 'Risposta assente.', 'testo'));
@@ -590,7 +624,7 @@
                 if (request !== readRequest) return;
                 if (!data) { say('Elaborato non disponibile.'); return; }
                 current = data;
-                render(byId('lettura'), data.sezioni, data.risposte, true, data.edizione);
+                render(byId('lettura'), data.sezioni, data.risposte, true, data.edizione, data.chiave_scelte);
                 exportButton.disabled = !data.consegnato_il;
                 say(data.consegnato_il ? 'Consegnato il ' + formatDate(data.consegnato_il) + '.'
                     : 'Elaborato in corso. Lo scaricamento è disponibile dopo la consegna.');

@@ -22,6 +22,14 @@
         .prova .scelte-visibili { display: grid; gap: .25rem; }
         .prova .scelta { display: flex; gap: .55rem; align-items: flex-start; padding: .3rem 0; font-weight: 400; }
         .prova .scelta input { width: auto; flex: none; margin: .35em 0 0; }
+        .prova .esito-opzioni { list-style: none; display: grid; gap: .4rem; margin: .7rem 0; padding: 0; }
+        .prova .esito-opzione { padding: .5rem .65rem; border: 1px solid #dbe3eb; border-radius: .4rem; overflow-wrap: anywhere; }
+        .prova .esito-opzione-corretta { border-color: #599271; background: #f1faf4; }
+        .prova .esito-etichette { display: flex; gap: .35rem; flex-wrap: wrap; margin-top: .3rem; }
+        .prova .esito-etichetta { display: inline-block; padding: .1rem .4rem; border-radius: .25rem; font-size: .88em; font-weight: 700; }
+        .prova .esito-scelta { background: #e6eefb; color: #17385a; }
+        .prova .esito-corretta { background: #dcefe3; color: #184b30; }
+        .prova .esito-spiegazione { margin: .55rem 0; }
         .prova .nodi { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(.65rem, 2vw, 1.6rem); max-width: 36rem; }
         .prova .nodi button { z-index: 1; min-width: 0; min-height: 2.75rem; background: #fff; overflow-wrap: anywhere; }
         .prova .nodi button[aria-pressed="true"] { outline: 2px solid #9b174d; background: #f8e7ef; }
@@ -40,7 +48,7 @@
         .prova #stato { position: sticky; bottom: 0; background: #f2f6fc; border: 1px solid #9eb2cb; border-radius: .4rem; padding: .7rem; margin: 1rem 0; color: #172338; }
     </style>
     <script defer src="../../assets/docente-accesso.js?v=20260926"></script>
-    <script defer src="../../assets/verifica-operatore-terza.js?v=5"></script>
+    <script defer src="../../assets/verifica-operatore-terza.js?v=6"></script>
 </head>
 <body>
 <header>
