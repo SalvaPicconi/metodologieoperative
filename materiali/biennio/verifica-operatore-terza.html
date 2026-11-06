@@ -40,13 +40,13 @@
         .prova #stato { position: sticky; bottom: 0; background: #f2f6fc; border: 1px solid #9eb2cb; border-radius: .4rem; padding: .7rem; margin: 1rem 0; color: #172338; }
     </style>
     <script defer src="../../assets/docente-accesso.js?v=20260926"></script>
-    <script defer src="../../assets/verifica-operatore-terza.js?v=4"></script>
+    <script defer src="../../assets/verifica-operatore-terza.js?v=5"></script>
 </head>
 <body>
 <header>
     <div class="container">
         <h1>L’operatore sociale</h1>
-        <p>Verifica di Metodologie Operative · Classe terza SSAS</p>
+        <p>Verifica di Metodologie Operative · Classe terza SSAS · <span id="versione-prova">Versione A</span></p>
         <p>IIS Meucci - Mattei | Decimomannu</p>
     </div>
 </header>
@@ -64,7 +64,7 @@
         <button class="btn btn-primary">Apri la verifica</button>
     </form>
     <form id="elaborato" hidden>
-        <p class="scheda">Rispondi con parole tue. Quando analizzi una situazione, usa il lessico della disciplina e indica il fatto che sostiene la tua risposta. Quando proponi un intervento, spiega perché è adatto alla persona e alle risorse disponibili.</p>
+        <p class="scheda" id="istruzioni-prova">Rispondi con parole tue. Quando analizzi una situazione, usa il lessico della disciplina e indica il fatto che sostiene la tua risposta. Quando proponi un intervento, spiega perché è adatto alla persona e alle risorse disponibili.</p>
         <div id="domande"></div>
         <div class="azioni">
             <button id="apri-seconda-fase" type="button" class="btn btn-primary" hidden>Registra la proposta e apri il nuovo dato</button>

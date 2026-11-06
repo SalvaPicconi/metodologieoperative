@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-06** · Codex · Aggiunta la Versione B della verifica di terza «L’operatore sociale», con consegne in sequenza e modello cartaceo. (commit di questa voce)
+
 - **2026-11-05** · Codex · La verifica di terza alterna risposte aperte, scelte visibili e costruzione della rete. L’alunno formula e rivede la propria proposta; il PDF segue la nuova edizione. (commit di questa voce)
 
 - **2026-11-05** · Codex · Riprogettata la verifica di terza «L’operatore sociale» con abbinamenti, mappe da esplorare e un nuovo dato dopo la proposta iniziale. Aggiornato il modello cartaceo e conservate le prove già avviate nella loro edizione. (commit di questa voce)
