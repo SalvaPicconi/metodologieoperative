@@ -30,12 +30,29 @@
         .prova .esito-scelta { background: #e6eefb; color: #17385a; }
         .prova .esito-corretta { background: #dcefe3; color: #184b30; }
         .prova .esito-spiegazione { margin: .55rem 0; }
-        .prova .commento-docente { margin: .65rem 0 0; padding: .7rem .9rem; border-left: .25rem solid #277078; background: #eaf6f5; color: #174c55; overflow-wrap: anywhere; }
+        .prova .commento-docente { margin: .65rem 0 0; padding: .7rem .9rem; border-left: .3rem solid #98134d; background: #fce8f2; color: #61103a; overflow-wrap: anywhere; }
         .prova .commento-testo { margin: .25rem 0; font-style: italic; white-space: pre-wrap; }
         .prova .commento-docente summary { width: fit-content; cursor: pointer; font-size: .9rem; margin-top: .35rem; text-decoration: underline; }
         .prova .commento-docente form { margin: .6rem 0 0; }
         .prova .commento-stato { margin: .35rem 0 0; font-size: .9rem; }
         .prova .commento-stato:empty { margin: 0; }
+        .prova .risposta-elaborato { padding: .7rem .9rem; border-left: .3rem solid #255a9b; background: #e5efff; color: #172f57; }
+        .prova .risposta-elaborato p { margin-bottom: .1rem; }
+        .prova .scheda-valutazione { border: 2px solid #17385a; }
+        .prova .voto-prova { display: flex; align-items: center; flex-wrap: wrap; gap: .6rem 1rem; padding: .7rem .95rem; border-radius: .45rem; color: #fff; background: #17385a; margin: .7rem 0; font-weight: 700; }
+        .prova .voto-prova strong { font-size: 2rem; line-height: 1.15; }
+        .prova .fascia-prova { padding: .15rem .5rem; background: #fff; color: #17385a; border-radius: .25rem; }
+        .prova .valutazione-sezioni { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,17rem),1fr)); gap: .75rem; margin: .7rem 0; }
+        .prova .valutazione-sezione { border: 1px solid #b3c6de; border-radius: .4rem; padding: .5rem .8rem .7rem; margin: 0; background: #f5f8fc; }
+        .prova .valutazione-sezione legend { font-weight: 700; color: #17385a; padding: 0 .25rem; }
+        .prova .scheda-valutazione input[type=number] { max-width: 7rem; padding: .4rem; }
+        .prova .bonus-rogers { display: flex; align-items: center; gap: .45rem; }
+        .prova .bonus-rogers input { width: auto; margin: 0; }
+        .prova .stato-restituzione { font-weight: 700; }
+        .prova .restituzione-elenco { display: grid; gap: .65rem; padding: 0; list-style: none; }
+        .prova .restituzione-riga { display: flex; flex-wrap: wrap; gap: .35rem .8rem; align-items: baseline; padding: .65rem .85rem; background: #e5efff; border-radius: .4rem; }
+        .prova .punti-sezione { font-weight: 700; margin-left: auto; }
+        .prova .restituzione-commento { flex-basis: 100%; margin: 0; color: #61103a; font-style: italic; white-space: pre-wrap; }
         .prova .nodi { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(.65rem, 2vw, 1.6rem); max-width: 36rem; }
         .prova .nodi button { z-index: 1; min-width: 0; min-height: 2.75rem; background: #fff; overflow-wrap: anywhere; }
         .prova .nodi button[aria-pressed="true"] { outline: 2px solid #9b174d; background: #f8e7ef; }
@@ -54,7 +71,7 @@
         .prova #stato { position: sticky; bottom: 0; background: #f2f6fc; border: 1px solid #9eb2cb; border-radius: .4rem; padding: .7rem; margin: 1rem 0; color: #172338; }
     </style>
     <script defer src="../../assets/docente-accesso.js?v=20260926"></script>
-    <script defer src="../../assets/verifica-operatore-terza.js?v=7"></script>
+    <script defer src="../../assets/verifica-operatore-terza.js?v=8"></script>
 </head>
 <body>
 <header>
@@ -79,6 +96,7 @@
     </form>
     <form id="elaborato" hidden>
         <p class="scheda" id="istruzioni-prova">Rispondi con parole tue. Quando analizzi una situazione, usa il lessico della disciplina e indica il fatto che sostiene la tua risposta. Quando proponi un intervento, spiega perché è adatto alla persona e alle risorse disponibili.</p>
+        <section id="restituzione-alunno" class="scheda scheda-valutazione" hidden></section>
         <div id="domande"></div>
         <div class="azioni">
             <button id="apri-seconda-fase" type="button" class="btn btn-primary" hidden>Registra la proposta e apri il nuovo dato</button>
@@ -112,6 +130,7 @@
             <button id="aggiorna" type="button" class="btn btn-secondary">Aggiorna elenco</button>
             <button id="esporta" type="button" class="btn btn-primary" disabled>Scarica testo per correzione con IA</button>
         </div>
+        <div id="valutazione-docente"></div>
         <div id="lettura"></div>
     </section>
     <p role="status" aria-live="polite" id="stato">Caricamento…</p>
