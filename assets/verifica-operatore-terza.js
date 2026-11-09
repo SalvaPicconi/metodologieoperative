@@ -469,7 +469,7 @@
         voto.min = 0;
         voto.max = 10;
         voto.step = 1;
-        voto.value = bozza?.voto ?? '';
+        voto.value = votoProposto(data, bozza) === null ? '' : bozza?.voto ?? '';
         const labelVoto = element('label', 'Voto finale (modificabile)');
         labelVoto.htmlFor = voto.id;
         const calcolo = element('div', '', 'calcolo-voto');
@@ -487,9 +487,11 @@
             const payload = leggiCampi();
             const calcolato = votoProposto(data, payload);
             voto.placeholder = calcolato ?? '';
-            const finale = payload.voto ?? calcolato;
+            const finale = payload.voto ?? calcolato ?? stato.bozza?.voto ?? null;
+            const etichetta = calcolato === null ? 'Voto provvisorio'
+                : (payload.voto === null ? 'Voto proposto' : 'Voto scelto');
             calcolo.replaceChildren(finale === null ? element('p', 'Voto da verificare.')
-                : badgeVoto(finale, payload.voto === null ? 'Voto proposto' : 'Voto scelto'));
+                : badgeVoto(finale, etichetta));
         }
         form.addEventListener('input', aggiornaVoto);
         aggiornaVoto();
@@ -511,9 +513,10 @@
             const valutazione = stato.bozza;
             const calcolato = votoProposto(data, valutazione);
             const finale = valutazione?.voto ?? calcolato;
+            const etichetta = calcolato === null ? 'Voto provvisorio' : (stato.visibile ? 'Voto' : 'Voto proposto');
             riepilogo.replaceChildren(finale === null
                 ? element('p', valutazione ? 'Voto da verificare.' : 'Valutazione da preparare.', 'stato-restituzione')
-                : badgeVoto(finale, stato.visibile ? 'Voto' : 'Voto proposto'));
+                : badgeVoto(finale, etichetta));
             if (valutazione) {
                 const sezioni = element('details', '', 'dettaglio-valutazione');
                 sezioni.append(element('summary', 'Punteggi e commenti per sezione'), elencoValutazione(data, valutazione));
@@ -528,9 +531,12 @@
         let inSalvataggio = false;
         async function registra(payload, pubblica) {
             if (inSalvataggio) return;
-            if (pubblica && votoProposto(data, payload) === null) {
-                status.textContent = 'Verifica i cinque punteggi prima di mostrare la correzione.';
-                return;
+            if (votoProposto(data, payload) === null) {
+                if (pubblica) {
+                    status.textContent = 'Verifica i cinque punteggi prima di mostrare la correzione.';
+                    return;
+                }
+                payload.voto ??= stato.bozza?.voto ?? null;
             }
             inSalvataggio = true;
             salva.disabled = mostra.disabled = mostraSalvata.disabled = true;

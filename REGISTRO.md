@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-09** · Codex · La verifica dell’operatore sociale mostra un voto provvisorio quando il docente deve ancora verificare un quesito. (commit di questa voce)
+
 - **2026-11-09** · Codex · L’Area docente riunisce gli elaborati delle versioni A e B e apre le valutazioni in lettura, con modifica su richiesta. (commit di questa voce)
 
 - **2026-11-09** · Codex · Nella verifica dell’operatore sociale risposte, commenti e voto sono evidenziati. Il docente può salvare una valutazione per sezione e decidere quando mostrarla nell’elaborato dell’alunno. (commit di questa voce)
