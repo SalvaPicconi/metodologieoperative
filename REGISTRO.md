@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-09** · Codex · L’Area docente riunisce gli elaborati delle versioni A e B e apre le valutazioni in lettura, con modifica su richiesta. (commit di questa voce)
+
 - **2026-11-09** · Codex · Nella verifica dell’operatore sociale risposte, commenti e voto sono evidenziati. Il docente può salvare una valutazione per sezione e decidere quando mostrarla nell’elaborato dell’alunno. (commit di questa voce)
 
 - **2026-11-06** · Codex · Le risposte aperte consegnate mostrano nell’Area docente un commento di correzione individuale e modificabile. (commit di questa voce)

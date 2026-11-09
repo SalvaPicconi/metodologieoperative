@@ -384,18 +384,29 @@
         return [edition === 3 ? 7 : 8, 4, 8, 8, 12];
     }
 
-    function riepilogoAlunno(data, valutazione) {
-        const target = byId('restituzione-alunno');
+    function elencoValutazione(data, valutazione) {
         const massimi = massimiSezioni(data.edizione);
-        target.replaceChildren(element('h2', 'La tua verifica corretta'), badgeVoto(valutazione.voto, 'Voto finale'));
         const list = element('ul', '', 'restituzione-elenco');
         valutazione.sezioni.forEach((row, index) => {
             const li = element('li', '', 'restituzione-riga');
-            li.append(element('strong', data.sezioni[index].titolo), element('span', `${row.punti}/${massimi[index]}`, 'punti-sezione'));
+            const punti = row.punti === null ? 'Da verificare' : `${row.punti}/${massimi[index]}`;
+            li.append(element('strong', data.sezioni[index].titolo), element('span', punti, 'punti-sezione'));
             if (row.commento) li.append(element('p', row.commento, 'restituzione-commento'));
             list.append(li);
         });
-        target.append(list);
+        return list;
+    }
+
+    function votoProposto(data, valutazione) {
+        if (!valutazione?.sezioni.every(row => row.punti !== null)) return null;
+        const totale = valutazione.sezioni.reduce((sum, row) => sum + row.punti, valutazione.bonus);
+        return Math.min(10, Math.round(totale * 10 / (data.edizione === 3 ? 39 : 40)));
+    }
+
+    function riepilogoAlunno(data, valutazione) {
+        const target = byId('restituzione-alunno');
+        target.replaceChildren(element('h2', 'La tua verifica corretta'), badgeVoto(valutazione.voto, 'Voto finale'),
+            elencoValutazione(data, valutazione));
         if (valutazione.bonus) target.append(element('p', 'Bonus Rogers +1', 'testo'));
         target.hidden = false;
     }
@@ -404,16 +415,20 @@
         let stato = data.restituzione || { bozza: null, visibile: false, revisione: 0 };
         const bozza = stato.bozza;
         const massimi = massimiSezioni(data.edizione);
-        const form = element('form', '', 'scheda scheda-valutazione');
+        const card = element('section', '', 'scheda scheda-valutazione');
+        const riepilogo = element('div', '');
+        const editor = element('details', '', 'modifica-valutazione');
+        editor.append(element('summary', 'Modifica valutazione'));
+        const form = element('form', '');
         const punteggi = [];
         const commenti = [];
-        form.append(element('h3', 'Valutazione della prova'));
+        card.append(element('h3', 'Valutazione della prova'));
         const statoVisibilita = element('p', '', 'stato-restituzione');
         const aggiornaVisibilita = () => {
             statoVisibilita.textContent = stato.visibile ? 'Correzione visibile all’alunno. Dopo una modifica, premi «Mostra all’alunno» per aggiornarla.' : 'Correzione riservata al docente.';
         };
         aggiornaVisibilita();
-        form.append(statoVisibilita);
+        card.append(statoVisibilita, riepilogo);
         const list = element('div', '', 'valutazione-sezioni');
         data.sezioni.forEach((section, index) => {
             const group = element('fieldset', '', 'valutazione-sezione');
@@ -460,15 +475,21 @@
         const calcolo = element('div', '', 'calcolo-voto');
         form.append(calcolo, labelVoto, voto, element('p',
             'Lascia il campo vuoto per usare il voto calcolato, arrotondato all’intero.', 'istruzioni-voto'));
+        const leggiCampi = () => ({
+            sezioni: punteggi.map((input, index) => ({
+                punti: input.value === '' || !input.validity.valid ? null : Number(input.value),
+                commento: commenti[index].value.trim()
+            })),
+            voto: voto.value === '' || !voto.validity.valid ? null : Number(voto.value),
+            bonus: bonus.checked ? 1 : 0
+        });
         function aggiornaVoto() {
-            const completa = punteggi.every(input => input.value !== '' && input.validity.valid);
-            const totale = punteggi.reduce((sum, input) => sum + Number(input.value), bonus.checked ? 1 : 0);
-            const calcolato = completa ? Math.min(10, Math.round(totale * 10 / (data.edizione === 3 ? 39 : 40))) : null;
+            const payload = leggiCampi();
+            const calcolato = votoProposto(data, payload);
             voto.placeholder = calcolato ?? '';
-            const finale = voto.value !== '' && voto.validity.valid ? Number(voto.value) : calcolato;
-            calcolo.replaceChildren(finale === null ? element('p', 'Inserisci i cinque punteggi per calcolare il voto.')
-                : badgeVoto(finale, voto.value === '' ? 'Voto calcolato' : 'Voto scelto'));
-            return completa;
+            const finale = payload.voto ?? calcolato;
+            calcolo.replaceChildren(finale === null ? element('p', 'Voto da verificare.')
+                : badgeVoto(finale, payload.voto === null ? 'Voto proposto' : 'Voto scelto'));
         }
         form.addEventListener('input', aggiornaVoto);
         aggiornaVoto();
@@ -477,42 +498,66 @@
         salva.type = 'submit';
         const mostra = element('button', 'Mostra all’alunno', 'btn btn-primary');
         mostra.type = 'submit';
+        const mostraSalvata = element('button', 'Mostra all’alunno', 'btn btn-primary');
+        mostraSalvata.type = 'button';
         const status = element('p', '', 'stato-restituzione');
         status.setAttribute('role','status');
         azioni.append(salva, mostra);
-        form.append(azioni, status);
-        form.addEventListener('submit', async event => {
-            event.preventDefault();
-            if (salva.disabled) return;
-            const pubblica = event.submitter === mostra;
-            if (pubblica && !aggiornaVoto()) {
-                status.textContent = 'Completa i cinque punteggi prima di mostrare la correzione.';
+        form.append(azioni);
+        editor.append(form);
+        card.append(editor, mostraSalvata, status);
+
+        function aggiornaRiepilogo() {
+            const valutazione = stato.bozza;
+            const calcolato = votoProposto(data, valutazione);
+            const finale = valutazione?.voto ?? calcolato;
+            riepilogo.replaceChildren(finale === null
+                ? element('p', valutazione ? 'Voto da verificare.' : 'Valutazione da preparare.', 'stato-restituzione')
+                : badgeVoto(finale, stato.visibile ? 'Voto' : 'Voto proposto'));
+            if (valutazione) {
+                const sezioni = element('details', '', 'dettaglio-valutazione');
+                sezioni.append(element('summary', 'Punteggi e commenti per sezione'), elencoValutazione(data, valutazione));
+                if (valutazione.bonus) sezioni.append(element('p', 'Bonus Rogers +1', 'testo'));
+                riepilogo.append(sezioni);
+            }
+            mostraSalvata.disabled = calcolato === null;
+        }
+        aggiornaRiepilogo();
+        editor.addEventListener('toggle', () => { mostraSalvata.hidden = editor.open; });
+
+        let inSalvataggio = false;
+        async function registra(payload, pubblica) {
+            if (inSalvataggio) return;
+            if (pubblica && votoProposto(data, payload) === null) {
+                status.textContent = 'Verifica i cinque punteggi prima di mostrare la correzione.';
                 return;
             }
-            const payload = {
-                sezioni: punteggi.map((input, index) => ({
-                    punti: input.value === '' ? null : Number(input.value),
-                    commento: commenti[index].value.trim()
-                })),
-                voto: voto.value === '' ? null : Number(voto.value),
-                bonus: bonus.checked ? 1 : 0
-            };
-            salva.disabled = mostra.disabled = true;
+            inSalvataggio = true;
+            salva.disabled = mostra.disabled = mostraSalvata.disabled = true;
             status.textContent = 'Salvataggio…';
             try {
                 stato = await MODocente.chiama('verifica_operatore_restituzione_salva', {
                     p_id: id, p_bozza: payload, p_mostra: pubblica, p_revisione: stato.revisione
                 });
                 aggiornaVisibilita();
+                aggiornaRiepilogo();
+                editor.open = false;
                 status.textContent = pubblica ? 'Correzione disponibile per l’alunno.'
                     : (stato.visibile ? 'Salvato. Premi «Mostra all’alunno» per aggiornare la correzione visibile.' : 'Valutazione salvata.');
             } catch (error) {
                 status.textContent = MODocente.messaggioErrore(error);
             } finally {
+                inSalvataggio = false;
                 salva.disabled = mostra.disabled = false;
+                mostraSalvata.disabled = votoProposto(data, stato.bozza) === null;
             }
+        }
+        mostraSalvata.addEventListener('click', () => registra(stato.bozza, true));
+        form.addEventListener('submit', event => {
+            event.preventDefault();
+            registra(leggiCampi(), event.submitter === mostra);
         });
-        container.replaceChildren(form);
+        container.replaceChildren(card);
     }
 
     function student() {
@@ -769,7 +814,7 @@
             try {
                 const rows = await MODocente.chiama('verifica_operatore_docente');
                 select.append(new Option('Scegli un elaborato', ''));
-                rows.filter(row => (row.edizione === 4) === versionB).forEach(row => select.append(new Option(
+                rows.forEach(row => select.append(new Option(
                     `${row.classe.toUpperCase()} · ${row.codice} · ${row.consegnato_il ? 'consegnato' : 'in corso'} · ${row.edizione === 4 ? 'Versione B' : row.edizione === 3 ? 'Versione A' : row.edizione === 2 ? 'interattiva' : 'scritta'}`, row.id)));
                 login.hidden = true;
                 review.hidden = false;
@@ -818,6 +863,9 @@
             }
         });
         const paperButton = byId('modello-cartaceo');
+        const modelloVersione = versionB ? 'Versione B' : 'Versione A';
+        previewButton.textContent = 'Prova la versione attiva · ' + modelloVersione;
+        paperButton.textContent = 'Scarica il modello cartaceo (PDF) · ' + modelloVersione;
         paperButton.addEventListener('click', async () => {
             paperButton.disabled = true;
             say('Preparazione del PDF…');
@@ -878,12 +926,13 @@
         }
     }
 
-    const version = versionB ? 'Versione B' : 'Versione A';
+    const docente = params.get('docente') === '1';
+    const version = docente ? 'Versioni A e B' : (versionB ? 'Versione B' : 'Versione A');
     document.title = title + ' · ' + version;
     byId('versione-prova').textContent = version;
     if (versionB) {
         byId('istruzioni-prova').textContent = 'Leggi un riquadro alla volta. Nelle scelte segna una sola risposta. Nelle altre domande rispondi con parole tue: bastano una o due frasi chiare per ciascuna richiesta.';
     }
-    if (params.get('docente') === '1') teacher();
+    if (docente) teacher();
     else student();
 })();
