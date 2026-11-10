@@ -74,7 +74,7 @@
         .prova #stato { position: sticky; bottom: 0; background: #f2f6fc; border: 1px solid #9eb2cb; border-radius: .4rem; padding: .7rem; margin: 1rem 0; color: #172338; }
     </style>
     <script defer src="../../assets/docente-accesso.js?v=20260926"></script>
-    <script defer src="../../assets/verifica-operatore-terza.js?v=10"></script>
+    <script defer src="../../assets/verifica-operatore-terza.js?v=11"></script>
 </head>
 <body>
 <header>
@@ -88,13 +88,11 @@
     <a id="ritorno" href="../../biennio.html#verifiche">← Biennio · Verifiche</a>
     <form class="scheda" id="ingresso" hidden>
         <h2>Accedi alla verifica</h2>
-        <p>Usa il codice studente abituale e la password della verifica. Per riprendere il lavoro usa lo stesso browser e lo stesso computer.</p>
+        <p>Entra con la tua classe e il codice studente abituale. Puoi riprendere la verifica, e poi vedere la correzione, da qualsiasi computer o telefono: vale l’ultimo dispositivo da cui la apri.</p>
         <label for="classe">Classe (es. 3SA)</label>
         <input id="classe" name="classe" required maxlength="3" autocapitalize="off" spellcheck="false">
         <label for="codice">Codice studente (cognome + iniziale)</label>
         <input id="codice" name="codice" required maxlength="65" autocapitalize="off" spellcheck="false">
-        <label for="pass">Password della verifica</label>
-        <input id="pass" name="pass" required type="password" maxlength="128" autocomplete="off">
         <button class="btn btn-primary">Apri la verifica</button>
     </form>
     <form id="elaborato" hidden>

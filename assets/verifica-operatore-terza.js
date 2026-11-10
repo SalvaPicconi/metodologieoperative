@@ -25,7 +25,11 @@
             body: JSON.stringify(args)
         });
         const data = await res.json();
-        if (!res.ok) throw new Error(data.message || 'Servizio momentaneamente non disponibile.');
+        if (!res.ok) {
+            const error = new Error(data.message || 'Servizio momentaneamente non disponibile.');
+            error.code = data.code;
+            throw error;
+        }
         return data;
     }
 
@@ -633,7 +637,8 @@
                     }
                 } catch (error) {
                     dirty = true;
-                    say('Salvataggio da ripetere. ' + error.message + ' Tieni aperta la pagina e riprova.');
+                    say(error.code === '42501' ? error.message
+                        : 'Salvataggio da ripetere. ' + error.message + ' Tieni aperta la pagina e riprova.');
                 } finally {
                     saving = false;
                     if (submit) {
@@ -653,8 +658,6 @@
             say('Apertura in corso…');
             const classe = byId('classe').value.trim().toLowerCase();
             const codice = byId('codice').value.replace(/[\s'’-]+/g, '').toLowerCase();
-            const password = byId('pass').value.trim().toUpperCase();
-            byId('pass').value = '';
             try {
                 const localKey = `mo:verifica-operatore-terza${versionB ? '-b' : ''}:${classe}:${codice}`;
                 key = localStorage.getItem(localKey);
@@ -663,7 +666,7 @@
                     localStorage.setItem(localKey, key);
                 }
                 const data = await rpc(versionB ? 'verifica_operatore_apri_b' : 'verifica_operatore_apri_mista', {
-                    p_password: password, p_classe: classe, p_codice: codice, p_chiave: key
+                    p_password: '', p_classe: classe, p_codice: codice, p_chiave: key
                 });
                 edition = data.edizione;
                 interactive = edition === 2 || edition === 3;

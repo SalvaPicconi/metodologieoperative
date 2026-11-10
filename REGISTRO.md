@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-10** · Claude · La verifica dell’operatore sociale si apre con classe e codice studente, senza password e da qualsiasi dispositivo: così gli studenti rivedono anche la correzione da casa o da un altro Chromebook. (commit di questa voce)
+
 - **2026-11-09** · Codex · La verifica dell’operatore sociale mostra un voto provvisorio quando il docente deve ancora verificare un quesito. (commit di questa voce)
 
 - **2026-11-09** · Codex · L’Area docente riunisce gli elaborati delle versioni A e B e apre le valutazioni in lettura, con modifica su richiesta. (commit di questa voce)
