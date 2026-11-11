@@ -103,6 +103,7 @@ p, h1, h2, h3, figure { margin: 0; }
 .verbs strong { display: block; font-size: clamp(1.25rem, 2.5vw, 2.2rem); color: var(--accent); letter-spacing: -.03em; margin-bottom: .35rem; }
 .verbs span, details p { font-size: clamp(1rem, 1.48vw, 1.26rem); line-height: 1.4; }
 .reveal-grid { align-items: start; margin: .45rem 0; }
+.reveal-grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 details { background: var(--soft); border-radius: 14px; border: 1px solid #1b164527; }
 details summary { font-size: clamp(1rem, 1.48vw, 1.22rem); padding: .85rem 1rem; font-weight: 800; }
 details summary:hover { color: var(--accent); }
@@ -178,7 +179,7 @@ html:not(.js) .toolbar, html:not(.js) .deck-footer, html:not(.js) [data-next], h
   .cover-photo { min-height: 260px; flex: 1; }
   .cover-photo img { object-position: 50% 40%; }
   .bar-row { grid-template-columns: 2.65rem 1fr 3rem; gap: .55rem; }
-  .stat-layout, .verbs, .reveal-grid, .references { grid-template-columns: 1fr; }
+  .stat-layout, .verbs, .reveal-grid, .reveal-grid.two, .references { grid-template-columns: 1fr; }
   .stat-layout { margin: .45rem 0; }
   .stat-layout h2 { max-width: none; }
   .stat-visual { gap: .7rem; }
@@ -228,7 +229,7 @@ html:not(.js) .toolbar, html:not(.js) .deck-footer, html:not(.js) [data-next], h
         <div class="cover-copy">
           <p class="eyebrow">Una società più longeva</p>
           <h1 id="titolo-inizio">Anzianità,<br>società e<br><em>welfare</em></h1>
-          <p class="lead">Come è cambiato il ruolo delle persone anziane nella società italiana?</p>
+          <p class="lead">L’Italia che invecchia. Che cosa cambia nella società, nella salute e nell’autonomia?</p>
           <button class="primary" data-next type="button">Inizia la lezione <span aria-hidden="true">→</span></button>
         </div>
         <figure class="cover-photo">
@@ -240,7 +241,7 @@ html:not(.js) .toolbar, html:not(.js) .deck-footer, html:not(.js) [data-next], h
           <h3>Domanda di apertura</h3>
           <p>«Quando pensate a una persona anziana, quale ruolo vi viene in mente?» Scrivi alla lavagna due o tre risposte. Il nostro materiale del Pertini propone tre immagini: la figura autorevole della famiglia, chi si prende cura dei nipoti e chi dopo la pensione dedica tempo ai propri interessi. Riprenderemo queste immagini dopo aver visto come è cambiata la popolazione.</p>
           <h3>Passaggio</h3>
-          <p>«Per capire perché oggi questi ruoli possono convivere, partiamo da un cambiamento che riguarda tutto il Paese.»</p>
+          <p>«Partiamo da come è cambiata la popolazione. Poi distinguiamo tre domande sulla persona: quali condizioni di salute ha, quanto è vulnerabile e quale aiuto le serve.»</p>
         </template>
       </section>
 
@@ -284,118 +285,110 @@ html:not(.js) .toolbar, html:not(.js) .deck-footer, html:not(.js) [data-next], h
         </template>
       </section>
 
-      <section class="slide tone-mint" id="famiglie" aria-labelledby="titolo-famiglie">
-        <p class="eyebrow">Il ruolo nella società</p>
-        <h2 id="titolo-famiglie">Le persone anziane danno e ricevono aiuto</h2>
-        <p class="lead">Il contributo può essere tempo, esperienza o sostegno pratico. Può passare attraverso la famiglia, il vicinato o un’associazione.</p>
-        <div class="scene">
-          <span class="scene-label">Un esempio dal materiale del Pertini</span>
-          <p><strong>Condividere l’abitazione.</strong> Due persone anziane, o una persona anziana e una studentessa, possono accordarsi per dividere spese e spazi e farsi compagnia.</p>
-        </div>
-        <p class="prompt">Che cosa può offrire e ricevere ciascuna persona?</p>
-        <p class="citation"><a href="https://www.epicentro.iss.it/passi-argento/info/archivio-2025" target="_blank" rel="noopener">ISS · Passi d’Argento, partecipazione sociale</a> <a href="https://www.istat.it/comunicato-stampa/aiuti-dati-ricevuti-e-reti-di-solidarieta-anno-2024/" target="_blank" rel="noopener">Istat · Reti di solidarietà</a></p>
-        <template class="speaker">
-          <p class="timing">4 min</p>
-          <h3>Il contributo è reciproco</h3>
-          <p>Riprendi dal testo la condivisione dell’abitazione. Il caso serve a discutere una possibilità, con condizioni da concordare e il rispetto della riservatezza di chi abita la casa. Aggiungi esempi di volontariato, cura di amici o familiari e trasmissione di competenze. Una persona può offrire tempo in un’attività e chiedere aiuto in un’altra.</p>
-          <h3>Passaggio</h3>
-          <p>«Se abitare insieme o separati cambia le occasioni di aiuto, che cosa rappresenta la casa nella vita di una persona anziana?»</p>
-        </template>
-      </section>
-
-      <section class="slide tone-rose" id="partecipazione" aria-labelledby="titolo-partecipazione">
-        <p class="eyebrow">La relazione con l’abitazione</p>
-        <h2 id="titolo-partecipazione">Che cosa rappresenta la casa</h2>
-        <p class="lead">Abitare significa anche conoscere i vicini, orientarsi nel quartiere e poter raggiungere i luoghi della vita quotidiana.</p>
-        <div class="verbs" role="list">
-          <div role="listitem"><strong>Identità</strong><span>Oggetti, ricordi e abitudini raccontano la propria storia.</span></div>
-          <div role="listitem"><strong>Sicurezza</strong><span>Conoscere spazi e percorsi aiuta a orientarsi.</span></div>
-          <div role="listitem"><strong>Scelta</strong><span>Si decide come organizzare il proprio tempo e chi incontrare.</span></div>
-        </div>
-        <p class="prompt">Che cosa permette di sentirsi a casa e restare in contatto con il quartiere?</p>
-        <p class="citation"><a href="https://extranet.who.int/agefriendlyworld/age-friendly-cities-framework/" target="_blank" rel="noopener">OMS · Abitazione, trasporti e partecipazione</a></p>
-        <template class="speaker">
-          <p class="timing">4 min</p>
-          <h3>Parti dai dettagli quotidiani</h3>
-          <p>Chiedi che cosa si perderebbe cambiando all’improvviso casa: familiarità con la disposizione delle stanze, la persona del negozio vicino, i percorsi fatti a memoria. Riprendi l’idea del testo che casa e quartiere possono offrire protezione e insieme aprire relazioni con l’esterno.</p>
-        </template>
-      </section>
-
-      <section class="slide tone-peach" id="relazioni" aria-labelledby="titolo-relazioni">
+      <section class="slide tone-rose" id="famiglie" aria-labelledby="titolo-famiglie">
         <p class="eyebrow">Casa e relazioni</p>
-        <h2 id="titolo-relazioni">Vivere soli, avere pochi contatti, sentirsi soli</h2>
-        <p class="lead">Il pensionamento cambia le occasioni di incontro. Un lutto o la distanza dei figli possono cambiare ancora le relazioni quotidiane.</p>
+        <h2 id="titolo-famiglie">Che cosa cambia nella vita quotidiana</h2>
+        <p class="lead">La casa conserva ricordi e abitudini. Il pensionamento, un lutto o la distanza dei figli possono modificare le occasioni di incontro.</p>
         <div class="reveal-grid">
-          <details><summary>Vivere da soli</summary><p>Riguarda l’abitazione. In casa vive una sola persona.</p></details>
-          <details><summary>Isolamento sociale</summary><p>Riguarda la rete di relazioni. I contatti e le occasioni di incontro sono pochi.</p></details>
-          <details><summary>Solitudine</summary><p>Riguarda l’esperienza personale. Le relazioni che si hanno sono meno di quelle che si desiderano o si sentono necessarie.</p></details>
+          <details><summary>Vivere da soli</summary><p>Descrive chi abita in casa. Si può vivere soli e avere relazioni frequenti.</p></details>
+          <details><summary>Isolamento sociale</summary><p>Indica una rete di contatti e occasioni di incontro ridotta.</p></details>
+          <details><summary>Solitudine</summary><p>È il disagio che si prova quando le relazioni che si hanno sono meno di quelle che si desiderano.</p></details>
         </div>
-        <p class="citation"><a href="https://www.who.int/news-room/questions-and-answers/item/social-connection" target="_blank" rel="noopener">OMS · Social connection, 2025</a></p>
+        <p class="citation">Materiale di partenza · <em>Anzianità e welfare</em>, 5ª B Pertini <a href="https://www.who.int/news-room/questions-and-answers/item/social-connection" target="_blank" rel="noopener">OMS · Connessione sociale</a></p>
         <template class="speaker">
           <p class="timing">4 min</p>
-          <h3>Fai emergere le differenze</h3>
-          <p>Apri le tre definizioni dopo aver ascoltato qualche risposta. Parti dal passaggio del materiale sulla pensione: per qualcuno aumenta il tempo per gli affetti, per altri vengono meno incontri abituali. Per capire come una persona vive i propri rapporti potremmo chiederle: «Come passi il tempo? Quali incontri ti piacerebbe avere più spesso?»</p>
-          <h3>Approfondimento scientifico</h3>
-          <p>Steptoe e colleghi hanno studiato isolamento e solitudine come misure distinte in un campione di adulti più anziani. Questo aiuta a spiegare perché ascoltare l’esperienza della persona e conoscere la sua rete forniscono informazioni diverse.</p>
-          <p><a href="https://pubmed.ncbi.nlm.nih.gov/23530191/" target="_blank" rel="noopener">Steptoe et al. · PNAS, 2013</a></p>
+          <h3>Riprendi il testo del Pertini</h3>
+          <p>La casa è uno spazio di identità, protezione e scelta. Nel testo compare la possibilità di condividere l’abitazione tra persone anziane o tra una persona anziana e una studentessa. Usala per far emergere le differenze fra abitare insieme, avere una rete di contatti e sentirsi in relazione.</p>
+          <h3>Passaggio alla salute</h3>
+          <p>«Abbiamo visto che a parità di età si possono avere ruoli e relazioni diverse. La stessa varietà esiste nella salute e nelle capacità quotidiane.»</p>
         </template>
       </section>
 
-      <section class="slide tone-lilac" id="quartiere" aria-labelledby="titolo-quartiere">
-        <p class="eyebrow">Un quartiere a misura di più età</p>
-        <h2 id="titolo-quartiere">Il luogo in cui si vive cambia le possibilità</h2>
-        <p class="lead">Una persona vuole continuare a fare la spesa al mercato del quartiere. Guardiamo che cosa cambia lungo il percorso.</p>
-        <div class="scenario" role="group" aria-label="Scegli un percorso">
-          <button type="button" aria-pressed="true" data-scenario="vicino">Un percorso accessibile</button>
-          <button type="button" aria-pressed="false" data-scenario="lontano">Un percorso con ostacoli</button>
+      <section class="slide tone-mint" id="partecipazione" aria-labelledby="titolo-partecipazione">
+        <p class="eyebrow">Invecchiamento individuale</p>
+        <h2 id="titolo-partecipazione">Età, senescenza e malattia</h2>
+        <p class="lead">La <strong>senescenza</strong> è l’insieme dei cambiamenti biologici legati all’invecchiamento. I cambiamenti variano per ritmo e intensità da persona a persona.</p>
+        <div class="verbs" role="list">
+          <div role="listitem"><strong>Età anagrafica</strong><span>Gli anni vissuti. Nelle statistiche, 65 anni è una soglia convenzionale.</span></div>
+          <div role="listitem"><strong>Capacità</strong><span>Le risorse fisiche e mentali che la persona può usare, come forza, vista e memoria.</span></div>
+          <div role="listitem"><strong>Malattia</strong><span>Una condizione clinica specifica, per esempio diabete o demenza.</span></div>
         </div>
-        <div class="scenario-result" aria-live="polite">
-          <p data-result="vicino"><strong>Il marciapiede è continuo e ci sono panchine lungo il tragitto.</strong> La persona può scegliere quando uscire e fare una pausa tornando con le borse.</p>
-          <p data-result="lontano" hidden><strong>Il marciapiede si interrompe e lungo il tragitto manca un posto per sedersi.</strong> La spesa richiede più fatica e la persona può aver bisogno di un passaggio.</p>
-        </div>
-        <p class="prompt">Che cosa cambiereste nel quartiere? A chi altro sarebbe utile?</p>
-        <p class="citation"><a href="https://www.who.int/news-room/questions-and-answers/item/healthy-ageing-and-functional-ability" target="_blank" rel="noopener">OMS · Invecchiamento in salute e capacità funzionale</a> <a href="https://extranet.who.int/agefriendlyworld/age-friendly-cities-framework/" target="_blank" rel="noopener">OMS · Città a misura di anziano</a></p>
+        <p class="prompt">Due persone della stessa età possono avere capacità e bisogni molto diversi.</p>
+        <p class="citation"><a href="https://www.who.int/news-room/fact-sheets/detail/ageing-and-health" target="_blank" rel="noopener">OMS · Ageing and health</a> <a href="https://www.who.int/news-room/questions-and-answers/item/healthy-ageing-and-functional-ability" target="_blank" rel="noopener">OMS · Invecchiamento in salute e capacità funzionale</a></p>
         <template class="speaker">
-          <p class="timing">5 min</p>
-          <h3>Confronta i due percorsi</h3>
-          <p>Chiedi di indicare che cosa cambia per chi fa la spesa e per chi usa un passeggino, si è fatto male a una gamba o porta una borsa pesante. Fai emergere il ruolo dell’ambiente senza trasformare l’esempio in un elenco di difficoltà individuali.</p>
-          <h3>Spiega autonomia e indipendenza</h3>
-          <p>In questo esempio, autonomia è poter decidere quando fare la spesa e come organizzarsi. Per parlare di autosufficienza, guardiamo quali attività una persona svolge da sé e per quali ha bisogno di sostegno. Il materiale propone di osservare i bisogni quotidiani: per esempio vestirsi, preparare i pasti, muoversi. La stessa persona può fare alcune attività da sola e avere bisogno di aiuto in altre.</p>
+          <p class="timing">4 min</p>
+          <h3>Spiega i tre livelli</h3>
+          <p>L’età si misura contando gli anni. La senescenza riguarda processi biologici che possono ridurre gradualmente alcune riserve fisiche o mentali. Una malattia ha caratteristiche cliniche proprie. Per esempio la demenza è una condizione clinica e richiede una valutazione specifica.</p>
+          <p>Usa il passaggio del materiale sul benessere psicofisico per chiedere che cosa sostiene una capacità nel quotidiano. L’OMS chiama capacità funzionale la possibilità concreta di fare ciò che ha valore per la persona, tenendo conto anche dei sostegni a disposizione.</p>
+        </template>
+      </section>
+
+      <section class="slide tone-blue" id="relazioni" aria-labelledby="titolo-relazioni">
+        <p class="eyebrow">Lo stato di salute</p>
+        <h2 id="titolo-relazioni">Comorbilità e multimorbilità</h2>
+        <p class="lead">Più condizioni croniche possono coesistere nella stessa persona. I due termini cambiano a seconda della domanda che ci poniamo.</p>
+        <div class="reveal-grid two">
+          <details open><summary>Comorbilità</summary><p>Una condizione aggiuntiva rispetto a quella che stiamo considerando. Se il tema è il diabete, l’artrosi è una comorbilità.</p></details>
+          <details open><summary>Multimorbilità</summary><p>Due o più condizioni di salute di lunga durata considerate insieme. Diabete e artrosi sono un esempio.</p></details>
+        </div>
+        <p class="prompt">Dopo aver conosciuto le diagnosi, che cosa ci serve sapere per capire se la persona ha bisogno di aiuto?</p>
+        <p class="citation"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2713155/" target="_blank" rel="noopener">Valderas e colleghi · Definire la comorbilità</a> <a href="https://www.nice.org.uk/guidance/ng56/chapter/recommendations" target="_blank" rel="noopener">NICE · Linea guida sulla multimorbilità</a></p>
+        <template class="speaker">
+          <p class="timing">4 min</p>
+          <h3>Usa lo stesso esempio due volte</h3>
+          <p>Se il medico sta valutando il diabete, l’artrosi è una condizione concomitante. Se guarda la persona nel suo insieme e tiene conto di entrambe le condizioni croniche, parla di multimorbilità. Entrambi i termini descrivono condizioni di salute. Per capire gli effetti sulla vita quotidiana servono altre informazioni, come la mobilità, la gestione delle terapie e le attività che la persona svolge.</p>
+        </template>
+      </section>
+
+      <section class="slide tone-lilac" id="fragilita" aria-labelledby="titolo-fragilita">
+        <p class="eyebrow">La vulnerabilità</p>
+        <h2 id="titolo-fragilita">Che cos’è la fragilità</h2>
+        <p class="lead">In geriatria indica una maggiore vulnerabilità agli eventi stressanti, legata alla riduzione delle riserve dell’organismo.</p>
+        <div class="scene">
+          <p><strong>Un esempio.</strong> Dopo un’infezione, una persona che prima si lavava e si vestiva da sola può fare più fatica a recuperare le attività abituali.</p>
+        </div>
+        <p class="prompt">La fragilità riguarda la capacità di reagire e recuperare. Il bisogno di assistenza si valuta osservando le attività quotidiane.</p>
+        <p class="citation"><a href="https://pubmed.ncbi.nlm.nih.gov/11253156/" target="_blank" rel="noopener">Fried e colleghi · Studio sulla fragilità</a> <a href="https://www.epicentro.iss.it/passi-argento/dati/fragili" target="_blank" rel="noopener">ISS · Fragilità e disabilità</a></p>
+        <template class="speaker">
+          <p class="timing">4 min</p>
+          <h3>Chiarisci il concetto di riserva</h3>
+          <p>Per riserva si intende la capacità dell’organismo di affrontare uno sforzo o una malattia mantenendo o recuperando le funzioni abituali. Un cambiamento importante dopo un evento clinico suggerisce di approfondire il quadro. La fragilità si valuta con strumenti appropriati.</p>
+          <p>Lo studio di Fried propone un modello di fragilità fisica. L’ISS usa anche una definizione operativa per la sorveglianza di popolazione. Spiega che studi e contesti diversi possono misurare la fragilità con strumenti diversi.</p>
         </template>
       </section>
 
       <section class="slide tone-ink" id="welfare" aria-labelledby="titolo-welfare">
-        <p class="eyebrow">Anzianità e welfare</p>
-        <h2 id="titolo-welfare">Quando entra in gioco il welfare?</h2>
-        <p class="lead">La casa, gli affetti e gli aiuti di vicinato contano. Una società più longeva organizza anche tutele per il reddito, la salute e la vita quotidiana.</p>
+        <p class="eyebrow">Autosufficienza e attività quotidiane</p>
+        <h2 id="titolo-welfare">In quali attività serve aiuto?</h2>
+        <p class="lead">La <strong>non autosufficienza</strong> riguarda il bisogno di assistenza per svolgere attività della vita quotidiana. Conta quali attività richiedono aiuto, quanto spesso e in quale misura.</p>
         <div class="welfare-list">
-          <p><strong>Reddito</strong><span>La pensione contribuisce alle spese per la vita di tutti i giorni.</span></p>
-          <p><strong>Salute</strong><span>Una visita o un percorso di prevenzione aiutano a prendersi cura di sé.</span></p>
-          <p><strong>Vita quotidiana</strong><span>Un sostegno concordato a casa può aiutare a mantenere abitudini e scelte.</span></p>
+          <p><strong>ADL · Attività di base</strong><span>Lavarsi, vestirsi, mangiare, usare il bagno, spostarsi dal letto alla sedia.</span></p>
+          <p><strong>IADL · Attività strumentali</strong><span>Fare la spesa, preparare i pasti, gestire farmaci e denaro, usare il telefono.</span></p>
         </div>
-        <p class="citation"><a href="https://www.istat.it/wp-content/uploads/2026/05/Rapporto-Annuale-2026-Presentazione.pdf#page=23" target="_blank" rel="noopener">Istat · Rapporto annuale 2026, reti di solidarietà</a> <a href="https://www.gazzettaufficiale.it/eli/id/2000/11/13/000G0369/sg" target="_blank" rel="noopener">Legge 328/2000 · Interventi e servizi sociali</a></p>
+        <p class="prompt">Una persona può scegliere orari e abitudini anche quando ha bisogno di assistenza.</p>
+        <p class="citation"><a href="https://www.epicentro.iss.it/passi-argento/dati/fragili" target="_blank" rel="noopener">ISS · Attività di base e strumentali</a> <a href="https://pubmed.ncbi.nlm.nih.gov/14044222/" target="_blank" rel="noopener">Katz e colleghi · Indice ADL</a></p>
         <template class="speaker">
-          <p class="timing">4 min</p>
-          <h3>Ricollega i passaggi della lezione</h3>
-          <p>Riprendi il pensionamento, la casa e le relazioni. La pensione rende possibile sostenere le spese, la sanità risponde ai bisogni di salute, il sostegno quotidiano può servire per continuare a vivere nel proprio ambiente. Chiedi quale bisogno corrisponde a ciascun esempio.</p>
-          <h3>Tre parole nel contesto</h3>
-          <p>Se serve, collega i tre esempi a previdenza, sanità e assistenza sociale. Le parole aiutano a nominare le risposte. Gli aiuti di familiari, vicini e associazioni entrano anch’essi nella vita quotidiana. Concludi chiedendo quali sostegni una persona potrebbe concordare direttamente e quali richiedono un’organizzazione del territorio.</p>
+          <p class="timing">5 min</p>
+          <h3>Riprendi i gradi di autosufficienza del materiale</h3>
+          <p>Il tuo testo distingue autosufficienza, autosufficienza parziale e non autosufficienza. Per spiegare la differenza, parti dalle attività: una persona si lava e si veste da sola ma ha bisogno di aiuto per la spesa. Un’altra necessita di assistenza anche per lavarsi e vestirsi. Chiedi quali sono ADL e quali IADL.</p>
+          <p>La valutazione professionale considera le singole attività e le condizioni in cui si svolgono. Per l’accesso a una misura o a un servizio si applicano i criteri previsti da quella misura. Qui stiamo imparando a descrivere il bisogno.</p>
         </template>
       </section>
 
       <section class="slide tone-lemon" id="attivita" aria-labelledby="titolo-attivita">
-        <p class="eyebrow">Attività in coppia · 5 minuti</p>
-        <h2 id="titolo-attivita">Vivere a casa e restare parte del quartiere</h2>
-        <p class="lead">Scegliete una situazione della lezione: il pensionamento, vivere da soli o un tragitto difficile. Indicate che cosa la persona vuole continuare a fare e quale sostegno potrebbe aiutarla.</p>
-        <details class="example"><summary>Mostra un esempio</summary><p>Dopo la pensione una persona desidera continuare a incontrare gli altri. Un gruppo di quartiere le offre un luogo dove coltivare un interesse e mettere a disposizione ciò che sa fare.</p></details>
-        <p class="handoff"><strong>Prossima lezione</strong><span>Chi può intervenire sul territorio e come si accede ai servizi?</span></p>
-        <p class="citation"><a href="https://extranet.who.int/agefriendlyworld/age-friendly-cities-framework/" target="_blank" rel="noopener">Attività ispirata al quadro OMS sulle città a misura di anziano</a></p>
+        <p class="eyebrow">Welfare e interventi</p>
+        <h2 id="titolo-attivita">Dalle condizioni di salute al bisogno di aiuto</h2>
+        <p class="lead">Una persona con diabete e artrosi si veste e mangia da sola. Dopo una caduta ha bisogno di aiuto per lavarsi e per fare la spesa.</p>
+        <p class="prompt">Quali condizioni di salute conosciamo? Quali attività richiedono sostegno?</p>
+        <details class="example"><summary>Verifica la risposta</summary><p>Diabete e artrosi indicano multimorbilità. Lavarsi è un’ADL, fare la spesa è un’IADL. Per organizzare il sostegno occorre capire quanto aiuto serve e per quanto tempo.</p></details>
+        <p class="handoff"><strong>Prossima lezione</strong><span>Chi valuta il bisogno e quali servizi possono rispondere?</span></p>
+        <p class="citation">Esempio didattico · <a href="https://www.nice.org.uk/guidance/ng56/chapter/recommendations" target="_blank" rel="noopener">NICE · Multimorbilità</a> <a href="https://www.epicentro.iss.it/passi-argento/dati/fragili" target="_blank" rel="noopener">ISS · ADL e IADL</a></p>
         <template class="speaker">
-          <p class="timing">7 min</p>
-          <h3>Consegna e condivisione</h3>
-          <p>Dai cinque minuti per indicare un desiderio, un ostacolo e una possibile risposta. Raccogli due proposte e chiedi chi potrebbe attuarle: persone vicine, un’associazione o un servizio. Mostra l’esempio dopo aver raccolto le idee.</p>
-          <h3>Ponte verso servizi e interventi</h3>
-          <p>«Abbiamo individuato bisogni e condizioni che rendono possibile partecipare. La prossima volta vediamo chi può intervenire, con quali servizi e come si chiede un sostegno.»</p>
+          <p class="timing">5 min</p>
+          <h3>Discuti il caso in due passaggi</h3>
+          <p>Chiedi di separare le informazioni sulle patologie da quelle sulle attività. Poi domanda quali altre informazioni occorrono: bisogno temporaneo o persistente, attività da fare ogni giorno, preferenze della persona, sostegni già disponibili. La caduta da sola lascia aperta la valutazione della fragilità.</p>
+          <h3>Il punto di arrivo</h3>
+          <p>Il welfare organizza tutele e sostegni quando la persona e la sua rete hanno bisogno di una risposta. Le condizioni di salute, le capacità e gli aiuti già presenti guidano la scelta. La prossima lezione riprende l’assistenza a domicilio e le altre risposte trattate nel materiale del Pertini.</p>
         </template>
       </section>
 
@@ -409,14 +402,14 @@ html:not(.js) .toolbar, html:not(.js) .deck-footer, html:not(.js) [data-next], h
             <li><a href="https://www.istat.it/comunicato-stampa/indicatori-demografici-anno-2025/" target="_blank" rel="noopener">Istat, Indicatori demografici 2025</a>. Stime al 1° gennaio 2026.</li>
             <li><a href="https://www.istat.it/comunicato-stampa/aiuti-dati-ricevuti-e-reti-di-solidarieta-anno-2024/" target="_blank" rel="noopener">Istat, Aiuti dati, ricevuti e reti di solidarietà 2024</a>.</li>
           </ul></div>
-          <div><h3>Partecipazione e contesti di vita</h3><ul>
-            <li><a href="https://www.epicentro.iss.it/passi-argento/info/archivio-2025" target="_blank" rel="noopener">ISS, Passi d’Argento 2023–24</a>. Partecipazione e isolamento sociale.</li>
-            <li>OMS, <a href="https://www.who.int/news-room/questions-and-answers/item/healthy-ageing-and-functional-ability" target="_blank" rel="noopener">Healthy ageing and functional ability</a>, <a href="https://www.who.int/news-room/questions-and-answers/item/social-connection" target="_blank" rel="noopener">Social connection</a> e <a href="https://extranet.who.int/agefriendlyworld/age-friendly-cities-framework/" target="_blank" rel="noopener">Age-friendly Cities Framework</a>.</li>
-            <li><a href="https://pubmed.ncbi.nlm.nih.gov/23530191/" target="_blank" rel="noopener">Steptoe et al. (2013), PNAS</a>. Studio su isolamento sociale e solitudine.</li>
-            <li><a href="https://www.gazzettaufficiale.it/eli/id/2000/11/13/000G0369/sg" target="_blank" rel="noopener">Legge 8 novembre 2000, n. 328</a>. Quadro dei servizi sociali.</li>
+          <div><h3>Salute, fragilità e funzionamento</h3><ul>
+            <li>OMS, <a href="https://www.who.int/news-room/fact-sheets/detail/ageing-and-health" target="_blank" rel="noopener">Ageing and health</a>, <a href="https://www.who.int/news-room/questions-and-answers/item/healthy-ageing-and-functional-ability" target="_blank" rel="noopener">Healthy ageing and functional ability</a> e <a href="https://www.who.int/news-room/questions-and-answers/item/social-connection" target="_blank" rel="noopener">Social connection</a>.</li>
+            <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2713155/" target="_blank" rel="noopener">Valderas et al. (2009), Defining Comorbidity</a> e <a href="https://www.nice.org.uk/guidance/ng56/chapter/recommendations" target="_blank" rel="noopener">NICE, Multimorbidity (NG56)</a>.</li>
+            <li><a href="https://pubmed.ncbi.nlm.nih.gov/11253156/" target="_blank" rel="noopener">Fried et al. (2001), Frailty in older adults</a> e <a href="https://www.epicentro.iss.it/passi-argento/dati/fragili" target="_blank" rel="noopener">ISS, Passi d’Argento: fragilità, disabilità, ADL e IADL</a>.</li>
+            <li><a href="https://pubmed.ncbi.nlm.nih.gov/14044222/" target="_blank" rel="noopener">Katz et al. (1963), The Index of ADL</a>.</li>
           </ul></div>
         </div>
-        <p class="archive">Base didattica: <em>2 Anzianità e welfare</em> e <em>1 Lezione</em>, Metodologie operative, 5ª B Pertini, a.s. 2023–24. I passaggi del secondo ciclo su ruoli, abitazione, pensionamento, solitudine e benessere guidano la lezione.</p>
+        <p class="archive">Base didattica: <em>2 Anzianità e welfare</em> e <em>1 Lezione</em>, Metodologie operative, 5ª B Pertini, a.s. 2023–24. I passaggi del secondo ciclo su ruoli, abitazione, pensionamento, solitudine, benessere e gradi di autosufficienza guidano la lezione. Per ADL e IADL: slide ed esercitazione di Metodologie operative, 5ª SA Mattei, a.s. 2022–23.</p>
         <template class="speaker"><p>Le fonti brevi rimandano ai riferimenti delle singole slide. I dati storici sulla spesa del materiale d’archivio si prestano a un’attività successiva in cui si legge l’anno di riferimento e si discute che cosa misura ogni voce.</p></template>
       </section>
     </main>
