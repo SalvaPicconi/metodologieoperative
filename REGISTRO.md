@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-11** · Codex · Rimossi i riferimenti all’istituto dai testi della presentazione «Anzianità, società e welfare» e dalla sua scheda. (commit di questa voce)
+
 - **2026-11-11** · Codex · La lezione di quinta sull’anzianità spiega senescenza, comorbilità, fragilità e bisogno di assistenza, con un caso finale su ADL e IADL. (commit di questa voce)
 
 - **2026-11-11** · Codex · Nel Quinto anno è disponibile la presentazione per la LIM «Anzianità, società e welfare», con note per chi presenta e un’attività sul quartiere. (commit di questa voce)
