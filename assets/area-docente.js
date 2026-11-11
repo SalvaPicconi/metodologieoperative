@@ -1,13 +1,13 @@
 /*
  * Area docente del sito Metodologie Operative.
  *
- * Quattro schede:
- * - Compiti: il docente assegna una pagina del sito a una classe, con scadenza, e vede l'avanzamento
- *   di ogni alunno (completato, in corso, non iniziato);
- * - Classi: per ogni classe, la griglia alunni × compiti attivi e l'elenco dei codici studente,
- *   con i codici sbagliati ricondotti all'alunno giusto (alias);
- * - Attività recenti: chi ha lavorato su che cosa, per periodo;
- * - Verifiche e strumenti: correzione delle verifiche, statistiche e risultati del test di Stroop.
+ * Un solo percorso: classe → alunni → attività.
+ * - Le tue classi: un riquadro per classe con i numeri di sintesi;
+ * - una classe: riepilogo, tabella degli alunni (attività aperte, completate, media) e tabella delle
+ *   attività (le pagine del sito su cui la classe ha lavorato, con i risultati aggregati);
+ *   in fondo l'elenco dei codici della classe, con i codici sbagliati ricondotti all'alunno giusto;
+ * - un alunno: tutte le attività della classe, con «Correggi nella pagina» (la pagina aperta in
+ *   modalità docente con le risposte dell'alunno) e «Leggi le risposte».
  *
  * Tutti i dati passano dalle funzioni protette di Supabase (supabase/area-docente-compiti.sql e
  * supabase/progress-protezione.sql) con la sessione aperta da assets/docente-accesso.js.
@@ -20,7 +20,7 @@
     const GIORNO = 24 * 60 * 60 * 1000;
     const SOGLIA_COMPLETATO = 90;   // percentuale da cui un lavoro conta come completato
     const GIORNI_FERMO = 3;         // un lavoro non finito senza salvataggi da tanti giorni è «fermo»
-    const VISTA_KEY = 'mo:area-docente-vista';
+    const PERIODO_KEY = 'mo:area-docente-periodo';
     const SUPER_STORAGE_KEY = 'mo:super-impersonations';
     const SUPER_SESSION_DURATION = 15 * 60 * 1000;
     const PAGE_ALIAS = {
@@ -36,14 +36,11 @@
     const stato = {
         righe: [],               // salvataggi senza contenuto, con conteggio dei campi
         classi: new Map(),       // classe → [{ codice, alias: [] }]
-        compiti: [],
+        compiti: [],             // tabella dei compiti assegnati: per ora non mostrata
         catalogo: new Map(),     // percorso → { titolo, sezione }
         totaliPagina: new Map(), // percorso → numero massimo di campi visto
-        vista: 'compiti',
-        filtroCompiti: '',
-        classeScelta: '',
-        compitiAperti: new Set(),
-        stroop: null,
+        periodo: 'anno',
+        attivitaAperte: new Set(),
         caricato: false
     };
 
@@ -205,31 +202,6 @@
         return new Date(a.updated_at) >= new Date(b.updated_at) ? a : b;
     }
 
-    // Per un compito: una riga per alunno dell'elenco, più chi ha salvato con un codice fuori elenco.
-    function avanzamentoCompito(compito) {
-        const { daElenco, alunni } = alunniDellaClasse(compito.class_code);
-        const alias = mappaAlias(compito.class_code);
-        const perCodice = new Map();
-        const fuori = new Map();
-        stato.righe
-            .filter(r => r.class_code === compito.class_code && r.page_path === compito.page_path)
-            .forEach(r => {
-                const canonico = daElenco ? alias.get(r.student_code) : r.student_code;
-                if (canonico) {
-                    perCodice.set(canonico, migliore(perCodice.get(canonico), r));
-                } else {
-                    fuori.set(r.student_code, migliore(fuori.get(r.student_code), r));
-                }
-            });
-        const righe = alunni.map(a => ({ codice: a.codice, riga: perCodice.get(a.codice) || null, fuoriElenco: false }));
-        fuori.forEach((riga, codice) => righe.push({ codice, riga, fuoriElenco: true }));
-        righe.sort((x, y) => x.codice.localeCompare(y.codice, 'it'));
-        const conta = { fatto: 0, corso: 0, zero: 0 };
-        let somma = 0;
-        righe.forEach(r => { const s = statoLavoro(r.riga); conta[s.chiave] += 1; somma += s.pct; });
-        return { daElenco, righe, conta, media: righe.length ? Math.round(somma / righe.length) : 0 };
-    }
-
     function pila(conta) {
         const tot = conta.fatto + conta.corso + conta.zero;
         if (!tot) return '<div class="ad-pila"></div><div class="ad-pila-legenda">Nessun alunno</div>';
@@ -244,8 +216,8 @@
 
     function azioniAlunno(classe, codice, riga, pagePath) {
         if (!riga) return '<span class="ad-etichetta">nessun salvataggio</span>';
-        return `<button class="ad-btn ad-btn-piccolo" type="button" data-risposte="${esc(riga.id)}">Risposte</button>` +
-            `<button class="ad-btn ad-btn-piccolo ad-btn-quieto" type="button" data-come-alunno data-classe="${esc(riga.class_code)}" data-codice="${esc(riga.student_code)}" data-pagina="${esc(pagePath || riga.page_path)}">Apri come alunno</button>`;
+        return `<button class="ad-btn ad-btn-piccolo" type="button" data-come-alunno data-classe="${esc(riga.class_code)}" data-codice="${esc(riga.student_code)}" data-pagina="${esc(pagePath || riga.page_path)}">Correggi nella pagina</button>` +
+            `<button class="ad-btn ad-btn-piccolo ad-btn-quieto" type="button" data-risposte="${esc(riga.id)}">Leggi le risposte</button>`;
     }
 
     // ───────────────────────── caricamento ─────────────────────────
@@ -275,10 +247,9 @@
         const pulsante = $('#ad-aggiorna');
         if (pulsante) { pulsante.disabled = true; pulsante.textContent = 'Aggiornamento…'; }
         try {
-            const [righe, classi, compiti] = await Promise.all([
+            const [righe, classi] = await Promise.all([
                 window.MODocente.chiama('progress_docente_riepilogo', { p_limite: 10000 }),
                 window.MODocente.chiama('docente_classi_elenco', {}),
-                window.MODocente.chiama('docente_compiti_elenco', {}),
                 stato.catalogo.size ? null : caricaCatalogo()
             ]);
             stato.righe = (righe || []).map(r => {
@@ -301,10 +272,8 @@
             });
             stato.classi = new Map((classi || []).map(c => [normCodice(c.class_code),
                 (Array.isArray(c.studenti) ? c.studenti : []).map(s => ({ codice: normCodice(s.codice), alias: (s.alias || []).map(normCodice) }))]));
-            stato.compiti = (compiti || []).map(c => ({ ...c, class_code: normCodice(c.class_code), page_path: normPath(c.page_path) }));
             stato.caricato = true;
             $('#ad-ora').textContent = new Date().toLocaleString('it-IT', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
-            aggiornaContatori();
             disegna();
         } catch (errore) {
             gestisciErrore(errore, 'Non riesco a caricare i dati');
@@ -332,310 +301,258 @@
         ]);
     }
 
-    // ───────────────────────── schede ─────────────────────────
 
-    function scegliVista(vista) {
-        stato.vista = vista;
-        try { localStorage.setItem(VISTA_KEY, vista); } catch { }
-        $$('.ad-scheda').forEach(b => {
-            const attiva = b.dataset.vista === vista;
-            b.setAttribute('aria-selected', String(attiva));
-            b.tabIndex = attiva ? 0 : -1;
-        });
-        $$('.ad-vista').forEach(v => { v.hidden = v.id !== `vista-${vista}`; });
-        if (history.replaceState) history.replaceState(null, '', `#${vista}`);
-        disegna();
+    // ───────────────────────── percorso: classi → classe → alunno ─────────────────────────
+    // L'indirizzo dice dove si è: «#» le classi, «#classe/5sa» una classe,
+    // «#classe/5sa/alunno/rossim» un alunno. Così il tasto Indietro del browser funziona.
+
+    function leggiPercorso() {
+        const parti = (location.hash || '').replace(/^#\/?/, '').split('/').map(p => { try { return decodeURIComponent(p); } catch { return p; } });
+        if (parti[0] === 'classe' && parti[1]) {
+            return { classe: normCodice(parti[1]), alunno: parti[2] === 'alunno' && parti[3] ? normCodice(parti[3]) : '' };
+        }
+        return { classe: '', alunno: '' };
     }
 
-    function aggiornaContatori() {
-        const attivi = stato.compiti.filter(c => !c.archiviato).length;
-        const tab = $('#tab-compiti');
-        if (tab) tab.innerHTML = `Compiti${attivi ? `<span class="ad-conta">${attivi}</span>` : ''}`;
+    function vai(classe, alunno) {
+        let h = '';
+        if (classe) h = `#classe/${encodeURIComponent(classe)}`;
+        if (classe && alunno) h += `/alunno/${encodeURIComponent(alunno)}`;
+        if (location.hash === h || (!h && !location.hash)) disegna();
+        else location.hash = h;
+        window.scrollTo({ top: 0 });
     }
 
     function disegna() {
         if (!stato.caricato) return;
-        if (stato.vista === 'compiti') disegnaCompiti();
-        else if (stato.vista === 'classi') disegnaClassi();
-        else if (stato.vista === 'recenti') disegnaRecenti();
-        else if (stato.vista === 'verifiche') disegnaVerifiche();
-    }
-
-    // ───────────────────────── Compiti ─────────────────────────
-
-    function disegnaCompiti() {
-        const mostraArchiviati = $('#compiti-archiviati').checked;
-        const classi = ordinaClassi(stato.compiti.filter(c => mostraArchiviati || !c.archiviato).map(c => c.class_code));
-        if (stato.filtroCompiti && !classi.includes(stato.filtroCompiti)) stato.filtroCompiti = '';
-        $('#compiti-filtro-classi').innerHTML = classi.length > 1
-            ? [`<button class="ad-filtro" type="button" data-filtro-compiti="" aria-pressed="${!stato.filtroCompiti}">Tutte</button>`,
-                ...classi.map(c => `<button class="ad-filtro" type="button" data-filtro-compiti="${esc(c)}" aria-pressed="${stato.filtroCompiti === c}">${esc(nomeClasse(c))}</button>`)].join('')
-            : '';
-
-        const lista = stato.compiti.filter(c => (mostraArchiviati || !c.archiviato) && (!stato.filtroCompiti || c.class_code === stato.filtroCompiti));
-        const box = $('#compiti-elenco');
-        if (!lista.length) {
-            box.innerHTML = stato.compiti.length
-                ? '<p class="ad-vuoto">Nessun compito con questi filtri.</p>'
-                : `<div class="ad-vuoto"><p><strong>Non hai ancora assegnato compiti.</strong></p>
-                    <p>Premi «+ Assegna compito», scegli classe e attività: qui vedrai a colpo d'occhio chi ha finito, chi è a metà e chi non ha cominciato.</p>
-                    <p>Puoi anche partire dalla scheda «Attività recenti» e premere «Assegna come compito» su un'attività che la classe sta già facendo.</p></div>`;
-            return;
-        }
-        const attivi = lista.filter(c => !c.archiviato);
-        const archiviati = lista.filter(c => c.archiviato);
-        let html = attivi.map(schedaCompito).join('');
-        if (archiviati.length) html += `<h3 class="ad-gruppo-titolo">Archiviati</h3>` + archiviati.map(schedaCompito).join('');
-        box.innerHTML = html;
-    }
-
-    function infoScadenza(c) {
-        const parti = [`assegnato ${esc(dataGiorno(c.assegnato_il))}`];
-        if (c.scadenza) {
-            const g = giorniAllaScadenza(c.scadenza);
-            let testo = `scadenza ${esc(dataGiorno(c.scadenza))}`;
-            if (!c.archiviato) {
-                if (g < 0) testo = `<span class="ad-scaduto">scaduto ${esc(dataGiorno(c.scadenza))}</span>`;
-                else if (g === 0) testo = `<span class="ad-scade-presto">scade oggi</span>`;
-                else if (g <= 2) testo = `<span class="ad-scade-presto">scade ${g === 1 ? 'domani' : `tra ${g} giorni`}</span>`;
-            }
-            parti.push(testo);
-        }
-        return parti.join(' · ');
-    }
-
-    function schedaCompito(c) {
-        const av = avanzamentoCompito(c);
-        const aperto = stato.compitiAperti.has(c.id);
-        const sezione = sezionePagina(c.page_path);
-        const avvisoElenco = av.daElenco ? '' :
-            `<div class="ad-avviso">Per la ${esc(nomeClasse(c.class_code))} non c'è ancora l'elenco degli alunni: chi non ha mai aperto l'attività non compare.
-             <button class="ad-link" type="button" data-vai-classe="${esc(c.class_code)}">Scrivi l'elenco della classe</button></div>`;
-        const righe = av.righe.map(r => `
-            <tr class="${r.riga ? '' : 'ad-riga-zero'}">
-                <td class="ad-codice">${esc(r.codice)}${r.fuoriElenco ? '<span class="ad-etichetta" title="Codice che non è nell\'elenco della classe">fuori elenco</span>' : ''}</td>
-                <td>${barraAvanzamento(r.riga)}</td>
-                <td>${badgeStato(r.riga)}</td>
-                <td>${r.riga ? `${esc(dataBreve(r.riga.updated_at))}<br><small class="muted">${esc(quandoFa(r.riga.updated_at))}</small>` : '—'}</td>
-                <td class="ad-azioni-cella">${azioniAlunno(c.class_code, r.codice, r.riga, c.page_path)}</td>
-            </tr>`).join('');
-        return `<article class="ad-compito${aperto ? ' ad-aperto' : ''}${c.archiviato ? ' ad-archiviato' : ''}" data-compito="${esc(c.id)}">
-            <div class="ad-compito-testa" data-apri-compito="${esc(c.id)}" role="button" tabindex="0" aria-expanded="${aperto}">
-                <span class="ad-classe">${esc(nomeClasse(c.class_code))}</span>
-                <div>
-                    <div class="ad-compito-nome">${esc(c.titolo)}</div>
-                    <div class="ad-compito-info">${sezione ? esc(sezione) + ' · ' : ''}${infoScadenza(c)}</div>
-                </div>
-                <div class="ad-compito-barra">${pila(av.conta)}</div>
-                <span class="ad-apri" aria-hidden="true">›</span>
-            </div>
-            <div class="ad-compito-corpo">
-                ${c.note ? `<div class="ad-nota">${esc(c.note)}</div>` : ''}
-                ${avvisoElenco}
-                ${av.righe.length ? `<div class="ad-tabella-box"><table class="ad-tabella">
-                    <thead><tr><th>Alunno</th><th>Avanzamento</th><th>Stato</th><th>Ultimo salvataggio</th><th></th></tr></thead>
-                    <tbody>${righe}</tbody></table></div>` : '<p class="ad-vuoto">Nessun alunno ha ancora salvato questa attività.</p>'}
-                <p class="ad-compito-info" style="margin-top:.6rem">Media della classe: <strong>${av.media}%</strong> ·
-                    <a href="${esc(linkPagina(c.page_path))}" target="_blank" rel="noopener">apri l'attività</a></p>
-                <div class="ad-compito-azioni">
-                    <button class="ad-btn ad-btn-piccolo" type="button" data-modifica-compito="${esc(c.id)}">Modifica</button>
-                    <button class="ad-btn ad-btn-piccolo" type="button" data-archivia-compito="${esc(c.id)}" data-valore="${c.archiviato ? 'false' : 'true'}">${c.archiviato ? 'Riporta tra gli attivi' : 'Archivia (concluso)'}</button>
-                    ${c.archiviato ? `<button class="ad-btn ad-btn-piccolo ad-btn-pericolo" type="button" data-elimina-compito="${esc(c.id)}">Elimina</button>` : ''}
-                </div>
-            </div>
-        </article>`;
-    }
-
-    function opzioniAttivita(selezionata) {
-        const gruppi = new Map();
-        stato.catalogo.forEach((v, p) => {
-            if (v.archiviato) return;
-            if (!gruppi.has(v.sezione)) gruppi.set(v.sezione, []);
-            gruppi.get(v.sezione).push([p, v.titolo]);
-        });
-        const conSalvataggi = ordinaClassi(stato.righe.map(r => r.page_path)).filter(p => !stato.catalogo.has(p) || stato.catalogo.get(p).archiviato);
-        if (conSalvataggi.length) gruppi.set('Altre pagine con salvataggi', conSalvataggi.map(p => [p, titoloPagina(p)]));
-        if (selezionata && !Array.from(gruppi.values()).some(l => l.some(([p]) => p === selezionata))) {
-            gruppi.set('Pagina scelta', [[selezionata, titoloPagina(selezionata)]]);
-        }
-        let html = '<option value="">Scegli l\'attività…</option>';
-        gruppi.forEach((voci, sezione) => {
-            html += `<optgroup label="${esc(sezione)}">` + voci.map(([p, t]) =>
-                `<option value="${esc(p)}"${p === selezionata ? ' selected' : ''}>${esc(t)}</option>`).join('') + '</optgroup>';
-        });
-        return html;
-    }
-
-    function apriModulo(compito, preset) {
-        const box = $('#compiti-modulo');
-        const c = compito || { class_code: (preset && preset.classe) || stato.filtroCompiti || '', page_path: (preset && preset.pagina) || '', titolo: '', assegnato_il: oggiISO(), scadenza: '', note: '' };
-        const classi = classiNote();
-        const spunte = compito
-            ? `<label><input type="radio" name="classe" value="${esc(c.class_code)}" checked> ${esc(nomeClasse(c.class_code))}</label>`
-            : classi.map(k => `<label><input type="checkbox" name="classe" value="${esc(k)}"${k === c.class_code ? ' checked' : ''}> ${esc(nomeClasse(k))}</label>`).join('') +
-              `<label>altra: <input type="text" name="classe-nuova" placeholder="es. 1sa" maxlength="12" aria-label="Altra classe"></label>`;
-        box.innerHTML = `<form id="modulo-compito">
-            <h3>${compito ? 'Modifica il compito' : 'Assegna un compito'}</h3>
-            <div class="ad-modulo-griglia">
-                <fieldset><legend>Classe${compito ? '' : ' (puoi sceglierne più di una)'}</legend><div class="ad-spunte">${spunte}</div></fieldset>
-                <label class="ad-largo">Attività del sito
-                    <select name="pagina" required>${opzioniAttivita(c.page_path)}</select>
-                </label>
-                <label class="ad-largo">Titolo che vedrai nell'elenco
-                    <input type="text" name="titolo" maxlength="200" value="${esc(c.titolo)}" placeholder="Si compila da solo con il nome dell'attività">
-                </label>
-                <label>Assegnato il <input type="date" name="assegnato" value="${esc(c.assegnato_il || oggiISO())}"></label>
-                <label>Scadenza <input type="date" name="scadenza" value="${esc(c.scadenza || '')}"></label>
-                <label class="ad-largo">Note per te (facoltative)
-                    <textarea name="note" rows="2" maxlength="2000" placeholder="Es. solo le fasi 1 e 2; da finire a casa">${esc(c.note || '')}</textarea>
-                </label>
-            </div>
-            <div class="ad-modulo-azioni">
-                <button class="ad-btn ad-btn-primario" type="submit">${compito ? 'Salva le modifiche' : 'Assegna'}</button>
-                <button class="ad-btn ad-btn-quieto" type="button" data-chiudi-modulo>Annulla</button>
-            </div>
-        </form>`;
-        box.hidden = false;
-        const form = $('#modulo-compito');
-        form.dataset.id = compito ? compito.id : '';
-        const selPagina = form.elements.pagina;
-        const titolo = form.elements.titolo;
-        let titoloToccato = Boolean(c.titolo);
-        titolo.addEventListener('input', () => { titoloToccato = true; });
-        selPagina.addEventListener('change', () => { if (!titoloToccato) titolo.value = selPagina.value ? titoloPagina(selPagina.value) : ''; });
-        if (!c.titolo && c.page_path) titolo.value = titoloPagina(c.page_path);
-        form.addEventListener('submit', salvaCompito);
-        box.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    async function salvaCompito(evento) {
-        evento.preventDefault();
-        const form = evento.currentTarget;
-        const id = form.dataset.id || null;
-        const classi = $$('input[name="classe"]:checked', form).map(i => i.value);
-        const nuova = normCodice(form.elements['classe-nuova'] && form.elements['classe-nuova'].value);
-        if (nuova) {
-            if (!/^[a-z0-9]{1,12}$/.test(nuova)) { alert('Il codice della classe usa solo lettere e numeri, per esempio 1sa.'); return; }
-            classi.push(nuova);
-        }
-        const pagina = form.elements.pagina.value;
-        const titolo = form.elements.titolo.value.trim() || titoloPagina(pagina);
-        const scadenza = form.elements.scadenza.value || null;
-        const assegnato = form.elements.assegnato.value || null;
-        if (!classi.length) { alert('Scegli almeno una classe.'); return; }
-        if (!pagina) { alert('Scegli l\'attività da assegnare.'); return; }
-        if (scadenza && assegnato && scadenza < assegnato) { alert('La scadenza è prima della data di assegnazione.'); return; }
-        const bottone = form.querySelector('button[type="submit"]');
-        bottone.disabled = true;
-        try {
-            for (const classe of ordinaClassi(classi)) {
-                await window.MODocente.chiama('docente_compito_salva', {
-                    p_id: id, p_class_code: classe, p_page_path: pagina, p_titolo: titolo,
-                    p_assegnato_il: assegnato, p_scadenza: scadenza, p_note: form.elements.note.value
-                });
-            }
-            chiudiModulo();
-            await caricaTutto();
-        } catch (errore) {
-            bottone.disabled = false;
-            gestisciErrore(errore, 'Il compito non è stato salvato');
+        const { classe, alunno } = leggiPercorso();
+        const percorso = $('#ad-percorso');
+        if (!classe) {
+            percorso.innerHTML = '<span>Le tue classi</span>';
+            disegnaHome();
+        } else if (!alunno) {
+            percorso.innerHTML = `<button class="ad-link" type="button" data-vai="">Le tue classi</button><span aria-hidden="true">›</span><span>${esc(nomeClasse(classe))}</span>`;
+            disegnaClasse(classe);
+        } else {
+            percorso.innerHTML = `<button class="ad-link" type="button" data-vai="">Le tue classi</button><span aria-hidden="true">›</span>
+                <button class="ad-link" type="button" data-vai="${esc(classe)}">${esc(nomeClasse(classe))}</button><span aria-hidden="true">›</span>
+                <span>${esc(alunno)}</span>`;
+            disegnaAlunno(classe, alunno);
         }
     }
 
-    function chiudiModulo() {
-        const box = $('#compiti-modulo');
-        box.hidden = true;
-        box.innerHTML = '';
+    function inizioPeriodo() {
+        if (stato.periodo === '7') return Date.now() - 7 * GIORNO;
+        if (stato.periodo === '30') return Date.now() - 30 * GIORNO;
+        return inizioAnnoScolastico().getTime();
     }
 
-    async function archiviaCompito(id, valore) {
-        try {
-            await window.MODocente.chiama('docente_compito_archivia', { p_id: id, p_archiviato: valore });
-            await caricaTutto();
-        } catch (errore) { gestisciErrore(errore, 'Operazione non riuscita'); }
-    }
+    const NOMI_PERIODO = { anno: "quest'anno scolastico", '30': 'ultimi 30 giorni', '7': 'ultimi 7 giorni' };
 
-    async function eliminaCompito(id) {
-        const c = stato.compiti.find(x => x.id === id);
-        if (!c || !confirm(`Eliminare il compito «${c.titolo}» della ${nomeClasse(c.class_code)}?\n\nLe risposte degli alunni restano salvate: si toglie solo l'assegnazione.`)) return;
-        try {
-            await window.MODocente.chiama('docente_compito_elimina', { p_id: id });
-            await caricaTutto();
-        } catch (errore) { gestisciErrore(errore, 'Eliminazione non riuscita'); }
-    }
-
-    // ───────────────────────── Classi ─────────────────────────
-
-    function disegnaClassi() {
-        const classi = classiNote();
-        if (!stato.classeScelta || !classi.includes(stato.classeScelta)) {
-            // si parte dalla classe che ha lavorato per ultima
-            const recente = stato.righe.find(r => classi.includes(r.class_code));
-            stato.classeScelta = recente ? recente.class_code : (classi[0] || '');
-        }
-        $('#classi-scelta').innerHTML = classi.map(c =>
-            `<button class="ad-filtro" type="button" data-scegli-classe="${esc(c)}" aria-pressed="${stato.classeScelta === c}">${esc(nomeClasse(c))}</button>`).join('') +
-            `<button class="ad-filtro" type="button" data-nuova-classe>+ Nuova classe</button>`;
-        const box = $('#classi-contenuto');
-        if (!stato.classeScelta) { box.innerHTML = '<p class="ad-vuoto">Nessuna classe con salvataggi quest\'anno.</p>'; return; }
-
-        const classe = stato.classeScelta;
+    // Tutto ciò che serve per una classe nel periodo scelto:
+    // - alunni (dall'elenco, oppure i codici visti quest'anno) con i codici sbagliati ricondotti;
+    // - attività (pagine) su cui almeno un alunno ha salvato nel periodo;
+    // - per ogni alunno e attività il salvataggio migliore.
+    function datiClasse(classe) {
         const { daElenco, alunni } = alunniDellaClasse(classe);
         const alias = mappaAlias(classe);
-        const compiti = stato.compiti.filter(c => c.class_code === classe && !c.archiviato);
-        const avanz = compiti.map(c => ({ compito: c, av: avanzamentoCompito(c) }));
-        const dal7 = Date.now() - 7 * GIORNO;
-        const righeClasse = stato.righe.filter(r => r.class_code === classe);
-        const ultimo = new Map();
-        const recenti = new Map();
-        righeClasse.forEach(r => {
-            const codice = daElenco ? (alias.get(r.student_code) || null) : r.student_code;
-            if (!codice) return;
-            if (!ultimo.has(codice) || new Date(r.updated_at) > new Date(ultimo.get(codice))) ultimo.set(codice, r.updated_at);
-            if (new Date(r.updated_at).getTime() >= dal7) {
-                if (!recenti.has(codice)) recenti.set(codice, new Set());
-                recenti.get(codice).add(r.page_path);
-            }
+        const dal = inizioPeriodo();
+        const lavori = new Map();       // codice → Map(pagina → riga)
+        const fuori = new Set();        // codici fuori elenco
+        const pagine = new Map();       // pagina → ultimo salvataggio
+        alunni.forEach(a => lavori.set(a.codice, new Map()));
+        stato.righe.forEach(r => {
+            if (r.class_code !== classe || new Date(r.updated_at).getTime() < dal) return;
+            const codice = daElenco ? alias.get(r.student_code) : r.student_code;
+            if (!codice) { fuori.add(r.student_code); return; }
+            if (!lavori.has(codice)) lavori.set(codice, new Map());
+            const m = lavori.get(codice);
+            m.set(r.page_path, migliore(m.get(r.page_path), r));
+            if (!pagine.has(r.page_path) || r.updated_at > pagine.get(r.page_path)) pagine.set(r.page_path, r.updated_at);
         });
-        const attiviSettimana = alunni.filter(a => recenti.has(a.codice)).length;
-        const daRecuperare = alunni.filter(a => avanz.some(x => {
-            const r = x.av.righe.find(y => y.codice === a.codice);
-            return !r || statoLavoro(r.riga).chiave === 'zero';
-        })).length;
+        const elencoAlunni = Array.from(lavori.keys()).sort((a, b) => a.localeCompare(b, 'it'));
+        const attivita = Array.from(pagine.entries()).sort((a, b) => b[1].localeCompare(a[1])).map(([p, ultimo]) => {
+            const conta = { fatto: 0, corso: 0, zero: 0 };
+            let somma = 0;
+            elencoAlunni.forEach(cod => { const s = statoLavoro(lavori.get(cod).get(p)); conta[s.chiave] += 1; somma += s.pct; });
+            return { pagina: p, ultimo, conta, media: elencoAlunni.length ? Math.round(somma / elencoAlunni.length) : 0,
+                     aperta: elencoAlunni.filter(cod => lavori.get(cod).has(p)).length };
+        });
+        const perAlunno = elencoAlunni.map(cod => {
+            const m = lavori.get(cod);
+            let somma = 0, fatte = 0, ultimo = '';
+            attivita.forEach(a => {
+                const r = m.get(a.pagina);
+                const s = statoLavoro(r);
+                somma += s.pct;
+                if (s.chiave === 'fatto') fatte += 1;
+                if (r && r.updated_at > ultimo) ultimo = r.updated_at;
+            });
+            return { codice: cod, aperte: m.size, fatte, media: attivita.length ? Math.round(somma / attivita.length) : 0, ultimo, lavori: m };
+        });
+        return { daElenco, alias, alunni: elencoAlunni, attivita, perAlunno, fuori: Array.from(fuori).sort() };
+    }
 
-        const intest = avanz.map(({ compito: c }) => `<th class="ad-col-compito" title="${esc(c.titolo)}">${esc(c.titolo.length > 42 ? c.titolo.slice(0, 40) + '…' : c.titolo)}${c.scadenza ? `<small>entro ${esc(dataGiorno(c.scadenza))}</small>` : ''}</th>`).join('');
-        const corpo = alunni.map(a => {
-            const celle = avanz.map(({ compito: c, av }) => {
-                const r = av.righe.find(y => y.codice === a.codice);
-                const s = statoLavoro(r && r.riga);
-                const titolo = `${c.titolo}: ${s.etichetta}${r && r.riga ? `, ultimo salvataggio ${dataBreve(r.riga.updated_at)}` : ''}`;
-                return `<td class="ad-cella"><button class="ad-cella-btn ad-stato-${s.chiave}" type="button" title="${esc(titolo)}" ${r && r.riga ? `data-risposte="${esc(r.riga.id)}"` : 'disabled'}>${r && r.riga ? s.pct + '%' : '—'}</button></td>`;
-            }).join('');
-            const ult = ultimo.get(a.codice);
-            const g = giorniFa(ult);
-            const nRecenti = recenti.has(a.codice) ? recenti.get(a.codice).size : 0;
-            return `<tr>
-                <td class="ad-codice">${esc(a.codice)}${(a.alias || []).length ? `<span class="ad-etichetta" title="Anche: ${esc(a.alias.join(', '))}">+${a.alias.length}</span>` : ''}</td>
-                ${celle}
-                <td>${ult ? `${esc(quandoFa(ult))}${g >= 7 ? ' <span class="ad-stato ad-stato-zero">assente</span>' : ''}` : '<span class="ad-stato ad-stato-zero">mai</span>'}</td>
-                <td>${nRecenti || '—'}</td>
-            </tr>`;
+    function percento(n) { return `<span class="ad-percento ad-percento-${n >= SOGLIA_COMPLETATO ? 'fatto' : n >= 40 ? 'corso' : 'zero'}">${n}%</span>`; }
+
+    // ───────────────────────── 1. Le classi ─────────────────────────
+
+    function disegnaHome() {
+        const classi = classiNote();
+        const salvaPeriodo = stato.periodo;
+        stato.periodo = 'anno';
+        const schede = classi.map(classe => {
+            const d = datiClasse(classe);
+            const media = d.perAlunno.length ? Math.round(d.perAlunno.reduce((s, a) => s + a.media, 0) / d.perAlunno.length) : 0;
+            const ultimo = d.perAlunno.map(a => a.ultimo).filter(Boolean).sort().pop();
+            const settimana = Date.now() - 7 * GIORNO;
+            const attivi = d.perAlunno.filter(a => a.ultimo && new Date(a.ultimo).getTime() >= settimana).length;
+            return `<button class="ad-classe-scheda" type="button" data-vai="${esc(classe)}">
+                <span class="ad-classe-nome">${esc(nomeClasse(classe))}</span>
+                <span class="ad-classe-numeri">
+                    <span><strong>${d.alunni.length}</strong> alunni</span>
+                    <span><strong>${d.attivita.length}</strong> attività</span>
+                    <span><strong>${media}%</strong> media</span>
+                </span>
+                <span class="ad-classe-dati">${attivi} hanno lavorato negli ultimi 7 giorni · ultimo lavoro ${esc(quandoFa(ultimo))}</span>
+                ${d.daElenco ? '' : '<span class="ad-classe-allarme">Elenco alunni da completare</span>'}
+            </button>`;
+        }).join('');
+        stato.periodo = salvaPeriodo;
+        $('#ad-vista').innerHTML = `
+            ${classi.length ? `<div class="ad-classi-griglia">${schede}</div>` : '<p class="ad-vuoto">Nessuna classe con lavori salvati quest\'anno.</p>'}
+            <p class="ad-piccolo"><button class="ad-link" type="button" data-nuova-classe>+ Aggiungi una classe</button> che non ha ancora usato il sito.</p>
+            <h3 class="ad-sezione-titolo">Altri strumenti</h3>
+            <div class="ad-strumenti">
+                <a class="ad-strumento" href="materiali/biennio/verifica-operatore-terza.html?docente=1"><strong>Correggi la verifica di terza</strong><span>L’operatore sociale: elaborati, correzione e restituzione.</span></a>
+                <a class="ad-strumento" href="stroop_statistiche.html"><strong>Test di Stroop</strong><span>Risultati e grafici per classe.</span></a>
+                <a class="ad-strumento" href="programmazione.html"><strong>Programmazione individuale</strong><span>Il piano di lavoro di una classe, in Word.</span></a>
+            </div>`;
+    }
+
+    // ───────────────────────── 2. Una classe ─────────────────────────
+
+    function disegnaClasse(classe) {
+        const d = datiClasse(classe);
+        const nAlunni = d.alunni.length;
+        const mediaClasse = d.perAlunno.length ? Math.round(d.perAlunno.reduce((s, a) => s + a.media, 0) / d.perAlunno.length) : 0;
+        const settimana = Date.now() - 7 * GIORNO;
+        const attivi = d.perAlunno.filter(a => a.ultimo && new Date(a.ultimo).getTime() >= settimana).length;
+        const senzaLavori = d.perAlunno.filter(a => !a.aperte).length;
+
+        const righeAttivita = d.attivita.map((a, i) => {
+            const aperta = stato.attivitaAperte.has(`${classe}|${a.pagina}`);
+            const dettaglio = aperta ? `<tr class="ad-dettaglio"><td colspan="5"><div class="ad-tabella-box"><table class="ad-tabella ad-tabella-interna"><tbody>${
+                d.alunni.map(cod => {
+                    const r = d.perAlunno.find(x => x.codice === cod).lavori.get(a.pagina);
+                    return `<tr class="${r ? '' : 'ad-riga-zero'}"><td class="ad-codice"><button class="ad-link" type="button" data-vai="${esc(classe)}" data-alunno="${esc(cod)}">${esc(cod)}</button></td>
+                        <td>${barraAvanzamento(r)}</td><td>${badgeStato(r)}</td>
+                        <td>${r ? esc(dataBreve(r.updated_at)) : '—'}</td>
+                        <td class="ad-azioni-cella">${azioniAlunno(classe, cod, r, a.pagina)}</td></tr>`;
+                }).join('')}</tbody></table></div></td></tr>` : '';
+            return `<tr class="ad-riga-attivita" data-apri-attivita="${esc(classe)}|${esc(a.pagina)}" tabindex="0" aria-expanded="${aperta}">
+                    <td><span class="ad-apri${aperta ? ' ad-ruota' : ''}" aria-hidden="true">›</span> <strong>${esc(titoloPagina(a.pagina))}</strong><br><small class="muted">${esc(sezionePagina(a.pagina))}</small></td>
+                    <td class="ad-num">${a.aperta}/${nAlunni}</td>
+                    <td style="min-width:170px">${pila(a.conta)}</td>
+                    <td class="ad-num">${percento(a.media)}</td>
+                    <td>${esc(quandoFa(a.ultimo))}</td>
+                </tr>${dettaglio}`;
         }).join('');
 
-        box.innerHTML = `
-            ${daElenco ? '' : `<div class="ad-avviso">Per la ${esc(nomeClasse(classe))} manca l'elenco degli alunni: qui sotto vedi solo chi ha salvato almeno una volta quest'anno, e i codici scritti male contano come alunni diversi. Sistemalo in fondo, in «Elenco degli alunni».</div>`}
-            <div class="ad-riepilogo-classe">
-                <div class="ad-numero"><strong>${alunni.length}</strong><span>alunni${daElenco ? ' in elenco' : ' visti quest\'anno'}</span></div>
-                <div class="ad-numero"><strong>${attiviSettimana}</strong><span>hanno lavorato negli ultimi 7 giorni</span></div>
-                <div class="ad-numero"><strong>${compiti.length}</strong><span>compiti attivi</span></div>
-                <div class="ad-numero"><strong>${compiti.length ? daRecuperare : '—'}</strong><span>con almeno un compito da iniziare</span></div>
+        const righeAlunni = d.perAlunno.map(a => `
+            <tr class="${a.aperte ? '' : 'ad-riga-zero'}">
+                <td class="ad-codice"><button class="ad-link ad-link-forte" type="button" data-vai="${esc(classe)}" data-alunno="${esc(a.codice)}">${esc(a.codice)}</button></td>
+                <td class="ad-num">${a.aperte}/${d.attivita.length}</td>
+                <td class="ad-num">${a.fatte}</td>
+                <td class="ad-num">${percento(a.media)}</td>
+                <td>${a.ultimo ? esc(quandoFa(a.ultimo)) : '<span class="ad-stato ad-stato-zero">nessun lavoro</span>'}</td>
+                <td class="ad-azioni-cella"><button class="ad-btn ad-btn-piccolo" type="button" data-vai="${esc(classe)}" data-alunno="${esc(a.codice)}">Apri e correggi</button></td>
+            </tr>`).join('');
+
+        $('#ad-vista').innerHTML = `
+            <div class="ad-classe-testa">
+                <h3 class="ad-classe-titolo">${esc(nomeClasse(classe))}</h3>
+                <label class="ad-periodo">Periodo
+                    <select data-periodo>
+                        ${Object.entries(NOMI_PERIODO).map(([k, v]) => `<option value="${k}"${stato.periodo === k ? ' selected' : ''}>${v.charAt(0).toUpperCase() + v.slice(1)}</option>`).join('')}
+                    </select>
+                </label>
             </div>
-            ${alunni.length ? `<div class="ad-tabella-box"><table class="ad-tabella ad-matrice">
-                <thead><tr><th>Alunno</th>${intest}<th>Ultima attività</th><th>Attività in 7 gg</th></tr></thead>
-                <tbody>${corpo}</tbody></table></div>` : '<p class="ad-vuoto">Nessun alunno.</p>'}
-            ${compiti.length ? '' : `<p class="ad-compito-info" style="margin-top:.6rem">Nessun compito attivo per questa classe. <button class="ad-link" type="button" data-assegna-classe="${esc(classe)}">Assegnane uno</button></p>`}
-            ${pannelloElenco(classe, daElenco, alias)}`;
+
+            ${d.daElenco ? '' : `<div class="ad-avviso">L'elenco degli alunni della ${esc(nomeClasse(classe))} non è ancora completo: compaiono solo quelli che hanno salvato almeno un lavoro, e chi ha sbagliato codice risulta due volte. Sistemalo in fondo alla pagina.</div>`}
+
+            <div class="ad-riepilogo-classe">
+                <div class="ad-numero"><strong>${nAlunni}</strong><span>alunni</span></div>
+                <div class="ad-numero"><strong>${d.attivita.length}</strong><span>attività svolte (${esc(NOMI_PERIODO[stato.periodo])})</span></div>
+                <div class="ad-numero"><strong>${mediaClasse}%</strong><span>completamento medio della classe</span></div>
+                <div class="ad-numero"><strong>${attivi}/${nAlunni}</strong><span>hanno lavorato negli ultimi 7 giorni</span></div>
+            </div>
+
+            <section class="ad-blocco">
+                <h4 class="ad-blocco-titolo">Alunni</h4>
+                <p class="ad-piccolo">Per ogni alunno: quante attività ha aperto e quante ha completato, e la media di completamento su tutte le attività della classe. Clicca sul nome per vedere i suoi lavori e correggerli.${senzaLavori ? ` <strong>${senzaLavori} senza nessun lavoro nel periodo.</strong>` : ''}</p>
+                ${d.perAlunno.length ? `<div class="ad-tabella-box"><table class="ad-tabella">
+                    <thead><tr><th>Alunno</th><th class="ad-num">Attività aperte</th><th class="ad-num">Completate</th><th class="ad-num">Media</th><th>Ultimo lavoro</th><th></th></tr></thead>
+                    <tbody>${righeAlunni}</tbody></table></div>` : '<p class="ad-vuoto">Nessun alunno.</p>'}
+            </section>
+
+            <section class="ad-blocco">
+                <h4 class="ad-blocco-titolo">Attività</h4>
+                <p class="ad-piccolo">Le pagine del sito su cui la classe ha lavorato, dalla più recente. La barra conta tutti gli alunni: verde chi ha completato, arancio chi è a metà, rosso chi non l'ha fatta. Clicca su un'attività per vedere alunno per alunno.</p>
+                ${d.attivita.length ? `<div class="ad-tabella-box"><table class="ad-tabella">
+                    <thead><tr><th>Attività</th><th class="ad-num">Aperta da</th><th>Risultati</th><th class="ad-num">Media</th><th>Ultimo lavoro</th></tr></thead>
+                    <tbody>${righeAttivita}</tbody></table></div>` : `<p class="ad-vuoto">Nessuna attività salvata nel periodo scelto.</p>`}
+            </section>
+
+            <section class="ad-blocco">
+                ${pannelloElenco(classe, d.daElenco, d.alias)}
+            </section>`;
     }
+
+    // ───────────────────────── 3. Un alunno ─────────────────────────
+
+    function disegnaAlunno(classe, codice) {
+        const d = datiClasse(classe);
+        const io = d.perAlunno.find(a => a.codice === codice);
+        const voce = (stato.classi.get(classe) || []).find(a => a.codice === codice);
+        const lavori = d.attivita.map(a => ({ a, r: io ? io.lavori.get(a.pagina) : null }));
+        const righe = lavori.map(({ a, r }) => `
+            <tr class="${r ? '' : 'ad-riga-zero'}">
+                <td><strong>${esc(titoloPagina(a.pagina))}</strong><br><small class="muted">${esc(sezionePagina(a.pagina))}${r && r.student_code !== codice ? ` · salvato come «${esc(r.student_code)}»` : ''}</small></td>
+                <td>${barraAvanzamento(r)}</td>
+                <td>${badgeStato(r)}</td>
+                <td>${r ? `${esc(dataBreve(r.updated_at))}<br><small class="muted">${esc(quandoFa(r.updated_at))}</small>` : '—'}</td>
+                <td class="ad-azioni-cella">${r
+                    ? `<button class="ad-btn ad-btn-piccolo ad-btn-primario" type="button" data-come-alunno data-classe="${esc(r.class_code)}" data-codice="${esc(r.student_code)}" data-pagina="${esc(a.pagina)}">Correggi nella pagina</button>
+                       <button class="ad-btn ad-btn-piccolo" type="button" data-risposte="${esc(r.id)}">Leggi le risposte</button>`
+                    : '<span class="ad-etichetta">non svolta</span>'}</td>
+            </tr>`).join('');
+        $('#ad-vista').innerHTML = `
+            <div class="ad-classe-testa">
+                <h3 class="ad-classe-titolo">${esc(codice)} <small>· ${esc(nomeClasse(classe))}</small></h3>
+                <label class="ad-periodo">Periodo
+                    <select data-periodo>
+                        ${Object.entries(NOMI_PERIODO).map(([k, v]) => `<option value="${k}"${stato.periodo === k ? ' selected' : ''}>${v.charAt(0).toUpperCase() + v.slice(1)}</option>`).join('')}
+                    </select>
+                </label>
+            </div>
+            ${voce && voce.alias && voce.alias.length ? `<p class="ad-piccolo">Conta anche i lavori salvati come: ${esc(voce.alias.join(', '))}.</p>` : ''}
+            <div class="ad-riepilogo-classe">
+                <div class="ad-numero"><strong>${io ? io.aperte : 0}/${d.attivita.length}</strong><span>attività della classe aperte</span></div>
+                <div class="ad-numero"><strong>${io ? io.fatte : 0}</strong><span>completate</span></div>
+                <div class="ad-numero"><strong>${io ? io.media : 0}%</strong><span>completamento medio</span></div>
+                <div class="ad-numero"><strong>${esc(io && io.ultimo ? quandoFa(io.ultimo) : 'mai')}</strong><span>ultimo lavoro</span></div>
+            </div>
+            <section class="ad-blocco">
+                <h4 class="ad-blocco-titolo">Attività</h4>
+                <p class="ad-piccolo">«Correggi nella pagina» apre l'attività con le risposte di ${esc(codice)}, come la vede l'alunno, in modalità docente. «Leggi le risposte» le mostra qui, in elenco.</p>
+                ${lavori.length ? `<div class="ad-tabella-box"><table class="ad-tabella">
+                    <thead><tr><th>Attività</th><th>Avanzamento</th><th>Stato</th><th>Ultimo salvataggio</th><th></th></tr></thead>
+                    <tbody>${righe}</tbody></table></div>` : '<p class="ad-vuoto">La classe non ha attività nel periodo scelto.</p>'}
+            </section>`;
+    }
+
+    // ───────────────────────── elenco degli alunni ─────────────────────────
 
     function pannelloElenco(classe, daElenco, alias) {
         const elenco = stato.classi.get(classe) || [];
@@ -654,13 +571,14 @@
                 <button class="ad-btn ad-btn-piccolo ad-btn-quieto" type="button" data-aggiungi-alunno="${esc(cod)}">È un alunno nuovo</button></li>`;
         }).join('');
         return `<details class="ad-elenco-alunni"${daElenco && !sconosciuti.length ? '' : ' open'}>
-            <summary>Elenco degli alunni della ${esc(nomeClasse(classe))}${daElenco ? ` · ${elenco.length}` : ' · da scrivere'}${sconosciuti.length ? ` · ${sconosciuti.length} ${sconosciuti.length === 1 ? 'codice' : 'codici'} da sistemare` : ''}</summary>
+            <summary>Elenco degli alunni${daElenco ? ` (${elenco.length})` : ' · da completare'}${sconosciuti.length ? ` · ${sconosciuti.length} ${sconosciuti.length === 1 ? 'codice' : 'codici'} da sistemare` : ''}</summary>
             <div class="ad-elenco-corpo">
-                <p>Un codice per riga, come lo scrivono gli alunni (cognome e iniziale del nome, senza spazi). Se un alunno ha usato anche un codice sbagliato, scrivilo dopo un uguale: <code>karimk = karim</code>. Così i suoi lavori si riuniscono e chi non ha mai aperto un compito compare in rosso.</p>
+                <p>Scrivi un codice per riga, come lo scrivono gli alunni quando entrano nelle attività (cognome e iniziale del nome, senza spazi). Con l'elenco completo, chi non ha mai lavorato compare comunque, in rosso.</p>
+                <p>Se un alunno ha usato anche un codice sbagliato, scrivilo dopo il segno uguale: <code>karimk = karim</code>. I lavori salvati con i due codici verranno contati insieme.</p>
                 <textarea id="elenco-testo" spellcheck="false" placeholder="rossim&#10;bianchia = bianchi">${esc(testo)}</textarea>
                 <div class="ad-modulo-azioni">
                     <button class="ad-btn ad-btn-primario" type="button" data-salva-elenco="${esc(classe)}">Salva l'elenco</button>
-                    <button class="ad-btn" type="button" data-proponi-elenco="${esc(classe)}">Proponi i codici usati quest'anno</button>
+                    <button class="ad-btn" type="button" data-proponi-elenco="${esc(classe)}">Inserisci i codici usati quest'anno</button>
                 </div>
                 ${sconosciuti.length ? `<div class="ad-sconosciuti"><p><strong>Codici usati quest'anno che non sono in elenco.</strong> Spesso sono errori di battitura: collegali all'alunno giusto.</p><ul>${lista}</ul></div>` : ''}
             </div>
@@ -686,100 +604,6 @@
             await window.MODocente.chiama('docente_classe_salva', { p_class_code: classe, p_studenti: alunni });
             await caricaTutto();
         } catch (errore) { gestisciErrore(errore, 'Elenco non salvato'); }
-    }
-
-    // ───────────────────────── Attività recenti ─────────────────────────
-
-    function disegnaRecenti() {
-        const periodo = $('#recenti-periodo').value;
-        const selClasse = $('#recenti-classe');
-        const classeFiltro = selClasse.value;
-        const cerca = normCodice($('#recenti-cerca').value);
-        const classi = ordinaClassi(stato.righe.map(r => r.class_code));
-        selClasse.innerHTML = '<option value="">Tutte</option>' + classi.map(c => `<option value="${esc(c)}"${c === classeFiltro ? ' selected' : ''}>${esc(nomeClasse(c))}</option>`).join('');
-
-        let dal = 0;
-        if (periodo === '7') dal = Date.now() - 7 * GIORNO;
-        else if (periodo === '30') dal = Date.now() - 30 * GIORNO;
-        else if (periodo === 'anno') dal = inizioAnnoScolastico().getTime();
-        const righe = stato.righe.filter(r => new Date(r.updated_at).getTime() >= dal
-            && (!classeFiltro || r.class_code === classeFiltro)
-            && (!cerca || r.student_code.includes(cerca)));
-        const box = $('#recenti-elenco');
-        if (!righe.length) { box.innerHTML = '<p class="ad-vuoto">Nessun salvataggio nel periodo scelto.</p>'; return; }
-
-        const gruppi = new Map();
-        righe.forEach(r => {
-            if (!gruppi.has(r.page_path)) gruppi.set(r.page_path, []);
-            gruppi.get(r.page_path).push(r);
-        });
-        const ordinati = Array.from(gruppi.entries())
-            .map(([p, lista]) => ({ p, lista, ultimo: lista.reduce((m, r) => r.updated_at > m ? r.updated_at : m, '') }))
-            .sort((a, b) => b.ultimo.localeCompare(a.ultimo));
-        box.innerHTML = ordinati.map((g, i) => {
-            const classiG = ordinaClassi(g.lista.map(r => r.class_code));
-            const media = Math.round(g.lista.reduce((s, r) => s + statoLavoro(r).pct, 0) / g.lista.length);
-            const lista = g.lista.slice().sort((a, b) => a.class_code.localeCompare(b.class_code, 'it', { numeric: true }) || a.student_code.localeCompare(b.student_code, 'it'));
-            const assegnato = classiG.filter(c => stato.compiti.some(x => !x.archiviato && x.class_code === c && x.page_path === g.p));
-            return `<details class="ad-attivita"${i === 0 ? ' open' : ''}>
-                <summary>
-                    <div>
-                        <div class="ad-compito-nome">${esc(titoloPagina(g.p))}</div>
-                        <div class="ad-compito-info">${classiG.map(c => `<span class="ad-classe" style="font-size:.72rem;padding:.1rem .4rem">${esc(nomeClasse(c))}</span>`).join(' ')}
-                            · ${g.lista.length} ${g.lista.length === 1 ? 'alunno' : 'alunni'} · media ${media}% · ultimo salvataggio ${esc(quandoFa(g.ultimo))}
-                            ${assegnato.length ? ` · <strong>compito per ${esc(assegnato.map(nomeClasse).join(', '))}</strong>` : ''}</div>
-                    </div>
-                    <button class="ad-btn ad-btn-piccolo" type="button" data-assegna-pagina="${esc(g.p)}" data-assegna-classe="${esc(classiG.length === 1 ? classiG[0] : '')}">Assegna come compito</button>
-                </summary>
-                <div class="ad-attivita-corpo"><div class="ad-tabella-box"><table class="ad-tabella">
-                    <thead><tr><th>Classe</th><th>Alunno</th><th>Avanzamento</th><th>Ultimo salvataggio</th><th></th></tr></thead>
-                    <tbody>${lista.map(r => `<tr>
-                        <td>${esc(nomeClasse(r.class_code))}</td>
-                        <td class="ad-codice">${esc(r.student_code)}</td>
-                        <td>${barraAvanzamento(r)}</td>
-                        <td>${esc(dataBreve(r.updated_at))}</td>
-                        <td class="ad-azioni-cella">${azioniAlunno(r.class_code, r.student_code, r, g.p)}</td></tr>`).join('')}</tbody>
-                </table></div></div>
-            </details>`;
-        }).join('');
-    }
-
-    // ───────────────────────── Verifiche e Stroop ─────────────────────────
-
-    async function disegnaVerifiche() {
-        const box = $('#stroop-contenuto');
-        if (!stato.stroop) {
-            box.innerHTML = '<p class="ad-vuoto">Caricamento…</p>';
-            try {
-                stato.stroop = (await window.MODocente.chiama('stroop_docente_test', { p_limite: 500 })) || [];
-            } catch (errore) {
-                if (errore && errore.code === '42501') { gestisciErrore(errore); return; }
-                box.innerHTML = '<p class="ad-vuoto">I risultati del test di Stroop non sono disponibili in questo momento.</p>';
-                return;
-            }
-        }
-        const dati = stato.stroop.map(t => ({
-            id: t.id, classe: nomeClasse(t.class_code) || 'N/D', codice: t.student_code || (t.participant && t.participant.name) || '',
-            punteggio: Number((t.results || {}).finalScore || 0), accuratezza: Number((t.results || {}).accuracy || 0),
-            tempo: (t.results || {}).totalTime, data: t.created_at
-        }));
-        if (!dati.length) { box.innerHTML = '<p class="ad-vuoto">Nessun test di Stroop registrato.</p>'; return; }
-        const perClasse = new Map();
-        dati.forEach(d => {
-            const v = perClasse.get(d.classe) || { n: 0, p: 0, a: 0, ultimo: '' };
-            v.n += 1; v.p += d.punteggio; v.a += d.accuratezza; if (d.data > v.ultimo) v.ultimo = d.data;
-            perClasse.set(d.classe, v);
-        });
-        box.innerHTML = `<div class="ad-tabella-box"><table class="ad-tabella">
-                <thead><tr><th>Classe</th><th>Test</th><th>Punteggio medio</th><th>Accuratezza media</th><th>Ultimo</th></tr></thead>
-                <tbody>${Array.from(perClasse.entries()).sort().map(([c, v]) => `<tr><td class="ad-codice">${esc(c)}</td><td>${v.n}</td><td>${(v.p / v.n).toFixed(1)}</td><td>${(v.a / v.n).toFixed(1)}%</td><td>${esc(dataBreve(v.ultimo))}</td></tr>`).join('')}</tbody>
-            </table></div>
-            <details class="ad-attivita" style="margin-top:1rem"><summary><div class="ad-compito-nome">Tutti i test (${dati.length})</div></summary>
-            <div class="ad-attivita-corpo"><div class="ad-tabella-box"><table class="ad-tabella">
-                <thead><tr><th>Classe</th><th>Alunno</th><th>Punteggio</th><th>Accuratezza</th><th>Data</th><th></th></tr></thead>
-                <tbody>${dati.sort((a, b) => String(b.data).localeCompare(String(a.data))).map(d => `<tr><td>${esc(d.classe)}</td><td class="ad-codice">${esc(d.codice)}</td><td>${d.punteggio}</td><td>${d.accuratezza.toFixed(1)}%</td><td>${esc(dataBreve(d.data))}</td>
-                    <td><a class="ad-btn ad-btn-piccolo" href="materiali/compresenza/test-stroop.html?docente=1&doc_class=${encodeURIComponent(d.classe.toLowerCase())}&doc_student=${encodeURIComponent(String(d.codice).toLowerCase())}" target="_blank" rel="noopener">Apri</a></td></tr>`).join('')}</tbody>
-            </table></div></div></details>`;
     }
 
     // ───────────────────────── Risposte di un alunno ─────────────────────────
@@ -852,7 +676,7 @@
                 <span>Ultimo salvataggio <strong>${esc(dataBreve(riga.updated_at))}</strong></span>
                 <span>${badgeStato(riga)}</span>
             </div>
-            <p><button class="ad-btn ad-btn-piccolo" type="button" data-come-alunno data-classe="${esc(riga.class_code)}" data-codice="${esc(riga.student_code)}" data-pagina="${esc(riga.page_path)}">Apri la pagina come la vede l'alunno</button></p>
+            <p><button class="ad-btn ad-btn-piccolo" type="button" data-come-alunno data-classe="${esc(riga.class_code)}" data-codice="${esc(riga.student_code)}" data-pagina="${esc(riga.page_path)}">Correggi nella pagina</button></p>
             ${corpo}
             <details style="margin-top:1rem"><summary class="muted" style="cursor:pointer">Dati tecnici salvati</summary>
                 <pre class="progress-json" style="white-space:pre-wrap;font-size:.8rem;max-height:20rem;overflow:auto">${esc(JSON.stringify(dati, null, 2))}</pre></details>
@@ -951,6 +775,7 @@
         window.open(linkPagina(pagina, { docente: '1', doc_class: classe, doc_student: codice }), '_blank', 'noopener');
     }
 
+
     // ───────────────────────── accesso ed eventi ─────────────────────────
 
     function mostraDashboard() {
@@ -994,61 +819,41 @@
                 pw.focus();
             }
         });
-        $('#ad-aggiorna').addEventListener('click', () => { stato.stroop = null; caricaTutto(); });
+        $('#ad-aggiorna').addEventListener('click', caricaTutto);
         $('#ad-password').addEventListener('click', cambiaPassword);
         $('#ad-esci').addEventListener('click', () => { window.MODocente.esci(); mostraAccesso(); });
-        $('#compiti-nuovo').addEventListener('click', () => apriModulo(null));
-        $('#compiti-archiviati').addEventListener('change', disegnaCompiti);
-        ['recenti-periodo', 'recenti-classe'].forEach(id => $('#' + id).addEventListener('change', disegnaRecenti));
-        $('#recenti-cerca').addEventListener('input', disegnaRecenti);
+        window.addEventListener('hashchange', disegna);
 
-        const schede = $$('.ad-scheda');
-        schede.forEach((b, i) => {
-            b.addEventListener('click', () => scegliVista(b.dataset.vista));
-            b.addEventListener('keydown', (e) => {
-                if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-                const prossima = schede[(i + (e.key === 'ArrowRight' ? 1 : schede.length - 1)) % schede.length];
-                prossima.focus();
-                scegliVista(prossima.dataset.vista);
-            });
+        document.addEventListener('change', (e) => {
+            if (e.target.matches('[data-periodo]')) {
+                stato.periodo = e.target.value;
+                try { localStorage.setItem(PERIODO_KEY, stato.periodo); } catch { }
+                disegna();
+            }
         });
 
         document.addEventListener('click', (e) => {
-            const t = e.target.closest('button, [data-apri-compito], a');
+            const t = e.target.closest('button, [data-apri-attivita]');
             if (!t) { if (e.target.id === 'ad-finestra') chiudiFinestra(); return; }
             const d = t.dataset;
             if (d.risposte) { e.preventDefault(); e.stopPropagation(); mostraRisposte(d.risposte); return; }
             if ('comeAlunno' in d) { e.preventDefault(); e.stopPropagation(); apriComeAlunno(d.classe, d.codice, d.pagina); return; }
             if ('chiudiFinestra' in d) { chiudiFinestra(); return; }
-            if (d.apriCompito) {
-                if (stato.compitiAperti.has(d.apriCompito)) stato.compitiAperti.delete(d.apriCompito); else stato.compitiAperti.add(d.apriCompito);
-                const art = t.closest('.ad-compito');
-                art.classList.toggle('ad-aperto');
-                t.setAttribute('aria-expanded', String(art.classList.contains('ad-aperto')));
+            if (d.vai !== undefined) { e.stopPropagation(); chiudiFinestra(); vai(d.vai, d.alunno || ''); return; }
+            if (d.apriAttivita) {
+                if (stato.attivitaAperte.has(d.apriAttivita)) stato.attivitaAperte.delete(d.apriAttivita); else stato.attivitaAperte.add(d.apriAttivita);
+                disegna();
                 return;
             }
-            if (d.filtroCompiti !== undefined) { stato.filtroCompiti = d.filtroCompiti; disegnaCompiti(); return; }
-            if (d.modificaCompito) { apriModulo(stato.compiti.find(c => c.id === d.modificaCompito)); return; }
-            if (d.archiviaCompito) { archiviaCompito(d.archiviaCompito, d.valore === 'true'); return; }
-            if (d.eliminaCompito) { eliminaCompito(d.eliminaCompito); return; }
-            if ('chiudiModulo' in d) { chiudiModulo(); return; }
-            if (d.assegnaPagina !== undefined || (d.assegnaClasse !== undefined && t.matches('[data-assegna-classe]'))) {
-                e.preventDefault(); e.stopPropagation();
-                scegliVista('compiti');
-                apriModulo(null, { pagina: d.assegnaPagina || '', classe: d.assegnaClasse || '' });
-                return;
-            }
-            if (d.vaiClasse) { stato.classeScelta = d.vaiClasse; scegliVista('classi'); return; }
-            if (d.scegliClasse) { stato.classeScelta = d.scegliClasse; disegnaClassi(); return; }
             if ('nuovaClasse' in d) {
                 const nome = normCodice(prompt('Codice della classe, come lo usano gli alunni (es. 1sa):') || '');
                 if (!nome) return;
                 if (!/^[a-z0-9]{1,12}$/.test(nome)) { alert('Solo lettere e numeri, per esempio 1sa.'); return; }
-                stato.classeScelta = nome;
                 if (!stato.classi.has(nome)) stato.classi.set(nome, []);
-                disegnaClassi();
+                vai(nome, '');
                 return;
             }
+            const classe = leggiPercorso().classe;
             if (d.salvaElenco) {
                 const alunni = leggiElenco($('#elenco-testo').value);
                 if (!alunni.length && !confirm(`L'elenco è vuoto: cancellare l'elenco della ${nomeClasse(d.salvaElenco)}?`)) return;
@@ -1064,10 +869,10 @@
                 area.value = [area.value.trim(), ...nuovi].filter(Boolean).join('\n');
                 area.focus();
                 if (!nuovi.length) alert('Tutti i codici usati quest\'anno sono già nell\'elenco.');
+                else alert(`Inseriti ${nuovi.length} codici. Controlla l'elenco: togli chi non è della classe, unisci i doppioni con «=» e premi «Salva l'elenco».`);
                 return;
             }
             if (d.collegaAlias) {
-                const classe = stato.classeScelta;
                 const sel = document.querySelector(`select[data-alias-di="${CSS.escape(d.collegaAlias)}"]`);
                 if (!sel || !sel.value) { alert('Scegli prima l\'alunno a cui appartiene il codice.'); return; }
                 const elenco = (stato.classi.get(classe) || []).map(a => ({ codice: a.codice, alias: a.alias.slice() }));
@@ -1077,7 +882,6 @@
                 return;
             }
             if (d.aggiungiAlunno) {
-                const classe = stato.classeScelta;
                 const elenco = (stato.classi.get(classe) || []).map(a => ({ codice: a.codice, alias: a.alias.slice() }));
                 elenco.push({ codice: d.aggiungiAlunno, alias: [] });
                 salvaElenco(classe, elenco);
@@ -1085,7 +889,7 @@
         });
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') chiudiFinestra();
-            if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('[data-apri-compito]')) {
+            if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('[data-apri-attivita]')) {
                 e.preventDefault();
                 e.target.click();
             }
@@ -1093,12 +897,9 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+        try { stato.periodo = localStorage.getItem(PERIODO_KEY) || 'anno'; } catch { stato.periodo = 'anno'; }
+        if (!NOMI_PERIODO[stato.periodo]) stato.periodo = 'anno';
         collega();
-        let iniziale = (location.hash || '').replace('#', '');
-        if (!['compiti', 'classi', 'recenti', 'verifiche'].includes(iniziale)) {
-            try { iniziale = localStorage.getItem(VISTA_KEY) || 'compiti'; } catch { iniziale = 'compiti'; }
-        }
-        scegliVista(['compiti', 'classi', 'recenti', 'verifiche'].includes(iniziale) ? iniziale : 'compiti');
         if (window.MODocente && window.MODocente.attivo()) mostraDashboard();
     });
 })();

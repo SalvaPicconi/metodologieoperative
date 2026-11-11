@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Area docente · Metodologie Operative</title>
-    <meta name="description" content="Area riservata: compiti assegnati, avanzamento degli alunni per classe, attività recenti e verifiche.">
+    <meta name="description" content="Area riservata: risultati delle classi, degli alunni e delle singole attività, con accesso alla correzione.">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="assets/area-docente.css?v=20261111">
 </head>
@@ -68,7 +68,7 @@
                 <div id="docente-auth-overlay">
                     <div class="auth-box">
                         <h3>Accesso riservato</h3>
-                        <p>Inserisci la password docente per vedere compiti e lavori degli alunni.</p>
+                        <p>Inserisci la password docente per vedere i lavori delle classi.</p>
                         <form id="docente-login-form">
                             <input type="password" id="docente-password" placeholder="Password" autocomplete="current-password" required>
                             <button type="submit" class="ad-btn ad-btn-primario">Accedi</button>
@@ -89,72 +89,8 @@
                         </div>
                     </div>
 
-                    <div class="ad-schede" role="tablist" aria-label="Sezioni dell'area docente">
-                        <button class="ad-scheda" role="tab" id="tab-compiti" aria-controls="vista-compiti" data-vista="compiti">Compiti</button>
-                        <button class="ad-scheda" role="tab" id="tab-classi" aria-controls="vista-classi" data-vista="classi">Classi</button>
-                        <button class="ad-scheda" role="tab" id="tab-recenti" aria-controls="vista-recenti" data-vista="recenti">Attività recenti</button>
-                        <button class="ad-scheda" role="tab" id="tab-verifiche" aria-controls="vista-verifiche" data-vista="verifiche">Verifiche e strumenti</button>
-                    </div>
-
-                    <section id="vista-compiti" class="ad-vista" role="tabpanel" aria-labelledby="tab-compiti" hidden>
-                        <div class="ad-barra">
-                            <div class="ad-filtri" id="compiti-filtro-classi" aria-label="Filtra per classe"></div>
-                            <div class="ad-barra-azioni">
-                                <label class="ad-interruttore"><input type="checkbox" id="compiti-archiviati"> Mostra archiviati</label>
-                                <button id="compiti-nuovo" class="ad-btn ad-btn-primario" type="button">+ Assegna compito</button>
-                            </div>
-                        </div>
-                        <div id="compiti-modulo" class="ad-modulo" hidden></div>
-                        <div id="compiti-elenco"></div>
-                    </section>
-
-                    <section id="vista-classi" class="ad-vista" role="tabpanel" aria-labelledby="tab-classi" hidden>
-                        <div class="ad-barra">
-                            <div class="ad-filtri" id="classi-scelta" aria-label="Scegli la classe"></div>
-                        </div>
-                        <div id="classi-contenuto"></div>
-                    </section>
-
-                    <section id="vista-recenti" class="ad-vista" role="tabpanel" aria-labelledby="tab-recenti" hidden>
-                        <div class="ad-barra">
-                            <div class="ad-campi">
-                                <label>Periodo
-                                    <select id="recenti-periodo">
-                                        <option value="7">Ultimi 7 giorni</option>
-                                        <option value="30">Ultimi 30 giorni</option>
-                                        <option value="anno">Quest'anno scolastico</option>
-                                        <option value="tutto">Tutto</option>
-                                    </select>
-                                </label>
-                                <label>Classe
-                                    <select id="recenti-classe"><option value="">Tutte</option></select>
-                                </label>
-                                <label>Alunno
-                                    <input type="search" id="recenti-cerca" placeholder="Codice">
-                                </label>
-                            </div>
-                        </div>
-                        <div id="recenti-elenco"></div>
-                    </section>
-
-                    <section id="vista-verifiche" class="ad-vista" role="tabpanel" aria-labelledby="tab-verifiche" hidden>
-                        <div class="ad-strumenti">
-                            <a class="ad-strumento" href="materiali/biennio/verifica-operatore-terza.html?docente=1">
-                                <strong>Correggi la verifica di terza</strong>
-                                <span>L’operatore sociale: elaborati, correzione e restituzione agli alunni.</span>
-                            </a>
-                            <a class="ad-strumento" href="stroop_statistiche.html">
-                                <strong>Statistiche del test di Stroop</strong>
-                                <span>Grafici e confronti per classe.</span>
-                            </a>
-                            <a class="ad-strumento" href="programmazione.html">
-                                <strong>Programmazione individuale</strong>
-                                <span>Il piano di lavoro di una classe, in Word.</span>
-                            </a>
-                        </div>
-                        <h3 class="ad-sottotitolo">Test di Stroop</h3>
-                        <div id="stroop-contenuto"><p class="ad-vuoto">Caricamento…</p></div>
-                    </section>
+                    <div class="ad-percorso" id="ad-percorso" role="navigation" aria-label="Dove sei"></div>
+                    <div id="ad-vista"><p class="ad-vuoto">Caricamento…</p></div>
                 </div>
             </section>
         </div>

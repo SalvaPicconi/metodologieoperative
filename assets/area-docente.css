@@ -1,4 +1,4 @@
-/* Area docente: schede Compiti, Classi, Attività recenti, Verifiche e strumenti. */
+/* Area docente: classi → alunni → attività. */
 .docente-dashboard { padding: 1.6rem; }
 #docente-auth-overlay input[type="password"] {
     width: 100%; padding: .7rem .9rem; border: 1px solid var(--color-line); border-radius: var(--radius-md);
@@ -158,12 +158,57 @@
 .ad-risposte .ad-vuota { color: #9aa3ad; font-style: italic; }
 .ad-risposte-testa { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; font-size: .9rem; color: var(--color-ink-soft); margin: .3rem 0 .8rem; }
 
+
+/* Percorso: Le tue classi › 5SA › alunno */
+.ad-percorso { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; font-size: .95rem; color: var(--color-ink-soft);
+    padding: .6rem 0 .9rem; border-bottom: 2px solid var(--color-line); margin-bottom: 1.3rem; }
+.ad-percorso > span:last-child { color: var(--color-ink); font-weight: 700; }
+.ad-percorso .ad-link { font-weight: 600; }
+.ad-link-forte { font-weight: 700; text-decoration: none; }
+.ad-link-forte:hover { text-decoration: underline; }
+.ad-piccolo { font-size: .9rem; color: var(--color-ink-soft); margin: .2rem 0 .8rem; }
+.ad-sezione-titolo { font-size: 1.05rem; color: var(--color-primary); margin: 1.8rem 0 .8rem; }
+
+/* Le tue classi */
+.ad-classi-griglia { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; margin-bottom: .8rem; }
+.ad-classe-scheda { display: flex; flex-direction: column; align-items: flex-start; gap: .55rem; text-align: left; font: inherit; color: var(--color-ink);
+    background: var(--color-surface); border: 1px solid var(--color-line); border-left: 5px solid var(--color-primary); border-radius: var(--radius-lg);
+    padding: 1rem 1.1rem; cursor: pointer; }
+.ad-classe-scheda:hover { border-color: var(--color-primary-light); background: var(--color-primary-tint); }
+.ad-classe-scheda:focus-visible { outline: 3px solid var(--color-accent-light); outline-offset: 2px; }
+.ad-classe-nome { font-family: var(--font-display); font-size: 2rem; line-height: 1; color: var(--color-primary); }
+.ad-classe-numeri { display: flex; gap: 1rem; font-size: .9rem; color: var(--color-ink-soft); }
+.ad-classe-numeri strong { font-size: 1.15rem; color: var(--color-ink); }
+.ad-classe-dati { font-size: .85rem; color: var(--color-ink-soft); }
+.ad-classe-allarme { font-size: .82rem; font-weight: 700; color: #991b1b; background: #fee2e2; padding: .15rem .5rem; border-radius: 6px; }
+
+/* Una classe, un alunno */
+.ad-classe-testa { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: .8rem; margin-bottom: 1rem; }
+.docente-dashboard .ad-classe-titolo { font-family: var(--font-display); font-weight: 400; font-size: 2.2rem; color: var(--color-primary); line-height: 1; }
+.docente-dashboard .ad-classe-titolo small { font-family: var(--font-body); font-size: 1rem; color: var(--color-ink-soft); }
+.ad-periodo { display: flex; align-items: center; gap: .5rem; font-size: .88rem; font-weight: 600; color: var(--color-ink-soft); }
+.ad-periodo select { font: inherit; font-weight: 400; color: var(--color-ink); padding: .4rem .6rem; border: 1px solid var(--color-line); border-radius: var(--radius-md); }
+.ad-blocco { margin-top: 1.8rem; }
+.ad-blocco-titolo { font-size: 1.2rem; color: var(--color-primary); margin-bottom: .2rem; }
+.ad-tabella .ad-num, .ad-tabella th.ad-num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ad-percento { font-weight: 700; padding: .1rem .45rem; border-radius: 6px; }
+.ad-percento-fatto { background: #dcfce7; color: #166534; }
+.ad-percento-corso { background: #fef3c7; color: #92400e; }
+.ad-percento-zero { background: #fee2e2; color: #991b1b; }
+.ad-riga-attivita { cursor: pointer; }
+.ad-riga-attivita:hover td { background: #fafbfd; }
+.ad-riga-attivita:focus-visible { outline: 3px solid var(--color-accent-light); outline-offset: -3px; }
+.ad-apri { display: inline-block; transition: transform .15s; color: var(--color-ink-soft); }
+.ad-apri.ad-ruota { transform: rotate(90deg); }
+.ad-dettaglio > td { background: var(--color-bg); padding: .6rem .8rem 1rem; }
+.ad-tabella-interna { background: var(--color-surface); }
+
 @media (max-width: 720px) {
     .docente-dashboard { padding: 1rem; }
     .ad-compito-testa { grid-template-columns: auto 1fr auto; }
     .ad-compito-testa .ad-compito-barra { grid-column: 1 / -1; grid-row: 2; }
     .ad-risposte dl { grid-template-columns: 1fr; }
-    .ad-attivita > summary { grid-template-columns: 1fr; }
+    .docente-dashboard .ad-classe-titolo { font-size: 1.8rem; }
     .ad-attivita > summary .ad-btn { justify-self: start; }
     .ad-risposte dd { border-top: 0; padding-top: 0; }
 }

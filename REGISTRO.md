@@ -9,7 +9,7 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
-- **2026-11-11** · Claude · L’Area docente è divisa in quattro schede: Compiti (assegni un’attività a una classe con scadenza e vedi chi ha finito, chi è a metà e chi non ha cominciato), Classi (griglia alunni × compiti ed elenco dei codici, con i codici sbagliati ricondotti all’alunno giusto), Attività recenti e Verifiche e strumenti. (commit di questa voce)
+- **2026-11-11** · Claude · L’Area docente segue un solo percorso: classe → alunni → attività. Per ogni classe ci sono i risultati di sintesi, la tabella degli alunni e quella delle attività; dalla pagina dell’alunno si apre ogni attività per correggerla. I codici scritti male si ricollegano all’alunno giusto. (commit di questa voce)
 
 - **2026-11-10** · Claude · La verifica dell’operatore sociale si apre con classe e codice studente, senza password e da qualsiasi dispositivo: così gli studenti rivedono anche la correzione da casa o da un altro Chromebook. (commit di questa voce)
 
