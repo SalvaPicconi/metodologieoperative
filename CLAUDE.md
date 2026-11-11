@@ -153,6 +153,20 @@ sessione ottenuta dalla password (`assets/docente-accesso.js`, funzioni `progres
 include `assets/docente-accesso.js` e chiama `MODocente.chiama(...)`. Nel codice delle pagine non va
 mai una password né la sua impronta. Schema e ragioni in `supabase/progress-protezione.sql`.
 
+### Area docente
+
+`area_docente.html` (logica in `assets/area-docente.js`, stile in `assets/area-docente.css`) ha quattro
+schede: **Compiti** (il docente assegna una pagina del sito a una classe con scadenza e vede per ogni
+alunno completato / in corso / non iniziato), **Classi** (griglia alunni × compiti attivi ed elenco dei
+codici della classe, con gli alias per i codici scritti male), **Attività recenti** e **Verifiche e
+strumenti**. Compiti ed elenchi stanno in tabelle dello schema `private`, raggiungibili solo con le
+funzioni `docente_*` e `progress_docente_riepilogo`, che chiedono la sessione docente: schema e ragioni in
+`supabase/area-docente-compiti.sql`. L'avanzamento è la `_meta.percentuale` della pagina, se c'è;
+altrimenti i campi compilati sul massimo dei campi visti per quella pagina, contati una volta e tenuti
+in cache (`private.progress_conteggi`). Una pagina nuova che vuole un avanzamento preciso scrive
+`_meta.percentuale` nei suoi salvataggi. `assets/progress-dashboard.js` non è più caricato da nessuna
+pagina: resta solo perché `scripts/package_aruba.py` ne controlla l'identità.
+
 ---
 
 ## Programmi
