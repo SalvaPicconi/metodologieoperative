@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Area Docente - Monitoraggio Progressi</title>
-    <meta name="description" content="Pannello di controllo per monitorare i progressi degli studenti nelle attività di Metodologie Operative.">
+    <title>Area docente · Metodologie Operative</title>
+    <meta name="description" content="Area riservata: risultati delle classi, degli alunni e delle singole attività, con accesso alla correzione.">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/area-docente.css?v=20261111">
 </head>
 <body>
     <header class="testata">
@@ -66,133 +67,30 @@
             <section class="docente-dashboard card">
                 <div id="docente-auth-overlay">
                     <div class="auth-box">
-                        <h3>🔐 Accesso riservato</h3>
-                        <p>Inserisci la password docente per visualizzare i progressi.</p>
+                        <h3>Accesso riservato</h3>
+                        <p>Inserisci la password docente per vedere i lavori delle classi.</p>
                         <form id="docente-login-form">
-                            <input type="password" id="docente-password" placeholder="Password" required>
-                            <button type="submit" class="btn btn-primary">Accedi</button>
+                            <input type="password" id="docente-password" placeholder="Password" autocomplete="current-password" required>
+                            <button type="submit" class="ad-btn ad-btn-primario">Accedi</button>
                         </form>
                     </div>
                 </div>
 
                 <div id="docente-dashboard-content" class="hidden">
-
-                    <p class="azioni">
-                        <a class="btn btn-primary" href="materiali/biennio/verifica-operatore-terza.html?docente=1">
-                            Correggi la verifica di terza · L’operatore sociale
-                        </a>
-                    </p>
-
-                    <!-- Topbar -->
-                    <div class="dashboard-topbar">
+                    <div class="ad-testa">
                         <div>
-                            <p class="muted">Dati aggiornati alle</p>
-                            <p id="dashboard-last-refresh">—</p>
+                            <h2 class="ad-titolo">Area docente</h2>
+                            <p class="ad-aggiornato">Dati aggiornati alle <span id="ad-ora">—</span></p>
                         </div>
-                        <button id="refresh-dashboard" class="btn btn-secondary">🔄 Aggiorna</button>
-                        <button id="docente-cambia-password" class="btn btn-secondary" type="button">🔑 Cambia password</button>
-                        <button id="docente-esci" class="btn btn-secondary" type="button">🚪 Esci</button>
-                    </div>
-
-                    <!-- Filtri -->
-                    <div class="dashboard-filters">
-                        <div class="filter-control">
-                            <label for="dashboard-class-filter">Filtra per classe</label>
-                            <select id="dashboard-class-filter">
-                                <option value="">Tutte le classi</option>
-                            </select>
-                        </div>
-                        <div class="filter-control">
-                            <label for="dashboard-student-search">Cerca studente</label>
-                            <input type="text" id="dashboard-student-search" placeholder="Cognome o codice">
+                        <div class="ad-testa-azioni">
+                            <button id="ad-aggiorna" class="ad-btn" type="button">Aggiorna</button>
+                            <button id="ad-password" class="ad-btn ad-btn-quieto" type="button">Cambia password</button>
+                            <button id="ad-esci" class="ad-btn ad-btn-quieto" type="button">Esci</button>
                         </div>
                     </div>
 
-                    <!-- Statistiche sintetiche -->
-                    <div class="stats-overview docente-stats">
-                        <div class="stat-card">
-                            <h4>👥 Studenti attivi</h4>
-                            <p id="doc-stat-students" class="stat-value">0</p>
-                            <p class="muted" id="doc-class-focus">tutte le classi</p>
-                        </div>
-                        <div class="stat-card">
-                            <h4>📚 Attività con salvataggi</h4>
-                            <p id="doc-stat-activities" class="stat-value">0</p>
-                            <p class="muted">monitorate in tempo reale</p>
-                        </div>
-                        <div class="stat-card">
-                            <h4>⏱️ Ultimo salvataggio</h4>
-                            <p id="doc-stat-last-update" class="stat-value">—</p>
-                            <p class="muted">ora locale</p>
-                        </div>
-                    </div>
-
-                    <!-- SEZIONE PRINCIPALE: Attività → Studenti → Progressi -->
-                    <section class="summary-section">
-                        <div class="section-header">
-                            <div>
-                                <h3>Monitoraggio per Attività</h3>
-                                <p class="muted">Espandi un'attività per vedere tutti gli studenti che ci stanno lavorando e il loro avanzamento.</p>
-                            </div>
-                        </div>
-                        <div id="activity-groups-container" class="class-progress-container">
-                            <div class="empty-state"><p>Caricamento in corso…</p></div>
-                        </div>
-                    </section>
-
-                    <!-- Test Stroop e verifiche strutturate -->
-                    <section class="summary-section assessment-section">
-                        <div class="section-header">
-                            <div>
-                                <h3>Test Stroop · Verifiche strutturate</h3>
-                                <p class="muted">Risultati con punteggi e risposte salvate</p>
-                            </div>
-                            <div class="section-actions">
-                                <a class="btn btn-secondary" href="stroop_statistiche.html" target="_blank" rel="noopener">Dashboard Stroop</a>
-                            </div>
-                        </div>
-
-                        <div id="assessment-insights" class="assessment-insights">
-                            <div class="empty-state"><p>Nessun test registrato.</p></div>
-                        </div>
-
-                        <div class="table-wrapper" style="margin-top:1.5rem;">
-                            <table class="data-table">
-                                <thead>
-                                    <tr>
-                                        <th>Classe</th>
-                                        <th>Partecipanti</th>
-                                        <th>Punteggio medio</th>
-                                        <th>Accuratezza media</th>
-                                        <th>Ultimo aggiornamento</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="assessment-class-summary">
-                                    <tr><td colspan="5">Nessun dato disponibile.</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="table-wrapper" style="margin-top:1.5rem;">
-                            <table class="data-table">
-                                <thead>
-                                    <tr>
-                                        <th>Classe</th>
-                                        <th>Studente</th>
-                                        <th>Punteggio</th>
-                                        <th>Accuratezza</th>
-                                        <th>Durata</th>
-                                        <th>Data</th>
-                                        <th>Azioni</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="assessment-detail-body">
-                                    <tr><td colspan="7">Nessun risultato disponibile.</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
-
+                    <div class="ad-percorso" id="ad-percorso" role="navigation" aria-label="Dove sei"></div>
+                    <div id="ad-vista"><p class="ad-vuoto">Caricamento…</p></div>
                 </div>
             </section>
         </div>
@@ -205,21 +103,14 @@
         </div>
     </footer>
 
+    <div id="ad-finestra" class="assessment-modal" aria-hidden="true">
+        <div class="assessment-modal-content" role="dialog" aria-modal="true" aria-labelledby="ad-finestra-titolo">
+            <button type="button" class="assessment-modal-close" aria-label="Chiudi" data-chiudi-finestra>×</button>
+            <div id="ad-finestra-corpo"></div>
+        </div>
+    </div>
+
     <script src="assets/docente-accesso.js?v=20260926"></script>
-    <script type="module" src="assets/progress-dashboard.js?v=20260926b"></script>
-
-    <div id="assessment-modal" class="assessment-modal" aria-hidden="true">
-        <div class="assessment-modal-content" role="dialog" aria-modal="true">
-            <button type="button" class="assessment-modal-close" aria-label="Chiudi dettagli" data-assessment-close>×</button>
-            <div id="assessment-modal-body"></div>
-        </div>
-    </div>
-
-    <div id="progress-modal" class="assessment-modal" aria-hidden="true">
-        <div class="assessment-modal-content" role="dialog" aria-modal="true">
-            <button type="button" class="assessment-modal-close" aria-label="Chiudi dettagli" data-progress-close>×</button>
-            <div id="progress-modal-body"></div>
-        </div>
-    </div>
+    <script src="assets/area-docente.js?v=20261111"></script>
 </body>
 </html>

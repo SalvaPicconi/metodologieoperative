@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-11** · Claude · L’Area docente segue un solo percorso: classe → alunni → attività. Per ogni classe ci sono i risultati di sintesi, la tabella degli alunni e quella delle attività; dalla pagina dell’alunno si apre ogni attività per correggerla. I codici scritti male si ricollegano all’alunno giusto. (commit di questa voce)
+
 - **2026-11-11** · Codex · La lezione di quinta sull’anzianità spiega senescenza, comorbilità, fragilità e bisogno di assistenza, con un caso finale su ADL e IADL. (commit di questa voce)
 
 - **2026-11-11** · Codex · Nel Quinto anno è disponibile la presentazione per la LIM «Anzianità, società e welfare», con note per chi presenta e un’attività sul quartiere. (commit di questa voce)

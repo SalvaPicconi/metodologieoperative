@@ -153,6 +153,27 @@ sessione ottenuta dalla password (`assets/docente-accesso.js`, funzioni `progres
 include `assets/docente-accesso.js` e chiama `MODocente.chiama(...)`. Nel codice delle pagine non va
 mai una password né la sua impronta. Schema e ragioni in `supabase/progress-protezione.sql`.
 
+### Area docente
+
+`area_docente.html` (logica in `assets/area-docente.js`, stile in `assets/area-docente.css`) segue un
+solo percorso, deciso dal titolare l'11 novembre 2026: **classe → alunni → attività**.
+- *Le tue classi*: un riquadro per classe con alunni, attività svolte, media e chi lavora.
+- *Una classe* (`#classe/5sa`): riepilogo, tabella degli **alunni** (attività aperte, completate, media,
+  ultimo lavoro) e tabella delle **attività**, cioè le pagine del sito su cui la classe ha lavorato, con i
+  risultati aggregati e il dettaglio alunno per alunno; in fondo l'elenco dei codici della classe.
+- *Un alunno* (`#classe/5sa/alunno/rossim`): tutte le attività della classe, con «Correggi nella pagina»
+  (la pagina aperta in modalità docente con le risposte dell'alunno) e «Leggi le risposte».
+Verifiche, Stroop e programmazione sono collegamenti in fondo alla prima vista, non schede.
+
+L'elenco dei codici di ogni classe, con gli alias dei codici scritti male, sta nello schema `private`
+(`docente_classi`), raggiungibile solo con le funzioni `docente_classe*` e `progress_docente_riepilogo`,
+che chiedono la sessione docente: schema e ragioni in `supabase/area-docente-compiti.sql`. Le tabelle e le
+funzioni dei compiti assegnati (`docente_compit*`) esistono ma la pagina non le usa più. L'avanzamento è
+la `_meta.percentuale` della pagina, se c'è; altrimenti i campi compilati sul massimo dei campi visti per
+quella pagina, contati una volta e tenuti in cache (`private.progress_conteggi`). Una pagina nuova che
+vuole un avanzamento preciso scrive `_meta.percentuale` nei suoi salvataggi. `assets/progress-dashboard.js`
+non è più caricato da nessuna pagina: resta solo perché `scripts/package_aruba.py` ne controlla l'identità.
+
 ---
 
 ## Programmi
