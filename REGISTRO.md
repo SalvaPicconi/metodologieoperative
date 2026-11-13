@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-13** · Codex · Nel laboratorio autobiografico le due mappe distinguono l’area della crescita dal momento del cambiamento. La lettera è una traccia facoltativa e la condivisione resta a scelta di chi scrive. (commit di questa voce; revisione locale)
+
 - **2026-11-11** · Codex · Rimossi i riferimenti all’istituto dai testi della presentazione «Anzianità, società e welfare» e dalla sua scheda. (commit di questa voce)
 
 - **2026-11-11** · Codex · La lezione di quinta sull’anzianità spiega senescenza, comorbilità, fragilità e bisogno di assistenza, con un caso finale su ADL e IADL. (commit di questa voce)
