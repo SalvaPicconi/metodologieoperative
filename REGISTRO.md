@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-13** · Codex · Parole chiave in grassetto nelle sette fasi del laboratorio autobiografico per seguire la spiegazione alla lavagna; testo invariato. (commit di questa voce; revisione locale)
+
 - **2026-11-13** · Codex · Nel laboratorio autobiografico le due mappe distinguono l’area della crescita dal momento del cambiamento. La lettera è una traccia facoltativa e la condivisione resta a scelta di chi scrive. (commit di questa voce; revisione locale)
 
 - **2026-11-11** · Codex · Rimossi i riferimenti all’istituto dai testi della presentazione «Anzianità, società e welfare» e dalla sua scheda. (commit di questa voce)
