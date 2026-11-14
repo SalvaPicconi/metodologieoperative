@@ -505,6 +505,44 @@ html:not(.js) .toolbar, html:not(.js) .deck-footer, html:not(.js) [data-next], h
 @media (max-width: 610px) {
   .actor-grid { grid-template-columns: minmax(0, 1fr); }
 }
+.policy-overview {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(.65rem, 1.5vw, 1.15rem);
+}
+.lesson-steps.policy-overview > div {
+  display: block;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-inline-start: 4px solid #39728a;
+  border-radius: 10px;
+  padding: .66em .8em;
+}
+.policy-overview dt { margin-bottom: .28em; }
+.lesson-steps.policy-overview > div:nth-child(2),
+.lesson-steps.policy-overview > div:nth-child(6) { border-inline-start-color: #a75134; }
+.housing-diagram {
+  width: min(100%, 56rem);
+}
+.housing-diagram figcaption { color: var(--accent); }
+.housing-spaces {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid #bd9e8d;
+  border-radius: 10px;
+  background: #fff8f2;
+}
+.housing-spaces > div { padding: .63em .85em; }
+.housing-spaces > div + div { border-inline-start: 1px dashed #bd9e8d; background: #f5e0d1; border-radius: 0 9px 9px 0; }
+.housing-spaces strong { color: var(--accent); display: block; margin-bottom: .18em; }
+@media (max-width: 820px) {
+  .policy-overview { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 610px) {
+  #titolo-politiche-oggi { overflow-wrap: anywhere; }
+  .policy-overview, .housing-spaces { grid-template-columns: minmax(0, 1fr); }
+  .housing-spaces > div + div { border-inline-start: 0; border-top: 1px dashed #bd9e8d; border-radius: 0 0 9px 9px; }
+}
 </style>
 </head>
 <body>
@@ -775,20 +813,75 @@ html:not(.js) .toolbar, html:not(.js) .deck-footer, html:not(.js) [data-next], h
         <p class="citation"><a href="https://www.oecd.org/en/publications/health-at-a-glance-2025_15a55280-en/italy_c737c936-en.html" target="_blank" rel="noopener">Organizzazione per la cooperazione e lo sviluppo economico (OCSE), rapporto 2025</a></p>
       </section>
 
-      <section class="slide revised" id="politiche-oggi" aria-labelledby="titolo-politiche-oggi">
-        <h2 id="titolo-politiche-oggi">Come rispondere ai bisogni di oggi</h2>
-        <p class="lead">Le politiche possono agire sulla salute, sulla continuità della cura e sulle barriere del territorio.</p>
-        <dl class="lesson-steps action-grid">
-          <div><dt>Prevenzione</dt><dd>Attività fisica accessibile e cura delle malattie croniche possono sostenere le capacità quotidiane.</dd></div>
-          <div><dt>Continuità della cura</dt><dd>Servizi coordinati e sostituzioni programmate aiutano a coprire i momenti in cui i familiari non possono esserci.</dd></div>
-          <div><dt>Accesso nel territorio</dt><dd>Trasporti e servizi vicini possono facilitare l’accesso. Un servizio online richiede connessione, competenze e alternative.</dd></div>
+      <section class="slide revised lesson-cool" id="politiche-oggi" aria-labelledby="titolo-politiche-oggi">
+        <h2 id="titolo-politiche-oggi">Come rispondere ai bisogni emergenti dall’invecchiamento oggi</h2>
+        <dl class="lesson-steps policy-overview">
+          <div><dt>Invecchiamento attivo</dt><dd>Movimento, apprendimento e partecipazione aiutano a mantenere capacità e legami.</dd></div>
+          <div><dt>Casa accessibile e cohousing</dt><dd>Adattare la casa o scegliere di abitare con spazi condivisi può sostenere l’autonomia.</dd></div>
+          <div><dt>Trasporti accessibili</dt><dd>Mezzi, fermate e orari adatti facilitano gli spostamenti verso servizi e luoghi di incontro.</dd></div>
+          <div><dt>Accesso ai servizi</dt><dd>Informazioni comprensibili, sportelli e facilitazione digitale aiutano a trovare e usare i servizi.</dd></div>
+          <div><dt>Assistenza vicino a casa</dt><dd>Cure domiciliari e sostegno nelle attività quotidiane si coordinano secondo il bisogno.</dd></div>
+          <div><dt>Sostegno a chi assiste</dt><dd>Sostituzioni programmate o centri diurni possono offrire una pausa a chi presta cura in famiglia.</dd></div>
         </dl>
-        <p class="prompt">Un centro apre in un paese vicino. Come verificheresti che le persone riescano a raggiungerlo?</p>
-        <p class="citation"><a href="https://www.who.int/initiatives/decade-of-healthy-ageing" target="_blank" rel="noopener">OMS, Decennio dell’invecchiamento in salute</a> <a href="https://www.normattiva.it/atto/caricaDettaglioAtto?atto.codiceRedazionale=24G00050&amp;atto.dataPubblicazioneGazzetta=2024-03-18" target="_blank" rel="noopener">Decreto legislativo 29/2024</a></p>
+        <p class="citation"><a href="https://www.who.int/europe/news/item/29-10-2026-fifty-three-countries-adopt-new-who-european-strategy-for-healthier-longer-lives" target="_blank" rel="noopener">OMS Europa, strategia 2026–2030</a> <a href="https://www.normattiva.it/atto/caricaDettaglioAtto?atto.codiceRedazionale=24G00050&amp;atto.dataPubblicazioneGazzetta=2024-03-18" target="_blank" rel="noopener">Decreto legislativo 29/2024</a> <a href="https://lavoro.gov.it/notizie/pagine/approvato-il-primo-piano-nazionale-la-popolazione-anziana" target="_blank" rel="noopener">Piano nazionale per la cura della fragilità e della non autosufficienza</a></p>
+        <details class="study-detail"><summary>Come leggere queste proposte</summary>
+          <p>La strategia dell’Organizzazione mondiale della sanità (OMS) per l’Europa indica priorità comuni. Il decreto e il piano italiano indicano come organizzare o promuovere risposte. Per valutare un intervento concreto occorre verificare che cosa è stato attivato, chi lo usa e quali esiti si osservano.</p>
+          <p>Per esempio, per giudicare un nuovo trasporto sociale si possono osservare le corse effettuate, il numero di persone che riescono a raggiungere i servizi e le difficoltà rimaste in alcune frazioni.</p>
+        </details>
+      </section>
+
+      <section class="slide revised" id="invecchiamento-attivo" aria-labelledby="titolo-invecchiamento-attivo">
+        <h2 id="titolo-invecchiamento-attivo">Invecchiamento attivo</h2>
+        <p class="lead">Significa creare condizioni per mantenere salute e autonomia e partecipare alla vita della comunità secondo i propri interessi e possibilità.</p>
+        <dl class="lesson-steps action-grid">
+          <div><dt>Muoversi</dt><dd>Un gruppo di cammino o un corso di ginnastica adattata offre un’occasione di movimento adatta alle capacità dei partecipanti.</dd></div>
+          <div><dt>Continuare a imparare</dt><dd>Un’università della terza età permette di coltivare interessi e costruire nuove relazioni.</dd></div>
+          <div><dt>Partecipare</dt><dd>Volontariato e attività tra generazioni permettono di condividere competenze e assumere un ruolo nella comunità.</dd></div>
+        </dl>
+        <p class="takeaway">Contano la libertà di scegliere, la possibilità di raggiungere le attività e gli adattamenti per partecipare.</p>
+        <details class="study-detail"><summary>Che cosa ha misurato uno studio sull’attività fisica?</summary>
+          <p>Nello studio sperimentale LIFE, un programma strutturato di attività fisica ha ridotto il rischio di perdere la capacità di camminare per 400 metri rispetto a un programma educativo, tra persone sedentarie di 70–89 anni con limitazioni fisiche. Il risultato riguarda quel gruppo e quel programma.</p>
+          <p>Le politiche di partecipazione comprendono anche il contrasto all’ageismo, cioè a stereotipi, pregiudizi e discriminazioni legati all’età. Per esempio, si valuta l’accesso a un’attività in base agli interessi e ai bisogni della persona.</p>
+        </details>
+        <p class="citation"><a href="https://www.normattiva.it/atto/caricaDettaglioAtto?atto.codiceRedazionale=24G00050&amp;atto.dataPubblicazioneGazzetta=2024-03-18" target="_blank" rel="noopener">Decreto legislativo 29/2024, artt. 4 e 6</a> <a href="https://www.who.int/europe/news/item/29-10-2026-fifty-three-countries-adopt-new-who-european-strategy-for-healthier-longer-lives" target="_blank" rel="noopener">OMS Europa, strategia 2026–2030</a> <a href="https://pubmed.ncbi.nlm.nih.gov/24866862/" target="_blank" rel="noopener">Pahor e colleghi, studio LIFE</a></p>
+      </section>
+
+      <section class="slide revised lesson-warm" id="cohousing" aria-labelledby="titolo-cohousing">
+        <h2 id="titolo-cohousing">Cohousing e abitare accessibile</h2>
+        <p class="lead">Una casa con una doccia a filo pavimento è più facile da usare. Il cohousing è una scelta abitativa che combina spazi privati e comuni.</p>
+        <figure class="lesson-figure housing-diagram">
+          <figcaption>Un esempio di cohousing</figcaption>
+          <div class="housing-spaces">
+            <div><strong>Spazi privati</strong><p>Ciascuno mantiene la propria intimità e le proprie abitudini.</p></div>
+            <div><strong>Spazi comuni</strong><p>Una sala o un giardino condiviso offre occasioni di incontro e di aiuto tra vicini.</p></div>
+          </div>
+        </figure>
+        <p><strong>Senior cohousing</strong> fra persone anziane. <strong>Cohousing intergenerazionale</strong> fra persone di età diverse.</p>
+        <p class="takeaway">Se servono cure o assistenza continuativa, occorre organizzarle con i servizi.</p>
+        <details class="study-detail"><summary>Che cosa sappiamo e che cosa va verificato?</summary>
+          <p>In uno studio qualitativo nei Paesi Bassi, alcuni residenti hanno descritto nuove occasioni di incontro e aiuti tra vicini. Le interviste raccontano esperienze locali e i benefici possono variare da progetto a progetto. L’intesa italiana del luglio 2026 riguarda le linee guida su questi modelli abitativi. I progetti concretamente disponibili dipendono dal territorio.</p>
+          <p>Prima di scegliere si valutano costi, accessibilità, regole di convivenza, distanza dai servizi e sostegni disponibili. Anche le persone che abitano in cohousing possono aver bisogno di assistenza professionale.</p>
+        </details>
+        <p class="citation"><a href="https://statoregioni.it/it/conferenza-stato-regioni/sedute-2026/seduta-del-23-luglio-2026/atti-23-luglio-2026/repertorio-atto-n-111csr/" target="_blank" rel="noopener">Conferenza Stato-Regioni, intesa sul cohousing, 23 luglio 2026</a> <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6801586/" target="_blank" rel="noopener">Studio qualitativo sul senior cohousing</a></p>
+      </section>
+
+      <section class="slide revised lesson-cool" id="mobilita-accesso" aria-labelledby="titolo-mobilita-accesso">
+        <h2 id="titolo-mobilita-accesso">Raggiungere e usare i servizi</h2>
+        <p class="lead">Una persona che cammina con fatica deve andare a una visita in un altro comune. Che cosa le permette di arrivare e ricevere il servizio?</p>
+        <ol class="lesson-flow plan-flow">
+          <li><h3>Informarsi e prenotare</h3><p>Si può offrire la prenotazione per telefono o allo sportello. I punti di facilitazione digitale aiutano a usare i servizi online.</p></li>
+          <li><h3>Raggiungere</h3><p>Un bus a pianale basso e fermate vicine facilitano l’accesso. Una navetta a chiamata può servire i paesi con poche corse.</p></li>
+          <li><h3>Entrare e orientarsi</h3><p>Ingresso senza gradini e indicazioni leggibili facilitano l’accesso. Il <strong>Punto unico di accesso (PUA)</strong> orienta verso i servizi sociali e sociosanitari.</p></li>
+        </ol>
+        <p class="prompt">Quale ostacolo verificheresti per primo nel percorso verso la visita?</p>
+        <details class="study-detail"><summary>Un esempio in Sardegna</summary>
+          <p>Nei Punti Digitale Facile i cittadini possono ricevere aiuto per usare i servizi digitali pubblici, anche quelli sanitari. Per un caso concreto si verifica dove si trova il punto più vicino, quando è aperto e come raggiungerlo.</p>
+        </details>
+        <p class="citation"><a href="https://www.who.int/publications/i/item/9789240068698" target="_blank" rel="noopener">OMS, guida alle comunità adatte alle persone anziane</a> <a href="https://www.normattiva.it/atto/caricaDettaglioAtto?atto.codiceRedazionale=24G00050&amp;atto.dataPubblicazioneGazzetta=2024-03-18" target="_blank" rel="noopener">Decreto legislativo 29/2024, artt. 7, 10 e 19</a> <a href="https://www.regione.sardegna.it/punti-digitale-facile" target="_blank" rel="noopener">Regione Sardegna, Punti Digitale Facile</a></p>
       </section>
 
       <section class="slide revised lesson-warm" id="politiche-futuro" aria-labelledby="titolo-politiche-futuro">
-        <h2 id="titolo-politiche-futuro">Quali politiche agiscono nel tempo?</h2>
+        <h2 id="titolo-politiche-futuro">Le politiche di lungo periodo per una società che invecchia</h2>
         <dl class="lesson-steps action-grid">
           <div><dt>Genitorialità</dt><dd>Nidi e congedi possono aiutare chi desidera figli. I nuovi nati entreranno nel mondo del lavoro molti anni dopo.</dd></div>
           <div><dt>Migrazioni e integrazione</dt><dd>Riconoscere competenze e creare opportunità per chi arriva, resta o rientra può sostenere la forza lavoro.</dd></div>
@@ -871,6 +964,8 @@ html:not(.js) .toolbar, html:not(.js) .deck-footer, html:not(.js) [data-next], h
         <details class="study-detail"><summary>Apri le fonti su servizi e politiche</summary>
           <p><a href="https://www.who.int/publications/i/item/9789240103726" target="_blank" rel="noopener">OMS, valutazione centrata sulla persona e cure integrate (2025)</a></p>
           <p>Ministero della Salute, <a href="https://www.salute.gov.it/new/it/tema/nuova-assistenza-distrettuale/assistenza-domiciliare/" target="_blank" rel="noopener">assistenza domiciliare</a> e <a href="https://www.salute.gov.it/new/it/tema/livelli-essenziali-di-assistenza/assistenza-residenziale/" target="_blank" rel="noopener">assistenza residenziale e semiresidenziale</a>.</p>
+          <p><a href="https://www.who.int/europe/news/item/29-10-2026-fifty-three-countries-adopt-new-who-european-strategy-for-healthier-longer-lives" target="_blank" rel="noopener">OMS Europa, strategia per l’invecchiamento 2026–2030</a> e <a href="https://www.who.int/publications/i/item/9789240068698" target="_blank" rel="noopener">guida alle comunità adatte alle persone anziane</a>.</p>
+          <p><a href="https://statoregioni.it/it/conferenza-stato-regioni/sedute-2026/seduta-del-23-luglio-2026/atti-23-luglio-2026/repertorio-atto-n-111csr/" target="_blank" rel="noopener">Conferenza Stato-Regioni, intesa sul cohousing</a> e <a href="https://lavoro.gov.it/notizie/pagine/approvato-il-primo-piano-nazionale-la-popolazione-anziana" target="_blank" rel="noopener">Piano nazionale per la cura della fragilità e della non autosufficienza</a>.</p>
           <p><a href="https://www.oecd.org/en/publications/health-at-a-glance-2025_8f9e3f98-en/full-report/long-term-care-workers_9c3bdbaf.html" target="_blank" rel="noopener">OCSE, personale dell’assistenza di lungo periodo</a></p>
         </details>
         <p class="archive">Materiali didattici di Metodologie operative: <em>2 Anzianità e welfare</em> e <em>1 Lezione</em> (2023–24). Per ADL e IADL: slide ed esercitazione (2022–23).</p>
@@ -878,7 +973,7 @@ html:not(.js) .toolbar, html:not(.js) .deck-footer, html:not(.js) [data-next], h
     </main>
 
     <footer class="deck-footer">
-      <div class="progress-wrap"><div class="progress" id="progress" role="progressbar" aria-label="Avanzamento" aria-valuemin="1" aria-valuemax="21" aria-valuenow="1"><div id="progress-fill"></div></div><span id="counter" aria-live="polite">1 / 21</span></div>
+      <div class="progress-wrap"><div class="progress" id="progress" role="progressbar" aria-label="Avanzamento" aria-valuemin="1" aria-valuemax="24" aria-valuenow="1"><div id="progress-fill"></div></div><span id="counter" aria-live="polite">1 / 24</span></div>
       <nav class="page-actions" aria-label="Comandi slide">
         <button id="prev" type="button" aria-label="Slide precedente">← <span>Indietro</span></button>
         <button id="next" type="button" aria-label="Slide successiva"><span>Avanti</span> →</button>
