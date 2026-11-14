@@ -210,12 +210,122 @@ html:not(.js) .toolbar, html:not(.js) .deck-footer, html:not(.js) [data-next], h
   details::details-content { content-visibility: visible; display: block; }
   .scenario-result [hidden] { display: block !important; margin-top: .7rem; }
 }
+
+@font-face {
+  font-family: "DM Serif";
+  src: url("../../assets/collage-fonts/dm-serif-display.ttf") format("truetype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "DM Sans";
+  src: url("../../assets/collage-fonts/dm-sans-regular.ttf") format("truetype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "DM Sans";
+  src: url("../../assets/collage-fonts/dm-sans-semibold.ttf") format("truetype");
+  font-weight: 600 900;
+  font-display: swap;
+}
+
+.toolbar-mode { display: flex; align-items: center; gap: .65rem; }
+.explore #mode-button { background: #17385a; color: white; border-color: #17385a; }
+.js:not(.explore) .slide { scroll-margin-top: 6rem; }
+.explore .toolbar { position: sticky; top: 0; z-index: 3; background: #eeece7; }
+.explore .slide { margin-bottom: 1.25rem; min-height: 0; scroll-margin-top: 80px; }
+.explore .cover-photo { min-height: 300px; }
+.explore .deck-footer, .explore [data-next], .explore #fullscreen { display: none; }
+.js:not(.explore) .study-detail { display: none; }
+
+.slide.revised {
+  --ground: #f7f5ef;
+  --text: #202c3b;
+  --accent: #17385a;
+  --soft: #eaf0f4;
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-size: clamp(1.0625rem, 1.7vw, 1.42rem);
+  line-height: 1.43;
+  padding: clamp(1.7rem, 3.3vw, 3.7rem) clamp(1.8rem, 4.1vw, 4.25rem);
+  border-top: 4px solid var(--accent);
+  gap: clamp(.85rem, 2.05vh, 1.4rem);
+}
+.slide.revised h2 {
+  font: 400 clamp(2.35rem, 4.3vw, 4.2rem)/1.03 "DM Serif", Georgia, serif;
+  color: var(--accent);
+  max-width: 29ch;
+  letter-spacing: -.025em;
+}
+.revised .lead { font-size: clamp(1.16rem, 1.94vw, 1.58rem); line-height: 1.37; max-width: 65ch; }
+.revised .prompt, .revised .takeaway { font-weight: 650; max-width: 72ch; }
+.revised h3, .lesson-steps dt { color: var(--accent); font-size: 1.09em; line-height: 1.2; }
+.revised p { max-width: 76ch; }
+.revised .citation { color: #465468; max-width: 100%; font-size: .88rem; }
+.revised .citation a { display: inline; margin-inline-end: .85rem; }
+.lesson-figure, .lesson-pair, .lesson-steps, .lesson-example { width: 100%; }
+.lesson-figure figcaption { font-size: .92em; font-weight: 650; margin-bottom: .6rem; }
+.lesson-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.lesson-pair > *, .lesson-example {
+  background: #fffdf9;
+  border: 1px solid #d7d9d8;
+  border-radius: 8px;
+  padding: .8em 1em;
+}
+.lesson-pair h3 { margin-bottom: .35em; }
+.lesson-figure .lesson-pair strong { display: block; color: var(--accent); margin-bottom: .2em; }
+.lesson-example { border-inline-start: 4px solid #a75134; }
+.lesson-steps { margin: 0; }
+.lesson-steps > div {
+  display: grid;
+  grid-template-columns: minmax(12rem, 1fr) 3fr;
+  align-items: baseline;
+  gap: 1em;
+  padding: .59em 0;
+  border-bottom: 1px solid #d7d9d8;
+}
+.lesson-steps > div:first-child { border-top: 1px solid #d7d9d8; }
+.lesson-steps dt { font-weight: 650; }
+.lesson-steps dd { margin: 0; }
+.lesson-bars { display: grid; gap: .65em; width: min(100%, 40rem); }
+.lesson-bars > div { display: grid; grid-template-columns: 6.5em 1fr 1.9em; align-items: center; gap: .65em; }
+.lesson-track { height: .74em; background: #d9e2e8; border-radius: .25em; }
+.lesson-track span { display: block; height: 100%; background: #17385a; border-radius: inherit; }
+.revised details { background: var(--soft); border-radius: 8px; width: min(100%, 71ch); }
+.revised details summary, .revised details p { font-size: inherit; }
+.revised .references { gap: .8rem 2rem; }
+.explore .slide.revised { max-width: 70rem; margin-inline: auto; font-size: clamp(1.0625rem, 1.65vw, 1.24rem); line-height: 1.56; }
+
+@media (max-width: 850px) {
+  .slide.revised { padding: 1.5rem; }
+}
+@media (max-width: 610px) {
+  .toolbar-mode { gap: .35rem; }
+  .toolbar { gap: .35rem; padding-block: .3rem; }
+  .toolbar-actions { gap: .35rem; }
+  .toolbar-button { padding-inline: .55rem; }
+  .toolbar-button.fullscreen { min-width: 36px; }
+  .lesson-pair { grid-template-columns: minmax(0, 1fr); gap: .65rem; }
+  .lesson-steps > div { grid-template-columns: minmax(0, 1fr); gap: .28em; }
+  .slide.revised h2 { font-size: clamp(2.1rem, 9vw, 3rem); }
+  .revised .citation a { display: inline-block; }
+  .explore .slide { scroll-margin-top: 70px; }
+}
+@media (max-width: 365px) {
+  .toolbar-button { font-size: .79rem; padding-inline: .45rem; }
+  .toolbar-button.fullscreen { min-width: 32px; }
+  .page-actions button span { display: none; }
+}
+@media print {
+  .js:not(.explore) .study-detail { display: block; }
+}
 </style>
 </head>
 <body>
   <div class="deck">
     <header class="toolbar">
-      <button type="button" id="index-button" class="toolbar-button">☰ <span>Indice</span></button>
+      <div class="toolbar-mode">
+        <button type="button" id="index-button" class="toolbar-button">☰ <span>Indice</span></button>
+        <button type="button" id="mode-button" class="toolbar-button">Esplora</button>
+      </div>
       <span class="course">Metodologie operative <span aria-hidden="true">·</span> <a href="../../quinto.html#arg-uda-5-6">Quinto anno</a></span>
       <div class="toolbar-actions">
         <button type="button" id="notes-button" class="toolbar-button" title="Apri le note in una finestra separata">Note relatore ↗</button>
@@ -340,60 +450,299 @@ html:not(.js) .toolbar, html:not(.js) .deck-footer, html:not(.js) [data-next], h
         </template>
       </section>
 
-      <section class="slide tone-lilac" id="fragilita" aria-labelledby="titolo-fragilita">
-        <p class="eyebrow">La vulnerabilità</p>
+      <section class="slide revised" id="fragilita" aria-labelledby="titolo-fragilita">
         <h2 id="titolo-fragilita">Che cos’è la fragilità</h2>
-        <p class="lead">In geriatria indica una maggiore vulnerabilità agli eventi stressanti, legata alla riduzione delle riserve dell’organismo.</p>
-        <div class="scene">
-          <p><strong>Un esempio.</strong> Dopo un’infezione, una persona che prima si lavava e si vestiva da sola può fare più fatica a recuperare le attività abituali.</p>
-        </div>
-        <p class="prompt">La fragilità riguarda la capacità di reagire e recuperare. Il bisogno di assistenza si valuta osservando le attività quotidiane.</p>
-        <p class="citation"><a href="https://pubmed.ncbi.nlm.nih.gov/11253156/" target="_blank" rel="noopener">Fried e colleghi · Studio sulla fragilità</a> <a href="https://www.epicentro.iss.it/passi-argento/dati/fragili" target="_blank" rel="noopener">ISS · Fragilità e disabilità</a></p>
+        <p class="lead">In geriatria la <strong>fragilità</strong> è una maggiore vulnerabilità a eventi come un’infezione. Quando le riserve dell’organismo si riducono, affrontare uno sforzo e tornare alle attività abituali può diventare più difficile.</p>
+        <figure class="lesson-figure">
+          <figcaption>Un’infezione e due possibili recuperi</figcaption>
+          <div class="lesson-pair">
+            <p><strong>Recupero più rapido</strong> Dopo l’infezione, una persona torna a vestirsi e a uscire come prima.</p>
+            <p><strong>Recupero più faticoso</strong> Dopo un’infezione simile, un’altra persona fatica a riprendere le stesse attività.</p>
+          </div>
+        </figure>
+        <p class="takeaway">Il recupero difficile è un segnale da approfondire. L’operatore descrive che cosa è cambiato e lo riferisce all’équipe.</p>
+        <details class="study-detail"><summary>Approfondisci come si misura la fragilità</summary>
+          <p>Nel modello di fragilità fisica di Fried si valutano cinque elementi: perdita di peso involontaria, affaticamento, debolezza muscolare, cammino lento e bassa attività fisica. Nello studio, la presenza di almeno tre elementi identificava il profilo fragile.</p>
+          <p>Nella sorveglianza dell’Istituto Superiore di Sanità «Passi d’Argento», la fragilità si rileva invece nelle persone di almeno 65 anni autonome nelle attività di base ma con difficoltà a svolgere autonomamente almeno due attività strumentali. Il primo è un modello di fragilità fisica; il secondo definisce un indicatore per studiare la popolazione. Vanno letti ciascuno nel proprio contesto.</p>
+        </details>
+        <p class="citation"><a href="https://pubmed.ncbi.nlm.nih.gov/11253156/" target="_blank" rel="noopener">Fried e colleghi, studio sulla fragilità fisica</a> <a href="https://www.epicentro.iss.it/passi-argento/dati/fragili" target="_blank" rel="noopener">Istituto Superiore di Sanità (ISS), Passi d’Argento</a></p>
         <template class="speaker">
           <p class="timing">4 min</p>
-          <h3>Chiarisci il concetto di riserva</h3>
-          <p>Per riserva si intende la capacità dell’organismo di affrontare uno sforzo o una malattia mantenendo o recuperando le funzioni abituali. Un cambiamento importante dopo un evento clinico suggerisce di approfondire il quadro. La fragilità si valuta con strumenti appropriati.</p>
-          <p>Lo studio di Fried propone un modello di fragilità fisica. L’ISS usa anche una definizione operativa per la sorveglianza di popolazione. Spiega che studi e contesti diversi possono misurare la fragilità con strumenti diversi.</p>
+          <h3>Riparti dalla lezione precedente</h3>
+          <p>«Che cosa osserviamo prima e dopo l’infezione nelle due persone?» Il confronto è illustrativo. Anche gravità dell’infezione, altre condizioni di salute e sostegni possono influire sul recupero.</p>
+          <p>Inizia il blocco su fragilità, attività e autonomia. Le diagnosi descrivono condizioni presenti, la fragilità descrive vulnerabilità. Possono coesistere. Chiedi quale cambiamento concreto annoterebbe l’operatore e a chi lo segnalerebbe.</p>
         </template>
       </section>
 
-      <section class="slide tone-ink" id="welfare" aria-labelledby="titolo-welfare">
-        <p class="eyebrow">Autosufficienza e attività quotidiane</p>
+      <section class="slide revised" id="welfare" aria-labelledby="titolo-welfare">
         <h2 id="titolo-welfare">In quali attività serve aiuto?</h2>
-        <p class="lead">La <strong>non autosufficienza</strong> riguarda il bisogno di assistenza per svolgere attività della vita quotidiana. Conta quali attività richiedono aiuto, quanto spesso e in quale misura.</p>
-        <div class="welfare-list">
-          <p><strong>ADL · Attività di base</strong><span>Lavarsi, vestirsi, mangiare, usare il bagno, spostarsi dal letto alla sedia.</span></p>
-          <p><strong>IADL · Attività strumentali</strong><span>Fare la spesa, preparare i pasti, gestire farmaci e denaro, usare il telefono.</span></p>
+        <p class="lead">Per capire il <strong>bisogno di assistenza</strong>, osserviamo cosa una persona fa da sé, con un ausilio, con supervisione o con aiuto diretto. La non autosufficienza riguarda il bisogno di assistenza nelle attività quotidiane.</p>
+        <div class="lesson-pair">
+          <div><h3>Attività di base (ADL)</h3><p>Riguardano la cura personale: lavarsi, vestirsi, usare il bagno, mantenere la continenza, mangiare e trasferirsi dal letto alla sedia.</p></div>
+          <div><h3>Attività strumentali (IADL)</h3><p>Permettono di organizzare la vita quotidiana: fare la spesa, cucinare, usare il telefono, spostarsi, gestire farmaci e denaro.</p></div>
         </div>
-        <p class="prompt">Una persona può scegliere orari e abitudini anche quando ha bisogno di assistenza.</p>
-        <p class="citation"><a href="https://www.epicentro.iss.it/passi-argento/dati/fragili" target="_blank" rel="noopener">ISS · Attività di base e strumentali</a> <a href="https://pubmed.ncbi.nlm.nih.gov/14044222/" target="_blank" rel="noopener">Katz e colleghi · Indice ADL</a></p>
+        <p class="takeaway">«Si veste da sola e ha bisogno di aiuto per la spesa» è un’osservazione su cui si può costruire un intervento.</p>
+        <details class="study-detail"><summary>Approfondisci autosufficienza e valutazione</summary>
+          <p>In una prima descrizione si può parlare di autosufficienza quando la persona svolge da sé le attività, di autosufficienza parziale quando serve aiuto in alcune e di non autosufficienza quando il bisogno di assistenza riguarda attività fondamentali. Questa è una semplificazione didattica. In pratica occorre precisare attività, frequenza e tipo di aiuto. Il riconoscimento richiesto da una misura pubblica segue i criteri specifici di quella misura.</p>
+          <p>ADL viene dall’inglese <i lang="en">Activities of Daily Living</i>, IADL da <i lang="en">Instrumental Activities of Daily Living</i>. Le scale organizzano le osservazioni e si usano insieme al colloquio e alla valutazione professionale.</p>
+        </details>
+        <p class="citation"><a href="https://www.epicentro.iss.it/passi-argento/dati/fragili" target="_blank" rel="noopener">ISS, attività di base e strumentali</a> <a href="https://pubmed.ncbi.nlm.nih.gov/14044222/" target="_blank" rel="noopener">Katz e colleghi, indice ADL</a></p>
         <template class="speaker">
-          <p class="timing">5 min</p>
-          <h3>Riprendi i gradi di autosufficienza del materiale</h3>
-          <p>Il tuo testo distingue autosufficienza, autosufficienza parziale e non autosufficienza. Per spiegare la differenza, parti dalle attività: una persona si lava e si veste da sola ma ha bisogno di aiuto per la spesa. Un’altra necessita di assistenza anche per lavarsi e vestirsi. Chiedi quali sono ADL e quali IADL.</p>
-          <p>La valutazione professionale considera le singole attività e le condizioni in cui si svolgono. Per l’accesso a una misura o a un servizio si applicano i criteri previsti da quella misura. Qui stiamo imparando a descrivere il bisogno.</p>
+          <p class="timing">4 min</p>
+          <h3>Fai classificare due attività</h3>
+          <p>«Preparare il pranzo e mangiarlo sono la stessa attività?» Cucinare è strumentale, alimentarsi è di base. Una persona può avere bisogno di aiuto per una e mantenere la capacità di fare l’altra.</p>
+          <p>Riprendi i gradi di autosufficienza del materiale. Fai precisare quanto aiuto serve, quando e in quali condizioni. Chiarisci la differenza fra bisogno osservato e riconoscimento per una prestazione.</p>
         </template>
       </section>
 
-      <section class="slide tone-lemon" id="attivita" aria-labelledby="titolo-attivita">
-        <p class="eyebrow">Welfare e interventi</p>
+      <section class="slide revised" id="autonomia" aria-labelledby="titolo-autonomia">
+        <h2 id="titolo-autonomia">Avere bisogno di aiuto e poter scegliere</h2>
+        <p class="lead">L’<strong>autonomia decisionale</strong> riguarda la possibilità di esprimere preferenze e partecipare alle scelte. L’<strong>autosufficienza</strong> riguarda lo svolgimento delle attività quotidiane.</p>
+        <div class="lesson-example"><p>Una donna ha bisogno di aiuto per lavarsi. Può indicare a che ora preferisce farlo, che cosa riesce a fare da sé e come tutelare la sua intimità.</p></div>
+        <p class="takeaway">L’operatore si rivolge direttamente alla persona, ascolta le sue preferenze e concorda l’aiuto con lei.</p>
+        <details class="study-detail"><summary>Approfondisci il ruolo dell’ambiente</summary>
+          <p>Per l’Organizzazione mondiale della sanità (OMS), la capacità funzionale nasce dall’incontro tra capacità fisiche e mentali, ambiente e interazione fra i due. Una fermata accessibile può permettere a chi cammina lentamente di raggiungere il mercato. Il sostegno può quindi riguardare anche gli ostacoli del quartiere.</p>
+          <p>La demenza è una sindrome che può compromettere memoria, orientamento e attività quotidiane. È distinta dalla normale senescenza. In caso di difficoltà cognitive, l’operatore coinvolge comunque la persona, con parole e tempi adatti, e riferisce all’équipe i cambiamenti osservati.</p>
+        </details>
+        <p class="citation"><a href="https://www.who.int/news-room/questions-and-answers/item/healthy-ageing-and-functional-ability" target="_blank" rel="noopener">OMS, invecchiamento in salute e capacità funzionale</a> <a href="https://www.who.int/news-room/fact-sheets/detail/dementia" target="_blank" rel="noopener">OMS, demenza</a></p>
+        <template class="speaker">
+          <p class="timing">3 min</p>
+          <h3>Fai provare una domanda rispettosa</h3>
+          <p>Chiedi alla classe quale domanda rivolgerebbe alla donna prima di aiutarla. Un esempio è «Da quale parte preferisce iniziare? Che cosa vuole fare da sé?». Fai notare che sostituirsi alla persona senza ascoltarla può ridurre il suo spazio di scelta.</p>
+        </template>
+      </section>
+
+      <section class="slide revised" id="attivita" aria-labelledby="titolo-attivita">
         <h2 id="titolo-attivita">Dalle condizioni di salute al bisogno di aiuto</h2>
-        <p class="lead">Una persona con diabete e artrosi si veste e mangia da sola. Dopo una caduta ha bisogno di aiuto per lavarsi e per fare la spesa.</p>
+        <div class="lesson-example"><p>Una persona con diabete e artrosi si veste e mangia da sola. Dopo una caduta ha bisogno di aiuto per lavarsi e per fare la spesa.</p></div>
         <p class="prompt">Quali condizioni di salute conosciamo? Quali attività richiedono sostegno?</p>
-        <details class="example"><summary>Verifica la risposta</summary><p>Diabete e artrosi indicano multimorbilità. Lavarsi è un’ADL, fare la spesa è un’IADL. Per organizzare il sostegno occorre capire quanto aiuto serve e per quanto tempo.</p></details>
-        <p class="handoff"><strong>Prossima lezione</strong><span>Chi valuta il bisogno e quali servizi possono rispondere?</span></p>
-        <p class="citation">Esempio didattico · <a href="https://www.nice.org.uk/guidance/ng56/chapter/recommendations" target="_blank" rel="noopener">NICE · Multimorbilità</a> <a href="https://www.epicentro.iss.it/passi-argento/dati/fragili" target="_blank" rel="noopener">ISS · ADL e IADL</a></p>
+        <p>Scrivete una risposta in un minuto. Poi confrontatevi in coppia e aggiungete una domanda da rivolgere alla persona.</p>
+        <details class="lesson-disclosure"><summary>Verifica la risposta</summary>
+          <p>Diabete e artrosi indicano multimorbilità. Lavarsi è un’attività di base, fare la spesa è strumentale. Per organizzare il sostegno bisogna capire quanto aiuto serve, da quando e con quali risorse. La caduta è un evento da approfondire nella valutazione.</p>
+        </details>
+        <p class="citation"><a href="https://www.nice.org.uk/guidance/ng56/chapter/recommendations" target="_blank" rel="noopener">NICE, multimorbilità</a> <a href="https://www.epicentro.iss.it/passi-argento/dati/fragili" target="_blank" rel="noopener">ISS, attività quotidiane</a></p>
         <template class="speaker">
           <p class="timing">5 min</p>
-          <h3>Discuti il caso in due passaggi</h3>
-          <p>Chiedi di separare le informazioni sulle patologie da quelle sulle attività. Poi domanda quali altre informazioni occorrono: bisogno temporaneo o persistente, attività da fare ogni giorno, preferenze della persona, sostegni già disponibili. La caduta da sola lascia aperta la valutazione della fragilità.</p>
-          <h3>Il punto di arrivo</h3>
-          <p>Il welfare organizza tutele e sostegni quando la persona e la sua rete hanno bisogno di una risposta. Le condizioni di salute, le capacità e gli aiuti già presenti guidano la scelta. La prossima lezione affronta l’assistenza a domicilio e gli altri servizi per le persone anziane.</p>
+          <h3>Ascolta le risposte prima di svelare</h3>
+          <p>Chiudi il blocco su fragilità, attività e autonomia. Prima fai separare le diagnosi dalle attività, poi chiedi che cosa manca. Accogli domande su durata, preferenze, presenza di aiuti, ostacoli in casa e capacità prima della caduta. Il ponte con il welfare è capire chi può valutare e quale sostegno è disponibile.</p>
         </template>
       </section>
 
-      <section class="slide tone-paper" id="fonti" aria-labelledby="titolo-fonti">
-        <p class="eyebrow">Approfondimenti</p>
+      <section class="slide revised" id="domanda-bisogno" aria-labelledby="titolo-domanda-bisogno">
+        <h2 id="titolo-domanda-bisogno">Una richiesta da chiarire</h2>
+        <p class="lead">Una figlia chiede un’assistente familiare. Il padre da qualche settimana fatica a preparare i pasti.</p>
+        <dl class="lesson-steps">
+          <div><dt>Domanda</dt><dd>È ciò che viene chiesto al servizio. Qui la figlia propone un aiuto a casa.</dd></div>
+          <div><dt>Problema riferito</dt><dd>È la difficoltà segnalata. Il padre fatica a cucinare.</dd></div>
+          <div><dt>Bisogno da valutare</dt><dd>Occorre capire con lui come assicurare pasti adeguati e quali attività desidera continuare a fare.</dd></div>
+        </dl>
+        <p class="prompt">Che cosa chiederesti al padre per capire da dove nasce la difficoltà?</p>
+        <details class="study-detail"><summary>Approfondisci con una risposta possibile</summary>
+          <p>«Qual è il passaggio più difficile, fare la spesa, stare ai fornelli o mangiare?» La risposta orienta l’osservazione verso ostacoli diversi. Poi si chiede quali soluzioni ha già provato e quale aiuto accetterebbe.</p>
+        </details>
+        <template class="speaker">
+          <p class="timing">4 min</p>
+          <h3>Parti dalle parole della figlia</h3>
+          <p>Apri il blocco sulla valutazione e sui sostegni a casa (20 minuti). Fai formulare una domanda aperta da rivolgere al padre. Distingui i fatti disponibili dalle ipotesi. La parola «bisogno» va collegata al risultato da raggiungere e discussa con la persona.</p>
+        </template>
+      </section>
+
+      <section class="slide revised" id="valutazione" aria-labelledby="titolo-valutazione">
+        <h2 id="titolo-valutazione">Come si costruisce un piano di aiuto</h2>
+        <p class="lead">La <strong>valutazione multidimensionale</strong> mette insieme più aspetti della vita della persona per capire quale aiuto sia praticabile.</p>
+        <dl class="lesson-steps">
+          <div><dt>Ascoltare e osservare</dt><dd>La persona descrive priorità e abitudini. L’équipe valuta salute, attività, umore, relazioni, casa e risorse economiche.</dd></div>
+          <div><dt>Concordare l’aiuto</dt><dd>Il piano precisa l’obiettivo, chi fa che cosa e quando. Per i pasti si può partire dai giorni in cui manca un sostegno.</dd></div>
+          <div><dt>Verificare il risultato</dt><dd>Alla data concordata si controllano continuità dei pasti, difficoltà rimaste e soddisfazione della persona.</dd></div>
+        </dl>
+        <p class="citation"><a href="https://www.who.int/publications/i/item/9789240103726" target="_blank" rel="noopener">OMS, guida alla valutazione e alle cure integrate (2025)</a></p>
+        <template class="speaker">
+          <p class="timing">4 min</p>
+          <h3>Passa dall’osservazione al progetto</h3>
+          <p>Usa il caso dei pasti. «Come capiremo se l’aiuto sta funzionando?» Fai individuare un obiettivo osservabile e chi lo verificherà. L’operatore contribuisce con l’osservazione quotidiana e informa l’équipe. Tutela riservatezza e preferenze.</p>
+        </template>
+      </section>
+
+      <section class="slide revised" id="sistema-welfare" aria-labelledby="titolo-sistema-welfare">
+        <h2 id="titolo-sistema-welfare">Come il welfare organizza i sostegni</h2>
+        <p class="lead">Il <strong>welfare</strong> comprende politiche e risorse con cui la società protegge diritti e risponde ai bisogni. Pensioni, sanità e assistenza sociale coprono bisogni diversi.</p>
+        <div class="lesson-pair">
+          <div><h3>Enti pubblici</h3><p>Stato, Regioni, Comuni e aziende sanitarie regolano, finanziano o organizzano gli interventi secondo le rispettive competenze.</p></div>
+          <div><h3>Famiglie, comunità e mercato</h3><p>Le reti vicine offrono aiuto. Il Terzo settore può organizzare attività e servizi. Famiglie ed enti possono acquistare prestazioni da chi le fornisce.</p></div>
+        </div>
+        <p class="takeaway">Questo intreccio di attori è chiamato <em>welfare mix</em>. In un piano di assistenza occorre chiarire compiti e responsabilità.</p>
+        <details class="study-detail"><summary>Approfondisci il lavoro di cura</summary>
+          <p>Il lavoro di cura comprende il tempo e le competenze necessarie per assistere. Può essere retribuito, come quello di chi lavora nei servizi o in casa, o non retribuito, come gran parte dell’aiuto prestato dai familiari.</p>
+          <p>In sociologia, <em>familismo</em> indica quanta parte dell’assistenza ricade sulla famiglia. Si parla di <em>defamilizzazione</em> quando servizi e tutele rendono possibile ricevere aiuto anche se la famiglia ha poco tempo o poche risorse. Per organizzare la cura bisogna ascoltare anche chi assiste e verificare quanto aiuto può offrire nel tempo.</p>
+        </details>
+        <p class="citation"><a href="https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:2000-11-08;328" target="_blank" rel="noopener">Legge 328/2000, sistema dei servizi sociali</a></p>
+        <template class="speaker">
+          <p class="timing">4 min</p>
+          <h3>Distingui le responsabilità</h3>
+          <p>Riprendi i pasti. Il Comune può organizzare un servizio o affidarlo a un gestore; una vicina può aiutare occasionalmente; la famiglia può retribuire un’assistente. Fai indicare quale aiuto è regolare e chi verifica che arrivi. Chiedi anche da quali altre attività dovrebbe assentarsi la figlia per garantire ogni giorno la cura.</p>
+        </template>
+      </section>
+
+      <section class="slide revised" id="strumenti-welfare" aria-labelledby="titolo-strumenti-welfare">
+        <h2 id="titolo-strumenti-welfare">Dal servizio all’aiuto che arriva</h2>
+        <dl class="lesson-steps">
+          <div><dt>Servizio</dt><dd>È l’organizzazione che assicura una risposta nel tempo. Per esempio, il servizio sociale comunale.</dd></div>
+          <div><dt>Intervento</dt><dd>È l’azione progettata per quel bisogno. Per esempio, organizzare il sostegno ai pasti a casa.</dd></div>
+          <div><dt>Prestazione</dt><dd>È ciò che viene erogato concretamente. Può essere un pasto consegnato, un’ora di assistenza o un contributo.</dd></div>
+          <div><dt>Misura</dt><dd>È il dispositivo che stabilisce chi può accedere a un sostegno, a quali condizioni e tramite quale ente.</dd></div>
+        </dl>
+        <details class="study-detail"><summary>Approfondisci denaro, servizi e diritti</summary>
+          <p>Un contributo aiuta a coprire le spese. Un servizio rende disponibili attività e competenze professionali. Se mancano operatori o trasporti, l’aiuto previsto può essere difficile da usare.</p>
+          <p>La legge 33/2023 delega al Governo il riordino delle politiche per le persone anziane. Il decreto legislativo 29/2024 introduce interventi su prevenzione, invecchiamento attivo e assistenza in un sistema di welfare già esistente. La Prestazione Universale è un esempio di misura economica sperimentale rivolta a persone anziane non autosufficienti con bisogno assistenziale gravissimo e specifici requisiti. Per un caso reale si controllano ente responsabile, requisiti in vigore e procedura di accesso.</p>
+        </details>
+        <p class="citation"><a href="https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:2023-03-23;33" target="_blank" rel="noopener">Legge 33/2023</a> <a href="https://www.normattiva.it/atto/caricaDettaglioAtto?atto.codiceRedazionale=24G00050&amp;atto.dataPubblicazioneGazzetta=2024-03-18" target="_blank" rel="noopener">Decreto legislativo 29/2024</a> <a href="https://www.inps.it/it/it/dettaglio-scheda.it.schede-servizio-strumento.schede-servizi.decreto-anziani-prestazione-universale.html" target="_blank" rel="noopener">Istituto nazionale della previdenza sociale (INPS), Prestazione Universale</a></p>
+        <template class="speaker">
+          <p class="timing">4 min</p>
+          <h3>Ricollega le parole al caso dei pasti</h3>
+          <p>Proponi la domanda «Se al padre viene consegnato il pranzo due volte alla settimana, quale prestazione riceve e qual è l’intervento più ampio?». Le parole sono una distinzione didattica. I termini giuridici dipendono dalla singola norma.</p>
+        </template>
+      </section>
+
+      <section class="slide revised" id="domiciliarita" aria-labelledby="titolo-domiciliarita">
+        <h2 id="titolo-domiciliarita">Quali aiuti rendono possibile restare a casa?</h2>
+        <p class="lead">La <strong>domiciliarità</strong> sostiene la vita nella propria casa e nel quartiere. Per renderla praticabile si considerano preferenze, accessibilità dell’abitazione e aiuti effettivamente disponibili.</p>
+        <div class="lesson-pair">
+          <div><h3>Assistenza sociale</h3><p>Il Servizio di assistenza domiciliare (SAD) può sostenere la cura personale o altre attività quotidiane. L’offerta dipende dall’organizzazione locale.</p></div>
+          <div><h3>Cure domiciliari</h3><p>L’Assistenza domiciliare integrata (ADI) coordina cure sanitarie e sociosanitarie a casa, per esempio interventi infermieristici e riabilitativi, secondo il bisogno valutato.</p></div>
+        </div>
+        <p class="takeaway">Quando una persona ha bisogno di entrambi, Comune e servizi sanitari devono raccordare i rispettivi interventi.</p>
+        <p class="citation"><a href="https://www.salute.gov.it/new/it/tema/nuova-assistenza-distrettuale/assistenza-domiciliare/" target="_blank" rel="noopener">Ministero della Salute, assistenza domiciliare</a></p>
+        <template class="speaker">
+          <p class="timing">4 min</p>
+          <h3>Chiedi due esempi</h3>
+          <p>Dopo la caduta, un aiuto per lavarsi riguarda la vita quotidiana. Un intervento di riabilitazione risponde a un bisogno sanitario. La valutazione chiarisce come coordinarli, se entrambi appropriati, e che cosa accade fuori dalle ore del servizio. Qui puoi interrompere e riprendere dai servizi diurni e residenziali.</p>
+        </template>
+      </section>
+
+      <section class="slide revised" id="altre-risposte" aria-labelledby="titolo-altre-risposte">
+        <h2 id="titolo-altre-risposte">Il centro diurno e la residenzialità</h2>
+        <div class="lesson-pair">
+          <div><h3>Centro diurno</h3><p>La persona frequenta una struttura per parte della giornata. A seconda del centro può svolgere attività sociali e ricevere assistenza o cure, poi rientra a casa.</p></div>
+          <div><h3>Struttura residenziale</h3><p>La persona vive nella struttura e riceve assistenza anche di notte. Una Residenza sanitaria assistenziale (RSA) è un esempio di risposta per chi necessita di assistenza sociosanitaria continuativa, secondo valutazione.</p></div>
+        </div>
+        <p class="lead">Per confrontare le opzioni si ascoltano i desideri della persona e si valuta quale assistenza è disponibile nei diversi momenti della giornata.</p>
+        <p class="citation"><a href="https://www.salute.gov.it/new/it/tema/livelli-essenziali-di-assistenza/assistenza-residenziale/" target="_blank" rel="noopener">Ministero della Salute, assistenza residenziale e semiresidenziale</a></p>
+        <template class="speaker">
+          <p class="timing">3 min</p>
+          <h3>Ragiona sulle ore scoperte</h3>
+          <p>Apri il blocco sui servizi e sulle politiche (20 minuti, con il caso finale). Domanda «Se il bisogno prevalente emerge la sera, quale informazione ci serve prima di proporre un centro diurno?». Collega orario, trasporto, continuità e possibilità di scelta. Anticipa che nella lezione sui servizi si studieranno accesso e funzionamento locale.</p>
+        </template>
+      </section>
+
+      <section class="slide revised" id="lavoro-cura" aria-labelledby="titolo-lavoro-cura">
+        <h2 id="titolo-lavoro-cura">Servono persone che possano prestare cura</h2>
+        <p class="lead">L’assistenza di lungo periodo comprende aiuti continuativi per persone con limitazioni durature. Per erogarla servono tempo, competenze e personale.</p>
+        <figure class="lesson-figure">
+          <figcaption>Addetti all’assistenza di lungo periodo ogni 100 persone di almeno 65 anni</figcaption>
+          <div class="lesson-bars">
+            <div><strong>Italia</strong><span class="lesson-track" aria-hidden="true"><span style="width:30%"></span></span><b>1,5</b></div>
+            <div><strong>Media OCSE</strong><span class="lesson-track" aria-hidden="true"><span style="width:100%"></span></span><b>5,0</b></div>
+          </div>
+        </figure>
+        <p class="takeaway">Sono dati del 2023 o dell’anno più vicino disponibile. L’indicatore conta personale retribuito rilevato.</p>
+        <p class="citation"><a href="https://www.oecd.org/en/publications/health-at-a-glance-2025_15a55280-en/italy_c737c936-en.html" target="_blank" rel="noopener">Organizzazione per la cooperazione e lo sviluppo economico (OCSE), rapporto 2025</a></p>
+        <template class="speaker">
+          <p class="timing">3 min</p>
+          <h3>Fai leggere unità e denominatore</h3>
+          <p>«Ogni 100 chi?» Si contano tutte le persone di almeno 65 anni nel denominatore. Il rapporto, nell’edizione 2025, descrive le categorie di addetti rilevate e ha limiti di comparabilità fra Paesi. Da solo non misura qualità, intensità dell’assistenza o ore svolte in famiglia.</p>
+        </template>
+      </section>
+
+      <section class="slide revised" id="politiche-oggi" aria-labelledby="titolo-politiche-oggi">
+        <h2 id="titolo-politiche-oggi">Come rispondere ai bisogni di oggi</h2>
+        <p class="lead">Le proposte per l’Italia riguardano salute, servizi e ostacoli del territorio. Per valutarle occorre osservare chi riesce ad accedere e quali benefici ottiene.</p>
+        <dl class="lesson-steps">
+          <div><dt>Prevenzione</dt><dd>Movimento accessibile e gestione delle malattie croniche possono sostenere le capacità quotidiane.</dd></div>
+          <div><dt>Continuità della cura</dt><dd>Coordinare i servizi e offrire sostituzioni programmate a chi assiste in famiglia aiuta a coprire i momenti in cui il sostegno manca.</dd></div>
+          <div><dt>Accesso nel territorio</dt><dd>Trasporti, servizi vicini e supporto digitale possono ridurre gli ostacoli. Un servizio online richiede anche connessione, competenze e un’alternativa per chi ne ha bisogno.</dd></div>
+        </dl>
+        <p class="citation"><a href="https://www.who.int/initiatives/decade-of-healthy-ageing" target="_blank" rel="noopener">OMS, Decennio dell’invecchiamento in salute</a> <a href="https://www.normattiva.it/atto/caricaDettaglioAtto?atto.codiceRedazionale=24G00050&amp;atto.dataPubblicazioneGazzetta=2024-03-18" target="_blank" rel="noopener">Decreto legislativo 29/2024</a></p>
+        <template class="speaker">
+          <p class="timing">4 min</p>
+          <h3>Chiedi un riscontro osservabile</h3>
+          <p>«Un centro apre in un paese vicino. Come verifichi che lo possano raggiungere le persone che ne hanno bisogno?» Fai distinguere apertura del servizio, accesso effettivo e beneficio osservato. Questi sono ambiti di intervento. Gli esiti dipendono da attuazione e risorse.</p>
+        </template>
+      </section>
+
+      <section class="slide revised" id="politiche-futuro" aria-labelledby="titolo-politiche-futuro">
+        <h2 id="titolo-politiche-futuro">Quali politiche agiscono nel tempo?</h2>
+        <dl class="lesson-steps">
+          <div><dt>Genitorialità</dt><dd>Nidi e congedi possono ridurre gli ostacoli per chi desidera figli. Una generazione entra nel mondo del lavoro molti anni dopo la nascita.</dd></div>
+          <div><dt>Migrazioni e integrazione</dt><dd>Accogliere giovani adulti, riconoscere competenze e creare opportunità per chi resta o rientra può sostenere la forza lavoro. Anche chi si trasferisce invecchia.</dd></div>
+          <div><dt>Occupazione e formazione</dt><dd>Più opportunità per giovani e donne e formazione durante la vita lavorativa possono sostenere occupazione e servizi. Salute e tipo di lavoro incidono sulla possibilità di continuare a lavorare.</dd></div>
+        </dl>
+        <p class="prompt">Quale proposta può incidere prima sulla disponibilità di personale? Da quali condizioni dipende?</p>
+        <p class="citation"><a href="https://www.istat.it/wp-content/uploads/2026/05/Capitolo-2-9giugno2026.pdf" target="_blank" rel="noopener">Istat, Rapporto annuale 2026, cap. 2</a> <a href="https://www.oecd.org/en/publications/oecd-economic-surveys-italy-2026_539538b2-en.html" target="_blank" rel="noopener">OCSE, analisi dell’Italia 2026</a></p>
+        <template class="speaker">
+          <p class="timing">4 min</p>
+          <h3>Confronta i tempi delle politiche</h3>
+          <p>Fai motivare una scelta con tre elementi: problema affrontato, meccanismo previsto e risultato da osservare. Per esempio, per l’occupazione nei servizi di cura contano competenze, condizioni di lavoro e permanenza nel settore. Le proposte non sono stime di efficacia.</p>
+        </template>
+      </section>
+
+      <section class="slide revised" id="caso-casa" aria-labelledby="titolo-caso-casa">
+        <h2 id="titolo-caso-casa">Un piano per restare a casa</h2>
+        <div class="lesson-example"><p>Una donna di 84 anni vuole vivere nella propria casa. Ha bisogno di aiuto per lavarsi, vestirsi e passare dal letto alla sedia. I familiari lavorano durante il giorno.</p></div>
+        <p class="prompt">In coppia, scrivete quali informazioni raccogliere prima di proporre un servizio.</p>
+        <p>Considerate salute, attività, casa, risorse economiche e rete di aiuto. In tre minuti formulate una domanda da rivolgere alla donna per ciascun aspetto.</p>
+        <details class="lesson-disclosure"><summary>Confronta la tua proposta</summary>
+          <p>Chiedete quali terapie o cure sono necessarie, in quali movimenti serve aiuto, quali ostacoli ci sono in casa, quali costi può sostenere e quando i familiari possono esserci. Concordate poi con la donna quale priorità discutere con l’équipe e come verificare l’aiuto.</p>
+        </details>
+        <template class="speaker">
+          <p class="timing">6 min</p>
+          <h3>Ascolta un esempio per dimensione</h3>
+          <p>Tre minuti individuali o in coppia e tre di confronto. Se viene proposto subito un servizio, chiedi quale informazione lo giustifica. Un buon piano rende praticabile una preferenza, specifica responsabilità e tempi e prevede una verifica.</p>
+        </template>
+      </section>
+
+      <section class="slide revised study-only" id="demografia-approfondimento" aria-labelledby="titolo-demografia-approfondimento">
+        <h2 id="titolo-demografia-approfondimento">Perché cambia la struttura per età</h2>
+        <p class="lead">Con meno nascite diminuisce il peso delle generazioni giovani. Con una maggiore sopravvivenza cresce il numero di persone che raggiunge le età avanzate.</p>
+        <div class="lesson-pair">
+          <div><h3>Le generazioni</h3><p>Invecchiano le generazioni numerose del dopoguerra. Oggi ci sono anche meno potenziali genitori: le nascite possono calare persino se il numero medio di figli per donna resta uguale.</p></div>
+          <div><h3>Le migrazioni</h3><p>L’arrivo o la partenza di giovani adulti modifica il rapporto fra gruppi di età. In Sardegna, al Censimento 2024, si contavano 283 persone di almeno 65 anni ogni 100 minori di 15 anni.</p></div>
+        </div>
+        <details class="lesson-disclosure"><summary>Come si leggono gli indici demografici?</summary>
+          <p>L’indice di vecchiaia confronta due fasce di età. L’indice di dipendenza strutturale rapporta la somma delle fasce 0–14 e 65 e oltre a quella 15–64. Sono grandezze demografiche. Per misurare occupazione e bisogno di assistenza servono dati distinti.</p>
+        </details>
+        <p class="citation"><a href="https://www.istat.it/comunicato-stampa/natalita-e-fecondita-della-popolazione-residente-anno-2025/" target="_blank" rel="noopener">Istat, natalità e fecondità nel 2025</a> <a href="https://www.istat.it/comunicato-stampa/censimento-e-dinamica-della-popolazione-anno-2024/" target="_blank" rel="noopener">Istat, Censimento 2024</a></p>
+        <template class="speaker"><p>Approfondimento. Ricollega l’indice alla seconda slide e fai distinguere persone in età lavorativa e persone occupate.</p></template>
+      </section>
+
+      <section class="slide revised study-only" id="genere-approfondimento" aria-labelledby="titolo-genere-approfondimento">
+        <h2 id="titolo-genere-approfondimento">Longevità e differenze tra donne e uomini</h2>
+        <div class="lesson-pair">
+          <div><h3>Alla nascita</h3><p>Nel 2025 la speranza di vita stimata era di <strong>85,7 anni per le donne</strong> e <strong>81,7 per gli uomini</strong>. È una media calcolata con i rischi di morte osservati alle varie età.</p></div>
+          <div><h3>A 65 anni</h3><p>Nello stesso anno la speranza di vita senza limitazioni nelle attività abituali era di <strong>10,8 anni</strong> per entrambi i gruppi. Questo indicatore parte da 65 anni e considera anche le limitazioni riferite.</p></div>
+        </div>
+        <p class="lead">Le donne erano il <strong>64,6%</strong> delle persone di almeno 85 anni al Censimento italiano 2024. L’accesso a risorse e aiuti dipende anche da reddito, reti familiari e storia lavorativa.</p>
+        <details class="lesson-disclosure"><summary>Perché contano le biografie?</summary>
+          <p>La prospettiva sociologica del <em>corso di vita</em> considera come esperienze accumulate negli anni influenzano la vecchiaia. Per esempio, periodi di lavoro ridotto per assistere familiari possono pesare sui contributi e quindi sulla pensione. Per capire la situazione di una persona occorre conoscere la sua storia.</p>
+        </details>
+        <p class="citation"><a href="https://www.istat.it/wp-content/uploads/2026/10/01-Salute.pdf" target="_blank" rel="noopener">Istat, Benessere equo e sostenibile 2026, Salute</a> <a href="https://www.istat.it/comunicato-stampa/censimento-e-dinamica-della-popolazione-anno-2024/" target="_blank" rel="noopener">Istat, Censimento 2024</a></p>
+        <template class="speaker"><p>Approfondimento. Chiedi che cosa cambia fra le due misure e perché non si possono sottrarre direttamente. Collega carriera e contributi al lavoro di cura senza attribuire bisogni individuali a partire dal genere.</p></template>
+      </section>
+
+      <section class="slide revised study-only" id="casi-approfondimento" aria-labelledby="titolo-casi-approfondimento">
+        <h2 id="titolo-casi-approfondimento">Due casi per ripassare</h2>
+        <div class="lesson-pair">
+          <div><h3>Vivere soli dopo un lutto</h3><p>Un uomo gestisce i farmaci e cammina senza aiuto, ma esce raramente. La figlia chiede una struttura. Quale bisogno indagheresti prima?</p></div>
+          <div><h3>Orientarsi fuori casa</h3><p>Una persona con demenza talvolta si disorienta nel quartiere. La famiglia è affaticata. Che cosa osserveresti e quali preferenze chiederesti?</p></div>
+        </div>
+        <details class="lesson-disclosure"><summary>Confronta le risposte</summary>
+          <p>Nel primo caso chiedi all’uomo se desidera più contatti e che cosa ostacola le uscite. La domanda della figlia potrebbe esprimere preoccupazione per la solitudine.</p>
+          <p>Nel secondo caso accerta quando avviene il disorientamento, quali percorsi sono familiari e quali sostegni permettono uscite sicure. Chiedi quali attività la persona desidera mantenere e in quali momenti chi assiste ha bisogno di supporto. Evita l’<strong>ageismo</strong>, cioè stereotipi, pregiudizi o discriminazioni legati all’età. Un esempio è parlare soltanto con la famiglia, dando per scontato che la persona anziana non possa esprimere preferenze.</p>
+        </details>
+        <p class="citation"><a href="https://www.who.int/news-room/questions-and-answers/item/social-connection" target="_blank" rel="noopener">OMS, connessione sociale</a> <a href="https://www.who.int/publications/i/item/9789240016866" target="_blank" rel="noopener">OMS, rapporto sull’ageismo</a></p>
+        <template class="speaker"><p>Approfondimento. Chiedi quale informazione cambierebbe la prima ipotesi di intervento in ognuno dei due casi.</p></template>
+      </section>
+
+      <section class="slide revised" id="fonti" aria-labelledby="titolo-fonti">
         <h2 id="titolo-fonti">Fonti e materiali</h2>
         <div class="references">
           <div><h3>Demografia e società</h3><ul>
@@ -409,13 +758,18 @@ html:not(.js) .toolbar, html:not(.js) .deck-footer, html:not(.js) [data-next], h
             <li><a href="https://pubmed.ncbi.nlm.nih.gov/14044222/" target="_blank" rel="noopener">Katz et al. (1963), The Index of ADL</a>.</li>
           </ul></div>
         </div>
+        <details class="study-detail"><summary>Apri le fonti su servizi e politiche</summary>
+          <p><a href="https://www.who.int/publications/i/item/9789240103726" target="_blank" rel="noopener">OMS, valutazione centrata sulla persona e cure integrate (2025)</a></p>
+          <p>Ministero della Salute, <a href="https://www.salute.gov.it/new/it/tema/nuova-assistenza-distrettuale/assistenza-domiciliare/" target="_blank" rel="noopener">assistenza domiciliare</a> e <a href="https://www.salute.gov.it/new/it/tema/livelli-essenziali-di-assistenza/assistenza-residenziale/" target="_blank" rel="noopener">assistenza residenziale e semiresidenziale</a>.</p>
+          <p><a href="https://www.oecd.org/en/publications/health-at-a-glance-2025_8f9e3f98-en/full-report/long-term-care-workers_9c3bdbaf.html" target="_blank" rel="noopener">OCSE, personale dell’assistenza di lungo periodo</a></p>
+        </details>
         <p class="archive">Materiali didattici di Metodologie operative: <em>2 Anzianità e welfare</em> e <em>1 Lezione</em> (2023–24). Per ADL e IADL: slide ed esercitazione (2022–23).</p>
         <template class="speaker"><p>Le fonti brevi rimandano ai riferimenti delle singole slide. I dati storici sulla spesa del materiale d’archivio si prestano a un’attività successiva in cui si legge l’anno di riferimento e si discute che cosa misura ogni voce.</p></template>
       </section>
     </main>
 
     <footer class="deck-footer">
-      <div class="progress-wrap"><div class="progress" id="progress" role="progressbar" aria-label="Avanzamento" aria-valuemin="1" aria-valuemax="10" aria-valuenow="1"><div id="progress-fill"></div></div><span id="counter" aria-live="polite">1 / 10</span></div>
+      <div class="progress-wrap"><div class="progress" id="progress" role="progressbar" aria-label="Avanzamento" aria-valuemin="1" aria-valuemax="21" aria-valuenow="1"><div id="progress-fill"></div></div><span id="counter" aria-live="polite">1 / 21</span></div>
       <nav class="page-actions" aria-label="Comandi slide">
         <button id="prev" type="button" aria-label="Slide precedente">← <span>Indietro</span></button>
         <button id="next" type="button" aria-label="Slide successiva"><span>Avanti</span> →</button>
@@ -457,6 +811,16 @@ function updateSlideHash(index) {
   history.replaceState(null, '', `#${slides[index].id}`);
 }
 
+const presentation = slides.map((slide, index) => index).filter(index => !slides[index].classList.contains('study-only'));
+const reading = slides.map((slide, index) => index);
+
+function isExploring() {
+  const mode = new URLSearchParams(location.search).get('vista');
+  return mode === 'esplora' || (mode !== 'presenta' && (
+    slides[slideFromHash()].classList.contains('study-only') || matchMedia('(max-width: 610px)').matches
+  ));
+}
+
 function presenterMode() {
   document.querySelector('.deck').hidden = true;
   document.querySelector('#presenter').hidden = false;
@@ -466,20 +830,24 @@ function presenterMode() {
   const status = document.querySelector('#sync-status');
   const context = document.querySelector('#notes-context');
   const content = document.querySelector('#notes-content');
-  let current = 0;
+  let current = slideFromHash();
+  let sequence = isExploring() ? reading : presentation;
   let connected = false;
 
   function render(index) {
-    current = Math.max(0, Math.min(index, slides.length - 1));
-    context.textContent = `${current + 1} / ${slides.length} · ${slideTitle(current)}`;
+    current = index;
+    const position = sequence.indexOf(current);
+    context.textContent = `${position + 1} / ${sequence.length} · ${slideTitle(current)}`;
     content.replaceChildren(slides[current].querySelector('.speaker').content.cloneNode(true));
-    previous.disabled = current === 0;
-    next.disabled = current === slides.length - 1;
+    previous.disabled = position <= 0;
+    next.disabled = position === sequence.length - 1;
     updateSlideHash(current);
     window.scrollTo(0, 0);
   }
 
-  function select(index) {
+  function step(offset) {
+    const index = sequence[sequence.indexOf(current) + offset];
+    if (index === undefined) return;
     render(index);
     if (connected && window.opener && !window.opener.closed) {
       window.opener.postMessage({ type: 'anzianita:select', index: current }, targetOrigin);
@@ -491,20 +859,24 @@ function presenterMode() {
 
   window.addEventListener('message', event => {
     if (event.source !== window.opener || (!localFile && event.origin !== location.origin)) return;
-    if (event.data?.type !== 'anzianita:slide' || !Number.isInteger(event.data.index)) return;
+    if (event.data?.type !== 'anzianita:slide') return;
+    const nextSequence = event.data.exploring ? reading : presentation;
+    if (!nextSequence.includes(event.data.index)) return;
+    sequence = nextSequence;
     connected = true;
     status.textContent = 'Collegata alla presentazione';
     render(event.data.index);
   });
-  previous.addEventListener('click', () => select(current - 1));
-  next.addEventListener('click', () => select(current + 1));
+  previous.addEventListener('click', () => step(-1));
+  next.addEventListener('click', () => step(1));
   document.addEventListener('keydown', event => {
     if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey) return;
     if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
     event.preventDefault();
-    select(current + (event.key === 'ArrowRight' ? 1 : -1));
+    step(event.key === 'ArrowRight' ? 1 : -1);
   });
-  render(slideFromHash());
+
+  render(sequence.includes(current) ? current : 0);
   window.opener?.postMessage({ type: 'anzianita:ready' }, targetOrigin);
 }
 
@@ -519,27 +891,34 @@ function audienceMode() {
   const notesButton = document.querySelector('#notes-button');
   const manualNotes = document.querySelector('#manual-notes');
   const fullscreen = document.querySelector('#fullscreen');
-  let current = -1;
+  const modeButton = document.querySelector('#mode-button');
+  const toolbar = document.querySelector('.toolbar');
+  let exploring = isExploring();
+  let current = slideFromHash();
   let notesWindow;
 
   function notesUrl() {
     const url = new URL(location.href);
     url.searchParams.set('relatore', '1');
+    url.searchParams.set('vista', exploring ? 'esplora' : 'presenta');
     url.hash = slides[current].id;
     return url.href;
   }
 
   function syncNotes() {
-    if (notesWindow && !notesWindow.closed) notesWindow.postMessage({ type: 'anzianita:slide', index: current }, targetOrigin);
+    if (notesWindow && !notesWindow.closed) {
+      notesWindow.postMessage({ type: 'anzianita:slide', index: current, exploring }, targetOrigin);
+    }
   }
 
   const indexButtons = slides.map((slide, index) => {
     const item = document.createElement('li');
     const button = document.createElement('button');
     button.type = 'button';
-    button.textContent = slideTitle(index);
+    button.textContent = slideTitle(index) + (presentation.includes(index) ? '' : ' (Esplora)');
     button.addEventListener('click', () => {
       indexDialog.close();
+      if (!presentation.includes(index) && !exploring) setMode(true, { persist: true });
       showSlide(index, { focusTitle: true });
     });
     item.append(button);
@@ -547,35 +926,70 @@ function audienceMode() {
     return button;
   });
 
+  function updateControls() {
+    indexButtons.forEach((button, index) => {
+      if (index === current) button.setAttribute('aria-current', 'step');
+      else button.removeAttribute('aria-current');
+    });
+    const sequence = exploring ? reading : presentation;
+    const position = sequence.indexOf(current);
+    previous.disabled = position <= 0;
+    next.disabled = position === sequence.length - 1;
+    counter.textContent = `${position + 1} / ${sequence.length}`;
+    progress.setAttribute('aria-valuemax', sequence.length);
+    progress.setAttribute('aria-valuenow', position + 1);
+    progressFill.style.width = `${((position + 1) / sequence.length) * 100}%`;
+    manualNotes.href = notesUrl();
+    syncNotes();
+  }
+
   function showSlide(index, { focusTitle = false, updateHash = true } = {}) {
-    const target = Math.max(0, Math.min(index, slides.length - 1));
-    if (target !== current) {
-      current = target;
-      slides.forEach((slide, position) => {
-        slide.hidden = position !== current;
-        slide.classList.toggle('enter', position === current);
-        if (position === current) indexButtons[position].setAttribute('aria-current', 'step');
-        else indexButtons[position].removeAttribute('aria-current');
-      });
-      previous.disabled = current === 0;
-      next.disabled = current === slides.length - 1;
-      counter.textContent = `${current + 1} / ${slides.length}`;
-      progress.setAttribute('aria-valuenow', current + 1);
-      progressFill.style.width = `${((current + 1) / slides.length) * 100}%`;
-      if (updateHash) updateSlideHash(current);
-      if (updateHash) window.scrollTo(0, 0);
-      manualNotes.href = notesUrl();
-      syncNotes();
-    }
+    current = index;
+    slides.forEach((slide, position) => {
+      slide.hidden = !exploring && position !== current;
+      slide.classList.toggle('enter', !exploring && position === current);
+    });
+    if (updateHash) updateSlideHash(current);
+    if (exploring) slides[current].scrollIntoView({ block: 'start' });
+    else window.scrollTo(0, 0);
+    updateControls();
     if (focusTitle) {
       titles[current].tabIndex = -1;
       titles[current].focus({ preventScroll: true });
     }
   }
 
-  function selectFromHash() {
-    showSlide(slideFromHash(), { updateHash: false });
+  function setMode(value, { persist = false } = {}) {
+    exploring = value;
+    document.documentElement.classList.toggle('explore', exploring);
+    modeButton.textContent = exploring ? 'Presenta' : 'Esplora';
+    if (persist) {
+      const url = new URL(location.href);
+      url.searchParams.set('vista', exploring ? 'esplora' : 'presenta');
+      history.replaceState(null, '', url);
+    }
   }
+
+  function selectFromHash() {
+    const index = slideFromHash();
+    if (!presentation.includes(index)) setMode(true);
+    showSlide(index, { updateHash: false });
+  }
+
+  function currentInReading() {
+    // Keep the last slide above the reading line, including when its details are open.
+    const readingLine = toolbar.getBoundingClientRect().bottom + 28;
+    return slides.findLastIndex(slide => slide.getBoundingClientRect().top <= readingLine);
+  }
+
+  modeButton.addEventListener('click', () => {
+    if (exploring) {
+      const visibleIndex = Math.max(0, currentInReading());
+      current = presentation.includes(visibleIndex) ? visibleIndex : presentation.findLast(index => index < visibleIndex);
+    }
+    setMode(!exploring, { persist: true });
+    showSlide(current);
+  });
 
   document.querySelector('#index-button').addEventListener('click', () => {
     indexDialog.showModal();
@@ -597,12 +1011,28 @@ function audienceMode() {
   window.addEventListener('message', event => {
     if (!notesWindow || event.source !== notesWindow || (!localFile && event.origin !== location.origin)) return;
     if (event.data?.type === 'anzianita:ready') syncNotes();
-    if (event.data?.type === 'anzianita:select' && Number.isInteger(event.data.index)) showSlide(event.data.index);
+    if (event.data?.type === 'anzianita:select' && (exploring ? reading : presentation).includes(event.data.index)) {
+      showSlide(event.data.index);
+    }
   });
 
-  previous.addEventListener('click', () => showSlide(current - 1));
-  next.addEventListener('click', () => showSlide(current + 1));
-  document.querySelector('[data-next]').addEventListener('click', () => showSlide(current + 1, { focusTitle: true }));
+  window.addEventListener('scroll', () => {
+    if (!exploring) return;
+    const index = currentInReading();
+    if (index >= 0 && index !== current) {
+      current = index;
+      updateControls();
+    }
+  }, { passive: true });
+
+  function step(offset, focusTitle = false) {
+    const index = presentation[presentation.indexOf(current) + offset];
+    if (index !== undefined) showSlide(index, { focusTitle });
+  }
+
+  previous.addEventListener('click', () => step(-1));
+  next.addEventListener('click', () => step(1));
+  document.querySelector('[data-next]').addEventListener('click', () => step(1, true));
 
   fullscreen.hidden = !document.fullscreenEnabled;
   fullscreen.addEventListener('click', async () => {
@@ -619,30 +1049,22 @@ function audienceMode() {
     fullscreen.title = label;
   });
 
-  const scenarios = Array.from(document.querySelectorAll('[data-scenario]'));
-  const scenarioResults = Array.from(document.querySelectorAll('[data-result]'));
-  scenarios.forEach(button => button.addEventListener('click', () => {
-    const selected = button.dataset.scenario;
-    scenarios.forEach(option => option.setAttribute('aria-pressed', option === button));
-    scenarioResults.forEach(result => { result.hidden = result.dataset.result !== selected; });
-  }));
-
   document.addEventListener('keydown', event => {
-    if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey || indexDialog.open) return;
+    if (exploring || event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey || indexDialog.open) return;
     if (event.target.closest('input, select, textarea, [contenteditable], .scenario')) return;
-    const destinations = {
-      ArrowLeft: current - 1, PageUp: current - 1,
-      ArrowRight: current + 1, PageDown: current + 1,
-      Home: 0, End: slides.length - 1,
-    };
-    if (Object.hasOwn(destinations, event.key)) {
+    const steps = { ArrowLeft: -1, PageUp: -1, ArrowRight: 1, PageDown: 1 };
+    if (Object.hasOwn(steps, event.key)) {
       event.preventDefault();
-      showSlide(destinations[event.key], { focusTitle: true });
+      step(steps[event.key], true);
+    }
+    if (event.key === 'Home' || event.key === 'End') {
+      event.preventDefault();
+      showSlide(event.key === 'Home' ? presentation[0] : presentation.at(-1), { focusTitle: true });
     }
   });
 
   window.addEventListener('hashchange', selectFromHash);
-  progress.setAttribute('aria-valuemax', slides.length);
+  setMode(exploring);
   selectFromHash();
 }
 

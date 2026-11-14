@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-14** · Codex · Revisione di prova di «Anzianità, società e welfare» dalla fragilità in avanti, con Esplora, casi e fonti per lo studio autonomo. In attesa di approvazione (commit di questa voce). [GPT 2026-11-14 17:33]
+
 - **2026-11-13** · Codex · Parole chiave in grassetto nelle sette fasi del laboratorio autobiografico per seguire la spiegazione alla lavagna; testo invariato. (commit di questa voce; revisione locale)
 
 - **2026-11-13** · Codex · Nel laboratorio autobiografico le due mappe distinguono l’area della crescita dal momento del cambiamento. La lettera è una traccia facoltativa e la condivisione resta a scelta di chi scrive. (commit di questa voce; revisione locale)
