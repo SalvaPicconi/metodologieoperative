@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-14** · Codex · Rivista la grafica dalla fragilità in avanti con schemi, confronti e una foto sulle attività quotidiane. Rimossi le note del relatore e il relativo accesso dalla pagina per gli alunni. Bozza locale (commit di questa voce). [GPT 2026-11-14 17:49]
+
 - **2026-11-14** · Codex · Revisione di prova di «Anzianità, società e welfare» dalla fragilità in avanti, con Esplora, casi e fonti per lo studio autonomo. In attesa di approvazione (commit di questa voce). [GPT 2026-11-14 17:33]
 
 - **2026-11-13** · Codex · Parole chiave in grassetto nelle sette fasi del laboratorio autobiografico per seguire la spiegazione alla lavagna; testo invariato. (commit di questa voce; revisione locale)
