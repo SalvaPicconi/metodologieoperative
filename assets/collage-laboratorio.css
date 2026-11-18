@@ -25,3 +25,114 @@ html{scroll-padding-top:24px}.flow-section{padding:48px 0;border-bottom:1px soli
 .fold:nth-of-type(4n+2){border-left-color:#ec166c}.fold:nth-of-type(4n+3){border-left-color:#80cd29}.fold:nth-of-type(4n){border-left-color:#008036}
 .material-card,.art-card{border-top:4px solid #57bda8}
 .essentials{border-left:5px solid #57bda8}
+
+/* Teoria e autoapprendimento del collage. */
+.collage-route-links { display: flex; flex-wrap: wrap; gap: 12px; }
+.collage-index { margin-bottom: 23px; }
+.collage-index ol { margin: 0; }
+.collage-index a { line-height: 1.55; }
+.collage-section-link { margin-top: 16px; }
+.collage-reading { max-width: 70ch; }
+.collage-reading h3 { margin-block: 22px 7px; color: var(--blue); }
+.collage-reading p + p { margin-top: 12px; }
+.collage-reading .collage-reference { margin-top: 7px; }
+.collage-source-diagram { margin: 18px 0; }
+.collage-source-diagram img { display: block; width: 100%; height: auto; }
+.collage-source-diagram figcaption {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.collage-tech-table { width: 100%; table-layout: fixed; border-collapse: collapse; margin: 12px 0 18px; }
+.collage-tech-table th, .collage-tech-table td {
+  padding: 9px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+.collage-tech-table th:first-child { width: 31%; }
+.collage-tech-table thead, .collage-tech-table tr:nth-child(even) { background: var(--pale); }
+.hero.collage-learning-hero { display: block; padding-bottom: 34px; }
+.collage-learning-hero .hero-task { max-width: 56ch; }
+.collage-study { max-width: 800px; }
+.collage-study-step { margin-block: 40px; }
+.collage-study-step h3 {
+  color: var(--blue);
+  font: 400 clamp(23px, 4vw, 32px)/1.2 var(--serif);
+  margin-bottom: 13px;
+}
+.collage-study-step p + p, .collage-study-step .collage-check + p { margin-top: 12px; }
+.collage-tech-summary { display: grid; gap: 8px; padding-left: 20px; }
+.collage-check, .collage-practice {
+  margin-top: 18px;
+  padding: clamp(14px, 3vw, 24px);
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-left: 4px solid #57bda8;
+  border-radius: 3px;
+}
+.collage-check fieldset { min-width: 0; margin: 0 0 14px; padding: 0; border: 0; }
+.collage-check legend { max-width: 100%; margin-bottom: 8px; padding: 0; font-weight: 600; }
+.collage-check label { display: flex; align-items: baseline; gap: 10px; padding: 7px 0; cursor: pointer; }
+.collage-check label input { flex: none; margin: 0; accent-color: var(--blue); }
+.collage-check-feedback { margin-top: 12px; color: var(--blue); }
+.collage-check-feedback:empty { margin-top: 0; }
+.collage-match-row { margin-top: 12px; }
+.collage-match-row label { padding: 0 0 5px; font-weight: 600; }
+.collage-match-row select {
+  display: block;
+  width: min(100%, 30rem);
+  min-height: 42px;
+  padding: 7px;
+  font: inherit;
+  color: var(--ink);
+  background: var(--white);
+  border: 1px solid #bacadb;
+  border-radius: 3px;
+}
+.collage-practice button[aria-pressed="true"] { background: var(--blue); color: var(--white); }
+.collage-paper {
+  position: relative;
+  width: min(100%, 21rem);
+  aspect-ratio: 2 / 1;
+  margin-top: 16px;
+  border: 1px solid #bacadb;
+  background: var(--pale);
+}
+.collage-paper-circle, .collage-paper-strip { position: absolute; }
+.collage-paper-circle {
+  top: 25%;
+  left: 22%;
+  width: 26%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #315d85;
+}
+.collage-paper-strip { top: 43%; left: 53%; width: 30%; height: 18%; background: #a75134; }
+.collage-paper[data-layout="sovrapponi"] .collage-paper-strip { left: 29%; }
+.opening-gallery.collage-study-gallery {
+  grid-template-columns: repeat(2, minmax(0, 20rem));
+  margin-top: 18px;
+}
+
+@media (max-width: 760px) {
+  .collage-auto { display: flex; flex-direction: column; }
+  .collage-auto #studentLabel {
+    position: static !important;
+    order: -1;
+    align-self: center;
+    margin: 12px auto 0;
+    transform: none;
+  }
+}
+
+@media (max-width: 440px) {
+  .opening-gallery.collage-study-gallery { grid-template-columns: minmax(0, 1fr); }
+  .collage-tech-table { font-size: 15px; }
+  .collage-tech-table th, .collage-tech-table td { padding: 7px; }
+  .collage-tech-table th:first-child { width: 42%; }
+}

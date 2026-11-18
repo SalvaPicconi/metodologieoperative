@@ -9,7 +9,17 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-18** · Codex · Revisione approvata del collage autobiografico per la 2SB: teoria e autoapprendimento a casa, realizzazione in classe. Rilascio Aruba della versione b502bab (commit di questa voce). [GPT 2026-11-18 18:53]
+
 - **2026-11-18** · Codex · Aggiunti all’unità «Riconfigurare la disabilità» della quarta un percorso di teoria e un modulo con esercizi autocorrettivi e cinque domande aperte. I materiali già disponibili restano accessibili. (commit di questa voce)
+
+- **2026-11-18** · Codex · La nuova dispensa del collage entra nella teoria e nell’autoapprendimento. Le prove su origini, materiali, tecniche e usi preparano la riflessione su una situazione personale. Anteprima locale (commit di questa voce). [GPT 2026-11-18 16:47]
+
+- **2026-11-18** · Codex · Nell’autoapprendimento sul collage la 2SB riconosce la tecnica, prova due composizioni e confronta due opere prima di scrivere una definizione e preparare la propria idea. Anteprima locale (commit di questa voce). [GPT 2026-11-18 16:11]
+
+- **2026-11-18** · Codex · Il collage autobiografico ha una pagina di teoria con indice e una di autoapprendimento con risposte, rilettura e preparazione per il lavoro in classe. Anteprima locale (commit di questa voce). [GPT 2026-11-18 15:50]
+
+- **2026-11-18** · Codex · Il collage autobiografico della 2SB si prepara a casa con il video, due risposte brevi e tre appunti da salvare insieme. La realizzazione si svolge in classe. Anteprima locale (commit di questa voce). [GPT 2026-11-18 10:02]
 
 - **2026-11-14** · Codex · La lezione di quinta «Anzianità, società e welfare» approfondisce le risposte ai bisogni emergenti con invecchiamento attivo, cohousing, trasporti e accesso ai servizi. Rilascio Aruba autorizzato per la versione alunni (commit di questa voce). [GPT 2026-11-14 18:03]
 
