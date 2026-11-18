@@ -136,3 +136,27 @@ html{scroll-padding-top:24px}.flow-section{padding:48px 0;border-bottom:1px soli
   .collage-tech-table th, .collage-tech-table td { padding: 7px; }
   .collage-tech-table th:first-child { width: 42%; }
 }
+
+/* Le indicazioni di osservazione guidano la lettura delle opere. */
+.art-card .art-copy p.collage-look {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-left: 4px solid var(--accent);
+  border-radius: 0 4px 4px 0;
+  background: #fcebf2;
+  color: var(--blue);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+.collage-look > strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--accent);
+  font-size: 13px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+@media (max-width: 440px) {
+  .opening-gallery { grid-template-columns: minmax(0, 1fr); }
+}

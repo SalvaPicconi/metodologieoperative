@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-18** · Codex · Le indicazioni «Guarda» nelle opere del collage sono più grandi e in un riquadro riconoscibile sia nella teoria sia nell’autoapprendimento. Anteprima locale (commit di questa voce). [GPT 2026-11-18 22:34]
+
 - **2026-11-18** · Codex · Revisione approvata del collage autobiografico per la 2SB: teoria e autoapprendimento a casa, realizzazione in classe. Rilascio Aruba della versione b502bab (commit di questa voce). [GPT 2026-11-18 18:53]
 
 - **2026-11-18** · Codex · Aggiunti all’unità «Riconfigurare la disabilità» della quarta un percorso di teoria e un modulo con esercizi autocorrettivi e cinque domande aperte. I materiali già disponibili restano accessibili. (commit di questa voce)
