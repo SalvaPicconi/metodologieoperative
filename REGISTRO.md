@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-18** · Codex · Nell’autoapprendimento sul collage la 2SB riconosce la tecnica, prova due composizioni e confronta due opere prima di scrivere una definizione e preparare la propria idea. Anteprima locale (commit di questa voce). [GPT 2026-11-18 16:11]
+
 - **2026-11-18** · Codex · Il collage autobiografico ha una pagina di teoria con indice e una di autoapprendimento con risposte, rilettura e preparazione per il lavoro in classe. Anteprima locale (commit di questa voce). [GPT 2026-11-18 15:50]
 
 - **2026-11-18** · Codex · Il collage autobiografico della 2SB si prepara a casa con il video, due risposte brevi e tre appunti da salvare insieme. La realizzazione si svolge in classe. Anteprima locale (commit di questa voce). [GPT 2026-11-18 10:02]

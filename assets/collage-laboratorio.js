@@ -80,6 +80,37 @@
   });
 
   const answers = { q1:'a', q2:'b', q3:'b', q4:'b', final1:'b', final2:'a', final3:'d', final4:'b', final5:'c', final6:'b', final7:'a', final8:'b', final9:'c', final10:'d' };
+
+  function setupStudyActivities() {
+    document.querySelectorAll('[data-collage-check]').forEach(exercise => {
+      const feedback = exercise.querySelector('[data-collage-feedback]');
+      exercise.addEventListener('input', event => { event.stopPropagation(); });
+      exercise.addEventListener('change', event => {
+        event.stopPropagation();
+        feedback.textContent = '';
+      });
+      exercise.querySelector('[data-collage-verify]').addEventListener('click', () => {
+        const selected = exercise.querySelector('input:checked');
+        feedback.textContent = selected?.dataset.feedback || 'Scegli una risposta, poi premi «Controlla».';
+      });
+    });
+
+    const practice = document.querySelector('[data-collage-layout]');
+    if (!practice) return;
+    const paper = practice.querySelector('.collage-paper');
+    const feedback = practice.querySelector('[data-layout-feedback]');
+    const buttons = practice.querySelectorAll('button[data-layout]');
+    const descriptions = {
+      accosta: 'I ritagli sono vicini. Il contorno del cerchio è tutto visibile.',
+      sovrapponi: 'La striscia sta sopra il cerchio e ne copre una parte. Gli stessi ritagli ora formano un’immagine diversa.'
+    };
+    buttons.forEach(button => button.addEventListener('click', () => {
+      paper.dataset.layout = button.dataset.layout;
+      feedback.textContent = descriptions[button.dataset.layout];
+      buttons.forEach(option => option.setAttribute('aria-pressed', String(option === button)));
+    }));
+  }
+
   function repaintChoices() {
     document.querySelectorAll('.quiz-option').forEach(el => {
       const chosen = quizChoices[el.dataset.quiz] === el.dataset.answer;
@@ -141,6 +172,7 @@
   document.addEventListener('DOMContentLoaded', () => {
     readLocal();
     updateGuidance();
+    setupStudyActivities();
     setupOptionalExercises();
     repaintChoices();
     document.querySelectorAll('[data-nucleus]').forEach(button => button.addEventListener('click', () => {

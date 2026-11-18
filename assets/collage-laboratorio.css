@@ -35,7 +35,53 @@ html{scroll-padding-top:24px}.flow-section{padding:48px 0;border-bottom:1px soli
 .collage-reading { max-width: 70ch; }
 .collage-reading h3 { margin-block: 22px 7px; color: var(--blue); }
 .collage-reading p + p { margin-top: 12px; }
-.opening-gallery.collage-featured-gallery { grid-template-columns: minmax(0, 21rem); }
+.hero.collage-learning-hero { display: block; padding-bottom: 34px; }
+.collage-learning-hero .hero-task { max-width: 56ch; }
+.collage-study { max-width: 800px; }
+.collage-study-step { margin-block: 40px; }
+.collage-study-step h3 {
+  color: var(--blue);
+  font: 400 clamp(23px, 4vw, 32px)/1.2 var(--serif);
+  margin-bottom: 13px;
+}
+.collage-check, .collage-practice {
+  margin-top: 18px;
+  padding: clamp(14px, 3vw, 24px);
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-left: 4px solid #57bda8;
+  border-radius: 3px;
+}
+.collage-check fieldset { min-width: 0; margin: 0 0 14px; padding: 0; border: 0; }
+.collage-check legend { max-width: 100%; margin-bottom: 8px; padding: 0; font-weight: 600; }
+.collage-check label { display: flex; align-items: baseline; gap: 10px; padding: 7px 0; cursor: pointer; }
+.collage-check label input { flex: none; margin: 0; accent-color: var(--blue); }
+.collage-check-feedback { margin-top: 12px; color: var(--blue); }
+.collage-check-feedback:empty { margin-top: 0; }
+.collage-practice button[aria-pressed="true"] { background: var(--blue); color: var(--white); }
+.collage-paper {
+  position: relative;
+  width: min(100%, 21rem);
+  aspect-ratio: 2 / 1;
+  margin-top: 16px;
+  border: 1px solid #bacadb;
+  background: var(--pale);
+}
+.collage-paper-circle, .collage-paper-strip { position: absolute; }
+.collage-paper-circle {
+  top: 25%;
+  left: 22%;
+  width: 26%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #315d85;
+}
+.collage-paper-strip { top: 43%; left: 53%; width: 30%; height: 18%; background: #a75134; }
+.collage-paper[data-layout="sovrapponi"] .collage-paper-strip { left: 29%; }
+.opening-gallery.collage-study-gallery {
+  grid-template-columns: repeat(2, minmax(0, 20rem));
+  margin-top: 18px;
+}
 
 @media (max-width: 760px) {
   .collage-auto { display: flex; flex-direction: column; }
@@ -46,4 +92,8 @@ html{scroll-padding-top:24px}.flow-section{padding:48px 0;border-bottom:1px soli
     margin: 12px auto 0;
     transform: none;
   }
+}
+
+@media (max-width: 440px) {
+  .opening-gallery.collage-study-gallery { grid-template-columns: minmax(0, 1fr); }
 }
