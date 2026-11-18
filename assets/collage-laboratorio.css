@@ -25,3 +25,25 @@ html{scroll-padding-top:24px}.flow-section{padding:48px 0;border-bottom:1px soli
 .fold:nth-of-type(4n+2){border-left-color:#ec166c}.fold:nth-of-type(4n+3){border-left-color:#80cd29}.fold:nth-of-type(4n){border-left-color:#008036}
 .material-card,.art-card{border-top:4px solid #57bda8}
 .essentials{border-left:5px solid #57bda8}
+
+/* Teoria e autoapprendimento del collage. */
+.collage-route-links { display: flex; flex-wrap: wrap; gap: 12px; }
+.collage-index { margin-bottom: 23px; }
+.collage-index ol { margin: 0; }
+.collage-index a { line-height: 1.55; }
+.collage-section-link { margin-top: 16px; }
+.collage-reading { max-width: 70ch; }
+.collage-reading h3 { margin-block: 22px 7px; color: var(--blue); }
+.collage-reading p + p { margin-top: 12px; }
+.opening-gallery.collage-featured-gallery { grid-template-columns: minmax(0, 21rem); }
+
+@media (max-width: 760px) {
+  .collage-auto { display: flex; flex-direction: column; }
+  .collage-auto #studentLabel {
+    position: static !important;
+    order: -1;
+    align-self: center;
+    margin: 12px auto 0;
+    transform: none;
+  }
+}
