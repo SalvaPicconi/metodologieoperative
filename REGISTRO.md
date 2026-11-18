@@ -9,6 +9,32 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-18** · Codex · Le indicazioni «Guarda» nelle opere del collage sono più grandi e in un riquadro riconoscibile sia nella teoria sia nell’autoapprendimento. Anteprima locale (commit di questa voce). [GPT 2026-11-18 22:34]
+
+- **2026-11-18** · Codex · Revisione approvata del collage autobiografico per la 2SB: teoria e autoapprendimento a casa, realizzazione in classe. Rilascio Aruba della versione b502bab (commit di questa voce). [GPT 2026-11-18 18:53]
+
+- **2026-11-18** · Codex · Aggiunti all’unità «Riconfigurare la disabilità» della quarta un percorso di teoria e un modulo con esercizi autocorrettivi e cinque domande aperte. I materiali già disponibili restano accessibili. (commit di questa voce)
+
+- **2026-11-18** · Codex · La nuova dispensa del collage entra nella teoria e nell’autoapprendimento. Le prove su origini, materiali, tecniche e usi preparano la riflessione su una situazione personale. Anteprima locale (commit di questa voce). [GPT 2026-11-18 16:47]
+
+- **2026-11-18** · Codex · Nell’autoapprendimento sul collage la 2SB riconosce la tecnica, prova due composizioni e confronta due opere prima di scrivere una definizione e preparare la propria idea. Anteprima locale (commit di questa voce). [GPT 2026-11-18 16:11]
+
+- **2026-11-18** · Codex · Il collage autobiografico ha una pagina di teoria con indice e una di autoapprendimento con risposte, rilettura e preparazione per il lavoro in classe. Anteprima locale (commit di questa voce). [GPT 2026-11-18 15:50]
+
+- **2026-11-18** · Codex · Il collage autobiografico della 2SB si prepara a casa con il video, due risposte brevi e tre appunti da salvare insieme. La realizzazione si svolge in classe. Anteprima locale (commit di questa voce). [GPT 2026-11-18 10:02]
+
+- **2026-11-14** · Codex · La lezione di quinta «Anzianità, società e welfare» approfondisce le risposte ai bisogni emergenti con invecchiamento attivo, cohousing, trasporti e accesso ai servizi. Rilascio Aruba autorizzato per la versione alunni (commit di questa voce). [GPT 2026-11-14 18:03]
+
+- **2026-11-14** · Codex · Rivista la grafica dalla fragilità in avanti con schemi, confronti e una foto sulle attività quotidiane. Rimossi le note del relatore e il relativo accesso dalla pagina per gli alunni. Bozza locale (commit di questa voce). [GPT 2026-11-14 17:49]
+
+- **2026-11-14** · Codex · Revisione di prova di «Anzianità, società e welfare» dalla fragilità in avanti, con Esplora, casi e fonti per lo studio autonomo. In attesa di approvazione (commit di questa voce). [GPT 2026-11-14 17:33]
+
+- **2026-11-13** · Codex · Parole chiave in grassetto nelle sette fasi del laboratorio autobiografico per seguire la spiegazione alla lavagna; testo invariato. (commit di questa voce; revisione locale)
+
+- **2026-11-13** · Codex · Nel laboratorio autobiografico le due mappe distinguono l’area della crescita dal momento del cambiamento. La lettera è una traccia facoltativa e la condivisione resta a scelta di chi scrive. (commit di questa voce; revisione locale)
+
+- **2026-11-11** · Codex · Rimossi i riferimenti all’istituto dai testi della presentazione «Anzianità, società e welfare» e dalla sua scheda. (commit di questa voce)
+
 - **2026-11-11** · Claude · L’Area docente segue un solo percorso: classe → alunni → attività. Per ogni classe ci sono i risultati di sintesi, la tabella degli alunni e quella delle attività; dalla pagina dell’alunno si apre ogni attività per correggerla. I codici scritti male si ricollegano all’alunno giusto. (commit di questa voce)
 
 - **2026-11-11** · Codex · La lezione di quinta sull’anzianità spiega senescenza, comorbilità, fragilità e bisogno di assistenza, con un caso finale su ADL e IADL. (commit di questa voce)
