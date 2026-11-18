@@ -14,7 +14,7 @@ civiche già presenti in altre UDA e non duplica i moduli curriculari.
    restano accessibili dalla UDA e dai Programmi. Il catalogo usa `data-attivita="true"`.
 4. Collegare la pagina anche all’annualità corretta di `materiali.json`, con un argomento reale.
 5. Eseguire `python3 scripts/programmi.py build` e `check`. Non editare gli artefatti generati.
-6. Per il menu modificare soltanto `scripts/nav.py` e rigenerare.
+6. Per il menu modificare soltanto `LIVELLI` in `scripts/nav.py` e rigenerare.
 
 La sezione è registrata in `SEZIONI` di `scripts/programmi.py` e in `PAGINE_SEZIONE`
 di `programmi.js`. I cataloghi preesistenti mantengono il loro comportamento.

@@ -1,7 +1,7 @@
 @font-face{font-family:'DM Sans';src:url('collage-fonts/dm-sans-regular.ttf') format('truetype');font-weight:400;font-display:swap}
 @font-face{font-family:'DM Sans';src:url('collage-fonts/dm-sans-semibold.ttf') format('truetype');font-weight:600 800;font-display:swap}
 @font-face{font-family:'DM Serif';src:url('collage-fonts/dm-serif-display.ttf') format('truetype');font-weight:400;font-display:swap}
-:root{--ec-bg:#f7f5ef;--ec-paper:#fffdf9;--ec-ink:#202c3b;--ec-soft:#5b6570;--ec-blue:#17385a;--ec-light:#eaf0f4;--ec-line:#d7d9d8;--ec-accent:#a75134}
+:root{--ec-bg:#f5f6fa;--ec-paper:#ffffff;--ec-ink:#202c3b;--ec-soft:#5b6570;--ec-blue:#17385a;--ec-light:#eaf0f4;--ec-line:#dde1e8;--ec-accent:#d6105f}
 .civica-site{background:var(--ec-bg);color:var(--ec-ink);font-family:'DM Sans',system-ui,sans-serif;font-size:17px;line-height:1.7}
 .civica-site *{box-sizing:border-box}
 .civica-site [hidden]{display:none!important}
@@ -11,15 +11,14 @@
 .civica-site :focus-visible{outline:3px solid var(--ec-accent);outline-offset:4px}
 .civica-site header{background:var(--ec-paper);color:var(--ec-ink);padding:24px 0;border-bottom:1px solid var(--ec-line)}
 .civica-site header p{margin:0;font-size:.9rem}
-.civica-site:not(.civica-uda)>nav{background:var(--ec-blue)}
-.civica-site:not(.civica-uda)>nav a{color:#fff}
+.civica-site:not(.civica-uda)>nav>ul>li>a{color:#fff}
 .civica-site main{padding:0 0 48px}
 .civica-site h1,.civica-site h2,.civica-site h3{color:var(--ec-blue);line-height:1.17}
 .civica-site h1{font-family:'DM Serif',Georgia,serif;font-weight:400;font-size:clamp(2.5rem,5.2vw,4.8rem);margin:10px 0 20px;letter-spacing:-.025em}
 .civica-site h2{font-family:'DM Serif',Georgia,serif;font-weight:400;font-size:clamp(1.8rem,3vw,2.6rem);margin:0 0 22px}
 .civica-site h3{font-size:1.2rem;margin:24px 0 12px}
 .civica-site p{margin:.7em 0 1em}
-.civica-site li{margin:.4em 0}
+.civica-site li:not(nav li){margin:.4em 0}
 .civica-eyebrow{font-size:.78rem!important;text-transform:uppercase;font-weight:700;letter-spacing:.1em;color:var(--ec-soft);margin:0 0 12px!important}
 .civica-hero{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:center;padding:56px 0}
 .civica-lead{font-size:1.38rem;line-height:1.45;color:var(--ec-blue)}
@@ -30,7 +29,7 @@
 .civica-card{background:var(--ec-paper);padding:30px;border:1px solid var(--ec-line);border-radius:8px;margin:16px 0 36px}
 .civica-card h4{font-family:'DM Serif',Georgia,serif;font-size:2rem;margin:6px 0 14px;font-weight:400}
 .civica-azioni{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin:22px 0 10px}
-.civica-button,.civica-site button{font:inherit;font-weight:600;cursor:pointer;border:1px solid var(--ec-blue);border-radius:6px;padding:10px 18px;min-height:46px;background:var(--ec-blue);color:#fff;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none}
+.civica-button,.civica-site button:not(.nav-toggle){font:inherit;font-weight:600;cursor:pointer;border:1px solid var(--ec-blue);border-radius:6px;padding:10px 18px;min-height:46px;background:var(--ec-blue);color:#fff;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none}
 .civica-site a.civica-button{color:#fff}
 .civica-site button.secondary,.civica-button.secondary{background:var(--ec-paper);color:var(--ec-blue)}
 .civica-site button:disabled{opacity:.5;cursor:default}

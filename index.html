@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <!-- PWA meta e asset -->
-    <meta name="theme-color" content="#0d9488">
+    <meta name="theme-color" content="#17385a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="MetOp Lab">
@@ -28,22 +28,26 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
+    <header class="testata">
         <div class="container">
-            <h1>Materiali Didattici - Metodologie Operative</h1>
-            <p>Servizi per la Sanità e l'Assistenza Sociale</p>
-            <p style="font-size: 0.9rem; margin-top: 0.5rem;">IIS Meucci Mattei - Cagliari (Sede Decimomannu)</p>
+            <a class="testata-marchio" href="index.html">
+                <img src="logo/mark.svg" alt="" width="44" height="44">
+                <span>
+                    <span class="testata-scuola">IIS Meucci-Mattei · Decimomannu</span>
+                    <span class="testata-titolo">Metodologie Operative</span>
+                    <span class="testata-indirizzo">Servizi per la Sanità e l’Assistenza Sociale</span>
+                </span>
+            </a>
         </div>
     </header>
 
     <nav>
         <ul>
             <li><a href="index.html" class="active" aria-current="page">Home</a></li>
-            <li><a href="biennio.html">Biennio</a></li>
-            <li><a href="terzo.html">Terzo anno</a></li>
-            <li><a href="quarto.html">Quarto anno</a></li>
-            <li><a href="quinto.html">Quinto anno</a></li>
-            <li><a href="educazione-civica.html">Educazione civica</a></li>
+            <li class="nav-piatto"><a href="biennio.html">Biennio</a></li>
+            <li class="nav-piatto"><a href="terzo.html">Terzo anno</a></li>
+            <li class="nav-piatto"><a href="quarto.html">Quarto anno</a></li>
+            <li class="nav-piatto nav-fine-livello"><a href="quinto.html">Quinto anno</a></li>
             <li class="nav-group"><a href="index.html#metodi">Metodi e laboratori</a>
                 <ul class="nav-sub">
                     <li><a href="lezioni-partecipate.html">Lezioni partecipate</a></li>
@@ -51,119 +55,123 @@
                     <li><a href="peer_tutoring.html">Peer tutoring</a></li>
                     <li><a href="compresenza.html">Compresenza Scienze umane</a></li>
                     <li><a href="orientamento.html">Attività di orientamento</a></li>
+                    <li><a href="educazione-civica.html">Educazione civica</a></li>
+                    <li><a href="intelligenza-artificiale.html">Intelligenza artificiale</a></li>
                     <li><a href="glossario.html">Glossario</a></li>
                 </ul>
             </li>
-            <li class="nav-ai"><a href="intelligenza-artificiale.html">Intelligenza artificiale</a></li>
             <li class="nav-group"><a href="index.html#docente">Docente</a>
                 <ul class="nav-sub">
-                    <li><a href="programmi.html">Programmi</a></li>
-                    <li><a href="programmi-carola.html">Programmazione Carola</a></li>
+                    <li><a href="programmi.html">Programmi SSAS</a></li>
                     <li><a href="programmazione.html">Programmazione individuale</a></li>
+                    <li><a href="programmi-carola.html">Programmazione Carola</a></li>
                     <li><a href="area_docente.html">Area docente</a></li>
-                    <li><a href="anno-di-prova.html">Anno di prova</a></li>
                 </ul>
             </li>
         </ul>
     </nav>
+    <!-- briciole: scripts/nav.py -->
+    <script src="assets/nav.js?v=20261024" defer></script>
+    <!-- /briciole -->
 
-    <main>
+    <main class="home">
         <div class="container">
-            <div class="home-intro">
-                <h2>La centrale didattica di Metodologie Operative</h2>
-                <p>Indirizzo <strong>Servizi per la Sanità e l'Assistenza Sociale</strong>. Parti dalla tua classe: dentro trovi i materiali divisi per argomento, le verifiche e il programma dell'anno.</p>
+            <div class="home-hero">
+                <p class="home-eyebrow">Centrale didattica</p>
+                <h1>Da dove partiamo oggi?</h1>
+                <p class="home-lead">Scegli la classe. Metodi, laboratori e strumenti del docente sono qui sotto, nello stesso ordine del menu.</p>
             </div>
 
-            <!-- Livello 1 · Le classi -->
             <section class="home-livello" id="classi" aria-labelledby="classi-title">
                 <div class="home-livello-head">
-                    <h2 id="classi-title">🎒 Le classi</h2>
-                    <p>Materiali, verifiche e programma di ogni anno</p>
+                    <span class="home-livello-num">01</span>
+                    <h2 id="classi-title">Le classi</h2>
+                    <p>Materiali, verifiche e programma dell’anno</p>
                 </div>
-                <div class="cards cards-anni">
-                    <a href="biennio.html" class="card card-anno">
-                        <h3>📚 Biennio</h3>
-                        <p>Primo e secondo anno</p>
-                        <span class="card-cta">Entra →</span>
+                <div class="home-voci home-voci-classi">
+                    <a class="home-voce" href="biennio.html">
+                        <span class="home-voce-titolo">Biennio</span><span class="home-voce-nota">Prima e seconda</span>
+                        <span class="home-voce-freccia" aria-hidden="true">→</span>
                     </a>
-                    <a href="terzo.html" class="card card-anno">
-                        <h3>📖 Terzo anno</h3>
-                        <p>Classe terza</p>
-                        <span class="card-cta">Entra →</span>
+                    <a class="home-voce" href="terzo.html">
+                        <span class="home-voce-titolo">Terzo anno</span><span class="home-voce-nota">Terza</span>
+                        <span class="home-voce-freccia" aria-hidden="true">→</span>
                     </a>
-                    <a href="quarto.html" class="card card-anno">
-                        <h3>📝 Quarto anno</h3>
-                        <p>Classe quarta</p>
-                        <span class="card-cta">Entra →</span>
+                    <a class="home-voce" href="quarto.html">
+                        <span class="home-voce-titolo">Quarto anno</span><span class="home-voce-nota">Quarta</span>
+                        <span class="home-voce-freccia" aria-hidden="true">→</span>
                     </a>
-                    <a href="quinto.html" class="card card-anno">
-                        <h3>🎓 Quinto anno</h3>
-                        <p>Classe quinta</p>
-                        <span class="card-cta">Entra →</span>
+                    <a class="home-voce" href="quinto.html">
+                        <span class="home-voce-titolo">Quinto anno</span><span class="home-voce-nota">Quinta</span>
+                        <span class="home-voce-freccia" aria-hidden="true">→</span>
                     </a>
                 </div>
             </section>
 
-            <!-- Livello 2 · Metodi e laboratori -->
             <section class="home-livello" id="metodi" aria-labelledby="metodi-title">
                 <div class="home-livello-head">
-                    <h2 id="metodi-title">🧪 Metodi e laboratori</h2>
-                    <p>Percorsi trasversali a più classi</p>
+                    <span class="home-livello-num">02</span>
+                    <h2 id="metodi-title">Metodi e laboratori</h2>
+                    <p>Percorsi che attraversano più classi</p>
                 </div>
-                <div class="cards cards-compatte">
-                    <a href="lezioni-partecipate.html" class="card">
-                        <h3>🙋 Lezioni partecipate</h3>
-                        <p>Percorsi pronti per spiegare, far provare e confrontarsi in classe.</p>
+                <div class="home-voci">
+                    <a class="home-voce" href="lezioni-partecipate.html">
+                        <span class="home-voce-titolo">Lezioni partecipate</span>
+                        <span class="home-voce-freccia" aria-hidden="true">→</span>
                     </a>
-                    <a href="laboratorio.html" class="card">
-                        <h3>🧪 Laboratorio</h3>
-                        <p>Percorsi esperienziali, simulazioni e giochi di ruolo.</p>
+                    <a class="home-voce" href="laboratorio.html">
+                        <span class="home-voce-titolo">Laboratorio</span>
+                        <span class="home-voce-freccia" aria-hidden="true">→</span>
                     </a>
-                    <a href="peer_tutoring.html" class="card">
-                        <h3>🤝 Peer tutoring</h3>
-                        <p>Incontri guidati e attività tra pari.</p>
+                    <a class="home-voce" href="peer_tutoring.html">
+                        <span class="home-voce-titolo">Peer tutoring</span>
+                        <span class="home-voce-freccia" aria-hidden="true">→</span>
                     </a>
-                    <a href="compresenza.html" class="card">
-                        <h3>🔗 Compresenza Scienze umane</h3>
-                        <p>Attività progettate insieme, in compresenza.</p>
+                    <a class="home-voce" href="compresenza.html">
+                        <span class="home-voce-titolo">Compresenza Scienze umane</span>
+                        <span class="home-voce-freccia" aria-hidden="true">→</span>
                     </a>
-                    <a href="orientamento.html" class="card">
-                        <h3>🧭 Attività di orientamento</h3>
-                        <p>Incontri, visite guidate e laboratori sulle professioni.</p>
+                    <a class="home-voce" href="orientamento.html">
+                        <span class="home-voce-titolo">Attività di orientamento</span>
+                        <span class="home-voce-freccia" aria-hidden="true">→</span>
+                    </a>
+                    <a class="home-voce" href="educazione-civica.html">
+                        <span class="home-voce-titolo">Educazione civica</span>
+                        <span class="home-voce-freccia" aria-hidden="true">→</span>
+                    </a>
+                    <a class="home-voce" href="intelligenza-artificiale.html">
+                        <span class="home-voce-titolo">Intelligenza artificiale</span>
+                        <span class="home-voce-freccia" aria-hidden="true">→</span>
+                    </a>
+                    <a class="home-voce" href="glossario.html">
+                        <span class="home-voce-titolo">Glossario</span>
+                        <span class="home-voce-freccia" aria-hidden="true">→</span>
                     </a>
                 </div>
-
-                <a href="intelligenza-artificiale.html" class="home-ia">
-                    <div>
-                        <h3>🤖 Intelligenza artificiale</h3>
-                        <p>Capire come funziona, usarla in modo critico e consapevole nei servizi sociosanitari: teoria, percorso completo e verifica delle competenze digitali.</p>
-                    </div>
-                    <span class="card-cta">Apri la sezione →</span>
-                </a>
             </section>
 
-            <!-- Livello 3 · Docente -->
             <section class="home-livello" id="docente" aria-labelledby="docente-title">
                 <div class="home-livello-head">
-                    <h2 id="docente-title">🛡️ Docente</h2>
+                    <span class="home-livello-num">03</span>
+                    <h2 id="docente-title">Docente</h2>
                     <p>Programmazione e strumenti riservati</p>
                 </div>
-                <div class="cards cards-compatte cards-docente">
-                    <a href="programmi.html" class="card">
-                        <h3>🗂️ Programmi SSAS</h3>
-                        <p>UDA, attività, competenze e prove esperte di tutti gli anni.</p>
+                <div class="home-voci">
+                    <a class="home-voce" href="programmi.html">
+                        <span class="home-voce-titolo">Programmi SSAS</span>
+                        <span class="home-voce-freccia" aria-hidden="true">→</span>
                     </a>
-                    <a href="programmazione.html" class="card">
-                        <h3>📝 Programmazione individuale</h3>
-                        <p>Scegli le UDA della classe e scarica il piano di lavoro in Word.</p>
+                    <a class="home-voce" href="programmazione.html">
+                        <span class="home-voce-titolo">Programmazione individuale</span>
+                        <span class="home-voce-freccia" aria-hidden="true">→</span>
                     </a>
-                    <a href="area_docente.html" class="card">
-                        <h3>📊 Area docente</h3>
-                        <p>Progressi delle classi e attività assegnate. Accesso riservato.</p>
+                    <a class="home-voce" href="programmi-carola.html">
+                        <span class="home-voce-titolo">Programmazione Carola <span class="home-voce-riservato" title="Accesso riservato">riservato</span></span>
+                        <span class="home-voce-freccia" aria-hidden="true">→</span>
                     </a>
-                    <a href="anno-di-prova.html" class="card">
-                        <h3>🌱 Anno di prova</h3>
-                        <p>Presentazione e formazione. Accesso riservato.</p>
+                    <a class="home-voce" href="area_docente.html">
+                        <span class="home-voce-titolo">Area docente <span class="home-voce-riservato" title="Accesso riservato">riservato</span></span>
+                        <span class="home-voce-freccia" aria-hidden="true">→</span>
                     </a>
                 </div>
             </section>
@@ -172,12 +180,8 @@
 
     <footer>
         <div class="container">
-            <p>Metodologie Operative - Servizi Sociosanitari</p>
-            <p>IIS Meucci Mattei - Cagliari</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem;">&copy; 2025 - Tutti i diritti riservati</p>
-            <div class="home-link">
-                <a href="https://salvapicconi.github.io/metodologieoperative/">🏠 Torna alla Home</a>
-            </div>
+            <p>Metodologie Operative · Servizi per la Sanità e l’Assistenza Sociale</p>
+            <p>IIS Meucci-Mattei · Decimomannu</p>
         </div>
     </footer>
     <script src="materiali.js"></script>
@@ -258,15 +262,14 @@ installButton.style.cssText = `
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #17385a;
   color: white;
   border: none;
-  padding: 15px 25px;
-  border-radius: 30px;
-  font-size: 16px;
-  font-weight: bold;
+  padding: 11px 20px;
+  border-radius: 6px;
+  font: 600 15px 'DM Sans', system-ui, sans-serif;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 15px rgba(23, 56, 90, 0.3);
   z-index: 10000;
   display: block;
   transition: all 0.3s ease;
@@ -278,12 +281,12 @@ installButton.setAttribute('data-ready', 'false');
 
 installButton.addEventListener('mouseenter', () => {
   installButton.style.transform = 'translateY(-2px)';
-  installButton.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.6)';
+  installButton.style.boxShadow = '0 6px 20px rgba(23, 56, 90, 0.45)';
 });
 
 installButton.addEventListener('mouseleave', () => {
   installButton.style.transform = 'translateY(0)';
-  installButton.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.4)';
+  installButton.style.boxShadow = '0 4px 15px rgba(23, 56, 90, 0.3)';
 });
 
 document.body.appendChild(installButton);
@@ -452,7 +455,7 @@ function mostrarNotificaAggiornamento() {
       <span>🔄 Nuova versione disponibile!</span>
       <button id="update-reload-btn" style="
         background: white;
-        color: #667eea;
+        color: #17385a;
         border: none;
         padding: 8px 15px;
         border-radius: 5px;
@@ -466,11 +469,11 @@ function mostrarNotificaAggiornamento() {
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background: #667eea;
+    background: #17385a;
     color: white;
     padding: 15px 25px;
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 4px 15px rgba(23, 56, 90, 0.3);
     z-index: 10001;
     animation: slideDown 0.3s ease;
   `;
