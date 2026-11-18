@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-18** · Codex · Aggiunti all’unità «Riconfigurare la disabilità» della quarta un percorso di teoria e un modulo con esercizi autocorrettivi e cinque domande aperte. I materiali già disponibili restano accessibili. (commit di questa voce)
+
 - **2026-11-14** · Codex · La lezione di quinta «Anzianità, società e welfare» approfondisce le risposte ai bisogni emergenti con invecchiamento attivo, cohousing, trasporti e accesso ai servizi. Rilascio Aruba autorizzato per la versione alunni (commit di questa voce). [GPT 2026-11-14 18:03]
 
 - **2026-11-14** · Codex · Rivista la grafica dalla fragilità in avanti con schemi, confronti e una foto sulle attività quotidiane. Rimossi le note del relatore e il relativo accesso dalla pagina per gli alunni. Bozza locale (commit di questa voce). [GPT 2026-11-14 17:49]
