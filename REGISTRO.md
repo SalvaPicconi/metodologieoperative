@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-18** · Codex · La nuova dispensa del collage entra nella teoria e nell’autoapprendimento. Le prove su origini, materiali, tecniche e usi preparano la riflessione su una situazione personale. Anteprima locale (commit di questa voce). [GPT 2026-11-18 16:47]
+
 - **2026-11-18** · Codex · Nell’autoapprendimento sul collage la 2SB riconosce la tecnica, prova due composizioni e confronta due opere prima di scrivere una definizione e preparare la propria idea. Anteprima locale (commit di questa voce). [GPT 2026-11-18 16:11]
 
 - **2026-11-18** · Codex · Il collage autobiografico ha una pagina di teoria con indice e una di autoapprendimento con risposte, rilettura e preparazione per il lavoro in classe. Anteprima locale (commit di questa voce). [GPT 2026-11-18 15:50]

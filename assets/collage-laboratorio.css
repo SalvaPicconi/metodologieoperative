@@ -35,6 +35,27 @@ html{scroll-padding-top:24px}.flow-section{padding:48px 0;border-bottom:1px soli
 .collage-reading { max-width: 70ch; }
 .collage-reading h3 { margin-block: 22px 7px; color: var(--blue); }
 .collage-reading p + p { margin-top: 12px; }
+.collage-reading .collage-reference { margin-top: 7px; }
+.collage-source-diagram { margin: 18px 0; }
+.collage-source-diagram img { display: block; width: 100%; height: auto; }
+.collage-source-diagram figcaption {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.collage-tech-table { width: 100%; table-layout: fixed; border-collapse: collapse; margin: 12px 0 18px; }
+.collage-tech-table th, .collage-tech-table td {
+  padding: 9px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+.collage-tech-table th:first-child { width: 31%; }
+.collage-tech-table thead, .collage-tech-table tr:nth-child(even) { background: var(--pale); }
 .hero.collage-learning-hero { display: block; padding-bottom: 34px; }
 .collage-learning-hero .hero-task { max-width: 56ch; }
 .collage-study { max-width: 800px; }
@@ -44,6 +65,8 @@ html{scroll-padding-top:24px}.flow-section{padding:48px 0;border-bottom:1px soli
   font: 400 clamp(23px, 4vw, 32px)/1.2 var(--serif);
   margin-bottom: 13px;
 }
+.collage-study-step p + p, .collage-study-step .collage-check + p { margin-top: 12px; }
+.collage-tech-summary { display: grid; gap: 8px; padding-left: 20px; }
 .collage-check, .collage-practice {
   margin-top: 18px;
   padding: clamp(14px, 3vw, 24px);
@@ -58,6 +81,19 @@ html{scroll-padding-top:24px}.flow-section{padding:48px 0;border-bottom:1px soli
 .collage-check label input { flex: none; margin: 0; accent-color: var(--blue); }
 .collage-check-feedback { margin-top: 12px; color: var(--blue); }
 .collage-check-feedback:empty { margin-top: 0; }
+.collage-match-row { margin-top: 12px; }
+.collage-match-row label { padding: 0 0 5px; font-weight: 600; }
+.collage-match-row select {
+  display: block;
+  width: min(100%, 30rem);
+  min-height: 42px;
+  padding: 7px;
+  font: inherit;
+  color: var(--ink);
+  background: var(--white);
+  border: 1px solid #bacadb;
+  border-radius: 3px;
+}
 .collage-practice button[aria-pressed="true"] { background: var(--blue); color: var(--white); }
 .collage-paper {
   position: relative;
@@ -96,4 +132,7 @@ html{scroll-padding-top:24px}.flow-section{padding:48px 0;border-bottom:1px soli
 
 @media (max-width: 440px) {
   .opening-gallery.collage-study-gallery { grid-template-columns: minmax(0, 1fr); }
+  .collage-tech-table { font-size: 15px; }
+  .collage-tech-table th, .collage-tech-table td { padding: 7px; }
+  .collage-tech-table th:first-child { width: 42%; }
 }

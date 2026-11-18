@@ -82,14 +82,35 @@
   const answers = { q1:'a', q2:'b', q3:'b', q4:'b', final1:'b', final2:'a', final3:'d', final4:'b', final5:'c', final6:'b', final7:'a', final8:'b', final9:'c', final10:'d' };
 
   function setupStudyActivities() {
-    document.querySelectorAll('[data-collage-check]').forEach(exercise => {
+    document.querySelectorAll('[data-collage-check], [data-collage-match]').forEach(exercise => {
       const feedback = exercise.querySelector('[data-collage-feedback]');
+      const matches = exercise.querySelectorAll('select[data-correct]');
       exercise.addEventListener('input', event => { event.stopPropagation(); });
       exercise.addEventListener('change', event => {
         event.stopPropagation();
         feedback.textContent = '';
+        const detail = event.target.closest('.collage-match-row')?.querySelector('[data-match-feedback]');
+        if (detail) detail.textContent = '';
       });
       exercise.querySelector('[data-collage-verify]').addEventListener('click', () => {
+        if (matches.length) {
+          let correct = 0;
+          matches.forEach(field => {
+            const detail = field.closest('.collage-match-row').querySelector('[data-match-feedback]');
+            if (!field.value) {
+              detail.textContent = 'Scegli un materiale.';
+            } else if (field.value === field.dataset.correct) {
+              correct += 1;
+              detail.textContent = `Esatto. ${field.dataset.right}`;
+            } else {
+              detail.textContent = `Riprova. ${field.dataset.hint}`;
+            }
+          });
+          feedback.textContent = correct === matches.length
+            ? 'Tutti gli abbinamenti sono corretti.'
+            : `Abbinamenti corretti ${correct} su ${matches.length}. Leggi gli indizi e riprova.`;
+          return;
+        }
         const selected = exercise.querySelector('input:checked');
         feedback.textContent = selected?.dataset.feedback || 'Scegli una risposta, poi premi «Controlla».';
       });
