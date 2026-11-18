@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-18** · Codex · Il collage autobiografico della 2SB si prepara a casa con il video, due risposte brevi e tre appunti da salvare insieme. La realizzazione si svolge in classe. Anteprima locale (commit di questa voce). [GPT 2026-11-18 10:02]
+
 - **2026-11-14** · Codex · La lezione di quinta «Anzianità, società e welfare» approfondisce le risposte ai bisogni emergenti con invecchiamento attivo, cohousing, trasporti e accesso ai servizi. Rilascio Aruba autorizzato per la versione alunni (commit di questa voce). [GPT 2026-11-14 18:03]
 
 - **2026-11-14** · Codex · Rivista la grafica dalla fragilità in avanti con schemi, confronti e una foto sulle attività quotidiane. Rimossi le note del relatore e il relativo accesso dalla pagina per gli alunni. Bozza locale (commit di questa voce). [GPT 2026-11-14 17:49]

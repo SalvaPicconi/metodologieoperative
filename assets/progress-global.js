@@ -51,6 +51,7 @@ const CONFIG = resolveConfig();
   let autoSaveInFlight = false;
   let lastAutoSave = 0;
   let lastSavedSnapshot = null;
+  let initialRestorePending = false;
 
   // Crea pulsanti se non esistono già
   document.addEventListener('DOMContentLoaded', () => {
@@ -362,8 +363,13 @@ async function loadAndRestore() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  loadAndRestore();
+document.addEventListener('DOMContentLoaded', async () => {
+  initialRestorePending = true;
+  try {
+    await loadAndRestore();
+  } finally {
+    initialRestorePending = false;
+  }
 });
 
 document.addEventListener('input', () => scheduleAutoSave('input'));
@@ -427,6 +433,8 @@ window.addEventListener('mo:identity-change', (event) => {
   isGuestMode = Boolean(detail.guest);
   updateSaveButtonsVisibility();
   updateStudentLabel(detail);
+  // La lettura iniziale aspetta già l’identità, incluso l’accesso come ospite.
+  if (CONFIG.reusePendingInitialRestore && initialRestorePending) return;
   loadAndRestore();
 });
 }
