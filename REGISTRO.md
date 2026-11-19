@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-19** · Codex · Nell’Area docente si confrontano le classi a partire dalla stessa attività e si verificano i codici simili. Gli abbinamenti sono reversibili nel browser e valgono per una sola classe e un solo anno scolastico. Anteprima locale (commit di questa voce). [GPT 2026-11-19 18:07]
+
 - **2026-11-19** · Codex · L’Area docente parte dalle classi. Ogni classe ha un riepilogo, le attività, i lavori degli alunni e i risultati Stroop, con lo storico consultabile per anno scolastico. Anteprima locale (commit di questa voce). [GPT 2026-11-19 17:53]
 
 - **2026-11-18** · Codex · Le indicazioni «Guarda» nelle opere del collage sono più grandi e in un riquadro riconoscibile sia nella teoria sia nell’autoapprendimento. Anteprima locale (commit di questa voce). [GPT 2026-11-18 22:34]

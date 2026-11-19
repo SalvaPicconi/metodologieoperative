@@ -6,7 +6,7 @@
     <title>Area docente · Metodologie Operative</title>
     <meta name="description" content="Pannello di controllo per monitorare i progressi degli studenti nelle attività di Metodologie Operative.">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="assets/area-docente.css?v=20261119">
+    <link rel="stylesheet" href="assets/area-docente.css?v=20261119b">
 </head>
 <body>
     <header class="testata">
@@ -97,6 +97,20 @@
                     </div>
                     <p id="dashboard-data-note" class="docente-notice" hidden></p>
 
+                    <div class="docente-views docente-modes" role="group" aria-label="Percorso di monitoraggio">
+                        <button type="button" data-dashboard-mode="classes" aria-pressed="true">Per classe</button>
+                        <button type="button" data-dashboard-mode="compare" aria-pressed="false">Confronta attività</button>
+                    </div>
+
+                    <section id="dashboard-comparison" aria-labelledby="dashboard-comparison-title" hidden>
+                        <h2 id="dashboard-comparison-title" tabindex="-1">Confronta attività</h2>
+                        <div class="docente-student-search docente-activity-picker">
+                            <label for="dashboard-activity-picker">Scegli una pagina</label>
+                            <select id="dashboard-activity-picker"></select>
+                        </div>
+                        <div id="dashboard-comparison-list"></div>
+                    </section>
+
                     <section id="dashboard-classes" aria-labelledby="dashboard-classes-title">
                         <h2 id="dashboard-classes-title" tabindex="-1">Classi</h2>
                         <div id="dashboard-class-list"></div>
@@ -104,10 +118,12 @@
 
                     <section id="dashboard-class" aria-labelledby="dashboard-class-title" hidden>
                         <h2 id="dashboard-class-title" tabindex="-1"></h2>
+                        <p id="dashboard-class-year" class="docente-year"></p>
                         <dl id="dashboard-stats" class="docente-metrics"></dl>
                         <div class="docente-views" role="group" aria-label="Viste della classe">
                             <button type="button" data-class-view="activities" aria-pressed="true">Attività e riepilogo</button>
                             <button type="button" data-class-view="students" aria-pressed="false">Alunni e lavori</button>
+                            <button type="button" data-class-view="codes" aria-pressed="false">Verifica codici</button>
                             <button type="button" data-class-view="stroop" aria-pressed="false">Test Stroop</button>
                         </div>
 
@@ -124,6 +140,13 @@
                                 <input type="search" id="dashboard-student-search">
                             </div>
                             <div id="dashboard-student-list"></div>
+                        </section>
+
+                        <section id="dashboard-codes" class="docente-panel" aria-labelledby="dashboard-codes-title" hidden>
+                            <h3 id="dashboard-codes-title" tabindex="-1">Verifica codici</h3>
+                            <p class="docente-muted">Conferma un abbinamento solo se i due codici appartengono allo stesso alunno. Gli abbinamenti si salvano in questo browser, per questa classe e questo anno scolastico.</p>
+                            <div id="dashboard-code-editor"></div>
+                            <p id="dashboard-code-status" role="status"></p>
                         </section>
 
                         <section id="dashboard-stroop" class="docente-panel" aria-labelledby="dashboard-stroop-title" hidden>
@@ -173,7 +196,7 @@
     </footer>
 
     <script src="assets/docente-accesso.js?v=20260926"></script>
-    <script type="module" src="assets/progress-dashboard.js?v=20261119"></script>
+    <script type="module" src="assets/progress-dashboard.js?v=20261119b"></script>
 
     <dialog id="assessment-modal" class="docente-dialog" aria-label="Dettaglio del test">
         <form method="dialog"><button type="submit" class="docente-button">Chiudi</button></form>
