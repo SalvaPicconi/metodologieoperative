@@ -1,6 +1,3 @@
-const SUPABASE_URL = 'https://ruplzgcnheddmqqdephp.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1cGx6Z2NuaGVkZG1xcWRlcGhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAxMTYyMjksImV4cCI6MjA3NTY5MjIyOX0.tOLIkgi5yTt61_0rMlXUqxnbil4DLD7kBaqZBVAv1CI';
-const PROGRESS_ENDPOINT = `${SUPABASE_URL}/rest/v1/progress`;
 const SAFE_ORIGIN = (window.location.origin && window.location.origin !== 'null') ? window.location.origin : '';
 const SITE_BASE = SAFE_ORIGIN.replace(/\/$/, '');
 const BASE_PATHNAME = (() => {
@@ -14,7 +11,6 @@ const BASE_PATHNAME = (() => {
 const SITE_ROOT = SITE_BASE ? `${SITE_BASE}${BASE_PATHNAME}` : (BASE_PATHNAME || '');
 
 const STROOP_BASE_URL = `${SITE_ROOT}/materiali/compresenza/test-stroop.html`;
-const STROOP_STATS_URL = `${SITE_ROOT}/stroop_statistiche.html`;
 const SUPER_STORAGE_KEY = 'mo:super-impersonations';
 const SUPER_SESSION_DURATION = 1000 * 60 * 15;
 const PAGE_ALIAS_OVERRIDES = {
@@ -24,133 +20,165 @@ const PAGE_ALIAS_OVERRIDES = {
     'materiali/peer_tutoring_platform.html': '/materiali/peer_tutoring/peer_tutoring_platform.html',
     'peer_tutoring_platform.html': '/materiali/peer_tutoring/peer_tutoring_platform.html'
 };
-const DOCENTE_SESSION_KEY = 'mo:docente-session';
-const DOCENTE_SESSION_DURATION = 1000 * 60 * 60 * 6; // 6 ore
+
+const PROGRESS_LIMIT = 1000;
+const ASSESSMENT_LIMIT = 200;
+const RECENT_DAYS = 30;
+const UNKNOWN_CLASS = 'Senza classe';
+const collator = new Intl.Collator('it', { numeric: true, sensitivity: 'base' });
+const dateParts = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Rome', year: 'numeric', month: 'numeric' });
 
 const dashboardState = {
+    period: 'recent',
+    classCode: '',
+    view: 'activities',
+    renderedClass: '',
     records: [],
-    filtered: [],
-    classFilter: '',
-    searchTerm: '',
     assessments: [],
-    filteredAssessments: [],
+    assessmentUnavailable: false,
+    ready: false,
+    progressIndex: new Map(),
     assessmentIndex: new Map(),
-    progressIndex: new Map()
+    titles: new Map(),
+    limits: [],
+    session: 0
 };
 
 const elements = {};
+const byId = id => document.getElementById(id);
 
 document.addEventListener('DOMContentLoaded', () => {
-    elements.overlay = document.getElementById('docente-auth-overlay');
-    elements.dashboard = document.getElementById('docente-dashboard-content');
-    elements.loginForm = document.getElementById('docente-login-form');
-    elements.passwordInput = document.getElementById('docente-password');
-    elements.refreshBtn = document.getElementById('refresh-dashboard');
-    elements.classFilter = document.getElementById('dashboard-class-filter');
-    elements.studentSearch = document.getElementById('dashboard-student-search');
-    elements.lastRefresh = document.getElementById('dashboard-last-refresh');
-    elements.statStudents = document.getElementById('doc-stat-students');
-    elements.statActivities = document.getElementById('doc-stat-activities');
-    elements.statLastUpdate = document.getElementById('doc-stat-last-update');
-    elements.classFocus = document.getElementById('doc-class-focus');
-    elements.activityGroupsContainer = document.getElementById('activity-groups-container');
-    elements.assessmentClassBody = document.getElementById('assessment-class-summary');
-    elements.assessmentDetailBody = document.getElementById('assessment-detail-body');
-    elements.assessmentInsights = document.getElementById('assessment-insights');
-    elements.assessmentModal = document.getElementById('assessment-modal');
-    elements.assessmentModalBody = document.getElementById('assessment-modal-body');
-    elements.progressModal = document.getElementById('progress-modal');
-    elements.progressModalBody = document.getElementById('progress-modal-body');
+    Object.assign(elements, {
+        overlay: byId('docente-auth-overlay'),
+        dashboard: byId('docente-dashboard-content'),
+        sessionActions: byId('docente-session-actions'),
+        loginForm: byId('docente-login-form'),
+        passwordInput: byId('docente-password'),
+        refreshBtn: byId('refresh-dashboard'),
+        lastRefresh: byId('dashboard-last-refresh'),
+        period: byId('dashboard-period'),
+        back: byId('dashboard-back'),
+        classList: byId('dashboard-class-list'),
+        studentSearch: byId('dashboard-student-search'),
+        activityGroupsContainer: byId('activity-groups-container'),
+        assessmentDetailBody: byId('assessment-detail-body'),
+        assessmentInsights: byId('assessment-insights'),
+        assessmentModal: byId('assessment-modal'),
+        assessmentModalBody: byId('assessment-modal-body'),
+        progressModal: byId('progress-modal'),
+        progressModalBody: byId('progress-modal-body')
+    });
 
-    if (elements.loginForm) {
-        elements.loginForm.addEventListener('submit', handleLogin);
-    }
-        if (elements.refreshBtn) {
-        elements.refreshBtn.addEventListener('click', refreshDashboard);
-    }
-    document.getElementById('docente-cambia-password')?.addEventListener('click', cambiaPasswordDocente);
-    document.getElementById('docente-esci')?.addEventListener('click', () => {
+    elements.loginForm.addEventListener('submit', handleLogin);
+    elements.refreshBtn.addEventListener('click', refreshDashboard);
+    elements.period.addEventListener('change', () => {
+        dashboardState.period = elements.period.value;
+        resetStudentSearch();
+        renderDashboard();
+    });
+    elements.back.addEventListener('click', () => {
+        dashboardState.classCode = '';
+        renderDashboard();
+        byId('dashboard-classes-title').focus();
+    });
+    elements.studentSearch.addEventListener('input', () => renderStudents(classRecords()));
+    byId('docente-cambia-password').addEventListener('click', cambiaPasswordDocente);
+    byId('docente-esci').addEventListener('click', () => {
         window.MODocente.esci();
         mostraAccesso();
     });
-    if (window.MODocente?.attivo()) {
-        mostraDashboard();
-    }
-    if (elements.classFilter) {
-        elements.classFilter.addEventListener('change', () => {
-            dashboardState.classFilter = elements.classFilter.value;
-            applyFilters();
-        });
-    }
-    if (elements.studentSearch) {
-        elements.studentSearch.addEventListener('input', () => {
-            dashboardState.searchTerm = elements.studentSearch.value.trim().toLowerCase();
-            applyFilters();
-        });
-    }
+
+    elements.dashboard.addEventListener('click', event => {
+        const classButton = event.target.closest('[data-select-class]');
+        const viewButton = event.target.closest('[data-class-view]');
+        const studentButton = event.target.closest('[data-show-student]');
+        if (classButton) {
+            dashboardState.classCode = classButton.dataset.selectClass;
+            dashboardState.view = 'activities';
+            resetStudentSearch();
+            renderDashboard();
+            byId('dashboard-class-title').focus();
+        }
+        if (viewButton) {
+            dashboardState.view = viewButton.dataset.classView;
+            if (dashboardState.view === 'students') resetStudentSearch();
+            renderDashboard();
+        }
+        if (studentButton) {
+            dashboardState.view = 'students';
+            resetStudentSearch();
+            renderDashboard();
+            const student = [...byId('dashboard-student-list').querySelectorAll('details')]
+                .find(item => item.dataset.student === studentButton.dataset.showStudent);
+            if (student) {
+                student.open = true;
+                student.querySelector('summary').focus();
+            }
+        }
+    });
+
+    document.addEventListener('click', event => {
+        const work = event.target.closest('[data-open-as-docente]');
+        const assessment = event.target.closest('[data-assessment-detail]');
+        const progress = event.target.closest('[data-progress-detail]');
+        if (work) openActivityAsDocente(work.dataset);
+        if (assessment) openAssessmentDetail(assessment.dataset.assessmentDetail);
+        if (progress) openProgressDetail(progress.dataset.progressDetail);
+    });
+
+    if (window.MODocente?.attivo()) mostraDashboard();
 });
 
-document.addEventListener('click', (event) => {
-    const trigger = event.target.closest('[data-open-as-docente]');
-    if (trigger) {
-        event.preventDefault();
-        openActivityAsDocente(trigger.dataset);
-    }
-
-    const detailTrigger = event.target.closest('[data-assessment-detail]');
-    if (detailTrigger) {
-        event.preventDefault();
-        openAssessmentDetail(detailTrigger.dataset.assessmentDetail);
-    }
-
-    if (event.target.matches('[data-assessment-close]') || event.target === elements.assessmentModal) {
-        closeAssessmentDetail();
-    }
-
-    const progressTrigger = event.target.closest('[data-progress-detail]');
-    if (progressTrigger) {
-        event.preventDefault();
-        const id = progressTrigger.getAttribute('data-progress-detail');
-        openProgressDetail(id);
-    }
-
-    if (event.target.matches('[data-progress-close]') || event.target === elements.progressModal) {
-        closeProgressDetail();
-    }
-});
-
-document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-        closeAssessmentDetail();
-        closeProgressDetail();
-    }
-});
-
-// La password la verifica il database (assets/docente-accesso.js): nel browser non c'è
-// nessuna impronta da confrontare, e senza sessione valida le risposte non si leggono.
 function mostraDashboard() {
-    elements.overlay?.classList.add('hidden');
-    elements.dashboard?.classList.remove('hidden');
+    elements.overlay.classList.add('hidden');
+    elements.dashboard.classList.remove('hidden');
+    elements.sessionActions.hidden = false;
     refreshDashboard();
 }
 
 function mostraAccesso(messaggio) {
-    elements.dashboard?.classList.add('hidden');
-    elements.overlay?.classList.remove('hidden');
+    dashboardState.session++;
+    dashboardState.ready = false;
+    dashboardState.records = [];
+    dashboardState.assessments = [];
+    dashboardState.progressIndex.clear();
+    dashboardState.assessmentIndex.clear();
+    dashboardState.limits = [];
+    dashboardState.classCode = '';
+    dashboardState.period = 'recent';
+    dashboardState.view = 'activities';
+    resetStudentSearch();
+    for (const modal of [elements.progressModal, elements.assessmentModal]) {
+        if (modal.open) modal.close();
+    }
+    for (const container of [
+        elements.classList, elements.activityGroupsContainer, byId('dashboard-student-list'),
+        byId('dashboard-stats'), byId('dashboard-class-title'), elements.assessmentInsights,
+        elements.assessmentDetailBody, elements.progressModalBody, elements.assessmentModalBody,
+        byId('dashboard-data-note')
+    ]) container.replaceChildren();
+    elements.dashboard.classList.add('hidden');
+    elements.sessionActions.hidden = true;
+    elements.overlay.classList.remove('hidden');
     if (messaggio) alert(messaggio);
-    elements.passwordInput?.focus();
+    elements.passwordInput.focus();
 }
 
 async function handleLogin(event) {
     event.preventDefault();
-    const value = elements.passwordInput?.value ?? '';
+    const button = elements.loginForm.querySelector('button');
+    if (button.disabled) return;
+    button.disabled = true;
     try {
-        await window.MODocente.accedi(value);
-        if (elements.passwordInput) elements.passwordInput.value = '';
+        await window.MODocente.accedi(elements.passwordInput.value);
+        elements.passwordInput.value = '';
         mostraDashboard();
+        elements.period.focus();
     } catch (error) {
         alert(window.MODocente.messaggioErrore(error));
-        elements.passwordInput?.focus();
+        elements.passwordInput.focus();
+    } finally {
+        button.disabled = false;
     }
 }
 
@@ -171,728 +199,302 @@ async function cambiaPasswordDocente() {
 }
 
 async function refreshDashboard() {
-    setStatus('Caricamento dati...');
-    toggleLoading(true);
+    if (elements.refreshBtn.disabled) return;
+    const session = dashboardState.session;
+    elements.refreshBtn.disabled = true;
+    elements.lastRefresh.textContent = 'Caricamento dati…';
+    const initial = !dashboardState.ready;
+    if (initial) renderDashboard();
     try {
-        const [rawRecords, assessments, metaRecords] = await Promise.all([
-            fetchProgressData(),
+        const [progress, stroop, titles] = await Promise.all([
+            window.MODocente.chiama('progress_docente_elenco', { p_limite: PROGRESS_LIMIT }),
             fetchAssessmentData(),
-            fetchProgressMeta()
+            initial ? fetchActivityTitles() : dashboardState.titles
         ]);
-        try {
-            const metaIndex = new Map(metaRecords.map(r => [r.id, r.meta]));
-            const records = rawRecords.map(r => normalizeProgressRecord(r, metaIndex.get(r.id))).filter(Boolean);
-            dashboardState.records = records;
-            dashboardState.assessments = assessments.map(normalizeAssessmentRecord).filter(Boolean);
-            dashboardState.assessmentIndex = new Map();
-            dashboardState.progressIndex = new Map();
-            dashboardState.assessments.forEach(entry => {
-                if (entry?.id !== undefined) {
-                    dashboardState.assessmentIndex.set(String(entry.id), entry);
-                }
-            });
-            records.forEach(entry => {
-                if (entry?.id !== undefined) {
-                    dashboardState.progressIndex.set(String(entry.id), entry);
-                }
-            });
-            populateFilters(records);
-            dashboardState.classFilter = elements.classFilter?.value || '';
-            try {
-                applyFilters();
-            } catch (filterError) {
-                console.error('Errore durante applyFilters:', filterError, { recordsSample: records.slice(0, 5) });
-                throw filterError;
-            }
-            try {
-                applyAssessmentFilter(dashboardState.classFilter || '');
-            } catch (assessmentError) {
-                console.error('Errore durante applyAssessmentFilter:', assessmentError, { assessmentsSample: dashboardState.assessments.slice(0, 5) });
-                throw assessmentError;
-            }
-            const now = new Date();
-            if (elements.lastRefresh) {
-                elements.lastRefresh.textContent = now.toLocaleString('it-IT');
-            }
-        } catch (processingError) {
-            console.error('Errore durante l\'elaborazione dei dati dashboard:', processingError);
-            throw processingError;
-        }
-        } catch (error) {
+        if (session !== dashboardState.session) return;
+
+        const records = (progress || []).map(record => normalizeProgressRecord(record, parseProgressData(record?.meta)));
+        dashboardState.records = records.filter(Boolean);
+        dashboardState.assessments = (stroop || []).map(normalizeAssessmentRecord).filter(Boolean);
+        dashboardState.assessmentUnavailable = stroop === null;
+        dashboardState.titles = titles;
+        dashboardState.progressIndex = new Map(dashboardState.records.map(entry => [String(entry.id), entry]));
+        dashboardState.assessmentIndex = new Map(dashboardState.assessments.map(entry => [String(entry.id), entry]));
+        dashboardState.limits = [];
+        if (records.length >= PROGRESS_LIMIT) dashboardState.limits.push(`${PROGRESS_LIMIT} salvataggi`);
+        if (dashboardState.assessments.length >= ASSESSMENT_LIMIT) dashboardState.limits.push(`${ASSESSMENT_LIMIT} test Stroop`);
+        dashboardState.ready = true;
+        renderPeriods();
+        renderDashboard();
+        elements.lastRefresh.textContent = `Aggiornato alle ${new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Rome' })}`;
+    } catch (error) {
+        if (session !== dashboardState.session) return;
         if (error?.code === '42501') {
-            mostraAccesso('Sessione docente scaduta: inserisci di nuovo la password.');
+            window.MODocente.esci();
+            mostraAccesso('Sessione docente scaduta. Accedi di nuovo.');
             return;
         }
-        console.error('Impossibile caricare i dati dalla dashboard docente:', error);
-        if (elements.lastRefresh) {
-            elements.lastRefresh.textContent = `Errore: ${error.message || error}`;
-        }
-        alert('Errore durante il caricamento dei dati. Vedi console per dettagli e riprova più tardi.');
+        console.error('Caricamento area docente non riuscito', error);
+        elements.lastRefresh.textContent = initial
+            ? 'Caricamento non riuscito. Riprova con «Aggiorna dati».'
+            : 'Aggiornamento non riuscito. Sono visibili i dati già caricati.';
+        if (initial) elements.classList.innerHTML = emptyMessage('Dati delle classi non disponibili.');
     } finally {
-        toggleLoading(false);
+        elements.refreshBtn.disabled = false;
+        // Se si è usciti e rientrati durante il caricamento, avvia quello della nuova sessione.
+        if (session !== dashboardState.session && !elements.dashboard.classList.contains('hidden')) refreshDashboard();
     }
 }
 
-// Elenco dei salvataggi (senza il contenuto) con il sottocampo _meta: una sola chiamata
-// protetta, condivisa da fetchProgressData e fetchProgressMeta.
-let elencoInCorso = null;
-function caricaElenco() {
-    if (!elencoInCorso) {
-        elencoInCorso = window.MODocente.chiama('progress_docente_elenco', { p_limite: 1000 })
-            .finally(() => { elencoInCorso = null; });
-    }
-    return elencoInCorso;
-}
-
-async function fetchProgressData() {
-    const righe = await caricaElenco();
-    return (righe || []).map(({ meta, ...riga }) => riga);
-}
-
-async function fetchProgressMeta() {
-    // Scarica solo il sottocampo _meta dal campo data (leggero)
+async function fetchActivityTitles() {
     try {
-                const rows = await caricaElenco();
-        return (rows || []).map(r => {
-            let meta = null;
-            try { meta = typeof r.meta === 'string' ? JSON.parse(r.meta) : (r.meta || null); } catch {}
-            return { id: r.id, meta };
-        });
+        const response = await fetch('materiali.json', { signal: AbortSignal.timeout(3500) });
+        if (!response.ok) return new Map();
+        const catalog = await response.json();
+        const entries = Object.values(catalog).filter(Array.isArray).flat();
+        return new Map(entries.filter(entry => entry.file && entry.titolo && !entry.file.includes('?'))
+            .map(entry => [resolveActivityPath(entry.file), entry.titolo]));
     } catch {
-        return [];
+        return new Map();
     }
 }
 
 async function fetchAssessmentData() {
     try {
-        return (await window.MODocente.chiama('stroop_docente_test', { p_limite: 200 })) || [];
+        return (await window.MODocente.chiama('stroop_docente_test', { p_limite: ASSESSMENT_LIMIT })) || [];
     } catch (error) {
         if (error?.code === '42501') throw error;
-        console.warn('Impossibile caricare i test strutturati:', error);
-        return [];
+        console.warn('Caricamento risultati Stroop non riuscito', error);
+        return null;
     }
 }
 
-function populateFilters(records) {
-    const classSet = new Set();
-    records.forEach(record => {
-        if (record.class_code) classSet.add(record.class_code.toLowerCase());
-    });
-    if (elements.classFilter) {
-        const options = ['<option value="">Tutte le classi</option>'];
-        Array.from(classSet)
-            .sort((a, b) => a.localeCompare(b, 'it', { numeric: true }))
-            .forEach(cls => options.push(`<option value="${cls}">${cls.toUpperCase()}</option>`));
-        elements.classFilter.innerHTML = options.join('');
-    }
+function schoolYear(date) {
+    if (!date || !Number.isFinite(Date.parse(date))) return 'undated';
+    const parts = dateParts.formatToParts(new Date(date));
+    const year = Number(parts.find(part => part.type === 'year').value);
+    const month = Number(parts.find(part => part.type === 'month').value);
+    return String(month >= 9 ? year : year - 1);
 }
 
-function applyFilters() {
-    let dataset = [...dashboardState.records];
-    const classFilter = dashboardState.classFilter?.toLowerCase();
-    const search = dashboardState.searchTerm;
-
-    if (classFilter) {
-        dataset = dataset.filter(r => (r.class_code || '').toLowerCase() === classFilter);
-    }
-    if (search) {
-        dataset = dataset.filter(r => (r.student_code || '').toLowerCase().includes(search));
-    }
-
-    dashboardState.filtered = dataset;
-    updateStats(dataset);
-    renderActivityGroups(dataset);
-
-    if (elements.classFocus) {
-        elements.classFocus.textContent = classFilter ? classFilter.toUpperCase() : 'tutte le classi';
-    }
+function currentSchoolYear() {
+    return schoolYear(new Date().toISOString());
 }
 
-function updateStats(records) {
-    const studentSet = new Set();
-    const activitySet = new Set();
-    let lastUpdate = null;
-
-    records.forEach(record => {
-        if (record.student_code) {
-            const key = `${(record.class_code || '').toLowerCase()}|${record.student_code.toLowerCase()}`;
-            studentSet.add(key);
-        }
-        if (record.page_path) {
-            activitySet.add(record.page_path);
-        }
-        if (record.updated_at) {
-            if (!lastUpdate || new Date(record.updated_at) > new Date(lastUpdate)) {
-                lastUpdate = record.updated_at;
-            }
-        }
-    });
-
-    if (elements.statStudents) elements.statStudents.textContent = studentSet.size;
-    if (elements.statActivities) elements.statActivities.textContent = activitySet.size;
-    if (elements.statLastUpdate) elements.statLastUpdate.textContent = lastUpdate ? formatDateTime(lastUpdate) : '—';
+function renderPeriods() {
+    const current = currentSchoolYear();
+    const years = new Set([
+        ...dashboardState.records.map(record => schoolYear(record.updated_at)),
+        ...dashboardState.assessments.map(entry => schoolYear(entry.created_at))
+    ]);
+    years.delete(current);
+    const undated = years.delete('undated');
+    const yearLabel = year => `${year}/${Number(year) + 1}`;
+    elements.period.replaceChildren(
+        new Option('Ultimi 30 giorni', 'recent'),
+        new Option(`Anno in corso · ${yearLabel(current)}`, current),
+        ...[...years].sort().reverse().map(year => new Option(`Storico · ${yearLabel(year)}`, year)),
+        ...(undated ? [new Option('Storico · Senza data', 'undated')] : [])
+    );
+    elements.period.value = dashboardState.period;
+    if (!elements.period.value) elements.period.value = dashboardState.period = 'recent';
 }
 
-function renderActivityInsights(records) {
-    if (!elements.activityInsights) {
+function matchesPeriod(date, roster = false) {
+    const period = dashboardState.period;
+    const year = schoolYear(date);
+    if (period !== 'recent') return year === period;
+    return year === currentSchoolYear() && (roster || Date.parse(date) >= Date.now() - RECENT_DAYS * 86400000);
+}
+
+function byLatest(a, b) {
+    return (Date.parse(b.updated_at) || 0) - (Date.parse(a.updated_at) || 0);
+}
+
+function groupBy(records, key) {
+    const groups = new Map();
+    for (const record of records) {
+        const value = key(record);
+        if (!groups.has(value)) groups.set(value, []);
+        groups.get(value).push(record);
+    }
+    return groups;
+}
+
+function classRecords() {
+    const all = dashboardState.records.filter(record => record.class_code === dashboardState.classCode);
+    // Percorsi storici equivalenti possono avere più righe per lo stesso alunno.
+    const latest = groupBy(all.filter(record => matchesPeriod(record.updated_at)).sort(byLatest),
+        record => JSON.stringify([record.student_code.toLowerCase(), record.page_path || record.original_path]));
+    return [...latest.values()].map(rows => rows[0]);
+}
+
+function resetStudentSearch() {
+    elements.studentSearch.value = '';
+}
+
+function emptyMessage(message) {
+    return `<p class="docente-empty">${escapeHtml(message)}</p>`;
+}
+
+function renderDashboard() {
+    const classes = new Set([
+        ...dashboardState.records.filter(record => matchesPeriod(record.updated_at, true)).map(record => record.class_code),
+        ...dashboardState.assessments.filter(entry => matchesPeriod(entry.created_at, true)).map(entry => entry.classCode)
+    ]);
+    if (dashboardState.ready && !classes.has(dashboardState.classCode)) dashboardState.classCode = '';
+    const code = dashboardState.classCode;
+    if (dashboardState.renderedClass !== code) {
+        elements.activityGroupsContainer.replaceChildren();
+        byId('dashboard-student-list').replaceChildren();
+        dashboardState.renderedClass = code;
+    }
+    byId('dashboard-classes').hidden = Boolean(code);
+    byId('dashboard-class').hidden = !code;
+    elements.back.hidden = !code;
+
+    const note = byId('dashboard-data-note');
+    note.hidden = dashboardState.limits.length === 0;
+    note.textContent = note.hidden ? '' : `Vista limitata ai più recenti ${dashboardState.limits.join(' e ')} restituiti dal sito.`;
+
+    if (!code) {
+        renderClassList(classes);
         return;
     }
 
-    if (!records.length) {
-        elements.activityInsights.innerHTML = `
-            <div class="empty-state">
-                <p>Nessuna attività salvata per i filtri selezionati.</p>
-            </div>
-        `;
-        return;
+    const records = classRecords();
+    const activities = groupBy(records, record => record.page_path || record.original_path);
+    const studentCount = new Set(records.filter(record => record.student_code).map(record => record.student_code.toLowerCase())).size;
+    byId('dashboard-class-title').textContent = code === UNKNOWN_CLASS ? code : `Classe ${code}`;
+    byId('dashboard-stats').innerHTML = [
+        ['Alunni con lavori nel periodo', studentCount],
+        ['Attività con salvataggi', activities.size],
+        ['Ultimo salvataggio', records.length ? formatDateTime(records[0].updated_at) : '—']
+    ].map(([label, value]) => `<div><dt>${label}</dt><dd>${escapeHtml(value)}</dd></div>`).join('');
+
+    for (const button of elements.dashboard.querySelectorAll('[data-class-view]')) {
+        const view = button.dataset.classView;
+        const selected = view === dashboardState.view;
+        button.setAttribute('aria-pressed', String(selected));
+        byId(`dashboard-${view}`).hidden = !selected;
     }
-
-    const totalEntries = records.length;
-    const activitySet = new Set();
-    const studentSet = new Set();
-    let latestRecord = null;
-
-    records.forEach(record => {
-        const activityPath = resolveActivityPath(record.page_path || '');
-        if (activityPath) {
-            activitySet.add(activityPath);
-        }
-        if (record.student_code) {
-            const key = `${(record.class_code || '').toLowerCase()}|${record.student_code.toLowerCase()}`;
-            studentSet.add(key);
-        }
-        if (!latestRecord || (record.updated_at && new Date(record.updated_at) > new Date(latestRecord.updated_at))) {
-            latestRecord = record;
-        }
-    });
-
-    const avgPerActivity = activitySet.size ? (totalEntries / activitySet.size).toFixed(1) : '—';
-    const avgPerStudent = studentSet.size ? (totalEntries / studentSet.size).toFixed(1) : '—';
-    const latestActivityName = latestRecord ? formatActivityName(resolveActivityPath(latestRecord.page_path)) : '—';
-    const latestActivityInfo = latestRecord
-        ? `${(latestRecord.class_code || '—').toUpperCase()} · ${latestRecord.student_code || 'anonimo'}`
-        : '';
-
-    elements.activityInsights.innerHTML = `
-        <article class="assessment-card">
-            <h4>Salvataggi registrati</h4>
-            <div class="value">${totalEntries}</div>
-            <div class="meta">Attività monitorate in tempo reale</div>
-        </article>
-        <article class="assessment-card">
-            <h4>Attività monitorate</h4>
-            <div class="value">${activitySet.size}</div>
-            <div class="meta">Media ${avgPerActivity} salvataggi per attività</div>
-        </article>
-        <article class="assessment-card">
-            <h4>Studenti attivi</h4>
-            <div class="value">${studentSet.size}</div>
-            <div class="meta">Media ${avgPerStudent} salvataggi per studente</div>
-        </article>
-        <article class="assessment-card">
-            <h4>Ultimo aggiornamento</h4>
-            <div class="value">${latestRecord ? formatDateTime(latestRecord.updated_at) : '—'}</div>
-            <div class="meta">${latestActivityName}</div>
-            <div class="trend positive">${latestActivityInfo}</div>
-        </article>
-    `;
+    if (dashboardState.view === 'activities') renderActivities(activities);
+    if (dashboardState.view === 'students') renderStudents(records);
+    if (dashboardState.view === 'stroop') renderStroop(code);
 }
 
-function renderActivitySummary(records) {
-    if (!elements.activityBody) return;
-    if (!records.length) {
-        elements.activityBody.innerHTML = '<tr><td colspan="5">Nessun dato disponibile per i filtri selezionati.</td></tr>';
+function renderClassList(classes) {
+    if (!classes.size) {
+        elements.classList.innerHTML = emptyMessage(dashboardState.ready
+            ? 'Nessuna classe con attività registrate nel periodo. Puoi scegliere un altro periodo.'
+            : 'Caricamento delle classi…');
         return;
     }
 
-    const map = new Map();
-    records.forEach(record => {
-        const classKey = (record.class_code || 'N/D').toUpperCase();
-        const page = record.page_path || '—';
-        const key = `${classKey}|${page}`;
-        if (!map.has(key)) {
-            map.set(key, {
-                classCode: classKey,
-                pagePath: page,
-                students: new Set(),
-                lastUpdate: record.updated_at
-            });
-        }
-        const entry = map.get(key);
-        if (record.student_code) {
-            entry.students.add(record.student_code.toLowerCase());
-        }
-        if (!entry.lastUpdate || new Date(record.updated_at) > new Date(entry.lastUpdate)) {
-            entry.lastUpdate = record.updated_at;
-        }
-    });
-
-    const rows = Array.from(map.values())
-        .sort((a, b) => new Date(b.lastUpdate || 0) - new Date(a.lastUpdate || 0))
-        .map(entry => {
-            const resolvedPath = resolveActivityPath(entry.pagePath);
-            const link = buildActivityLink(resolvedPath || entry.pagePath);
-            return `
-                <tr>
-                    <td>${formatActivityName(resolvedPath || entry.pagePath)}</td>
-                    <td>${entry.classCode}</td>
-                    <td>${entry.students.size}</td>
-                    <td>${formatDateTime(entry.lastUpdate)}</td>
-                    <td><a class="btn-link" href="${link}" target="_blank" rel="noopener">Apri</a></td>
-                </tr>
-            `;
-        });
-
-    elements.activityBody.innerHTML = rows.join('');
+    const periodRecords = groupBy(dashboardState.records.filter(record => matchesPeriod(record.updated_at)), record => record.class_code);
+    const periodTests = groupBy(dashboardState.assessments.filter(entry => matchesPeriod(entry.created_at)), entry => entry.classCode);
+    elements.classList.innerHTML = `<ul class="docente-class-grid">${[...classes].sort(collator.compare).map(code => {
+        const records = periodRecords.get(code) || [];
+        const tests = periodTests.get(code) || [];
+        const activities = new Set(records.map(record => record.page_path || record.original_path)).size;
+        const students = new Set(records.filter(record => record.student_code).map(record => record.student_code.toLowerCase())).size;
+        const lastDate = [...records.map(record => record.updated_at), ...tests.map(test => test.created_at)]
+            .sort((a, b) => (Date.parse(b) || 0) - (Date.parse(a) || 0))[0];
+        const label = code === UNKNOWN_CLASS ? code : `Classe ${code}`;
+        return `<li><button class="docente-class-card" type="button" data-select-class="${escapeHtml(code)}">
+            <strong>${escapeHtml(label)}</strong>
+            <span>${students} ${students === 1 ? 'alunno' : 'alunni'} con lavori <span aria-hidden="true">·</span> ${activities} attività</span>
+            ${tests.length ? `<span>${tests.length} test Stroop</span>` : ''}
+            <span class="docente-card-date">${lastDate ? `Ultimo dato ${formatShortDate(lastDate)}` : 'Nessun dato nel periodo'}</span>
+        </button></li>`;
+    }).join('')}</ul>`;
 }
 
-function renderStudentTable(records) {
-    if (!elements.studentBody) return;
-    if (!records.length) {
-        elements.studentBody.innerHTML = '<tr><td colspan="5">Nessun studente trovato.</td></tr>';
-        return;
-    }
-
-    const map = new Map();
-    records.forEach(record => {
-        const classCode = (record.class_code || 'N/D').toUpperCase();
-        const student = (record.student_code || 'sconosciuto').trim();
-        const key = `${classCode}|${student.toLowerCase()}`;
-        if (!map.has(key)) {
-            map.set(key, {
-                classCode,
-                classCodeRaw: record.class_code || classCode,
-                studentCode: student,
-                lastUpdate: record.updated_at,
-                pagePath: record.page_path,
-                recordId: record.id
-            });
-        } else {
-            const current = map.get(key);
-            if (new Date(record.updated_at) > new Date(current.lastUpdate)) {
-                current.lastUpdate = record.updated_at;
-                current.pagePath = record.page_path;
-                current.recordId = record.id;
-            }
-        }
-    });
-
-    const rows = Array.from(map.values())
-        .sort((a, b) => new Date(b.lastUpdate || 0) - new Date(a.lastUpdate || 0))
-        .map(entry => {
-            const link = buildActivityLink(entry.pagePath);
-            const statsLink = `${STROOP_STATS_URL}?classe=${encodeURIComponent(entry.classCode.toLowerCase())}`;
-            return `
-                <tr>
-                    <td>${entry.classCode}</td>
-                    <td>${entry.studentCode}</td>
-                    <td>${formatActivityName(resolveActivityPath(entry.pagePath))}</td>
-                    <td>${formatDateTime(entry.lastUpdate)}</td>
-                    <td>
-                        <a class="btn-link" href="#" role="button" data-open-as-docente data-class-code="${entry.classCodeRaw}" data-student-code="${entry.studentCode}" data-page-path="${entry.pagePath}">Modalità docente</a>
-                        <span class="divider">·</span>
-                        <a class="btn-link" href="${link}" target="_blank" rel="noopener">Pagina</a>
-                        ${entry.recordId ? `<span class="divider">·</span><button class="btn-link" type="button" data-progress-detail="${entry.recordId}">Dettagli</button>` : ''}
-                        <span class="divider">·</span>
-                        <a class="btn-link" href="${statsLink}" target="_blank" rel="noopener">Statistiche</a>
-                    </td>
-                </tr>
-            `;
-        });
-
-    elements.studentBody.innerHTML = rows.join('');
+function formatShortDate(value) {
+    return Number.isFinite(Date.parse(value))
+        ? new Date(value).toLocaleDateString('it-IT', { day: 'numeric', month: 'short', timeZone: 'Europe/Rome' })
+        : 'senza data';
 }
 
-function renderClassGroups(records) {
-    if (!elements.classProgressContainer) return;
-    if (!records.length) {
-        elements.classProgressContainer.innerHTML = `
-            <div class="empty-state">
-                <p>Nessun dato disponibile per la combinazione di filtri selezionata.</p>
-            </div>
-        `;
+function renderActivities(activities) {
+    if (!activities.size) {
+        elements.activityGroupsContainer.innerHTML = emptyMessage('Nessuna attività con salvataggi nel periodo. Puoi scegliere un altro periodo.');
         return;
     }
-
-    const classMap = new Map();
-    records.forEach(record => {
-        if (!record.page_path) return;
-        const classCode = (record.class_code || 'N/D').toUpperCase();
-        const studentCode = (record.student_code || 'Sconosciuto').trim();
-        const normalizedStudent = studentCode.toLowerCase();
-        const resolvedPath = resolveActivityPath(record.page_path);
-        const normalizedPath = normalizePath(resolvedPath);
-
-        if (!classMap.has(classCode)) {
-            classMap.set(classCode, {
-                label: classCode,
-                rawCode: record.class_code || classCode,
-                students: new Map(),
-                lastUpdate: record.updated_at
-            });
-        }
-        const classEntry = classMap.get(classCode);
-        if (!classEntry.lastUpdate || new Date(record.updated_at) > new Date(classEntry.lastUpdate)) {
-            classEntry.lastUpdate = record.updated_at;
-        }
-
-        if (!classEntry.students.has(normalizedStudent)) {
-            classEntry.students.set(normalizedStudent, {
-                label: studentCode,
-                classCode: record.class_code || classEntry.rawCode || classCode,
-                displayClass: classCode,
-                activities: new Map()
-            });
-        }
-        const studentEntry = classEntry.students.get(normalizedStudent);
-        const existingActivity = studentEntry.activities.get(normalizedPath);
-        if (!existingActivity || new Date(record.updated_at) > new Date(existingActivity.updated_at)) {
-            studentEntry.activities.set(normalizedPath, {
-                pagePath: resolvedPath,
-                originalPath: record.page_path,
-                updated_at: record.updated_at,
-                recordId: record.id,
-                progressMeta: record.progressMeta || null
-            });
-        }
-    });
-
-    if (!classMap.size) {
-        elements.classProgressContainer.innerHTML = `
-            <div class="empty-state">
-                <p>Nessun dato disponibile per la combinazione di filtri selezionata.</p>
-            </div>
-        `;
-        return;
-    }
-
-    const classBlocks = Array.from(classMap.values())
-        .sort((a, b) => a.label.localeCompare(b.label, 'it', { numeric: true }))
-        .map((classEntry, index) => {
-            const studentCards = Array.from(classEntry.students.values())
-                .sort((a, b) => a.label.localeCompare(b.label, 'it', { numeric: true }))
-                .map(studentEntry => {
-                    const rows = Array.from(studentEntry.activities.values())
-                        .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
-                        .map(activity => `
-                            <tr>
-                                <td>${formatActivityName(activity.pagePath || activity.originalPath)}</td>
-                                <td>${formatDateTime(activity.updated_at)}</td>
-                                <td>${renderProgressBar(activity.progressMeta)}</td>
-                                <td>
-                                    <a class="btn-link" href="#" role="button"
-                                        data-open-as-docente
-                                        data-class-code="${studentEntry.classCode}"
-                                        data-student-code="${studentEntry.label}"
-                                        data-page-path="${activity.originalPath || activity.pagePath}">
-                                        Apri come docente
-                                    </a>
-                                    <span class="divider">·</span>
-                                    <a class="btn-link" href="${buildActivityLink(activity.pagePath || activity.originalPath)}" target="_blank" rel="noopener">Apri pagina</a>
-                                    ${activity.recordId ? `<span class="divider">·</span><button class="btn-link" type="button" data-progress-detail="${activity.recordId}">Dettagli</button>` : ''}
-                                </td>
-                            </tr>
-                        `).join('');
-
-                    const totalPct = (() => {
-                        const withMeta = Array.from(studentEntry.activities.values()).filter(a => a.progressMeta && typeof a.progressMeta.percentuale === 'number');
-                        if (!withMeta.length) return '';
-                        const avg = Math.round(withMeta.reduce((s, a) => s + a.progressMeta.percentuale, 0) / withMeta.length);
-                        return ` · avanzamento medio ${avg}%`;
-                    })();
-
-                    return `
-                        <details class="student-block">
-                            <summary>
-                                <div class="student-meta">
-                                    <strong>${studentEntry.label}</strong>
-                                    <span>${studentEntry.activities.size} attività monitorate${totalPct}</span>
-                                </div>
-                                <span class="student-chevron" aria-hidden="true">›</span>
-                            </summary>
-                            <div class="student-activities">
-                                <table class="data-table compact">
-                                    <thead>
-                                        <tr>
-                                            <th>Attività</th>
-                                            <th>Aggiornato</th>
-                                            <th>Avanzamento</th>
-                                            <th>Azioni</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        ${rows}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </details>
-                    `;
-                }).join('');
-
-            const totalActivities = Array.from(classEntry.students.values())
-                .reduce((sum, student) => sum + student.activities.size, 0);
-            const lastInfo = classEntry.lastUpdate ? ` · Ultimo aggiornamento ${formatDateTime(classEntry.lastUpdate)}` : '';
-
-            return `
-                <details class="class-block"${index === 0 ? ' open' : ''}>
-                    <summary>
-                        <div class="class-info">
-                            <h4>Classe ${classEntry.label}</h4>
-                            <p>${classEntry.students.size} studenti attivi · ${totalActivities} attività tracciate${lastInfo}</p>
-                        </div>
-                        <span class="class-chevron" aria-hidden="true">›</span>
-                    </summary>
-                    <div class="class-body">
-                        ${studentCards || '<p class="muted">Nessuno studente attivo.</p>'}
-                    </div>
-                </details>
-            `;
-        });
-
-    elements.classProgressContainer.innerHTML = classBlocks.join('');
+    const open = new Set([...elements.activityGroupsContainer.querySelectorAll('details[open]')].map(item => item.dataset.activity));
+    elements.activityGroupsContainer.innerHTML = [...activities].map(([path, records]) => {
+        const students = records.filter(record => record.student_code).length;
+        const progress = records.map(record => progressPercent(record.progressMeta)).filter(value => value !== null);
+        const average = progress.length ? ` · Avanzamento medio ${Math.round(progress.reduce((sum, value) => sum + value, 0) / progress.length)}% (${progress.length} con dato)` : '';
+        const description = `${students} ${students === 1 ? 'alunno con lavoro' : 'alunni con lavori'}${average}`;
+        const rows = [...records].sort((a, b) => collator.compare(a.student_code, b.student_code))
+            .map(record => renderWork(record, 'student')).join('');
+        return `<details class="docente-disclosure" data-activity="${escapeHtml(path)}"${open.has(path) ? ' open' : ''}>
+            <summary><span class="docente-item-label"><strong>${escapeHtml(formatActivityName(path))}</strong>
+                <span>${description}</span></span><span class="docente-item-date">${formatShortDate(records[0].updated_at)}</span></summary>
+            <ul class="docente-work-list">${rows}</ul>
+        </details>`;
+    }).join('');
 }
 
-const DISABILITA_PATTERNS = [
-    'fascicolo_disabilita',
-    'disabilita_iter_legislativo',
-    'disabilita_dalle_leggi_al_progetto',
-    'attivita-laboratorio-fascicolo-disabilita',
-    'attivita-materiali-quarto-disabilita'
-];
-
-function isDisabilitaRecord(record) {
-    const p = (record.page_path || record.original_path || '').toLowerCase();
-    return DISABILITA_PATTERNS.some(pat => p.includes(pat));
+function renderStudents(records) {
+    const search = elements.studentSearch.value.trim().toLocaleLowerCase('it');
+    const known = groupBy(dashboardState.records.filter(record => record.class_code === dashboardState.classCode &&
+        record.student_code && matchesPeriod(record.updated_at, true)), record => record.student_code.toLowerCase());
+    const works = groupBy(records, record => record.student_code.toLowerCase());
+    const students = [...known.keys()].filter(code => code.includes(search)).sort(collator.compare);
+    const list = byId('dashboard-student-list');
+    const open = new Set([...list.querySelectorAll('details[open]')].map(item => item.dataset.student));
+    list.innerHTML = students.length ? students.map(code => {
+        const studentWorks = works.get(code) || [];
+        const name = known.get(code)[0].student_code;
+        return `<details class="docente-disclosure" data-student="${escapeHtml(code)}"${open.has(code) ? ' open' : ''}>
+            <summary><span class="docente-item-label"><strong>${escapeHtml(name)}</strong>
+                <span>${studentWorks.length} ${studentWorks.length === 1 ? 'lavoro' : 'lavori'} nel periodo</span></span>
+                ${studentWorks.length ? `<span class="docente-item-date">${formatShortDate(studentWorks[0].updated_at)}</span>` : ''}</summary>
+            ${studentWorks.length
+                ? `<ul class="docente-work-list">${studentWorks.map(record => renderWork(record, 'activity')).join('')}</ul>`
+                : emptyMessage('Nessun lavoro nel periodo selezionato.')}
+        </details>`;
+    }).join('') : emptyMessage(search ? 'Nessun alunno corrisponde alla ricerca.' : 'Nessun alunno individuato dai salvataggi della classe.');
 }
 
-function renderDisabilitaSection(allRecords) {
-    if (!elements.disabilitaSection) return;
+function canOpenWork(record) {
+    return record.original_class && record.student_code && /\.html?$/i.test(record.page_path);
+}
 
-    const records = (allRecords || []).filter(isDisabilitaRecord);
-
-    if (!records.length) {
-        elements.disabilitaSection.innerHTML = `
-            <div class="section-header">
-                <h3>🦽 Attività sulla Disabilità</h3>
-                <p class="muted">Fascicolo tecnico-pratico e pagina «Le disabilità: parole, modelli e leggi»</p>
-            </div>
-            <div class="empty-state"><p>Nessuno studente ha ancora salvato progressi su queste attività.</p></div>`;
-        return;
-    }
-
-    // group by class → student
-    const classMap = new Map();
-    records.forEach(record => {
-        const cls = (record.class_code || 'N/D').toUpperCase();
-        const stu = (record.student_code || 'sconosciuto').trim();
-        const key = `${cls}|${stu.toLowerCase()}`;
-        if (!classMap.has(cls)) classMap.set(cls, new Map());
-        const stuMap = classMap.get(cls);
-        const existing = stuMap.get(key);
-        if (!existing || new Date(record.updated_at) > new Date(existing.updated_at)) {
-            stuMap.set(key, {
-                classCode: record.class_code || cls,
-                displayClass: cls,
-                studentCode: stu,
-                updated_at: record.updated_at,
-                pagePath: record.page_path,
-                originalPath: record.original_path,
-                recordId: record.id,
-                progressMeta: record.progressMeta || null
-            });
-        }
-    });
-
-    const totalStudents = Array.from(classMap.values()).reduce((s, m) => s + m.size, 0);
-    const withMeta = records.filter(r => r.progressMeta && typeof r.progressMeta.percentuale === 'number');
-    const avgPct = withMeta.length
-        ? Math.round(withMeta.reduce((s, r) => s + r.progressMeta.percentuale, 0) / withMeta.length)
-        : null;
-    const avgLabel = avgPct !== null ? ` · avanzamento medio classe: <strong>${avgPct}%</strong>` : '';
-
-    const classBlocks = Array.from(classMap.entries())
-        .sort(([a], [b]) => a.localeCompare(b, 'it', { numeric: true }))
-        .map(([cls, stuMap]) => {
-            const rows = Array.from(stuMap.values())
-                .sort((a, b) => a.studentCode.localeCompare(b.studentCode, 'it'))
-                .map(s => {
-                    const activityLabel = formatActivityName(s.pagePath || s.originalPath);
-                    return `
-                    <tr>
-                        <td><strong>${s.studentCode}</strong></td>
-                        <td style="font-size:0.85em;color:#555">${activityLabel}</td>
-                        <td>${renderProgressBar(s.progressMeta)}</td>
-                        <td style="font-size:0.85em">${formatDateTime(s.updated_at)}</td>
-                        <td>
-                            <a class="btn-link" href="#" role="button"
-                                style="font-weight:600;color:#2563eb"
-                                data-open-as-docente
-                                data-class-code="${s.classCode}"
-                                data-student-code="${s.studentCode}"
-                                data-page-path="${s.originalPath || s.pagePath}">
-                                👁 Vedi il lavoro
-                            </a>
-                            ${s.recordId ? `<span class="divider">·</span><button class="btn-link" type="button" data-progress-detail="${s.recordId}">Dettagli JSON</button>` : ''}
-                        </td>
-                    </tr>`;
-                }).join('');
-
-            return `
-            <div style="margin-bottom:1.5rem">
-                <h4 style="margin-bottom:0.5rem">Classe ${cls} — ${stuMap.size} studenti</h4>
-                <div class="table-wrapper">
-                    <table class="data-table compact">
-                        <thead>
-                            <tr>
-                                <th>Studente</th>
-                                <th>Attività</th>
-                                <th>Avanzamento</th>
-                                <th>Ultimo salvataggio</th>
-                                <th>Azioni</th>
-                            </tr>
-                        </thead>
-                        <tbody>${rows}</tbody>
-                    </table>
-                </div>
-            </div>`;
-        }).join('');
-
-    elements.disabilitaSection.innerHTML = `
-        <div class="section-header">
-            <div>
-                <h3>🦽 Attività sulla Disabilità</h3>
-                <p class="muted">${totalStudents} studenti hanno lavorato${avgLabel}</p>
-            </div>
+function renderWork(record, mode) {
+    const activity = formatActivityName(record.page_path);
+    const student = escapeHtml(record.student_code || 'Senza codice');
+    const title = mode === 'activity' ? escapeHtml(activity) : record.student_code
+        ? `<button type="button" class="btn-link" data-show-student="${escapeHtml(record.student_code.toLowerCase())}">${student}</button>`
+        : student;
+    return `<li class="docente-work">
+        <div class="docente-work-name"><strong>${title}</strong><span>${formatDateTime(record.updated_at)}</span></div>
+        <div class="docente-progress">${renderProgressBar(record.progressMeta)}</div>
+        <div class="docente-actions">
+            ${canOpenWork(record) ? `<button type="button" class="docente-button docente-primary" data-open-as-docente
+                data-class-code="${escapeHtml(record.original_class)}"
+                data-student-code="${student}"
+                data-page-path="${escapeHtml(record.original_path)}">Vedi il lavoro</button>` : ''}
+            ${record.id != null ? `<button type="button" class="docente-button" data-progress-detail="${escapeHtml(record.id)}">Risposte salvate</button>` : ''}
         </div>
-        <p style="background:#eff6ff;border-left:4px solid #3b82f6;padding:10px 14px;border-radius:4px;font-size:0.9em;margin-bottom:1.5rem">
-            👁 Clicca <strong>"Vedi il lavoro"</strong> per aprire in una nuova scheda il fascicolo compilato dallo studente — vedrai esattamente quello che ha scritto.
-        </p>
-        ${classBlocks}`;
+    </li>`;
 }
 
-// ─── NUOVA FUNZIONE PRINCIPALE: Attività → Studenti → Progressi ──────────────
-function renderActivityGroups(records) {
-    if (!elements.activityGroupsContainer) return;
-
-    if (!records.length) {
-        elements.activityGroupsContainer.innerHTML = `
-            <div class="empty-state"><p>Nessun dato disponibile per i filtri selezionati.</p></div>`;
+function renderStroop(classCode) {
+    const results = byId('assessment-results');
+    results.hidden = true;
+    if (dashboardState.assessmentUnavailable) {
+        elements.assessmentInsights.innerHTML = emptyMessage('Risultati Stroop non disponibili. Riprova con «Aggiorna dati».');
         return;
     }
-
-    // Raggruppa per attività → per studente (record più recente per studente)
-    const activityMap = new Map();
-    records.forEach(record => {
-        const path = record.page_path || '—';
-        const cls  = (record.class_code || 'N/D').toUpperCase();
-        const stu  = (record.student_code || 'sconosciuto').trim();
-        const key  = `${cls}|${stu.toLowerCase()}`;
-
-        if (!activityMap.has(path)) {
-            activityMap.set(path, { students: new Map(), lastUpdate: null });
-        }
-        const act = activityMap.get(path);
-        if (!act.lastUpdate || new Date(record.updated_at) > new Date(act.lastUpdate)) {
-            act.lastUpdate = record.updated_at;
-        }
-        const existing = act.students.get(key);
-        if (!existing || new Date(record.updated_at) > new Date(existing.updated_at)) {
-            act.students.set(key, {
-                classCode:    record.class_code || cls,
-                displayClass: cls,
-                studentCode:  stu,
-                updated_at:   record.updated_at,
-                pagePath:     record.page_path,
-                originalPath: record.original_path,
-                recordId:     record.id,
-                progressMeta: record.progressMeta || null
-            });
-        }
-    });
-
-    // Ordina attività: disabilità prima, poi per nome
-    const sorted = Array.from(activityMap.entries()).sort(([a], [b]) => {
-        const aD = isDisabilitaRecord({ page_path: a });
-        const bD = isDisabilitaRecord({ page_path: b });
-        if (aD && !bD) return -1;
-        if (!aD && bD) return 1;
-        return formatActivityName(a).localeCompare(formatActivityName(b), 'it');
-    });
-
-    const blocks = sorted.map(([path, act], idx) => {
-        const activityName = formatActivityName(path);
-        const badge = isDisabilitaRecord({ page_path: path }) ? '🦽 ' : '📄 ';
-        const stuCount = act.students.size;
-        const withMeta = Array.from(act.students.values()).filter(s => s.progressMeta && typeof s.progressMeta.percentuale === 'number');
-        const avgPct = withMeta.length
-            ? Math.round(withMeta.reduce((sum, s) => sum + s.progressMeta.percentuale, 0) / withMeta.length)
-            : null;
-        const avgLabel = avgPct !== null ? ` · media ${avgPct}%` : '';
-
-        const rows = Array.from(act.students.values())
-            .sort((a, b) => {
-                const c = a.displayClass.localeCompare(b.displayClass, 'it');
-                return c !== 0 ? c : a.studentCode.localeCompare(b.studentCode, 'it');
-            })
-            .map(s => `
-                <tr>
-                    <td><strong>${s.displayClass}</strong></td>
-                    <td>${s.studentCode}</td>
-                    <td>${renderProgressBar(s.progressMeta)}</td>
-                    <td style="font-size:0.85em;white-space:nowrap">${formatDateTime(s.updated_at)}</td>
-                    <td>
-                        <a class="btn-link" href="#" role="button"
-                            style="font-weight:600;color:#2563eb"
-                            data-open-as-docente
-                            data-class-code="${escapeHtml(s.classCode)}"
-                            data-student-code="${escapeHtml(s.studentCode)}"
-                            data-page-path="${escapeHtml(s.originalPath || s.pagePath)}">
-                            👁 Vedi il lavoro
-                        </a>
-                        ${s.recordId ? `<span class="divider">·</span><button class="btn-link" type="button" data-progress-detail="${s.recordId}">Dettagli</button>` : ''}
-                    </td>
-                </tr>`).join('');
-
-        return `
-            <details class="class-block"${idx === 0 ? ' open' : ''}>
-                <summary>
-                    <div class="class-info">
-                        <h4>${badge}${escapeHtml(activityName)}</h4>
-                        <p>${stuCount} studenti${avgLabel} · Ultimo salvataggio: ${formatDateTime(act.lastUpdate)}</p>
-                    </div>
-                    <span class="class-chevron" aria-hidden="true">›</span>
-                </summary>
-                <div class="class-body">
-                    <div class="table-wrapper">
-                        <table class="data-table compact">
-                            <thead>
-                                <tr>
-                                    <th>Classe</th>
-                                    <th>Studente</th>
-                                    <th>Avanzamento</th>
-                                    <th>Ultimo salvataggio</th>
-                                    <th>Azioni</th>
-                                </tr>
-                            </thead>
-                            <tbody>${rows}</tbody>
-                        </table>
-                    </div>
-                </div>
-            </details>`;
-    });
-
-    elements.activityGroupsContainer.innerHTML = blocks.join('');
-}
-
-function applyAssessmentFilter(classCode = '') {
-    let dataset = dashboardState.assessments;
-    if (classCode) {
-        dataset = dataset.filter(entry => entry.classCode.toLowerCase() === classCode.toLowerCase());
-    }
-    dashboardState.filteredAssessments = dataset;
-    renderAssessmentInsights(dataset);
-    renderAssessmentSummary(dataset);
-    renderAssessmentTable(dataset);
+    const data = dashboardState.assessments
+        .filter(entry => entry.classCode === classCode && matchesPeriod(entry.created_at))
+        .sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
+    renderAssessmentInsights(data);
+    results.hidden = !data.length;
+    renderAssessmentTable(data);
 }
 
 function renderAssessmentInsights(data) {
@@ -910,7 +512,6 @@ function renderAssessmentInsights(data) {
     const avgScore = data.reduce((sum, entry) => sum + (entry.results.finalScore || 0), 0) / total;
     const avgAccuracy = data.reduce((sum, entry) => sum + (entry.results.accuracy || 0), 0) / total;
     const avgTime = data.reduce((sum, entry) => sum + (entry.results.totalTime || 0), 0) / total;
-    const best = data.reduce((prev, curr) => (curr.results.finalScore > prev.results.finalScore ? curr : prev), data[0]);
     const recent = data[0];
 
     elements.assessmentInsights.innerHTML = `
@@ -929,62 +530,13 @@ function renderAssessmentInsights(data) {
             <div class="value">${formatSeconds(avgTime)}</div>
             <div class="meta">Durata media di completamento</div>
         </article>
-        <article class="assessment-card">
-            <h4>Migliore prestazione</h4>
-            <div class="value">${best.results.finalScore ?? 0}</div>
-            <div class="meta">${best.classCode} · ${best.participant.name || best.studentCode}</div>
-            <div class="trend positive">Accuratezza ${(best.results.accuracy ?? 0).toFixed(1)}%</div>
-        </article>
     `;
-}
-
-function renderAssessmentSummary(data) {
-    if (!elements.assessmentClassBody) return;
-    if (!data.length) {
-        elements.assessmentClassBody.innerHTML = '<tr><td colspan="5">Nessun risultato disponibile.</td></tr>';
-        return;
-    }
-
-    const map = new Map();
-    data.forEach(entry => {
-        const key = entry.classCode;
-        if (!map.has(key)) {
-            map.set(key, {
-                label: key.toUpperCase(),
-                count: 0,
-                sumScore: 0,
-                sumAccuracy: 0,
-                lastUpdate: entry.created_at
-            });
-        }
-        const obj = map.get(key);
-        obj.count += 1;
-        obj.sumScore += entry.results.finalScore || 0;
-        obj.sumAccuracy += entry.results.accuracy || 0;
-        if (!obj.lastUpdate || new Date(entry.created_at) > new Date(obj.lastUpdate)) {
-            obj.lastUpdate = entry.created_at;
-        }
-    });
-
-    const rows = Array.from(map.values())
-        .sort((a, b) => a.label.localeCompare(b.label, 'it', { numeric: true }))
-        .map(entry => `
-            <tr>
-                <td>${entry.label}</td>
-                <td>${entry.count}</td>
-                <td>${(entry.sumScore / entry.count).toFixed(1)}</td>
-                <td>${(entry.sumAccuracy / entry.count).toFixed(1)}%</td>
-                <td>${formatDateTime(entry.lastUpdate)}</td>
-            </tr>
-        `);
-
-    elements.assessmentClassBody.innerHTML = rows.join('');
 }
 
 function renderAssessmentTable(data) {
     if (!elements.assessmentDetailBody) return;
     if (!data.length) {
-        elements.assessmentDetailBody.innerHTML = '<tr><td colspan="7">Nessun risultato disponibile.</td></tr>';
+        elements.assessmentDetailBody.innerHTML = '<tr><td colspan="6">Nessun risultato disponibile.</td></tr>';
         return;
     }
 
@@ -992,25 +544,27 @@ function renderAssessmentTable(data) {
         .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
         .map(entry => {
             const duration = formatSeconds(entry.results.totalTime);
-            const docLink = `${STROOP_BASE_URL}?docente=1&doc_class=${encodeURIComponent(entry.classCode.toLowerCase())}&doc_student=${encodeURIComponent((entry.studentCode || '').toLowerCase())}`;
+            const docLink = `${STROOP_BASE_URL}?docente=1&doc_class=${encodeURIComponent(entry.classCode.toLowerCase())}&doc_student=${encodeURIComponent(entry.studentCode.toLowerCase())}`;
             return `
                 <tr>
-                    <td>${entry.classCode}</td>
-                    <td>${entry.participant.name || entry.studentCode || 'Anonimo'}</td>
+                    <td>${escapeHtml(entry.participant.name || entry.studentCode || 'Anonimo')}</td>
                     <td>${entry.results.finalScore ?? 0}</td>
                     <td>${(entry.results.accuracy ?? 0).toFixed(1)}%</td>
                     <td>${duration}</td>
                     <td>${formatDateTime(entry.created_at)}</td>
-                    <td>
-                        <button class="btn-link" type="button" data-assessment-detail="${entry.id}">Dettagli</button>
-                        <span class="divider">·</span>
+                    <td><div class="docente-actions">
+                        <button class="docente-button" type="button" data-assessment-detail="${escapeHtml(entry.id)}">Dettagli</button>
                         <a class="btn-link" href="${docLink}" target="_blank" rel="noopener">Apri test</a>
-                    </td>
+                    </div></td>
                 </tr>
             `;
         });
 
     elements.assessmentDetailBody.innerHTML = rows.join('');
+}
+
+function normalizeClass(code) {
+    return String(code || '').trim().toUpperCase() || UNKNOWN_CLASS;
 }
 
 function resolveActivityPath(path) {
@@ -1025,7 +579,7 @@ function resolveActivityPath(path) {
     }
 
     for (const key of candidates) {
-        if (PAGE_ALIAS_OVERRIDES[key]) {
+        if (Object.hasOwn(PAGE_ALIAS_OVERRIDES, key)) {
             return PAGE_ALIAS_OVERRIDES[key];
         }
     }
@@ -1044,24 +598,24 @@ function normalizeAssessmentRecord(record) {
     const results = record.results || {};
     return {
         id: record.id,
-        classCode: (record.class_code || 'N/D').toUpperCase(),
-        studentCode: record.student_code || '',
+        classCode: normalizeClass(record.class_code),
+        studentCode: String(record.student_code || '').trim(),
         participant: {
             name: participant.name || record.student_code || 'Anonimo',
             age: participant.age ?? null,
             gender: participant.gender || 'N/D'
         },
         results: {
-            finalScore: results.finalScore ?? 0,
-            accuracy: results.accuracy ?? 0,
-            totalTime: results.totalTime ?? null,
+            finalScore: Number(results.finalScore) || 0,
+            accuracy: Number(results.accuracy) || 0,
+            totalTime: results.totalTime != null ? Number(results.totalTime) : null,
             avgTime: results.avgTime ?? null,
             correctCount: results.correctCount ?? null,
             performanceLevel: results.performanceLevel || '',
             difficultyStats: results.difficultyStats || {}
         },
         responses: null,
-        created_at: record.created_at || new Date().toISOString()
+        created_at: record.created_at
     };
 }
 
@@ -1071,16 +625,16 @@ function normalizeProgressRecord(record, metaFromIndex = null) {
         const pagePath = resolveActivityPath(record.page_path);
         return {
             id: record.id,
-            class_code: record.class_code || '',
-            student_code: record.student_code || '',
+            class_code: normalizeClass(record.class_code),
+            original_class: String(record.class_code || '').trim(),
+            student_code: String(record.student_code || '').trim(),
             page_path: pagePath,
             original_path: record.page_path || pagePath,
             updated_at: record.updated_at,
-            data: {},
             progressMeta: metaFromIndex || null
         };
     } catch (error) {
-        console.warn('Record progress non valido, ignorato:', record, error);
+        console.warn('Salvataggio non leggibile:', error);
         return null;
     }
 }
@@ -1098,129 +652,89 @@ function parseProgressData(value) {
     return { value };
 }
 
-function openAssessmentDetail(id) {
-    if (!elements.assessmentModal) return;
-    const entry = dashboardState.assessmentIndex.get(String(id));
-    if (!entry) {
-        alert('Impossibile trovare il test selezionato.');
-        return;
-    }
+let detailRequest = 0;
 
-    const showContent = (data) => {
-        const detailsHtml = buildAssessmentDetail(data);
-        if (elements.assessmentModalBody) {
-            elements.assessmentModalBody.innerHTML = detailsHtml;
+async function showDetail(dialog, body, entry, load, render) {
+    if (!entry) return;
+    const request = ++detailRequest;
+    body.innerHTML = '<p class="docente-muted">Caricamento…</p>';
+    if (!dialog.open) dialog.showModal();
+    try {
+        const data = await load(entry.id);
+        if (dialog.open && request === detailRequest) body.innerHTML = render({ ...entry, ...data });
+    } catch (error) {
+        if (!dialog.open || request !== detailRequest) return;
+        if (error?.code === '42501') {
+            window.MODocente.esci();
+            mostraAccesso('Sessione docente scaduta. Accedi di nuovo.');
+            return;
         }
-        elements.assessmentModal.classList.add('open');
-        elements.assessmentModal.setAttribute('aria-hidden', 'false');
-    };
-
-    // se mancano le risposte, carica dettaglio dal server
-    if (!entry.responses) {
-        if (elements.assessmentModalBody) {
-            elements.assessmentModalBody.innerHTML = '<p style="padding:1rem;">Caricamento dettagli...</p>';
-        }
-        elements.assessmentModal.classList.add('open');
-        elements.assessmentModal.setAttribute('aria-hidden', 'false');
-        fetchAssessmentDetail(id)
-            .then(detail => {
-                const merged = { ...entry, ...detail, responses: detail.responses || [] };
-                dashboardState.assessmentIndex.set(String(id), merged);
-                showContent(merged);
-            })
-            .catch(err => {
-                console.error('Errore caricamento dettaglio test:', err);
-                if (elements.assessmentModalBody) {
-                    elements.assessmentModalBody.innerHTML = '<p style="padding:1rem;">Impossibile caricare i dettagli del test.</p>';
-                }
-            });
-        return;
+        body.innerHTML = emptyMessage('Impossibile caricare il dettaglio. Chiudi e riprova.');
     }
-
-    showContent(entry);
 }
 
-function closeAssessmentDetail() {
-    if (!elements.assessmentModal) return;
-    elements.assessmentModal.classList.remove('open');
-    elements.assessmentModal.setAttribute('aria-hidden', 'true');
+function openAssessmentDetail(id) {
+    showDetail(elements.assessmentModal, elements.assessmentModalBody, dashboardState.assessmentIndex.get(String(id)),
+        fetchAssessmentDetail, buildAssessmentDetail);
 }
 
 function openProgressDetail(id) {
-    if (!elements.progressModal) return;
-    const entry = dashboardState.progressIndex.get(String(id));
-    if (!entry) {
-        alert('Impossibile trovare il salvataggio selezionato.');
-        return;
-    }
-    const showContent = (data) => {
-        const detailHtml = buildProgressDetail(data);
-        if (elements.progressModalBody) {
-            elements.progressModalBody.innerHTML = detailHtml;
-        }
-        elements.progressModal.classList.add('open');
-        elements.progressModal.setAttribute('aria-hidden', 'false');
-    };
-
-    if (!entry.data || Object.keys(entry.data || {}).length === 0) {
-        if (elements.progressModalBody) {
-            elements.progressModalBody.innerHTML = '<p style="padding:1rem;">Caricamento dettagli...</p>';
-        }
-        elements.progressModal.classList.add('open');
-        elements.progressModal.setAttribute('aria-hidden', 'false');
-        fetchProgressDetail(id)
-            .then(detail => {
-                const merged = { ...entry, ...detail };
-                dashboardState.progressIndex.set(String(id), merged);
-                showContent(merged);
-            })
-            .catch(err => {
-                console.error('Errore caricamento dettaglio progress:', err);
-                if (elements.progressModalBody) {
-                    elements.progressModalBody.innerHTML = '<p style="padding:1rem;">Impossibile caricare i dettagli del salvataggio.</p>';
-                }
-            });
-        return;
-    }
-
-    showContent(entry);
+    showDetail(elements.progressModal, elements.progressModalBody, dashboardState.progressIndex.get(String(id)),
+        fetchProgressDetail, buildProgressDetail);
 }
 
-function closeProgressDetail() {
-    if (!elements.progressModal) return;
-    elements.progressModal.classList.remove('open');
-    elements.progressModal.setAttribute('aria-hidden', 'true');
+function buildProgressDetail(entry) {
+    const activity = formatActivityName(entry.page_path || entry.original_path);
+    return `
+        <h2>${escapeHtml(activity)}</h2>
+        <p class="docente-muted">${escapeHtml(entry.class_code)} · ${escapeHtml(entry.student_code || 'Senza codice')} · ${formatDateTime(entry.updated_at)}</p>
+        <h3>Risposte salvate</h3>
+        ${formatProgressData(entry.data)}
+    `;
+}
+
+function progressPercent(meta) {
+    const value = meta?.percentuale;
+    return Number.isFinite(value) ? Math.min(100, Math.max(0, value)) : null;
+}
+
+function renderProgressBar(meta) {
+    const value = progressPercent(meta);
+    if (value === null) return '<span class="docente-muted">Avanzamento non registrato</span>';
+    return `<progress max="100" value="${value}" aria-label="Avanzamento"></progress>
+        <span>${value}%${Number.isFinite(meta.campiCompilati) && Number.isFinite(meta.totale)
+            ? ` · ${meta.campiCompilati}/${meta.totale} campi` : ''}</span>`;
 }
 
 function buildAssessmentDetail(entry) {
     const result = entry.results || {};
-    const docLink = `${STROOP_BASE_URL}?docente=1&doc_class=${encodeURIComponent(entry.classCode.toLowerCase())}&doc_student=${encodeURIComponent((entry.studentCode || '').toLowerCase())}`;
+    const docLink = `${STROOP_BASE_URL}?docente=1&doc_class=${encodeURIComponent(entry.classCode.toLowerCase())}&doc_student=${encodeURIComponent(entry.studentCode.toLowerCase())}`;
     const difficultyHtml = Object.entries(result.difficultyStats || {}).map(([level, stats]) => `
             <div class="assessment-detail-item">
-                <span>${formatDifficulty(level)}</span>
-                <strong>${(stats.accuracy ?? 0).toFixed(1)}% accurate</strong>
+                <span>${escapeHtml(formatDifficulty(level))}</span>
+                <strong>${(Number(stats.accuracy) || 0).toFixed(1)}% accurate</strong>
                 <p style="margin:0.25rem 0 0;font-size:0.85rem;color:#475569;">
-                    ${stats.correct ?? 0}/${stats.total ?? 0} risposte · ${stats.avgTime ? stats.avgTime.toFixed(2) + 's' : '-'}
+                    ${Number(stats.correct) || 0}/${Number(stats.total) || 0} risposte · ${stats.avgTime ? Number(stats.avgTime).toFixed(2) + 's' : '-'}
                 </p>
             </div>
         `).join('');
 
     const responsesRows = (entry.responses || []).map((response, index) => `
         <tr>
-            <td>${response.trialNumber ?? index + 1}</td>
-            <td>${response.displayWord || '-'}</td>
-            <td>${response.displayColor || '-'}</td>
-            <td>${response.selectedColor || '-'}</td>
+            <td>${escapeHtml(response.trialNumber ?? index + 1)}</td>
+            <td>${escapeHtml(response.displayWord || '-')}</td>
+            <td>${escapeHtml(response.displayColor || '-')}</td>
+            <td>${escapeHtml(response.selectedColor || '-')}</td>
             <td>${formatSeconds(response.responseTime ? response.responseTime / 1000 : null)}</td>
-            <td>${formatDifficulty(response.difficulty)}</td>
+            <td>${escapeHtml(formatDifficulty(response.difficulty))}</td>
             <td class="${response.isCorrect ? 'success' : 'error'}">${response.isCorrect ? '✓' : '✗'}</td>
         </tr>
     `).join('');
 
     return `
         <div class="assessment-modal-body">
-            <h2 style="margin-top:0;">Dettaglio Test · ${entry.classCode}</h2>
-            <p class="muted" style="margin-bottom:1rem;">${entry.participant.name || entry.studentCode || 'Anonimo'} · ${formatDateTime(entry.created_at)}</p>
+            <h2 style="margin-top:0;">Dettaglio Test · ${escapeHtml(entry.classCode)}</h2>
+            <p class="muted" style="margin-bottom:1rem;">${escapeHtml(entry.participant.name || entry.studentCode || 'Anonimo')} · ${formatDateTime(entry.created_at)}</p>
 
             <div class="assessment-detail-grid">
                 <div class="assessment-detail-item">
@@ -1237,26 +751,26 @@ function buildAssessmentDetail(entry) {
                 </div>
                 <div class="assessment-detail-item">
                     <span>Risposte corrette</span>
-                    <strong>${result.correctCount ?? '-'} / ${(entry.responses || []).length}</strong>
+                    <strong>${escapeHtml(result.correctCount ?? '—')} / ${(entry.responses || []).length}</strong>
                 </div>
             </div>
 
             <div class="assessment-detail-grid">
                 <div class="assessment-detail-item">
                     <span>Performance</span>
-                    <strong>${result.performanceLevel || '—'}</strong>
+                    <strong>${escapeHtml(result.performanceLevel || '—')}</strong>
                 </div>
                 <div class="assessment-detail-item">
                     <span>Studente / codice</span>
-                    <strong>${entry.participant.name || entry.studentCode || 'Anonimo'}</strong>
+                    <strong>${escapeHtml(entry.participant.name || entry.studentCode || 'Anonimo')}</strong>
                 </div>
                 <div class="assessment-detail-item">
                     <span>Classe</span>
-                    <strong>${entry.classCode}</strong>
+                    <strong>${escapeHtml(entry.classCode)}</strong>
                 </div>
                 <div class="assessment-detail-item">
                     <span>Apri il test</span>
-                    <strong><a href="${docLink}" target="_blank" rel="noopener">Modalità docente →</a></strong>
+                    <strong><a href="${docLink}" target="_blank" rel="noopener">Apri test</a></strong>
                 </div>
             </div>
 
@@ -1286,44 +800,12 @@ function buildAssessmentDetail(entry) {
     `;
 }
 
-function buildProgressDetail(entry) {
-    const activityLabel = formatActivityName(entry.page_path || entry.original_path);
-    const docLink = buildActivityLink(entry.page_path || entry.original_path, {
-        superMode: true,
-        classCode: entry.class_code,
-        studentCode: entry.student_code
-    });
-    const dataPreview = formatProgressData(entry.data);
-    const metaList = `
-        <li><strong>Classe:</strong> ${entry.class_code || 'N/D'}</li>
-        <li><strong>Studente:</strong> ${entry.student_code || 'N/D'}</li>
-        <li><strong>Attività:</strong> ${activityLabel}</li>
-        <li><strong>Path:</strong> ${entry.page_path || entry.original_path || '-'}</li>
-        <li><strong>Ultimo salvataggio:</strong> ${formatDateTime(entry.updated_at)}</li>
-    `;
-
-    return `
-        <div class="progress-detail">
-            <h2 style="margin-top:0;">Dettaglio salvataggio</h2>
-            <ul class="progress-meta">
-                ${metaList}
-            </ul>
-            <p style="margin:0.5rem 0 1rem;">
-                <a href="${docLink}" target="_blank" rel="noopener">Apri in modalità docente →</a>
-            </p>
-            <h4>Dati salvati</h4>
-            ${dataPreview}
-        </div>
-    `;
-}
-
 async function fetchAssessmentDetail(id) {
     const row = await window.MODocente.chiama('stroop_docente_dettaglio', { p_id: id });
     if (!row) {
         throw new Error('Dettaglio test non trovato');
     }
-    const normalized = normalizeAssessmentRecord({ ...row, responses: ensureArray(row.responses) });
-    return normalized;
+    return { ...normalizeAssessmentRecord(row), responses: ensureArray(row.responses) };
 }
 
 async function fetchProgressDetail(id) {
@@ -1336,71 +818,15 @@ async function fetchProgressDetail(id) {
     };
 }
 
-function persistDocenteSession() {
-    try {
-        const payload = {
-            issuedAt: Date.now(),
-            expiresAt: Date.now() + DOCENTE_SESSION_DURATION
-        };
-        localStorage.setItem(DOCENTE_SESSION_KEY, JSON.stringify(payload));
-    } catch (error) {
-        console.warn('Impossibile salvare la sessione docente:', error);
-    }
-}
-
-function isDocenteSessionValid() {
-    try {
-        const raw = localStorage.getItem(DOCENTE_SESSION_KEY);
-        if (!raw) return false;
-        const data = JSON.parse(raw);
-        if (!data?.expiresAt) return false;
-        if (Date.now() > data.expiresAt) {
-            localStorage.removeItem(DOCENTE_SESSION_KEY);
-            return false;
-        }
-        return true;
-    } catch (error) {
-        console.warn('Impossibile leggere la sessione docente:', error);
-        return false;
-    }
-}
-
-function toggleLoading(isLoading) {
-    if (elements.refreshBtn) {
-        elements.refreshBtn.disabled = isLoading;
-        if (isLoading) {
-            elements.refreshBtn.innerHTML = '<span class="spinner">↻</span> Caricamento in corso...';
-        } else {
-            elements.refreshBtn.innerHTML = '🔄 Aggiorna dati';
-        }
-    }
-    
-    // Dim the main container while loading to provide feedback
-    const contentPanels = document.querySelectorAll('.summary-section, .docente-stats');
-    contentPanels.forEach(panel => {
-        panel.style.transition = 'opacity 0.3s ease';
-        panel.style.opacity = isLoading ? '0.5' : '1';
-        panel.style.pointerEvents = isLoading ? 'none' : 'auto';
-    });
-}
-
-function setStatus(message) {
-    if (elements.lastRefresh && message) {
-        elements.lastRefresh.textContent = message;
-    }
-}
-
 function formatDateTime(value) {
-    if (!value) return '-';
-    try {
-        return new Date(value).toLocaleString('it-IT');
-    } catch {
-        return value;
-    }
+    if (!Number.isFinite(Date.parse(value))) return 'Senza data';
+    return new Date(value).toLocaleString('it-IT', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Europe/Rome' });
 }
 
 function formatActivityName(path) {
-    if (!path) return '—';
+    if (!path) return 'Attività senza titolo';
+    const title = dashboardState.titles.get(path);
+    if (title) return title;
     if (String(path).includes('ripasso-terzo-anno')) {
         return 'Terzo anno · Dalla terza alla quarta: ripasso operativo';
     }
@@ -1440,8 +866,9 @@ function formatSeconds(value) {
     }
     const num = Number(value);
     if (num >= 60) {
-        const minutes = Math.floor(num / 60);
-        const seconds = Math.round(num % 60);
+        const rounded = Math.round(num);
+        const minutes = Math.floor(rounded / 60);
+        const seconds = rounded % 60;
         return `${minutes}m ${seconds}s`;
     }
     return `${num.toFixed(1)}s`;
@@ -1454,12 +881,15 @@ function formatProgressData(data) {
     if (data._activity === 'ripasso-terzo-anno') {
         return formatRipassoTerzoData(data);
     }
-    try {
-        const json = JSON.stringify(data, null, 2);
-        return `<pre class="progress-json">${escapeHtml(json)}</pre>`;
-    } catch {
-        return `<pre class="progress-json">${escapeHtml(String(data))}</pre>`;
-    }
+    const entries = Object.entries(data).filter(([key]) => !key.startsWith('_'));
+    const fields = entries.map(([key, value]) => {
+        const label = capitalize(key.replace(/[-_]+/g, ' '));
+        const text = typeof value === 'object' && value !== null ? JSON.stringify(value, null, 2) : String(value ?? '—');
+        return `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(text)}</dd></div>`;
+    }).join('');
+    return `${fields ? `<dl class="docente-answers">${fields}</dl>` : ''}
+        <details class="docente-raw"><summary>Dati originali del salvataggio</summary>
+        <pre class="progress-json">${escapeHtml(JSON.stringify(data, null, 2))}</pre></details>`;
 }
 
 function formatRipassoTerzoData(data) {
@@ -1530,21 +960,6 @@ function formatRipassoTerzoData(data) {
         <h4>Risposte aperte</h4>
         ${openAnswers || legacyNotes || '<p class="muted">Nessuna risposta aperta salvata.</p>'}
         ${caseHtml}`;
-}
-
-function renderProgressBar(meta) {
-    if (!meta) return '<span class="muted">—</span>';
-    const pct = typeof meta.percentuale === 'number' ? Math.min(100, Math.max(0, meta.percentuale)) : null;
-    const filled = meta.campiCompilati ?? '?';
-    const total = meta.totale ?? '?';
-    if (pct === null) return '<span class="muted">Dati salvati</span>';
-    const color = pct >= 80 ? '#16a34a' : pct >= 40 ? '#f59e0b' : '#3b82f6';
-    return `<div style="min-width:110px">
-        <div style="background:#e2e8f0;border-radius:4px;height:8px;overflow:hidden;margin-bottom:3px">
-            <div style="background:${color};height:100%;width:${pct}%;transition:width .3s"></div>
-        </div>
-        <span style="font-size:0.78em;color:#555">${pct}% &nbsp;(${filled}/${total} campi)</span>
-    </div>`;
 }
 
 function escapeHtml(str) {

@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Area Docente - Monitoraggio Progressi</title>
+    <title>Area docente · Metodologie Operative</title>
     <meta name="description" content="Pannello di controllo per monitorare i progressi degli studenti nelle attività di Metodologie Operative.">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/area-docente.css?v=20261119">
 </head>
 <body>
     <header class="testata">
@@ -63,136 +64,102 @@
 
     <main>
         <div class="container">
-            <section class="docente-dashboard card">
+            <section class="docente-dashboard" aria-labelledby="docente-heading">
+                <header class="docente-heading">
+                    <h1 id="docente-heading">Area docente</h1>
+                    <div id="docente-session-actions" class="docente-actions" hidden>
+                        <button id="docente-cambia-password" class="docente-button" type="button">Cambia password</button>
+                        <button id="docente-esci" class="docente-button" type="button">Esci</button>
+                    </div>
+                </header>
+
                 <div id="docente-auth-overlay">
                     <div class="auth-box">
-                        <h3>🔐 Accesso riservato</h3>
-                        <p>Inserisci la password docente per visualizzare i progressi.</p>
+                        <h2>Accesso riservato</h2>
                         <form id="docente-login-form">
-                            <input type="password" id="docente-password" placeholder="Password" required>
+                            <input type="password" id="docente-password" aria-label="Password docente" placeholder="Password docente" autocomplete="current-password" required>
                             <button type="submit" class="btn btn-primary">Accedi</button>
                         </form>
                     </div>
                 </div>
 
                 <div id="docente-dashboard-content" class="hidden">
-
-                    <p class="azioni">
-                        <a class="btn btn-primary" href="materiali/biennio/verifica-operatore-terza.html?docente=1">
-                            Correggi la verifica di terza · L’operatore sociale
-                        </a>
-                    </p>
-
-                    <!-- Topbar -->
-                    <div class="dashboard-topbar">
-                        <div>
-                            <p class="muted">Dati aggiornati alle</p>
-                            <p id="dashboard-last-refresh">—</p>
-                        </div>
-                        <button id="refresh-dashboard" class="btn btn-secondary">🔄 Aggiorna</button>
-                        <button id="docente-cambia-password" class="btn btn-secondary" type="button">🔑 Cambia password</button>
-                        <button id="docente-esci" class="btn btn-secondary" type="button">🚪 Esci</button>
-                    </div>
-
-                    <!-- Filtri -->
-                    <div class="dashboard-filters">
-                        <div class="filter-control">
-                            <label for="dashboard-class-filter">Filtra per classe</label>
-                            <select id="dashboard-class-filter">
-                                <option value="">Tutte le classi</option>
+                    <div class="docente-toolbar">
+                        <button id="dashboard-back" class="docente-button" type="button" hidden>Tutte le classi</button>
+                        <div class="docente-period">
+                            <label for="dashboard-period">Periodo</label>
+                            <select id="dashboard-period">
+                                <option value="recent">Ultimi 30 giorni</option>
                             </select>
                         </div>
-                        <div class="filter-control">
-                            <label for="dashboard-student-search">Cerca studente</label>
-                            <input type="text" id="dashboard-student-search" placeholder="Cognome o codice">
-                        </div>
+                        <p id="dashboard-last-refresh" role="status"></p>
+                        <button id="refresh-dashboard" class="docente-button" type="button">Aggiorna dati</button>
                     </div>
+                    <p id="dashboard-data-note" class="docente-notice" hidden></p>
 
-                    <!-- Statistiche sintetiche -->
-                    <div class="stats-overview docente-stats">
-                        <div class="stat-card">
-                            <h4>👥 Studenti attivi</h4>
-                            <p id="doc-stat-students" class="stat-value">0</p>
-                            <p class="muted" id="doc-class-focus">tutte le classi</p>
-                        </div>
-                        <div class="stat-card">
-                            <h4>📚 Attività con salvataggi</h4>
-                            <p id="doc-stat-activities" class="stat-value">0</p>
-                            <p class="muted">monitorate in tempo reale</p>
-                        </div>
-                        <div class="stat-card">
-                            <h4>⏱️ Ultimo salvataggio</h4>
-                            <p id="doc-stat-last-update" class="stat-value">—</p>
-                            <p class="muted">ora locale</p>
-                        </div>
-                    </div>
-
-                    <!-- SEZIONE PRINCIPALE: Attività → Studenti → Progressi -->
-                    <section class="summary-section">
-                        <div class="section-header">
-                            <div>
-                                <h3>Monitoraggio per Attività</h3>
-                                <p class="muted">Espandi un'attività per vedere tutti gli studenti che ci stanno lavorando e il loro avanzamento.</p>
-                            </div>
-                        </div>
-                        <div id="activity-groups-container" class="class-progress-container">
-                            <div class="empty-state"><p>Caricamento in corso…</p></div>
-                        </div>
+                    <section id="dashboard-classes" aria-labelledby="dashboard-classes-title">
+                        <h2 id="dashboard-classes-title" tabindex="-1">Classi</h2>
+                        <div id="dashboard-class-list"></div>
                     </section>
 
-                    <!-- Test Stroop e verifiche strutturate -->
-                    <section class="summary-section assessment-section">
-                        <div class="section-header">
-                            <div>
-                                <h3>Test Stroop · Verifiche strutturate</h3>
-                                <p class="muted">Risultati con punteggi e risposte salvate</p>
+                    <section id="dashboard-class" aria-labelledby="dashboard-class-title" hidden>
+                        <h2 id="dashboard-class-title" tabindex="-1"></h2>
+                        <dl id="dashboard-stats" class="docente-metrics"></dl>
+                        <div class="docente-views" role="group" aria-label="Viste della classe">
+                            <button type="button" data-class-view="activities" aria-pressed="true">Attività e riepilogo</button>
+                            <button type="button" data-class-view="students" aria-pressed="false">Alunni e lavori</button>
+                            <button type="button" data-class-view="stroop" aria-pressed="false">Test Stroop</button>
+                        </div>
+
+                        <section id="dashboard-activities" class="docente-panel" aria-labelledby="dashboard-activities-title">
+                            <h3 id="dashboard-activities-title" tabindex="-1">Attività della classe</h3>
+                            <div id="activity-groups-container"></div>
+                        </section>
+
+                        <section id="dashboard-students" class="docente-panel" aria-labelledby="dashboard-students-title" hidden>
+                            <h3 id="dashboard-students-title" tabindex="-1">Alunni della classe</h3>
+                            <p class="docente-muted">Elenco ricavato dai salvataggi dell’anno scolastico selezionato.</p>
+                            <div class="docente-student-search">
+                                <label for="dashboard-student-search">Cerca per cognome o codice</label>
+                                <input type="search" id="dashboard-student-search">
                             </div>
-                            <div class="section-actions">
-                                <a class="btn btn-secondary" href="stroop_statistiche.html" target="_blank" rel="noopener">Dashboard Stroop</a>
+                            <div id="dashboard-student-list"></div>
+                        </section>
+
+                        <section id="dashboard-stroop" class="docente-panel" aria-labelledby="dashboard-stroop-title" hidden>
+                            <h3 id="dashboard-stroop-title" tabindex="-1">Risultati del Test Stroop</h3>
+                            <div id="assessment-insights" class="assessment-insights"></div>
+                            <div id="assessment-results" class="table-wrapper">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Alunno</th>
+                                            <th scope="col">Punteggio</th>
+                                            <th scope="col">Accuratezza</th>
+                                            <th scope="col">Durata</th>
+                                            <th scope="col">Data</th>
+                                            <th scope="col">Azioni</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="assessment-detail-body"></tbody>
+                                </table>
                             </div>
-                        </div>
-
-                        <div id="assessment-insights" class="assessment-insights">
-                            <div class="empty-state"><p>Nessun test registrato.</p></div>
-                        </div>
-
-                        <div class="table-wrapper" style="margin-top:1.5rem;">
-                            <table class="data-table">
-                                <thead>
-                                    <tr>
-                                        <th>Classe</th>
-                                        <th>Partecipanti</th>
-                                        <th>Punteggio medio</th>
-                                        <th>Accuratezza media</th>
-                                        <th>Ultimo aggiornamento</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="assessment-class-summary">
-                                    <tr><td colspan="5">Nessun dato disponibile.</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="table-wrapper" style="margin-top:1.5rem;">
-                            <table class="data-table">
-                                <thead>
-                                    <tr>
-                                        <th>Classe</th>
-                                        <th>Studente</th>
-                                        <th>Punteggio</th>
-                                        <th>Accuratezza</th>
-                                        <th>Durata</th>
-                                        <th>Data</th>
-                                        <th>Azioni</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="assessment-detail-body">
-                                    <tr><td colspan="7">Nessun risultato disponibile.</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        </section>
                     </section>
 
+                    <section class="docente-tools" aria-labelledby="dashboard-tools-title">
+                        <h2 id="dashboard-tools-title">Strumenti del docente</h2>
+                        <div class="docente-tool-list">
+                            <a class="docente-tool" href="materiali/biennio/verifica-operatore-terza.html?docente=1">
+                                <strong>Correggi la verifica «L’operatore sociale»</strong>
+                                <span>Terzo anno · Elaborati delle versioni A e B</span>
+                            </a>
+                            <a class="docente-tool" href="stroop_statistiche.html">
+                                <strong>Apri le statistiche Stroop</strong>
+                                <span>Analisi dei risultati e confronti</span>
+                            </a>
+                        </div>
+                    </section>
                 </div>
             </section>
         </div>
@@ -206,20 +173,15 @@
     </footer>
 
     <script src="assets/docente-accesso.js?v=20260926"></script>
-    <script type="module" src="assets/progress-dashboard.js?v=20260926b"></script>
+    <script type="module" src="assets/progress-dashboard.js?v=20261119"></script>
 
-    <div id="assessment-modal" class="assessment-modal" aria-hidden="true">
-        <div class="assessment-modal-content" role="dialog" aria-modal="true">
-            <button type="button" class="assessment-modal-close" aria-label="Chiudi dettagli" data-assessment-close>×</button>
-            <div id="assessment-modal-body"></div>
-        </div>
-    </div>
-
-    <div id="progress-modal" class="assessment-modal" aria-hidden="true">
-        <div class="assessment-modal-content" role="dialog" aria-modal="true">
-            <button type="button" class="assessment-modal-close" aria-label="Chiudi dettagli" data-progress-close>×</button>
-            <div id="progress-modal-body"></div>
-        </div>
-    </div>
+    <dialog id="assessment-modal" class="docente-dialog" aria-label="Dettaglio del test">
+        <form method="dialog"><button type="submit" class="docente-button">Chiudi</button></form>
+        <div id="assessment-modal-body" aria-live="polite"></div>
+    </dialog>
+    <dialog id="progress-modal" class="docente-dialog" aria-label="Dettaglio del lavoro">
+        <form method="dialog"><button type="submit" class="docente-button">Chiudi</button></form>
+        <div id="progress-modal-body" aria-live="polite"></div>
+    </dialog>
 </body>
 </html>

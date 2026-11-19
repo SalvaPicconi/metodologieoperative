@@ -1,0 +1,518 @@
+.docente-dashboard {
+    --doc-line: #dce4ed;
+    --doc-muted: #4b5b6e;
+    --doc-wash: #f2f6fa;
+    --doc-white: #fff;
+    --doc-accent: #d6105f;
+    color: var(--color-ink);
+    padding: clamp(1rem, 4vw, 2.75rem);
+    margin: 1.5rem 0 3rem;
+}
+
+.docente-dashboard [hidden],
+.docente-dialog [hidden] {
+    display: none !important;
+}
+
+.docente-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 0 0 1.15rem;
+    border-bottom: 1px solid var(--doc-line);
+}
+
+.docente-dashboard h1,
+.docente-dashboard h2,
+.docente-dashboard h3,
+.docente-dialog h2 {
+    margin: 0;
+    color: var(--color-primary);
+    line-height: 1.15;
+}
+
+.docente-dashboard h1 {
+    font: 400 clamp(2.5rem, 6vw, 3.7rem)/1.05 var(--font-display);
+    letter-spacing: -.025em;
+}
+
+.docente-dashboard h2,
+.docente-dialog h2 {
+    font: 400 clamp(1.7rem, 4vw, 2.25rem)/1.15 var(--font-display);
+}
+
+.docente-dashboard h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+#docente-auth-overlay {
+    padding: clamp(1.75rem, 6vw, 4rem) 0;
+}
+
+#docente-auth-overlay .auth-box {
+    width: min(100%, 26rem);
+}
+
+#docente-auth-overlay h2 {
+    margin-bottom: 1.15rem;
+}
+
+.docente-actions,
+.docente-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5rem;
+}
+
+.docente-toolbar {
+    gap: .75rem;
+    margin: 1.2rem 0 1.65rem;
+}
+
+.docente-period {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .55rem;
+}
+
+.docente-period label,
+.docente-student-search label {
+    color: var(--color-primary);
+    font-size: .92rem;
+    font-weight: 700;
+}
+
+.docente-period select,
+.docente-student-search input {
+    margin: 0;
+    min-height: 2.75rem;
+    border: 1px solid #aebdce;
+    border-radius: .45rem;
+    background: var(--doc-white);
+    font: inherit;
+    color: var(--color-ink);
+    padding: .48rem .7rem;
+    max-width: 100%;
+}
+
+.docente-toolbar p {
+    margin: 0 0 0 auto;
+    font-size: .9rem;
+    color: var(--doc-muted);
+}
+
+.docente-button,
+.docente-views button {
+    min-height: 2.75rem;
+    padding: .46rem .8rem;
+    background: var(--doc-white, white);
+    border: 1px solid #aebdce;
+    border-radius: .45rem;
+    color: var(--color-primary);
+    cursor: pointer;
+    font: inherit;
+    font-size: .92rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.docente-button:hover,
+.docente-views button:hover {
+    background: #ebf2f9;
+    border-color: var(--color-primary);
+}
+
+.docente-button:disabled {
+    cursor: wait;
+    opacity: .6;
+}
+
+.docente-button.docente-primary,
+.docente-views button[aria-pressed="true"] {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+}
+
+.docente-button.docente-primary:hover {
+    background: #25547c;
+}
+
+.docente-class-grid,
+.docente-work-list {
+    padding: 0;
+    list-style: none;
+    margin: 0;
+}
+
+.docente-class-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13.25rem), 1fr));
+    gap: .85rem;
+    margin-top: .9rem;
+}
+
+.docente-class-card {
+    display: grid;
+    align-content: start;
+    gap: .23rem;
+    width: 100%;
+    height: 100%;
+    min-height: 8.4rem;
+    padding: 1.05rem 1.1rem;
+    text-align: left;
+    background: var(--doc-wash);
+    border: 1px solid var(--doc-line);
+    border-top: 3px solid var(--color-primary);
+    border-radius: .65rem;
+    color: var(--color-primary);
+    font: inherit;
+    cursor: pointer;
+}
+
+.docente-class-card:hover {
+    border-color: var(--color-primary);
+    background: #eaf1f8;
+}
+
+.docente-class-card strong {
+    font: 400 1.7rem/1.15 var(--font-display);
+    overflow-wrap: anywhere;
+}
+
+.docente-class-card > span,
+.docente-tool span {
+    color: var(--doc-muted);
+    font-size: .92rem;
+}
+
+.docente-class-card .docente-card-date {
+    margin-top: .2rem;
+}
+
+.docente-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    margin: .9rem 0 1.25rem;
+    border: 1px solid var(--doc-line);
+    border-radius: .65rem;
+    background: var(--doc-line);
+    overflow: hidden;
+}
+
+.docente-metrics > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: .35rem;
+    background: var(--doc-wash);
+    padding: .95rem 1.1rem;
+}
+
+.docente-metrics dt {
+    color: var(--doc-muted);
+    font-size: .92rem;
+    line-height: 1.35;
+}
+
+.docente-metrics dd {
+    margin: 0;
+    color: var(--color-primary);
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.docente-metrics > :last-child dd {
+    font-size: 1.08rem;
+}
+
+.docente-views {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin-bottom: 1.15rem;
+}
+
+.docente-panel > h3 {
+    margin-bottom: .7rem;
+}
+
+.docente-disclosure {
+    border: 1px solid var(--doc-line);
+    border-radius: .5rem;
+    background: var(--doc-white);
+    margin-bottom: .55rem;
+}
+
+.docente-disclosure summary {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) auto auto;
+    align-items: center;
+    gap: .7rem;
+    min-height: 3.75rem;
+    padding: .7rem 1rem;
+    cursor: pointer;
+    list-style: none;
+    color: var(--color-primary);
+}
+
+.docente-disclosure summary::-webkit-details-marker {
+    display: none;
+}
+
+.docente-disclosure summary::after {
+    content: "";
+    grid-column: 3;
+    width: .52rem;
+    height: .52rem;
+    margin: 0 .25rem .2rem;
+    border-right: 2px solid;
+    border-bottom: 2px solid;
+    transform: rotate(45deg);
+}
+
+.docente-disclosure[open] summary::after {
+    transform: rotate(225deg);
+    margin-bottom: -.2rem;
+}
+
+.docente-disclosure summary:hover,
+.docente-disclosure[open] summary {
+    background: var(--doc-wash);
+    border-radius: .5rem;
+}
+
+.docente-item-label,
+.docente-work-name {
+    min-width: 0;
+    display: grid;
+    gap: .1rem;
+    overflow-wrap: anywhere;
+}
+
+.docente-item-label > span,
+.docente-work-name > span,
+.docente-item-date,
+.docente-progress,
+.docente-muted {
+    color: var(--doc-muted, #4b5b6e);
+    font-size: .9rem;
+}
+
+.docente-item-date {
+    grid-column: 2;
+    white-space: nowrap;
+}
+
+.docente-work {
+    display: grid;
+    grid-template-columns: minmax(9rem, 1fr) minmax(8rem, .6fr) auto;
+    gap: .7rem 1rem;
+    align-items: center;
+    border-top: 1px solid var(--doc-line);
+    padding: .75rem 1rem;
+}
+
+.docente-work .btn-link {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    color: var(--color-primary);
+    font: inherit;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: .15em;
+}
+
+.docente-progress {
+    display: grid;
+    gap: .2rem;
+}
+
+.docente-progress progress {
+    width: min(100%, 8rem);
+    height: .6rem;
+    border: 0;
+    border-radius: 1rem;
+    appearance: none;
+    background: #e3e9f0;
+    overflow: hidden;
+}
+
+.docente-progress progress::-webkit-progress-bar {
+    background: #e3e9f0;
+}
+
+.docente-progress progress::-webkit-progress-value {
+    background: #245985;
+    border-radius: 1rem;
+}
+
+.docente-progress progress::-moz-progress-bar {
+    background: #245985;
+    border-radius: 1rem;
+}
+
+.docente-student-search {
+    display: grid;
+    gap: .35rem;
+    max-width: 23rem;
+    margin: .75rem 0;
+}
+
+.docente-empty,
+.docente-notice {
+    color: var(--doc-muted, #4b5b6e);
+    background: #f2f6fa;
+    border-radius: .5rem;
+    margin: .55rem 0;
+    padding: .85rem 1rem;
+}
+
+.docente-notice {
+    margin-top: -.6rem;
+    border-left: 3px solid var(--doc-accent);
+}
+
+.docente-disclosure > .docente-empty {
+    background: transparent;
+}
+
+.docente-tools {
+    margin-top: 1.9rem;
+    border-top: 1px solid var(--doc-line);
+    padding-top: 1.2rem;
+}
+
+.docente-tools h2 {
+    font-size: 1.55rem;
+}
+
+.docente-tool-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: .7rem;
+    margin-top: .7rem;
+}
+
+.docente-tool {
+    display: grid;
+    gap: .12rem;
+    padding: .75rem .9rem;
+    border: 1px solid var(--doc-line);
+    border-radius: .5rem;
+    text-decoration: none;
+    color: var(--color-primary);
+}
+
+.docente-tool:hover {
+    background: var(--doc-wash);
+    border-color: var(--color-primary);
+}
+
+.docente-tool strong {
+    text-decoration: underline;
+    text-underline-offset: .18em;
+}
+
+.docente-panel .assessment-insights {
+    margin-bottom: .75rem;
+}
+
+.docente-dialog {
+    border: 1px solid #aebdce;
+    border-radius: .7rem;
+    padding: clamp(1rem, 4vw, 1.75rem);
+    color: var(--color-ink);
+    width: min(48rem, calc(100% - 2rem));
+    max-height: 87vh;
+}
+
+.docente-dialog::backdrop {
+    background: rgb(14 32 54 / 62%);
+}
+
+.docente-dialog form {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: .7rem;
+}
+
+.docente-answers {
+    display: grid;
+    gap: .65rem;
+}
+
+.docente-answers div {
+    border-bottom: 1px solid #dce4ed;
+    padding-bottom: .55rem;
+}
+
+.docente-answers dt {
+    font-weight: 700;
+}
+
+.docente-answers dd {
+    margin: .2rem 0 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.docente-dialog .progress-json {
+    background: #f2f6fa;
+    border-radius: .45rem;
+    padding: .75rem;
+    overflow: auto;
+}
+
+.docente-raw summary {
+    color: var(--color-primary);
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+@media (max-width: 790px) {
+    .docente-work {
+        grid-template-columns: minmax(0, 1fr) minmax(0, .65fr);
+    }
+
+    .docente-work .docente-actions {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 520px) {
+    .docente-dashboard {
+        margin-top: .75rem;
+    }
+
+    .docente-toolbar p {
+        margin-left: 0;
+        flex-basis: 100%;
+        order: 1;
+    }
+
+    .docente-period {
+        flex: 1;
+    }
+
+    .docente-metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .docente-metrics > :last-child {
+        grid-column: 1 / -1;
+    }
+
+    .docente-disclosure summary {
+        padding-inline: .7rem;
+    }
+}
