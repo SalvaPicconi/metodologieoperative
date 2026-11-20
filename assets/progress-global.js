@@ -1,4 +1,5 @@
-import { Progress } from './progress.js?v=20260926';
+import { Progress } from './progress.js?v=20261121';
+import { AreaAlunni } from './alunni-sessione.js?v=20261121';
 
 console.log('✅ progress-global attivo');
 
@@ -52,6 +53,9 @@ const CONFIG = resolveConfig();
   let lastAutoSave = 0;
   let lastSavedSnapshot = null;
   let initialRestorePending = false;
+  // L'autosalvataggio parte solo dopo il ripristino: niente scritture vuote sopra un lavoro esistente.
+  let restoreCompleted = false;
+  let avvisoElement = null;
 
   // Crea pulsanti se non esistono già
   document.addEventListener('DOMContentLoaded', () => {
@@ -145,7 +149,9 @@ const CONFIG = resolveConfig();
   }
 
   function scheduleAutoSave(reason = 'input') {
-    if (!AUTO_SAVE_ENABLED || IS_DISABLED || isGuestMode) return;
+    if (!AUTO_SAVE_ENABLED || IS_DISABLED || isGuestMode || !restoreCompleted) return;
+    const statoArea = Progress.statoProtetto();
+    if (statoArea && !statoArea.modificabile) return;
     if (autoSaveTimer) {
       clearTimeout(autoSaveTimer);
     }
@@ -172,11 +178,16 @@ const CONFIG = resolveConfig();
     autoSaveInFlight = true;
     try {
       await Progress.save(payload, PAGE_PATH);
+      if (Progress.statoProtetto()) AreaAlunni.scartaBozza(PAGE_PATH);
       lastAutoSave = Date.now();
       lastSavedSnapshot = snapshot;
       console.debug('[Progress] 💾 Salvataggio automatico completato');
     } catch (error) {
       console.warn('Errore salvataggio automatico progressi:', error);
+      if (error && error.protetto) {
+        gestisciErroreArea(error, payload);
+        return;
+      }
       const savedLocally = saveLocalFallback(payload);
       if (savedLocally) {
         lastSavedSnapshot = snapshot;
@@ -342,7 +353,8 @@ function restoreData(saved) {
 async function loadAndRestore() {
   try {
     const saved = await Progress.load(PAGE_PATH);
-    const localFallback = loadLocalFallback();
+    // In area protetta non si mescolano bozze lasciate nel browser da altri accessi.
+    const localFallback = Progress.statoProtetto() ? null : loadLocalFallback();
     let dataToRestore = saved || localFallback;
     if (typeof CONFIG.onRestore === 'function') {
       try {
@@ -358,6 +370,8 @@ async function loadAndRestore() {
       }
     }
     restoreData(dataToRestore);
+    restoreCompleted = true;
+    applicaStatoArea();
   } catch (error) {
     console.error('Errore caricamento progressi:', error);
   }
@@ -391,7 +405,11 @@ document.addEventListener('click', async (event) => {
     const originalText = button.textContent;
     button.textContent = '⏳ Salvataggio...';
     try {
+      if (!restoreCompleted && Progress.statoProtetto()) {
+        throw Object.assign(new Error('lavoro non ancora caricato'), { hint: 'rete', protetto: true });
+      }
       await Progress.save(payload, PAGE_PATH);
+      if (Progress.statoProtetto()) AreaAlunni.scartaBozza(PAGE_PATH);
       lastAutoSave = Date.now();
       try {
         lastSavedSnapshot = JSON.stringify(payload);
@@ -400,6 +418,15 @@ document.addEventListener('click', async (event) => {
       }
       alert('Progressi salvati!');
     } catch (error) {
+      if (error && error.protetto) {
+        alert(gestisciErroreArea(error, payload));
+        return;
+      }
+      if (error && /lavoro protetto/.test(error.message || '')) {
+        alert('Questo lavoro ora si apre da «I miei lavori» con il tuo codice personale. Le risposte non sono state salvate online.');
+        saveLocalFallback(payload);
+        return;
+      }
       const savedLocally = saveLocalFallback(payload);
       const msg = savedLocally
         ? 'Salvataggio remoto non disponibile, dati salvati in locale sul browser.'
@@ -414,6 +441,15 @@ document.addEventListener('click', async (event) => {
 // pulsante cambio studente
 document.addEventListener('click', (event) => {
   if (event.target.matches('#resetStudent')) {
+    if (Progress.statoProtetto() || AreaAlunni.eraAttiva()) {
+      // In area protetta il pulsante chiude la sessione personale e torna all'ingresso.
+      if (confirm('Vuoi uscire da «I miei lavori» su questo dispositivo?')) {
+        restoreCompleted = false;
+        svuotaCampi();
+        AreaAlunni.esci().finally(() => { location.replace(areaUrl()); });
+      }
+      return;
+    }
     if (confirm('Vuoi cambiare studente?')) {
       if (typeof Progress?.clearSuperSession === 'function') {
         Progress.clearSuperSession();
@@ -426,6 +462,143 @@ document.addEventListener('click', (event) => {
     }
   }
 });
+
+// ── Area «I miei lavori»: etichetta, avvisi, sola lettura, bozza della scheda ──
+function areaUrl() {
+  return HOME_URL.replace(/index\.html$/, '') + 'area_alunni.html';
+}
+
+function mostraAvviso(testo, azioni = []) {
+  if (!document.body) return;
+  if (!avvisoElement) {
+    avvisoElement = document.createElement('div');
+    avvisoElement.id = 'mo-area-avviso';
+    avvisoElement.setAttribute('role', 'status');
+    avvisoElement.style.cssText = 'position:sticky;top:0;z-index:10000;background:#17385a;color:#fff;padding:10px 16px;font:15px/1.4 system-ui,sans-serif;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.2);';
+    document.body.prepend(avvisoElement);
+  }
+  avvisoElement.replaceChildren();
+  const p = document.createElement('span');
+  p.textContent = testo;
+  avvisoElement.append(p);
+  for (const azione of azioni) {
+    const el = document.createElement(azione.href ? 'a' : 'button');
+    el.textContent = azione.testo;
+    el.style.cssText = 'background:#fff;color:#17385a;border:0;border-radius:8px;padding:6px 12px;font:inherit;font-weight:600;cursor:pointer;text-decoration:none;';
+    if (azione.href) el.href = azione.href;
+    else { el.type = 'button'; el.addEventListener('click', azione.click); }
+    avvisoElement.append(el);
+  }
+  avvisoElement.hidden = false;
+}
+
+function nascondiAvviso() {
+  if (avvisoElement) avvisoElement.hidden = true;
+}
+
+function rientro() {
+  try { sessionStorage.setItem('mo:alunno-ritorno', location.pathname); } catch { }
+  return areaUrl();
+}
+
+function bloccaCampi() {
+  document.querySelectorAll(INPUT_SELECTOR).forEach(el => {
+    if (el.type !== 'hidden') el.setAttribute('readonly', '');
+    if (el instanceof HTMLSelectElement || el.type === 'radio' || el.type === 'checkbox') el.disabled = true;
+  });
+  if (saveBtnElement) saveBtnElement.style.display = 'none';
+}
+
+// Su un dispositivo condiviso le risposte non devono riapparire col tasto Indietro.
+function nonMemorizzareCampi() {
+  document.querySelectorAll(INPUT_SELECTOR).forEach(el => el.setAttribute('autocomplete', 'off'));
+  document.querySelectorAll('form').forEach(f => f.setAttribute('autocomplete', 'off'));
+}
+
+function svuotaCampi() {
+  document.querySelectorAll(INPUT_SELECTOR).forEach(el => {
+    if (el.type === 'radio' || el.type === 'checkbox') el.checked = false;
+    else if (el instanceof HTMLSelectElement) el.selectedIndex = -1;
+    else if (el.type !== 'hidden' && el.type !== 'button' && el.type !== 'submit') el.value = '';
+  });
+}
+
+function applicaStatoArea() {
+  const stato = Progress.statoProtetto();
+  if (!stato) return;
+  nonMemorizzareCampi();
+  const profilo = AreaAlunni.profiloSalvato();
+  if (studentLabel) {
+    studentLabel.textContent = profilo
+      ? `I miei lavori · ${profilo.pseudonimo}${profilo.classe ? ` · ${profilo.classe}` : ''}`
+      : 'I miei lavori';
+  }
+  if (resetBtnElement) resetBtnElement.textContent = 'Esci';
+  if (stato.stato === 'sessione') {
+    mostraAvviso('La sessione di «I miei lavori» è scaduta: rientra con il tuo codice per riprendere e salvare.',
+      [{ testo: 'Rientra', href: rientro() }]);
+    bloccaCampi();
+    return;
+  }
+  if (stato.stato === 'rete') {
+    mostraAvviso('Non riesco a raggiungere il sito dei salvataggi. Il lavoro non è stato caricato: ricarica la pagina quando la rete torna.',
+      [{ testo: 'Ricarica', click: () => location.reload() }]);
+    bloccaCampi();
+    return;
+  }
+  if (stato.stato === 'in_verifica') {
+    mostraAvviso('Su questa attività c’è un lavoro salvato prima dell’accesso personale: il docente deve confermarlo. Per ora le risposte non si salvano.',
+      [{ testo: 'I miei lavori', href: areaUrl() }]);
+    bloccaCampi();
+    return;
+  }
+  if (stato.stato === 'non_iscritto') {
+    mostraAvviso('Per quest’anno scolastico non risulti ancora in una classe: puoi consultare i lavori, ma non salvarne di nuovi. Avvisa il docente.',
+      [{ testo: 'I miei lavori', href: areaUrl() }]);
+    bloccaCampi();
+    return;
+  }
+  if (!stato.modificabile) {
+    const anno = Number.isInteger(stato.schoolYear) ? ` del ${stato.schoolYear}/${String((stato.schoolYear + 1) % 100).padStart(2, '0')}` : '';
+    mostraAvviso(`Stai rileggendo un lavoro${anno}: è in sola lettura.`, [{ testo: 'I miei lavori', href: areaUrl() }]);
+    bloccaCampi();
+    return;
+  }
+  const bozza = AreaAlunni.leggiBozza(PAGE_PATH);
+  if (bozza) {
+    mostraAvviso('In questa scheda ci sono risposte che non erano arrivate al sito. Vuoi recuperarle?', [
+      // La bozza resta finché un salvataggio non riesce: recuperarla non basta a perderla.
+      { testo: 'Recupera', click: () => { restoreData(bozza.data); nascondiAvviso(); scheduleAutoSave('bozza'); } },
+      { testo: 'Scarta', click: () => { AreaAlunni.scartaBozza(PAGE_PATH); nascondiAvviso(); } }
+    ]);
+  } else {
+    nascondiAvviso();
+  }
+}
+
+function gestisciErroreArea(error, payload) {
+  const hint = error && error.hint;
+  if (hint === 'conflitto') {
+    AreaAlunni.salvaBozza(PAGE_PATH, payload);
+    mostraAvviso('Questo lavoro è stato salvato da un’altra scheda o da un altro dispositivo. Ricarica per vedere l’ultima versione: le risposte di questa scheda restano recuperabili.',
+      [{ testo: 'Ricarica', click: () => location.reload() }]);
+    return 'Non salvato: il lavoro è stato modificato altrove. Ricarica la pagina.';
+  }
+  if (hint === 'rete') {
+    AreaAlunni.salvaBozza(PAGE_PATH, payload);
+    mostraAvviso('Rete non raggiungibile: le risposte NON sono ancora salvate online. Riprova fra poco.');
+    return 'Non salvato: rete non raggiungibile. Le risposte restano in questa scheda.';
+  }
+  if (hint === 'sessione' || hint === 'non_disponibile') {
+    AreaAlunni.salvaBozza(PAGE_PATH, payload);
+    applicaStatoArea();
+    return 'Non salvato: la sessione è scaduta. Rientra da «I miei lavori» per recuperare le risposte.';
+  }
+  applicaStatoArea();
+  return 'Non salvato: questo lavoro al momento non si può modificare.';
+}
+
+window.addEventListener('mo:area-alunni', () => applicaStatoArea());
 
 // Aggiorna UI quando cambia identità
 window.addEventListener('mo:identity-change', (event) => {

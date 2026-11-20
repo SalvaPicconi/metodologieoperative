@@ -1,0 +1,125 @@
+/* Pagina «I miei lavori»: stessa veste del sito (token di style.css), pochi componenti. */
+.area-alunni [hidden] { display: none !important; }
+.area-alunni main { padding: 2rem 0 3rem; }
+.aa-container { max-width: 760px; }
+
+.area-alunni h1 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    color: var(--color-primary);
+    font-size: clamp(2rem, 6vw, 2.6rem);
+    line-height: 1.1;
+    margin-bottom: .5rem;
+}
+.area-alunni h2 { font-size: 1.15rem; color: var(--color-primary); margin: 0 0 .75rem; }
+
+.aa-lead { color: var(--color-ink); font-size: 1.08rem; max-width: 34em; margin-bottom: 1.5rem; }
+.aa-nota { color: var(--color-ink-soft); font-size: .95rem; margin: .35rem 0 0; }
+.aa-privacy { margin-top: 1.25rem; }
+
+.aa-form {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    display: grid;
+    gap: .5rem;
+    max-width: 30rem;
+}
+.aa-form label { font-weight: 700; color: var(--color-primary); }
+.aa-form input {
+    font: 600 1.25rem/1.2 ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: .7rem .8rem;
+    border: 2px solid var(--color-line);
+    border-radius: var(--radius-md);
+    width: 100%;
+    color: var(--color-ink);
+    background: #fff;
+}
+.aa-form input::placeholder { color: #9aa3ad; letter-spacing: .04em; }
+.aa-errore { color: var(--color-accent-dark); font-weight: 600; min-height: 1.4em; margin: 0; }
+
+.aa-primario, .aa-secondario, .aa-esci, .aa-azione {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: .55rem 1.1rem;
+    border-radius: var(--radius-md);
+    font: 700 1rem/1.2 var(--font-body);
+    text-decoration: none;
+    cursor: pointer;
+}
+.aa-primario { background: var(--color-accent); color: #fff; border: 0; justify-self: start; }
+.aa-primario:hover { background: var(--color-accent-dark); }
+.aa-primario:disabled { opacity: .7; cursor: progress; }
+.aa-secondario { background: var(--color-primary-tint); color: var(--color-primary); border: 0; }
+.aa-esci { background: #fff; color: var(--color-primary); border: 2px solid var(--color-primary); }
+.aa-azione { background: var(--color-primary); color: #fff; border: 0; white-space: nowrap; }
+.aa-azione-lettura { background: #fff; color: var(--color-primary); border: 2px solid var(--color-primary); }
+
+.area-alunni :focus-visible { outline: 3px solid var(--color-rosa); outline-offset: 2px; }
+
+.aa-testa { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; }
+.aa-testa h1:focus { outline: none; }
+.aa-classe { color: var(--color-ink-soft); margin: 0 0 1.25rem; }
+.aa-stato {
+    background: var(--color-primary-tint);
+    color: var(--color-primary);
+    border-radius: var(--radius-md);
+    padding: .75rem 1rem;
+    margin: 0 0 1rem;
+}
+
+.aa-riprendi {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-left: 6px solid var(--color-rosa);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 1.25rem 1rem;
+    margin-bottom: 1.75rem;
+    display: grid;
+    gap: .35rem;
+}
+.aa-etichetta { text-transform: uppercase; letter-spacing: .08em; font-size: .78rem; font-weight: 700; color: var(--color-accent); margin: 0; }
+.aa-riprendi-nome { font-family: var(--font-display); font-size: 1.45rem; line-height: 1.2; color: var(--color-primary); margin: 0; }
+.aa-riprendi-data { color: var(--color-ink-soft); margin: 0 0 .5rem; }
+.aa-parole { margin: .6rem 0 0; padding-top: .6rem; border-top: 1px dashed var(--color-line); color: var(--color-ink); font-size: .98rem; }
+
+.aa-vuoto {
+    background: var(--color-surface);
+    border: 1px dashed var(--color-line);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    display: grid;
+    gap: .75rem;
+    justify-items: start;
+}
+.aa-vuoto-testo { margin: 0; font-size: 1.05rem; }
+
+.aa-anno { margin-bottom: 1.25rem; }
+.aa-anno h3, .aa-anno summary { font-size: 1rem; font-weight: 700; color: var(--color-primary); margin: 0 0 .5rem; }
+.aa-anno summary { cursor: pointer; padding: .4rem 0; }
+.aa-elenco { list-style: none; margin: .5rem 0 0; padding: 0; display: grid; gap: .5rem; }
+.aa-lavoro {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem 1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: .75rem .9rem;
+}
+.aa-lavoro-nome { font-weight: 700; margin: 0; color: var(--color-ink); }
+.aa-lavoro-info { margin: .15rem 0 0; color: var(--color-ink-soft); font-size: .92rem; }
+.aa-lavoro-nota { color: var(--color-ink-soft); font-size: .9rem; }
+
+@media (max-width: 520px) {
+    .area-alunni main { padding-top: 1.25rem; }
+    .aa-lavoro { flex-direction: column; align-items: stretch; }
+    .aa-azione { width: 100%; }
+    .aa-esci { min-width: 6rem; }
+}

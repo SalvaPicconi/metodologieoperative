@@ -492,6 +492,12 @@ function renderDashboard() {
     if (dashboardState.view === 'students') renderStudents(records);
     if (dashboardState.view === 'codes') renderCodeReview();
     if (dashboardState.view === 'stroop') renderStroop(code);
+    // Il pannello «Accessi alunni» vive in assets/area-alunni-docente.js e si disegna da sé.
+    if (dashboardState.view === 'accessi') {
+        window.dispatchEvent(new CustomEvent('mo:docente-accessi', {
+            detail: { classCode: code, schoolYear: selectedSchoolYear() }
+        }));
+    }
 }
 
 function renderClassList(classes) {

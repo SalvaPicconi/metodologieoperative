@@ -9,7 +9,16 @@
 (function () {
     if (window.MODocente) return;
 
-    const RPC_URL = 'https://ruplzgcnheddmqqdephp.supabase.co/rest/v1/rpc/';
+    // Solo su localhost si può puntare a un backend di collaudo (chiave mo:api-locale); mai in produzione.
+    const RPC_URL = (function () {
+        try {
+            const host = window.location.hostname;
+            const locale = window.localStorage.getItem('mo:api-locale');
+            if ((host === 'localhost' || host === '127.0.0.1') && locale
+                && /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(locale)) return locale + '/rest/v1/rpc/';
+        } catch { }
+        return 'https://ruplzgcnheddmqqdephp.supabase.co/rest/v1/rpc/';
+    })();
     const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1cGx6Z2NuaGVkZG1xcWRlcGhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAxMTYyMjksImV4cCI6MjA3NTY5MjIyOX0.tOLIkgi5yTt61_0rMlXUqxnbil4DLD7kBaqZBVAv1CI';
     const TOKEN_KEY = 'mo:docente-token';
     const VECCHIA_SESSIONE = 'mo:docente-session';

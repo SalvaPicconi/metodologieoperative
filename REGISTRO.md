@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-20** · Claude · Preparata in anteprima l’area «I miei lavori»: gli alunni entrano con un codice personale, riprendono i lavori e rileggono quelli degli anni precedenti; nell’Area docente la vista «Accessi alunni» gestisce codici e attribuzione dei lavori già salvati. Migrazione Supabase preparata e collaudata in locale, non applicata; nulla pubblicato. Dettagli in `AREA_ALUNNI.md`. [CLAUDE 2026-11-20 21:12]
+
 - **2026-11-20** · Claude · Nell’Area docente gli abbinamenti dei codici alunni (es. un codice scritto male ricondotto a quello giusto) si salvano nel database e valgono da ogni computer e dalla LIM; quelli già fatti in un browser si trasferiscono alla prima apertura. (commit di questa voce)
 
 - **2026-11-20** · Codex · Nell’Area docente, l’anno scolastico ha un selettore proprio e le classi si raccolgono per anno di corso, dalla prima alla quinta. La revisione è in anteprima. [GPT 2026-11-20 14:48]

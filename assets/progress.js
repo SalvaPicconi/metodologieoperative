@@ -1,4 +1,7 @@
-const SUPABASE_URL = "https://ruplzgcnheddmqqdephp.supabase.co";
+import { AreaAlunni, apiBase } from './alunni-sessione.js?v=20261121';
+
+// In produzione è sempre il progetto Supabase del sito; solo su localhost può puntare a un collaudo.
+const SUPABASE_URL = apiBase();
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1cGx6Z2NuaGVkZG1xcWRlcGhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAxMTYyMjksImV4cCI6MjA3NTY5MjIyOX0.tOLIkgi5yTt61_0rMlXUqxnbil4DLD7kBaqZBVAv1CI";
 
 class ProgressStore {
@@ -552,6 +555,50 @@ export const Progress = (() => {
   const store = new ProgressStore({ url: SUPABASE_URL, key: SUPABASE_ANON_KEY });
   let identityPromise = null;
 
+  // ── Area «I miei lavori» ────────────────────────────────────────────────
+  // Con una sessione personale nella scheda e la pagina abilitata, il lavoro si carica e si salva
+  // solo dal profilo dell'alunno; classe e codice storici non servono e non si chiedono.
+  // Fuori dal perimetro (pagina non abilitata) resta il flusso storico, invariato.
+  let protetto = null;
+  let attesaProtetto = null;
+
+  function erroreProtetto(motivo, messaggio) {
+    const errore = new Error(messaggio || motivo);
+    errore.hint = motivo;
+    errore.protetto = true;
+    return errore;
+  }
+
+  function notificaProtetto() {
+    try {
+      window.dispatchEvent(new CustomEvent('mo:area-alunni', { detail: protetto ? { ...protetto } : null }));
+    } catch { }
+  }
+
+  async function caricaProtetto(normalizedPath) {
+    let risposta;
+    try {
+      risposta = await AreaAlunni.apri(normalizedPath);
+    } catch (errore) {
+      protetto = {
+        stato: errore.hint === 'rete' ? 'rete' : 'sessione',
+        modificabile: false, versione: null, path: normalizedPath
+      };
+      notificaProtetto();
+      return null;
+    }
+    if (!risposta || risposta.stato === 'pagina_non_abilitata') return undefined;
+    protetto = {
+      stato: risposta.stato,
+      versione: risposta.versione || null,
+      modificabile: Boolean(risposta.modificabile),
+      schoolYear: risposta.school_year,
+      path: normalizedPath
+    };
+    notificaProtetto();
+    return risposta.data || null;
+  }
+
   async function ensureIdentity() {
     if (superIdentity) {
       return superIdentity;
@@ -569,6 +616,16 @@ export const Progress = (() => {
   // ✅ MODIFICATO: Usa path normalizzato
   async function load(pagePath = location.pathname) {
     const normalizedPath = normalizePath(pagePath);
+    if (!superIdentity && AreaAlunni.attiva()) {
+      attesaProtetto = caricaProtetto(normalizedPath);
+      const dati = await attesaProtetto;
+      if (dati !== undefined) return dati;
+    } else if (!superIdentity && AreaAlunni.eraAttiva()) {
+      // Sessione personale scaduta in questa scheda: niente ripiego automatico sul vecchio accesso.
+      protetto = { stato: 'sessione', modificabile: false, versione: null, path: normalizedPath };
+      notificaProtetto();
+      return null;
+    }
     const id = await ensureIdentity();
     if (!id || id.isGuest) {
       console.log('[Progress] 📥 Modalità ospite attiva: caricamento remoto disabilitato.');
@@ -627,6 +684,30 @@ export const Progress = (() => {
   // ✅ MODIFICATO: Usa path normalizzato e log migliorati
   async function save(data, pagePath = location.pathname) {
     const normalizedPath = normalizePath(pagePath);
+    if (attesaProtetto) {
+      try { await attesaProtetto; } catch { }
+    }
+    if (protetto && protetto.path === normalizedPath) {
+      if (!protetto.modificabile) throw erroreProtetto(protetto.stato);
+      try {
+        const esito = await AreaAlunni.salva(normalizedPath, data, protetto.versione);
+        protetto.versione = esito && esito.versione ? esito.versione : protetto.versione;
+        protetto.stato = 'in_corso';
+        return esito;
+      } catch (errore) {
+        if (errore.hint === 'sessione' || errore.hint === 'non_disponibile' || errore.hint === 'iscrizione'
+            || errore.hint === 'in_verifica' || errore.hint === 'pagina') {
+          protetto.modificabile = false;
+          protetto.stato = errore.hint === 'non_disponibile' ? 'sessione' : errore.hint;
+          notificaProtetto();
+        }
+        errore.protetto = true;
+        throw errore;
+      }
+    }
+    if (!superIdentity && AreaAlunni.eraAttiva()) {
+      throw erroreProtetto('sessione');
+    }
     const id = await ensureIdentity();
     if (!id || id.isGuest) {
       console.log('[Progress] ⚠️ Modalità ospite: salvataggio remoto saltato.');
@@ -653,7 +734,11 @@ export const Progress = (() => {
     }
   }
 
-  return { load, save, clearSuperSession };
+  function statoProtetto() {
+    return protetto ? { ...protetto } : null;
+  }
+
+  return { load, save, clearSuperSession, statoProtetto };
 })();
 
 // ✅ Esponi funzioni di debug globalmente

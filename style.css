@@ -3782,3 +3782,14 @@ body > #saveProgressBtn {
 @media (max-width: 600px) {
     .mat-gruppo--titolato { padding: 1rem 0.8rem 1.1rem; }
 }
+
+/* Accesso a «I miei lavori» dalla home · 2026-11-21 */
+.home-miei-lavori { margin: 1rem 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .9rem; }
+.home-miei-lavori a {
+    display: inline-flex; align-items: center; gap: .4rem; min-height: 44px; padding: .55rem 1.1rem;
+    background: var(--color-accent); color: #fff; border-radius: var(--radius-md);
+    font-weight: 700; text-decoration: none;
+}
+.home-miei-lavori a:hover { background: var(--color-accent-dark); }
+.home-miei-lavori a:focus-visible { outline: 3px solid var(--color-rosa); outline-offset: 2px; }
+.home-miei-lavori span:not([aria-hidden]) { color: var(--color-ink-soft); font-size: .95rem; }
