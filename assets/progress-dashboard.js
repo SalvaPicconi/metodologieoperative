@@ -34,6 +34,7 @@ const dashboardState = {
     mode: 'classes',
     activity: '',
     codeLinks: new Map(),
+    codeLinkEntries: [],
     classCode: '',
     view: 'activities',
     renderedClass: '',
@@ -94,12 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
         renderComparison();
     });
     byId('dashboard-code-editor').addEventListener('submit', saveCodeLink);
-    window.addEventListener('storage', event => {
-        if (event.key === CODE_LINKS_STORAGE && dashboardState.ready) {
-            dashboardState.codeLinks = resolveCodeLinks();
-            renderDashboard();
-        }
-    });
     byId('docente-cambia-password').addEventListener('click', cambiaPasswordDocente);
     byId('docente-esci').addEventListener('click', () => {
         window.MODocente.esci();
@@ -174,6 +169,7 @@ function mostraAccesso(messaggio) {
     dashboardState.assessments = [];
     dashboardState.progressIndex.clear();
     dashboardState.codeLinks.clear();
+    dashboardState.codeLinkEntries = [];
     dashboardState.mode = 'classes';
     dashboardState.activity = '';
     byId('dashboard-activity-picker').replaceChildren();
@@ -242,10 +238,11 @@ async function refreshDashboard() {
     const initial = !dashboardState.ready;
     if (initial) renderDashboard();
     try {
-        const [progress, stroop, titles] = await Promise.all([
+        const [progress, stroop, titles, codeLinks] = await Promise.all([
             fetchProgressData(),
             fetchAssessmentData(),
-            initial ? fetchActivityTitles() : dashboardState.titles
+            initial ? fetchActivityTitles() : dashboardState.titles,
+            fetchCodeLinks()
         ]);
         if (session !== dashboardState.session) return;
 
@@ -255,12 +252,18 @@ async function refreshDashboard() {
         dashboardState.assessmentUnavailable = stroop === null;
         dashboardState.titles = titles;
         dashboardState.progressIndex = new Map(dashboardState.records.map(entry => [String(entry.id), entry]));
+        dashboardState.codeLinkEntries = codeLinks;
         dashboardState.codeLinks = resolveCodeLinks();
         dashboardState.assessmentIndex = new Map(dashboardState.assessments.map(entry => [String(entry.id), entry]));
         dashboardState.limits = [];
         if (records.length >= PROGRESS_LIMIT) dashboardState.limits.push(`${PROGRESS_LIMIT} salvataggi`);
         if (dashboardState.assessments.length >= ASSESSMENT_LIMIT) dashboardState.limits.push(`${ASSESSMENT_LIMIT} test Stroop`);
         dashboardState.ready = true;
+        if (await uploadLocalCodeLinks(session)) {
+            dashboardState.codeLinkEntries = await fetchCodeLinks();
+            dashboardState.codeLinks = resolveCodeLinks();
+        }
+        if (session !== dashboardState.session) return;
         renderPeriods();
         renderDashboard();
         elements.lastRefresh.textContent = `Aggiornato alle ${new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Rome' })}`;
@@ -578,16 +581,61 @@ function renderStudents(records) {
     }).join('') : emptyMessage(search ? 'Nessun alunno corrisponde alla ricerca.' : 'Nessun alunno individuato dai salvataggi della classe.');
 }
 
+// Gli abbinamenti dei codici stanno in Supabase (supabase/docente-abbinamenti.sql), protetti dalla
+// sessione docente, e valgono da ogni dispositivo. Fino al 20 novembre 2026 stavano solo nel browser
+// (chiave qui sotto): alla prima apertura quelli locali si caricano nel database e la chiave si svuota.
 const CODE_LINKS_STORAGE = 'mo:docente-code-links';
 
+function validCodeLink(entry) {
+    return typeof entry?.from === 'string' && typeof entry?.to === 'string' &&
+        typeof entry?.year === 'string' && typeof entry?.classCode === 'string';
+}
+
 function readCodeLinks() {
+    return dashboardState.codeLinkEntries;
+}
+
+async function fetchCodeLinks() {
     try {
-        const entries = JSON.parse(localStorage.getItem(CODE_LINKS_STORAGE) || '[]');
-        return Array.isArray(entries) ? entries.filter(entry => typeof entry?.from === 'string' &&
-            typeof entry?.to === 'string' && typeof entry?.year === 'string' && typeof entry?.classCode === 'string') : [];
-    } catch {
+        const rows = await window.MODocente.chiama('docente_abbinamenti_elenco', {});
+        return (rows || []).map(row => ({ year: String(row.anno), classCode: String(row.class_code),
+            from: String(row.da_id), to: String(row.a_id) })).filter(validCodeLink);
+    } catch (error) {
+        if (error?.code === '42501') throw error;
+        console.warn('Abbinamenti dei codici non disponibili:', error);
         return [];
     }
+}
+
+async function uploadLocalCodeLinks(session) {
+    let local = [];
+    try {
+        local = JSON.parse(localStorage.getItem(CODE_LINKS_STORAGE) || '[]');
+    } catch {
+        return false;
+    }
+    if (!Array.isArray(local) || !local.length) return false;
+    const known = new Set(dashboardState.codeLinkEntries.map(entry => JSON.stringify([entry.year, entry.classCode, entry.from])));
+    let uploaded = false;
+    try {
+        for (const entry of local.filter(validCodeLink)) {
+            if (session !== dashboardState.session) return false;
+            if (!/^\d{4}$/.test(entry.year) || known.has(JSON.stringify([entry.year, entry.classCode, entry.from]))) continue;
+            try {
+                await window.MODocente.chiama('docente_abbinamento_aggiungi', {
+                    p_anno: entry.year, p_class_code: entry.classCode, p_da: entry.from, p_a: entry.to
+                });
+                uploaded = true;
+            } catch (error) {
+                if (error?.code === '42501') throw error;
+                if (error?.code !== 'P0002') return uploaded; // si riprova alla prossima apertura
+            }
+        }
+        localStorage.removeItem(CODE_LINKS_STORAGE);
+    } catch (error) {
+        if (error?.code === '42501') throw error;
+    }
+    return uploaded;
 }
 
 function codeKey(code) {
@@ -706,15 +754,23 @@ function reviewCodePair(button) {
     byId('dashboard-code-status').textContent = pair ? 'Scegli quale codice è stato digitato per errore e a quale attribuire i lavori.' : '';
 }
 
-function persistCodeLinks(links, message) {
+async function persistCodeLink(action, args, message) {
+    const status = byId('dashboard-code-status');
+    status.textContent = 'Salvataggio…';
     try {
-        localStorage.setItem(CODE_LINKS_STORAGE, JSON.stringify(links));
-        dashboardState.codeLinks = resolveCodeLinks(links);
+        await window.MODocente.chiama(action, args);
+        dashboardState.codeLinkEntries = await fetchCodeLinks();
+        dashboardState.codeLinks = resolveCodeLinks();
         renderDashboard();
         byId('dashboard-codes-title').focus();
         byId('dashboard-code-status').textContent = message;
-    } catch {
-        byId('dashboard-code-status').textContent = 'Il browser ha impedito il salvataggio. Abbina i codici da un browser che consenta i dati locali.';
+    } catch (error) {
+        if (error?.code === '42501') {
+            window.MODocente.esci();
+            mostraAccesso('Sessione docente scaduta: inserisci di nuovo la password.');
+            return;
+        }
+        status.textContent = 'Abbinamento non salvato: controlla la connessione e riprova.';
     }
 }
 
@@ -730,8 +786,7 @@ function saveCodeLink(event) {
         status.textContent = 'Scegli due codici diversi della classe.';
         return;
     }
-    const entries = readCodeLinks();
-    const resolved = resolveCodeLinks(entries);
+    const resolved = resolveCodeLinks();
     if (resolved.has(codeScope(from)) || resolved.has(codeScope(to)) ||
         [...resolved.values()].some(link => link.year === year && link.classCode === classCode &&
             codeKey(link.target) === codeKey(from.student_code))) {
@@ -740,14 +795,15 @@ function saveCodeLink(event) {
         status.textContent = 'Uno dei codici ha già un abbinamento. Controlla gli abbinamenti confermati.';
         return;
     }
-    entries.push({ year, classCode, from: String(from.id), to: String(to.id) });
-    persistCodeLinks(entries, `Lavori di ${from.student_code} abbinati a ${to.student_code}.`);
+    persistCodeLink('docente_abbinamento_aggiungi',
+        { p_anno: year, p_class_code: classCode, p_da: String(from.id), p_a: String(to.id) },
+        `Lavori di ${from.student_code} abbinati a ${to.student_code}. L’abbinamento vale da ogni dispositivo.`);
 }
 
 function undoCodeLink(id) {
-    const links = readCodeLinks().filter(entry => entry.from !== id ||
-        entry.year !== selectedSchoolYear() || entry.classCode !== dashboardState.classCode);
-    persistCodeLinks(links, 'Abbinamento annullato.');
+    persistCodeLink('docente_abbinamento_rimuovi',
+        { p_anno: selectedSchoolYear(), p_class_code: dashboardState.classCode, p_da: id },
+        'Abbinamento annullato.');
 }
 
 function canOpenWork(record) {

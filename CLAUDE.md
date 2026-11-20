@@ -152,6 +152,9 @@ sessione ottenuta dalla password (`assets/docente-accesso.js`, funzioni `progres
 `assets/progress-global.js` con lo stesso `?v=`; una pagina che mostra le risposte della classe
 include `assets/docente-accesso.js` e chiama `MODocente.chiama(...)`. Nel codice delle pagine non va
 mai una password né la sua impronta. Schema e ragioni in `supabase/progress-protezione.sql`.
+Gli abbinamenti dei codici alunni dell'Area docente («Verifica codici») stanno nella tabella privata
+`docente_abbinamenti`, raggiungibile solo con le funzioni `docente_abbinament*` e la sessione docente:
+valgono da ogni dispositivo (`supabase/docente-abbinamenti.sql`).
 
 ---
 
