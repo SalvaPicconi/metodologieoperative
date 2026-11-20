@@ -355,6 +355,10 @@ function yearLabel(year) {
     return year === 'undated' ? 'Anno scolastico non rilevabile' : `${year}/${Number(year) + 1}`;
 }
 
+function classYearLabel(year) {
+    return year === 'undated' ? yearLabel(year) : `Anno scolastico ${yearLabel(year)}`;
+}
+
 function selectedSchoolYear() {
     return dashboardState.period === 'recent' ? currentSchoolYear() : dashboardState.period;
 }
@@ -442,8 +446,7 @@ function renderDashboard() {
     const activities = groupBy(records, record => record.page_path || record.original_path);
     const studentCount = new Set(records.filter(record => record.student_code).map(studentKey)).size;
     byId('dashboard-class-title').textContent = code === UNKNOWN_CLASS ? code : `Classe ${code}`;
-    const year = selectedSchoolYear();
-    byId('dashboard-class-year').textContent = year === 'undated' ? yearLabel(year) : `Anno scolastico ${yearLabel(year)}`;
+    byId('dashboard-class-year').textContent = classYearLabel(selectedSchoolYear());
     byId('dashboard-stats').innerHTML = [
         ['Alunni con lavori nel periodo', studentCount],
         ['Attività con salvataggi', activities.size],
@@ -472,6 +475,7 @@ function renderClassList(classes) {
 
     const periodRecords = groupBy(periodProgress(), record => record.class_code);
     const periodTests = groupBy(dashboardState.assessments.filter(entry => matchesPeriod(entry.created_at)), entry => entry.classCode);
+    const year = escapeHtml(classYearLabel(selectedSchoolYear()));
     elements.classList.innerHTML = `<ul class="docente-class-grid">${[...classes].sort(collator.compare).map(code => {
         const records = periodRecords.get(code) || [];
         const tests = periodTests.get(code) || [];
@@ -482,6 +486,7 @@ function renderClassList(classes) {
         const label = code === UNKNOWN_CLASS ? code : `Classe ${code}`;
         return `<li><button class="docente-class-card" type="button" data-select-class="${escapeHtml(code)}">
             <strong>${escapeHtml(label)}</strong>
+            <span class="docente-card-year">${year}</span>
             <span>${students} ${students === 1 ? 'alunno' : 'alunni'} con lavori <span aria-hidden="true">·</span> ${activities} attività</span>
             ${tests.length ? `<span>${tests.length} test Stroop</span>` : ''}
             <span class="docente-card-date">${lastDate ? `Ultimo dato ${formatShortDate(lastDate)}` : 'Nessun dato nel periodo'}</span>
@@ -778,12 +783,14 @@ function renderComparison() {
         ['Avanzamento medio', stats => stats.average === null ? '—' : `${stats.average}%`],
         ['Al 100%', stats => stats.measured ? stats.complete : '—']
     ];
+    const year = escapeHtml(classYearLabel(selectedSchoolYear()));
     const rows = classes.map(([code, entries]) => {
         const stats = activityStats(entries);
         const cells = columns.map(([label, getValue]) => `<td role="cell">
             <span class="docente-mobile-label" aria-hidden="true">${label}</span>
             <strong>${getValue(stats)}</strong></td>`).join('');
-        return `<tr role="row"><th scope="row" role="rowheader">${escapeHtml(code)}</th>${cells}</tr>`;
+        return `<tr role="row"><th scope="row" role="rowheader">${escapeHtml(code)}
+            <span class="docente-row-year">${year}</span></th>${cells}</tr>`;
     }).join('');
     list.innerHTML = `
         <h3>Riepilogo per classe</h3>
@@ -796,7 +803,7 @@ function renderComparison() {
         ${classes.length === 1 ? '<p class="docente-muted">Una sola classe ha lavori salvati per questa attività nel periodo.</p>' : ''}
         <h3>Lavori per classe</h3>
         ${classes.map(([code, entries]) => `<details class="docente-disclosure" data-comparison-class="${escapeHtml(code)}"${open.has(code) ? ' open' : ''}>
-            <summary><strong>Classe ${escapeHtml(code)}</strong></summary>
+            <summary><span class="docente-item-label"><strong>Classe ${escapeHtml(code)}</strong><span>${year}</span></span></summary>
             <ul class="docente-work-list">${[...entries].sort((a, b) => collator.compare(attributedCode(a), attributedCode(b)))
                 .map(record => renderWork(record, 'student')).join('')}</ul>
         </details>`).join('')}`;
@@ -1013,7 +1020,7 @@ function buildProgressDetail(entry) {
     const activity = formatActivityName(entry.page_path || entry.original_path);
     return `
         <h2>${escapeHtml(activity)}</h2>
-        <p class="docente-muted">${escapeHtml(entry.class_code)} · ${escapeHtml(attributedCode(entry) || 'Senza codice')}
+        <p class="docente-muted">${escapeHtml(entry.class_code)} · ${escapeHtml(classYearLabel(entry.year))} · ${escapeHtml(attributedCode(entry) || 'Senza codice')}
             ${attributedCode(entry) !== entry.student_code ? `(salvato come ${escapeHtml(entry.student_code)})` : ''} · ${formatDateTime(entry.updated_at)}</p>
         <h3>Risposte salvate</h3>
         ${formatProgressData(entry.data)}

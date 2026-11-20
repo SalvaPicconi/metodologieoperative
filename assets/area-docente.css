@@ -191,6 +191,12 @@
     font-size: .92rem;
 }
 
+.docente-class-card .docente-card-year {
+    color: var(--color-primary);
+    font-weight: 700;
+    margin-bottom: .25rem;
+}
+
 .docente-class-card .docente-card-date {
     margin-top: .2rem;
 }
@@ -637,6 +643,14 @@
     .docente-comparison-table tbody tr:last-child > * {
         border-bottom: 0;
     }
+}
+
+.docente-row-year {
+    display: block;
+    margin-top: .15rem;
+    color: var(--doc-muted);
+    font-size: .87rem;
+    font-weight: 400;
 }
 
 .docente-mobile-label {

@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-20** · Codex · Ogni scheda di classe mostra il suo anno scolastico accanto alla sigla; l’anno è visibile anche nel confronto e nel dettaglio degli elaborati. [GPT 2026-11-20 14:17]
+
 - **2026-11-20** · Codex · Pubblicata l’Area docente con monitoraggio per classe e anno, confronto delle attività e verifica dei codici. (commit `29d0afc`; [rilascio Aruba verificato](https://github.com/SalvaPicconi/metodologieoperative/actions/runs/44741788131)) [GPT 2026-11-20 14:12]
 
 - **2026-11-20** · Codex · I lavori online sono conservati per anno scolastico, calcolato dal sistema in ora italiana a partire dal 1° settembre. Migrazione Supabase `20261120045324`: verificati i 385 salvataggi preesistenti; l’Area docente aggiornata legge l’anno registrato nell’anteprima locale. [GPT 2026-11-20 05:55]
