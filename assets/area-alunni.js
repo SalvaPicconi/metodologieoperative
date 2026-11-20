@@ -3,7 +3,7 @@
  * anno scolastico. Identità e permessi stanno nel database (funzioni alunni_*): qui si mostra solo ciò
  * che il server restituisce per la sessione della scheda. Tutto il testo entra nel DOM come testo.
  */
-import { AreaAlunni } from './alunni-sessione.js?v=20261121c';
+import { AreaAlunni } from './alunni-sessione.js?v=20261121d';
 
 const $ = id => document.getElementById(id);
 const formatoData = new Intl.DateTimeFormat('it-IT', {
@@ -335,5 +335,15 @@ window.addEventListener('pageshow', event => {
     if (event.persisted && !AreaAlunni.attiva()) mostraIngresso('');
 });
 
-if (AreaAlunni.attiva()) caricaArea();
-else mostraIngresso('');
+// Se lo studente è già entrato in un'attività con classe e codice, entra direttamente anche qui.
+async function avvio() {
+    if (AreaAlunni.attiva()) return caricaArea();
+    const id = AreaAlunni.identitaAttivita();
+    if (id) {
+        try {
+            if (await AreaAlunni.accedi(id.classe, id.codice) === 'ok') return caricaArea();
+        } catch { }
+    }
+    mostraIngresso('');
+}
+avvio();

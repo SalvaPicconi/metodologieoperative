@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-20** · Claude · Chi è già entrato in un’attività con classe e codice entra direttamente in «I miei lavori»; «Esci» cancella classe e codice dal browser, così sul computer condiviso chi arriva dopo non entra al posto suo. (commit di questa voce) [CLAUDE 2026-11-20 23:30]
+
 - **2026-11-20** · Claude · Le verifiche sommative di biennio, terza e quarta e la verifica sull’intelligenza artificiale si correggono come «L’operatore sociale»: commento per risposta, punti per sezione, voto dalla griglia della verifica, «Salva» riservato e «Mostra all’alunno»; l’alunno vede la correzione in «I miei lavori». Migrazione Supabase `verifiche_correzione` (commit di questa voce). [CLAUDE 2026-11-20 23:10]
 
 - **2026-11-20** · Claude · Nuova area «I miei lavori»: l’alunno entra con classe e codice di sempre, riprende i lavori e rilegge quelli degli anni precedenti; le grafie sbagliate del codice si uniscono da sole. Nell’Area docente la vista «Accessi alunni» mostra le unioni e i casi da decidere. Migrazione Supabase `area_alunni`; commit `ec63118`, [rilascio Aruba verificato](https://github.com/SalvaPicconi/metodologieoperative/actions/runs/44812335688). [CLAUDE 2026-11-20 22:05]

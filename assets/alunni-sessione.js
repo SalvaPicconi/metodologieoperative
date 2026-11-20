@@ -131,6 +131,10 @@ export const AreaAlunni = {
         scrivi(null);
         pulisciBozze();
         try { window.sessionStorage.removeItem(ERA_ATTIVO); } catch { }
+        // Anche classe e codice inseriti nelle attività: sul computer condiviso chi arriva dopo non entra al posto suo.
+        try {
+            for (const k of ['mo:class', 'mo:code']) { window.localStorage.removeItem(k); window.sessionStorage.removeItem(k); }
+        } catch { }
         if (s) {
             try { await rpc('alunni_esci', { p_token: s.token }); } catch { }
         }
@@ -140,6 +144,16 @@ export const AreaAlunni = {
         const p = await chiama('alunni_profilo');
         try { window.sessionStorage.setItem('mo:alunno-profilo', JSON.stringify({ pseudonimo: p.pseudonimo, classe: p.classe })); } catch { }
         return p;
+    },
+
+    // Classe e codice già inseriti in un'attività di questo browser (accesso storico), se ci sono.
+    identitaAttivita() {
+        try {
+            const classe = window.localStorage.getItem('mo:class') || window.sessionStorage.getItem('mo:class');
+            const codice = window.localStorage.getItem('mo:code') || window.sessionStorage.getItem('mo:code');
+            if (classe && codice && !/^ospite$/i.test(codice)) return { classe, codice };
+        } catch { }
+        return null;
     },
 
     profiloSalvato() {
