@@ -4,7 +4,8 @@
 --
 -- Come funziona
 -- - Gli studenti non leggono più la tabella: salvano e caricano solo la propria riga
---   (codice studente + pagina) con public.progress_salva e public.progress_carica.
+--   (anno scolastico corrente + codice studente + pagina) con le stesse funzioni.
+--   Per la separazione degli anni, vedi progress-anno-scolastico.sql.
 -- - Il docente legge tutto solo con una sessione: public.progress_docente_accesso verifica la
 --   password nel database e restituisce un token valido 6 ore; le funzioni progress_docente_*
 --   e stroop_docente_* rispondono solo con un token valido. Nel database resta solo l'hash del token.
@@ -29,6 +30,7 @@
 --   progress_docente_accesso(p_password) → (token, scade_il)
 --   progress_docente_esci(p_token)
 --   progress_docente_elenco(p_token, p_limite) → id, class_code, student_code, page_path, updated_at, meta
+--   progress_docente_elenco_con_anno(p_token, p_limite) → stesso elenco con school_year
 --   progress_docente_dettaglio(p_token, p_id) → jsonb
 --   progress_docente_classe(p_token, p_class_code, p_page_path) → student_code, data, updated_at
 --   progress_docente_cambia_password(p_token, p_attuale, p_nuova) → boolean

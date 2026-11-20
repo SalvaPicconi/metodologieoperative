@@ -245,7 +245,7 @@ async function refreshDashboard() {
     if (initial) renderDashboard();
     try {
         const [progress, stroop, titles] = await Promise.all([
-            window.MODocente.chiama('progress_docente_elenco', { p_limite: PROGRESS_LIMIT }),
+            fetchProgressData(),
             fetchAssessmentData(),
             initial ? fetchActivityTitles() : dashboardState.titles
         ]);
@@ -285,6 +285,16 @@ async function refreshDashboard() {
         elements.refreshBtn.disabled = false;
         // Se si è usciti e rientrati durante il caricamento, avvia quello della nuova sessione.
         if (session !== dashboardState.session && !elements.dashboard.classList.contains('hidden')) refreshDashboard();
+    }
+}
+
+async function fetchProgressData() {
+    const params = { p_limite: PROGRESS_LIMIT };
+    try {
+        return await window.MODocente.chiama('progress_docente_elenco_con_anno', params);
+    } catch (error) {
+        if (error?.code !== 'PGRST202') throw error;
+        return window.MODocente.chiama('progress_docente_elenco', params);
     }
 }
 
@@ -412,8 +422,8 @@ function renderDashboard() {
 
     const notes = [];
     if (dashboardState.limits.length) notes.push(`Vista limitata ai più recenti ${dashboardState.limits.join(' e ')} restituiti dal sito.`);
-    if (dashboardState.ready && dashboardState.period !== 'recent') {
-        notes.push('Per i salvataggi privi di un anno registrato, l’anno è ricavato dalla data dell’ultimo salvataggio.');
+    if (dashboardState.ready && selectedSchoolYear() !== currentSchoolYear()) {
+        notes.push('L’anno dei salvataggi precedenti alla migrazione del 20 novembre 2026 è ricavato dalla data dell’ultimo salvataggio disponibile.');
     }
     const note = byId('dashboard-data-note');
     note.hidden = !notes.length;
@@ -929,6 +939,11 @@ function normalizeAssessmentRecord(record) {
     };
 }
 
+function progressSchoolYear(record) {
+    if (!Object.hasOwn(record, 'school_year')) return schoolYear(record.updated_at);
+    return Number.isInteger(record.school_year) ? String(record.school_year) : 'undated';
+}
+
 function normalizeProgressRecord(record, metaFromIndex = null) {
     if (!record) return null;
     try {
@@ -941,7 +956,7 @@ function normalizeProgressRecord(record, metaFromIndex = null) {
             page_path: pagePath,
             original_path: record.page_path || pagePath,
             updated_at: record.updated_at,
-            year: /^\d{4}$/.test(String(record.school_year ?? '')) ? String(record.school_year) : schoolYear(record.updated_at),
+            year: progressSchoolYear(record),
             progressMeta: metaFromIndex || null
         };
     } catch (error) {
