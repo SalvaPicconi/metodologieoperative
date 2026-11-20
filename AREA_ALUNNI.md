@@ -1,100 +1,73 @@
-# Area «I miei lavori» · consegna del 20 novembre 2026
+# Area «I miei lavori» · 20 novembre 2026
 
-Ramo di lavoro `claude/area-alunni`, partito dalla punta remota di `codex/aruba-metodologieoperativessas`
-(`8dbb2bd`, lo stesso commit del rilascio Aruba verificato). Nessun commit, nessuna pubblicazione, nessuna
-modifica al progetto Supabase remoto: questo documento descrive ciò che è pronto e ciò che va autorizzato.
-
-## A che punto è
-
-| Livello | Stato |
-| --- | --- |
-| Codice delle pagine e migrazione SQL | Pronti nel ramo, non committati. |
-| Database di collaudo locale (PGlite, dati inventati) | 94 prove su 94 superate: `supabase/test/ESITO-COLLAUDO-DB.md`. |
-| Anteprima nel browser con backend locale | Provati ingresso, archivio, riapertura, sola lettura, conflitto fra schede, sessione scaduta, uscita, telefono e pannello docente (sezione «Prove nel browser»). |
-| Progetto Supabase remoto | Solo letto. La migrazione **non** è applicata. |
-| Sito pubblicato su Aruba | Invariato. |
-| Prova con utenti reali | Non fatta. |
+Decisione del titolare (20/11/2026): gli alunni entrano con **la classe e il codice che usano già** nelle attività
+(cognome e iniziale). Non ci sono codici nuovi da consegnare. Le grafie sbagliate dello stesso codice le unisce il sito;
+i casi dubbi restano al docente. Il limite è accettato: chi conosce classe e codice di un compagno può aprirne i lavori,
+come già oggi dalle attività.
 
 ## Che cosa vede e fa l’alunno
 
-1. In home, sotto il titolo, c’è il pulsante **I miei lavori** (`area_alunni.html`). Si entra con il **codice
-   personale** dato dal docente: 16 caratteri in quattro gruppi (`XXXX-XXXX-XXXX-XXXX`), che si possono incollare.
-   Minuscole, spazi e trattini non contano; le lettere O, I e L valgono come 0, 1 e 1. Non servono email né account
-   Microsoft o Google, e non si vede nessun elenco di classi o alunni.
-2. Un codice errato, revocato o sostituito riceve sempre la stessa risposta («Codice non riconosciuto»).
-3. In alto compare **Riprendi l’ultimo lavoro**, con il titolo dell’attività e la data dell’ultimo salvataggio.
-   Lo stato è la percentuale, quando la pagina la registra, oppure «Lavoro salvato». Sotto c’è una riga con le parole
-   del curricolo e una domanda per ricordare, senza nulla da scrivere.
-4. Sotto c’è l’archivio per anno scolastico: quest’anno aperto, gli anni precedenti in un riquadro chiuso.
-   I lavori di quest’anno hanno **Riprendi**. Quelli degli anni passati hanno **Rileggi** e si aprono in sola lettura.
-   Se l’attività si rifà nel nuovo anno, nasce un lavoro nuovo.
-5. Aprendo un’attività abilitata, i campi sono già compilati e l’alunno continua senza reinserire classe e codice.
-   Sulla pagina compaiono «I miei lavori · nome · classe» e il pulsante **Esci**.
-6. «Salvato» compare solo dopo la conferma del server. Se il lavoro è stato salvato da un’altra scheda, se la rete
-   cade o se la sessione scade, un avviso lo dice. Le risposte restano in una bozza della scheda e si recuperano solo
-   su richiesta, solo dallo stesso alunno, e vengono cancellate quando un salvataggio riesce.
-7. **Esci** chiude la sessione sul server, svuota i campi e toglie l’attività dalla cronologia. Tornando indietro
-   non ricompare nulla (provato).
+1. In home, sotto il titolo, preme **I miei lavori** (`area_alunni.html`) e scrive classe e codice. Maiuscole e spazi
+   non contano. Anche un codice scritto con una lettera sbagliata, se il sito l’ha unito al suo, apre gli stessi lavori.
+2. In alto trova **Riprendi l’ultimo lavoro**, con titolo, data e stato (percentuale, quando la pagina la registra,
+   oppure «Lavoro salvato»). Sotto c’è una riga di parole del curricolo, con una domanda per ricordare.
+3. Sotto c’è l’archivio per anno scolastico. Per i lavori di quest’anno: **Riprendi** sulle attività collegate all’area,
+   dove la pagina si apre già compilata e non chiede classe e codice; **Apri** sulle altre, che chiedono classe e codice
+   come sempre. Per gli anni precedenti: **Rileggi**, in sola lettura. Rifacendo un’attività nel nuovo anno nasce un
+   lavoro nuovo.
+4. «Salvato» compare solo dopo la conferma del server. Se un’altra scheda ha salvato nel frattempo, il lavoro non si
+   sovrascrive: un avviso lo dice e le risposte restano recuperabili. **Esci** chiude la sessione e toglie i dati dallo schermo.
 
 ## Che cosa vede e fa il docente
 
-Nell’Area docente, dentro una classe, c’è la nuova vista **Accessi alunni**, accanto a «Attività», «Alunni»,
-«Verifica codici» e «Test Stroop». Le viste esistenti restano invariate e mostrano anche i lavori protetti, una
-volta sola. Nella nuova vista il docente:
+Nell’Area docente, dentro ogni classe, c’è la nuova vista **Accessi alunni**. Le altre viste sono invariate. Qui si vede:
 
-- vede lo stato dell’ingresso, che vale per tutto il sito, e può sospenderlo;
-- **aggiunge alunni** con anteprima. Per ciascuno scrive una riga «Nome da mostrare; CODICE usato nelle attività».
-  Può anche portare un alunno dall’anno precedente, per esempio dalla terza alla quarta, mantenendo il suo storico;
-- **crea, sostituisce o revoca** il codice personale. Il codice compare una sola volta, in grande, e il database ne
-  conserva solo l’impronta. Sostituire o revocare chiude subito le sessioni aperte e lascia intatti i lavori;
-- **attribuisce i lavori già salvati**. Ogni riga è classificata come «Certo» (stesso codice, stessa classe,
-  nessuna alternativa nei dati), «Da verificare» (stesso codice ma un’altra classe, oppure codice presente in più
-  classi), «Codice simile» (una lettera diversa) o «Più alunni possibili». Nessun lavoro passa a un alunno senza
-  conferma; il pulsante «Conferma tutti i certi» chiede comunque il consenso esplicito;
-- **annulla un collegamento**: l’alunno perde subito l’accesso, la riga resta protetta e torna fra quelle da
-  attribuire. Se l’alunno l’aveva modificata dopo il collegamento, il pannello lo segnala;
-- consulta il **registro delle operazioni**: creazioni, codici, collegamenti, annullamenti, attivazioni.
+- l’elenco degli alunni ricavato dai salvataggi, ciascuno con le **grafie unite** in automatico. Per ognuna c’è
+  **Separa**, se l’unione è sbagliata;
+- i casi **Da decidere**: codici quasi uguali che hanno salvato le stesse attività, quindi probabilmente due alunni
+  (per esempio rossia e rossim). Si sceglie **Alunni diversi** oppure **Stesso alunno**;
+- l’interruttore per sospendere l’ingresso e il registro delle decisioni.
 
-## Modello dati e permessi (`supabase/area-alunni.sql`)
+## Come il sito unisce le grafie
 
-- Tabelle private (schema `private`, RLS attiva, nessun permesso ai ruoli dell’API):
-  - `alunni_profili` (pseudonimo);
-  - `alunni_classi` (anno scolastico, anno di corso, sezione: una 3SB del 2026/27 e una 3SB del 2027/28 sono
-    gruppi distinti);
-  - `alunni_iscrizioni` (alunno, classe dell’anno, codice delle attività, unico fra gli alunni attivi dell’anno);
-  - `alunni_credenziali` (impronta SHA-256 del codice; 80 bit casuali generati nel database);
-  - `alunni_sessioni` (impronta del token, scadenza di 8 ore, revoca);
-  - `alunni_tentativi` (impronta troncata dell’indirizzo di rete, conservata un giorno);
-  - `alunni_collegamenti`, `alunni_registro`, `alunni_pagine`, `alunni_config`.
-- **Scelta: si estende `public.progress`** con `profilo_id` (proprietario confermato) e `protetto` (riga chiusa al
-  vecchio accesso). Le viste docente esistenti leggono già quella tabella, quindi ogni lavoro compare una sola
-  volta senza riscriverle. Un indice impedisce due lavori dello stesso alunno sulla stessa attività nello stesso anno.
-  Un vincolo impedisce un proprietario su una riga non protetta, e una riga ha al massimo un collegamento attivo.
-- Funzioni per l’alunno: `alunni_accesso`, `alunni_esci`, `alunni_profilo`, `alunni_lavori`, `alunni_lavoro_apri`,
-  `alunni_lavoro_salva`. Anno e iscrizione li ricava il server dalla data in ora italiana. Il salvataggio richiede la
-  versione caricata: con una versione vecchia risponde «conflitto» e non sovrascrive.
-- Funzioni per il docente: `alunni_docente_*`, tutte con la sessione docente esistente, verificata a ogni chiamata.
-- Tutte le funzioni sono `SECURITY DEFINER` con `search_path` vuoto e nomi di schema espliciti. L’EXECUTE va solo
-  alle funzioni pubbliche. La chiave pubblica del sito non dà accesso a nessun dato senza sessione.
-- **Confine con il vecchio accesso.** `progress_carica` e `progress_salva` tengono le stesse firme e le stesse
-  risposte, ma non leggono e non scrivono una posizione (anno, codice, pagina, compresi i percorsi con il vecchio
-  prefisso) che sia protetta o che appartenga a un codice con accesso personale su una pagina abilitata. Il controllo
-  avviene nella stessa transazione, con un blocco sul codice. Vale anche per le pagine vecchie rimaste in cache, e
-  resta in vigore anche se l’ingresso viene sospeso.
-- Sessione nel browser: `sessionStorage`, cioè una sola scheda. Il codice resta valido anche dopo il passaggio a
-  un’altra pagina del sito nella stessa scheda, e chiudendo la scheda la sessione sparisce, cosa utile sui PC
-  condivisi. Il compromesso: un’attività aperta in una nuova scheda chiede di rientrare. Niente cookie, perché il
-  sito (Aruba) e l’API (Supabase) stanno su domini diversi. Il token non passa mai nell’indirizzo della pagina.
-- Anteprima locale: le pagine accettano un backend diverso **solo su localhost** (chiave `mo:api-locale`).
-  In produzione l’indirizzo resta quello del progetto Supabase del sito.
+L’unificazione lavora anno per anno, a partire dal codice con più lavori:
 
-## Censimento delle pagine del catalogo
+- si unisce un codice della stessa classe che differisce di **una lettera** (in più, in meno o diversa) o di **due
+  lettere vicine scambiate**;
+- si unisce lo **stesso codice salvato con un’altra sezione** dello stesso anno di corso;
+- l’unione avviene solo se le due grafie **non hanno mai salvato la stessa attività**, e solo se la variante è vicina
+  a un solo codice. Negli altri casi le grafie restano alunni distinti e il caso va fra quelli «Da decidere»;
+- lo stesso codice nella classe successiva (per esempio 2SB → 3SB) è lo stesso alunno, e lo storico lo segue.
 
-Generato con `python3 scripts/censimento_area_alunni.py`, che legge il codice delle pagine e non i dati.
-«Compatibile» indica un’analisi del codice: queste pagine vanno provate una per una prima di abilitarle.
-Le verifiche sommative risultano compatibili per il codice, ma abilitarle è una scelta didattica.
-Fra i salvataggi storici ci sono anche percorsi interni (per esempio `/attivita-index-01`): si possono attribuire
-come storico, ma l’area non ha una pagina da riaprire e mostra «Lo consulta il docente».
+L’unificazione non modifica nessun salvataggio. Separare o unire cambia solo chi vede che cosa nell’area. Il vecchio
+accesso dalle attività resta identico: `progress_carica` e `progress_salva` non sono state toccate.
+
+## Dati e permessi (`supabase/area-alunni.sql`)
+
+- **Tabelle private** (RLS attiva, nessun permesso ai ruoli dell’API): profili, classi per anno, iscrizioni con il
+  codice principale, varianti, sessioni (solo l’impronta del token, 8 ore), tentativi (impronta della rete, conservata
+  un giorno), registro, pagine collegate e configurazione.
+- **Colonna `progress.profilo_id`**: facoltativa, usata quando il docente unisce a mano due alunni.
+- **Copia di sicurezza** dei salvataggi in `private.progress_backup_pre_area_alunni_20261120`. Se un salvataggio
+  esistente cambiasse, la migrazione si annulla da sola.
+- **Funzioni**: tutte `SECURITY DEFINER` con `search_path` vuoto. Quelle dell’alunno chiedono la sessione; quelle del
+  docente chiedono la sessione docente esistente.
+- **Pagine collegate all’area** (si riprendono senza reinserire classe e codice): operatore sociale, welfare in
+  quattro fasi, collage autobiografico, percorsi di autoapprendimento di terza, ripasso di terza.
+- **Sessione nel browser**: `sessionStorage`, cioè una sola scheda; chiudendola, la sessione sparisce.
+
+## Collaudo
+
+- **Database**: 55 prove su 55, su PGlite con dati inventati (`supabase/test/ESITO-COLLAUDO-DB.md`).
+- **Browser**, anteprima locale (`node supabase/test/server-locale.mjs`, poi `http://localhost:8421/__api-locale`):
+  - ingresso con una grafia sbagliata e archivio unificato;
+  - riapertura, storico in sola lettura, conflitto fra schede, sessione scaduta;
+  - «Esci» seguito dal tasto Indietro;
+  - telefono a 375 px;
+  - pannello docente.
+- **Non provato**: Firefox e Safari, un telefono e un Chromebook veri, le altre attività una per una.
+
+## Censimento delle pagine
 
 | Copertura | Sezione | Titolo | File | Nota |
 | --- | --- | --- | --- | --- |
@@ -156,87 +129,11 @@ come storico, ma l’area non ha una pagina da riaprire e mostra «Lo consulta i
 
 Riepilogo: integrata 5, compatibile 30, storico consultabile 2, flusso separato 3, solo sul dispositivo 1, nessun salvataggio 14
 
-## Prove nel browser (anteprima locale, dati inventati)
+## Da sapere
 
-Ambiente: `node supabase/test/server-locale.mjs`, che serve il sito e risponde come Supabase con la migrazione
-vera su PGlite, poi `http://localhost:8421/__api-locale`. Browser integrato (Chromium), vista desktop e telefono
-375 px.
-
-| Prova | Esito |
-| --- | --- |
-| Codice errato: messaggio generico. Codice giusto scritto in minuscolo e con spazi: si entra | superata |
-| Prima schermata: saluto, classe e anno, «Riprendi» con data e stato, riga del curricolo della terza | superata |
-| Archivio con due anni: 2026/27 con «Riprendi», 2025/26 chiuso con «Rileggi» | superata |
-| Storico di seconda: si apre con la risposta compilata, in sola lettura, senza popup del vecchio accesso e senza ID nell’indirizzo | superata |
-| Lavoro nuovo: salvataggio confermato dal server, ricaricando i campi tornano | superata |
-| Due schede: la scheda rimasta indietro riceve un conflitto, nessuna sovrascrittura, bozza recuperabile su richiesta | superata |
-| Sessione scaduta: avviso «Rientra», nessun ripiego sul vecchio accesso, dopo il codice si torna all’attività | superata |
-| «Esci» e poi Indietro: nessuna risposta ricompare (difetto trovato e corretto durante la prova) | superata |
-| Telefono 375 px: nessuno scorrimento orizzontale, «Esci» e «Riprendi» visibili | superata |
-| Area docente: classi, attività e alunni come prima; lavori protetti contati una volta | superata |
-| Pannello accessi: conferma di un «certo», nuovo codice mostrato una volta, importazione con anteprima ed esiti | superata |
-| Vecchio accesso: un codice senza accesso personale salva come prima, un codice protetto riceve il rifiuto e un messaggio | superata |
-| Esportazione Aruba: 5 file nuovi, 13 modificati, nessun file di `supabase/`, `scripts/` o di collaudo nel pacchetto | superata |
-
-Non provato: Firefox e Safari, un telefono vero, un Chromebook della scuola, zoom molto alto, la navigazione solo
-da tastiera su tutta l’attività, il collaudo sul Postgres 17 del progetto remoto, le pagine «compatibili» una per una
-e le prove con utenti reali.
-
-## Ordine di rilascio e sospensione
-
-Ogni passaggio richiede un’autorizzazione separata.
-
-1. **Database.** Prima una copia secondo le modalità concordate. Poi si applica `supabase/area-alunni.sql`: è
-   additiva, parte con l’ingresso spento e nessuna pagina abilitata, e se un salvataggio esistente cambiasse annulla
-   tutto da sola. Dopo, verifiche in sola lettura: conteggi, permessi e advisor.
-2. **Sito.** Commit sul ramo, push normale su `codex/aruba-metodologieoperativessas`, controllo del workflow per
-   quel commit, degli hash e del browser. Il nuovo codice nelle pagine non cambia nulla finché nel database non ci
-   sono pagine abilitate e codici.
-3. **Pilota.** Si abilitano le attività scelte con `alunni_docente_pagina` (oggi solo da SQL o da una piccola
-   aggiunta al pannello), si attiva l’ingresso, si importa una classe pilota, si confermano i lavori «certi» e si
-   consegnano i codici uno alla volta.
-4. **Quando sospendere.** Un alunno vede un lavoro non suo, un salvataggio va perso, oppure il vecchio accesso
-   torna a leggere o a scrivere un lavoro protetto.
-5. **Come sospendere.** «Sospendi l’ingresso» nel pannello: gli alunni non entrano più, le sessioni si fermano e i
-   lavori restano protetti, senza tornare al vecchio accesso. Per tornare indietro sul sito si ripubblicano i file
-   della release precedente; le funzioni storiche del database continuano a rispondere alle pagine vecchie, che non
-   conoscono le colonne nuove. Un ripristino del database da una copia **non** si fa sopra dati più recenti senza una
-   procedura che conservi le scritture successive.
-
-## Dati trattati: Aruba e Supabase
-
-| Voce | Verificato | Da verificare | Decisione necessaria |
-| --- | --- | --- | --- |
-| Aruba | Serve le pagine; il service worker non mette in cache le chiamate all’API, che sono POST verso un altro dominio | Log del server: durata, accessi, contenuto. Oggi i link di anteprima docente portano classe e codice nell’indirizzo. Condizioni del piano e disciplina del trattamento per conto del cliente | Se accettare quei parametri nei log o rivedere i link di anteprima |
-| Supabase | Progetto «Scuola e presenza online», regione eu-west-1 (Irlanda), stato attivo | DPA applicabile all’account, piano, durata di backup e log, accessi amministrativi, subfornitori dei componenti usati | Chi è titolare e chi responsabile, con il referente della scuola |
-| Dati nuovi | Pseudonimo, classe e anno, impronte di codici e token, data dell’ultimo uso, impronta dell’indirizzo di rete per un giorno, registro delle operazioni | — | Quanto conservare registro, sessioni scadute e annate di lavori |
-| Dati già presenti | Codici storici, classe, risposte libere: dati personali se riconducibili a un alunno | Testi liberi che contengono riferimenti personali | Testo breve di informazione agli alunni; chi chiede correzione o rimozione |
-
-La regione del server non basta a dire che il trattamento è conforme. I ruoli non si deducono dal possesso del dominio.
-
-## Da sapere dalla ricognizione
-
-- Il 20/11/2026 `progress` contiene 386 righe, 237 del 2025/26 e 149 del 2026/27. Nove codici compaiono in più
-  classi nello stesso anno, undici codici hanno più grafie, 104 righe usano il vecchio prefisso. Questi conteggi
-  non contengono nomi.
-- L’advisor di Supabase segnala come «esposte» quattro tabelle `private.*` senza RLS. Il ruolo `anon` però non ha
-  accesso allo schema `private`, quindi la segnalazione non indica un’esposizione reale. Abilitare la RLS su quelle
-  tabelle resta una pulizia innocua da decidere.
-- **Difetto già in produzione:** `progress_docente_accesso` registra il tentativo fallito e subito dopo solleva un
-  errore, e l’errore annulla anche la registrazione. Nel registro ci sono 20 accessi riusciti e nessun fallimento, e
-  il blocco dopo dieci password sbagliate non scatta mai. Il rimedio è lo stesso schema usato in `alunni_accesso`:
-  restituire un esito invece di sollevare l’errore. Va fatto in una migrazione separata, da autorizzare.
-- `docente_compiti` (compiti assegnati alla classe) esiste ma è vuota: quando verrà usata, potrà alimentare
-  «Apri l’attività assegnata» nella pagina dell’alunno.
-
-## Decisioni che spettano al docente
-
-1. Le attività della prima fase. Oggi sono le cinque pilota collaudate: operatore sociale, welfare in quattro fasi,
-   collage autobiografico, percorsi di autoapprendimento di terza, ripasso di terza.
-2. Le parole del curricolo per ogni anno, oggi in `assets/area-alunni.js`: prima e seconda «Persona · Bisogno ·
-   Relazione d’aiuto», con «Bisogno · Risposta · Welfare» sulle attività di welfare; terza «Bisogno · Servizio ·
-   Équipe»; quarta «Barriere · Partecipazione · Progetto di vita»; quinta «Autonomia · Ambiente di vita · Sostegno».
-3. La classe pilota e i lavori storici da affidare alla verifica.
-4. Dove mettere «I miei lavori» nel menu di tutte le pagine (oggi è solo in home e nella pagina stessa).
-5. Le autorizzazioni, separate fra loro: migrazione del database, pubblicazione su Aruba, attivazione con dati
-   reali e consegna dei codici.
+- **Blocco della password docente.** Il blocco dopo dieci password sbagliate non scatta mai: il tentativo fallito
+  viene annullato insieme all’errore. Correzione da fare a parte.
+- **Avviso dell’advisor di Supabase.** Le tabelle `private.*` senza RLS segnalate dall’advisor non sono raggiungibili
+  dall’API, perché il ruolo anon non ha accesso allo schema.
+- **Sospensione.** «Sospendi l’ingresso» chiude l’area; le attività continuano come prima. Per tornare alle pagine
+  precedenti si ripubblicano i file della release precedente.

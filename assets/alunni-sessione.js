@@ -1,8 +1,8 @@
 /*
- * Sessione personale dell'alunno («I miei lavori»).
+ * Sessione dell'alunno («I miei lavori»).
  *
- * Il codice personale si scambia una sola volta con un token di sessione, verificato dal database a
- * ogni chiamata. Il token sta in sessionStorage: vale per la scheda in cui si è entrati (e per le
+ * Classe e codice di sempre (quelli delle attività) si scambiano con un token di sessione, verificato
+ * dal database a ogni chiamata. Il token sta in sessionStorage: vale per la scheda in cui si è entrati (e per le
  * attività aperte nella stessa scheda) e sparisce chiudendola. Nessun identificativo nell'URL.
  * Usato da area_alunni.html e da assets/progress.js.
  */
@@ -109,8 +109,8 @@ export const AreaAlunni = {
         try { return window.sessionStorage.getItem(ERA_ATTIVO) === '1'; } catch { return false; }
     },
 
-    async accedi(codice) {
-        const righe = await rpc('alunni_accesso', { p_codice: String(codice || '') });
+    async accedi(classe, codice) {
+        const righe = await rpc('alunni_accesso', { p_classe: String(classe || ''), p_codice: String(codice || '') });
         const riga = Array.isArray(righe) ? righe[0] : righe;
         if (riga && riga.esito === 'ok' && riga.token) {
             const precedente = this.profiloSalvato();
@@ -163,8 +163,8 @@ export const AreaAlunni = {
         return chiama('alunni_lavoro_apri', { p_page_path: path, p_id: id });
     },
 
-    salva: (path, data, versione) =>
-        chiama('alunni_lavoro_salva', { p_page_path: path, p_data: data, p_versione: versione || null }),
+    salva: (path, data, versione, id) =>
+        chiama('alunni_lavoro_salva', { p_page_path: path, p_data: data, p_versione: versione || null, p_id: id || null }),
 
     // Bozza della sola scheda, per non perdere ciò che non è arrivato al server. Si recupera solo
     // su richiesta esplicita e solo se appartiene allo stesso alunno.

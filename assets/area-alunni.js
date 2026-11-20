@@ -99,11 +99,14 @@ function mostraIngresso(errore = '') {
     mostra('aa-ingresso', true);
     $('aa-errore').textContent = errore;
     $('aa-codice').value = '';
+    $('aa-classe-input').value = '';
 }
 
 function apri(lavoro, link) {
     link.addEventListener('click', () => AreaAlunni.preparaApertura(lavoro.id, lavoro.page_path));
 }
+
+let annoCorrente = null;
 
 function voceLavoro(lavoro) {
     const li = document.createElement('li');
@@ -121,10 +124,12 @@ function voceLavoro(lavoro) {
     if (href) {
         const a = document.createElement('a');
         a.href = href;
-        a.className = lavoro.modificabile ? 'aa-azione' : 'aa-azione aa-azione-lettura';
-        a.textContent = lavoro.modificabile ? 'Riprendi' : 'Rileggi';
+        // Quest'anno, su un'attività non collegata all'area: si apre e si continua come sempre.
+        const daContinuare = !lavoro.modificabile && lavoro.school_year === annoCorrente;
+        a.className = lavoro.modificabile || daContinuare ? 'aa-azione' : 'aa-azione aa-azione-lettura';
+        a.textContent = lavoro.modificabile ? 'Riprendi' : daContinuare ? 'Apri' : 'Rileggi';
         a.setAttribute('aria-label', `${a.textContent}: ${nome.textContent}`);
-        apri(lavoro, a);
+        if (!daContinuare) apri(lavoro, a);
         li.append(a);
     } else {
         const s = document.createElement('span');
@@ -136,10 +141,11 @@ function voceLavoro(lavoro) {
 }
 
 function disegna(profilo, lavori) {
-    $('aa-saluto').textContent = `Ciao, ${profilo.pseudonimo}`;
-    $('aa-classe').textContent = profilo.classe
-        ? `Classe ${profilo.classe} · anno scolastico ${annoLabel(profilo.anno_corrente)}`
-        : `Anno scolastico ${annoLabel(profilo.anno_corrente)} · classe non ancora assegnata`;
+    annoCorrente = profilo ? profilo.anno_corrente : null;
+    $('aa-saluto').textContent = 'I miei lavori';
+    $('aa-classe').textContent = profilo && profilo.classe
+        ? `Classe ${profilo.classe} · codice ${profilo.pseudonimo.toLowerCase()} · anno scolastico ${annoLabel(profilo.anno_corrente)}`
+        : 'Per quest’anno non risulti ancora in una classe.';
 
     const riprendibile = lavori.find(l => l.modificabile && hrefPagina(l.page_path));
     if (riprendibile) {
@@ -148,14 +154,14 @@ function disegna(profilo, lavori) {
         const link = $('aa-riprendi-link');
         link.href = hrefPagina(riprendibile.page_path);
         apri(riprendibile, link);
-        const richiamo = /welfare/i.test(riprendibile.page_path) && profilo.anno_corso <= 2
-            ? PAROLE_WELFARE : PAROLE[profilo.anno_corso];
+        const richiamo = /welfare/i.test(riprendibile.page_path) && profilo && profilo.anno_corso <= 2
+            ? PAROLE_WELFARE : PAROLE[profilo && profilo.anno_corso];
         $('aa-parole').textContent = richiamo ? `${richiamo.parole}. ${richiamo.domanda}` : '';
         mostra('aa-riprendi', true);
     }
 
     if (!lavori.length) {
-        $('aa-vuoto-link').href = PAGINA_ANNO[profilo.anno_corso] || 'index.html';
+        $('aa-vuoto-link').href = (profilo && PAGINA_ANNO[profilo.anno_corso]) || 'index.html';
         mostra('aa-vuoto', true);
         return;
     }
@@ -172,7 +178,7 @@ function disegna(profilo, lavori) {
         const elenco = document.createElement('ul');
         elenco.className = 'aa-elenco';
         perAnno.get(anno).forEach(l => elenco.append(voceLavoro(l)));
-        const corrente = anno === profilo.anno_corrente;
+        const corrente = Boolean(profilo) && anno === profilo.anno_corrente;
         const blocco = document.createElement(corrente ? 'section' : 'details');
         blocco.className = 'aa-anno';
         const intestazione = document.createElement(corrente ? 'h3' : 'summary');
@@ -223,20 +229,27 @@ function ritornoValido() {
 
 $('aa-form').addEventListener('submit', async event => {
     event.preventDefault();
+    const classe = $('aa-classe-input').value;
     const codice = $('aa-codice').value;
     const pulsante = $('aa-entra');
     $('aa-errore').textContent = '';
-    if (codice.replace(/[^A-Za-z0-9]/g, '').length < 16) {
-        $('aa-errore').textContent = 'Il codice ha 16 caratteri (lettere e numeri). Controlla di averlo scritto tutto.';
+    if (!/^\s*[1-5]\s*[A-Za-z]{1,4}\s*$/.test(classe)) {
+        $('aa-errore').textContent = 'Scrivi la classe con numero e lettere, per esempio 3SB.';
+        $('aa-classe-input').focus();
+        return;
+    }
+    if (codice.replace(/[^A-Za-z0-9]/g, '').length < 2) {
+        $('aa-errore').textContent = 'Scrivi il codice che usi nelle attività: cognome e iniziale.';
         $('aa-codice').focus();
         return;
     }
     pulsante.disabled = true;
     pulsante.textContent = 'Controllo…';
     try {
-        const esito = await AreaAlunni.accedi(codice);
+        const esito = await AreaAlunni.accedi(classe, codice);
         if (esito === 'ok') {
             $('aa-codice').value = '';
+            $('aa-classe-input').value = '';
             const ritorno = ritornoValido();
             if (ritorno) { location.href = ritorno; return; }
             await caricaArea();
@@ -245,7 +258,7 @@ $('aa-form').addEventListener('submit', async event => {
         } else if (esito === 'non_disponibile') {
             $('aa-errore').textContent = 'L’area «I miei lavori» non è disponibile in questo momento.';
         } else {
-            $('aa-errore').textContent = 'Codice non riconosciuto. Controllalo oppure chiedi al docente un codice nuovo.';
+            $('aa-errore').textContent = 'Non trovo lavori con questa classe e questo codice quest’anno. Controllali: sono quelli che scrivi nelle attività.';
         }
     } catch {
         $('aa-errore').textContent = 'Non riesco a raggiungere il sito dei salvataggi. Controlla la connessione e riprova.';
@@ -260,7 +273,7 @@ $('aa-esci').addEventListener('click', async () => {
     mostraIngresso('');
     // La pagina che resta nella cronologia è quella dell'ingresso, non l'elenco dei lavori.
     history.replaceState(null, '', location.pathname);
-    $('aa-codice').focus();
+    $('aa-classe-input').focus();
 });
 
 // Se la sessione scade mentre la pagina è aperta, o si esce da un'altra scheda, si torna all'ingresso.

@@ -556,9 +556,9 @@ export const Progress = (() => {
   let identityPromise = null;
 
   // ── Area «I miei lavori» ────────────────────────────────────────────────
-  // Con una sessione personale nella scheda e la pagina abilitata, il lavoro si carica e si salva
-  // solo dal profilo dell'alunno; classe e codice storici non servono e non si chiedono.
-  // Fuori dal perimetro (pagina non abilitata) resta il flusso storico, invariato.
+  // Entrati da «I miei lavori», sulle pagine abilitate il lavoro si carica e si salva dal profilo
+  // dell'alunno (tutte le sue grafie), senza chiedere di nuovo classe e codice e con il controllo
+  // di versione fra schede. Sulle altre pagine resta il flusso storico, invariato.
   let protetto = null;
   let attesaProtetto = null;
 
@@ -590,6 +590,7 @@ export const Progress = (() => {
     if (!risposta || risposta.stato === 'pagina_non_abilitata') return undefined;
     protetto = {
       stato: risposta.stato,
+      id: risposta.id || null,
       versione: risposta.versione || null,
       modificabile: Boolean(risposta.modificabile),
       schoolYear: risposta.school_year,
@@ -690,8 +691,9 @@ export const Progress = (() => {
     if (protetto && protetto.path === normalizedPath) {
       if (!protetto.modificabile) throw erroreProtetto(protetto.stato);
       try {
-        const esito = await AreaAlunni.salva(normalizedPath, data, protetto.versione);
+        const esito = await AreaAlunni.salva(normalizedPath, data, protetto.versione, protetto.id);
         protetto.versione = esito && esito.versione ? esito.versione : protetto.versione;
+        protetto.id = esito && esito.id ? esito.id : protetto.id;
         protetto.stato = 'in_corso';
         return esito;
       } catch (errore) {

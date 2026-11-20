@@ -18,55 +18,24 @@ const PORT = Number(process.env.PORT || 8421);
 
 const db = await PGlite.create({ extensions: { pgcrypto } });
 await db.exec(readFileSync(join(qui, 'baseline.sql'), 'utf8'));
-await db.exec(readFileSync(join(qui, '..', 'area-alunni.sql'), 'utf8'));
 
-// ---- Dati inventati ---------------------------------------------------------------------------
+// ---- Dati inventati, inseriti prima della migrazione: è lei a unificarli, come farà sui dati veri ----
 const PAG = {
     percorsi: '/materiali/terzo/percorsi_autoapprendimento.html',
     ripasso: '/materiali/terzo/ripasso-terzo-anno.html',
-    tssas: '/materiali/biennio/tssas_percorso_completo_v2.html',
-    welfare: '/materiali/biennio/welfare-4-fasi-COMPLETO.html',
-    collage: '/materiali/laboratorio/collage_autobiografico.html'
+    tssas: '/materiali/biennio/tssas_percorso_completo_v2.html'
 };
-const titoli = {
-    percorsi: 'Percorsi di autoapprendimento (terzo anno)', ripasso: 'Ripasso operativo del terzo anno',
-    tssas: 'L’operatore sociale · percorso completo', welfare: 'Il welfare in quattro fasi', collage: 'Il collage autobiografico'
-};
-const tok = (await db.query(`select token from public.progress_docente_accesso('password-di-collaudo')`)).rows[0].token;
-for (const [k, p] of Object.entries(PAG)) {
-    await db.query(`select public.alunni_docente_pagina($1, $2, $3, true)`, [tok, p, titoli[k]]);
-}
-await db.query(`select public.alunni_docente_ingresso($1, true)`, [tok]);
-
-// Un campo vero della pagina di seconda, per vedere il ripristino in sola lettura.
 const tssasHtml = readFileSync(join(radice, PAG.tssas.slice(1)), 'utf8');
 const campoTssas = (tssasHtml.match(/<textarea[^>]*\bid="([^"]+)"/) || [])[1] || 'campo';
 await db.query(`insert into public.progress (class_code, student_code, page_path, data, updated_at, school_year) values
-  ('2SB','PROVAA','/metodologieoperative${PAG.tssas}', $1::jsonb, '2026-03-02 09:00+01', 2025),
-  ('3SB','PROVAA','${PAG.ripasso}', '{"_meta":{"percentuale":35}}', '2026-11-10 09:00+01', 2026),
-  ('3SB','PROVAB','${PAG.percorsi}', '{"nota":"lavoro salvato prima dell’accesso personale"}', '2026-11-11 09:00+01', 2026),
-  ('3SA','PROVAC','${PAG.ripasso}', '{"nota":"stesso codice, altra classe"}', '2026-11-12 09:00+01', 2026),
-  ('3SB','PROVAC','${PAG.percorsi}', '{"nota":"stesso codice, altra classe"}', '2026-11-12 10:00+01', 2026)`,
+  ('2sb','provaa','/metodologieoperative${PAG.tssas}', $1::jsonb, '2026-03-02 09:00+01', 2025),
+  ('3sb','provaa','${PAG.ripasso}', '{"_meta":{"percentuale":35}}', '2026-11-10 09:00+01', 2026),
+  ('3sb','provaa','/materiali/terzo/equipe_multiprofessionale.html', '{"x":"lavoro"}', '2026-11-09 09:00+01', 2026),
+  ('3SB','proaa','/materiali/terzo/esercitazioni_servizi.html', '{"x":"codice scritto male"}', '2026-11-08 09:00+01', 2026),
+  ('3sb','provab','${PAG.ripasso}', '{"x":"altro alunno"}', '2026-11-11 09:00+01', 2026),
+  ('3sb','provac','${PAG.ripasso}', '{"x":"codice quasi uguale, stessa attività"}', '2026-11-12 09:00+01', 2026)`,
     [JSON.stringify({ [campoTssas]: 'Risposta inventata scritta in seconda.', _meta: { percentuale: 100 } })]);
-
-const lista = [
-    { pseudonimo: 'Alunna A.', codice_storico: 'PROVAA' },
-    { pseudonimo: 'Alunno B.', codice_storico: 'PROVAB' },
-    { pseudonimo: 'Alunno C.', codice_storico: 'PROVAC' },
-    { pseudonimo: 'Alunna D.', codice_storico: 'PROVAD' }
-];
-await db.query(`select * from public.alunni_docente_importa($1, 2026, '3SB', $2::jsonb, true)`, [tok, JSON.stringify(lista)]);
-await db.query(`select * from public.alunni_docente_importa($1, 2025, '2SB', $2::jsonb, true)`,
-    [tok, JSON.stringify([{ profilo_id: (await db.query(`select profilo_id from private.alunni_iscrizioni where codice_storico = 'PROVAA' and school_year = 2026`)).rows[0].profilo_id, codice_storico: 'PROVAA' }])]);
-const profili = Object.fromEntries((await db.query(`select codice_storico, profilo_id from private.alunni_iscrizioni where school_year = 2026`)).rows.map(r => [r.codice_storico, r.profilo_id]));
-// Storico di seconda e lavoro in corso di Alunna A già confermati; quelli di B e C restano da attribuire.
-for (const r of (await db.query(`select id from public.progress where student_code = 'PROVAA'`)).rows) {
-    await db.query(`select public.alunni_docente_collega($1, $2, $3, 'dati di prova')`, [tok, r.id, profili.PROVAA]);
-}
-const codici = {};
-for (const [codice, id] of Object.entries(profili)) {
-    codici[codice] = (await db.query(`select public.alunni_docente_codice($1, $2) c`, [tok, id])).rows[0].c;
-}
+await db.exec(readFileSync(join(qui, '..', 'area-alunni.sql'), 'utf8'));
 
 // ---- PostgREST minimo ---------------------------------------------------------------------------
 const firme = new Map();
@@ -152,6 +121,5 @@ createServer(async (req, res) => {
     } catch { res.writeHead(404).end('Non trovato'); }
 }).listen(PORT, () => {
     console.log(`Anteprima locale su http://localhost:${PORT}/__api-locale (password docente di collaudo: password-di-collaudo)`);
-    console.log('Codici personali di prova (inventati, validi solo in questa anteprima):');
-    for (const [k, v] of Object.entries(codici)) console.log(`  ${k}: ${v}`);
+    console.log('Alunni inventati: classe 3sb, codici provaa (anche come «proaa»), provab, provac.');
 });

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer">
     <title>I miei lavori · Metodologie Operative</title>
-    <meta name="description" content="Entra con il codice personale e riprendi i lavori salvati nelle attività di Metodologie Operative.">
+    <meta name="description" content="Entra con classe e codice e riprendi i lavori salvati nelle attività di Metodologie Operative.">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="assets/area-alunni.css?v=20261121">
 </head>
@@ -62,17 +62,21 @@
 
             <section id="aa-ingresso" class="aa-ingresso" aria-labelledby="aa-titolo">
                 <h1 id="aa-titolo">I miei lavori</h1>
-                <p class="aa-lead">Entra con il codice personale che ti ha dato il docente: ritrovi i lavori salvati nelle attività, anche da un altro dispositivo.</p>
+                <p class="aa-lead">Entra con la classe e il codice che usi nelle attività: ritrovi tutti i lavori salvati, anche da un altro dispositivo.</p>
                 <form id="aa-form" class="aa-form" novalidate>
-                    <label for="aa-codice">Codice personale</label>
-                    <input id="aa-codice" name="aa-codice" type="text" inputmode="text" autocomplete="off"
-                           autocapitalize="characters" spellcheck="false" maxlength="32"
-                           placeholder="XXXX-XXXX-XXXX-XXXX" aria-describedby="aa-codice-nota aa-errore" required>
-                    <p id="aa-codice-nota" class="aa-nota">Puoi incollarlo: trattini e spazi non contano.</p>
+                    <label for="aa-classe-input">Classe</label>
+                    <input id="aa-classe-input" name="aa-classe-input" type="text" autocomplete="off"
+                           autocapitalize="characters" spellcheck="false" maxlength="8"
+                           placeholder="es. 3SB" aria-describedby="aa-errore" required>
+                    <label for="aa-codice">Codice</label>
+                    <input id="aa-codice" name="aa-codice" type="text" autocomplete="off"
+                           autocapitalize="none" spellcheck="false" maxlength="40"
+                           placeholder="cognome e iniziale, es. rossig" aria-describedby="aa-codice-nota aa-errore" required>
+                    <p id="aa-codice-nota" class="aa-nota">Maiuscole e spazi non contano. Se a volte l’hai scritto con una lettera sbagliata, ritrovi lo stesso i tuoi lavori.</p>
                     <button type="submit" class="aa-primario" id="aa-entra">Entra</button>
                     <p id="aa-errore" class="aa-errore" role="alert"></p>
                 </form>
-                <p class="aa-nota aa-privacy">Il codice è personale: non darlo ai compagni. Se lo perdi, il docente te ne dà uno nuovo e i tuoi lavori restano.</p>
+                <p class="aa-nota aa-privacy">Su un computer della scuola, quando hai finito premi «Esci».</p>
             </section>
 
             <section id="aa-area" class="aa-area" aria-labelledby="aa-saluto" hidden>
