@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-20** · Claude · Nell’Area docente gli abbinamenti dei codici alunni (es. un codice scritto male ricondotto a quello giusto) si salvano nel database e valgono da ogni computer e dalla LIM; quelli già fatti in un browser si trasferiscono alla prima apertura. (commit di questa voce)
+
 - **2026-11-20** · Codex · Nell’Area docente, l’anno scolastico ha un selettore proprio e le classi si raccolgono per anno di corso, dalla prima alla quinta. La revisione è in anteprima. [GPT 2026-11-20 14:48]
 
 - **2026-11-20** · Codex · L’Area docente mostra «Lavoro salvato» quando l’elaborato è disponibile senza un dato di avanzamento. La percentuale usa il totale e i campi compilati quando la pagina li registra. [GPT 2026-11-20 14:35]
