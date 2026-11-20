@@ -25,6 +25,7 @@ const PROGRESS_LIMIT = 1000;
 const ASSESSMENT_LIMIT = 200;
 const RECENT_DAYS = 30;
 const UNKNOWN_CLASS = 'Senza classe';
+const CLASS_GRADES = ['Classi prime', 'Classi seconde', 'Classi terze', 'Classi quarte', 'Classi quinte', 'Altre classi'];
 const collator = new Intl.Collator('it', { numeric: true, sensitivity: 'base' });
 const dateParts = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Rome', year: 'numeric', month: 'numeric' });
 
@@ -59,7 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
         passwordInput: byId('docente-password'),
         refreshBtn: byId('refresh-dashboard'),
         lastRefresh: byId('dashboard-last-refresh'),
+        schoolYear: byId('dashboard-school-year'),
         period: byId('dashboard-period'),
+        periodControl: byId('dashboard-period-control'),
         back: byId('dashboard-back'),
         classList: byId('dashboard-class-list'),
         studentSearch: byId('dashboard-student-search'),
@@ -74,16 +77,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     elements.loginForm.addEventListener('submit', handleLogin);
     elements.refreshBtn.addEventListener('click', refreshDashboard);
-    elements.period.addEventListener('change', () => {
-        const year = selectedSchoolYear();
-        dashboardState.period = elements.period.value;
-        if (year !== selectedSchoolYear()) {
-            dashboardState.classCode = '';
-            dashboardState.activity = '';
-        }
-        resetStudentSearch();
-        renderDashboard();
+    elements.schoolYear.addEventListener('change', () => {
+        const year = elements.schoolYear.value;
+        changePeriod(year === currentSchoolYear() ? 'recent' : year);
     });
+    elements.period.addEventListener('change', () => changePeriod(elements.period.value));
     elements.back.addEventListener('click', () => {
         dashboardState.classCode = '';
         renderDashboard();
@@ -211,7 +209,7 @@ async function handleLogin(event) {
         await window.MODocente.accedi(elements.passwordInput.value);
         elements.passwordInput.value = '';
         mostraDashboard();
-        elements.period.focus();
+        elements.schoolYear.focus();
     } catch (error) {
         alert(window.MODocente.messaggioErrore(error));
         elements.passwordInput.focus();
@@ -341,14 +339,39 @@ function renderPeriods() {
     ]);
     years.delete(current);
     const undated = years.delete('undated');
-    elements.period.replaceChildren(
-        new Option(`Ultimi 30 giorni · ${yearLabel(current)}`, 'recent'),
-        new Option(`Anno in corso · ${yearLabel(current)}`, current),
-        ...[...years].sort().reverse().map(year => new Option(`Storico · ${yearLabel(year)}`, year)),
-        ...(undated ? [new Option('Storico · Senza data', 'undated')] : [])
-    );
-    elements.period.value = dashboardState.period;
-    if (!elements.period.value) elements.period.value = dashboardState.period = 'recent';
+    const options = [
+        new Option(`${yearLabel(current)} · In corso`, current),
+        ...[...years].sort().reverse().map(year => new Option(yearLabel(year), year)),
+        ...(undated ? [new Option('Anno non rilevabile', 'undated')] : [])
+    ];
+    elements.schoolYear.replaceChildren(...options);
+    elements.schoolYear.disabled = false;
+    elements.period.replaceChildren(new Option('Ultimi 30 giorni', 'recent'), new Option('Tutto l’anno', current));
+    if (!options.some(option => option.value === selectedSchoolYear())) {
+        dashboardState.period = 'recent';
+        dashboardState.classCode = '';
+        dashboardState.activity = '';
+    }
+    syncPeriodControls();
+}
+
+function syncPeriodControls() {
+    const year = selectedSchoolYear();
+    elements.schoolYear.value = year;
+    elements.periodControl.hidden = year !== currentSchoolYear();
+    elements.period.value = elements.periodControl.hidden ? 'recent' : dashboardState.period;
+}
+
+function changePeriod(period) {
+    const previousYear = selectedSchoolYear();
+    dashboardState.period = period;
+    if (previousYear !== selectedSchoolYear()) {
+        dashboardState.classCode = '';
+        dashboardState.activity = '';
+    }
+    syncPeriodControls();
+    resetStudentSearch();
+    renderDashboard();
 }
 
 function yearLabel(year) {
@@ -468,7 +491,7 @@ function renderDashboard() {
 function renderClassList(classes) {
     if (!classes.size) {
         elements.classList.innerHTML = emptyMessage(dashboardState.ready
-            ? 'Nessuna classe con attività registrate nel periodo. Puoi scegliere un altro periodo.'
+            ? 'Nessuna classe con attività registrate per questa selezione.'
             : 'Caricamento delle classi…');
         return;
     }
@@ -476,7 +499,11 @@ function renderClassList(classes) {
     const periodRecords = groupBy(periodProgress(), record => record.class_code);
     const periodTests = groupBy(dashboardState.assessments.filter(entry => matchesPeriod(entry.created_at)), entry => entry.classCode);
     const year = escapeHtml(classYearLabel(selectedSchoolYear()));
-    elements.classList.innerHTML = `<ul class="docente-class-grid">${[...classes].sort(collator.compare).map(code => {
+    const byGrade = groupBy([...classes].sort(collator.compare), code => {
+        const grade = code.match(/^([1-5])(?![0-9])/);
+        return grade ? Number(grade[1]) - 1 : CLASS_GRADES.length - 1;
+    });
+    const renderCard = code => {
         const records = periodRecords.get(code) || [];
         const tests = periodTests.get(code) || [];
         const activities = new Set(records.map(record => record.page_path || record.original_path)).size;
@@ -491,7 +518,16 @@ function renderClassList(classes) {
             ${tests.length ? `<span>${tests.length} test Stroop</span>` : ''}
             <span class="docente-card-date">${lastDate ? `Ultimo dato ${formatShortDate(lastDate)}` : 'Nessun dato nel periodo'}</span>
         </button></li>`;
-    }).join('')}</ul>`;
+    };
+    const groups = CLASS_GRADES.map((label, index) => {
+        const group = byGrade.get(index);
+        if (!group) return '';
+        return `<section class="docente-grade" aria-labelledby="dashboard-grade-${index}">
+            <h3 id="dashboard-grade-${index}">${label}</h3>
+            <ul class="docente-class-grid">${group.map(renderCard).join('')}</ul>
+        </section>`;
+    }).join('');
+    elements.classList.innerHTML = `<div class="docente-grade-grid">${groups}</div>`;
 }
 
 function formatShortDate(value) {

@@ -6,7 +6,7 @@
     <title>Area docente · Metodologie Operative</title>
     <meta name="description" content="Pannello di controllo per monitorare i progressi degli studenti nelle attività di Metodologie Operative.">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="assets/area-docente.css?v=20261120b">
+    <link rel="stylesheet" href="assets/area-docente.css?v=20261120d">
 </head>
 <body>
     <header class="testata">
@@ -87,6 +87,12 @@
                     <div class="docente-toolbar">
                         <button id="dashboard-back" class="docente-button" type="button" hidden>Tutte le classi</button>
                         <div class="docente-period">
+                            <label for="dashboard-school-year">Anno scolastico</label>
+                            <select id="dashboard-school-year" disabled>
+                                <option value="">Caricamento…</option>
+                            </select>
+                        </div>
+                        <div id="dashboard-period-control" class="docente-period" hidden>
                             <label for="dashboard-period">Periodo</label>
                             <select id="dashboard-period">
                                 <option value="recent">Ultimi 30 giorni</option>
@@ -196,7 +202,7 @@
     </footer>
 
     <script src="assets/docente-accesso.js?v=20260926"></script>
-    <script type="module" src="assets/progress-dashboard.js?v=20261120c"></script>
+    <script type="module" src="assets/progress-dashboard.js?v=20261120d"></script>
 
     <dialog id="assessment-modal" class="docente-dialog" aria-label="Dettaglio del test">
         <form method="dialog"><button type="submit" class="docente-button">Chiudi</button></form>
