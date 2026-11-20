@@ -117,7 +117,7 @@ function voceLavoro(lavoro) {
     nome.textContent = titolo(lavoro.page_path);
     const info = document.createElement('p');
     info.className = 'aa-lavoro-info';
-    info.textContent = `${formatData(lavoro.updated_at)} · ${statoLavoro(lavoro)}${lavoro.classe ? ` · classe ${lavoro.classe}` : ''}`;
+    info.textContent = `${formatData(lavoro.updated_at)} · ${statoLavoro(lavoro)}${lavoro.classe ? ` · classe ${String(lavoro.classe).replace(/\s/g, '').toLowerCase()}` : ''}`;
     testo.append(nome, info);
     li.append(testo);
     const href = hrefPagina(lavoro.page_path);
@@ -144,7 +144,7 @@ function disegna(profilo, lavori) {
     annoCorrente = profilo ? profilo.anno_corrente : null;
     $('aa-saluto').textContent = 'I miei lavori';
     $('aa-classe').textContent = profilo && profilo.classe
-        ? `Classe ${profilo.classe} · codice ${profilo.pseudonimo.toLowerCase()} · anno scolastico ${annoLabel(profilo.anno_corrente)}`
+        ? `Classe ${profilo.classe.toLowerCase()} · codice ${profilo.pseudonimo.toLowerCase()} · anno scolastico ${annoLabel(profilo.anno_corrente)}`
         : 'Per quest’anno non risulti ancora in una classe.';
 
     const riprendibile = lavori.find(l => l.modificabile && hrefPagina(l.page_path));
@@ -234,7 +234,7 @@ $('aa-form').addEventListener('submit', async event => {
     const pulsante = $('aa-entra');
     $('aa-errore').textContent = '';
     if (!/^\s*[1-5]\s*[A-Za-z]{1,4}\s*$/.test(classe)) {
-        $('aa-errore').textContent = 'Scrivi la classe con numero e lettere, per esempio 3SB.';
+        $('aa-errore').textContent = 'Scrivi la classe con numero e lettere, tutto minuscolo: per esempio 3sb.';
         $('aa-classe-input').focus();
         return;
     }

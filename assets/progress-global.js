@@ -530,7 +530,7 @@ function applicaStatoArea() {
   const profilo = AreaAlunni.profiloSalvato();
   if (studentLabel) {
     studentLabel.textContent = profilo
-      ? `I miei lavori · ${profilo.pseudonimo}${profilo.classe ? ` · ${profilo.classe}` : ''}`
+      ? `I miei lavori · ${String(profilo.classe || '').toLowerCase()} · ${String(profilo.pseudonimo || '').toLowerCase()}`
       : 'I miei lavori';
   }
   if (resetBtnElement) resetBtnElement.textContent = 'Esci';
