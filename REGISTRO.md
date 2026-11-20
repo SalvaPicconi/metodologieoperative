@@ -9,7 +9,7 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
-- **2026-11-20** · Claude · Nuova area «I miei lavori»: l’alunno entra con classe e codice di sempre, riprende i lavori e rilegge quelli degli anni precedenti; le grafie sbagliate del codice si uniscono da sole. Nell’Area docente la vista «Accessi alunni» mostra le unioni e i casi da decidere. (commit di questa voce) [CLAUDE 2026-11-20 22:05]
+- **2026-11-20** · Claude · Nuova area «I miei lavori»: l’alunno entra con classe e codice di sempre, riprende i lavori e rilegge quelli degli anni precedenti; le grafie sbagliate del codice si uniscono da sole. Nell’Area docente la vista «Accessi alunni» mostra le unioni e i casi da decidere. Migrazione Supabase `area_alunni`; commit `ec63118`, [rilascio Aruba verificato](https://github.com/SalvaPicconi/metodologieoperative/actions/runs/44812335688). [CLAUDE 2026-11-20 22:05]
 
 - **2026-11-20** · Claude · Nell’Area docente gli abbinamenti dei codici alunni (es. un codice scritto male ricondotto a quello giusto) si salvano nel database e valgono da ogni computer e dalla LIM; quelli già fatti in un browser si trasferiscono alla prima apertura. (commit di questa voce)
 
