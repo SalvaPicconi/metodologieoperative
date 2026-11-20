@@ -1027,17 +1027,27 @@ function buildProgressDetail(entry) {
     `;
 }
 
-function progressPercent(meta) {
+function progressCounts(meta) {
+    const filled = meta?.campiCompilati;
+    const total = meta?.totale;
+    if (!Number.isInteger(filled) || !Number.isInteger(total) || filled < 0 || total < 1 || filled > total) return null;
+    return { filled, total };
+}
+
+function progressPercent(meta, counts = progressCounts(meta)) {
     const value = meta?.percentuale;
-    return Number.isFinite(value) ? Math.min(100, Math.max(0, value)) : null;
+    if (Number.isFinite(value) && value >= 0 && value <= 100) return value;
+    if (!counts) return null;
+    const { filled, total } = counts;
+    return filled === total ? 100 : Math.min(99, Math.round(100 * filled / total));
 }
 
 function renderProgressBar(meta) {
-    const value = progressPercent(meta);
-    if (value === null) return '<span class="docente-muted">Avanzamento non registrato</span>';
+    const counts = progressCounts(meta);
+    const value = progressPercent(meta, counts);
+    if (value === null) return '<span class="docente-muted">Lavoro salvato</span>';
     return `<progress max="100" value="${value}" aria-label="Avanzamento"></progress>
-        <span>${value}%${Number.isFinite(meta.campiCompilati) && Number.isFinite(meta.totale)
-            ? ` · ${meta.campiCompilati}/${meta.totale} campi` : ''}</span>`;
+        <span>${value}%${counts ? ` · ${counts.filled}/${counts.total} campi` : ''}</span>`;
 }
 
 function buildAssessmentDetail(entry) {

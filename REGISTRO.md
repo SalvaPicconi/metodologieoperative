@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-20** · Codex · L’Area docente mostra «Lavoro salvato» quando l’elaborato è disponibile senza un dato di avanzamento. La percentuale usa il totale e i campi compilati quando la pagina li registra. [GPT 2026-11-20 14:35]
+
 - **2026-11-20** · Codex · Ogni scheda di classe mostra il suo anno scolastico accanto alla sigla; l’anno è visibile anche nel confronto e nel dettaglio degli elaborati. [GPT 2026-11-20 14:17]
 
 - **2026-11-20** · Codex · Pubblicata l’Area docente con monitoraggio per classe e anno, confronto delle attività e verifica dei codici. (commit `29d0afc`; [rilascio Aruba verificato](https://github.com/SalvaPicconi/metodologieoperative/actions/runs/44741788131)) [GPT 2026-11-20 14:12]
