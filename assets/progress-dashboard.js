@@ -35,6 +35,7 @@ const dashboardState = {
     activity: '',
     codeLinks: new Map(),
     codeLinkEntries: [],
+    codeLinksUnavailable: false,
     classCode: '',
     view: 'activities',
     renderedClass: '',
@@ -252,15 +253,17 @@ async function refreshDashboard() {
         dashboardState.assessmentUnavailable = stroop === null;
         dashboardState.titles = titles;
         dashboardState.progressIndex = new Map(dashboardState.records.map(entry => [String(entry.id), entry]));
-        dashboardState.codeLinkEntries = codeLinks;
+        dashboardState.codeLinksUnavailable = codeLinks === null;
+        if (codeLinks) dashboardState.codeLinkEntries = codeLinks;
         dashboardState.codeLinks = resolveCodeLinks();
         dashboardState.assessmentIndex = new Map(dashboardState.assessments.map(entry => [String(entry.id), entry]));
         dashboardState.limits = [];
         if (records.length >= PROGRESS_LIMIT) dashboardState.limits.push(`${PROGRESS_LIMIT} salvataggi`);
         if (dashboardState.assessments.length >= ASSESSMENT_LIMIT) dashboardState.limits.push(`${ASSESSMENT_LIMIT} test Stroop`);
         dashboardState.ready = true;
-        if (await uploadLocalCodeLinks(session)) {
-            dashboardState.codeLinkEntries = await fetchCodeLinks();
+        if (codeLinks && await uploadLocalCodeLinks(session)) {
+            const updated = await fetchCodeLinks();
+            if (updated) dashboardState.codeLinkEntries = updated;
             dashboardState.codeLinks = resolveCodeLinks();
         }
         if (session !== dashboardState.session) return;
@@ -602,8 +605,9 @@ async function fetchCodeLinks() {
             from: String(row.da_id), to: String(row.a_id) })).filter(validCodeLink);
     } catch (error) {
         if (error?.code === '42501') throw error;
+        // null, non []: un errore non deve sembrare «nessun abbinamento» e separare i lavori.
         console.warn('Abbinamenti dei codici non disponibili:', error);
-        return [];
+        return null;
     }
 }
 
@@ -689,7 +693,8 @@ function similarCodes(a, b) {
 function renderCodeReview() {
     const editor = byId('dashboard-code-editor');
     const status = byId('dashboard-code-status');
-    status.textContent = '';
+    status.textContent = dashboardState.codeLinksUnavailable
+        ? 'Gli abbinamenti salvati non si sono potuti leggere: valgono gli ultimi caricati. Premi «Aggiorna» per riprovare.' : '';
     if (selectedSchoolYear() === 'undated' || dashboardState.classCode === UNKNOWN_CLASS) {
         editor.innerHTML = emptyMessage('Serve una classe con un anno scolastico identificabile per abbinare i codici.');
         return;
@@ -759,11 +764,14 @@ async function persistCodeLink(action, args, message) {
     status.textContent = 'Salvataggio…';
     try {
         await window.MODocente.chiama(action, args);
-        dashboardState.codeLinkEntries = await fetchCodeLinks();
+        const updated = await fetchCodeLinks();
+        if (updated) dashboardState.codeLinkEntries = updated;
+        dashboardState.codeLinksUnavailable = !updated;
         dashboardState.codeLinks = resolveCodeLinks();
         renderDashboard();
         byId('dashboard-codes-title').focus();
-        byId('dashboard-code-status').textContent = message;
+        byId('dashboard-code-status').textContent = updated ? message
+            : `${message} Non riesco però a rileggere gli abbinamenti: premi «Aggiorna» prima di continuare.`;
     } catch (error) {
         if (error?.code === '42501') {
             window.MODocente.esci();
