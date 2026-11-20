@@ -36,6 +36,9 @@ await db.query(`insert into public.progress (class_code, student_code, page_path
   ('3sb','provac','${PAG.ripasso}', '{"x":"codice quasi uguale, stessa attività"}', '2026-11-12 09:00+01', 2026)`,
     [JSON.stringify({ [campoTssas]: 'Risposta inventata scritta in seconda.', _meta: { percentuale: 100 } })]);
 await db.exec(readFileSync(join(qui, '..', 'area-alunni.sql'), 'utf8'));
+await db.exec(readFileSync(join(qui, '..', 'verifiche-correzione.sql'), 'utf8'));
+await db.exec(`insert into public.progress (class_code, student_code, page_path, data, school_year) values
+  ('3sb','provaa','/materiali/terzo/verifica_sommativa_q1.html','{"vt_44":"Risposta inventata alla prima domanda.","vt_45":"Seconda risposta inventata."}',2026)`);
 
 // ---- PostgREST minimo ---------------------------------------------------------------------------
 const firme = new Map();

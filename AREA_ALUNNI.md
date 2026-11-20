@@ -137,3 +137,14 @@ Riepilogo: integrata 5, compatibile 30, storico consultabile 2, flusso separato 
   dall’API, perché il ruolo anon non ha accesso allo schema.
 - **Sospensione.** «Sospendi l’ingresso» chiude l’area; le attività continuano come prima. Per tornare alle pagine
   precedenti si ripubblicano i file della release precedente.
+
+## Correzione delle verifiche (20/11/2026, sera)
+
+Su richiesta del docente le verifiche sommative di biennio, terza e quarta e la verifica sull’intelligenza artificiale si
+correggono come «L’operatore sociale», da `verifiche_correzione.html` (Strumenti del docente). Si sceglie la verifica e
+l’elaborato; le domande si leggono dalla pagina della verifica; si scrivono commenti per risposta, punti per sezione,
+voto e commento finale. «Salva» tiene tutto riservato, «Mostra all’alunno» lo rende visibile in «I miei lavori»
+(«Vedi la correzione»), «Rendi di nuovo riservata» lo ritira. Sezioni, massimi e regola del voto in
+`assets/verifiche-correzione.json`: terza e quarta usano la griglia della verifica; per biennio (100 punti) e IA
+(150 punti) la pagina non ha griglia e il voto è proporzionale, **da confermare**. Le risposte non cambiano:
+la correzione sta in `private.verifiche_correzioni` (migrazione `supabase/verifiche-correzione.sql`). Collaudo: 63/63.

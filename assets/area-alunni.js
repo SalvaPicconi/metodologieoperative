@@ -3,7 +3,7 @@
  * anno scolastico. Identità e permessi stanno nel database (funzioni alunni_*): qui si mostra solo ciò
  * che il server restituisce per la sessione della scheda. Tutto il testo entra nel DOM come testo.
  */
-import { AreaAlunni } from './alunni-sessione.js?v=20261121';
+import { AreaAlunni } from './alunni-sessione.js?v=20261121c';
 
 const $ = id => document.getElementById(id);
 const formatoData = new Intl.DateTimeFormat('it-IT', {
@@ -23,6 +23,7 @@ const PAROLE_WELFARE = { parole: 'Bisogno · Risposta · Welfare', domanda: 'A q
 const PAGINA_ANNO = { 1: 'biennio.html', 2: 'biennio.html', 3: 'terzo.html', 4: 'quarto.html', 5: 'quinto.html' };
 
 let titoli = new Map();
+let corrette = new Set();
 
 function annoLabel(anno) {
     return Number.isInteger(anno) ? `${anno}/${String((anno + 1) % 100).padStart(2, '0')}` : 'anno non indicato';
@@ -120,6 +121,14 @@ function voceLavoro(lavoro) {
     info.textContent = `${formatData(lavoro.updated_at)} · ${statoLavoro(lavoro)}${lavoro.classe ? ` · classe ${String(lavoro.classe).replace(/\s/g, '').toLowerCase()}` : ''}`;
     testo.append(nome, info);
     li.append(testo);
+    if (corrette.has(lavoro.id)) {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'aa-azione';
+        b.textContent = 'Vedi la correzione';
+        b.addEventListener('click', () => mostraCorrezione(lavoro.id));
+        li.append(b);
+    }
     const href = hrefPagina(lavoro.page_path);
     if (href) {
         const a = document.createElement('a');
@@ -203,7 +212,9 @@ async function caricaArea() {
     mostra('aa-area', true);
     messaggio('Carico i tuoi lavori…');
     try {
-        const [profilo, lavori] = await Promise.all([AreaAlunni.profilo(), AreaAlunni.lavori(), caricaTitoli()]);
+        const [profilo, lavori, correzioni] = await Promise.all([
+            AreaAlunni.profilo(), AreaAlunni.lavori(), AreaAlunni.correzioni().catch(() => []), caricaTitoli()]);
+        corrette = new Set((correzioni || []).map(c => c.id));
         messaggio('');
         disegna(profilo, Array.isArray(lavori) ? lavori : []);
         $('aa-saluto').focus();
@@ -214,6 +225,47 @@ async function caricaArea() {
             mostraIngresso('L’area «I miei lavori» non è disponibile in questo momento.');
         } else {
             messaggio('Non riesco a raggiungere il sito dei salvataggi. Controlla la connessione e ricarica la pagina.');
+        }
+    }
+}
+
+function elemento(tag, testo, classe) {
+    const el = document.createElement(tag);
+    if (testo !== undefined && testo !== null) el.textContent = testo;
+    if (classe) el.className = classe;
+    return el;
+}
+
+async function mostraCorrezione(id) {
+    const dialogo = $('aa-correzione');
+    const corpo = $('aa-correzione-corpo');
+    corpo.replaceChildren(elemento('p', 'Carico la correzione…'));
+    dialogo.showModal();
+    let c;
+    try { c = await AreaAlunni.correzione(id); } catch { c = null; }
+    corpo.replaceChildren();
+    if (!c) { corpo.append(elemento('p', 'La correzione non è disponibile.')); return; }
+    const h = elemento('h2', c.titolo || 'La tua verifica corretta');
+    h.id = 'aa-correzione-titolo';
+    corpo.append(h, elemento('p', `Voto: ${c.voto || '—'}`, 'aa-voto'),
+        elemento('p', `Punti: ${String(c.totale).replace('.', ',')} su ${c.max}`, 'aa-nota'));
+    if (c.nota) corpo.append(elemento('p', c.nota, 'aa-commento'));
+    const sez = elemento('ul', null, 'aa-elenco');
+    for (const s of c.sezioni || []) {
+        const li = elemento('li', null, 'aa-lavoro aa-sezione');
+        const d = elemento('div');
+        d.append(elemento('p', `${s.titolo}: ${s.punti === null ? '—' : String(s.punti).replace('.', ',')} su ${s.max}`, 'aa-lavoro-nome'));
+        if (s.commento) d.append(elemento('p', s.commento, 'aa-lavoro-info'));
+        li.append(d);
+        sez.append(li);
+    }
+    corpo.append(sez);
+    if ((c.commenti || []).length) {
+        corpo.append(elemento('h3', 'Commenti alle risposte'));
+        for (const k of c.commenti) {
+            const box = elemento('div', null, 'aa-commento-risposta');
+            box.append(elemento('p', k.etichetta, 'aa-lavoro-nome'), elemento('p', k.commento, 'aa-lavoro-info'));
+            corpo.append(box);
         }
     }
 }

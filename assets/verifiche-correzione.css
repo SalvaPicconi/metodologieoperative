@@ -1,0 +1,24 @@
+/* Correzione delle verifiche · stessa veste dell'Area docente */
+.vc [hidden] { display: none !important; }
+.vc-scelta { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center; margin: 1rem 0 .25rem; }
+.vc-scelta select { min-height: 42px; font: inherit; padding: .3rem .5rem; }
+.vc-anno { margin: 1.25rem 0 .5rem; color: #17385a; }
+.vc-lista { list-style: none; padding: 0; margin: 0; display: grid; gap: .4rem; }
+.vc-lista button { width: 100%; text-align: left; display: flex; justify-content: space-between; gap: 1rem; padding: .6rem .8rem; border: 1px solid #e3e6ec; border-radius: 8px; background: #fff; cursor: pointer; font: inherit; }
+.vc-lista button:hover { border-color: #17385a; }
+.vc-etichetta { font-size: .85rem; padding: .1rem .5rem; border-radius: 999px; background: #eaf0f4; color: #17385a; white-space: nowrap; }
+.vc-etichetta[data-stato="visibile"] { background: #e3f5ea; color: #1d6b3b; }
+.vc-etichetta[data-stato="bozza"] { background: #fff4d6; color: #7a5300; }
+.vc-stato { padding: .5rem .8rem; border-radius: 8px; background: #eaf0f4; color: #17385a; font-weight: 600; }
+.vc-stato:empty { display: none; }
+.vc-risposta { border: 1px solid #e3e6ec; border-radius: 8px; padding: .75rem .9rem; margin: .6rem 0; background: #fff; }
+.vc-domanda { font-weight: 700; color: #17385a; margin: 0 0 .35rem; }
+.vc-testo { white-space: pre-wrap; margin: 0 0 .5rem; padding: .5rem .6rem; background: #f5f6fa; border-radius: 6px; }
+.vc-vuota { color: #8a929b; font-style: italic; }
+.vc-risposta textarea, .vc-sezione textarea, .vc-voto textarea { width: 100%; font: inherit; padding: .4rem .5rem; border: 1px solid #dde1e8; border-radius: 6px; }
+.vc-sezione { display: grid; grid-template-columns: minmax(10rem, 1fr) 7rem; gap: .35rem .75rem; align-items: center; border-bottom: 1px solid #eef0f4; padding: .6rem 0; }
+.vc-sezione textarea { grid-column: 1 / -1; }
+.vc-sezione input, .vc-voto input { min-height: 40px; font: inherit; padding: .3rem .5rem; width: 100%; }
+.vc-voto { display: grid; gap: .35rem; margin: 1rem 0; max-width: 36rem; }
+.vc-voto p { font-weight: 700; margin: 0; }
+.vc-azioni { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem 0 2rem; }

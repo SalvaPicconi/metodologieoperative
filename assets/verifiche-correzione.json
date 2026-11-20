@@ -1,0 +1,59 @@
+{
+  "nota": "Sezioni, massimi e regola del voto ricavati dalle pagine delle verifiche (20/11/2026). Le regole marcate «da_confermare» sono proposte da verificare col docente.",
+  "verifiche": [
+    {
+      "chiave": "sommativa-biennio",
+      "titolo": "Verifica sommativa · biennio",
+      "pagina": "materiali/biennio/verifica_sommativa_q1.html",
+      "sezioni": [
+        { "id": "A", "titolo": "A · Conoscenze base", "max": 30 },
+        { "id": "B", "titolo": "B · Comprensione e collegamento", "max": 25 },
+        { "id": "C", "titolo": "C · Applicazione pratica", "max": 30 },
+        { "id": "D", "titolo": "D · Riflessione critica", "max": 15 }
+      ],
+      "voto": { "tipo": "proporzionale", "da_confermare": true, "spiegazione": "La pagina non ha una griglia: voto = punti ÷ 10 (100 punti = 10)." }
+    },
+    {
+      "chiave": "sommativa-terzo",
+      "titolo": "Verifica sommativa · terzo anno",
+      "pagina": "materiali/terzo/verifica_sommativa_q1.html",
+      "sezioni": [
+        { "id": "A", "titolo": "A · Conoscenze di base", "max": 20 },
+        { "id": "B", "titolo": "B · Comprensione e collegamento", "max": 25 },
+        { "id": "C", "titolo": "C · Applicazione pratica (caso)", "max": 45 },
+        { "id": "D", "titolo": "D · Riflessione professionale", "max": 20 }
+      ],
+      "voto": { "tipo": "fasce", "spiegazione": "Griglia della verifica.", "fasce": [[0, 54, "4"], [55, 65, "5"], [66, 76, "6"], [77, 87, "7"], [88, 98, "8"], [99, 110, "9-10"]] }
+    },
+    {
+      "chiave": "sommativa-quarto",
+      "titolo": "Verifica sommativa · quarto anno",
+      "pagina": "materiali/quarto/verifica_sommativa_q1.html",
+      "sezioni": [
+        { "id": "A", "titolo": "A · Conoscenze di base", "max": 20 },
+        { "id": "Abis", "titolo": "A bis · Conoscenze sui servizi", "max": 20 },
+        { "id": "B", "titolo": "B · Comprensione e collegamento", "max": 25 },
+        { "id": "Bbis", "titolo": "B bis · Comprensione dei servizi", "max": 25 },
+        { "id": "C", "titolo": "C · Applicazione pratica", "max": 35 },
+        { "id": "Cbis", "titolo": "C bis · Applicazione dei servizi", "max": 35 },
+        { "id": "D", "titolo": "D · Riflessione professionale", "max": 20 }
+      ],
+      "voto": { "tipo": "fasce", "spiegazione": "Griglia della verifica (su 180 punti).", "fasce": [[0, 89, "4"], [90, 107, "5"], [108, 125, "6"], [126, 143, "7"], [144, 161, "8"], [162, 171, "9"], [172, 180, "10"]] }
+    },
+    {
+      "chiave": "verifica-ia",
+      "titolo": "Verifica sull’intelligenza artificiale",
+      "pagina": "materiali/ai/verifica_ia_modificata.html",
+      "sezioni": [
+        { "id": "T", "titolo": "Teoria · fondamenti dell’IA", "max": 30 },
+        { "id": "P1A", "titolo": "Parte 1A · centro diurno", "max": 25 },
+        { "id": "P1B", "titolo": "Parte 1B · scuola dell’infanzia", "max": 25 },
+        { "id": "P2", "titolo": "Parte 2 · correggi gli errori", "max": 20 },
+        { "id": "P3", "titolo": "Parte 3 · teoria dell’IA", "max": 20 },
+        { "id": "P4", "titolo": "Parte 4 · uso etico dell’IA", "max": 15 },
+        { "id": "P5", "titolo": "Parte 5 · l’IA nel tuo futuro professionale", "max": 15 }
+      ],
+      "voto": { "tipo": "proporzionale", "da_confermare": true, "spiegazione": "La pagina non ha una griglia: voto = punti × 10 ÷ 150." }
+    }
+  ]
+}

@@ -10,6 +10,7 @@ import { pgcrypto } from '@electric-sql/pglite/contrib/pgcrypto';
 const qui = dirname(fileURLToPath(import.meta.url));
 const baseline = readFileSync(join(qui, 'baseline.sql'), 'utf8');
 const migrazione = readFileSync(join(qui, '..', 'area-alunni.sql'), 'utf8');
+const correzione = readFileSync(join(qui, '..', 'verifiche-correzione.sql'), 'utf8');
 const db = await PGlite.create({ extensions: { pgcrypto } });
 const esiti = [];
 let gruppo = '';
@@ -214,6 +215,32 @@ prova('Ingresso sospeso: le sessioni aperte si fermano', (await rpc('alunni_lavo
 r = await rpc('progress_carica', { p_student_code: 'ROSSIG', p_page_path: P.b });
 prova('Ingresso sospeso: il vecchio accesso dalle attività continua', r.ok && r.rows[0].progress_carica?.x === 'B dall’area');
 await rpc('alunni_docente_ingresso', { p_token: tok, p_attivo: true });
+
+// ---------------------------------------------------------------------------
+gruppo = 'Correzione delle verifiche';
+await db.exec(correzione);
+const VT = '/materiali/terzo/verifica_sommativa_q1.html';
+await db.exec(`insert into public.progress (class_code, student_code, page_path, data, school_year) values
+  ('3SB','rossig','${VT}','{"vt_44":"risposta inventata"}',2026), ('3SB','rossia','${VT}','{"vt_44":"altra"}',2026)`);
+const elab = (await rpc('verifiche_docente_elaborati', { p_token: tok, p_chiave: 'sommativa-terzo' })).rows;
+prova('Il docente vede gli elaborati della verifica, da correggere', elab.length === 2 && elab.every(e => e.stato === 'da_correggere'));
+const idV = elab.find(e => e.student_code === 'rossig').id;
+let ap = (await rpc('verifiche_docente_apri', { p_token: tok, p_id: idV })).rows[0].verifiche_docente_apri;
+prova('Apre le risposte dell’alunno', ap.data.vt_44 === 'risposta inventata' && ap.revisione === 0);
+const bozzaV = { titolo: 'Verifica', voto: '7', totale: 80, max: 110, sezioni: [{ id: 'A', punti: 15, max: 20 }], commenti: [{ campo: 'vt_44', etichetta: 'B1', commento: 'Bene' }] };
+let sv = await rpc('verifiche_docente_salva', { p_token: tok, p_id: idV, p_bozza: bozzaV, p_mostra: false, p_revisione: 0 });
+const tG = val(await accedi('3SB', 'rossig'), 'token');
+const tA = val(await accedi('3SB', 'rossia'), 'token');
+prova('«Salva» tiene la correzione riservata', sv.ok && (await rpc('alunni_correzioni', { p_token: tG })).rows.length === 0);
+sv = await rpc('verifiche_docente_salva', { p_token: tok, p_id: idV, p_bozza: bozzaV, p_mostra: true, p_revisione: 0 });
+prova('Una revisione vecchia non sovrascrive (due schede)', !sv.ok && sv.hint === 'conflitto');
+sv = await rpc('verifiche_docente_salva', { p_token: tok, p_id: idV, p_bozza: bozzaV, p_mostra: true, p_revisione: 1 });
+const visto = (await rpc('alunni_correzione', { p_token: tG, p_id: idV })).rows[0].alunni_correzione;
+prova('«Mostra all’alunno»: la vede in I miei lavori', sv.ok && visto?.voto === '7' && (await rpc('alunni_correzioni', { p_token: tG })).rows.length === 1);
+prova('Un compagno non la vede, nemmeno con l’ID', (await rpc('alunni_correzione', { p_token: tA, p_id: idV })).rows[0].alunni_correzione === null);
+await rpc('verifiche_docente_ritira', { p_token: tok, p_id: idV });
+prova('«Rendi riservata» la nasconde di nuovo', (await rpc('alunni_correzioni', { p_token: tG })).rows.length === 0);
+prova('Senza sessione docente nessun accesso agli elaborati', !(await rpc('verifiche_docente_elaborati', { p_token: 'x'.repeat(64), p_chiave: 'sommativa-terzo' })).ok);
 
 // ---------------------------------------------------------------------------
 gruppo = 'Permessi';

@@ -148,6 +148,10 @@ export const AreaAlunni = {
 
     lavori: () => chiama('alunni_lavori'),
 
+    // Correzioni delle verifiche che il docente ha reso visibili.
+    correzioni: () => chiama('alunni_correzioni'),
+    correzione: id => chiama('alunni_correzione', { p_id: id }),
+
     // La pagina «I miei lavori» indica quale lavoro aprire senza metterlo nell'URL.
     preparaApertura(id, path) {
         try { window.sessionStorage.setItem(CHIAVE_APRI, JSON.stringify({ id, path })); } catch { }

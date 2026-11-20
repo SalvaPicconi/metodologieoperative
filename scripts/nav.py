@@ -52,6 +52,7 @@ ALIAS = {
     "lab_dipendenze.html": ("laboratorio.html", "Un primo colloquio al SerD"),
     "lab_animazione.html": ("laboratorio.html", "Animazione ludico-ricreativa"),
     "stroop_statistiche.html": ("area_docente.html", "Statistiche Test di Stroop"),
+    "verifiche_correzione.html": ("area_docente.html", "Correzione delle verifiche"),
 }
 
 TESTATA = """<header class="testata">

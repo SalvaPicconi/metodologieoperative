@@ -1,8 +1,8 @@
 # Collaudo database dell’Area alunni
 
 Ambiente: PostgreSQL 18.6 (PGlite 0.5.13), in memoria, struttura remota ricostruita in `baseline.sql`, dati inventati.
-Comando: `cd supabase/test && npm install && node area-alunni.test.mjs`. Eseguito il 20/11/2026, 21:27:51.
-Esito: 55 prove superate su 55.
+Comando: `cd supabase/test && npm install && node area-alunni.test.mjs`. Eseguito il 20/11/2026, 22:09:55.
+Esito: 63 prove superate su 63.
 
 | Gruppo | Prova | Esito | Evidenza |
 | --- | --- | --- | --- |
@@ -57,6 +57,14 @@ Esito: 55 prove superate su 55.
 | Sessione, uscita, sospensione | Ingresso sospeso: nessun nuovo accesso | superata |  |
 | Sessione, uscita, sospensione | Ingresso sospeso: le sessioni aperte si fermano | superata |  |
 | Sessione, uscita, sospensione | Ingresso sospeso: il vecchio accesso dalle attività continua | superata |  |
+| Correzione delle verifiche | Il docente vede gli elaborati della verifica, da correggere | superata |  |
+| Correzione delle verifiche | Apre le risposte dell’alunno | superata |  |
+| Correzione delle verifiche | «Salva» tiene la correzione riservata | superata |  |
+| Correzione delle verifiche | Una revisione vecchia non sovrascrive (due schede) | superata |  |
+| Correzione delle verifiche | «Mostra all’alunno»: la vede in I miei lavori | superata |  |
+| Correzione delle verifiche | Un compagno non la vede, nemmeno con l’ID | superata |  |
+| Correzione delle verifiche | «Rendi riservata» la nasconde di nuovo | superata |  |
+| Correzione delle verifiche | Senza sessione docente nessun accesso agli elaborati | superata |  |
 | Permessi | anon non legge progress | superata |  |
 | Permessi | anon non legge le iscrizioni | superata |  |
 | Permessi | anon non esegue le funzioni interne | superata |  |
