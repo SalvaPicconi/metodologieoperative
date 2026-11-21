@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-21** · Claude · Il «Fascicolo sulle disabilità» (4SA) si legge meglio: testo più grande, la barra delle fasi resta in vista scorrendo, riquadri con il loro simbolo, sul telefono le tabelle diventano schede con il titolo di ogni colonna, pulsanti in basso che non coprono il testo. Campi e salvataggi invariati; provato in Chrome, Firefox e Safari su telefono, computer e LIM (183 prove superate). È lo stile comune `assets/attivita-lettura.css`, da estendere alle altre attività. (commit di questa voce) [CLAUDE 2026-11-21 11:00]
+
 - **2026-11-21** · Claude · «I miei lavori» ha una nuova veste: in home una scheda in evidenza dai colori pastello lucidi; dentro, illustrazione stilizzata, i lavori al centro e i riferimenti sintetici alle competenze dell’anno, ognuna con il suo simbolo, senza misure né punteggi. (commit di questa voce) [CLAUDE 2026-11-21 09:30]
 
 - **2026-11-20** · Claude · Chi è già entrato in un’attività con classe e codice entra direttamente in «I miei lavori»; «Esci» cancella classe e codice dal browser, così sul computer condiviso chi arriva dopo non entra al posto suo. (commit di questa voce) [CLAUDE 2026-11-20 23:30]

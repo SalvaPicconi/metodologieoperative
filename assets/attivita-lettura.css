@@ -1,0 +1,151 @@
+/*
+ * Stile di lettura comune per le attività (riferimento approvato il 13/10/2026, collage autobiografico):
+ * fondo bianco caldo, blu per titoli e azioni, terracotta solo nei dettagli, DM Serif per i titoli e DM Sans
+ * per il testo, testo a 16-17 px con interlinea ampia, comandi grandi da toccare.
+ * Si applica alle pagine con <body class="lettura">: cambia la presentazione, non i campi né i salvataggi.
+ */
+body.lettura {
+    --l-fondo: #f7f5ef; --l-superficie: #fffdf9; --l-testo: #202c3b; --l-secondario: #5b6570;
+    --l-blu: #17385a; --l-azzurro: #eaf0f4; --l-terracotta: #a75134; --l-bordo: #d7d9d8;
+    background: var(--l-fondo); color: var(--l-testo);
+    font-size: 17px; line-height: 1.65; padding: 0;
+}
+body.lettura .container { max-width: 1192px; background: var(--l-superficie); border: 0; box-shadow: 0 1px 0 var(--l-bordo); }
+
+/* Apertura: titolo grande, consegna breve, etichette discrete */
+body.lettura header {
+    background: var(--l-superficie); color: var(--l-testo); text-align: left;
+    padding: 2.6rem clamp(1.1rem, 4vw, 4.5rem) 1.8rem; border-bottom: 1px solid var(--l-bordo); border-image: none;
+}
+body.lettura header .school { opacity: 1; color: var(--l-terracotta); font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; }
+body.lettura header h1 { color: var(--l-blu); font-size: clamp(2.3rem, 6vw, 3.4rem); line-height: 1.05; margin: .35rem 0 .5rem; }
+body.lettura header .subtitle { opacity: 1; color: var(--l-secondario); font-size: 1.15rem; max-width: 46rem; }
+body.lettura header .subtitle strong { color: var(--l-testo); }
+body.lettura header .tags { justify-content: flex-start; margin-top: 1rem; }
+body.lettura header .tag { background: var(--l-azzurro); color: var(--l-blu); border: 0; font-size: .82rem; font-weight: 600; padding: .3rem .75rem; border-radius: 999px; }
+
+/* Schede di navigazione: sempre in vista, comode da toccare */
+body.lettura .tabs {
+    position: sticky; top: 0; z-index: 50; background: rgba(255, 253, 249, .96);
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--l-bordo); padding: .55rem clamp(.6rem, 3vw, 4rem);
+    display: flex; gap: .4rem; overflow-x: auto; scrollbar-width: none; flex-wrap: nowrap;
+}
+body.lettura .tabs::-webkit-scrollbar { display: none; }
+body.lettura .tab-btn {
+    flex: none; min-height: 44px; padding: .5rem 1rem; border-radius: 999px; font: 600 .98rem/1.2 'DM Sans', sans-serif;
+    background: transparent; color: var(--l-blu); border: 1.5px solid transparent; white-space: nowrap; cursor: pointer;
+}
+body.lettura .tab-btn:hover { background: var(--l-azzurro); }
+body.lettura .tab-btn.active { background: var(--l-blu); color: #fff; border-color: var(--l-blu); }
+body.lettura .tab-btn:focus-visible, body.lettura :is(textarea, input, select, button, a):focus-visible { outline: 3px solid var(--l-terracotta); outline-offset: 2px; }
+body.lettura .tab-content { padding: 2rem clamp(1.1rem, 4vw, 4.5rem) 3rem; max-width: 1048px; margin: 0 auto; }
+
+/* Titoli dei livelli e delle sezioni */
+body.lettura .level-header { border-radius: 10px; }
+body.lettura .level-header h2, body.lettura .cover-title h2 { font-size: clamp(1.7rem, 4vw, 2.2rem); }
+body.lettura .level-header p { font-size: 1rem; }
+body.lettura h3 { font-size: 1.25rem; line-height: 1.3; color: var(--l-blu); }
+
+/* Testi piccoli riportati a una misura leggibile */
+body.lettura :is(.level-desc small, .form-field label, .answer-block label, .glossary-term h4, .profile-card h4, .profile-card p, .level-badge) { font-size: .95rem; }
+body.lettura .answer-block label { color: var(--l-testo); font-weight: 600; line-height: 1.5; }
+body.lettura :is(.phase-box > p, .info-box, .case-scenario, .glossary-term p, .level-desc) { font-size: 1rem !important; line-height: 1.65; color: var(--l-testo); }
+
+/* Riquadri informativi: bordo a sinistra e simbolo, niente colori accesi */
+body.lettura .info-box {
+    position: relative; background: var(--l-superficie); border: 1px solid var(--l-bordo); border-left: 5px solid var(--l-blu);
+    border-radius: 10px; padding: 1rem 1.2rem 1rem 3.4rem; margin: 1.2rem 0;
+}
+body.lettura .info-box::before {
+    content: ""; position: absolute; left: 1rem; top: 1.05rem; width: 1.5rem; height: 1.5rem; background: var(--l-blu);
+    -webkit-mask: var(--l-icona) center / contain no-repeat; mask: var(--l-icona) center / contain no-repeat;
+    --l-icona: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 11v6M12 7.5v.5'/%3E%3C/svg%3E");
+}
+body.lettura .info-box.tip { border-left-color: #2f7d5b; }
+body.lettura .info-box.tip::before { background: #2f7d5b; --l-icona: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z'/%3E%3C/svg%3E"); }
+body.lettura .info-box.warning { border-left-color: var(--l-terracotta); }
+body.lettura .info-box.warning::before { background: var(--l-terracotta); --l-icona: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3l9.5 17h-19z'/%3E%3Cpath d='M12 10v4M12 17v.5'/%3E%3C/svg%3E"); }
+body.lettura .info-box strong:first-child { display: block; color: var(--l-blu); margin-bottom: .15rem; }
+
+/* Tabelle: pulite sul computer */
+body.lettura .data-table { width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid var(--l-bordo); border-radius: 10px; overflow: hidden; margin: 1.1rem 0 1.6rem; font-size: .98rem; background: #fff; }
+body.lettura .data-table th { background: var(--l-azzurro); color: var(--l-blu); font-weight: 700; text-align: left; padding: .7rem .8rem; font-size: .9rem; border: 0; }
+body.lettura .data-table td { padding: .65rem .8rem; border-top: 1px solid #ebecea; vertical-align: top; }
+body.lettura .data-table td.label { font-weight: 700; color: var(--l-blu); }
+body.lettura .data-table td.prefilled { color: var(--l-secondario); background: #faf9f5; }
+
+/* Campi da compilare */
+body.lettura :is(textarea, input[type="text"], input[type="date"], select) {
+    width: 100%; font: 400 1rem/1.5 'DM Sans', sans-serif; color: var(--l-testo); background: #fff;
+    border: 1.5px solid #c9cdd2; border-radius: 8px; padding: .65rem .75rem; min-height: 44px;
+}
+body.lettura textarea { min-height: 5.5rem; }
+body.lettura :is(textarea, input):focus { border-color: var(--l-blu); box-shadow: 0 0 0 3px rgba(23, 56, 90, .12); outline: none; }
+body.lettura .answer-block { margin: 1.1rem 0; }
+
+/* Casi e fasi */
+body.lettura .case-card { border: 1px solid var(--l-bordo); border-radius: 12px; overflow: hidden; margin: 1.6rem 0; background: #fff; }
+body.lettura .case-header { background: var(--l-blu); color: #fff; font-weight: 700; padding: .8rem 1.1rem; font-size: 1.05rem; }
+body.lettura .case-scenario { background: var(--l-fondo); border-left: 4px solid var(--l-terracotta); border-radius: 6px; padding: .9rem 1.1rem; margin-bottom: 1rem; }
+body.lettura .phase-box { border: 1px solid var(--l-bordo); border-radius: 12px; padding: 1.2rem 1.3rem; margin: 1.4rem 0; background: #fff; }
+body.lettura .phase-num { background: var(--l-blu); color: #fff; }
+body.lettura .profile-card { min-height: 44px; border-radius: 10px; cursor: pointer; }
+body.lettura .profile-card.selected, body.lettura .profile-card.active { outline: 3px solid var(--l-blu); outline-offset: 2px; }
+
+/* Telefono: tabelle in schede impilate, margini comodi */
+@media (max-width: 700px) {
+    body.lettura { font-size: 16.5px; }
+    body.lettura .tab-content { padding: 1.4rem 1rem 2.5rem; }
+    body.lettura .tab-content table, body.lettura .tab-content table tbody, body.lettura .tab-content table tr, body.lettura .tab-content table td { display: block; width: 100%; }
+    body.lettura .tab-content table { border: 0; background: transparent; }
+    body.lettura .tab-content table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    body.lettura .tab-content table tr { background: #fff; border: 1px solid var(--l-bordo); border-radius: 12px; margin: 0 0 .9rem; overflow: hidden; }
+    body.lettura .tab-content table td { border: 0; padding: .55rem .9rem; }
+    body.lettura .tab-content table td.label { background: var(--l-azzurro); font-size: 1.02rem; padding: .75rem .9rem; }
+    body.lettura .tab-content table td[data-etichetta]:not(.label)::before {
+        content: attr(data-etichetta); display: block; font-size: .78rem; font-weight: 700; letter-spacing: .06em;
+        text-transform: uppercase; color: var(--l-secondario); margin-bottom: .2rem;
+    }
+    body.lettura .tab-content table td.prefilled { background: transparent; }
+    body.lettura .info-box { padding-left: 3rem; }
+}
+@media (prefers-reduced-motion: reduce) { body.lettura * { scroll-behavior: auto; } }
+
+/* Comandi fluttuanti (salva, stampa, cambia studente): una barra discreta che non copre il testo */
+body.lettura { padding-bottom: 76px; }
+body.lettura :is(#saveProgressBtn, #resetStudent, .btn-print-fixed) {
+    position: fixed !important; bottom: 12px !important; top: auto !important; z-index: 60 !important;
+    min-height: 44px !important; padding: .55rem 1rem !important; border-radius: 999px !important;
+    font: 600 .95rem/1.2 'DM Sans', sans-serif !important; box-shadow: 0 8px 20px -10px rgba(23, 56, 90, .6) !important;
+    border: 1.5px solid var(--l-blu) !important;
+}
+body.lettura #saveProgressBtn { right: 12px !important; left: auto !important; background: var(--l-blu) !important; color: #fff !important; }
+body.lettura #resetStudent { left: 12px !important; right: auto !important; background: #fff !important; color: var(--l-blu) !important; }
+body.lettura .btn-print-fixed { right: auto !important; left: 50% !important; transform: translateX(-50%); background: #fff !important; color: var(--l-blu) !important; }
+body.lettura #studentLabel {
+    position: fixed !important; top: auto !important; bottom: 66px !important; right: 12px !important; z-index: 59 !important;
+    background: rgba(255, 253, 249, .95) !important; color: var(--l-secondario) !important; border: 1px solid var(--l-bordo) !important;
+    font: 600 .78rem/1.2 'DM Sans', sans-serif !important; padding: .3rem .6rem !important; border-radius: 999px !important;
+}
+@media (max-width: 700px) {
+    body.lettura #studentLabel { display: none !important; }
+    body.lettura .btn-print-fixed { display: none !important; }
+}
+@media print { body.lettura :is(#saveProgressBtn, #resetStudent, .btn-print-fixed, #studentLabel, .tabs) { display: none !important; } }
+body.lettura .case-scenario { font-style: normal; }
+@media (max-width: 700px) {
+    body.lettura .case-body { padding: 1rem .9rem 1.1rem; }
+    body.lettura .case-scenario { padding: .8rem .9rem; }
+    body.lettura .phase-box { padding: 1rem .9rem; }
+    body.lettura .cover-card { padding: 1.2rem 1rem; }
+}
+body.lettura .data-table textarea { min-height: 3.6rem; border-color: #dfe2e6; border-width: 1px; }
+body.lettura .btn-print-fixed { left: auto !important; right: 196px !important; transform: none; }
+/* Correzioni dopo le prove su Chrome, Firefox e Safari (21/11/2026) */
+body.lettura .container { overflow: visible; }
+body.lettura .where-to-look { font-size: .95rem; }
+body.lettura .case-header .tag { font-size: .88rem; }
+body.lettura button:focus-visible, body.lettura .tab-btn:focus-visible, body.lettura a:focus-visible {
+    outline: 3px solid #a75134 !important; outline-offset: 2px !important;
+}
