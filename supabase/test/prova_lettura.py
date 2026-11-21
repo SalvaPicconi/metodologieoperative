@@ -22,8 +22,8 @@ def prova(motore, formato, nome, ok, nota=''):
 
 def prepara(page):
     page.goto(f'{BASE}/__api-locale')
-    page.evaluate("""() => { sessionStorage.clear(); localStorage.setItem('mo:class', '4SA');
-                              localStorage.setItem('mo:code', 'PROVALETTURA'); }""")
+    page.evaluate("""() => { sessionStorage.clear(); localStorage.setItem('mo:class', '4sa');
+                              localStorage.setItem('mo:code', 'provalettura'); }""")
     page.goto(f'{BASE}/{PAGINA}')
     page.wait_for_load_state('networkidle')
     page.wait_for_timeout(600)
@@ -34,12 +34,12 @@ def misure(page):
         const vis = el => el.offsetParent !== null && el.getClientRects().length;
         let piccoli = 0, tot = 0, minimo = 99;
         document.querySelectorAll('.tab-content.active :is(p, li, td, label, span, h3, h4)').forEach(el => {
-            if (!vis(el) || !el.textContent.trim() || el.closest('#saveProgressBtn, #resetStudent, #studentLabel')) return;
+            if (!vis(el) || !el.textContent.trim() || el.closest('#mo-barra')) return;
             const fs = parseFloat(getComputedStyle(el).fontSize); tot++;
             if (fs < 14) piccoli++; minimo = Math.min(minimo, fs);
         });
         let comandiPiccoli = 0;
-        document.querySelectorAll('.tab-btn, #saveProgressBtn, #resetStudent, .profile-card, .tab-content.active textarea, .tab-content.active input').forEach(el => {
+        document.querySelectorAll('.tab-btn, #mo-salva, #mo-esci, .profile-card, .tab-content.active textarea, .tab-content.active input').forEach(el => {
             if (!vis(el)) return; const r = el.getBoundingClientRect(); if (r.height < 40) comandiPiccoli++;
         });
         return { largo: document.documentElement.scrollWidth, vista: innerWidth, piccoli, tot, minimo, comandiPiccoli };
@@ -77,14 +77,13 @@ def una_prova(motore, formato, page):
     testo = f'Prova {motore} {formato} {int(time.time())}'
     page.evaluate("showTab('l1')")
     page.fill(campo, testo)
-    page.evaluate("window.alert = m => { window.__avviso = m; }")
-    page.click('#saveProgressBtn')
-    page.wait_for_timeout(1200)
-    avviso = page.evaluate('window.__avviso || ""')
+    page.click('#mo-salva')
+    page.wait_for_timeout(1500)
+    avviso = page.evaluate("document.querySelector('#mo-barra .mo-stato').textContent")
     page.reload()
     page.wait_for_load_state('networkidle')
     page.wait_for_timeout(800)
-    prova(motore, formato, 'salvataggio e ripristino dopo ricarica', page.input_value(campo) == testo and 'salvati' in avviso.lower(), avviso)
+    prova(motore, formato, 'salvataggio e ripristino dopo ricarica', page.input_value(campo) == testo and avviso.startswith('Salvato'), avviso)
     # Scelta del profilo (fase Progettare) ancora funzionante
     page.evaluate("showTab('l4')")
     carta = page.locator('.profile-card').first
@@ -115,7 +114,7 @@ def una_prova(motore, formato, page):
         prova(motore, formato, 'campo attivo evidenziato (Tab non usato da questo motore)', 'rgba' in contorno, contorno)
     # Stampa: comandi nascosti
     page.emulate_media(media='print')
-    nascosti = page.evaluate("() => ['#saveProgressBtn', '#resetStudent', '.btn-print-fixed', '.tabs'].every(s => { const el = document.querySelector(s); return !el || getComputedStyle(el).display === 'none'; })")
+    nascosti = page.evaluate("() => ['#mo-barra', '.btn-print-fixed', '.tabs'].every(s => { const el = document.querySelector(s); return !el || getComputedStyle(el).display === 'none'; })")
     prova(motore, formato, 'stampa: pulsanti e schede non stampati', nascosti)
     page.emulate_media(media='screen')
     prova(motore, formato, 'nessun errore JavaScript', not errori, '; '.join(errori[:2]))

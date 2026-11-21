@@ -1,4 +1,4 @@
-import { AreaAlunni, apiBase } from './alunni-sessione.js?v=20261121';
+import { AreaAlunni, apiBase } from './alunni-sessione.js?v=20261122';
 
 // In produzione è sempre il progetto Supabase del sito; solo su localhost può puntare a un collaudo.
 const SUPABASE_URL = apiBase();
@@ -35,9 +35,10 @@ class ProgressStore {
 
   // Salvataggio e caricamento passano da funzioni del database: ogni studente
   // raggiunge solo la propria riga (codice + pagina); la tabella non è leggibile per intero.
-  async save({ classCode, studentCode, pagePath, data }) {
+  async save({ classCode, studentCode, pagePath, data, keepalive = false }) {
     return this._req('rpc/progress_salva', {
       method: 'POST',
+      keepalive,
       headers: { 'Prefer': 'return=minimal' },
       body: JSON.stringify({
         p_class_code: classCode,
@@ -683,7 +684,9 @@ export const Progress = (() => {
   }
 
   // ✅ MODIFICATO: Usa path normalizzato e log migliorati
-  async function save(data, pagePath = location.pathname) {
+  // opzioni.keepalive: la richiesta parte anche se la pagina si sta chiudendo.
+  async function save(data, pagePath = location.pathname, opzioni = {}) {
+    const keepalive = Boolean(opzioni && opzioni.keepalive);
     const normalizedPath = normalizePath(pagePath);
     if (attesaProtetto) {
       try { await attesaProtetto; } catch { }
@@ -691,7 +694,7 @@ export const Progress = (() => {
     if (protetto && protetto.path === normalizedPath) {
       if (!protetto.modificabile) throw erroreProtetto(protetto.stato);
       try {
-        const esito = await AreaAlunni.salva(normalizedPath, data, protetto.versione, protetto.id);
+        const esito = await AreaAlunni.salva(normalizedPath, data, protetto.versione, protetto.id, { keepalive });
         protetto.versione = esito && esito.versione ? esito.versione : protetto.versione;
         protetto.id = esito && esito.id ? esito.id : protetto.id;
         protetto.stato = 'in_corso';
@@ -716,11 +719,12 @@ export const Progress = (() => {
       return null;
     }
     console.log('[Progress] 💾 Salvataggio su:', normalizedPath, '| Campi:', Object.keys(data).length);
-    return store.save({ 
-      classCode: id.classCode, 
-      studentCode: id.studentCode, 
-      pagePath: normalizedPath, 
-      data 
+    return store.save({
+      classCode: id.classCode,
+      studentCode: id.studentCode,
+      pagePath: normalizedPath,
+      data,
+      keepalive
     });
   }
 

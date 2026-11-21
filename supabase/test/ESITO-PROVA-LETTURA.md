@@ -26,7 +26,7 @@ Esito: 183 superate su 183.
 | Chrome | telefono | scheda l5: comandi grandi da toccare | superata | 0 sotto 40 px |
 | Chrome | telefono | barra delle schede sempre in vista scorrendo | superata | top 0 |
 | Chrome | telefono | tabelle: ogni cella ha il titolo della colonna | superata | 0 senza titolo |
-| Chrome | telefono | salvataggio e ripristino dopo ricarica | superata | Progressi salvati! |
+| Chrome | telefono | salvataggio e ripristino dopo ricarica | superata | Salvato alle 11:59 |
 | Chrome | telefono | scelta del profilo nella fase Progettare | superata | profile-card selected |
 | Chrome | telefono | tastiera: elemento attivo evidenziato | superata | BUTTON solid 3px none |
 | Chrome | telefono | stampa: pulsanti e schede non stampati | superata |  |
@@ -44,7 +44,7 @@ Esito: 183 superate su 183.
 | Chrome | computer | scheda l5: niente scorrimento di lato | superata | 1280/1280 |
 | Chrome | computer | scheda l5: testo leggibile (sotto 14 px) | superata | 0/21 piccoli, minimo 14.4px |
 | Chrome | computer | barra delle schede sempre in vista scorrendo | superata | top 0 |
-| Chrome | computer | salvataggio e ripristino dopo ricarica | superata | Progressi salvati! |
+| Chrome | computer | salvataggio e ripristino dopo ricarica | superata | Salvato alle 11:59 |
 | Chrome | computer | scelta del profilo nella fase Progettare | superata | profile-card selected |
 | Chrome | computer | tastiera: elemento attivo evidenziato | superata | BUTTON solid 3px none |
 | Chrome | computer | stampa: pulsanti e schede non stampati | superata |  |
@@ -62,7 +62,7 @@ Esito: 183 superate su 183.
 | Chrome | LIM | scheda l5: niente scorrimento di lato | superata | 1920/1920 |
 | Chrome | LIM | scheda l5: testo leggibile (sotto 14 px) | superata | 0/21 piccoli, minimo 14.4px |
 | Chrome | LIM | barra delle schede sempre in vista scorrendo | superata | top 0 |
-| Chrome | LIM | salvataggio e ripristino dopo ricarica | superata | Progressi salvati! |
+| Chrome | LIM | salvataggio e ripristino dopo ricarica | superata | Salvato alle 11:59 |
 | Chrome | LIM | scelta del profilo nella fase Progettare | superata | profile-card selected |
 | Chrome | LIM | tastiera: elemento attivo evidenziato | superata | BUTTON solid 3px none |
 | Chrome | LIM | stampa: pulsanti e schede non stampati | superata |  |
@@ -87,7 +87,7 @@ Esito: 183 superate su 183.
 | Firefox | telefono | scheda l5: comandi grandi da toccare | superata | 0 sotto 40 px |
 | Firefox | telefono | barra delle schede sempre in vista scorrendo | superata | top 0 |
 | Firefox | telefono | tabelle: ogni cella ha il titolo della colonna | superata | 0 senza titolo |
-| Firefox | telefono | salvataggio e ripristino dopo ricarica | superata | Progressi salvati! |
+| Firefox | telefono | salvataggio e ripristino dopo ricarica | superata | Salvato alle 12:00 |
 | Firefox | telefono | scelta del profilo nella fase Progettare | superata | profile-card selected |
 | Firefox | telefono | tastiera: elemento attivo evidenziato | superata | BUTTON solid 3px none |
 | Firefox | telefono | stampa: pulsanti e schede non stampati | superata |  |
@@ -105,7 +105,7 @@ Esito: 183 superate su 183.
 | Firefox | computer | scheda l5: niente scorrimento di lato | superata | 1280/1280 |
 | Firefox | computer | scheda l5: testo leggibile (sotto 14 px) | superata | 0/21 piccoli, minimo 14.4px |
 | Firefox | computer | barra delle schede sempre in vista scorrendo | superata | top 0 |
-| Firefox | computer | salvataggio e ripristino dopo ricarica | superata | Progressi salvati! |
+| Firefox | computer | salvataggio e ripristino dopo ricarica | superata | Salvato alle 12:00 |
 | Firefox | computer | scelta del profilo nella fase Progettare | superata | profile-card selected |
 | Firefox | computer | tastiera: elemento attivo evidenziato | superata | BUTTON solid 3px none |
 | Firefox | computer | stampa: pulsanti e schede non stampati | superata |  |
@@ -123,7 +123,7 @@ Esito: 183 superate su 183.
 | Firefox | LIM | scheda l5: niente scorrimento di lato | superata | 1920/1920 |
 | Firefox | LIM | scheda l5: testo leggibile (sotto 14 px) | superata | 0/21 piccoli, minimo 14.4px |
 | Firefox | LIM | barra delle schede sempre in vista scorrendo | superata | top 0 |
-| Firefox | LIM | salvataggio e ripristino dopo ricarica | superata | Progressi salvati! |
+| Firefox | LIM | salvataggio e ripristino dopo ricarica | superata | Salvato alle 12:00 |
 | Firefox | LIM | scelta del profilo nella fase Progettare | superata | profile-card selected |
 | Firefox | LIM | tastiera: elemento attivo evidenziato | superata | BUTTON solid 3px none |
 | Firefox | LIM | stampa: pulsanti e schede non stampati | superata |  |
@@ -148,7 +148,7 @@ Esito: 183 superate su 183.
 | Safari | telefono | scheda l5: comandi grandi da toccare | superata | 0 sotto 40 px |
 | Safari | telefono | barra delle schede sempre in vista scorrendo | superata | top 0 |
 | Safari | telefono | tabelle: ogni cella ha il titolo della colonna | superata | 0 senza titolo |
-| Safari | telefono | salvataggio e ripristino dopo ricarica | superata | Progressi salvati! |
+| Safari | telefono | salvataggio e ripristino dopo ricarica | superata | Salvato alle 12:00 |
 | Safari | telefono | scelta del profilo nella fase Progettare | superata | profile-card selected |
 | Safari | telefono | tastiera: elemento attivo evidenziato | superata | INPUT none 0px rgba(23, 56, 90, 0.12) |
 | Safari | telefono | stampa: pulsanti e schede non stampati | superata |  |
@@ -166,7 +166,7 @@ Esito: 183 superate su 183.
 | Safari | computer | scheda l5: niente scorrimento di lato | superata | 1280/1280 |
 | Safari | computer | scheda l5: testo leggibile (sotto 14 px) | superata | 0/21 piccoli, minimo 14.4px |
 | Safari | computer | barra delle schede sempre in vista scorrendo | superata | top 0 |
-| Safari | computer | salvataggio e ripristino dopo ricarica | superata | Progressi salvati! |
+| Safari | computer | salvataggio e ripristino dopo ricarica | superata | Salvato alle 12:00 |
 | Safari | computer | scelta del profilo nella fase Progettare | superata | profile-card selected |
 | Safari | computer | tastiera: elemento attivo evidenziato | superata | INPUT none 0px rgba(23, 56, 90, 0.12) |
 | Safari | computer | stampa: pulsanti e schede non stampati | superata |  |
@@ -184,7 +184,7 @@ Esito: 183 superate su 183.
 | Safari | LIM | scheda l5: niente scorrimento di lato | superata | 1920/1920 |
 | Safari | LIM | scheda l5: testo leggibile (sotto 14 px) | superata | 0/21 piccoli, minimo 14.4px |
 | Safari | LIM | barra delle schede sempre in vista scorrendo | superata | top 0 |
-| Safari | LIM | salvataggio e ripristino dopo ricarica | superata | Progressi salvati! |
+| Safari | LIM | salvataggio e ripristino dopo ricarica | superata | Salvato alle 12:00 |
 | Safari | LIM | scelta del profilo nella fase Progettare | superata | profile-card selected |
 | Safari | LIM | tastiera: elemento attivo evidenziato | superata | INPUT none 0px rgba(23, 56, 90, 0.12) |
 | Safari | LIM | stampa: pulsanti e schede non stampati | superata |  |

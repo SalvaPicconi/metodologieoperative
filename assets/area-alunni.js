@@ -3,7 +3,7 @@
  * anno scolastico. Identità e permessi stanno nel database (funzioni alunni_*): qui si mostra solo ciò
  * che il server restituisce per la sessione della scheda. Tutto il testo entra nel DOM come testo.
  */
-import { AreaAlunni } from './alunni-sessione.js?v=20261121d';
+import { AreaAlunni } from './alunni-sessione.js?v=20261122';
 
 
 const $ = id => document.getElementById(id);

@@ -46,11 +46,12 @@ function annunciaScadenza() {
     try { window.dispatchEvent(new CustomEvent('mo:alunno-sessione-scaduta')); } catch { }
 }
 
-async function rpc(nome, args) {
+async function rpc(nome, args, opzioni) {
     let res;
     try {
         res = await fetch(`${apiBase()}/rest/v1/rpc/${nome}`, {
             method: 'POST',
+            keepalive: Boolean(opzioni && opzioni.keepalive),
             cache: 'no-store',
             credentials: 'omit',
             headers: { apikey: ANON_KEY, Authorization: `Bearer ${ANON_KEY}`, 'Content-Type': 'application/json' },
@@ -73,7 +74,7 @@ async function rpc(nome, args) {
     return dati;
 }
 
-async function chiama(nome, args) {
+async function chiama(nome, args, opzioni) {
     const s = leggi();
     if (!s) {
         const errore = new Error('sessione scaduta');
@@ -82,7 +83,7 @@ async function chiama(nome, args) {
         throw errore;
     }
     try {
-        return await rpc(nome, Object.assign({ p_token: s.token }, args || {}));
+        return await rpc(nome, Object.assign({ p_token: s.token }, args || {}), opzioni);
     } catch (errore) {
         if (errore.code === '42501' && (errore.hint === 'sessione' || errore.hint === 'non_disponibile')) {
             scrivi(null);
@@ -181,8 +182,8 @@ export const AreaAlunni = {
         return chiama('alunni_lavoro_apri', { p_page_path: path, p_id: id });
     },
 
-    salva: (path, data, versione, id) =>
-        chiama('alunni_lavoro_salva', { p_page_path: path, p_data: data, p_versione: versione || null, p_id: id || null }),
+    salva: (path, data, versione, id, opzioni) =>
+        chiama('alunni_lavoro_salva', { p_page_path: path, p_data: data, p_versione: versione || null, p_id: id || null }, opzioni),
 
     // Bozza della sola scheda, per non perdere ciò che non è arrivato al server. Si recupera solo
     // su richiesta esplicita e solo se appartiene allo stesso alunno.

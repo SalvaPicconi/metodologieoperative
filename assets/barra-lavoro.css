@@ -1,0 +1,102 @@
+/*
+ * Barra del lavoro, uguale in tutte le pagine con salvataggio (creata da assets/progress-global.js).
+ * Chi è entrato, stato del salvataggio automatico, «Salva» ed «Esci». Sostituisce i vecchi
+ * «Cambia studente» / «Salva progressi» sparsi nelle pagine con stili diversi.
+ */
+#mo-barra {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 9990;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: calc(100vw - 32px);
+    box-sizing: border-box;
+    padding: 8px 8px 8px 14px;
+    background: #fffdf9;
+    color: #202c3b;
+    border: 1px solid #d7d9d8;
+    border-radius: 14px;
+    box-shadow: 0 10px 28px rgba(23, 56, 90, .16);
+    font: 500 15px/1.35 "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    letter-spacing: normal;
+    text-align: left;
+}
+#mo-barra[hidden] { display: none !important; }
+#mo-barra * { box-sizing: border-box; }
+
+#mo-barra .mo-testi { display: flex; flex-direction: column; min-width: 0; }
+#mo-barra .mo-chi {
+    font-weight: 700;
+    color: #17385a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#mo-barra .mo-stato {
+    font-size: 14px;
+    color: #5b6570;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#mo-barra .mo-stato[data-tipo="salvato"] { color: #2f6b3a; }
+#mo-barra .mo-stato[data-tipo="errore"] { color: #a75134; font-weight: 700; }
+
+#mo-barra .mo-azioni { display: flex; gap: 8px; flex-shrink: 0; }
+#mo-barra button {
+    min-height: 44px;
+    margin: 0;
+    padding: 0 16px;
+    border-radius: 10px;
+    font: 700 15px/1 "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    cursor: pointer;
+    box-shadow: none;
+    text-transform: none;
+    transform: none;
+}
+#mo-barra #mo-salva { background: #17385a; color: #fff; border: 1px solid #17385a; }
+#mo-barra #mo-salva:hover { background: #0f2a45; }
+#mo-barra #mo-esci { background: #fff; color: #17385a; border: 1px solid #b9c3cc; }
+#mo-barra #mo-esci:hover { background: #eaf0f4; }
+#mo-barra button:disabled { opacity: .5; cursor: default; }
+#mo-barra button[hidden] { display: none !important; }
+#mo-barra button:focus-visible { outline: 3px solid #a75134; outline-offset: 2px; }
+
+/* Spazio in fondo alla pagina perché la barra non copra le ultime righe */
+#mo-barra-spazio { height: 88px; }
+
+/* I vecchi pulsanti delle singole pagine non servono più: la barra li sostituisce.
+   I pulsanti di salvataggio propri di una pagina restano nel codice (la barra li usa e ne rispetta
+   lo stato), ma non si vedono: in tutte le pagine si salva ed esce allo stesso modo. */
+#resetStudent, #studentLabel, [data-save-progress]:not(#mo-salva) { display: none !important; }
+
+/* Vecchi indicatori «✓ Salvato» delle singole pagine: lo stato ora è nella barra */
+body:has(#mo-barra) #save-status.save-status { display: none !important; }
+/* Avvisi e pulsanti fissi in basso a destra delle pagine: salgono sopra la barra */
+body:has(#mo-barra) .toast { bottom: 96px !important; }
+body:has(#mo-barra) .save-buttons { bottom: 96px !important; }
+
+@media (max-width: 640px) {
+    #mo-barra {
+        left: 0;
+        right: 0;
+        bottom: 0;
+        max-width: none;
+        border-radius: 14px 14px 0 0;
+        border-width: 1px 0 0;
+        padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px));
+        gap: 8px;
+    }
+    #mo-barra .mo-testi { flex: 1; }
+    #mo-barra .mo-chi, #mo-barra .mo-stato { font-size: 14px; }
+    #mo-barra button { padding: 0 12px; }
+    #mo-barra-spazio { height: 96px; }
+}
+
+body.lim #mo-barra, body.lim #mo-barra-spazio { display: none !important; }
+
+@media print {
+    #mo-barra, #mo-barra-spazio { display: none !important; }
+}
