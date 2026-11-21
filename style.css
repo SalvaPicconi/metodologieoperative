@@ -3793,3 +3793,108 @@ body > #saveProgressBtn {
 .home-miei-lavori a:hover { background: var(--color-accent-dark); }
 .home-miei-lavori a:focus-visible { outline: 3px solid var(--color-rosa); outline-offset: 2px; }
 .home-miei-lavori span:not([aria-hidden]) { color: var(--color-ink-soft); font-size: .95rem; }
+
+/* «I miei lavori» in home: scheda lucida in evidenza · 2026-11-21 */
+.hml {
+    position: relative; isolation: isolate; overflow: hidden;
+    display: flex; align-items: center; gap: 1.1rem;
+    margin: 1.4rem 0 .4rem; padding: 1.25rem 1.4rem; max-width: 44rem;
+    border-radius: 18px; text-decoration: none; color: #fff;
+    background:
+        radial-gradient(120% 140% at 100% 0%, rgba(236, 22, 108, .55) 0%, rgba(236, 22, 108, 0) 55%),
+        linear-gradient(135deg, #0c2036 0%, #17385a 55%, #234d78 100%);
+    box-shadow: 0 18px 40px -18px rgba(12, 32, 54, .75), inset 0 1px 0 rgba(255, 255, 255, .18);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+.hml::before { /* bordo luminoso */
+    content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; z-index: -1;
+    background: linear-gradient(120deg, rgba(255, 255, 255, .55), rgba(236, 22, 108, .7), rgba(255, 255, 255, .15));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+}
+.hml::after { /* riflesso che attraversa la scheda */
+    content: ""; position: absolute; top: -60%; left: -35%; width: 30%; height: 220%; z-index: 0;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, .28), rgba(255, 255, 255, 0));
+    transform: rotate(18deg); animation: hml-riflesso 5.5s ease-in-out infinite;
+}
+@keyframes hml-riflesso { 0%, 55% { left: -35%; } 100% { left: 130%; } }
+.hml > * { position: relative; z-index: 1; }
+.hml:hover, .hml:focus-visible { transform: translateY(-3px); box-shadow: 0 26px 50px -20px rgba(12, 32, 54, .85), 0 0 0 4px rgba(236, 22, 108, .25); }
+.hml:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.hml-icona {
+    flex: none; display: grid; place-items: center; width: 64px; height: 64px; border-radius: 16px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, .22), rgba(255, 255, 255, .06));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35); color: #fff;
+}
+.hml-testo { display: grid; gap: .15rem; min-width: 0; }
+.hml-occhiello { font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: #f9b8d2; font-weight: 700; }
+.hml-titolo { font-family: var(--font-display); font-size: clamp(1.7rem, 4.6vw, 2.3rem); line-height: 1.05; }
+.hml-sotto { color: rgba(255, 255, 255, .82); font-size: .98rem; }
+.hml-cta {
+    margin-left: auto; flex: none; padding: .6rem 1.1rem; border-radius: 999px; font-weight: 700;
+    background: #fff; color: var(--color-accent); box-shadow: 0 6px 16px -6px rgba(0, 0, 0, .45);
+}
+@media (max-width: 560px) {
+    .hml { flex-wrap: wrap; padding: 1.1rem; gap: .8rem; }
+    .hml-icona { width: 52px; height: 52px; }
+    .hml-cta { margin-left: 0; width: 100%; text-align: center; }
+}
+@media (prefers-reduced-motion: reduce) { .hml::after { animation: none; display: none; } .hml { transition: none; } }
+
+/* «I miei lavori» in home · effetto premium (aurora, grana, vetro, inclinazione) · 2026-11-21 */
+.aurora { position: absolute; inset: 0; z-index: -1; overflow: hidden; border-radius: inherit; pointer-events: none; }
+.aurora i { position: absolute; width: 60%; height: 140%; border-radius: 50%; filter: blur(38px); opacity: .75; mix-blend-mode: screen; }
+.aurora i:nth-child(1) { background: #ec166c; top: -60%; right: -12%; animation: aurora-a 14s ease-in-out infinite alternate; }
+.aurora i:nth-child(2) { background: #3b6a96; bottom: -70%; left: -15%; animation: aurora-b 17s ease-in-out infinite alternate; }
+.aurora i:nth-child(3) { background: #7b5cff; width: 38%; height: 90%; top: 10%; left: 35%; opacity: .45; animation: aurora-c 20s ease-in-out infinite alternate; }
+@keyframes aurora-a { to { transform: translate(-18%, 22%) scale(1.15); } }
+@keyframes aurora-b { to { transform: translate(24%, -18%) scale(1.2); } }
+@keyframes aurora-c { to { transform: translate(-30%, 20%) scale(.85); } }
+.aurora::after { /* grana sottile */
+    content: ""; position: absolute; inset: 0; opacity: .16; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.hml { background: linear-gradient(135deg, #070f1c 0%, #0f2742 55%, #17385a 100%);
+       transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--sale, 0)); transition: transform .18s ease-out, box-shadow .3s ease; will-change: transform; }
+.hml:hover, .hml:focus-visible { --sale: -4px; transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-4px); }
+.hml-titolo { background: linear-gradient(90deg, #fff 0%, #ffe3ef 45%, #fff 90%); -webkit-background-clip: text; background-clip: text; color: transparent;
+              background-size: 200% 100%; animation: hml-oro 6s linear infinite; }
+@keyframes hml-oro { to { background-position: -200% 0; } }
+.hml-icona { backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, .25); }
+.hml-anello { flex: none; margin-left: auto; }
+.hml-anello svg { display: block; transform: rotate(-90deg); }
+.hml-anello circle { fill: none; stroke-width: 4; }
+.hml-anello .t { stroke: rgba(255, 255, 255, .18); }
+.hml-anello .v { stroke: #f46aa0; stroke-linecap: round; stroke-dasharray: 113; stroke-dashoffset: 40; animation: hml-gira 3.2s ease-in-out infinite alternate; filter: drop-shadow(0 0 6px rgba(244, 106, 160, .8)); }
+@keyframes hml-gira { from { stroke-dashoffset: 95; } to { stroke-dashoffset: 25; } }
+.hml-cta { margin-left: 0; animation: hml-pulsa 2.8s ease-in-out infinite; }
+@keyframes hml-pulsa { 0%, 100% { box-shadow: 0 6px 16px -6px rgba(0,0,0,.45), 0 0 0 0 rgba(255,255,255,.55); } 50% { box-shadow: 0 6px 16px -6px rgba(0,0,0,.45), 0 0 0 8px rgba(255,255,255,0); } }
+@media (max-width: 560px) { .hml-anello { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+    .aurora i, .hml-titolo, .hml-anello .v, .hml-cta { animation: none; }
+    .hml { transform: none !important; }
+}
+.hml { max-width: 52rem; min-height: 148px; padding: 1.6rem 1.7rem; border-radius: 22px; }
+.hml-titolo { font-size: clamp(2rem, 5.4vw, 2.8rem); }
+
+/* «I miei lavori» in home · versione pastello lucida (sostituisce lo scuro) · 2026-11-21 */
+.hml {
+    color: #17385a;
+    background: linear-gradient(135deg, #fff4c9 0%, #ffe6ee 55%, #e6f1ff 100%);
+    box-shadow: 0 22px 44px -26px rgba(214, 140, 40, .55), inset 0 2px 0 rgba(255, 255, 255, .9), inset 0 -10px 24px rgba(255, 210, 94, .18);
+}
+.hml::before { background: linear-gradient(120deg, rgba(255, 255, 255, .95), rgba(255, 210, 94, .9), rgba(247, 168, 196, .8)); }
+.hml::after { background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, .75), rgba(255, 255, 255, 0)); }
+.hml .aurora i { mix-blend-mode: normal; opacity: .55; filter: blur(34px); }
+.hml .aurora i:nth-child(1) { background: #ffd25e; }
+.hml .aurora i:nth-child(2) { background: #a8e6cf; }
+.hml .aurora i:nth-child(3) { background: #d7c9ff; opacity: .5; }
+.hml .aurora::after { opacity: .06; }
+.hml-icona { background: linear-gradient(145deg, #ffffff, #fff1c2); color: #d6105f; border: 1px solid rgba(23, 56, 90, .08);
+             box-shadow: 0 8px 18px -10px rgba(214, 140, 40, .7), inset 0 1px 0 #fff; }
+.hml-occhiello { color: #c2410c; }
+.hml-titolo { background: none; color: #17385a; animation: none; }
+.hml-sotto { color: #3c4d61; }
+.hml-cta { background: #17385a; color: #fff; }
+.hml:hover, .hml:focus-visible { box-shadow: 0 28px 54px -26px rgba(214, 140, 40, .7), 0 0 0 4px rgba(255, 210, 94, .45); }
+.hml:focus-visible { outline: 3px solid #17385a; }

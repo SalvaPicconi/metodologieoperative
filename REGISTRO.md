@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-21** · Claude · «I miei lavori» ha una nuova veste: in home una scheda in evidenza dai colori pastello lucidi; dentro, illustrazione stilizzata, i lavori al centro e i riferimenti sintetici alle competenze dell’anno, ognuna con il suo simbolo, senza misure né punteggi. (commit di questa voce) [CLAUDE 2026-11-21 09:30]
+
 - **2026-11-20** · Claude · Chi è già entrato in un’attività con classe e codice entra direttamente in «I miei lavori»; «Esci» cancella classe e codice dal browser, così sul computer condiviso chi arriva dopo non entra al posto suo. (commit di questa voce) [CLAUDE 2026-11-20 23:30]
 
 - **2026-11-20** · Claude · Le verifiche sommative di biennio, terza e quarta e la verifica sull’intelligenza artificiale si correggono come «L’operatore sociale»: commento per risposta, punti per sezione, voto dalla griglia della verifica, «Salva» riservato e «Mostra all’alunno»; l’alunno vede la correzione in «I miei lavori». Migrazione Supabase `verifiche_correzione` (commit di questa voce). [CLAUDE 2026-11-20 23:10]

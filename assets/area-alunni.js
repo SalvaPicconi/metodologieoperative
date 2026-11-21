@@ -5,6 +5,7 @@
  */
 import { AreaAlunni } from './alunni-sessione.js?v=20261121d';
 
+
 const $ = id => document.getElementById(id);
 const formatoData = new Intl.DateTimeFormat('it-IT', {
     day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Rome'
@@ -21,6 +22,16 @@ const PAROLE = {
 };
 const PAROLE_WELFARE = { parole: 'Bisogno · Risposta · Welfare', domanda: 'A quale bisogno risponde il servizio che stai studiando?' };
 const PAGINA_ANNO = { 1: 'biennio.html', 2: 'biennio.html', 3: 'terzo.html', 4: 'quarto.html', 5: 'quinto.html' };
+
+// Competenze in uscita (D.M. 92/2018), con un nome breve per gli studenti.
+const COMPETENZE = {
+    C1: 'Progetti e reti dei servizi', C2: 'Lavoro in équipe', C3: 'Comunicazione con persone e gruppi',
+    C4: 'Cura dei bisogni di base', C5: 'Presa in carico socio-assistenziale', C6: 'Ambiente di vita e sicurezza',
+    C7: 'Informazione e orientamento ai servizi', C8: 'Attività educative e di animazione',
+    C9: 'Sostegno e tutela della persona fragile', C10: 'Dati e documentazione professionale'
+};
+const ANNI = { 1: 'Primo anno', 2: 'Secondo anno', 3: 'Terzo anno', 4: 'Quarto anno', 5: 'Quinto anno' };
+let curricolo = new Map();
 
 let titoli = new Map();
 let corrette = new Set();
@@ -58,6 +69,110 @@ function hrefPagina(path) {
     return /^\/(?!\/)[A-Za-z0-9_./%-]+\.html$/.test(path || '') ? path.slice(1) : null;
 }
 
+async function caricaCurricolo() {
+    try {
+        const dati = await (await fetch('materiali-curricolo.json', { cache: 'no-cache' })).json();
+        curricolo = new Map(Object.entries(dati.materiali || {}).map(([file, voci]) => ['/' + file, voci]));
+    } catch { curricolo = new Map(); }
+}
+
+function percento(lavoro) {
+    const meta = lavoro.meta || {};
+    if (Number.isFinite(meta.percentuale) && meta.percentuale >= 0 && meta.percentuale <= 100) return Math.round(meta.percentuale);
+    const f = meta.campiCompilati, t = meta.totale;
+    if (Number.isInteger(f) && Number.isInteger(t) && t > 0 && f >= 0 && f <= t) return f === t ? 100 : Math.min(99, Math.round(100 * f / t));
+    return null;
+}
+
+function anello(valore, etichetta, dimensione = 56) {
+    const ns = 'http://www.w3.org/2000/svg';
+    const r = 18, c = 2 * Math.PI * r;
+    const svg = document.createElementNS(ns, 'svg');
+    svg.setAttribute('viewBox', '0 0 44 44');
+    svg.setAttribute('width', dimensione);
+    svg.setAttribute('height', dimensione);
+    svg.setAttribute('class', 'aa-anello');
+    svg.setAttribute('role', 'img');
+    svg.setAttribute('aria-label', etichetta);
+    const fondo = document.createElementNS(ns, 'circle');
+    const arco = document.createElementNS(ns, 'circle');
+    for (const el of [fondo, arco]) { el.setAttribute('cx', 22); el.setAttribute('cy', 22); el.setAttribute('r', r); }
+    fondo.setAttribute('class', 't');
+    arco.setAttribute('class', 'v');
+    arco.style.strokeDasharray = c;
+    arco.style.strokeDashoffset = c;
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+        arco.style.strokeDashoffset = c * (1 - Math.max(0, Math.min(100, valore)) / 100);
+    }));
+    const testo = document.createElementNS(ns, 'text');
+    testo.setAttribute('x', 22); testo.setAttribute('y', 26.5); testo.setAttribute('text-anchor', 'middle');
+    testo.textContent = `${Math.round(valore)}%`;
+    svg.append(fondo, arco, testo);
+    return svg;
+}
+
+function barra(valore, etichetta) {
+    const b = document.createElement('div');
+    b.className = 'aa-barra';
+    b.setAttribute('role', 'img');
+    b.setAttribute('aria-label', etichetta);
+    const r = document.createElement('span');
+    r.style.width = `${Math.max(4, Math.min(100, valore))}%`;
+    b.append(r);
+    return b;
+}
+
+// Simboli stilizzati per le competenze (tratto semplice, nessuna misura).
+const ICONE = {
+    C1: '<path d="M6 18a3 3 0 1 0 0-.01M18 6a3 3 0 1 0 0-.01M18 18a3 3 0 1 0 0-.01M8.5 16.5l7-9M9 18h6"/>',
+    C2: '<circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M3 20c0-3 2.5-5 5-5s5 2 5 5M11 20c0-3 2.5-5 5-5s5 2 5 5"/>',
+    C3: '<path d="M4 5h11a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H9l-4 3v-3H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/><path d="M19 9h1a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-1v3l-4-3h-3"/>',
+    C4: '<path d="M12 20s-7-4.4-7-9.5A4 4 0 0 1 12 8a4 4 0 0 1 7 2.5C19 15.6 12 20 12 20z"/>',
+    C5: '<path d="M4 14c2-1 4-1 6 0l3 1.5a1.5 1.5 0 0 1-1 2.8L9 17.5M4 14v6M10 18l5 1.5 5-3"/><circle cx="15" cy="7" r="3"/>',
+    C6: '<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/>',
+    C7: '<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
+    C8: '<path d="M12 3a9 9 0 1 0 0 18c1.5 0 2-1 2-2s-1-1.5-1-2.5S14 15 15.5 15H18a3 3 0 0 0 3-3 9 9 0 0 0-9-9z"/><circle cx="7.5" cy="11" r="1.2"/><circle cx="10" cy="7" r="1.2"/><circle cx="15" cy="7.5" r="1.2"/>',
+    C9: '<path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9.5 12l2 2 3.5-4"/>',
+    C10: '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 10h6M9 14h6M9 18h3"/>'
+};
+
+function simbolo(codice) {
+    const span = document.createElement('span');
+    span.className = 'aa-comp-simbolo';
+    span.innerHTML = `<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONE[codice] || ''}</svg>`;
+    return span;
+}
+
+// Competenze dell'anno: solo i nomi e che cosa si impara, nessuna misura.
+function disegnaCompetenze(profilo) {
+    const anno = profilo && ANNI[profilo.anno_corso];
+    if (!anno || !curricolo.size) return;
+    const perComp = new Map();
+    for (const voci of curricolo.values()) {
+        for (const v of voci) {
+            if (v.anno === anno && v.competenza && COMPETENZE[v.competenza] && !perComp.has(v.competenza)) {
+                perComp.set(v.competenza, v.competenzaIntermedia);
+            }
+        }
+    }
+    if (!perComp.size) return;
+    const griglia = $('aa-comp-griglia');
+    griglia.replaceChildren();
+    const ordinate = [...perComp.entries()].sort((a, b) => Number(a[0].slice(1)) - Number(b[0].slice(1)));
+    ordinate.forEach(([codice, intermedia], i) => {
+        const card = document.createElement('details');
+        card.className = `aa-comp aa-tinta-${i % 5}`;
+        const sum = document.createElement('summary');
+        const nome = document.createElement('span'); nome.className = 'aa-comp-nome'; nome.textContent = COMPETENZE[codice];
+        sum.append(simbolo(codice), nome);
+        const testo = document.createElement('p');
+        testo.textContent = intermedia;
+        card.append(sum, testo);
+        griglia.append(card);
+    });
+    mostra('aa-competenze', true);
+}
+
 async function caricaTitoli() {
     try {
         const res = await fetch('materiali.json', { cache: 'no-cache' });
@@ -90,7 +205,8 @@ function svuotaArea() {
     $('aa-parole').textContent = '';
     $('aa-classe').textContent = '';
     $('aa-saluto').textContent = 'I miei lavori';
-    for (const id of ['aa-riprendi', 'aa-vuoto', 'aa-archivio']) mostra(id, false);
+    for (const id of ['aa-riprendi', 'aa-vuoto', 'aa-archivio', 'aa-competenze']) mostra(id, false);
+    $('aa-comp-griglia').replaceChildren();
     messaggio('');
 }
 
@@ -118,6 +234,7 @@ function voceLavoro(lavoro) {
     nome.textContent = titolo(lavoro.page_path);
     const info = document.createElement('p');
     info.className = 'aa-lavoro-info';
+    const p = percento(lavoro);
     info.textContent = `${formatData(lavoro.updated_at)} · ${statoLavoro(lavoro)}${lavoro.classe ? ` · classe ${String(lavoro.classe).replace(/\s/g, '').toLowerCase()}` : ''}`;
     testo.append(nome, info);
     li.append(testo);
@@ -152,9 +269,12 @@ function voceLavoro(lavoro) {
 function disegna(profilo, lavori) {
     annoCorrente = profilo ? profilo.anno_corrente : null;
     $('aa-saluto').textContent = 'I miei lavori';
+    $('aa-avatar').textContent = profilo && profilo.pseudonimo ? profilo.pseudonimo.charAt(0).toUpperCase() : '';
     $('aa-classe').textContent = profilo && profilo.classe
         ? `Classe ${profilo.classe.toLowerCase()} · codice ${profilo.pseudonimo.toLowerCase()} · anno scolastico ${annoLabel(profilo.anno_corrente)}`
         : 'Per quest’anno non risulti ancora in una classe.';
+    const lavoriAnno = lavori.filter(l => profilo && l.school_year === profilo.anno_corrente);
+    disegnaCompetenze(profilo);
 
     const riprendibile = lavori.find(l => l.modificabile && hrefPagina(l.page_path));
     if (riprendibile) {
@@ -213,10 +333,15 @@ async function caricaArea() {
     messaggio('Carico i tuoi lavori…');
     try {
         const [profilo, lavori, correzioni] = await Promise.all([
-            AreaAlunni.profilo(), AreaAlunni.lavori(), AreaAlunni.correzioni().catch(() => []), caricaTitoli()]);
+            AreaAlunni.profilo(), AreaAlunni.lavori(), AreaAlunni.correzioni().catch(() => []), caricaTitoli(), caricaCurricolo()]);
         corrette = new Set((correzioni || []).map(c => c.id));
         messaggio('');
         disegna(profilo, Array.isArray(lavori) ? lavori : []);
+        // Comparsa a cascata delle sezioni (se l'utente non ha ridotto le animazioni).
+        document.querySelectorAll('#aa-area > section:not([hidden]), .aa-comp, .aa-lavoro').forEach((el, i) => {
+            el.style.setProperty('--ritardo', `${Math.min(i, 14) * 60}ms`);
+            el.classList.add('aa-entra');
+        });
         $('aa-saluto').focus();
     } catch (errore) {
         if (errore.hint === 'sessione') {

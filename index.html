@@ -43,7 +43,7 @@
     <meta name="twitter:description" content="Percorsi, materiali didattici e laboratori di Metodologie Operative per i Servizi per la Sanità e l’Assistenza Sociale.">
     <meta name="twitter:image" content="https://www.metodologieoperativessas.it/assets/social/metodologie-operative-ssas-20261022.png">
     <meta name="twitter:image:alt" content="Metodologie Operative SSAS, libro aperto su sfondo verde.">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=20261121c">
 </head>
 <body>
     <header class="testata">
@@ -99,7 +99,18 @@
                 <p class="home-eyebrow">Centrale didattica</p>
                 <h1>Da dove partiamo oggi?</h1>
                 <p class="home-lead">Scegli la classe. Metodi, laboratori e strumenti del docente sono qui sotto, nello stesso ordine del menu.</p>
-                <p class="home-miei-lavori"><a href="area_alunni.html">I miei lavori <span aria-hidden="true">→</span></a> <span>Entra con il tuo codice personale e riprendi da dove eri rimasto.</span></p>
+                <a class="hml" href="area_alunni.html">
+                    <span class="aurora" aria-hidden="true"><i></i><i></i><i></i></span>
+                    <span class="hml-icona" aria-hidden="true">
+                        <svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 14a4 4 0 0 1 4-4h9l4 5h11a4 4 0 0 1 4 4v15a4 4 0 0 1-4 4H12a4 4 0 0 1-4-4z"/><path d="M17 28l5 5 9-10"/></svg>
+                    </span>
+                    <span class="hml-testo">
+                        <span class="hml-occhiello">Il tuo spazio</span>
+                        <span class="hml-titolo">I miei lavori</span>
+                        <span class="hml-sotto">Riprendi da dove eri rimasto e ritrova tutto quello che hai fatto.</span>
+                    </span>
+                    <span class="hml-cta">Entra <span aria-hidden="true">→</span></span>
+                </a>
             </div>
 
             <section class="home-livello" id="classi" aria-labelledby="classi-title">
@@ -632,5 +643,18 @@ document.head.appendChild(style);
 
 </script>
 
+    <script>
+    // Inclinazione leggera della scheda «I miei lavori» seguendo il puntatore (non con animazioni ridotte).
+    (function () {
+        var c = document.querySelector('.hml');
+        if (!c || !window.matchMedia || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        c.addEventListener('pointermove', function (e) {
+            var r = c.getBoundingClientRect();
+            c.style.setProperty('--ry', ((e.clientX - r.left) / r.width - .5) * 8 + 'deg');
+            c.style.setProperty('--rx', -((e.clientY - r.top) / r.height - .5) * 8 + 'deg');
+        });
+        c.addEventListener('pointerleave', function () { c.style.setProperty('--rx', '0deg'); c.style.setProperty('--ry', '0deg'); });
+    })();
+    </script>
 </body>
 </html>

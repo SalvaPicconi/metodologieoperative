@@ -6,8 +6,8 @@
     <meta name="referrer" content="no-referrer">
     <title>I miei lavori · Metodologie Operative</title>
     <meta name="description" content="Entra con classe e codice e riprendi i lavori salvati nelle attività di Metodologie Operative.">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="assets/area-alunni.css?v=20261121c">
+    <link rel="stylesheet" href="style.css?v=20261121c">
+    <link rel="stylesheet" href="assets/area-alunni.css?v=20261121g">
 </head>
 <body class="area-alunni">
     <header class="testata">
@@ -57,12 +57,27 @@
     <script src="assets/nav.js?v=20261024" defer></script>
     <!-- /briciole -->
 
-    <main id="contenuto">
+    <main id="contenuto" class="aa-main">
         <div class="container aa-container">
 
             <section id="aa-ingresso" class="aa-ingresso" aria-labelledby="aa-titolo">
-                <h1 id="aa-titolo">I miei lavori</h1>
-                <p class="aa-lead">Entra con la classe e il codice che usi nelle attività: ritrovi tutti i lavori salvati, anche da un altro dispositivo.</p>
+                <div class="aa-hero">
+                    <span class="aurora" aria-hidden="true"><i></i><i></i><i></i></span>
+<svg class="aa-illustrazione" viewBox="0 0 160 120" aria-hidden="true">
+                        <ellipse cx="82" cy="104" rx="58" ry="8" fill="#17385a" opacity=".08"/>
+                        <path d="M30 34c16-6 32-6 48 2v62c-16-8-32-8-48-2z" fill="#fff" stroke="#17385a" stroke-width="2.5" stroke-linejoin="round"/>
+                        <path d="M78 36c16-8 32-8 48-2v62c-16-6-32-6-48 2z" fill="#fffaf0" stroke="#17385a" stroke-width="2.5" stroke-linejoin="round"/>
+                        <path d="M40 50c10-3 20-3 30 1M40 62c10-3 20-3 30 1M40 74c8-2 16-2 24 0M88 51c10-4 20-4 29-1M88 63c10-4 20-4 29-1" stroke="#9fb3c8" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M95 77l7 7 14-15" stroke="#ec166c" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                        <g transform="rotate(38 128 30)"><rect x="122" y="6" width="11" height="44" rx="3" fill="#ffd25e" stroke="#17385a" stroke-width="2.5"/><path d="M122 50l5.5 10 5.5-10z" fill="#ffe7c2" stroke="#17385a" stroke-width="2.5" stroke-linejoin="round"/><rect x="122" y="6" width="11" height="8" rx="2" fill="#f7a8c4" stroke="#17385a" stroke-width="2.5"/></g>
+                        <path d="M22 20l2.5 6 6 2.5-6 2.5-2.5 6-2.5-6-6-2.5 6-2.5z" fill="#ffd25e"/>
+                        <path d="M146 92l1.8 4.2 4.2 1.8-4.2 1.8-1.8 4.2-1.8-4.2-4.2-1.8 4.2-1.8z" fill="#b9a7ff"/>
+                        <circle cx="140" cy="16" r="4" fill="#8fe3c4"/>
+                    </svg>
+                    <p class="aa-occhiello">Il tuo spazio riservato</p>
+                    <h1 id="aa-titolo">I miei lavori</h1>
+                    <p class="aa-lead">Entra con la classe e il codice che usi nelle attività: ritrovi tutti i tuoi lavori, anche da un altro dispositivo.</p>
+                </div>
                 <form id="aa-form" class="aa-form" novalidate>
                     <label for="aa-classe-input">Classe</label>
                     <input id="aa-classe-input" name="aa-classe-input" type="text" autocomplete="off"
@@ -80,12 +95,28 @@
             </section>
 
             <section id="aa-area" class="aa-area" aria-labelledby="aa-saluto" hidden>
-                <div class="aa-testa">
-                    <div>
-                        <h1 id="aa-saluto" tabindex="-1">I miei lavori</h1>
-                        <p id="aa-classe" class="aa-classe"></p>
+                <div class="aa-hero aa-hero-area">
+                    <span class="aurora" aria-hidden="true"><i></i><i></i><i></i></span>
+                    <div class="aa-testa">
+                        <span id="aa-avatar" class="aa-avatar" aria-hidden="true"></span>
+                        <div class="aa-testa-testo">
+                            <p class="aa-occhiello">Il tuo spazio</p>
+                            <h1 id="aa-saluto" tabindex="-1">I miei lavori</h1>
+                            <p id="aa-classe" class="aa-classe"></p>
+                        </div>
+                        <button type="button" id="aa-esci" class="aa-esci">Esci</button>
                     </div>
-                    <button type="button" id="aa-esci" class="aa-esci">Esci</button>
+                    <svg class="aa-illustrazione" viewBox="0 0 160 120" aria-hidden="true">
+                        <ellipse cx="82" cy="104" rx="58" ry="8" fill="#17385a" opacity=".08"/>
+                        <path d="M30 34c16-6 32-6 48 2v62c-16-8-32-8-48-2z" fill="#fff" stroke="#17385a" stroke-width="2.5" stroke-linejoin="round"/>
+                        <path d="M78 36c16-8 32-8 48-2v62c-16-6-32-6-48 2z" fill="#fffaf0" stroke="#17385a" stroke-width="2.5" stroke-linejoin="round"/>
+                        <path d="M40 50c10-3 20-3 30 1M40 62c10-3 20-3 30 1M40 74c8-2 16-2 24 0M88 51c10-4 20-4 29-1M88 63c10-4 20-4 29-1" stroke="#9fb3c8" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M95 77l7 7 14-15" stroke="#ec166c" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                        <g transform="rotate(38 128 30)"><rect x="122" y="6" width="11" height="44" rx="3" fill="#ffd25e" stroke="#17385a" stroke-width="2.5"/><path d="M122 50l5.5 10 5.5-10z" fill="#ffe7c2" stroke="#17385a" stroke-width="2.5" stroke-linejoin="round"/><rect x="122" y="6" width="11" height="8" rx="2" fill="#f7a8c4" stroke="#17385a" stroke-width="2.5"/></g>
+                        <path d="M22 20l2.5 6 6 2.5-6 2.5-2.5 6-2.5-6-6-2.5 6-2.5z" fill="#ffd25e"/>
+                        <path d="M146 92l1.8 4.2 4.2 1.8-4.2 1.8-1.8 4.2-1.8-4.2-4.2-1.8 4.2-1.8z" fill="#b9a7ff"/>
+                        <circle cx="140" cy="16" r="4" fill="#8fe3c4"/>
+                    </svg>
                 </div>
 
                 <p id="aa-stato" class="aa-stato" role="status" hidden></p>
@@ -101,6 +132,12 @@
                 <section id="aa-vuoto" class="aa-vuoto" hidden>
                     <p class="aa-vuoto-testo">Qui vedrai i lavori che salvi nelle attività del sito.</p>
                     <a id="aa-vuoto-link" class="aa-secondario" href="index.html">Vai alle attività</a>
+                </section>
+
+                <section id="aa-competenze" class="aa-competenze" aria-labelledby="aa-competenze-titolo" hidden>
+                    <h2 id="aa-competenze-titolo">Le competenze del tuo anno</h2>
+                    <p class="aa-nota">Le attività di quest’anno ti fanno crescere come futuro operatore sociale in questi ambiti. Tocca una scheda per leggere che cosa impari.</p>
+                    <div id="aa-comp-griglia" class="aa-comp-griglia"></div>
                 </section>
 
                 <section id="aa-archivio" class="aa-archivio" aria-labelledby="aa-archivio-titolo" hidden>
@@ -123,6 +160,6 @@
         <div id="aa-correzione-corpo" aria-live="polite"></div>
     </dialog>
 
-    <script type="module" src="assets/area-alunni.js?v=20261121d"></script>
+    <script type="module" src="assets/area-alunni.js?v=20261121g"></script>
 </body>
 </html>
