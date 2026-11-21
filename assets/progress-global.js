@@ -77,7 +77,7 @@ const CONFIG = resolveConfig();
   try {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = new URL('./barra-lavoro.css?v=20261122', import.meta.url).href;
+    link.href = new URL('./barra-lavoro.css?v=20261122b', import.meta.url).href;
     document.head.appendChild(link);
   } catch (error) {
     console.warn('Stile della barra non caricato:', error);
@@ -759,6 +759,7 @@ window.addEventListener('mo:identity-change', (event) => {
   isGuestMode = Boolean(detail.guest);
   updateSaveButtonsVisibility();
   updateStudentLabel(detail);
+  mostraStato(statoIniziale());
   // La lettura iniziale aspetta già l’identità, incluso l’accesso come ospite.
   if (CONFIG.reusePendingInitialRestore && initialRestorePending) return;
   loadAndRestore();
