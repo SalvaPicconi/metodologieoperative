@@ -280,8 +280,36 @@
       "tipo": "compito",
       "nascosti": [
         "cls",
-        "cod"
-      ]
+        "cod",
+        "^act_",
+        "^a4-",
+        "^a2-voto",
+        "^comp\\d$",
+        "riattiva-ultimo",
+        "a5-dialogo"
+      ],
+      "etichette": {
+        "brainstorming-parole": "Tappa 1 · Tre parole su «operatore sociale»",
+        "brainstorming-iniziale": "Tappa 1 · Che cosa pensi che faccia l’operatore sociale?",
+        "domanda-stimolo-1": "Tappa 1 · Che cosa ti incuriosisce di questo lavoro?",
+        "a3-riscrittura": "Tappa 3 · Il diario di Nadia: riscrivi una frase sbagliata",
+        "rete2-giulia": "Tappa 4 · La rete di Giulia: nodi e legami",
+        "rete2-marco": "Tappa 4 · La rete di Marco: nodi e legami",
+        "rete2-p-ampiezza": "Tappa 4 · Ampiezza: chi ha più persone intorno? (risposta)",
+        "rete2-i-ampiezza": "Tappa 4 · Ampiezza: la frase del racconto",
+        "rete2-p-forza": "Tappa 4 · Forza e reciprocità: chi ha persone vicine e fidate che lo aiutano davvero? (risposta)",
+        "rete2-i-forza": "Tappa 4 · Forza e reciprocità: la frase del racconto",
+        "pensiero-t4": "Tappa 4 · Una persona che conosci: chi c’era nella sua rete informale e in quella formale?",
+        "a6-davide-psi": "Tappa 5 · Davide · Psicologico: «Sente il bisogno di rifarsi delle perdite e si vergogna, per questo…»",
+        "a6-davide-soc": "Tappa 5 · Davide · Sociale",
+        "ac-utenza": "Tappa 5 · Analisi di un’utenza: l’utenza scelta",
+        "ac-bio": "Tappa 5 · Analisi di un’utenza: bisogno biologico",
+        "ac-psi": "Tappa 5 · Analisi di un’utenza: bisogno psicologico",
+        "ac-soc": "Tappa 5 · Analisi di un’utenza: bisogno sociale",
+        "ac-criticita": "Tappa 5 · Analisi di un’utenza: quali difficoltà può incontrare l’operatore?",
+        "ac-rete": "Tappa 5 · Analisi di un’utenza: perché è importante il lavoro di rete?",
+        "pensiero-t6": "Tappa 5 · Un gradino davanti a un negozio: per chi è una barriera? Che cosa cambia con una rampa?"
+      }
     },
     {
       "chiave": "compito-welfare-4-fasi",
