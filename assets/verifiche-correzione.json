@@ -250,7 +250,28 @@
       "chiave": "compito-disabilita-quarto",
       "titolo": "Le disabilità: parole, modelli e leggi",
       "pagina": "materiali/quarto/disabilita_dalle_leggi_al_progetto.html",
-      "tipo": "compito"
+      "tipo": "compito",
+      "nascosti": [
+        "^dis_anno_",
+        "^dis_vf_",
+        "^dis_caso_[a-z]+_\\d$"
+      ],
+      "etichette": {
+        "dis_riscrivi_1": "Esercizi · Riscrivi con le parole giuste · 1. «Marco è un portatore di handicap grave.»",
+        "dis_riscrivi_2": "Esercizi · Riscrivi con le parole giuste · 2. «In quella classe ci sono tre disabili.»",
+        "dis_riscrivi_3": "Esercizi · Riscrivi con le parole giuste · 3. «È un ragazzo diversamente abile, non può lavorare.»",
+        "dis_caso_marco_proposta": "Caso 1 · Marco, 7 anni, a scuola · Descrivi come collaboreresti con l’insegnante di sostegno, i docenti di classe e la famiglia in una settimana di scuola.",
+        "dis_caso_sofia_proposta": "Caso 2 · Sofia, 14 anni, e le barriere · Proponi tre interventi concreti per rendere la scuola accessibile a Sofia, indicando chi deve farli.",
+        "dis_caso_luca_proposta": "Caso 3 · Luca: la storia di una classe · Racconta la giornata di Luca prima e dopo il 1977, mettendo in evidenza che cosa è cambiato per lui e per i compagni.",
+        "dis_caso_giulia_proposta": "Caso 4 · Giulia, 10 anni, e le attività creative · Proponi tre attività creative per Giulia, indicando materiali, adattamenti e obiettivi, e come coinvolgeresti i compagni.",
+        "dis_caso_roberto_proposta": "Caso 5 · Roberto, 16 anni, e la vista · Progetta un’attività di Metodologie Operative accessibile a Roberto: materiali, ruolo dei compagni, modalità di verifica.",
+        "dis_caso_giuseppe_proposta": "Caso 6 · Il signor Giuseppe, 82 anni, in RSA · Proponi un piccolo progetto di attività per Giuseppe (per esempio orto o reminiscenza) con obiettivi verificabili e il ruolo dell’équipe.",
+        "dis_d1": "Domande aperte · 1. Come è cambiato il modo di guardare la disabilità dal modello medico all’ICF? Fai un esempio concreto.",
+        "dis_d2": "Domande aperte · 2. Che cosa hanno cambiato a scuola le leggi 118/1971 e 517/1977? Che differenza c’è fra inserimento, integrazione e inclusione?",
+        "dis_d3": "Domande aperte · 3. Spiega che cos’è lo stigma secondo Goffman e perché le parole «persona con disabilità» sono importanti nel lavoro dell’operatore.",
+        "dis_d4": "Domande aperte · 4. Quali sono oggi i tre percorsi possibili del PEI? Chi scrive il PEI e su quale modello si basa?",
+        "dis_d5": "Domande aperte · 5. Che cos’è il progetto di vita introdotto dal D.Lgs. 62/2024 e che ruolo ha la persona nel costruirlo?"
+      }
     },
     {
       "chiave": "compito-operatore-percorso",

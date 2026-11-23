@@ -88,7 +88,8 @@ function testoRisposta(valore) {
 // Campi dell'elaborato come coppie [percorso, valore]; gli oggetti annidati diventano «a.b.c».
 function campiPiatti(data) {
     const nascosti = [...NASCOSTI, ...(verifica.nascosti || [])];
-    const fuori = k => k.split('.').some(p => p.startsWith('_') || /^stat(e|o_)/.test(p)) || nascosti.some(n => k === n || k.startsWith(`${n}.`));
+    // «nascosti»: nomi esatti, prefissi «a.b» o espressioni regolari che iniziano con ^.
+    const fuori = k => k.split('.').some(p => p.startsWith('_') || /^stat(e|o_)/.test(p)) || nascosti.some(n => n.startsWith('^') ? new RegExp(n).test(k) : k === n || k.startsWith(`${n}.`));
     // Elenchi di risposte (una per domanda) da separare; gli altri elenchi (caselle spuntate) restano interi.
     const espandi = ['openAnswers', ...(verifica.espandi || [])];
     const out = [];
@@ -103,12 +104,12 @@ function campiPiatti(data) {
     return out;
 }
 
-// Etichetta di un campo: pagina, configurazione, domande salvate con l'elaborato, bozza.
+// Etichetta di un campo: configurazione, pagina, domande salvate con l'elaborato, bozza.
 function etichettaCampo(campo, info, data, bozzaEtichette) {
-    const daPagina = info.etichette.get(campo);
-    if (daPagina) return daPagina;
     const daConfig = verifica.etichette?.[campo];
     if (daConfig) return daConfig;
+    const daPagina = info.etichette.get(campo);
+    if (daPagina) return daPagina;
     const m = /^openAnswers\.(\d+)\.(\d+)$/.exec(campo);
     const salvata = m && data?.openQuestionLabels?.[m[1]]?.[m[2]];
     if (salvata) return `Missione ${Number(m[1]) + 1} · ${salvata}`;
