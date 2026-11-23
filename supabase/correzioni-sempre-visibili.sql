@@ -19,3 +19,18 @@ update private.verifiche_correzioni set pubblicata = bozza, pubblicata_il = now(
 --    «if p_mostra then» si è aggiunto
 --        if compilate = 5 then p_mostra := true; end if;
 --    così la correzione con tutti e cinque i punteggi è sempre visibile.
+--
+-- 4. Regola nel database (23/11/2026, dopo che un'altra sessione aveva scritto correzioni riservate
+--    direttamente nella tabella): qualunque inserimento o aggiornamento rende visibile la correzione.
+create or replace function private.verifiche_correzioni_sempre_visibili()
+returns trigger language plpgsql set search_path to '' as $$
+begin
+    if new.pubblicata is distinct from new.bozza then
+        new.pubblicata := new.bozza;
+        new.pubblicata_il := now();
+    end if;
+    return new;
+end;
+$$;
+create or replace trigger sempre_visibili before insert or update on private.verifiche_correzioni
+    for each row execute function private.verifiche_correzioni_sempre_visibili();

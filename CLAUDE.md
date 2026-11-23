@@ -48,6 +48,11 @@ Procedura per ogni revisione:
    legge, non si copia. Non si cambiano trigger, permessi o protezioni per far passare un rilascio.
 8. Una riga in `REGISTRO.md` con commit e run del workflow.
 
+**Consenso (decisione del titolare, 23/11/2026):** quello che il titolare chiede si fa e si pubblica su Aruba
+al termine, senza chiedergli di nuovo il consenso né conferme intermedie. Fanno eccezione le verifiche, che vanno
+online solo quando lo dice lui. Sul database si evitano i comandi che fanno chiedere conferma al connettore
+(drop, delete): si usano `create or replace` e aggiornamenti mirati.
+
 Se qualcosa blocca, si indicano operazione, errore esatto (senza credenziali) e rimedio minimo.
 
 ---
@@ -169,6 +174,10 @@ all'alunno**: non c'è «Mostra all'alunno» (decisione del titolare, 23/11/2026
 pagina e trova i commenti sotto le risposte. Se una risposta non è un campo con `name`/`id` della pagina
 (dati annidati, widget), la chiave `campi` della voce nel JSON dice dove sta (regola → selettore, con `$1`).
 La vecchia vista a elenco resta con `verifiche_correzione.html?…&vista=elenco`.
+Ogni pagina nuova con risposte nasce agganciata (regola del 23/11/2026, passo 4b della skill
+`nuovo-materiale`): voce nel JSON, script nella pagina, riga in `private.verifiche_elenco`
+(`supabase/verifiche-elenco-aggiungi.sql`). `scripts/controlla_correzioni.py`, dentro `programmi.py check`,
+blocca le pagine con risposte non agganciate; quelle già online il 23/11 stanno in `da_agganciare` del JSON.
 
 ---
 

@@ -780,10 +780,13 @@ def main():
     nuovo.add_argument("--anno", required=True, help="uno fra: " + ", ".join(ANNI))
     argomenti = parser.parse_args()
 
-    if argomenti.comando == "build":
-        costruisci(scrivi=True)
-    elif argomenti.comando == "check":
-        costruisci(scrivi=False)
+    if argomenti.comando in ("build", "check"):
+        costruisci(scrivi=argomenti.comando == "build")
+        # Attività con risposte agganciate alla correzione (regola del 23/11/2026).
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        import controlla_correzioni
+        if controlla_correzioni.main():
+            sys.exit(1)
     elif argomenti.comando == "list":
         elenca()
     elif argomenti.comando == "nuovo-modulo":
