@@ -416,7 +416,26 @@
       "chiave": "compito-caso-professionale",
       "titolo": "Il caso professionale",
       "pagina": "materiali/quinto/caso-professionale.html",
-      "tipo": "compito"
+      "tipo": "compito",
+      "nascosti": [
+        "^cp_tipo_"
+      ],
+      "etichette": {
+        "cp_manca_fatti": "1 · Fatti osservati e supposizioni della vicina",
+        "cp_manca_info": "1 · Informazioni che mancano e chi può fornirle",
+        "cp_griglia_salute": "3 · Griglia osservativa · Salute",
+        "cp_griglia_autonomia": "3 · Griglia osservativa · Autonomia nelle attività quotidiane",
+        "cp_griglia_relazioni": "3 · Griglia osservativa · Relazioni familiari e sociali",
+        "cp_griglia_casa": "3 · Griglia osservativa · Abitazione",
+        "cp_griglia_economia": "3 · Griglia osservativa · Risorse economiche",
+        "cp_griglia_rete": "3 · Griglia osservativa · Rete formale e informale",
+        "cp_cronologia": "3 · Schema cronologico",
+        "cp_ipotesi_a": "4 · Ipotesi A · Intervento a domicilio",
+        "cp_ipotesi_b": "4 · Ipotesi B · Alternativa semiresidenziale o residenziale",
+        "cp_scelta": "4 · La proposta per l'unità di valutazione",
+        "cp_rifiuto_proposta": "5 · Teresa dice no: come cambia la proposta",
+        "cp_rifiuto_verbale": "5 · La frase da mettere a verbale"
+      }
     },
     {
       "chiave": "compito-equipe-terzo",
