@@ -4,8 +4,7 @@
  * - Docente: «Apri la correzione» apre la pagina vera dell'attività con le risposte di quell'elaborato
  *   (?docente=1&doc_class=…&doc_student=…&correzione=<id>). Sotto ogni risposta c'è il commento del
  *   docente, modificabile; in testa punti, voto (verifiche) e commento finale. Tutto si salva da solo.
- *   Finché la correzione è riservata resta del docente; dopo «Mostra all'alunno» ogni salvataggio
- *   aggiorna anche la versione che l'alunno vede.
+ *   Ogni salvataggio è subito visibile all'alunno (decisione del titolare: correzioni sempre visibili).
  * - Alunno: aprendo la propria attività (da «I miei lavori») vede gli stessi commenti sotto le sue risposte.
  *
  * Dati: le risposte restano in public.progress; la correzione è in private.verifiche_correzioni
@@ -257,7 +256,7 @@ body[data-mo-correzione="docente"] #mo-salva,body[data-mo-correzione="docente"] 
         // --- pannello in testa ---
         const anno = Number(c.school_year);
         pannello.append(el('h2', null, `Correzione · ${String(c.class_code).toLowerCase()} · ${String(c.student_code).toLowerCase()} · ${anno}/${String((anno + 1) % 100).padStart(2, '0')}`));
-        pannello.append(el('p', null, 'Questa è la pagina dell’alunno con le sue risposte, che qui non si possono modificare. Scrivi i commenti nei riquadri rosa sotto le risposte: si salvano da soli.'));
+        pannello.append(el('p', null, 'Questa è la pagina dell’alunno con le sue risposte, che qui non si possono modificare. Scrivi i commenti nei riquadri rosa sotto le risposte: si salvano da soli e l’alunno li vede subito.'));
         const statoVis = el('p', 'mo-corr-stato');
         statoVis.setAttribute('role', 'status');
         pannello.append(statoVis);
@@ -307,13 +306,9 @@ body[data-mo-correzione="docente"] #mo-salva,body[data-mo-correzione="docente"] 
         pannello.append(altri);
 
         const azioni = el('div', 'mo-corr-azioni');
-        const mostra = el('button', 'mo-corr-primario', 'Mostra all’alunno');
-        mostra.type = 'button';
-        const ritira = el('button', null, 'Rendi di nuovo riservata');
-        ritira.type = 'button';
         const elenco = el('a', null, 'Torna all’elenco');
         elenco.href = new URL(`../verifiche_correzione.html?verifica=${encodeURIComponent(c.chiave)}&classe=${encodeURIComponent(c.class_code)}&anno=${encodeURIComponent(c.school_year)}`, BASE).href;
-        azioni.append(mostra, ritira, elenco);
+        azioni.append(elenco);
         pannello.append(azioni);
 
         const indicatore = el('div', `mo-corr-salvataggio ${ZONA}`, 'Correzione caricata');
@@ -333,10 +328,7 @@ body[data-mo-correzione="docente"] #mo-salva,body[data-mo-correzione="docente"] 
         function aggiornaStato() {
             statoVis.textContent = bloccato
                 ? 'Questa correzione è stata modificata da un’altra scheda: ricarica la pagina prima di continuare.'
-                : visibile ? 'Correzione visibile all’alunno: ogni modifica gli arriva appena salvata.'
-                    : 'Correzione riservata: l’alunno non la vede finché non premi «Mostra all’alunno».';
-            mostra.hidden = visibile;
-            ritira.hidden = !visibile;
+                : 'La correzione è visibile all’alunno: ogni modifica gli arriva appena salvata.';
         }
         function costruisciBozza() {
             const lista = ordine.filter(k => commenti.has(k) && pulisci(commenti.get(k).commento))
@@ -371,7 +363,7 @@ body[data-mo-correzione="docente"] #mo-salva,body[data-mo-correzione="docente"] 
             sporco = true;
             segna('Modifiche da salvare…');
             clearTimeout(timer);
-            timer = setTimeout(() => salva(visibile), 1000);
+            timer = setTimeout(() => salva(true), 1000);
         }
         function salva(pubblica) {
             clearTimeout(timer);
@@ -392,7 +384,7 @@ body[data-mo-correzione="docente"] #mo-salva,body[data-mo-correzione="docente"] 
                     revisione = esito.revisione;
                     visibile = Boolean(esito.visibile);
                     aggiornaStato();
-                    segna(`Salvato alle ${new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })}${visibile ? ' · visibile all’alunno' : ' · riservato'}`);
+                    segna(`Salvato alle ${new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })} · visibile all’alunno`);
                     return true;
                 } catch (e) {
                     sporco = true;
@@ -406,25 +398,6 @@ body[data-mo-correzione="docente"] #mo-salva,body[data-mo-correzione="docente"] 
         window.addEventListener('beforeunload', e => { if (sporco) { e.preventDefault(); e.returnValue = ''; } });
 
         pannello.addEventListener('input', e => { if (e.target.closest('.mo-corr-sezioni') || e.target === nota || e.target === votoInput) programma(); });
-        mostra.addEventListener('click', async () => {
-            const b = costruisciBozza();
-            if (compito ? (!b.commenti.length && !b.nota) : ((b.sezioni || []).some(s => s.punti === null) || !b.voto)) {
-                alert(compito ? 'Per mostrarla all’alunno scrivi almeno un commento.'
-                    : 'Per mostrarla all’alunno servono i punti di tutte le sezioni e il voto finale.');
-                return;
-            }
-            if (!confirm('Rendere visibile la correzione all’alunno? Da quel momento ogni modifica gli arriva appena salvata.')) return;
-            await salva(true);
-        });
-        ritira.addEventListener('click', async () => {
-            if (!confirm('Rendere di nuovo riservata la correzione? L’alunno non la vedrà più.')) return;
-            await coda;
-            try {
-                await window.MODocente.chiama('verifiche_docente_ritira', { p_id: c.id });
-                visibile = false; revisione += 1; aggiornaStato(); segna('Correzione riservata');
-            } catch (e) { segna(`Non riuscito: ${window.MODocente.messaggioErrore(e)}`); }
-        });
-
         // --- riquadri dei commenti sotto le risposte ---
         const riquadri = new Map();                 // campo → elemento
         function riquadro(campo, gruppo) {

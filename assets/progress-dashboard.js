@@ -1570,7 +1570,7 @@ function openActivityAsDocente(dataset = {}) {
    stanno in assets/verifiche-correzione.json; gli stati arrivano da verifiche_docente_elaborati.
    La correzione non crea una seconda copia del lavoro: è un livello separato, legato al salvataggio.
    ===================================================================== */
-const STATI_CORREZIONE = { da_correggere: 'da correggere', bozza: 'corretta · riservata', visibile: 'visibile all’alunno' };
+const STATI_CORREZIONE = { da_correggere: 'da correggere', bozza: 'corretta', visibile: 'corretta · visibile all’alunno' };
 let correzioniConfig = null;
 let correzioniGiro = 0;
 

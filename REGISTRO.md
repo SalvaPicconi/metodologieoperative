@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-23** · Claude · Le correzioni di verifiche e compiti sono sempre visibili all’alunno: tolto «Mostra all’alunno», ogni correzione salvata gli arriva subito; rese visibili anche le 62 già salvate e rimaste riservate. (commit di questa voce)
+
 - **2026-11-23** · Claude · Verifiche e compiti si correggono nella pagina dell’attività: «Apri la correzione» mostra al docente la pagina dell’alunno con le sue risposte e, sotto ognuna, il commento modificabile che si salva da solo (dopo «Mostra all’alunno» arriva subito all’alunno); l’alunno, da «I miei lavori» → «Vedi la correzione», ritrova i commenti sotto le sue risposte. Commit `0bde78b`, [rilascio Aruba verificato](https://github.com/SalvaPicconi/metodologieoperative/actions/runs/45210717857). [CLAUDE 2026-11-23]
 
 - **2026-11-23** · Claude · Nell’Area docente, dentro ogni classe, accanto a ogni lavoro compare lo stato della correzione («da correggere», «corretta · riservata», «visibile all’alunno») con il bottone che apre direttamente quell’elaborato; nella pagina di correzione «Come la vede l’alunno» mostra l’anteprima, e l’alunno vede la sua risposta sopra ogni commento. Commit `96877cb`, [rilascio Aruba verificato](https://github.com/SalvaPicconi/metodologieoperative/actions/runs/45157164248). [CLAUDE 2026-11-23]
