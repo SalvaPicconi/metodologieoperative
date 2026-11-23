@@ -183,6 +183,14 @@
       "chiave": "verifica-ia",
       "titolo": "Verifica sull’intelligenza artificiale",
       "pagina": "materiali/ai/verifica_ia_modificata.html",
+      "campi": {
+        "^inputs\\.(.+)$": "#$1",
+        "^radios\\.(.+)$": "input[type=\"radio\"][name=\"$1\"]",
+        "^checks\\.(.+)$": "#$1"
+      },
+      "nascosti": [
+        "timestamp"
+      ],
       "sezioni": [
         {
           "id": "T",
@@ -238,6 +246,17 @@
         "answers",
         "case.result"
       ],
+      "campi": {
+        "^openAnswers\\.(\\d+)\\.(\\d+)$": "#open-$1-$2",
+        "^case\\.facts$": "#caseFacts",
+        "^case\\.needs$": "input[name=\"needs\"]",
+        "^case\\.needsResources$": "#caseNeeds",
+        "^case\\.missing$": "#caseMissing",
+        "^case\\.roles$": "input[name=\"roles\"]",
+        "^case\\.network$": "#caseNetwork",
+        "^case\\.objective$": "#caseObjective",
+        "^case\\.evaluation$": "#caseEvaluation"
+      },
       "etichette": {
         "case.facts": "Analisi del caso · 1. Quali sono i dati presenti nel testo?",
         "case.needs": "Analisi del caso · 2. Quali dimensioni devono essere considerate?",

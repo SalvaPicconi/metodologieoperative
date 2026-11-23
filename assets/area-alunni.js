@@ -238,15 +238,23 @@ function voceLavoro(lavoro) {
     info.textContent = `${formatData(lavoro.updated_at)} · ${statoLavoro(lavoro)}${lavoro.classe ? ` · classe ${String(lavoro.classe).replace(/\s/g, '').toLowerCase()}` : ''}`;
     testo.append(nome, info);
     li.append(testo);
+    const href = hrefPagina(lavoro.page_path);
     if (corrette.has(lavoro.id)) {
-        const b = document.createElement('button');
-        b.type = 'button';
+        // La correzione si legge nella pagina dell'attività, sotto le risposte (assets/correzione-in-pagina.js).
+        let b;
+        if (href) {
+            b = document.createElement('a');
+            b.href = href;
+            apri(lavoro, b);
+        } else {
+            b = document.createElement('button');
+            b.type = 'button';
+            b.addEventListener('click', () => mostraCorrezione(lavoro.id));
+        }
         b.className = 'aa-azione';
         b.textContent = 'Vedi la correzione';
-        b.addEventListener('click', () => mostraCorrezione(lavoro.id));
         li.append(b);
     }
-    const href = hrefPagina(lavoro.page_path);
     if (href) {
         const a = document.createElement('a');
         a.href = href;

@@ -154,6 +154,18 @@ function disegnaElenco() {
     }</ul>`).join('');
 }
 
+// La correzione si fa nella pagina dell'attività (assets/correzione-in-pagina.js); la vista a elenco
+// resta raggiungibile con ?vista=elenco.
+const vistaElenco = () => new URLSearchParams(location.search).get('vista') === 'elenco';
+function linkPagina(r) {
+    return `${verifica.pagina}?docente=1&doc_class=${encodeURIComponent(r.class_code)}&doc_student=${encodeURIComponent(r.student_code)}&correzione=${encodeURIComponent(r.id)}`;
+}
+function apriElaborato(id) {
+    const r = righe.find(x => String(x.id) === String(id));
+    if (!vistaElenco() && r) { location.href = linkPagina(r); return; }
+    apri(id);
+}
+
 function commentiDalModulo() {
     const ordine = (corrente?.bozza?.commenti || []).map(c => c.campo);
     return [...document.querySelectorAll('[data-commento]')]
@@ -297,7 +309,7 @@ async function salva(mostra) {
 
 document.addEventListener('DOMContentLoaded', async () => {
     if (!window.MODocente?.token?.() && !localStorage.getItem('mo:docente-token')) { $('vc-accesso').hidden = false; return; }
-    try { config = (await (await fetch('assets/verifiche-correzione.json?v=20261123c', { cache: 'no-cache' })).json()).verifiche; }
+    try { config = (await (await fetch('assets/verifiche-correzione.json?v=20261123d', { cache: 'no-cache' })).json()).verifiche; }
     catch { $('vc-accesso').hidden = false; $('vc-accesso').textContent = 'Configurazione delle verifiche non disponibile.'; return; }
     $('vc-contenuto').hidden = false;
     const gruppo = (tipo, nome) => {
@@ -325,14 +337,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 $('vc-classe').value = siglaClasse(riga.class_code);
                 disegnaElenco();
             }
-            apri(id);
+            apriElaborato(id);
         }
     };
     $('vc-verifica').addEventListener('change', cambia);
     $('vc-anno').addEventListener('change', () => { $('vc-anno').dataset.scelto = '1'; filtri(); disegnaElenco(); });
     $('vc-classe').addEventListener('change', disegnaElenco);
     cambia();
-    $('vc-elenco').addEventListener('click', e => { const b = e.target.closest('[data-apri]'); if (b) apri(b.dataset.apri); });
+    $('vc-elenco').addEventListener('click', e => { const b = e.target.closest('[data-apri]'); if (b) apriElaborato(b.dataset.apri); });
     $('vc-indietro').addEventListener('click', elenco);
     $('vc-sezioni').addEventListener('input', aggiornaTotale);
     $('vc-voto-finale').addEventListener('input', () => { $('vc-voto-finale').dataset.toccato = '1'; });

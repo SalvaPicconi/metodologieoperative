@@ -1580,7 +1580,7 @@ function percorsoCorrezione(path) {
 
 async function caricaConfigCorrezioni() {
     if (correzioniConfig) return correzioniConfig;
-    const risposta = await fetch('assets/verifiche-correzione.json?v=20261123c', { cache: 'no-cache' });
+    const risposta = await fetch('assets/verifiche-correzione.json?v=20261123d', { cache: 'no-cache' });
     const verifiche = (await risposta.json()).verifiche || [];
     const mappa = new Map();
     verifiche.forEach(v => [v.pagina, ...(v.alias || [])].forEach(p => mappa.set(percorsoCorrezione(p), v)));
@@ -1604,15 +1604,17 @@ async function aggiornaCorrezioni() {
     await Promise.all([...perChiave.keys()].map(async chiave => {
         try {
             const righe = await window.MODocente.chiama('verifiche_docente_elaborati', { p_chiave: chiave }) || [];
-            righe.forEach(r => stati.set(String(r.id), r.stato));
+            righe.forEach(r => stati.set(String(r.id), r));
         } catch { }
     }));
     if (giro !== correzioniGiro) return;
     document.querySelectorAll('[data-correzione-slot]').forEach(slot => {
         const v = config.get(percorsoCorrezione(slot.dataset.correzionePath));
-        const stato = stati.get(slot.dataset.correzioneSlot);
+        const riga = stati.get(slot.dataset.correzioneSlot);
+        const stato = riga && riga.stato;
         if (!v || !stato) { slot.innerHTML = ''; return; }
-        const href = `verifiche_correzione.html?verifica=${encodeURIComponent(v.chiave)}&id=${encodeURIComponent(slot.dataset.correzioneSlot)}`;
+        // La correzione si fa nella pagina dell'attività, con le risposte dell'alunno (assets/correzione-in-pagina.js).
+        const href = `${v.pagina}?docente=1&doc_class=${encodeURIComponent(riga.class_code)}&doc_student=${encodeURIComponent(riga.student_code)}&correzione=${encodeURIComponent(slot.dataset.correzioneSlot)}`;
         slot.innerHTML = `<a class="docente-button${stato === 'da_correggere' ? ' docente-primary' : ''}" href="${href}">${stato === 'da_correggere' ? 'Correggi' : 'Apri la correzione'}</a>
             <span class="docente-correzione-stato" data-stato="${escapeHtml(stato)}">${escapeHtml(STATI_CORREZIONE[stato] || stato)}</span>`;
     });

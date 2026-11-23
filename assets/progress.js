@@ -618,6 +618,14 @@ export const Progress = (() => {
   // ✅ MODIFICATO: Usa path normalizzato
   async function load(pagePath = location.pathname) {
     const normalizedPath = normalizePath(pagePath);
+    // Correzione nella pagina (assets/correzione-in-pagina.js): le risposte sono quelle dell'elaborato
+    // aperto dal docente, anche di un anno passato.
+    if (superIdentity && typeof window !== 'undefined' && window.MOCorrezioneDati) {
+      try {
+        const dati = await window.MOCorrezioneDati;
+        if (dati) return dati;
+      } catch { }
+    }
     if (!superIdentity && AreaAlunni.attiva()) {
       attesaProtetto = caricaProtetto(normalizedPath);
       const dati = await attesaProtetto;
@@ -688,6 +696,11 @@ export const Progress = (() => {
   async function save(data, pagePath = location.pathname, opzioni = {}) {
     const keepalive = Boolean(opzioni && opzioni.keepalive);
     const normalizedPath = normalizePath(pagePath);
+    // Durante la correzione il docente non salva mai sul lavoro dell'alunno.
+    if (typeof window !== 'undefined' && window.MOCorrezioneDati) {
+      console.log('[Progress] Correzione in corso: nessun salvataggio delle risposte.');
+      return null;
+    }
     if (attesaProtetto) {
       try { await attesaProtetto; } catch { }
     }

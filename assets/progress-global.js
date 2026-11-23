@@ -1,4 +1,4 @@
-import { Progress } from './progress.js?v=20261122';
+import { Progress } from './progress.js?v=20261123d';
 import { AreaAlunni } from './alunni-sessione.js?v=20261122';
 
 console.log('✅ progress-global attivo');

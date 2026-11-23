@@ -156,6 +156,20 @@ Gli abbinamenti dei codici alunni dell'Area docente («Verifica codici») stanno
 `docente_abbinamenti`, raggiungibile solo con le funzioni `docente_abbinament*` e la sessione docente:
 valgono da ogni dispositivo (`supabase/docente-abbinamenti.sql`).
 
+### Correzione nella pagina dell'attività
+
+Verifiche e compiti elencati in `assets/verifiche-correzione.json` si correggono **nella pagina stessa
+dell'attività** (decisione del titolare, 23 novembre 2026), con `assets/correzione-in-pagina.js`, incluso in
+quelle pagine prima di `progress.js`. «Correggi» / «Apri la correzione» dell'Area docente e l'elenco di
+`verifiche_correzione.html` aprono `<pagina>?docente=1&doc_class=…&doc_student=…&correzione=<id>`: le
+risposte sono quelle esatte dell'elaborato (`verifiche_docente_apri`, anche degli anni passati, passate a
+`progress.js` con `window.MOCorrezioneDati`), bloccate e mai salvate; sotto ognuna il commento del docente,
+in testa punti, voto e commento finale. Tutto si salva da solo; dopo «Mostra all'alunno» ogni salvataggio
+aggiorna anche la versione visibile. L'alunno, da «I miei lavori» → «Vedi la correzione», apre la propria
+pagina e trova i commenti sotto le risposte. Se una risposta non è un campo con `name`/`id` della pagina
+(dati annidati, widget), la chiave `campi` della voce nel JSON dice dove sta (regola → selettore, con `$1`).
+La vecchia vista a elenco resta con `verifiche_correzione.html?…&vista=elenco`.
+
 ---
 
 ## Programmi
