@@ -158,6 +158,7 @@ function commentiDalModulo() {
     const ordine = (corrente?.bozza?.commenti || []).map(c => c.campo);
     return [...document.querySelectorAll('[data-commento]')]
         .map((t, i) => ({ campo: t.dataset.commento, etichetta: t.dataset.etichetta, commento: t.value.trim(),
+                          ...(t.dataset.risposta ? { risposta: t.dataset.risposta } : {}),
                           pos: ordine.includes(t.dataset.commento) ? ordine.indexOf(t.dataset.commento) : 1e6 + i }))
         .filter(c => c.commento)
         .sort((a, b) => a.pos - b.pos)
@@ -219,7 +220,7 @@ async function apri(id) {
             <p class="vc-domanda">${esc(etichetta)}</p>
             ${testo ? `<p class="vc-testo">${esc(testo)}</p>` : '<p class="vc-testo vc-vuota">nessuna risposta</p>'}
             <label class="visually-hidden" for="vc-c-${esc(k)}">Commento</label>
-            <textarea id="vc-c-${esc(k)}" rows="2" placeholder="Commento per l’alunno (facoltativo)" data-commento="${esc(k)}" data-etichetta="${esc(etichetta)}">${esc(commenti.get(k) || '')}</textarea>
+            <textarea id="vc-c-${esc(k)}" rows="2" placeholder="Commento per l’alunno (facoltativo)" data-commento="${esc(k)}" data-etichetta="${esc(etichetta)}" data-risposta="${esc(testo.slice(0, 4000))}">${esc(commenti.get(k) || '')}</textarea>
         </div>`;
     }).join('') || '<p class="docente-muted">Nessuna risposta salvata.</p>';
     // Commenti che non riguardano un singolo campo (es. riepilogo delle domande a scelta di una missione).
@@ -257,6 +258,21 @@ async function apri(id) {
     $('vc-elaborato-titolo').focus();
 }
 
+// Anteprima: la correzione com'è in questo momento, impaginata come in «I miei lavori» dell'alunno.
+function anteprima() {
+    const b = bozzaDalModulo();
+    const voto = compito() ? '' : `<p class="vc-ant-voto">Voto: ${esc(b.voto || '—')} · Punti: ${esc(String(b.totale).replace('.', ','))} su ${esc(b.max)}</p>`;
+    $('vc-anteprima-corpo').innerHTML = `<p class="docente-muted">Anteprima: così la vedrà l’alunno dopo «Mostra all’alunno».</p>
+        <h2 id="vc-anteprima-titolo">${esc(b.titolo)}</h2>${voto}
+        ${b.nota ? `<p class="vc-ant-nota">${esc(b.nota)}</p>` : ''}
+        ${(b.sezioni || []).map(x => `<p><strong>${esc(x.titolo)}</strong>: ${x.punti ?? '—'} su ${x.max}${x.commento ? ` · ${esc(x.commento)}` : ''}</p>`).join('')}
+        ${b.commenti.length ? '<h3>Commenti alle risposte</h3>' : '<p>Nessun commento.</p>'}
+        ${b.commenti.map(k => `<div class="vc-ant-voce"><p class="vc-domanda">${esc(k.etichetta)}</p>
+            ${k.risposta ? `<p class="vc-ant-risposta">La tua risposta: ${esc(k.risposta)}</p>` : ''}
+            <p class="vc-ant-commento">${esc(k.commento)}</p></div>`).join('')}`;
+    $('vc-anteprima-dialogo').showModal();
+}
+
 async function salva(mostra) {
     const b = bozzaDalModulo();
     if (compito()) {
@@ -281,7 +297,7 @@ async function salva(mostra) {
 
 document.addEventListener('DOMContentLoaded', async () => {
     if (!window.MODocente?.token?.() && !localStorage.getItem('mo:docente-token')) { $('vc-accesso').hidden = false; return; }
-    try { config = (await (await fetch('assets/verifiche-correzione.json?v=20261123', { cache: 'no-cache' })).json()).verifiche; }
+    try { config = (await (await fetch('assets/verifiche-correzione.json?v=20261123c', { cache: 'no-cache' })).json()).verifiche; }
     catch { $('vc-accesso').hidden = false; $('vc-accesso').textContent = 'Configurazione delle verifiche non disponibile.'; return; }
     $('vc-contenuto').hidden = false;
     const gruppo = (tipo, nome) => {
@@ -291,12 +307,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     $('vc-verifica').innerHTML = gruppo('verifica', 'Verifiche') + gruppo('compito', 'Compiti');
     const scelta = new URLSearchParams(location.search).get('verifica');
     if (config.some(v => v.chiave === scelta)) $('vc-verifica').value = scelta;
-    const cambia = () => {
+    // Dall'Area docente si arriva con ?verifica=…&id=…: si apre subito quell'elaborato.
+    let daAprire = new URLSearchParams(location.search).get('id');
+    const cambia = async () => {
         verifica = config.find(v => v.chiave === $('vc-verifica').value);
         $('vc-regola').textContent = compito()
             ? 'Compito: un commento per risposta e un commento finale, senza punti né voto.'
             : `Regola del voto: ${verifica.voto.spiegazione}${verifica.voto.da_confermare ? ' (da confermare)' : ''}`;
-        elenco();
+        await elenco();
+        if (daAprire) {
+            const id = daAprire;
+            daAprire = null;
+            const riga = righe.find(r => String(r.id) === id);
+            if (riga) {
+                $('vc-anno').value = String(riga.school_year);
+                filtri();
+                $('vc-classe').value = siglaClasse(riga.class_code);
+                disegnaElenco();
+            }
+            apri(id);
+        }
     };
     $('vc-verifica').addEventListener('change', cambia);
     $('vc-anno').addEventListener('change', () => { $('vc-anno').dataset.scelto = '1'; filtri(); disegnaElenco(); });
@@ -307,6 +337,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     $('vc-sezioni').addEventListener('input', aggiornaTotale);
     $('vc-voto-finale').addEventListener('input', () => { $('vc-voto-finale').dataset.toccato = '1'; });
     $('vc-salva').addEventListener('click', () => salva(false));
+    $('vc-anteprima').addEventListener('click', anteprima);
     $('vc-mostra').addEventListener('click', () => { if (confirm('Rendere visibile la correzione all’alunno?')) salva(true); });
     $('vc-ritira').addEventListener('click', async () => {
         if (!confirm('Rendere di nuovo riservata la correzione? L’alunno non la vedrà più.')) return;

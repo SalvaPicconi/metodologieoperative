@@ -748,3 +748,10 @@
 .docente-button-quiet { background: transparent; }
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .accessi-grafia { display: inline-flex; align-items: center; gap: .3rem; margin: 0 .5rem .25rem 0; }
+
+/* Correzione di verifiche e compiti: stato accanto a ogni lavoro (assets/progress-dashboard.js). */
+.docente-correzione { display: inline-flex; flex-wrap: wrap; align-items: center; gap: .4rem; }
+.docente-correzione:empty { display: none; }
+.docente-correzione-stato { font-size: .85rem; padding: .1rem .5rem; border-radius: 999px; background: #fdecec; color: #8a1f1f; }
+.docente-correzione-stato[data-stato="bozza"] { background: #fff4d6; color: #7a5300; }
+.docente-correzione-stato[data-stato="visibile"] { background: #e3f5ea; color: #1d6b3b; }

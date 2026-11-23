@@ -8,7 +8,7 @@
     <title>Correzione di verifiche e compiti · Metodologie Operative</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="assets/area-docente.css?v=20261121">
-    <link rel="stylesheet" href="assets/verifiche-correzione.css?v=20261121">
+    <link rel="stylesheet" href="assets/verifiche-correzione.css?v=20261123">
 </head>
 <body>
     <header class="testata">
@@ -99,6 +99,7 @@
                             <textarea id="vc-nota" rows="3"></textarea>
                         </div>
                         <div class="vc-azioni">
+                            <button type="button" id="vc-anteprima" class="docente-button">Come la vede l’alunno</button>
                             <button type="button" id="vc-salva" class="docente-button">Salva (riservata)</button>
                             <button type="button" id="vc-mostra" class="btn btn-primary">Mostra all’alunno</button>
                             <button type="button" id="vc-ritira" class="docente-button" hidden>Rendi di nuovo riservata</button>
@@ -109,7 +110,11 @@
         </div>
     </main>
 
+    <dialog id="vc-anteprima-dialogo" class="docente-dialog" aria-labelledby="vc-anteprima-titolo">
+        <form method="dialog"><button type="submit" class="docente-button">Chiudi</button></form>
+        <div id="vc-anteprima-corpo"></div>
+    </dialog>
     <script src="assets/docente-accesso.js?v=20261121"></script>
-    <script type="module" src="assets/verifiche-correzione.js?v=20261123"></script>
+    <script type="module" src="assets/verifiche-correzione.js?v=20261123c"></script>
 </body>
 </html>

@@ -89,11 +89,12 @@ document.addEventListener('DOMContentLoaded', () => {
         renderDashboard();
         byId('dashboard-classes-title').focus();
     });
-    elements.studentSearch.addEventListener('input', () => renderStudents(classRecords()));
+    elements.studentSearch.addEventListener('input', () => { renderStudents(classRecords()); aggiornaCorrezioni(); });
     byId('dashboard-activity-picker').addEventListener('change', event => {
         dashboardState.activity = event.target.value;
         byId('dashboard-comparison-list').replaceChildren();
         renderComparison();
+        aggiornaCorrezioni();
     });
     byId('dashboard-code-editor').addEventListener('submit', saveCodeLink);
     byId('docente-cambia-password').addEventListener('click', cambiaPasswordDocente);
@@ -464,6 +465,7 @@ function renderDashboard() {
 
     if (compare) {
         renderComparison();
+        aggiornaCorrezioni();
         return;
     }
     if (!code) {
@@ -490,6 +492,7 @@ function renderDashboard() {
     }
     if (dashboardState.view === 'activities') renderActivities(activities);
     if (dashboardState.view === 'students') renderStudents(records);
+    aggiornaCorrezioni();
     if (dashboardState.view === 'codes') renderCodeReview();
     if (dashboardState.view === 'stroop') renderStroop(code);
     // Il pannello «Accessi alunni» vive in assets/area-alunni-docente.js e si disegna da sé.
@@ -843,6 +846,8 @@ function renderWork(record, mode) {
                 data-student-code="${escapeHtml(record.student_code)}"
                 data-page-path="${escapeHtml(record.original_path)}">Vedi il lavoro</button>` : ''}
             ${record.id != null ? `<button type="button" class="docente-button" data-progress-detail="${escapeHtml(record.id)}">Risposte salvate</button>` : ''}
+            ${record.id != null ? `<span class="docente-correzione" data-correzione-slot="${escapeHtml(record.id)}"
+                data-correzione-path="${escapeHtml(record.original_path || record.page_path)}"></span>` : ''}
         </div>
     </li>`;
 }
@@ -1555,4 +1560,60 @@ function openActivityAsDocente(dataset = {}) {
     });
     const link = buildActivityLink(pagePath, { superMode: true, classCode, studentCode });
     window.open(link, '_blank', 'noopener');
+}
+
+
+/* =====================================================================
+   CORREZIONI DI VERIFICHE E COMPITI
+   Accanto a ogni lavoro corretto o da correggere compare lo stato della correzione e il bottone
+   che apre quell'elaborato in verifiche_correzione.html. Le pagine correggibili e le loro chiavi
+   stanno in assets/verifiche-correzione.json; gli stati arrivano da verifiche_docente_elaborati.
+   La correzione non crea una seconda copia del lavoro: è un livello separato, legato al salvataggio.
+   ===================================================================== */
+const STATI_CORREZIONE = { da_correggere: 'da correggere', bozza: 'corretta · riservata', visibile: 'visibile all’alunno' };
+let correzioniConfig = null;
+let correzioniGiro = 0;
+
+function percorsoCorrezione(path) {
+    return normalizePath(path).replace(/^\/metodologieoperative(?=\/|$)/, '') || '/';
+}
+
+async function caricaConfigCorrezioni() {
+    if (correzioniConfig) return correzioniConfig;
+    const risposta = await fetch('assets/verifiche-correzione.json?v=20261123c', { cache: 'no-cache' });
+    const verifiche = (await risposta.json()).verifiche || [];
+    const mappa = new Map();
+    verifiche.forEach(v => [v.pagina, ...(v.alias || [])].forEach(p => mappa.set(percorsoCorrezione(p), v)));
+    correzioniConfig = mappa;
+    return mappa;
+}
+
+async function aggiornaCorrezioni() {
+    const giro = ++correzioniGiro;
+    await Promise.resolve();
+    const slots = [...document.querySelectorAll('[data-correzione-slot]')];
+    if (!slots.length || !window.MODocente?.attivo?.()) return;
+    let config;
+    try { config = await caricaConfigCorrezioni(); } catch { return; }
+    const perChiave = new Map();
+    slots.forEach(slot => {
+        const v = config.get(percorsoCorrezione(slot.dataset.correzionePath));
+        if (v) perChiave.set(v.chiave, v);
+    });
+    const stati = new Map();
+    await Promise.all([...perChiave.keys()].map(async chiave => {
+        try {
+            const righe = await window.MODocente.chiama('verifiche_docente_elaborati', { p_chiave: chiave }) || [];
+            righe.forEach(r => stati.set(String(r.id), r.stato));
+        } catch { }
+    }));
+    if (giro !== correzioniGiro) return;
+    document.querySelectorAll('[data-correzione-slot]').forEach(slot => {
+        const v = config.get(percorsoCorrezione(slot.dataset.correzionePath));
+        const stato = stati.get(slot.dataset.correzioneSlot);
+        if (!v || !stato) { slot.innerHTML = ''; return; }
+        const href = `verifiche_correzione.html?verifica=${encodeURIComponent(v.chiave)}&id=${encodeURIComponent(slot.dataset.correzioneSlot)}`;
+        slot.innerHTML = `<a class="docente-button${stato === 'da_correggere' ? ' docente-primary' : ''}" href="${href}">${stato === 'da_correggere' ? 'Correggi' : 'Apri la correzione'}</a>
+            <span class="docente-correzione-stato" data-stato="${escapeHtml(stato)}">${escapeHtml(STATI_CORREZIONE[stato] || stato)}</span>`;
+    });
 }

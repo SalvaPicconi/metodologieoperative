@@ -392,7 +392,10 @@ async function mostraCorrezione(id) {
         corpo.append(elemento('h3', 'Commenti alle risposte'));
         for (const k of c.commenti) {
             const box = elemento('div', null, 'aa-commento-risposta');
-            box.append(elemento('p', k.etichetta, 'aa-lavoro-nome'), elemento('p', k.commento, 'aa-lavoro-info'));
+            box.append(elemento('p', k.etichetta, 'aa-lavoro-nome'));
+            // La risposta dell'alunno accanto alla correzione, quando il docente l'ha salvata con il commento.
+            if (k.risposta) box.append(elemento('p', `La tua risposta: ${k.risposta}`, 'aa-risposta'));
+            box.append(elemento('p', k.commento, 'aa-lavoro-info'));
             corpo.append(box);
         }
     }

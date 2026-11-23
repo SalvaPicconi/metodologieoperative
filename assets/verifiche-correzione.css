@@ -22,3 +22,9 @@
 .vc-voto { display: grid; gap: .35rem; margin: 1rem 0; max-width: 36rem; }
 .vc-voto p { font-weight: 700; margin: 0; }
 .vc-azioni { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem 0 2rem; }
+/* Anteprima «Come la vede l'alunno». */
+#vc-anteprima-dialogo { max-width: 46rem; width: calc(100% - 2rem); margin: auto; max-height: 90vh; overflow: auto; }
+.vc-ant-voce { border-left: 4px solid #ec166c; padding: .2rem .8rem; margin: .6rem 0; }
+.vc-ant-risposta { margin: .2rem 0; padding: .4rem .6rem; background: #f3f5f8; border-radius: 8px; white-space: pre-line; font-size: .92rem; }
+.vc-ant-commento, .vc-ant-nota { white-space: pre-line; margin: .2rem 0; }
+.vc-ant-nota { background: #eaf0f4; padding: .5rem .7rem; border-radius: 8px; }

@@ -326,3 +326,5 @@
 .aa-hero > .aa-illustrazione { position: absolute; right: 1.4rem; bottom: 50%; transform: translateY(50%); width: 150px; }
 @keyframes aa-galleggia { 0%, 100% { translate: 0 0; rotate: 0deg; } 50% { translate: 0 -6px; rotate: -1.5deg; } }
 @media (max-width: 560px) { .aa-hero > .aa-illustrazione { bottom: .5rem; transform: none; width: 112px; right: .8rem; } }
+/* La risposta dell'alunno sopra il commento del docente. */
+.aa-commento-risposta .aa-risposta { margin: .2rem 0; padding: .4rem .6rem; background: var(--color-primary-tint); border-radius: var(--radius-md); white-space: pre-line; font-size: .92rem; }
