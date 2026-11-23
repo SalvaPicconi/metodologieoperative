@@ -847,7 +847,9 @@ function renderWork(record, mode) {
                 data-page-path="${escapeHtml(record.original_path)}">Vedi il lavoro</button>` : ''}
             ${record.id != null ? `<button type="button" class="docente-button" data-progress-detail="${escapeHtml(record.id)}">Risposte salvate</button>` : ''}
             ${record.id != null ? `<span class="docente-correzione" data-correzione-slot="${escapeHtml(record.id)}"
-                data-correzione-path="${escapeHtml(record.original_path || record.page_path)}"></span>` : ''}
+                data-correzione-path="${escapeHtml(record.original_path || record.page_path)}"
+                data-correzione-classe="${escapeHtml(record.original_class || record.class_code || '')}"
+                data-correzione-studente="${escapeHtml(record.student_code || '')}"></span>` : ''}
         </div>
     </li>`;
 }
@@ -1612,7 +1614,11 @@ async function aggiornaCorrezioni() {
         const v = config.get(percorsoCorrezione(slot.dataset.correzionePath));
         const stato = stati.get(slot.dataset.correzioneSlot);
         if (!v || !stato) { slot.innerHTML = ''; return; }
-        const href = `verifiche_correzione.html?verifica=${encodeURIComponent(v.chiave)}&id=${encodeURIComponent(slot.dataset.correzioneSlot)}`;
+        // I compiti si correggono nella pagina dell'attività, con le risposte dell'alunno e la correzione sotto ognuna.
+        const href = v.tipo === 'compito' && slot.dataset.correzioneStudente
+            ? buildActivityLink(slot.dataset.correzionePath, { superMode: true,
+                classCode: (slot.dataset.correzioneClasse || '').toLowerCase(), studentCode: slot.dataset.correzioneStudente.toLowerCase() })
+            : `verifiche_correzione.html?verifica=${encodeURIComponent(v.chiave)}&id=${encodeURIComponent(slot.dataset.correzioneSlot)}`;
         slot.innerHTML = `<a class="docente-button${stato === 'da_correggere' ? ' docente-primary' : ''}" href="${href}">${stato === 'da_correggere' ? 'Correggi' : 'Apri la correzione'}</a>
             <span class="docente-correzione-stato" data-stato="${escapeHtml(stato)}">${escapeHtml(STATI_CORREZIONE[stato] || stato)}</span>`;
     });
