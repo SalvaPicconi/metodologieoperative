@@ -177,7 +177,8 @@ La vecchia vista a elenco resta con `verifiche_correzione.html?…&vista=elenco`
 Ogni pagina nuova con risposte nasce agganciata (regola del 23/11/2026, passo 4b della skill
 `nuovo-materiale`): voce nel JSON, script nella pagina, riga in `private.verifiche_elenco`
 (`supabase/verifiche-elenco-aggiungi.sql`). `scripts/controlla_correzioni.py`, dentro `programmi.py check`,
-blocca le pagine con risposte non agganciate; quelle già online il 23/11 stanno in `da_agganciare` del JSON.
+blocca le pagine con risposte non agganciate. Dal 23/11/2026 sono agganciate tutte (33 pagine) e `da_agganciare`
+è vuoto: resta solo come appoggio temporaneo, da svuotare.
 
 ---
 

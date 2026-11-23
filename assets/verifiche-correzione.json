@@ -395,27 +395,26 @@
       "titolo": "L'operatore sociale tra pari",
       "pagina": "materiali/peer_tutoring/incontro3_percorso_interattivo.html",
       "tipo": "compito"
-    }
+    },
+    {"chiave": "compito-percorso-animativo-interattivo", "titolo": "L'animazione ludica e sociale · esercizio pratico", "pagina": "materiali/biennio/percorso_animativo_interattivo.html", "tipo": "compito"},
+    {"chiave": "compito-gruppi-lavoro-sociale-autoappren", "titolo": "Il gruppo e l'auto mutuo aiuto", "pagina": "materiali/biennio/gruppi_lavoro_sociale_autoapprendimento.html", "tipo": "compito", "nascosti": ["fase_corrente"]},
+    {"chiave": "compito-welfare-semplificato-inclusivo", "titolo": "Il welfare · versione semplificata", "pagina": "materiali/biennio/welfare-semplificato-inclusivo.html", "tipo": "compito", "nascosti": ["student_name", "student_class", "student_date"]},
+    {"chiave": "compito-modulo-progetto-intervento", "titolo": "Modulo: fase preliminare del progetto d'intervento", "pagina": "materiali/terzo/modulo-progetto-intervento.html", "tipo": "compito"},
+    {"chiave": "compito-inc-esercitazione-media", "titolo": "Dai bisogni ai servizi · versione intermedia", "pagina": "materiali/terzo/inc_esercitazione_media.html", "tipo": "compito", "nascosti": ["nome", "classe", "data"]},
+    {"chiave": "compito-inc-esercitazione-semplificata", "titolo": "Dai bisogni ai servizi · versione semplificata", "pagina": "materiali/terzo/inc_esercitazione_semplificata.html", "tipo": "compito", "nascosti": ["nome", "classe", "data"]},
+    {"chiave": "compito-lab-dipendenze", "titolo": "Un primo colloquio al SerD", "pagina": "lab_dipendenze.html", "tipo": "compito"},
+    {"chiave": "compito-lab-infanzia", "titolo": "Progettare per i 3–6 anni · laboratorio", "pagina": "lab_infanzia.html", "tipo": "compito"},
+    {"chiave": "compito-dall-informazione-alla-partecipa", "titolo": "Dall’informazione alla partecipazione", "pagina": "materiali/educazione-civica/dall-informazione-alla-partecipazione.html", "tipo": "compito"},
+    {"chiave": "compito-fascicolo-disabilita-4sa", "titolo": "Fascicolo tecnico-pratico: le disabilità · quarto anno", "pagina": "materiali/laboratorio/fascicolo_disabilita_4sa.html", "tipo": "compito", "nascosti": ["^st-", "ev-data", "ev-firma"]},
+    {"chiave": "compito-relazione-seconda-prova", "titolo": "La relazione professionale e la seconda prova", "pagina": "materiali/quinto/relazione-seconda-prova.html", "tipo": "compito"},
+    {"chiave": "compito-definitivo-percorso-ia-completo", "titolo": "L'intelligenza artificiale · percorso in sei fasi", "pagina": "materiali/ai/definitivo percorso_ia_completo_6fasi.html", "tipo": "compito"},
+    {"chiave": "compito-intelligenza-artificiale-semplif", "titolo": "L'intelligenza artificiale · versione semplificata", "pagina": "materiali/ai/intelligenza_artificiale_semplificata.html", "tipo": "compito", "nascosti": ["nome", "classe", "data"]},
+    {"chiave": "compito-laboratori-manipolativi", "titolo": "I laboratori manipolativi · percorso interattivo", "pagina": "materiali/laboratorio/laboratori-manipolativi.html", "tipo": "compito"},
+    {"chiave": "compito-laboratorio-autobiografico", "titolo": "Laboratorio di scrittura autobiografica", "pagina": "materiali/laboratorio/laboratorio_autobiografico.html", "tipo": "compito"},
+    {"chiave": "compito-lab-animazione", "titolo": "Animazione ludico-ricreativa", "pagina": "lab_animazione.html", "tipo": "compito"},
+    {"chiave": "compito-peer-tutoring-platform", "titolo": "Peer tutoring · hub operativo", "pagina": "materiali/peer_tutoring/peer_tutoring_platform.html", "tipo": "compito", "nascosti": ["coppiaTutee", "coppiaTutor", "dataInizioPercorso", "faseAttuale", "peerTutoringState", "registroData", "^download_", "^meeting\\d_(status|completed|step|signature|tutee_name|tutor_name)$", "^autentiche_[a-z]+$"]},
+    {"chiave": "compito-test-stroop", "titolo": "Test di Stroop · laboratorio di valutazione cognitiva", "pagina": "materiali/compresenza/test-stroop.html", "tipo": "compito", "nascosti": ["auth-password", "class-filter-select", "participant-name", "participant-age", "participant-gender", "consent"]}
   ],
   "nota_da_agganciare": "Pagine con risposte già online il 23/11/2026 e non ancora agganciate alla correzione: si agganciano una per volta (scripts/controlla_correzioni.py). Le pagine nuove nascono agganciate.",
-  "da_agganciare": [
-    "materiali/biennio/percorso_animativo_interattivo.html",
-    "materiali/biennio/gruppi_lavoro_sociale_autoapprendimento.html",
-    "materiali/biennio/welfare-semplificato-inclusivo.html",
-    "materiali/terzo/modulo-progetto-intervento.html",
-    "materiali/terzo/inc_esercitazione_media.html",
-    "materiali/terzo/inc_esercitazione_semplificata.html",
-    "lab_dipendenze.html",
-    "lab_infanzia.html",
-    "materiali/educazione-civica/dall-informazione-alla-partecipazione.html",
-    "materiali/laboratorio/fascicolo_disabilita_4sa.html",
-    "materiali/quinto/relazione-seconda-prova.html",
-    "materiali/ai/definitivo percorso_ia_completo_6fasi.html",
-    "materiali/ai/intelligenza_artificiale_semplificata.html",
-    "materiali/laboratorio/laboratori-manipolativi.html",
-    "materiali/laboratorio/laboratorio_autobiografico.html",
-    "lab_animazione.html",
-    "materiali/peer_tutoring/peer_tutoring_platform.html",
-    "materiali/compresenza/test-stroop.html"
-  ]
+  "da_agganciare": []
 }
