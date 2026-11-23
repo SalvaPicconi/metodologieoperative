@@ -9,7 +9,7 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
-- **2026-11-23** · Claude · Nell’Area docente, dentro ogni classe, accanto a ogni lavoro compare lo stato della correzione («da correggere», «corretta · riservata», «visibile all’alunno») con il bottone che apre direttamente quell’elaborato; nella pagina di correzione «Come la vede l’alunno» mostra l’anteprima, e l’alunno vede la sua risposta sopra ogni commento. (commit di questa voce) [CLAUDE 2026-11-23]
+- **2026-11-23** · Claude · Nell’Area docente, dentro ogni classe, accanto a ogni lavoro compare lo stato della correzione («da correggere», «corretta · riservata», «visibile all’alunno») con il bottone che apre direttamente quell’elaborato; nella pagina di correzione «Come la vede l’alunno» mostra l’anteprima, e l’alunno vede la sua risposta sopra ogni commento. Commit `96877cb`, [rilascio Aruba verificato](https://github.com/SalvaPicconi/metodologieoperative/actions/runs/45157164248). [CLAUDE 2026-11-23]
 
 - **2026-11-23** · Claude · Anche i compiti svolti online si correggono dalla pagina «Correzione di verifiche e compiti» (Area docente → «Correggi i compiti»): commento per ogni risposta e commento finale, senza punti né voto, con filtri per anno e classe; «Salva» resta riservato e «Mostra all’alunno» rende la correzione leggibile in «I miei lavori». Migrazione Supabase `compiti_correzione`. Commit `57d21d7`, [rilascio Aruba verificato](https://github.com/SalvaPicconi/metodologieoperative/actions/runs/45146750997). [CLAUDE 2026-11-23]
 
