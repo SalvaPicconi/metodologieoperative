@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer">
     <meta name="robots" content="noindex">
-    <title>Correzione delle verifiche · Metodologie Operative</title>
+    <title>Correzione di verifiche e compiti · Metodologie Operative</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="assets/area-docente.css?v=20261121">
     <link rel="stylesheet" href="assets/verifiche-correzione.css?v=20261121">
@@ -57,7 +57,7 @@
     <!-- briciole: scripts/nav.py -->
     <div class="briciole" role="navigation" aria-label="Sei qui">
         <div class="container">
-            <p class="briciole-percorso"><a href="index.html">Home</a><span class="briciole-sep" aria-hidden="true">›</span><a href="index.html#docente">Docente</a><span class="briciole-sep" aria-hidden="true">›</span><a href="area_docente.html">Area docente</a><span class="briciole-sep" aria-hidden="true">›</span><span aria-current="page">Correzione delle verifiche</span></p>
+            <p class="briciole-percorso"><a href="index.html">Home</a><span class="briciole-sep" aria-hidden="true">›</span><a href="index.html#docente">Docente</a><span class="briciole-sep" aria-hidden="true">›</span><a href="area_docente.html">Area docente</a><span class="briciole-sep" aria-hidden="true">›</span><span aria-current="page">Correzione di verifiche e compiti</span></p>
         </div>
     </div>
     <script src="assets/nav.js?v=20261024" defer></script>
@@ -66,12 +66,16 @@
     <main>
         <div class="container">
             <section class="docente-dashboard vc" aria-labelledby="vc-titolo">
-                <h1 id="vc-titolo">Correzione delle verifiche</h1>
+                <h1 id="vc-titolo">Correzione di verifiche e compiti</h1>
                 <p id="vc-accesso" class="docente-notice" hidden>Per correggere entra prima nell’<a href="area_docente.html">Area docente</a> con la tua password, poi torna qui.</p>
                 <div id="vc-contenuto" hidden>
                     <div class="vc-scelta">
-                        <label for="vc-verifica">Verifica</label>
+                        <label for="vc-verifica">Verifica o compito</label>
                         <select id="vc-verifica"></select>
+                        <label for="vc-anno">Anno scolastico</label>
+                        <select id="vc-anno"></select>
+                        <label for="vc-classe">Classe</label>
+                        <select id="vc-classe"></select>
                     </div>
                     <p id="vc-regola" class="docente-muted"></p>
                     <div id="vc-elenco"></div>
@@ -80,12 +84,17 @@
                         <h2 id="vc-elaborato-titolo" tabindex="-1"></h2>
                         <p id="vc-stato" class="vc-stato" role="status"></p>
                         <div id="vc-risposte"></div>
+                        <div id="vc-blocchi"></div>
+                        <div id="vc-valutazione">
                         <h3>Valutazione per sezione</h3>
                         <div id="vc-sezioni"></div>
                         <div class="vc-voto">
                             <p id="vc-totale"></p>
                             <label for="vc-voto-finale">Voto finale</label>
                             <input id="vc-voto-finale" type="text" inputmode="decimal" maxlength="6">
+                        </div>
+                        </div>
+                        <div class="vc-voto">
                             <label for="vc-nota">Commento finale per l’alunno</label>
                             <textarea id="vc-nota" rows="3"></textarea>
                         </div>
@@ -101,6 +110,6 @@
     </main>
 
     <script src="assets/docente-accesso.js?v=20261121"></script>
-    <script type="module" src="assets/verifiche-correzione.js?v=20261121"></script>
+    <script type="module" src="assets/verifiche-correzione.js?v=20261123"></script>
 </body>
 </html>

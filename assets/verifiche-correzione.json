@@ -1,59 +1,326 @@
 {
-  "nota": "Sezioni, massimi e regola del voto ricavati dalle pagine delle verifiche (20/11/2026). Le regole marcate «da_confermare» sono proposte da verificare col docente.",
+  "nota": "Sezioni, massimi e regola del voto ricavati dalle pagine delle verifiche (20/11/2026). Le regole marcate «da_confermare» sono proposte da verificare col docente. I compiti («tipo»: «compito», 23/11/2026) hanno solo commenti per risposta e commento finale: niente sezioni né voto; «nascosti» toglie dalla vista campi tecnici o con nomi, «etichette» dà il testo delle domande che la pagina non contiene nel suo HTML.",
   "verifiche": [
     {
       "chiave": "sommativa-biennio",
       "titolo": "Verifica sommativa · biennio",
       "pagina": "materiali/biennio/verifica_sommativa_q1.html",
       "sezioni": [
-        { "id": "A", "titolo": "A · Conoscenze base", "max": 30 },
-        { "id": "B", "titolo": "B · Comprensione e collegamento", "max": 25 },
-        { "id": "C", "titolo": "C · Applicazione pratica", "max": 30 },
-        { "id": "D", "titolo": "D · Riflessione critica", "max": 15 }
+        {
+          "id": "A",
+          "titolo": "A · Conoscenze base",
+          "max": 30
+        },
+        {
+          "id": "B",
+          "titolo": "B · Comprensione e collegamento",
+          "max": 25
+        },
+        {
+          "id": "C",
+          "titolo": "C · Applicazione pratica",
+          "max": 30
+        },
+        {
+          "id": "D",
+          "titolo": "D · Riflessione critica",
+          "max": 15
+        }
       ],
-      "voto": { "tipo": "proporzionale", "da_confermare": true, "spiegazione": "La pagina non ha una griglia: voto = punti ÷ 10 (100 punti = 10)." }
+      "voto": {
+        "tipo": "proporzionale",
+        "da_confermare": true,
+        "spiegazione": "La pagina non ha una griglia: voto = punti ÷ 10 (100 punti = 10)."
+      }
     },
     {
       "chiave": "sommativa-terzo",
       "titolo": "Verifica sommativa · terzo anno",
       "pagina": "materiali/terzo/verifica_sommativa_q1.html",
       "sezioni": [
-        { "id": "A", "titolo": "A · Conoscenze di base", "max": 20 },
-        { "id": "B", "titolo": "B · Comprensione e collegamento", "max": 25 },
-        { "id": "C", "titolo": "C · Applicazione pratica (caso)", "max": 45 },
-        { "id": "D", "titolo": "D · Riflessione professionale", "max": 20 }
+        {
+          "id": "A",
+          "titolo": "A · Conoscenze di base",
+          "max": 20
+        },
+        {
+          "id": "B",
+          "titolo": "B · Comprensione e collegamento",
+          "max": 25
+        },
+        {
+          "id": "C",
+          "titolo": "C · Applicazione pratica (caso)",
+          "max": 45
+        },
+        {
+          "id": "D",
+          "titolo": "D · Riflessione professionale",
+          "max": 20
+        }
       ],
-      "voto": { "tipo": "fasce", "spiegazione": "Griglia della verifica.", "fasce": [[0, 54, "4"], [55, 65, "5"], [66, 76, "6"], [77, 87, "7"], [88, 98, "8"], [99, 110, "9-10"]] }
+      "voto": {
+        "tipo": "fasce",
+        "spiegazione": "Griglia della verifica.",
+        "fasce": [
+          [
+            0,
+            54,
+            "4"
+          ],
+          [
+            55,
+            65,
+            "5"
+          ],
+          [
+            66,
+            76,
+            "6"
+          ],
+          [
+            77,
+            87,
+            "7"
+          ],
+          [
+            88,
+            98,
+            "8"
+          ],
+          [
+            99,
+            110,
+            "9-10"
+          ]
+        ]
+      }
     },
     {
       "chiave": "sommativa-quarto",
       "titolo": "Verifica sommativa · quarto anno",
       "pagina": "materiali/quarto/verifica_sommativa_q1.html",
       "sezioni": [
-        { "id": "A", "titolo": "A · Conoscenze di base", "max": 20 },
-        { "id": "Abis", "titolo": "A bis · Conoscenze sui servizi", "max": 20 },
-        { "id": "B", "titolo": "B · Comprensione e collegamento", "max": 25 },
-        { "id": "Bbis", "titolo": "B bis · Comprensione dei servizi", "max": 25 },
-        { "id": "C", "titolo": "C · Applicazione pratica", "max": 35 },
-        { "id": "Cbis", "titolo": "C bis · Applicazione dei servizi", "max": 35 },
-        { "id": "D", "titolo": "D · Riflessione professionale", "max": 20 }
+        {
+          "id": "A",
+          "titolo": "A · Conoscenze di base",
+          "max": 20
+        },
+        {
+          "id": "Abis",
+          "titolo": "A bis · Conoscenze sui servizi",
+          "max": 20
+        },
+        {
+          "id": "B",
+          "titolo": "B · Comprensione e collegamento",
+          "max": 25
+        },
+        {
+          "id": "Bbis",
+          "titolo": "B bis · Comprensione dei servizi",
+          "max": 25
+        },
+        {
+          "id": "C",
+          "titolo": "C · Applicazione pratica",
+          "max": 35
+        },
+        {
+          "id": "Cbis",
+          "titolo": "C bis · Applicazione dei servizi",
+          "max": 35
+        },
+        {
+          "id": "D",
+          "titolo": "D · Riflessione professionale",
+          "max": 20
+        }
       ],
-      "voto": { "tipo": "fasce", "spiegazione": "Griglia della verifica (su 180 punti).", "fasce": [[0, 89, "4"], [90, 107, "5"], [108, 125, "6"], [126, 143, "7"], [144, 161, "8"], [162, 171, "9"], [172, 180, "10"]] }
+      "voto": {
+        "tipo": "fasce",
+        "spiegazione": "Griglia della verifica (su 180 punti).",
+        "fasce": [
+          [
+            0,
+            89,
+            "4"
+          ],
+          [
+            90,
+            107,
+            "5"
+          ],
+          [
+            108,
+            125,
+            "6"
+          ],
+          [
+            126,
+            143,
+            "7"
+          ],
+          [
+            144,
+            161,
+            "8"
+          ],
+          [
+            162,
+            171,
+            "9"
+          ],
+          [
+            172,
+            180,
+            "10"
+          ]
+        ]
+      }
     },
     {
       "chiave": "verifica-ia",
       "titolo": "Verifica sull’intelligenza artificiale",
       "pagina": "materiali/ai/verifica_ia_modificata.html",
       "sezioni": [
-        { "id": "T", "titolo": "Teoria · fondamenti dell’IA", "max": 30 },
-        { "id": "P1A", "titolo": "Parte 1A · centro diurno", "max": 25 },
-        { "id": "P1B", "titolo": "Parte 1B · scuola dell’infanzia", "max": 25 },
-        { "id": "P2", "titolo": "Parte 2 · correggi gli errori", "max": 20 },
-        { "id": "P3", "titolo": "Parte 3 · teoria dell’IA", "max": 20 },
-        { "id": "P4", "titolo": "Parte 4 · uso etico dell’IA", "max": 15 },
-        { "id": "P5", "titolo": "Parte 5 · l’IA nel tuo futuro professionale", "max": 15 }
+        {
+          "id": "T",
+          "titolo": "Teoria · fondamenti dell’IA",
+          "max": 30
+        },
+        {
+          "id": "P1A",
+          "titolo": "Parte 1A · centro diurno",
+          "max": 25
+        },
+        {
+          "id": "P1B",
+          "titolo": "Parte 1B · scuola dell’infanzia",
+          "max": 25
+        },
+        {
+          "id": "P2",
+          "titolo": "Parte 2 · correggi gli errori",
+          "max": 20
+        },
+        {
+          "id": "P3",
+          "titolo": "Parte 3 · teoria dell’IA",
+          "max": 20
+        },
+        {
+          "id": "P4",
+          "titolo": "Parte 4 · uso etico dell’IA",
+          "max": 15
+        },
+        {
+          "id": "P5",
+          "titolo": "Parte 5 · l’IA nel tuo futuro professionale",
+          "max": 15
+        }
       ],
-      "voto": { "tipo": "proporzionale", "da_confermare": true, "spiegazione": "La pagina non ha una griglia: voto = punti × 10 ÷ 150." }
+      "voto": {
+        "tipo": "proporzionale",
+        "da_confermare": true,
+        "spiegazione": "La pagina non ha una griglia: voto = punti × 10 ÷ 150."
+      }
+    },
+    {
+      "chiave": "compito-ripasso-terzo",
+      "titolo": "Ripasso di Metodologie Operative",
+      "pagina": "materiali/terzo/ripasso-terzo-anno.html",
+      "tipo": "compito",
+      "nascosti": [
+        "answers",
+        "case.result"
+      ],
+      "etichette": {
+        "case.facts": "Analisi del caso · 1. Quali sono i dati presenti nel testo?",
+        "case.needs": "Analisi del caso · 2. Quali dimensioni devono essere considerate?",
+        "case.needsResources": "Analisi del caso · 3. Indica bisogni, risorse e almeno un’ipotesi.",
+        "case.missing": "Analisi del caso · 4. Quali informazioni mancano prima di decidere?",
+        "case.roles": "Analisi del caso · 5. Quali componenti della rete potrebbero essere coinvolte?",
+        "case.network": "Analisi del caso · 6. Motiva la funzione delle risorse scelte.",
+        "case.objective": "Analisi del caso · 7. Formula un obiettivo verificabile e il primo intervento.",
+        "case.evaluation": "Analisi del caso · 8. Come verificheresti il percorso?"
+      }
+    },
+    {
+      "chiave": "compito-disabilita-quarto",
+      "titolo": "Le disabilità: parole, modelli e leggi",
+      "pagina": "materiali/quarto/disabilita_dalle_leggi_al_progetto.html",
+      "tipo": "compito"
+    },
+    {
+      "chiave": "compito-operatore-percorso",
+      "titolo": "L'operatore sociale · percorso a tappe",
+      "pagina": "materiali/biennio/tssas_percorso_completo_v2.html",
+      "tipo": "compito",
+      "nascosti": [
+        "cls",
+        "cod"
+      ]
+    },
+    {
+      "chiave": "compito-welfare-4-fasi",
+      "titolo": "Il welfare: dalle basi all'azione",
+      "pagina": "materiali/biennio/welfare-4-fasi-COMPLETO.html",
+      "tipo": "compito",
+      "nascosti": [
+        "student-name-p1",
+        "student-class-p1",
+        "reflection-name",
+        "reflection-class",
+        "group-members",
+        "group-class",
+        "gtrans",
+        "query",
+        "sl",
+        "tl"
+      ]
+    },
+    {
+      "chiave": "compito-bisogni-aiuto",
+      "titolo": "Bisogni umani e relazione d’aiuto",
+      "pagina": "materiali/biennio/bisogni-relazione-aiuto.html",
+      "tipo": "compito"
+    },
+    {
+      "chiave": "compito-caso-professionale",
+      "titolo": "Il caso professionale",
+      "pagina": "materiali/quinto/caso-professionale.html",
+      "tipo": "compito"
+    },
+    {
+      "chiave": "compito-equipe-terzo",
+      "titolo": "L'équipe multiprofessionale e le figure professionali",
+      "pagina": "materiali/terzo/equipe_multiprofessionale.html",
+      "tipo": "compito"
+    },
+    {
+      "chiave": "compito-servizi-autoapprendimento",
+      "titolo": "I servizi sociosanitari · autoapprendimento",
+      "pagina": "materiali/terzo/percorsi_autoapprendimento.html",
+      "tipo": "compito"
+    },
+    {
+      "chiave": "compito-servizi-casi-guidati",
+      "titolo": "Dai bisogni ai servizi · casi guidati",
+      "pagina": "materiali/terzo/esercitazioni_servizi.html",
+      "tipo": "compito"
+    },
+    {
+      "chiave": "compito-collage-autobiografico",
+      "titolo": "Il collage autobiografico · autoapprendimento",
+      "pagina": "materiali/laboratorio/collage_autobiografico.html",
+      "tipo": "compito"
+    },
+    {
+      "chiave": "compito-operatore-tra-pari",
+      "titolo": "L'operatore sociale tra pari",
+      "pagina": "materiali/peer_tutoring/incontro3_percorso_interattivo.html",
+      "tipo": "compito"
     }
   ]
 }

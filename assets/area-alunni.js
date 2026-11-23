@@ -370,9 +370,12 @@ async function mostraCorrezione(id) {
     try { c = await AreaAlunni.correzione(id); } catch { c = null; }
     corpo.replaceChildren();
     if (!c) { corpo.append(elemento('p', 'La correzione non è disponibile.')); return; }
-    const h = elemento('h2', c.titolo || 'La tua verifica corretta');
+    const compito = c.tipo === 'compito';
+    const h = elemento('h2', c.titolo || (compito ? 'Il tuo compito corretto' : 'La tua verifica corretta'));
     h.id = 'aa-correzione-titolo';
-    corpo.append(h, elemento('p', `Voto: ${c.voto || '—'}`, 'aa-voto'),
+    corpo.append(h);
+    // Il compito ha solo commenti: niente voto né punti.
+    if (!compito) corpo.append(elemento('p', `Voto: ${c.voto || '—'}`, 'aa-voto'),
         elemento('p', `Punti: ${String(c.totale).replace('.', ',')} su ${c.max}`, 'aa-nota'));
     if (c.nota) corpo.append(elemento('p', c.nota, 'aa-commento'));
     const sez = elemento('ul', null, 'aa-elenco');
