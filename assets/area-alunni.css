@@ -130,6 +130,8 @@
 .aa-voto { font-size: 1.5rem; font-weight: 700; color: var(--color-accent); margin: 0; }
 .aa-commento { background: var(--color-primary-tint); border-radius: var(--radius-md); padding: .6rem .8rem; }
 .aa-commento-risposta { border-left: 4px solid var(--color-rosa); padding: .2rem .8rem; margin: .5rem 0; }
+/* Correzioni: gli a capo scritti dal docente restano (✔ / ✎ / risposta attesa su righe proprie). */
+.aa-commento, .aa-commento-risposta .aa-lavoro-info { white-space: pre-line; }
 .aa-lavoro button.aa-azione { border: 0; }
 
 /* ── Veste premium · 2026-11-21 ─────────────────────────────────────────── */
