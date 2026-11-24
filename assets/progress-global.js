@@ -593,16 +593,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   } finally {
     initialRestorePending = false;
   }
-  // Correzione del docente dentro la pagina: risposte corrette chiuse, le altre ancora scrivibili.
-  if (!IS_DISABLED) {
-    import('./correzione-in-pagina.js?v=20261123')
-      .then(m => m.avviaCorrezione({
-        pagePath: PAGE_PATH,
-        statoProtetto: () => Progress.statoProtetto(),
-        correzioneProtetta: id => AreaAlunni.correzione(id)
-      }))
-      .catch(error => console.warn('[Correzione] modulo non caricato:', error));
-  }
 });
 
 // Ogni modifica a un campo della pagina fa partire il salvataggio automatico (dopo una breve pausa).
