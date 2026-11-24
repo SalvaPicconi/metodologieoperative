@@ -1,7 +1,7 @@
 /*
  * Correzione comune delle verifiche online (sommative e intelligenza artificiale), sul modello della
- * verifica «L'operatore sociale»: commento per risposta, punti per sezione, voto, «Salva» riservato e
- * «Mostra all'alunno». Le risposte si leggono da public.progress con la sessione dell'Area docente.
+ * verifica «L'operatore sociale»: commento per risposta, punti per sezione, voto; ogni salvataggio è
+ * subito visibile all'alunno. Le risposte si leggono da public.progress con la sessione dell'Area docente.
  * Le domande si ricavano dalla pagina della verifica stessa, così non si copiano i testi.
  * I compiti («tipo": "compito" in verifiche-correzione.json) usano lo stesso flusso senza punti né voto:
  * un commento per risposta, commenti per blocco (es. domande a scelta) e un commento finale.
@@ -10,7 +10,7 @@
 const $ = id => document.getElementById(id);
 const esc = v => String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const annoLabel = a => `${a}/${String((Number(a) + 1) % 100).padStart(2, '0')}`;
-const STATI = { da_correggere: 'da correggere', bozza: 'corretta, riservata', visibile: 'visibile all’alunno' };
+const STATI = { da_correggere: 'da correggere', bozza: 'corretta', visibile: 'corretta · visibile all’alunno' };
 const chiama = (nome, args) => window.MODocente.chiama(nome, args);
 
 let config = [];
@@ -154,6 +154,18 @@ function disegnaElenco() {
     }</ul>`).join('');
 }
 
+// La correzione si fa nella pagina dell'attività (assets/correzione-in-pagina.js); la vista a elenco
+// resta raggiungibile con ?vista=elenco.
+const vistaElenco = () => new URLSearchParams(location.search).get('vista') === 'elenco';
+function linkPagina(r) {
+    return `${verifica.pagina}?docente=1&doc_class=${encodeURIComponent(r.class_code)}&doc_student=${encodeURIComponent(r.student_code)}&correzione=${encodeURIComponent(r.id)}`;
+}
+function apriElaborato(id) {
+    const r = righe.find(x => String(x.id) === String(id));
+    if (!vistaElenco() && r) { location.href = linkPagina(r); return; }
+    apri(id);
+}
+
 function commentiDalModulo() {
     const ordine = (corrente?.bozza?.commenti || []).map(c => c.campo);
     return [...document.querySelectorAll('[data-commento]')]
@@ -195,9 +207,8 @@ function aggiornaTotale() {
 function mostraStato(c) {
     const visibile = Boolean(c.pubblicata);
     $('vc-stato').textContent = visibile
-        ? 'Correzione visibile all’alunno. Dopo una modifica premi di nuovo «Mostra all’alunno».'
-        : (c.bozza ? 'Correzione salvata e riservata: l’alunno non la vede.' : 'Correzione da fare.');
-    $('vc-ritira').hidden = !visibile;
+        ? 'Correzione visibile all’alunno: ogni salvataggio gli arriva subito.'
+        : (c.bozza ? 'Correzione salvata.' : 'Correzione da fare.');
 }
 
 async function apri(id) {
@@ -262,7 +273,7 @@ async function apri(id) {
 function anteprima() {
     const b = bozzaDalModulo();
     const voto = compito() ? '' : `<p class="vc-ant-voto">Voto: ${esc(b.voto || '—')} · Punti: ${esc(String(b.totale).replace('.', ','))} su ${esc(b.max)}</p>`;
-    $('vc-anteprima-corpo').innerHTML = `<p class="docente-muted">Anteprima: così la vedrà l’alunno dopo «Mostra all’alunno».</p>
+    $('vc-anteprima-corpo').innerHTML = `<p class="docente-muted">Anteprima: così la vede l’alunno dopo il salvataggio.</p>
         <h2 id="vc-anteprima-titolo">${esc(b.titolo)}</h2>${voto}
         ${b.nota ? `<p class="vc-ant-nota">${esc(b.nota)}</p>` : ''}
         ${(b.sezioni || []).map(x => `<p><strong>${esc(x.titolo)}</strong>: ${x.punti ?? '—'} su ${x.max}${x.commento ? ` · ${esc(x.commento)}` : ''}</p>`).join('')}
@@ -288,7 +299,7 @@ async function salva(mostra) {
         const esito = await chiama('verifiche_docente_salva', { p_id: corrente.id, p_bozza: b, p_mostra: mostra, p_revisione: corrente.revisione });
         corrente.revisione = esito.revisione;
         corrente.bozza = b;
-        if (mostra) corrente.pubblicata = b;
+        corrente.pubblicata = b;
         mostraStato(corrente);
     } catch (e) {
         alert(e.hint === 'conflitto' ? 'Questa correzione è stata salvata da un’altra scheda: ricarica la pagina.' : e.message);
@@ -297,7 +308,7 @@ async function salva(mostra) {
 
 document.addEventListener('DOMContentLoaded', async () => {
     if (!window.MODocente?.token?.() && !localStorage.getItem('mo:docente-token')) { $('vc-accesso').hidden = false; return; }
-    try { config = (await (await fetch('assets/verifiche-correzione.json?v=20261123c', { cache: 'no-cache' })).json()).verifiche; }
+    try { config = (await (await fetch('assets/verifiche-correzione.json?v=20261123d', { cache: 'no-cache' })).json()).verifiche; }
     catch { $('vc-accesso').hidden = false; $('vc-accesso').textContent = 'Configurazione delle verifiche non disponibile.'; return; }
     $('vc-contenuto').hidden = false;
     const gruppo = (tipo, nome) => {
@@ -325,23 +336,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                 $('vc-classe').value = siglaClasse(riga.class_code);
                 disegnaElenco();
             }
-            apri(id);
+            apriElaborato(id);
         }
     };
     $('vc-verifica').addEventListener('change', cambia);
     $('vc-anno').addEventListener('change', () => { $('vc-anno').dataset.scelto = '1'; filtri(); disegnaElenco(); });
     $('vc-classe').addEventListener('change', disegnaElenco);
     cambia();
-    $('vc-elenco').addEventListener('click', e => { const b = e.target.closest('[data-apri]'); if (b) apri(b.dataset.apri); });
+    $('vc-elenco').addEventListener('click', e => { const b = e.target.closest('[data-apri]'); if (b) apriElaborato(b.dataset.apri); });
     $('vc-indietro').addEventListener('click', elenco);
     $('vc-sezioni').addEventListener('input', aggiornaTotale);
     $('vc-voto-finale').addEventListener('input', () => { $('vc-voto-finale').dataset.toccato = '1'; });
     $('vc-salva').addEventListener('click', () => salva(false));
     $('vc-anteprima').addEventListener('click', anteprima);
-    $('vc-mostra').addEventListener('click', () => { if (confirm('Rendere visibile la correzione all’alunno?')) salva(true); });
-    $('vc-ritira').addEventListener('click', async () => {
-        if (!confirm('Rendere di nuovo riservata la correzione? L’alunno non la vedrà più.')) return;
-        try { await chiama('verifiche_docente_ritira', { p_id: corrente.id }); corrente.pubblicata = null; corrente.revisione += 1; mostraStato(corrente); }
-        catch (e) { alert(e.message); }
-    });
 });

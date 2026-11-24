@@ -1,11 +1,21 @@
 ---
 name: nuovo-materiale
-description: Trasformare una fonte del docente (pagine di un libro, un testo, appunti, un PDF, una presentazione) in un pacchetto didattico per una UDA del sito Metodologie Operative, cioè spiegazione per la LIM, esercitazioni con salvataggio in tre livelli, attività di laboratorio con strumento Word e verifica. Usare ogni volta che il docente consegna materiale da trasformare in attività, anche se non nomina la skill.
+description: Trasformare una fonte del docente (pagine di un libro, un testo, appunti, un PDF, una presentazione) in un pacchetto didattico per una UDA del sito Metodologie Operative: pagina teorica (spiegazione per la LIM), pagina di autoapprendimento (esercitazioni con salvataggio in tre livelli), attività di laboratorio con strumento Word e verifica, con ogni pagina che salva risposte già agganciata alla correzione del docente e all'Area docente. Usare ogni volta che il docente consegna materiale da trasformare in attività, anche se non nomina la skill.
 ---
 
 # Dalla fonte al pacchetto della UDA
 
-Modello deciso dal titolare il 25 ottobre 2026. Vale per ogni materiale nuovo da una fonte.
+Modello deciso dal titolare il 25 ottobre 2026, aggiornato il 23 novembre 2026. Vale per ogni materiale nuovo da una fonte.
+
+**Regola del 23/11/2026.** Ogni pacchetto ha sempre:
+- una **pagina teorica** (la spiegazione), che il docente usa per spiegare in classe;
+- una **pagina di autoapprendimento** (le esercitazioni), che la classe fa insieme al docente oppure gli alunni da soli.
+
+Ogni pagina che salva risposte (autoapprendimento, laboratorio con campi, verifica) **nasce già agganciata alla
+correzione e all'Area docente**: il docente la trova fra i lavori della classe con «Correggi», la corregge nella
+pagina stessa dell'alunno e la correzione salvata è **sempre e subito visibile all'alunno** (passo 4b). Il
+controllo `scripts/controlla_correzioni.py`, che gira dentro `programmi.py check` e quindi prima di ogni
+pubblicazione, blocca le pagine nuove non agganciate.
 Le regole generali del sito (`CLAUDE.md`) restano valide: questa skill dice **che cosa** si produce e **in che ordine**.
 Copia nell'ecosistema del docente, per gli agenti fuori dal repository (ChatGPT): Google Drive, `00_ECOSISTEMA_AI/20_DIDATTICA/nuovo-materiale-pacchetto-uda.md`. Se si cambia il modello, si aggiornano tutte e due le copie.
 
@@ -15,8 +25,8 @@ Ogni fonte diventa un pacchetto agganciato a **una** UDA, in quattro pezzi, semp
 
 | # | Pezzo | Forma | File | `tipo` in `materiali.json` |
 |---|---|---|---|---|
-| 1 | **Spiegazione** | pagina per la LIM, stampabile, senza campi | `<slug>-spiegazione.html` | `teoria` |
-| 2 | **Esercitazioni** | pagina con salvataggio, correzione dopo la consegna, **tre livelli** | `<slug>-esercizi.html`, `-esercizi-intermedia.html`, `-esercizi-semplificata.html` | `interattivo` (+ `livello`) |
+| 1 | **Spiegazione** (pagina teorica) | pagina per la LIM, stampabile, senza campi | `<slug>-spiegazione.html` | `teoria` |
+| 2 | **Esercitazioni** (autoapprendimento) | pagina con salvataggio, autocorrezione dopo la consegna, correzione del docente, **tre livelli** | `<slug>-esercizi.html`, `-esercizi-intermedia.html`, `-esercizi-semplificata.html` | `interattivo` (+ `livello`) |
 | 3 | **Laboratorio** | pagina con consegna, ruoli, tempi e criteri + strumento professionale in Word | `<slug>-laboratorio.html`, `<slug>-strumento.docx` | `laboratorio` e `download` |
 | 4 | **Verifica** | pagina con salvataggio e griglia in decimi | `verifica-<slug>.html` | `verifica` (+ `quadrimestre`) |
 
@@ -47,14 +57,22 @@ Spiegazione → esercitazioni (prima la completa, poi intermedia e semplificata)
 - `glossario.html`: ogni termine nuovo nell'array `VOCI`, con l'anno in cui si incontra per la prima volta.
 - `REGISTRO.md`: una riga.
 
+### 4b. Aggancio alla correzione e all'Area docente (obbligatorio)
+Per **ogni** pagina del pacchetto che salva risposte (esercitazioni nei tre livelli, laboratorio con campi, verifica):
+1. `assets/verifiche-correzione.json`, lista `verifiche`: una voce con `chiave` (`compito-<slug>`, `compito-<slug>-intermedia`… oppure `verifica-<slug>`), `titolo`, `pagina` (percorso dalla radice) e `tipo`: `compito` (commenti, senza voto) per esercitazioni e laboratorio; per la verifica il tipo predefinito, con `sezioni` (`id`, `titolo`, `max`) e la regola del `voto`, come le sommative già presenti. Se una risposta non sta in un campo con `name`/`id` della pagina (dati annidati, widget), `campi` dice dove sta (regola → selettore con `$1`); `nascosti` toglie i campi di servizio; `etichette` dà il testo della domanda quando la pagina non lo rende chiaro.
+2. Nella pagina: `<script src="../../assets/correzione-in-pagina.js?v=…"></script>` **prima** di `assets/progress.js`, con la stessa versione delle altre pagine.
+3. Supabase (progetto «Scuola e presenza online»): la riga in `private.verifiche_elenco` con lo stesso percorso e la stessa chiave, da `supabase/verifiche-elenco-aggiungi.sql`, lanciata con `execute_sql` (senza drop o delete: non chiede conferme al docente).
+4. L'Area docente non si tocca: la pagina compare da sola fra le attività della classe appena un alunno salva, e la voce del JSON + la riga su Supabase fanno comparire «Correggi» / «Apri la correzione».
+5. Prova con dati simulati: la pagina in correzione (`?docente=1&doc_class=…&doc_student=…&correzione=<id>`) mostra le risposte bloccate e un riquadro rosa sotto ognuna; l'alunno, da «I miei lavori» → «Vedi la correzione», vede i commenti sotto le sue risposte.
+
 ### 5. Controlli
-- `python3 scripts/programmi.py check`.
+- `python3 scripts/programmi.py check` (comprende `scripts/controlla_correzioni.py`: una pagina con risposte non agganciata blocca il controllo).
 - Prova dei salvataggi su ogni pagina con campi: dati simulati, accesso lento, salvataggio anticipato, riapertura.
 - Schermate al computer e al telefono (390 px): niente uscite dallo schermo, contrasto leggibile.
 - `python3 scripts/package_aruba.py --output <cartella-nuova>`: cambiano solo i file del pacchetto e i collegamenti.
 
 ### 6. Consegna
-Ramo proprio, PR in bozza, schermate al docente, domanda sulla pubblicazione. Si pubblica su Aruba **solo con il suo consenso**, con la procedura di `CLAUDE.md`. La **verifica** va online solo quando il docente lo dice: fino ad allora resta nella PR, fuori dal ramo Aruba.
+Ramo proprio e schermate al docente. Il pacchetto si pubblica su Aruba al termine, con la procedura di `CLAUDE.md`, **senza chiedere di nuovo il consenso** (decisione del titolare del 23/11/2026). La **verifica** fa eccezione: va online solo quando il docente lo dice; fino ad allora resta fuori dal ramo Aruba.
 
 ## Come si scrive ogni pezzo
 
@@ -114,7 +132,7 @@ Strumento Word: generato con `python-docx`, intestazione dell'istituto e della m
 - Tre parti: **A** domande chiuse (conoscenze); **B** risposte brevi (comprensione); **C** caso da analizzare (applicazione, sul modello del laboratorio).
 - Punteggio dichiarato per ogni domanda, totale in decimi, griglia di valutazione in fondo.
 - Sempre anche la **versione per obiettivi minimi** (`"livello": "semplificato"`), con le stesse parti ridotte e guidate.
-- Salvataggio come le esercitazioni; nessuna correzione visibile allo studente.
+- Salvataggio come le esercitazioni; nessuna autocorrezione nella pagina. La correzione la fa il docente nella pagina stessa (passo 4b), con punti per sezione e voto, ed è visibile all'alunno appena salvata.
 - Nel codice della pagina **non va mai una password né la sua impronta**: la verifica si protegge pubblicandola solo il giorno della prova.
 
 ## Lista di controllo finale
@@ -122,5 +140,6 @@ Strumento Word: generato con `python-docx`, intestazione dell'istituto e della m
 - [ ] Quattro pezzi, tre livelli di esercitazione, verifica + obiettivi minimi.
 - [ ] Nessun testo copiato dalla fonte oltre brevi citazioni; norme verificate con data.
 - [ ] `materiali.json`, `programmi-src` (+ build), glossario, `REGISTRO.md`.
+- [ ] Ogni pagina con risposte agganciata alla correzione: voce in `verifiche-correzione.json`, `correzione-in-pagina.js` prima di `progress.js`, riga in `private.verifiche_elenco`; prova in correzione e dal lato alunno.
 - [ ] Salvataggi provati, schermate computer e telefono, pacchetto Aruba confrontato.
-- [ ] PR in bozza; pubblicazione solo con il consenso del docente; verifica solo il giorno della prova.
+- [ ] Pubblicato su Aruba al termine; verifica solo il giorno della prova.

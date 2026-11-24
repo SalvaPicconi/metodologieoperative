@@ -429,7 +429,7 @@
         card.append(element('h3', 'Valutazione della prova'));
         const statoVisibilita = element('p', '', 'stato-restituzione');
         const aggiornaVisibilita = () => {
-            statoVisibilita.textContent = stato.visibile ? 'Correzione visibile all’alunno. Dopo una modifica, premi «Mostra all’alunno» per aggiornarla.' : 'Correzione riservata al docente.';
+            statoVisibilita.textContent = stato.visibile ? 'Correzione visibile all’alunno: ogni salvataggio gli arriva subito.' : 'Non ancora visibile: l’alunno la vede appena salvi tutti e cinque i punteggi.';
         };
         aggiornaVisibilita();
         card.append(statoVisibilita, riepilogo);
@@ -508,6 +508,8 @@
         mostraSalvata.type = 'button';
         const status = element('p', '', 'stato-restituzione');
         status.setAttribute('role','status');
+        // Correzioni sempre visibili (decisione del titolare, 23/11/2026): niente «Mostra all'alunno».
+        mostra.hidden = mostraSalvata.hidden = true;
         azioni.append(salva, mostra);
         form.append(azioni);
         editor.append(form);
@@ -530,7 +532,6 @@
             mostraSalvata.disabled = calcolato === null;
         }
         aggiornaRiepilogo();
-        editor.addEventListener('toggle', () => { mostraSalvata.hidden = editor.open; });
 
         let inSalvataggio = false;
         async function registra(payload, pubblica) {
@@ -553,7 +554,7 @@
                 aggiornaRiepilogo();
                 editor.open = false;
                 status.textContent = pubblica ? 'Correzione disponibile per l’alunno.'
-                    : (stato.visibile ? 'Salvato. Premi «Mostra all’alunno» per aggiornare la correzione visibile.' : 'Valutazione salvata.');
+                    : (stato.visibile ? 'Salvato: l’alunno vede la correzione aggiornata.' : 'Salvato. Completa i cinque punteggi: poi l’alunno la vede.');
             } catch (error) {
                 status.textContent = MODocente.messaggioErrore(error);
             } finally {
