@@ -24,10 +24,14 @@ Regole decise dal titolare il 23 novembre 2026. Valgono sempre, senza chiedere c
 - Formato: «✔ ciò che è corretto» / «✎ ciò che manca o è sbagliato» / «Risposta attesa: …» quando serve.
   Domande di riflessione personale: una riga di riscontro. Stesso metro per tutti, nessun confronto
   fra alunni, nessun nome nei commenti.
-- Lessico della disciplina, senza eccezioni: le **ipotesi** le formula l'operatore (l'alunno), a partire
-  dai fatti, e si verificano; ciò che riferisce un'altra persona con «mi sembra», «credo» sono le sue
-  **impressioni**, da tenere separate dai **fatti** (osservati o riferiti). Non si scrive «supposizioni».
-  In dubbio su un termine, si usa quello della pagina dell'attività e del glossario.
+- **Lessico disciplinare, sempre.** Ogni termine dei commenti viene dal lessico di Metodologie Operative,
+  trasversale alle materie collegate: prima la pagina dell'attività, poi gli altri materiali del sito e
+  `glossario.html` (unica fonte delle definizioni). Se un termine non c'è, non lo si inventa: si cerca
+  come lo usano i materiali, e se serve si aggiunge al glossario. Mai parole di uso comune al posto dei termini.
+- Esempio fissato dal titolare: **fatto** (osservato o riferito, con la fonte, verificabile),
+  **interpretazione** (la lettura di chi riferisce, con «mi sembra», «credo»: va verificata o motivata),
+  **giudizio** (etichetta sulla persona, non si scrive), **ipotesi** (la formula l'operatore, cioè l'alunno,
+  sui fatti, e la verifica). Non si scrive «supposizioni» né «impressioni».
 - Domande chiuse: si conta la prima risposta data (campo `f` nei salvataggi `act_*`), con la spiegazione
   della pagina per ogni errore.
 
