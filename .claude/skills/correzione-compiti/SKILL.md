@@ -24,10 +24,19 @@ Regole decise dal titolare il 23 novembre 2026. Valgono sempre, senza chiedere c
 - Formato: «✔ ciò che è corretto» / «✎ ciò che manca o è sbagliato» / «Risposta attesa: …» quando serve.
   Domande di riflessione personale: una riga di riscontro. Stesso metro per tutti, nessun confronto
   fra alunni, nessun nome nei commenti.
-- **Lessico disciplinare, sempre.** Ogni termine dei commenti viene dal lessico di Metodologie Operative,
-  trasversale alle materie collegate: prima la pagina dell'attività, poi gli altri materiali del sito e
-  `glossario.html` (unica fonte delle definizioni). Se un termine non c'è, non lo si inventa: si cerca
-  come lo usano i materiali, e se serve si aggiunge al glossario. Mai parole di uso comune al posto dei termini.
+- **Lessico disciplinare, sempre.** Ogni termine dei commenti, delle consegne e delle risposte attese è quello
+  di Metodologie Operative, nel suo uso trasversale alle materie collegate (scienze umane, igiene, diritto e
+  legislazione socio-sanitaria). Le fonti, da consultare insieme e non una sola:
+  1. la pagina dell'attività e gli altri materiali del sito, dal biennio alla quinta;
+  2. il curricolo normativo, `programmi-src/curricolo-ssas.json` (D.M. 92/2018, Allegato C): abilità e
+     conoscenze alla lettera (es. «metodi e strumenti di osservazione e documentazione», «rilevazione dei
+     bisogni», «pertinenza e attendibilità delle informazioni e dei dati», «scale dei livelli di autonomia»);
+  3. le UDA dei programmi (`programmi-src/moduli-*.json`) e l'impianto didattico;
+  4. il libro di testo in adozione (Lotteri, Corsi, *Metodologie Operative*) e i materiali del docente su
+     Drive: indice `GRAPHIFY_PICCONI_SCUOLA_DIDATTICA.txt`, poi solo le fonti pertinenti;
+  5. `glossario.html`, che va tenuto allineato: un termine nuovo o corretto si aggiunge lì.
+  Se le fonti non concordano o un termine manca, non si inventa e non si usa la parola di uso comune:
+  si sceglie quello del curricolo e dei materiali, e nel dubbio si chiede al titolare prima di correggere.
 - Esempio fissato dal titolare: **fatto** (osservato o riferito, con la fonte, verificabile),
   **interpretazione** (la lettura di chi riferisce, con «mi sembra», «credo»: va verificata o motivata),
   **giudizio** (etichetta sulla persona, non si scrive), **ipotesi** (la formula l'operatore, cioè l'alunno,
