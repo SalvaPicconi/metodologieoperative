@@ -24,6 +24,10 @@ Regole decise dal titolare il 23 novembre 2026. Valgono sempre, senza chiedere c
 - Formato: «✔ ciò che è corretto» / «✎ ciò che manca o è sbagliato» / «Risposta attesa: …» quando serve.
   Domande di riflessione personale: una riga di riscontro. Stesso metro per tutti, nessun confronto
   fra alunni, nessun nome nei commenti.
+- Lessico della disciplina, senza eccezioni: le **ipotesi** le formula l'operatore (l'alunno), a partire
+  dai fatti, e si verificano; ciò che riferisce un'altra persona con «mi sembra», «credo» sono le sue
+  **impressioni**, da tenere separate dai **fatti** (osservati o riferiti). Non si scrive «supposizioni».
+  In dubbio su un termine, si usa quello della pagina dell'attività e del glossario.
 - Domande chiuse: si conta la prima risposta data (campo `f` nei salvataggi `act_*`), con la spiegazione
   della pagina per ogni errore.
 
