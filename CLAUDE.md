@@ -173,6 +173,10 @@ in testa punti, voto e commento finale. Tutto si salva da solo e **ogni correzio
 all'alunno**: non c'è «Mostra all'alunno» (decisione del titolare, 23/11/2026; `supabase/correzioni-sempre-visibili.sql`). L'alunno, da «I miei lavori» → «Vedi la correzione», apre la propria
 pagina e trova i commenti sotto le risposte. Se una risposta non è un campo con `name`/`id` della pagina
 (dati annidati, widget), la chiave `campi` della voce nel JSON dice dove sta (regola → selettore, con `$1`).
+Regola del titolare (23/11/2026): **una risposta già corretta non si modifica più, quelle senza correzione
+restano scrivibili**, e le risposte non date non si correggono. Nella vista alunno lo script chiude i campi
+con commento e risposta; chi entra con classe e codice legge la correzione con `progress_correzione`
+(`supabase/correzione-in-pagina.sql`). Come si correggono i compiti: `.claude/skills/correzione-compiti/SKILL.md`.
 La vecchia vista a elenco resta con `verifiche_correzione.html?…&vista=elenco`.
 Ogni pagina nuova con risposte nasce agganciata (regola del 23/11/2026, passo 4b della skill
 `nuovo-materiale`): voce nel JSON, script nella pagina, riga in `private.verifiche_elenco`

@@ -479,11 +479,40 @@ body[data-mo-correzione="docente"] #mo-salva,body[data-mo-correzione="docente"] 
     // ================================================================
     // ALUNNO
     // ================================================================
+    // Accesso con classe e codice (senza area «I miei lavori»): correzione visibile di quel codice su questa pagina.
+    async function correzioneDaCodice() {
+        let codice = '';
+        try { codice = (localStorage.getItem('mo:code') || sessionStorage.getItem('mo:code') || '').trim(); } catch { }
+        if (!codice) return null;
+        const v = await verificaDellaPagina();
+        if (!v) return null;
+        const url = 'https://ruplzgcnheddmqqdephp.supabase.co/rest/v1/rpc/progress_correzione';
+        const chiave = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1cGx6Z2NuaGVkZG1xcWRlcGhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAxMTYyMjksImV4cCI6MjA3NTY5MjIyOX0.tOLIkgi5yTt61_0rMlXUqxnbil4DLD7kBaqZBVAv1CI';
+        for (const c of [...new Set([codice.toLowerCase(), codice])]) {
+            try {
+                const r = await fetch(url, { method: 'POST', headers: { apikey: chiave, Authorization: `Bearer ${chiave}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ p_student_code: c, p_page_path: percorsoPagina() }) });
+                if (!r.ok) continue;
+                const t = await r.text();
+                const dati = t ? JSON.parse(t) : null;
+                if (dati && typeof dati === 'object') return { dati, v };
+            } catch { }
+        }
+        return null;
+    }
+
     function avviaAlunno() {
         let caricato = null;
+        window.addEventListener('mo:progress-restored', async () => {
+            if (caricato) return;
+            const trovata = await correzioneDaCodice();
+            if (!trovata || caricato) return;
+            caricato = 'codice';
+            mostraAlunno(trovata.dati, trovata.v);
+        }, { once: true });
         window.addEventListener('mo:area-alunni', async e => {
             const d = e.detail;
-            if (!d || !d.id || caricato === d.id) return;
+            if (!d || !d.id || caricato === d.id || caricato === 'codice') return;
             caricato = d.id;
             const v = await verificaDellaPagina();
             if (!v) return;
@@ -495,6 +524,19 @@ body[data-mo-correzione="docente"] #mo-salva,body[data-mo-correzione="docente"] 
             if (!correzione || typeof correzione !== 'object') return;
             if (document.readyState === 'loading') await new Promise(r => document.addEventListener('DOMContentLoaded', r, { once: true }));
             mostraAlunno(correzione, v);
+        });
+    }
+
+    // Regola del titolare (23/11/2026): una risposta già corretta non si modifica più; le domande
+    // senza risposta restano scrivibili.
+    function bloccaSeRisposta(gruppo) {
+        const campi = gruppo.filter(n => /^(INPUT|TEXTAREA|SELECT)$/.test(n.tagName));
+        const data = campi.some(n => (n.type === 'checkbox' || n.type === 'radio') ? n.checked : String(n.value || '').trim() !== '');
+        if (!data) return;
+        campi.forEach(n => {
+            n.classList.add('mo-corr-campo-bloccato');
+            if (n.tagName === 'SELECT' || n.type === 'radio' || n.type === 'checkbox') n.disabled = true;
+            else if (n.type !== 'hidden' && n.type !== 'button' && n.type !== 'submit') n.readOnly = true;
         });
     }
 
@@ -547,6 +589,7 @@ body[data-mo-correzione="docente"] #mo-salva,body[data-mo-correzione="docente"] 
                 box.append(el('strong', null, 'Commento del docente'), el('p', null, k.commento));
                 inserisci(gruppo, box);
                 riquadri.set(k.campo, box);
+                bloccaSeRisposta(gruppo);
             }
             const fuori = commenti.filter(k => !(riquadri.get(k.campo) && riquadri.get(k.campo).isConnected));
             const firma = fuori.map(k => k.campo).join('|');

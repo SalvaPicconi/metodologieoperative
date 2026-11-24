@@ -30,14 +30,16 @@ Regole decise dal titolare il 23 novembre 2026. Valgono sempre, senza chiedere c
 ## Blocco delle risposte corrette
 
 - **Una risposta già corretta non si può più modificare; una risposta non corretta sì.**
-  Nella pagina dell'attività ogni campo che ha un commento visibile è bloccato e mostra la correzione
-  sotto la risposta; i campi vuoti restano scrivibili.
+  `assets/correzione-in-pagina.js` (vista alunno) chiude ogni campo che ha un commento e una risposta;
+  i campi vuoti restano scrivibili.
 
 ## Dove si vede la correzione
 
-- Nella **pagina dell'attività stessa**, non in una pagina di solo testo: sotto ogni risposta compare
-  la correzione. Lo stesso vale per il docente, che apre il lavoro dell'alunno dall'Area docente e
-  trova, sotto ogni risposta, la correzione modificabile.
+- Nella **pagina dell'attività stessa** (`assets/correzione-in-pagina.js`, regole in CLAUDE.md,
+  «Correzione nella pagina dell'attività»). Il docente apre «Apri la correzione» dall'Area docente e trova
+  la pagina dell'alunno con il commento modificabile sotto ogni risposta. L'alunno lo vede sotto le sue
+  risposte, sia dall'area «I miei lavori» sia entrando con classe e codice (`progress_correzione`).
+- Ogni correzione salvata è visibile subito: lo impone anche il database (trigger `sempre_visibili`).
 
 ## Valutazione
 
