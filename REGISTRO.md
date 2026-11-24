@@ -9,6 +9,8 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-24** · Claude · Correzione nella pagina: le risposte già corrette non si modificano più (quelle senza risposta restano scrivibili) e la correzione si vede anche entrando con classe e codice. «Il caso professionale» distingue fatti e interpretazioni della vicina; nel glossario la voce «Fatto, interpretazione e giudizio». Corrette e rese visibili le correzioni dei compiti di 5SA e 4SB. Commit `0f983bc`, [rilascio Aruba verificato](https://github.com/SalvaPicconi/metodologieoperative/actions/runs/45346716451).
+
 - **2026-11-23** · Claude · Agganciate alla correzione nella pagina anche le altre 18 attività con risposte (laboratori, peer tutoring, percorsi sull’IA, esercitazioni intermedie e semplificate, fascicolo sulle disabilità, test di Stroop…): ora sono 33 e da tutte l’Area docente apre «Correggi». Commit `617d198`, [rilascio Aruba verificato](https://github.com/SalvaPicconi/metodologieoperative/actions/runs/45227803853). [CLAUDE 2026-11-23]
 
 - **2026-11-23** · Claude · Regola per i materiali nuovi: pagina teorica + pagina di autoapprendimento, e ogni pagina con risposte nasce già agganciata alla correzione e all’Area docente; un controllo blocca la pubblicazione delle pagine nuove non agganciate. Le correzioni restano visibili all’alunno anche se scritte da altre vie. (commit di questa voce)
