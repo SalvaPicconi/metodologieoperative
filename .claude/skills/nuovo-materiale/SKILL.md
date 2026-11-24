@@ -19,6 +19,12 @@ pubblicazione, blocca le pagine nuove non agganciate.
 Le regole generali del sito (`CLAUDE.md`) restano valide: questa skill dice **che cosa** si produce e **in che ordine**.
 Copia nell'ecosistema del docente, per gli agenti fuori dal repository (ChatGPT): Google Drive, `00_ECOSISTEMA_AI/20_DIDATTICA/nuovo-materiale-pacchetto-uda.md`. Se si cambia il modello, si aggiornano tutte e due le copie.
 
+**Lessico disciplinare (regola del titolare, 24/11/2026).** Termini e concetti dei materiali, delle consegne e
+delle risposte attese vengono dal lessico di Metodologie Operative, trasversale alle materie collegate: curricolo
+normativo (`programmi-src/curricolo-ssas.json`), UDA, materiali del sito, libro di testo in adozione e materiali
+del docente su Drive, `glossario.html` (da aggiornare con ogni termine nuovo). Il testo resta chiaro e può usare
+frasi di senso comune; i termini tecnici no. Esempio: fatto, interpretazione, giudizio, ipotesi (voce del glossario).
+
 ## Il pacchetto
 
 Ogni fonte diventa un pacchetto agganciato a **una** UDA, in quattro pezzi, sempre in quest'ordine:

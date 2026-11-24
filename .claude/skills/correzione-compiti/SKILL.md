@@ -35,8 +35,9 @@ Regole decise dal titolare il 23 novembre 2026. Valgono sempre, senza chiedere c
   4. il libro di testo in adozione (Lotteri, Corsi, *Metodologie Operative*) e i materiali del docente su
      Drive: indice `GRAPHIFY_PICCONI_SCUOLA_DIDATTICA.txt`, poi solo le fonti pertinenti;
   5. `glossario.html`, che va tenuto allineato: un termine nuovo o corretto si aggiunge lì.
-  Se le fonti non concordano o un termine manca, non si inventa e non si usa la parola di uso comune:
-  si sceglie quello del curricolo e dei materiali, e nel dubbio si chiede al titolare prima di correggere.
+  Il discorso può usare frasi di senso comune, chiare per gli alunni; sono i termini e i concetti a venire
+  dal lessico disciplinare. Se le fonti non concordano o un termine manca, non lo si inventa: si sceglie
+  quello del curricolo e dei materiali, e nel dubbio si chiede al titolare prima di correggere.
 - Esempio fissato dal titolare: **fatto** (osservato o riferito, con la fonte, verificabile),
   **interpretazione** (la lettura di chi riferisce, con «mi sembra», «credo»: va verificata o motivata),
   **giudizio** (etichetta sulla persona, non si scrive), **ipotesi** (la formula l'operatore, cioè l'alunno,
