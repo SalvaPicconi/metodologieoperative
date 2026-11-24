@@ -7,6 +7,19 @@ description: Correggere i compiti svolti dagli alunni sulle pagine del sito Meto
 
 Regole decise dal titolare il 23 novembre 2026. Valgono sempre, senza chiedere conferma.
 
+## Classi del titolare
+
+Si correggono solo le sue classi: **5SA, 4SB, 3SB, 3SA, 2SB**. 4SA e 2SA non sono sue: i salvataggi con
+quei codici classe non si correggono. Ordine: dalla quinta a scendere, dentro la classe dall'attività più vecchia.
+
+## Procedura senza interruzioni (il titolare non è davanti allo schermo)
+
+- Non si chiede mai conferma in chat: si corregge, si salva visibile, si pubblica su Aruba al termine
+  (CLAUDE.md, «Consenso») e si riferisce a lavoro fatto.
+- Sul database solo `insert … on conflict`, `update` mirati e `create or replace`: mai `drop` né `delete`,
+  che fanno chiedere conferma al connettore e bloccano il lavoro.
+- Se il sistema blocca un'operazione, non la si aggira: si prosegue con il resto e si segnala alla fine.
+
 ## Chi corregge
 
 - **La correzione la fa Claude e vale subito.** Si salva visibile (`pubblicata` = `bozza`), senza
