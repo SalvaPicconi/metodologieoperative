@@ -498,6 +498,15 @@
       "tipo": "compito"
     },
     {
+      "chiave": "compito-riconfigurare-disabilita",
+      "titolo": "Riconfigurare la disabilità · autoapprendimento",
+      "pagina": "materiali/quarto/riconfigurare-la-disabilita/autoapprendimento.html",
+      "tipo": "compito",
+      "campi": {
+        "^(verifica-passaggio-cogito|verifica-stereotipo|verifica-riconosci-sguardi|verifica-pcs|verifica-applica-argomento|verifica-applica-mappa|verifica-applica-procedura)$": "[data-chiave=\"$1\"]"
+      }
+    },
+    {
       "chiave": "compito-servizi-casi-guidati",
       "titolo": "Dai bisogni ai servizi · casi guidati",
       "pagina": "materiali/terzo/esercitazioni_servizi.html",

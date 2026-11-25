@@ -17,7 +17,13 @@
     return localStorage.getItem(namespace + key);
   }
 
-  function save(key, value) {
+  // Ogni risposta resta anche nel browser e avvisa il salvataggio sul sito (assets/progress-global.js),
+  // che la invia con classe e codice dell'alunno (25/11/2026).
+  function avvisaSito() {
+    document.getElementById('contenuto')?.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+
+  function save(key, value, silenzioso) {
     if (!storageAvailable) return;
     try {
       localStorage.setItem(namespace + key, value);
@@ -25,7 +31,40 @@
       status.hidden = false;
       status.textContent = 'Il browser non ha salvato l’ultima risposta.';
     }
+    if (!silenzioso) avvisaSito();
   }
+
+  function chiavi() {
+    return [
+      ...Array.from(document.querySelectorAll('[data-risposta-aperta]'), field => field.name),
+      ...Array.from(document.querySelectorAll('.verifica-attiva'), activity => activity.dataset.chiave),
+    ].filter(Boolean);
+  }
+
+  // Ponte con il salvataggio sul sito: raccoglie le risposte del browser e, al ritorno, riporta nel browser
+  // quelle salvate sul sito.
+  window.MORiconfigura = {
+    raccogli() {
+      const dati = {};
+      chiavi().forEach(key => {
+        const value = read(key);
+        if (value !== null && value !== '') dati[key] = value;
+      });
+      return dati;
+    },
+    scrivi(dati) {
+      let cambiato = false;
+      chiavi().forEach(key => {
+        const value = typeof dati[key] === 'string' ? dati[key] : '';
+        if (value === (read(key) ?? '')) return;
+        cambiato = true;
+        if (value) save(key, value, true);
+        else if (storageAvailable) localStorage.removeItem(namespace + key);
+      });
+      return cambiato;
+    },
+    avvisaSito,
+  };
 
   function normalize(answer) {
     return answer.normalize('NFD')

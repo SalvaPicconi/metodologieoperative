@@ -258,7 +258,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   .non-stampare { display: none; }
 }
 </style>
-<link href="stile-disabilita.css" rel="stylesheet"/><script defer="" src="autoapprendimento.js"></script></head>
+<link href="stile-disabilita.css" rel="stylesheet"/><script defer="" src="autoapprendimento.js?v=20261125"></script></head>
 <body class="percorso" data-tinta="lime">
 <a class="skip" href="#contenuto">Vai al contenuto</a>
 <div class="barra shell">
@@ -304,7 +304,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 <div class="shell">
 <div class="studio lettura">
 <p>Leggi il passaggio e svolgi l’attività che segue. Negli esercizi chiusi premi «Controlla» per vedere l’esito. Nei completamenti scrivi il termine richiesto. Per le domande aperte usa i criteri di rilettura dopo aver scritto.</p>
-<p class="stato-risposte non-stampare" id="stato-risposte" role="status">Le risposte si salvano in questo browser.</p>
+<p class="stato-risposte non-stampare" id="stato-risposte" role="status">Le risposte si salvano sul sito con classe e codice, e restano anche in questo browser.</p>
 <section class="sezione modulo-tappa" id="normalita">
 <h2>Normalità e barriere</h2>
 <p class="obiettivo">Distingui una media, una regola e una barriera.</p>
@@ -988,5 +988,40 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 <footer class="piede"><p>Metodologie Operative · Quarto anno</p><a href="#indice">Torna alle tappe</a></footer>
 </div>
 </main>
+<script>
+  // Salvataggio sul sito con classe e codice (25/11/2026). Le risposte restano anche nel browser:
+  // chi aveva già lavorato le ritrova e, appena entra, vengono inviate al sito.
+  window.MO_PROGRESS_CONFIG = {
+    pagePath: '/materiali/quarto/riconfigurare-la-disabilita/autoapprendimento.html',
+    inputSelector: 'main textarea, main input',
+    autoSave: true, autoSaveDebounceMs: 7000, autoSaveMinIntervalMs: 20000, autoSaveJitterMs: 3000,
+    onBeforeSave: data => (window.MORiconfigura ? window.MORiconfigura.raccogli() : data),
+    onRestore: saved => {
+      const R = window.MORiconfigura;
+      const parametri = new URLSearchParams(location.search);
+      if (!R || parametri.has('docente') || parametri.has('correzione')) return saved;
+      const sulSito = saved && typeof saved === 'object' ? saved : {};
+      if (Object.keys(sulSito).length && R.scrivi(sulSito)) {
+        // Risposte salvate sul sito da un altro dispositivo: la pagina si ricarica una volta per mostrarle.
+        try {
+          if (!sessionStorage.getItem('mo-riconfigura-ricaricata')) {
+            sessionStorage.setItem('mo-riconfigura-ricaricata', '1');
+            location.reload();
+            return false;
+          }
+        } catch { }
+      }
+      const nelBrowser = R.raccogli();
+      if (Object.keys(nelBrowser).length && JSON.stringify(nelBrowser) !== JSON.stringify(sulSito)) {
+        setTimeout(R.avvisaSito, 800);
+      }
+      return nelBrowser;
+    }
+  };
+  window.MO_IDENTITY_CONFIG = {message:'Inserisci classe e codice personale. Puoi entrare come ospite per provare.',classPlaceholder:'Classe (es. 4sb)',classPattern:'^[1-5][a-z]{1,2}$',classExample:'4sb',classErrorMessage:'Scrivi la classe, per esempio 4sb.',stripWhitespaceInClass:true,storeClassLowercase:true,codePlaceholder:'Codice (cognome + iniziale)',codePattern:'^[a-zà-ü]{2,}[a-z]$',codeErrorMessage:'Usa cognome tutto minuscolo + iniziale del nome.',sanitizeCode:true,stripWhitespaceInCode:true,storeCodeLowercase:true,hideGenerator:true,guestAllowed:true,guestClassCode:'ospite',guestStudentCode:'ospite'};
+</script>
+<script src="../../../assets/correzione-in-pagina.js?v=20261124"></script>
+<script src="../../../assets/progress.js?v=20261123d" type="module"></script>
+<script src="../../../assets/progress-global.js?v=20261123d" type="module"></script>
 </body>
 </html>
