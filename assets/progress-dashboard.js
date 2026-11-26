@@ -1062,10 +1062,15 @@ function progressSchoolYear(record) {
     return Number.isInteger(record.school_year) ? String(record.school_year) : 'undated';
 }
 
+// Le pagine delle classi e la home non sono attività: le loro «annotazioni» personali non vanno
+// fra i lavori da monitorare e correggere (decisione del titolare, 26/11/2026).
+const PAGINE_NON_ATTIVITA = /^\/(index|biennio|terzo|quarto|quinto|area_alunni|area_docente)\.html$/i;
+
 function normalizeProgressRecord(record, metaFromIndex = null) {
     if (!record) return null;
     try {
         const pagePath = resolveActivityPath(record.page_path);
+        if (PAGINE_NON_ATTIVITA.test(pagePath.replace(/^\/metodologieoperative(?=\/)/, ''))) return null;
         return {
             id: record.id,
             class_code: normalizeClass(record.class_code),
