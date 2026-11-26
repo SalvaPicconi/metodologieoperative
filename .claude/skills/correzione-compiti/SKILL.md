@@ -56,7 +56,16 @@ quei codici classe non si correggono. Ordine: dalla quinta a scendere, dentro la
   **giudizio** (etichetta sulla persona, non si scrive), **ipotesi** (la formula l'operatore, cioè l'alunno,
   sui fatti, e la verifica). Non si scrive «supposizioni» né «impressioni».
 - Domande chiuse: si conta la prima risposta data (campo `f` nei salvataggi `act_*`), con la spiegazione
-  della pagina per ogni errore.
+  della pagina per ogni errore. Si scrive «N su M corrette» sulle domande fatte; **mai** «Hai risposto a X
+  domande su Y», che segnala quelle non fatte.
+- Una risposta già corretta resta bloccata: il commento non chiede di riscriverla, dice che cosa tenere presente
+  dopo (nel collage, nel progetto, nella prossima attività).
+- La `nota` finale riguarda il lavoro: «Da curare: …» con i punti di apprendimento. Niente confronti, niente
+  «Mancano…».
+- Metodo seguito (25/11/2026): per ogni pagina si leggono testo e chiave (estrazione del testo con i campi),
+  si scrivono le correzioni alunno per alunno in un file della scratchpad, si genera l'SQL
+  (`insert … on conflict (progress_id) do nothing`), si salva e si controlla che `pubblicata = bozza`.
+- Per sapere chi deve ancora lavorare e produrre il file di richiami della classe: skill `monitoraggio-richiami`.
 
 ## Blocco delle risposte corrette
 
