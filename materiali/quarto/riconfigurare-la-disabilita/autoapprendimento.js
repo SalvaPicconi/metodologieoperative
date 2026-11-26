@@ -1,5 +1,6 @@
 (() => {
   const namespace = 'metodologie-operative-disabilita-modulo1:';
+  const vistaDocente = new URLSearchParams(location.search).has('docente');
   const status = document.getElementById('stato-risposte');
   let storageAvailable = true;
 
@@ -169,15 +170,28 @@
     let selected = null;
     let dragging = null;
 
-    try {
-      const saved = JSON.parse(stored);
-      if (Array.isArray(saved) && saved.length === positions.length) {
-        saved.forEach((value, index) => {
-          if (cards.has(value) && !positions.includes(value)) positions[index] = value;
-        });
+    function restorePositions(answer) {
+      positions.fill(null);
+      try {
+        const saved = JSON.parse(answer);
+        if (Array.isArray(saved) && saved.length === positions.length) {
+          saved.forEach((value, index) => {
+            if (cards.has(value) && !positions.includes(value)) positions[index] = value;
+          });
+        }
+      } catch (error) {
+        // A value from an earlier version may use a different format.
       }
-    } catch (error) {
-      // A value from an earlier version may use a different format.
+    }
+
+    if (vistaDocente) {
+      // Gli abbinamenti non sono campi del modulo. Mostra le tessere dell’elaborato caricato dal sito.
+      window.addEventListener('mo:progress-restored', event => {
+        restorePositions(event.detail.data?.[activity.dataset.chiave]);
+        render();
+      });
+    } else {
+      restorePositions(stored);
     }
 
     function render() {
@@ -310,6 +324,9 @@
     if (kind === 'completamento') check = wordExercise(activity, output, stored, checkButton);
     if (kind === 'abbinamento') check = placementExercise(activity, output, stored);
     checkButton.addEventListener('click', check);
+    // La soluzione statica resta disponibile senza JavaScript.
+    const solution = activity.querySelector(':scope > details.approfondimento');
+    if (solution) solution.hidden = true;
     previousAnswers(activity);
   });
 })();
