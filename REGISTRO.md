@@ -9,6 +9,7 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
+- **2026-11-26** · Claude · Area docente: le pagine delle classi (annotazioni personali) non compaiono più fra le attività; dalla pagina del quarto anno tolta la sezione di fine anno della 4SA 2025-26. Commit `6e31f69`, [rilascio Aruba verificato](https://github.com/SalvaPicconi/metodologieoperative/actions/runs/45764069693).
 - **2026-11-25** · Claude · «Riconfigurare la disabilità · autoapprendimento» (4ª) salva le risposte sul sito con classe e codice e si corregge nella pagina; le risposte già scritte nel browser partono alla prima apertura. Corrette e rese visibili le attività di 3SB, 3SA e 2SB. Commit `82fedfb`, [rilascio Aruba verificato](https://github.com/SalvaPicconi/metodologieoperative/actions/runs/45680343595).
 - **2026-11-24** · Claude · Correzione nella pagina: le risposte già corrette non si modificano più (quelle senza risposta restano scrivibili) e la correzione si vede anche entrando con classe e codice. «Il caso professionale» distingue fatti e interpretazioni della vicina; nel glossario la voce «Fatto, interpretazione e giudizio». Corrette e rese visibili le correzioni dei compiti di 5SA e 4SB. Commit `0f983bc`, [rilascio Aruba verificato](https://github.com/SalvaPicconi/metodologieoperative/actions/runs/45346716451).
 
