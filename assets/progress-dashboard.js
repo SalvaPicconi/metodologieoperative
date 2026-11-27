@@ -11,6 +11,7 @@ const BASE_PATHNAME = (() => {
 const SITE_ROOT = SITE_BASE ? `${SITE_BASE}${BASE_PATHNAME}` : (BASE_PATHNAME || '');
 
 const STROOP_BASE_URL = `${SITE_ROOT}/materiali/compresenza/test-stroop.html`;
+const VERIFICA_OPERATORE_PATH = '/materiali/biennio/verifica-operatore-terza.html';
 const SUPER_STORAGE_KEY = 'mo:super-impersonations';
 const SUPER_SESSION_DURATION = 1000 * 60 * 15;
 const PAGE_ALIAS_OVERRIDES = {
@@ -30,7 +31,7 @@ const collator = new Intl.Collator('it', { numeric: true, sensitivity: 'base' })
 const dateParts = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Rome', year: 'numeric', month: 'numeric' });
 
 const dashboardState = {
-    period: 'recent',
+    period: currentSchoolYear(),
     mode: 'classes',
     activity: '',
     codeLinks: new Map(),
@@ -40,6 +41,8 @@ const dashboardState = {
     view: 'activities',
     renderedClass: '',
     records: [],
+    verificheOperatore: [],
+    riepilogoDisponibile: false,
     assessments: [],
     assessmentUnavailable: false,
     ready: false,
@@ -79,10 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     elements.loginForm.addEventListener('submit', handleLogin);
     elements.refreshBtn.addEventListener('click', refreshDashboard);
-    elements.schoolYear.addEventListener('change', () => {
-        const year = elements.schoolYear.value;
-        changePeriod(year === currentSchoolYear() ? 'recent' : year);
-    });
+    elements.schoolYear.addEventListener('change', () => changePeriod(elements.schoolYear.value));
     elements.period.addEventListener('change', () => changePeriod(elements.period.value));
     elements.back.addEventListener('click', () => {
         dashboardState.classCode = '';
@@ -168,6 +168,8 @@ function mostraAccesso(messaggio) {
     dashboardState.session++;
     dashboardState.ready = false;
     dashboardState.records = [];
+    dashboardState.verificheOperatore = [];
+    dashboardState.riepilogoDisponibile = false;
     dashboardState.assessments = [];
     dashboardState.progressIndex.clear();
     dashboardState.codeLinks.clear();
@@ -178,7 +180,7 @@ function mostraAccesso(messaggio) {
     dashboardState.assessmentIndex.clear();
     dashboardState.limits = [];
     dashboardState.classCode = '';
-    dashboardState.period = 'recent';
+    dashboardState.period = currentSchoolYear();
     dashboardState.view = 'activities';
     resetStudentSearch();
     for (const modal of [elements.progressModal, elements.assessmentModal]) {
@@ -240,16 +242,20 @@ async function refreshDashboard() {
     const initial = !dashboardState.ready;
     if (initial) renderDashboard();
     try {
-        const [progress, stroop, titles, codeLinks] = await Promise.all([
-            fetchProgressData(),
+        const [dati, stroop, titles, codeLinks] = await Promise.all([
+            fetchLavoriEValutazioni(),
             fetchAssessmentData(),
             initial ? fetchActivityTitles() : dashboardState.titles,
             fetchCodeLinks()
         ]);
         if (session !== dashboardState.session) return;
 
-        const records = (progress || []).map(record => normalizeProgressRecord(record, parseProgressData(record?.meta)));
+        const records = (dati.lavori || []).map(record => normalizeProgressRecord(record, parseProgressData(record?.meta)));
         dashboardState.records = records.filter(Boolean);
+        dashboardState.riepilogoDisponibile = Array.isArray(dati.operatore);
+        dashboardState.verificheOperatore = (dati.operatore || []).map(record => normalizeProgressRecord({
+            ...record, page_path: VERIFICA_OPERATORE_PATH
+        })).filter(Boolean);
         dashboardState.assessments = (stroop || []).map(normalizeAssessmentRecord).filter(Boolean);
         dashboardState.assessmentUnavailable = stroop === null;
         dashboardState.titles = titles;
@@ -303,6 +309,16 @@ async function fetchProgressData() {
     }
 }
 
+async function fetchLavoriEValutazioni() {
+    try {
+        const dati = await window.MODocente.chiama('docente_riepilogo_valutazioni', { p_limite: PROGRESS_LIMIT });
+        if (Array.isArray(dati?.lavori) && Array.isArray(dati.operatore)) return dati;
+    } catch (error) {
+        if (error?.code === '42501') throw error;
+    }
+    return { lavori: await fetchProgressData(), operatore: null };
+}
+
 async function fetchActivityTitles() {
     try {
         const response = await fetch('materiali.json', { signal: AbortSignal.timeout(3500) });
@@ -342,6 +358,7 @@ function renderPeriods() {
     const current = currentSchoolYear();
     const years = new Set([
         ...dashboardState.records.map(record => record.year),
+        ...dashboardState.verificheOperatore.map(record => record.year),
         ...dashboardState.assessments.map(entry => schoolYear(entry.created_at))
     ]);
     years.delete(current);
@@ -355,7 +372,7 @@ function renderPeriods() {
     elements.schoolYear.disabled = false;
     elements.period.replaceChildren(new Option('Ultimi 30 giorni', 'recent'), new Option('Tutto l’anno', current));
     if (!options.some(option => option.value === selectedSchoolYear())) {
-        dashboardState.period = 'recent';
+        dashboardState.period = current;
         dashboardState.classCode = '';
         dashboardState.activity = '';
     }
@@ -416,7 +433,7 @@ function periodProgress(eligible = dashboardState.records) {
     // I duplicati tecnici dello stesso codice e percorso mostrano l'ultimo salvataggio.
     // Due codici abbinati mantengono una riga ciascuno, anche sulla stessa pagina.
     const latest = groupBy(eligible.filter(record => matchesPeriod(record.updated_at, false, record.year)).sort(byLatest),
-        record => JSON.stringify([record.class_code, codeKey(record.student_code), record.page_path || record.original_path]));
+        record => JSON.stringify([normalizeClass(record.original_class), codeKey(record.student_code), record.page_path || record.original_path]));
     return [...latest.values()].map(rows => rows[0]);
 }
 
@@ -435,6 +452,7 @@ function emptyMessage(message) {
 function renderDashboard() {
     const classes = new Set([
         ...dashboardState.records.filter(record => record.year === selectedSchoolYear()).map(record => record.class_code),
+        ...dashboardState.verificheOperatore.filter(record => record.year === selectedSchoolYear()).map(record => record.class_code),
         ...dashboardState.assessments.filter(entry => matchesPeriod(entry.created_at, true)).map(entry => entry.classCode)
     ]);
     if (dashboardState.ready && !classes.has(dashboardState.classCode)) dashboardState.classCode = '';
@@ -474,14 +492,17 @@ function renderDashboard() {
     }
 
     const records = classRecords();
-    const activities = groupBy(records, record => record.page_path || record.original_path);
-    const studentCount = new Set(records.filter(record => record.student_code).map(studentKey)).size;
+    const verifiche = dashboardState.verificheOperatore.filter(record =>
+        record.class_code === code && matchesPeriod(record.updated_at, false, record.year));
+    const lavoriClasse = [...records, ...verifiche].sort(byLatest);
+    const activities = groupBy(lavoriClasse, record => record.page_path || record.original_path);
+    const studentCount = new Set(lavoriClasse.filter(record => record.student_code).map(studentKey)).size;
     byId('dashboard-class-title').textContent = code === UNKNOWN_CLASS ? code : `Classe ${code}`;
     byId('dashboard-class-year').textContent = classYearLabel(selectedSchoolYear());
     byId('dashboard-stats').innerHTML = [
         ['Alunni con lavori nel periodo', studentCount],
         ['Attività con salvataggi', activities.size],
-        ['Ultimo salvataggio', records.length ? formatDateTime(records[0].updated_at) : '—']
+        ['Ultimo salvataggio', lavoriClasse.length ? formatDateTime(lavoriClasse[0].updated_at) : '—']
     ].map(([label, value]) => `<div><dt>${label}</dt><dd>${escapeHtml(value)}</dd></div>`).join('');
 
     for (const button of elements.dashboard.querySelectorAll('[data-class-view]')) {
@@ -511,7 +532,10 @@ function renderClassList(classes) {
         return;
     }
 
-    const periodRecords = groupBy(periodProgress(), record => record.class_code);
+    const periodRecords = groupBy([
+        ...periodProgress(),
+        ...dashboardState.verificheOperatore.filter(record => matchesPeriod(record.updated_at, false, record.year))
+    ], record => record.class_code);
     const periodTests = groupBy(dashboardState.assessments.filter(entry => matchesPeriod(entry.created_at)), entry => entry.classCode);
     const year = escapeHtml(classYearLabel(selectedSchoolYear()));
     const byGrade = groupBy([...classes].sort(collator.compare), code => {
@@ -556,19 +580,61 @@ function renderActivities(activities) {
         elements.activityGroupsContainer.innerHTML = emptyMessage('Nessuna attività con salvataggi nel periodo. Puoi scegliere un altro periodo.');
         return;
     }
-    const open = new Set([...elements.activityGroupsContainer.querySelectorAll('details[open]')].map(item => item.dataset.activity));
+    const open = new Set([...elements.activityGroupsContainer.querySelectorAll('[data-activity][open]')].map(item => item.dataset.activity));
+    const dettagliAperti = new Set([...elements.activityGroupsContainer.querySelectorAll('[data-dettaglio-attivita][open]')]
+        .map(item => item.dataset.dettaglioAttivita));
     elements.activityGroupsContainer.innerHTML = [...activities].map(([path, records]) => {
         const { students, measured, average: percent } = activityStats(records);
         const average = measured ? ` · Avanzamento medio ${percent}% (${measured} con dato)` : '';
         const description = `${students} ${students === 1 ? 'alunno con lavoro' : 'alunni con lavori'}${average}`;
-        const rows = [...records].sort((a, b) => collator.compare(attributedCode(a), attributedCode(b)))
-            .map(record => renderWork(record, 'student')).join('');
+        const verificaOperatore = path === VERIFICA_OPERATORE_PATH;
+        const titolo = verificaOperatore ? 'Verifica · L’operatore sociale' : formatActivityName(path);
+        const alunni = [...records].sort((a, b) => collator.compare(attributedCode(a), attributedCode(b)));
+        const dettaglio = verificaOperatore
+            ? `<a class="docente-button docente-dettaglio-attivita" href="${escapeHtml(SITE_ROOT + VERIFICA_OPERATORE_PATH)}?docente=1&amp;doc_class=${encodeURIComponent(dashboardState.classCode)}&amp;anno=${encodeURIComponent(selectedSchoolYear())}">Entra nel dettaglio</a>`
+            : `<details class="docente-dettaglio-attivita" data-dettaglio-attivita="${escapeHtml(path)}"${dettagliAperti.has(path) ? ' open' : ''}>
+                <summary class="docente-button">Entra nel dettaglio</summary>
+                <ul class="docente-work-list" aria-label="Elenco alunni">${alunni.map(record => renderWork(record, 'student')).join('')}</ul>
+            </details>`;
         return `<details class="docente-disclosure" data-activity="${escapeHtml(path)}"${open.has(path) ? ' open' : ''}>
-            <summary><span class="docente-item-label"><strong>${escapeHtml(formatActivityName(path))}</strong>
+            <summary><span class="docente-item-label"><strong>${escapeHtml(titolo)}</strong>
                 <span>${description}</span></span><span class="docente-item-date">${formatShortDate(records[0].updated_at)}</span></summary>
-            <ul class="docente-work-list">${rows}</ul>
+            ${renderValutazioni(alunni, titolo)}
+            ${dettaglio}
         </details>`;
     }).join('');
+}
+
+const STATI_VALUTAZIONE = {
+    in_corso: 'Da completare',
+    pubblicata: 'Corretto senza voto',
+    bozza: 'In correzione',
+    da_correggere: 'Da correggere',
+    senza_valutazione: '—'
+};
+
+function renderValutazioni(records, titolo) {
+    if (!dashboardState.riepilogoDisponibile) return emptyMessage('Riepilogo dei voti non disponibile.');
+    const alunni = groupBy(records, record => studentKey(record) || String(record.id));
+    const righe = [...alunni.values()].map(lavori => {
+        const codice = escapeHtml(attributedCode(lavori[0]) || 'Senza codice');
+        const piuLavori = lavori.length > 1;
+        return `<tbody>${lavori.map((record, i) => {
+            const { voto, competenza, livello, stato } = record.valutazione || {};
+            const valore = /^[0-9]+(?:[.,][0-9]+)?$/.test(voto || '') ? `${voto}/10` : voto;
+            const ambito = [competenza, livello].filter(Boolean).join(' · ');
+            return `<tr>${i === 0 ? `<th scope="${piuLavori ? 'rowgroup' : 'row'}"${piuLavori ? ` rowspan="${lavori.length}"` : ''}>${codice}</th>` : ''}
+                <td>${voto ? `<strong>${escapeHtml(valore)}</strong>` : `<span class="docente-muted">${escapeHtml(STATI_VALUTAZIONE[stato] || '—')}</span>`}
+                    ${piuLavori ? `<small class="docente-valutazione-data">${escapeHtml(formatDateTime(record.updated_at))}</small>` : ''}</td>
+                <td>${escapeHtml(ambito || '—')}</td></tr>`;
+        }).join('')}</tbody>`;
+    }).join('');
+    return `<div class="docente-griglia">
+        <table aria-label="${escapeHtml(`Voti e livelli · ${titolo}`)}">
+            <thead><tr><th scope="col">Alunno</th><th scope="col">Voto</th><th scope="col">Livello di competenza</th></tr></thead>
+            ${righe}
+        </table>
+    </div>`;
 }
 
 function renderStudents(records) {
@@ -674,7 +740,12 @@ function resolveCodeLinks(entries = readCodeLinks()) {
 }
 
 function attributedCode(record) {
-    return dashboardState.codeLinks.get(codeScope(record))?.target || record.student_code;
+    if (record.codiceConfermato && codeKey(record.codiceConfermato) !== codeKey(record.student_code)) {
+        return record.codiceConfermato;
+    }
+    const link = dashboardState.codeLinks.get(codeScope(record));
+    const destinazione = link && dashboardState.progressIndex.get(link.to);
+    return destinazione?.codiceConfermato || link?.target || record.codiceConfermato || record.student_code;
 }
 
 function studentKey(record) {
@@ -715,6 +786,10 @@ function renderCodeReview() {
         .filter(link => link.classCode === dashboardState.classCode && link.year === selectedSchoolYear());
     const linkedSource = new Set(links.map(link => codeKey(link.source)));
     const linkedTarget = new Set(links.map(link => codeKey(link.target)));
+    for (const record of roster) {
+        const confermato = codeKey(record.codiceConfermato);
+        if (confermato && confermato !== codeKey(record.student_code)) linkedSource.add(codeKey(record.student_code));
+    }
     const options = [...groups.values()].map(records => ({
         code: records[0].student_code, id: records[0].id, count: records.length
     })).sort((a, b) => collator.compare(a.code, b.code));
@@ -1073,14 +1148,16 @@ function normalizeProgressRecord(record, metaFromIndex = null) {
         if (PAGINE_NON_ATTIVITA.test(pagePath.replace(/^\/metodologieoperative(?=\/)/, ''))) return null;
         return {
             id: record.id,
-            class_code: normalizeClass(record.class_code),
+            class_code: normalizeClass(record.classe_confermata || record.class_code),
             original_class: String(record.class_code || '').trim(),
             student_code: String(record.student_code || '').trim(),
+            codiceConfermato: String(record.codice_confermato || '').trim(),
             page_path: pagePath,
             original_path: record.page_path || pagePath,
             updated_at: record.updated_at,
             year: progressSchoolYear(record),
-            progressMeta: metaFromIndex || null
+            progressMeta: metaFromIndex || null,
+            valutazione: record.valutazione || null
         };
     } catch (error) {
         console.warn('Salvataggio non leggibile:', error);

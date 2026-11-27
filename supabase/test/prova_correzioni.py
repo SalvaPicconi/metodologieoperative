@@ -62,7 +62,7 @@ def sito(context, root, api=None):
     context.route('**/*', route)
 
 
-def ambiente(browser, root, elaborato, attesa_ms=150, api=None, sessione=True):
+def ambiente(browser, root, elaborato, attesa_ms=150, api=None, sessione=True, riepilogo=None):
     context = browser.new_context(service_workers='block')
     sito(context, root, api)
     context.add_init_script(f'''(() => {{
@@ -78,6 +78,11 @@ def ambiente(browser, root, elaborato, attesa_ms=150, api=None, sessione=True):
             token: () => {str(sessione).lower()} ? 'docente-fittizio' : null,
             messaggioErrore: errore => errore.message,
             async chiama(nome, args) {{
+                if (nome === 'docente_riepilogo_valutazioni') {{
+                    const riepilogo = {json.dumps(riepilogo, ensure_ascii=False)};
+                    if (riepilogo) return riepilogo;
+                    throw Object.assign(new Error('Riepilogo non disponibile'), {{code: 'PGRST202'}});
+                }}
                 if (nome === 'verifiche_docente_apri') {{
                     await new Promise(r => setTimeout(r, {attesa_ms}));
                     return {json.dumps(elaborato, ensure_ascii=False)};
@@ -128,6 +133,7 @@ def verifica_servizi(browser, root):
         page.goto(f'{ORIGINE}/area_docente.html')
         page.locator('[data-select-class]').click()
         page.locator('details[data-activity] > summary').click()
+        page.get_by_text('Entra nel dettaglio', exact=True).click()
         page.get_by_role('link', name='Apri la correzione', exact=True).click()
         page.wait_for_selector('.question .option.incorrect', state='attached')
         res = leggi(page)
@@ -250,6 +256,50 @@ def verifica_widget(browser, root):
         assert page.locator('#passaggio-cogito button[data-posizione]').first.is_disabled()
 
 
+def verifica_riepilogo_voti(browser, root):
+    grado = {'stato': 'pubblicata', 'voto': '9', 'competenza': 'C5', 'livello': 'A'}
+    base = {'id': ID, 'class_code': '3SB', 'student_code': 'aluno01', 'school_year': 2026,
+            'page_path': PAGINA, 'updated_at': '2026-11-25T12:00:00Z', 'codice_confermato': 'ALUNNO01',
+            'valutazione': grado}
+    variante = {**base, 'id': '22222222-2222-4222-8222-222222222222', 'student_code': 'alunno01',
+                'updated_at': '2026-10-08T12:00:00Z', 'valutazione': {'stato': 'in_corso'}}
+    formale = {**base, 'id': '33333333-3333-4333-8333-333333333333', 'edizione': 4,
+               'class_code': '3SA', 'classe_confermata': '3SB', 'consegnato_il': base['updated_at'],
+               'valutazione': {'stato': 'pubblicata', 'voto': '7'}}
+    altra_classe = {**formale, 'id': '44444444-4444-4444-8444-444444444444',
+                    'classe_confermata': '3SA', 'codice_confermato': 'ALUNNO02'}
+    riepilogo = {'lavori': [base, variante], 'operatore': [formale, altra_classe]}
+    with ambiente(browser, root, ELABORATO, riepilogo=riepilogo) as context:
+        page = context.new_page()
+        page.clock.set_fixed_time(datetime(2026, 11, 27, 10, tzinfo=timezone.utc))
+        page.goto(f'{ORIGINE}/area_docente.html')
+        page.get_by_role('button', name='Classe 3SB').click()
+        attivita = page.locator(f'[data-activity="{PAGINA}"]')
+        attivita.locator(':scope > summary').click()
+        tabella = attivita.get_by_role('table')
+        assert tabella.locator('tbody th').all_text_contents() == ['ALUNNO01'], tabella.inner_html()
+        assert '9/10' in tabella.text_content() and 'C5 · A' in tabella.text_content()
+        assert 'Da completare' in tabella.text_content()
+        assert not attivita.get_by_role('button', name='Vedi il lavoro').first.is_visible()
+        attivita.get_by_text('Entra nel dettaglio', exact=True).click()
+        attivita.get_by_role('link', name='Apri la correzione').wait_for()
+        assert attivita.get_by_role('button', name='Risposte salvate').count() == 2
+        assert f'correzione={ID}' in attivita.get_by_role('link', name='Apri la correzione').get_attribute('href')
+        formale = page.locator('[data-activity="/materiali/biennio/verifica-operatore-terza.html"]')
+        formale.locator(':scope > summary').click()
+        assert '7/10' in formale.get_by_role('table').text_content()
+        assert 'doc_class=3SB&anno=2026' in formale.get_by_role('link', name='Entra nel dettaglio').get_attribute('href')
+        page.locator('#dashboard-period').select_option('recent')
+        assert 'Da completare' not in attivita.get_by_role('table').text_content()
+        page.get_by_role('button', name='Verifica codici').click()
+        assert page.locator('[data-review-pair]').count() == 0
+        page.get_by_role('button', name='Attività e riepilogo').click()
+        formale.get_by_role('link', name='Entra nel dettaglio').click()
+        page.locator('#elenco option[value="33333333-3333-4333-8333-333333333333"]').wait_for(state='attached')
+        assert page.locator('#elenco option').count() == 2
+        assert '3SB · ALUNNO01' in page.locator('#elenco option').last.text_content()
+
+
 def censimento(browser, root):
     configurazione = json.loads((root / 'assets/verifiche-correzione.json').read_text())
     for verifica in configurazione['verifiche']:
@@ -270,6 +320,7 @@ if __name__ == '__main__':
     with sync_playwright() as p:
         browser = p.chromium.launch()
         verifica_servizi(browser, root)
+        verifica_riepilogo_voti(browser, root)
         verifica_alunno(browser, root, personale=False)
         verifica_alunno(browser, root, personale=True)
         verifica_archivi(browser, root)

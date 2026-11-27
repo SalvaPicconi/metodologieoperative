@@ -794,6 +794,8 @@
         const select = byId('elenco');
         const review = byId('correzione');
         const exportButton = byId('esporta');
+        const filtroClasse = (params.get('doc_class') || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+        const filtroAnno = /^\d{4}$/.test(params.get('anno') || '') ? params.get('anno') : '';
         let current;
         let readRequest = 0;
         const back = byId('ritorno');
@@ -817,12 +819,23 @@
             say(MODocente.messaggioErrore(error));
         }
 
+        async function caricaElenco() {
+            if (!filtroClasse && !filtroAnno) return MODocente.chiama('verifica_operatore_docente');
+            const { operatore } = await MODocente.chiama('docente_riepilogo_valutazioni', { p_limite: 1 });
+            return operatore.map(row => ({
+                ...row,
+                classe: row.classe_confermata || row.class_code,
+                codice: row.codice_confermato || row.student_code
+            })).filter(row => (!filtroClasse || row.classe.toUpperCase().replace(/[^A-Z0-9]/g, '') === filtroClasse)
+                && (!filtroAnno || String(row.school_year) === filtroAnno));
+        }
+
         async function refresh() {
             resetDetail();
             select.replaceChildren();
             say('Caricamento degli elaborati…');
             try {
-                const rows = await MODocente.chiama('verifica_operatore_docente');
+                const rows = await caricaElenco();
                 select.append(new Option('Scegli un elaborato', ''));
                 rows.forEach(row => select.append(new Option(
                     `${row.classe.toUpperCase()} · ${row.codice} · ${row.consegnato_il ? 'consegnato' : 'in corso'} · ${row.edizione === 4 ? 'Versione B' : row.edizione === 3 ? 'Versione A' : row.edizione === 2 ? 'interattiva' : 'scritta'}`, row.id)));

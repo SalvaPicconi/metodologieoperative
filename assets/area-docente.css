@@ -272,7 +272,7 @@
     margin-bottom: .55rem;
 }
 
-.docente-disclosure summary {
+.docente-disclosure > summary {
     display: grid;
     grid-template-columns: minmax(0,1fr) auto auto;
     align-items: center;
@@ -284,11 +284,11 @@
     color: var(--color-primary);
 }
 
-.docente-disclosure summary::-webkit-details-marker {
+.docente-disclosure > summary::-webkit-details-marker {
     display: none;
 }
 
-.docente-disclosure summary::after {
+.docente-disclosure > summary::after {
     content: "";
     grid-column: 3;
     width: .52rem;
@@ -299,13 +299,13 @@
     transform: rotate(45deg);
 }
 
-.docente-disclosure[open] summary::after {
+.docente-disclosure[open] > summary::after {
     transform: rotate(225deg);
     margin-bottom: -.2rem;
 }
 
-.docente-disclosure summary:hover,
-.docente-disclosure[open] summary {
+.docente-disclosure > summary:hover,
+.docente-disclosure[open] > summary {
     background: var(--doc-wash);
     border-radius: .5rem;
 }
@@ -339,6 +339,62 @@
     align-items: center;
     border-top: 1px solid var(--doc-line);
     padding: .75rem 1rem;
+}
+
+.docente-griglia {
+    margin: .25rem 1rem .85rem;
+}
+
+.docente-griglia table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.docente-griglia th,
+.docente-griglia td {
+    padding: .55rem .65rem;
+    border-bottom: 1px solid var(--doc-line);
+    overflow-wrap: anywhere;
+    vertical-align: top;
+}
+
+.docente-griglia thead {
+    color: var(--color-primary);
+    background: var(--doc-wash);
+}
+
+.docente-griglia td > strong {
+    font-variant-numeric: tabular-nums;
+}
+
+.docente-valutazione-data {
+    display: block;
+    color: var(--doc-muted);
+}
+
+.docente-dettaglio-attivita {
+    margin: 0 1rem .95rem;
+}
+
+.docente-dettaglio-attivita > summary {
+    display: inline-flex;
+    align-items: center;
+    list-style: none;
+    cursor: pointer;
+}
+
+.docente-dettaglio-attivita.docente-button {
+    display: inline-flex;
+    align-items: center;
+}
+
+.docente-dettaglio-attivita > summary::-webkit-details-marker {
+    display: none;
+}
+
+.docente-dettaglio-attivita > .docente-work-list {
+    margin-top: .75rem;
 }
 
 .docente-work .btn-link {
@@ -533,7 +589,7 @@
         grid-column: 1 / -1;
     }
 
-    .docente-disclosure summary {
+    .docente-disclosure > summary {
         padding-inline: .7rem;
     }
 }
