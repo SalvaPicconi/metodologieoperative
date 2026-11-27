@@ -18,17 +18,19 @@
     if (window.MOCorrezioneAvviata) return;
     window.MOCorrezioneAvviata = true;
 
-    const VERSIONE = '20261123d';
+    const VERSIONE = '20261127';
     const sorgente = document.currentScript && document.currentScript.src;
     if (!sorgente) return;
     const BASE = new URL('.', sorgente);
     const params = new URLSearchParams(location.search);
     const idCorrezione = params.get('correzione');
-    const modoDocente = Boolean(idCorrezione) && params.get('docente') === '1'
-        && /^[0-9a-f-]{36}$/i.test(idCorrezione);
+    const modoDocente = params.has('correzione') && params.get('docente') === '1';
 
     const NASCOSTI = ['openQuestionLabels', 'completed', 'current', 'caseIndex'];
     const ZONA = 'mo-corr';                       // classe di tutto ciò che aggiunge questo script
+    const ripristino = new Promise(risolvi => {
+        window.addEventListener('mo:progress-restored', evento => risolvi(evento.detail?.data), { once: true });
+    });
 
     // ---------- utilità ----------
     const pulisci = t => String(t || '').replace(/\s+/g, ' ').trim();
@@ -59,7 +61,7 @@
 .mo-corr-box strong{display:block;font-size:.9rem;color:#9b0d47;margin-bottom:.25rem}
 .mo-corr-box p{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
 .mo-corr-box textarea{display:block;width:100%;box-sizing:border-box;min-height:3.2rem;padding:.45rem;border:1px solid #e6a3bf;border-radius:.3rem;font:inherit;background:#fff;color:#2a0a17;resize:vertical}
-.mo-corr-pannello{margin:1rem auto;max-width:60rem;padding:1rem 1.2rem;border:2px solid #17385a;border-radius:.6rem;background:#fff;color:#17385a;text-align:left;font:inherit}
+.mo-corr-pannello{display:block;margin:1rem auto;max-width:60rem;padding:1rem 1.2rem;border:2px solid #17385a;border-radius:.6rem;background:#fff;color:#17385a;text-align:left;font:inherit}
 .mo-corr-pannello h2{margin:.1rem 0 .5rem;font-size:1.3rem;color:#17385a}
 .mo-corr-pannello h3{margin:1rem 0 .4rem;font-size:1.05rem;color:#17385a}
 .mo-corr-pannello label{display:block;font-weight:700;margin:.5rem 0 .2rem}
@@ -79,6 +81,10 @@
 .mo-corr-altri .mo-corr-box{background:#fff7fa}
 .mo-corr-domanda{font-weight:700;margin:.2rem 0}
 .mo-corr-campo-bloccato{opacity:.95}
+.mo-corr-esito{margin:.45rem 0 .75rem;padding:.4rem .65rem;border-left:3px solid currentColor;font-weight:600}
+.mo-corr-esito[data-esito="corretta"]{color:#15603f;background:#eefaf2}
+.mo-corr-esito[data-esito="errata"]{color:#892341;background:#fff2f5}
+.mo-corr-esito[data-esito="indeterminata"]{color:#654518;background:#fff8e6}
 body[data-mo-correzione="docente"] #mo-salva,body[data-mo-correzione="docente"] #mo-barra .mo-stato{display:none!important}
 `;
         document.head.appendChild(s);
@@ -120,6 +126,7 @@ body[data-mo-correzione="docente"] #mo-salva,body[data-mo-correzione="docente"] 
 
     // ---------- dove sta un campo nella pagina ----------
     const fuoriZona = n => !n.closest(`.${ZONA}, #mo-barra, #mo-area-avviso`);
+    const campoModulo = n => n.matches('input, textarea, select');
     function elementiDelCampo(campo, v) {
         const mappa = (v && v.campi) || {};
         for (const [regola, modello] of Object.entries(mappa)) {
@@ -172,6 +179,34 @@ body[data-mo-correzione="docente"] #mo-salva,body[data-mo-correzione="docente"] 
         return '';
     }
 
+    function mostraEsitiRadio(dati, campiCorretti) {
+        if (!dati) return;
+        const gestiti = new Set();
+        document.querySelectorAll('input[type="radio"]:is([data-corretta], [data-mo-scelta-ambigua])').forEach(n => {
+            if (n.closest('[data-mo-esito-proprio]')) return;
+            const campo = n.name || n.id;
+            if (!campo || gestiti.has(campo) || (campiCorretti && !campiCorretti.has(campo))) return;
+            gestiti.add(campo);
+            const opzioni = n.name ? [...document.getElementsByName(n.name)].filter(el => el.type === 'radio') : [n];
+            const scelta = opzioni.find(el => el.checked);
+            const attesa = opzioni.find(el => el.hasAttribute('data-corretta'));
+            const ambigua = !scelta && opzioni.some(el => el.hasAttribute('data-mo-scelta-ambigua'));
+            if (dati[campo] == null || dati[campo] === '' || (!ambigua && !(scelta && attesa))) return;
+            const esito = ambigua ? 'indeterminata' : scelta === attesa ? 'corretta' : 'errata';
+            const etichetta = radio => {
+                const contenitore = radio.closest('.option, .quiz-option, label');
+                return pulisci((contenitore || radio.labels?.[0])?.textContent);
+            };
+            const commento = scelta?.dataset.commento || attesa?.closest('[data-spiegazione]')?.dataset.spiegazione;
+            const testo = ambigua ? 'Il salvataggio registra una scelta, ma non indica quale opzione.'
+                : esito === 'corretta' ? 'Risposta corretta.'
+                    : `Risposta errata.${etichetta(attesa) ? ` Risposta attesa: ${etichetta(attesa)}` : ''}`;
+            const box = el('p', `mo-corr-esito ${ZONA}`, [testo, commento].filter(Boolean).join(' '));
+            box.dataset.esito = esito;
+            inserisci(opzioni, box);
+        });
+    }
+
     // Le verifiche si aprono con una password di classe: chi guarda una correzione entra direttamente.
     function sbloccaPagina() {
         const blocco = document.getElementById('lock-screen');
@@ -200,8 +235,11 @@ body[data-mo-correzione="docente"] #mo-salva,body[data-mo-correzione="docente"] 
 
     if (modoDocente) {
         const elaborato = assicuraDocente().then(() => {
-            if (!window.MODocente || !window.MODocente.attivo()) return null;
+            if (!/^[0-9a-f-]{36}$/i.test(idCorrezione) || !window.MODocente?.attivo()) return null;
             return window.MODocente.chiama('verifiche_docente_apri', { p_id: idCorrezione });
+        }).then(async c => {
+            const v = await verificaDellaPagina();
+            return c && v && v.chiave === c.chiave && c.id === idCorrezione.toLowerCase() ? c : null;
         }).catch(errore => { console.warn('[Correzione] elaborato non disponibile:', errore); return null; });
         // progress.js usa queste risposte al posto di quelle dell'anno corrente.
         window.MOCorrezioneDati = elaborato.then(c => (c && c.data) || null);
@@ -246,12 +284,14 @@ body[data-mo-correzione="docente"] #mo-salva,body[data-mo-correzione="docente"] 
 
         const piatti = new Map(campiPiatti(c.data, v));
         const commenti = new Map();                 // campo → { etichetta, commento, risposta }
-        (bozza.commenti || []).forEach(k => commenti.set(k.campo, { etichetta: k.etichetta || '', commento: k.commento || '', risposta: k.risposta }));
+        (bozza.commenti || []).forEach(k => commenti.set(k.campo, {
+            etichetta: k.etichetta || '', commento: k.commento || '', risposta: k.risposta, originale: k
+        }));
         // Ordine della pagina: prima le risposte salvate, poi i commenti per blocco.
         const ordine = [...piatti.keys()];
         for (const k of (bozza.commenti || []).map(x => x.campo)) if (!ordine.includes(k)) ordine.push(k);
         // Campi da commentare: le risposte date e quelle già commentate.
-        const daCommentare = ordine.filter(k => commenti.has(k) || testoRisposta(piatti.get(k)));
+        const daCommentare = ordine.filter(k => commenti.has(k) || (piatti.get(k) !== false && testoRisposta(piatti.get(k))));
 
         // --- pannello in testa ---
         const anno = Number(c.school_year);
@@ -334,12 +374,12 @@ body[data-mo-correzione="docente"] #mo-salva,body[data-mo-correzione="docente"] 
             const lista = ordine.filter(k => commenti.has(k) && pulisci(commenti.get(k).commento))
                 .map(k => {
                     const x = commenti.get(k);
-                    const risposta = piatti.has(k) ? testoRisposta(piatti.get(k)).slice(0, 4000) : x.risposta;
-                    return { campo: k, etichetta: x.etichetta || (v && v.etichette && v.etichette[k]) || k,
+                    const risposta = x.risposta ?? (piatti.has(k) ? testoRisposta(piatti.get(k)).slice(0, 4000) : '');
+                    return { ...x.originale, campo: k, etichetta: x.etichetta || (v && v.etichette && v.etichette[k]) || k,
                              commento: x.commento.trim(), ...(risposta ? { risposta } : {}) };
                 });
             const titolo = bozza.titolo || (v && v.titolo) || '';
-            if (compito) return { tipo: 'compito', verifica: c.chiave, titolo, nota: nota.value.trim(), commenti: lista };
+            if (compito) return { ...bozza, tipo: 'compito', verifica: c.chiave, titolo, nota: nota.value.trim(), commenti: lista };
             const sezioni = sezioniInput.map(({ s, punti, comm }) => {
                 const n = parseFloat(String(punti.value).replace(',', '.'));
                 return { id: s.id, titolo: s.titolo, max: s.max, punti: Number.isFinite(n) ? n : null, commento: comm.value.trim() };
@@ -349,7 +389,7 @@ body[data-mo-correzione="docente"] #mo-salva,body[data-mo-correzione="docente"] 
             const proposto = v ? regolaVoto(totale) : (bozza.voto_proposto || '');
             if (votoInput && !votoInput.dataset.toccato) votoInput.value = proposto;
             if (totaleP) totaleP.textContent = `Totale ${String(totale).replace('.', ',')} su ${max} · voto proposto ${proposto || '—'}`;
-            return { verifica: c.chiave, titolo, sezioni, totale, max, voto_proposto: proposto,
+            return { ...bozza, verifica: c.chiave, titolo, sezioni, totale, max, voto_proposto: proposto,
                      voto: votoInput ? votoInput.value.trim() : (bozza.voto || ''), nota: nota.value.trim(), commenti: lista };
         }
 
@@ -416,7 +456,9 @@ body[data-mo-correzione="docente"] #mo-salva,body[data-mo-correzione="docente"] 
                 document.querySelectorAll(`.${ZONA} textarea[data-copia="${CSS.escape(campo)}"]`).forEach(o => { if (o !== t) o.value = t.value; });
                 programma();
             });
-            box.append(el('strong', null, 'Commento del docente'), t);
+            box.append(el('strong', null, 'Commento del docente'));
+            if (gruppo && !gruppo.some(campoModulo) && x.etichetta) box.append(el('p', 'mo-corr-domanda', x.etichetta));
+            box.append(t);
             return box;
         }
         function bloccaRisposte() {
@@ -472,6 +514,10 @@ body[data-mo-correzione="docente"] #mo-salva,body[data-mo-correzione="docente"] 
         costruisciBozza();
         aggiornaStato();
         disponi();
+        ripristino.then(dati => {
+            mostraEsitiRadio(dati);
+            disponi();
+        });
         // Le pagine che ricostruiscono le risposte dopo il caricamento: un secondo giro.
         setTimeout(disponi, 1500);
     }
@@ -508,7 +554,7 @@ body[data-mo-correzione="docente"] #mo-salva,body[data-mo-correzione="docente"] 
             const trovata = await correzioneDaCodice();
             if (!trovata || caricato) return;
             caricato = 'codice';
-            mostraAlunno(trovata.dati, trovata.v);
+            mostraAlunno(trovata.dati, trovata.v, await ripristino);
         }, { once: true });
         window.addEventListener('mo:area-alunni', async e => {
             const d = e.detail;
@@ -523,7 +569,8 @@ body[data-mo-correzione="docente"] #mo-salva,body[data-mo-correzione="docente"] 
             } catch { correzione = null; }
             if (!correzione || typeof correzione !== 'object') return;
             if (document.readyState === 'loading') await new Promise(r => document.addEventListener('DOMContentLoaded', r, { once: true }));
-            mostraAlunno(correzione, v);
+            const dati = await ripristino;
+            if (caricato === d.id) mostraAlunno(correzione, v, dati);
         });
     }
 
@@ -540,7 +587,7 @@ body[data-mo-correzione="docente"] #mo-salva,body[data-mo-correzione="docente"] 
         });
     }
 
-    function mostraAlunno(c, v) {
+    function mostraAlunno(c, v, dati) {
         stile();
         sbloccaPagina();
         document.body.setAttribute('data-mo-correzione', 'alunno');
@@ -586,7 +633,9 @@ body[data-mo-correzione="docente"] #mo-salva,body[data-mo-correzione="docente"] 
                 const gruppo = elementiDelCampo(k.campo, v);
                 if (!gruppo.length) continue;
                 const box = el('div', `mo-corr-box ${ZONA}`);
-                box.append(el('strong', null, 'Commento del docente'), el('p', null, k.commento));
+                box.append(el('strong', null, 'Commento del docente'));
+                if (!gruppo.some(campoModulo) && k.etichetta) box.append(el('p', 'mo-corr-domanda', k.etichetta));
+                box.append(el('p', null, k.commento));
                 inserisci(gruppo, box);
                 riquadri.set(k.campo, box);
                 bloccaSeRisposta(gruppo);
@@ -613,6 +662,8 @@ body[data-mo-correzione="docente"] #mo-salva,body[data-mo-correzione="docente"] 
             attesa = setTimeout(disponi, 120);
         }).observe(document.body, { childList: true, subtree: true });
         disponi();
+        mostraEsitiRadio(dati, new Set(commenti.map(k => k.campo)));
+        window.dispatchEvent(new CustomEvent('mo:correzione-applicata', { detail: { modo: 'alunno', commenti } }));
         setTimeout(disponi, 1500);
     }
 })();

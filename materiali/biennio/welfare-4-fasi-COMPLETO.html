@@ -1805,6 +1805,7 @@
 
         // ========== SALVATAGGIO ==========
         function saveData() {
+            if (window.MOCorrezioneDati) return;
             const data = {
                 phase: currentPhase,
                 phase1: {
@@ -1902,11 +1903,13 @@
             showSaveStatus();
         }
 
-        function loadData() {
-            const saved = localStorage.getItem('welfareActivity4FasiCompleto');
-            if (!saved) return;
-
-            const data = JSON.parse(saved);
+        function loadData(data) {
+            if (!data && window.MOCorrezioneDati) return;
+            if (!data) {
+                const saved = localStorage.getItem('welfareActivity4FasiCompleto');
+                if (!saved) return;
+                data = JSON.parse(saved);
+            }
 
             // Carica fase corrente
             if (data.phase) {
@@ -2130,15 +2133,22 @@
             onRestore(saved) {
                 try {
                     const state = saved && (saved._welfareState || saved);
-                    if (state) {
-                        localStorage.setItem('welfareActivity4FasiCompleto', JSON.stringify(state));
-                        loadData();
-                    }
+                    if (state) loadData(state);
                 } catch (error) {
                     console.error('Errore durante onRestore welfare:', error);
                 }
             }
         };
+        window.addEventListener('mo:progress-restored', e => {
+            if (!window.MOCorrezioneDati || !e.detail.data) return;
+            for (let i = 1; i <= 3; i++) {
+                const scelta = document.querySelector(`input[name="quiz-modello${i}"]:checked`);
+                const feedback = document.getElementById('feedback-modello' + i);
+                feedback.textContent = '';
+                feedback.className = 'feedback';
+                if (scelta) checkQuizModello(i, scelta.value);
+            }
+        });
     </script>
     <script>
         window.MO_IDENTITY_CONFIG = {
@@ -2164,8 +2174,8 @@
             guestStudentCode: 'ospite'
         };
     </script>
-    <script src="../../assets/correzione-in-pagina.js?v=20261124"></script>
-<script type="module" src="../../assets/progress.js?v=20261123d"></script>
-    <script type="module" src="../../assets/progress-global.js?v=20261123d"></script>
+    <script src="../../assets/correzione-in-pagina.js?v=20261127"></script>
+<script type="module" src="../../assets/progress.js?v=20261127"></script>
+    <script type="module" src="../../assets/progress-global.js?v=20261127"></script>
 </body>
 </html>

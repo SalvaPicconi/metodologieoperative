@@ -620,11 +620,9 @@ export const Progress = (() => {
     const normalizedPath = normalizePath(pagePath);
     // Correzione nella pagina (assets/correzione-in-pagina.js): le risposte sono quelle dell'elaborato
     // aperto dal docente, anche di un anno passato.
-    if (superIdentity && typeof window !== 'undefined' && window.MOCorrezioneDati) {
-      try {
-        const dati = await window.MOCorrezioneDati;
-        if (dati) return dati;
-      } catch { }
+    if (typeof window !== 'undefined' && window.MOCorrezioneDati) {
+      try { return (await window.MOCorrezioneDati) ?? null; }
+      catch { return null; }
     }
     if (!superIdentity && AreaAlunni.attiva()) {
       attesaProtetto = caricaProtetto(normalizedPath);

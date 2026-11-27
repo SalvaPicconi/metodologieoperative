@@ -247,6 +247,7 @@
         "case.result"
       ],
       "campi": {
+        "^answers\\.m(\\d+)$": "[data-mission-id=\"$1\"] .quiz-section",
         "^openAnswers\\.(\\d+)\\.(\\d+)$": "#open-$1-$2",
         "^case\\.facts$": "#caseFacts",
         "^case\\.needs$": "input[name=\"needs\"]",
@@ -273,6 +274,11 @@
       "titolo": "Le disabilità: parole, modelli e leggi",
       "pagina": "materiali/quarto/disabilita_dalle_leggi_al_progetto.html",
       "tipo": "compito",
+      "campi": {
+        "^blocco\\.anni$": "#es1-voci",
+        "^blocco\\.vf$": "#es2-voci",
+        "^blocco\\.casi$": "#casi-voci"
+      },
       "nascosti": [
         "^dis_anno_",
         "^dis_vf_",
@@ -300,6 +306,11 @@
       "titolo": "L'operatore sociale · percorso a tappe",
       "pagina": "materiali/biennio/tssas_percorso_completo_v2.html",
       "tipo": "compito",
+      "campi": {
+        "^(act\\.dialogo|blocco\\.dialogo-matteo)$": "#a5-box",
+        "^act\\.([a-z0-9]+)$": "[data-act=\"$1\"]",
+        "^a4-mappa2?$": "#a4-box"
+      },
       "nascosti": [
         "cls",
         "cod",
@@ -367,6 +378,11 @@
       "titolo": "Il welfare: dalle basi all'azione",
       "pagina": "materiali/biennio/welfare-4-fasi-COMPLETO.html",
       "tipo": "compito",
+      "campi": {
+        "^blocco\\.collegamenti$": "#connections-container",
+        "^blocco\\.enti$": "#ente-ex3",
+        "^blocco\\.quiz$": "#feedback-modello3"
+      },
       "nascosti": [
         "student-name-p1",
         "student-class-p1",
@@ -423,6 +439,10 @@
       "titolo": "Bisogni umani e relazione d’aiuto",
       "pagina": "materiali/biennio/bisogni-relazione-aiuto.html",
       "tipo": "compito",
+      "campi": {
+        "^blocco\\.osservazione$": "#bis_osservazione_c",
+        "^blocco\\.ada$": "#bis_servizio_ada"
+      },
       "nascosti": [
         "^bis_osservazione_",
         "bis_servizio_ada",
@@ -465,6 +485,9 @@
       "titolo": "Il caso professionale",
       "pagina": "materiali/quinto/caso-professionale.html",
       "tipo": "compito",
+      "campi": {
+        "^blocco\\.tipo$": "#cp-tipo-voci"
+      },
       "nascosti": [
         "^cp_tipo_"
       ],
@@ -495,7 +518,11 @@
       "chiave": "compito-servizi-autoapprendimento",
       "titolo": "I servizi sociosanitari · autoapprendimento",
       "pagina": "materiali/terzo/percorsi_autoapprendimento.html",
-      "tipo": "compito"
+      "tipo": "compito",
+      "campi": {
+        "^blocco\\.quiz$": "#module-0 .quiz-section",
+        "^blocco\\.abbinament[oi]$": "#matching-1"
+      }
     },
     {
       "chiave": "compito-riconfigurare-disabilita",

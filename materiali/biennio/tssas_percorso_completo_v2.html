@@ -2187,6 +2187,7 @@
     }
     let tappaCorrente = 1;
     const actState = {};           // id -> { idx: {f, d} }
+    const actCorretti = new Set();
     const doneFields = new Set();  // id dei campi già premiati (per il popup)
     let restored = false;
 
@@ -2223,6 +2224,7 @@
     }
 
     function rispondi(id, i, k) {
+        if (window.MOCorrezioneDati || (actCorretti.has(id) && actState[id]?.[i]?.f !== undefined)) return;
         const act = ACTS[id];
         const st = actState[id];
         const cur = st[i] || {};
@@ -2258,6 +2260,8 @@
         let st = {};
         try { st = JSON.parse(hidden.value || '{}') || {}; } catch { st = {}; }
         actState[id] = st;
+        const docente = Boolean(window.MOCorrezioneDati);
+        const corretto = docente || actCorretti.has(id);
         act.items.forEach((item, i) => {
             const cur = st[i];
             const itemEl = $(`[data-act-id="${id}"] [data-item="${i}"]`);
@@ -2265,6 +2269,18 @@
             const why = $('.why', itemEl);
             btns.forEach(b => { b.disabled = false; b.className = 'opt'; });
             why.className = 'why'; why.innerHTML = '';
+            const prima = Number.isInteger(cur?.f) ? btns[cur.f] : null;
+            if (corretto && prima) {
+                const giusta = cur.f === item.a;
+                btns.forEach(b => { b.disabled = true; });
+                prima.classList.add(giusta ? 'ok' : 'no');
+                if (!giusta) btns[item.a]?.classList.add('ok');
+                why.className = `why show ${giusta ? 'ok' : 'no'}`;
+                why.innerHTML = `<strong>Prima risposta ${giusta ? 'corretta' : 'errata'}:</strong> ${esc(prima.textContent)}.`
+                    + (giusta ? ' ' : ` <strong>Risposta attesa:</strong> ${esc(btns[item.a]?.textContent)}. `) + esc(item.why);
+                return;
+            }
+            if (docente) btns.forEach(b => { b.disabled = true; });
             if (!cur) return;
             if (cur.d) {
                 btns.forEach(b => { b.disabled = true; if (+b.dataset.k === item.a) b.classList.add('ok'); else b.classList.add('dim'); });
@@ -2421,6 +2437,18 @@
         aggiornaTutto();
         document.querySelector('.container')?.removeAttribute('inert');
         const avvisoRecupero = $('#recupero-lavoro'); if (avvisoRecupero) avvisoRecupero.hidden = true;
+    });
+    window.addEventListener('mo:correzione-applicata', e => {
+        if (e.detail.modo !== 'alunno') return;
+        e.detail.commenti.forEach(({ campo }) => {
+            if (campo === 'blocco.dialogo-matteo' || campo === 'act.dialogo') {
+                actCorretti.add('dialogo');
+                a5Render();
+            } else if (campo.startsWith('act.') && ACTS[campo.slice(4)]) {
+                actCorretti.add(campo.slice(4));
+                applyActState(campo.slice(4));
+            }
+        });
     });
 
     // Si converte solo ciò che arriva da un salvataggio con la numerazione vecchia: decide il dato salvato,
@@ -3278,6 +3306,22 @@
     function a5Render(ultimo) {
         const box = document.getElementById('a5-box'); if (!box) return;
         const st = jget('a5-dialogo', null) || { k: 0, f: [] };
+        if (window.MOCorrezioneDati || actCorretti.has('dialogo')) {
+            const tentativi = A5.map((battuta, i) => {
+                const prima = battuta.o[st.f?.[i]];
+                if (!prima) return '';
+                const attesa = battuta.o.find(o => o.ok);
+                const esito = prima.ok ? 'corretta' : 'errata';
+                return `<div class="chi">Matteo</div><div class="bolla">${esc(battuta.m)}</div>
+                    <div class="bolla io"><strong>Prima risposta ${esito}:</strong> ${esc(prima.t)}</div>
+                    <div class="fbn ${prima.ok ? 'ok' : 'no'}">${esc(prima.f)}
+                    ${prima.ok ? '' : ` <strong>Risposta attesa:</strong> ${esc(attesa.t)}`}</div>`;
+            }).join('');
+            if (window.MOCorrezioneDati || st.k >= A5.length) {
+                box.innerHTML = tentativi || '<p>Nessuna scelta del dialogo risulta salvata.</p>';
+                return;
+            }
+        }
         let html = '';
         for (let i = 0; i < Math.min(st.k, A5.length); i++) { const ok = A5[i].o.find(o => o.ok); html += `<div class="chi">Matteo</div><div class="bolla">${esc(A5[i].m)}</div><div class="chi" style="text-align:right">Tu</div><div class="bolla io">${esc(ok.t)}</div>`; }
         if (st.k >= A5.length) { box.innerHTML = html + `<div class="fbn ok">✅ ${esc(A5[A5.length - 1].o.find(o => o.ok).f)}<br><strong>Fine del dialogo.</strong> Se c'è tempo, provatelo a voce, a tre: è fra le attività extra.</div>`; return; }
@@ -3458,9 +3502,9 @@
         };
     </script>
         <script src="../../assets/docente-accesso.js?v=20260926"></script>
-    <script src="../../assets/correzione-in-pagina.js?v=20261124"></script>
-<script type="module" src="../../assets/progress.js?v=20261123d"></script>
-    <script type="module" src="../../assets/progress-global.js?v=20261123d"></script>
+    <script src="../../assets/correzione-in-pagina.js?v=20261127"></script>
+<script type="module" src="../../assets/progress.js?v=20261127"></script>
+    <script type="module" src="../../assets/progress-global.js?v=20261127"></script>
 </body>
 
 </html>

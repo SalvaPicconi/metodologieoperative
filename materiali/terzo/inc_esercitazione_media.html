@@ -178,20 +178,20 @@
                 <div class="question">
                     <div class="question-text">Quale servizio può aiutare la signora Lucia?</div>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, 0, 1)">
-                            <input type="radio" name="q1">
+                        <div class="option" onclick="selectOption(this)">
+                            <input type="radio" name="q1" value="0" data-corretta>
                             <span>Assistenza domiciliare: gli operatori vanno a casa della persona</span>
                         </div>
-                        <div class="option" onclick="selectOption(this, 0, 0)">
-                            <input type="radio" name="q1">
+                        <div class="option" onclick="selectOption(this)">
+                            <input type="radio" name="q1" value="1">
                             <span>Centro diurno: la persona ci va di giorno e la sera torna a casa</span>
                         </div>
-                        <div class="option" onclick="selectOption(this, 0, 0)">
-                            <input type="radio" name="q1">
+                        <div class="option" onclick="selectOption(this)">
+                            <input type="radio" name="q1" value="2">
                             <span>Casa famiglia: la persona va a vivere in una piccola struttura</span>
                         </div>
                     </div>
-                    <button class="check-btn" onclick="checkAnswer(0, 1)">Verifica la risposta</button>
+                    <button class="check-btn" onclick="checkAnswer(0)">Verifica la risposta</button>
                     <div class="feedback" id="feedback-0"></div>
                 </div>
             </div>
@@ -204,20 +204,20 @@
                 <div class="question">
                     <div class="question-text">Quale servizio è più adatto a Marco?</div>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, 1, 0)">
-                            <input type="radio" name="q2">
+                        <div class="option" onclick="selectOption(this)">
+                            <input type="radio" name="q2" value="0">
                             <span>Assistenza domiciliare: gli operatori aiutano a casa nelle attività di ogni giorno</span>
                         </div>
-                        <div class="option" onclick="selectOption(this, 1, 1)">
-                            <input type="radio" name="q2">
+                        <div class="option" onclick="selectOption(this)">
+                            <input type="radio" name="q2" value="1" data-corretta>
                             <span>Centro diurno: attività e laboratori insieme ad altri giovani</span>
                         </div>
-                        <div class="option" onclick="selectOption(this, 1, 0)">
-                            <input type="radio" name="q2">
+                        <div class="option" onclick="selectOption(this)">
+                            <input type="radio" name="q2" value="2">
                             <span>Servizio di trasporto: accompagna la persona nei suoi spostamenti</span>
                         </div>
                     </div>
-                    <button class="check-btn" onclick="checkAnswer(1, 1)">Verifica la risposta</button>
+                    <button class="check-btn" onclick="checkAnswer(1)">Verifica la risposta</button>
                     <div class="feedback" id="feedback-1"></div>
                 </div>
             </div>
@@ -230,20 +230,20 @@
                 <div class="question">
                     <div class="question-text">A chi dovrebbe rivolgersi per prima la famiglia Russo?</div>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, 2, 0)">
-                            <input type="radio" name="q3">
+                        <div class="option" onclick="selectOption(this)">
+                            <input type="radio" name="q3" value="0">
                             <span>Il medico di famiglia: cura la salute</span>
                         </div>
-                        <div class="option" onclick="selectOption(this, 2, 1)">
-                            <input type="radio" name="q3">
+                        <div class="option" onclick="selectOption(this)">
+                            <input type="radio" name="q3" value="1" data-corretta>
                             <span>L'assistente sociale: ascolta i problemi sociali e attiva gli aiuti</span>
                         </div>
-                        <div class="option" onclick="selectOption(this, 2, 0)">
-                            <input type="radio" name="q3">
+                        <div class="option" onclick="selectOption(this)">
+                            <input type="radio" name="q3" value="2">
                             <span>Il servizio di trasporto: accompagna negli spostamenti</span>
                         </div>
                     </div>
-                    <button class="check-btn" onclick="checkAnswer(2, 1)">Verifica la risposta</button>
+                    <button class="check-btn" onclick="checkAnswer(2)">Verifica la risposta</button>
                     <div class="feedback" id="feedback-2"></div>
                 </div>
             </div>
@@ -381,10 +381,10 @@
         let score = 0;
         let totalActivities = 6;
         let completedActivities = new Set();
-        let selectedAnswers = {};
         let matchingState = { need: null, service: null, matched: [] };
 
-        function selectOption(element, questionNum, isCorrect) {
+        function selectOption(element) {
+            if (window.MOCorrezioneDati || element.querySelector('input[type="radio"]').disabled) return;
             const options = element.parentElement.querySelectorAll('.option');
             options.forEach(opt => {
                 opt.classList.remove('selected');
@@ -392,7 +392,7 @@
             });
             element.classList.add('selected');
             element.querySelector('input').checked = true;
-            selectedAnswers[questionNum] = isCorrect;
+            element.querySelector('input').dispatchEvent(new Event('change', { bubbles: true }));
         }
 
                 const PERCHE_CASI = [
@@ -401,19 +401,23 @@
             "L'assistente sociale ascolta la situazione della famiglia e attiva gli aiuti per la casa, il lavoro e il reddito. Il medico si occupa della salute; il trasporto, degli spostamenti."
         ];
 
-        function checkAnswer(questionNum, correctOption) {
-            const isCorrect = selectedAnswers[questionNum] === 1;
+        function checkAnswer(questionNum) {
+            if (window.MOCorrezioneDati) return;
             const feedback = document.getElementById(`feedback-${questionNum}`);
             const options = document.querySelectorAll(`input[name="q${questionNum + 1}"]`);
+            const scelta = [...options].find(opt => opt.checked);
+            if (!scelta) {
+                feedback.className = 'feedback error show';
+                feedback.textContent = 'Seleziona una risposta.';
+                return;
+            }
+            const isCorrect = scelta.hasAttribute('data-corretta');
             
-            options.forEach((opt, index) => {
+            options.forEach(opt => {
                 const optionDiv = opt.parentElement;
                 optionDiv.style.pointerEvents = 'none';
-                if (index === correctOption) {
-                    optionDiv.classList.add('correct');
-                } else if (optionDiv.classList.contains('selected')) {
-                    optionDiv.classList.add('incorrect');
-                }
+                optionDiv.classList.toggle('correct', opt.hasAttribute('data-corretta'));
+                optionDiv.classList.toggle('incorrect', opt === scelta && !isCorrect);
             });
 
             if (isCorrect) {
@@ -584,7 +588,7 @@
 
             if (percentage === 100) {
                 setTimeout(() => {
-                    alert('🎉 Complimenti! Hai completato tutta l\'esercitazione con successo!');
+                    if (!window.MOCorrezioneDati) alert('🎉 Complimenti! Hai completato tutta l\'esercitazione con successo!');
                 }, 500);
             }
         }
@@ -622,6 +626,17 @@
         };
     </script>
     <script>
+        window.addEventListener('mo:progress-restored', () => {
+            document.querySelectorAll('.question').forEach((domanda, indice) => {
+                domanda.querySelectorAll('.option').forEach(opzione => {
+                    const radio = opzione.querySelector('input[type="radio"]');
+                    opzione.classList.toggle('selected', Boolean(radio?.checked));
+                    if (radio) radio.dataset.commento = PERCHE_CASI[indice] || '';
+                });
+            });
+        });
+    </script>
+    <script>
         window.MO_IDENTITY_CONFIG = {
             message: 'Inserisci la classe (es. 3sa) e il codice cognome+iniziale tutto minuscolo (es. rossi g → rossig).',
             classPlaceholder: 'Classe (es. 3sa)',
@@ -646,8 +661,8 @@
         };
     </script>
 
-    <script src="../../assets/correzione-in-pagina.js?v=20261124"></script>
-<script type="module" src="../../assets/progress.js?v=20261123d"></script>
-    <script type="module" src="../../assets/progress-global.js?v=20261123d"></script>
+    <script src="../../assets/correzione-in-pagina.js?v=20261127"></script>
+<script type="module" src="../../assets/progress.js?v=20261127"></script>
+    <script type="module" src="../../assets/progress-global.js?v=20261127"></script>
 </body>
 </html>

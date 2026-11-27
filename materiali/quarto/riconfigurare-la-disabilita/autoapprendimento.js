@@ -14,7 +14,7 @@
   }
 
   function read(key) {
-    if (!storageAvailable) return null;
+    if (vistaDocente || !storageAvailable) return null;
     return localStorage.getItem(namespace + key);
   }
 
@@ -25,7 +25,7 @@
   }
 
   function save(key, value, silenzioso) {
-    if (!storageAvailable) return;
+    if (vistaDocente || !storageAvailable) return;
     try {
       localStorage.setItem(namespace + key, value);
     } catch (error) {
@@ -202,7 +202,7 @@
       targets.forEach((target, index) => {
         const value = positions[index];
         target.text.textContent = value ? cards.get(value).textContent : 'Inserisci un concetto';
-        target.button.draggable = Boolean(value);
+        target.button.draggable = Boolean(value) && !vistaDocente && !activity.dataset.moRispostaCorretta;
         target.button.setAttribute('aria-pressed', String(value !== null && selected === value));
       });
       removeButton.disabled = selected === null || !positions.includes(selected);
@@ -233,6 +233,7 @@
     }
 
     function place(value, index) {
+      if (vistaDocente || activity.dataset.moRispostaCorretta) return;
       const origin = positions.indexOf(value);
       if (origin === index) {
         select(value);
@@ -288,19 +289,24 @@
     });
     render();
 
-    return () => {
+    return (soloSvolti = false) => {
       const complete = positions.every(Boolean);
       let correctCount = 0;
+      let compilate = 0;
       targets.forEach((target, index) => {
         const value = positions[index];
+        if (value) compilate++;
         const isCorrect = value === target.button.dataset.attesa;
         if (isCorrect) correctCount++;
-        target.status.dataset.stato = isCorrect ? 'corretto' : 'riprova';
-        target.status.textContent = isCorrect ? 'Corretto' : value ? 'Da rivedere' : 'Da completare';
+        target.status.dataset.stato = isCorrect ? 'corretto' : value || !soloSvolti ? 'riprova' : '';
+        target.status.textContent = isCorrect ? 'Corretto' : value ? 'Da rivedere' : soloSvolti ? '' : 'Da completare';
       });
 
       if (correctCount === positions.length) {
         gradedFeedback(output, 'corretto', 'Corretto. ' + activity.dataset.spiegazione);
+      } else if (soloSvolti && compilate) {
+        gradedFeedback(output, correctCount === compilate ? 'corretto' : 'riprova',
+          correctCount + ' su ' + compilate + ' posizioni compilate corrette. ' + activity.dataset.spiegazione);
       } else if (!complete) {
         gradedFeedback(output, 'vuoto', 'Completa le posizioni vuote. ' + activity.dataset.indizio);
       } else {
@@ -315,6 +321,7 @@
   });
 
   document.querySelectorAll('.verifica-attiva').forEach(activity => {
+    activity.dataset.moEsitoProprio = '1';
     const output = activity.querySelector('[data-esito]');
     const checkButton = activity.querySelector('[data-controlla]');
     const stored = read(activity.dataset.chiave);
@@ -323,7 +330,25 @@
     if (kind === 'scelta') check = choiceExercise(activity, output, stored);
     if (kind === 'completamento') check = wordExercise(activity, output, stored, checkButton);
     if (kind === 'abbinamento') check = placementExercise(activity, output, stored);
-    checkButton.addEventListener('click', check);
+    checkButton.addEventListener('click', () => check());
+    function mostraCorrezione(dato) {
+      if (!dato) return;
+      if (kind === 'abbinamento') {
+        try { if (!JSON.parse(dato).some(Boolean)) return; } catch { return; }
+      }
+      check(true);
+      activity.dataset.moRispostaCorretta = '1';
+      activity.querySelectorAll('button, input[type="radio"]').forEach(n => { n.disabled = true; n.draggable = false; });
+      activity.querySelectorAll('input[type="text"]').forEach(n => { n.readOnly = true; });
+    }
+    if (vistaDocente) {
+      activity.querySelectorAll('button').forEach(n => { n.disabled = true; });
+      window.addEventListener('mo:progress-restored', event => mostraCorrezione(event.detail.data?.[activity.dataset.chiave]));
+    } else {
+      window.addEventListener('mo:correzione-applicata', event => {
+        if (event.detail.commenti.some(n => n.campo === activity.dataset.chiave)) mostraCorrezione(read(activity.dataset.chiave));
+      });
+    }
     // La soluzione statica resta disponibile senza JavaScript.
     const solution = activity.querySelector(':scope > details.approfondimento');
     if (solution) solution.hidden = true;

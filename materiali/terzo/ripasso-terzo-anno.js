@@ -2,6 +2,7 @@
     'use strict';
 
     const STORAGE_KEY = 'mo:ripasso-terzo-anno:v3';
+    const vistaCorrezione = new URLSearchParams(location.search).has('correzione');
 
     const missions = [
         {
@@ -213,12 +214,14 @@
 
     function defaultState() { return { current: 0, answers: {}, openAnswers: {}, completed: {}, caseIndex: 0, case: {} }; }
     function loadState() {
+        if (vistaCorrezione) return defaultState();
         try {
             const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
             return stored && typeof stored === 'object' ? { ...defaultState(), ...stored } : defaultState();
         } catch { return defaultState(); }
     }
     function saveState({ remote = true } = {}) {
+        if (vistaCorrezione) return;
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
         if (remote) document.dispatchEvent(new Event('input', { bubbles: true }));
     }
@@ -246,12 +249,12 @@
         if (!saved || typeof saved !== 'object') return;
         if (saved._activity === 'ripasso-terzo-anno' && Number(saved._version) !== 2) {
             state = defaultState();
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+            saveState({ remote: false });
             renderMission();
             return;
         }
         state = { ...defaultState(), current: missions[Number(saved.current)] ? Number(saved.current) : 0, answers: saved.answers && typeof saved.answers === 'object' ? saved.answers : {}, openAnswers: saved.openAnswers && typeof saved.openAnswers === 'object' ? saved.openAnswers : {}, completed: saved.completed && typeof saved.completed === 'object' ? saved.completed : {}, caseIndex: Number.isInteger(Number(saved.caseIndex)) ? Number(saved.caseIndex) : 0, case: saved.case && typeof saved.case === 'object' ? saved.case : {} };
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        saveState({ remote: false });
         renderMission();
     }
     window.MORipassoProgress = { snapshot: snapshotProgress, restore: restoreProgress };
@@ -296,8 +299,8 @@
         const options = question.options.map((option, optionIndex) => {
             const classes = ['option-button'];
             if (selected === optionIndex) classes.push('selected');
-            if (teacherMode && optionIndex === question.answer) classes.push('answer');
-            return `<button type="button" class="${classes.join(' ')}" data-question="${index}" data-option="${optionIndex}"><span>${String.fromCharCode(65 + optionIndex)}</span>${option}</button>`;
+            if ((teacherMode || (vistaCorrezione && answered)) && optionIndex === question.answer) classes.push('answer');
+            return `<button type="button" class="${classes.join(' ')}" data-question="${index}" data-option="${optionIndex}"${vistaCorrezione ? ' disabled' : ''}><span>${String.fromCharCode(65 + optionIndex)}</span>${option}</button>`;
         }).join('');
         const feedback = answered ? `<p class="feedback ${correct ? 'ok' : 'no'}"><strong>${correct ? 'Risposta corretta.' : 'Risposta da rivedere.'}</strong> ${question.why}</p>` : '';
         return `<article class="question-card${answered ? (correct ? ' correct' : ' incorrect') : ''}"><p class="question-text">${index + 1}. ${question.q}</p><div class="options">${options}</div>${feedback}</article>`;
@@ -333,7 +336,11 @@
             saveState();
             updateProgress();
         }));
-        $('#newCaseButton')?.addEventListener('click', generateNewCase);
+        const nuovoCaso = $('#newCaseButton');
+        if (nuovoCaso) {
+            nuovoCaso.disabled = vistaCorrezione;
+            nuovoCaso.addEventListener('click', generateNewCase);
+        }
         $('#checkCaseButton')?.addEventListener('click', checkCaseWork);
         $$('.case-input').forEach(input => input.addEventListener('input', saveCaseForm));
     }
@@ -446,7 +453,8 @@
     $('#printButton').addEventListener('click', () => window.print());
     $('#timerToggle').addEventListener('click', toggleTimer);
     $('#timerReset').addEventListener('click', () => resetTimer(missions[state.current].minutes));
-    $('#resetButton').addEventListener('click', () => { if (!confirm('Vuoi cancellare tutte le risposte di questo ripasso?')) return; localStorage.removeItem(STORAGE_KEY); state = defaultState(); saveState(); renderMission(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    $('#resetButton').disabled = vistaCorrezione;
+    $('#resetButton').addEventListener('click', () => { if (vistaCorrezione || !confirm('Vuoi cancellare tutte le risposte di questo ripasso?')) return; localStorage.removeItem(STORAGE_KEY); state = defaultState(); saveState(); renderMission(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
     if (localStorage.getItem('mo:ripasso-teacher') === '1' && docenteSessionValid()) { teacherMode = true; teacherClass = (localStorage.getItem('mo:lim-class') || '').trim().toLowerCase(); document.body.classList.add('teacher-mode'); $('#teacherToggle').setAttribute('aria-pressed', 'true'); $('#classResultsButton').hidden = false; }
     renderNavigation();
     renderMission();

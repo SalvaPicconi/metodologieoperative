@@ -1,4 +1,4 @@
-import { Progress } from './progress.js?v=20261123d';
+import { Progress } from './progress.js?v=20261127';
 import { AreaAlunni } from './alunni-sessione.js?v=20261122';
 
 console.log('✅ progress-global attivo');
@@ -70,8 +70,9 @@ const CONFIG = resolveConfig();
   let ultimoErrore = null;
   let inviatoInUscita = false;
   let uscendo = false;
+  const scelteStoriche = new WeakMap();
 
-  const isSuperMode = () => document.body?.dataset?.moSuper === 'true';
+  const isSuperMode = () => document.body?.dataset?.moSuper === 'true' || Boolean(window.MOCorrezioneDati);
 
   // Foglio di stile della barra, accanto a questo script
   try {
@@ -311,6 +312,7 @@ const CONFIG = resolveConfig();
   }
 
   async function salvaManuale(button) {
+    if (window.MOCorrezioneDati) return;
     if (isGuestMode) {
       alert('Sei in modalità ospite: il salvataggio online è disattivato.');
       return;
@@ -418,8 +420,9 @@ function collectData() {
       processedRadio.add(key);
       const radios = Array.from(document.getElementsByName(key))
         .filter(node => node instanceof HTMLInputElement && node.type === 'radio');
+      if (!radios.length) radios.push(el);
       const checked = radios.find(radio => radio.checked);
-      data[key] = checked ? checked.value : null;
+      data[key] = checked ? checked.value : (scelteStoriche.get(radios[0] || el) ?? null);
       return;
     }
 
@@ -486,6 +489,20 @@ function loadLocalFallback() {
   }
 }
 
+function ripristinaRadio(gruppo, valore) {
+  const opzioni = gruppo.filter(el => el instanceof HTMLInputElement && el.type === 'radio');
+  if (!opzioni.length) return;
+  const scelte = valore == null || valore === '' ? [] : opzioni.filter(el => el.value === String(valore));
+  // Nei salvataggi precedenti più opzioni potevano avere lo stesso valore ("on").
+  // Solo una corrispondenza univoca identifica la scelta effettiva.
+  const scelta = scelte.length === 1 ? scelte[0] : null;
+  opzioni.forEach(el => { el.checked = el === scelta; });
+  const ambigua = !scelta && valore != null && valore !== '';
+  opzioni[0].toggleAttribute('data-mo-scelta-ambigua', ambigua);
+  if (ambigua) scelteStoriche.set(opzioni[0], valore);
+  else scelteStoriche.delete(opzioni[0]);
+}
+
 function restoreData(saved) {
   if (!saved) {
     dispatchProgressRestored(null);
@@ -499,9 +516,7 @@ function restoreData(saved) {
       const first = elements[0];
 
       if (first instanceof HTMLInputElement && first.type === 'radio') {
-        elements.forEach(radio => {
-          radio.checked = value === null ? false : radio.value === value;
-        });
+        ripristinaRadio(elements, value);
         continue;
       }
 
@@ -534,7 +549,9 @@ function restoreData(saved) {
     if (name) {
       const byId = document.getElementById(name);
       if (byId) {
-        if (byId instanceof HTMLInputElement && byId.type === 'checkbox') {
+        if (byId instanceof HTMLInputElement && byId.type === 'radio') {
+          ripristinaRadio([byId], value);
+        } else if (byId instanceof HTMLInputElement && byId.type === 'checkbox') {
           byId.checked = Boolean(value);
         } else if (byId instanceof HTMLSelectElement && byId.multiple && Array.isArray(value)) {
           Array.from(byId.options).forEach(option => {
@@ -545,7 +562,7 @@ function restoreData(saved) {
         }
         continue;
       }
-      const byDataId = document.querySelector(`[data-id="${name}"]`);
+      const byDataId = document.querySelector(`[data-id="${CSS.escape(name)}"]`);
       if (byDataId) {
         byDataId.value = value ?? '';
       }
@@ -559,8 +576,8 @@ function restoreData(saved) {
 async function loadAndRestore() {
   try {
     const saved = await Progress.load(PAGE_PATH);
-    // In area protetta non si mescolano bozze lasciate nel browser da altri accessi.
-    const localFallback = Progress.statoProtetto() ? null : loadLocalFallback();
+    // Le bozze di questo browser non appartengono all'elaborato aperto per la correzione.
+    const localFallback = Progress.statoProtetto() || window.MOCorrezioneDati ? null : loadLocalFallback();
     let dataToRestore = saved || localFallback;
     if (typeof CONFIG.onRestore === 'function') {
       try {
@@ -568,6 +585,7 @@ async function loadAndRestore() {
         if (hookResponse === false) {
           // La pagina ha ripristinato da sé le risposte: il salvataggio automatico può partire.
           restoreCompleted = true;
+          dispatchProgressRestored(saved);
           applicaStatoArea();
           return;
         }
