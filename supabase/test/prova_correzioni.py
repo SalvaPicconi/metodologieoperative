@@ -25,11 +25,14 @@ DATI = {
     },
     'q1': 'on', 'q2': 'on', 'q3': 'on', 'q4': None, 'q10': 'on',
     'reflection-1': 'Risposta salvata dell’alunno di prova.',
+    'risposta_storica': 'Risposta a un esercizio della versione precedente.',
 }
 BOZZA = {'tipo': 'compito', 'verifica': 'compito-servizi-autoapprendimento',
          'nota': 'Nota di prova', 'commenti': [
              {'campo': 'reflection-1', 'etichetta': 'Riflessione', 'commento': 'Riscontro di prova'},
              {'campo': 'blocco.quiz', 'etichetta': 'Quiz di autovalutazione', 'commento': '3 su 4 corrette'},
+             {'campo': 'blocco.quiz-modulo.4', 'etichetta': 'Quiz finale', 'commento': '1 su 1 corretta'},
+             {'campo': 'risposta_storica', 'etichetta': 'Esercizio precedente', 'commento': 'Commento alla risposta storica'},
          ]}
 ELABORATO = {'id': ID, 'class_code': '3SB', 'student_code': 'collaudofittizio',
              'school_year': 2026, 'chiave': 'compito-servizi-autoapprendimento',
@@ -131,6 +134,9 @@ def verifica_servizi(browser, root):
         assert res['scelte'] == [[0, True, False], [0, False, True],
                                  [2, True, False], [-1, False, False], [1, True, False]], res['scelte']
         assert res['quiz'] == 'module-0'
+        assert page.locator('#module-4 [data-campo="blocco.quiz-modulo.4"]').count() == 1
+        storico = page.locator('.mo-corr-altri .mo-corr-box').filter(has_text='Esercizio precedente')
+        assert DATI['risposta_storica'] in storico.text_content()
         assert res['riflessione'] == DATI['reflection-1']
         assert res['archivioLocale']['quizAnswers'] == {'0': 2, '1': 2}
         assert not res['scritture']
@@ -154,7 +160,15 @@ def verifica_alunno(browser, root, personale):
             return {'id': ID, 'versione': DATI['q1'], 'stato': 'in_corso',
                     'school_year': 2026, 'modificabile': True, 'data': DATI}
         if nome in ('progress_carica', 'progress_correzione', 'alunni_correzione'):
-            return DATI if nome == 'progress_carica' else BOZZA
+            if nome == 'progress_carica':
+                return DATI
+            if personale:
+                # Nessun riepilogo complessivo: ogni modulo si aggancia alle proprie scelte.
+                commenti = [c for c in BOZZA['commenti'] if c['campo'] != 'blocco.quiz']
+                commenti.append({'campo': 'blocco.quiz-modulo.0', 'etichetta': 'Politiche sociali',
+                                 'commento': '2 su 3 corrette'})
+                return {**BOZZA, 'commenti': commenti}
+            return BOZZA
         raise AssertionError(f'Richiesta inattesa durante l’apertura: {nome}')
 
     with browser.new_context(service_workers='block') as context:
@@ -174,6 +188,10 @@ def verifica_alunno(browser, root, personale):
         assert page.locator('#reflection-1').evaluate('el => el.readOnly')
         assert page.locator('#project-needs').evaluate('el => !el.readOnly')
         assert page.locator('input[name=q2]').first.evaluate('el => el.checked')
+        assert page.locator('input[name=q2]:checked').evaluate('el => el.closest(".option").classList.contains("incorrect")')
+        assert page.locator('input[name=q10]:checked').is_disabled()
+        storico = page.locator('.mo-corr-altri .mo-corr-box').filter(has_text='Esercizio precedente')
+        assert DATI['risposta_storica'] in storico.text_content()
         assert ('alunni_correzione' if personale else 'progress_correzione') in richieste
 
 

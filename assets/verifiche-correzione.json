@@ -521,6 +521,7 @@
       "tipo": "compito",
       "campi": {
         "^blocco\\.quiz$": "#module-0 .quiz-section",
+        "^blocco\\.quiz-modulo\\.([0124])$": "#module-$1 .quiz-section",
         "^blocco\\.abbinament[oi]$": "#matching-1"
       }
     },

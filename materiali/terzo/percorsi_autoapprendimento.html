@@ -1147,7 +1147,11 @@
             // Nei vecchi riepiloghi senza elenco, il conteggio consente di chiudere il quiz
             // solo se comprende tutte le scelte salvate al momento della riapertura.
             const commentoCompleto = conteggio && Number(conteggio[1]) === Object.keys(quizAnswers).length;
-            const gruppi = { q3: [0, 3], q6: [3, 6], q9: [6, 9], q14: [9, 14] };
+            const gruppi = {
+                'blocco.quiz-modulo.0': [0, 3], 'blocco.quiz-modulo.1': [3, 6],
+                'blocco.quiz-modulo.2': [6, 9], 'blocco.quiz-modulo.4': [9, 14],
+                q3: [0, 3], q6: [3, 6], q9: [6, 9], q14: [9, 14]
+            };
             const chiusi = new Set();
             commenti.forEach(({ campo, commento }) => {
                 const intervallo = gruppi[campo];
@@ -1204,7 +1208,7 @@
         };
     </script>
 
-    <script src="../../assets/correzione-in-pagina.js?v=20261127"></script>
+    <script src="../../assets/correzione-in-pagina.js?v=20261127b"></script>
 <script type="module" src="../../assets/progress.js?v=20261127"></script>
     <script type="module" src="../../assets/progress-global.js?v=20261127"></script>
 </body>

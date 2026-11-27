@@ -490,11 +490,13 @@ body[data-mo-correzione="docente"] #mo-salva,body[data-mo-correzione="docente"] 
             altri.replaceChildren();
             if (!fuori.length) return;
             altri.append(el('h3', null, 'Commenti su parti che ora non sono in vista'),
-                el('p', null, 'Compaiono anche sotto le risposte quando apri quella parte della pagina.'));
+                el('p', null, 'Quando la domanda è presente nella pagina, il commento compare anche sotto la risposta.'));
             for (const k of fuori) {
                 const x = commenti.get(k);
                 const box = el('div', 'mo-corr-box');
                 box.append(el('p', 'mo-corr-domanda', x.etichetta || k));
+                const risposta = piatti.has(k) ? testoRisposta(piatti.get(k)) : x.risposta;
+                if (risposta) box.append(el('p', null, `Risposta salvata: ${risposta}`));
                 const t = el('textarea');
                 t.rows = 2;
                 t.dataset.copia = k;
@@ -619,6 +621,7 @@ body[data-mo-correzione="docente"] #mo-salva,body[data-mo-correzione="docente"] 
             pannello.append(g);
         }
         const commenti = (c.commenti || []).filter(k => pulisci(k.commento));
+        const piatti = new Map(campiPiatti(dati, v));
         if (commenti.length) pannello.append(el('p', null, 'Trovi i commenti del docente nei riquadri rosa sotto le tue risposte.'));
         const altri = el('div', 'mo-corr-altri');
         pannello.append(altri);
@@ -650,7 +653,8 @@ body[data-mo-correzione="docente"] #mo-salva,body[data-mo-correzione="docente"] 
             for (const k of fuori) {
                 const b = el('div', 'mo-corr-box');
                 b.append(el('p', 'mo-corr-domanda', k.etichetta || ''));
-                if (k.risposta) b.append(el('p', null, `La tua risposta: ${k.risposta}`));
+                const risposta = piatti.has(k.campo) ? testoRisposta(piatti.get(k.campo)) : k.risposta;
+                if (risposta) b.append(el('p', null, `La tua risposta: ${risposta}`));
                 b.append(el('strong', null, 'Commento del docente'), el('p', null, k.commento));
                 altri.append(b);
             }
