@@ -9,7 +9,7 @@ Formato: `- **AAAA-MM-GG** · chi · che cosa è cambiato. (commit)`
 
 ## Novembre 2026
 
-- **2026-11-27** · GPT · Nell’Area docente ogni attività apre una griglia con i voti pubblicati e i livelli di competenza. «Entra nel dettaglio» apre l’elenco degli alunni e le correzioni. (commit di questa voce)
+- **2026-11-28** · GPT · Nell’Area docente ogni attività apre una griglia con i voti pubblicati e i livelli di competenza. «Entra nel dettaglio» apre l’elenco degli alunni e le correzioni, collaudati online con dati di prova. Commit `92b3195`, [rilascio Aruba verificato](https://github.com/SalvaPicconi/metodologieoperative/actions/runs/46119286234). [GPT 2026-11-28 08:05]
 
 - **2026-11-27** · GPT · «Apri la correzione» mostra le scelte effettive degli alunni, con l’esito dei quiz e i commenti accanto agli esercizi. Verificato il ripristino anche per i salvataggi precedenti e per chi riapre il lavoro come alunno. (commit di questa voce) [GPT 2026-11-27 10:02]
 
